@@ -10,7 +10,7 @@ I'm writing this as a test for my post system, might as well write something use
 
 **This page was generated with staticjs.** I have to thank Ben Awad for his [tutorial](https://www.youtube.com/watch?v=pY0vWYLDDco).
 
-<img height="200" width="200" src="avatar.png" />
+<img height="200" width="200" src="/how_does_that_even_work.gif" />
 
 ## Goals
 
