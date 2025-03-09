@@ -2,6 +2,9 @@
 dev_settings.py
 local_settings.py
 
+# db
+dbdata
+
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -28,6 +31,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+media/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

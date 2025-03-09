@@ -2,7 +2,7 @@ services:
   db:
     image: postgres
     mounts:
-      - db-data:/var/lib/postgresql/data
+      - ./dbdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
@@ -12,6 +12,8 @@ services:
     image-name: marco-silva0000/marco-silva.com:latest
     volumes:
       - .:/code
+      - ./static:/var/www/marco-silva.com/static
+      - ./media:/var/www/marco-silva.com/media
     ports:
       - "8000:8000"
     environment:
@@ -20,5 +22,5 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
-mounts:
-  db-data:
+# mounts:
+  # db-data:

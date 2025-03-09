@@ -14,9 +14,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.contrib.sitemaps.views import sitemap
+from django.views.generic import TemplateView
+from django.urls import include, path
+from photologue.sitemaps import GallerySitemap, PhotoSitemap
+
+
+sitemaps = {
+    "photologue_galleries": GallerySitemap,
+    "photologue_photos": PhotoSitemap,
+}
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+    path('', TemplateView.as_view(template_name="index.html"), name='homepage'),
+    path("admin/", admin.site.urls),
+    path("photologue/", include("photologue.urls", namespace="photologue")),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
