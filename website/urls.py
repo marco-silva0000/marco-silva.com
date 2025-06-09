@@ -31,7 +31,8 @@ sitemaps = {
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="index.html"), name='homepage'),
+    path("", TemplateView.as_view(template_name="index.html"), name="homepage"),
+    path("cv", TemplateView.as_view(template_name="cv.html"), name="cv"),
     path("admin/", admin.site.urls),
     path("photologue/", include("photologue.urls", namespace="photologue")),
     path(
@@ -40,4 +41,4 @@ urlpatterns = [
         {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
