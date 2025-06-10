@@ -42,3 +42,20 @@ ul.pagination {
 .img-thumbnail {
     margin-bottom: 0.25rem;
 }
+
+.skills-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.skills-table th,
+.skills-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.skills-table th {
+  background-color: #f2f2f2;
+}
