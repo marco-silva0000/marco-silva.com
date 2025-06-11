@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+<!doctype html>
+
+<!-- <html lang="en"> -->
+
+<!-- <head> -->
+<!--   <meta charset="utf-8"> -->
+<!--   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!---->
+
+{% block title %}
+Marco Silva's CV
+{% endblock %}
+<!-- <title>Marco Silva's CV</title> -->
+<!--   <meta name="description" content="A webpage with the CV of Marco Silva."> -->
+<!--   <meta name="author" content="Marco Silva"> -->
+<!---->
+<!--   <meta property="og:title" content="Marco Silva's CV"> -->
+<!--   <meta property="og:type" content="website"> -->
+<!--   <meta property="og:url" content="https://marco-silva.com/cv/"> -->
+<!--   <meta property="og:description" content="A webpage with the CV of Marco Silva."> -->
+<!--   <meta property="og:image" content="image.png"> -->
+<!---->
+<!--   <link rel="icon" href="/static/favicon.ico"> -->
+<!--   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml"> -->
+<!--   <link rel="stylesheet" href="static/css/styles.css"> -->
+<!--   <link rel="stylesheet" href="static/css/bootstrap.min.css"> -->
+<!--   <style> -->
+<!--     body { -->
+<!--       font-family: sans-serif; -->
+<!--       margin: 20px; -->
+<!--       line-height: 1.6; -->
+<!--     } -->
+<!---->
+<!---->
+<!--     .header { -->
+<!--       display: flex; -->
+<!--       align-items: center; -->
+<!--       margin-bottom: 20px; -->
+<!--     } -->
+<!---->
+<!--     .header img { -->
+<!--       border-radius: 50%; -->
+<!--       width: 100px; -->
+<!--       height: 100px; -->
+<!--       margin-right: 20px; -->
+<!--     } -->
+<!---->
+<!--     .header h1 { -->
+<!--       margin: 0; -->
+<!--     } -->
+<!---->
+<!--     .contact-info { -->
+<!--       margin-bottom: 20px; -->
+<!--     } -->
+<!---->
+<!--     .contact-info p { -->
+<!--       margin: 5px 0; -->
+<!--     } -->
+<!---->
+<!--     h2 { -->
+<!--       border-bottom: 2px solid #333; -->
+<!--       padding-bottom: 5px; -->
+<!--       margin-top: 30px; -->
+<!--     } -->
+<!---->
+<!--     .experience-item, -->
+<!--     .education-item { -->
+<!--       margin-bottom: 20px; -->
+<!--     } -->
+<!---->
+<!--     .experience-item h3, -->
+<!--     .education-item h3 { -->
+<!--       margin: 0; -->
+<!--     } -->
+<!---->
+<!--     .experience-item p, -->
+<!--     .education-item p { -->
+<!--       margin: 5px 0; -->
+<!--     } -->
+<!---->
+<!---->
+<!--     .skills-table { -->
+<!--       width: 100%; -->
+<!--       border-collapse: collapse; -->
+<!--       margin-top: 10px; -->
+<!--     } -->
+<!---->
+<!--     .skills-table th, -->
+<!--     .skills-table td { -->
+<!--       border: 1px solid #ddd; -->
+<!--       padding: 8px; -->
+<!--       text-align: left; -->
+<!--     } -->
+<!---->
+<!--     .skills-table th { -->
+<!--       background-color: #f2f2f2; -->
+<!--     } -->
+<!--   </style> -->
+<!---->
+<!-- </head> -->
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <h1> Marco Silva</h1>
+      <ul class="list-unstyled">
+        <li><b>Nationality:</b> Portuguese</li>
+        <li><b>Email address:</b> inbox at marco-silva dot com</li>
+        <li><b>Website: </b><a href="https://marco-silva.com"> https://marco-silva.com </a></li>
+        <li><b>Github: </b><a href="https://github.com/marco-silva0000/"> https://github.com/marco-silva0000/ </a></li>
+        <li><b>LinkedIn: </b><a href="https://linkedin.com/in/marco-silva0000/"> https://github.com/marco-silva0000/
+          </a></li>
+        <li><b>Address:</b> Algarve, Portugal</li>
+        <h2>Hobbies and Interests</h2>
+        <h3>Outdoors </h3>
+        <ul class="list-unstyled">
+          <li>Photography</li>
+          <li>Watersports like kayak, surf, SUP, windsurf </li>
+          <li>Nature hiking and outdoor/indoor climbing </li>
+        </ul>
+        <h3>Techy </h3>
+        <ul class="list-unstyled">
+          <li>Electronics/embedded (some rust embedded) </li>
+          <li>Custom split keyboards (I type in colemak and use nvim) </li>
+          <li>Ham radio, UK foundation license, currently doing intermediate </li>
+          <li>Home automation and homelab </li>
+        </ul>
+        <h2>DIGITAL SKILLS </h2>
+        <span class="badge rounded-pill bg-success text-light">Django </span>
+        <span class="badge rounded-pill bg-success text-light">DRF (Django REST framework) </span>
+        <span class="badge rounded-pill bg-success text-light">Celery </span>
+        <span class="badge rounded-pill bg-success text-light">Python </span>
+        <span class="badge rounded-pill bg-danger text-light">Angular </span>
+        <span class="badge rounded-pill bg-danger text-light">React </span>
+        <span class="badge rounded-pill bg-danger text-light">JavaScript </span>
+        <span class="badge rounded-pill bg-warning text-light">Rust </span>
+        <span class="badge rounded-pill bg-primary text-light">Docker </span>
+        <span class="badge rounded-pill bg-dark text-light">Neovim </span>
+        <span class="badge rounded-pill bg-dark text-light">Git </span>
+      </ul>
+      <h2>Conferences </h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-dark">DjangoconEU</li>
+        <li class="list-group-item">2025 - Dublin 🪉</li>
+        <li class="list-group-item">2024 - Vigo 🚢</li>
+        <li class="list-group-item">2023 - Edinburg 🦄</li>
+        <li class="list-group-item">2022 - Porto 🍷</li>
+        <li class="list-group-item">2021 - Porto (virtual) 🍷</li>
+        <li class="list-group-item">2019 - Copenhagen 🚲</li>
+        <li class="list-group-item">2018 - Heidelberg 🏰</li>
+        <li class="list-group-item">2017 - Florence 🎬</li>
+      </ul>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-dark">Bsides</li>
+        <li class="list-group-item">Belfast 2024 🤖</li>
+        <li class="list-group-item">Belfast 2023 🐦‍🔥 </li>
+        <li class="list-group-item">Dublin 2023 🌉</li>
+        <li class="list-group-item">Belfast 2019 🎭</li>
+      </ul>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-dark">Other</li>
+        <li class="list-group-item">RootedconPT 2025</li>
+        <li class="list-group-item">EuroPython 2025</li>
+      </ul>
+      <h2>Contests </h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-dark">CTF</li>
+        <li class="list-group-item d-flex justify-content-between"><a
+            href="https://ctf.hackthebox.com/event/details/global-cyber-skills-benchmark-ctf-2025-operation-blackout-2174">HTB
+            Buisness CTF 2025</a> <span>Rank 19</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between"><a
+            href="https://ctf.hackthebox.com/event/details/cyber-apocalypse-ctf-2025-tales-from-eldoria-2107">Cyber
+            Apocalypse 2025</a> <span>Rank 86</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between"><a
+            href="https://ctf.hackthebox.com/event/details/htb-business-ctf-2024-the-vault-of-hope-1474">HTB
+            Buisness CTF 2024</a> <span>Rank 14</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between"><a
+            href="https://ctf.hackthebox.com/event/details/cyber-apocalypse-2024-hacker-royale-1386">Cyber
+            Apocalypse 2024</a> <span>Rank 38</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between"><a
+            href="https://ctf.hackthebox.com/event/details/htb-business-ctf-2023-the-great-escape-997">HTB
+            Buisness CTF 2023</a> <span>Rank 12</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between"><a
+            href="https://ctf.hackthebox.com/event/details/cyber-apocalypse-2023-the-cursed-mission-821">Cyber
+            Apocalypse 2023</a> <span>Rank 15</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between"><a
+            href="https://ctf.hackthebox.com/event/details/hack-the-boo-637">Hack the Boo 2022</a>
+          <span>Rank 6144</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between"><a
+            href="https://ctf.hackthebox.com/event/details/synopsys-csam-2022-ctf-613">Synopsys CSAM 2022</a>
+          <span>Rank 2</span>
+        </li>
+      </ul>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-dark">Advent Of Code</li>
+        <li class="list-group-item">2024 50⭐</li>
+        <li class="list-group-item">2023 42⭐</li>
+        <li class="list-group-item">2022 40⭐</li>
+      </ul>
+
+    </div>
+    <div class="col-8">
+      <h2>Work Experience</h2>
+      <div class="experience-item">
+        <h3>Fullstack Developer - Black Duck (Formerly Synopsys) </h3>
+        <p>07/2019-current, Belfast, United Kingdom </p>
+        <p>Website: <a href="http://www.blackduck.com">www.blackduck.com</a> </p>
+        <ul>
+          <li>Fullstack development of an internal application for vulnerability analysis </li>
+          <li>Django, Django Rest Framework, Angular, AdminLTE, Postgres </li>
+          <li>Coordinating with the team using Jira and Agile </li>
+          <li>Unified Taxonomy system development </li>
+          <li>SCA checker tool development (in rust) </li>
+          <li>Mentoring/assisting the team in their own python projects with architecting and general advice </li>
+          <li>Integrating new cybersecurity standards (OWASP tops, CWE/CAPEC) </li>
+          <li>Replacing/Upgrading data entry and management system with connection to a reporting tool </li>
+          <li>Developing test suite from scratch with pytest </li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <h3>Fullstack Developer - HUBEL POSITIVE LIGHTNING </h3>
+        <p>10/2015-07/2019, Faro, Portugal </p>
+        <p>Website: <a href="http://www.hubelpositivelightning.pt">www.hubelpositivelightning.pt</a> </p>
+        <ul>
+          <li>Project lead and Agile team SCRUM master </li>
+          <li>Django backend development, with celery and channels integration </li>
+          <li>Experience developing pluggable applications suitable for micro services </li>
+          <li>REST API design and implementation with Django Rest Framework </li>
+          <li>Test suite management </li>
+          <li>Angular js and react js frontend development with material design and bootstrap frameworks </li>
+          <li>Frontend build and packaging tools setup </li>
+          <li>Server deployment and infrastructure management </li>
+          <li>System architecture and design </li>
+          <li>Database management </li>
+          <li>PLC integration </li>
+          <li>Workflow tools manager (JIRA, Gitlab, CI, devpi, verdacio) </li>
+          <li>Docker and docker-compose integration </li>
+          <li>LORA network management and device integration (multiple manufacturers) </li>
+          <li>Experience with critical industrial systems (factories, farms, water treatment) </li>
+          <li>Internship orientation </li>
+        </ul>
+      </div>
+
+      <h2>Education and Training</h2>
+      <div class="education-item">
+        <h3>Postgrad In Cybersecurity - University of the Algarve</h3>
+        <p>09/2024-06/2025, Faro, Portugal </p>
+        <p>EQF level 7 </p>
+        <ul class="education-item list-unstyled">
+          <li>Core Security Fundamentals </li>
+          <li>Offensive & Defensive Security Operations </li>
+          <li>Governance, Risk & Compliance </li>
+        </ul>
+      </div>
+
+      <div class="education-item">
+        <h3>Master In Electronics and Telecommunications Engineering (incomplete) - University of the Algarve </h3>
+        <p>09/2009-09/2015, Faro, Portugal </p>
+        <!-- <p>Website: <a href="https://fct.ualg.pt/en/curso/1481">https://fct.ualg.pt/en/curso/1481</a> </p> -->
+        <ul class="education-item list-unstyled">
+          <li>Computer Science </li>
+          <li>Signals and Control Systems </li>
+          <li>Telecommunications, Networks and Antennas </li>
+          <li>Math and Physics </li>
+          <li>Machine Learning and Neural Networks </li>
+        </ul>
+      </div>
+
+
+      <h2>Language skills</h2>
+      <p>Mother tongue(s): Portuguese </p>
+      <p>Other language(s): </p>
+      <table class="skills-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>UNDERSTANDING </th>
+            <th colspan="2">SPEAKING </th>
+            <th>WRITING </th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Listening </th>
+            <th>Reading </th>
+            <th>Spoken production </th>
+            <th>Spoken interaction </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ENGLISH </td>
+            <td>C2 </td>
+            <td>C2 </td>
+            <td>C2 </td>
+            <td>C2 </td>
+            <td>C2 </td>
+          </tr>
+          <tr>
+            <td>SPANISH </td>
+            <td>B1 </td>
+            <td>B1 </td>
+            <td>B1 </td>
+            <td>B1 </td>
+            <td>A2 </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Levels: A1 and A2: Basic user; B1 and B2: Independent user; C1 and C2: Proficient user </p>
+
+      <!-- <h2>ORGANISATIONAL SKILLS </h2> -->
+      <!-- <ul> -->
+      <!--   <li>Good team-leading skills, gained as I participated in several projects and teams during university, and -->
+      <!--     enhanced at my current job where I am the development team leader </li> -->
+      <!--   <li>Good team-work skills, In my current work I'm always making sure everyone's work is going fine and I try to -->
+      <!--     help my coworkers that are struggling, I have introduced many interns to the professional world and developed -->
+      <!--     good teaching skills in the process </li> -->
+      <!--   <li>Experienced user of time management tools like Tempo or Toggl </li> -->
+      <!--   <li>Experienced user of task management tools like Jira, Wunderlist, Todoist and Trello </li> -->
+      <!-- </ul> -->
+      <!---->
+      <!-- <h2>COMMUNICATION AND INTERPERSONAL SKILLS </h2> -->
+      <!-- <ul> -->
+      <!--   <li>I consider myself a good communicator, which you must be to work with agile software development in a -->
+      <!--     diverse team. </li> -->
+      <!--   <li>I'm an outgoing and fun person easy to talk to and that can easily make friends. </li> -->
+      <!-- </ul> -->
+      <!---->
+      <!-- <h2>DRIVING LICENCE </h2> -->
+      <!-- <p>Driving Licence: B </p> -->
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+<!-- <body> -->
+<!--   <script src="js/scripts.js"></script> -->
+<!--   <script src="js/bootstrap.min.js"></script> -->
+<!--   <!-- <script src="js/jquery-3.5.1.js"></script> --> -->
+<!-- </body> -->
+
+<!-- </html> -->
