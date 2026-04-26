@@ -28,12 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-$r%-r8o8phyoj+*vw6hhp!z0#per-fjn2a#isr5^+%7gf7k008"
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-$r%-r8o8phyoj+*vw6hhp!z0#per-fjn2a#isr5^+%7gf7k008")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [h.strip() for h in os.environ.get("ALLOWED_HOSTS", "").split(",") if h.strip()]
 
 
 # Application definition
@@ -47,7 +47,25 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
     "django.contrib.sites",
+    "django.contrib.postgres",
+    # wagtail
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    "wagtail",
+    "modelcluster",
+    "taggit",
+    "wagtailmarkdown",
+    # project
     "blog",
+    "photos",
     "photologue",
     "sortedm2m",
 ]
@@ -60,6 +78,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 ROOT_URLCONF = "website.urls"
@@ -75,6 +94,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "website.context_processors.year",
             ],
         },
     },
@@ -135,14 +155,13 @@ SITE_ID = 1
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
+STATIC_ROOT = os.environ.get("STATIC_ROOT", BASE_DIR / "staticfiles")
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    "/var/www/marco-silva.com/static/",
-    "/var/www/marco-silva.com/media/",
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-print(MEDIA_ROOT)
+MEDIA_ROOT = os.environ.get("MEDIA_ROOT", BASE_DIR / "media")
 
 
 # Default primary key field type
@@ -197,6 +216,11 @@ LOGGING = {
         },
     },
 }
+# Wagtail
+WAGTAIL_SITE_NAME = "Marco Silva"
+WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "https://marco-silva.com")
+WAGTAILMARKDOWN = {"autodownload_fontawesome": False}
+
 try:
     from .dev_settings import *
 except ImportError:
