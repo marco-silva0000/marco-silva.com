@@ -1,0 +1,21 @@
+{% extends 'base_new.html' %}
+
+{% block title %}blog{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 1.5rem;">blog</h1>
+
+{% for post in posts %}
+<article style="margin-bottom: 2rem;">
+  <a href="{% pageurl post %}" style="text-decoration: none;">
+    <h2 style="font-size: 1.1rem; font-weight: 600;">{{ post.title }}</h2>
+  </a>
+  <time style="font-size: 0.8rem; color: #888;" datetime="{{ post.first_published_at|date:'Y-m-d' }}">{{ post.first_published_at|date:"j M Y" }}</time>
+  {% for tag in post.tags.all %}
+    <span style="font-size: 0.8rem; color: #888; margin-left: 0.5rem;">#{{ tag.name }}</span>
+  {% endfor %}
+</article>
+{% empty %}
+<p>no posts yet.</p>
+{% endfor %}
+{% endblock %}
