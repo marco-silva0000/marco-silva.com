@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base
+  - ingress.yaml
 patches:
   - patch: |
       apiVersion: v1
@@ -11,6 +12,54 @@ patches:
         namespace: marco-silva
       data:
         ALLOWED_HOSTS: "localhost,127.0.0.1"
+        WAGTAILADMIN_BASE_URL: "http://localhost:8080"
+        DEBUG: "true"
     target:
       kind: ConfigMap
       name: django-config
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: django
+        namespace: marco-silva
+      spec:
+        template:
+          spec:
+            containers:
+              - name: django
+                image: localhost:5111/marco-silva.com:latest
+            initContainers:
+              - name: collectstatic
+                image: localhost:5111/marco-silva.com:latest
+    target:
+      kind: Deployment
+      name: django
+  # Remove prod TLS ingress
+  - patch: |
+      $patch: delete
+      apiVersion: traefik.io/v1alpha1
+      kind: IngressRoute
+      metadata:
+        name: django-ingress
+    target:
+      kind: IngressRoute
+      name: django-ingress
+  - patch: |
+      $patch: delete
+      apiVersion: traefik.io/v1alpha1
+      kind: IngressRoute
+      metadata:
+        name: django-ingress-http
+    target:
+      kind: IngressRoute
+      name: django-ingress-http
+  - patch: |
+      $patch: delete
+      apiVersion: traefik.io/v1alpha1
+      kind: Middleware
+      metadata:
+        name: redirect-https
+    target:
+      kind: Middleware
+      name: redirect-https

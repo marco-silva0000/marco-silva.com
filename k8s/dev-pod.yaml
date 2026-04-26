@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: marco-dev
+  labels:
+    app: marco-dev
+spec:
+  containers:
+    - name: postgres
+      image: docker.io/library/postgres:16-bookworm
+      env:
+        - name: POSTGRES_DB
+          value: marcosilva
+        - name: POSTGRES_USER
+          value: marcosilva
+        - name: POSTGRES_PASSWORD
+          value: devpassword
+      ports:
+        - containerPort: 5432
+          hostPort: 5432
+      volumeMounts:
+        - name: pgdata
+          mountPath: /var/lib/postgresql/data
+    - name: django
+      image: localhost/marco-silva.com:latest
+      env:
+        - name: POSTGRES_HOST
+          value: localhost
+        - name: POSTGRES_NAME
+          value: marcosilva
+        - name: POSTGRES_USER
+          value: marcosilva
+        - name: POSTGRES_PASSWORD
+          value: devpassword
+        - name: SECRET_KEY
+          value: dev-insecure-secret-key
+        - name: ALLOWED_HOSTS
+          value: "localhost,127.0.0.1"
+        - name: DEBUG
+          value: "true"
+        - name: DJANGO_SETTINGS_MODULE
+          value: website.settings
+      ports:
+        - containerPort: 8000
+          hostPort: 8000
+      volumeMounts:
+        - name: media
+          mountPath: /var/www/marco-silva.com/media
+  volumes:
+    - name: pgdata
+      persistentVolumeClaim:
+        claimName: marco-pgdata
+    - name: media
+      persistentVolumeClaim:
+        claimName: marco-media
