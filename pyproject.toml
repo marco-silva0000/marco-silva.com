@@ -8,9 +8,13 @@ dependencies = [
     "django>=5.1.7",
     "django-htmx>=1.22.0",
     "django-photologue>=3.17",
+    "gunicorn>=23.0.0",
+    "markdown>=3.5",
     "psycopg>=3.2.5",
     "python-dotenv>=1.0.1",
     "pytz>=2025.1",
+    "wagtail>=6.4",
+    "wagtail-markdown>=0.12",
 ]
 
 [project.optional-dependencies]
