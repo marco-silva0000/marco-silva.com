@@ -1,0 +1,43 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: django-ingress
+  namespace: marco-silva
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`marco-silva.com`) || Host(`www.marco-silva.com`)
+      kind: Rule
+      services:
+        - name: django
+          port: 80
+  tls:
+    certResolver: letsencrypt
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: django-ingress-http
+  namespace: marco-silva
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`marco-silva.com`) || Host(`www.marco-silva.com`)
+      kind: Rule
+      services:
+        - name: django
+          port: 80
+      middlewares:
+        - name: redirect-https
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-https
+  namespace: marco-silva
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true

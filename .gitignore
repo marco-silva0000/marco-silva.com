@@ -223,3 +223,7 @@ tags
 .idea/
 
 .pytest_cache/
+
+# k8s secrets (contain real credentials)
+k8s/base/postgres/secret.yaml
+k8s/base/django/secret.yaml

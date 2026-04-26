@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+patches:
+  - patch: |
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: django-config
+        namespace: marco-silva
+      data:
+        ALLOWED_HOSTS: "localhost,127.0.0.1"
+    target:
+      kind: ConfigMap
+      name: django-config

@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  namespace: marco-silva
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+        - name: django
+          image: marco-silva.com:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: django-config
+            - secretRef:
+                name: django-secret
+            - secretRef:
+                name: postgres-secret
+          volumeMounts:
+            - name: media
+              mountPath: /var/www/marco-silva.com/media
+            - name: static
+              mountPath: /var/www/marco-silva.com/static
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 250m
+            limits:
+              memory: 512Mi
+              cpu: "1"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+              httpHeaders:
+                - name: Host
+                  value: marco-silva.com
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+              httpHeaders:
+                - name: Host
+                  value: marco-silva.com
+            initialDelaySeconds: 10
+            periodSeconds: 5
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-data
+        - name: static
+          emptyDir: {}
+      initContainers:
+        - name: collectstatic
+          image: marco-silva.com:latest
+          command: ["python", "manage.py", "collectstatic", "--noinput"]
+          envFrom:
+            - configMapRef:
+                name: django-config
+            - secretRef:
+                name: django-secret
+          volumeMounts:
+            - name: static
+              mountPath: /var/www/marco-silva.com/static
