@@ -226,6 +226,13 @@ WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "https://marco-s
 WAGTAILMARKDOWN = {"autodownload_fontawesome": False}
 LOGIN_URL = "/admin/login/"
 
+# Security headers (production only)
+if not DEBUG:
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    X_FRAME_OPTIONS = "DENY"
+    SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
 try:
     from .dev_settings import *
 except ImportError:

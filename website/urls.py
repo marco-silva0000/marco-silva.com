@@ -9,6 +9,8 @@ from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from photos.feeds import GalleryFeed
+
 sitemaps = {
     "photologue_galleries": GallerySitemap,
     "photologue_photos": PhotoSitemap,
@@ -30,6 +32,7 @@ urlpatterns = [
         {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
+    path("feeds/galleries/", GalleryFeed(), name="gallery-feed"),
     # Wagtail catch-all — serves blog pages at /blog/ etc.
     path("", include(wagtail_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

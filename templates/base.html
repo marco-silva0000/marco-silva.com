@@ -5,6 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Marco Silva{% endblock %}</title>
+  <meta name="description" content="Marco Silva - software engineer and photographer">
+  <meta property="og:title" content="{% block og_title %}Marco Silva{% endblock %}">
+  <meta property="og:description" content="Marco Silva - software engineer and photographer">
+  <meta property="og:image" content="/static/img/avatar.png">
+  <meta property="og:type" content="website">
   <link rel="icon" href="{% static 'favicon.ico' %}">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
