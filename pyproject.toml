@@ -16,6 +16,7 @@ dependencies = [
     "wagtail>=6.4",
     "wagtail-markdown>=0.12",
     "whitenoise>=6.5",
+    "icalendar>=6.0",
 ]
 
 [project.optional-dependencies]

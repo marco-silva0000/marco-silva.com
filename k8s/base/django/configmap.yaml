@@ -12,4 +12,4 @@ data:
   STATIC_ROOT: /var/www/marco-silva.com/static
   MEDIA_ROOT: /var/www/marco-silva.com/media
   PLANZ_PASSWORD: changeme
-  GOOGLE_CALENDAR_ID: ""
+  GOOGLE_CALENDAR_ICAL_URL: ""

@@ -36,7 +36,7 @@ spec:
           value: dev-insecure-secret-key
         - name: PLANZ_PASSWORD
           value: planz
-        - name: GOOGLE_CALENDAR_ID
+        - name: GOOGLE_CALENDAR_ICAL_URL
           value: ""
         - name: ALLOWED_HOSTS
           value: "localhost,127.0.0.1"

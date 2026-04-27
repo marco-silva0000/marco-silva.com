@@ -1,20 +1,27 @@
-{% if calendar_id %}
+{% if events %}
 <div style="margin-top: 0.5rem;">
-  <div style="margin-bottom: 0.75rem; font-size: 0.85rem;">
-    <button onclick="setView('WEEK')" style="cursor:pointer; padding: 0.2rem 0.5rem;">week</button>
-    <button onclick="setView('MONTH')" style="cursor:pointer; padding: 0.2rem 0.5rem;">month</button>
-    <button onclick="setView('AGENDA')" style="cursor:pointer; padding: 0.2rem 0.5rem;">agenda</button>
+  {% regroup events by start.date as days %}
+  {% for day in days %}
+  <div style="margin-bottom: 1.5rem;">
+    <h3 style="font-size: 0.9rem; font-weight: 600; border-bottom: 1px solid #ddd; padding-bottom: 0.2rem; margin-bottom: 0.5rem;">
+      {{ day.grouper|date:"l, j M Y" }}
+      {% if day.grouper == today %}<span style="color: #888; font-weight: normal;"> — today</span>{% endif %}
+    </h3>
+    {% for event in day.list %}
+    <div style="margin-bottom: 0.75rem; padding-left: 0.5rem; border-left: 3px solid {% if event.start.date == today %}#4a9eff{% else %}#ddd{% endif %};">
+      <div style="font-size: 0.85rem; font-weight: 500;">{{ event.title }}</div>
+      <div style="font-size: 0.8rem; color: #888;">
+        {% if event.all_day %}all day{% else %}{{ event.start|date:"H:i" }}{% if event.end %} – {{ event.end|date:"H:i" }}{% endif %}{% endif %}
+        {% if event.location %} · {{ event.location }}{% endif %}
+      </div>
+      {% if event.description %}<div style="font-size: 0.8rem; color: #666; margin-top: 0.2rem;">{{ event.description|truncatewords:20 }}</div>{% endif %}
+    </div>
+    {% endfor %}
   </div>
-  <iframe id="gcal" src="https://calendar.google.com/calendar/embed?src={{ calendar_id }}&mode=WEEK&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1" style="border: 0; width: 100%; height: 600px;" frameborder="0" scrolling="no"></iframe>
+  {% endfor %}
 </div>
-<script>
-function setView(mode) {
-  const iframe = document.getElementById('gcal');
-  const url = new URL(iframe.src);
-  url.searchParams.set('mode', mode);
-  iframe.src = url.toString();
-}
-</script>
+{% elif events is not None %}
+<p style="font-size: 0.85rem; color: #888;">no upcoming events.</p>
 {% else %}
-<p style="font-size: 0.85rem; color: #888;">calendar not configured yet. set GOOGLE_CALENDAR_ID env var.</p>
+<p style="font-size: 0.85rem; color: #888;">calendar not configured. set GOOGLE_CALENDAR_ICAL_URL env var.</p>
 {% endif %}
