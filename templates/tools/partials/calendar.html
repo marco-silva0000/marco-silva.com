@@ -15,6 +15,9 @@
         {% if event.location %} · {{ event.location }}{% endif %}
       </div>
       {% if event.description %}<div style="font-size: 0.8rem; color: #666; margin-top: 0.2rem;">{{ event.description|truncatewords:20 }}</div>{% endif %}
+      <div style="font-size: 0.75rem; margin-top: 0.3rem;">
+        {% if event.location %}<a href="https://www.openstreetmap.org/search?query={{ event.location|urlencode }}" target="_blank" style="color: #4a9eff; margin-right: 0.5rem;">osm</a><a href="https://www.google.com/maps/search/?api=1&query={{ event.location|urlencode }}" target="_blank" style="color: #4a9eff; margin-right: 0.5rem;">gmaps</a>{% endif %}<a href="{% url 'tools:planz-ics' %}?title={{ event.title|urlencode }}&start={{ event.start|date:'Y-m-d\TH:i' }}&end={% if event.end %}{{ event.end|date:'Y-m-d\TH:i' }}{% endif %}&location={{ event.location|urlencode }}&description={{ event.description|urlencode }}" style="color: #4a9eff;" download="{{ event.title|slugify }}.ics">.ics</a>
+      </div>
     </div>
     {% endfor %}
   </div>

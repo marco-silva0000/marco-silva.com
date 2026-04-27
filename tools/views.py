@@ -38,6 +38,48 @@ def _render_calendar(request):
     return render(request, "tools/partials/calendar.html", {"events": events, "view": view, "today": now.date()})
 
 
+def planz_ics(request):
+    """Generate a single-event .ics file for download."""
+    title = request.GET.get("title", "Event")
+    start_str = request.GET.get("start", "")
+    end_str = request.GET.get("end", "")
+    location = request.GET.get("location", "")
+    description = request.GET.get("description", "")
+
+    try:
+        dtstart = datetime.fromisoformat(start_str).replace(tzinfo=PLANZ_TZ)
+    except (ValueError, TypeError):
+        dtstart = datetime.now(PLANZ_TZ)
+
+    dtend = None
+    if end_str:
+        try:
+            dtend = datetime.fromisoformat(end_str).replace(tzinfo=PLANZ_TZ)
+        except (ValueError, TypeError):
+            pass
+    if not dtend:
+        dtend = dtstart + timedelta(hours=1)
+
+    ics = (
+        "BEGIN:VCALENDAR\r\n"
+        "VERSION:2.0\r\n"
+        "PRODID:-//marco-silva.com//planz//EN\r\n"
+        "BEGIN:VEVENT\r\n"
+        f"DTSTART:{dtstart.strftime('%Y%m%dT%H%M%S')}\r\n"
+        f"DTEND:{dtend.strftime('%Y%m%dT%H%M%S')}\r\n"
+        f"SUMMARY:{title}\r\n"
+    )
+    if location:
+        ics += f"LOCATION:{location}\r\n"
+    if description:
+        ics += f"DESCRIPTION:{description}\r\n"
+    ics += "END:VEVENT\r\nEND:VCALENDAR\r\n"
+
+    response = HttpResponse(ics, content_type="text/calendar")
+    response["Content-Disposition"] = f'attachment; filename="{title}.ics"'
+    return response
+
+
 def _fetch_events():
     cached = cache.get(CACHE_KEY)
     if cached is not None:
