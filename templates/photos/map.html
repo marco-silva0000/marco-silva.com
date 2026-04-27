@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}photo map{% endblock %}
+
+{% block extra_css %}
+#map { height: 500px; width: 100%; margin-top: 1rem; }
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">photo map</h1>
+<p style="font-size: 0.85rem; color: #888;"><a href="{% url 'photos:gallery-list' %}">← galleries</a></p>
+
+<div id="map"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+  const map = L.map('map').setView([0, 0], 2);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  fetch('{% url "photos:map-data" %}')
+    .then(r => r.json())
+    .then(markers => {
+      if (!markers.length) return;
+      const bounds = [];
+      markers.forEach(m => {
+        const marker = L.marker([m.lat, m.lng]).addTo(map);
+        marker.bindPopup(`<a href="/photos/photo/${m.slug}/">${m.title}</a>`);
+        bounds.push([m.lat, m.lng]);
+      });
+      map.fitBounds(bounds, {padding: [30, 30]});
+    });
+
+  // Center on specific photo if lat/lng in URL
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('lat') && params.get('lng')) {
+    map.setView([parseFloat(params.get('lat')), parseFloat(params.get('lng'))], 14);
+  }
+</script>
+{% endblock %}

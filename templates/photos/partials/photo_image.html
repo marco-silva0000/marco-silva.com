@@ -1,0 +1,10 @@
+{% if version == "watermarked" and ext and ext.watermarked_image %}
+<img src="{{ ext.watermarked_image.url }}" alt="{{ photo.title }}">
+{% elif version == "web" and ext and ext.web_image %}
+<img src="{{ ext.web_image.url }}" alt="{{ photo.title }}">
+{% elif version == "original" %}
+<a href="{{ photo.image.url }}" target="_blank">view full resolution ↗</a>
+<img src="{% if ext and ext.web_image %}{{ ext.web_image.url }}{% else %}{{ photo.image.url }}{% endif %}" alt="{{ photo.title }}">
+{% else %}
+<img src="{% if ext and ext.web_image %}{{ ext.web_image.url }}{% else %}{{ photo.image.url }}{% endif %}" alt="{{ photo.title }}">
+{% endif %}

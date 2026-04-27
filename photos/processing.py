@@ -1,9 +1,13 @@
 import logging
+from io import BytesIO
 
 import exifread
+from django.core.files.base import ContentFile
 from PIL import Image, ImageDraw, ImageFont
 
 logger = logging.getLogger(__name__)
+
+WEB_MAX_SIZE = 1920
 
 
 def extract_exif(photo_extension):
@@ -31,7 +35,6 @@ def extract_exif(photo_extension):
         except (ValueError, TypeError):
             pass
 
-    # GPS
     lat = _convert_gps(tags.get("GPS GPSLatitude"), tags.get("GPS GPSLatitudeRef"))
     lon = _convert_gps(tags.get("GPS GPSLongitude"), tags.get("GPS GPSLongitudeRef"))
     if lat is not None:
@@ -43,7 +46,6 @@ def extract_exif(photo_extension):
 
 
 def _convert_gps(coord_tag, ref_tag):
-    """Convert EXIF GPS coordinates to decimal degrees."""
     if not coord_tag or not ref_tag:
         return None
     try:
@@ -59,21 +61,39 @@ def _convert_gps(coord_tag, ref_tag):
         return None
 
 
+def _open_photo_image(photo):
+    photo.image.open("rb")
+    img = Image.open(photo.image.file).convert("RGB")
+    photo.image.close()
+    return img
+
+
+def generate_web_image(photo_extension):
+    """Generate a web-optimized version (max 1920px, quality 85)."""
+    try:
+        img = _open_photo_image(photo_extension.photo)
+    except Exception:
+        logger.exception("Failed to open image for web version: %s", photo_extension.photo.title)
+        return
+
+    img.thumbnail((WEB_MAX_SIZE, WEB_MAX_SIZE), Image.LANCZOS)
+    buf = BytesIO()
+    img.save(buf, format="JPEG", quality=85)
+    filename = f"web_{photo_extension.photo.slug}.jpg"
+    photo_extension.web_image.save(filename, ContentFile(buf.getvalue()), save=False)
+
+
 def generate_watermark(photo_extension, text="© Marco Silva"):
     """Generate a watermarked version of the photo."""
-    photo = photo_extension.photo
     try:
-        photo.image.open("rb")
-        img = Image.open(photo.image.file).convert("RGBA")
-        photo.image.close()
+        img = _open_photo_image(photo_extension.photo).convert("RGBA")
     except Exception:
-        logger.exception("Failed to open image for watermark: %s", photo.title)
+        logger.exception("Failed to open image for watermark: %s", photo_extension.photo.title)
         return
 
     overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(overlay)
 
-    # Scale font to ~3% of image width
     font_size = max(16, img.width // 30)
     try:
         font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", font_size)
@@ -86,20 +106,13 @@ def generate_watermark(photo_extension, text="© Marco Silva"):
     x = img.width - text_w - 20
     y = img.height - text_h - 20
 
-    # Semi-transparent white text
     draw.text((x, y), text, font=font, fill=(255, 255, 255, 128))
 
     watermarked = Image.alpha_composite(img, overlay).convert("RGB")
-
-    from io import BytesIO
-
-    from django.core.files.base import ContentFile
-
     buf = BytesIO()
     watermarked.save(buf, format="JPEG", quality=85)
-    filename = f"wm_{photo.slug}.jpg"
+    filename = f"wm_{photo_extension.photo.slug}.jpg"
     photo_extension.watermarked_image.save(filename, ContentFile(buf.getvalue()), save=False)
-    photo_extension.save()
 
 
 def process_photo(photo_extension):
@@ -109,10 +122,11 @@ def process_photo(photo_extension):
 
     try:
         extract_exif(photo_extension)
+        generate_web_image(photo_extension)
         generate_watermark(photo_extension)
         photo_extension.processing_status = "done"
     except Exception:
         logger.exception("Processing failed for %s", photo_extension)
         photo_extension.processing_status = "failed"
 
-    photo_extension.save(update_fields=["processing_status"])
+    photo_extension.save()

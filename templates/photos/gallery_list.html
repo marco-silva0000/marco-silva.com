@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}photos{% endblock %}
+
+{% block extra_css %}
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.gallery-card { text-decoration: none; color: #222; }
+.gallery-card img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.gallery-card h3 { font-size: 0.9rem; margin-top: 0.3rem; }
+.gallery-card .meta { font-size: 0.75rem; color: #888; }
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">photos</h1>
+<p style="font-size: 0.85rem; color: #888; margin-bottom: 1rem;">
+  <a href="{% url 'photos:map' %}">map view</a>
+</p>
+
+<div class="gallery-grid">
+  {% for gallery in galleries %}
+  <a href="{% url 'photos:gallery-detail' gallery.slug %}" class="gallery-card">
+    {% if gallery.sample %}
+    <img src="{{ gallery.sample.0.get_thumbnail_url }}" alt="{{ gallery.title }}" loading="lazy">
+    {% endif %}
+    <h3>{{ gallery.title }}</h3>
+    <span class="meta">{{ gallery.photo_count }} photos</span>
+    {% if gallery.extension %}
+    <span class="meta"> · {{ gallery.extension.get_gallery_type_display }}</span>
+    {% endif %}
+  </a>
+  {% empty %}
+  <p>no galleries yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

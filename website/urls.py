@@ -19,6 +19,7 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name="index.html"), name="homepage"),
     path("cv", TemplateView.as_view(template_name="cv.html"), name="cv"),
     path("blog/", TemplateView.as_view(template_name="wip.html"), name="blog"),
+    path("photos/", include("photos.urls")),
     path("admin/", admin.site.urls),
     path("cms/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),

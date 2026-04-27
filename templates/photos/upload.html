@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}upload photos{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">upload photos</h1>
+
+<form method="post" enctype="multipart/form-data"
+      hx-post="{% url 'photos:upload' %}"
+      hx-target="#result"
+      hx-swap="innerHTML">
+  {% csrf_token %}
+
+  <div style="margin-bottom: 1rem;">
+    <label for="gallery" style="font-size: 0.85rem;">gallery</label><br>
+    <select name="gallery" id="gallery" style="padding: 0.3rem; font-size: 0.85rem;">
+      <option value="">— none —</option>
+      {% for g in galleries %}
+      <option value="{{ g.id }}">{{ g.title }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div style="margin-bottom: 1rem;">
+    <label for="photos" style="font-size: 0.85rem;">photos (select multiple)</label><br>
+    <input type="file" name="photos" id="photos" multiple accept="image/*" style="font-size: 0.85rem;">
+  </div>
+
+  <button type="submit" style="padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer;">upload</button>
+</form>
+
+<div id="result" style="margin-top: 1rem;"></div>
+
+<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+{% endblock %}

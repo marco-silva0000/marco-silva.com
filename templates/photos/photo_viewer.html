@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ photo.title }}{% endblock %}
+
+{% block extra_css %}
+#photo-container img { max-width: 100%; max-height: 80vh; height: auto; }
+#photo-container a { font-size: 0.85rem; display: block; margin-bottom: 0.5rem; }
+.version-switcher { margin: 0.75rem 0; font-size: 0.85rem; }
+.version-switcher a { margin-right: 1rem; color: #555; text-decoration: none; }
+.version-switcher a.active { color: #222; font-weight: 600; text-decoration: underline; }
+.exif { font-size: 0.8rem; color: #888; margin-top: 0.5rem; }
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.1rem; margin-bottom: 0.5rem;">{{ photo.title }}</h1>
+{% if photo.caption %}<p style="font-size: 0.85rem; color: #555;">{{ photo.caption }}</p>{% endif %}
+
+<div class="version-switcher">
+  <a href="?version=watermarked" hx-get="{% url 'photos:photo-viewer-partial' photo.slug %}?version=watermarked" hx-target="#photo-container" class="{% if version == 'watermarked' %}active{% endif %}">watermarked</a>
+  <a href="?version=web" hx-get="{% url 'photos:photo-viewer-partial' photo.slug %}?version=web" hx-target="#photo-container" class="{% if version == 'web' %}active{% endif %}">web</a>
+  <a href="?version=original" hx-get="{% url 'photos:photo-viewer-partial' photo.slug %}?version=original" hx-target="#photo-container" class="{% if version == 'original' %}active{% endif %}">original</a>
+</div>
+
+<div id="photo-container">
+  {% include "photos/partials/photo_image.html" %}
+</div>
+
+{% if ext %}
+<div class="exif">
+  {% if ext.exif_summary %}{{ ext.exif_summary }}{% endif %}
+  {% if ext.has_location %} · <a href="{% url 'photos:map' %}?lat={{ ext.latitude }}&lng={{ ext.longitude }}">view on map</a>{% endif %}
+</div>
+{% if ext.is_for_sale %}
+<p style="margin-top: 0.75rem; font-size: 0.85rem;">RAW available for purchase — €{{ ext.price_raw }}</p>
+{% endif %}
+{% endif %}
+
+<div style="margin-top: 1.5rem; font-size: 0.85rem;">
+  {% for g in photo.galleries.all %}
+  <a href="{% url 'photos:gallery-detail' g.slug %}">← {{ g.title }}</a>
+  {% endfor %}
+</div>
+
+<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+{% endblock %}

@@ -1,27 +1,20 @@
-import faker
 import pytest
-from rest_framework.test import APIClient
-
-fake = faker.Faker()
-
-
-@pytest.fixture
-def unauthenticated_client(django_db_setup):
-    client = APIClient()
-    return client
+from django.contrib.auth.models import User
+from django.test import Client
 
 
 @pytest.fixture
-def fake_email():
-    return fake.email()
+def client():
+    return Client()
 
 
 @pytest.fixture
-def authenticated_client():
-    from auth_app.factories import UserFactory
+def admin_user(db):
+    return User.objects.create_superuser(username="testadmin", password="testpass", email="test@test.com")
 
-    user = UserFactory()
-    client = APIClient()
-    client.force_authenticate(user, fake.sha256())
-    client.user = user
-    return client
+
+@pytest.fixture
+def auth_client(admin_user):
+    c = Client()
+    c.login(username="testadmin", password="testpass")
+    return c

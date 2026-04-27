@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ gallery.title }}{% endblock %}
+
+{% block extra_css %}
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; margin-top: 1rem; }
+.photo-grid a img { width: 100%; aspect-ratio: 1; object-fit: cover; cursor: pointer; }
+.photo-grid a img:hover { opacity: 0.8; }
+#viewer { margin-top: 1.5rem; }
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 0.3rem;">{{ gallery.title }}</h1>
+{% if gallery.description %}<p style="font-size: 0.85rem; color: #555;">{{ gallery.description }}</p>{% endif %}
+<p style="font-size: 0.8rem; color: #888;">{{ photos.count }} photos · <a href="{% url 'photos:gallery-list' %}">← all galleries</a></p>
+
+<div class="photo-grid">
+  {% for photo in photos %}
+  <a href="{% url 'photos:photo-viewer' photo.slug %}"
+     hx-get="{% url 'photos:photo-viewer' photo.slug %}"
+     hx-target="#viewer"
+     hx-push-url="true">
+    <img src="{{ photo.image.url }}" alt="{{ photo.title }}" loading="lazy">
+  </a>
+  {% endfor %}
+</div>
+
+<div id="viewer"></div>
+
+<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+{% endblock %}

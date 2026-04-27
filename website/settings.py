@@ -224,6 +224,7 @@ LOGGING = {
 WAGTAIL_SITE_NAME = "Marco Silva"
 WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "https://marco-silva.com")
 WAGTAILMARKDOWN = {"autodownload_fontawesome": False}
+LOGIN_URL = "/admin/login/"
 
 try:
     from .dev_settings import *
