@@ -1,31 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE="marco-silva.com:latest"
-OVERLAY="${1:-prod}"
+IMAGE="ghcr.io/marco-silva0000/marco-silva.com:latest"
 NS="marco-silva"
 
-echo "==> Building container image..."
-podman build -t "$IMAGE" -f Containerfile .
+echo "==> Pulling image from ghcr.io..."
+k3s ctr images pull "$IMAGE"
 
-echo "==> Exporting image for k3s..."
-podman save "$IMAGE" -o /tmp/marco-silva.tar
-sudo k3s ctr images import /tmp/marco-silva.tar
-rm /tmp/marco-silva.tar
-
-# Generate secrets from Bitwarden if they don't exist
-if [ ! -f k8s/base/postgres/secret.yaml ] || [ ! -f k8s/base/django/secret.yaml ]; then
-    echo "==> Secret files missing, generating from Bitwarden..."
-    ./gen-secrets.sh
-fi
-
-echo "==> Applying k8s manifests (overlay: $OVERLAY)..."
-kubectl apply -k "k8s/overlays/$OVERLAY"
-
-echo "==> Restarting django deployment..."
+echo "==> Restarting deployment..."
+kubectl set image -n "$NS" deploy/django django="$IMAGE" collectstatic="$IMAGE"
 kubectl rollout restart -n "$NS" deploy/django
-
-echo "==> Waiting for rollout..."
 kubectl rollout status -n "$NS" deploy/django --timeout=120s
 
 echo "==> Done. Pods:"
