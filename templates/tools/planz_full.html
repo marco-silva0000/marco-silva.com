@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}planz{% endblock %}
+
+{% block extra_css %}
+.planz-nav { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 1rem; font-size: 0.85rem; flex-wrap: wrap; }
+.planz-btn { text-decoration: none; padding: 0.3rem 0.6rem; border: 1px solid #ddd; border-radius: 3px; color: #222; }
+.planz-btn:hover { background: #f5f5f5; }
+.planz-btn.active { border-color: #222; font-weight: 600; }
+.planz-day-empty { font-size: 0.8rem; color: #ccc; font-style: italic; padding-left: 0.5rem; }
+@media (max-width: 600px) {
+  .planz-nav { font-size: 0.8rem; }
+  .planz-btn { padding: 0.25rem 0.4rem; }
+  .planz-desktop { display: none !important; }
+}
+@media (min-width: 601px) {
+  .planz-mobile { display: none !important; }
+}
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">planz</h1>
+{% include "tools/partials/calendar.html" %}
+{% endblock %}

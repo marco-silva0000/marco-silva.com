@@ -1,4 +1,5 @@
 import os
+from datetime import date as date_type
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -13,13 +14,15 @@ PLANZ_PASSWORD = os.environ.get("PLANZ_PASSWORD", "planz")
 GOOGLE_CALENDAR_ICAL_URL = os.environ.get("GOOGLE_CALENDAR_ICAL_URL", "")
 PLANZ_TZ = ZoneInfo("Europe/Helsinki")
 CACHE_KEY = "planz_events"
-CACHE_TTL = 300  # 5 minutes
+CACHE_TTL = 300
 
 
 def planz(request):
     passwd = request.GET.get("passwd") or request.POST.get("passwd")
     if passwd == PLANZ_PASSWORD:
-        return _render_calendar(request)
+        ctx = _calendar_context(request)
+        ctx["passwd"] = passwd
+        return render(request, "tools/planz_full.html", ctx)
     return render(request, "tools/planz.html", {"error": bool(request.POST)})
 
 
@@ -27,65 +30,75 @@ def planz(request):
 def planz_auth(request):
     passwd = request.POST.get("passwd", "")
     if passwd == PLANZ_PASSWORD:
-        return _render_calendar(request)
+        ctx = _calendar_context(request)
+        ctx["passwd"] = passwd
+        return render(request, "tools/partials/calendar.html", ctx)
     return HttpResponse('<p style="color: red; font-size: 0.85rem;">wrong password</p>', status=200)
 
 
-def _render_calendar(request):
+def planz_navigate(request):
+    """Full page render for calendar navigation links."""
+    passwd = request.GET.get("passwd", "")
+    if passwd != PLANZ_PASSWORD:
+        return render(request, "tools/planz.html", {"error": False})
+    ctx = _calendar_context(request)
+    ctx["passwd"] = passwd
+    return render(request, "tools/planz_full.html", ctx)
+
+
+def _calendar_context(request):
     all_events = _fetch_events()
     now = datetime.now(PLANZ_TZ)
     today = now.date()
 
-    # View: 1, 3, or 7 days
     try:
-        days = int(request.GET.get("days", "3"))
+        days = int(request.GET.get("days", "0"))
     except ValueError:
-        days = 3
+        days = 0
     if days not in (1, 3, 7):
-        days = 3
+        days = 0  # 0 means "auto" — template will pick based on screen size
 
-    # Start date from query param, default today
     start_str = request.GET.get("start")
     if start_str:
         try:
-            from datetime import date as date_type
-
             start_date = date_type.fromisoformat(start_str)
         except ValueError:
             start_date = today
     else:
         start_date = today
 
-    end_date = start_date + timedelta(days=days)
+    # If days is 0 (auto), default to 7 for server-side filtering (template handles display)
+    filter_days = days if days else 7
+    end_date = start_date + timedelta(days=filter_days)
 
-    # Filter events to window
     events = [e for e in all_events if start_date <= e["start"].date() < end_date]
 
-    # Nav dates (move by 1 day always)
+    # Build day slots (including empty days)
+    day_slots = []
+    for i in range(filter_days):
+        d = start_date + timedelta(days=i)
+        day_events = [e for e in events if e["start"].date() == d]
+        day_slots.append({"date": d, "events": day_events, "is_today": d == today})
+
     prev_date = start_date - timedelta(days=1)
     next_date = start_date + timedelta(days=1)
 
-    # Build passwd param to persist auth in links
     passwd = request.GET.get("passwd") or request.POST.get("passwd", "")
 
-    return render(
-        request,
-        "tools/partials/calendar.html",
-        {
-            "events": events,
-            "today": today,
-            "days": days,
-            "start_date": start_date,
-            "end_date": end_date,
-            "prev_date": prev_date.isoformat(),
-            "next_date": next_date.isoformat(),
-            "passwd": passwd,
-        },
-    )
+    return {
+        "events": events,
+        "day_slots": day_slots,
+        "today": today,
+        "days": days,
+        "start_date": start_date,
+        "end_date": end_date,
+        "prev_date": prev_date.isoformat(),
+        "next_date": next_date.isoformat(),
+        "passwd": passwd,
+    }
 
 
 def planz_ics(request):
-    """Generate a single-event .ics file for download."""
     title = request.GET.get("title", "Event")
     start_str = request.GET.get("start", "")
     end_str = request.GET.get("end", "")
