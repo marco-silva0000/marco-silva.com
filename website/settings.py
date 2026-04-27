@@ -10,11 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import logging
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+
 from django.core.exceptions import ImproperlyConfigured
-import logging
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
@@ -230,6 +231,4 @@ except ImportError:
     logger.info("no dev_settings found, will continue with default settings")
 
 if not SECRET_KEY:
-    raise ImproperlyConfigured(
-        "A value for `SECRET_KEY` needs to be set in the environ, .env or dev_settings.py file"
-    )
+    raise ImproperlyConfigured("A value for `SECRET_KEY` needs to be set in the environ, .env or dev_settings.py file")

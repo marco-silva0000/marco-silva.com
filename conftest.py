@@ -1,7 +1,6 @@
-import pytest
 import faker
+import pytest
 from rest_framework.test import APIClient
-
 
 fake = faker.Faker()
 
