@@ -1,45 +1,47 @@
 {% load tz %}
 {% timezone "Europe/Helsinki" %}
 
-<div class="planz-nav">
-  <a class="planz-btn" href="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}">←</a>
-  <a class="planz-btn" href="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}">today</a>
-  <a class="planz-btn" href="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}">→</a>
+<nav class="planz-nav" aria-label="Calendar navigation">
+  <div class="planz-btn-group">
+    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" role="button" aria-label="Previous day">←</a>
+    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}" role="button">today</a>
+    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" role="button" aria-label="Next day">→</a>
+  </div>
 
-  <span style="color: #ccc; margin: 0 0.2rem;">|</span>
+  <div class="planz-btn-group">
+    <a class="planz-btn {% if days == 1 %}active{% endif %}" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}" role="button">1 day</a>
+    <a class="planz-btn {% if days == 3 %}active{% endif %}" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}" role="button">3 day</a>
+    <a class="planz-btn {% if days == 7 %}active{% endif %}" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}" role="button">week</a>
+  </div>
 
-  <a class="planz-btn {% if days == 1 %}active{% endif %}" href="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}">1 day</a>
-  <a class="planz-btn {% if days == 3 %}active{% endif %} planz-mobile {% if days == 0 %}active{% endif %}" href="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}">3 day</a>
-  <a class="planz-btn {% if days == 7 %}active{% endif %} planz-desktop {% if days == 0 %}active{% endif %}" href="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}">week</a>
+  <span class="planz-date-range">{{ start_date|date:"j M" }} – {{ end_date|date:"j M Y" }}</span>
+</nav>
 
-  <span style="color: #888; margin-left: 0.5rem; font-size: 0.8rem;">{{ start_date|date:"j M" }} – {{ end_date|date:"j M Y" }}</span>
-</div>
-
-{% for slot in day_slots %}
-  {# On auto mode (days=0), hide days 4-7 on mobile #}
-  <div style="margin-bottom: 1.5rem;" {% if days == 0 and forloop.counter > 3 %}class="planz-desktop"{% endif %}>
-    <h3 style="font-size: 0.9rem; font-weight: 600; border-bottom: 1px solid #ddd; padding-bottom: 0.2rem; margin-bottom: 0.5rem;">
-      {{ slot.date|date:"l, j M" }}
-      {% if slot.is_today %}<span style="color: #888; font-weight: normal;"> — today</span>{% endif %}
+<div class="planz-columns cols-{{ days }}">
+  {% for slot in day_slots %}
+  <div class="planz-col">
+    <h3>
+      {{ slot.date|date:"D j" }}
+      {% if slot.is_today %}<span style="color: #4a9eff;">•</span>{% endif %}
     </h3>
     {% if slot.events %}
       {% for event in slot.events %}
-      <div style="margin-bottom: 0.75rem; padding-left: 0.5rem; border-left: 3px solid {% if slot.is_today %}#4a9eff{% else %}#ddd{% endif %};">
-        <div style="font-size: 0.85rem; font-weight: 500;">{{ event.title }}</div>
-        <div style="font-size: 0.8rem; color: #888;">
+      <div style="margin-bottom: 0.6rem; padding-left: 0.4rem; border-left: 3px solid {% if slot.is_today %}#4a9eff{% else %}#ddd{% endif %};">
+        <div style="font-size: 0.8rem; font-weight: 500;">{{ event.title }}</div>
+        <div style="font-size: 0.75rem; color: #888;">
           {% if event.all_day %}all day{% else %}{{ event.start|date:"H:i" }}{% if event.end %} – {{ event.end|date:"H:i" }}{% endif %}{% endif %}
-          {% if event.location %} · {{ event.location }}{% endif %}
         </div>
-        {% if event.description %}<div style="font-size: 0.8rem; color: #666; margin-top: 0.2rem;">{{ event.description|truncatewords:20 }}</div>{% endif %}
-        <div style="font-size: 0.75rem; margin-top: 0.3rem;">
-          {% if event.location %}<a href="https://www.openstreetmap.org/search?query={{ event.location|urlencode }}" target="_blank" style="color: #4a9eff; margin-right: 0.5rem;">osm</a><a href="https://www.google.com/maps/search/?api=1&query={{ event.location|urlencode }}" target="_blank" style="color: #4a9eff; margin-right: 0.5rem;">gmaps</a>{% endif %}<a href="{% url 'tools:planz-ics' %}?title={{ event.title|urlencode }}&start={{ event.start|date:'Y-m-d\TH:i' }}&end={% if event.end %}{{ event.end|date:'Y-m-d\TH:i' }}{% endif %}&location={{ event.location|urlencode }}&description={{ event.description|urlencode }}" style="color: #4a9eff;" download="{{ event.title|slugify }}.ics">.ics</a>
+        {% if event.location %}<div style="font-size: 0.75rem; color: #888;">{{ event.location }}</div>{% endif %}
+        <div style="font-size: 0.7rem; margin-top: 0.2rem;">
+          {% if event.location %}<a href="https://www.openstreetmap.org/search?query={{ event.location|urlencode }}" target="_blank" style="color: #4a9eff; margin-right: 0.4rem;">osm</a><a href="https://www.google.com/maps/search/?api=1&query={{ event.location|urlencode }}" target="_blank" style="color: #4a9eff; margin-right: 0.4rem;">gmaps</a>{% endif %}<a href="{% url 'tools:planz-ics' %}?title={{ event.title|urlencode }}&start={{ event.start|date:'Y-m-d\TH:i' }}&end={% if event.end %}{{ event.end|date:'Y-m-d\TH:i' }}{% endif %}&location={{ event.location|urlencode }}&description={{ event.description|urlencode }}" style="color: #4a9eff;" download="{{ event.title|slugify }}.ics">.ics</a>
         </div>
       </div>
       {% endfor %}
     {% else %}
-      <p class="planz-day-empty">no events</p>
+      <p class="planz-day-empty">—</p>
     {% endif %}
   </div>
-{% endfor %}
+  {% endfor %}
+</div>
 
 {% endtimezone %}

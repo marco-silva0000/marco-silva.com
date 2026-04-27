@@ -3,10 +3,7 @@
 {% block title %}planz{% endblock %}
 
 {% block extra_css %}
-@media (max-width: 600px) {
-  .planz-nav { font-size: 0.8rem !important; }
-  .planz-nav button { padding: 0.3rem 0.5rem !important; }
-}
+{% include "tools/partials/planz_styles.html" %}
 {% endblock %}
 
 {% block content %}
@@ -25,4 +22,5 @@
 <div id="result" style="margin-top: 1rem;"></div>
 
 <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
 {% endblock %}

@@ -1,0 +1,24 @@
+.planz-nav { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.85rem; flex-wrap: wrap; }
+.planz-btn-group { display: inline-flex; }
+.planz-btn-group .planz-btn { border-radius: 0; border-right-width: 0; }
+.planz-btn-group .planz-btn:first-child { border-radius: 4px 0 0 4px; }
+.planz-btn-group .planz-btn:last-child { border-radius: 0 4px 4px 0; border-right-width: 1px; }
+.planz-btn { display: inline-block; text-decoration: none; padding: 0.35rem 0.7rem; border: 1px solid #ccc; border-radius: 4px; color: #222; background: #fafafa; cursor: pointer; font-size: 0.85rem; line-height: 1; }
+.planz-btn:hover { background: #eee; border-color: #999; }
+.planz-btn:active { background: #ddd; }
+.planz-btn.active { border-color: #222; font-weight: 600; background: #222; color: #fff; }
+.planz-btn.active:hover { background: #333; }
+.planz-sep { color: #ccc; margin: 0 0.2rem; }
+.planz-day-empty { font-size: 0.8rem; color: #ccc; font-style: italic; padding-left: 0.5rem; }
+.planz-columns { display: grid; gap: 0.75rem; margin-top: 0.5rem; }
+.planz-columns.cols-1 { grid-template-columns: 1fr; max-width: 400px; }
+.planz-columns.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.planz-columns.cols-7 { grid-template-columns: repeat(7, 1fr); }
+.planz-col { min-width: 0; }
+.planz-col h3 { font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid #ddd; padding-bottom: 0.2rem; margin-bottom: 0.5rem; }
+.planz-date-range { color: #888; font-size: 0.8rem; }
+@media (max-width: 600px) {
+  .planz-nav { font-size: 0.8rem; }
+  .planz-btn { padding: 0.3rem 0.5rem; font-size: 0.8rem; }
+  .planz-columns.cols-7 { grid-template-columns: repeat(3, 1fr); }
+}

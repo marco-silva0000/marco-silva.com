@@ -32,17 +32,19 @@ def planz_auth(request):
     if passwd == PLANZ_PASSWORD:
         ctx = _calendar_context(request)
         ctx["passwd"] = passwd
-        return render(request, "tools/partials/calendar.html", ctx)
+        return render(request, "tools/partials/calendar_wrapper.html", ctx)
     return HttpResponse('<p style="color: red; font-size: 0.85rem;">wrong password</p>', status=200)
 
 
 def planz_navigate(request):
-    """Full page render for calendar navigation links."""
+    """HTMX partial or full page render for calendar navigation."""
     passwd = request.GET.get("passwd", "")
     if passwd != PLANZ_PASSWORD:
         return render(request, "tools/planz.html", {"error": False})
     ctx = _calendar_context(request)
     ctx["passwd"] = passwd
+    if request.headers.get("HX-Request"):
+        return render(request, "tools/partials/calendar.html", ctx)
     return render(request, "tools/planz_full.html", ctx)
 
 
@@ -52,11 +54,11 @@ def _calendar_context(request):
     today = now.date()
 
     try:
-        days = int(request.GET.get("days", "0"))
+        days = int(request.GET.get("days", "3"))
     except ValueError:
-        days = 0
+        days = 3
     if days not in (1, 3, 7):
-        days = 0  # 0 means "auto" — template will pick based on screen size
+        days = 3
 
     start_str = request.GET.get("start")
     if start_str:
@@ -67,15 +69,13 @@ def _calendar_context(request):
     else:
         start_date = today
 
-    # If days is 0 (auto), default to 7 for server-side filtering (template handles display)
-    filter_days = days if days else 7
-    end_date = start_date + timedelta(days=filter_days)
+    end_date = start_date + timedelta(days=days)
 
     events = [e for e in all_events if start_date <= e["start"].date() < end_date]
 
     # Build day slots (including empty days)
     day_slots = []
-    for i in range(filter_days):
+    for i in range(days):
         d = start_date + timedelta(days=i)
         day_events = [e for e in events if e["start"].date() == d]
         day_slots.append({"date": d, "events": day_events, "is_today": d == today})
