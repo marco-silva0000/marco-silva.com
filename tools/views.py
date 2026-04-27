@@ -1,7 +1,9 @@
 import os
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 import requests
+from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -9,6 +11,9 @@ from icalendar import Calendar
 
 PLANZ_PASSWORD = os.environ.get("PLANZ_PASSWORD", "planz")
 GOOGLE_CALENDAR_ICAL_URL = os.environ.get("GOOGLE_CALENDAR_ICAL_URL", "")
+PLANZ_TZ = ZoneInfo("Europe/Helsinki")
+CACHE_KEY = "planz_events"
+CACHE_TTL = 300  # 5 minutes
 
 
 def planz(request):
@@ -29,10 +34,15 @@ def planz_auth(request):
 def _render_calendar(request):
     events = _fetch_events()
     view = request.GET.get("view", "week")
-    return render(request, "tools/partials/calendar.html", {"events": events, "view": view})
+    now = datetime.now(PLANZ_TZ)
+    return render(request, "tools/partials/calendar.html", {"events": events, "view": view, "today": now.date()})
 
 
 def _fetch_events():
+    cached = cache.get(CACHE_KEY)
+    if cached is not None:
+        return cached
+
     if not GOOGLE_CALENDAR_ICAL_URL:
         return []
     try:
@@ -42,7 +52,7 @@ def _fetch_events():
         return []
 
     cal = Calendar.from_ical(resp.text)
-    now = datetime.now().astimezone()
+    now = datetime.now(PLANZ_TZ)
     cutoff = now + timedelta(days=90)
     events = []
 
@@ -55,9 +65,10 @@ def _fetch_events():
         dt = dtstart.dt
         if hasattr(dt, "hour"):
             if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=now.tzinfo)
+                dt = dt.replace(tzinfo=PLANZ_TZ)
+            dt = dt.astimezone(PLANZ_TZ)
         else:
-            dt = datetime.combine(dt, datetime.min.time()).replace(tzinfo=now.tzinfo)
+            dt = datetime.combine(dt, datetime.min.time()).replace(tzinfo=PLANZ_TZ)
 
         if dt < now - timedelta(days=7) or dt > cutoff:
             continue
@@ -67,9 +78,11 @@ def _fetch_events():
         if dtend:
             end = dtend.dt
             if not hasattr(end, "hour"):
-                end = datetime.combine(end, datetime.min.time()).replace(tzinfo=now.tzinfo)
-            elif end.tzinfo is None:
-                end = end.replace(tzinfo=now.tzinfo)
+                end = datetime.combine(end, datetime.min.time()).replace(tzinfo=PLANZ_TZ)
+            else:
+                if end.tzinfo is None:
+                    end = end.replace(tzinfo=PLANZ_TZ)
+                end = end.astimezone(PLANZ_TZ)
 
         events.append(
             {
@@ -83,4 +96,5 @@ def _fetch_events():
         )
 
     events.sort(key=lambda e: e["start"])
+    cache.set(CACHE_KEY, events, CACHE_TTL)
     return events
