@@ -15,7 +15,6 @@ dependencies = [
     "pytz>=2025.1",
     "wagtail>=6.4",
     "wagtail-markdown>=0.12",
-    "whitenoise>=6.5",
 ]
 
 [project.optional-dependencies]
