@@ -32,10 +32,56 @@ def planz_auth(request):
 
 
 def _render_calendar(request):
-    events = _fetch_events()
-    view = request.GET.get("view", "week")
+    all_events = _fetch_events()
     now = datetime.now(PLANZ_TZ)
-    return render(request, "tools/partials/calendar.html", {"events": events, "view": view, "today": now.date()})
+    today = now.date()
+
+    # View: 1, 3, or 7 days
+    try:
+        days = int(request.GET.get("days", "3"))
+    except ValueError:
+        days = 3
+    if days not in (1, 3, 7):
+        days = 3
+
+    # Start date from query param, default today
+    start_str = request.GET.get("start")
+    if start_str:
+        try:
+            from datetime import date as date_type
+
+            start_date = date_type.fromisoformat(start_str)
+        except ValueError:
+            start_date = today
+    else:
+        start_date = today
+
+    end_date = start_date + timedelta(days=days)
+
+    # Filter events to window
+    events = [e for e in all_events if start_date <= e["start"].date() < end_date]
+
+    # Nav dates (move by 1 day always)
+    prev_date = start_date - timedelta(days=1)
+    next_date = start_date + timedelta(days=1)
+
+    # Build passwd param to persist auth in links
+    passwd = request.GET.get("passwd") or request.POST.get("passwd", "")
+
+    return render(
+        request,
+        "tools/partials/calendar.html",
+        {
+            "events": events,
+            "today": today,
+            "days": days,
+            "start_date": start_date,
+            "end_date": end_date,
+            "prev_date": prev_date.isoformat(),
+            "next_date": next_date.isoformat(),
+            "passwd": passwd,
+        },
+    )
 
 
 def planz_ics(request):
