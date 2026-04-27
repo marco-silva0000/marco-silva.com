@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
-
-{% block title %}Marco Silva's(me) website!{% endblock %}
+{% load static %}
 
 {% block content %}
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="page-header">
-			  <h1>Welcome to the my website</h1>
-			</div>
-			<p>This is a place to showcase some of my hobbies, an excuse for me to learn things, link some stuff I work on.</p>
-		</div>
-	</div>
+<div style="text-align: center; margin-top: 3rem;">
+  <img src="{% static 'img/avatar.png' %}" alt="Marco Silva" width="140" height="140" style="border-radius: 50%;">
+  <h1 style="margin-top: 1rem; font-size: 1.5rem; font-weight: 600;">Marco Silva</h1>
+  <p style="color: #555; margin-top: 0.5rem;">I code, take pics and many other things</p>
+
+  <div style="margin-top: 1.5rem;">
+    <a href="{% url 'photologue:gallery-list' %}" style="margin: 0 0.75rem;">photos</a>
+    <a href="https://linkedin.com/in/marco-silva-665793140/" style="margin: 0 0.75rem;">linkedin</a>
+    <a href="https://github.com/marco-silva0000" style="margin: 0 0.75rem;">github</a>
+  </div>
+</div>
 {% endblock %}

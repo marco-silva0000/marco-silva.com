@@ -16,7 +16,7 @@ sitemaps = {
 
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="index_new.html"), name="homepage"),
+    path("", TemplateView.as_view(template_name="index.html"), name="homepage"),
     path("cv", TemplateView.as_view(template_name="cv.html"), name="cv"),
     path("blog/", TemplateView.as_view(template_name="wip.html"), name="blog"),
     path("admin/", admin.site.urls),
