@@ -34,6 +34,10 @@ spec:
           value: devpassword
         - name: SECRET_KEY
           value: dev-insecure-secret-key
+        - name: PLANZ_PASSWORD
+          value: planz
+        - name: GOOGLE_CALENDAR_ID
+          value: ""
         - name: ALLOWED_HOSTS
           value: "localhost,127.0.0.1"
         - name: DEBUG

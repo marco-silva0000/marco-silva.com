@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}planz{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">planz</h1>
+<p style="font-size: 0.85rem; color: #555; margin-bottom: 1.5rem;">enter password to view the calendar.</p>
+
+<form hx-post="{% url 'tools:planz-auth' %}" hx-target="#result" hx-swap="innerHTML">
+  {% csrf_token %}
+  <input type="password" name="passwd" placeholder="password" autofocus
+    style="padding: 0.4rem; font-size: 0.85rem; font-family: system-ui;">
+  <button type="submit" style="padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer;">go</button>
+</form>
+
+{% if error %}<p style="color: red; font-size: 0.85rem; margin-top: 0.5rem;">wrong password</p>{% endif %}
+
+<div id="result" style="margin-top: 1rem;"></div>
+
+<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+{% endblock %}
