@@ -37,7 +37,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
-      - run: sudo apt-get update && sudo apt-get install -y libpq-dev
+        with:
+          python-version: "3.13"
+      - run: sudo apt-get update && sudo apt-get install -y libpq-dev libjpeg-dev zlib1g-dev
       - run: uv sync --extra dev
       - run: uv run pytest
         env:
