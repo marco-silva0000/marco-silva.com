@@ -13,4 +13,16 @@
     <a href="https://github.com/marco-silva0000" style="margin: 0 0.75rem;">github</a>
   </div>
 </div>
+
+{% if latest_posts %}
+<div style="margin-top: 3rem;">
+  <h2 style="font-size: 1.1rem; margin-bottom: 1rem;">latest posts</h2>
+  {% for post in latest_posts %}
+  <div style="margin-bottom: 1rem;">
+    <a href="{{ post.url }}" style="font-size: 0.95rem; text-decoration: none; font-weight: 500;">{{ post.title }}</a>
+    <div style="font-size: 0.8rem; color: #888;">{{ post.first_published_at|date:"j M Y" }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
 {% endblock %}
