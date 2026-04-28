@@ -58,6 +58,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.13"
+          enable-cache: false
       - run: sudo apt-get update && sudo apt-get install -y libpq-dev libjpeg-dev zlib1g-dev
       - run: uv sync --extra dev
 
