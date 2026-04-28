@@ -2,7 +2,10 @@
 {% block title %}game rooms{% endblock %}
 {% block content %}
 <h1 style="font-size: 1.3rem; margin-bottom: 1rem;">game rooms</h1>
-<p style="margin-bottom: 1rem;"><a href="{% url 'gamerooms:room-create' %}" style="font-size: 0.85rem;">+ create room</a></p>
+<p style="margin-bottom: 1rem;">
+  <a href="{% url 'gamerooms:room-create' %}" style="font-size: 0.85rem;">+ create room</a>
+  · <a href="/games/pictionary/" style="font-size: 0.85rem;">pictionary word generator</a>
+</p>
 {% for room in rooms %}
 <div style="margin-bottom: 0.75rem; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
   <a href="{% url 'gamerooms:room-join' room.code %}" style="font-weight: 500; text-decoration: none;">{{ room.title }}</a>

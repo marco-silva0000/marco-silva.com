@@ -33,6 +33,25 @@ class TestRoomList:
         resp = client.get(reverse("gamerooms:room-list"))
         assert "create room" in resp.content.decode()
 
+    def test_shows_pictionary_link(self, client, db):
+        resp = client.get(reverse("gamerooms:room-list"))
+        assert "pictionary" in resp.content.decode()
+
+
+class TestPictionary:
+    def test_page_returns_200(self, client, db):
+        resp = client.get("/games/pictionary/")
+        assert resp.status_code == 200
+
+    def test_word_returns_200(self, client, db):
+        resp = client.get("/games/pictionary/word/?d=easy&cat=noun&mode=word")
+        assert resp.status_code == 200
+        assert len(resp.content.decode()) > 0
+
+    def test_sentence_mode(self, client, db):
+        resp = client.get("/games/pictionary/word/?mode=sentence")
+        assert resp.status_code == 200
+
 
 class TestRoomCreate:
     def test_get_returns_200(self, client, db):
