@@ -22,6 +22,17 @@
 #your-word { font-size: 1.1rem; font-weight: 600; color: #4a9eff; margin: 0.5rem 0; }
 #timer-bar { height: 4px; background: #4a9eff; transition: width 1s linear; margin-top: 0.5rem; }
 @media (max-width: 600px) { #game-area { grid-template-columns: 1fr; } .emoji-kb { grid-template-columns: repeat(8, 1fr); } }
+#overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 100; flex-direction: column; }
+#overlay.show { display: flex; }
+#overlay .countdown { font-size: 5rem; color: #fff; font-weight: 700; animation: pop 0.5s ease; }
+#overlay .round-result { background: #fff; border-radius: 8px; padding: 2rem; text-align: center; max-width: 400px; width: 90%; }
+#overlay .round-result h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+#overlay .final-scores { background: #fff; border-radius: 8px; padding: 2rem; text-align: center; max-width: 500px; width: 90%; }
+#overlay .final-scores h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+#overlay .final-scores table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+#overlay .final-scores td, #overlay .final-scores th { padding: 0.5rem; border-bottom: 1px solid #eee; text-align: left; }
+#overlay .final-scores tr:first-child td { font-weight: 600; color: #4a9eff; }
+@keyframes pop { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 1; } }
 {% endblock %}
 
 {% block content %}
@@ -86,6 +97,8 @@
   </div>
 </div>
 
+<div id="overlay"></div>
+
 <script>
 const CODE = "{{ room.code }}", NAME = "{{ player_name }}";
 const WS_URL = (location.protocol==='https:'?'wss://':'ws://') + location.host + '/ws/emojinary/' + CODE + '/';
@@ -105,19 +118,31 @@ function handle(d) {
     chat(d.msg,'system');
     if (d.players) { players(d.players); showCreatorUI(d.players); }
   } else if (d.type==='emoji_phase') {
-    hide('start-btn','settings-area','play-again-btn','guess-area','wait-msg');
-    const cp = d.current_player;
-    isMyTurn = cp===NAME;
-    $('status').textContent = `Round ${d.round}/${d.max_rounds} — ${cp}'s turn (${d.category})`;
-    $('word-hint').textContent = `${'_ '.repeat(d.word_length).trim()} (${d.word_length} chars)`;
-    $('emoji-display').textContent = '';
-    $('your-word').style.display = 'none';
-    $('partial-feedback').textContent = '';
-    $('emoji-field').value = '';
-    show(isMyTurn?'emoji-input-area':null); hide(isMyTurn?null:'emoji-input-area');
-    if (!isMyTurn) show('wait-msg');
-    if (d.players) players(d.players);
-    startTimer(d.emoji_timer);
+    const startPhase = () => {
+      hide('start-btn','settings-area','play-again-btn','guess-area','wait-msg');
+      const cp = d.current_player;
+      isMyTurn = cp===NAME;
+      $('status').textContent = `Round ${d.round}/${d.max_rounds} — ${cp}'s turn (${d.category})`;
+      $('word-hint').textContent = `${'_ '.repeat(d.word_length).trim()} (${d.word_length} chars)`;
+      $('emoji-display').textContent = '';
+      $('your-word').style.display = 'none';
+      $('partial-feedback').textContent = '';
+      $('emoji-field').value = '';
+      show(isMyTurn?'emoji-input-area':null); hide(isMyTurn?null:'emoji-input-area');
+      if (!isMyTurn) show('wait-msg');
+      if (d.players) players(d.players);
+      startTimer(d.emoji_timer);
+    };
+    // Show round result from previous round, then countdown on round 1
+    if (lastRoundResult) {
+      showRoundResult(lastRoundResult.emoji, lastRoundResult.word, lastRoundResult.guesser, 4000);
+      lastRoundResult = null;
+      setTimeout(startPhase, 4500);
+    } else if (d.round === 1) {
+      showCountdown(startPhase);
+    } else {
+      startPhase();
+    }
   } else if (d.type==='your_word') {
     $('your-word').style.display='block';
     $('your-word').textContent = `Your word: ${d.word}`;
@@ -133,6 +158,8 @@ function handle(d) {
   } else if (d.type==='correct') {
     chat(`✅ ${d.guesser} got it! "${d.word}" (+${d.points}pts)`,'correct');
     if (d.players) players(d.players);
+    lastRoundResult = {emoji: $('emoji-display').textContent, word: d.word, guesser: d.guesser};
+    beep(660, 0.2);
   } else if (d.type==='partial') {
     $('partial-feedback').textContent = `Close! Got: ${d.matches.join(', ')}`;
   } else if (d.type==='chat') {
@@ -143,8 +170,7 @@ function handle(d) {
     $('status').textContent = '🏆 Game Over!';
     $('timer-bar').style.display='none';
     if (d.players) players(d.players);
-    chat('🏆 Game over!','system');
-    show('play-again-btn');
+    showFinalScores(d.players, d.history);
   } else if (d.type==='show_start') {
     show('start-btn','settings-area');
   } else if (d.type==='state') {
@@ -203,6 +229,56 @@ function renderPage(i) {
   $('emoji-kb').innerHTML=parsed.map(e=>`<button onclick="addEmoji('${e}')">${e}</button>`).join('');
   $('emoji-pages').innerHTML=cats.map((c,j)=>`<a class="${j===i?'active':''}" onclick="renderPage(${j})">${c}</a>`).join(' ');
 }
+
+// Audio
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function beep(freq=440, dur=0.15) {
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.connect(g); g.connect(audioCtx.destination);
+  o.frequency.value=freq; o.type='sine';
+  g.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+dur);
+  o.start(); o.stop(audioCtx.currentTime+dur);
+}
+
+// Overlays
+function showCountdown(cb) {
+  const ov=$('overlay'); ov.className='show';
+  let n=3;
+  function tick() {
+    if(n>0) { ov.innerHTML=`<div class="countdown">${n}</div>`; beep(300+n*100); n--; setTimeout(tick,1000); }
+    else { ov.innerHTML=`<div class="countdown">GO!</div>`; beep(880,0.3); setTimeout(()=>{ ov.className=''; ov.innerHTML=''; cb(); },800); }
+  }
+  tick();
+}
+
+function showRoundResult(emoji, word, guesser, duration) {
+  const ov=$('overlay'); ov.className='show';
+  ov.innerHTML=`<div class="round-result">
+    <div style="font-size:2.5rem;margin-bottom:0.5rem;">${emoji||'🤷'}</div>
+    <h2>${word}</h2>
+    <p style="color:#888;font-size:0.85rem;">${guesser?'guessed by '+guesser:'skipped'}</p>
+  </div>`;
+  beep(guesser?660:220, 0.3);
+  setTimeout(()=>{ ov.className=''; ov.innerHTML=''; }, duration||4000);
+}
+
+function showFinalScores(playersList, history) {
+  const ov=$('overlay'); ov.className='show';
+  const sorted=[...playersList].sort((a,b)=>b.score-a.score);
+  const medal=['🥇','🥈','🥉'];
+  const rows=sorted.map((p,i)=>`<tr><td>${medal[i]||''} ${p.name}</td><td>${p.score}pts</td></tr>`).join('');
+  const histRows=(history||[]).map(h=>`<tr><td>${h.emoji||''}</td><td>${h.word}</td><td>${h.guesser||'skipped'}</td></tr>`).join('');
+  ov.innerHTML=`<div class="final-scores">
+    <h2>🏆 Final Scores</h2>
+    <table><tbody>${rows}</tbody></table>
+    ${history&&history.length?`<h3 style="font-size:0.9rem;margin-top:1rem;">Round History</h3><table><tbody>${histRows}</tbody></table>`:''}
+    <button onclick="playAgain();$('overlay').className=''" style="margin-top:1rem;padding:0.5rem 1.5rem;cursor:pointer;font-size:1rem;">play again</button>
+  </div>`;
+  beep(523,0.2); setTimeout(()=>beep(659,0.2),200); setTimeout(()=>beep(784,0.4),400);
+}
+
+let lastRoundResult = null;
 
 connect(); renderPage(0);
 </script>
