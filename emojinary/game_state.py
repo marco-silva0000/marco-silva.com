@@ -47,6 +47,7 @@ def get_game(code):
             "difficulty": 0,  # 0=all, 1=easy, 2=medium, 3=hard
         },
         "phase": "lobby",  # lobby, emoji, guess, gameover
+        "mode": "round_robin",  # round_robin, best_guess
         "turn_start_time": None,
     }
 

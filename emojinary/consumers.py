@@ -3,13 +3,14 @@
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from .game_state import get_game, player_list, save_game
+from .modes.best_guess import BestGuessMixin
 from .modes.round_robin import RoundRobinMixin
 
 
-class EmojinaryConsumer(RoundRobinMixin, AsyncJsonWebsocketConsumer):
+class EmojinaryConsumer(RoundRobinMixin, BestGuessMixin, AsyncJsonWebsocketConsumer):
     """
     Game consumer that delegates to mode-specific mixins.
-    Currently only round_robin. Future: best_guess, telephone.
+    Modes: round_robin (default), best_guess, telephone (future).
     """
 
     async def connect(self):
@@ -47,7 +48,11 @@ class EmojinaryConsumer(RoundRobinMixin, AsyncJsonWebsocketConsumer):
             await self._handle_play_again(state)
         else:
             # Delegate to mode-specific handler
-            await self.handle_game_action(action, state, content)
+            mode = state.get("mode", "round_robin")
+            if mode == "best_guess":
+                await self.handle_best_guess_action(action, state, content)
+            else:
+                await self.handle_game_action(action, state, content)
 
     async def _handle_join(self, state, content):
         from .game_state import current_player_channel
@@ -100,6 +105,8 @@ class EmojinaryConsumer(RoundRobinMixin, AsyncJsonWebsocketConsumer):
                     pass
         if "chat_mode" in content and content["chat_mode"] in ("public", "private"):
             s["chat_mode"] = content["chat_mode"]
+        if "mode" in content and content["mode"] in ("round_robin", "best_guess"):
+            state["mode"] = content["mode"]
         state["settings"] = s
         save_game(self.code, state)
         await self._group_send("game.message", msg="settings updated", players=player_list(state))

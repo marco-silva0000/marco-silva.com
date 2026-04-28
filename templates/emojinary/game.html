@@ -76,6 +76,7 @@
     <div id="settings-area" style="display:none; margin-top: 1rem; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem;">
       <strong>settings</strong>
       <div style="margin-top: 0.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+        <label>mode: <select id="set-mode" onchange="updateSettings()"><option value="round_robin">round robin</option><option value="best_guess">best guess</option></select></label>
         <label>rounds: <input type="number" id="set-rounds" value="10" min="1" max="50" style="width: 50px;" onchange="updateSettings()"></label>
         <label>emoji time: <input type="number" id="set-emoji-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
         <label>guess time: <input type="number" id="set-guess-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
@@ -145,7 +146,7 @@ function handle(d) {
     }
   } else if (d.type==='your_word') {
     $('your-word').style.display='block';
-    $('your-word').textContent = `Your word: ${d.word}`;
+    $('your-word').innerHTML = `Your word: <strong>${d.word}</strong> <button onclick="rerollWord()" style="font-size:0.8rem;cursor:pointer;margin-left:0.5rem;">🎲 reroll</button> <button onclick="sendPrompt()" style="font-size:0.8rem;cursor:pointer;margin-left:0.3rem;">✅ send</button>`;
   } else if (d.type==='emoji_preview') {
     $('emoji-display').textContent = d.emoji;
   } else if (d.type==='guess_phase') {
@@ -181,6 +182,7 @@ function handle(d) {
     if (d.history) d.history.forEach(h => chat(`${h.emoji} → ${h.word} ${h.guesser?'('+h.guesser+')':'(skipped)'}`, 'system'));
     if (d.current_word) { $('your-word').style.display='block'; $('your-word').textContent=`Your word: ${d.current_word}`; show('emoji-input-area'); isMyTurn=true; }
   } else if (d.type==='error') { chat(d.msg,'system'); }
+  else if (d.type.startsWith('bg_')) { handleBestGuess(d); }
 }
 
 function $(id) { return document.getElementById(id); }
@@ -194,7 +196,7 @@ function startGame() { ws.send(JSON.stringify({action:'start'})); }
 function skipWord() { ws.send(JSON.stringify({action:'skip'})); }
 function playAgain() { ws.send(JSON.stringify({action:'play_again'})); hide('play-again-btn'); }
 function revealEmoji() { ws.send(JSON.stringify({action:'reveal'})); }
-function updateSettings() { ws.send(JSON.stringify({action:'settings',max_rounds:$('set-rounds').value,emoji_timer:$('set-emoji-timer').value,guess_timer:$('set-guess-timer').value,chat_mode:$('set-chat').value,difficulty:$('set-difficulty').value})); }
+function updateSettings() { ws.send(JSON.stringify({action:'settings',mode:$('set-mode').value,max_rounds:$('set-rounds').value,emoji_timer:$('set-emoji-timer').value,guess_timer:$('set-guess-timer').value,chat_mode:$('set-chat').value,difficulty:$('set-difficulty').value})); }
 function sendChat(e) { e.preventDefault(); const f=$('chat-field'); if(f.value.trim()) { ws.send(JSON.stringify({action:'chat',msg:f.value})); f.value=''; } }
 function sendEmoji() { ws.send(JSON.stringify({action:'emoji',emoji:$('emoji-field').value})); }
 function clearEmoji() { $('emoji-field').value=''; }
@@ -277,6 +279,55 @@ function showFinalScores(playersList, history) {
   </div>`;
   beep(523,0.2); setTimeout(()=>beep(659,0.2),200); setTimeout(()=>beep(784,0.4),400);
 }
+
+// Best Guess handlers
+function handleBestGuess(d) {
+  if (d.type==='bg_picking') {
+    hide('start-btn','settings-area','play-again-btn','guess-area','wait-msg','emoji-input-area');
+    isMyTurn = d.current_player===NAME;
+    $('status').textContent = `Round ${d.round}/${d.max_rounds} — ${d.current_player} is picking a word`;
+    if (!isMyTurn) { show('wait-msg'); $('wait-msg').textContent='⏳ waiting for prompt...'; }
+    if (d.players) players(d.players);
+  } else if (d.type==='bg_submit_phase') {
+    hide('wait-msg');
+    isMyTurn = d.current_player===NAME;
+    $('status').textContent = `Round ${d.round}/${d.max_rounds} — Describe: "${d.prompt}" with emojis!`;
+    $('emoji-display').textContent = '';
+    if (!isMyTurn) {
+      show('emoji-input-area');
+      $('emoji-field').value = '';
+      // Replace reveal button with submit
+      const revBtn = document.querySelector("button[onclick*='revealEmoji']");
+      if (revBtn) { revBtn.textContent='submit'; revBtn.setAttribute('onclick','submitBGEmoji()'); }
+    }
+    startTimer(d.emoji_timer);
+  } else if (d.type==='bg_judging') {
+    hide('emoji-input-area');
+    clearInterval(timerInterval);
+    $('status').textContent = `Judging: "${d.prompt}"`;
+    const cp = isMyTurn;
+    let html = '<div style="margin-top:1rem;">';
+    d.submissions.forEach(s => {
+      html += `<div style="margin:0.5rem 0;padding:0.5rem;border:1px solid #ddd;border-radius:4px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:1.5rem;">${s.emoji}</span>
+        <span style="font-size:0.85rem;color:#888;">${s.name}</span>
+        ${cp?`<button onclick="pickBest('${s.channel}')" style="padding:0.3rem 0.7rem;cursor:pointer;font-size:0.8rem;">pick</button>`:''}
+      </div>`;
+    });
+    html += '</div>';
+    $('emoji-display').innerHTML = html;
+  } else if (d.type==='bg_winner') {
+    $('status').textContent = `🏆 ${d.winner} wins this round!`;
+    $('emoji-display').innerHTML = `<div style="text-align:center;margin:1rem 0;"><span style="font-size:2rem;">${d.emoji}</span><br><span style="font-size:0.85rem;color:#888;">"${d.prompt}" by ${d.winner}</span></div>`;
+    if (d.players) players(d.players);
+    beep(660,0.3);
+  }
+}
+
+function submitBGEmoji() { ws.send(JSON.stringify({action:'submit_emoji',emoji:$('emoji-field').value})); hide('emoji-input-area'); chat('submitted!','system'); }
+function pickBest(ch) { ws.send(JSON.stringify({action:'pick_best',winner:ch})); }
+function rerollWord() { ws.send(JSON.stringify({action:'reroll'})); }
+function sendPrompt() { const w=$('your-word').textContent.replace('Your word: ',''); ws.send(JSON.stringify({action:'send_prompt',prompt:w})); }
 
 let lastRoundResult = null;
 
