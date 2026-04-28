@@ -1,5 +1,6 @@
 import random
 
+from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from .models import EmojinaryWord
@@ -33,17 +34,15 @@ class GameState:
             for ch, info in self.players.items()
         ]
 
-    def next_round(self):
+    def next_round(self, words=None):
         self.current_turn += 1
         self.round_num += 1
         self.emoji_clue = ""
         self.guessed = set()
-        # Pick a random word
-        words = list(EmojinaryWord.objects.values_list("text", "category"))
         if words:
             self.current_word, self.current_category = random.choice(words)
         else:
-            self.current_word, self.current_category = "test word", "thing"
+            self.current_word, self.current_category = "mystery", "thing"
 
     def check_guess(self, guess):
         """Check guess against current word. Returns (correct, partial_matches)."""
@@ -92,19 +91,25 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
 
         if action == "join":
             self.player_name = content.get("name", "anon")
-            # Prevent duplicate joins on reconnect
+            # Allow reconnect with same name (same player refreshed)
+            existing_channel = None
+            for ch, info in game.players.items():
+                if info["name"] == self.player_name and ch != self.channel_name:
+                    existing_channel = ch
+                    break
+            if existing_channel:
+                # Replace old connection
+                game.players[self.channel_name] = game.players.pop(existing_channel)
+                idx = game.turn_order.index(existing_channel) if existing_channel in game.turn_order else -1
+                if idx >= 0:
+                    game.turn_order[idx] = self.channel_name
+                await self.send_json({"type": "state", "players": game.player_list(), "started": game.started})
+                return
             if self.channel_name in game.players:
                 await self.send_json({"type": "state", "players": game.player_list(), "started": game.started})
                 return
-            # Check if name is already taken by another connection
-            taken_names = {info["name"] for info in game.players.values()}
-            if self.player_name in taken_names:
-                await self.send_json({"type": "error", "msg": f"name '{self.player_name}' is already taken"})
-                await self.close()
-                return
             game.players[self.channel_name] = {"name": self.player_name, "score": 0}
             game.turn_order.append(self.channel_name)
-            # Track creator (first player)
             if not game.creator:
                 game.creator = self.player_name
             await self.channel_layer.group_send(
@@ -120,8 +125,8 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                 )
 
         elif action == "start":
-            if self.player_name != game.creator:
-                await self.send_json({"type": "error", "msg": "only the room creator can start the game"})
+            if game.started:
+                await self.send_json({"type": "error", "msg": "game already started"})
                 return
             if len(game.players) < 2:
                 await self.channel_layer.group_send(
@@ -130,7 +135,8 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                 )
                 return
             game.started = True
-            game.next_round()
+            words = await self._get_words()
+            game.next_round(words)
             await self.channel_layer.group_send(
                 self.group_name,
                 {
@@ -175,7 +181,8 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                 )
                 # Auto next round if all guessed
                 if len(game.guessed) >= len(game.players) - 1:
-                    game.next_round()
+                    words = await self._get_words()
+                    game.next_round(words)
                     await self.channel_layer.group_send(
                         self.group_name,
                         {
@@ -207,7 +214,8 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
             await self.channel_layer.group_send(
                 self.group_name, {"type": "game.message", "msg": f"Skipped! The word was: {game.current_word}"}
             )
-            game.next_round()
+            words = await self._get_words()
+            game.next_round(words)
             await self.channel_layer.group_send(
                 self.group_name,
                 {
@@ -258,3 +266,7 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
 
     async def game_state(self, event):
         await self.send_json({"type": "state", "players": event["players"], "started": event["started"]})
+
+    @database_sync_to_async
+    def _get_words(self):
+        return list(EmojinaryWord.objects.values_list("text", "category"))

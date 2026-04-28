@@ -114,3 +114,45 @@ def test_game_page_has_emoji_keyboard(page: Page):
     # Emoji keyboard should exist (hidden until game starts, but in DOM)
     expect(page.locator("#emoji-kb")).to_be_attached()
     expect(page.locator("#emoji-pages")).to_be_attached()
+
+
+def test_multiplayer_start_game(page: Page, browser: "Browser"):
+    """Test that two players can join and start a game."""
+    # Player 1 creates room
+    page.goto(f"{BASE}/games/create/")
+    page.fill("input[name='title']", "Multi Test")
+    label_text = page.locator("label", has_text="+").text_content()
+    nums = re.findall(r"\d+", label_text)
+    page.fill("input[name='captcha_answer']", str(int(nums[0]) + int(nums[1])))
+    page.click("button[type='submit']")
+    page.wait_for_url(re.compile(r"/games/\w+/"))
+
+    # Get room URL
+    room_url = page.url
+
+    # Player 1 joins
+    page.fill("input[name='name']", "Player1")
+    page.click("button[type='submit']")
+    page.wait_for_url(re.compile(r"/games/emojinary/"))
+    page.wait_for_timeout(1000)
+
+    # Player 2 joins in new context
+    ctx2 = browser.new_context()
+    p2 = ctx2.new_page()
+    p2.goto(room_url)
+    p2.fill("input[name='name']", "Player2")
+    p2.click("button[type='submit']")
+    p2.wait_for_url(re.compile(r"/games/emojinary/"))
+    p2.wait_for_timeout(1000)
+
+    # Player 1 should see Player2 in the players list
+    expect(page.locator("#players").first).to_contain_text("Player2")
+
+    # Player 1 starts the game
+    page.click("#start-btn")
+    page.wait_for_timeout(1000)
+
+    # Game should have started — status should show round info
+    expect(page.locator("#status").first).to_contain_text("Round")
+
+    ctx2.close()
