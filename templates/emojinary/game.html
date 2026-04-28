@@ -7,8 +7,7 @@
 #chat .msg { margin-bottom: 0.3rem; }
 #chat .system { color: #888; font-style: italic; }
 #chat .correct { color: green; font-weight: 600; }
-#players { font-size: 0.8rem; }
-#players .player { padding: 0.2rem 0; border-bottom: 1px solid #eee; }
+#players .player { padding: 0.2rem 0; border-bottom: 1px solid #eee; font-size: 0.8rem; }
 #players .active { font-weight: 600; color: #4a9eff; }
 .emoji-kb { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; margin-top: 0.5rem; max-height: 200px; overflow-y: auto; }
 .emoji-kb button { font-size: 1.3rem; padding: 0.2rem; border: 1px solid #eee; background: #fafafa; cursor: pointer; border-radius: 3px; }
@@ -16,15 +15,13 @@
 .emoji-pages { font-size: 0.8rem; margin-top: 0.3rem; }
 .emoji-pages a { margin-right: 0.5rem; cursor: pointer; }
 .emoji-pages a.active { font-weight: 600; }
-#word-hint { font-size: 0.85rem; color: #888; margin: 0.5rem 0; }
-#your-word { font-size: 1.1rem; font-weight: 600; color: #4a9eff; margin: 0.5rem 0; }
 #emoji-search-results { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; margin-top: 0.3rem; }
 #emoji-search-results button { font-size: 1.3rem; padding: 0.2rem; border: 1px solid #eee; background: #fafafa; cursor: pointer; border-radius: 3px; }
 #emoji-search-results button:hover { background: #eee; }
-@media (max-width: 600px) {
-  #game-area { grid-template-columns: 1fr; }
-  .emoji-kb { grid-template-columns: repeat(8, 1fr); }
-}
+#word-hint { font-size: 0.85rem; color: #888; margin: 0.5rem 0; }
+#your-word { font-size: 1.1rem; font-weight: 600; color: #4a9eff; margin: 0.5rem 0; }
+#timer-bar { height: 4px; background: #4a9eff; transition: width 1s linear; margin-top: 0.5rem; }
+@media (max-width: 600px) { #game-area { grid-template-columns: 1fr; } .emoji-kb { grid-template-columns: repeat(8, 1fr); } }
 {% endblock %}
 
 {% block content %}
@@ -33,15 +30,16 @@
 <div id="game-area">
   <div>
     <div id="status" style="font-size: 0.85rem; margin-bottom: 0.5rem;">waiting for players...</div>
+    <div id="timer-bar" style="width: 100%; display: none;"></div>
     <div id="your-word" style="display:none;"></div>
     <div id="word-hint"></div>
     <div id="emoji-display"></div>
+    <div id="wait-msg" style="display:none; font-size: 0.9rem; color: #888; margin-top: 0.5rem;">⏳ waiting for clue...</div>
 
-    <!-- Emoji input area (for active player) -->
     <div id="emoji-input-area" style="display:none;">
       <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
         <input type="text" id="emoji-field" readonly style="flex: 1; font-size: 1.5rem; padding: 0.3rem;">
-        <button onclick="sendEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer;">send</button>
+        <button onclick="revealEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer; background: #4a9eff; color: #fff; border: none; border-radius: 4px;">reveal</button>
         <button onclick="clearEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer;">clear</button>
         <button onclick="skipWord()" style="padding: 0.3rem 0.7rem; cursor: pointer; color: #888;">skip</button>
       </div>
@@ -53,7 +51,6 @@
       <div class="emoji-kb" id="emoji-kb"></div>
     </div>
 
-    <!-- Guess input (for guessers) -->
     <div id="guess-area" style="display:none; margin-top: 0.5rem;">
       <form onsubmit="sendGuess(event)">
         <input type="text" id="guess-field" placeholder="type your guess..." style="width: 70%; padding: 0.35rem; font-size: 0.85rem;">
@@ -63,13 +60,14 @@
     </div>
 
     <button id="start-btn" onclick="startGame()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">start game</button>
+    <button id="play-again-btn" onclick="playAgain()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">play again</button>
 
-    <!-- Settings (creator only, before game starts) -->
     <div id="settings-area" style="display:none; margin-top: 1rem; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem;">
       <strong>settings</strong>
       <div style="margin-top: 0.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
         <label>rounds: <input type="number" id="set-rounds" value="10" min="1" max="50" style="width: 50px;" onchange="updateSettings()"></label>
-        <label>timer (s): <input type="number" id="set-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()"> <span style="color:#888;">0=off</span></label>
+        <label>emoji time: <input type="number" id="set-emoji-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
+        <label>guess time: <input type="number" id="set-guess-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
         <label>chat: <select id="set-chat" onchange="updateSettings()"><option value="public">public</option><option value="private">private</option></select></label>
         <label>difficulty: <select id="set-difficulty" onchange="updateSettings()"><option value="0">all</option><option value="1">easy</option><option value="2">medium</option><option value="3">hard</option></select></label>
       </div>
@@ -89,214 +87,123 @@
 </div>
 
 <script>
-const ROOM_CODE = "{{ room.code }}";
-const PLAYER_NAME = "{{ player_name }}";
-const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/emojinary/' + ROOM_CODE + '/';
-
-const EMOJI_CATEGORIES = {
-  "😀": "😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😚😙🥲😋😛😜🤪😝🤑🤗🤭🤫🤔🤐😐😑😶😏😒🙄😬🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕😟🙁😮😯😲😳🥺🥹😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖",
-  "👋": "👋🤚🖐️✋🖖👌🤌🤏✌️🤞🤟🤘🤙👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🙌👐🤲🤝🙏✍️💅🤳💪🦾🦿🦵🦶👂🦻👃🧠🫀🫁🦷🦴👀👁️👅👄",
-  "❤️": "❤️🧡💛💚💙💜🖤🤍🤎💔❤️‍🔥❤️‍🩹❣️💕💞💓💗💖💘💝💟☮️✝️☪️🕉️☸️✡️🔯🕎☯️☦️🛐⛎♈♉♊♋♌♍♎♏♐♑♒♓🆔⚛️",
-  "🐱": "🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🐛🦋🐌🐞🐜🪰🪲🦟🦗🕷️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🐡🐠🐟🐬🐳🐋🦈🐊🐅🐆🦓🦍🦧🐘🦛🦏🐪🐫🦒🦘🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🐈🐓🦃🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🦔🐾🐉🐲",
-  "🍎": "🍏🍎🍐🍊🍋🍌🍉🍇🍓🫐🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶️🌽🥕🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🥚🍳🧈🥞🧇🥓🥩🍗🍖🌭🍔🍟🍕🥪🥙🧆🌮🌯🥗🥘🥫🍝🍜🍲🍛🍣🍱🥟🦪🍤🍙🍚🍘🍥🥠🥮🍢🍡🍧🍨🍦🥧🧁🍰🎂🍮🍭🍬🍫🍿🍩🍪🌰🥜🍯🥛🍼☕🍵🧃🥤🧋🍶🍺🍻🥂🍷🥃🍸🍹🧉🍾",
-  "🏠": "🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽⛪🕌🛕🕍⛩️🕋⛲⛺🌁🌃🏙️🌄🌅🌆🌇🌉🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🛻🚚🚛🚜🏎️🏍️🛵🦽🦼🛺🚲🛴🛹🛼🚏⛽🚨🚥🚦🛑🚧⚓⛵🛶🚤🛳️⛴️🛥️🚢✈️🛩️🛫🛬💺🚁🚟🚠🚡🛰️🚀🛸",
-  "⚽": "⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🏓🏸🏒🏑🥍🏏🥅⛳🏹🎣🤿🥊🥋🎽🛹🛼🛷⛸️🥌🎿⛷️🏂🏋️🤼🤸⛹️🤺🤾🏌️🏇🧘🏄🏊🤽🚣🧗🚵🚴🏆🥇🥈🥉🏅🎖️🏵️🎗️🎫🎟️🎪🤹🎭🩰🎨🎬🎤🎧🎼🎹🥁🎷🎺🎸🪕🎻🎲♟️🎯🎳🎮🎰🧩",
-  "💡": "💡🔦🕯️💰💵💴💶💷💸💳🧾💎⚖️🧰🔧🔩⚙️🧲🔫💣🔪🗡️⚔️🛡️🚬⚰️⚱️🏺🔮📿🧿💈⚗️🔭🔬🕳️🩹🩺💊💉🩸🧬🦠🧫🧪🌡️🧹🧺🧻🚰🚿🛁🧼🪥🪒🧽🧴🔑🗝️🚪🪑🛋️🛏️🧸🖼️🛍️🛒🎁🎈🎏🎀🎊🎉🎎🏮🎐✉️📩📨📧💌📥📤📦🏷️📪📫📬📭📮📯📜📃📄📑📊📈📉📆📅🗑️📋📁📂🗞️📰📓📔📒📕📗📘📙📚📖🔖📎📐📏🧮📌📍✂️🖊️🖋️✒️🖌️🖍️📝✏️🔍🔎🔏🔐🔒🔓",
-  "🌍": "🌍🌎🌏🌐🗺️🧭🏔️⛰️🌋🗻🏕️🏖️🏜️🏝️🏞️🌅🌄🌠🎇🎆🌇🌆🌃🌌🌉🌁🌀🌈🌂☂️☔⛱️⚡❄️☃️⛄☄️🔥💧🌊💨🌪️🌫️🌬️🌤️⛅🌥️🌦️🌧️⛈️🌩️🌨️☀️🌝🌛🌜🌚🌕🌖🌗🌘🌑🌒🌓🌔🌙⭐🌟💫✨🪐",
-};
-
-let ws;
-let isMyTurn = false;
-let currentPage = 0;
-let searchTimeout = null;
-const categoryNames = Object.keys(EMOJI_CATEGORIES);
+const CODE = "{{ room.code }}", NAME = "{{ player_name }}";
+const WS_URL = (location.protocol==='https:'?'wss://':'ws://') + location.host + '/ws/emojinary/' + CODE + '/';
+const EMOJIS = {"😀":"😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😚😙😋😛😜🤪😝🤑🤗🤭🤫🤔🤐😐😑😶😏😒🙄😬🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕😟🙁😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖","👋":"👋🤚🖐️✋🖖👌🤌🤏✌️🤞🤟🤘🤙👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🙌👐🤲🤝🙏✍️💅🤳💪🦾🦿🦵🦶👂🦻👃🧠🦷🦴👀👁️👅👄","❤️":"❤️🧡💛💚💙💜🖤🤍🤎💔❤️‍🔥❤️‍🩹❣️💕💞💓💗💖💘💝💟","🐱":"🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🐛🦋🐌🐞🐜🕷️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🐡🐠🐟🐬🐳🐋🦈🐊🐅🐆🦓🦍🦧🐘🦛🦏🐪🐫🦒🦘🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🐈🐓🦃🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🦔🐾🐉🐲","🍎":"🍏🍎🍐🍊🍋🍌🍉🍇🍓🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶️🌽🥕🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🥚🍳🧈🥞🧇🥓🥩🍗🍖🌭🍔🍟🍕🥪🥙🧆🌮🌯🥗🥘🥫🍝🍜🍲🍛🍣🍱🥟🦪🍤🍙🍚🍘🍥🥠🥮🍢🍡🍧🍨🍦🥧🧁🍰🎂🍮🍭🍬🍫🍿🍩🍪🌰🥜🍯🥛🍼☕🍵🧃🥤🧋🍶🍺🍻🥂🍷🥃🍸🍹🧉🍾","🏠":"🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽⛪🕌🛕🕍⛩️🕋⛲⛺🌁🌃🏙️🌄🌅🌆🌇🌉🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🛻🚚🚛🚜🏎️🏍️🛵🦽🦼🛺🚲🛴🛹🛼🚏⛽🚨🚥🚦🛑🚧⚓⛵🛶🚤🛳️⛴️🛥️🚢✈️🛩️🛫🛬💺🚁🚟🚠🚡🛰️🚀🛸","⚽":"⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🏓🏸🏒🏑🥍🏏🥅⛳🏹🎣🤿🥊🥋🎽🛹🛼🛷⛸️🥌🎿⛷️🏂🏋️🤼🤸⛹️🤺🤾🏌️🏇🧘🏄🏊🤽🚣🧗🚵🚴🏆🥇🥈🥉🏅🎖️🏵️🎗️🎫🎟️🎪🤹🎭🩰🎨🎬🎤🎧🎼🎹🥁🎷🎺🎸🪕🎻🎲♟️🎯🎳🎮🎰🧩","💡":"💡🔦🕯️💰💵💴💶💷💸💳🧾💎⚖️🧰🔧🔩⚙️🧲🔫💣🔪🗡️⚔️🛡️🚬⚰️⚱️🏺🔮📿🧿💈⚗️🔭🔬🕳️🩹🩺💊💉🩸🧬🦠🧫🧪🌡️🧹🧺🧻🚰🚿🛁🧼🪥🪒🧽🧴🔑🗝️🚪🪑🛋️🛏️🧸🖼️🛍️🛒🎁🎈🎏🎀🎊🎉🎎🏮🎐✉️📩📨📧💌📥📤📦🏷️📪📫📬📭📮📯📜📃📄📑📊📈📉📆📅🗑️📋📁📂🗞️📰📓📔📒📕📗📘📙📚📖🔖📎📐📏🧮📌📍✂️🖊️🖋️✒️🖌️🖍️📝✏️🔍🔎🔏🔐🔒🔓","🌍":"🌍🌎🌏🌐🗺️🧭🏔️⛰️🌋🗻🏕️🏖️🏜️🏝️🏞️🌅🌄🌠🎇🎆🌇🌆🌃🌌🌉🌁🌀🌈🌂☂️☔⛱️⚡❄️☃️⛄☄️🔥💧🌊💨🌪️🌫️🌬️🌤️⛅🌥️🌦️🌧️⛈️🌩️🌨️☀️🌝🌛🌜🌚🌕🌖🌗🌘🌑🌒🌓🌔🌙⭐🌟💫✨🪐"};
+let ws, isMyTurn=false, currentPage=0, searchTimeout=null, timerInterval=null;
+const cats = Object.keys(EMOJIS);
 
 function connect() {
   ws = new WebSocket(WS_URL);
-  ws.onopen = () => { ws.send(JSON.stringify({action: 'join', name: PLAYER_NAME})); };
-  ws.onmessage = (e) => handleMessage(JSON.parse(e.data));
-  ws.onclose = () => { setTimeout(connect, 2000); };
+  ws.onopen = () => ws.send(JSON.stringify({action:'join',name:NAME}));
+  ws.onmessage = e => handle(JSON.parse(e.data));
+  ws.onclose = () => setTimeout(connect, 2000);
 }
 
-function handleMessage(data) {
-  if (data.type === 'message') {
-    addChat(data.msg, 'system');
-    if (data.players) {
-      updatePlayers(data.players);
-      // Show start button for creator if game not started
-      const me = data.players.find(p => p.name === PLAYER_NAME);
-      if (me && me.is_creator) {
-        document.getElementById('start-btn').style.display = '';
-        document.getElementById('settings-area').style.display = '';
-      }
-    }
-  } else if (data.type === 'new_round') {
-    document.getElementById('start-btn').style.display = 'none';
-    document.getElementById('settings-area').style.display = 'none';
-    const timerText = data.turn_timer ? ` (${data.turn_timer}s)` : '';
-    document.getElementById('status').textContent = `Round ${data.round}/${data.max_rounds} — ${data.current_player}'s turn (${data.category})${timerText}`;
-    document.getElementById('word-hint').textContent = `${'_ '.repeat(data.word_length).trim()} (${data.word_length} chars)`;
-    document.getElementById('emoji-display').textContent = '';
-    document.getElementById('your-word').style.display = 'none';
-    document.getElementById('your-word').textContent = '';
-    document.getElementById('partial-feedback').textContent = '';
-    isMyTurn = (data.current_player === PLAYER_NAME);
-    document.getElementById('emoji-input-area').style.display = isMyTurn ? 'block' : 'none';
-    document.getElementById('guess-area').style.display = isMyTurn ? 'none' : 'block';
-    document.getElementById('emoji-field').value = '';
-    if (data.players) updatePlayers(data.players);
-    if (data.turn_timer) startTimer(data.turn_timer);
-  } else if (data.type === 'game_over') {
+function handle(d) {
+  if (d.type==='message') {
+    chat(d.msg,'system');
+    if (d.players) { players(d.players); showCreatorUI(d.players); }
+  } else if (d.type==='emoji_phase') {
+    hide('start-btn','settings-area','play-again-btn','guess-area','wait-msg');
+    const cp = d.current_player;
+    isMyTurn = cp===NAME;
+    $('status').textContent = `Round ${d.round}/${d.max_rounds} — ${cp}'s turn (${d.category})`;
+    $('word-hint').textContent = `${'_ '.repeat(d.word_length).trim()} (${d.word_length} chars)`;
+    $('emoji-display').textContent = '';
+    $('your-word').style.display = 'none';
+    $('partial-feedback').textContent = '';
+    $('emoji-field').value = '';
+    show(isMyTurn?'emoji-input-area':null); hide(isMyTurn?null:'emoji-input-area');
+    if (!isMyTurn) show('wait-msg');
+    if (d.players) players(d.players);
+    startTimer(d.emoji_timer);
+  } else if (d.type==='your_word') {
+    $('your-word').style.display='block';
+    $('your-word').textContent = `Your word: ${d.word}`;
+  } else if (d.type==='emoji_preview') {
+    $('emoji-display').textContent = d.emoji;
+  } else if (d.type==='guess_phase') {
+    hide('emoji-input-area','wait-msg','your-word');
+    $('your-word').style.display='none';
+    $('emoji-display').textContent = d.emoji;
+    if (!isMyTurn) show('guess-area');
+    $('status').textContent = `Round ${d.round}/${d.max_rounds} — Guess now!`;
+    startTimer(d.guess_timer);
+  } else if (d.type==='correct') {
+    chat(`✅ ${d.guesser} got it! "${d.word}" (+${d.points}pts)`,'correct');
+    if (d.players) players(d.players);
+  } else if (d.type==='partial') {
+    $('partial-feedback').textContent = `Close! Got: ${d.matches.join(', ')}`;
+  } else if (d.type==='chat') {
+    chat(`${d.name}: ${d.msg}`);
+  } else if (d.type==='game_over') {
     clearInterval(timerInterval);
-    document.getElementById('status').textContent = '🏆 Game Over!';
-    document.getElementById('emoji-input-area').style.display = 'none';
-    document.getElementById('guess-area').style.display = 'none';
-    if (data.players) updatePlayers(data.players);
-    addChat('🏆 Game over! Final scores above.', 'system');
-  } else if (data.type === 'your_word') {
-    document.getElementById('your-word').style.display = 'block';
-    document.getElementById('your-word').textContent = `Your word: ${data.word}`;
-  } else if (data.type === 'emoji_update') {
-    document.getElementById('emoji-display').textContent = data.emoji;
-  } else if (data.type === 'correct') {
-    addChat(`✅ ${data.guesser} guessed it! "${data.word}"`, 'correct');
-    if (data.players) updatePlayers(data.players);
-  } else if (data.type === 'partial') {
-    document.getElementById('partial-feedback').textContent = `Close! You got: ${data.matches.join(', ')}`;
-  } else if (data.type === 'chat') {
-    addChat(`${data.name}: ${data.msg}`);
-  } else if (data.type === 'error') {
-    addChat(data.msg, 'system');
-  } else if (data.type === 'state') {
-    if (data.players) updatePlayers(data.players);
-    if (data.started) {
-      document.getElementById('start-btn').style.display = 'none';
-    } else {
-      // Only show start button to creator
-      document.getElementById('start-btn').style.display = (data.creator === PLAYER_NAME) ? '' : 'none';
-    }
-    if (data.emoji_clue) document.getElementById('emoji-display').textContent = data.emoji_clue;
-    if (data.current_word) {
-      document.getElementById('your-word').style.display = 'block';
-      document.getElementById('your-word').textContent = `Your word: ${data.current_word}`;
-      document.getElementById('emoji-input-area').style.display = 'block';
-      isMyTurn = true;
-    } else if (data.started) {
-      document.getElementById('guess-area').style.display = 'block';
-    }
-    if (data.history && data.history.length) {
-      data.history.forEach(h => {
-        addChat(`${h.emoji} → ${h.word} ${h.guesser ? '(guessed by ' + h.guesser + ')' : '(skipped)'}`, 'system');
-      });
-    }
-  }
+    hide('emoji-input-area','guess-area','wait-msg');
+    $('status').textContent = '🏆 Game Over!';
+    $('timer-bar').style.display='none';
+    if (d.players) players(d.players);
+    chat('🏆 Game over!','system');
+    show('play-again-btn');
+  } else if (d.type==='show_start') {
+    show('start-btn','settings-area');
+  } else if (d.type==='state') {
+    if (d.players) { players(d.players); showCreatorUI(d.players); }
+    if (d.started && d.phase!=='lobby') hide('start-btn','settings-area');
+    if (d.emoji_clue) $('emoji-display').textContent = d.emoji_clue;
+    if (d.phase==='gameover') { show('play-again-btn'); $('status').textContent='🏆 Game Over!'; }
+    if (d.history) d.history.forEach(h => chat(`${h.emoji} → ${h.word} ${h.guesser?'('+h.guesser+')':'(skipped)'}`, 'system'));
+    if (d.current_word) { $('your-word').style.display='block'; $('your-word').textContent=`Your word: ${d.current_word}`; show('emoji-input-area'); isMyTurn=true; }
+  } else if (d.type==='error') { chat(d.msg,'system'); }
 }
 
-function addChat(msg, cls='') {
-  const chat = document.getElementById('chat');
-  const div = document.createElement('div');
-  div.className = 'msg ' + cls;
-  div.textContent = msg;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-}
+function $(id) { return document.getElementById(id); }
+function show(...ids) { ids.forEach(id => { if(id && $(id)) $(id).style.display=''; }); }
+function hide(...ids) { ids.forEach(id => { if(id && $(id)) $(id).style.display='none'; }); }
+function chat(msg,cls='') { const c=$('chat'),d=document.createElement('div'); d.className='msg '+cls; d.textContent=msg; c.appendChild(d); c.scrollTop=c.scrollHeight; }
+function players(ps) { $('players').innerHTML = ps.map(p=>`<div class="player ${p.is_turn?'active':''}">${p.is_creator?'👑 ':''}${p.name}: ${p.score}pts</div>`).join(''); }
+function showCreatorUI(ps) { const me=ps.find(p=>p.name===NAME); if(me&&me.is_creator) show('start-btn','settings-area'); }
 
-function updatePlayers(players) {
-  document.getElementById('players').innerHTML = players.map(p =>
-    `<div class="player ${p.is_turn ? 'active' : ''}">${p.is_creator ? '👑 ' : ''}${p.name}: ${p.score}pts</div>`
-  ).join('');
-}
+function startGame() { ws.send(JSON.stringify({action:'start'})); }
+function skipWord() { ws.send(JSON.stringify({action:'skip'})); }
+function playAgain() { ws.send(JSON.stringify({action:'play_again'})); hide('play-again-btn'); }
+function revealEmoji() { ws.send(JSON.stringify({action:'reveal'})); }
+function updateSettings() { ws.send(JSON.stringify({action:'settings',max_rounds:$('set-rounds').value,emoji_timer:$('set-emoji-timer').value,guess_timer:$('set-guess-timer').value,chat_mode:$('set-chat').value,difficulty:$('set-difficulty').value})); }
+function sendChat(e) { e.preventDefault(); const f=$('chat-field'); if(f.value.trim()) { ws.send(JSON.stringify({action:'chat',msg:f.value})); f.value=''; } }
+function sendEmoji() { ws.send(JSON.stringify({action:'emoji',emoji:$('emoji-field').value})); }
+function clearEmoji() { $('emoji-field').value=''; }
+function addEmoji(e) { $('emoji-field').value+=e; sendEmoji(); }
+function sendGuess(e) { e.preventDefault(); const f=$('guess-field'); ws.send(JSON.stringify({action:'guess',guess:f.value})); f.value=''; }
 
-function startGame() { ws.send(JSON.stringify({action: 'start'})); }
-function skipWord() { ws.send(JSON.stringify({action: 'skip'})); }
-
-function updateSettings() {
-  ws.send(JSON.stringify({
-    action: 'settings',
-    max_rounds: document.getElementById('set-rounds').value,
-    turn_timer: document.getElementById('set-timer').value,
-    chat_mode: document.getElementById('set-chat').value,
-    difficulty: document.getElementById('set-difficulty').value,
-  }));
-}
-
-let timerInterval = null;
-function startTimer(seconds) {
+function startTimer(secs) {
   clearInterval(timerInterval);
-  if (!seconds) return;
-  let remaining = seconds;
-  const status = document.getElementById('status');
-  timerInterval = setInterval(() => {
-    remaining--;
-    if (remaining <= 0) {
-      clearInterval(timerInterval);
-      if (isMyTurn) skipWord();
-    } else {
-      status.textContent = status.textContent.replace(/\(\d+s\)/, `(${remaining}s)`);
-    }
-  }, 1000);
+  if (!secs) { $('timer-bar').style.display='none'; return; }
+  const bar=$('timer-bar'); bar.style.display=''; bar.style.width='100%';
+  let rem=secs;
+  timerInterval = setInterval(()=>{
+    rem--; bar.style.width=(rem/secs*100)+'%';
+    if(rem<=0) { clearInterval(timerInterval); if(isMyTurn) skipWord(); }
+  },1000);
 }
 
-function sendChat(event) {
-  event.preventDefault();
-  const field = document.getElementById('chat-field');
-  if (field.value.trim()) {
-    ws.send(JSON.stringify({action: 'chat', msg: field.value}));
-    field.value = '';
-  }
-}
-
-function sendEmoji() {
-  const emoji = document.getElementById('emoji-field').value;
-  ws.send(JSON.stringify({action: 'emoji', emoji: emoji}));
-}
-
-function clearEmoji() { document.getElementById('emoji-field').value = ''; }
-function addEmoji(e) { document.getElementById('emoji-field').value += e; }
-
-function sendGuess(event) {
-  event.preventDefault();
-  const field = document.getElementById('guess-field');
-  ws.send(JSON.stringify({action: 'guess', guess: field.value}));
-  field.value = '';
-}
-
-// Emoji search
-function searchEmoji(query) {
+function searchEmoji(q) {
   clearTimeout(searchTimeout);
-  const results = document.getElementById('emoji-search-results');
-  if (query.length < 2) { results.innerHTML = ''; return; }
-  searchTimeout = setTimeout(() => {
-    fetch(`/games/emojinary/emoji-search/?q=${encodeURIComponent(query)}`)
-      .then(r => r.json())
-      .then(data => {
-        results.innerHTML = data.map(d =>
-          `<button onclick="addEmoji('${d.emoji}')" title="${d.name}">${d.emoji}</button>`
-        ).join('');
-      });
-  }, 200);
+  const r=$('emoji-search-results');
+  if(q.length<2){r.innerHTML='';return;}
+  searchTimeout=setTimeout(()=>{
+    fetch(`/games/emojinary/emoji-search/?q=${encodeURIComponent(q)}`).then(r=>r.json()).then(data=>{
+      r.innerHTML=data.map(d=>`<button onclick="addEmoji('${d.emoji}')" title="${d.name}">${d.emoji}</button>`).join('');
+    });
+  },200);
 }
 
-// Emoji keyboard
-function renderEmojiPage(pageIdx) {
-  currentPage = pageIdx;
-  const catKey = categoryNames[pageIdx];
-  const emojiList = [...EMOJI_CATEGORIES[catKey]].filter(c => c.trim() && c !== '\uFE0F');
-  const kb = document.getElementById('emoji-kb');
-  kb.innerHTML = '';
-  const parsed = EMOJI_CATEGORIES[catKey].match(/\p{Emoji_Presentation}(\u200d\p{Emoji_Presentation})*/gu) || [];
-  parsed.forEach(e => {
-    const btn = document.createElement('button');
-    btn.textContent = e;
-    btn.onclick = () => addEmoji(e);
-    kb.appendChild(btn);
-  });
-  document.getElementById('emoji-pages').innerHTML = categoryNames.map((name, i) =>
-    `<a class="${i === pageIdx ? 'active' : ''}" onclick="renderEmojiPage(${i})">${name}</a>`
-  ).join(' ');
+function renderPage(i) {
+  currentPage=i; const k=cats[i];
+  const parsed=(EMOJIS[k]||'').match(/\p{Emoji_Presentation}(\u200d\p{Emoji_Presentation})*/gu)||[];
+  $('emoji-kb').innerHTML=parsed.map(e=>`<button onclick="addEmoji('${e}')">${e}</button>`).join('');
+  $('emoji-pages').innerHTML=cats.map((c,j)=>`<a class="${j===i?'active':''}" onclick="renderPage(${j})">${c}</a>`).join(' ');
 }
 
-connect();
-renderEmojiPage(0);
+connect(); renderPage(0);
 </script>
 {% endblock %}

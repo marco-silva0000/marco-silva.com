@@ -41,10 +41,12 @@ def get_game(code):
         "history": [],  # [{emoji, word, category, guesser}]
         "settings": {
             "max_rounds": 10,
-            "turn_timer": 60,  # seconds, 0 = unlimited
+            "emoji_timer": 60,  # seconds for emoji picking phase
+            "guess_timer": 60,  # seconds for guessing phase
             "chat_mode": "public",  # public or private
             "difficulty": 0,  # 0=all, 1=easy, 2=medium, 3=hard
         },
+        "phase": "lobby",  # lobby, emoji, guess, gameover
         "turn_start_time": None,
     }
 
