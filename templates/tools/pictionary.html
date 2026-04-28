@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}pictionary{% endblock %}
+
+{% block extra_css %}
+.diff-btn { display: inline-block; text-decoration: none; padding: 0.35rem 0.7rem; border: 1px solid #ccc; border-radius: 4px; color: #222; background: #fafafa; cursor: pointer; font-size: 0.85rem; }
+.diff-btn:hover { background: #eee; }
+.diff-btn.active { background: #222; color: #fff; border-color: #222; }
+.diff-group { display: inline-flex; margin-bottom: 1rem; }
+.diff-group .diff-btn { border-radius: 0; border-right-width: 0; }
+.diff-group .diff-btn:first-child { border-radius: 4px 0 0 4px; }
+.diff-group .diff-btn:last-child { border-radius: 0 4px 4px 0; border-right-width: 1px; }
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">pictionary</h1>
+<p style="font-size: 0.85rem; color: #555; margin-bottom: 1.5rem;">pick a difficulty, hit the button, draw!</p>
+
+<div class="diff-group" id="diff-select">
+  <a class="diff-btn" data-d="easy" _="on click remove .active from .diff-btn then add .active to me then set #word-target.innerHTML to '...'">easy</a>
+  <a class="diff-btn active" data-d="medium" _="on click remove .active from .diff-btn then add .active to me then set #word-target.innerHTML to '...'">medium</a>
+  <a class="diff-btn" data-d="hard" _="on click remove .active from .diff-btn then add .active to me then set #word-target.innerHTML to '...'">hard</a>
+</div>
+
+<div style="margin-bottom: 1.5rem;">
+  <button
+    style="padding: 0.5rem 1.5rem; font-size: 1rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #fafafa;"
+    hx-get="{% url 'tools:pictionary-word' %}"
+    hx-target="#word-target"
+    hx-swap="innerHTML"
+    hx-include="[data-d]"
+    _="on click set @hx-get to '{% url 'tools:pictionary-word' %}?d=' + (document.querySelector('.diff-btn.active').dataset.d)"
+    >
+    new word
+  </button>
+</div>
+
+<div id="word-target" style="min-height: 3rem; display: flex; align-items: center;">
+  <span style="font-size: 0.9rem; color: #888;">press the button to get a word</span>
+</div>
+
+<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
+{% endblock %}
