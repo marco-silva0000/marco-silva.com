@@ -1,0 +1,16 @@
+{% if gallery %}
+<div style="margin: 1.5rem 0;">
+  <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+    <a href="{% url 'photos:gallery-detail' gallery.slug %}" style="text-decoration: none;">{{ gallery.title }}</a>
+  </h3>
+  <div style="display: grid; grid-template-columns: repeat({{ columns }}, 1fr); gap: 0.5rem;">
+    {% for photo in photos %}
+    <a href="{% url 'photos:photo-viewer' photo.slug %}">
+      <img src="{{ photo.image.url }}" alt="{{ photo.title }}" loading="lazy" style="width: 100%; aspect-ratio: 1; object-fit: cover;">
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+<p style="color: #888; font-size: 0.85rem;">gallery not found.</p>
+{% endif %}

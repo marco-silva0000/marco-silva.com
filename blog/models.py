@@ -8,6 +8,8 @@ from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtailmarkdown.blocks import MarkdownBlock
 
+from .blocks import PhotoGalleryBlock, SinglePhotoBlock
+
 
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey("BlogPostPage", related_name="tagged_items", on_delete=models.CASCADE)
@@ -28,6 +30,8 @@ class BlogPostPage(Page):
         [
             ("markdown", MarkdownBlock()),
             ("raw_html", blocks.RawHTMLBlock()),
+            ("photo", SinglePhotoBlock()),
+            ("gallery", PhotoGalleryBlock()),
         ],
         use_json_field=True,
     )
