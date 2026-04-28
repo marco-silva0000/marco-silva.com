@@ -140,6 +140,21 @@ function handleMessage(data) {
     addChat(data.msg, 'system');
   } else if (data.type === 'state') {
     if (data.players) updatePlayers(data.players);
+    if (data.emoji_clue) document.getElementById('emoji-display').textContent = data.emoji_clue;
+    if (data.started) document.getElementById('start-btn').style.display = 'none';
+    if (data.current_word) {
+      document.getElementById('your-word').style.display = 'block';
+      document.getElementById('your-word').textContent = `Your word: ${data.current_word}`;
+      document.getElementById('emoji-input-area').style.display = 'block';
+      isMyTurn = true;
+    } else if (data.started) {
+      document.getElementById('guess-area').style.display = 'block';
+    }
+    if (data.history && data.history.length) {
+      data.history.forEach(h => {
+        addChat(`${h.emoji} → ${h.word} ${h.guesser ? '(guessed by ' + h.guesser + ')' : '(skipped)'}`, 'system');
+      });
+    }
   }
 }
 

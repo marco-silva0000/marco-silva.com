@@ -38,6 +38,7 @@ def get_game(code):
         "started": False,
         "guessed": [],
         "creator": None,
+        "history": [],  # [{emoji, word, category, guesser}]
     }
 
 

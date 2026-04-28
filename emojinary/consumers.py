@@ -52,10 +52,34 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                 if idx >= 0:
                     state["turn_order"][idx] = self.channel_name
                 save_game(self.code, state)
-                await self.send_json({"type": "state", "players": player_list(state), "started": state["started"]})
+                await self.send_json(
+                    {
+                        "type": "state",
+                        "players": player_list(state),
+                        "started": state["started"],
+                        "history": state.get("history", []),
+                        "emoji_clue": state.get("emoji_clue", ""),
+                        "round_num": state.get("round_num", 0),
+                        "current_word": state["current_word"]
+                        if self.channel_name == current_player_channel(state)
+                        else None,  # noqa: E501
+                    }
+                )
                 return
             if self.channel_name in state["players"]:
-                await self.send_json({"type": "state", "players": player_list(state), "started": state["started"]})
+                await self.send_json(
+                    {
+                        "type": "state",
+                        "players": player_list(state),
+                        "started": state["started"],
+                        "history": state.get("history", []),
+                        "emoji_clue": state.get("emoji_clue", ""),
+                        "round_num": state.get("round_num", 0),
+                        "current_word": state["current_word"]
+                        if self.channel_name == current_player_channel(state)
+                        else None,  # noqa: E501
+                    }
+                )
                 return
             state["players"][self.channel_name] = {"name": self.player_name, "score": 0}
             state["turn_order"].append(self.channel_name)
@@ -123,6 +147,15 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                     },
                 )
                 if len(state["guessed"]) >= len(state["players"]) - 1:
+                    # Record history
+                    state.setdefault("history", []).append(
+                        {
+                            "emoji": state["emoji_clue"],
+                            "word": state["current_word"],
+                            "category": state["current_category"],
+                            "guesser": self.player_name,
+                        }
+                    )
                     words = await self._get_words()
                     state = next_round(state, words)
                     save_game(self.code, state)
@@ -141,6 +174,15 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
         elif action == "skip":
             if self.channel_name != current_player_channel(state):
                 return
+            # Record history
+            state.setdefault("history", []).append(
+                {
+                    "emoji": state["emoji_clue"],
+                    "word": state["current_word"],
+                    "category": state["current_category"],
+                    "guesser": None,
+                }
+            )
             await self.channel_layer.group_send(
                 self.group_name,
                 {"type": "game.message", "msg": f"Skipped! The word was: {state['current_word']}"},
