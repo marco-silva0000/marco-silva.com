@@ -43,10 +43,16 @@
 {% endif %}
 {% endif %}
 
-<div style="margin-top: 1.5rem; font-size: 0.85rem;">
-  {% for g in photo.galleries.all %}
-  <a href="{% url 'photos:gallery-detail' g.slug %}">← {{ g.title }}</a>
-  {% endfor %}
+<div style="margin-top: 1.5rem; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+  <div>
+    {% if prev_photo %}<a href="{% url 'photos:photo-viewer' prev_photo.slug %}">← prev</a>{% endif %}
+  </div>
+  <div>
+    {% if gallery %}<a href="{% url 'photos:gallery-detail' gallery.slug %}">{{ gallery.title }}</a>{% endif %}
+  </div>
+  <div>
+    {% if next_photo %}<a href="{% url 'photos:photo-viewer' next_photo.slug %}">next →</a>{% endif %}
+  </div>
 </div>
 
 <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>

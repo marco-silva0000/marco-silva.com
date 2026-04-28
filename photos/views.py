@@ -23,7 +23,34 @@ def photo_viewer(request, slug):
     photo = get_object_or_404(Photo, slug=slug, is_public=True)
     ext = getattr(photo, "extension", None)
     version = request.GET.get("version", "watermarked")
-    return render(request, "photos/photo_viewer.html", {"photo": photo, "ext": ext, "version": version})
+
+    # Previous/next in the same gallery
+    gallery = photo.galleries.filter(is_public=True).first()
+    prev_photo = None
+    next_photo = None
+    if gallery:
+        photos_list = list(gallery.photos.filter(is_public=True).order_by("id"))
+        try:
+            idx = photos_list.index(photo)
+            if idx > 0:
+                prev_photo = photos_list[idx - 1]
+            if idx < len(photos_list) - 1:
+                next_photo = photos_list[idx + 1]
+        except ValueError:
+            pass
+
+    return render(
+        request,
+        "photos/photo_viewer.html",
+        {
+            "photo": photo,
+            "ext": ext,
+            "version": version,
+            "gallery": gallery,
+            "prev_photo": prev_photo,
+            "next_photo": next_photo,
+        },
+    )
 
 
 def photo_viewer_partial(request, slug):
