@@ -19,6 +19,7 @@ class GameState:
         self.round_num = 0
         self.started = False
         self.guessed = set()  # players who guessed correctly this round
+        self.creator = None  # first player to join
 
     @property
     def current_player(self):
@@ -95,8 +96,17 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
             if self.channel_name in game.players:
                 await self.send_json({"type": "state", "players": game.player_list(), "started": game.started})
                 return
+            # Check if name is already taken by another connection
+            taken_names = {info["name"] for info in game.players.values()}
+            if self.player_name in taken_names:
+                await self.send_json({"type": "error", "msg": f"name '{self.player_name}' is already taken"})
+                await self.close()
+                return
             game.players[self.channel_name] = {"name": self.player_name, "score": 0}
             game.turn_order.append(self.channel_name)
+            # Track creator (first player)
+            if not game.creator:
+                game.creator = self.player_name
             await self.channel_layer.group_send(
                 self.group_name,
                 {"type": "game.message", "msg": f"{self.player_name} joined", "players": game.player_list()},
@@ -110,6 +120,9 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                 )
 
         elif action == "start":
+            if self.player_name != game.creator:
+                await self.send_json({"type": "error", "msg": "only the room creator can start the game"})
+                return
             if len(game.players) < 2:
                 await self.channel_layer.group_send(
                     self.group_name,

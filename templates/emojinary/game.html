@@ -148,6 +148,10 @@ function handleMessage(data) {
     addChat(`${data.name}: ${data.msg}`);
   } else if (data.type === 'error') {
     addChat(data.msg, 'system');
+    if (data.msg.includes('already taken')) {
+      document.getElementById('status').textContent = 'name taken — go back and pick another';
+      document.getElementById('start-btn').style.display = 'none';
+    }
   } else if (data.type === 'state') {
     if (data.players) updatePlayers(data.players);
   }

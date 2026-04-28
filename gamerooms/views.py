@@ -31,7 +31,6 @@ def room_create(request):
             return _render_create(request, error="wrong captcha")
 
         room = Room.objects.create(title=title, password=password)
-        # Auto-auth the creator
         request.session[f"room_{room.code}"] = True
         return redirect("gamerooms:room-join", code=room.code)
 
@@ -52,7 +51,6 @@ def room_join(request, code):
         if request.method == "POST" and "password" in request.POST:
             if request.POST["password"] == room.password:
                 request.session[session_key] = True
-                # Fall through to name step
             else:
                 return render(request, "gamerooms/room_password.html", {"room": room, "error": "wrong password"})
         else:
@@ -62,6 +60,6 @@ def room_join(request, code):
     if request.method == "POST" and "name" in request.POST:
         name = request.POST["name"].strip()
         if name:
-            return redirect("emojinary:game", code=room.code, name=name)
+            return redirect("gamerooms:emojinary:game", code=room.code, name=name)
 
     return render(request, "gamerooms/room_name.html", {"room": room})
