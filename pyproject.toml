@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "celery[redis]>=5.4",
+    "channels>=4.0",
+    "channels-redis>=4.2",
     "django>=5.1.7",
     "django-celery-beat>=2.7",
     "django-celery-results>=2.5",

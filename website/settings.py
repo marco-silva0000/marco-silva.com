@@ -68,10 +68,13 @@ INSTALLED_APPS = [
     "wagtailmarkdown",
     "django_celery_beat",
     "django_celery_results",
+    "channels",
     # project
     "blog",
     "photos",
     "tools",
+    "gamerooms",
+    "emojinary",
     "photologue",
     "sortedm2m",
 ]
@@ -109,6 +112,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "website.wsgi.application"
+ASGI_APPLICATION = "website.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {"hosts": [os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")]},
+    },
+}
 
 
 # Database

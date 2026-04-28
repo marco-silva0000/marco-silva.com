@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}create room{% endblock %}
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">create room</h1>
+{% if error %}<p style="color: red; font-size: 0.85rem; margin-bottom: 0.75rem;">{{ error }}</p>{% endif %}
+<form method="post" style="max-width: 400px;">
+  {% csrf_token %}
+  <div style="margin-bottom: 0.75rem;">
+    <label style="font-size: 0.85rem;">title</label><br>
+    <input type="text" name="title" required style="width: 100%; padding: 0.35rem; font-size: 0.85rem;">
+  </div>
+  <div style="margin-bottom: 0.75rem;">
+    <label style="font-size: 0.85rem;">password (optional)</label><br>
+    <input type="text" name="password" style="width: 100%; padding: 0.35rem; font-size: 0.85rem;">
+  </div>
+  <div style="margin-bottom: 0.75rem;">
+    <label style="font-size: 0.85rem;">what is {{ a }} + {{ b }}?</label><br>
+    <input type="number" name="captcha_answer" required style="width: 100px; padding: 0.35rem; font-size: 0.85rem;">
+    <input type="hidden" name="captcha_expected" value="{{ answer }}">
+  </div>
+  <button type="submit" style="padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer;">create</button>
+</form>
+{% endblock %}
