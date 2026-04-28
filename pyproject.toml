@@ -25,6 +25,7 @@ dependencies = [
     "wagtail-markdown>=0.12",
     "whitenoise>=6.5",
     "wonderwords>=2.2",
+    "emoji>=2.14",
 ]
 
 [project.optional-dependencies]

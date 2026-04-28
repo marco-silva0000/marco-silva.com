@@ -18,6 +18,9 @@
 .emoji-pages a.active { font-weight: 600; }
 #word-hint { font-size: 0.85rem; color: #888; margin: 0.5rem 0; }
 #your-word { font-size: 1.1rem; font-weight: 600; color: #4a9eff; margin: 0.5rem 0; }
+#emoji-search-results { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; margin-top: 0.3rem; }
+#emoji-search-results button { font-size: 1.3rem; padding: 0.2rem; border: 1px solid #eee; background: #fafafa; cursor: pointer; border-radius: 3px; }
+#emoji-search-results button:hover { background: #eee; }
 @media (max-width: 600px) {
   #game-area { grid-template-columns: 1fr; }
   .emoji-kb { grid-template-columns: repeat(8, 1fr); }
@@ -34,13 +37,17 @@
     <div id="word-hint"></div>
     <div id="emoji-display"></div>
 
-    <!-- Emoji keyboard (for the active player) -->
+    <!-- Emoji input area (for active player) -->
     <div id="emoji-input-area" style="display:none;">
       <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
         <input type="text" id="emoji-field" readonly style="flex: 1; font-size: 1.5rem; padding: 0.3rem;">
         <button onclick="sendEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer;">send</button>
         <button onclick="clearEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer;">clear</button>
         <button onclick="skipWord()" style="padding: 0.3rem 0.7rem; cursor: pointer; color: #888;">skip</button>
+      </div>
+      <div style="margin-top: 0.5rem;">
+        <input type="text" id="emoji-search-input" placeholder="search emoji..." oninput="searchEmoji(this.value)" style="width: 100%; padding: 0.3rem; font-size: 0.85rem;">
+        <div id="emoji-search-results"></div>
       </div>
       <div class="emoji-pages" id="emoji-pages"></div>
       <div class="emoji-kb" id="emoji-kb"></div>
@@ -68,22 +75,6 @@
       <button type="submit" style="padding: 0.3rem 0.5rem; font-size: 0.8rem; cursor: pointer;">send</button>
     </form>
   </div>
-  </div>
-
-  <div>
-    <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem;">players</h3>
-    <div id="players"></div>
-    <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem;">chat</h3>
-    <div id="chat"></div>
-  </div>
-  </div>
-
-  <div>
-    <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem;">players</h3>
-    <div id="players"></div>
-    <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem;">chat</h3>
-    <div id="chat"></div>
-  </div>
 </div>
 
 <script>
@@ -91,23 +82,22 @@ const ROOM_CODE = "{{ room.code }}";
 const PLAYER_NAME = "{{ player_name }}";
 const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/emojinary/' + ROOM_CODE + '/';
 
-// Emoji data — grouped by category
 const EMOJI_CATEGORIES = {
-  "😀 Faces": "😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😚😙🥲😋😛😜🤪😝🤑🤗🤭🤫🤔🫡🤐🫠😐😑😶🫥😏😒🙄😬🤥🫨😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕🫤😟🙁😮😯😲😳🥺🥹😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖",
-  "👋 Hands": "👋🤚🖐️✋🖖🫱🫲🫳🫴👌🤌🤏✌️🤞🫰🤟🤘🤙👈👉👆🖕👇☝️🫵👍👎✊👊🤛🤜👏🙌🫶👐🤲🤝🙏✍️💅🤳💪🦾🦿🦵🦶",
-  "❤️ Hearts": "❤️🧡💛💚💙💜🖤🤍🤎💔❤️‍🔥❤️‍🩹❣️💕💞💓💗💖💘💝💟",
-  "🐱 Animals": "🐶🐱🐭🐹🐰🦊🐻🐼🐻‍❄️🐨🐯🦁🐮🐷🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🪱🐛🦋🐌🐞🐜🪰🪲🪳🦟🦗🕷️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🐡🐠🐟🐬🐳🐋🦈🦭🐊🐅🐆🦓🦍🦧🦣🐘🦛🦏🐪🐫🦒🦘🦬🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🦮🐕‍🦺🐈🐈‍⬛🪶🐓🦃🦤🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🦔🐾🐉🐲",
-  "🍎 Food": "🍏🍎🍐🍊🍋🍌🍉🍇🍓🫐🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶️🫑🌽🥕🫒🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🥚🍳🧈🥞🧇🥓🥩🍗🍖🦴🌭🍔🍟🍕🫓🥪🥙🧆🌮🌯🫔🥗🥘🫕🥫🍝🍜🍲🍛🍣🍱🥟🦪🍤🍙🍚🍘🍥🥠🥮🍢🍡🍧🍨🍦🥧🧁🍰🎂🍮🍭🍬🍫🍿🍩🍪🌰🥜🍯🥛🍼🫖☕🍵🧃🥤🧋🍶🍺🍻🥂🍷🥃🍸🍹🧉🍾🧊",
-  "🏠 Places": "🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽⛪🕌🛕🕍⛩️🕋⛲⛺🌁🌃🏙️🌄🌅🌆🌇🌉♨️🎠🛝🎡🎢💈🎪🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🛻🚚🚛🚜🏎️🏍️🛵🦽🦼🛺🚲🛴🛹🛼🚏🛣️🛤️🛢️⛽🛞🚨🚥🚦🛑🚧⚓🛟⛵🛶🚤🛳️⛴️🛥️🚢✈️🛩️🛫🛬🪂💺🚁🚟🚠🚡🛰️🚀🛸",
-  "⚽ Activities": "⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🪀🏓🏸🏒🏑🥍🏏🪃🥅⛳🪁🏹🎣🤿🥊🥋🎽🛹🛼🛷⛸️🥌🎿⛷️🏂🪂🏋️🤼🤸⛹️🤺🤾🏌️🏇🧘🏄🏊🤽🚣🧗🚵🚴🏆🥇🥈🥉🏅🎖️🏵️🎗️🎫🎟️🎪🤹🎭🩰🎨🎬🎤🎧🎼🎹🥁🪘🎷🎺🎸🪕🎻🪗🎲♟️🎯🎳🎮🎰🧩",
-  "💡 Objects": "💡🔦🕯️🪔💰💵💴💶💷🪙💸💳🧾💎⚖️🪜🧰🪛🔧🔩⚙️🪤🧲🔫💣🪓🔪🗡️⚔️🛡️🚬⚰️🪦⚱️🏺🔮📿🧿🪬💈⚗️🔭🔬🕳️🩹🩺🩻💊💉🩸🧬🦠🧫🧪🌡️🧹🪠🧺🧻🚰🚿🛁🛀🧼🪥🪒🧽🪣🧴🔑🗝️🚪🪑🛋️🛏️🛌🧸🪆🖼️🪞🪟🛍️🛒🎁🎈🎏🎀🪄🪅🎊🎉🎎🏮🎐🧧✉️📩📨📧💌📥📤📦🏷️🪧📪📫📬📭📮📯📜📃📄📑🧾📊📈📉🗒️🗓️📆📅🗑️📇🗃️🗳️🗄️📋📁📂🗂️🗞️📰📓📔📒📕📗📘📙📚📖🔖🧷🔗📎🖇️📐📏🧮📌📍✂️🖊️🖋️✒️🖌️🖍️📝✏️🔍🔎🔏🔐🔒🔓",
-  "🌍 Nature": "🌍🌎🌏🌐🗺️🧭🏔️⛰️🌋🗻🏕️🏖️🏜️🏝️🏞️🌅🌄🌠🎇🎆🌇🌆🏙️🌃🌌🌉🌁🌀🌈🌂☂️☔⛱️⚡❄️☃️⛄☄️🔥💧🌊💨🌪️🌫️🌬️🌤️⛅🌥️🌦️🌧️⛈️🌩️🌨️☀️🌝🌛🌜🌚🌕🌖🌗🌘🌑🌒🌓🌔🌙🌎⭐🌟💫✨☄️🪐",
+  "😀": "😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😚😙🥲😋😛😜🤪😝🤑🤗🤭🤫🤔🤐😐😑😶😏😒🙄😬🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕😟🙁😮😯😲😳🥺🥹😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖",
+  "👋": "👋🤚🖐️✋🖖👌🤌🤏✌️🤞🤟🤘🤙👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🙌👐🤲🤝🙏✍️💅🤳💪🦾🦿🦵🦶👂🦻👃🧠🫀🫁🦷🦴👀👁️👅👄",
+  "❤️": "❤️🧡💛💚💙💜🖤🤍🤎💔❤️‍🔥❤️‍🩹❣️💕💞💓💗💖💘💝💟☮️✝️☪️🕉️☸️✡️🔯🕎☯️☦️🛐⛎♈♉♊♋♌♍♎♏♐♑♒♓🆔⚛️",
+  "🐱": "🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🐛🦋🐌🐞🐜🪰🪲🦟🦗🕷️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🐡🐠🐟🐬🐳🐋🦈🐊🐅🐆🦓🦍🦧🐘🦛🦏🐪🐫🦒🦘🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🐈🐓🦃🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🦔🐾🐉🐲",
+  "🍎": "🍏🍎🍐🍊🍋🍌🍉🍇🍓🫐🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶️🌽🥕🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🥚🍳🧈🥞🧇🥓🥩🍗🍖🌭🍔🍟🍕🥪🥙🧆🌮🌯🥗🥘🥫🍝🍜🍲🍛🍣🍱🥟🦪🍤🍙🍚🍘🍥🥠🥮🍢🍡🍧🍨🍦🥧🧁🍰🎂🍮🍭🍬🍫🍿🍩🍪🌰🥜🍯🥛🍼☕🍵🧃🥤🧋🍶🍺🍻🥂🍷🥃🍸🍹🧉🍾",
+  "🏠": "🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽⛪🕌🛕🕍⛩️🕋⛲⛺🌁🌃🏙️🌄🌅🌆🌇🌉🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🛻🚚🚛🚜🏎️🏍️🛵🦽🦼🛺🚲🛴🛹🛼🚏⛽🚨🚥🚦🛑🚧⚓⛵🛶🚤🛳️⛴️🛥️🚢✈️🛩️🛫🛬💺🚁🚟🚠🚡🛰️🚀🛸",
+  "⚽": "⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🏓🏸🏒🏑🥍🏏🥅⛳🏹🎣🤿🥊🥋🎽🛹🛼🛷⛸️🥌🎿⛷️🏂🏋️🤼🤸⛹️🤺🤾🏌️🏇🧘🏄🏊🤽🚣🧗🚵🚴🏆🥇🥈🥉🏅🎖️🏵️🎗️🎫🎟️🎪🤹🎭🩰🎨🎬🎤🎧🎼🎹🥁🎷🎺🎸🪕🎻🎲♟️🎯🎳🎮🎰🧩",
+  "💡": "💡🔦🕯️💰💵💴💶💷💸💳🧾💎⚖️🧰🔧🔩⚙️🧲🔫💣🔪🗡️⚔️🛡️🚬⚰️⚱️🏺🔮📿🧿💈⚗️🔭🔬🕳️🩹🩺💊💉🩸🧬🦠🧫🧪🌡️🧹🧺🧻🚰🚿🛁🧼🪥🪒🧽🧴🔑🗝️🚪🪑🛋️🛏️🧸🖼️🛍️🛒🎁🎈🎏🎀🎊🎉🎎🏮🎐✉️📩📨📧💌📥📤📦🏷️📪📫📬📭📮📯📜📃📄📑📊📈📉📆📅🗑️📋📁📂🗞️📰📓📔📒📕📗📘📙📚📖🔖📎📐📏🧮📌📍✂️🖊️🖋️✒️🖌️🖍️📝✏️🔍🔎🔏🔐🔒🔓",
+  "🌍": "🌍🌎🌏🌐🗺️🧭🏔️⛰️🌋🗻🏕️🏖️🏜️🏝️🏞️🌅🌄🌠🎇🎆🌇🌆🌃🌌🌉🌁🌀🌈🌂☂️☔⛱️⚡❄️☃️⛄☄️🔥💧🌊💨🌪️🌫️🌬️🌤️⛅🌥️🌦️🌧️⛈️🌩️🌨️☀️🌝🌛🌜🌚🌕🌖🌗🌘🌑🌒🌓🌔🌙⭐🌟💫✨🪐",
 };
 
 let ws;
 let isMyTurn = false;
 let currentPage = 0;
-const EMOJIS_PER_PAGE = 80;
+let searchTimeout = null;
 const categoryNames = Object.keys(EMOJI_CATEGORIES);
 
 function connect() {
@@ -148,10 +138,6 @@ function handleMessage(data) {
     addChat(`${data.name}: ${data.msg}`);
   } else if (data.type === 'error') {
     addChat(data.msg, 'system');
-    if (data.msg.includes('already taken')) {
-      document.getElementById('status').textContent = 'name taken — go back and pick another';
-      document.getElementById('start-btn').style.display = 'none';
-    }
   } else if (data.type === 'state') {
     if (data.players) updatePlayers(data.players);
   }
@@ -167,8 +153,7 @@ function addChat(msg, cls='') {
 }
 
 function updatePlayers(players) {
-  const el = document.getElementById('players');
-  el.innerHTML = players.map(p =>
+  document.getElementById('players').innerHTML = players.map(p =>
     `<div class="player ${p.is_turn ? 'active' : ''}">${p.name}: ${p.score}pts</div>`
   ).join('');
 }
@@ -191,10 +176,7 @@ function sendEmoji() {
 }
 
 function clearEmoji() { document.getElementById('emoji-field').value = ''; }
-
-function addEmoji(e) {
-  document.getElementById('emoji-field').value += e;
-}
+function addEmoji(e) { document.getElementById('emoji-field').value += e; }
 
 function sendGuess(event) {
   event.preventDefault();
@@ -203,29 +185,41 @@ function sendGuess(event) {
   field.value = '';
 }
 
-// Emoji keyboard rendering
+// Emoji search
+function searchEmoji(query) {
+  clearTimeout(searchTimeout);
+  const results = document.getElementById('emoji-search-results');
+  if (query.length < 2) { results.innerHTML = ''; return; }
+  searchTimeout = setTimeout(() => {
+    fetch(`/games/emojinary/emoji-search/?q=${encodeURIComponent(query)}`)
+      .then(r => r.json())
+      .then(data => {
+        results.innerHTML = data.map(d =>
+          `<button onclick="addEmoji('${d.emoji}')" title="${d.name}">${d.emoji}</button>`
+        ).join('');
+      });
+  }, 200);
+}
+
+// Emoji keyboard
 function renderEmojiPage(pageIdx) {
   currentPage = pageIdx;
-  const catName = categoryNames[pageIdx] || categoryNames[0];
-  const emojis = [...EMOJI_CATEGORIES[catName]].filter(c => c.trim());
+  const catKey = categoryNames[pageIdx];
+  const emojiList = [...EMOJI_CATEGORIES[catKey]].filter(c => c.trim() && c !== '\uFE0F');
   const kb = document.getElementById('emoji-kb');
   kb.innerHTML = '';
-  // Split into individual emojis (handle multi-codepoint)
-  const emojiList = EMOJI_CATEGORIES[catName].match(/\p{Emoji_Presentation}(\u200d\p{Emoji_Presentation})*/gu) || [];
-  emojiList.forEach(e => {
+  const parsed = EMOJI_CATEGORIES[catKey].match(/\p{Emoji_Presentation}(\u200d\p{Emoji_Presentation})*/gu) || [];
+  parsed.forEach(e => {
     const btn = document.createElement('button');
     btn.textContent = e;
     btn.onclick = () => addEmoji(e);
     kb.appendChild(btn);
   });
-  // Update page tabs
-  const pages = document.getElementById('emoji-pages');
-  pages.innerHTML = categoryNames.map((name, i) =>
-    `<a class="${i === pageIdx ? 'active' : ''}" onclick="renderEmojiPage(${i})">${name.split(' ')[0]}</a>`
-  ).join('');
+  document.getElementById('emoji-pages').innerHTML = categoryNames.map((name, i) =>
+    `<a class="${i === pageIdx ? 'active' : ''}" onclick="renderEmojiPage(${i})">${name}</a>`
+  ).join(' ');
 }
 
-// Init
 connect();
 renderEmojiPage(0);
 </script>
