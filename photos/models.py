@@ -93,6 +93,13 @@ class PhotoExtension(models.Model):
         help_text=_("Price for the RAW file download."),
     )
 
+    # License
+    cc_license = models.BooleanField(
+        _("CC BY-NC-SA license"),
+        default=False,
+        help_text=_("Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."),
+    )
+
     # Processing status
     class ProcessingStatus(models.TextChoices):
         PENDING = "pending", _("Pending")

@@ -1,4 +1,5 @@
 import logging
+import math
 from io import BytesIO
 
 import exifread
@@ -8,6 +9,21 @@ from PIL import Image, ImageDraw, ImageFont
 logger = logging.getLogger(__name__)
 
 WEB_MAX_SIZE = 1920
+AUTHOR = "Marco Silva"
+
+
+def _get_font(size):
+    try:
+        return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", size)
+    except OSError:
+        return ImageFont.load_default(size=size)
+
+
+def _open_photo_image(photo):
+    photo.image.open("rb")
+    img = Image.open(photo.image.file).convert("RGB")
+    photo.image.close()
+    return img
 
 
 def extract_exif(photo_extension):
@@ -61,11 +77,16 @@ def _convert_gps(coord_tag, ref_tag):
         return None
 
 
-def _open_photo_image(photo):
-    photo.image.open("rb")
-    img = Image.open(photo.image.file).convert("RGB")
-    photo.image.close()
-    return img
+def _exif_line(ext):
+    """Build a short EXIF string like 'f/2.8 · 1/250s · ISO 400'."""
+    parts = []
+    if ext.aperture:
+        parts.append(f"f/{ext.aperture}")
+    if ext.shutter_speed:
+        parts.append(f"{ext.shutter_speed}s")
+    if ext.iso:
+        parts.append(f"ISO {ext.iso}")
+    return " · ".join(parts)
 
 
 def generate_web_image(photo_extension):
@@ -83,32 +104,114 @@ def generate_web_image(photo_extension):
     photo_extension.web_image.save(filename, ContentFile(buf.getvalue()), save=False)
 
 
-def generate_watermark(photo_extension, text="© Marco Silva"):
-    """Generate a watermarked version of the photo."""
+def _draw_standard_watermark(img, ext):
+    """Standard watermark: © Author + EXIF in bottom-right corner."""
+    overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+
+    font_size = max(14, img.width // 40)
+    font = _get_font(font_size)
+    small_font = _get_font(max(12, font_size - 4))
+
+    lines = [f"© {AUTHOR}"]
+    exif = _exif_line(ext)
+    if exif:
+        lines.append(exif)
+
+    y = img.height - 20
+    for line in reversed(lines):
+        f = small_font if line != lines[0] else font
+        bbox = draw.textbbox((0, 0), line, font=f)
+        tw = bbox[2] - bbox[0]
+        th = bbox[3] - bbox[1]
+        y -= th
+        draw.text((img.width - tw - 20, y), line, font=f, fill=(255, 255, 255, 140))
+        y -= 4
+
+    return Image.alpha_composite(img, overlay)
+
+
+def _draw_cc_watermark(img, ext):
+    """CC BY-NC-SA watermark: © Author + EXIF + license text."""
+    overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+
+    font_size = max(14, img.width // 40)
+    font = _get_font(font_size)
+    small_font = _get_font(max(12, font_size - 4))
+
+    lines = [f"© {AUTHOR}"]
+    exif = _exif_line(ext)
+    if exif:
+        lines.append(exif)
+    lines.append("CC BY-NC-SA 4.0")
+
+    y = img.height - 20
+    for line in reversed(lines):
+        f = small_font if line != lines[0] else font
+        bbox = draw.textbbox((0, 0), line, font=f)
+        tw = bbox[2] - bbox[0]
+        th = bbox[3] - bbox[1]
+        y -= th
+        draw.text((img.width - tw - 20, y), line, font=f, fill=(255, 255, 255, 140))
+        y -= 4
+
+    return Image.alpha_composite(img, overlay)
+
+
+def _draw_commercial_watermark(img, ext):
+    """Commercial watermark: diagonal repeating text across the entire image."""
+    overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+
+    font_size = max(20, img.width // 20)
+    font = _get_font(font_size)
+    text = f"© {AUTHOR}"
+
+    bbox = draw.textbbox((0, 0), text, font=font)
+    tw = bbox[2] - bbox[0]
+    th = bbox[3] - bbox[1]
+
+    # Tile diagonally across the image
+    step_x = tw + font_size * 3
+    step_y = th + font_size * 4
+    diagonal = int(math.sqrt(img.width**2 + img.height**2))
+
+    # Create a larger overlay to rotate
+    big = Image.new("RGBA", (diagonal * 2, diagonal * 2), (0, 0, 0, 0))
+    big_draw = ImageDraw.Draw(big)
+
+    for y in range(0, diagonal * 2, step_y):
+        for x in range(0, diagonal * 2, step_x):
+            big_draw.text((x, y), text, font=font, fill=(255, 255, 255, 50))
+
+    big = big.rotate(30, expand=False, center=(diagonal, diagonal))
+
+    # Crop to image size from center
+    cx, cy = diagonal, diagonal
+    left = cx - img.width // 2
+    top = cy - img.height // 2
+    cropped = big.crop((left, top, left + img.width, top + img.height))
+
+    return Image.alpha_composite(img, cropped)
+
+
+def generate_watermark(photo_extension):
+    """Generate watermarked version based on photo flags."""
     try:
         img = _open_photo_image(photo_extension.photo).convert("RGBA")
     except Exception:
         logger.exception("Failed to open image for watermark: %s", photo_extension.photo.title)
         return
 
-    overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    draw = ImageDraw.Draw(overlay)
+    ext = photo_extension
 
-    font_size = max(16, img.width // 30)
-    try:
-        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", font_size)
-    except OSError:
-        font = ImageFont.load_default(size=font_size)
+    if ext.cc_license:
+        watermarked = _draw_cc_watermark(img, ext)
+    else:
+        watermarked = _draw_commercial_watermark(img, ext)
 
-    bbox = draw.textbbox((0, 0), text, font=font)
-    text_w = bbox[2] - bbox[0]
-    text_h = bbox[3] - bbox[1]
-    x = img.width - text_w - 20
-    y = img.height - text_h - 20
-
-    draw.text((x, y), text, font=font, fill=(255, 255, 255, 128))
-
-    watermarked = Image.alpha_composite(img, overlay).convert("RGB")
+    watermarked = watermarked.convert("RGB")
     buf = BytesIO()
     watermarked.save(buf, format="JPEG", quality=85)
     filename = f"wm_{photo_extension.photo.slug}.jpg"

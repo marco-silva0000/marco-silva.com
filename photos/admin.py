@@ -20,7 +20,7 @@ class PhotoExtensionInline(admin.StackedInline):
             },
         ),
         ("Location", {"classes": ("collapse",), "fields": ("latitude", "longitude", "location_name")}),
-        ("Sales", {"classes": ("collapse",), "fields": ("is_for_sale", "price_raw")}),
+        ("Sales", {"classes": ("collapse",), "fields": ("is_for_sale", "price_raw", "cc_license")}),
     )
 
 
