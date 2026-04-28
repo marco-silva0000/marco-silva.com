@@ -31,7 +31,15 @@
   {% if ext.has_location %} · <a href="{% url 'photos:map' %}?lat={{ ext.latitude }}&lng={{ ext.longitude }}">view on map</a>{% endif %}
 </div>
 {% if ext.is_for_sale %}
-<p style="margin-top: 0.75rem; font-size: 0.85rem;">RAW available for purchase — €{{ ext.price_raw }}</p>
+<div style="margin-top: 1rem; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+  <p style="font-size: 0.85rem; margin-bottom: 0.75rem;">RAW available for purchase{% if ext.price_raw %} — €{{ ext.price_raw }}{% endif %}</p>
+  <form hx-post="{% url 'photos:photo-request' photo.slug %}" hx-target="#request-result" hx-swap="innerHTML" style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: end;">
+    <input type="email" name="email" placeholder="your email" required style="padding: 0.35rem; font-size: 0.85rem; flex: 1; min-width: 200px;">
+    <input type="text" name="message" placeholder="message (optional)" style="padding: 0.35rem; font-size: 0.85rem; flex: 1; min-width: 150px;">
+    <button type="submit" style="padding: 0.35rem 0.7rem; font-size: 0.85rem; cursor: pointer;">request</button>
+  </form>
+  <div id="request-result" style="margin-top: 0.5rem;"></div>
+</div>
 {% endif %}
 {% endif %}
 

@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from photologue.models import Gallery, Photo
 
@@ -85,3 +86,28 @@ def _handle_upload(request):
     if request.headers.get("HX-Request"):
         return render(request, "photos/partials/upload_success.html", {"count": len(files)})
     return redirect("photos:gallery-list")
+
+
+@csrf_exempt
+@require_POST
+def photo_request(request, slug):
+    """Handle purchase request — sends email, stores nothing."""
+    photo = get_object_or_404(Photo, slug=slug, is_public=True)
+    email = request.POST.get("email", "").strip()
+    message = request.POST.get("message", "").strip()
+
+    if not email:
+        return HttpResponse('<p style="color: red; font-size: 0.85rem;">please enter your email</p>')
+
+    try:
+        from .tasks import send_purchase_request_email
+
+        photo_url = request.build_absolute_uri(photo.get_absolute_url())
+        send_purchase_request_email.delay(photo.title, photo_url, email, message)
+    except Exception:
+        # Fallback: log it
+        import logging
+
+        logging.getLogger(__name__).exception("Failed to queue purchase request email")
+
+    return HttpResponse('<p style="color: green; font-size: 0.85rem;">✓ request sent — i\'ll get back to you!</p>')
