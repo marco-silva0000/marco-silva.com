@@ -21,38 +21,32 @@
 <div class="pic-row">
   <span class="pic-label">difficulty</span>
   <div class="pic-group" id="diff-select">
-    <a class="pic-btn" data-d="easy" _="on click remove .active from #diff-select .pic-btn then add .active to me">easy</a>
-    <a class="pic-btn active" data-d="medium" _="on click remove .active from #diff-select .pic-btn then add .active to me">medium</a>
-    <a class="pic-btn" data-d="hard" _="on click remove .active from #diff-select .pic-btn then add .active to me">hard</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-d="easy">easy</a>
+    <a class="pic-btn active" onclick="selectBtn(this)" data-d="medium">medium</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-d="hard">hard</a>
   </div>
 </div>
 
 <div class="pic-row">
   <span class="pic-label">type</span>
   <div class="pic-group" id="cat-select">
-    <a class="pic-btn active" data-cat="noun" _="on click remove .active from #cat-select .pic-btn then add .active to me">noun</a>
-    <a class="pic-btn" data-cat="verb" _="on click remove .active from #cat-select .pic-btn then add .active to me">verb</a>
-    <a class="pic-btn" data-cat="adjective" _="on click remove .active from #cat-select .pic-btn then add .active to me">adjective</a>
-    <a class="pic-btn" data-cat="any" _="on click remove .active from #cat-select .pic-btn then add .active to me">any</a>
+    <a class="pic-btn active" onclick="selectBtn(this)" data-cat="noun">noun</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-cat="verb">verb</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-cat="adjective">adjective</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-cat="any">any</a>
   </div>
 </div>
 
 <div class="pic-row">
   <span class="pic-label">mode</span>
   <div class="pic-group" id="mode-select">
-    <a class="pic-btn active" data-mode="word" _="on click remove .active from #mode-select .pic-btn then add .active to me">word</a>
-    <a class="pic-btn" data-mode="sentence" _="on click remove .active from #mode-select .pic-btn then add .active to me">sentence</a>
+    <a class="pic-btn active" onclick="selectBtn(this)" data-mode="word">word</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-mode="sentence">sentence</a>
   </div>
 </div>
 
 <div style="margin: 1.5rem 0;">
-  <button
-    style="padding: 0.5rem 1.5rem; font-size: 1rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #fafafa;"
-    hx-get="/games/pictionary/word/"
-    hx-target="#word-target"
-    hx-swap="innerHTML"
-    _="on click set my @hx-get to '/games/pictionary/word/?d=' + (document.querySelector('#diff-select .active')?.dataset.d || 'medium') + '&cat=' + (document.querySelector('#cat-select .active')?.dataset.cat || 'noun') + '&mode=' + (document.querySelector('#mode-select .active')?.dataset.mode || 'word')"
-    >
+  <button onclick="getWord()" style="padding: 0.5rem 1.5rem; font-size: 1rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #fafafa;">
     new word
   </button>
 </div>
@@ -61,6 +55,19 @@
   <span style="font-size: 0.9rem; color: #888;">press the button to get a word</span>
 </div>
 
-<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
+<script>
+function selectBtn(el) {
+  el.parentElement.querySelectorAll('.pic-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function getWord() {
+  const d = document.querySelector('#diff-select .active')?.dataset.d || 'medium';
+  const cat = document.querySelector('#cat-select .active')?.dataset.cat || 'noun';
+  const mode = document.querySelector('#mode-select .active')?.dataset.mode || 'word';
+  fetch(`/games/pictionary/word/?d=${d}&cat=${cat}&mode=${mode}`, {headers: {'HX-Request': 'true'}})
+    .then(r => r.text())
+    .then(html => { document.getElementById('word-target').innerHTML = html; });
+}
+</script>
 {% endblock %}
