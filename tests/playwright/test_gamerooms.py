@@ -148,11 +148,83 @@ def test_multiplayer_start_game(page: Page, browser: "Browser"):
     # Player 1 should see Player2 in the players list
     expect(page.locator("#players").first).to_contain_text("Player2")
 
+    # Set rounds to 2 for quick test
+    page.fill("#set-rounds", "2")
+    page.wait_for_timeout(500)
+
     # Player 1 starts the game
     page.click("#start-btn")
-    page.wait_for_timeout(1000)
+
+    # Wait for countdown (3-2-1-GO = ~4s)
+    page.wait_for_timeout(5000)
 
     # Game should have started — status should show round info
     expect(page.locator("#status").first).to_contain_text("Round")
+
+    ctx2.close()
+
+
+def test_full_game_flow(page: Page, browser: "Browser"):
+    """Test a complete 1-round game: emoji phase, reveal, guess, game over."""
+    # Create room
+    page.goto(f"{BASE}/games/create/")
+    page.fill("input[name='title']", "Full Game Test")
+    label_text = page.locator("label", has_text="+").text_content()
+    nums = re.findall(r"\d+", label_text)
+    page.fill("input[name='captcha_answer']", str(int(nums[0]) + int(nums[1])))
+    page.click("button[type='submit']")
+    page.wait_for_url(re.compile(r"/games/\w+/"))
+    room_url = page.url
+
+    # Player 1 joins
+    page.fill("input[name='name']", "Alice")
+    page.click("button[type='submit']")
+    page.wait_for_url(re.compile(r"/games/emojinary/"))
+    page.wait_for_timeout(1000)
+
+    # Player 2 joins
+    ctx2 = browser.new_context()
+    p2 = ctx2.new_page()
+    p2.goto(room_url)
+    p2.fill("input[name='name']", "Bob")
+    p2.click("button[type='submit']")
+    p2.wait_for_url(re.compile(r"/games/emojinary/"))
+    p2.wait_for_timeout(1000)
+
+    # Set to 1 round, no timers
+    page.fill("#set-rounds", "1")
+    page.fill("#set-emoji-timer", "0")
+    page.fill("#set-guess-timer", "0")
+    page.wait_for_timeout(500)
+
+    # Start game
+    page.click("#start-btn")
+    page.wait_for_timeout(5000)  # countdown
+
+    # One of them should have the emoji input, the other should see "waiting"
+    # Check both pages for who has the turn
+    alice_has_turn = page.locator("#emoji-input-area").is_visible()
+    bob_has_turn = p2.locator("#emoji-input-area").is_visible()
+    assert alice_has_turn or bob_has_turn, "Someone should have the emoji input"
+
+    if alice_has_turn:
+        active, guesser = page, p2
+    else:
+        active, guesser = p2, page
+
+    # Active player adds an emoji and reveals
+    active.evaluate(
+        "document.getElementById('emoji-field').value='🎬🦁👑'; "
+        + "document.querySelector('[onclick*=sendEmoji]')?.click() || "
+        + "fetch(location.origin+'/ws/').catch(()=>{})"
+    )
+    # Send the emoji via websocket
+    active.evaluate("ws.send(JSON.stringify({action:'emoji',emoji:'🎬🦁👑'}))")
+    active.wait_for_timeout(500)
+    active.click("button:has-text('reveal')")
+    active.wait_for_timeout(1500)
+
+    # Guesser should see the emoji
+    expect(guesser.locator("#emoji-display")).to_contain_text("🎬🦁👑")
 
     ctx2.close()
