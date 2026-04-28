@@ -44,16 +44,22 @@ def _render_create(request, error=None):
 def room_join(request, code):
     room = get_object_or_404(Room, code=code, is_active=True)
 
-    if room.has_password and request.method == "GET":
-        return render(request, "gamerooms/room_password.html", {"room": room})
+    # Step 1: password check (if room has one)
+    if room.has_password:
+        # Check if password was already verified via session
+        session_key = f"room_{room.code}_auth"
+        if not request.session.get(session_key):
+            if request.method == "POST" and "password" in request.POST:
+                if request.POST.get("password") == room.password:
+                    request.session[session_key] = True
+                else:
+                    return render(request, "gamerooms/room_password.html", {"room": room, "error": "wrong password"})
+            else:
+                return render(request, "gamerooms/room_password.html", {"room": room})
 
-    if room.has_password and request.method == "POST":
-        if request.POST.get("password") != room.password:
-            return render(request, "gamerooms/room_password.html", {"room": room, "error": "wrong password"})
-
-    name = request.GET.get("name") or request.POST.get("name", "")
+    # Step 2: name entry
+    name = request.POST.get("name", "").strip() if request.method == "POST" else request.GET.get("name", "").strip()
     if not name:
         return render(request, "gamerooms/room_name.html", {"room": room})
 
-    # Redirect to the game-specific view
     return redirect("emojinary:game", code=room.code, name=name)
