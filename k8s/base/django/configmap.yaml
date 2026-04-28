@@ -13,3 +13,4 @@ data:
   MEDIA_ROOT: /var/www/marco-silva.com/media
   PLANZ_PASSWORD: changeme
   GOOGLE_CALENDAR_ICAL_URL: ""
+  CELERY_BROKER_URL: "redis://redis:6379/0"

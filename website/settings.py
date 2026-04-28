@@ -66,9 +66,12 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
     "wagtailmarkdown",
+    "django_celery_beat",
+    "django_celery_results",
     # project
     "blog",
     "photos",
+    "tools",
     "photologue",
     "sortedm2m",
 ]
@@ -221,6 +224,16 @@ LOGGING = {
         },
     },
 }
+# Celery
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = "django-cache"
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+
 # Wagtail
 WAGTAIL_SITE_NAME = "Marco Silva"
 WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "https://marco-silva.com")

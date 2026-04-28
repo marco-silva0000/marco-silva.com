@@ -5,18 +5,22 @@ description = "my website 😄"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "celery[redis]>=5.4",
     "django>=5.1.7",
+    "django-celery-beat>=2.7",
+    "django-celery-results>=2.5",
     "django-htmx>=1.22.0",
     "django-photologue>=3.17",
     "gunicorn>=23.0.0",
+    "icalendar>=6.0",
     "markdown>=3.5",
     "psycopg>=3.2.5",
     "python-dotenv>=1.0.1",
     "pytz>=2025.1",
+    "redis>=5.0",
     "wagtail>=6.4",
     "wagtail-markdown>=0.12",
     "whitenoise>=6.5",
-    "icalendar>=6.0",
 ]
 
 [project.optional-dependencies]

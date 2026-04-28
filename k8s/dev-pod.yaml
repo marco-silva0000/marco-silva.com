@@ -21,6 +21,10 @@ spec:
       volumeMounts:
         - name: pgdata
           mountPath: /var/lib/postgresql/data
+    - name: redis
+      image: docker.io/valkey/valkey:8-alpine
+      ports:
+        - containerPort: 6379
     - name: django
       image: localhost/marco-silva.com:latest
       env:
@@ -44,12 +48,50 @@ spec:
           value: "true"
         - name: DJANGO_SETTINGS_MODULE
           value: website.settings
+        - name: CELERY_BROKER_URL
+          value: "redis://localhost:6379/0"
       ports:
         - containerPort: 8000
           hostPort: 8000
       volumeMounts:
         - name: media
           mountPath: /var/www/marco-silva.com/media
+    - name: celery-worker
+      image: localhost/marco-silva.com:latest
+      command: ["celery", "-A", "website", "worker", "-l", "info", "--concurrency=2"]
+      env:
+        - name: POSTGRES_HOST
+          value: localhost
+        - name: POSTGRES_NAME
+          value: marcosilva
+        - name: POSTGRES_USER
+          value: marcosilva
+        - name: POSTGRES_PASSWORD
+          value: devpassword
+        - name: SECRET_KEY
+          value: dev-insecure-secret-key
+        - name: DJANGO_SETTINGS_MODULE
+          value: website.settings
+        - name: CELERY_BROKER_URL
+          value: "redis://localhost:6379/0"
+    - name: celery-beat
+      image: localhost/marco-silva.com:latest
+      command: ["celery", "-A", "website", "beat", "-l", "info", "--scheduler", "django_celery_beat.schedulers:DatabaseScheduler"]
+      env:
+        - name: POSTGRES_HOST
+          value: localhost
+        - name: POSTGRES_NAME
+          value: marcosilva
+        - name: POSTGRES_USER
+          value: marcosilva
+        - name: POSTGRES_PASSWORD
+          value: devpassword
+        - name: SECRET_KEY
+          value: dev-insecure-secret-key
+        - name: DJANGO_SETTINGS_MODULE
+          value: website.settings
+        - name: CELERY_BROKER_URL
+          value: "redis://localhost:6379/0"
   volumes:
     - name: pgdata
       persistentVolumeClaim:

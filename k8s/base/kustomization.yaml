@@ -7,9 +7,12 @@ resources:
   - postgres/secret.yaml
   - postgres/statefulset.yaml
   - postgres/service.yaml
+  - redis/deployment.yaml
+  - redis/service.yaml
   - django/configmap.yaml
   - django/secret.yaml
   - django/deployment.yaml
   - django/service.yaml
   - django/ingress.yaml
+  - celery/deployment.yaml
   - media/pvc.yaml
