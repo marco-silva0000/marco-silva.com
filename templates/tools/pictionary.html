@@ -48,10 +48,10 @@
 <div style="margin: 1.5rem 0;">
   <button
     style="padding: 0.5rem 1.5rem; font-size: 1rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #fafafa;"
-    hx-get="{% url 'tools:pictionary-word' %}"
+    hx-get="/games/pictionary/word/"
     hx-target="#word-target"
     hx-swap="innerHTML"
-    _="on click set my @hx-get to '{% url 'tools:pictionary-word' %}?d=' + (document.querySelector('#diff-select .active')?.dataset.d || 'medium') + '&cat=' + (document.querySelector('#cat-select .active')?.dataset.cat || 'noun') + '&mode=' + (document.querySelector('#mode-select .active')?.dataset.mode || 'word')"
+    _="on click set my @hx-get to '/games/pictionary/word/?d=' + (document.querySelector('#diff-select .active')?.dataset.d || 'medium') + '&cat=' + (document.querySelector('#cat-select .active')?.dataset.cat || 'noun') + '&mode=' + (document.querySelector('#mode-select .active')?.dataset.mode || 'word')"
     >
     new word
   </button>
