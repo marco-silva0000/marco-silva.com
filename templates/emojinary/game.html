@@ -62,7 +62,7 @@
       <div id="partial-feedback" style="font-size: 0.8rem; color: #4a9eff; margin-top: 0.3rem;"></div>
     </div>
 
-    <button id="start-btn" onclick="startGame()" style="margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">start game</button>
+    <button id="start-btn" onclick="startGame()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">start game</button>
   </div>
 
   <div>
@@ -110,7 +110,14 @@ function connect() {
 function handleMessage(data) {
   if (data.type === 'message') {
     addChat(data.msg, 'system');
-    if (data.players) updatePlayers(data.players);
+    if (data.players) {
+      updatePlayers(data.players);
+      // Show start button for creator if game not started
+      const me = data.players.find(p => p.name === PLAYER_NAME);
+      if (me && me.is_creator) {
+        document.getElementById('start-btn').style.display = '';
+      }
+    }
   } else if (data.type === 'new_round') {
     document.getElementById('start-btn').style.display = 'none';
     document.getElementById('status').textContent = `Round ${data.round} — ${data.current_player}'s turn (${data.category})`;
@@ -140,8 +147,13 @@ function handleMessage(data) {
     addChat(data.msg, 'system');
   } else if (data.type === 'state') {
     if (data.players) updatePlayers(data.players);
+    if (data.started) {
+      document.getElementById('start-btn').style.display = 'none';
+    } else {
+      // Only show start button to creator
+      document.getElementById('start-btn').style.display = (data.creator === PLAYER_NAME) ? '' : 'none';
+    }
     if (data.emoji_clue) document.getElementById('emoji-display').textContent = data.emoji_clue;
-    if (data.started) document.getElementById('start-btn').style.display = 'none';
     if (data.current_word) {
       document.getElementById('your-word').style.display = 'block';
       document.getElementById('your-word').textContent = `Your word: ${data.current_word}`;
@@ -169,7 +181,7 @@ function addChat(msg, cls='') {
 
 function updatePlayers(players) {
   document.getElementById('players').innerHTML = players.map(p =>
-    `<div class="player ${p.is_turn ? 'active' : ''}">${p.name}: ${p.score}pts</div>`
+    `<div class="player ${p.is_turn ? 'active' : ''}">${p.is_creator ? '👑 ' : ''}${p.name}: ${p.score}pts</div>`
   ).join('');
 }
 

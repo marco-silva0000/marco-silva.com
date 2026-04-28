@@ -54,8 +54,14 @@ def delete_game(code):
 
 def player_list(state):
     current_player = current_player_channel(state)
+    creator = state.get("creator")
     return [
-        {"name": info["name"], "score": info["score"], "is_turn": ch == current_player}
+        {
+            "name": info["name"],
+            "score": info["score"],
+            "is_turn": ch == current_player,
+            "is_creator": info["name"] == creator,
+        }
         for ch, info in state["players"].items()
     ]
 

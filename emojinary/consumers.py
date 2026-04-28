@@ -57,6 +57,7 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                         "type": "state",
                         "players": player_list(state),
                         "started": state["started"],
+                        "creator": state.get("creator"),
                         "history": state.get("history", []),
                         "emoji_clue": state.get("emoji_clue", ""),
                         "round_num": state.get("round_num", 0),
@@ -72,6 +73,7 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                         "type": "state",
                         "players": player_list(state),
                         "started": state["started"],
+                        "creator": state.get("creator"),
                         "history": state.get("history", []),
                         "emoji_clue": state.get("emoji_clue", ""),
                         "round_num": state.get("round_num", 0),
@@ -101,6 +103,9 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
         elif action == "start":
             if state["started"]:
                 await self.send_json({"type": "error", "msg": "game already started"})
+                return
+            if self.player_name != state.get("creator"):
+                await self.send_json({"type": "error", "msg": "only the room creator can start"})
                 return
             if len(state["players"]) < 2:
                 await self.channel_layer.group_send(
