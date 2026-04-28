@@ -24,7 +24,6 @@ urlpatterns = [
     path("photos/", include("photos.urls")),
     path("tools/", include("tools.urls")),
     path("games/", include("gamerooms.urls")),
-    path("games/emojinary/", include("emojinary.urls")),
     path("admin/", admin.site.urls),
     path("cms/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
