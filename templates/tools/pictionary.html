@@ -3,33 +3,55 @@
 {% block title %}pictionary{% endblock %}
 
 {% block extra_css %}
-.diff-btn { display: inline-block; text-decoration: none; padding: 0.35rem 0.7rem; border: 1px solid #ccc; border-radius: 4px; color: #222; background: #fafafa; cursor: pointer; font-size: 0.85rem; }
-.diff-btn:hover { background: #eee; }
-.diff-btn.active { background: #222; color: #fff; border-color: #222; }
-.diff-group { display: inline-flex; margin-bottom: 1rem; }
-.diff-group .diff-btn { border-radius: 0; border-right-width: 0; }
-.diff-group .diff-btn:first-child { border-radius: 4px 0 0 4px; }
-.diff-group .diff-btn:last-child { border-radius: 0 4px 4px 0; border-right-width: 1px; }
+.pic-btn { display: inline-block; text-decoration: none; padding: 0.35rem 0.7rem; border: 1px solid #ccc; border-radius: 4px; color: #222; background: #fafafa; cursor: pointer; font-size: 0.85rem; }
+.pic-btn:hover { background: #eee; }
+.pic-btn.active { background: #222; color: #fff; border-color: #222; }
+.pic-group { display: inline-flex; }
+.pic-group .pic-btn { border-radius: 0; border-right-width: 0; }
+.pic-group .pic-btn:first-child { border-radius: 4px 0 0 4px; }
+.pic-group .pic-btn:last-child { border-radius: 0 4px 4px 0; border-right-width: 1px; }
+.pic-row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.75rem; }
+.pic-label { font-size: 0.8rem; color: #888; min-width: 60px; }
 {% endblock %}
 
 {% block content %}
 <h1 style="font-size: 1.3rem; margin-bottom: 1rem;">pictionary</h1>
-<p style="font-size: 0.85rem; color: #555; margin-bottom: 1.5rem;">pick a difficulty, hit the button, draw!</p>
+<p style="font-size: 0.85rem; color: #555; margin-bottom: 1.5rem;">pick your options, hit the button, draw!</p>
 
-<div class="diff-group" id="diff-select">
-  <a class="diff-btn" data-d="easy" _="on click remove .active from .diff-btn then add .active to me then set #word-target.innerHTML to '...'">easy</a>
-  <a class="diff-btn active" data-d="medium" _="on click remove .active from .diff-btn then add .active to me then set #word-target.innerHTML to '...'">medium</a>
-  <a class="diff-btn" data-d="hard" _="on click remove .active from .diff-btn then add .active to me then set #word-target.innerHTML to '...'">hard</a>
+<div class="pic-row">
+  <span class="pic-label">difficulty</span>
+  <div class="pic-group" id="diff-select">
+    <a class="pic-btn" data-d="easy" _="on click remove .active from #diff-select .pic-btn then add .active to me">easy</a>
+    <a class="pic-btn active" data-d="medium" _="on click remove .active from #diff-select .pic-btn then add .active to me">medium</a>
+    <a class="pic-btn" data-d="hard" _="on click remove .active from #diff-select .pic-btn then add .active to me">hard</a>
+  </div>
 </div>
 
-<div style="margin-bottom: 1.5rem;">
+<div class="pic-row">
+  <span class="pic-label">type</span>
+  <div class="pic-group" id="cat-select">
+    <a class="pic-btn active" data-cat="noun" _="on click remove .active from #cat-select .pic-btn then add .active to me">noun</a>
+    <a class="pic-btn" data-cat="verb" _="on click remove .active from #cat-select .pic-btn then add .active to me">verb</a>
+    <a class="pic-btn" data-cat="adjective" _="on click remove .active from #cat-select .pic-btn then add .active to me">adjective</a>
+    <a class="pic-btn" data-cat="any" _="on click remove .active from #cat-select .pic-btn then add .active to me">any</a>
+  </div>
+</div>
+
+<div class="pic-row">
+  <span class="pic-label">mode</span>
+  <div class="pic-group" id="mode-select">
+    <a class="pic-btn active" data-mode="word" _="on click remove .active from #mode-select .pic-btn then add .active to me">word</a>
+    <a class="pic-btn" data-mode="sentence" _="on click remove .active from #mode-select .pic-btn then add .active to me">sentence</a>
+  </div>
+</div>
+
+<div style="margin: 1.5rem 0;">
   <button
     style="padding: 0.5rem 1.5rem; font-size: 1rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #fafafa;"
     hx-get="{% url 'tools:pictionary-word' %}"
     hx-target="#word-target"
     hx-swap="innerHTML"
-    hx-include="[data-d]"
-    _="on click set @hx-get to '{% url 'tools:pictionary-word' %}?d=' + (document.querySelector('.diff-btn.active').dataset.d)"
+    _="on click set my @hx-get to '{% url 'tools:pictionary-word' %}?d=' + (document.querySelector('#diff-select .active')?.dataset.d || 'medium') + '&cat=' + (document.querySelector('#cat-select .active')?.dataset.cat || 'noun') + '&mode=' + (document.querySelector('#mode-select .active')?.dataset.mode || 'word')"
     >
     new word
   </button>

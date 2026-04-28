@@ -2,9 +2,10 @@ import random
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from wonderwords import RandomWord
+from wonderwords import RandomSentence, RandomWord
 
 rw = RandomWord()
+rs = RandomSentence()
 
 HARD_WORDS = [
     "democracy",
@@ -38,6 +39,13 @@ HARD_WORDS = [
     "perspective",
 ]
 
+CATEGORY_MAP = {
+    "noun": ["noun"],
+    "verb": ["verb"],
+    "adjective": ["adjective"],
+    "any": ["noun", "adjective", "verb"],
+}
+
 
 def pictionary(request):
     return render(request, "tools/pictionary.html")
@@ -45,13 +53,19 @@ def pictionary(request):
 
 def pictionary_word(request):
     difficulty = request.GET.get("d", "medium")
+    category = request.GET.get("cat", "noun")
+    mode = request.GET.get("mode", "word")
 
-    if difficulty == "easy":
-        word = rw.word(include_categories=["noun"], word_min_length=3, word_max_length=6)
+    if mode == "sentence":
+        word = rs.sentence()
     elif difficulty == "hard":
         word = random.choice(HARD_WORDS)
     else:
-        word = rw.word(include_categories=["noun", "adjective"], word_min_length=5, word_max_length=12)
+        cats = CATEGORY_MAP.get(category, ["noun"])
+        if difficulty == "easy":
+            word = rw.word(include_categories=cats, word_min_length=3, word_max_length=6)
+        else:
+            word = rw.word(include_categories=cats, word_min_length=5, word_max_length=12)
 
     if request.headers.get("HX-Request"):
         return HttpResponse(f'<span style="font-size: 1.5rem; font-weight: 600;">{word}</span>')
