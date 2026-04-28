@@ -59,7 +59,11 @@ def pictionary_word(request):
     if mode == "sentence":
         word = rs.sentence()
     elif difficulty == "hard":
-        word = random.choice(HARD_WORDS)
+        cats = CATEGORY_MAP.get(category, ["noun"])
+        try:
+            word = rw.word(include_categories=cats, word_min_length=8, word_max_length=20)
+        except Exception:
+            word = random.choice(HARD_WORDS)
     else:
         cats = CATEGORY_MAP.get(category, ["noun"])
         if difficulty == "easy":
