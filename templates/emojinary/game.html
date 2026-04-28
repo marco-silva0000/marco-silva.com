@@ -146,7 +146,13 @@ function handle(d) {
     }
   } else if (d.type==='your_word') {
     $('your-word').style.display='block';
-    $('your-word').innerHTML = `Your word: <strong>${d.word}</strong> <button onclick="rerollWord()" style="font-size:0.8rem;cursor:pointer;margin-left:0.5rem;">🎲 reroll</button> <button onclick="sendPrompt()" style="font-size:0.8rem;cursor:pointer;margin-left:0.3rem;">✅ send</button>`;
+    const mode = $('set-mode') ? $('set-mode').value : 'round_robin';
+    if (mode === 'best_guess') {
+      $('your-word').innerHTML = `Your word: <strong>${d.word}</strong> <button onclick="rerollWord()" style="font-size:0.8rem;cursor:pointer;margin-left:0.5rem;">🎲 reroll</button> <button onclick="sendPrompt()" style="font-size:0.8rem;cursor:pointer;margin-left:0.3rem;">✅ send</button>`;
+    } else {
+      $('your-word').textContent = `Your word: ${d.word}`;
+      show('emoji-input-area');
+    }
   } else if (d.type==='emoji_preview') {
     $('emoji-display').textContent = d.emoji;
   } else if (d.type==='guess_phase') {
