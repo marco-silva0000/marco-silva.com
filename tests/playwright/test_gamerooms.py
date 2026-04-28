@@ -53,7 +53,7 @@ def test_join_open_room_and_enter_game(page: Page):
 
     # Should be in the game
     page.wait_for_url(re.compile(r"/games/emojinary/\w+/TestPlayer/"))
-    expect(page.locator("#start-btn")).to_be_visible()
+    expect(page.locator("#game-area")).to_be_visible()
 
 
 def test_locked_room_password_flow(page: Page, browser: "Browser"):
@@ -94,7 +94,7 @@ def test_locked_room_password_flow(page: Page, browser: "Browser"):
     joiner.fill("input[name='name']", "SecurePlayer")
     joiner.click("button[type='submit']")
     joiner.wait_for_url(re.compile(r"/games/emojinary/\w+/SecurePlayer/"))
-    expect(joiner.locator("#start-btn")).to_be_visible()
+    expect(joiner.locator("#game-area")).to_be_visible()
     ctx.close()
 
 

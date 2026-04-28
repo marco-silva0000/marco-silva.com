@@ -34,6 +34,15 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
       POSTGRES_HOST: localhost
       POSTGRES_NAME: testdb
@@ -43,6 +52,7 @@ jobs:
       ALLOWED_HOSTS: localhost
       DEBUG: "true"
       PLANZ_PASSWORD: planz
+      CELERY_BROKER_URL: redis://localhost:6379/0
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -56,7 +66,9 @@ jobs:
 
       # Start Django for integration tests
       - run: uv run python manage.py migrate --noinput
-      - run: uv run gunicorn website.wsgi:application --bind 0.0.0.0:8000 --daemon
+      - run: uv run python manage.py seed_emojinary
+      - run: uv run daphne -b 0.0.0.0 -p 8000 website.asgi:application &
+      - run: sleep 3
 
       # Robot Framework tests
       - run: uv run robot --outputdir /tmp/robot-output tests/robot/planz.robot
