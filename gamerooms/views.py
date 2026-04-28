@@ -31,6 +31,8 @@ def room_create(request):
             return _render_create(request, error="wrong captcha")
 
         room = Room.objects.create(title=title, password=password)
+        # Auto-auth the creator
+        request.session[f"room_{room.code}"] = True
         return redirect("gamerooms:room-join", code=room.code)
 
     return _render_create(request)
@@ -43,22 +45,23 @@ def _render_create(request, error=None):
 
 def room_join(request, code):
     room = get_object_or_404(Room, code=code, is_active=True)
+    session_key = f"room_{room.code}"
 
-    # Password check
-    if room.has_password:
-        pw = request.GET.get("pw") or request.POST.get("password")
-        if not pw:
+    # Step 1: password (if needed and not already authed)
+    if room.has_password and not request.session.get(session_key):
+        if request.method == "POST" and "password" in request.POST:
+            if request.POST["password"] == room.password:
+                request.session[session_key] = True
+                # Fall through to name step
+            else:
+                return render(request, "gamerooms/room_password.html", {"room": room, "error": "wrong password"})
+        else:
             return render(request, "gamerooms/room_password.html", {"room": room})
-        if pw != room.password:
-            return render(request, "gamerooms/room_password.html", {"room": room, "error": "wrong password"})
-        # Password correct — continue with pw in context for next step
-        name = request.POST.get("name", "").strip()
-        if not name:
-            return render(request, "gamerooms/room_name.html", {"room": room, "pw": pw})
-        return redirect(f"/games/emojinary/{room.code}/{name}/?pw={pw}")
 
-    # No password — just need name
-    name = request.POST.get("name", "").strip() or request.GET.get("name", "").strip()
-    if not name:
-        return render(request, "gamerooms/room_name.html", {"room": room})
-    return redirect("emojinary:game", code=room.code, name=name)
+    # Step 2: name
+    if request.method == "POST" and "name" in request.POST:
+        name = request.POST["name"].strip()
+        if name:
+            return redirect("emojinary:game", code=room.code, name=name)
+
+    return render(request, "gamerooms/room_name.html", {"room": room})

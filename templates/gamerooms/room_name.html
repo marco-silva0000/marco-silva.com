@@ -2,9 +2,8 @@
 {% block title %}{{ room.title }} — join{% endblock %}
 {% block content %}
 <h1 style="font-size: 1.3rem; margin-bottom: 1rem;">{{ room.title }}</h1>
-<form method="post" action="{% url 'gamerooms:room-join' room.code %}">
+<form method="post">
   {% csrf_token %}
-  {% if pw %}<input type="hidden" name="password" value="{{ pw }}">{% endif %}
   <input type="text" name="name" placeholder="your name" required autofocus style="padding: 0.35rem; font-size: 0.85rem;">
   <button type="submit" style="padding: 0.35rem 0.7rem; font-size: 0.85rem; cursor: pointer;">join</button>
 </form>

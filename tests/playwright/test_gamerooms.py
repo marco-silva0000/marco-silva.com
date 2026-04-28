@@ -2,7 +2,7 @@
 
 import re
 
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Browser, Page, expect
 
 BASE = "http://localhost:8000"
 
@@ -56,7 +56,8 @@ def test_join_open_room_and_enter_game(page: Page):
     expect(page.locator("#start-btn")).to_be_visible()
 
 
-def test_locked_room_password_flow(page: Page):
+def test_locked_room_password_flow(page: Page, browser: "Browser"):
+    # Create the room
     page.goto(f"{BASE}/games/create/")
     page.fill("input[name='title']", "Locked Room PW")
     page.fill("input[name='password']", "mysecret")
@@ -66,26 +67,35 @@ def test_locked_room_password_flow(page: Page):
     page.click("button[type='submit']")
     page.wait_for_url(re.compile(r"/games/\w+/"))
 
+    # Get the room URL
+    room_url = page.url
+
+    # Open a fresh context (no session) to simulate another player
+    ctx = browser.new_context()
+    joiner = ctx.new_page()
+    joiner.goto(room_url)
+
     # Should see password form
-    expect(page.locator("input[name='password']")).to_be_visible()
+    expect(joiner.locator("input[name='password']")).to_be_visible()
 
     # Wrong password
-    page.fill("input[name='password']", "wrong")
-    page.click("button[type='submit']")
-    expect(page.locator("body")).to_contain_text("wrong password")
+    joiner.fill("input[name='password']", "wrong")
+    joiner.click("button[type='submit']")
+    expect(joiner.locator("body")).to_contain_text("wrong password")
 
     # Correct password
-    page.fill("input[name='password']", "mysecret")
-    page.click("button[type='submit']")
+    joiner.fill("input[name='password']", "mysecret")
+    joiner.click("button[type='submit']")
 
     # Should see name form
-    expect(page.locator("input[name='name']")).to_be_visible()
+    expect(joiner.locator("input[name='name']")).to_be_visible()
 
     # Enter name and join
-    page.fill("input[name='name']", "SecurePlayer")
-    page.click("button[type='submit']")
-    page.wait_for_url(re.compile(r"/games/emojinary/\w+/SecurePlayer/"))
-    expect(page.locator("#start-btn")).to_be_visible()
+    joiner.fill("input[name='name']", "SecurePlayer")
+    joiner.click("button[type='submit']")
+    joiner.wait_for_url(re.compile(r"/games/emojinary/\w+/SecurePlayer/"))
+    expect(joiner.locator("#start-btn")).to_be_visible()
+    ctx.close()
 
 
 def test_game_page_has_emoji_keyboard(page: Page):
