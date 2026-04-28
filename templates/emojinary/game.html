@@ -63,6 +63,26 @@
     <div id="players"></div>
     <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem;">chat</h3>
     <div id="chat"></div>
+    <form onsubmit="sendChat(event)" style="margin-top: 0.3rem; display: flex; gap: 0.3rem;">
+      <input type="text" id="chat-field" placeholder="chat..." style="flex: 1; padding: 0.3rem; font-size: 0.8rem;">
+      <button type="submit" style="padding: 0.3rem 0.5rem; font-size: 0.8rem; cursor: pointer;">send</button>
+    </form>
+  </div>
+  </div>
+
+  <div>
+    <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem;">players</h3>
+    <div id="players"></div>
+    <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem;">chat</h3>
+    <div id="chat"></div>
+  </div>
+  </div>
+
+  <div>
+    <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem;">players</h3>
+    <div id="players"></div>
+    <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem;">chat</h3>
+    <div id="chat"></div>
   </div>
 </div>
 
@@ -128,6 +148,8 @@ function handleMessage(data) {
     addChat(`${data.name}: ${data.msg}`);
   } else if (data.type === 'error') {
     addChat(data.msg, 'system');
+  } else if (data.type === 'state') {
+    if (data.players) updatePlayers(data.players);
   }
 }
 
@@ -149,6 +171,15 @@ function updatePlayers(players) {
 
 function startGame() { ws.send(JSON.stringify({action: 'start'})); }
 function skipWord() { ws.send(JSON.stringify({action: 'skip'})); }
+
+function sendChat(event) {
+  event.preventDefault();
+  const field = document.getElementById('chat-field');
+  if (field.value.trim()) {
+    ws.send(JSON.stringify({action: 'chat', msg: field.value}));
+    field.value = '';
+  }
+}
 
 function sendEmoji() {
   const emoji = document.getElementById('emoji-field').value;

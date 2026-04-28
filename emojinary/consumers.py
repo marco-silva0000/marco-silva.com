@@ -91,6 +91,10 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
 
         if action == "join":
             self.player_name = content.get("name", "anon")
+            # Prevent duplicate joins on reconnect
+            if self.channel_name in game.players:
+                await self.send_json({"type": "state", "players": game.player_list(), "started": game.started})
+                return
             game.players[self.channel_name] = {"name": self.player_name, "score": 0}
             game.turn_order.append(self.channel_name)
             await self.channel_layer.group_send(
@@ -98,9 +102,19 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                 {"type": "game.message", "msg": f"{self.player_name} joined", "players": game.player_list()},
             )
 
+        elif action == "chat":
+            msg = content.get("msg", "").strip()
+            if msg and self.player_name:
+                await self.channel_layer.group_send(
+                    self.group_name, {"type": "game.chat", "name": self.player_name, "msg": msg}
+                )
+
         elif action == "start":
             if len(game.players) < 2:
-                await self.send_json({"type": "error", "msg": "need at least 2 players"})
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {"type": "game.message", "msg": "need at least 2 players to start", "players": game.player_list()},
+                )
                 return
             game.started = True
             game.next_round()
@@ -228,3 +242,6 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
 
     async def game_chat(self, event):
         await self.send_json({"type": "chat", "name": event["name"], "msg": event["msg"]})
+
+    async def game_state(self, event):
+        await self.send_json({"type": "state", "players": event["players"], "started": event["started"]})
