@@ -1,6 +1,10 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from gamerooms.models import Room
+
+
+def emojinary_index(request):
+    return redirect("gamerooms:room-list")
 
 
 def game(request, code, name):
