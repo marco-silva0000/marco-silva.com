@@ -44,22 +44,21 @@ def _render_create(request, error=None):
 def room_join(request, code):
     room = get_object_or_404(Room, code=code, is_active=True)
 
-    # Step 1: password check (if room has one)
+    # Password check
     if room.has_password:
-        # Check if password was already verified via session
-        session_key = f"room_{room.code}_auth"
-        if not request.session.get(session_key):
-            if request.method == "POST" and "password" in request.POST:
-                if request.POST.get("password") == room.password:
-                    request.session[session_key] = True
-                else:
-                    return render(request, "gamerooms/room_password.html", {"room": room, "error": "wrong password"})
-            else:
-                return render(request, "gamerooms/room_password.html", {"room": room})
+        pw = request.GET.get("pw") or request.POST.get("password")
+        if not pw:
+            return render(request, "gamerooms/room_password.html", {"room": room})
+        if pw != room.password:
+            return render(request, "gamerooms/room_password.html", {"room": room, "error": "wrong password"})
+        # Password correct — continue with pw in context for next step
+        name = request.POST.get("name", "").strip()
+        if not name:
+            return render(request, "gamerooms/room_name.html", {"room": room, "pw": pw})
+        return redirect(f"/games/emojinary/{room.code}/{name}/?pw={pw}")
 
-    # Step 2: name entry
-    name = request.POST.get("name", "").strip() if request.method == "POST" else request.GET.get("name", "").strip()
+    # No password — just need name
+    name = request.POST.get("name", "").strip() or request.GET.get("name", "").strip()
     if not name:
         return render(request, "gamerooms/room_name.html", {"room": room})
-
     return redirect("emojinary:game", code=room.code, name=name)
