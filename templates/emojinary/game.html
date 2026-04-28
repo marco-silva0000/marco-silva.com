@@ -63,6 +63,17 @@
     </div>
 
     <button id="start-btn" onclick="startGame()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">start game</button>
+
+    <!-- Settings (creator only, before game starts) -->
+    <div id="settings-area" style="display:none; margin-top: 1rem; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem;">
+      <strong>settings</strong>
+      <div style="margin-top: 0.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+        <label>rounds: <input type="number" id="set-rounds" value="10" min="1" max="50" style="width: 50px;" onchange="updateSettings()"></label>
+        <label>timer (s): <input type="number" id="set-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()"> <span style="color:#888;">0=off</span></label>
+        <label>chat: <select id="set-chat" onchange="updateSettings()"><option value="public">public</option><option value="private">private</option></select></label>
+        <label>difficulty: <select id="set-difficulty" onchange="updateSettings()"><option value="0">all</option><option value="1">easy</option><option value="2">medium</option><option value="3">hard</option></select></label>
+      </div>
+    </div>
   </div>
 
   <div>
@@ -116,11 +127,14 @@ function handleMessage(data) {
       const me = data.players.find(p => p.name === PLAYER_NAME);
       if (me && me.is_creator) {
         document.getElementById('start-btn').style.display = '';
+        document.getElementById('settings-area').style.display = '';
       }
     }
   } else if (data.type === 'new_round') {
     document.getElementById('start-btn').style.display = 'none';
-    document.getElementById('status').textContent = `Round ${data.round} — ${data.current_player}'s turn (${data.category})`;
+    document.getElementById('settings-area').style.display = 'none';
+    const timerText = data.turn_timer ? ` (${data.turn_timer}s)` : '';
+    document.getElementById('status').textContent = `Round ${data.round}/${data.max_rounds} — ${data.current_player}'s turn (${data.category})${timerText}`;
     document.getElementById('word-hint').textContent = `${'_ '.repeat(data.word_length).trim()} (${data.word_length} chars)`;
     document.getElementById('emoji-display').textContent = '';
     document.getElementById('your-word').style.display = 'none';
@@ -131,6 +145,14 @@ function handleMessage(data) {
     document.getElementById('guess-area').style.display = isMyTurn ? 'none' : 'block';
     document.getElementById('emoji-field').value = '';
     if (data.players) updatePlayers(data.players);
+    if (data.turn_timer) startTimer(data.turn_timer);
+  } else if (data.type === 'game_over') {
+    clearInterval(timerInterval);
+    document.getElementById('status').textContent = '🏆 Game Over!';
+    document.getElementById('emoji-input-area').style.display = 'none';
+    document.getElementById('guess-area').style.display = 'none';
+    if (data.players) updatePlayers(data.players);
+    addChat('🏆 Game over! Final scores above.', 'system');
   } else if (data.type === 'your_word') {
     document.getElementById('your-word').style.display = 'block';
     document.getElementById('your-word').textContent = `Your word: ${data.word}`;
@@ -187,6 +209,33 @@ function updatePlayers(players) {
 
 function startGame() { ws.send(JSON.stringify({action: 'start'})); }
 function skipWord() { ws.send(JSON.stringify({action: 'skip'})); }
+
+function updateSettings() {
+  ws.send(JSON.stringify({
+    action: 'settings',
+    max_rounds: document.getElementById('set-rounds').value,
+    turn_timer: document.getElementById('set-timer').value,
+    chat_mode: document.getElementById('set-chat').value,
+    difficulty: document.getElementById('set-difficulty').value,
+  }));
+}
+
+let timerInterval = null;
+function startTimer(seconds) {
+  clearInterval(timerInterval);
+  if (!seconds) return;
+  let remaining = seconds;
+  const status = document.getElementById('status');
+  timerInterval = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(timerInterval);
+      if (isMyTurn) skipWord();
+    } else {
+      status.textContent = status.textContent.replace(/\(\d+s\)/, `(${remaining}s)`);
+    }
+  }, 1000);
+}
 
 function sendChat(event) {
   event.preventDefault();

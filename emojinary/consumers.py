@@ -100,6 +100,25 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                     self.group_name, {"type": "game.chat", "name": self.player_name, "msg": msg}
                 )
 
+        elif action == "settings":
+            # Only creator can change settings before game starts
+            if self.player_name != state.get("creator") or state["started"]:
+                return
+            settings = state.get("settings", {})
+            for key in ("max_rounds", "turn_timer", "difficulty"):
+                if key in content:
+                    try:
+                        settings[key] = int(content[key])
+                    except (ValueError, TypeError):
+                        pass
+            if "chat_mode" in content and content["chat_mode"] in ("public", "private"):
+                settings["chat_mode"] = content["chat_mode"]
+            state["settings"] = settings
+            save_game(self.code, state)
+            await self.channel_layer.group_send(
+                self.group_name, {"type": "game.message", "msg": "settings updated", "players": player_list(state)}
+            )
+
         elif action == "start":
             if state["started"]:
                 await self.send_json({"type": "error", "msg": "game already started"})
@@ -172,9 +191,13 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                     {"type": "game.chat", "name": self.player_name, "msg": f"{'_' * len(guess)} (partial!)"},
                 )
             else:
-                await self.channel_layer.group_send(
-                    self.group_name, {"type": "game.chat", "name": self.player_name, "msg": guess}
-                )
+                chat_mode = state.get("settings", {}).get("chat_mode", "public")
+                if chat_mode == "public":
+                    await self.channel_layer.group_send(
+                        self.group_name, {"type": "game.chat", "name": self.player_name, "msg": guess}
+                    )
+                else:
+                    await self.send_json({"type": "chat", "name": "you", "msg": f"{guess} ❌"})
 
         elif action == "skip":
             if self.channel_name != current_player_channel(state):
@@ -198,8 +221,26 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
             await self._broadcast_new_round(state)
 
     async def _broadcast_new_round(self, state):
+        settings = state.get("settings", {})
+        max_rounds = settings.get("max_rounds", 10)
+
+        # Check game over
+        if state["round_num"] > max_rounds:
+            await self.channel_layer.group_send(
+                self.group_name,
+                {"type": "game.over", "players": player_list(state), "history": state.get("history", [])},
+            )
+            return
+
         cp = current_player_channel(state)
         cp_name = state["players"].get(cp, {}).get("name", "?")
+
+        # Store turn start time
+        import time
+
+        state["turn_start_time"] = time.time()
+        save_game(self.code, state)
+
         await self.channel_layer.group_send(
             self.group_name,
             {
@@ -209,6 +250,8 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                 "word_length": len(state["current_word"]),
                 "current_player": cp_name,
                 "players": player_list(state),
+                "turn_timer": settings.get("turn_timer", 60),
+                "max_rounds": max_rounds,
             },
         )
         if cp:
@@ -227,8 +270,13 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
                 "word_length": event["word_length"],
                 "current_player": event["current_player"],
                 "players": event.get("players"),
+                "turn_timer": event.get("turn_timer", 60),
+                "max_rounds": event.get("max_rounds", 10),
             }
         )
+
+    async def game_over(self, event):
+        await self.send_json({"type": "game_over", "players": event["players"], "history": event.get("history", [])})
 
     async def game_your_word(self, event):
         await self.send_json({"type": "your_word", "word": event["word"]})
@@ -254,4 +302,9 @@ class EmojinaryConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def _get_words(self):
-        return list(EmojinaryWord.objects.values_list("text", "category"))
+        state = get_game(self.code)
+        difficulty = state.get("settings", {}).get("difficulty", 0)
+        qs = EmojinaryWord.objects.all()
+        if difficulty:
+            qs = qs.filter(difficulty=difficulty)
+        return list(qs.values_list("text", "category"))
