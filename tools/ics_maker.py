@@ -15,16 +15,20 @@ def ics_maker(request):
 
 @require_POST
 def ics_extract(request):
-    """Mock AI extraction — returns parsed event details as JSON."""
+    """AI extraction — returns parsed event details as JSON."""
     text = request.POST.get("text", "").strip()
     url = request.POST.get("url", "").strip()
 
     if not text and not url:
         return JsonResponse({"error": "Provide text or a URL."}, status=400)
 
-    # Mock extraction: pretend AI parsed the input
     source = text or f"Content from {url}"
-    event = _mock_extract(source)
+    if text and url:
+        source = f"URL: {url}\n\n{text}"
+
+    from tools.ai_extract import extract_event
+
+    event = extract_event(source)
     return JsonResponse(event)
 
 
@@ -56,19 +60,6 @@ def ics_download(request):
     response = HttpResponse(ics, content_type="text/calendar")
     response["Content-Disposition"] = f'attachment; filename="{title}.ics"'
     return response
-
-
-def _mock_extract(source):
-    """Simulate AI extraction. Replace with real AI call later."""
-    now = datetime.now(TZ)
-    start = now.replace(hour=18, minute=0, second=0, microsecond=0) + timedelta(days=1)
-    return {
-        "title": "Meeting (mock)",
-        "start": start.isoformat(),
-        "end": (start + timedelta(hours=1)).isoformat(),
-        "location": "Helsinki",
-        "description": f"Extracted from: {source[:100]}",
-    }
 
 
 def _parse_dt(value):

@@ -1,8 +1,18 @@
 import json
+from unittest.mock import patch
 
 from django.test import RequestFactory
 
-from tools.ics_maker import _mock_extract, _parse_dt, ics_download, ics_extract, ics_maker
+from tools.ai_extract import EventSchema, _fallback
+from tools.ics_maker import _parse_dt, ics_download, ics_extract, ics_maker
+
+MOCK_EVENT = {
+    "title": "Team Standup",
+    "start": "2026-05-20T10:00:00",
+    "end": "2026-05-20T10:30:00",
+    "location": "Office",
+    "description": "Daily standup",
+}
 
 
 class TestIcsMakerPage:
@@ -18,17 +28,18 @@ class TestIcsMakerPage:
 
 
 class TestIcsExtract:
-    def test_returns_event_json(self):
+    @patch("tools.ai_extract.extract_event", return_value=MOCK_EVENT)
+    def test_returns_event_json(self, mock_ai):
         factory = RequestFactory()
         request = factory.post("/tools/ics/extract/", {"text": "Meeting tomorrow at 6pm", "url": ""})
         resp = ics_extract(request)
         assert resp.status_code == 200
         data = json.loads(resp.content)
-        assert "title" in data
-        assert "start" in data
-        assert "end" in data
+        assert data["title"] == "Team Standup"
+        mock_ai.assert_called_once()
 
-    def test_with_url_only(self):
+    @patch("tools.ai_extract.extract_event", return_value=MOCK_EVENT)
+    def test_with_url_only(self, mock_ai):
         factory = RequestFactory()
         request = factory.post("/tools/ics/extract/", {"text": "", "url": "https://example.com/event"})
         resp = ics_extract(request)
@@ -83,18 +94,34 @@ class TestIcsDownload:
         assert resp.status_code == 405
 
 
-class TestMockExtract:
-    def test_returns_expected_fields(self):
-        result = _mock_extract("Team standup at 10am in the office")
-        assert "title" in result
-        assert "start" in result
-        assert "end" in result
-        assert "location" in result
-        assert "description" in result
+class TestAiExtract:
+    @patch("tools.ai_extract._ollama_extract", return_value=MOCK_EVENT)
+    def test_ollama_success(self, mock_ollama):
+        from tools.ai_extract import extract_event
 
-    def test_description_contains_source(self):
-        result = _mock_extract("Dinner at 7pm")
-        assert "Dinner at 7pm" in result["description"]
+        result = extract_event("Meeting at 10am")
+        assert result["title"] == "Team Standup"
+        mock_ollama.assert_called_once_with("Meeting at 10am")
+
+    @patch("tools.ai_extract._gemini_extract", side_effect=RuntimeError("no key"))
+    @patch("tools.ai_extract._ollama_extract", side_effect=Exception("timeout"))
+    def test_ollama_failure_falls_back(self, mock_ollama, mock_gemini):
+        from tools.ai_extract import extract_event
+
+        result = extract_event("Meeting at 10am")
+        assert result["title"] == "Event"
+        assert "Could not extract" in result["description"]
+
+    def test_fallback_returns_valid_schema(self):
+        result = _fallback("some text")
+        assert result["title"] == "Event"
+        assert "start" in result
+
+    def test_event_schema_defaults(self):
+        schema = EventSchema(start="2026-05-20T10:00:00")
+        assert schema.title == "Event"
+        assert schema.end is None
+        assert schema.location == ""
 
 
 class TestParseDt:
