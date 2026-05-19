@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 
 from . import views
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path("planz/auth/", views.planz_auth, name="planz-auth"),
     path("planz/nav/", views.planz_navigate, name="planz-nav"),
     path("planz/event.ics", views.planz_ics, name="planz-ics"),
+    path("ics/", include("tools.ics_maker_urls")),
 ]

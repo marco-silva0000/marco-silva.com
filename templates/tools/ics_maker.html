@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}ics maker{% endblock %}
+
+{% block extra_css %}
+.ics-input { width: 100%; padding: 0.4rem; font-size: 0.85rem; font-family: system-ui; border: 1px solid #ccc; border-radius: 4px; }
+.ics-btn { padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #fafafa; }
+.ics-btn:hover { background: #eee; }
+.ics-field { margin-bottom: 0.75rem; }
+.ics-field label { display: block; font-size: 0.8rem; color: #888; margin-bottom: 0.25rem; }
+#result-section { display: none; margin-top: 1.5rem; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; }
+#error-msg { color: red; font-size: 0.85rem; margin-top: 0.5rem; }
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">ics maker</h1>
+<p style="font-size: 0.85rem; color: #555; margin-bottom: 1.5rem;">paste text or a url with event details, and get an .ics file.</p>
+
+<div class="ics-field">
+  <label for="text-input">text</label>
+  <textarea id="text-input" class="ics-input" rows="4" placeholder="paste event details here..."></textarea>
+</div>
+
+<div class="ics-field">
+  <label for="url-input">url</label>
+  <input id="url-input" type="url" class="ics-input" placeholder="https://...">
+</div>
+
+<button class="ics-btn" onclick="extract()">extract event</button>
+<div id="error-msg"></div>
+
+<div id="result-section">
+  <div class="ics-field">
+    <label for="ev-title">title</label>
+    <input id="ev-title" class="ics-input">
+  </div>
+  <div class="ics-field">
+    <label for="ev-start">start</label>
+    <input id="ev-start" type="datetime-local" class="ics-input">
+  </div>
+  <div class="ics-field">
+    <label for="ev-end">end</label>
+    <input id="ev-end" type="datetime-local" class="ics-input">
+  </div>
+  <div class="ics-field">
+    <label for="ev-location">location</label>
+    <input id="ev-location" class="ics-input">
+  </div>
+  <div class="ics-field">
+    <label for="ev-description">description</label>
+    <textarea id="ev-description" class="ics-input" rows="2"></textarea>
+  </div>
+  <button class="ics-btn" onclick="download()">download .ics</button>
+</div>
+
+<script>
+function getCookie(name) {
+  const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return v ? v.pop() : '';
+}
+
+async function extract() {
+  const text = document.getElementById('text-input').value;
+  const url = document.getElementById('url-input').value;
+  const errEl = document.getElementById('error-msg');
+  errEl.textContent = '';
+
+  const form = new FormData();
+  form.append('text', text);
+  form.append('url', url);
+
+  const resp = await fetch('/tools/ics/extract/', {
+    method: 'POST',
+    headers: {'X-CSRFToken': getCookie('csrftoken')},
+    body: form,
+  });
+  const data = await resp.json();
+  if (!resp.ok) { errEl.textContent = data.error; return; }
+
+  document.getElementById('ev-title').value = data.title || '';
+  document.getElementById('ev-start').value = (data.start || '').slice(0, 16);
+  document.getElementById('ev-end').value = (data.end || '').slice(0, 16);
+  document.getElementById('ev-location').value = data.location || '';
+  document.getElementById('ev-description').value = data.description || '';
+  document.getElementById('result-section').style.display = 'block';
+}
+
+async function download() {
+  const body = JSON.stringify({
+    title: document.getElementById('ev-title').value,
+    start: document.getElementById('ev-start').value,
+    end: document.getElementById('ev-end').value,
+    location: document.getElementById('ev-location').value,
+    description: document.getElementById('ev-description').value,
+  });
+  const resp = await fetch('/tools/ics/download/', {
+    method: 'POST',
+    headers: {'X-CSRFToken': getCookie('csrftoken'), 'Content-Type': 'application/json'},
+    body,
+  });
+  const blob = await resp.blob();
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (document.getElementById('ev-title').value || 'event') + '.ics';
+  a.click();
+}
+</script>
+{% endblock %}
