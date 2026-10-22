@@ -17,6 +17,10 @@ def web_upload_path(instance, filename):
     return os.path.join("photologue", "web", filename)
 
 
+def instagram_upload_path(instance, filename):
+    return os.path.join("photologue", "instagram", filename)
+
+
 class GalleryExtension(models.Model):
     """Extends photologue Gallery with type and metadata."""
 
@@ -67,6 +71,29 @@ class PhotoExtension(models.Model):
     # Versions
     watermarked_image = models.ImageField(_("watermarked image"), upload_to=watermarked_upload_path, blank=True)
     web_image = models.ImageField(_("web-optimized image"), upload_to=web_upload_path, blank=True)
+    instagram_image = models.ImageField(
+        _("Instagram 4:5 image"),
+        upload_to=instagram_upload_path,
+        blank=True,
+        help_text=_("4:5 vertical crop (1080x1350) for Instagram carousels."),
+    )
+
+    # Framing / Crop focus
+    crop_focus_x = models.PositiveSmallIntegerField(
+        _("crop focus X (%)"),
+        default=50,
+        help_text=_("Horizontal focal point: 0=left, 50=center, 100=right."),
+    )
+    crop_focus_y = models.PositiveSmallIntegerField(
+        _("crop focus Y (%)"),
+        default=50,
+        help_text=_("Vertical focal point: 0=top, 50=center, 100=bottom."),
+    )
+    auto_crop_detected = models.BooleanField(
+        _("auto focus detected"),
+        default=False,
+        help_text=_("Whether focus coordinates were automatically calculated via edge saliency."),
+    )
 
     # EXIF / metadata
     camera_make = models.CharField(_("camera make"), max_length=100, blank=True)

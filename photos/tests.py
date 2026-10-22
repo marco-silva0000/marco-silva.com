@@ -144,3 +144,51 @@ class TestStaticPages:
         resp = client.get("/blog/")
         # 404 is expected when BlogIndexPage hasn't been created via setup_blog
         assert resp.status_code in (200, 404)
+
+
+class TestInstagramProcessing:
+    def test_detect_focus_point(self):
+        from PIL import Image
+
+        from photos.processing import detect_focus_point
+
+        img = Image.new("RGB", (300, 200), color="white")
+        fx, fy = detect_focus_point(img)
+        assert 0 <= fx <= 100
+        assert 0 <= fy <= 100
+
+    def test_crop_to_aspect_ratio(self):
+        from PIL import Image
+
+        from photos.processing import crop_to_aspect_ratio
+
+        img = Image.new("RGB", (600, 400), color="blue")
+        cropped = crop_to_aspect_ratio(img, target_ratio=4 / 5, focus_x=30, focus_y=50, output_size=(1080, 1350))
+        assert cropped.size == (1080, 1350)
+
+    def test_qr_slide_generator(self):
+        from PIL import Image
+
+        from photos.processing import generate_instagram_qr_slide
+
+        buf = generate_instagram_qr_slide(
+            title="Test Shoot",
+            target_url="https://marco-silva.com/photos/galleries/test/",
+            subtitle="Scan to read",
+        )
+        img = Image.open(buf)
+        assert img.size == (1080, 1350)
+        assert img.format == "JPEG"
+
+    def test_generate_instagram_crop_on_photo(self, db):
+        from photos.models import PhotoExtension
+        from photos.processing import generate_instagram_crop
+
+        photo = Photo.objects.create(title="IG Test", image=_make_image("ig.jpg"), is_public=True)
+        ext, _ = PhotoExtension.objects.get_or_create(photo=photo)
+        generate_instagram_crop(ext)
+        ext.refresh_from_db()
+
+        assert bool(ext.instagram_image)
+        assert ext.auto_crop_detected is True
+

@@ -3,8 +3,9 @@ import math
 from io import BytesIO
 
 import exifread
+import qrcode
 from django.core.files.base import ContentFile
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 logger = logging.getLogger(__name__)
 
@@ -218,6 +219,179 @@ def generate_watermark(photo_extension):
     photo_extension.watermarked_image.save(filename, ContentFile(buf.getvalue()), save=False)
 
 
+def detect_focus_point(img: Image.Image) -> tuple[int, int]:
+    """Lightweight saliency / edge-density detection to locate the visual focus point.
+
+    Downsamples the image to a low-res thumbnail, computes gradient edges, and finds the
+    center of mass of high-frequency visual detail with a subtle center bias.
+    Returns (focus_x, focus_y) as percentages (0-100).
+    """
+    thumb = img.copy()
+    thumb.thumbnail((120, 120))
+    gray = thumb.convert("L")
+    edges = gray.filter(ImageFilter.FIND_EDGES)
+
+    w, h = edges.size
+    pixels = edges.load()
+
+    total_weight = 0.0
+    weighted_x = 0.0
+    weighted_y = 0.0
+    cx, cy = w / 2.0, h / 2.0
+
+    for y in range(h):
+        for x in range(w):
+            val = pixels[x, y]
+            # Center bias helps avoid giving excess weight to noisy outer corners (e.g. foliage borders)
+            dist_sq = ((x - cx) / max(cx, 1.0)) ** 2 + ((y - cy) / max(cy, 1.0)) ** 2
+            center_bias = max(0.25, 1.0 - 0.35 * dist_sq)
+            weight = (val**1.5) * center_bias
+            if weight > 0:
+                total_weight += weight
+                weighted_x += x * weight
+                weighted_y += y * weight
+
+    if total_weight > 0:
+        focal_x = int(round((weighted_x / total_weight) / w * 100))
+        focal_y = int(round((weighted_y / total_weight) / h * 100))
+        return max(10, min(90, focal_x)), max(10, min(90, focal_y))
+
+    return 50, 50
+
+
+def crop_to_aspect_ratio(
+    img: Image.Image,
+    target_ratio: float = 4 / 5,
+    focus_x: int = 50,
+    focus_y: int = 50,
+    output_size: tuple[int, int] = (1080, 1350),
+) -> Image.Image:
+    """Crop image to target aspect ratio (width / height) centered around focal point (0-100%)."""
+    img_w, img_h = img.size
+    current_ratio = img_w / img_h
+
+    if current_ratio > target_ratio:
+        # Wider than 4:5 -> crop horizontal sides
+        crop_h = img_h
+        crop_w = int(round(crop_h * target_ratio))
+        center_x = int(round(img_w * (focus_x / 100.0)))
+        left = center_x - crop_w // 2
+        left = max(0, min(img_w - crop_w, left))
+        top = 0
+    else:
+        # Taller than 4:5 -> crop vertical sides
+        crop_w = img_w
+        crop_h = int(round(crop_w / target_ratio))
+        center_y = int(round(img_h * (focus_y / 100.0)))
+        top = center_y - crop_h // 2
+        top = max(0, min(img_h - crop_h, top))
+        left = 0
+
+    right = left + crop_w
+    bottom = top + crop_h
+
+    cropped = img.crop((left, top, right, bottom))
+    return cropped.resize(output_size, Image.Resampling.LANCZOS)
+
+
+def generate_instagram_crop(photo_extension):
+    """Generate 4:5 vertical (1080x1350) crop optimized for Instagram carousels."""
+    try:
+        img = _open_photo_image(photo_extension.photo)
+    except Exception:
+        logger.exception("Failed to open image for Instagram crop: %s", photo_extension.photo.title)
+        return
+
+    # Auto-detect focus point if still at default and not yet detected
+    is_default_focus = photo_extension.crop_focus_x == 50 and photo_extension.crop_focus_y == 50
+    if not photo_extension.auto_crop_detected and is_default_focus:
+        f_x, f_y = detect_focus_point(img)
+        photo_extension.crop_focus_x = f_x
+        photo_extension.crop_focus_y = f_y
+        photo_extension.auto_crop_detected = True
+
+    cropped = crop_to_aspect_ratio(
+        img,
+        target_ratio=4 / 5,
+        focus_x=photo_extension.crop_focus_x,
+        focus_y=photo_extension.crop_focus_y,
+        output_size=(1080, 1350),
+    )
+
+    buf = BytesIO()
+    cropped.save(buf, format="JPEG", quality=90)
+    filename = f"ig_{photo_extension.photo.slug}.jpg"
+    photo_extension.instagram_image.save(filename, ContentFile(buf.getvalue()), save=False)
+
+
+def generate_instagram_qr_slide(
+    title: str,
+    target_url: str,
+    subtitle: str = "Scan or screenshot to view full story & high-res map",
+    exif_summary: str = "",
+) -> BytesIO:
+    """Generate a clean 1080x1350 4:5 Instagram carousel end-card with a QR code and post info."""
+    canvas = Image.new("RGB", (1080, 1350), color="#121214")
+    draw = ImageDraw.Draw(canvas)
+
+    title_font = _get_font(42)
+    sub_font = _get_font(24)
+    info_font = _get_font(20)
+    footer_font = _get_font(28)
+
+    # 1. Header: Title
+    clean_title = title[:45] + ("..." if len(title) > 45 else "")
+    t_bbox = draw.textbbox((0, 0), clean_title, font=title_font)
+    t_w = t_bbox[2] - t_bbox[0]
+    draw.text(((1080 - t_w) // 2, 140), clean_title, font=title_font, fill="#ffffff")
+
+    # 2. Subtitle
+    s_bbox = draw.textbbox((0, 0), subtitle, font=sub_font)
+    s_w = s_bbox[2] - s_bbox[0]
+    draw.text(((1080 - s_w) // 2, 210), subtitle, font=sub_font, fill="#9ca3af")
+
+    # 3. QR Code in centered white card
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_M,
+        box_size=12,
+        border=2,
+    )
+    qr.add_data(target_url)
+    qr.make(fit=True)
+    qr_img = qr.make_image(fill_color="#111111", back_color="#ffffff").convert("RGB")
+
+    card_pad = 28
+    card_w = qr_img.width + card_pad * 2
+    card_h = qr_img.height + card_pad * 2
+    card_x = (1080 - card_w) // 2
+    card_y = 340
+
+    draw.rounded_rectangle(
+        [card_x, card_y, card_x + card_w, card_y + card_h],
+        radius=24,
+        fill="#ffffff",
+    )
+    canvas.paste(qr_img, (card_x + card_pad, card_y + card_pad))
+
+    # 4. EXIF / Metadata
+    if exif_summary:
+        e_bbox = draw.textbbox((0, 0), exif_summary, font=info_font)
+        e_w = e_bbox[2] - e_bbox[0]
+        draw.text(((1080 - e_w) // 2, 1020), exif_summary, font=info_font, fill="#6b7280")
+
+    # 5. Footer URL
+    brand_text = "marco-silva.com"
+    b_bbox = draw.textbbox((0, 0), brand_text, font=footer_font)
+    b_w = b_bbox[2] - b_bbox[0]
+    draw.text(((1080 - b_w) // 2, 1150), brand_text, font=footer_font, fill="#e5e7eb")
+
+    buf = BytesIO()
+    canvas.save(buf, format="JPEG", quality=92)
+    buf.seek(0)
+    return buf
+
+
 def process_photo(photo_extension):
     """Run full processing pipeline on a photo extension."""
     photo_extension.processing_status = "processing"
@@ -227,6 +401,7 @@ def process_photo(photo_extension):
         extract_exif(photo_extension)
         generate_web_image(photo_extension)
         generate_watermark(photo_extension)
+        generate_instagram_crop(photo_extension)
         photo_extension.processing_status = "done"
     except Exception:
         logger.exception("Processing failed for %s", photo_extension)

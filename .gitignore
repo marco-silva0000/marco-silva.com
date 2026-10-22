@@ -58,6 +58,9 @@ coverage.xml
 *.pot
 
 # Django stuff:
+*.sqlite3
+db.sqlite3
+
 *.log
 
 # Sphinx documentation

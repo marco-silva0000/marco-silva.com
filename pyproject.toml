@@ -29,6 +29,7 @@ dependencies = [
     "ollama>=0.6.2",
     "google-genai>=2.4.0",
     "pydantic>=2.13.4",
+    "qrcode[pil]>=8.0",
 ]
 
 [project.optional-dependencies]
