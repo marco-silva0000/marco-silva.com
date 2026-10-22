@@ -2,3 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base
+images:
+  - name: marco-silva.com:latest
+    newName: ghcr.io/marco-silva0000/marco-silva.com
+    newTag: latest

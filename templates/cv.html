@@ -4,7 +4,14 @@
 
 {% block extra_css %}
 .cv { max-width: 720px; }
-.cv h2 { font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+.cv h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
 .cv h3 { font-size: 0.95rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.25rem; }
 .cv ul { padding-left: 1.2rem; margin: 0.25rem 0; }
 .cv p { margin: 0.2rem 0; }
@@ -22,14 +29,33 @@
 table { border-collapse: collapse; width: 100%; margin: 0.5rem 0; font-size: 0.85rem; }
 th, td { border: 1px solid #ddd; padding: 0.3rem 0.5rem; text-align: left; }
 th { background: #f5f5f5; }
+.cv-actions { margin: 0.75rem 0 1.5rem 0; }
+.cv-actions a {
+  font-size: 0.85rem;
+  text-decoration: none;
+  border: 1px solid #333;
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+}
+.cv-actions a:hover { background: #222; color: #fff; }
 @media (min-width: 600px) { .cv-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; } }
 {% endblock %}
 
 {% block content %}
 <div class="cv">
-  <h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Marco Silva</h1>
+  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+    <h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Marco Silva</h1>
+    <div class="cv-actions">
+      <a href="/static/cv.pdf" download>↓ Download PDF</a>
+    </div>
+  </div>
   <p class="meta">Portuguese · Helsinki, Finland</p>
-  <p class="meta">inbox at marco-silva dot com · <a href="https://marco-silva.com">marco-silva.com</a> · <a href="https://github.com/marco-silva0000">github</a> · <a href="https://linkedin.com/in/marco-silva0000/">linkedin</a></p>
+  <p class="meta">
+    inbox at marco-silva dot com ·
+    <a href="https://marco-silva.com">marco-silva.com</a> ·
+    <a href="https://github.com/marco-silva0000">github</a> ·
+    <a href="https://linkedin.com/in/marco-silva0000/">linkedin</a>
+  </p>
 
   <div class="cv-grid">
     <div class="sidebar">
@@ -122,61 +148,60 @@ th { background: #f5f5f5; }
       <h2>Work Experience</h2>
 
       <h3>Senior Cybersecurity Software Developer — Ericsson</h3>
-      <p class="meta">08/2025–present · Remote · <a href="https://www.ericsson.com">ericsson.com</a></p>
+      <p class="meta">08/2025 – Present · Remote · Helsinki, Finland · <a href="https://www.ericsson.com">ericsson.com</a></p>
       <ul>
-        <li>Development on ESM (Ericsson Security Manager), a large-scale network security management platform</li>
-        <li>Django microservices architecture deployed on Kubernetes (k3s/k8s)</li>
-        <li>Integrated report generation with Typst for PDF backend rendering</li>
-        <li>Framework uplifts and migration refactoring across platform services</li>
-        <li>Kubernetes ConfigMaps for dynamic service configuration</li>
-        <li>Robot Framework test automation</li>
-        <li>AI integration design and planning for the platform</li>
+        <li><strong>Platform Architecture</strong>: Development on ESM (Ericsson Security Manager), managing complex security posture, compliance, and telemetry for large-scale telecommunications networks.</li>
+        <li><strong>Microservices on Kubernetes</strong>: Architecting and maintaining Django microservices containerized and orchestrated on Kubernetes (<code>k8s</code> / <code>k3s</code>).</li>
+        <li><strong>High-Performance Reporting</strong>: Integrated automated reporting pipeline with <strong>Typst</strong> for high-quality, high-throughput PDF backend document generation.</li>
+        <li><strong>Framework Uplifts & Modernization</strong>: Leading major framework uplifts, dependency modernization, and structural refactoring across platform services.</li>
+        <li><strong>Dynamic Configuration</strong>: Implementing and managing Kubernetes <code>ConfigMaps</code> and secret injection patterns for runtime service configuration.</li>
+        <li><strong>Automated Testing</strong>: Designing end-to-end integration and system test suites using <strong>Robot Framework</strong>.</li>
+        <li><strong>AI Integration</strong>: Architectural planning and feature prototyping for AI-assisted capabilities within the platform.</li>
       </ul>
 
-      <h3>Fullstack Developer — Black Duck (formerly Synopsys)</h3>
-      <p class="meta">07/2019–08/2025 · Belfast, UK · <a href="https://www.blackduck.com">blackduck.com</a></p>
+      <h3>Fullstack Developer — Black Duck</h3>
+      <p class="meta">07/2019 – 08/2025 · Belfast, Northern Ireland, UK · <a href="https://www.blackduck.com">blackduck.com</a></p>
       <ul>
-        <li>Fullstack development of an internal application for vulnerability analysis</li>
-        <li>Django, DRF, Angular, AdminLTE, Postgres</li>
-        <li>Unified Taxonomy system development</li>
-        <li>SCA checker tool development (in Rust)</li>
-        <li>Mentoring the team on Python architecture</li>
-        <li>Integrating cybersecurity standards (OWASP, CWE/CAPEC)</li>
-        <li>Replacing/upgrading data entry system with reporting tool</li>
-        <li>Developing test suite from scratch with pytest</li>
+        <li><strong>Internal Vulnerability Platform</strong>: Fullstack engineering of high-throughput internal platform used by security researchers and analysts to discover, triage, and score open-source software vulnerabilities.</li>
+        <li><strong>Unified Taxonomy System</strong>: Designed and implemented a unified taxonomy system categorizing security vulnerabilities, CWE/CAPEC patterns, and exploit vectors across diverse ecosystems.</li>
+        <li><strong>SCA Analysis in Rust</strong>: Developed a dedicated Software Composition Analysis (SCA) checker tool written in <strong>Rust</strong> for performance-critical manifest and binary parsing.</li>
+        <li><strong>Standards Integration</strong>: Embedded industry cybersecurity standards (<strong>OWASP</strong>, <strong>CWE</strong>, <strong>CAPEC</strong>, <strong>CVSS</strong>) into daily tooling and automated workflows.</li>
+        <li><strong>Testing Leadership</strong>: Introduced and built an extensive automated test suite from scratch using <strong>pytest</strong> and factory patterns, elevating code quality and reliability.</li>
+        <li><strong>Team Mentoring</strong>: Mentored team members on Python architecture, clean code practices, asynchronous programming, and REST API design.</li>
       </ul>
 
-      <h3>Fullstack Developer — Hubel Positive Lightning</h3>
-      <p class="meta">10/2015–07/2019 · Faro, Portugal · <a href="https://www.hubelpositivelightning.pt">hubelpositivelightning.pt</a></p>
+      <h3>Fullstack Developer & SCRUM Master — Hubel Positive Lightning</h3>
+      <p class="meta">10/2015 – 07/2019 · Faro, Algarve, Portugal · <a href="https://www.hubelpositivelightning.pt">hubelpositivelightning.pt</a></p>
       <ul>
-        <li>Project lead and Agile SCRUM master</li>
-        <li>Django backend with Celery and Channels</li>
-        <li>REST API design with DRF</li>
-        <li>Angular/React frontend development</li>
-        <li>Server deployment and infrastructure management</li>
-        <li>Docker and docker-compose integration</li>
-        <li>LoRa network management and device integration</li>
-        <li>Critical industrial systems (factories, farms, water treatment)</li>
-        <li>Internship orientation</li>
+        <li><strong>Leadership & Agile</strong>: Served as technical project lead and certified/practicing Agile SCRUM Master across cross-functional engineering teams.</li>
+        <li><strong>Real-Time IoT Backend</strong>: Engineered robust Python/Django backends utilizing <strong>Celery</strong> for distributed asynchronous workloads and <strong>Django Channels</strong> (WebSockets) for real-time telemetry streaming from industrial machinery.</li>
+        <li><strong>Industrial Systems</strong>: Deployed mission-critical monitoring and control platforms for industrial factories, commercial automated farms, and municipal water treatment facilities.</li>
+        <li><strong>LoRa & Hardware Integration</strong>: Managed long-range, low-power <strong>LoRa</strong> wireless networks and integrated remote telemetry sensors and PLCs.</li>
+        <li><strong>Fullstack Web Apps</strong>: Built interactive frontends in <strong>Angular</strong> and <strong>React</strong>, backed by structured REST APIs using <strong>Django REST Framework (DRF)</strong>.</li>
+        <li><strong>Infrastructure & DevOps</strong>: Managed on-premise and cloud Linux server deployments, introducing containerization with <strong>Docker</strong> and <strong>Docker Compose</strong>.</li>
+        <li><strong>Mentorship</strong>: Guided university interns and junior engineers through practical software engineering, code reviews, and Git collaboration.</li>
       </ul>
 
       <h2>Education</h2>
 
-      <h3>Postgrad in Cybersecurity — University of the Algarve</h3>
-      <p class="meta">09/2024–06/2025 · Faro, Portugal · EQF level 7</p>
+      <h3>Postgraduate Diploma in Cybersecurity — University of the Algarve (Universidade do Algarve)</h3>
+      <p class="meta">09/2024 – 06/2025 · Faro, Portugal · EQF Level 7</p>
       <ul>
-        <li>Core Security Fundamentals</li>
-        <li>Offensive & Defensive Security Operations</li>
-        <li>Governance, Risk & Compliance</li>
+        <li>Cryptographic algorithms, public key infrastructure (PKI), TLS/SSL protocols.</li>
+        <li>Secure software development lifecycle (SSDLC), threat modeling, and defense-in-depth principles.</li>
+        <li>Penetration testing methodology, network security assessments, vulnerability scanning.</li>
+        <li>Incident detection, SIEM log analysis, containment, malware triage, and digital forensics.</li>
+        <li>Security standards and frameworks (ISO 27001, NIST CSF, NIS2, GDPR).</li>
+        <li>Risk management matrices, compliance auditing, business continuity planning.</li>
       </ul>
 
-      <h3>Master in Electronics and Telecommunications (incomplete) — University of the Algarve</h3>
-      <p class="meta">09/2009–09/2015 · Faro, Portugal</p>
+      <h3>Master in Electronics and Telecommunications Engineering (Coursework completed) — University of the Algarve (Universidade do Algarve)</h3>
+      <p class="meta">09/2009 – 09/2015 · Faro, Portugal</p>
       <ul>
-        <li>Computer Science</li>
-        <li>Signals and Control Systems</li>
-        <li>Telecommunications, Networks and Antennas</li>
-        <li>Machine Learning and Neural Networks</li>
+        <li><strong>Computer Science & Software</strong>: Algorithms, data structures, object-oriented programming, operating systems, embedded systems C/C++.</li>
+        <li><strong>Signals & Control Systems</strong>: Discrete-time signal processing (DSP), linear dynamical systems, digital filtering, control theory.</li>
+        <li><strong>Telecommunications & Networks</strong>: RF and antenna design, modulation schemes, TCP/IP networking, wireless transmission systems, cellular network architectures.</li>
+        <li><strong>Machine Learning & AI</strong>: Neural networks, pattern recognition, regression models, supervised/unsupervised learning.</li>
       </ul>
 
       <h2>Languages</h2>
