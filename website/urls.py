@@ -21,6 +21,12 @@ sitemaps = {
 urlpatterns = [
     path("", TemplateView.as_view(template_name="index.html"), name="homepage"),
     path("cv", TemplateView.as_view(template_name="cv.html"), name="cv"),
+    path("bot/privacy-policy/", TemplateView.as_view(template_name="bot_privacy.html"), name="bot-privacy-policy"),
+    path("bot/privacy-policy", TemplateView.as_view(template_name="bot_privacy.html")),
+    path("bot/terms-of-service/", TemplateView.as_view(template_name="bot_terms.html"), name="bot-terms-of-service"),
+    path("bot/terms-of-service", TemplateView.as_view(template_name="bot_terms.html")),
+    path("privacy-policy/", TemplateView.as_view(template_name="bot_privacy.html")),
+    path("terms-of-service/", TemplateView.as_view(template_name="bot_terms.html")),
     path("photos/", include("photos.urls")),
     path("tools/", include("tools.urls")),
     path("games/", include("gamerooms.urls")),
