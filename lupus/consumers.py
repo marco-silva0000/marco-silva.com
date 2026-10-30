@@ -10,8 +10,10 @@ from .game_state import (
     get_gm_view,
     get_sanitized_player_view,
     guess_angel_in_limbo,
+    move_player,
     pause_timer,
     remove_player,
+    reorder_players,
     reset_timer,
     resolve_night,
     resume_timer,
@@ -180,6 +182,19 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                         except Exception:
                             pass
                     remove_player(state, pid)
+                    await self.broadcast_sync()
+
+            elif action == "reorder_players":
+                order = content.get("player_order", [])
+                if isinstance(order, list):
+                    reorder_players(state, order)
+                    await self.broadcast_sync()
+
+            elif action == "move_player":
+                pid = content.get("player_id")
+                direction = content.get("direction")
+                if pid and direction in ("up", "down"):
+                    move_player(state, pid, direction)
                     await self.broadcast_sync()
 
             elif action == "set_round_number":

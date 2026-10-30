@@ -11,8 +11,11 @@ from lupus.game_state import (
     deal_roles,
     get_game,
     get_gm_view,
+    get_ordered_players,
     get_sanitized_player_view,
     guess_angel_in_limbo,
+    move_player,
+    reorder_players,
     resolve_night,
     return_to_lobby,
     set_manual_player_role,
@@ -344,6 +347,40 @@ class TestLupusEngine:
         winner = check_win_condition(state)
         assert winner == "serial_killer"
         assert state["phase"] == "gameover"
+
+    def test_physical_seating_order_and_reorder(self):
+        state = create_initial_state("SEATTEST", "Seating Test")
+        state, p_alice = add_player(state, "Alice")
+        state, p_bob = add_player(state, "Bob")
+        state, p_charlie = add_player(state, "Charlie")
+
+        # Initial order matches join order
+        ordered = get_ordered_players(state)
+        assert [p["name"] for p in ordered] == ["Alice", "Bob", "Charlie"]
+
+        # GM view has seat numbers
+        gm_view = get_gm_view(state)
+        assert gm_view["players"][0]["seat_number"] == 1
+        assert gm_view["players"][0]["name"] == "Alice"
+        assert gm_view["players"][1]["seat_number"] == 2
+        assert gm_view["players"][2]["seat_number"] == 3
+
+        # Move Charlie up (swap with Bob)
+        moved = move_player(state, p_charlie["id"], "up")
+        assert moved is True
+        ordered_after = get_ordered_players(state)
+        assert [p["name"] for p in ordered_after] == ["Alice", "Charlie", "Bob"]
+
+        # Full reorder (e.g. reverse circle)
+        reordered = reorder_players(state, [p_bob["id"], p_charlie["id"], p_alice["id"]])
+        assert reordered is True
+        gm_view_updated = get_gm_view(state)
+        assert [p["name"] for p in gm_view_updated["players"]] == ["Bob", "Charlie", "Alice"]
+        assert gm_view_updated["players"][0]["seat_number"] == 1
+
+        # Sanitized player view also reflects physical seating order
+        p_view = get_sanitized_player_view(state, p_alice["id"])
+        assert [p["name"] for p in p_view["players"]] == ["Bob", "Charlie", "Alice"]
 
 
 class TestLupusQR:

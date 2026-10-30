@@ -866,10 +866,12 @@
       const meTag = p.is_me ? " <strong style='color:#2563eb;'>(You)</strong>" : "";
       const silencedTag = p.is_silenced ? " 🤐" : "";
       const loverTag = p.is_lover ? " 💘" : "";
+      const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#64748b; background:#f1f5f9; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
       const roleStr = p.role ? `<span style="font-size:0.8rem; color:#64748b; margin-left:0.25rem;">(${p.role.name})</span>` : "";
 
       item.innerHTML = `
-        <div style="font-size: 0.9rem;">
+        <div style="font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap;">
+          ${seatBadge}
           <span>${escapeHtml(p.name)}${meTag}${silencedTag}${loverTag}</span>
           ${roleStr}
         </div>

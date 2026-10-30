@@ -219,6 +219,63 @@
     border-top: 1px dashed #e0e0e0;
   }
 
+  .seat-badge {
+    background: #0f172a;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    font-family: ui-monospace, monospace;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .circle-stage {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 14px;
+    padding: 1rem 0.75rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .circle-gm-podium {
+    background: #1e293b;
+    color: #f8fafc;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    display: inline-block;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .horseshoe-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .seat-node {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.6rem 0.65rem;
+    text-align: center;
+    min-width: 125px;
+    max-width: 170px;
+    flex: 1 1 130px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.35rem;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .seat-node.alive { border-color: #22c55e; }
+  .seat-node.limbo { border-color: #f59e0b; background: #fffbeb; }
+  .seat-node.dead { border-color: #ef4444; background: #fef2f2; opacity: 0.65; }
+
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
   .modal.active { display: flex; }
   .modal-content { background: #fff; padding: 1.5rem; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
@@ -518,12 +575,41 @@
 
   <!-- Table & Players Management (Common to both Lobby and Active Game) -->
   <div class="card-box">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
-      <h3 style="font-size: 1rem; margin: 0;">
-        👥 Players at Table (<span id="player-count">{{ state.players|length }}</span>)
-      </h3>
-      <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
-        <button onclick="promptAddOfflinePlayer()" class="btn btn-sm">+ Offline Player</button>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.5rem;">
+      <div>
+        <h3 style="font-size: 1rem; margin: 0; display: flex; align-items: center; gap: 0.35rem;">
+          <span>👥 Physical Table Seating</span>
+          <span style="font-size: 0.85rem; font-weight: normal; color: #64748b;">(<span id="player-count">{{ state.players|length }}</span>)</span>
+        </h3>
+        <span style="font-size: 0.75rem; color: #64748b;">Ordered clockwise / left-to-right around your circle</span>
+      </div>
+
+      <div style="display: flex; gap: 0.35rem; flex-wrap: wrap; align-items: center;">
+        <!-- Hide/Show Roles Toggle Button -->
+        <button id="btn-toggle-role-vis" onclick="toggleRoleVisibility()" class="btn btn-sm" style="font-weight: 700; border-color: #6366f1; color: #4338ca; background: #eef2ff;">
+          👁️ Roles: Visible
+        </button>
+
+        <!-- View Switcher: List vs Circle/U-Shape -->
+        <button id="btn-toggle-layout" onclick="toggleLayoutMode()" class="btn btn-sm" title="Toggle between Card List and Horseshoe / Circle Map">
+          ⭕ Circle View
+        </button>
+
+        <button onclick="reverseSeatingOrder()" class="btn btn-sm" title="Flip seating order (clockwise <-> counter-clockwise)">
+          🔄 Flip
+        </button>
+
+        <button onclick="promptAddOfflinePlayer()" class="btn btn-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">
+          + Offline
+        </button>
+      </div>
+    </div>
+
+    <!-- Circle / Horseshoe Visual Map View (Toggled via btn-toggle-layout) -->
+    <div id="circle-map-container" class="circle-stage" style="display: none;">
+      <div class="circle-gm-podium">🎤 Game Master (Podium / Open End of U)</div>
+      <div id="circle-nodes-wrap" class="horseshoe-container">
+        <!-- Rendered dynamically -->
       </div>
     </div>
 
@@ -624,6 +710,9 @@
   const JOIN_URL = "{{ join_url }}";
   let currentGameState = null;
   let timerInterval = null;
+  let gmHideRoles = localStorage.getItem("lupus_gm_hide_roles") === "true";
+  let gmLayoutMode = localStorage.getItem("lupus_gm_layout_mode") || "list";
+  const peekingPlayerIds = new Set();
 
   // --- Deck Builder State ---
   let deckState = {
@@ -977,89 +1066,160 @@
     }
     intelFeed.innerHTML = intelHtml;
 
-    // Mobile-friendly Player Card Rows
+    // Update toolbar button states
+    updateRoleVisBtn();
+    updateLayoutUI();
+
+    // 1. Mobile-friendly Player Card Rows
     const container = document.getElementById("player-list-container");
     container.innerHTML = "";
     if (state.players.length === 0) {
       container.innerHTML = "<p style='font-size:0.85rem; color:#888; text-align:center;'>No players have joined yet. Share the QR code above!</p>";
-      return;
-    }
+    } else {
+      state.players.forEach((p, idx) => {
+        const card = document.createElement("div");
+        card.className = "player-card-row";
 
-    state.players.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "player-card-row";
+        let statusBadge = "";
+        let actionsHtml = "";
 
-      let statusBadge = "";
-      let actionsHtml = "";
-
-      if (state.phase === 'lobby') {
-        statusBadge = `<span class="badge" style="background:#e0f2fe; color:#0369a1;">In Lobby</span>`;
-        actionsHtml = `
-          <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
-          <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm btn-danger" style="margin-left: auto;">&times; Kick</button>
+        // Reorder arrows
+        const upDisabled = idx === 0 ? "disabled style='opacity:0.25; cursor:not-allowed;'" : "";
+        const downDisabled = idx === state.players.length - 1 ? "disabled style='opacity:0.25; cursor:not-allowed;'" : "";
+        const reorderArrows = `
+          <div style="display:inline-flex; gap:2px; margin-right:4px;">
+            <button onclick="movePlayerSeat('${p.id}', 'up')" class="btn btn-sm" style="min-height:24px; padding:0.05rem 0.35rem; font-size:0.75rem;" title="Move earlier in circle" ${upDisabled}>&uarr;</button>
+            <button onclick="movePlayerSeat('${p.id}', 'down')" class="btn btn-sm" style="min-height:24px; padding:0.05rem 0.35rem; font-size:0.75rem;" title="Move later in circle" ${downDisabled}>&darr;</button>
+          </div>
         `;
-      } else {
-        if (p.status === "alive") {
-          statusBadge = `<span class="badge badge-alive">ALIVE</span>`;
+
+        if (state.phase === 'lobby') {
+          statusBadge = `<span class="badge" style="background:#e0f2fe; color:#0369a1;">In Lobby</span>`;
           actionsHtml = `
-            <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead immediately">☠️ Kill</button>
-            <button onclick="setPlayerStatusDirect('${p.id}', 'limbo')" class="btn btn-sm" style="background:#fffbeb; color:#b45309; border-color:#fde047;" title="Send to Limbo">🌫️ Limbo</button>
-            <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s</button>
-            <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
             <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
-            <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
-          `;
-        } else if (p.status === "limbo") {
-          statusBadge = `<span class="badge badge-limbo">LIMBO</span>`;
-          actionsHtml = `
-            <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
-            <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead">☠️ Kill</button>
-            <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
-            <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
-            <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
+            <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm btn-danger" style="margin-left: auto;">&times; Kick</button>
           `;
         } else {
-          statusBadge = `<span class="badge badge-dead">DEAD</span>`;
-          actionsHtml = `
-            <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
-            <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
-            <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
-            <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
+          if (p.status === "alive") {
+            statusBadge = `<span class="badge badge-alive">ALIVE</span>`;
+            actionsHtml = `
+              <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead immediately">☠️ Kill</button>
+              <button onclick="setPlayerStatusDirect('${p.id}', 'limbo')" class="btn btn-sm" style="background:#fffbeb; color:#b45309; border-color:#fde047;" title="Send to Limbo">🌫️ Limbo</button>
+              <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s</button>
+              <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
+              <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
+              <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
+            `;
+          } else if (p.status === "limbo") {
+            statusBadge = `<span class="badge badge-limbo">LIMBO</span>`;
+            actionsHtml = `
+              <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
+              <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead">☠️ Kill</button>
+              <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
+              <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
+              <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
+            `;
+          } else {
+            statusBadge = `<span class="badge badge-dead">DEAD</span>`;
+            actionsHtml = `
+              <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
+              <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
+              <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
+              <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
+            `;
+          }
+        }
+
+        const silencedBadge = p.is_silenced ? '<span class="badge badge-silenced">🤐 Silenced</span>' : '';
+        const offlineBadge = p.is_offline ? '<span style="font-size:0.75rem; color:#888;">(Offline)</span>' : '';
+        const roleStr = p.role ? `<span style="font-weight:600;">${p.role.emoji} ${p.role.name}</span>` : '<em style="color:#aaa;">Unassigned (Lobby)</em>';
+
+        let notes = [];
+        if (p.lover_name) notes.push(`💘 Lover: ${p.lover_name}`);
+        if (p.used_limbo) notes.push(`Used Limbo`);
+        if (p.last_guarded_id) {
+          const guarded = state.players.find(g => g.id === p.last_guarded_id);
+          if (guarded) notes.push(`Last guarded: ${guarded.name}`);
+        }
+
+        // Roles visibility toggle logic
+        const isPeeking = peekingPlayerIds.has(p.id);
+        let roleLine = "";
+        if (gmHideRoles && !isPeeking) {
+          roleLine = `
+            <div style="font-size: 0.8rem; color: #64748b; display: flex; justify-content: space-between; align-items: center; padding: 0.15rem 0;">
+              <span style="font-style: italic;">🔒 Role Hidden</span>
+              <button onclick="togglePeekPlayer('${p.id}')" class="btn btn-sm" style="min-height: 22px; padding: 0.05rem 0.45rem; font-size: 0.75rem;">👁️ Peek</button>
+            </div>
+          `;
+        } else {
+          const hidePeekBtn = gmHideRoles ? `<button onclick="togglePeekPlayer('${p.id}')" class="btn btn-sm" style="min-height: 22px; padding: 0.05rem 0.45rem; font-size: 0.75rem; margin-left: 0.35rem;">Hide</button>` : '';
+          roleLine = `
+            <div style="font-size: 0.85rem; color: #555; display: flex; justify-content: space-between; align-items: center;">
+              <div>Role: ${roleStr} ${hidePeekBtn}</div>
+              <div style="font-size: 0.75rem; color: #888;">${notes.join(" · ")}</div>
+            </div>
           `;
         }
-      }
 
-      const silencedBadge = p.is_silenced ? '<span class="badge badge-silenced">🤐 Silenced</span>' : '';
-      const offlineBadge = p.is_offline ? '<span style="font-size:0.75rem; color:#888;">(Offline)</span>' : '';
-      const roleStr = p.role ? `<span style="font-weight:600;">${p.role.emoji} ${p.role.name}</span>` : '<em style="color:#aaa;">Unassigned (Lobby)</em>';
-
-      let notes = [];
-      if (p.lover_name) notes.push(`💘 Lover: ${p.lover_name}`);
-      if (p.used_limbo) notes.push(`Used Limbo`);
-      if (p.last_guarded_id) {
-        const guarded = state.players.find(g => g.id === p.last_guarded_id);
-        if (guarded) notes.push(`Last guarded: ${guarded.name}`);
-      }
-
-      card.innerHTML = `
-        <div class="player-card-header">
-          <div style="font-size: 0.95rem; font-weight: 600;">
-            ${escapeHtml(p.name)} ${offlineBadge}
+        card.innerHTML = `
+          <div class="player-card-header">
+            <div style="display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap;">
+              <span class="seat-badge">🪑 #${p.seat_number || (idx + 1)}</span>
+              <strong style="font-size: 0.98rem; color: #0f172a;">${escapeHtml(p.name)}</strong>
+              ${offlineBadge}
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.35rem;">
+              ${reorderArrows}
+              ${statusBadge} ${silencedBadge}
+            </div>
           </div>
-          <div>
-            ${statusBadge} ${silencedBadge}
+          ${roleLine}
+          <div class="player-card-actions">
+            ${actionsHtml}
           </div>
-        </div>
-        <div style="font-size: 0.85rem; color: #555; display: flex; justify-content: space-between; align-items: center;">
-          <div>Role: ${roleStr}</div>
-          <div style="font-size: 0.75rem; color: #888;">${notes.join(" · ")}</div>
-        </div>
-        <div class="player-card-actions">
-          ${actionsHtml}
-        </div>
-      `;
-      container.appendChild(card);
-    });
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // 2. Physical Horseshoe / Circle Map Render
+    const circleWrap = document.getElementById("circle-nodes-wrap");
+    if (circleWrap) {
+      circleWrap.innerHTML = "";
+      if (state.players.length === 0) {
+        circleWrap.innerHTML = "<p style='font-size:0.85rem; color:#888; text-align:center;'>No players yet.</p>";
+      } else {
+        state.players.forEach((p, idx) => {
+          const node = document.createElement("div");
+          node.className = `seat-node ${p.status}`;
+
+          const isPeeking = peekingPlayerIds.has(p.id);
+          let nodeRoleHtml = "";
+          if (gmHideRoles && !isPeeking) {
+            nodeRoleHtml = `<div style="font-size:0.75rem; color:#64748b; font-style:italic;">🔒 Hidden</div>`;
+          } else {
+            nodeRoleHtml = `<div style="font-size:0.78rem; font-weight:600; color:#334155;">${p.role ? `${p.role.emoji} ${p.role.name}` : 'Unassigned'}</div>`;
+          }
+
+          node.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.72rem;">
+              <span class="seat-badge" style="padding:0.05rem 0.35rem; font-size:0.68rem;">#${p.seat_number || (idx + 1)}</span>
+              <span class="badge badge-${p.status}" style="font-size:0.65rem; padding:0.1rem 0.35rem;">${p.status.toUpperCase()}</span>
+            </div>
+            <div style="font-size:0.92rem; font-weight:700; color:#0f172a; margin:0.25rem 0; word-break:break-word;">
+              ${escapeHtml(p.name)}
+            </div>
+            ${nodeRoleHtml}
+            <div style="display:flex; justify-content:center; gap:0.2rem; margin-top:0.25rem;">
+              <button onclick="movePlayerSeat('${p.id}', 'up')" class="btn btn-sm" style="min-height:20px; padding:0.05rem 0.3rem; font-size:0.7rem;" title="Move Counter-Clockwise">&larr;</button>
+              <button onclick="movePlayerSeat('${p.id}', 'down')" class="btn btn-sm" style="min-height:20px; padding:0.05rem 0.3rem; font-size:0.7rem;" title="Move Clockwise">&rarr;</button>
+            </div>
+          `;
+          circleWrap.appendChild(node);
+        });
+      }
+    }
 
     // Events Log
     if (state.events_log) {
@@ -1115,6 +1275,78 @@
 
   function resetTimer(seconds, label) {
     sendAction("start_timer", { duration: seconds, label: label });
+  }
+
+  // --- Seating & Role Visibility Controls ---
+  function toggleRoleVisibility() {
+    gmHideRoles = !gmHideRoles;
+    localStorage.setItem("lupus_gm_hide_roles", gmHideRoles ? "true" : "false");
+    updateRoleVisBtn();
+    if (currentGameState) renderGMState(currentGameState);
+  }
+
+  function updateRoleVisBtn() {
+    const btn = document.getElementById("btn-toggle-role-vis");
+    if (!btn) return;
+    if (gmHideRoles) {
+      btn.innerHTML = "🙈 Roles: Hidden";
+      btn.style.background = "#fee2e2";
+      btn.style.color = "#991b1b";
+      btn.style.borderColor = "#f87171";
+      btn.title = "Roles are hidden (names & status only). Tap to reveal roles.";
+    } else {
+      btn.innerHTML = "👁️ Roles: Visible";
+      btn.style.background = "#eef2ff";
+      btn.style.color = "#4338ca";
+      btn.style.borderColor = "#6366f1";
+      btn.title = "Roles are visible. Tap to hide roles (names & status only).";
+    }
+  }
+
+  function toggleLayoutMode() {
+    gmLayoutMode = gmLayoutMode === "circle" ? "list" : "circle";
+    localStorage.setItem("lupus_gm_layout_mode", gmLayoutMode);
+    updateLayoutUI();
+  }
+
+  function updateLayoutUI() {
+    const btn = document.getElementById("btn-toggle-layout");
+    const circleEl = document.getElementById("circle-map-container");
+    const listEl = document.getElementById("player-list-container");
+    if (!btn || !circleEl || !listEl) return;
+
+    if (gmLayoutMode === "circle") {
+      btn.innerText = "📋 List View";
+      circleEl.style.display = "block";
+    } else {
+      btn.innerText = "⭕ Circle View";
+      circleEl.style.display = "none";
+    }
+  }
+
+  function togglePeekPlayer(playerId) {
+    if (peekingPlayerIds.has(playerId)) {
+      peekingPlayerIds.delete(playerId);
+    } else {
+      peekingPlayerIds.add(playerId);
+    }
+    if (currentGameState) renderGMState(currentGameState);
+  }
+
+  function movePlayerSeat(playerId, direction) {
+    sendAction("move_player", { player_id: playerId, direction: direction });
+  }
+
+  function reverseSeatingOrder() {
+    if (!currentGameState || !currentGameState.players || currentGameState.players.length < 2) return;
+    const order = currentGameState.players.map(p => p.id).reverse();
+    sendAction("reorder_players", { player_order: order });
+  }
+
+  function sortAlphabetical() {
+    if (!currentGameState || !currentGameState.players || currentGameState.players.length < 2) return;
+    const sorted = [...currentGameState.players].sort((a, b) => a.name.localeCompare(b.name)).map(p => p.id);
+    sendAction("reorder_players", { player_order: sorted });
   }
 
   // --- Actions ---

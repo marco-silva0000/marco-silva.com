@@ -89,6 +89,7 @@ def create_initial_state(
         },
         "deck": [],
         "players": {},
+        "player_order": [],
         "night_actions": {},
         "witch_used_revive": False,
         "witch_used_kill": False,
@@ -126,6 +127,10 @@ def add_player(state: dict[str, Any], name: str, is_offline: bool = False) -> tu
         "sniper_silver_bullets": 1 if state["settings"].get("sniper_bullet_type") == "mix" else 0,
     }
     state["players"][player_id] = player
+    if "player_order" not in state or not isinstance(state["player_order"], list):
+        state["player_order"] = list(state["players"].keys())
+    elif player_id not in state["player_order"]:
+        state["player_order"].append(player_id)
     log_event(state, f"{name} entered the room.")
     save_game(state["code"], state)
     return state, player
@@ -135,9 +140,55 @@ def remove_player(state: dict[str, Any], player_id: str) -> dict[str, Any]:
     if player_id in state["players"]:
         name = state["players"][player_id]["name"]
         del state["players"][player_id]
+        if "player_order" in state and player_id in state["player_order"]:
+            state["player_order"].remove(player_id)
         log_event(state, f"{name} left the room.")
         save_game(state["code"], state)
     return state
+
+
+def get_ordered_players(state: dict[str, Any]) -> list[dict[str, Any]]:
+    """Return list of player dicts sorted according to the physical seating order."""
+    order = state.get("player_order", [])
+    existing_pids = set(state["players"].keys())
+    valid_order = [pid for pid in order if pid in existing_pids]
+    # Add any missing player IDs to the end
+    for pid in state["players"]:
+        if pid not in valid_order:
+            valid_order.append(pid)
+    state["player_order"] = valid_order
+    return [state["players"][pid] for pid in valid_order]
+
+
+def reorder_players(state: dict[str, Any], new_order: list[str]) -> bool:
+    """Set custom physical seating order for table players."""
+    existing_pids = set(state["players"].keys())
+    cleaned_order = [pid for pid in new_order if pid in existing_pids]
+    for pid in state["players"]:
+        if pid not in cleaned_order:
+            cleaned_order.append(pid)
+    state["player_order"] = cleaned_order
+    log_event(state, "Game Master updated table seating order.")
+    save_game(state["code"], state)
+    return True
+
+
+def move_player(state: dict[str, Any], player_id: str, direction: str) -> bool:
+    """Move a player one seat clockwise (down) or counter-clockwise (up)."""
+    if player_id not in state["players"]:
+        return False
+    get_ordered_players(state)
+    order = list(state["player_order"])
+    idx = order.index(player_id)
+    if direction == "up" and idx > 0:
+        order[idx], order[idx - 1] = order[idx - 1], order[idx]
+    elif direction == "down" and idx < len(order) - 1:
+        order[idx], order[idx + 1] = order[idx + 1], order[idx]
+    else:
+        return False
+    state["player_order"] = order
+    save_game(state["code"], state)
+    return True
 
 
 def log_event(state: dict[str, Any], message: str) -> None:
@@ -716,8 +767,10 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     is_wolf = player["faction"] == FACTION_WOLVES
     lover_id = player.get("lover_id")
 
+    ordered_players = get_ordered_players(state)
     public_players = []
-    for pid, p in state["players"].items():
+    for idx, p in enumerate(ordered_players):
+        pid = p["id"]
         # Only show other players' roles if:
         # 1. Game over
         # 2. Both are wolves
@@ -739,6 +792,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
         public_players.append(
             {
                 "id": p["id"],
+                "seat_number": idx + 1,
                 "name": p["name"],
                 "status": p["status"],
                 "is_silenced": p["is_silenced"],
@@ -786,13 +840,15 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
     """Complete, unrestricted view for the Game Master cockpit."""
     theme = state.get("theme", "werewolf")
 
+    ordered_players = get_ordered_players(state)
     all_players = []
-    for p in state["players"].values():
+    for idx, p in enumerate(ordered_players):
         lover_name = state["players"][p["lover_id"]]["name"] if p.get("lover_id") in state["players"] else None
         role_info = get_role_info(p["role"], theme) if p.get("role") else None
         all_players.append(
             {
                 "id": p["id"],
+                "seat_number": idx + 1,
                 "name": p["name"],
                 "token": p["token"],
                 "status": p["status"],
