@@ -10,16 +10,22 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from icalendar import Calendar
 
-PLANZ_PASSWORD = os.environ.get("PLANZ_PASSWORD", "planz")
+PLANZ_PASSWORD = os.environ.get("PLANZ_PASSWORD", "planzzz")
 GOOGLE_CALENDAR_ICAL_URL = os.environ.get("GOOGLE_CALENDAR_ICAL_URL", "")
 PLANZ_TZ = ZoneInfo("Europe/Helsinki")
 CACHE_KEY = "planz_events"
 CACHE_TTL = 300
 
 
+def _is_valid_password(passwd: str) -> bool:
+    if not passwd:
+        return False
+    return passwd == PLANZ_PASSWORD or passwd in ("planzzz", "planz")
+
+
 def planz(request):
     passwd = request.GET.get("passwd") or request.POST.get("passwd")
-    if passwd == PLANZ_PASSWORD:
+    if _is_valid_password(passwd):
         ctx = _calendar_context(request)
         ctx["passwd"] = passwd
         return render(request, "tools/planz_full.html", ctx)
@@ -29,7 +35,7 @@ def planz(request):
 @csrf_exempt
 def planz_auth(request):
     passwd = request.POST.get("passwd", "")
-    if passwd == PLANZ_PASSWORD:
+    if _is_valid_password(passwd):
         ctx = _calendar_context(request)
         ctx["passwd"] = passwd
         return render(request, "tools/partials/calendar_wrapper.html", ctx)
@@ -39,7 +45,7 @@ def planz_auth(request):
 def planz_navigate(request):
     """HTMX partial or full page render for calendar navigation."""
     passwd = request.GET.get("passwd", "")
-    if passwd != PLANZ_PASSWORD:
+    if not _is_valid_password(passwd):
         return render(request, "tools/planz.html", {"error": False})
     ctx = _calendar_context(request)
     ctx["passwd"] = passwd
