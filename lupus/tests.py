@@ -143,6 +143,33 @@ class TestLupusEngine:
             assert p["role"] is None
             assert p["status"] == "alive"
 
+    def test_gm_overrides_and_kick(self):
+        state = create_initial_state("TEST_OVR", "Overrides Test")
+        state, p1 = add_player(state, "Alice")
+        state, p2 = add_player(state, "Bob")
+
+        # Kick Bob in lobby
+        from lupus.game_state import remove_player, set_broadcast_message, set_round_number
+        state = remove_player(state, p2["id"])
+        assert len(state["players"]) == 1
+        assert p2["id"] not in state["players"]
+
+        # Direct kill Alice
+        state = set_player_status(state, p1["id"], "dead")
+        assert state["players"][p1["id"]]["status"] == "dead"
+
+        # Direct revive Alice
+        state = set_player_status(state, p1["id"], "alive")
+        assert state["players"][p1["id"]]["status"] == "alive"
+
+        # Broadcast
+        state = set_broadcast_message(state, "Dinner is ready!")
+        assert state["broadcast_message"] == "Dinner is ready!"
+
+        # Round number
+        state = set_round_number(state, 4)
+        assert state["round_number"] == 4
+
     def test_detective_inspection(self):
         state = create_initial_state("TEST3", "Det Test")
         state, p_det = add_player(state, "Sherlock")

@@ -240,6 +240,17 @@
     </div>
   </div>
 
+  <!-- GM Broadcast Announcement Bar -->
+  <div class="card-box" style="padding: 0.65rem 0.85rem; background: #fffde7; border-color: #fde047; margin-bottom: 1rem;">
+    <div style="display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap;">
+      <span style="font-size: 1.1rem;">📢</span>
+      <input id="gm-broadcast-input" type="text" placeholder="Broadcast announcement to all player screens..."
+        style="flex: 1; min-width: 180px; padding: 0.45rem 0.65rem; font-size: 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;">
+      <button onclick="sendBroadcast()" class="btn btn-sm btn-primary" style="white-space: nowrap;">📢 Broadcast</button>
+      <button onclick="clearBroadcast()" class="btn btn-sm" style="white-space: nowrap; color: #666;" title="Clear announcement">Clear</button>
+    </div>
+  </div>
+
   <!-- ========================================== -->
   <!-- 1. PRE-GAME STAGE (LOBBY & ROLE SELECTION) -->
   <!-- ========================================== -->
@@ -447,8 +458,11 @@
             <div>
               PHASE: <span id="phase-badge" class="badge" style="background: #111; color: #fff; font-size: 0.8rem;">{{ state.phase }}</span>
             </div>
-            <div style="font-size: 0.8rem; color: #777;">
-              Round <strong id="round-num">{{ state.round_number }}</strong>
+            <div style="font-size: 0.8rem; color: #777; display: flex; align-items: center; gap: 0.35rem;">
+              Round: 
+              <button onclick="adjustRound(-1)" class="btn btn-sm" style="min-height: 24px; padding: 0.05rem 0.4rem; font-weight: 700;">&minus;</button>
+              <strong id="round-num">{{ state.round_number }}</strong>
+              <button onclick="adjustRound(1)" class="btn btn-sm" style="min-height: 24px; padding: 0.05rem 0.4rem; font-weight: 700;">+</button>
             </div>
           </div>
 
@@ -897,10 +911,46 @@
       const card = document.createElement("div");
       card.className = "player-card-row";
 
-      const statusBadge = state.phase === 'lobby' 
-        ? `<span class="badge" style="background:#e0f2fe; color:#0369a1;">In Lobby</span>`
-        : `<button onclick="cyclePlayerStatus('${p.id}', '${p.status}')" class="badge badge-${p.status}" style="border:none; cursor:pointer;" title="Tap to change status">${p.status} ↺</button>`;
-      
+      let statusBadge = "";
+      let actionsHtml = "";
+
+      if (state.phase === 'lobby') {
+        statusBadge = `<span class="badge" style="background:#e0f2fe; color:#0369a1;">In Lobby</span>`;
+        actionsHtml = `
+          <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
+          <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm btn-danger" style="margin-left: auto;">&times; Kick</button>
+        `;
+      } else {
+        if (p.status === "alive") {
+          statusBadge = `<span class="badge badge-alive">ALIVE</span>`;
+          actionsHtml = `
+            <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead immediately">☠️ Kill</button>
+            <button onclick="setPlayerStatusDirect('${p.id}', 'limbo')" class="btn btn-sm" style="background:#fffbeb; color:#b45309; border-color:#fde047;" title="Send to Limbo">🌫️ Limbo</button>
+            <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s</button>
+            <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
+            <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
+            <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
+          `;
+        } else if (p.status === "limbo") {
+          statusBadge = `<span class="badge badge-limbo">LIMBO</span>`;
+          actionsHtml = `
+            <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
+            <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead">☠️ Kill</button>
+            <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
+            <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
+            <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
+          `;
+        } else {
+          statusBadge = `<span class="badge badge-dead">DEAD</span>`;
+          actionsHtml = `
+            <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
+            <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
+            <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
+            <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
+          `;
+        }
+      }
+
       const silencedBadge = p.is_silenced ? '<span class="badge badge-silenced">🤐 Silenced</span>' : '';
       const offlineBadge = p.is_offline ? '<span style="font-size:0.75rem; color:#888;">(Offline)</span>' : '';
       const roleStr = p.role ? `<span style="font-weight:600;">${p.role.emoji} ${p.role.name}</span>` : '<em style="color:#aaa;">Unassigned (Lobby)</em>';
@@ -927,10 +977,7 @@
           <div style="font-size: 0.75rem; color: #888;">${notes.join(" · ")}</div>
         </div>
         <div class="player-card-actions">
-          ${state.phase !== 'lobby' ? `<button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s Defense</button>` : ''}
-          ${state.phase !== 'lobby' ? `<button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Change Role</button>` : ''}
-          <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
-          <button onclick="removePlayer('${p.id}')" class="btn btn-sm btn-danger" style="margin-left: auto;">&times; Remove</button>
+          ${actionsHtml}
         </div>
       `;
       container.appendChild(card);
@@ -1020,10 +1067,35 @@
     }
   }
 
-  function removePlayer(playerId) {
-    if (confirm("Remove this player from the table?")) {
+  function removePlayer(playerId, playerName) {
+    const name = playerName || "this player";
+    if (confirm(`Remove ${name} from the table?`)) {
       sendAction("remove_player", { player_id: playerId });
     }
+  }
+
+  function setPlayerStatusDirect(playerId, status) {
+    sendAction("set_status", { player_id: playerId, status: status });
+  }
+
+  function adjustRound(delta) {
+    if (!currentGameState) return;
+    const cur = currentGameState.round_number || 0;
+    const nextRound = Math.max(0, cur + delta);
+    sendAction("set_round_number", { round_number: nextRound });
+  }
+
+  function sendBroadcast() {
+    const input = document.getElementById("gm-broadcast-input");
+    if (input && input.value.trim()) {
+      sendAction("broadcast_message", { message: input.value.trim() });
+    }
+  }
+
+  function clearBroadcast() {
+    const input = document.getElementById("gm-broadcast-input");
+    if (input) input.value = "";
+    sendAction("clear_broadcast");
   }
 
   function promptAddOfflinePlayer() {

@@ -269,6 +269,7 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     state["night_report"] = []
     state["defense_player_id"] = None
     state["winner"] = None
+    state["broadcast_message"] = None
     pause_timer(state)
     for p in state["players"].values():
         p["role"] = None
@@ -281,6 +282,23 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
         p["sniper_danger_bullets"] = 1
         p["sniper_silver_bullets"] = 1 if state["settings"].get("sniper_bullet_type") == "mix" else 0
     log_event(state, "Returned to Pre-Game Lobby. Ready to configure roles for a new game.")
+    save_game(state["code"], state)
+    return state
+
+
+def set_round_number(state: dict[str, Any], round_number: int) -> dict[str, Any]:
+    """Manually adjust round number to correct for missed rounds."""
+    state["round_number"] = max(0, int(round_number))
+    save_game(state["code"], state)
+    return state
+
+
+def set_broadcast_message(state: dict[str, Any], message: str) -> dict[str, Any]:
+    """Push or clear a live announcement banner on all players' screens."""
+    clean_msg = message.strip() if message else None
+    state["broadcast_message"] = clean_msg
+    if clean_msg:
+        log_event(state, f"📢 Announcement: {clean_msg}")
     save_game(state["code"], state)
     return state
 
@@ -701,6 +719,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
         "timer": timer_data,
         "night_report": state.get("night_report", []),
         "winner": state.get("winner"),
+        "broadcast_message": state.get("broadcast_message"),
         "settings": {
             "limbo_enabled": state["settings"].get("limbo_enabled", True),
         },
@@ -753,6 +772,7 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "events_log": state.get("events_log", [])[-25:],
         "settings": state.get("settings", {}),
         "winner": state.get("winner"),
+        "broadcast_message": state.get("broadcast_message"),
         "witch_used_revive": state.get("witch_used_revive", False),
         "witch_used_kill": state.get("witch_used_kill", False),
         "mayor_used_veto": state.get("mayor_used_veto", False),

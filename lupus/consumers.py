@@ -18,9 +18,11 @@ from .game_state import (
     resume_timer,
     return_to_lobby,
     save_game,
+    set_broadcast_message,
     set_deck,
     set_manual_player_role,
     set_player_status,
+    set_round_number,
     start_game,
     start_timer,
     submit_night_action,
@@ -66,12 +68,24 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
         if self.is_gm:
             await self.send_json({"type": "gm_state", "data": get_gm_view(state)})
         elif self.player_id:
+            if self.player_id not in state["players"]:
+                await self.send_json({
+                    "type": "player_kicked",
+                    "message": "You were removed from this room by the Game Master."
+                })
+                return
             await self.send_json(
                 {
                     "type": "player_state",
                     "data": get_sanitized_player_view(state, self.player_id),
                 }
             )
+
+    async def player_kicked_event(self, event):
+        await self.send_json({
+            "type": "player_kicked",
+            "message": event.get("message", "You were removed from this room by the Game Master.")
+        })
 
     async def receive_json(self, content: dict[str, Any]):
         action = content.get("action")
@@ -154,8 +168,34 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             elif action == "remove_player":
                 pid = content.get("player_id")
                 if pid:
+                    target_player = state["players"].get(pid)
+                    if target_player and target_player.get("channel_name"):
+                        try:
+                            await self.channel_layer.send(
+                                target_player["channel_name"],
+                                {
+                                    "type": "player.kicked.event",
+                                    "message": "You were removed from this room by the Game Master.",
+                                },
+                            )
+                        except Exception:
+                            pass
                     remove_player(state, pid)
                     await self.broadcast_sync()
+
+            elif action == "set_round_number":
+                round_num = content.get("round_number", 1)
+                set_round_number(state, round_num)
+                await self.broadcast_sync()
+
+            elif action == "broadcast_message":
+                msg_text = content.get("message", "")
+                set_broadcast_message(state, msg_text)
+                await self.broadcast_sync()
+
+            elif action == "clear_broadcast":
+                set_broadcast_message(state, "")
+                await self.broadcast_sync()
 
             elif action == "change_phase":
                 new_phase = content.get("phase")
