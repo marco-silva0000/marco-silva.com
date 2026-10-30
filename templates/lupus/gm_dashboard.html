@@ -3,77 +3,180 @@
 
 {% block content %}
 <style>
-  .gm-container { max-width: 900px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; }
-  .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
-  .badge-alive { background: #e8f5e9; color: #2e7d32; }
-  .badge-limbo { background: #fff8e1; color: #f57f17; border: 1px dashed #fbc02d; }
-  .badge-dead { background: #ffebee; color: #c62828; text-decoration: line-through; }
-  .badge-silenced { background: #ede7f6; color: #512da8; }
-  .card-box { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-  .timer-display { font-size: 3rem; font-weight: 700; font-family: monospace; letter-spacing: 2px; }
+  .gm-container { width: 100%; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; }
+  .badge { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-alive { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+  .badge-limbo { background: #fff8e1; color: #e65100; border: 1px dashed #ffb300; }
+  .badge-dead { background: #ffebee; color: #c62828; text-decoration: line-through; border: 1px solid #ffcdd2; }
+  .badge-silenced { background: #ede7f6; color: #512da8; border: 1px solid #d1c4e9; }
+  
+  .card-box { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 1.1rem; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .timer-display { font-size: 3.2rem; font-weight: 800; font-family: ui-monospace, monospace; letter-spacing: 2px; color: #111; line-height: 1.1; margin: 0.35rem 0; }
   .timer-pulse { color: #d32f2f; animation: pulse 1s infinite alternate; }
-  @keyframes pulse { from { opacity: 1; } to { opacity: 0.5; } }
-  .btn { padding: 0.4rem 0.8rem; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 0.85rem; }
+  @keyframes pulse { from { opacity: 1; transform: scale(1); } to { opacity: 0.6; transform: scale(0.98); } }
+  
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.55rem 0.9rem; min-height: 42px; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 0.9rem; font-weight: 500; -webkit-tap-highlight-color: transparent; }
+  .btn:active { transform: scale(0.97); }
   .btn-primary { background: #111; color: #fff; border-color: #111; font-weight: 600; }
   .btn-danger { background: #c62828; color: #fff; border-color: #c62828; }
-  .btn-sm { padding: 0.2rem 0.5rem; font-size: 0.75rem; }
-  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; }
+  .btn-sm { padding: 0.35rem 0.65rem; min-height: 34px; font-size: 0.8rem; }
+
+  /* Responsive Grid for Timer & Phase Controls */
+  .control-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+  .timer-section {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid #eee;
+    padding-right: 1.25rem;
+  }
+  .phase-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .phase-btn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  /* Mobile Overrides (under 640px) */
+  @media (max-width: 640px) {
+    .control-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1rem !important;
+    }
+    .timer-section {
+      border-right: none !important;
+      border-bottom: 1px solid #eee;
+      padding-right: 0 !important;
+      padding-bottom: 1.25rem;
+    }
+    .phase-btn-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    .top-bar {
+      flex-direction: column;
+      align-items: flex-start !important;
+      gap: 0.75rem;
+    }
+    .top-bar-buttons {
+      width: 100%;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .top-bar-buttons .btn {
+      flex: 1;
+    }
+  }
+
+  .player-card-row {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .player-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .player-card-actions {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+    padding-top: 0.4rem;
+    border-top: 1px dashed #e0e0e0;
+  }
+
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
   .modal.active { display: flex; }
-  .modal-content { background: #fff; padding: 1.5rem; border-radius: 8px; max-width: 400px; width: 90%; text-align: center; }
+  .modal-content { background: #fff; padding: 1.5rem; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 </style>
 
 <div class="gm-container">
   <!-- Top Bar -->
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.75rem;">
+  <div class="top-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.75rem;">
     <div>
-      <h1 style="font-size: 1.3rem; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+      <h1 style="font-size: 1.25rem; margin: 0; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
         <span>🐺 {{ state.title }}</span>
-        <span style="font-size: 0.85rem; background: #eee; padding: 0.2rem 0.5rem; border-radius: 4px;">{{ code }}</span>
+        <span style="font-size: 0.85rem; background: #eee; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">{{ code }}</span>
         <span style="font-size: 0.75rem; color: #666;">({{ state.theme|title }} Theme)</span>
       </h1>
     </div>
-    <div style="display: flex; gap: 0.5rem;">
+    <div class="top-bar-buttons" style="display: flex; gap: 0.5rem;">
       <button onclick="openModal('room-qr-modal')" class="btn">📱 Room QR</button>
-      <button onclick="copyJoinLink()" class="btn">🔗 Copy Join Link</button>
+      <button id="btn-copy-link" onclick="copyJoinLink(this)" class="btn">🔗 Copy Link</button>
     </div>
   </div>
 
-  <!-- Timer & Phase Controls -->
-  <div class="card-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: center;">
-    <div style="text-align: center; border-right: 1px solid #eee; padding-right: 1rem;">
-      <div id="timer-label" style="font-size: 0.85rem; font-weight: 600; color: #666; text-transform: uppercase;">
-        {{ state.timer.label|default:"Discussion" }}
+  <!-- Timer & Phase Controls (Mobile First Layout) -->
+  <div class="card-box">
+    <div class="control-grid">
+      <!-- Left / Top: Countdown Timer -->
+      <div class="timer-section">
+        <div id="timer-label" style="font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px;">
+          {{ state.timer.label|default:"Discussion" }}
+        </div>
+        <div id="timer-val" class="timer-display">05:00</div>
+        
+        <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem;">
+          <button id="btn-timer-toggle" onclick="toggleTimer()" class="btn btn-primary" style="min-width: 80px;">Start</button>
+          <button onclick="resetTimer(300, '5m Discussion')" class="btn">5m</button>
+          <button onclick="resetTimer(180, '3m Discussion')" class="btn">3m</button>
+          <button onclick="resetTimer(30, '30s Defense')" class="btn btn-danger">30s Defense</button>
+        </div>
       </div>
-      <div id="timer-val" class="timer-display">05:00</div>
-      <div style="display: flex; gap: 0.4rem; justify-content: center; margin-top: 0.5rem;">
-        <button id="btn-timer-toggle" onclick="toggleTimer()" class="btn btn-primary">Start</button>
-        <button onclick="resetTimer(300, '5m Discussion')" class="btn">5m</button>
-        <button onclick="resetTimer(180, '3m Discussion')" class="btn">3m</button>
-        <button onclick="resetTimer(30, '30s Defense')" class="btn btn-danger">30s Defense</button>
-      </div>
-    </div>
 
-    <div>
-      <div style="font-size: 0.85rem; font-weight: 600; color: #666; margin-bottom: 0.5rem;">
-        CURRENT PHASE: <span id="phase-badge" class="badge" style="background: #111; color: #fff;">{{ state.phase }}</span>
-        · Round <span id="round-num">{{ state.round_number }}</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem;">
-        <button onclick="changePhase('night')" class="btn">🌙 Call Night (Sleep)</button>
-        <button onclick="resolveNight()" class="btn btn-primary">☀️ Resolve Night & Wake Town</button>
-        <button onclick="changePhase('day_discussion')" class="btn">🗣️ Discussion Phase</button>
-        <button onclick="changePhase('day_voting')" class="btn">🗳️ Voting Phase</button>
+      <!-- Right / Bottom: Current Phase & Phase Actions -->
+      <div class="phase-section">
+        <div style="font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.6rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem;">
+          <div>
+            PHASE: <span id="phase-badge" class="badge" style="background: #111; color: #fff; font-size: 0.8rem;">{{ state.phase }}</span>
+          </div>
+          <div style="font-size: 0.8rem; color: #777;">
+            Round <strong id="round-num">{{ state.round_number }}</strong>
+          </div>
+        </div>
+
+        <div class="phase-btn-grid">
+          <button onclick="changePhase('night')" class="btn" style="background: #1e1e24; color: #fff; border-color: #1e1e24;">
+            🌙 Night (Sleep)
+          </button>
+          <button onclick="resolveNight()" class="btn btn-primary" style="background: #2e7d32; border-color: #2e7d32;">
+            ☀️ Wake Town
+          </button>
+          <button onclick="changePhase('day_discussion')" class="btn">
+            🗣️ Discussion
+          </button>
+          <button onclick="changePhase('day_voting')" class="btn">
+            🗳️ Voting
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Night Intelligence & Actions Received -->
   <div class="card-box" style="background: #fdfdfe; border-left: 4px solid #3f51b5;">
-    <h3 style="font-size: 0.95rem; margin-top: 0; margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+    <h3 style="font-size: 0.95rem; margin-top: 0; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
       <span>🌙 Night Intel & Action Queue</span>
-      <span style="font-size: 0.75rem; color: #888;">Updated in real-time as players act</span>
+      <span style="font-size: 0.75rem; color: #888;">Live feed</span>
     </h3>
-    <div id="night-actions-feed" style="font-size: 0.85rem; min-height: 40px; color: #444;">
+    <div id="night-actions-feed" style="font-size: 0.85rem; min-height: 36px; color: #444;">
       <em>No night actions recorded yet for this round.</em>
     </div>
     {% if state.night_report %}
@@ -90,36 +193,24 @@
 
   <!-- Table & Players Management -->
   <div class="card-box">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
       <h3 style="font-size: 1rem; margin: 0;">👥 Players at Table (<span id="player-count">{{ state.players|length }}</span>)</h3>
-      <div style="display: flex; gap: 0.5rem;">
-        <button onclick="dealRoles()" class="btn btn-primary btn-sm">🎴 Deal Roles Automatically</button>
-        <button onclick="promptAddOfflinePlayer()" class="btn btn-sm">+ Add Offline Player</button>
+      <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+        <button onclick="dealRoles()" class="btn btn-primary btn-sm">🎴 Deal Roles</button>
+        <button onclick="promptAddOfflinePlayer()" class="btn btn-sm">+ Offline Player</button>
       </div>
     </div>
 
-    <div style="overflow-x: auto;">
-      <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
-        <thead>
-          <tr style="border-bottom: 2px solid #eee; color: #666;">
-            <th style="padding: 0.5rem;">Player</th>
-            <th style="padding: 0.5rem;">Role</th>
-            <th style="padding: 0.5rem;">Status</th>
-            <th style="padding: 0.5rem;">Notes</th>
-            <th style="padding: 0.5rem; text-align: right;">GM Actions</th>
-          </tr>
-        </thead>
-        <tbody id="player-rows">
-          <!-- Populated dynamically via JS -->
-        </tbody>
-      </table>
+    <!-- Mobile-First Player List -->
+    <div id="player-list-container">
+      <!-- Rendered dynamically -->
     </div>
   </div>
 
   <!-- Activity Log -->
   <div class="card-box">
     <h3 style="font-size: 0.9rem; margin-top: 0; margin-bottom: 0.5rem; color: #666;">📜 Live Activity Log</h3>
-    <div id="events-log" style="font-size: 0.8rem; color: #666; max-height: 140px; overflow-y: auto; font-family: monospace;">
+    <div id="events-log" style="font-size: 0.8rem; color: #666; max-height: 120px; overflow-y: auto; font-family: monospace;">
       {% for event in state.events_log %}
       <div>[{{ event.phase }}] {{ event.message }}</div>
       {% endfor %}
@@ -130,9 +221,9 @@
 <!-- Modal: Room QR Code -->
 <div id="room-qr-modal" class="modal">
   <div class="modal-content">
-    <h3 style="margin-top: 0; font-size: 1.1rem;">Scan to Join Room</h3>
+    <h3 style="margin-top: 0; font-size: 1.15rem;">Scan to Join Room</h3>
     <p style="font-size: 0.85rem; color: #666;">Scan with camera or share the code: <strong>{{ code }}</strong></p>
-    <img src="{{ join_qr }}" alt="Join QR" style="max-width: 220px; height: auto; margin: 0.5rem 0; border: 1px solid #ddd; padding: 4px; border-radius: 4px;">
+    <img src="{{ join_qr }}" alt="Join QR" style="max-width: 220px; height: auto; margin: 0.5rem auto; border: 1px solid #ddd; padding: 4px; border-radius: 6px; display: block;">
     <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center;">
       <button onclick="copyJoinLink()" class="btn btn-primary">Copy Link</button>
       <button onclick="closeModal('room-qr-modal')" class="btn">Close</button>
@@ -143,11 +234,11 @@
 <!-- Modal: Individual Player Secret Reconnect QR -->
 <div id="player-qr-modal" class="modal">
   <div class="modal-content">
-    <h3 id="player-qr-name" style="margin-top: 0; font-size: 1.1rem;">Player Secret Reconnect</h3>
+    <h3 id="player-qr-name" style="margin-top: 0; font-size: 1.15rem;">Player Reconnect</h3>
     <p style="font-size: 0.8rem; color: #666;">
-      Show this QR privately to the player (e.g. during night with closed eyes or privately at table) to let them reconnect instantly.
+      Show this QR privately to the player so they can reconnect without revealing their screen.
     </p>
-    <img id="player-qr-img" src="" alt="Player QR" style="max-width: 200px; height: auto; margin: 0.5rem 0; border: 1px solid #ddd; padding: 4px; border-radius: 4px;">
+    <img id="player-qr-img" src="" alt="Player QR" style="max-width: 200px; height: auto; margin: 0.5rem auto; border: 1px solid #ddd; padding: 4px; border-radius: 6px; display: block;">
     <div style="margin-top: 0.75rem;">
       <button onclick="closeModal('player-qr-modal')" class="btn">Done</button>
     </div>
@@ -156,7 +247,7 @@
 
 <script>
   const ROOM_CODE = "{{ code }}";
-  const GM_TOKEN = "{{ state.gm_token|default:'' }}";
+  const GM_TOKEN = "{{ gm_token|default:state.gm_token }}";
   const JOIN_URL = "{{ join_url }}";
   let currentGameState = null;
   let timerInterval = null;
@@ -248,17 +339,22 @@
     }
     intelFeed.innerHTML = intelHtml;
 
-    // Player Rows
-    const tbody = document.getElementById("player-rows");
-    tbody.innerHTML = "";
-    state.players.forEach(p => {
-      const tr = document.createElement("tr");
-      tr.style.borderBottom = "1px solid #eee";
+    // Mobile-friendly Player Card Rows
+    const container = document.getElementById("player-list-container");
+    container.innerHTML = "";
+    if (state.players.length === 0) {
+      container.innerHTML = "<p style='font-size:0.85rem; color:#888; text-align:center;'>No players have joined yet. Share the QR code above!</p>";
+      return;
+    }
 
-      const statusBadge = `<span class="badge badge-${p.status}">${p.status}</span>`;
+    state.players.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "player-card-row";
+
+      const statusBadge = `<button onclick="cyclePlayerStatus('${p.id}', '${p.status}')" class="badge badge-${p.status}" style="border:none; cursor:pointer;" title="Tap to change status">${p.status} ↺</button>`;
       const silencedBadge = p.is_silenced ? '<span class="badge badge-silenced">🤐 Silenced</span>' : '';
       const offlineBadge = p.is_offline ? '<span style="font-size:0.75rem; color:#888;">(Offline)</span>' : '';
-      const roleStr = p.role ? `${p.role.emoji} ${p.role.name}` : '<em style="color:#aaa;">Unassigned</em>';
+      const roleStr = p.role ? `<span style="font-weight:600;">${p.role.emoji} ${p.role.name}</span>` : '<em style="color:#aaa;">Unassigned</em>';
 
       let notes = [];
       if (p.lover_name) notes.push(`💘 Lover: ${p.lover_name}`);
@@ -268,21 +364,27 @@
         if (guarded) notes.push(`Last guarded: ${guarded.name}`);
       }
 
-      tr.innerHTML = `
-        <td style="padding: 0.5rem; font-weight: 500;">
-          ${escapeHtml(p.name)} ${offlineBadge}
-        </td>
-        <td style="padding: 0.5rem;">${roleStr}</td>
-        <td style="padding: 0.5rem;">${statusBadge} ${silencedBadge}</td>
-        <td style="padding: 0.5rem; font-size: 0.75rem; color: #666;">${notes.join(" · ")}</td>
-        <td style="padding: 0.5rem; text-align: right;">
-          <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">30s Defense</button>
-          <button onclick="togglePlayerStatus('${p.id}', '${p.status}')" class="btn btn-sm">Set Status</button>
-          <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">QR</button>
-          <button onclick="removePlayer('${p.id}')" class="btn btn-sm btn-danger">&times;</button>
-        </td>
+      card.innerHTML = `
+        <div class="player-card-header">
+          <div style="font-size: 0.95rem; font-weight: 600;">
+            ${escapeHtml(p.name)} ${offlineBadge}
+          </div>
+          <div>
+            ${statusBadge} ${silencedBadge}
+          </div>
+        </div>
+        <div style="font-size: 0.85rem; color: #555; display: flex; justify-content: space-between; align-items: center;">
+          <div>Role: ${roleStr}</div>
+          <div style="font-size: 0.75rem; color: #888;">${notes.join(" · ")}</div>
+        </div>
+        <div class="player-card-actions">
+          <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s Defense</button>
+          <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Change Role</button>
+          <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
+          <button onclick="removePlayer('${p.id}')" class="btn btn-sm btn-danger" style="margin-left: auto;">&times; Remove</button>
+        </div>
       `;
-      tbody.appendChild(tr);
+      container.appendChild(card);
     });
 
     // Events Log
@@ -323,7 +425,7 @@
       btnToggle.className = "btn";
       timerInterval = setInterval(update, 1000);
     } else {
-      btnToggle.innerText = "Resume";
+      btnToggle.innerText = "Start";
       btnToggle.className = "btn btn-primary";
     }
   }
@@ -347,7 +449,7 @@
   }
 
   function resolveNight() {
-    if (confirm("Resolve all night actions and announce morning to Town?")) {
+    if (confirm("Resolve night actions and wake the town?")) {
       sendAction("resolve_night");
     }
   }
@@ -362,11 +464,16 @@
     sendAction("start_defense", { player_id: playerId });
   }
 
-  function togglePlayerStatus(playerId, currentStatus) {
-    const nextStatus = currentStatus === "alive" ? "limbo" : (currentStatus === "limbo" ? "dead" : "alive");
-    const choice = prompt(`Change status for player. Type: 'alive', 'limbo', or 'dead':`, nextStatus);
-    if (choice && ["alive", "limbo", "dead"].includes(choice.toLowerCase())) {
-      sendAction("set_status", { player_id: playerId, status: choice.toLowerCase() });
+  function cyclePlayerStatus(playerId, currentStatus) {
+    const cycle = { "alive": "limbo", "limbo": "dead", "dead": "alive" };
+    const nextStatus = cycle[currentStatus] || "alive";
+    sendAction("set_status", { player_id: playerId, status: nextStatus });
+  }
+
+  function setPlayerRoleManual(playerId, playerName) {
+    const role = prompt(`Assign role for ${playerName}:\n(werewolf, alpha_wolf, silencer, detective, doctor, sniper, angel, mayor, witch, cupid, jester, villager)`);
+    if (role && role.trim()) {
+      sendAction("set_manual_role", { player_id: playerId, role_id: role.trim().toLowerCase() });
     }
   }
 
@@ -392,7 +499,7 @@
   }
 
   function showPlayerQR(playerId, playerName, token) {
-    document.getElementById("player-qr-name").innerText = `${playerName} - Private Reconnect`;
+    document.getElementById("player-qr-name").innerText = `${playerName} - Reconnect QR`;
     fetch(`/games/lupus/${ROOM_CODE}/qr/${token}/`)
       .then(res => res.json())
       .then(data => {
@@ -401,9 +508,14 @@
       });
   }
 
-  function copyJoinLink() {
+  function copyJoinLink(btn) {
+    const target = btn || document.getElementById("btn-copy-link");
     navigator.clipboard.writeText(JOIN_URL).then(() => {
-      alert("Join link copied to clipboard!");
+      if (target) {
+        const orig = target.innerHTML;
+        target.innerHTML = "✅ Copied!";
+        setTimeout(() => { target.innerHTML = orig; }, 2000);
+      }
     });
   }
 
