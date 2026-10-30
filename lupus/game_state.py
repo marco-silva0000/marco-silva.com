@@ -693,6 +693,7 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "code": state["code"],
         "title": state["title"],
         "password": state.get("password", ""),
+        "gm_token": state.get("gm_token", ""),
         "theme": theme,
         "phase": state["phase"],
         "round_number": state["round_number"],

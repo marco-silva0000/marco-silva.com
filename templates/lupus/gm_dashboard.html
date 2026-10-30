@@ -156,7 +156,7 @@
 
 <script>
   const ROOM_CODE = "{{ code }}";
-  const GM_TOKEN = "{{ state.gm_token|default:request.session.lupus_gm_code }}";
+  const GM_TOKEN = "{{ state.gm_token|default:'' }}";
   const JOIN_URL = "{{ join_url }}";
   let currentGameState = null;
   let timerInterval = null;
@@ -171,7 +171,7 @@
 
     socket.onopen = () => {
       console.log("GM WebSocket connected.");
-      socket.send(JSON.stringify({ action: "init", gm_token: "{{ request.GET.gm_token|default:request.session.lupus_gm_code }}" }));
+      socket.send(JSON.stringify({ action: "init", gm_token: GM_TOKEN }));
     };
 
     socket.onmessage = (e) => {

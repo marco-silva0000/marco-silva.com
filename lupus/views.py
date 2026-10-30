@@ -111,6 +111,7 @@ def gm_dashboard(request, code):
         "lupus/gm_dashboard.html",
         {
             "code": code,
+            "gm_token": gm_token,
             "state": get_gm_view(state),
             "join_url": join_url,
             "join_qr": join_qr_b64,
