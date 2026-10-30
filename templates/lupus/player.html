@@ -305,114 +305,146 @@
     </div>
   </div>
 
-  <!-- Silence Alert Banner -->
-  <div id="silence-alert-box" class="silence-alert" style="display: {% if state.me.is_silenced %}block{% else %}none{% endif %};">
-    🤐 <strong>SILENCED TODAY!</strong><br>
-    <span style="font-size: 0.82rem; font-weight: normal; opacity: 0.95;">A spell binds your lips. You cannot speak, whisper, or signal until nightfall.</span>
+  <!-- =============================== -->
+  <!-- 1. PRE-GAME LOBBY WAITING SCREEN -->
+  <!-- =============================== -->
+  <div id="player-lobby-view" style="display: {% if state.phase == 'lobby' %}block{% else %}none{% endif %}; text-align: center;">
+    <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem 1.25rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04); margin-bottom: 1.25rem;">
+      <div style="font-size: 3.5rem; line-height: 1; margin-bottom: 0.5rem;">🐺</div>
+      <h2 style="font-size: 1.35rem; margin: 0 0 0.4rem; font-weight: 700; color: #0f172a;">Table Gathering</h2>
+      <p style="font-size: 0.88rem; color: #64748b; line-height: 1.45; margin: 0 auto 1.5rem; max-width: 320px;">
+        Waiting for the Game Master to set roles and start the game...
+      </p>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem; margin-bottom: 1.5rem; text-align: left;">
+        <div style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 0.6rem; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <span>👥 Players in Room:</span>
+          <span id="lobby-player-count" style="color: #2563eb; font-weight: 800;">{{ state.players|length }}</span>
+        </div>
+        <div id="lobby-players-chips" style="display: flex; flex-wrap: wrap; gap: 0.45rem;">
+          <!-- Filled dynamically -->
+        </div>
+      </div>
+
+      <div style="font-size: 0.82rem; color: #64748b; line-height: 1.45; border-top: 1px dashed #e2e8f0; padding-top: 1rem;">
+        🔒 <strong>Keep this screen open.</strong> As soon as the host starts the game, your secret role card will be dealt automatically!
+      </div>
+    </div>
   </div>
 
-  <!-- Limbo Screen (Angel Guess) -->
-  <div id="limbo-box" class="limbo-card" style="display: {% if state.me.status == 'limbo' %}block{% else %}none{% endif %};">
-    <div style="font-size: 2.2rem; line-height: 1;">🌫️</div>
-    <h3 style="margin: 0.35rem 0 0.4rem; font-size: 1.15rem; color: #e65100; font-weight: 700;">You are in Limbo!</h3>
-    <p style="font-size: 0.85rem; color: #555; margin-bottom: 0.85rem; line-height: 1.4;">
-      You have one chance to return to the living. Can you guess who the <strong>Angel</strong> is?
-    </p>
-    <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; flex-wrap: wrap;">
-      <select id="angel-guess-select" style="padding: 0.5rem; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; max-width: 200px;">
-        <!-- Filled dynamically -->
-      </select>
-      <button onclick="submitAngelGuess()" class="btn btn-primary" style="background: #e65100; border-color: #e65100; min-height: 38px;">
-        Guess Angel
+  <!-- =============================== -->
+  <!-- 2. ACTIVE GAME SCREEN (ROUND 1+)-->
+  <!-- =============================== -->
+  <div id="player-active-view" style="display: {% if state.phase != 'lobby' %}block{% else %}none{% endif %};">
+    <!-- Silence Alert Banner -->
+    <div id="silence-alert-box" class="silence-alert" style="display: {% if state.me.is_silenced %}block{% else %}none{% endif %};">
+      🤐 <strong>SILENCED TODAY!</strong><br>
+      <span style="font-size: 0.82rem; font-weight: normal; opacity: 0.95;">A spell binds your lips. You cannot speak, whisper, or signal until nightfall.</span>
+    </div>
+
+    <!-- Limbo Screen (Angel Guess) -->
+    <div id="limbo-box" class="limbo-card" style="display: {% if state.me.status == 'limbo' %}block{% else %}none{% endif %};">
+      <div style="font-size: 2.2rem; line-height: 1;">🌫️</div>
+      <h3 style="margin: 0.35rem 0 0.4rem; font-size: 1.15rem; color: #e65100; font-weight: 700;">You are in Limbo!</h3>
+      <p style="font-size: 0.85rem; color: #555; margin-bottom: 0.85rem; line-height: 1.4;">
+        You have one chance to return to the living. Can you guess who the <strong>Angel</strong> is?
+      </p>
+      <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+        <select id="angel-guess-select" style="padding: 0.5rem; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; max-width: 200px;">
+          <!-- Filled dynamically -->
+        </select>
+        <button onclick="submitAngelGuess()" class="btn btn-primary" style="background: #e65100; border-color: #e65100; min-height: 38px;">
+          Guess Angel
+        </button>
+      </div>
+      <div id="angel-guess-result" style="font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600;"></div>
+    </div>
+
+    <!-- Timer Banner -->
+    <div class="timer-banner">
+      <div id="timer-label" style="font-size: 0.75rem; text-transform: uppercase; color: #64748b; font-weight: 700; letter-spacing: 0.8px;">
+        {{ state.timer.label|default:"Discussion" }}
+      </div>
+      <div id="timer-val" class="timer-val">05:00</div>
+      <div style="font-size: 0.78rem; color: #64748b; margin-top: 0.15rem;">
+        Phase: <strong id="phase-text" style="color: #0f172a;">{{ state.phase|title }}</strong> · Round <span id="round-num">{{ state.round_number }}</span>
+      </div>
+    </div>
+
+    <!-- Secret Role Card (Mobile Long-Press & Tap-Back to Hide) -->
+    <div class="role-card-container">
+      <div class="role-card" id="role-card">
+        <div class="hold-progress" id="hold-progress"></div>
+
+        <!-- Card Revealed Content -->
+        <div id="role-content" class="card-content card-concealed">
+          <div class="card-status-pill" id="card-status-pill">
+            🔒 Tap anywhere to hide
+          </div>
+
+          <div id="role-emoji" class="role-emoji">
+            {{ state.me.role.emoji|default:"🎴" }}
+          </div>
+          
+          <h2 id="role-name" class="role-title">
+            {{ state.me.role.name|default:"Role Unassigned" }}
+          </h2>
+          
+          <div id="role-faction" class="role-faction-badge">
+            {{ state.me.role.faction|default:"Waiting for GM" }}
+          </div>
+          
+          <p id="role-desc" class="role-description">
+            {{ state.me.role.description|default:"Please wait for the game master to deal roles." }}
+          </p>
+
+          <!-- Packmates / Lover Info -->
+          <div id="role-secret-notes" class="role-notes"></div>
+        </div>
+
+        <!-- Privacy Shield Overlay -->
+        <div id="reveal-overlay" class="reveal-overlay">
+          <div class="shield-icon" id="shield-icon">👁️</div>
+          <div class="shield-title" id="shield-title">Touch &amp; Hold to Peek</div>
+          <div class="shield-desc" id="shield-desc">Hold finger down · Releases to hide</div>
+          <div class="shield-tap-hint">or tap to unlock</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Night Action Drawer -->
+    <div id="night-action-box" style="display: none; background: #1e293b; color: #fff; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+      <h3 id="night-action-title" style="margin-top: 0; font-size: 1.05rem; color: #93c5fd; font-weight: 700;">🌙 Night Action</h3>
+      <p id="night-action-prompt" style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.4;"></p>
+      
+      <div style="margin-bottom: 0.75rem;">
+        <select id="night-target-select" style="width: 100%; padding: 0.55rem; border-radius: 6px; border: 1px solid #475569; background: #334155; color: #fff; font-size: 0.95rem;">
+          <!-- Filled dynamically -->
+        </select>
+      </div>
+
+      <div id="sniper-bullet-opt" style="display: none; margin-bottom: 0.75rem;">
+        <label style="font-size: 0.8rem; color: #94a3b8; display: block; margin-bottom: 0.25rem;">Bullet Type:</label>
+        <select id="sniper-bullet-select" style="width: 100%; padding: 0.5rem; border-radius: 6px; background: #334155; color: #fff; font-size: 0.88rem; border: 1px solid #475569;">
+          <option value="danger">Danger Bullet (You die if target is town)</option>
+          <option value="silver">Silver Bullet (Safe shot)</option>
+        </select>
+      </div>
+
+      <button onclick="submitNightAction()" class="btn btn-primary" style="width: 100%; background: #2563eb; border-color: #2563eb;">
+        Confirm Night Action
       </button>
+      <div id="night-action-feedback" style="font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600;"></div>
     </div>
-    <div id="angel-guess-result" style="font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600;"></div>
-  </div>
 
-  <!-- Timer Banner -->
-  <div class="timer-banner">
-    <div id="timer-label" style="font-size: 0.75rem; text-transform: uppercase; color: #64748b; font-weight: 700; letter-spacing: 0.8px;">
-      {{ state.timer.label|default:"Discussion" }}
-    </div>
-    <div id="timer-val" class="timer-val">05:00</div>
-    <div style="font-size: 0.78rem; color: #64748b; margin-top: 0.15rem;">
-      Phase: <strong id="phase-text" style="color: #0f172a;">{{ state.phase|title }}</strong> · Round <span id="round-num">{{ state.round_number }}</span>
+    <!-- Morning Dawn Report -->
+    <div id="dawn-box" style="display: none; background: #fffde7; border: 1px solid #fde047; border-radius: 12px; padding: 1rem 1.15rem; margin-bottom: 1.25rem;">
+      <h3 style="margin-top: 0; font-size: 0.95rem; color: #b45309; font-weight: 700;">☀️ Dawn Report</h3>
+      <ul id="dawn-report-list" style="margin: 0; padding-left: 1.25rem; font-size: 0.85rem; color: #444; line-height: 1.4;"></ul>
     </div>
   </div>
 
-  <!-- Secret Role Card (Mobile Long-Press & Tap-Back to Hide) -->
-  <div class="role-card-container">
-    <div class="role-card" id="role-card">
-      <div class="hold-progress" id="hold-progress"></div>
-
-      <!-- Card Revealed Content -->
-      <div id="role-content" class="card-content card-concealed">
-        <div class="card-status-pill" id="card-status-pill">
-          🔒 Tap anywhere to hide
-        </div>
-
-        <div id="role-emoji" class="role-emoji">
-          {{ state.me.role.emoji|default:"🎴" }}
-        </div>
-        
-        <h2 id="role-name" class="role-title">
-          {{ state.me.role.name|default:"Role Unassigned" }}
-        </h2>
-        
-        <div id="role-faction" class="role-faction-badge">
-          {{ state.me.role.faction|default:"Waiting for GM" }}
-        </div>
-        
-        <p id="role-desc" class="role-description">
-          {{ state.me.role.description|default:"Please wait for the game master to deal roles." }}
-        </p>
-
-        <!-- Packmates / Lover Info -->
-        <div id="role-secret-notes" class="role-notes"></div>
-      </div>
-
-      <!-- Privacy Shield Overlay -->
-      <div id="reveal-overlay" class="reveal-overlay">
-        <div class="shield-icon" id="shield-icon">👁️</div>
-        <div class="shield-title" id="shield-title">Touch &amp; Hold to Peek</div>
-        <div class="shield-desc" id="shield-desc">Hold finger down · Releases to hide</div>
-        <div class="shield-tap-hint">or tap to unlock</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Night Action Drawer -->
-  <div id="night-action-box" style="display: none; background: #1e293b; color: #fff; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-    <h3 id="night-action-title" style="margin-top: 0; font-size: 1.05rem; color: #93c5fd; font-weight: 700;">🌙 Night Action</h3>
-    <p id="night-action-prompt" style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.4;"></p>
-    
-    <div style="margin-bottom: 0.75rem;">
-      <select id="night-target-select" style="width: 100%; padding: 0.55rem; border-radius: 6px; border: 1px solid #475569; background: #334155; color: #fff; font-size: 0.95rem;">
-        <!-- Filled dynamically -->
-      </select>
-    </div>
-
-    <div id="sniper-bullet-opt" style="display: none; margin-bottom: 0.75rem;">
-      <label style="font-size: 0.8rem; color: #94a3b8; display: block; margin-bottom: 0.25rem;">Bullet Type:</label>
-      <select id="sniper-bullet-select" style="width: 100%; padding: 0.5rem; border-radius: 6px; background: #334155; color: #fff; font-size: 0.88rem; border: 1px solid #475569;">
-        <option value="danger">Danger Bullet (You die if target is town)</option>
-        <option value="silver">Silver Bullet (Safe shot)</option>
-      </select>
-    </div>
-
-    <button onclick="submitNightAction()" class="btn btn-primary" style="width: 100%; background: #2563eb; border-color: #2563eb;">
-      Confirm Night Action
-    </button>
-    <div id="night-action-feedback" style="font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600;"></div>
-  </div>
-
-  <!-- Morning Dawn Report -->
-  <div id="dawn-box" style="display: none; background: #fffde7; border: 1px solid #fde047; border-radius: 12px; padding: 1rem 1.15rem; margin-bottom: 1.25rem;">
-    <h3 style="margin-top: 0; font-size: 0.95rem; color: #b45309; font-weight: 700;">☀️ Dawn Report</h3>
-    <ul id="dawn-report-list" style="margin: 0; padding-left: 1.25rem; font-size: 0.85rem; color: #444; line-height: 1.4;"></ul>
-  </div>
-
-  <!-- Table Players List -->
+  <!-- Table Players List (Common to both) -->
   <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
     <h3 style="font-size: 0.9rem; margin: 0 0 0.5rem; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
       Players at Table
@@ -585,6 +617,36 @@
   // --- Render State ---
   function renderPlayerState(state) {
     currentGameState = state;
+
+    // Toggle Lobby Waiting View vs Active Game View
+    const lobbyView = document.getElementById("player-lobby-view");
+    const activeView = document.getElementById("player-active-view");
+
+    if (state.phase === "lobby") {
+      lobbyView.style.display = "block";
+      activeView.style.display = "none";
+      document.getElementById("lobby-player-count").innerText = state.players.length;
+
+      const chips = document.getElementById("lobby-players-chips");
+      chips.innerHTML = "";
+      state.players.forEach(p => {
+        const chip = document.createElement("span");
+        chip.style.cssText = "display:inline-flex; align-items:center; gap:0.3rem; padding: 0.35rem 0.65rem; background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; font-weight: 600;";
+        if (p.is_me) {
+          chip.style.borderColor = "#3b82f6";
+          chip.style.color = "#1d4ed8";
+          chip.style.background = "#eff6ff";
+          chip.innerHTML = `⭐ <strong>${escapeHtml(p.name)} (You)</strong>`;
+        } else {
+          chip.innerText = p.name;
+        }
+        chips.appendChild(chip);
+      });
+    } else {
+      lobbyView.style.display = "none";
+      activeView.style.display = "block";
+    }
+
     document.getElementById("phase-text").innerText = state.phase.toUpperCase();
     document.getElementById("round-num").innerText = state.round_number;
 

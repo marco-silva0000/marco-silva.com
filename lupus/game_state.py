@@ -12,6 +12,8 @@ import redis
 from .roles import (
     FACTION_WOLVES,
     ROLE_REGISTRY,
+    generate_preset_deck,
+    get_all_roles_catalogue,
     get_role_info,
 )
 
@@ -236,6 +238,49 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
 
     state["deck"] = deck
     log_event(state, f"Distributed {len(deck)} roles to players.")
+    save_game(state["code"], state)
+    return state
+
+
+def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> dict[str, Any]:
+    """Transition from Pre-Game Lobby to Night 1, dealing roles to all joined players."""
+    deal_roles(state, role_list)
+    state["phase"] = "night"
+    state["round_number"] = 1
+    state["night_actions"] = {}
+    state["night_report"] = []
+    state["defense_player_id"] = None
+    state["winner"] = None
+    state["witch_used_revive"] = False
+    state["witch_used_kill"] = False
+    state["mayor_used_veto"] = False
+    reset_timer(state, state["settings"].get("discussion_timer", 300))
+    pause_timer(state)
+    log_event(state, f"🚀 Game started with {len(state['players'])} players! Round 1 (Night) begins.")
+    save_game(state["code"], state)
+    return state
+
+
+def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
+    """End or reset the active game back to the Pre-Game Lobby while keeping players connected."""
+    state["phase"] = "lobby"
+    state["round_number"] = 0
+    state["night_actions"] = {}
+    state["night_report"] = []
+    state["defense_player_id"] = None
+    state["winner"] = None
+    pause_timer(state)
+    for p in state["players"].values():
+        p["role"] = None
+        p["faction"] = None
+        p["status"] = "alive"
+        p["used_limbo"] = False
+        p["is_silenced"] = False
+        p["lover_id"] = None
+        p["last_guarded_id"] = None
+        p["sniper_danger_bullets"] = 1
+        p["sniper_silver_bullets"] = 1 if state["settings"].get("sniper_bullet_type") == "mix" else 0
+    log_event(state, "Returned to Pre-Game Lobby. Ready to configure roles for a new game.")
     save_game(state["code"], state)
     return state
 
@@ -699,6 +744,9 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "round_number": state["round_number"],
         "players": all_players,
         "deck": [get_role_info(r, theme) for r in state.get("deck", [])],
+        "raw_deck": state.get("deck", []),
+        "available_roles": get_all_roles_catalogue(theme),
+        "player_count": len(all_players),
         "timer": timer_data,
         "night_actions": state.get("night_actions", {}),
         "night_report": state.get("night_report", []),

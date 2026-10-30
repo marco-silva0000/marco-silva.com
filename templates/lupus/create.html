@@ -102,13 +102,15 @@
 
     <div style="background: #fafafa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1rem;">
       <h2 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">Starting Role Deck Preset</h2>
-      <select name="preset" style="width: 100%; padding: 0.4rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 0.75rem;">
-        <option value="quick_5">Quick 5 (1 Wolf, Detective, Doctor, 2 Villagers)</option>
-        <option value="balanced_8" selected>Balanced 8 (2 Wolves, Detective, Doctor, Angel, Sniper, 2 Villagers)</option>
-        <option value="full_10">Full 10 (2 Wolves, Alpha Wolf, Silencer, Detective, Doctor, Angel, Sniper, Mayor, 2 Villagers)</option>
-        <option value="chaos_12">Chaos 12 (3 Wolves/Silencer, Detective, Doctor, Angel, Sniper, Mayor, Witch, Cupid, Jester, Villager)</option>
+      <select name="preset" style="width: 100%; padding: 0.5rem; font-size: 0.9rem; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 0.75rem;">
+        <option value="simple" selected>🧑 Simple / Classic (No special powers &mdash; pure Wolves vs Villagers)</option>
+        <option value="standard">🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)</option>
+        <option value="limbo">👼 Limbo &amp; Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)</option>
+        <option value="chaos">⚡ Chaos &amp; Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)</option>
       </select>
-      <span style="font-size: 0.75rem; color: #666;">You can customize the deck and player assignments at any time from your Game Master cockpit.</span>
+      <span style="font-size: 0.78rem; color: #666; line-height: 1.4; display: block;">
+        💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.
+      </span>
     </div>
 
     <button type="submit" style="padding: 0.65rem 1.25rem; font-size: 1rem; font-weight: 600; background: #111; color: #fff; border: none; border-radius: 6px; cursor: pointer;">

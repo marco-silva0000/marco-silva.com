@@ -3,23 +3,144 @@
 
 {% block content %}
 <style>
-  .gm-container { width: 100%; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; }
+  .gm-container { width: 100%; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; padding-bottom: 3rem; }
   .badge { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
   .badge-alive { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
   .badge-limbo { background: #fff8e1; color: #e65100; border: 1px dashed #ffb300; }
   .badge-dead { background: #ffebee; color: #c62828; text-decoration: line-through; border: 1px solid #ffcdd2; }
   .badge-silenced { background: #ede7f6; color: #512da8; border: 1px solid #d1c4e9; }
   
-  .card-box { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 1.1rem; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .card-box { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.15rem; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
   .timer-display { font-size: 3.2rem; font-weight: 800; font-family: ui-monospace, monospace; letter-spacing: 2px; color: #111; line-height: 1.1; margin: 0.35rem 0; }
   .timer-pulse { color: #d32f2f; animation: pulse 1s infinite alternate; }
   @keyframes pulse { from { opacity: 1; transform: scale(1); } to { opacity: 0.6; transform: scale(0.98); } }
   
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.55rem 0.9rem; min-height: 42px; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 0.9rem; font-weight: 500; -webkit-tap-highlight-color: transparent; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; padding: 0.55rem 0.9rem; min-height: 42px; border-radius: 8px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 0.9rem; font-weight: 600; -webkit-tap-highlight-color: transparent; }
   .btn:active { transform: scale(0.97); }
   .btn-primary { background: #111; color: #fff; border-color: #111; font-weight: 600; }
-  .btn-danger { background: #c62828; color: #fff; border-color: #c62828; }
+  .btn-success { background: #16a34a; color: #fff; border-color: #16a34a; }
+  .btn-danger { background: #dc2626; color: #fff; border-color: #dc2626; }
   .btn-sm { padding: 0.35rem 0.65rem; min-height: 34px; font-size: 0.8rem; }
+
+  /* Deck Builder Styles */
+  .balance-bar-container {
+    width: 100%;
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: #e2e8f0;
+    display: flex;
+    margin: 0.6rem 0;
+  }
+  .balance-bar-good { background: #22c55e; height: 100%; transition: width 0.2s ease; }
+  .balance-bar-evil { background: #ef4444; height: 100%; transition: width 0.2s ease; }
+  .balance-bar-neutral { background: #a855f7; height: 100%; transition: width 0.2s ease; }
+
+  .preset-btn-group {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0 0.85rem;
+  }
+  .preset-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .preset-btn:hover { background: #e2e8f0; }
+
+  .faction-section {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+  .faction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+
+  .role-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.35rem 0;
+    border-bottom: 1px dashed #eee;
+  }
+  .role-row:last-child { border-bottom: none; }
+
+  .role-stepper {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .stepper-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .stepper-btn:active { background: #e2e8f0; }
+  .stepper-val {
+    min-width: 24px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .role-toggle-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .role-toggle-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: all 0.15s ease;
+  }
+  .role-toggle-chip:active { transform: scale(0.97); }
+  .role-toggle-chip.active.evil {
+    background: #fee2e2;
+    color: #991b1b;
+    border-color: #f87171;
+  }
+  .role-toggle-chip.active.good {
+    background: #dcfce7;
+    color: #166534;
+    border-color: #4ade80;
+  }
+  .role-toggle-chip.active.neutral {
+    background: #f3e8ff;
+    color: #6b21a8;
+    border-color: #c084fc;
+  }
 
   /* Responsive Grid for Timer & Phase Controls */
   .control-grid {
@@ -58,10 +179,6 @@
       border-bottom: 1px solid #eee;
       padding-right: 0 !important;
       padding-bottom: 1.25rem;
-    }
-    .phase-btn-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
     }
     .top-bar {
       flex-direction: column;
@@ -111,9 +228,9 @@
   <!-- Top Bar -->
   <div class="top-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.75rem;">
     <div>
-      <h1 style="font-size: 1.25rem; margin: 0; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+      <h1 style="font-size: 1.25rem; margin: 0; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
         <span>🐺 {{ state.title }}</span>
-        <span style="font-size: 0.85rem; background: #eee; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">{{ code }}</span>
+        <span style="font-size: 0.85rem; background: #eee; padding: 0.2rem 0.55rem; border-radius: 4px; font-weight: 700; font-family: monospace;">{{ code }}</span>
         <span style="font-size: 0.75rem; color: #666;">({{ state.theme|title }} Theme)</span>
       </h1>
     </div>
@@ -123,80 +240,265 @@
     </div>
   </div>
 
-  <!-- Timer & Phase Controls (Mobile First Layout) -->
-  <div class="card-box">
-    <div class="control-grid">
-      <!-- Left / Top: Countdown Timer -->
-      <div class="timer-section">
-        <div id="timer-label" style="font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px;">
-          {{ state.timer.label|default:"Discussion" }}
+  <!-- ========================================== -->
+  <!-- 1. PRE-GAME STAGE (LOBBY & ROLE SELECTION) -->
+  <!-- ========================================== -->
+  <div id="pregame-view" style="display: {% if state.phase == 'lobby' %}block{% else %}none{% endif %};">
+    <!-- Role Selection & Deck Builder Card -->
+    <div class="card-box" style="border: 2px solid #3b82f6;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem;">
+        <div>
+          <h2 style="font-size: 1.15rem; margin: 0; font-weight: 700;">🎴 Pre-Game Setup &amp; Role Deck</h2>
+          <span style="font-size: 0.8rem; color: #64748b;">Count players at table and balance roles before starting</span>
         </div>
-        <div id="timer-val" class="timer-display">05:00</div>
-        
-        <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem;">
-          <button id="btn-timer-toggle" onclick="toggleTimer()" class="btn btn-primary" style="min-width: 80px;">Start</button>
-          <button onclick="resetTimer(300, '5m Discussion')" class="btn">5m</button>
-          <button onclick="resetTimer(180, '3m Discussion')" class="btn">3m</button>
-          <button onclick="resetTimer(30, '30s Defense')" class="btn btn-danger">30s Defense</button>
+        <div id="deck-match-badge" class="badge" style="font-size: 0.85rem; padding: 0.35rem 0.65rem;">
+          <!-- Filled dynamically -->
         </div>
       </div>
 
-      <!-- Right / Bottom: Current Phase & Phase Actions -->
-      <div class="phase-section">
-        <div style="font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.6rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem;">
+      <!-- Live Count vs Players Meter -->
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem; margin: 0.75rem 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 700;">
           <div>
-            PHASE: <span id="phase-badge" class="badge" style="background: #111; color: #fff; font-size: 0.8rem;">{{ state.phase }}</span>
+            Total Roles: <span id="deck-count-num" style="font-size: 1.1rem; color: #2563eb;">0</span>
           </div>
-          <div style="font-size: 0.8rem; color: #777;">
-            Round <strong id="round-num">{{ state.round_number }}</strong>
+          <div>
+            Players in Lobby: <span id="lobby-count-num" style="font-size: 1.1rem; color: #0f172a;">{{ state.players|length }}</span>
           </div>
         </div>
 
-        <div class="phase-btn-grid">
-          <button onclick="changePhase('night')" class="btn" style="background: #1e1e24; color: #fff; border-color: #1e1e24;">
-            🌙 Night (Sleep)
-          </button>
-          <button onclick="resolveNight()" class="btn btn-primary" style="background: #2e7d32; border-color: #2e7d32;">
-            ☀️ Wake Town
-          </button>
-          <button onclick="changePhase('day_discussion')" class="btn">
-            🗣️ Discussion
-          </button>
-          <button onclick="changePhase('day_voting')" class="btn">
-            🗳️ Voting
-          </button>
+        <!-- Segmented Balance Bar -->
+        <div class="balance-bar-container">
+          <div id="bar-good" class="balance-bar-good" style="width: 70%;"></div>
+          <div id="bar-evil" class="balance-bar-evil" style="width: 30%;"></div>
+          <div id="bar-neutral" class="balance-bar-neutral" style="width: 0%;"></div>
         </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #64748b; flex-wrap: wrap; gap: 0.4rem;">
+          <div id="balance-breakdown-text">🟢 Good: 5 · 🔴 Evil: 2</div>
+          <div id="balance-ratio-hint" style="font-weight: 600;">⚖️ Standard (25–33% Evil)</div>
+        </div>
+      </div>
+
+      <!-- Presets Shortcut -->
+      <div style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">
+        Quick Role Presets:
+      </div>
+      <div class="preset-btn-group">
+        <button onclick="applyPreset('simple')" class="preset-btn" title="Pure Werewolves vs Plain Villagers (No powers)">
+          🧑 Simple (No Powers)
+        </button>
+        <button onclick="applyPreset('standard')" class="preset-btn" title="Wolves + Detective + Doctor + Villagers">
+          🔍 Standard (Classic)
+        </button>
+        <button onclick="applyPreset('limbo')" class="preset-btn" title="Wolves + Detective + Doctor + Angel + Sniper + Villagers">
+          👼 Limbo &amp; Angel
+        </button>
+        <button onclick="applyPreset('chaos')" class="preset-btn" title="Full special role blend">
+          ⚡ Chaos / Specials
+        </button>
+        <button onclick="autoFillVillagers()" class="preset-btn" style="background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">
+          🪄 Auto-Fill Villagers
+        </button>
+      </div>
+
+      <!-- Faction Role Selectors -->
+      <!-- 🔴 Evil Faction -->
+      <div class="faction-section" style="border-left: 4px solid #ef4444;">
+        <div class="faction-header" style="color: #b91c1c;">
+          <span>🔴 Evil Team (Werewolves / Mafia)</span>
+          <span id="evil-subtotal" style="font-size: 0.8rem;">2 evil</span>
+        </div>
+        
+        <div class="role-row">
+          <div>
+            <strong>🐺 Werewolf / Mafioso</strong><br>
+            <span style="font-size: 0.75rem; color: #666;">Core night killers</span>
+          </div>
+          <div class="role-stepper">
+            <button class="stepper-btn" onclick="adjustCount('werewolf', -1)">&minus;</button>
+            <span id="count-werewolf" class="stepper-val">2</span>
+            <button class="stepper-btn" onclick="adjustCount('werewolf', 1)">+</button>
+          </div>
+        </div>
+
+        <div style="margin-top: 0.5rem; font-size: 0.75rem; font-weight: 600; color: #888; margin-bottom: 0.25rem;">
+          Special Evil Roles:
+        </div>
+        <div class="role-toggle-grid">
+          <div id="chip-alpha_wolf" class="role-toggle-chip evil" onclick="toggleSpecialRole('alpha_wolf')">
+            👑 Alpha Wolf (Appears Good)
+          </div>
+          <div id="chip-silencer" class="role-toggle-chip evil" onclick="toggleSpecialRole('silencer')">
+            🤐 Silencer (Mutes 1 player/day)
+          </div>
+        </div>
+      </div>
+
+      <!-- 🟢 Good Faction -->
+      <div class="faction-section" style="border-left: 4px solid #22c55e;">
+        <div class="faction-header" style="color: #15803d;">
+          <span>🟢 Good Team (Town / Villagers)</span>
+          <span id="good-subtotal" style="font-size: 0.8rem;">5 good</span>
+        </div>
+
+        <div class="role-row">
+          <div>
+            <strong>🧑 Plain Villager / Civilian</strong><br>
+            <span style="font-size: 0.75rem; color: #666;">No powers &middot; Vote during day</span>
+          </div>
+          <div class="role-stepper">
+            <button class="stepper-btn" onclick="adjustCount('villager', -1)">&minus;</button>
+            <span id="count-villager" class="stepper-val">4</span>
+            <button class="stepper-btn" onclick="adjustCount('villager', 1)">+</button>
+            <button onclick="autoFillVillagers()" class="btn btn-sm" style="font-size:0.75rem; padding: 0.25rem 0.5rem; margin-left: 0.25rem;" title="Fill remaining slots to match player count">
+              Fill
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-top: 0.5rem; font-size: 0.75rem; font-weight: 600; color: #888; margin-bottom: 0.25rem;">
+          Special Town Roles:
+        </div>
+        <div class="role-toggle-grid">
+          <div id="chip-detective" class="role-toggle-chip good" onclick="toggleSpecialRole('detective')">
+            🔍 Detective / Seer
+          </div>
+          <div id="chip-doctor" class="role-toggle-chip good" onclick="toggleSpecialRole('doctor')">
+            🩺 Doctor / Guard
+          </div>
+          <div id="chip-angel" class="role-toggle-chip good" onclick="toggleSpecialRole('angel')">
+            👼 Angel (Limbo Revival)
+          </div>
+          <div id="chip-sniper" class="role-toggle-chip good" onclick="toggleSpecialRole('sniper')">
+            🎯 Sniper (Night Shot)
+          </div>
+          <div id="chip-mayor" class="role-toggle-chip good" onclick="toggleSpecialRole('mayor')">
+            🎖️ Mayor (Lynch Veto)
+          </div>
+          <div id="chip-witch" class="role-toggle-chip good" onclick="toggleSpecialRole('witch')">
+            🧙‍♀️ Witch (Revive/Poison)
+          </div>
+        </div>
+      </div>
+
+      <!-- 🟣 Neutral Faction -->
+      <div class="faction-section" style="border-left: 4px solid #a855f7;">
+        <div class="faction-header" style="color: #7e22ce;">
+          <span>🟣 Neutral Team</span>
+          <span id="neutral-subtotal" style="font-size: 0.8rem;">0 neutral</span>
+        </div>
+        <div class="role-toggle-grid">
+          <div id="chip-cupid" class="role-toggle-chip neutral" onclick="toggleSpecialRole('cupid')">
+            💘 Cupid (Links Lovers)
+          </div>
+          <div id="chip-jester" class="role-toggle-chip neutral" onclick="toggleSpecialRole('jester')">
+            🃏 Jester (Wins if Lynched)
+          </div>
+        </div>
+      </div>
+
+      <!-- Start Game Big Button -->
+      <div style="margin-top: 1rem;">
+        <button id="btn-start-game" onclick="handleStartGame()" class="btn btn-primary" style="width: 100%; min-height: 48px; font-size: 1.05rem; background: #16a34a; border-color: #16a34a;">
+          🚀 Start Game (Deal Roles &amp; Night 1)
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Night Intelligence & Actions Received -->
-  <div class="card-box" style="background: #fdfdfe; border-left: 4px solid #3f51b5;">
-    <h3 style="font-size: 0.95rem; margin-top: 0; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-      <span>🌙 Night Intel & Action Queue</span>
-      <span style="font-size: 0.75rem; color: #888;">Live feed</span>
-    </h3>
-    <div id="night-actions-feed" style="font-size: 0.85rem; min-height: 36px; color: #444;">
-      <em>No night actions recorded yet for this round.</em>
+  <!-- ========================================== -->
+  <!-- 2. ACTIVE GAME STAGE (ROUNDS, TIMERS, PHASE) -->
+  <!-- ========================================== -->
+  <div id="active-game-view" style="display: {% if state.phase != 'lobby' %}block{% else %}none{% endif %};">
+    <!-- Active Stage Banner & Return to Lobby -->
+    <div class="card-box" style="background: #f8fafc; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding: 0.75rem 1rem;">
+      <div style="font-size: 0.85rem;">
+        Active Deck: <strong id="active-deck-summary">-</strong>
+      </div>
+      <div>
+        <button onclick="returnToLobby()" class="btn btn-sm" style="color: #64748b;" title="End active game and return to Pre-Game Lobby">
+          🔄 Return to Lobby (New Game)
+        </button>
+      </div>
     </div>
-    {% if state.night_report %}
-    <div style="margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed #ddd;">
-      <strong style="font-size: 0.8rem; color: #555;">Morning Dawn Report:</strong>
-      <ul id="morning-report" style="margin: 0.25rem 0 0 1.25rem; font-size: 0.85rem; padding: 0;">
-        {% for line in state.night_report %}
-        <li>{{ line }}</li>
-        {% endfor %}
-      </ul>
+
+    <!-- Timer & Phase Controls (Mobile First Layout) -->
+    <div class="card-box">
+      <div class="control-grid">
+        <!-- Left / Top: Countdown Timer -->
+        <div class="timer-section">
+          <div id="timer-label" style="font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px;">
+            {{ state.timer.label|default:"Discussion" }}
+          </div>
+          <div id="timer-val" class="timer-display">05:00</div>
+          
+          <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem;">
+            <button id="btn-timer-toggle" onclick="toggleTimer()" class="btn btn-primary" style="min-width: 80px;">Start</button>
+            <button onclick="resetTimer(300, '5m Discussion')" class="btn">5m</button>
+            <button onclick="resetTimer(180, '3m Discussion')" class="btn">3m</button>
+            <button onclick="resetTimer(30, '30s Defense')" class="btn btn-danger">30s Defense</button>
+          </div>
+        </div>
+
+        <!-- Right / Bottom: Current Phase & Phase Actions -->
+        <div class="phase-section">
+          <div style="font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.6rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem;">
+            <div>
+              PHASE: <span id="phase-badge" class="badge" style="background: #111; color: #fff; font-size: 0.8rem;">{{ state.phase }}</span>
+            </div>
+            <div style="font-size: 0.8rem; color: #777;">
+              Round <strong id="round-num">{{ state.round_number }}</strong>
+            </div>
+          </div>
+
+          <div class="phase-btn-grid">
+            <button onclick="changePhase('night')" class="btn" style="background: #1e1e24; color: #fff; border-color: #1e1e24;">
+              🌙 Night (Sleep)
+            </button>
+            <button onclick="resolveNight()" class="btn btn-primary" style="background: #2e7d32; border-color: #2e7d32;">
+              ☀️ Wake Town
+            </button>
+            <button onclick="changePhase('day_discussion')" class="btn">
+              🗣️ Discussion
+            </button>
+            <button onclick="changePhase('day_voting')" class="btn">
+              🗳️ Voting
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    {% endif %}
+
+    <!-- Night Intelligence & Actions Received -->
+    <div class="card-box" style="background: #fdfdfe; border-left: 4px solid #3f51b5;">
+      <h3 style="font-size: 0.95rem; margin-top: 0; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <span>🌙 Night Intel &amp; Action Queue</span>
+        <span style="font-size: 0.75rem; color: #888;">Live feed</span>
+      </h3>
+      <div id="night-actions-feed" style="font-size: 0.85rem; min-height: 36px; color: #444;">
+        <em>No night actions recorded yet for this round.</em>
+      </div>
+      {% if state.night_report %}
+      <div style="margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed #ddd;">
+        <strong style="font-size: 0.8rem; color: #555;">Morning Dawn Report:</strong>
+        <ul id="morning-report" style="margin: 0.25rem 0 0 1.25rem; font-size: 0.85rem; padding: 0;">
+          {% for line in state.night_report %}
+          <li>{{ line }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
   </div>
 
-  <!-- Table & Players Management -->
+  <!-- Table & Players Management (Common to both Lobby and Active Game) -->
   <div class="card-box">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
-      <h3 style="font-size: 1rem; margin: 0;">👥 Players at Table (<span id="player-count">{{ state.players|length }}</span>)</h3>
+      <h3 style="font-size: 1rem; margin: 0;">
+        👥 Players at Table (<span id="player-count">{{ state.players|length }}</span>)
+      </h3>
       <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
-        <button onclick="dealRoles()" class="btn btn-primary btn-sm">🎴 Deal Roles</button>
         <button onclick="promptAddOfflinePlayer()" class="btn btn-sm">+ Offline Player</button>
       </div>
     </div>
@@ -252,6 +554,22 @@
   let currentGameState = null;
   let timerInterval = null;
 
+  // --- Deck Builder State ---
+  let deckState = {
+    werewolf: 2,
+    villager: 4,
+    alpha_wolf: 0,
+    silencer: 0,
+    detective: 1,
+    doctor: 1,
+    angel: 0,
+    sniper: 0,
+    mayor: 0,
+    witch: 0,
+    cupid: 0,
+    jester: 0
+  };
+
   // --- WebSocket Connection ---
   const wsProto = window.location.protocol === "https:" ? "wss:" : "ws:";
   const wsUrl = `${wsProto}//${window.location.host}/ws/lupus/${ROOM_CODE}/`;
@@ -285,12 +603,240 @@
     }
   }
 
+  // --- Deck Builder Logic ---
+  function getDeckArray() {
+    const arr = [];
+    for (const [role, count] of Object.entries(deckState)) {
+      for (let i = 0; i < count; i++) {
+        arr.push(role);
+      }
+    }
+    return arr;
+  }
+
+  function getDeckStats() {
+    const deck = getDeckArray();
+    let good = 0, evil = 0, neutral = 0;
+    deck.forEach(r => {
+      if (["werewolf", "alpha_wolf", "silencer"].includes(r)) evil++;
+      else if (["cupid", "jester"].includes(r)) neutral++;
+      else good++;
+    });
+    const total = deck.length;
+    const evilPct = total > 0 ? Math.round((evil / total) * 100) : 0;
+    const goodPct = total > 0 ? Math.round((good / total) * 100) : 0;
+    const neutralPct = total > 0 ? Math.round((neutral / total) * 100) : 0;
+    return { total, good, evil, neutral, evilPct, goodPct, neutralPct };
+  }
+
+  function updateDeckUI() {
+    const playerCount = currentGameState ? currentGameState.players.length : 0;
+    const stats = getDeckStats();
+
+    // Steppers values
+    document.getElementById("count-werewolf").innerText = deckState.werewolf;
+    document.getElementById("count-villager").innerText = deckState.villager;
+
+    // Toggle chips
+    const specials = ['alpha_wolf', 'silencer', 'detective', 'doctor', 'angel', 'sniper', 'mayor', 'witch', 'cupid', 'jester'];
+    specials.forEach(s => {
+      const el = document.getElementById(`chip-${s}`);
+      if (el) {
+        if (deckState[s] > 0) el.classList.add("active");
+        else el.classList.remove("active");
+      }
+    });
+
+    // Counts & Totals
+    document.getElementById("deck-count-num").innerText = stats.total;
+    document.getElementById("lobby-count-num").innerText = playerCount;
+    document.getElementById("evil-subtotal").innerText = `${stats.evil} evil`;
+    document.getElementById("good-subtotal").innerText = `${stats.good} good`;
+    document.getElementById("neutral-subtotal").innerText = `${stats.neutral} neutral`;
+
+    // Balance Bar
+    const barGood = document.getElementById("bar-good");
+    const barEvil = document.getElementById("bar-evil");
+    const barNeutral = document.getElementById("bar-neutral");
+    barGood.style.width = `${stats.goodPct}%`;
+    barEvil.style.width = `${stats.evilPct}%`;
+    barNeutral.style.width = `${stats.neutralPct}%`;
+
+    document.getElementById("balance-breakdown-text").innerText = `🟢 Good: ${stats.good} (${stats.goodPct}%) · 🔴 Evil: ${stats.evil} (${stats.evilPct}%)`;
+
+    // Ratio Hint
+    const hint = document.getElementById("balance-ratio-hint");
+    if (stats.evilPct >= 22 && stats.evilPct <= 35) {
+      hint.innerText = "⚖️ Balanced (~25–33% Evil)";
+      hint.style.color = "#16a34a";
+    } else if (stats.evilPct < 22) {
+      hint.innerText = "⚠️ Wolves may be too weak";
+      hint.style.color = "#eab308";
+    } else {
+      hint.innerText = "⚠️ Wolves may be too strong";
+      hint.style.color = "#ef4444";
+    }
+
+    // Match Badge & Start Game Button
+    const badge = document.getElementById("deck-match-badge");
+    const btnStart = document.getElementById("btn-start-game");
+
+    if (playerCount === 0) {
+      badge.className = "badge";
+      badge.style.background = "#64748b";
+      badge.style.color = "#fff";
+      badge.innerText = "Waiting for players";
+      btnStart.innerText = "🚀 Start Game (Needs Players)";
+      btnStart.style.background = "#64748b";
+      btnStart.style.borderColor = "#64748b";
+    } else if (stats.total === playerCount) {
+      badge.className = "badge";
+      badge.style.background = "#16a34a";
+      badge.style.color = "#fff";
+      badge.innerText = `✅ Perfect Match (${stats.total}/${playerCount})`;
+      btnStart.innerText = `🚀 Start Game (${playerCount} Players & Night 1)`;
+      btnStart.style.background = "#16a34a";
+      btnStart.style.borderColor = "#16a34a";
+    } else if (stats.total < playerCount) {
+      const diff = playerCount - stats.total;
+      badge.className = "badge";
+      badge.style.background = "#eab308";
+      badge.style.color = "#000";
+      badge.innerText = `⚠️ Need ${diff} more role${diff > 1 ? 's' : ''}`;
+      btnStart.innerText = `🚀 Auto-Fill ${diff} Villager${diff > 1 ? 's' : ''} & Start`;
+      btnStart.style.background = "#2563eb";
+      btnStart.style.borderColor = "#2563eb";
+    } else {
+      const excess = stats.total - playerCount;
+      badge.className = "badge";
+      badge.style.background = "#dc2626";
+      badge.style.color = "#fff";
+      badge.innerText = `❌ ${excess} extra role${excess > 1 ? 's' : ''}`;
+      btnStart.innerText = `Remove ${excess} Role${excess > 1 ? 's' : ''} to Match`;
+      btnStart.style.background = "#dc2626";
+      btnStart.style.borderColor = "#dc2626";
+    }
+  }
+
+  function adjustCount(role, delta) {
+    deckState[role] = Math.max(0, (deckState[role] || 0) + delta);
+    updateDeckUI();
+  }
+
+  function toggleSpecialRole(role) {
+    deckState[role] = deckState[role] ? 0 : 1;
+    updateDeckUI();
+  }
+
+  function autoFillVillagers() {
+    const playerCount = currentGameState ? currentGameState.players.length : 0;
+    const stats = getDeckStats();
+    const nonVillagers = stats.total - deckState.villager;
+    deckState.villager = Math.max(0, playerCount - nonVillagers);
+    updateDeckUI();
+  }
+
+  function applyPreset(presetName) {
+    const playerCount = currentGameState ? currentGameState.players.length : 7;
+    const count = Math.max(3, playerCount);
+
+    let numEvil = 1;
+    if (count <= 5) numEvil = 1;
+    else if (count <= 8) numEvil = 2;
+    else if (count <= 11) numEvil = 3;
+    else numEvil = 4;
+
+    for (const k in deckState) deckState[k] = 0;
+
+    if (presetName === 'simple') {
+      deckState.werewolf = numEvil;
+      deckState.villager = Math.max(0, count - numEvil);
+    } else if (presetName === 'standard') {
+      deckState.werewolf = numEvil;
+      if (count >= 4) deckState.detective = 1;
+      if (count >= 5) deckState.doctor = 1;
+      const used = deckState.werewolf + deckState.detective + deckState.doctor;
+      deckState.villager = Math.max(0, count - used);
+    } else if (presetName === 'limbo') {
+      deckState.werewolf = numEvil;
+      if (count >= 4) deckState.detective = 1;
+      if (count >= 5) deckState.doctor = 1;
+      if (count >= 6) deckState.angel = 1;
+      if (count >= 7) deckState.sniper = 1;
+      const used = deckState.werewolf + deckState.detective + deckState.doctor + deckState.angel + deckState.sniper;
+      deckState.villager = Math.max(0, count - used);
+    } else if (presetName === 'chaos') {
+      if (numEvil >= 2) {
+        deckState.werewolf = numEvil - 1;
+        deckState.alpha_wolf = 1;
+      } else {
+        deckState.werewolf = 1;
+      }
+      const specials = ['detective', 'doctor', 'angel', 'silencer', 'sniper', 'mayor', 'witch', 'cupid', 'jester'];
+      let used = deckState.werewolf + deckState.alpha_wolf;
+      for (const s of specials) {
+        if (used < count - 1) {
+          deckState[s] = 1;
+          used++;
+        }
+      }
+      deckState.villager = Math.max(0, count - used);
+    }
+    updateDeckUI();
+  }
+
+  function handleStartGame() {
+    const playerCount = currentGameState ? currentGameState.players.length : 0;
+    if (playerCount < 3) {
+      if (!confirm("You have fewer than 3 players at the table. Start anyway for testing?")) return;
+    }
+    const stats = getDeckStats();
+    if (stats.total < playerCount) {
+      const missing = playerCount - stats.total;
+      deckState.villager += missing;
+      updateDeckUI();
+    } else if (stats.total > playerCount) {
+      alert(`You have ${stats.total} roles selected, but only ${playerCount} players in the room. Please remove ${stats.total - playerCount} role(s) to match.`);
+      return;
+    }
+
+    const deck = getDeckArray();
+    sendAction("start_game", { deck: deck });
+  }
+
+  function returnToLobby() {
+    if (confirm("End current game and return to Pre-Game Lobby? Players remain connected and you can configure new roles.")) {
+      sendAction("return_to_lobby");
+    }
+  }
+
   // --- Rendering GM State ---
   function renderGMState(state) {
     currentGameState = state;
     document.getElementById("phase-badge").innerText = state.phase.toUpperCase();
     document.getElementById("round-num").innerText = state.round_number;
     document.getElementById("player-count").innerText = state.players.length;
+
+    // Toggle Lobby vs Active Game Views
+    const pregameEl = document.getElementById("pregame-view");
+    const activeEl = document.getElementById("active-game-view");
+
+    if (state.phase === "lobby") {
+      pregameEl.style.display = "block";
+      activeEl.style.display = "none";
+      updateDeckUI();
+    } else {
+      pregameEl.style.display = "none";
+      activeEl.style.display = "block";
+
+      // Summary of active deck in game
+      if (state.deck && state.deck.length > 0) {
+        const counts = {};
+        state.deck.forEach(r => counts[r.name] = (counts[r.name] || 0) + 1);
+        const str = Object.entries(counts).map(([name, num]) => `${num} ${name}`).join(", ");
+        document.getElementById("active-deck-summary").innerText = str;
+      }
+    }
 
     // Timer Sync
     syncTimer(state.timer);
@@ -351,10 +897,13 @@
       const card = document.createElement("div");
       card.className = "player-card-row";
 
-      const statusBadge = `<button onclick="cyclePlayerStatus('${p.id}', '${p.status}')" class="badge badge-${p.status}" style="border:none; cursor:pointer;" title="Tap to change status">${p.status} ↺</button>`;
+      const statusBadge = state.phase === 'lobby' 
+        ? `<span class="badge" style="background:#e0f2fe; color:#0369a1;">In Lobby</span>`
+        : `<button onclick="cyclePlayerStatus('${p.id}', '${p.status}')" class="badge badge-${p.status}" style="border:none; cursor:pointer;" title="Tap to change status">${p.status} ↺</button>`;
+      
       const silencedBadge = p.is_silenced ? '<span class="badge badge-silenced">🤐 Silenced</span>' : '';
       const offlineBadge = p.is_offline ? '<span style="font-size:0.75rem; color:#888;">(Offline)</span>' : '';
-      const roleStr = p.role ? `<span style="font-weight:600;">${p.role.emoji} ${p.role.name}</span>` : '<em style="color:#aaa;">Unassigned</em>';
+      const roleStr = p.role ? `<span style="font-weight:600;">${p.role.emoji} ${p.role.name}</span>` : '<em style="color:#aaa;">Unassigned (Lobby)</em>';
 
       let notes = [];
       if (p.lover_name) notes.push(`💘 Lover: ${p.lover_name}`);
@@ -378,8 +927,8 @@
           <div style="font-size: 0.75rem; color: #888;">${notes.join(" · ")}</div>
         </div>
         <div class="player-card-actions">
-          <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s Defense</button>
-          <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Change Role</button>
+          ${state.phase !== 'lobby' ? `<button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s Defense</button>` : ''}
+          ${state.phase !== 'lobby' ? `<button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Change Role</button>` : ''}
           <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
           <button onclick="removePlayer('${p.id}')" class="btn btn-sm btn-danger" style="margin-left: auto;">&times; Remove</button>
         </div>
@@ -454,12 +1003,6 @@
     }
   }
 
-  function dealRoles() {
-    if (confirm("Deal roles randomly to all players?")) {
-      sendAction("deal_roles");
-    }
-  }
-
   function startDefense(playerId) {
     sendAction("start_defense", { player_id: playerId });
   }
@@ -477,16 +1020,16 @@
     }
   }
 
-  function promptAddOfflinePlayer() {
-    const name = prompt("Enter name of offline player at table (no phone needed):");
-    if (name && name.trim()) {
-      sendAction("add_offline_player", { name: name.trim() });
+  function removePlayer(playerId) {
+    if (confirm("Remove this player from the table?")) {
+      sendAction("remove_player", { player_id: playerId });
     }
   }
 
-  function removePlayer(playerId) {
-    if (confirm("Remove player from room?")) {
-      sendAction("remove_player", { player_id: playerId });
+  function promptAddOfflinePlayer() {
+    const name = prompt("Enter offline player name:");
+    if (name && name.trim()) {
+      sendAction("add_offline_player", { name: name.trim() });
     }
   }
 

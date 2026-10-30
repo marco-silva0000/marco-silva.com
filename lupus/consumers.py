@@ -16,10 +16,12 @@ from .game_state import (
     reset_timer,
     resolve_night,
     resume_timer,
+    return_to_lobby,
     save_game,
     set_deck,
     set_manual_player_role,
     set_player_status,
+    start_game,
     start_timer,
     submit_night_action,
 )
@@ -110,16 +112,23 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
 
         # 2. Game Master Authorized Operations
         if self.is_gm:
-            if action == "set_deck":
+            if action == "start_game":
+                deck = content.get("deck")
+                start_game(state, deck)
+                await self.broadcast_sync()
+
+            elif action == "return_to_lobby":
+                return_to_lobby(state)
+                await self.broadcast_sync()
+
+            elif action == "set_deck":
                 deck = content.get("deck", [])
                 set_deck(state, deck)
                 await self.broadcast_sync()
 
             elif action == "deal_roles":
                 deck = content.get("deck")
-                deal_roles(state, deck)
-                state["phase"] = "night"
-                save_game(self.code, state)
+                start_game(state, deck)
                 await self.broadcast_sync()
 
             elif action == "set_manual_role":

@@ -164,7 +164,103 @@ def get_faction_display(faction: str, theme: str = "werewolf") -> str:
     return "Neutral"
 
 
+def get_all_roles_catalogue(theme: str = "werewolf") -> list[dict[str, Any]]:
+    """Return all available roles with localized names and descriptions."""
+    return [get_role_info(role_id, theme) for role_id in ROLE_REGISTRY.keys()]
+
+
+def generate_preset_deck(player_count: int, preset: str = "simple") -> list[str]:
+    """Generate a balanced deck of roles dynamically tailored to the player count.
+    
+    Standard evil ratio is ~25%–33%:
+    - 3-5 players: 1 evil
+    - 6-8 players: 2 evil
+    - 9-11 players: 3 evil
+    - 12+ players: 4 evil
+    """
+    count = max(3, player_count)
+    if count <= 5:
+        num_evil = 1
+    elif count <= 8:
+        num_evil = 2
+    elif count <= 11:
+        num_evil = 3
+    else:
+        num_evil = 4
+
+    deck: list[str] = []
+
+    if preset in ("simple", "pure", "quick_5"):
+        # Pure wolves/mafia vs plain villagers (zero special powers)
+        deck.extend(["werewolf"] * num_evil)
+        remaining = max(0, count - len(deck))
+        deck.extend(["villager"] * remaining)
+
+    elif preset in ("standard", "classic", "balanced_8"):
+        # Standard: Wolves + Detective + Doctor + Villagers
+        deck.extend(["werewolf"] * num_evil)
+        if count >= 4:
+            deck.append("detective")
+        if count >= 5:
+            deck.append("doctor")
+        remaining = max(0, count - len(deck))
+        deck.extend(["villager"] * remaining)
+
+    elif preset in ("limbo", "angel"):
+        # Limbo: Wolves + Detective + Doctor + Angel + Sniper + Villagers
+        deck.extend(["werewolf"] * num_evil)
+        if count >= 4:
+            deck.append("detective")
+        if count >= 5:
+            deck.append("doctor")
+        if count >= 6:
+            deck.append("angel")
+        if count >= 7:
+            deck.append("sniper")
+        remaining = max(0, count - len(deck))
+        deck.extend(["villager"] * remaining)
+
+    elif preset in ("chaos", "full_10", "chaos_12"):
+        # Chaos: Diverse powers (Alpha wolf, Silencer, Detective, Doctor, Angel, Sniper, Mayor, Witch, Cupid, Jester)
+        if num_evil >= 2:
+            deck.extend(["werewolf"] * (num_evil - 1))
+            deck.append("alpha_wolf")
+        else:
+            deck.append("werewolf")
+
+        specials = ["detective", "doctor", "angel", "silencer", "sniper", "mayor", "witch", "cupid", "jester"]
+        for s in specials:
+            if len(deck) < count - 1:
+                deck.append(s)
+        remaining = max(0, count - len(deck))
+        deck.extend(["villager"] * remaining)
+
+    else:
+        deck.extend(["werewolf"] * num_evil)
+        remaining = max(0, count - len(deck))
+        deck.extend(["villager"] * remaining)
+
+    return deck[:count]
+
+
 DEFAULT_PRESETS = {
+    "simple": ["werewolf", "werewolf", "villager", "villager", "villager", "villager", "villager"],
+    "standard": ["werewolf", "werewolf", "detective", "doctor", "villager", "villager", "villager"],
+    "limbo": ["werewolf", "werewolf", "detective", "doctor", "angel", "sniper", "villager", "villager"],
+    "chaos": [
+        "werewolf",
+        "alpha_wolf",
+        "silencer",
+        "detective",
+        "doctor",
+        "angel",
+        "sniper",
+        "mayor",
+        "witch",
+        "cupid",
+        "jester",
+        "villager",
+    ],
     "quick_5": ["werewolf", "detective", "doctor", "villager", "villager"],
     "balanced_8": ["werewolf", "werewolf", "detective", "doctor", "angel", "sniper", "villager", "villager"],
     "full_10": [

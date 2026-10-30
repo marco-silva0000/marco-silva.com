@@ -13,12 +13,18 @@ from lupus.game_state import (
     get_sanitized_player_view,
     guess_angel_in_limbo,
     resolve_night,
+    return_to_lobby,
     set_manual_player_role,
     set_player_status,
+    start_game,
     submit_night_action,
 )
 from lupus.qr import generate_qr_data_uri
-from lupus.roles import ROLE_REGISTRY, get_role_info
+from lupus.roles import (
+    ROLE_REGISTRY,
+    generate_preset_deck,
+    get_role_info,
+)
 
 
 class MockRedis:
@@ -66,6 +72,27 @@ class TestLupusRoles:
         cop_role = get_role_info("detective", theme="mafia")
         assert cop_role["name"] == "Detective / Cop"
 
+    def test_generate_preset_deck(self):
+        # 5 players simple (pure wolves vs villagers, no powers)
+        deck_5_simple = generate_preset_deck(5, "simple")
+        assert len(deck_5_simple) == 5
+        assert deck_5_simple.count("werewolf") == 1
+        assert deck_5_simple.count("villager") == 4
+
+        # 7 players simple (2 wolves, 5 villagers)
+        deck_7_simple = generate_preset_deck(7, "simple")
+        assert len(deck_7_simple) == 7
+        assert deck_7_simple.count("werewolf") == 2
+        assert deck_7_simple.count("villager") == 5
+
+        # 7 players standard
+        deck_7_std = generate_preset_deck(7, "standard")
+        assert len(deck_7_std) == 7
+        assert deck_7_std.count("werewolf") == 2
+        assert "detective" in deck_7_std
+        assert "doctor" in deck_7_std
+        assert "villager" in deck_7_std
+
 
 class TestLupusEngine:
     def test_init_game_and_add_players(self):
@@ -91,6 +118,30 @@ class TestLupusEngine:
         assert "detective" in roles
         assert "doctor" in roles
         assert roles.count("villager") == 2
+
+    def test_start_game_and_return_to_lobby(self):
+        state = create_initial_state("TEST_LOBBY", "Lobby Test")
+        assert state["phase"] == "lobby"
+        assert state["round_number"] == 0
+
+        for name in ["P1", "P2", "P3", "P4", "P5"]:
+            state, _ = add_player(state, name)
+
+        # Start game
+        state = start_game(state, ["werewolf", "detective", "doctor", "villager", "villager"])
+        assert state["phase"] == "night"
+        assert state["round_number"] == 1
+        for p in state["players"].values():
+            assert p["role"] is not None
+
+        # Return to lobby
+        state = return_to_lobby(state)
+        assert state["phase"] == "lobby"
+        assert state["round_number"] == 0
+        assert len(state["players"]) == 5
+        for p in state["players"].values():
+            assert p["role"] is None
+            assert p["status"] == "alive"
 
     def test_detective_inspection(self):
         state = create_initial_state("TEST3", "Det Test")
