@@ -6,6 +6,7 @@ from django.urls import reverse
 from gamerooms.models import Room
 from lupus.game_state import (
     add_player,
+    check_win_condition,
     create_initial_state,
     deal_roles,
     get_game,
@@ -285,6 +286,64 @@ class TestLupusEngine:
         gm_view = get_gm_view(state)
         wolf_in_gm = next(p for p in gm_view["players"] if p["id"] == p_wolf["id"])
         assert wolf_in_gm["role"]["id"] == "werewolf"
+
+    def test_bodyguard_sacrifice(self):
+        state = create_initial_state("BGTEST", "Bodyguard Test")
+        state, p_bg = add_player(state, "Hero")
+        state, p_target = add_player(state, "Innocent")
+        state, p_wolf = add_player(state, "BigBadWolf")
+
+        set_manual_player_role(state, p_bg["id"], "bodyguard")
+        set_manual_player_role(state, p_target["id"], "villager")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+
+        # Bodyguard protects target; wolf attacks target
+        submit_night_action(state, p_bg["id"], "guard_bodyguard", p_target["id"])
+        submit_night_action(state, p_wolf["id"], "kill", p_target["id"])
+
+        state = resolve_night(state)
+
+        # Target should be saved (alive), but Bodyguard sacrifices themselves (dead)
+        assert state["players"][p_target["id"]]["status"] == "alive"
+        assert state["players"][p_bg["id"]]["status"] == "dead"
+        assert any("Bodyguard" in r and "sacrificed" in r for r in state["night_report"])
+
+    def test_framer_inspection(self):
+        state = create_initial_state("FRAMETEST", "Framer Test")
+        state, p_framer = add_player(state, "FramerFrank")
+        state, p_det = add_player(state, "Sherlock")
+        state, p_town = add_player(state, "CleanVillager")
+
+        set_manual_player_role(state, p_framer["id"], "framer")
+        set_manual_player_role(state, p_det["id"], "detective")
+        set_manual_player_role(state, p_town["id"], "villager")
+
+        # Framer frames the clean villager
+        submit_night_action(state, p_framer["id"], "frame", p_town["id"])
+        # Detective investigates framed villager
+        submit_night_action(state, p_det["id"], "inspect", p_town["id"])
+
+        query = state["night_actions"]["detective_query"]
+        assert query["result"] == "Evil / Enemy"
+
+    def test_serial_killer_night_action_and_win(self):
+        state = create_initial_state("SKTEST", "SK Test")
+        state, p_sk = add_player(state, "Dexter")
+        state, p_victim = add_player(state, "Victim")
+
+        set_manual_player_role(state, p_sk["id"], "serial_killer")
+        set_manual_player_role(state, p_victim["id"], "villager")
+
+        # SK eliminates victim at night
+        submit_night_action(state, p_sk["id"], "solo_kill", p_victim["id"])
+        state = resolve_night(state)
+
+        assert state["players"][p_victim["id"]]["status"] == "dead"
+        assert state["players"][p_sk["id"]]["status"] == "alive"
+        # Win condition: Serial Killer is last survivor standing
+        winner = check_win_condition(state)
+        assert winner == "serial_killer"
+        assert state["phase"] == "gameover"
 
 
 class TestLupusQR:

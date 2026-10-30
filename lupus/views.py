@@ -16,7 +16,7 @@ from .game_state import (
     get_sanitized_player_view,
 )
 from .qr import generate_qr_data_uri
-from .roles import DEFAULT_PRESETS, ROLE_REGISTRY
+from .roles import DEFAULT_PRESETS, ROLE_REGISTRY, get_all_roles_catalogue
 
 
 def create_room(request):
@@ -116,6 +116,7 @@ def gm_dashboard(request, code):
             "join_url": join_url,
             "join_qr": join_qr_b64,
             "roles": ROLE_REGISTRY,
+            "roles_catalogue": get_all_roles_catalogue(state.get("theme", "werewolf")),
             "presets": DEFAULT_PRESETS,
         },
     )
@@ -209,6 +210,7 @@ def player_view(request, code):
             "code": code,
             "player": matched_player,
             "state": get_sanitized_player_view(state, matched_player["id"]),
+            "roles_catalogue": get_all_roles_catalogue(state.get("theme", "werewolf")),
         },
     )
 

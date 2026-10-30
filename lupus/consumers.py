@@ -6,7 +6,6 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from .game_state import (
     add_player,
-    deal_roles,
     get_game,
     get_gm_view,
     get_sanitized_player_view,

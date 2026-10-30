@@ -12,7 +12,6 @@ import redis
 from .roles import (
     FACTION_WOLVES,
     ROLE_REGISTRY,
-    generate_preset_deck,
     get_all_roles_catalogue,
     get_role_info,
 )
@@ -403,8 +402,15 @@ def submit_night_action(
         if not target_id or target_id not in state["players"]:
             return False, "Invalid inspection target."
         target = state["players"][target_id]
-        # Alpha wolf / Godfather inspects as Good!
-        is_evil = target["faction"] == FACTION_WOLVES and target["role"] != "alpha_wolf"
+        # Check if framed!
+        is_framed = actions.get("framer_target") == target_id
+        is_evil = (
+            (
+                (target["faction"] == FACTION_WOLVES or target["role"] == "serial_killer")
+                and target["role"] != "alpha_wolf"
+            )
+            or is_framed
+        )
         result_text = "Evil / Enemy" if is_evil else "Good / Innocent"
         actions["detective_query"] = {
             "actor_id": actor_id,
@@ -421,6 +427,25 @@ def submit_night_action(
             return False, "Staggering Doctor rule: You cannot protect the same person two nights in a row!"
         actions["doctor_protect"] = target_id
         return True, "Protection target set."
+
+    elif action_type == "guard_bodyguard":  # Bodyguard
+        if actor["role"] != "bodyguard":
+            return False, "Not a bodyguard."
+        actions["bodyguard_protect"] = target_id
+        actions["bodyguard_actor"] = actor_id
+        return True, "Bodyguard protection set."
+
+    elif action_type == "frame":  # Framer
+        if actor["role"] != "framer":
+            return False, "Not a framer."
+        actions["framer_target"] = target_id
+        return True, "Framing target set."
+
+    elif action_type == "solo_kill":  # Serial Killer
+        if actor["role"] != "serial_killer":
+            return False, "Not a serial killer."
+        actions["sk_target"] = target_id
+        return True, "Solo kill target set."
 
     elif action_type == "shoot":  # Sniper
         if actor["role"] != "sniper":
@@ -499,11 +524,23 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             if p["role"] == "doctor":
                 p["last_guarded_id"] = doc_target
 
-    # 3. Werewolf kill
+    # 2b. Bodyguard protect & sacrifice
+    bg_target = actions.get("bodyguard_protect")
+    bg_actor = actions.get("bodyguard_actor")
     wolf_target = actions.get("wolf_target")
+    if bg_target and bg_target in state["players"] and wolf_target == bg_target:
+        if wolf_target not in to_save:
+            to_save.add(bg_target)
+            if bg_actor and bg_actor in state["players"]:
+                to_kill.add(bg_actor)
+                bg_name = state["players"][bg_actor]["name"]
+                t_name = state["players"][bg_target]["name"]
+                report.append(f"🛡️ The Bodyguard ({bg_name}) sacrificed their life to protect {t_name} from death!")
+
+    # 3. Werewolf kill
     if wolf_target and wolf_target in state["players"]:
         if wolf_target in to_save:
-            report.append("🛡️ The Doctor's vigilance shielded the victim from death.")
+            report.append("🛡️ Protection shielded the victim from death.")
         else:
             to_kill.add(wolf_target)
 
@@ -520,6 +557,16 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             to_kill.add(w_kill)
             state["witch_used_kill"] = True
             report.append("💀 A lethal poison was administered during the dark hours.")
+
+    # 4b. Serial Killer solo kill
+    sk_target = actions.get("sk_target")
+    if sk_target and sk_target in state["players"]:
+        if sk_target in to_save:
+            report.append("🛡️ Protection shielded a victim from the Serial Killer's blade.")
+        else:
+            to_kill.add(sk_target)
+            sk_victim = state["players"][sk_target]["name"]
+            report.append(f"🔪 A mysterious killer struck in the shadows! {sk_victim} was eliminated.")
 
     # 5. Sniper shot
     sniper_act = actions.get("sniper_shot")
@@ -627,8 +674,17 @@ def check_win_condition(state: dict[str, Any]) -> Optional[str]:
             return "lovers"
 
     wolves_count = sum(1 for p in alive_players if p["faction"] == FACTION_WOLVES)
+    sk_count = sum(1 for p in alive_players if p.get("role") == "serial_killer")
 
-    if wolves_count == 0:
+    # Check Serial Killer solo victory
+    if sk_count > 0 and len(alive_players) <= 2 and wolves_count == 0:
+        sk_player = next(p for p in alive_players if p.get("role") == "serial_killer")
+        state["winner"] = "serial_killer"
+        state["phase"] = "gameover"
+        log_event(state, f"🔪 The Serial Killer ({sk_player['name']}) has outlived everyone and claimed solo victory!")
+        return "serial_killer"
+
+    if wolves_count == 0 and sk_count == 0:
         state["winner"] = "town"
         state["phase"] = "gameover"
         theme = state.get("theme", "werewolf")

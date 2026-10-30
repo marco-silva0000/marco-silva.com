@@ -287,6 +287,10 @@
   .player-item:last-child {
     border-bottom: none;
   }
+
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
+  .modal.active { display: flex; }
+  .modal-content { background: #fff; padding: 1.5rem; border-radius: 12px; max-width: 440px; width: 92%; box-sizing: border-box; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 </style>
 
 <div class="player-container">
@@ -330,8 +334,14 @@
         </div>
       </div>
 
-      <div style="font-size: 0.82rem; color: #64748b; line-height: 1.45; border-top: 1px dashed #e2e8f0; padding-top: 1rem;">
+      <div style="font-size: 0.82rem; color: #64748b; line-height: 1.45; border-top: 1px dashed #e2e8f0; padding-top: 1rem; margin-bottom: 1.25rem;">
         🔒 <strong>Keep this screen open.</strong> As soon as the host starts the game, your secret role card will be dealt automatically!
+      </div>
+
+      <div>
+        <button onclick="openPlayerModal('all-roles-modal')" class="btn" style="width: 100%; background: #f8fafc; border: 1px solid #cbd5e1; font-size: 0.88rem; color: #1e293b;">
+          📚 All Roles Guide &amp; Cheat Sheet
+        </button>
       </div>
     </div>
   </div>
@@ -404,6 +414,13 @@
 
           <!-- Packmates / Lover Info -->
           <div id="role-secret-notes" class="role-notes"></div>
+
+          <!-- How to Play Quick Modal Trigger -->
+          <div style="margin-top: 0.85rem;">
+            <button type="button" onclick="event.stopPropagation(); openPlayerModal('my-role-guide-modal')" onpointerdown="event.stopPropagation()" class="btn btn-sm" style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 0.78rem; border-radius: 999px; padding: 0.3rem 0.85rem; cursor: pointer;">
+              📖 How to Play this Role
+            </button>
+          </div>
         </div>
 
         <!-- Privacy Shield Overlay -->
@@ -454,6 +471,87 @@
       Players at Table
     </h3>
     <div id="players-list"></div>
+  </div>
+</div>
+
+<!-- Modal: My Role Quick Guide & Strategy -->
+<div id="my-role-guide-modal" class="modal">
+  <div class="modal-content" style="max-height: 85vh; overflow-y: auto; text-align: left; padding: 1.25rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.6rem; margin-bottom: 1rem;">
+      <h3 style="margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 0.4rem;">
+        <span id="guide-modal-emoji">🎴</span> <span id="guide-modal-title">Role Guide</span>
+      </h3>
+      <button onclick="closePlayerModal('my-role-guide-modal')" class="btn btn-sm" style="min-height: 30px; padding: 0.15rem 0.55rem;">&times; Close</button>
+    </div>
+
+    <div style="margin-bottom: 0.85rem;">
+      <span id="guide-modal-faction" class="badge" style="font-size: 0.72rem;">Faction</span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.85rem; line-height: 1.45;">
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.85rem;">
+        <div style="font-weight: 700; color: #0f172a; margin-bottom: 0.2rem;">🎯 Your Objective:</div>
+        <div id="guide-modal-objective" style="color: #334155;">-</div>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.85rem;">
+        <div style="font-weight: 700; color: #0f172a; margin-bottom: 0.2rem;">☀️ Day Conversation &amp; Bluffing:</div>
+        <div id="guide-modal-day" style="color: #334155;">-</div>
+      </div>
+
+      <div id="guide-modal-night-wrap" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.85rem;">
+        <div style="font-weight: 700; color: #0f172a; margin-bottom: 0.2rem;">🌙 Night Action:</div>
+        <div id="guide-modal-night" style="color: #334155;">-</div>
+      </div>
+
+      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 0.65rem 0.85rem;">
+        <div style="font-weight: 700; color: #b45309; margin-bottom: 0.2rem;">💡 Pro Tip:</div>
+        <div id="guide-modal-protip" style="color: #78350f;">-</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 1.25rem;">
+      <button onclick="closePlayerModal('my-role-guide-modal')" class="btn btn-primary" style="width: 100%;">Understood</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: All Roles Catalogue & Cheat Sheet -->
+<div id="all-roles-modal" class="modal">
+  <div class="modal-content" style="max-height: 85vh; overflow-y: auto; text-align: left; padding: 1.25rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.6rem; margin-bottom: 1rem;">
+      <h3 style="margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 0.4rem;">
+        <span>📚</span> Roles Cheat Sheet
+      </h3>
+      <button onclick="closePlayerModal('all-roles-modal')" class="btn btn-sm" style="min-height: 30px; padding: 0.15rem 0.55rem;">&times; Close</button>
+    </div>
+
+    <p style="font-size: 0.82rem; color: #64748b; margin-top: 0; margin-bottom: 0.85rem;">
+      Here is how the roles work in this game. Browse while waiting for the host to deal cards.
+    </p>
+
+    {% for role in roles_catalogue %}
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.65rem; border-left: 4px solid {% if role.faction == 'wolves' %}#ef4444{% elif role.faction == 'town' %}#22c55e{% else %}#a855f7{% endif %};">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <strong style="font-size: 0.95rem; color: #0f172a;">{{ role.emoji }} {{ role.name }}</strong>
+        <span class="badge" style="font-size: 0.68rem; background: {% if role.faction == 'wolves' %}#fee2e2; color: #991b1b;{% elif role.faction == 'town' %}#dcfce7; color: #166534;{% else %}#f3e8ff; color: #6b21a8;{% endif %}">
+          {{ role.faction|title }}
+        </span>
+      </div>
+      <p style="font-size: 0.82rem; color: #475569; margin: 0.35rem 0 0.4rem; line-height: 1.4;">
+        {{ role.description }}
+      </p>
+      {% if role.guide.pro_tip %}
+      <div style="font-size: 0.76rem; color: #b45309; background: #fff; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #fde68a;">
+        💡 <strong>Tip:</strong> {{ role.guide.pro_tip }}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <div style="margin-top: 1rem;">
+      <button onclick="closePlayerModal('all-roles-modal')" class="btn btn-primary" style="width: 100%;">Done</button>
+    </div>
   </div>
 </div>
 
@@ -723,6 +821,25 @@
       if (isCardRevealed || isPeeking) {
         updateFactionTheme();
       }
+
+      if (me.role.guide) {
+        document.getElementById("guide-modal-emoji").innerText = me.role.emoji || "🎴";
+        document.getElementById("guide-modal-title").innerText = `${me.role.name} Guide`;
+        const facEl = document.getElementById("guide-modal-faction");
+        facEl.innerText = (me.role.faction || "").toUpperCase();
+        facEl.style.background = me.role.faction === "wolves" ? "#fee2e2" : (me.role.faction === "town" ? "#dcfce7" : "#f3e8ff");
+        facEl.style.color = me.role.faction === "wolves" ? "#991b1b" : (me.role.faction === "town" ? "#166534" : "#6b21a8");
+        document.getElementById("guide-modal-objective").innerText = me.role.guide.objective || "-";
+        document.getElementById("guide-modal-day").innerText = me.role.guide.day_tips || "-";
+        const nightWrap = document.getElementById("guide-modal-night-wrap");
+        if (me.role.guide.night_tips) {
+          nightWrap.style.display = "block";
+          document.getElementById("guide-modal-night").innerText = me.role.guide.night_tips;
+        } else {
+          nightWrap.style.display = "none";
+        }
+        document.getElementById("guide-modal-protip").innerText = me.role.guide.pro_tip || "-";
+      }
     }
 
     // Timer Sync
@@ -785,12 +902,28 @@
       prompt.innerText = "Select a player to investigate their alignment:";
     } else if (me.role.id === "doctor") {
       prompt.innerText = "Select a player to guard from harm tonight:";
+    } else if (me.role.id === "bodyguard") {
+      prompt.innerText = "Select a player to guard with your life tonight (you sacrifice yourself if wolves attack them):";
+    } else if (me.role.id === "framer") {
+      prompt.innerText = "Select an innocent player to frame tonight (they will appear Evil to Detective):";
+    } else if (me.role.id === "serial_killer") {
+      prompt.innerText = "Select a victim to eliminate in the shadows tonight:";
     } else if (me.role.id === "sniper") {
       prompt.innerText = "Target a suspected wolf to shoot tonight:";
       sniperOpt.style.display = "block";
     } else if (me.role.id === "silencer") {
       prompt.innerText = "Select a player to silence during tomorrow's day:";
     }
+  }
+
+  function openPlayerModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add("active");
+  }
+
+  function closePlayerModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove("active");
   }
 
   function populateLivingPlayers(selectId, players, allowSelf) {

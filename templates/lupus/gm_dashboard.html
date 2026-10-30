@@ -234,7 +234,8 @@
         <span style="font-size: 0.75rem; color: #666;">({{ state.theme|title }} Theme)</span>
       </h1>
     </div>
-    <div class="top-bar-buttons" style="display: flex; gap: 0.5rem;">
+    <div class="top-bar-buttons" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button onclick="openModal('roles-guide-modal')" class="btn" style="background: #f1f5f9;" title="View all roles reference & rules">📚 Roles Guide</button>
       <button onclick="openModal('room-qr-modal')" class="btn">📱 Room QR</button>
       <button id="btn-copy-link" onclick="copyJoinLink(this)" class="btn">🔗 Copy Link</button>
     </div>
@@ -343,6 +344,9 @@
           <div id="chip-silencer" class="role-toggle-chip evil" onclick="toggleSpecialRole('silencer')">
             🤐 Silencer (Mutes 1 player/day)
           </div>
+          <div id="chip-framer" class="role-toggle-chip evil" onclick="toggleSpecialRole('framer')">
+            🎭 Framer (Frames innocent)
+          </div>
         </div>
       </div>
 
@@ -378,6 +382,9 @@
           <div id="chip-doctor" class="role-toggle-chip good" onclick="toggleSpecialRole('doctor')">
             🩺 Doctor / Guard
           </div>
+          <div id="chip-bodyguard" class="role-toggle-chip good" onclick="toggleSpecialRole('bodyguard')">
+            🛡️ Bodyguard (Sacrifice Save)
+          </div>
           <div id="chip-angel" class="role-toggle-chip good" onclick="toggleSpecialRole('angel')">
             👼 Angel (Limbo Revival)
           </div>
@@ -405,6 +412,9 @@
           </div>
           <div id="chip-jester" class="role-toggle-chip neutral" onclick="toggleSpecialRole('jester')">
             🃏 Jester (Wins if Lynched)
+          </div>
+          <div id="chip-serial_killer" class="role-toggle-chip neutral" onclick="toggleSpecialRole('serial_killer')">
+            🔪 Serial Killer (Solo Win)
           </div>
         </div>
       </div>
@@ -561,6 +571,53 @@
   </div>
 </div>
 
+<!-- Modal: Roles & Rules Reference Guide -->
+<div id="roles-guide-modal" class="modal">
+  <div class="modal-content" style="max-width: 580px; max-height: 85vh; overflow-y: auto; text-align: left; padding: 1.25rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.6rem; margin-bottom: 1rem;">
+      <h3 style="margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 0.4rem;">
+        <span>📚</span> Role Encyclopedia &amp; Guide
+      </h3>
+      <button onclick="closeModal('roles-guide-modal')" class="btn btn-sm" style="min-height: 32px; padding: 0.2rem 0.6rem;">&times; Close</button>
+    </div>
+
+    <p style="font-size: 0.82rem; color: #64748b; margin-top: 0; margin-bottom: 1rem;">
+      Complete guide for Game Masters and players. Includes win conditions, night actions, and gameplay tactics.
+    </p>
+
+    {% for role in roles_catalogue %}
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.85rem; margin-bottom: 0.75rem; border-left: 4px solid {% if role.faction == 'wolves' %}#ef4444{% elif role.faction == 'town' %}#22c55e{% else %}#a855f7{% endif %};">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
+        <div>
+          <strong style="font-size: 1rem; color: #0f172a;">{{ role.emoji }} {{ role.name }}</strong>
+          <span class="badge" style="margin-left: 0.35rem; font-size: 0.7rem; background: {% if role.faction == 'wolves' %}#fee2e2; color: #991b1b;{% elif role.faction == 'town' %}#dcfce7; color: #166534;{% else %}#f3e8ff; color: #6b21a8;{% endif %}">
+            {{ role.faction|title }}
+          </span>
+        </div>
+      </div>
+      <p style="font-size: 0.85rem; color: #475569; margin: 0.4rem 0 0.5rem; line-height: 1.4;">
+        {{ role.description }}
+      </p>
+
+      {% if role.guide %}
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 0.55rem 0.75rem; font-size: 0.8rem; line-height: 1.45; color: #334155;">
+        <div style="margin-bottom: 0.25rem;"><strong>🎯 Objective:</strong> {{ role.guide.objective }}</div>
+        <div style="margin-bottom: 0.25rem;"><strong>☀️ Day Tactics:</strong> {{ role.guide.day_tips }}</div>
+        {% if role.guide.night_tips %}
+        <div style="margin-bottom: 0.25rem;"><strong>🌙 Night Action:</strong> {{ role.guide.night_tips }}</div>
+        {% endif %}
+        <div style="color: #b45309; margin-top: 0.25rem;"><strong>💡 Pro Tip:</strong> {{ role.guide.pro_tip }}</div>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <div style="text-align: center; margin-top: 1rem;">
+      <button onclick="closeModal('roles-guide-modal')" class="btn btn-primary" style="width: 100%;">Got It</button>
+    </div>
+  </div>
+</div>
+
 <script>
   const ROOM_CODE = "{{ code }}";
   const GM_TOKEN = "{{ gm_token|default:state.gm_token }}";
@@ -574,14 +631,17 @@
     villager: 4,
     alpha_wolf: 0,
     silencer: 0,
+    framer: 0,
     detective: 1,
     doctor: 1,
+    bodyguard: 0,
     angel: 0,
     sniper: 0,
     mayor: 0,
     witch: 0,
     cupid: 0,
-    jester: 0
+    jester: 0,
+    serial_killer: 0
   };
 
   // --- WebSocket Connection ---
@@ -632,8 +692,8 @@
     const deck = getDeckArray();
     let good = 0, evil = 0, neutral = 0;
     deck.forEach(r => {
-      if (["werewolf", "alpha_wolf", "silencer"].includes(r)) evil++;
-      else if (["cupid", "jester"].includes(r)) neutral++;
+      if (["werewolf", "alpha_wolf", "silencer", "framer"].includes(r)) evil++;
+      else if (["cupid", "jester", "serial_killer"].includes(r)) neutral++;
       else good++;
     });
     const total = deck.length;
@@ -652,7 +712,7 @@
     document.getElementById("count-villager").innerText = deckState.villager;
 
     // Toggle chips
-    const specials = ['alpha_wolf', 'silencer', 'detective', 'doctor', 'angel', 'sniper', 'mayor', 'witch', 'cupid', 'jester'];
+    const specials = ['alpha_wolf', 'silencer', 'framer', 'detective', 'doctor', 'bodyguard', 'angel', 'sniper', 'mayor', 'witch', 'cupid', 'jester', 'serial_killer'];
     specials.forEach(s => {
       const el = document.getElementById(`chip-${s}`);
       if (el) {
@@ -777,17 +837,22 @@
       if (count >= 5) deckState.doctor = 1;
       if (count >= 6) deckState.angel = 1;
       if (count >= 7) deckState.sniper = 1;
-      const used = deckState.werewolf + deckState.detective + deckState.doctor + deckState.angel + deckState.sniper;
+      if (count >= 9) deckState.bodyguard = 1;
+      const used = deckState.werewolf + deckState.detective + deckState.doctor + deckState.angel + deckState.sniper + (deckState.bodyguard || 0);
       deckState.villager = Math.max(0, count - used);
     } else if (presetName === 'chaos') {
-      if (numEvil >= 2) {
+      if (numEvil >= 3) {
+        deckState.werewolf = numEvil - 2;
+        deckState.alpha_wolf = 1;
+        deckState.framer = 1;
+      } else if (numEvil >= 2) {
         deckState.werewolf = numEvil - 1;
         deckState.alpha_wolf = 1;
       } else {
         deckState.werewolf = 1;
       }
-      const specials = ['detective', 'doctor', 'angel', 'silencer', 'sniper', 'mayor', 'witch', 'cupid', 'jester'];
-      let used = deckState.werewolf + deckState.alpha_wolf;
+      const specials = ['detective', 'doctor', 'bodyguard', 'angel', 'silencer', 'sniper', 'mayor', 'witch', 'cupid', 'jester', 'serial_killer'];
+      let used = deckState.werewolf + deckState.alpha_wolf + (deckState.framer || 0);
       for (const s of specials) {
         if (used < count - 1) {
           deckState[s] = 1;
@@ -875,6 +940,19 @@
       if (actions.doctor_protect) {
         const target = state.players.find(p => p.id === actions.doctor_protect);
         intelHtml += `<li>🩺 <strong>Doctor protects:</strong> ${target ? target.name : 'Unknown'}</li>`;
+      }
+      if (actions.bodyguard_protect) {
+        const target = state.players.find(p => p.id === actions.bodyguard_protect);
+        const actor = state.players.find(p => p.id === actions.bodyguard_actor);
+        intelHtml += `<li>🛡️ <strong>Bodyguard (${actor ? actor.name : ''}) guards:</strong> ${target ? target.name : 'Unknown'}</li>`;
+      }
+      if (actions.framer_target) {
+        const target = state.players.find(p => p.id === actions.framer_target);
+        intelHtml += `<li>🎭 <strong>Framer frames:</strong> ${target ? target.name : 'Unknown'} (inspects as Evil)</li>`;
+      }
+      if (actions.sk_target) {
+        const target = state.players.find(p => p.id === actions.sk_target);
+        intelHtml += `<li>🔪 <strong>Serial Killer strikes:</strong> ${target ? target.name : 'Unknown'}</li>`;
       }
       if (actions.sniper_shot) {
         const target = state.players.find(p => p.id === actions.sniper_shot.target_id);
@@ -1061,7 +1139,7 @@
   }
 
   function setPlayerRoleManual(playerId, playerName) {
-    const role = prompt(`Assign role for ${playerName}:\n(werewolf, alpha_wolf, silencer, detective, doctor, sniper, angel, mayor, witch, cupid, jester, villager)`);
+    const role = prompt(`Assign role for ${playerName}:\n(werewolf, alpha_wolf, silencer, framer, detective, doctor, bodyguard, sniper, angel, mayor, witch, cupid, jester, serial_killer, villager)`);
     if (role && role.trim()) {
       sendAction("set_manual_role", { player_id: playerId, role_id: role.trim().toLowerCase() });
     }
