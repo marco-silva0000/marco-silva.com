@@ -1,0 +1,395 @@
+{% extends 'base.html' %}
+{% block title %}Lupus - {{ state.me.name|default:"Player" }}{% endblock %}
+
+{% block content %}
+<style>
+  .player-container { max-width: 460px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; padding-bottom: 3rem; }
+  .role-card {
+    background: #1e1e24; color: #fff; border-radius: 12px; padding: 1.5rem; text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 1.25rem; user-select: none; -webkit-user-select: none;
+    position: relative; overflow: hidden; min-height: 220px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .card-concealed { filter: blur(12px); opacity: 0.2; pointer-events: none; transition: filter 0.2s, opacity 0.2s; }
+  .card-revealed { filter: blur(0); opacity: 1; pointer-events: auto; }
+  .reveal-overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: rgba(30, 30, 36, 0.95); cursor: pointer; border-radius: 12px;
+  }
+  .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+  .badge-alive { background: #e8f5e9; color: #2e7d32; }
+  .badge-limbo { background: #fff8e1; color: #f57f17; border: 1px dashed #fbc02d; }
+  .badge-dead { background: #ffebee; color: #c62828; }
+  .btn { padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
+  .btn-primary { background: #111; color: #fff; border-color: #111; font-weight: 600; width: 100%; }
+  .timer-banner { background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 8px; padding: 0.75rem; text-align: center; margin-bottom: 1rem; }
+  .silence-alert { background: #4a148c; color: #fff; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600; margin-bottom: 1rem; }
+  .limbo-card { background: #fff8e1; border: 2px dashed #ffb300; border-radius: 8px; padding: 1rem; text-align: center; margin-bottom: 1rem; }
+  .player-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; border-bottom: 1px solid #eee; }
+</style>
+
+<div class="player-container">
+  <!-- Header -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+    <div>
+      <h1 style="font-size: 1.2rem; margin: 0; font-weight: 600;">🐺 {{ state.title }}</h1>
+      <span style="font-size: 0.8rem; color: #666;">Playing as <strong>{{ state.me.name }}</strong> (Room {{ code }})</span>
+    </div>
+    <div id="my-status-badge">
+      <span class="badge badge-{{ state.me.status }}">{{ state.me.status }}</span>
+    </div>
+  </div>
+
+  <!-- Silence Alert Banner -->
+  <div id="silence-alert-box" class="silence-alert" style="display: {% if state.me.is_silenced %}block{% else %}none{% endif %};">
+    🤐 <strong>SILENCED TODAY!</strong><br>
+    <span style="font-size: 0.85rem; font-weight: normal;">A spell binds your lips. You cannot speak, whisper, or signal until nightfall.</span>
+  </div>
+
+  <!-- Limbo Screen -->
+  <div id="limbo-box" class="limbo-card" style="display: {% if state.me.status == 'limbo' %}block{% else %}none{% endif %};">
+    <div style="font-size: 2rem;">🌫️</div>
+    <h3 style="margin: 0.25rem 0 0.5rem; font-size: 1.1rem; color: #e65100;">You are in Limbo!</h3>
+    <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.75rem;">
+      You have one chance to return to the living. Can you guess who the <strong>Angel</strong> is?
+    </p>
+    <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center;">
+      <select id="angel-guess-select" style="padding: 0.4rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc;">
+        <!-- Filled dynamically -->
+      </select>
+      <button onclick="submitAngelGuess()" class="btn btn-primary" style="width: auto; padding: 0.4rem 0.8rem; background: #e65100; border-color: #e65100;">
+        Guess Angel
+      </button>
+    </div>
+    <div id="angel-guess-result" style="font-size: 0.85rem; margin-top: 0.5rem; font-weight: 600;"></div>
+  </div>
+
+  <!-- Timer Banner -->
+  <div class="timer-banner">
+    <div id="timer-label" style="font-size: 0.75rem; text-transform: uppercase; color: #888; font-weight: 600;">
+      {{ state.timer.label|default:"Phase" }}
+    </div>
+    <div id="timer-val" style="font-size: 2.2rem; font-weight: 700; font-family: monospace;">05:00</div>
+    <div style="font-size: 0.75rem; color: #666; margin-top: 0.2rem;">
+      Phase: <strong id="phase-text">{{ state.phase|title }}</strong> · Round <span id="round-num">{{ state.round_number }}</span>
+    </div>
+  </div>
+
+  <!-- Secret Role Card (Concealed by default to avoid shoulder peeking) -->
+  <div class="role-card" id="role-card-wrap">
+    <div id="role-content" class="card-concealed">
+      <div id="role-emoji" style="font-size: 3.5rem; margin-bottom: 0.25rem;">
+        {{ state.me.role.emoji|default:"❓" }}
+      </div>
+      <h2 id="role-name" style="font-size: 1.3rem; margin: 0 0 0.25rem;">
+        {{ state.me.role.name|default:"Role Unassigned" }}
+      </h2>
+      <div id="role-faction" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #bbb; margin-bottom: 0.75rem;">
+        {{ state.me.role.faction|default:"Waiting for GM to deal" }}
+      </div>
+      <p id="role-desc" style="font-size: 0.85rem; color: #ddd; line-height: 1.4; margin: 0 0 0.5rem;">
+        {{ state.me.role.description|default:"Please wait for the game master to begin the game." }}
+      </p>
+
+      <!-- Packmates / Lover Info -->
+      <div id="role-secret-notes" style="font-size: 0.8rem; color: #ffca28; margin-top: 0.5rem;"></div>
+    </div>
+
+    <!-- Privacy Overlay -->
+    <div id="reveal-overlay" class="reveal-overlay" onclick="toggleReveal()">
+      <div style="font-size: 2.2rem; margin-bottom: 0.4rem;">👁️</div>
+      <div style="font-size: 0.95rem; font-weight: 600;">Tap to Reveal Card</div>
+      <div style="font-size: 0.75rem; color: #aaa;">Keep hidden from adjacent players</div>
+    </div>
+  </div>
+
+  <!-- Night Action Drawer -->
+  <div id="night-action-box" style="display: none; background: #263238; color: #fff; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.25rem;">
+    <h3 id="night-action-title" style="margin-top: 0; font-size: 1rem; color: #90caf9;">🌙 Night Action</h3>
+    <p id="night-action-prompt" style="font-size: 0.85rem; color: #cfd8dc; margin-bottom: 0.75rem;"></p>
+    
+    <div style="margin-bottom: 0.75rem;">
+      <select id="night-target-select" style="width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid #546e7a; background: #37474f; color: #fff; font-size: 0.9rem;">
+        <!-- Filled dynamically -->
+      </select>
+    </div>
+
+    <div id="sniper-bullet-opt" style="display: none; margin-bottom: 0.75rem;">
+      <label style="font-size: 0.8rem; color: #ccc;">Bullet Type:</label>
+      <select id="sniper-bullet-select" style="width: 100%; padding: 0.4rem; border-radius: 4px; background: #37474f; color: #fff; font-size: 0.85rem; border: 1px solid #546e7a;">
+        <option value="danger">Danger Bullet (You die if target is not a wolf)</option>
+        <option value="silver">Silver Bullet (Safe shot)</option>
+      </select>
+    </div>
+
+    <button onclick="submitNightAction()" class="btn btn-primary" style="background: #1976d2; border-color: #1976d2;">
+      Confirm Night Action
+    </button>
+    <div id="night-action-feedback" style="font-size: 0.85rem; margin-top: 0.5rem; color: #a5d6a7;"></div>
+  </div>
+
+  <!-- Morning Dawn Announcements -->
+  <div id="dawn-box" style="display: none; background: #fffde7; border: 1px solid #fff59d; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem;">
+    <h3 style="margin-top: 0; font-size: 0.95rem; color: #f57f17;">☀️ Dawn Report</h3>
+    <ul id="dawn-report-list" style="margin: 0; padding-left: 1.25rem; font-size: 0.85rem; color: #444;"></ul>
+  </div>
+
+  <!-- Table Players List -->
+  <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem;">
+    <h3 style="font-size: 0.9rem; margin: 0 0 0.5rem; color: #666;">Players at Table</h3>
+    <div id="players-list"></div>
+  </div>
+</div>
+
+<script>
+  const ROOM_CODE = "{{ code }}";
+  const MY_TOKEN = "{{ player.token }}";
+  const MY_PID = "{{ player.id }}";
+  localStorage.setItem(`lupus_token_${ROOM_CODE}`, MY_TOKEN);
+  localStorage.setItem(`lupus_pid_${ROOM_CODE}`, MY_PID);
+
+  let currentGameState = null;
+  let isCardRevealed = false;
+  let timerInterval = null;
+
+  // --- WebSocket Connection ---
+  const wsProto = window.location.protocol === "https:" ? "wss:" : "ws:";
+  const wsUrl = `${wsProto}//${window.location.host}/ws/lupus/${ROOM_CODE}/`;
+  let socket = null;
+
+  function connectWS() {
+    socket = new WebSocket(wsUrl);
+
+    socket.onopen = () => {
+      console.log("Player WebSocket connected.");
+      socket.send(JSON.stringify({
+        action: "init",
+        player_token: MY_TOKEN,
+        player_id: MY_PID
+      }));
+    };
+
+    socket.onmessage = (e) => {
+      const msg = JSON.parse(e.data);
+      if (msg.type === "player_state") {
+        renderPlayerState(msg.data);
+      } else if (msg.type === "action_result") {
+        const fb = document.getElementById("night-action-feedback");
+        fb.innerText = msg.message;
+        fb.style.color = msg.success ? "#a5d6a7" : "#ef9a9a";
+      } else if (msg.type === "angel_guess_result") {
+        const res = document.getElementById("angel-guess-result");
+        res.innerText = msg.message;
+        res.style.color = msg.success ? "#2e7d32" : "#c62828";
+      }
+    };
+
+    socket.onclose = () => {
+      console.warn("WebSocket closed, retrying in 2s...");
+      setTimeout(connectWS, 2000);
+    };
+  }
+  connectWS();
+
+  function toggleReveal() {
+    isCardRevealed = !isCardRevealed;
+    const overlay = document.getElementById("reveal-overlay");
+    const content = document.getElementById("role-content");
+    if (isCardRevealed) {
+      overlay.style.display = "none";
+      content.className = "card-revealed";
+    } else {
+      overlay.style.display = "flex";
+      content.className = "card-concealed";
+    }
+  }
+
+  // Auto-hide when tapping anywhere outside the card
+  document.addEventListener("click", (e) => {
+    const cardWrap = document.getElementById("role-card-wrap");
+    if (isCardRevealed && !cardWrap.contains(e.target)) {
+      toggleReveal();
+    }
+  });
+
+  // --- Render State ---
+  function renderPlayerState(state) {
+    currentGameState = state;
+    document.getElementById("phase-text").innerText = state.phase.toUpperCase();
+    document.getElementById("round-num").innerText = state.round_number;
+
+    // My Status
+    const me = state.me;
+    document.getElementById("my-status-badge").innerHTML = `<span class="badge badge-${me.status}">${me.status}</span>`;
+
+    // Silence Box
+    document.getElementById("silence-alert-box").style.display = me.is_silenced ? "block" : "none";
+
+    // Limbo Box
+    const limboBox = document.getElementById("limbo-box");
+    if (me.status === "limbo") {
+      limboBox.style.display = "block";
+      populateLivingPlayers("angel-guess-select", state.players, false);
+    } else {
+      limboBox.style.display = "none";
+    }
+
+    // Role Card Info
+    if (me.role) {
+      document.getElementById("role-emoji").innerText = me.role.emoji;
+      document.getElementById("role-name").innerText = me.role.name;
+      document.getElementById("role-faction").innerText = me.role.faction;
+      document.getElementById("role-desc").innerText = me.role.description;
+
+      let secretNotes = [];
+      // If werewolf, show fellow wolves
+      if (me.role.faction === "wolves") {
+        const pack = state.players.filter(p => p.is_pack_mate).map(p => p.name);
+        if (pack.length > 0) {
+          secretNotes.push(`🐺 Packmates: ${pack.join(", ")}`);
+        }
+      }
+      if (me.lover_name) {
+        secretNotes.push(`💘 Bound Lover: ${me.lover_name}`);
+      }
+      document.getElementById("role-secret-notes").innerText = secretNotes.join(" · ");
+    }
+
+    // Timer Sync
+    syncTimer(state.timer);
+
+    // Night Action Controls
+    updateNightActionBox(state);
+
+    // Dawn Report
+    const dawnBox = document.getElementById("dawn-box");
+    if (state.night_report && state.night_report.length > 0 && state.phase !== "night") {
+      dawnBox.style.display = "block";
+      document.getElementById("dawn-report-list").innerHTML = state.night_report.map(r => `<li>${r}</li>`).join("");
+    } else {
+      dawnBox.style.display = "none";
+    }
+
+    // Players List
+    const pl = document.getElementById("players-list");
+    pl.innerHTML = "";
+    state.players.forEach(p => {
+      const item = document.createElement("div");
+      item.className = "player-item";
+      const meTag = p.is_me ? " <strong>(You)</strong>" : "";
+      const silencedTag = p.is_silenced ? " 🤐" : "";
+      const loverTag = p.is_lover ? " 💘" : "";
+      const roleStr = p.role ? `<span style="font-size:0.8rem; color:#666;">(${p.role.name})</span>` : "";
+
+      item.innerHTML = `
+        <div>
+          <span>${escapeHtml(p.name)}${meTag}${silencedTag}${loverTag}</span>
+          ${roleStr}
+        </div>
+        <span class="badge badge-${p.status}">${p.status}</span>
+      `;
+      pl.appendChild(item);
+    });
+  }
+
+  function updateNightActionBox(state) {
+    const box = document.getElementById("night-action-box");
+    const me = state.me;
+
+    if (state.phase !== "night" || me.status !== "alive" || !me.role || !me.role.night_action) {
+      box.style.display = "none";
+      return;
+    }
+
+    box.style.display = "block";
+    const prompt = document.getElementById("night-action-prompt");
+    const select = document.getElementById("night-target-select");
+    const sniperOpt = document.getElementById("sniper-bullet-opt");
+    sniperOpt.style.display = "none";
+
+    populateLivingPlayers("night-target-select", state.players, me.role.id === "doctor");
+
+    if (me.role.night_action === "kill") {
+      prompt.innerText = "Select a victim with your pack to eliminate tonight:";
+    } else if (me.role.id === "detective") {
+      prompt.innerText = "Select a player to investigate their alignment:";
+    } else if (me.role.id === "doctor") {
+      prompt.innerText = "Select a player to guard from harm tonight:";
+    } else if (me.role.id === "sniper") {
+      prompt.innerText = "Target a suspected wolf to shoot tonight:";
+      sniperOpt.style.display = "block";
+    } else if (me.role.id === "silencer") {
+      prompt.innerText = "Select a player to silence during tomorrow's day:";
+    }
+  }
+
+  function populateLivingPlayers(selectId, players, allowSelf) {
+    const sel = document.getElementById(selectId);
+    sel.innerHTML = "";
+    players.forEach(p => {
+      if (p.status === "alive") {
+        if (!allowSelf && p.is_me) return;
+        const opt = document.createElement("option");
+        opt.value = p.id;
+        opt.innerText = p.is_me ? `${p.name} (Myself)` : p.name;
+        sel.appendChild(opt);
+      }
+    });
+  }
+
+  function submitNightAction() {
+    if (!currentGameState) return;
+    const me = currentGameState.me;
+    const targetId = document.getElementById("night-target-select").value;
+    const actType = me.role.night_action;
+    let extra = {};
+
+    if (me.role.id === "sniper") {
+      extra.bullet_type = document.getElementById("sniper-bullet-select").value;
+    }
+
+    socket.send(JSON.stringify({
+      action: "night_action",
+      action_type: actType,
+      target_id: targetId,
+      extra: extra
+    }));
+  }
+
+  function submitAngelGuess() {
+    const targetId = document.getElementById("angel-guess-select").value;
+    if (targetId) {
+      socket.send(JSON.stringify({
+        action: "guess_angel",
+        target_id: targetId
+      }));
+    }
+  }
+
+  // --- Timer Sync ---
+  function syncTimer(timer) {
+    if (!timer) return;
+    document.getElementById("timer-label").innerText = timer.label || "Timer";
+    if (timerInterval) clearInterval(timerInterval);
+
+    function update() {
+      let rem = timer.remaining;
+      if (!timer.paused && timer.ends_at) {
+        rem = Math.max(0, Math.floor(timer.ends_at - (Date.now() / 1000)));
+      }
+      const m = String(Math.floor(rem / 60)).padStart(2, "0");
+      const s = String(rem % 60).padStart(2, "0");
+      document.getElementById("timer-val").innerText = `${m}:${s}`;
+    }
+    update();
+    if (!timer.paused) {
+      timerInterval = setInterval(update, 1000);
+    }
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.innerText = text;
+    return div.innerHTML;
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,219 @@
+"""WebSocket consumer for real-time Lupus game synchronization."""
+
+from typing import Any, Optional
+
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
+
+from .game_state import (
+    add_player,
+    deal_roles,
+    get_game,
+    get_gm_view,
+    get_sanitized_player_view,
+    guess_angel_in_limbo,
+    pause_timer,
+    remove_player,
+    reset_timer,
+    resolve_night,
+    resume_timer,
+    save_game,
+    set_deck,
+    set_manual_player_role,
+    set_player_status,
+    start_timer,
+    submit_night_action,
+)
+
+
+class LupusConsumer(AsyncJsonWebsocketConsumer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.code: str = ""
+        self.group_name: str = ""
+        self.is_gm: bool = False
+        self.player_id: Optional[str] = None
+
+    async def connect(self):
+        self.code = self.scope["url_route"]["kwargs"]["code"].upper()
+        self.group_name = f"lupus_{self.code}"
+        await self.channel_layer.group_add(self.group_name, self.channel_name)
+        await self.accept()
+
+    async def disconnect(self, close_code):
+        state = get_game(self.code)
+        if state and self.player_id and self.player_id in state["players"]:
+            state["players"][self.player_id]["connected"] = False
+            state["players"][self.player_id]["channel_name"] = None
+            save_game(self.code, state)
+            await self.broadcast_sync()
+        await self.channel_layer.group_discard(self.group_name, self.channel_name)
+
+    async def broadcast_sync(self):
+        """Instruct all connected clients in the room to re-render their perspective."""
+        await self.channel_layer.group_send(
+            self.group_name,
+            {"type": "game.state.sync"},
+        )
+
+    async def game_state_sync(self, event):
+        """Handle room broadcast by delivering private sanitized state to this connection."""
+        state = get_game(self.code)
+        if not state:
+            return
+
+        if self.is_gm:
+            await self.send_json({"type": "gm_state", "data": get_gm_view(state)})
+        elif self.player_id:
+            await self.send_json(
+                {
+                    "type": "player_state",
+                    "data": get_sanitized_player_view(state, self.player_id),
+                }
+            )
+
+    async def receive_json(self, content: dict[str, Any]):
+        action = content.get("action")
+        state = get_game(self.code)
+        if not state:
+            await self.send_json({"type": "error", "message": "Room not found."})
+            return
+
+        # 1. Connection Identification & Reconnection Handshake
+        if action == "init":
+            gm_token = content.get("gm_token")
+            player_token = content.get("player_token")
+            player_id = content.get("player_id")
+
+            if gm_token and gm_token == state.get("gm_token"):
+                self.is_gm = True
+                await self.send_json({"type": "gm_state", "data": get_gm_view(state)})
+                return
+
+            if player_token or player_id:
+                for pid, p in state["players"].items():
+                    if (player_token and p["token"] == player_token) or (player_id and p["id"] == player_id):
+                        self.player_id = pid
+                        p["connected"] = True
+                        p["channel_name"] = self.channel_name
+                        save_game(self.code, state)
+                        await self.send_json(
+                            {
+                                "type": "player_state",
+                                "data": get_sanitized_player_view(state, self.player_id),
+                            }
+                        )
+                        await self.broadcast_sync()
+                        return
+
+            await self.send_json({"type": "auth_error", "message": "Unrecognized session."})
+            return
+
+        # 2. Game Master Authorized Operations
+        if self.is_gm:
+            if action == "set_deck":
+                deck = content.get("deck", [])
+                set_deck(state, deck)
+                await self.broadcast_sync()
+
+            elif action == "deal_roles":
+                deck = content.get("deck")
+                deal_roles(state, deck)
+                state["phase"] = "night"
+                save_game(self.code, state)
+                await self.broadcast_sync()
+
+            elif action == "set_manual_role":
+                pid = content.get("player_id")
+                rid = content.get("role_id")
+                if pid and rid:
+                    set_manual_player_role(state, pid, rid)
+                    await self.broadcast_sync()
+
+            elif action == "set_status":
+                pid = content.get("player_id")
+                status = content.get("status")
+                if pid and status in ("alive", "limbo", "dead"):
+                    set_player_status(state, pid, status)
+                    await self.broadcast_sync()
+
+            elif action == "add_offline_player":
+                name = content.get("name", "").strip()
+                if name:
+                    add_player(state, name, is_offline=True)
+                    await self.broadcast_sync()
+
+            elif action == "remove_player":
+                pid = content.get("player_id")
+                if pid:
+                    remove_player(state, pid)
+                    await self.broadcast_sync()
+
+            elif action == "change_phase":
+                new_phase = content.get("phase")
+                if new_phase in ("lobby", "night", "day_discussion", "day_defense", "day_voting", "gameover"):
+                    state["phase"] = new_phase
+                    if new_phase == "day_discussion":
+                        start_timer(state, state["settings"].get("discussion_timer", 300), "Discussion")
+                    save_game(self.code, state)
+                    await self.broadcast_sync()
+
+            elif action == "start_timer":
+                duration = int(content.get("duration", 300))
+                label = content.get("label", "Timer")
+                start_timer(state, duration, label)
+                await self.broadcast_sync()
+
+            elif action == "pause_timer":
+                pause_timer(state)
+                await self.broadcast_sync()
+
+            elif action == "resume_timer":
+                resume_timer(state)
+                await self.broadcast_sync()
+
+            elif action == "reset_timer":
+                duration = content.get("duration")
+                reset_timer(state, int(duration) if duration else None)
+                await self.broadcast_sync()
+
+            elif action == "start_defense":
+                pid = content.get("player_id")
+                if pid and pid in state["players"]:
+                    state["phase"] = "day_defense"
+                    state["defense_player_id"] = pid
+                    # 30 second defense timer
+                    start_timer(
+                        state,
+                        state["settings"].get("defense_timer", 30),
+                        f"Defense: {state['players'][pid]['name']}",
+                    )
+                    await self.broadcast_sync()
+
+            elif action == "resolve_night":
+                resolve_night(state)
+                await self.broadcast_sync()
+
+            elif action == "update_settings":
+                new_settings = content.get("settings", {})
+                state["settings"].update(new_settings)
+                save_game(self.code, state)
+                await self.broadcast_sync()
+
+            return
+
+        # 3. Player Operations
+        if self.player_id and self.player_id in state["players"]:
+            if action == "night_action":
+                act_type = content.get("action_type")
+                target_id = content.get("target_id")
+                extra = content.get("extra")
+                success, msg = submit_night_action(state, self.player_id, act_type, target_id, extra)
+                await self.send_json({"type": "action_result", "success": success, "message": msg})
+                # Inform GM that a night action was submitted
+                await self.broadcast_sync()
+
+            elif action == "guess_angel":
+                target_id = content.get("target_id")
+                success, msg = guess_angel_in_limbo(state, self.player_id, target_id)
+                await self.send_json({"type": "angel_guess_result", "success": success, "message": msg})
+                await self.broadcast_sync()

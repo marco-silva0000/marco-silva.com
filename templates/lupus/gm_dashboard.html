@@ -1,0 +1,416 @@
+{% extends 'base.html' %}
+{% block title %}GM Cockpit - {{ code }}{% endblock %}
+
+{% block content %}
+<style>
+  .gm-container { max-width: 900px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; }
+  .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+  .badge-alive { background: #e8f5e9; color: #2e7d32; }
+  .badge-limbo { background: #fff8e1; color: #f57f17; border: 1px dashed #fbc02d; }
+  .badge-dead { background: #ffebee; color: #c62828; text-decoration: line-through; }
+  .badge-silenced { background: #ede7f6; color: #512da8; }
+  .card-box { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .timer-display { font-size: 3rem; font-weight: 700; font-family: monospace; letter-spacing: 2px; }
+  .timer-pulse { color: #d32f2f; animation: pulse 1s infinite alternate; }
+  @keyframes pulse { from { opacity: 1; } to { opacity: 0.5; } }
+  .btn { padding: 0.4rem 0.8rem; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 0.85rem; }
+  .btn-primary { background: #111; color: #fff; border-color: #111; font-weight: 600; }
+  .btn-danger { background: #c62828; color: #fff; border-color: #c62828; }
+  .btn-sm { padding: 0.2rem 0.5rem; font-size: 0.75rem; }
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; }
+  .modal.active { display: flex; }
+  .modal-content { background: #fff; padding: 1.5rem; border-radius: 8px; max-width: 400px; width: 90%; text-align: center; }
+</style>
+
+<div class="gm-container">
+  <!-- Top Bar -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.75rem;">
+    <div>
+      <h1 style="font-size: 1.3rem; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+        <span>🐺 {{ state.title }}</span>
+        <span style="font-size: 0.85rem; background: #eee; padding: 0.2rem 0.5rem; border-radius: 4px;">{{ code }}</span>
+        <span style="font-size: 0.75rem; color: #666;">({{ state.theme|title }} Theme)</span>
+      </h1>
+    </div>
+    <div style="display: flex; gap: 0.5rem;">
+      <button onclick="openModal('room-qr-modal')" class="btn">📱 Room QR</button>
+      <button onclick="copyJoinLink()" class="btn">🔗 Copy Join Link</button>
+    </div>
+  </div>
+
+  <!-- Timer & Phase Controls -->
+  <div class="card-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: center;">
+    <div style="text-align: center; border-right: 1px solid #eee; padding-right: 1rem;">
+      <div id="timer-label" style="font-size: 0.85rem; font-weight: 600; color: #666; text-transform: uppercase;">
+        {{ state.timer.label|default:"Discussion" }}
+      </div>
+      <div id="timer-val" class="timer-display">05:00</div>
+      <div style="display: flex; gap: 0.4rem; justify-content: center; margin-top: 0.5rem;">
+        <button id="btn-timer-toggle" onclick="toggleTimer()" class="btn btn-primary">Start</button>
+        <button onclick="resetTimer(300, '5m Discussion')" class="btn">5m</button>
+        <button onclick="resetTimer(180, '3m Discussion')" class="btn">3m</button>
+        <button onclick="resetTimer(30, '30s Defense')" class="btn btn-danger">30s Defense</button>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size: 0.85rem; font-weight: 600; color: #666; margin-bottom: 0.5rem;">
+        CURRENT PHASE: <span id="phase-badge" class="badge" style="background: #111; color: #fff;">{{ state.phase }}</span>
+        · Round <span id="round-num">{{ state.round_number }}</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem;">
+        <button onclick="changePhase('night')" class="btn">🌙 Call Night (Sleep)</button>
+        <button onclick="resolveNight()" class="btn btn-primary">☀️ Resolve Night & Wake Town</button>
+        <button onclick="changePhase('day_discussion')" class="btn">🗣️ Discussion Phase</button>
+        <button onclick="changePhase('day_voting')" class="btn">🗳️ Voting Phase</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Night Intelligence & Actions Received -->
+  <div class="card-box" style="background: #fdfdfe; border-left: 4px solid #3f51b5;">
+    <h3 style="font-size: 0.95rem; margin-top: 0; margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+      <span>🌙 Night Intel & Action Queue</span>
+      <span style="font-size: 0.75rem; color: #888;">Updated in real-time as players act</span>
+    </h3>
+    <div id="night-actions-feed" style="font-size: 0.85rem; min-height: 40px; color: #444;">
+      <em>No night actions recorded yet for this round.</em>
+    </div>
+    {% if state.night_report %}
+    <div style="margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed #ddd;">
+      <strong style="font-size: 0.8rem; color: #555;">Morning Dawn Report:</strong>
+      <ul id="morning-report" style="margin: 0.25rem 0 0 1.25rem; font-size: 0.85rem; padding: 0;">
+        {% for line in state.night_report %}
+        <li>{{ line }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Table & Players Management -->
+  <div class="card-box">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <h3 style="font-size: 1rem; margin: 0;">👥 Players at Table (<span id="player-count">{{ state.players|length }}</span>)</h3>
+      <div style="display: flex; gap: 0.5rem;">
+        <button onclick="dealRoles()" class="btn btn-primary btn-sm">🎴 Deal Roles Automatically</button>
+        <button onclick="promptAddOfflinePlayer()" class="btn btn-sm">+ Add Offline Player</button>
+      </div>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+        <thead>
+          <tr style="border-bottom: 2px solid #eee; color: #666;">
+            <th style="padding: 0.5rem;">Player</th>
+            <th style="padding: 0.5rem;">Role</th>
+            <th style="padding: 0.5rem;">Status</th>
+            <th style="padding: 0.5rem;">Notes</th>
+            <th style="padding: 0.5rem; text-align: right;">GM Actions</th>
+          </tr>
+        </thead>
+        <tbody id="player-rows">
+          <!-- Populated dynamically via JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity Log -->
+  <div class="card-box">
+    <h3 style="font-size: 0.9rem; margin-top: 0; margin-bottom: 0.5rem; color: #666;">📜 Live Activity Log</h3>
+    <div id="events-log" style="font-size: 0.8rem; color: #666; max-height: 140px; overflow-y: auto; font-family: monospace;">
+      {% for event in state.events_log %}
+      <div>[{{ event.phase }}] {{ event.message }}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Room QR Code -->
+<div id="room-qr-modal" class="modal">
+  <div class="modal-content">
+    <h3 style="margin-top: 0; font-size: 1.1rem;">Scan to Join Room</h3>
+    <p style="font-size: 0.85rem; color: #666;">Scan with camera or share the code: <strong>{{ code }}</strong></p>
+    <img src="{{ join_qr }}" alt="Join QR" style="max-width: 220px; height: auto; margin: 0.5rem 0; border: 1px solid #ddd; padding: 4px; border-radius: 4px;">
+    <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center;">
+      <button onclick="copyJoinLink()" class="btn btn-primary">Copy Link</button>
+      <button onclick="closeModal('room-qr-modal')" class="btn">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Individual Player Secret Reconnect QR -->
+<div id="player-qr-modal" class="modal">
+  <div class="modal-content">
+    <h3 id="player-qr-name" style="margin-top: 0; font-size: 1.1rem;">Player Secret Reconnect</h3>
+    <p style="font-size: 0.8rem; color: #666;">
+      Show this QR privately to the player (e.g. during night with closed eyes or privately at table) to let them reconnect instantly.
+    </p>
+    <img id="player-qr-img" src="" alt="Player QR" style="max-width: 200px; height: auto; margin: 0.5rem 0; border: 1px solid #ddd; padding: 4px; border-radius: 4px;">
+    <div style="margin-top: 0.75rem;">
+      <button onclick="closeModal('player-qr-modal')" class="btn">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const ROOM_CODE = "{{ code }}";
+  const GM_TOKEN = "{{ state.gm_token|default:request.session.lupus_gm_code }}";
+  const JOIN_URL = "{{ join_url }}";
+  let currentGameState = null;
+  let timerInterval = null;
+
+  // --- WebSocket Connection ---
+  const wsProto = window.location.protocol === "https:" ? "wss:" : "ws:";
+  const wsUrl = `${wsProto}//${window.location.host}/ws/lupus/${ROOM_CODE}/`;
+  let socket = null;
+
+  function connectWS() {
+    socket = new WebSocket(wsUrl);
+
+    socket.onopen = () => {
+      console.log("GM WebSocket connected.");
+      socket.send(JSON.stringify({ action: "init", gm_token: "{{ request.GET.gm_token|default:request.session.lupus_gm_code }}" }));
+    };
+
+    socket.onmessage = (e) => {
+      const msg = JSON.parse(e.data);
+      if (msg.type === "gm_state") {
+        renderGMState(msg.data);
+      }
+    };
+
+    socket.onclose = () => {
+      console.warn("WebSocket closed, retrying in 2s...");
+      setTimeout(connectWS, 2000);
+    };
+  }
+  connectWS();
+
+  function sendAction(action, payload = {}) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({ action, ...payload }));
+    }
+  }
+
+  // --- Rendering GM State ---
+  function renderGMState(state) {
+    currentGameState = state;
+    document.getElementById("phase-badge").innerText = state.phase.toUpperCase();
+    document.getElementById("round-num").innerText = state.round_number;
+    document.getElementById("player-count").innerText = state.players.length;
+
+    // Timer Sync
+    syncTimer(state.timer);
+
+    // Night Intel Feed
+    const intelFeed = document.getElementById("night-actions-feed");
+    const actions = state.night_actions || {};
+    let intelHtml = "";
+    if (Object.keys(actions).length === 0) {
+      intelHtml = "<em>No night actions queued yet.</em>";
+    } else {
+      intelHtml = "<ul style='margin:0; padding-left: 1.25rem;'>";
+      if (actions.wolf_target) {
+        const target = state.players.find(p => p.id === actions.wolf_target);
+        intelHtml += `<li>🐺 <strong>Wolves target:</strong> ${target ? target.name : 'Unknown'}</li>`;
+      }
+      if (actions.detective_query) {
+        const actor = state.players.find(p => p.id === actions.detective_query.actor_id);
+        const target = state.players.find(p => p.id === actions.detective_query.target_id);
+        intelHtml += `<li>🔍 <strong>Detective (${actor ? actor.name : ''}) inspected:</strong> ${target ? target.name : ''} &rarr; <em>${actions.detective_query.result}</em></li>`;
+      }
+      if (actions.doctor_protect) {
+        const target = state.players.find(p => p.id === actions.doctor_protect);
+        intelHtml += `<li>🩺 <strong>Doctor protects:</strong> ${target ? target.name : 'Unknown'}</li>`;
+      }
+      if (actions.sniper_shot) {
+        const target = state.players.find(p => p.id === actions.sniper_shot.target_id);
+        intelHtml += `<li>🎯 <strong>Sniper shoots:</strong> ${target ? target.name : 'Unknown'} (${actions.sniper_shot.bullet_type} bullet)</li>`;
+      }
+      if (actions.silencer_target) {
+        const target = state.players.find(p => p.id === actions.silencer_target);
+        intelHtml += `<li>🤐 <strong>Silencer casts spell on:</strong> ${target ? target.name : 'Unknown'}</li>`;
+      }
+      if (actions.witch_action) {
+        intelHtml += `<li>🧙‍♀️ <strong>Witch:</strong> Revive: ${actions.witch_action.revive ? 'Yes' : 'No'}, Kill Target: ${actions.witch_action.kill_target || 'None'}</li>`;
+      }
+      if (actions.mayor_veto) {
+        intelHtml += `<li>🎖️ <strong>Mayor:</strong> Executive Veto Active!</li>`;
+      }
+      if (actions.cupid_lovers) {
+        const l1 = state.players.find(p => p.id === actions.cupid_lovers[0]);
+        const l2 = state.players.find(p => p.id === actions.cupid_lovers[1]);
+        intelHtml += `<li>💘 <strong>Cupid bound:</strong> ${l1 ? l1.name : ''} & ${l2 ? l2.name : ''}</li>`;
+      }
+      intelHtml += "</ul>";
+    }
+    intelFeed.innerHTML = intelHtml;
+
+    // Player Rows
+    const tbody = document.getElementById("player-rows");
+    tbody.innerHTML = "";
+    state.players.forEach(p => {
+      const tr = document.createElement("tr");
+      tr.style.borderBottom = "1px solid #eee";
+
+      const statusBadge = `<span class="badge badge-${p.status}">${p.status}</span>`;
+      const silencedBadge = p.is_silenced ? '<span class="badge badge-silenced">🤐 Silenced</span>' : '';
+      const offlineBadge = p.is_offline ? '<span style="font-size:0.75rem; color:#888;">(Offline)</span>' : '';
+      const roleStr = p.role ? `${p.role.emoji} ${p.role.name}` : '<em style="color:#aaa;">Unassigned</em>';
+
+      let notes = [];
+      if (p.lover_name) notes.push(`💘 Lover: ${p.lover_name}`);
+      if (p.used_limbo) notes.push(`Used Limbo`);
+      if (p.last_guarded_id) {
+        const guarded = state.players.find(g => g.id === p.last_guarded_id);
+        if (guarded) notes.push(`Last guarded: ${guarded.name}`);
+      }
+
+      tr.innerHTML = `
+        <td style="padding: 0.5rem; font-weight: 500;">
+          ${escapeHtml(p.name)} ${offlineBadge}
+        </td>
+        <td style="padding: 0.5rem;">${roleStr}</td>
+        <td style="padding: 0.5rem;">${statusBadge} ${silencedBadge}</td>
+        <td style="padding: 0.5rem; font-size: 0.75rem; color: #666;">${notes.join(" · ")}</td>
+        <td style="padding: 0.5rem; text-align: right;">
+          <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">30s Defense</button>
+          <button onclick="togglePlayerStatus('${p.id}', '${p.status}')" class="btn btn-sm">Set Status</button>
+          <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">QR</button>
+          <button onclick="removePlayer('${p.id}')" class="btn btn-sm btn-danger">&times;</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Events Log
+    if (state.events_log) {
+      const el = document.getElementById("events-log");
+      el.innerHTML = state.events_log.map(e => `<div>[${e.phase}] ${escapeHtml(e.message)}</div>`).join("");
+      el.scrollTop = el.scrollHeight;
+    }
+  }
+
+  // --- Timer Engine ---
+  function syncTimer(timer) {
+    if (!timer) return;
+    document.getElementById("timer-label").innerText = timer.label || "Timer";
+    const btnToggle = document.getElementById("btn-timer-toggle");
+
+    if (timerInterval) clearInterval(timerInterval);
+
+    function update() {
+      let rem = timer.remaining;
+      if (!timer.paused && timer.ends_at) {
+        rem = Math.max(0, Math.floor(timer.ends_at - (Date.now() / 1000)));
+      }
+      const m = String(Math.floor(rem / 60)).padStart(2, "0");
+      const s = String(rem % 60).padStart(2, "0");
+      const el = document.getElementById("timer-val");
+      el.innerText = `${m}:${s}`;
+      if (rem === 0) {
+        el.classList.add("timer-pulse");
+      } else {
+        el.classList.remove("timer-pulse");
+      }
+    }
+    update();
+
+    if (!timer.paused) {
+      btnToggle.innerText = "Pause";
+      btnToggle.className = "btn";
+      timerInterval = setInterval(update, 1000);
+    } else {
+      btnToggle.innerText = "Resume";
+      btnToggle.className = "btn btn-primary";
+    }
+  }
+
+  function toggleTimer() {
+    if (!currentGameState || !currentGameState.timer) return;
+    if (currentGameState.timer.paused) {
+      sendAction("resume_timer");
+    } else {
+      sendAction("pause_timer");
+    }
+  }
+
+  function resetTimer(seconds, label) {
+    sendAction("start_timer", { duration: seconds, label: label });
+  }
+
+  // --- Actions ---
+  function changePhase(phase) {
+    sendAction("change_phase", { phase });
+  }
+
+  function resolveNight() {
+    if (confirm("Resolve all night actions and announce morning to Town?")) {
+      sendAction("resolve_night");
+    }
+  }
+
+  function dealRoles() {
+    if (confirm("Deal roles randomly to all players?")) {
+      sendAction("deal_roles");
+    }
+  }
+
+  function startDefense(playerId) {
+    sendAction("start_defense", { player_id: playerId });
+  }
+
+  function togglePlayerStatus(playerId, currentStatus) {
+    const nextStatus = currentStatus === "alive" ? "limbo" : (currentStatus === "limbo" ? "dead" : "alive");
+    const choice = prompt(`Change status for player. Type: 'alive', 'limbo', or 'dead':`, nextStatus);
+    if (choice && ["alive", "limbo", "dead"].includes(choice.toLowerCase())) {
+      sendAction("set_status", { player_id: playerId, status: choice.toLowerCase() });
+    }
+  }
+
+  function promptAddOfflinePlayer() {
+    const name = prompt("Enter name of offline player at table (no phone needed):");
+    if (name && name.trim()) {
+      sendAction("add_offline_player", { name: name.trim() });
+    }
+  }
+
+  function removePlayer(playerId) {
+    if (confirm("Remove player from room?")) {
+      sendAction("remove_player", { player_id: playerId });
+    }
+  }
+
+  // --- QR Modals ---
+  function openModal(id) {
+    document.getElementById(id).classList.add("active");
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove("active");
+  }
+
+  function showPlayerQR(playerId, playerName, token) {
+    document.getElementById("player-qr-name").innerText = `${playerName} - Private Reconnect`;
+    fetch(`/games/lupus/${ROOM_CODE}/qr/${token}/`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("player-qr-img").src = data.qr;
+        openModal("player-qr-modal");
+      });
+  }
+
+  function copyJoinLink() {
+    navigator.clipboard.writeText(JOIN_URL).then(() => {
+      alert("Join link copied to clipboard!");
+    });
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.innerText = text;
+    return div.innerHTML;
+  }
+</script>
+{% endblock %}

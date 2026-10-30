@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block title %}Create Lupus / Werewolf Room{% endblock %}
+
+{% block content %}
+<div style="max-width: 580px; margin: 0 auto; padding-bottom: 2rem;">
+  <h1 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem;">🐺 Create Lupus / Werewolf Room</h1>
+  <p style="font-size: 0.85rem; color: #666; margin-bottom: 1.5rem;">
+    Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.
+  </p>
+
+  <form method="post" style="display: flex; flex-direction: column; gap: 1.25rem;">
+    {% csrf_token %}
+
+    <div style="background: #fafafa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1rem;">
+      <h2 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem;">Room Setup</h2>
+      <div style="margin-bottom: 0.75rem;">
+        <label style="font-size: 0.85rem; font-weight: 500;">Room Title</label><br>
+        <input type="text" name="title" value="Lupus Game Night" required
+          style="width: 100%; padding: 0.4rem; font-size: 0.9rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+      </div>
+      <div style="margin-bottom: 0.75rem;">
+        <label style="font-size: 0.85rem; font-weight: 500;">Game Master Display Name</label><br>
+        <input type="text" name="gm_name" value="Game Master"
+          style="width: 100%; padding: 0.4rem; font-size: 0.9rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+      </div>
+      <div>
+        <label style="font-size: 0.85rem; font-weight: 500;">Room Password (optional)</label><br>
+        <input type="text" name="password" placeholder="Leave empty for public join"
+          style="width: 100%; padding: 0.4rem; font-size: 0.9rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        <span style="font-size: 0.75rem; color: #888;">If set, joining via QR code will auto-authenticate players automatically.</span>
+      </div>
+    </div>
+
+    <div style="background: #fafafa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1rem;">
+      <h2 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem;">Theme & Terms</h2>
+      <div style="display: flex; gap: 1.5rem; font-size: 0.9rem;">
+        <label style="cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+          <input type="radio" name="theme" value="werewolf" checked>
+          <span>🐺 <strong>Werewolf / Lupus</strong> (Villagers, Wolves, Seer)</span>
+        </label>
+        <label style="cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+          <input type="radio" name="theme" value="mafia">
+          <span>🕶️ <strong>Mafia</strong> (Civilians, Mobsters, Cop)</span>
+        </label>
+      </div>
+    </div>
+
+    <div style="background: #fafafa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1rem;">
+      <h2 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem;">Game Rules & Timers</h2>
+      
+      <div style="margin-bottom: 0.75rem;">
+        <label style="font-size: 0.85rem; font-weight: 500;">Discussion Round Timer</label><br>
+        <select name="discussion_timer" style="padding: 0.4rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc;">
+          <option value="300" selected>5 Minutes (Standard)</option>
+          <option value="180">3 Minutes (Fast)</option>
+          <option value="420">7 Minutes (Deliberate)</option>
+          <option value="600">10 Minutes</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 0.75rem;">
+        <label style="font-size: 0.85rem; font-weight: 500;">Defense Timer</label><br>
+        <select name="defense_timer" style="padding: 0.4rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc;">
+          <option value="30" selected>30 Seconds (Standard)</option>
+          <option value="45">45 Seconds</option>
+          <option value="60">60 Seconds</option>
+        </select>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem;">
+        <label style="font-size: 0.85rem; cursor: pointer; display: flex; align-items: flex-start; gap: 0.5rem;">
+          <input type="checkbox" name="limbo_enabled" value="1" checked style="margin-top: 0.2rem;">
+          <span>
+            <strong>Limbo & Angel Mechanic:</strong> Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!
+          </span>
+        </label>
+
+        <label style="font-size: 0.85rem; cursor: pointer; display: flex; align-items: flex-start; gap: 0.5rem;">
+          <input type="checkbox" name="staggering_doctor" value="1" checked style="margin-top: 0.2rem;">
+          <span>
+            <strong>Staggering Doctor:</strong> The Doctor / Guard cannot protect the same person two consecutive nights.
+          </span>
+        </label>
+
+        <label style="font-size: 0.85rem; cursor: pointer; display: flex; align-items: flex-start; gap: 0.5rem;">
+          <input type="checkbox" name="doctor_saves_from_sniper" value="1" style="margin-top: 0.2rem;">
+          <span>
+            <strong>Doctor Shields From Sniper:</strong> If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).
+          </span>
+        </label>
+      </div>
+
+      <div style="margin-top: 0.75rem;">
+        <label style="font-size: 0.85rem; font-weight: 500;">Sniper Bullet Types</label><br>
+        <select name="sniper_bullet_type" style="padding: 0.4rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc;">
+          <option value="danger" selected>Danger Bullets (Sniper dies if target is innocent Town)</option>
+          <option value="silver">Silver Bullets (Safe shot - sniper survives even on miss)</option>
+          <option value="mix">Mix (1 Danger + 1 Silver bullet)</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="background: #fafafa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1rem;">
+      <h2 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">Starting Role Deck Preset</h2>
+      <select name="preset" style="width: 100%; padding: 0.4rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 0.75rem;">
+        <option value="quick_5">Quick 5 (1 Wolf, Detective, Doctor, 2 Villagers)</option>
+        <option value="balanced_8" selected>Balanced 8 (2 Wolves, Detective, Doctor, Angel, Sniper, 2 Villagers)</option>
+        <option value="full_10">Full 10 (2 Wolves, Alpha Wolf, Silencer, Detective, Doctor, Angel, Sniper, Mayor, 2 Villagers)</option>
+        <option value="chaos_12">Chaos 12 (3 Wolves/Silencer, Detective, Doctor, Angel, Sniper, Mayor, Witch, Cupid, Jester, Villager)</option>
+      </select>
+      <span style="font-size: 0.75rem; color: #666;">You can customize the deck and player assignments at any time from your Game Master cockpit.</span>
+    </div>
+
+    <button type="submit" style="padding: 0.65rem 1.25rem; font-size: 1rem; font-weight: 600; background: #111; color: #fff; border: none; border-radius: 6px; cursor: pointer;">
+      Launch Lupus Room &rarr;
+    </button>
+  </form>
+</div>
+{% endblock %}

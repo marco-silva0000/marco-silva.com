@@ -1,6 +1,7 @@
 import random
 
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 
 from .models import Room
 
@@ -44,6 +45,13 @@ def _render_create(request, error=None):
 
 def room_join(request, code):
     room = get_object_or_404(Room, code=code, is_active=True)
+    if room.game_type == "lupus":
+        target = reverse("gamerooms:lupus:join", kwargs={"code": room.code})
+        qs = request.META.get("QUERY_STRING", "")
+        if qs:
+            target = f"{target}?{qs}"
+        return redirect(target)
+
     session_key = f"room_{room.code}"
 
     # Step 1: password (if needed and not already authed)
