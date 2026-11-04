@@ -408,6 +408,190 @@
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
   .modal.active { display: flex; }
   .modal-content { background: #fff; padding: 1.5rem; border-radius: 12px; max-width: 440px; width: 92%; box-sizing: border-box; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+
+  /* Notes Scratchpad & Autocomplete */
+  .notes-card {
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 0.95rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    position: relative;
+  }
+  .notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.65rem;
+  }
+  .notes-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+  }
+  .notes-tools {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .notes-subrow {
+    margin-bottom: 0.55rem;
+  }
+  .notes-subrow-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .notes-chips-container {
+    display: flex;
+    gap: 0.35rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .notes-chip {
+    flex-shrink: 0;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+  }
+  .notes-chip:hover {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+    color: #0f172a;
+  }
+  .notes-chip:active {
+    transform: scale(0.95);
+  }
+  .notes-emoji-chip {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #1e293b;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .notes-emoji-chip:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+  }
+  .notes-emoji-chip:active {
+    transform: scale(0.95);
+  }
+  .notes-canvas-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  .notes-textarea {
+    width: 100%;
+    min-height: 125px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 0.7rem;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: #0f172a;
+    background: #fafafa;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .notes-textarea:focus {
+    outline: none;
+    border-color: #6366f1;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  }
+  .notes-autocomplete-dropdown {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    top: calc(100% - 2px);
+    max-height: 190px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1.5px solid #6366f1;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    z-index: 50;
+    display: none;
+  }
+  .ac-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #f1f5f9;
+    user-select: none;
+  }
+  .ac-item:last-child {
+    border-bottom: none;
+  }
+  .ac-item.selected, .ac-item:hover {
+    background: #eef2ff;
+    color: #4338ca;
+  }
+  .notes-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.45rem;
+    font-size: 0.72rem;
+    color: #94a3b8;
+  }
+  .floating-notes-pill {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    background: #0f172a;
+    color: #fff;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.32);
+    border: 1px solid #475569;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .floating-notes-pill:active {
+    transform: scale(0.94);
+  }
 </style>
 
 <div class="player-container">
@@ -579,6 +763,91 @@
     <div id="player-voting-box" style="display: none; background: #fff; border: 2px solid #8b5cf6; border-radius: 14px; padding: 1.15rem; margin-bottom: 1.25rem; box-shadow: 0 4px 16px rgba(139,92,246,0.12);">
       <!-- Rendered dynamically -->
     </div>
+  </div>
+
+  <!-- =============================== -->
+  <!-- 3. PLAYER INVESTIGATION NOTEPAD -->
+  <!-- =============================== -->
+  <div id="player-notes-card" class="notes-card">
+    <div class="notes-header">
+      <div>
+        <h3 class="notes-title">
+          <span>📝 Investigation Notepad</span>
+        </h3>
+        <div style="font-size: 0.72rem; color: #64748b; margin-top: 0.1rem;">
+          Private to you · <span id="notes-save-status" style="color: #16a34a; font-weight: 700;">Auto-saved</span>
+        </div>
+      </div>
+      <div class="notes-tools">
+        <button type="button" onclick="copyPlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Copy notes to clipboard">
+          📋 Copy
+        </button>
+        <button type="button" onclick="clearPlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Clear notepad">
+          🗑️ Clear
+        </button>
+        <button type="button" id="btn-toggle-notes" onclick="togglePlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.55rem; font-size: 0.85rem;" title="Collapse/Expand">
+          −
+        </button>
+      </div>
+    </div>
+
+    <div id="notes-card-body">
+      <!-- Quick Action Tells (Emojis) -->
+      <div class="notes-subrow">
+        <div class="notes-subrow-label">
+          <span>⚡ Quick Action Tells</span>
+          <span style="font-weight: normal; text-transform: none; font-size: 0.68rem; color: #94a3b8;">Tap to insert</span>
+        </div>
+        <div class="notes-chips-container">
+          <button type="button" onclick="insertNoteSnippet('🗳️ voted ')" class="notes-emoji-chip">🗳️ Voted</button>
+          <button type="button" onclick="insertNoteSnippet('⏱️ delayed vote ')" class="notes-emoji-chip">⏱️ Delayed Vote</button>
+          <button type="button" onclick="insertNoteSnippet('🤫 quiet ')" class="notes-emoji-chip">🤫 Quiet</button>
+          <button type="button" onclick="insertNoteSnippet('😰 nervous ')" class="notes-emoji-chip">😰 Nervous</button>
+          <button type="button" onclick="insertNoteSnippet('🐺 sus ')" class="notes-emoji-chip">🐺 Wolf / Sus</button>
+          <button type="button" onclick="insertNoteSnippet('🛡️ innocent ')" class="notes-emoji-chip">🛡️ Innocent</button>
+          <button type="button" onclick="insertNoteSnippet('🎯 accused ')" class="notes-emoji-chip">🎯 Accused</button>
+          <button type="button" onclick="insertNoteSnippet('🤥 lied ')" class="notes-emoji-chip">🤥 Lie / Bluff</button>
+          <button type="button" onclick="insertNoteSnippet('👁️ claimed ')" class="notes-emoji-chip">👁️ Claimed</button>
+          <button type="button" onclick="insertNoteSnippet('• ')" class="notes-emoji-chip" style="font-weight: 800;">• Bullet</button>
+        </div>
+      </div>
+
+      <!-- Player Mention Chips -->
+      <div class="notes-subrow">
+        <div class="notes-subrow-label">
+          <span>👤 Mention Player</span>
+          <span style="font-weight: normal; text-transform: none; font-size: 0.68rem; color: #94a3b8;">Type @ or tap below</span>
+        </div>
+        <div id="notes-player-chips" class="notes-chips-container">
+          <!-- Filled dynamically from state.players -->
+        </div>
+      </div>
+
+      <!-- Canvas / Textarea -->
+      <div class="notes-canvas-wrapper">
+        <textarea
+          id="player-notes-textarea"
+          class="notes-textarea"
+          placeholder="Jot down suspicions, tells, vote patterns, or defense contradictions...&#10;Tip: Type @ to mention a player, or tap the quick emoji buttons above."
+          oninput="handleNotesInput()"
+        ></textarea>
+        <!-- @ Autocomplete Dropdown -->
+        <div id="notes-autocomplete-dropdown" class="notes-autocomplete-dropdown"></div>
+      </div>
+
+      <!-- Footer Info & Quick Helpers -->
+      <div class="notes-footer">
+        <span id="notes-char-count">0 characters</span>
+        <span id="notes-toast" style="color: #6366f1; font-weight: 700; transition: opacity 0.2s;"></span>
+        <span>🔒 Only you can see this</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Shortcut Button -->
+  <div id="floating-notes-pill" class="floating-notes-pill" onclick="openAndScrollToNotes()">
+    <span>📝</span>
+    <span>Notes</span>
   </div>
 
   <!-- Table Players List & Seating Map (Common to both) -->
@@ -997,6 +1266,9 @@
 
     // Players Table Seating & List
     renderPlayerTableSeating(state);
+
+    // Player Notes Mention Chips
+    renderPlayerMentionChips();
   }
 
   // --- Player Seating Layout Engine ---
@@ -1421,5 +1693,286 @@
     div.innerText = text;
     return div.innerHTML;
   }
+
+  // --- Player Investigation Notepad & @ Autocomplete ---
+  const notesTextarea = document.getElementById("player-notes-textarea");
+  const notesAcDropdown = document.getElementById("notes-autocomplete-dropdown");
+  let notesSaveTimeout = null;
+  let notesToastTimeout = null;
+
+  let acVisible = false;
+  let acSelectedIndex = 0;
+  let acMatches = [];
+  let acMatchStart = -1;
+  let acMatchEnd = -1;
+
+  let notesCollapsed = localStorage.getItem(`lupus_notes_collapsed_${ROOM_CODE}`) === "true";
+
+  function initPlayerNotes() {
+    if (!notesTextarea) return;
+    const saved = localStorage.getItem(`lupus_notes_${ROOM_CODE}_${MY_PID}`);
+    if (saved) {
+      notesTextarea.value = saved;
+      updateCharCount();
+    }
+    updateNotesCollapsedView();
+  }
+
+  function handleNotesInput() {
+    saveNotesToStorage();
+    updateCharCount();
+    checkMentionAutocomplete();
+  }
+
+  function updateCharCount() {
+    const el = document.getElementById("notes-char-count");
+    if (!el || !notesTextarea) return;
+    const count = notesTextarea.value.length;
+    el.innerText = `${count} character${count === 1 ? '' : 's'}`;
+  }
+
+  function saveNotesToStorage() {
+    if (!notesTextarea) return;
+    localStorage.setItem(`lupus_notes_${ROOM_CODE}_${MY_PID}`, notesTextarea.value);
+    const statusEl = document.getElementById("notes-save-status");
+    if (statusEl) {
+      statusEl.style.display = "inline";
+      if (notesSaveTimeout) clearTimeout(notesSaveTimeout);
+      notesSaveTimeout = setTimeout(() => {
+        statusEl.style.display = "none";
+      }, 1500);
+    }
+  }
+
+  function showNotesToast(msg) {
+    const toast = document.getElementById("notes-toast");
+    if (!toast) return;
+    toast.innerText = msg;
+    if (notesToastTimeout) clearTimeout(notesToastTimeout);
+    notesToastTimeout = setTimeout(() => {
+      toast.innerText = "";
+    }, 2200);
+  }
+
+  function insertNoteSnippet(text) {
+    if (!notesTextarea) return;
+    const start = notesTextarea.selectionStart;
+    const end = notesTextarea.selectionEnd;
+    const val = notesTextarea.value;
+    const newVal = val.slice(0, start) + text + val.slice(end);
+    notesTextarea.value = newVal;
+    const newPos = start + text.length;
+    notesTextarea.setSelectionRange(newPos, newPos);
+    notesTextarea.focus();
+    saveNotesToStorage();
+    updateCharCount();
+    hideAcDropdown();
+  }
+
+  function copyPlayerNotes() {
+    if (!notesTextarea || !notesTextarea.value) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(notesTextarea.value).then(() => {
+        showNotesToast("Copied notes! 📋");
+      }).catch(() => {
+        notesTextarea.select();
+        document.execCommand("copy");
+        showNotesToast("Copied notes! 📋");
+      });
+    } else {
+      notesTextarea.select();
+      document.execCommand("copy");
+      showNotesToast("Copied notes! 📋");
+    }
+  }
+
+  function clearPlayerNotes() {
+    if (!notesTextarea || !notesTextarea.value.trim()) return;
+    if (confirm("Are you sure you want to clear your notepad?")) {
+      notesTextarea.value = "";
+      saveNotesToStorage();
+      updateCharCount();
+      showNotesToast("Notes cleared 🗑️");
+    }
+  }
+
+  function togglePlayerNotes() {
+    notesCollapsed = !notesCollapsed;
+    localStorage.setItem(`lupus_notes_collapsed_${ROOM_CODE}`, notesCollapsed ? "true" : "false");
+    updateNotesCollapsedView();
+  }
+
+  function updateNotesCollapsedView() {
+    const body = document.getElementById("notes-card-body");
+    const btn = document.getElementById("btn-toggle-notes");
+    if (body && btn) {
+      body.style.display = notesCollapsed ? "none" : "block";
+      btn.innerText = notesCollapsed ? "+" : "−";
+      btn.title = notesCollapsed ? "Expand notepad" : "Collapse notepad";
+    }
+  }
+
+  function openAndScrollToNotes() {
+    notesCollapsed = false;
+    localStorage.setItem(`lupus_notes_collapsed_${ROOM_CODE}`, "false");
+    updateNotesCollapsedView();
+    const card = document.getElementById("player-notes-card");
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        if (notesTextarea) notesTextarea.focus();
+      }, 250);
+    }
+  }
+
+  function renderPlayerMentionChips() {
+    const container = document.getElementById("notes-player-chips");
+    if (!container) return;
+    const players = (currentGameState && currentGameState.players) ? currentGameState.players : [];
+    container.innerHTML = "";
+    if (players.length === 0) {
+      container.innerHTML = "<span style='font-size:0.75rem; color:#94a3b8;'>Waiting for players to join...</span>";
+      return;
+    }
+    players.forEach(p => {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "notes-chip";
+      const statusIcon = p.status === "alive" ? "🟢" : (p.status === "limbo" ? "🟡" : "💀");
+      chip.innerHTML = `${statusIcon} @${escapeHtml(p.name)}`;
+      chip.title = `Mention ${p.name} (${p.status})`;
+      chip.onclick = () => insertNoteSnippet(`@${p.name} `);
+      container.appendChild(chip);
+    });
+  }
+
+  // --- @ Autocomplete Handling ---
+  function checkMentionAutocomplete() {
+    if (!notesTextarea || !notesAcDropdown) return;
+    const val = notesTextarea.value;
+    const cursor = notesTextarea.selectionStart;
+    const textBefore = val.slice(0, cursor);
+
+    // Look for @ followed by any characters until cursor (without newline)
+    const match = textBefore.match(/@([a-zA-Z0-9_\u00C0-\u017F\s]{0,20})$/);
+    if (!match) {
+      hideAcDropdown();
+      return;
+    }
+
+    const query = match[1].trim().toLowerCase();
+    acMatchStart = cursor - match[0].length;
+    acMatchEnd = cursor;
+
+    const players = (currentGameState && currentGameState.players) ? currentGameState.players : [];
+    acMatches = players.filter(p => !query || p.name.toLowerCase().includes(query));
+
+    if (acMatches.length === 0) {
+      hideAcDropdown();
+      return;
+    }
+
+    showAcDropdown(acMatches);
+  }
+
+  function showAcDropdown(matches) {
+    if (!notesAcDropdown) return;
+    notesAcDropdown.innerHTML = "";
+    acSelectedIndex = 0;
+    acVisible = true;
+
+    matches.forEach((p, idx) => {
+      const item = document.createElement("div");
+      item.className = `ac-item ${idx === 0 ? 'selected' : ''}`;
+      item.dataset.index = idx;
+      const statusColor = p.status === 'alive' ? '#16a34a' : (p.status === 'limbo' ? '#d97706' : '#dc2626');
+      const isMe = p.is_me ? ' <span style="color:#2563eb; font-size:0.75rem;">(You)</span>' : '';
+      const seatBadge = p.seat_number ? `<span style="font-size:0.72rem; font-weight:700; color:#64748b; background:#f1f5f9; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem;">#${p.seat_number}</span>` : '';
+
+      item.innerHTML = `
+        <div style="display:flex; align-items:center;">
+          ${seatBadge}
+          <strong style="color:#0f172a;">${escapeHtml(p.name)}</strong>${isMe}
+        </div>
+        <span style="font-size:0.7rem; font-weight:700; color:${statusColor}; text-transform:uppercase;">${p.status}</span>
+      `;
+
+      item.addEventListener("pointerdown", (e) => {
+        e.preventDefault(); // prevent blur on textarea
+        selectAcPlayer(p);
+      });
+
+      notesAcDropdown.appendChild(item);
+    });
+
+    notesAcDropdown.style.display = "block";
+  }
+
+  function hideAcDropdown() {
+    if (!notesAcDropdown) return;
+    notesAcDropdown.style.display = "none";
+    acVisible = false;
+    acMatches = [];
+    acSelectedIndex = 0;
+  }
+
+  function updateAcHighlight() {
+    if (!notesAcDropdown) return;
+    const items = notesAcDropdown.querySelectorAll(".ac-item");
+    items.forEach((item, idx) => {
+      if (idx === acSelectedIndex) {
+        item.classList.add("selected");
+        item.scrollIntoView({ block: "nearest" });
+      } else {
+        item.classList.remove("selected");
+      }
+    });
+  }
+
+  function selectAcPlayer(player) {
+    if (!notesTextarea || acMatchStart < 0) return;
+    const val = notesTextarea.value;
+    const mention = `@${player.name} `;
+    const newVal = val.slice(0, acMatchStart) + mention + val.slice(acMatchEnd);
+    notesTextarea.value = newVal;
+    const newPos = acMatchStart + mention.length;
+    notesTextarea.setSelectionRange(newPos, newPos);
+    notesTextarea.focus();
+    hideAcDropdown();
+    saveNotesToStorage();
+    updateCharCount();
+  }
+
+  if (notesTextarea) {
+    notesTextarea.addEventListener("keydown", (e) => {
+      if (!acVisible || acMatches.length === 0) return;
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        acSelectedIndex = (acSelectedIndex + 1) % acMatches.length;
+        updateAcHighlight();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        acSelectedIndex = (acSelectedIndex - 1 + acMatches.length) % acMatches.length;
+        updateAcHighlight();
+      } else if (e.key === "Enter" || e.key === "Tab") {
+        if (acMatches[acSelectedIndex]) {
+          e.preventDefault();
+          selectAcPlayer(acMatches[acSelectedIndex]);
+        }
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        hideAcDropdown();
+      }
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    if (acVisible && notesAcDropdown && !notesAcDropdown.contains(e.target) && e.target !== notesTextarea) {
+      hideAcDropdown();
+    }
+  });
+
+  // Initialize player notes from localStorage on load
+  initPlayerNotes();
 </script>
 {% endblock %}

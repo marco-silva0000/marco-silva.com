@@ -699,6 +699,35 @@ class TestLupusQR:
         assert len(uri) > 100
 
 
+class TestLupusNotepadTemplate:
+    def test_player_template_renders_notepad(self):
+        from django.template.loader import render_to_string
+
+        context = {
+            "code": "TESTROOM",
+            "player": {"id": "p1", "token": "tok1", "name": "Alice"},
+            "state": {
+                "title": "Test Room",
+                "phase": "lobby",
+                "round_number": 1,
+                "players": [{"id": "p1", "name": "Alice", "status": "alive", "is_me": True}],
+                "me": {"id": "p1", "name": "Alice", "status": "alive"},
+                "timer": {"label": "Discussion", "remaining": 120, "paused": True},
+            },
+            "roles_catalogue": [],
+        }
+        rendered = render_to_string("lupus/player.html", context)
+        assert "Investigation Notepad" in rendered
+        assert "player-notes-textarea" in rendered
+        assert "notes-autocomplete-dropdown" in rendered
+        assert "notes-player-chips" in rendered
+        assert "🗳️ Voted" in rendered
+        assert "⏱️ Delayed Vote" in rendered
+        assert "🤫 Quiet" in rendered
+        assert "😰 Nervous" in rendered
+        assert "floating-notes-pill" in rendered
+
+
 @pytest.mark.django_db
 class TestLupusViews:
     def test_create_room_get(self, client):

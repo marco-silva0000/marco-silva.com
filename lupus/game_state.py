@@ -652,8 +652,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "role_id": "sniper",
                 "actors": sniper_players,
                 "script": (
-                    "Sniper, wake up! Silently point if you wish to shoot someone tonight, "
-                    "or shake head to pass."
+                    "Sniper, wake up! Silently point if you wish to shoot someone tonight, or shake head to pass."
                 ),
                 "target_id": s_target_id,
                 "target_name": players[s_target_id]["name"] if s_target_id in players else None,
@@ -1393,8 +1392,7 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
             voting["final_votes"] = {}  # Clear for fresh revote
             joined_tied = ", ".join(tied_names)
             msg = (
-                f"⚖️ TIE between {joined_tied} ({max_votes} votes each)! "
-                "Runoff revote initiated among tied candidates."
+                f"⚖️ TIE between {joined_tied} ({max_votes} votes each)! Runoff revote initiated among tied candidates."
             )
             log_event(state, msg)
             save_game(state["code"], state)
