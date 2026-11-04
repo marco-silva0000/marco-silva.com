@@ -6,6 +6,7 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from .game_state import (
     add_player,
+    cast_final_vote,
     clear_gm_night_action,
     get_game,
     get_gm_view,
@@ -13,10 +14,14 @@ from .game_state import (
     guess_angel_in_limbo,
     move_player,
     pause_timer,
+    proceed_to_defense,
+    proceed_to_final_vote,
+    record_gm_final_vote_tally,
     record_gm_night_action,
     remove_player,
     reorder_players,
     reset_timer,
+    reset_voting,
     resolve_night,
     resume_timer,
     return_to_lobby,
@@ -26,11 +31,15 @@ from .game_state import (
     set_deck,
     set_manual_player_role,
     set_night_stage_index,
+    set_nomination_tally_direct,
     set_player_status,
     set_round_number,
     start_game,
     start_timer,
-    submit_night_action,
+    start_voting_session,
+    tally_and_resolve_vote,
+    toggle_nomination_vote,
+    toggle_official_nomination,
 )
 
 
@@ -74,10 +83,9 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             await self.send_json({"type": "gm_state", "data": get_gm_view(state)})
         elif self.player_id:
             if self.player_id not in state["players"]:
-                await self.send_json({
-                    "type": "player_kicked",
-                    "message": "You were removed from this room by the Game Master."
-                })
+                await self.send_json(
+                    {"type": "player_kicked", "message": "You were removed from this room by the Game Master."}
+                )
                 return
             await self.send_json(
                 {
@@ -87,10 +95,12 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             )
 
     async def player_kicked_event(self, event):
-        await self.send_json({
-            "type": "player_kicked",
-            "message": event.get("message", "You were removed from this room by the Game Master.")
-        })
+        await self.send_json(
+            {
+                "type": "player_kicked",
+                "message": event.get("message", "You were removed from this room by the Game Master."),
+            }
+        )
 
     async def receive_json(self, content: dict[str, Any]):
         action = content.get("action")
@@ -218,13 +228,16 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             elif action == "change_phase":
                 new_phase = content.get("phase")
                 if new_phase in ("lobby", "night", "day_discussion", "day_defense", "day_voting", "gameover"):
-                    state["phase"] = new_phase
-                    if new_phase == "night":
-                        set_night_stage_index(state, 0)
-                        state["revealed_inspect"] = None
-                    elif new_phase == "day_discussion":
-                        start_timer(state, state["settings"].get("discussion_timer", 300), "Discussion")
-                    save_game(self.code, state)
+                    if new_phase == "day_voting":
+                        start_voting_session(state)
+                    else:
+                        state["phase"] = new_phase
+                        if new_phase == "night":
+                            set_night_stage_index(state, 0)
+                            state["revealed_inspect"] = None
+                        elif new_phase == "day_discussion":
+                            start_timer(state, state["settings"].get("discussion_timer", 300), "Discussion")
+                        save_game(self.code, state)
                     await self.broadcast_sync()
 
             elif action == "set_night_stage":
@@ -270,15 +283,57 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             elif action == "start_defense":
                 pid = content.get("player_id")
                 if pid and pid in state["players"]:
-                    state["phase"] = "day_defense"
-                    state["defense_player_id"] = pid
-                    # 30 second defense timer
-                    start_timer(
-                        state,
-                        state["settings"].get("defense_timer", 30),
-                        f"Defense: {state['players'][pid]['name']}",
-                    )
+                    proceed_to_defense(state, pid)
                     await self.broadcast_sync()
+
+            elif action == "start_voting":
+                sys = content.get("system")
+                start_voting_session(state, sys)
+                await self.broadcast_sync()
+
+            elif action == "toggle_nomination":
+                voter_id = content.get("voter_id", "gm")
+                cid = content.get("candidate_id")
+                if cid:
+                    toggle_nomination_vote(state, voter_id, cid)
+                    await self.broadcast_sync()
+
+            elif action == "set_nomination_tally":
+                cid = content.get("candidate_id")
+                count = int(content.get("count", 0))
+                if cid:
+                    set_nomination_tally_direct(state, cid, count)
+                    await self.broadcast_sync()
+
+            elif action == "toggle_official_nominee":
+                pid = content.get("player_id")
+                if pid:
+                    toggle_official_nomination(state, pid)
+                    await self.broadcast_sync()
+
+            elif action == "proceed_defense":
+                pid = content.get("player_id")
+                proceed_to_defense(state, pid)
+                await self.broadcast_sync()
+
+            elif action == "proceed_final_vote":
+                proceed_to_final_vote(state)
+                await self.broadcast_sync()
+
+            elif action == "record_final_vote_tally":
+                cid = content.get("candidate_id")
+                count = int(content.get("count", 0))
+                if cid:
+                    record_gm_final_vote_tally(state, cid, count)
+                    await self.broadcast_sync()
+
+            elif action == "tally_vote":
+                tally_and_resolve_vote(state)
+                await self.broadcast_sync()
+
+            elif action == "reset_voting":
+                reset_voting(state)
+                await self.broadcast_sync()
 
             elif action == "resolve_night":
                 resolve_night(state)
@@ -295,12 +350,28 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
         # 3. Player Operations
         if self.player_id and self.player_id in state["players"]:
             if action == "night_action":
-                act_type = content.get("action_type")
-                target_id = content.get("target_id")
-                extra = content.get("extra")
-                success, msg = submit_night_action(state, self.player_id, act_type, target_id, extra)
-                await self.send_json({"type": "action_result", "success": success, "message": msg})
-                # Inform GM that a night action was submitted
+                await self.send_json(
+                    {
+                        "type": "action_result",
+                        "success": False,
+                        "message": (
+                            "Night actions are performed by silently pointing fingers to the "
+                            "Game Master to prevent cheating."
+                        ),
+                    }
+                )
+
+            elif action == "vote_nominate":
+                cid = content.get("candidate_id")
+                if cid:
+                    success, msg = toggle_nomination_vote(state, self.player_id, cid)
+                    await self.send_json({"type": "vote_result", "success": success, "message": msg})
+                    await self.broadcast_sync()
+
+            elif action == "vote_final":
+                cid = content.get("candidate_id")
+                success, msg = cast_final_vote(state, self.player_id, cid)
+                await self.send_json({"type": "vote_result", "success": success, "message": msg})
                 await self.broadcast_sync()
 
             elif action == "guess_angel":

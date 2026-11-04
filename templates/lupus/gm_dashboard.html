@@ -472,6 +472,74 @@
     border: 1px solid #22c55e;
   }
 
+  /* Day Trial & Voting Director */
+  .voting-director-box {
+    background: #0f172a;
+    color: #f8fafc;
+    border-radius: 14px;
+    border: 2px solid #8b5cf6;
+    padding: 1.1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .voting-stepper {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.85rem;
+    border-bottom: 1px solid #1e293b;
+    scrollbar-width: thin;
+  }
+  .voting-step-pill {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: #1e293b;
+    color: #94a3b8;
+    white-space: nowrap;
+    border: 1px solid #334155;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .voting-step-pill.active {
+    background: #7c3aed;
+    color: #fff;
+    border-color: #a78bfa;
+    box-shadow: 0 2px 8px rgba(124,58,237,0.4);
+    font-weight: 700;
+  }
+  .voting-step-pill.completed {
+    border-color: #22c55e;
+    color: #86efac;
+  }
+  .candidate-voting-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 0.65rem;
+    margin-top: 0.75rem;
+  }
+  .candidate-voting-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 0.75rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.15s ease;
+  }
+  .candidate-voting-card.nominated {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+  }
+  .candidate-voting-card.tied {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.15);
+  }
+
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
   .modal.active { display: flex; }
   .modal-content { background: #fff; padding: 1.5rem; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
@@ -857,6 +925,136 @@
           <span style="font-size: 0.75rem; color: #94a3b8;">Tip: Tap any player in the U-table / Ring below to pick them!</span>
           <button id="btn-stage-next" onclick="nextNightStage()" class="btn btn-sm btn-primary" style="background: #2563eb; border-color: #2563eb;">
             Next Stage &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- DAY TRIAL & VOTING DIRECTOR (Active During Day Voting Phase) -->
+    <!-- ============================================== -->
+    <div id="voting-director-box" class="voting-director-box" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.4rem;">
+        <h3 style="font-size: 1.05rem; margin: 0; color: #c4b5fd; display: flex; align-items: center; gap: 0.4rem;">
+          <span>⚖️ Day Trial &amp; Voting Director</span>
+          <span id="voting-system-badge" style="font-size: 0.75rem; background: #2e1065; color: #ddd6fe; padding: 0.15rem 0.5rem; border-radius: 999px; border: 1px solid #7c3aed;">50% Threshold</span>
+        </h3>
+        <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+          <select id="gm-voting-system-select" onchange="changeVotingSystem(this.value)" style="padding: 0.25rem 0.5rem; background: #1e293b; color: #cbd5e1; border: 1px solid #334155; border-radius: 6px; font-size: 0.75rem;">
+            <option value="two_stage_50pct">Two-Stage (50% Threshold)</option>
+            <option value="two_stage_top_n">Two-Stage (Top 2 Nominees)</option>
+            <option value="simple_plurality">Simple Plurality (Single Stage)</option>
+          </select>
+          <button onclick="resetVotingSession()" class="btn btn-sm" style="background: #334155; color: #94a3b8; border-color: #475569; font-size: 0.72rem; padding: 0.2rem 0.5rem;">
+            ↺ Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Stage Stepper Pills -->
+      <div class="voting-stepper">
+        <div id="vstep-nomination" class="voting-step-pill">1. Nominations</div>
+        <div id="vstep-defense" class="voting-step-pill">2. Defense Speech</div>
+        <div id="vstep-final" class="voting-step-pill">3. Final Ballot / Revote</div>
+        <div id="vstep-outcome" class="voting-step-pill">4. Execution Outcome</div>
+      </div>
+
+      <!-- STAGE 1: NOMINATION VIEW -->
+      <div id="voting-nomination-view" style="display: none;">
+        <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem;">
+            <div>
+              <span style="font-size: 0.88rem; font-weight: 700; color: #e2e8f0;">Stage 1: Town Nominations</span>
+              <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.15rem;">
+                Threshold: <strong id="nom-threshold-num" style="color: #38bdf8;">0</strong> votes needed (<span id="nom-living-count">0</span> living players).
+                Multi-vote allowed (players can raise hands for multiple candidates).
+              </div>
+            </div>
+            <div id="nom-count-badge" style="font-size: 0.8rem; font-weight: 700; background: #064e3b; color: #a7f3d0; border: 1px solid #059669; padding: 0.2rem 0.6rem; border-radius: 999px;">
+              0 Nominated
+            </div>
+          </div>
+        </div>
+
+        <!-- Candidate Cards Grid -->
+        <div id="nomination-candidates-grid" class="candidate-voting-grid">
+          <!-- Filled dynamically -->
+        </div>
+
+        <!-- Action Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid #334155; flex-wrap: wrap; gap: 0.5rem;">
+          <span style="font-size: 0.75rem; color: #94a3b8;">Tip: Use [+] / [-] for physical hand raises, or tap table seats directly.</span>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <button onclick="proceedToDefense()" class="btn btn-sm" style="background: #4338ca; color: #fff; border-color: #4338ca; font-weight: 700;">
+              Proceed to Defense ➔
+            </button>
+            <button onclick="proceedToFinalVote()" class="btn btn-sm btn-primary" style="background: #7c3aed; border-color: #7c3aed; font-weight: 700;">
+              Go Directly to Ballot ➔
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 2: DEFENSE VIEW -->
+      <div id="voting-defense-view" style="display: none;">
+        <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 0.75rem;">
+          <span style="font-size: 0.88rem; font-weight: 700; color: #e2e8f0;">Stage 2: Accused Defense Speeches</span>
+          <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.15rem;">
+            Each nominated player has a timed opportunity to plead their innocence to the town.
+          </div>
+        </div>
+
+        <div id="defense-nominees-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <!-- Filled dynamically -->
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid #334155; flex-wrap: wrap; gap: 0.5rem;">
+          <button onclick="startVotingSession()" class="btn btn-sm" style="background: #334155; color: #cbd5e1; border-color: #475569;">
+            &larr; Back to Nominations
+          </button>
+          <button onclick="proceedToFinalVote()" class="btn btn-sm btn-primary" style="background: #7c3aed; border-color: #7c3aed; font-weight: 700;">
+            Proceed to Final Ballot ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- STAGE 3: FINAL BALLOT / REVOTE VIEW -->
+      <div id="voting-final-view" style="display: none;">
+        <div id="final-vote-banner" style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 0.75rem;">
+          <!-- Banner filled dynamically -->
+        </div>
+
+        <div id="final-candidates-grid" class="candidate-voting-grid">
+          <!-- Filled dynamically -->
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid #334155; flex-wrap: wrap; gap: 0.5rem;">
+          <button onclick="proceedToDefense()" class="btn btn-sm" style="background: #334155; color: #cbd5e1; border-color: #475569;">
+            &larr; Defense
+          </button>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <button onclick="proceedToFinalVote()" class="btn btn-sm" style="background: #334155; color: #94a3b8; border-color: #475569;">
+              Clear Ballot
+            </button>
+            <button onclick="tallyAndResolveVote()" class="btn btn-sm" style="background: #16a34a; color: #fff; border-color: #16a34a; font-weight: 800; font-size: 0.9rem; padding: 0.45rem 1rem;">
+              ⚖️ Tally Votes &amp; Resolve Execution
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 4: EXECUTION OUTCOME VIEW -->
+      <div id="voting-outcome-view" style="display: none;">
+        <div id="voting-outcome-card" style="border-radius: 10px; padding: 1.1rem; text-align: center; margin-bottom: 0.75rem;">
+          <!-- Filled dynamically -->
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.85rem;">
+          <button onclick="changePhase('night')" class="btn" style="background: #1e1e24; color: #fff; border-color: #3b82f6; font-weight: 700; padding: 0.55rem 1.25rem;">
+            🌙 Proceed to Night Phase
+          </button>
+          <button onclick="startVotingSession()" class="btn btn-sm" style="background: #334155; color: #cbd5e1; border-color: #475569;">
+            🗳️ Hold Another Vote Session
           </button>
         </div>
       </div>
@@ -1356,6 +1554,7 @@
 
     // Night Stage Director & Dawn Report
     renderNightDirector(state);
+    renderVotingDirector(state);
 
     // Update seating layout and roles visibility
     updateRoleVisBtn();
@@ -1710,6 +1909,15 @@
     if (currentGameState.phase === "night") {
       // In night: click immediately registers active stage target
       recordStageTarget(playerId);
+    } else if (currentGameState.phase === "day_voting" && currentGameState.voting) {
+      const v = currentGameState.voting;
+      if (v.stage === "nomination") {
+        setNominationTally(playerId, 1);
+      } else if (v.stage === "final_vote" || v.stage === "revote") {
+        setFinalVoteTally(playerId, 1);
+      } else {
+        openPlayerSeatModal(playerId);
+      }
     } else {
       openPlayerSeatModal(playerId);
     }
@@ -1959,6 +2167,363 @@
 
   function onSelectTargetChange(val) {
     if (val) recordStageTarget(val);
+  }
+
+  // --- Day Voting & Trial Director Wizard ---
+  function renderVotingDirector(state) {
+    const directorBox = document.getElementById("voting-director-box");
+    if (!directorBox) return;
+
+    if (state.phase !== "day_voting" && (!state.voting || state.voting.stage === "none")) {
+      directorBox.style.display = "none";
+      return;
+    }
+
+    directorBox.style.display = "block";
+    const v = state.voting || {};
+    const stage = v.stage || "nomination";
+    const system = v.system || "two_stage_50pct";
+
+    // Update system dropdown & badge
+    const sysSelect = document.getElementById("gm-voting-system-select");
+    if (sysSelect) sysSelect.value = system;
+
+    const sysBadge = document.getElementById("voting-system-badge");
+    if (sysBadge) {
+      if (system === "two_stage_50pct") {
+        sysBadge.innerText = "50% Living Threshold";
+      } else if (system === "two_stage_top_n") {
+        sysBadge.innerText = "Top 2 Nominees";
+      } else {
+        sysBadge.innerText = "Simple Plurality";
+      }
+    }
+
+    // Update stepper pills
+    const stepNom = document.getElementById("vstep-nomination");
+    const stepDef = document.getElementById("vstep-defense");
+    const stepFin = document.getElementById("vstep-final");
+    const stepOut = document.getElementById("vstep-outcome");
+
+    [stepNom, stepDef, stepFin, stepOut].forEach(el => {
+      if (el) el.className = "voting-step-pill";
+    });
+
+    if (stage === "nomination") {
+      if (stepNom) stepNom.classList.add("active");
+    } else if (stage === "defense") {
+      if (stepNom) stepNom.classList.add("completed");
+      if (stepDef) stepDef.classList.add("active");
+    } else if (stage === "final_vote" || stage === "revote") {
+      if (stepNom) stepNom.classList.add("completed");
+      if (stepDef) stepDef.classList.add("completed");
+      if (stepFin) {
+        stepFin.classList.add("active");
+        if (v.is_revote) {
+          stepFin.innerText = "3. RUNOFF REVOTE (1st Tie)";
+        } else {
+          stepFin.innerText = "3. Final Ballot";
+        }
+      }
+    } else if (stage === "completed") {
+      if (stepNom) stepNom.classList.add("completed");
+      if (stepDef) stepDef.classList.add("completed");
+      if (stepFin) stepFin.classList.add("completed");
+      if (stepOut) stepOut.classList.add("active");
+    }
+
+    // Toggle views
+    const viewNom = document.getElementById("voting-nomination-view");
+    const viewDef = document.getElementById("voting-defense-view");
+    const viewFin = document.getElementById("voting-final-view");
+    const viewOut = document.getElementById("voting-outcome-view");
+
+    if (viewNom) viewNom.style.display = stage === "nomination" ? "block" : "none";
+    if (viewDef) viewDef.style.display = stage === "defense" ? "block" : "none";
+    if (viewFin) viewFin.style.display = (stage === "final_vote" || stage === "revote") ? "block" : "none";
+    if (viewOut) viewOut.style.display = stage === "completed" ? "block" : "none";
+
+    // 1. Render Nomination Stage
+    if (stage === "nomination") {
+      const thEl = document.getElementById("nom-threshold-num");
+      if (thEl) thEl.innerText = v.threshold_votes || 1;
+      const lcEl = document.getElementById("nom-living-count");
+      if (lcEl) lcEl.innerText = v.living_count || 0;
+      
+      const nomineesCount = (v.official_nominee_ids || []).length;
+      const countBadge = document.getElementById("nom-count-badge");
+      if (countBadge) {
+        countBadge.innerText = `${nomineesCount} Nominated`;
+        countBadge.style.background = nomineesCount > 0 ? "#064e3b" : "#1e293b";
+        countBadge.style.color = nomineesCount > 0 ? "#a7f3d0" : "#94a3b8";
+      }
+
+      const grid = document.getElementById("nomination-candidates-grid");
+      if (grid) {
+        grid.innerHTML = "";
+        const cands = v.nomination_candidates || [];
+        if (cands.length === 0) {
+          grid.innerHTML = "<p style='color:#94a3b8; font-size:0.85rem; grid-column:1/-1;'>No living candidates available.</p>";
+        } else {
+          cands.forEach(cand => {
+            const card = document.createElement("div");
+            const isNom = cand.is_nominated;
+            card.className = `candidate-voting-card ${isNom ? 'nominated' : ''}`;
+
+            const roleDisplay = cand.role ? `${cand.role.emoji} ${cand.role.name}` : "";
+
+            card.innerHTML = `
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.4rem;">
+                <div>
+                  <span style="font-size:0.75rem; color:#94a3b8; font-weight:700;">#${cand.seat_number}</span>
+                  <span style="font-size:0.95rem; font-weight:700; color:#fff; margin-left:0.25rem;">${escapeHtml(cand.name)}</span>
+                  ${roleDisplay ? `<div style="font-size:0.75rem; color:#93c5fd;">${roleDisplay}</div>` : ''}
+                </div>
+                ${isNom ? '<span style="font-size:0.7rem; font-weight:800; background:#065f46; color:#a7f3d0; padding:0.1rem 0.4rem; border-radius:6px; border:1px solid #10b981;">NOMINATED</span>' : ''}
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; background:#0f172a; padding:0.4rem 0.6rem; border-radius:8px; border:1px solid #334155; margin-top:0.4rem;">
+                <span style="font-size:0.75rem; color:#cbd5e1;">Votes:</span>
+                <div style="display:flex; align-items:center; gap:0.4rem;">
+                  <button onclick="setNominationTally('${cand.id}', -1)" class="btn btn-sm" style="min-height:26px; padding:0.1rem 0.45rem; background:#334155; color:#cbd5e1; border-color:#475569;" title="Remove 1 hand">&minus;</button>
+                  <span style="font-size:1.05rem; font-weight:800; color:${cand.vote_count >= v.threshold_votes ? '#34d399' : '#38bdf8'}; min-width:24px; text-align:center;">${cand.vote_count}</span>
+                  <button onclick="setNominationTally('${cand.id}', 1)" class="btn btn-sm" style="min-height:26px; padding:0.1rem 0.45rem; background:#334155; color:#cbd5e1; border-color:#475569;" title="Add 1 hand">&plus;</button>
+                </div>
+              </div>
+
+              <div style="margin-top:0.5rem; text-align:right;">
+                <button onclick="toggleOfficialNominee('${cand.id}')" class="btn btn-sm" style="font-size:0.72rem; padding:0.2rem 0.5rem; ${isNom ? 'background:#7f1d1d; color:#fecaca; border-color:#ef4444;' : 'background:#1e293b; color:#cbd5e1; border-color:#475569;'}">
+                  ${isNom ? 'Un-nominate' : '+ Force Nominate'}
+                </button>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
+        }
+      }
+    }
+
+    // 2. Render Defense Stage
+    if (stage === "defense") {
+      const listEl = document.getElementById("defense-nominees-list");
+      if (listEl) {
+        listEl.innerHTML = "";
+        const nomineeIds = v.official_nominee_ids || [];
+        if (nomineeIds.length === 0) {
+          listEl.innerHTML = "<p style='color:#f87171; font-size:0.85rem;'>No players were nominated. Return to Nominations to nominate candidates.</p>";
+        } else {
+          nomineeIds.forEach(pid => {
+            const p = state.players.find(x => x.id === pid);
+            if (!p) return;
+            const isDefending = v.defense_player_id === pid;
+            const item = document.createElement("div");
+            item.style = `background:${isDefending ? '#312e81' : '#1e293b'}; border:1px solid ${isDefending ? '#6366f1' : '#334155'}; border-radius:10px; padding:0.75rem 1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;`;
+
+            item.innerHTML = `
+              <div>
+                <div style="font-size:0.95rem; font-weight:700; color:#fff;">
+                  #${p.seat_number} ${escapeHtml(p.name)}
+                  ${isDefending ? '<span style="font-size:0.72rem; background:#4338ca; color:#e0e7ff; padding:0.15rem 0.5rem; border-radius:999px; margin-left:0.4rem;">🎤 SPEAKING NOW</span>' : ''}
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8; margin-top:0.1rem;">
+                  Official Nominee on trial
+                </div>
+              </div>
+              <div>
+                <button onclick="startNomineeDefense('${p.id}')" class="btn btn-sm" style="background:#4f46e5; color:#fff; border-color:#4f46e5; font-weight:600;">
+                  ⏱️ Start 30s Speech
+                </button>
+              </div>
+            `;
+            listEl.appendChild(item);
+          });
+        }
+      }
+    }
+
+    // 3. Render Final Ballot / Revote Stage
+    if (stage === "final_vote" || stage === "revote") {
+      const bannerEl = document.getElementById("final-vote-banner");
+      if (bannerEl) {
+        if (v.is_revote) {
+          bannerEl.style.background = "#451a03";
+          bannerEl.style.borderColor = "#f59e0b";
+          bannerEl.innerHTML = `
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="font-size:1.5rem;">⚡</span>
+              <div>
+                <div style="font-size:0.95rem; font-weight:800; color:#fde68a;">RUNOFF REVOTE (1st Tie Resolution)</div>
+                <div style="font-size:0.8rem; color:#fcd34d; margin-top:0.15rem;">
+                  The town was deadlocked! Ballot is restricted to tied candidates.
+                  <strong>Rule: If a second tie occurs, NO ONE gets eliminated today!</strong>
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          bannerEl.style.background = "#1e293b";
+          bannerEl.style.borderColor = "#334155";
+          bannerEl.innerHTML = `
+            <div style="font-size:0.88rem; font-weight:700; color:#e2e8f0;">Stage 3: Final Execution Ballot</div>
+            <div style="font-size:0.78rem; color:#94a3b8; margin-top:0.15rem;">
+              Single vote only! Living players can vote for ONE nominated candidate (or abstain).
+            </div>
+          `;
+        }
+      }
+
+      const grid = document.getElementById("final-candidates-grid");
+      if (grid) {
+        grid.innerHTML = "";
+        const finalCands = v.final_candidates || [];
+        if (finalCands.length === 0) {
+          grid.innerHTML = "<p style='color:#f87171; font-size:0.85rem; grid-column:1/-1;'>No candidates on the ballot.</p>";
+        } else {
+          finalCands.forEach(cand => {
+            const card = document.createElement("div");
+            card.className = "candidate-voting-card";
+            card.style.borderColor = "#8b5cf6";
+
+            card.innerHTML = `
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.4rem;">
+                <div>
+                  <span style="font-size:0.75rem; color:#94a3b8; font-weight:700;">#${cand.seat_number}</span>
+                  <span style="font-size:1rem; font-weight:700; color:#fff; margin-left:0.25rem;">${escapeHtml(cand.name)}</span>
+                </div>
+                <span style="font-size:0.7rem; font-weight:800; background:#2e1065; color:#c4b5fd; padding:0.1rem 0.4rem; border-radius:6px; border:1px solid #7c3aed;">BALLOT</span>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; background:#0f172a; padding:0.5rem 0.75rem; border-radius:8px; border:1px solid #334155; margin-top:0.5rem;">
+                <span style="font-size:0.78rem; color:#cbd5e1; font-weight:600;">Votes:</span>
+                <div style="display:flex; align-items:center; gap:0.4rem;">
+                  <button onclick="setFinalVoteTally('${cand.id}', -1)" class="btn btn-sm" style="min-height:28px; padding:0.1rem 0.5rem; background:#334155; color:#cbd5e1; border-color:#475569;" title="Remove 1 vote">&minus;</button>
+                  <span style="font-size:1.2rem; font-weight:800; color:#a78bfa; min-width:28px; text-align:center;">${cand.vote_count}</span>
+                  <button onclick="setFinalVoteTally('${cand.id}', 1)" class="btn btn-sm" style="min-height:28px; padding:0.1rem 0.5rem; background:#334155; color:#cbd5e1; border-color:#475569;" title="Add 1 vote">&plus;</button>
+                </div>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
+        }
+      }
+    }
+
+    // 4. Render Execution Outcome
+    if (stage === "completed") {
+      const outcomeCard = document.getElementById("voting-outcome-card");
+      if (outcomeCard) {
+        const res = v.elimination_result;
+        const victName = v.eliminated_player_name;
+
+        if (res === "spared_on_tie") {
+          outcomeCard.style.background = "#064e3b";
+          outcomeCard.style.border = "2px solid #10b981";
+          outcomeCard.innerHTML = `
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.4rem;">🕊️</div>
+            <h2 style="font-size:1.35rem; color:#a7f3d0; margin:0 0 0.4rem;">SECOND TIE — TOWN SPARED!</h2>
+            <p style="font-size:0.95rem; color:#ecfdf5; line-height:1.45; max-width:440px; margin:0 auto;">
+              The runoff vote resulted in a second tie. Per town rule, <strong>NO ONE gets eliminated today!</strong>
+              The town gathers in peace and prepares for nightfall.
+            </p>
+          `;
+        } else if (res === "jester_win") {
+          outcomeCard.style.background = "#4c0519";
+          outcomeCard.style.border = "2px solid #f43f5e";
+          outcomeCard.innerHTML = `
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.4rem;">🃏</div>
+            <h2 style="font-size:1.35rem; color:#fda4af; margin:0 0 0.4rem;">SOLO JESTER VICTORY!</h2>
+            <p style="font-size:0.95rem; color:#fff1f2; line-height:1.45; max-width:440px; margin:0 auto;">
+              <strong>${escapeHtml(victName || 'The Jester')}</strong> tricked the entire town into voting them out!
+              The Jester achieves absolute solo triumph!
+            </p>
+          `;
+        } else if (res === "limbo") {
+          outcomeCard.style.background = "#451a03";
+          outcomeCard.style.border = "2px solid #f59e0b";
+          outcomeCard.innerHTML = `
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.4rem;">🌫️</div>
+            <h2 style="font-size:1.35rem; color:#fde68a; margin:0 0 0.4rem;">BANISHED TO LIMBO</h2>
+            <p style="font-size:0.95rem; color:#fffbeb; line-height:1.45; max-width:440px; margin:0 auto;">
+              <strong>${escapeHtml(victName || 'Player')}</strong> received the majority vote and was cast into Limbo!
+              They hover between life and death and have one chance to guess the Angel to return to the living.
+            </p>
+          `;
+        } else if (res === "dead") {
+          outcomeCard.style.background = "#450a0a";
+          outcomeCard.style.border = "2px solid #ef4444";
+          outcomeCard.innerHTML = `
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.4rem;">🪦</div>
+            <h2 style="font-size:1.35rem; color:#fecaca; margin:0 0 0.4rem;">EXECUTED BY TOWN VOTE</h2>
+            <p style="font-size:0.95rem; color:#fef2f2; line-height:1.45; max-width:440px; margin:0 auto;">
+              <strong>${escapeHtml(victName || 'Player')}</strong> was convicted and condemned by the town assembly!
+            </p>
+          `;
+        } else {
+          outcomeCard.style.background = "#1e293b";
+          outcomeCard.style.border = "1px solid #475569";
+          outcomeCard.innerHTML = `
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.4rem;">☀️</div>
+            <h2 style="font-size:1.35rem; color:#e2e8f0; margin:0 0 0.4rem;">TOWN REACHED PEACE</h2>
+            <p style="font-size:0.95rem; color:#94a3b8; line-height:1.45; max-width:440px; margin:0 auto;">
+              No execution took place today.
+            </p>
+          `;
+        }
+      }
+    }
+  }
+
+  // Day Voting Action Dispatchers
+  function startVotingSession(sys) {
+    sendAction("start_voting", { system: sys || (currentGameState && currentGameState.voting ? currentGameState.voting.system : "two_stage_50pct") });
+  }
+
+  function changeVotingSystem(sys) {
+    sendAction("start_voting", { system: sys });
+  }
+
+  function resetVotingSession() {
+    if (confirm("Reset current voting session back to fresh state?")) {
+      sendAction("reset_voting");
+    }
+  }
+
+  function setNominationTally(candidateId, delta) {
+    if (!currentGameState || !currentGameState.voting) return;
+    const cands = currentGameState.voting.nomination_candidates || [];
+    const cand = cands.find(c => c.id === candidateId);
+    const cur = cand ? cand.vote_count : 0;
+    const newCount = Math.max(0, cur + delta);
+    sendAction("set_nomination_tally", { candidate_id: candidateId, count: newCount });
+  }
+
+  function toggleOfficialNominee(playerId) {
+    sendAction("toggle_official_nominee", { player_id: playerId });
+  }
+
+  function proceedToDefense(playerId) {
+    sendAction("proceed_defense", { player_id: playerId || null });
+  }
+
+  function startNomineeDefense(playerId) {
+    sendAction("proceed_defense", { player_id: playerId });
+  }
+
+  function proceedToFinalVote() {
+    sendAction("proceed_final_vote");
+  }
+
+  function setFinalVoteTally(candidateId, delta) {
+    if (!currentGameState || !currentGameState.voting) return;
+    const cands = currentGameState.voting.final_candidates || [];
+    const cand = cands.find(c => c.id === candidateId);
+    const cur = cand ? cand.vote_count : 0;
+    const newCount = Math.max(0, cur + delta);
+    sendAction("record_final_vote_tally", { candidate_id: candidateId, count: newCount });
+  }
+
+  function tallyAndResolveVote() {
+    sendAction("tally_vote");
   }
 
   function toggleWitchRevive() {

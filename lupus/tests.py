@@ -6,6 +6,7 @@ from django.urls import reverse
 from gamerooms.models import Room
 from lupus.game_state import (
     add_player,
+    cast_final_vote,
     check_win_condition,
     clear_gm_night_action,
     create_initial_state,
@@ -13,10 +14,15 @@ from lupus.game_state import (
     get_game,
     get_gm_view,
     get_night_stages,
+    get_nomination_threshold,
     get_ordered_players,
     get_sanitized_player_view,
+    get_voting_view,
     guess_angel_in_limbo,
     move_player,
+    proceed_to_defense,
+    proceed_to_final_vote,
+    record_gm_final_vote_tally,
     record_gm_night_action,
     reorder_players,
     resolve_night,
@@ -26,7 +32,11 @@ from lupus.game_state import (
     set_night_stage_index,
     set_player_status,
     start_game,
+    start_voting_session,
     submit_night_action,
+    tally_and_resolve_vote,
+    toggle_nomination_vote,
+    toggle_official_nomination,
 )
 from lupus.qr import generate_qr_data_uri
 from lupus.roles import (
@@ -159,6 +169,7 @@ class TestLupusEngine:
 
         # Kick Bob in lobby
         from lupus.game_state import remove_player, set_broadcast_message, set_round_number
+
         state = remove_player(state, p2["id"])
         assert len(state["players"]) == 1
         assert p2["id"] not in state["players"]
@@ -446,6 +457,239 @@ class TestLupusEngine:
         # Sanitized player view also reflects physical seating order
         p_view = get_sanitized_player_view(state, p_alice["id"])
         assert [p["name"] for p in p_view["players"]] == ["Bob", "Charlie", "Alice"]
+
+
+class TestLupusVoting:
+    def _create_room_with_players(self, count=6):
+        state = create_initial_state("VOTEROOM", "Voting Room")
+        players = []
+        for i in range(count):
+            state, p = add_player(state, f"Player_{i + 1}")
+            p["role"] = "villager"
+            p["faction"] = "town"
+            players.append(p)
+        return state, players
+
+    def test_nomination_threshold_calculation(self):
+        state, players = self._create_room_with_players(6)
+        # 6 living players at 50% = 3
+        assert get_nomination_threshold(state) == 3
+
+        # 5 living players at 50% = ceil(2.5) = 3
+        set_player_status(state, players[0]["id"], "dead")
+        assert get_nomination_threshold(state) == 3
+
+        # 4 living players at 50% = 2
+        set_player_status(state, players[1]["id"], "dead")
+        assert get_nomination_threshold(state) == 2
+
+        # 7 living players at 50% = ceil(3.5) = 4
+        state, _ = self._create_room_with_players(7)
+        assert get_nomination_threshold(state) == 4
+
+    def test_nomination_multi_voting_and_threshold(self):
+        state, players = self._create_room_with_players(6)
+        start_voting_session(state, "two_stage_50pct")
+        assert state["voting"]["stage"] == "nomination"
+        threshold = get_nomination_threshold(state)
+        assert threshold == 3
+
+        p1, p2, p3 = players[0], players[1], players[2]
+        cand_a, cand_b = players[4], players[5]
+
+        # Multi-vote: P1 votes for BOTH Cand A and Cand B
+        success, _ = toggle_nomination_vote(state, p1["id"], cand_a["id"])
+        assert success
+        success, _ = toggle_nomination_vote(state, p1["id"], cand_b["id"])
+        assert success
+
+        # P2 votes for Cand A
+        toggle_nomination_vote(state, p2["id"], cand_a["id"])
+
+        # Cand A has 2 votes (< 3 threshold) -> Not yet nominated
+        assert cand_a["id"] not in state["voting"]["nominated_player_ids"]
+
+        # P3 votes for Cand A -> Reaches 3 votes (>= 3 threshold) -> Officially nominated!
+        toggle_nomination_vote(state, p3["id"], cand_a["id"])
+        assert cand_a["id"] in state["voting"]["nominated_player_ids"]
+
+        # Cand B only has 1 vote (< 3 threshold)
+        assert cand_b["id"] not in state["voting"]["nominated_player_ids"]
+
+        # View check
+        view = get_voting_view(state, is_gm=True, player_id=p1["id"])
+        c_a_view = next(c for c in view["nomination_candidates"] if c["id"] == cand_a["id"])
+        assert c_a_view["vote_count"] == 3
+        assert c_a_view["is_nominated"] is True
+        assert c_a_view["has_my_vote"] is True
+
+    def test_proceed_to_defense_and_final_vote(self):
+        state, players = self._create_room_with_players(6)
+        start_voting_session(state)
+        cand_a = players[4]
+
+        # Trying to go to final vote with 0 nominees fails
+        success, msg = proceed_to_final_vote(state)
+        assert not success
+        assert "No players were nominated" in msg
+
+        # GM manually forces nomination
+        toggle_official_nomination(state, cand_a["id"])
+        assert cand_a["id"] in state["voting"]["nominated_player_ids"]
+
+        # Proceed to defense
+        proceed_to_defense(state, cand_a["id"])
+        assert state["voting"]["stage"] == "defense"
+        assert state["voting"]["defense_player_id"] == cand_a["id"]
+
+        # Proceed to final vote
+        success, _ = proceed_to_final_vote(state)
+        assert success
+        assert state["voting"]["stage"] == "final_vote"
+        assert state["voting"]["ballot_locked"] is True
+
+    def test_final_single_vote_and_override(self):
+        state, players = self._create_room_with_players(6)
+        start_voting_session(state)
+        cand_a, cand_b = players[4], players[5]
+        toggle_official_nomination(state, cand_a["id"])
+        toggle_official_nomination(state, cand_b["id"])
+        proceed_to_final_vote(state)
+
+        voter = players[0]
+        # Voter casts for Cand A
+        success, _ = cast_final_vote(state, voter["id"], cand_a["id"])
+        assert success
+        assert state["voting"]["final_votes"][voter["id"]] == cand_a["id"]
+
+        # Voter changes vote to Cand B -> Overwrites single vote!
+        success, _ = cast_final_vote(state, voter["id"], cand_b["id"])
+        assert success
+        assert state["voting"]["final_votes"][voter["id"]] == cand_b["id"]
+        assert len(state["voting"]["final_votes"]) == 1
+
+        # Voting for non-ballot candidate fails
+        success, msg = cast_final_vote(state, voter["id"], players[1]["id"])
+        assert not success
+        assert "not on the ballot" in msg
+
+        # Dead player trying to vote fails
+        set_player_status(state, players[2]["id"], "dead")
+        success, msg = cast_final_vote(state, players[2]["id"], cand_a["id"])
+        assert not success
+        assert "Only living players" in msg
+
+    def test_tie_breaker_first_tie_initiates_runoff(self):
+        state, players = self._create_room_with_players(6)
+        start_voting_session(state)
+        cand_a, cand_b = players[4], players[5]
+        toggle_official_nomination(state, cand_a["id"])
+        toggle_official_nomination(state, cand_b["id"])
+        proceed_to_final_vote(state)
+
+        # 3 votes for Cand A, 3 votes for Cand B
+        cast_final_vote(state, players[0]["id"], cand_a["id"])
+        cast_final_vote(state, players[1]["id"], cand_a["id"])
+        cast_final_vote(state, players[2]["id"], cand_a["id"])
+
+        cast_final_vote(state, players[3]["id"], cand_b["id"])
+        cast_final_vote(state, players[4]["id"], cand_b["id"])
+        cast_final_vote(state, players[5]["id"], cand_b["id"])
+
+        result, msg = tally_and_resolve_vote(state)
+        assert result == "revote"
+        assert "TIE" in msg
+        assert state["voting"]["stage"] == "revote"
+        assert state["voting"]["tie_count"] == 1
+        assert set(state["voting"]["revote_candidates"]) == {cand_a["id"], cand_b["id"]}
+        assert state["voting"]["final_votes"] == {}  # Cleared for revote
+
+    def test_tie_breaker_second_tie_spares_everyone(self):
+        state, players = self._create_room_with_players(6)
+        start_voting_session(state)
+        cand_a, cand_b = players[4], players[5]
+        toggle_official_nomination(state, cand_a["id"])
+        toggle_official_nomination(state, cand_b["id"])
+        proceed_to_final_vote(state)
+
+        # 1st tie
+        record_gm_final_vote_tally(state, cand_a["id"], 2)
+        record_gm_final_vote_tally(state, cand_b["id"], 2)
+        res1, _ = tally_and_resolve_vote(state)
+        assert res1 == "revote"
+        assert state["voting"]["tie_count"] == 1
+
+        # 2nd tie during revote
+        record_gm_final_vote_tally(state, cand_a["id"], 2)
+        record_gm_final_vote_tally(state, cand_b["id"], 2)
+        res2, msg = tally_and_resolve_vote(state)
+
+        # Second tie: NO ONE gets eliminated!
+        assert res2 == "spared_on_tie"
+        assert "NO ONE gets eliminated today" in msg
+        assert state["voting"]["stage"] == "completed"
+        assert state["voting"]["eliminated_player_id"] is None
+        assert state["voting"]["elimination_result"] == "spared_on_tie"
+
+        # Check players are still alive
+        assert state["players"][cand_a["id"]]["status"] == "alive"
+        assert state["players"][cand_b["id"]]["status"] == "alive"
+
+    def test_execution_with_limbo_when_angel_alive(self):
+        state, players = self._create_room_with_players(5)
+        # One player is Angel
+        players[0]["role"] = "angel"
+        players[0]["status"] = "alive"
+        state["settings"]["limbo_enabled"] = True
+
+        victim = players[4]
+        start_voting_session(state)
+        toggle_official_nomination(state, victim["id"])
+        proceed_to_final_vote(state)
+
+        # Vote for victim
+        record_gm_final_vote_tally(state, victim["id"], 3)
+        res, msg = tally_and_resolve_vote(state)
+
+        assert res == "eliminated"
+        assert state["voting"]["elimination_result"] == "limbo"
+        assert state["players"][victim["id"]]["status"] == "limbo"
+        assert state["players"][victim["id"]]["used_limbo"] is True
+
+    def test_execution_dead_when_angel_dead(self):
+        state, players = self._create_room_with_players(5)
+        players[0]["role"] = "angel"
+        players[0]["status"] = "dead"  # Angel is dead!
+        state["settings"]["limbo_enabled"] = True
+
+        victim = players[4]
+        start_voting_session(state)
+        toggle_official_nomination(state, victim["id"])
+        proceed_to_final_vote(state)
+
+        record_gm_final_vote_tally(state, victim["id"], 3)
+        res, msg = tally_and_resolve_vote(state)
+
+        assert res == "eliminated"
+        assert state["voting"]["elimination_result"] == "dead"
+        assert state["players"][victim["id"]]["status"] == "dead"
+
+    def test_jester_execution_solo_win(self):
+        state, players = self._create_room_with_players(5)
+        jester = players[4]
+        jester["role"] = "jester"
+
+        start_voting_session(state)
+        toggle_official_nomination(state, jester["id"])
+        proceed_to_final_vote(state)
+
+        record_gm_final_vote_tally(state, jester["id"], 4)
+        res, msg = tally_and_resolve_vote(state)
+
+        assert res == "jester_win"
+        assert "SOLO VICTORY" in msg
+        assert state["winner"] == "jester"
+        assert state["phase"] == "gameover"
 
 
 class TestLupusQR:

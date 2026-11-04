@@ -574,6 +574,11 @@
       <h3 style="margin-top: 0; font-size: 0.95rem; color: #b45309; font-weight: 700;">☀️ Dawn Report</h3>
       <ul id="dawn-report-list" style="margin: 0; padding-left: 1.25rem; font-size: 0.85rem; color: #444; line-height: 1.4;"></ul>
     </div>
+
+    <!-- Day Voting & Trial Card -->
+    <div id="player-voting-box" style="display: none; background: #fff; border: 2px solid #8b5cf6; border-radius: 14px; padding: 1.15rem; margin-bottom: 1.25rem; box-shadow: 0 4px 16px rgba(139,92,246,0.12);">
+      <!-- Rendered dynamically -->
+    </div>
   </div>
 
   <!-- Table Players List & Seating Map (Common to both) -->
@@ -978,6 +983,9 @@
     // Night Screen & Controls
     updateNightActionBox(state);
 
+    // Day Voting & Trial Controls
+    updatePlayerVotingBox(state);
+
     // Dawn Report
     const dawnBox = document.getElementById("dawn-box");
     if (state.night_report && state.night_report.length > 0 && state.phase !== "night") {
@@ -1164,6 +1172,225 @@
       socket.send(JSON.stringify({
         action: "guess_angel",
         target_id: targetId
+      }));
+    }
+  }
+
+  // --- Day Voting & Trial Card ---
+  function updatePlayerVotingBox(state) {
+    const box = document.getElementById("player-voting-box");
+    if (!box) return;
+
+    if (state.phase !== "day_voting" && (!state.voting || state.voting.stage === "none")) {
+      box.style.display = "none";
+      return;
+    }
+
+    box.style.display = "block";
+    const v = state.voting || {};
+    const stage = v.stage || "nomination";
+    const me = state.me || {};
+    const isAlive = me.status === "alive";
+
+    let html = "";
+
+    if (stage === "nomination") {
+      html += `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.4rem;">
+          <div>
+            <h3 style="margin:0; font-size:1.1rem; color:#6d28d9; display:flex; align-items:center; gap:0.35rem;">
+              <span>🗳️ Town Nominations</span>
+            </h3>
+            <p style="margin:0.2rem 0 0; font-size:0.8rem; color:#64748b;">
+              Threshold: <strong>${v.threshold_votes}</strong> votes needed (50%). You can raise your hand for multiple candidates!
+            </p>
+          </div>
+          <span style="font-size:0.75rem; font-weight:700; background:#ede9fe; color:#6d28d9; padding:0.2rem 0.55rem; border-radius:999px;">
+            ${(v.official_nominee_ids || []).length} Nominated
+          </span>
+        </div>
+      `;
+
+      if (!isAlive) {
+        html += `<div style="background:#fee2e2; color:#991b1b; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem;">💀 You are dead and cannot participate in town nominations.</div>`;
+      }
+
+      html += `<div style="display:flex; flex-direction:column; gap:0.5rem;">`;
+      const cands = v.nomination_candidates || [];
+      cands.forEach(cand => {
+        const isNom = cand.is_nominated;
+        const hasMyVote = cand.has_my_vote;
+        const myVoteBtn = isAlive ? `
+          <button onclick="playerVoteNominate('${cand.id}')" class="btn btn-sm" style="${hasMyVote ? 'background:#7c3aed; color:#fff; border-color:#7c3aed; font-weight:700;' : 'background:#fff; color:#475569; border-color:#cbd5e1;'}">
+            ${hasMyVote ? '✋ Hand Raised' : 'Raise Hand'}
+          </button>
+        ` : '';
+
+        html += `
+          <div style="background:${isNom ? '#f5f3ff' : '#f8fafc'}; border:1px solid ${isNom ? '#c4b5fd' : '#e2e8f0'}; border-radius:10px; padding:0.65rem 0.85rem; display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+            <div>
+              <div style="font-weight:700; font-size:0.92rem; color:#0f172a;">
+                #${cand.seat_number} ${escapeHtml(cand.name)}
+                ${isNom ? '<span style="font-size:0.68rem; font-weight:800; background:#dcfce7; color:#166534; padding:0.1rem 0.35rem; border-radius:4px; margin-left:0.3rem;">NOMINATED</span>' : ''}
+              </div>
+              <div style="font-size:0.75rem; color:#64748b; margin-top:0.1rem;">
+                Hands raised: <strong style="color:${cand.vote_count >= v.threshold_votes ? '#059669' : '#7c3aed'};">${cand.vote_count}</strong> / ${v.threshold_votes}
+              </div>
+            </div>
+            <div>
+              ${myVoteBtn}
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+
+    } else if (stage === "defense") {
+      const defName = v.defense_player_name || "Nominee";
+      const isMe = v.defense_player_id === me.id;
+
+      html += `
+        <div style="text-align:center; padding:0.5rem 0;">
+          <div style="font-size:2.5rem; line-height:1; margin-bottom:0.35rem;">⚖️</div>
+          <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#4338ca;">Accused Defense Speech</h3>
+          ${isMe ? `
+            <div style="background:#eef2ff; border:2px solid #6366f1; border-radius:10px; padding:0.85rem; margin-top:0.5rem;">
+              <div style="font-size:1rem; font-weight:800; color:#312e81;">🎤 YOU ARE ON TRIAL!</div>
+              <p style="font-size:0.85rem; color:#4338ca; margin:0.35rem 0 0; line-height:1.4;">
+                You have 30 seconds to address the town and defend your innocence. Speak clearly to the room!
+              </p>
+            </div>
+          ` : `
+            <p style="font-size:0.9rem; color:#475569; margin:0.25rem 0 0;">
+              🎤 <strong>${escapeHtml(defName)}</strong> is speaking in their defense. Listen carefully!
+            </p>
+          `}
+        </div>
+      `;
+
+    } else if (stage === "final_vote" || stage === "revote") {
+      const isRevote = v.is_revote;
+      html += `
+        <div style="margin-bottom:0.75rem;">
+          <h3 style="margin:0; font-size:1.1rem; color:${isRevote ? '#b45309' : '#dc2626'}; display:flex; align-items:center; gap:0.35rem;">
+            <span>${isRevote ? '⚡ RUNOFF REVOTE' : '⚖️ Final Execution Ballot'}</span>
+          </h3>
+          <p style="margin:0.2rem 0 0; font-size:0.82rem; color:#64748b;">
+            ${isRevote 
+              ? 'Tied vote runoff! If another tie occurs, <strong>NO ONE is eliminated today</strong>.' 
+              : 'Cast your single execution vote on a nominated candidate (or abstain).'}
+          </p>
+        </div>
+      `;
+
+      if (!isAlive) {
+        html += `<div style="background:#fee2e2; color:#991b1b; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem;">💀 Only living players may vote to execute.</div>`;
+      } else {
+        html += `<div style="display:flex; flex-direction:column; gap:0.5rem;">`;
+        const cands = v.final_candidates || [];
+        cands.forEach(cand => {
+          const isMyChoice = v.my_vote === cand.id;
+          html += `
+            <div style="background:${isMyChoice ? '#fef2f2' : '#fff'}; border:2px solid ${isMyChoice ? '#dc2626' : '#e2e8f0'}; border-radius:10px; padding:0.65rem 0.85rem; display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+              <div>
+                <div style="font-weight:700; font-size:0.95rem; color:#0f172a;">
+                  #${cand.seat_number} ${escapeHtml(cand.name)}
+                </div>
+                <div style="font-size:0.75rem; color:#64748b;">
+                  Current votes: <strong>${cand.vote_count}</strong>
+                </div>
+              </div>
+              <div>
+                <button onclick="playerVoteFinal(${isMyChoice ? 'null' : `'${cand.id}'`})" class="btn btn-sm" style="${isMyChoice ? 'background:#dc2626; color:#fff; border-color:#dc2626; font-weight:700;' : 'background:#fff; color:#b91c1c; border-color:#fca5a5;'}">
+                  ${isMyChoice ? '✓ Voted (Remove)' : 'Vote to Execute'}
+                </button>
+              </div>
+            </div>
+          `;
+        });
+        html += `
+          <div style="margin-top:0.4rem; text-align:center;">
+            <button onclick="playerVoteFinal(null)" class="btn btn-sm" style="background:#f1f5f9; color:#475569; border-color:#cbd5e1; font-size:0.78rem;">
+              🕊️ Abstain (No Vote)
+            </button>
+          </div>
+        </div>`;
+      }
+
+    } else if (stage === "completed") {
+      const res = v.elimination_result;
+      const victName = v.eliminated_player_name;
+
+      if (res === "spared_on_tie") {
+        html += `
+          <div style="text-align:center; padding:0.5rem 0;">
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🕊️</div>
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#059669;">SECOND TIE — TOWN SPARED!</h3>
+            <p style="font-size:0.88rem; color:#475569; margin:0; line-height:1.45;">
+              The runoff vote resulted in a second tie. By town law, <strong>NO ONE is eliminated today!</strong>
+            </p>
+          </div>
+        `;
+      } else if (res === "jester_win") {
+        html += `
+          <div style="text-align:center; padding:0.5rem 0;">
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🃏</div>
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#e11d48;">SOLO JESTER VICTORY!</h3>
+            <p style="font-size:0.88rem; color:#475569; margin:0; line-height:1.45;">
+              <strong>${escapeHtml(victName || 'The Jester')}</strong> was executed by town vote and won the game solo!
+            </p>
+          </div>
+        `;
+      } else if (res === "limbo") {
+        html += `
+          <div style="text-align:center; padding:0.5rem 0;">
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🌫️</div>
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#d97706;">SENT TO LIMBO</h3>
+            <p style="font-size:0.88rem; color:#475569; margin:0; line-height:1.45;">
+              <strong>${escapeHtml(victName || 'Player')}</strong> was banished to Limbo!
+            </p>
+          </div>
+        `;
+      } else if (res === "dead") {
+        html += `
+          <div style="text-align:center; padding:0.5rem 0;">
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🪦</div>
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#dc2626;">EXECUTED</h3>
+            <p style="font-size:0.88rem; color:#475569; margin:0; line-height:1.45;">
+              <strong>${escapeHtml(victName || 'Player')}</strong> was executed by town decree.
+            </p>
+          </div>
+        `;
+      } else {
+        html += `
+          <div style="text-align:center; padding:0.5rem 0;">
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">☀️</div>
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#475569;">TOWN AT PEACE</h3>
+            <p style="font-size:0.88rem; color:#64748b; margin:0;">
+              No one was eliminated today.
+            </p>
+          </div>
+        `;
+      }
+    }
+
+    box.innerHTML = html;
+  }
+
+  function playerVoteNominate(candId) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({
+        action: "vote_nominate",
+        candidate_id: candId
+      }));
+    }
+  }
+
+  function playerVoteFinal(candId) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({
+        action: "vote_final",
+        candidate_id: candId
       }));
     }
   }
