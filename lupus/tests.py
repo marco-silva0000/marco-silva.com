@@ -28,6 +28,7 @@ from lupus.game_state import (
     resolve_night,
     return_to_lobby,
     reveal_detective_to_player,
+    set_deck,
     set_manual_player_role,
     set_night_stage_index,
     set_player_status,
@@ -714,18 +715,41 @@ class TestLupusNotepadTemplate:
                 "me": {"id": "p1", "name": "Alice", "status": "alive"},
                 "timer": {"label": "Discussion", "remaining": 120, "paused": True},
             },
-            "roles_catalogue": [],
+            "roles_catalogue": [
+                {"id": "werewolf", "name": "Werewolf", "emoji": "🐺", "faction": "wolves"},
+                {"id": "detective", "name": "Detective", "emoji": "🔍", "faction": "town"},
+            ],
         }
         rendered = render_to_string("lupus/player.html", context)
         assert "Investigation Notepad" in rendered
         assert "player-notes-textarea" in rendered
         assert "notes-autocomplete-dropdown" in rendered
+        assert "notes-role-chips" in rendered
         assert "notes-player-chips" in rendered
+        assert "👥 Roster" in rendered
+        assert "Roles in Play" in rendered
         assert "🗳️ Voted" in rendered
         assert "⏱️ Delayed Vote" in rendered
         assert "🤫 Quiet" in rendered
         assert "😰 Nervous" in rendered
         assert "floating-notes-pill" in rendered
+
+    def test_sanitized_view_roles_in_play(self, monkeypatch):
+        mock_redis = MockRedis()
+        monkeypatch.setattr("lupus.game_state.get_redis_client", lambda: mock_redis)
+
+        state = create_initial_state("ROLESINPLAY", "Roles Room")
+        state, p_a = add_player(state, "Alice")
+        state, p_b = add_player(state, "Bob")
+        set_deck(state, ["werewolf", "detective", "doctor", "villager"])
+
+        view = get_sanitized_player_view(state, p_a["id"])
+        assert "roles_in_play" in view
+        role_ids = [r["id"] for r in view["roles_in_play"]]
+        assert "werewolf" in role_ids
+        assert "detective" in role_ids
+        assert "doctor" in role_ids
+        assert "villager" in role_ids
 
 
 @pytest.mark.django_db

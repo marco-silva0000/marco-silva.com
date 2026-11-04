@@ -1639,6 +1639,28 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     if not timer_data["paused"] and timer_data["ends_at"]:
         timer_data["remaining"] = max(0, int(timer_data["ends_at"] - time.time()))
 
+    # Collect roles in play from deck or players
+    deck_role_ids = list(state.get("deck", []))
+    if not deck_role_ids:
+        for p in state.get("players", {}).values():
+            if p.get("role"):
+                deck_role_ids.append(p["role"])
+
+    roles_in_play = []
+    seen_roles = set()
+    for rid in deck_role_ids:
+        if rid not in seen_roles and rid in ROLE_REGISTRY:
+            seen_roles.add(rid)
+            r_info = get_role_info(rid, theme)
+            roles_in_play.append(
+                {
+                    "id": rid,
+                    "name": r_info["name"],
+                    "emoji": r_info["emoji"],
+                    "faction": r_info["faction"],
+                }
+            )
+
     return {
         "code": state["code"],
         "title": state["title"],
@@ -1655,6 +1677,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
             "lover_name": state["players"][lover_id]["name"] if lover_id and lover_id in state["players"] else None,
         },
         "players": public_players,
+        "roles_in_play": roles_in_play,
         "timer": timer_data,
         "night_stage_title": night_stage_title,
         "revealed_inspect": revealed_inspect,

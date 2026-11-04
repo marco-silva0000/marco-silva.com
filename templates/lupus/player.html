@@ -779,6 +779,9 @@
         </div>
       </div>
       <div class="notes-tools">
+        <button type="button" onclick="autoFillPlayerRoster(false)" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Populate or append player roster">
+          👥 Roster
+        </button>
         <button type="button" onclick="copyPlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Copy notes to clipboard">
           📋 Copy
         </button>
@@ -803,12 +806,23 @@
           <button type="button" onclick="insertNoteSnippet('⏱️ delayed vote ')" class="notes-emoji-chip">⏱️ Delayed Vote</button>
           <button type="button" onclick="insertNoteSnippet('🤫 quiet ')" class="notes-emoji-chip">🤫 Quiet</button>
           <button type="button" onclick="insertNoteSnippet('😰 nervous ')" class="notes-emoji-chip">😰 Nervous</button>
-          <button type="button" onclick="insertNoteSnippet('🐺 sus ')" class="notes-emoji-chip">🐺 Wolf / Sus</button>
+          <button type="button" onclick="insertNoteSnippet('🐺 sus ')" class="notes-emoji-chip">🐺 Sus</button>
           <button type="button" onclick="insertNoteSnippet('🛡️ innocent ')" class="notes-emoji-chip">🛡️ Innocent</button>
           <button type="button" onclick="insertNoteSnippet('🎯 accused ')" class="notes-emoji-chip">🎯 Accused</button>
-          <button type="button" onclick="insertNoteSnippet('🤥 lied ')" class="notes-emoji-chip">🤥 Lie / Bluff</button>
+          <button type="button" onclick="insertNoteSnippet('🤥 lied ')" class="notes-emoji-chip">🤥 Lie</button>
           <button type="button" onclick="insertNoteSnippet('👁️ claimed ')" class="notes-emoji-chip">👁️ Claimed</button>
           <button type="button" onclick="insertNoteSnippet('• ')" class="notes-emoji-chip" style="font-weight: 800;">• Bullet</button>
+        </div>
+      </div>
+
+      <!-- Roles in Play Chips -->
+      <div class="notes-subrow">
+        <div class="notes-subrow-label">
+          <span>🎭 Roles in Play</span>
+          <span style="font-weight: normal; text-transform: none; font-size: 0.68rem; color: #94a3b8;">Tap to tag suspected role</span>
+        </div>
+        <div id="notes-role-chips" class="notes-chips-container">
+          <!-- Populated from state.roles_in_play / ROLES_CATALOGUE -->
         </div>
       </div>
 
@@ -965,6 +979,12 @@
   const MY_PID = "{{ player.id }}";
   localStorage.setItem(`lupus_token_${ROOM_CODE}`, MY_TOKEN);
   localStorage.setItem(`lupus_pid_${ROOM_CODE}`, MY_PID);
+
+  const ROLES_CATALOGUE = [
+    {% for r in roles_catalogue %}
+    { id: "{{ r.id }}", name: "{{ r.name|escapejs }}", emoji: "{{ r.emoji|escapejs }}", faction: "{{ r.faction|escapejs }}" }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ];
 
   let currentGameState = null;
   let timerInterval = null;
@@ -1267,8 +1287,10 @@
     // Players Table Seating & List
     renderPlayerTableSeating(state);
 
-    // Player Notes Mention Chips
+    // Player Notes Mention Chips, Roles in Play & Roster Auto-Populate
     renderPlayerMentionChips();
+    renderRoleChips(state);
+    checkAutoPopulateRoster(state);
   }
 
   // --- Player Seating Layout Engine ---
@@ -1714,8 +1736,91 @@
     if (saved) {
       notesTextarea.value = saved;
       updateCharCount();
+    } else if (currentGameState && currentGameState.players && currentGameState.players.length > 0) {
+      checkAutoPopulateRoster(currentGameState);
     }
     updateNotesCollapsedView();
+    renderRoleChips(currentGameState);
+  }
+
+  function generatePlayerRosterScaffold(players) {
+    if (!players || players.length === 0) return "";
+    return players.map((p, idx) => {
+      const seat = p.seat_number || (idx + 1);
+      return `• @${p.name} (#${seat}): `;
+    }).join("\n") + "\n";
+  }
+
+  function checkAutoPopulateRoster(state) {
+    if (!notesTextarea) return;
+    const players = (state && state.players) ? state.players : [];
+    if (players.length === 0) return;
+
+    const currentNotes = notesTextarea.value.trim();
+    // If the canvas is completely blank or only whitespace, start with every player filled in
+    if (!currentNotes) {
+      notesTextarea.value = generatePlayerRosterScaffold(players);
+      saveNotesToStorage();
+      updateCharCount();
+    }
+  }
+
+  function autoFillPlayerRoster(force) {
+    if (!notesTextarea) return;
+    const players = (currentGameState && currentGameState.players) ? currentGameState.players : [];
+    if (players.length === 0) {
+      showNotesToast("No players in room yet! 👥");
+      return;
+    }
+
+    const currentNotes = notesTextarea.value.trim();
+    if (!currentNotes || force) {
+      notesTextarea.value = generatePlayerRosterScaffold(players);
+      saveNotesToStorage();
+      updateCharCount();
+      showNotesToast("Roster filled! 👥");
+      return;
+    }
+
+    // Append players who are not yet in the notes
+    const missing = players.filter(p => !notesTextarea.value.includes(`@${p.name}`));
+    if (missing.length === 0) {
+      showNotesToast("All players already in notes! ✓");
+      return;
+    }
+
+    const separator = notesTextarea.value.endsWith("\n") ? "" : "\n";
+    notesTextarea.value = notesTextarea.value + separator + generatePlayerRosterScaffold(missing);
+    saveNotesToStorage();
+    updateCharCount();
+    showNotesToast(`Added ${missing.length} player${missing.length > 1 ? 's' : ''} to roster! 👥`);
+  }
+
+  function renderRoleChips(state) {
+    const container = document.getElementById("notes-role-chips");
+    if (!container) return;
+
+    let roles = (state && state.roles_in_play && state.roles_in_play.length > 0)
+      ? state.roles_in_play
+      : ROLES_CATALOGUE;
+
+    container.innerHTML = "";
+    if (!roles || roles.length === 0) {
+      container.innerHTML = "<span style='font-size:0.75rem; color:#94a3b8;'>No roles available</span>";
+      return;
+    }
+
+    roles.forEach(r => {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "notes-emoji-chip";
+      const borderColor = r.faction === "wolves" ? "#ef4444" : (r.faction === "town" ? "#22c55e" : "#a855f7");
+      chip.style.borderLeft = `3px solid ${borderColor}`;
+      chip.innerHTML = `<span>${r.emoji}</span> <span>${escapeHtml(r.name)}</span>`;
+      chip.title = `Insert ${r.name} (${r.faction})`;
+      chip.onclick = () => insertNoteSnippet(`${r.emoji} ${r.name} `);
+      container.appendChild(chip);
+    });
   }
 
   function handleNotesInput() {
