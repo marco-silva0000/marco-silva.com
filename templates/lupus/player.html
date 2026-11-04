@@ -1,86 +1,223 @@
 {% extends 'base.html' %}
-{% block title %}Lupus - {{ state.me.name|default:"Player" }}{% endblock %}
+{% block title %}🐺 {{ state.title }} - {{ state.me.name|default:"Player" }}{% endblock %}
+
+{% block nav %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block extra_css %}
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  background: #090d16 !important;
+  color: #f8fafc !important;
+  font-family: system-ui, -apple-system, sans-serif !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  overflow-x: hidden !important;
+}
+{% endblock %}
 
 {% block content %}
 <style>
   .player-container {
-    max-width: 480px;
+    width: 100%;
+    max-width: 1350px;
     margin: 0 auto;
     font-family: system-ui, -apple-system, sans-serif;
-    padding-bottom: 3.5rem;
+    padding: 0.4rem 0.55rem 3.5rem;
+    box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
+  }
+  @media (min-width: 860px) {
+    .player-container {
+      padding: 0.65rem 1.15rem 3.5rem;
+    }
+  }
+
+  /* Fullscreen App Topbar */
+  .app-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.85rem;
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    margin-bottom: 0.65rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+  .app-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .app-brand-icon {
+    font-size: 1.45rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .app-brand-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .app-brand-sub {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .app-room-pill {
+    font-family: ui-monospace, monospace;
+    font-weight: 700;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+    padding: 0.05rem 0.35rem;
+    border-radius: 4px;
+  }
+  .app-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+  }
+  .app-exit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.5rem;
+    min-height: 28px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+  }
+  .app-exit-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+  }
+
+  /* Responsive App Grid */
+  .player-app-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  @media (min-width: 860px) {
+    .player-app-grid {
+      display: grid;
+      grid-template-columns: minmax(360px, 460px) 1fr;
+      gap: 0.95rem;
+      align-items: start;
+    }
+    .player-col-side {
+      position: sticky;
+      top: 0.65rem;
+    }
+    .table-stage-wrapper {
+      min-height: 520px !important;
+      height: calc(100vh - 130px) !important;
+      max-height: 680px !important;
+    }
+  }
+
+  .player-panel {
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 0.8rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    color: #f8fafc;
   }
   
   .badge {
     display: inline-block;
-    padding: 0.25rem 0.6rem;
+    padding: 0.22rem 0.55rem;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-  .badge-alive { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-  .badge-limbo { background: #fff8e1; color: #e65100; border: 1px dashed #ffb300; }
-  .badge-dead { background: #ffebee; color: #c62828; text-decoration: line-through; border: 1px solid #ffcdd2; }
-  .badge-silenced { background: #ede7f6; color: #512da8; border: 1px solid #d1c4e9; }
+  .badge-alive { background: #052e16; color: #4ade80; border: 1px solid #166534; }
+  .badge-limbo { background: #451a03; color: #fbbf24; border: 1px dashed #d97706; }
+  .badge-dead { background: #450a0a; color: #f87171; text-decoration: line-through; border: 1px solid #991b1b; }
+  .badge-silenced { background: #2e1065; color: #c084fc; border: 1px solid #7e22ce; }
 
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.35rem;
-    padding: 0.55rem 1rem;
-    min-height: 42px;
+    padding: 0.45rem 0.85rem;
+    min-height: 38px;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    background: #fff;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #f8fafc;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     user-select: none;
     -webkit-user-select: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
   }
+  .btn:hover { background: #334155; }
   .btn:active { transform: scale(0.98); }
-  .btn-primary { background: #111; color: #fff; border-color: #111; }
+  .btn-primary { background: #2563eb; color: #fff; border-color: #2563eb; }
+  .btn-primary:hover { background: #1d4ed8; }
 
+  /* Compact Horizontal Timer Banner */
   .timer-banner {
-    background: #fff;
-    border: 1px solid #e2e8f0;
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    padding: 0.85rem;
-    text-align: center;
-    margin-bottom: 1.25rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    padding: 0.55rem 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.65rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   }
   .timer-banner .timer-val {
-    font-size: 2.4rem;
+    font-size: 1.95rem;
     font-weight: 800;
     font-family: ui-monospace, monospace;
     letter-spacing: 1px;
-    color: #0f172a;
-    line-height: 1.1;
-    margin: 0.15rem 0;
+    color: #ffffff;
+    line-height: 1;
+    margin: 0;
   }
 
   /* --- Secret Role Card --- */
   .role-card-container {
     perspective: 1000px;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.65rem;
   }
   .role-card {
-    background: linear-gradient(155deg, #1f2128 0%, #111216 100%);
+    background: linear-gradient(155deg, #1e293b 0%, #0f172a 100%);
     color: #fff;
-    border-radius: 16px;
-    padding: 1.5rem 1.25rem;
+    border-radius: 14px;
+    padding: 1.15rem 1rem;
     text-align: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-    border: 2px solid #2d3139;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    border: 2px solid #334155;
     user-select: none;
     -webkit-user-select: none;
     position: relative;
     overflow: hidden;
-    min-height: 240px;
+    min-height: 205px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,24 +234,24 @@
   }
   .role-card.is-holding {
     transform: scale(1.025);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
     border-color: #6366f1;
   }
   .role-card.is-active {
     border-color: #4f46e5;
-    box-shadow: 0 10px 28px rgba(79, 70, 229, 0.25);
+    box-shadow: 0 10px 28px rgba(79, 70, 229, 0.35);
   }
   .role-card.faction-wolves {
     border-color: #ef4444 !important;
-    box-shadow: 0 10px 28px rgba(239, 68, 68, 0.25) !important;
+    box-shadow: 0 10px 28px rgba(239, 68, 68, 0.35) !important;
   }
   .role-card.faction-town {
     border-color: #3b82f6 !important;
-    box-shadow: 0 10px 28px rgba(59, 130, 246, 0.25) !important;
+    box-shadow: 0 10px 28px rgba(59, 130, 246, 0.35) !important;
   }
   .role-card.faction-neutral {
     border-color: #a855f7 !important;
-    box-shadow: 0 10px 28px rgba(168, 85, 247, 0.25) !important;
+    box-shadow: 0 10px 28px rgba(168, 85, 247, 0.35) !important;
   }
 
   .hold-progress {
@@ -324,14 +461,15 @@
   .u-seat-node {
     position: absolute;
     transform: translate(-50%, -50%);
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
+    background: #1e293b;
+    border: 2px solid #334155;
     border-radius: 8px;
     padding: 0.3rem 0.45rem;
     text-align: center;
     width: 95px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     z-index: 20;
+    color: #f8fafc;
   }
   @media (max-width: 480px) {
     .u-seat-node {
@@ -344,11 +482,11 @@
     }
   }
   .u-seat-node.alive { border-color: #22c55e; }
-  .u-seat-node.limbo { border-color: #f59e0b; background: #fffbeb; }
-  .u-seat-node.dead { border-color: #ef4444; background: #fef2f2; opacity: 0.65; }
+  .u-seat-node.limbo { border-color: #f59e0b; background: #2e1d05; }
+  .u-seat-node.dead { border-color: #ef4444; background: #2d1215; opacity: 0.65; }
   .u-seat-node.is-me {
-    border-color: #2563eb !important;
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.4) !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.4) !important;
   }
   .u-seat-header {
     display: flex;
@@ -359,8 +497,8 @@
   }
   .u-seat-num {
     font-weight: 700;
-    color: #64748b;
-    background: #f1f5f9;
+    color: #94a3b8;
+    background: #0f172a;
     border-radius: 3px;
     padding: 0.05rem 0.2rem;
   }
@@ -372,7 +510,7 @@
   .u-seat-name {
     font-size: 0.75rem;
     font-weight: 700;
-    color: #0f172a;
+    color: #f8fafc;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -380,44 +518,47 @@
   .u-seat-role {
     font-size: 0.65rem;
     font-weight: 600;
-    color: #475569;
+    color: #94a3b8;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  }
   .limbo-card {
-    background: #fff8e1;
-    border: 2px dashed #ffb300;
+    background: #2e1d05;
+    border: 2px dashed #f59e0b;
     border-radius: 12px;
     padding: 1.1rem;
     text-align: center;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.65rem;
+    color: #fef3c7;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   }
   .player-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.6rem 0.85rem;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #334155;
+    color: #f8fafc;
   }
   .player-item:last-child {
     border-bottom: none;
   }
 
-  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
   .modal.active { display: flex; }
-  .modal-content { background: #fff; padding: 1.5rem; border-radius: 12px; max-width: 440px; width: 92%; box-sizing: border-box; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+  .modal-content { background: #111827; border: 1px solid rgba(255,255,255,0.12); color: #f8fafc; padding: 1.5rem; border-radius: 12px; max-width: 440px; width: 92%; box-sizing: border-box; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
 
   /* Notes Scratchpad & Autocomplete */
   .notes-card {
-    background: #ffffff;
-    border: 1.5px solid #cbd5e1;
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 14px;
     padding: 0.95rem;
-    margin-bottom: 1.25rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 0.65rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     position: relative;
+    color: #f8fafc;
   }
   .notes-header {
     display: flex;
@@ -428,7 +569,7 @@
   .notes-title {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #0f172a;
+    color: #f8fafc;
     display: flex;
     align-items: center;
     gap: 0.35rem;
@@ -447,7 +588,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #64748b;
+    color: #94a3b8;
     margin-bottom: 0.3rem;
     display: flex;
     align-items: center;
@@ -463,9 +604,9 @@
   }
   .notes-chip {
     flex-shrink: 0;
-    background: #f1f5f9;
-    border: 1px solid #cbd5e1;
-    color: #334155;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #cbd5e1;
     padding: 0.22rem 0.55rem;
     border-radius: 999px;
     font-size: 0.76rem;
@@ -475,17 +616,17 @@
     transition: all 0.15s ease;
   }
   .notes-chip:hover {
-    background: #e2e8f0;
-    border-color: #94a3b8;
-    color: #0f172a;
+    background: #334155;
+    border-color: #64748b;
+    color: #ffffff;
   }
   .notes-chip:active {
     transform: scale(0.95);
   }
   .notes-emoji-chip {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    color: #1e293b;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #cbd5e1;
     padding: 0.25rem 0.6rem;
     border-radius: 6px;
     font-size: 0.76rem;
@@ -499,8 +640,9 @@
     gap: 0.25rem;
   }
   .notes-emoji-chip:hover {
-    background: #f1f5f9;
-    border-color: #cbd5e1;
+    background: #334155;
+    border-color: #64748b;
+    color: #ffffff;
   }
   .notes-emoji-chip:active {
     transform: scale(0.95);
@@ -512,14 +654,14 @@
   .notes-textarea {
     width: 100%;
     min-height: 125px;
-    border: 1.5px solid #cbd5e1;
+    border: 1.5px solid #334155;
     border-radius: 10px;
     padding: 0.7rem;
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.92rem;
     line-height: 1.45;
-    color: #0f172a;
-    background: #fafafa;
+    color: #f8fafc;
+    background: #090d16;
     resize: vertical;
     box-sizing: border-box;
     transition: border-color 0.2s ease, background 0.2s ease;
@@ -527,8 +669,8 @@
   .notes-textarea:focus {
     outline: none;
     border-color: #6366f1;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    background: #0f172a;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
   }
   .notes-autocomplete-dropdown {
     position: absolute;
@@ -537,10 +679,10 @@
     top: calc(100% - 2px);
     max-height: 190px;
     overflow-y: auto;
-    background: #ffffff;
+    background: #1e293b;
     border: 1.5px solid #6366f1;
     border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     z-index: 50;
     display: none;
   }
@@ -551,15 +693,16 @@
     padding: 0.45rem 0.75rem;
     cursor: pointer;
     font-size: 0.85rem;
-    border-bottom: 1px solid #f1f5f9;
+    color: #f8fafc;
+    border-bottom: 1px solid #334155;
     user-select: none;
   }
   .ac-item:last-child {
     border-bottom: none;
   }
   .ac-item.selected, .ac-item:hover {
-    background: #eef2ff;
-    color: #4338ca;
+    background: #312e81;
+    color: #e0e7ff;
   }
   .notes-footer {
     display: flex;
@@ -596,307 +739,319 @@
 
 <div class="player-container">
   <!-- Top Bar -->
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.75rem;">
-    <div>
-      <h1 style="font-size: 1.25rem; margin: 0; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
-        <span>🐺 {{ state.title }}</span>
-      </h1>
-      <span style="font-size: 0.82rem; color: #64748b;">
-        Playing as <strong>{{ state.me.name }}</strong> (Room <span style="font-family: monospace; font-weight: 600;">{{ code }}</span>)
-      </span>
-    </div>
-    <div id="my-status-badge">
-      <span class="badge badge-{{ state.me.status }}">{{ state.me.status }}</span>
-    </div>
-  </div>
-
-  <!-- GM Announcement Banner -->
-  <div id="gm-announcement-box" style="display: none; background: #fffde7; border: 1px solid #fde047; border-radius: 12px; padding: 0.85rem 1rem; color: #854d0e; font-weight: 600; margin-bottom: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-  </div>
-
-  <!-- =============================== -->
-  <!-- 1. PRE-GAME LOBBY WAITING SCREEN -->
-  <!-- =============================== -->
-  <div id="player-lobby-view" style="display: {% if state.phase == 'lobby' %}block{% else %}none{% endif %}; text-align: center;">
-    <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem 1.25rem; box-shadow: 0 4px 16px rgba(0,0,0,0.04); margin-bottom: 1.25rem;">
-      <div style="font-size: 3.5rem; line-height: 1; margin-bottom: 0.5rem;">🐺</div>
-      <h2 style="font-size: 1.35rem; margin: 0 0 0.4rem; font-weight: 700; color: #0f172a;">Table Gathering</h2>
-      <p style="font-size: 0.88rem; color: #64748b; line-height: 1.45; margin: 0 auto 1.5rem; max-width: 320px;">
-        Waiting for the Game Master to set roles and start the game...
-      </p>
-
-      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem; margin-bottom: 1.5rem; text-align: left;">
-        <div style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 0.6rem; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
-          <span>👥 Players in Room:</span>
-          <span id="lobby-player-count" style="color: #2563eb; font-weight: 800;">{{ state.players|length }}</span>
-        </div>
-        <div id="lobby-players-chips" style="display: flex; flex-wrap: wrap; gap: 0.45rem;">
-          <!-- Filled dynamically -->
+  <header class="app-topbar">
+    <div class="app-topbar-left">
+      <span class="app-brand-icon">🐺</span>
+      <div style="min-width: 0;">
+        <div class="app-brand-title">{{ state.title }}</div>
+        <div class="app-brand-sub">
+          Room <span class="app-room-pill">{{ code }}</span> &bull; <strong>{{ state.me.name }}</strong>
         </div>
       </div>
-
-      <div style="font-size: 0.82rem; color: #64748b; line-height: 1.45; border-top: 1px dashed #e2e8f0; padding-top: 1rem; margin-bottom: 1.25rem;">
-        🔒 <strong>Keep this screen open.</strong> As soon as the host starts the game, your secret role card will be dealt automatically!
-      </div>
-
-      <div>
-        <button onclick="openPlayerModal('all-roles-modal')" class="btn" style="width: 100%; background: #f8fafc; border: 1px solid #cbd5e1; font-size: 0.88rem; color: #1e293b;">
-          📚 All Roles Guide &amp; Cheat Sheet
-        </button>
-      </div>
     </div>
-  </div>
-
-  <!-- =============================== -->
-  <!-- 2. ACTIVE GAME SCREEN (ROUND 1+)-->
-  <!-- =============================== -->
-  <div id="player-active-view" style="display: {% if state.phase != 'lobby' %}block{% else %}none{% endif %};">
-    <!-- Silence Alert Banner -->
-    <div id="silence-alert-box" class="silence-alert" style="display: {% if state.me.is_silenced %}block{% else %}none{% endif %};">
-      🤐 <strong>SILENCED TODAY!</strong><br>
-      <span style="font-size: 0.82rem; font-weight: normal; opacity: 0.95;">A spell binds your lips. You cannot speak, whisper, or signal until nightfall.</span>
-    </div>
-
-    <!-- Limbo Screen (Angel Guess) -->
-    <div id="limbo-box" class="limbo-card" style="display: {% if state.me.status == 'limbo' %}block{% else %}none{% endif %};">
-      <div style="font-size: 2.2rem; line-height: 1;">🌫️</div>
-      <h3 style="margin: 0.35rem 0 0.4rem; font-size: 1.15rem; color: #e65100; font-weight: 700;">You are in Limbo!</h3>
-      <p style="font-size: 0.85rem; color: #555; margin-bottom: 0.85rem; line-height: 1.4;">
-        You have one chance to return to the living. Can you guess who the <strong>Angel</strong> is?
-      </p>
-      <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; flex-wrap: wrap;">
-        <select id="angel-guess-select" style="padding: 0.5rem; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; max-width: 200px;">
-          <!-- Filled dynamically -->
-        </select>
-        <button onclick="submitAngelGuess()" class="btn btn-primary" style="background: #e65100; border-color: #e65100; min-height: 38px;">
-          Guess Angel
-        </button>
+    <div class="app-topbar-right">
+      <div id="my-status-badge">
+        <span class="badge badge-{{ state.me.status }}">{{ state.me.status }}</span>
       </div>
-      <div id="angel-guess-result" style="font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600;"></div>
+      <a href="{% url 'gamerooms:room-list' %}" class="app-exit-btn" title="Exit to Games">🚪 Games</a>
     </div>
+  </header>
 
-    <!-- Timer Banner -->
-    <div class="timer-banner">
-      <div id="timer-label" style="font-size: 0.75rem; text-transform: uppercase; color: #64748b; font-weight: 700; letter-spacing: 0.8px;">
-        {{ state.timer.label|default:"Discussion" }}
+  <div class="player-app-grid">
+    <div class="player-app-col-main">
+      <!-- GM Announcement Banner -->
+      <div id="gm-announcement-box" style="display: none; background: #422006; border: 1px solid #d97706; border-radius: 12px; padding: 0.75rem 1rem; color: #fef3c7; font-weight: 600; margin-bottom: 0.65rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
       </div>
-      <div id="timer-val" class="timer-val">05:00</div>
-      <div style="font-size: 0.78rem; color: #64748b; margin-top: 0.15rem;">
-        Phase: <strong id="phase-text" style="color: #0f172a;">{{ state.phase|title }}</strong> · Round <span id="round-num">{{ state.round_number }}</span>
-      </div>
-    </div>
 
-    <!-- Secret Role Card (Mobile Long-Press & Tap-Back to Hide) -->
-    <div class="role-card-container">
-      <div class="role-card" id="role-card">
-        <div class="hold-progress" id="hold-progress"></div>
-
-        <!-- Card Revealed Content -->
-        <div id="role-content" class="card-content card-concealed">
-          <div class="card-status-pill" id="card-status-pill">
-            🔒 Tap anywhere to hide
-          </div>
-
-          <div id="role-emoji" class="role-emoji">
-            {{ state.me.role.emoji|default:"🎴" }}
-          </div>
-          
-          <h2 id="role-name" class="role-title">
-            {{ state.me.role.name|default:"Role Unassigned" }}
-          </h2>
-          
-          <div id="role-faction" class="role-faction-badge">
-            {{ state.me.role.faction|default:"Waiting for GM" }}
-          </div>
-          
-          <p id="role-desc" class="role-description">
-            {{ state.me.role.description|default:"Please wait for the game master to deal roles." }}
+      <!-- =============================== -->
+      <!-- 1. PRE-GAME LOBBY WAITING SCREEN -->
+      <!-- =============================== -->
+      <div id="player-lobby-view" style="display: {% if state.phase == 'lobby' %}block{% else %}none{% endif %}; text-align: center;">
+        <div style="background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 1.5rem 1.15rem; box-shadow: 0 4px 16px rgba(0,0,0,0.25); margin-bottom: 0.65rem;">
+          <div style="font-size: 3rem; line-height: 1; margin-bottom: 0.4rem;">🐺</div>
+          <h2 style="font-size: 1.25rem; margin: 0 0 0.35rem; font-weight: 700; color: #ffffff;">Table Gathering</h2>
+          <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.4; margin: 0 auto 1.25rem; max-width: 320px;">
+            Waiting for the Game Master to set roles and start the game...
           </p>
 
-          <!-- Packmates / Lover Info -->
-          <div id="role-secret-notes" class="role-notes"></div>
+          <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 0.85rem; margin-bottom: 1.25rem; text-align: left;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+              <span>👥 Players in Room:</span>
+              <span id="lobby-player-count" style="color: #38bdf8; font-weight: 800;">{{ state.players|length }}</span>
+            </div>
+            <div id="lobby-players-chips" style="display: flex; flex-wrap: wrap; gap: 0.45rem;">
+              <!-- Filled dynamically -->
+            </div>
+          </div>
 
-          <!-- How to Play Quick Modal Trigger -->
-          <div style="margin-top: 0.85rem;">
-            <button type="button" onclick="event.stopPropagation(); openPlayerModal('my-role-guide-modal')" onpointerdown="event.stopPropagation()" class="btn btn-sm" style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 0.78rem; border-radius: 999px; padding: 0.3rem 0.85rem; cursor: pointer;">
-              📖 How to Play this Role
+          <div style="font-size: 0.8rem; color: #94a3b8; line-height: 1.4; border-top: 1px dashed #334155; padding-top: 0.85rem; margin-bottom: 1rem;">
+            🔒 <strong>Keep this screen open.</strong> As soon as the host starts the game, your secret role card will be dealt automatically!
+          </div>
+
+          <div>
+            <button onclick="openPlayerModal('all-roles-modal')" class="btn" style="width: 100%; background: #1e293b; border: 1px solid #334155; font-size: 0.85rem; color: #f8fafc;">
+              📚 All Roles Guide &amp; Cheat Sheet
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================== -->
+      <!-- 2. ACTIVE GAME SCREEN (ROUND 1+)-->
+      <!-- =============================== -->
+      <div id="player-active-view" style="display: {% if state.phase != 'lobby' %}block{% else %}none{% endif %};">
+        <!-- Silence Alert Banner -->
+        <div id="silence-alert-box" class="silence-alert" style="display: {% if state.me.is_silenced %}block{% else %}none{% endif %};">
+          🤐 <strong>SILENCED TODAY!</strong><br>
+          <span style="font-size: 0.82rem; font-weight: normal; opacity: 0.95;">A spell binds your lips. You cannot speak, whisper, or signal until nightfall.</span>
+        </div>
+
+        <!-- Limbo Screen (Angel Guess) -->
+        <div id="limbo-box" class="limbo-card" style="display: {% if state.me.status == 'limbo' %}block{% else %}none{% endif %};">
+          <div style="font-size: 2.2rem; line-height: 1;">🌫️</div>
+          <h3 style="margin: 0.35rem 0 0.4rem; font-size: 1.15rem; color: #fbbf24; font-weight: 700;">You are in Limbo!</h3>
+          <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.4;">
+            You have one chance to return to the living. Can you guess who the <strong>Angel</strong> is?
+          </p>
+          <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <select id="angel-guess-select" style="padding: 0.5rem; font-size: 0.9rem; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; max-width: 200px;">
+              <!-- Filled dynamically -->
+            </select>
+            <button onclick="submitAngelGuess()" class="btn btn-primary" style="background: #e65100; border-color: #e65100; min-height: 38px;">
+              Guess Angel
+            </button>
+          </div>
+          <div id="angel-guess-result" style="font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600;"></div>
+        </div>
+
+        <!-- Timer Banner -->
+        <div class="timer-banner">
+          <div>
+            <div id="timer-label" style="font-size: 0.72rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.8px;">
+              {{ state.timer.label|default:"Discussion" }}
+            </div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.1rem;">
+              Phase: <strong id="phase-text" style="color: #38bdf8;">{{ state.phase|title }}</strong> · Round <span id="round-num" style="color: #ffffff; font-weight: 700;">{{ state.round_number }}</span>
+            </div>
+          </div>
+          <div id="timer-val" class="timer-val">05:00</div>
+        </div>
+
+        <!-- Secret Role Card (Mobile Long-Press & Tap-Back to Hide) -->
+        <div class="role-card-container">
+          <div class="role-card" id="role-card">
+            <div class="hold-progress" id="hold-progress"></div>
+
+            <!-- Card Revealed Content -->
+            <div id="role-content" class="card-content card-concealed">
+              <div class="card-status-pill" id="card-status-pill">
+                🔒 Tap anywhere to hide
+              </div>
+
+              <div id="role-emoji" class="role-emoji">
+                {{ state.me.role.emoji|default:"🎴" }}
+              </div>
+              
+              <h2 id="role-name" class="role-title">
+                {{ state.me.role.name|default:"Role Unassigned" }}
+              </h2>
+              
+              <div id="role-faction" class="role-faction-badge">
+                {{ state.me.role.faction|default:"Waiting for GM" }}
+              </div>
+              
+              <p id="role-desc" class="role-description">
+                {{ state.me.role.description|default:"Please wait for the game master to deal roles." }}
+              </p>
+
+              <!-- Packmates / Lover Info -->
+              <div id="role-secret-notes" class="role-notes"></div>
+
+              <!-- How to Play Quick Modal Trigger -->
+              <div style="margin-top: 0.85rem;">
+                <button type="button" onclick="event.stopPropagation(); openPlayerModal('my-role-guide-modal')" onpointerdown="event.stopPropagation()" class="btn btn-sm" style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 0.78rem; border-radius: 999px; padding: 0.3rem 0.85rem; cursor: pointer;">
+                  📖 How to Play this Role
+                </button>
+              </div>
+            </div>
+
+            <!-- Privacy Shield Overlay -->
+            <div id="reveal-overlay" class="reveal-overlay">
+              <div class="shield-icon" id="shield-icon">👁️</div>
+              <div class="shield-title" id="shield-title">Touch &amp; Hold to Peek</div>
+              <div class="shield-desc" id="shield-desc">Hold finger down · Releases to hide</div>
+              <div class="shield-tap-hint">or tap to unlock</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Night Mode (Eyes Closed Anti-Cheat Screen) -->
+        <div id="night-screen-box" style="display: none; background: #0f172a; color: #fff; padding: 1.5rem 1.15rem; border-radius: 14px; margin-bottom: 0.65rem; border: 2px solid #3b82f6; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+          <div style="font-size: 2.75rem; margin-bottom: 0.4rem;">😴</div>
+          <h3 style="margin-top: 0; font-size: 1.15rem; color: #93c5fd; font-weight: 800;">🌙 Night Phase — Eyes Closed</h3>
+          <p style="font-size: 0.88rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.45;">
+            Put your head down and close your eyes. Listen to the Game Master's voice.
+          </p>
+          
+          <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 0.65rem 0.85rem; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; margin-bottom: 0.5rem;">
+            👉 When your role is called, wake up silently and <strong>point your finger</strong> at your target. Do NOT touch or look at your phone.
+          </div>
+
+          <!-- Secret Detective Reveal pushed by GM -->
+          <div id="player-detective-reveal" style="display: none; background: #1e293b; border: 2px solid #a855f7; border-radius: 10px; padding: 0.75rem 1rem; margin-top: 0.85rem; text-align: left;">
+            <div style="font-size: 0.72rem; color: #d8b4fe; font-weight: 700; text-transform: uppercase;">🔍 Game Master Secret Revelation:</div>
+            <div id="player-detective-reveal-text" style="font-size: 0.98rem; font-weight: 800; color: #fff; margin-top: 0.2rem;"></div>
+          </div>
+        </div>
+
+        <!-- Morning Dawn Report -->
+        <div id="dawn-box" style="display: none; background: #2e1d05; border: 1px solid #92400e; border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.65rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+          <h3 style="margin-top: 0; font-size: 0.95rem; color: #fde68a; font-weight: 700;">☀️ Dawn Report</h3>
+          <ul id="dawn-report-list" style="margin: 0; padding-left: 1.25rem; font-size: 0.85rem; color: #fef3c7; line-height: 1.4;"></ul>
+        </div>
+
+        <!-- Day Voting & Trial Card -->
+        <div id="player-voting-box" style="display: none; background: #111827; border: 2px solid #8b5cf6; border-radius: 14px; padding: 1.15rem; margin-bottom: 0.65rem; box-shadow: 0 4px 16px rgba(139,92,246,0.2);">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- =============================== -->
+      <!-- 3. PLAYER INVESTIGATION NOTEPAD -->
+      <!-- =============================== -->
+      <div id="player-notes-card" class="notes-card">
+        <div class="notes-header">
+          <div>
+            <h3 class="notes-title">
+              <span>📝 Investigation Notepad</span>
+            </h3>
+            <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.1rem;">
+              Private to you · <span id="notes-save-status" style="color: #4ade80; font-weight: 700;">Auto-saved</span>
+            </div>
+          </div>
+          <div class="notes-tools">
+            <button type="button" onclick="autoFillPlayerRoster(false)" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Populate or append player roster">
+              👥 Roster
+            </button>
+            <button type="button" onclick="copyPlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Copy notes to clipboard">
+              📋 Copy
+            </button>
+            <button type="button" onclick="clearPlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Clear notepad">
+              🗑️ Clear
+            </button>
+            <button type="button" id="btn-toggle-notes" onclick="togglePlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.55rem; font-size: 0.85rem;" title="Collapse/Expand">
+              −
             </button>
           </div>
         </div>
 
-        <!-- Privacy Shield Overlay -->
-        <div id="reveal-overlay" class="reveal-overlay">
-          <div class="shield-icon" id="shield-icon">👁️</div>
-          <div class="shield-title" id="shield-title">Touch &amp; Hold to Peek</div>
-          <div class="shield-desc" id="shield-desc">Hold finger down · Releases to hide</div>
-          <div class="shield-tap-hint">or tap to unlock</div>
+        <div id="notes-card-body">
+          <!-- Quick Action Tells (Emojis) -->
+          <div class="notes-subrow">
+            <div class="notes-subrow-label">
+              <span>⚡ Quick Action Tells</span>
+              <span style="font-weight: normal; text-transform: none; font-size: 0.68rem; color: #94a3b8;">Tap to insert</span>
+            </div>
+            <div class="notes-chips-container">
+              <button type="button" onclick="insertNoteSnippet('🗳️ voted ')" class="notes-emoji-chip">🗳️ Voted</button>
+              <button type="button" onclick="insertNoteSnippet('⏱️ delayed vote ')" class="notes-emoji-chip">⏱️ Delayed Vote</button>
+              <button type="button" onclick="insertNoteSnippet('🤫 quiet ')" class="notes-emoji-chip">🤫 Quiet</button>
+              <button type="button" onclick="insertNoteSnippet('😰 nervous ')" class="notes-emoji-chip">😰 Nervous</button>
+              <button type="button" onclick="insertNoteSnippet('🐺 sus ')" class="notes-emoji-chip">🐺 Sus</button>
+              <button type="button" onclick="insertNoteSnippet('🛡️ innocent ')" class="notes-emoji-chip">🛡️ Innocent</button>
+              <button type="button" onclick="insertNoteSnippet('🎯 accused ')" class="notes-emoji-chip">🎯 Accused</button>
+              <button type="button" onclick="insertNoteSnippet('🤥 lied ')" class="notes-emoji-chip">🤥 Lie</button>
+              <button type="button" onclick="insertNoteSnippet('👁️ claimed ')" class="notes-emoji-chip">👁️ Claimed</button>
+              <button type="button" onclick="insertNoteSnippet('• ')" class="notes-emoji-chip" style="font-weight: 800;">• Bullet</button>
+            </div>
+          </div>
+
+          <!-- Roles in Play Chips -->
+          <div class="notes-subrow">
+            <div class="notes-subrow-label">
+              <span>🎭 Roles in Play</span>
+              <span style="font-weight: normal; text-transform: none; font-size: 0.68rem; color: #94a3b8;">Tap to tag suspected role</span>
+            </div>
+            <div id="notes-role-chips" class="notes-chips-container">
+              <!-- Populated from state.roles_in_play / ROLES_CATALOGUE -->
+            </div>
+          </div>
+
+          <!-- Player Mention Chips -->
+          <div class="notes-subrow">
+            <div class="notes-subrow-label">
+              <span>👤 Mention Player</span>
+              <span style="font-weight: normal; text-transform: none; font-size: 0.68rem; color: #94a3b8;">Type @ or tap below</span>
+            </div>
+            <div id="notes-player-chips" class="notes-chips-container">
+              <!-- Filled dynamically from state.players -->
+            </div>
+          </div>
+
+          <!-- Canvas / Textarea -->
+          <div class="notes-canvas-wrapper">
+            <textarea
+              id="player-notes-textarea"
+              class="notes-textarea"
+              placeholder="Jot down suspicions, tells, vote patterns, or defense contradictions...&#10;Tip: Type @ to mention a player, or tap the quick emoji buttons above."
+              oninput="handleNotesInput()"
+            ></textarea>
+            <!-- @ Autocomplete Dropdown -->
+            <div id="notes-autocomplete-dropdown" class="notes-autocomplete-dropdown"></div>
+          </div>
+
+          <!-- Footer Info & Quick Helpers -->
+          <div class="notes-footer">
+            <span id="notes-char-count">0 characters</span>
+            <span id="notes-toast" style="color: #818cf8; font-weight: 700; transition: opacity 0.2s;"></span>
+            <span>🔒 Only you can see this</span>
+          </div>
         </div>
       </div>
-    </div>
+    </div><!-- end .player-app-col-main -->
 
-    <!-- Night Mode (Eyes Closed Anti-Cheat Screen) -->
-    <div id="night-screen-box" style="display: none; background: #0f172a; color: #fff; padding: 1.5rem 1.15rem; border-radius: 14px; margin-bottom: 1.25rem; border: 2px solid #3b82f6; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-      <div style="font-size: 2.75rem; margin-bottom: 0.4rem;">😴</div>
-      <h3 style="margin-top: 0; font-size: 1.15rem; color: #93c5fd; font-weight: 800;">🌙 Night Phase — Eyes Closed</h3>
-      <p style="font-size: 0.88rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.45;">
-        Put your head down and close your eyes. Listen to the Game Master's voice.
-      </p>
-      
-      <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 0.65rem 0.85rem; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; margin-bottom: 0.5rem;">
-        👉 When your role is called, wake up silently and <strong>point your finger</strong> at your target. Do NOT touch or look at your phone.
-      </div>
-
-      <!-- Secret Detective Reveal pushed by GM -->
-      <div id="player-detective-reveal" style="display: none; background: #1e293b; border: 2px solid #a855f7; border-radius: 10px; padding: 0.75rem 1rem; margin-top: 0.85rem; text-align: left;">
-        <div style="font-size: 0.72rem; color: #d8b4fe; font-weight: 700; text-transform: uppercase;">🔍 Game Master Secret Revelation:</div>
-        <div id="player-detective-reveal-text" style="font-size: 0.98rem; font-weight: 800; color: #fff; margin-top: 0.2rem;"></div>
-      </div>
-    </div>
-
-    <!-- Morning Dawn Report -->
-    <div id="dawn-box" style="display: none; background: #fffde7; border: 1px solid #fde047; border-radius: 12px; padding: 1rem 1.15rem; margin-bottom: 1.25rem;">
-      <h3 style="margin-top: 0; font-size: 0.95rem; color: #b45309; font-weight: 700;">☀️ Dawn Report</h3>
-      <ul id="dawn-report-list" style="margin: 0; padding-left: 1.25rem; font-size: 0.85rem; color: #444; line-height: 1.4;"></ul>
-    </div>
-
-    <!-- Day Voting & Trial Card -->
-    <div id="player-voting-box" style="display: none; background: #fff; border: 2px solid #8b5cf6; border-radius: 14px; padding: 1.15rem; margin-bottom: 1.25rem; box-shadow: 0 4px 16px rgba(139,92,246,0.12);">
-      <!-- Rendered dynamically -->
-    </div>
-  </div>
-
-  <!-- =============================== -->
-  <!-- 3. PLAYER INVESTIGATION NOTEPAD -->
-  <!-- =============================== -->
-  <div id="player-notes-card" class="notes-card">
-    <div class="notes-header">
-      <div>
-        <h3 class="notes-title">
-          <span>📝 Investigation Notepad</span>
-        </h3>
-        <div style="font-size: 0.72rem; color: #64748b; margin-top: 0.1rem;">
-          Private to you · <span id="notes-save-status" style="color: #16a34a; font-weight: 700;">Auto-saved</span>
+    <!-- Col Side (Table Seating) -->
+    <div class="player-col-side">
+      <div class="player-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.35rem;">
+          <h3 style="font-size: 0.85rem; margin: 0; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+            👥 Seating Stage
+          </h3>
+          <div style="display: inline-flex; border: 1px solid #334155; border-radius: 6px; overflow: hidden; font-size: 0.75rem;">
+            <button id="p-btn-layout-u" onclick="setPlayerTableLayout('figure_u')" class="btn btn-sm" style="border: none; border-radius: 0; padding: 0.15rem 0.45rem; font-size: 0.72rem; background: #1e293b; color: #f8fafc;">🧲 U-Table</button>
+            <button id="p-btn-layout-ring" onclick="setPlayerTableLayout('ring')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #334155; padding: 0.15rem 0.45rem; font-size: 0.72rem; background: #1e293b; color: #f8fafc;">⭕ Ring</button>
+            <button id="p-btn-layout-list" onclick="setPlayerTableLayout('list')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #334155; padding: 0.15rem 0.45rem; font-size: 0.72rem; background: #1e293b; color: #f8fafc;">📋 List</button>
+          </div>
         </div>
-      </div>
-      <div class="notes-tools">
-        <button type="button" onclick="autoFillPlayerRoster(false)" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Populate or append player roster">
-          👥 Roster
-        </button>
-        <button type="button" onclick="copyPlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Copy notes to clipboard">
-          📋 Copy
-        </button>
-        <button type="button" onclick="clearPlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Clear notepad">
-          🗑️ Clear
-        </button>
-        <button type="button" id="btn-toggle-notes" onclick="togglePlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.55rem; font-size: 0.85rem;" title="Collapse/Expand">
-          −
-        </button>
-      </div>
-    </div>
-
-    <div id="notes-card-body">
-      <!-- Quick Action Tells (Emojis) -->
-      <div class="notes-subrow">
-        <div class="notes-subrow-label">
-          <span>⚡ Quick Action Tells</span>
-          <span style="font-weight: normal; text-transform: none; font-size: 0.68rem; color: #94a3b8;">Tap to insert</span>
+        
+        <!-- Visual Stage for Player View -->
+        <div id="p-table-visual-stage" class="table-stage-wrapper">
+          <svg id="p-table-track-svg" class="table-track-svg" viewBox="0 0 1000 750" preserveAspectRatio="none"></svg>
+          <div id="p-u-gm-podium" class="u-gm-podium">🎤 Game Master</div>
+          <div id="p-table-center-content" class="table-center-content" style="display: none;">
+            <div style="font-size: 0.95rem; font-weight: 800; color: #f8fafc;">TABLE CENTER</div>
+            <div id="p-ring-center-phase" style="font-size: 0.72rem; color: #94a3b8; font-weight: 600; margin-top: 0.15rem;"></div>
+          </div>
+          <div id="p-table-seats-container" class="table-seats-container"></div>
         </div>
-        <div class="notes-chips-container">
-          <button type="button" onclick="insertNoteSnippet('🗳️ voted ')" class="notes-emoji-chip">🗳️ Voted</button>
-          <button type="button" onclick="insertNoteSnippet('⏱️ delayed vote ')" class="notes-emoji-chip">⏱️ Delayed Vote</button>
-          <button type="button" onclick="insertNoteSnippet('🤫 quiet ')" class="notes-emoji-chip">🤫 Quiet</button>
-          <button type="button" onclick="insertNoteSnippet('😰 nervous ')" class="notes-emoji-chip">😰 Nervous</button>
-          <button type="button" onclick="insertNoteSnippet('🐺 sus ')" class="notes-emoji-chip">🐺 Sus</button>
-          <button type="button" onclick="insertNoteSnippet('🛡️ innocent ')" class="notes-emoji-chip">🛡️ Innocent</button>
-          <button type="button" onclick="insertNoteSnippet('🎯 accused ')" class="notes-emoji-chip">🎯 Accused</button>
-          <button type="button" onclick="insertNoteSnippet('🤥 lied ')" class="notes-emoji-chip">🤥 Lie</button>
-          <button type="button" onclick="insertNoteSnippet('👁️ claimed ')" class="notes-emoji-chip">👁️ Claimed</button>
-          <button type="button" onclick="insertNoteSnippet('• ')" class="notes-emoji-chip" style="font-weight: 800;">• Bullet</button>
-        </div>
-      </div>
 
-      <!-- Roles in Play Chips -->
-      <div class="notes-subrow">
-        <div class="notes-subrow-label">
-          <span>🎭 Roles in Play</span>
-          <span style="font-weight: normal; text-transform: none; font-size: 0.68rem; color: #94a3b8;">Tap to tag suspected role</span>
-        </div>
-        <div id="notes-role-chips" class="notes-chips-container">
-          <!-- Populated from state.roles_in_play / ROLES_CATALOGUE -->
-        </div>
+        <div id="players-list" style="display: none;"></div>
       </div>
+    </div><!-- end .player-col-side -->
+  </div><!-- end .player-app-grid -->
+</div><!-- end .player-container -->
 
-      <!-- Player Mention Chips -->
-      <div class="notes-subrow">
-        <div class="notes-subrow-label">
-          <span>👤 Mention Player</span>
-          <span style="font-weight: normal; text-transform: none; font-size: 0.68rem; color: #94a3b8;">Type @ or tap below</span>
-        </div>
-        <div id="notes-player-chips" class="notes-chips-container">
-          <!-- Filled dynamically from state.players -->
-        </div>
-      </div>
-
-      <!-- Canvas / Textarea -->
-      <div class="notes-canvas-wrapper">
-        <textarea
-          id="player-notes-textarea"
-          class="notes-textarea"
-          placeholder="Jot down suspicions, tells, vote patterns, or defense contradictions...&#10;Tip: Type @ to mention a player, or tap the quick emoji buttons above."
-          oninput="handleNotesInput()"
-        ></textarea>
-        <!-- @ Autocomplete Dropdown -->
-        <div id="notes-autocomplete-dropdown" class="notes-autocomplete-dropdown"></div>
-      </div>
-
-      <!-- Footer Info & Quick Helpers -->
-      <div class="notes-footer">
-        <span id="notes-char-count">0 characters</span>
-        <span id="notes-toast" style="color: #6366f1; font-weight: 700; transition: opacity 0.2s;"></span>
-        <span>🔒 Only you can see this</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Floating Shortcut Button -->
-  <div id="floating-notes-pill" class="floating-notes-pill" onclick="openAndScrollToNotes()">
-    <span>📝</span>
-    <span>Notes</span>
-  </div>
-
-  <!-- Table Players List & Seating Map (Common to both) -->
-  <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.35rem;">
-      <h3 style="font-size: 0.9rem; margin: 0; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-        Players at Table
-      </h3>
-      <div style="display: inline-flex; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; font-size: 0.75rem;">
-        <button id="p-btn-layout-u" onclick="setPlayerTableLayout('figure_u')" class="btn btn-sm" style="border: none; border-radius: 0; padding: 0.15rem 0.45rem; font-size: 0.72rem;">🧲 U-Table</button>
-        <button id="p-btn-layout-ring" onclick="setPlayerTableLayout('ring')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #cbd5e1; padding: 0.15rem 0.45rem; font-size: 0.72rem;">⭕ Ring</button>
-        <button id="p-btn-layout-list" onclick="setPlayerTableLayout('list')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #cbd5e1; padding: 0.15rem 0.45rem; font-size: 0.72rem;">📋 List</button>
-      </div>
-    </div>
-    
-    <!-- Visual Stage for Player View -->
-    <div id="p-table-visual-stage" class="table-stage-wrapper">
-      <svg id="p-table-track-svg" class="table-track-svg" viewBox="0 0 1000 750" preserveAspectRatio="none"></svg>
-      <div id="p-u-gm-podium" class="u-gm-podium">🎤 Game Master</div>
-      <div id="p-table-center-content" class="table-center-content" style="display: none;">
-        <div style="font-size: 0.95rem; font-weight: 800; color: #f8fafc;">TABLE CENTER</div>
-        <div id="p-ring-center-phase" style="font-size: 0.72rem; color: #94a3b8; font-weight: 600; margin-top: 0.15rem;"></div>
-      </div>
-      <div id="p-table-seats-container" class="table-seats-container"></div>
-    </div>
-
-    <div id="players-list" style="display: none;"></div>
-  </div>
+<!-- Floating Shortcut Button -->
+<div id="floating-notes-pill" class="floating-notes-pill" onclick="openAndScrollToNotes()">
+  <span>📝</span>
+  <span>Notes</span>
 </div>
 
 <!-- Modal: My Role Quick Guide & Strategy -->
 <div id="my-role-guide-modal" class="modal">
   <div class="modal-content" style="max-height: 85vh; overflow-y: auto; text-align: left; padding: 1.25rem;">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.6rem; margin-bottom: 1rem;">
-      <h3 style="margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 0.4rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 0.6rem; margin-bottom: 1rem;">
+      <h3 style="margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 0.4rem; color: #f8fafc;">
         <span id="guide-modal-emoji">🎴</span> <span id="guide-modal-title">Role Guide</span>
       </h3>
       <button onclick="closePlayerModal('my-role-guide-modal')" class="btn btn-sm" style="min-height: 30px; padding: 0.15rem 0.55rem;">&times; Close</button>
@@ -907,24 +1062,24 @@
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.85rem; line-height: 1.45;">
-      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.85rem;">
-        <div style="font-weight: 700; color: #0f172a; margin-bottom: 0.2rem;">🎯 Your Objective:</div>
-        <div id="guide-modal-objective" style="color: #334155;">-</div>
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.65rem 0.85rem;">
+        <div style="font-weight: 700; color: #f8fafc; margin-bottom: 0.2rem;">🎯 Your Objective:</div>
+        <div id="guide-modal-objective" style="color: #cbd5e1;">-</div>
       </div>
 
-      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.85rem;">
-        <div style="font-weight: 700; color: #0f172a; margin-bottom: 0.2rem;">☀️ Day Conversation &amp; Bluffing:</div>
-        <div id="guide-modal-day" style="color: #334155;">-</div>
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.65rem 0.85rem;">
+        <div style="font-weight: 700; color: #f8fafc; margin-bottom: 0.2rem;">☀️ Day Conversation &amp; Bluffing:</div>
+        <div id="guide-modal-day" style="color: #cbd5e1;">-</div>
       </div>
 
-      <div id="guide-modal-night-wrap" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.85rem;">
-        <div style="font-weight: 700; color: #0f172a; margin-bottom: 0.2rem;">🌙 Night Action:</div>
-        <div id="guide-modal-night" style="color: #334155;">-</div>
+      <div id="guide-modal-night-wrap" style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.65rem 0.85rem;">
+        <div style="font-weight: 700; color: #f8fafc; margin-bottom: 0.2rem;">🌙 Night Action:</div>
+        <div id="guide-modal-night" style="color: #cbd5e1;">-</div>
       </div>
 
-      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 0.65rem 0.85rem;">
-        <div style="font-weight: 700; color: #b45309; margin-bottom: 0.2rem;">💡 Pro Tip:</div>
-        <div id="guide-modal-protip" style="color: #78350f;">-</div>
+      <div style="background: #451a03; border: 1px solid #92400e; border-radius: 8px; padding: 0.65rem 0.85rem;">
+        <div style="font-weight: 700; color: #fde68a; margin-bottom: 0.2rem;">💡 Pro Tip:</div>
+        <div id="guide-modal-protip" style="color: #fef3c7;">-</div>
       </div>
     </div>
 
@@ -937,30 +1092,30 @@
 <!-- Modal: All Roles Catalogue & Cheat Sheet -->
 <div id="all-roles-modal" class="modal">
   <div class="modal-content" style="max-height: 85vh; overflow-y: auto; text-align: left; padding: 1.25rem;">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.6rem; margin-bottom: 1rem;">
-      <h3 style="margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 0.4rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 0.6rem; margin-bottom: 1rem;">
+      <h3 style="margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 0.4rem; color: #f8fafc;">
         <span>📚</span> Roles Cheat Sheet
       </h3>
       <button onclick="closePlayerModal('all-roles-modal')" class="btn btn-sm" style="min-height: 30px; padding: 0.15rem 0.55rem;">&times; Close</button>
     </div>
 
-    <p style="font-size: 0.82rem; color: #64748b; margin-top: 0; margin-bottom: 0.85rem;">
+    <p style="font-size: 0.82rem; color: #94a3b8; margin-top: 0; margin-bottom: 0.85rem;">
       Here is how the roles work in this game. Browse while waiting for the host to deal cards.
     </p>
 
     {% for role in roles_catalogue %}
-    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.65rem; border-left: 4px solid {% if role.faction == 'wolves' %}#ef4444{% elif role.faction == 'town' %}#22c55e{% else %}#a855f7{% endif %};">
+    <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.65rem; border-left: 4px solid {% if role.faction == 'wolves' %}#ef4444{% elif role.faction == 'town' %}#22c55e{% else %}#a855f7{% endif %};">
       <div style="display: flex; justify-content: space-between; align-items: center;">
-        <strong style="font-size: 0.95rem; color: #0f172a;">{{ role.emoji }} {{ role.name }}</strong>
-        <span class="badge" style="font-size: 0.68rem; background: {% if role.faction == 'wolves' %}#fee2e2; color: #991b1b;{% elif role.faction == 'town' %}#dcfce7; color: #166534;{% else %}#f3e8ff; color: #6b21a8;{% endif %}">
+        <strong style="font-size: 0.95rem; color: #f8fafc;">{{ role.emoji }} {{ role.name }}</strong>
+        <span class="badge" style="font-size: 0.68rem; background: {% if role.faction == 'wolves' %}#450a0a; color: #fca5a5; border: 1px solid #991b1b;{% elif role.faction == 'town' %}#052e16; color: #86efac; border: 1px solid #166534;{% else %}#3b0764; color: #d8b4fe; border: 1px solid #7e22ce;{% endif %}">
           {{ role.faction|title }}
         </span>
       </div>
-      <p style="font-size: 0.82rem; color: #475569; margin: 0.35rem 0 0.4rem; line-height: 1.4;">
+      <p style="font-size: 0.82rem; color: #cbd5e1; margin: 0.35rem 0 0.4rem; line-height: 1.4;">
         {{ role.description }}
       </p>
       {% if role.guide.pro_tip %}
-      <div style="font-size: 0.76rem; color: #b45309; background: #fff; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #fde68a;">
+      <div style="font-size: 0.76rem; color: #fef3c7; background: #451a03; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #92400e;">
         💡 <strong>Tip:</strong> {{ role.guide.pro_tip }}
       </div>
       {% endif %}
@@ -1182,11 +1337,11 @@
       chips.innerHTML = "";
       state.players.forEach(p => {
         const chip = document.createElement("span");
-        chip.style.cssText = "display:inline-flex; align-items:center; gap:0.3rem; padding: 0.35rem 0.65rem; background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; font-weight: 600;";
+        chip.style.cssText = "display:inline-flex; align-items:center; gap:0.3rem; padding: 0.35rem 0.65rem; background: #0f172a; border: 1px solid #334155; border-radius: 6px; font-size: 0.85rem; font-weight: 600; color: #f8fafc;";
         if (p.is_me) {
-          chip.style.borderColor = "#3b82f6";
-          chip.style.color = "#1d4ed8";
-          chip.style.background = "#eff6ff";
+          chip.style.borderColor = "#38bdf8";
+          chip.style.color = "#38bdf8";
+          chip.style.background = "rgba(56, 189, 248, 0.15)";
           chip.innerHTML = `⭐ <strong>${escapeHtml(p.name)} (You)</strong>`;
         } else {
           chip.innerText = p.name;
@@ -1492,21 +1647,21 @@
       html += `
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.4rem;">
           <div>
-            <h3 style="margin:0; font-size:1.1rem; color:#6d28d9; display:flex; align-items:center; gap:0.35rem;">
+            <h3 style="margin:0; font-size:1.1rem; color:#c084fc; display:flex; align-items:center; gap:0.35rem;">
               <span>🗳️ Town Nominations</span>
             </h3>
-            <p style="margin:0.2rem 0 0; font-size:0.8rem; color:#64748b;">
+            <p style="margin:0.2rem 0 0; font-size:0.8rem; color:#94a3b8;">
               Threshold: <strong>${v.threshold_votes}</strong> votes needed (50%). You can raise your hand for multiple candidates!
             </p>
           </div>
-          <span style="font-size:0.75rem; font-weight:700; background:#ede9fe; color:#6d28d9; padding:0.2rem 0.55rem; border-radius:999px;">
+          <span style="font-size:0.75rem; font-weight:700; background:#3b0764; color:#d8b4fe; border:1px solid #7e22ce; padding:0.2rem 0.55rem; border-radius:999px;">
             ${(v.official_nominee_ids || []).length} Nominated
           </span>
         </div>
       `;
 
       if (!isAlive) {
-        html += `<div style="background:#fee2e2; color:#991b1b; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem;">💀 You are dead and cannot participate in town nominations.</div>`;
+        html += `<div style="background:#450a0a; color:#fca5a5; border:1px solid #991b1b; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem;">💀 You are dead and cannot participate in town nominations.</div>`;
       }
 
       html += `<div style="display:flex; flex-direction:column; gap:0.5rem;">`;
@@ -1515,20 +1670,20 @@
         const isNom = cand.is_nominated;
         const hasMyVote = cand.has_my_vote;
         const myVoteBtn = isAlive ? `
-          <button onclick="playerVoteNominate('${cand.id}')" class="btn btn-sm" style="${hasMyVote ? 'background:#7c3aed; color:#fff; border-color:#7c3aed; font-weight:700;' : 'background:#fff; color:#475569; border-color:#cbd5e1;'}">
+          <button onclick="playerVoteNominate('${cand.id}')" class="btn btn-sm" style="${hasMyVote ? 'background:#7c3aed; color:#fff; border-color:#7c3aed; font-weight:700;' : 'background:#0f172a; color:#cbd5e1; border-color:#475569;'}">
             ${hasMyVote ? '✋ Hand Raised' : 'Raise Hand'}
           </button>
         ` : '';
 
         html += `
-          <div style="background:${isNom ? '#f5f3ff' : '#f8fafc'}; border:1px solid ${isNom ? '#c4b5fd' : '#e2e8f0'}; border-radius:10px; padding:0.65rem 0.85rem; display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+          <div style="background:${isNom ? '#2e1065' : '#1e293b'}; border:1px solid ${isNom ? '#7e22ce' : '#334155'}; border-radius:10px; padding:0.65rem 0.85rem; display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
             <div>
-              <div style="font-weight:700; font-size:0.92rem; color:#0f172a;">
+              <div style="font-weight:700; font-size:0.92rem; color:#f8fafc;">
                 #${cand.seat_number} ${escapeHtml(cand.name)}
-                ${isNom ? '<span style="font-size:0.68rem; font-weight:800; background:#dcfce7; color:#166534; padding:0.1rem 0.35rem; border-radius:4px; margin-left:0.3rem;">NOMINATED</span>' : ''}
+                ${isNom ? '<span style="font-size:0.68rem; font-weight:800; background:#052e16; color:#4ade80; border:1px solid #166534; padding:0.1rem 0.35rem; border-radius:4px; margin-left:0.3rem;">NOMINATED</span>' : ''}
               </div>
-              <div style="font-size:0.75rem; color:#64748b; margin-top:0.1rem;">
-                Hands raised: <strong style="color:${cand.vote_count >= v.threshold_votes ? '#059669' : '#7c3aed'};">${cand.vote_count}</strong> / ${v.threshold_votes}
+              <div style="font-size:0.75rem; color:#94a3b8; margin-top:0.1rem;">
+                Hands raised: <strong style="color:${cand.vote_count >= v.threshold_votes ? '#4ade80' : '#c084fc'};">${cand.vote_count}</strong> / ${v.threshold_votes}
               </div>
             </div>
             <div>
@@ -1546,16 +1701,16 @@
       html += `
         <div style="text-align:center; padding:0.5rem 0;">
           <div style="font-size:2.5rem; line-height:1; margin-bottom:0.35rem;">⚖️</div>
-          <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#4338ca;">Accused Defense Speech</h3>
+          <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#a5b4fc;">Accused Defense Speech</h3>
           ${isMe ? `
-            <div style="background:#eef2ff; border:2px solid #6366f1; border-radius:10px; padding:0.85rem; margin-top:0.5rem;">
-              <div style="font-size:1rem; font-weight:800; color:#312e81;">🎤 YOU ARE ON TRIAL!</div>
-              <p style="font-size:0.85rem; color:#4338ca; margin:0.35rem 0 0; line-height:1.4;">
+            <div style="background:#1e1b4b; border:2px solid #6366f1; border-radius:10px; padding:0.85rem; margin-top:0.5rem;">
+              <div style="font-size:1rem; font-weight:800; color:#c7d2fe;">🎤 YOU ARE ON TRIAL!</div>
+              <p style="font-size:0.85rem; color:#a5b4fc; margin:0.35rem 0 0; line-height:1.4;">
                 You have 30 seconds to address the town and defend your innocence. Speak clearly to the room!
               </p>
             </div>
           ` : `
-            <p style="font-size:0.9rem; color:#475569; margin:0.25rem 0 0;">
+            <p style="font-size:0.9rem; color:#cbd5e1; margin:0.25rem 0 0;">
               🎤 <strong>${escapeHtml(defName)}</strong> is speaking in their defense. Listen carefully!
             </p>
           `}
@@ -1566,10 +1721,10 @@
       const isRevote = v.is_revote;
       html += `
         <div style="margin-bottom:0.75rem;">
-          <h3 style="margin:0; font-size:1.1rem; color:${isRevote ? '#b45309' : '#dc2626'}; display:flex; align-items:center; gap:0.35rem;">
+          <h3 style="margin:0; font-size:1.1rem; color:${isRevote ? '#fbbf24' : '#f87171'}; display:flex; align-items:center; gap:0.35rem;">
             <span>${isRevote ? '⚡ RUNOFF REVOTE' : '⚖️ Final Execution Ballot'}</span>
           </h3>
-          <p style="margin:0.2rem 0 0; font-size:0.82rem; color:#64748b;">
+          <p style="margin:0.2rem 0 0; font-size:0.82rem; color:#94a3b8;">
             ${isRevote 
               ? 'Tied vote runoff! If another tie occurs, <strong>NO ONE is eliminated today</strong>.' 
               : 'Cast your single execution vote on a nominated candidate (or abstain).'}
@@ -1578,24 +1733,24 @@
       `;
 
       if (!isAlive) {
-        html += `<div style="background:#fee2e2; color:#991b1b; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem;">💀 Only living players may vote to execute.</div>`;
+        html += `<div style="background:#450a0a; color:#fca5a5; border:1px solid #991b1b; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem;">💀 Only living players may vote to execute.</div>`;
       } else {
         html += `<div style="display:flex; flex-direction:column; gap:0.5rem;">`;
         const cands = v.final_candidates || [];
         cands.forEach(cand => {
           const isMyChoice = v.my_vote === cand.id;
           html += `
-            <div style="background:${isMyChoice ? '#fef2f2' : '#fff'}; border:2px solid ${isMyChoice ? '#dc2626' : '#e2e8f0'}; border-radius:10px; padding:0.65rem 0.85rem; display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+            <div style="background:${isMyChoice ? '#450a0a' : '#1e293b'}; border:2px solid ${isMyChoice ? '#ef4444' : '#334155'}; border-radius:10px; padding:0.65rem 0.85rem; display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
               <div>
-                <div style="font-weight:700; font-size:0.95rem; color:#0f172a;">
+                <div style="font-weight:700; font-size:0.95rem; color:#f8fafc;">
                   #${cand.seat_number} ${escapeHtml(cand.name)}
                 </div>
-                <div style="font-size:0.75rem; color:#64748b;">
-                  Current votes: <strong>${cand.vote_count}</strong>
+                <div style="font-size:0.75rem; color:#94a3b8;">
+                  Current votes: <strong style="color:#f8fafc;">${cand.vote_count}</strong>
                 </div>
               </div>
               <div>
-                <button onclick="playerVoteFinal(${isMyChoice ? 'null' : `'${cand.id}'`})" class="btn btn-sm" style="${isMyChoice ? 'background:#dc2626; color:#fff; border-color:#dc2626; font-weight:700;' : 'background:#fff; color:#b91c1c; border-color:#fca5a5;'}">
+                <button onclick="playerVoteFinal(${isMyChoice ? 'null' : `'${cand.id}'`})" class="btn btn-sm" style="${isMyChoice ? 'background:#dc2626; color:#fff; border-color:#dc2626; font-weight:700;' : 'background:#1e293b; color:#f87171; border-color:#991b1b;'}">
                   ${isMyChoice ? '✓ Voted (Remove)' : 'Vote to Execute'}
                 </button>
               </div>
@@ -1604,7 +1759,7 @@
         });
         html += `
           <div style="margin-top:0.4rem; text-align:center;">
-            <button onclick="playerVoteFinal(null)" class="btn btn-sm" style="background:#f1f5f9; color:#475569; border-color:#cbd5e1; font-size:0.78rem;">
+            <button onclick="playerVoteFinal(null)" class="btn btn-sm" style="background:#1e293b; color:#94a3b8; border-color:#475569; font-size:0.78rem;">
               🕊️ Abstain (No Vote)
             </button>
           </div>
@@ -1619,8 +1774,8 @@
         html += `
           <div style="text-align:center; padding:0.5rem 0;">
             <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🕊️</div>
-            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#059669;">SECOND TIE — TOWN SPARED!</h3>
-            <p style="font-size:0.88rem; color:#475569; margin:0; line-height:1.45;">
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#4ade80;">SECOND TIE — TOWN SPARED!</h3>
+            <p style="font-size:0.88rem; color:#cbd5e1; margin:0; line-height:1.45;">
               The runoff vote resulted in a second tie. By town law, <strong>NO ONE is eliminated today!</strong>
             </p>
           </div>
@@ -1629,8 +1784,8 @@
         html += `
           <div style="text-align:center; padding:0.5rem 0;">
             <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🃏</div>
-            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#e11d48;">SOLO JESTER VICTORY!</h3>
-            <p style="font-size:0.88rem; color:#475569; margin:0; line-height:1.45;">
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#fb7185;">SOLO JESTER VICTORY!</h3>
+            <p style="font-size:0.88rem; color:#cbd5e1; margin:0; line-height:1.45;">
               <strong>${escapeHtml(victName || 'The Jester')}</strong> was executed by town vote and won the game solo!
             </p>
           </div>
@@ -1639,8 +1794,8 @@
         html += `
           <div style="text-align:center; padding:0.5rem 0;">
             <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🌫️</div>
-            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#d97706;">SENT TO LIMBO</h3>
-            <p style="font-size:0.88rem; color:#475569; margin:0; line-height:1.45;">
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#fbbf24;">SENT TO LIMBO</h3>
+            <p style="font-size:0.88rem; color:#cbd5e1; margin:0; line-height:1.45;">
               <strong>${escapeHtml(victName || 'Player')}</strong> was banished to Limbo!
             </p>
           </div>
@@ -1649,8 +1804,8 @@
         html += `
           <div style="text-align:center; padding:0.5rem 0;">
             <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🪦</div>
-            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#dc2626;">EXECUTED</h3>
-            <p style="font-size:0.88rem; color:#475569; margin:0; line-height:1.45;">
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#f87171;">EXECUTED</h3>
+            <p style="font-size:0.88rem; color:#cbd5e1; margin:0; line-height:1.45;">
               <strong>${escapeHtml(victName || 'Player')}</strong> was executed by town decree.
             </p>
           </div>
@@ -1659,7 +1814,7 @@
         html += `
           <div style="text-align:center; padding:0.5rem 0;">
             <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">☀️</div>
-            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#475569;">TOWN AT PEACE</h3>
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#94a3b8;">TOWN AT PEACE</h3>
             <p style="font-size:0.88rem; color:#64748b; margin:0;">
               No one was eliminated today.
             </p>

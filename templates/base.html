@@ -24,6 +24,7 @@
   </style>
 </head>
 <body>
+  {% block nav %}
   <nav>
     <a href="/">home</a>
     <a href="{% url 'photos:gallery-list' %}">photos</a>
@@ -31,7 +32,10 @@
     <a href="{% url 'gamerooms:room-list' %}">games</a>
     <a href="/cv">cv</a>
   </nav>
+  {% endblock %}
   {% block content %}{% endblock %}
+  {% block footer %}
   <footer>marco silva {{ year }}</footer>
+  {% endblock %}
 </body>
 </html>

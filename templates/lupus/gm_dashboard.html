@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}GM Cockpit - {{ code }}{% endblock %}
 
+{% block nav %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block extra_css %}
+html, body {
+  margin: 0 !important;
+  padding: 0.5rem 0.85rem !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  background: #f8fafc !important;
+  box-sizing: border-box;
+}
+.gm-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+{% endblock %}
+
 {% block content %}
 <style>
   .gm-container { width: 100%; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; padding-bottom: 3rem; }
@@ -559,6 +577,7 @@
       <button onclick="openModal('roles-guide-modal')" class="btn" style="background: #f1f5f9;" title="View all roles reference & rules">📚 Roles Guide</button>
       <button onclick="openModal('room-qr-modal')" class="btn">📱 Room QR</button>
       <button id="btn-copy-link" onclick="copyJoinLink(this)" class="btn">🔗 Copy Link</button>
+      <a href="{% url 'gamerooms:room-list' %}" class="btn" style="text-decoration: none; color: #475569;" title="Exit to Games">🚪 Games</a>
     </div>
   </div>
 
