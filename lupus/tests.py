@@ -7,18 +7,23 @@ from gamerooms.models import Room
 from lupus.game_state import (
     add_player,
     check_win_condition,
+    clear_gm_night_action,
     create_initial_state,
     deal_roles,
     get_game,
     get_gm_view,
+    get_night_stages,
     get_ordered_players,
     get_sanitized_player_view,
     guess_angel_in_limbo,
     move_player,
+    record_gm_night_action,
     reorder_players,
     resolve_night,
     return_to_lobby,
+    reveal_detective_to_player,
     set_manual_player_role,
+    set_night_stage_index,
     set_player_status,
     start_game,
     submit_night_action,
@@ -347,6 +352,66 @@ class TestLupusEngine:
         winner = check_win_condition(state)
         assert winner == "serial_killer"
         assert state["phase"] == "gameover"
+
+    def test_night_stage_system_flow(self):
+        state = create_initial_state("STAGETEST", "Stage System Test")
+        state, p_wolf = add_player(state, "Wolfie")
+        state, p_silencer = add_player(state, "MuteMike")
+        state, p_det = add_player(state, "Sherlock")
+        state, p_doc = add_player(state, "DoctorDan")
+        state, p_town = add_player(state, "CitizenChris")
+
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_silencer["id"], "silencer")
+        set_manual_player_role(state, p_det["id"], "detective")
+        set_manual_player_role(state, p_doc["id"], "doctor")
+        set_manual_player_role(state, p_town["id"], "villager")
+
+        state["phase"] = "night"
+        state["round_number"] = 1
+
+        # 1. Test get_night_stages: should include wolves, silencer, detective, doctor, review
+        stages = get_night_stages(state)
+        stage_ids = [s["id"] for s in stages]
+        assert stage_ids == ["wolves", "silencer", "detective", "doctor", "review"]
+
+        # 2. Test GM recording wolf target
+        ok, msg = record_gm_night_action(state, "wolves", p_town["id"])
+        assert ok is True
+        assert state["night_actions"]["wolf_target"] == p_town["id"]
+
+        # 3. Test GM recording silencer target
+        ok, msg = record_gm_night_action(state, "silencer", p_doc["id"])
+        assert ok is True
+        assert state["night_actions"]["silencer_target"] == p_doc["id"]
+
+        # 4. Test GM recording detective target (inspecting Wolfie -> Evil)
+        ok, msg = record_gm_night_action(state, "detective", p_wolf["id"])
+        assert ok is True
+        assert "Evil" in msg
+        query = state["night_actions"]["detective_query"]
+        assert query["result"] == "Evil / Enemy"
+        assert query["is_evil"] is True
+
+        # 5. Test reveal_detective_to_player: only Detective sees the revealed inspect
+        reveal_detective_to_player(state)
+        det_view = get_sanitized_player_view(state, p_det["id"])
+        assert det_view["revealed_inspect"] is not None
+        assert det_view["revealed_inspect"]["result"] == "Evil / Enemy"
+
+        town_view = get_sanitized_player_view(state, p_town["id"])
+        assert town_view["revealed_inspect"] is None  # Civilians cannot see!
+
+        wolf_view = get_sanitized_player_view(state, p_wolf["id"])
+        assert wolf_view["revealed_inspect"] is None  # Wolves cannot see!
+
+        # 6. Test clear action
+        clear_gm_night_action(state, "silencer")
+        assert "silencer_target" not in state["night_actions"]
+
+        # 7. Test stage navigation
+        set_night_stage_index(state, 2)
+        assert state["night_stage_index"] == 2
 
     def test_physical_seating_order_and_reorder(self):
         state = create_initial_state("SEATTEST", "Seating Test")

@@ -6,22 +6,26 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from .game_state import (
     add_player,
+    clear_gm_night_action,
     get_game,
     get_gm_view,
     get_sanitized_player_view,
     guess_angel_in_limbo,
     move_player,
     pause_timer,
+    record_gm_night_action,
     remove_player,
     reorder_players,
     reset_timer,
     resolve_night,
     resume_timer,
     return_to_lobby,
+    reveal_detective_to_player,
     save_game,
     set_broadcast_message,
     set_deck,
     set_manual_player_role,
+    set_night_stage_index,
     set_player_status,
     set_round_number,
     start_game,
@@ -215,10 +219,34 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 new_phase = content.get("phase")
                 if new_phase in ("lobby", "night", "day_discussion", "day_defense", "day_voting", "gameover"):
                     state["phase"] = new_phase
-                    if new_phase == "day_discussion":
+                    if new_phase == "night":
+                        set_night_stage_index(state, 0)
+                        state["revealed_inspect"] = None
+                    elif new_phase == "day_discussion":
                         start_timer(state, state["settings"].get("discussion_timer", 300), "Discussion")
                     save_game(self.code, state)
                     await self.broadcast_sync()
+
+            elif action == "set_night_stage":
+                idx = int(content.get("stage_index", 0))
+                set_night_stage_index(state, idx)
+                await self.broadcast_sync()
+
+            elif action == "record_night_action":
+                stage_id = content.get("stage_id")
+                target_id = content.get("target_id")
+                extra = content.get("extra")
+                record_gm_night_action(state, stage_id, target_id, extra)
+                await self.broadcast_sync()
+
+            elif action == "clear_night_action":
+                stage_id = content.get("stage_id")
+                clear_gm_night_action(state, stage_id)
+                await self.broadcast_sync()
+
+            elif action == "reveal_detective":
+                reveal_detective_to_player(state)
+                await self.broadcast_sync()
 
             elif action == "start_timer":
                 duration = int(content.get("duration", 300))

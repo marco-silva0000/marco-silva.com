@@ -91,6 +91,8 @@ def create_initial_state(
         "players": {},
         "player_order": [],
         "night_actions": {},
+        "night_stage_index": 0,
+        "revealed_inspect": None,
         "witch_used_revive": False,
         "witch_used_kill": False,
         "mayor_used_veto": False,
@@ -299,6 +301,8 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     state["round_number"] = 1
     state["night_actions"] = {}
     state["night_report"] = []
+    state["night_stage_index"] = 0
+    state["revealed_inspect"] = None
     state["defense_player_id"] = None
     state["winner"] = None
     state["witch_used_revive"] = False
@@ -317,6 +321,8 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     state["round_number"] = 0
     state["night_actions"] = {}
     state["night_report"] = []
+    state["night_stage_index"] = 0
+    state["revealed_inspect"] = None
     state["defense_player_id"] = None
     state["winner"] = None
     state["broadcast_message"] = None
@@ -422,6 +428,361 @@ def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id
 
 
 # --- Night Actions & Resolution Engine ---
+
+
+def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
+    """Determine the active ordered stages for the night phase based on living roles."""
+    stages = []
+    players = state.get("players", {})
+    theme = state.get("theme", "werewolf")
+    is_mafia = theme == "mafia"
+    actions = state.get("night_actions", {})
+    ordered = get_ordered_players(state)
+    round_num = state.get("round_number", 1)
+
+    def living_with_role(r_id: str) -> list[dict[str, Any]]:
+        return [
+            {"id": p["id"], "name": p["name"], "seat_number": idx + 1, "last_guarded_id": p.get("last_guarded_id")}
+            for idx, p in enumerate(ordered)
+            if p.get("role") == r_id and p.get("status") == "alive"
+        ]
+
+    # 1. Cupid (Night 1 only, if Cupid in game and alive)
+    cupid_players = living_with_role("cupid")
+    if round_num <= 1 and cupid_players:
+        current_lovers = actions.get("cupid_lovers", [])
+        stages.append({
+            "id": "cupid",
+            "title": "💘 Cupid (Matchmaker)" if is_mafia else "💘 Cupid (Lovers)",
+            "role_id": "cupid",
+            "actors": cupid_players,
+            "script": "Cupid, wake up! Silently point at two players you bind as lovers.",
+            "target_ids": current_lovers,
+            "target_names": [players[pid]["name"] for pid in current_lovers if pid in players],
+            "is_complete": len(current_lovers) == 2,
+        })
+
+    # 2. Werewolves / Mafia
+    wolves = [
+        {"id": p["id"], "name": p["name"], "seat_number": idx + 1}
+        for idx, p in enumerate(ordered)
+        if p.get("faction") == FACTION_WOLVES and p.get("status") == "alive"
+    ]
+    wolf_target_id = actions.get("wolf_target")
+    wolf_target_name = players[wolf_target_id]["name"] if wolf_target_id in players else None
+    stages.append({
+        "id": "wolves",
+        "title": "🐺 Mafia Hit" if is_mafia else "🐺 Werewolves Hunt",
+        "role_id": "werewolf",
+        "actors": wolves,
+        "script": "Mafia, wake up! Silently agree and point at your victim." if is_mafia else "Werewolves, wake up! Look at each other and silently point at your victim.",
+        "target_id": wolf_target_id,
+        "target_name": wolf_target_name,
+        "is_complete": bool(wolf_target_id),
+    })
+
+    # 3. Silencer
+    silencer_players = living_with_role("silencer")
+    if silencer_players:
+        s_target_id = actions.get("silencer_target")
+        stages.append({
+            "id": "silencer",
+            "title": "🤐 Consigliere (Silence)" if is_mafia else "🤐 Silencer Spell",
+            "role_id": "silencer",
+            "actors": silencer_players,
+            "script": "Silencer, wake up! Silently point at the player who cannot speak tomorrow.",
+            "target_id": s_target_id,
+            "target_name": players[s_target_id]["name"] if s_target_id in players else None,
+            "is_complete": bool(s_target_id),
+        })
+
+    # 4. Framer
+    framer_players = living_with_role("framer")
+    if framer_players:
+        f_target_id = actions.get("framer_target")
+        stages.append({
+            "id": "framer",
+            "title": "🎭 Framer / Swindler",
+            "role_id": "framer",
+            "actors": framer_players,
+            "script": "Framer, wake up! Silently point at someone to frame so they appear evil to the Detective.",
+            "target_id": f_target_id,
+            "target_name": players[f_target_id]["name"] if f_target_id in players else None,
+            "is_complete": bool(f_target_id),
+        })
+
+    # 5. Detective
+    detective_players = living_with_role("detective")
+    if detective_players:
+        det_query = actions.get("detective_query", {})
+        det_target_id = det_query.get("target_id")
+        stages.append({
+            "id": "detective",
+            "title": "🔍 Detective Investigation",
+            "role_id": "detective",
+            "actors": detective_players,
+            "script": "Detective, wake up! Silently point at the person you want to inspect.",
+            "target_id": det_target_id,
+            "target_name": players[det_target_id]["name"] if det_target_id in players else None,
+            "result": det_query.get("result"),
+            "is_evil": det_query.get("is_evil"),
+            "is_complete": bool(det_target_id),
+        })
+
+    # 6. Doctor / Medic
+    doctor_players = living_with_role("doctor")
+    if doctor_players:
+        doc_target_id = actions.get("doctor_protect")
+        last_guarded = doctor_players[0].get("last_guarded_id") if doctor_players else None
+        stages.append({
+            "id": "doctor",
+            "title": "🩺 Doctor / Guard",
+            "role_id": "doctor",
+            "actors": doctor_players,
+            "script": "Doctor, wake up! Silently point at the player you want to protect tonight.",
+            "target_id": doc_target_id,
+            "target_name": players[doc_target_id]["name"] if doc_target_id in players else None,
+            "last_guarded_id": last_guarded,
+            "is_complete": bool(doc_target_id),
+        })
+
+    # 7. Bodyguard
+    bodyguard_players = living_with_role("bodyguard")
+    if bodyguard_players:
+        bg_target_id = actions.get("bodyguard_protect")
+        stages.append({
+            "id": "bodyguard",
+            "title": "🛡️ Bodyguard Shield",
+            "role_id": "bodyguard",
+            "actors": bodyguard_players,
+            "script": "Bodyguard, wake up! Silently point at who you will shield with your life.",
+            "target_id": bg_target_id,
+            "target_name": players[bg_target_id]["name"] if bg_target_id in players else None,
+            "is_complete": bool(bg_target_id),
+        })
+
+    # 8. Witch
+    witch_players = living_with_role("witch")
+    has_revive = not state.get("witch_used_revive", False)
+    has_kill = not state.get("witch_used_kill", False)
+    if witch_players and (has_revive or has_kill):
+        w_act = actions.get("witch_action", {})
+        victim_id = actions.get("wolf_target")
+        victim_name = players[victim_id]["name"] if victim_id in players else "Nobody"
+        stages.append({
+            "id": "witch",
+            "title": "🧙‍♀️ Witch / Chemist",
+            "role_id": "witch",
+            "actors": witch_players,
+            "script": f"Witch, wake up! Tonight's victim is {victim_name}. Do you want to use your revival potion? Do you want to poison someone?",
+            "victim_name": victim_name,
+            "revive": w_act.get("revive", False),
+            "has_revive_potion": has_revive,
+            "has_kill_potion": has_kill,
+            "kill_target_id": w_act.get("kill_target"),
+            "kill_target_name": players[w_act["kill_target"]]["name"] if w_act.get("kill_target") in players else None,
+            "is_complete": bool(w_act),
+        })
+
+    # 9. Sniper
+    sniper_players = living_with_role("sniper")
+    if sniper_players:
+        s_act = actions.get("sniper_shot", {})
+        s_target_id = s_act.get("target_id")
+        stages.append({
+            "id": "sniper",
+            "title": "🎯 Sniper / Vigilante",
+            "role_id": "sniper",
+            "actors": sniper_players,
+            "script": "Sniper, wake up! Silently point if you wish to shoot someone tonight, or shake head to pass.",
+            "target_id": s_target_id,
+            "target_name": players[s_target_id]["name"] if s_target_id in players else None,
+            "bullet_type": s_act.get("bullet_type", "danger"),
+            "is_complete": bool(s_target_id),
+        })
+
+    # 10. Serial Killer
+    sk_players = living_with_role("serial_killer")
+    if sk_players:
+        sk_target_id = actions.get("sk_target")
+        stages.append({
+            "id": "serial_killer",
+            "title": "🔪 Serial Killer Strike",
+            "role_id": "serial_killer",
+            "actors": sk_players,
+            "script": "Serial Killer, wake up! Silently point at your solo victim.",
+            "target_id": sk_target_id,
+            "target_name": players[sk_target_id]["name"] if sk_target_id in players else None,
+            "is_complete": bool(sk_target_id),
+        })
+
+    # 11. Dawn Review (Always final stage)
+    stages.append({
+        "id": "review",
+        "title": "☀️ Dawn Review & Resolve",
+        "role_id": None,
+        "actors": [],
+        "script": "Review all registered night actions. When ready, wake up the town to announce dawn and start day discussion!",
+        "is_complete": True,
+    })
+
+    return stages
+
+
+def record_gm_night_action(
+    state: dict[str, Any],
+    stage_id: str,
+    target_id: Optional[str] = None,
+    extra: Optional[dict[str, Any]] = None,
+) -> tuple[bool, str]:
+    """Store night action directly registered by the Game Master from player finger-pointing."""
+    actions = state.setdefault("night_actions", {})
+    players = state.get("players", {})
+
+    if stage_id == "wolves":
+        actions["wolf_target"] = target_id
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Wolves victim set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Wolves target: {name}"
+
+    elif stage_id == "silencer":
+        actions["silencer_target"] = target_id
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Silencer target set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Silencer target: {name}"
+
+    elif stage_id == "framer":
+        actions["framer_target"] = target_id
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Framer target set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Framer target: {name}"
+
+    elif stage_id == "detective":
+        if not target_id or target_id not in players:
+            return False, "Invalid inspection target."
+        target = players[target_id]
+        is_framed = actions.get("framer_target") == target_id
+        is_evil = (
+            ((target["faction"] == FACTION_WOLVES or target["role"] == "serial_killer")
+             and target["role"] != "alpha_wolf")
+            or is_framed
+        )
+        result_text = "Evil / Enemy" if is_evil else "Good / Innocent"
+        det_actor = next((p["id"] for p in players.values() if p["role"] == "detective" and p["status"] == "alive"), None)
+        actions["detective_query"] = {
+            "actor_id": det_actor,
+            "target_id": target_id,
+            "target_name": target["name"],
+            "result": result_text,
+            "is_evil": is_evil,
+        }
+        log_event(state, f"Detective inspected {target['name']}: {result_text}")
+        save_game(state["code"], state)
+        return True, f"{target['name']} is {result_text}"
+
+    elif stage_id == "doctor":
+        actions["doctor_protect"] = target_id
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Doctor protect set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Doctor protects: {name}"
+
+    elif stage_id == "bodyguard":
+        bg_actor = next((p["id"] for p in players.values() if p["role"] == "bodyguard" and p["status"] == "alive"), None)
+        actions["bodyguard_protect"] = target_id
+        actions["bodyguard_actor"] = bg_actor
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Bodyguard target set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Bodyguard guards: {name}"
+
+    elif stage_id == "witch":
+        extra = extra or {}
+        revive = bool(extra.get("revive"))
+        kill_target = extra.get("kill_target")
+        actions["witch_action"] = {
+            "revive": revive,
+            "kill_target": kill_target,
+        }
+        log_event(state, f"Witch action set (revive={revive}, kill={kill_target})")
+        save_game(state["code"], state)
+        return True, "Witch action updated"
+
+    elif stage_id == "sniper":
+        extra = extra or {}
+        sniper_actor = next((p["id"] for p in players.values() if p["role"] == "sniper" and p["status"] == "alive"), None)
+        actions["sniper_shot"] = {
+            "actor_id": sniper_actor,
+            "target_id": target_id,
+            "bullet_type": extra.get("bullet_type", "danger"),
+        }
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Sniper shot set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Sniper shot: {name}"
+
+    elif stage_id == "serial_killer":
+        actions["sk_target"] = target_id
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Serial Killer target set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Serial Killer target: {name}"
+
+    elif stage_id == "cupid":
+        extra = extra or {}
+        lovers = list(actions.get("cupid_lovers", []))
+        if target_id:
+            if target_id in lovers:
+                lovers.remove(target_id)
+            else:
+                if len(lovers) >= 2:
+                    lovers = [lovers[1], target_id]
+                else:
+                    lovers.append(target_id)
+        actions["cupid_lovers"] = lovers[:2]
+        log_event(state, f"Cupid lovers updated: {lovers}")
+        save_game(state["code"], state)
+        return True, f"Cupid lovers: {len(actions['cupid_lovers'])} selected"
+
+    return False, "Unknown stage"
+
+
+def clear_gm_night_action(state: dict[str, Any], stage_id: str) -> None:
+    actions = state.setdefault("night_actions", {})
+    mapping = {
+        "wolves": "wolf_target",
+        "silencer": "silencer_target",
+        "framer": "framer_target",
+        "detective": "detective_query",
+        "doctor": "doctor_protect",
+        "bodyguard": "bodyguard_protect",
+        "witch": "witch_action",
+        "sniper": "sniper_shot",
+        "serial_killer": "sk_target",
+        "cupid": "cupid_lovers",
+    }
+    key = mapping.get(stage_id)
+    if key and key in actions:
+        del actions[key]
+        save_game(state["code"], state)
+
+
+def set_night_stage_index(state: dict[str, Any], index: int) -> None:
+    stages = get_night_stages(state)
+    max_idx = max(0, len(stages) - 1)
+    state["night_stage_index"] = max(0, min(index, max_idx))
+    save_game(state["code"], state)
+
+
+def reveal_detective_to_player(state: dict[str, Any]) -> None:
+    query = state.get("night_actions", {}).get("detective_query")
+    if query:
+        state["revealed_inspect"] = query
+        log_event(state, "Game Master revealed inspection result to Detective.")
+        save_game(state["code"], state)
 
 
 def submit_night_action(
@@ -694,6 +1055,8 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
 
     state["night_report"] = report
     state["night_actions"] = {}  # Clear for next night
+    state["night_stage_index"] = 0
+    state["revealed_inspect"] = None
     state["phase"] = "day_discussion"
     state["round_number"] += 1
 
@@ -805,6 +1168,17 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
 
     my_role_info = get_role_info(player["role"], theme) if player.get("role") else None
 
+    revealed_inspect = None
+    if player.get("role") == "detective":
+        revealed_inspect = state.get("revealed_inspect")
+
+    night_stage_title = None
+    if state.get("phase") == "night":
+        stages = get_night_stages(state)
+        idx = state.get("night_stage_index", 0)
+        if 0 <= idx < len(stages):
+            night_stage_title = stages[idx]["title"]
+
     # Calculate timer remaining
     timer_data = dict(state["timer"])
     if not timer_data["paused"] and timer_data["ends_at"]:
@@ -827,6 +1201,8 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
         },
         "players": public_players,
         "timer": timer_data,
+        "night_stage_title": night_stage_title,
+        "revealed_inspect": revealed_inspect,
         "night_report": state.get("night_report", []),
         "winner": state.get("winner"),
         "broadcast_message": state.get("broadcast_message"),
@@ -879,6 +1255,9 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "available_roles": get_all_roles_catalogue(theme),
         "player_count": len(all_players),
         "timer": timer_data,
+        "night_stages": get_night_stages(state),
+        "night_stage_index": state.get("night_stage_index", 0),
+        "revealed_inspect": state.get("revealed_inspect"),
         "night_actions": state.get("night_actions", {}),
         "night_report": state.get("night_report", []),
         "events_log": state.get("events_log", [])[-25:],

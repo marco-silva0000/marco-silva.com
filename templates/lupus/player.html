@@ -269,6 +269,123 @@
     margin-bottom: 1rem;
     box-shadow: 0 4px 12px rgba(74, 20, 140, 0.2);
   }
+
+  /* True Geometric Seating Layouts (Figure U & Ring) */
+  .table-stage-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 380px;
+    height: 400px;
+    background: radial-gradient(ellipse at 50% 50%, #1e293b 0%, #0f172a 100%);
+    border-radius: 14px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    user-select: none;
+  }
+  .table-track-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .table-center-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #94a3b8;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .u-gm-podium {
+    position: absolute;
+    left: 50%;
+    top: 88%;
+    transform: translate(-50%, -50%);
+    background: #1e293b;
+    color: #f8fafc;
+    border: 2px solid #6366f1;
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.25);
+    z-index: 10;
+  }
+  .table-seats-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .u-seat-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.3rem 0.45rem;
+    text-align: center;
+    width: 95px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    z-index: 20;
+  }
+  @media (max-width: 480px) {
+    .u-seat-node {
+      width: 78px;
+      padding: 0.2rem 0.3rem;
+    }
+    .table-stage-wrapper {
+      min-height: 340px;
+      height: 350px;
+    }
+  }
+  .u-seat-node.alive { border-color: #22c55e; }
+  .u-seat-node.limbo { border-color: #f59e0b; background: #fffbeb; }
+  .u-seat-node.dead { border-color: #ef4444; background: #fef2f2; opacity: 0.65; }
+  .u-seat-node.is-me {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.4) !important;
+  }
+  .u-seat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.6rem;
+    margin-bottom: 0.1rem;
+  }
+  .u-seat-num {
+    font-weight: 700;
+    color: #64748b;
+    background: #f1f5f9;
+    border-radius: 3px;
+    padding: 0.05rem 0.2rem;
+  }
+  .u-seat-status {
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .u-seat-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .u-seat-role {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #475569;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  }
   .limbo-card {
     background: #fff8e1;
     border: 2px dashed #ffb300;
@@ -433,29 +550,23 @@
       </div>
     </div>
 
-    <!-- Night Action Drawer -->
-    <div id="night-action-box" style="display: none; background: #1e293b; color: #fff; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-      <h3 id="night-action-title" style="margin-top: 0; font-size: 1.05rem; color: #93c5fd; font-weight: 700;">🌙 Night Action</h3>
-      <p id="night-action-prompt" style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.4;"></p>
+    <!-- Night Mode (Eyes Closed Anti-Cheat Screen) -->
+    <div id="night-screen-box" style="display: none; background: #0f172a; color: #fff; padding: 1.5rem 1.15rem; border-radius: 14px; margin-bottom: 1.25rem; border: 2px solid #3b82f6; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+      <div style="font-size: 2.75rem; margin-bottom: 0.4rem;">😴</div>
+      <h3 style="margin-top: 0; font-size: 1.15rem; color: #93c5fd; font-weight: 800;">🌙 Night Phase — Eyes Closed</h3>
+      <p style="font-size: 0.88rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.45;">
+        Put your head down and close your eyes. Listen to the Game Master's voice.
+      </p>
       
-      <div style="margin-bottom: 0.75rem;">
-        <select id="night-target-select" style="width: 100%; padding: 0.55rem; border-radius: 6px; border: 1px solid #475569; background: #334155; color: #fff; font-size: 0.95rem;">
-          <!-- Filled dynamically -->
-        </select>
+      <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 0.65rem 0.85rem; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; margin-bottom: 0.5rem;">
+        👉 When your role is called, wake up silently and <strong>point your finger</strong> at your target. Do NOT touch or look at your phone.
       </div>
 
-      <div id="sniper-bullet-opt" style="display: none; margin-bottom: 0.75rem;">
-        <label style="font-size: 0.8rem; color: #94a3b8; display: block; margin-bottom: 0.25rem;">Bullet Type:</label>
-        <select id="sniper-bullet-select" style="width: 100%; padding: 0.5rem; border-radius: 6px; background: #334155; color: #fff; font-size: 0.88rem; border: 1px solid #475569;">
-          <option value="danger">Danger Bullet (You die if target is town)</option>
-          <option value="silver">Silver Bullet (Safe shot)</option>
-        </select>
+      <!-- Secret Detective Reveal pushed by GM -->
+      <div id="player-detective-reveal" style="display: none; background: #1e293b; border: 2px solid #a855f7; border-radius: 10px; padding: 0.75rem 1rem; margin-top: 0.85rem; text-align: left;">
+        <div style="font-size: 0.72rem; color: #d8b4fe; font-weight: 700; text-transform: uppercase;">🔍 Game Master Secret Revelation:</div>
+        <div id="player-detective-reveal-text" style="font-size: 0.98rem; font-weight: 800; color: #fff; margin-top: 0.2rem;"></div>
       </div>
-
-      <button onclick="submitNightAction()" class="btn btn-primary" style="width: 100%; background: #2563eb; border-color: #2563eb;">
-        Confirm Night Action
-      </button>
-      <div id="night-action-feedback" style="font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600;"></div>
     </div>
 
     <!-- Morning Dawn Report -->
@@ -465,12 +576,31 @@
     </div>
   </div>
 
-  <!-- Table Players List (Common to both) -->
+  <!-- Table Players List & Seating Map (Common to both) -->
   <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-    <h3 style="font-size: 0.9rem; margin: 0 0 0.5rem; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-      Players at Table
-    </h3>
-    <div id="players-list"></div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.35rem;">
+      <h3 style="font-size: 0.9rem; margin: 0; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+        Players at Table
+      </h3>
+      <div style="display: inline-flex; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; font-size: 0.75rem;">
+        <button id="p-btn-layout-u" onclick="setPlayerTableLayout('figure_u')" class="btn btn-sm" style="border: none; border-radius: 0; padding: 0.15rem 0.45rem; font-size: 0.72rem;">🧲 U-Table</button>
+        <button id="p-btn-layout-ring" onclick="setPlayerTableLayout('ring')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #cbd5e1; padding: 0.15rem 0.45rem; font-size: 0.72rem;">⭕ Ring</button>
+        <button id="p-btn-layout-list" onclick="setPlayerTableLayout('list')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #cbd5e1; padding: 0.15rem 0.45rem; font-size: 0.72rem;">📋 List</button>
+      </div>
+    </div>
+    
+    <!-- Visual Stage for Player View -->
+    <div id="p-table-visual-stage" class="table-stage-wrapper">
+      <svg id="p-table-track-svg" class="table-track-svg" viewBox="0 0 1000 750" preserveAspectRatio="none"></svg>
+      <div id="p-u-gm-podium" class="u-gm-podium">🎤 Game Master</div>
+      <div id="p-table-center-content" class="table-center-content" style="display: none;">
+        <div style="font-size: 0.95rem; font-weight: 800; color: #f8fafc;">TABLE CENTER</div>
+        <div id="p-ring-center-phase" style="font-size: 0.72rem; color: #94a3b8; font-weight: 600; margin-top: 0.15rem;"></div>
+      </div>
+      <div id="p-table-seats-container" class="table-seats-container"></div>
+    </div>
+
+    <div id="players-list" style="display: none;"></div>
   </div>
 </div>
 
@@ -845,7 +975,7 @@
     // Timer Sync
     syncTimer(state.timer);
 
-    // Night Action Controls
+    // Night Screen & Controls
     updateNightActionBox(state);
 
     // Dawn Report
@@ -857,9 +987,48 @@
       dawnBox.style.display = "none";
     }
 
-    // Players List
-    const pl = document.getElementById("players-list");
-    pl.innerHTML = "";
+    // Players Table Seating & List
+    renderPlayerTableSeating(state);
+  }
+
+  // --- Player Seating Layout Engine ---
+  let playerLayoutMode = localStorage.getItem("lupus_player_layout_mode") || "figure_u";
+
+  function setPlayerTableLayout(mode) {
+    playerLayoutMode = mode;
+    localStorage.setItem("lupus_player_layout_mode", mode);
+    updatePlayerLayoutButtons();
+    if (currentGameState) renderPlayerTableSeating(currentGameState);
+  }
+
+  function updatePlayerLayoutButtons() {
+    const btnU = document.getElementById("p-btn-layout-u");
+    const btnRing = document.getElementById("p-btn-layout-ring");
+    const btnList = document.getElementById("p-btn-layout-list");
+    if (!btnU || !btnRing || !btnList) return;
+
+    btnU.style.background = playerLayoutMode === "figure_u" ? "#2563eb" : "#f1f5f9";
+    btnU.style.color = playerLayoutMode === "figure_u" ? "#fff" : "#334155";
+
+    btnRing.style.background = playerLayoutMode === "ring" ? "#2563eb" : "#f1f5f9";
+    btnRing.style.color = playerLayoutMode === "ring" ? "#fff" : "#334155";
+
+    btnList.style.background = playerLayoutMode === "list" ? "#2563eb" : "#f1f5f9";
+    btnList.style.color = playerLayoutMode === "list" ? "#fff" : "#334155";
+  }
+
+  function renderPlayerTableSeating(state) {
+    const visualStage = document.getElementById("p-table-visual-stage");
+    const listContainer = document.getElementById("players-list");
+    const seatsWrap = document.getElementById("p-table-seats-container");
+    const trackSvg = document.getElementById("p-table-track-svg");
+    const podiumEl = document.getElementById("p-u-gm-podium");
+    const centerEl = document.getElementById("p-table-center-content");
+
+    updatePlayerLayoutButtons();
+
+    // Populate list
+    listContainer.innerHTML = "";
     state.players.forEach(p => {
       const item = document.createElement("div");
       item.className = "player-item";
@@ -877,44 +1046,105 @@
         </div>
         <span class="badge badge-${p.status}">${p.status}</span>
       `;
-      pl.appendChild(item);
+      listContainer.appendChild(item);
     });
-  }
 
-  function updateNightActionBox(state) {
-    const box = document.getElementById("night-action-box");
-    const me = state.me;
-
-    if (state.phase !== "night" || me.status !== "alive" || !me.role || !me.role.night_action) {
-      box.style.display = "none";
+    if (playerLayoutMode === "list") {
+      visualStage.style.display = "none";
+      listContainer.style.display = "block";
       return;
     }
 
-    box.style.display = "block";
-    const prompt = document.getElementById("night-action-prompt");
-    const select = document.getElementById("night-target-select");
-    const sniperOpt = document.getElementById("sniper-bullet-opt");
-    sniperOpt.style.display = "none";
+    visualStage.style.display = "block";
+    listContainer.style.display = "none";
+    seatsWrap.innerHTML = "";
 
-    populateLivingPlayers("night-target-select", state.players, me.role.id === "doctor");
+    const players = state.players || [];
+    const N = players.length;
 
-    if (me.role.night_action === "kill") {
-      prompt.innerText = "Select a victim with your pack to eliminate tonight:";
-    } else if (me.role.id === "detective") {
-      prompt.innerText = "Select a player to investigate their alignment:";
-    } else if (me.role.id === "doctor") {
-      prompt.innerText = "Select a player to guard from harm tonight:";
-    } else if (me.role.id === "bodyguard") {
-      prompt.innerText = "Select a player to guard with your life tonight (you sacrifice yourself if wolves attack them):";
-    } else if (me.role.id === "framer") {
-      prompt.innerText = "Select an innocent player to frame tonight (they will appear Evil to Detective):";
-    } else if (me.role.id === "serial_killer") {
-      prompt.innerText = "Select a victim to eliminate in the shadows tonight:";
-    } else if (me.role.id === "sniper") {
-      prompt.innerText = "Target a suspected wolf to shoot tonight:";
-      sniperOpt.style.display = "block";
-    } else if (me.role.id === "silencer") {
-      prompt.innerText = "Select a player to silence during tomorrow's day:";
+    if (N === 0) {
+      trackSvg.innerHTML = "";
+      podiumEl.style.display = "none";
+      centerEl.style.display = "none";
+      seatsWrap.innerHTML = "<div style='position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#94a3b8; font-size:0.85rem;'>No players seated.</div>";
+      return;
+    }
+
+    if (playerLayoutMode === "figure_u") {
+      // FIGURE U
+      podiumEl.style.display = "flex";
+      centerEl.style.display = "none";
+      trackSvg.innerHTML = `
+        <path d="M 140 562 C 140 180, 320 105, 500 105 C 680 105, 860 180, 860 562" fill="none" stroke="rgba(99, 102, 241, 0.4)" stroke-width="4" stroke-dasharray="8 8" />
+      `;
+
+      players.forEach((p, idx) => {
+        const t = N > 1 ? idx / (N - 1) : 0.5;
+        const x = 50 - 36 * Math.cos(Math.PI * t);
+        const y = 14 + 61 * Math.pow(2 * t - 1, 2);
+
+        renderPlayerSeatNode(p, idx, x, y, seatsWrap);
+      });
+    } else {
+      // RING
+      podiumEl.style.display = "none";
+      centerEl.style.display = "block";
+      document.getElementById("p-ring-center-phase").innerText = state.phase.toUpperCase();
+      trackSvg.innerHTML = `
+        <ellipse cx="500" cy="375" rx="380" ry="262" fill="none" stroke="rgba(99, 102, 241, 0.4)" stroke-width="4" stroke-dasharray="8 8" />
+      `;
+
+      players.forEach((p, idx) => {
+        const angle = -Math.PI / 2 + (2 * Math.PI * idx) / N;
+        const x = 50 + 38 * Math.cos(angle);
+        const y = 50 + 34 * Math.sin(angle);
+
+        renderPlayerSeatNode(p, idx, x, y, seatsWrap);
+      });
+    }
+  }
+
+  function renderPlayerSeatNode(p, idx, x, y, container) {
+    const isMe = p.is_me;
+    const node = document.createElement("div");
+    node.className = `u-seat-node ${p.status} ${isMe ? 'is-me' : ''}`;
+    node.style.left = `${x.toFixed(1)}%`;
+    node.style.top = `${y.toFixed(1)}%`;
+
+    const meTag = isMe ? '<span style="color:#2563eb; font-weight:800; font-size:0.6rem;">(You)</span>' : '';
+    const roleText = p.role ? `${p.role.emoji} ${p.role.name}` : (p.status === 'dead' ? '💀' : 'Alive');
+
+    node.innerHTML = `
+      <div class="u-seat-header">
+        <span class="u-seat-num">#${p.seat_number || (idx + 1)}</span>
+        <span class="u-seat-status" style="color: ${p.status === 'alive' ? '#22c55e' : (p.status === 'limbo' ? '#f59e0b' : '#ef4444')};">
+          ${p.status}
+        </span>
+      </div>
+      <div class="u-seat-name">${escapeHtml(p.name)} ${meTag}</div>
+      <div class="u-seat-role">${roleText}</div>
+    `;
+
+    container.appendChild(node);
+  }
+
+  function updateNightActionBox(state) {
+    const nightBox = document.getElementById("night-screen-box");
+    const detReveal = document.getElementById("player-detective-reveal");
+    const detRevealText = document.getElementById("player-detective-reveal-text");
+
+    if (state.phase !== "night") {
+      nightBox.style.display = "none";
+      return;
+    }
+
+    nightBox.style.display = "block";
+
+    if (state.revealed_inspect) {
+      detReveal.style.display = "block";
+      detRevealText.innerText = `${state.revealed_inspect.target_name} is ${state.revealed_inspect.result.toUpperCase()}`;
+    } else {
+      detReveal.style.display = "none";
     }
   }
 
@@ -926,39 +1156,6 @@
   function closePlayerModal(id) {
     const el = document.getElementById(id);
     if (el) el.classList.remove("active");
-  }
-
-  function populateLivingPlayers(selectId, players, allowSelf) {
-    const sel = document.getElementById(selectId);
-    sel.innerHTML = "";
-    players.forEach(p => {
-      if (p.status === "alive") {
-        if (!allowSelf && p.is_me) return;
-        const opt = document.createElement("option");
-        opt.value = p.id;
-        opt.innerText = p.is_me ? `${p.name} (Myself)` : p.name;
-        sel.appendChild(opt);
-      }
-    });
-  }
-
-  function submitNightAction() {
-    if (!currentGameState) return;
-    const me = currentGameState.me;
-    const targetId = document.getElementById("night-target-select").value;
-    const actType = me.role.night_action;
-    let extra = {};
-
-    if (me.role.id === "sniper") {
-      extra.bullet_type = document.getElementById("sniper-bullet-select").value;
-    }
-
-    socket.send(JSON.stringify({
-      action: "night_action",
-      action_type: actType,
-      target_id: targetId,
-      extra: extra
-    }));
   }
 
   function submitAngelGuess() {

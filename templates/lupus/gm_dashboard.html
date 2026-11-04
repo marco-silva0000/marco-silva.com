@@ -231,50 +231,246 @@
     align-items: center;
     gap: 0.2rem;
   }
-  .circle-stage {
-    background: #f8fafc;
-    border: 2px dashed #cbd5e1;
-    border-radius: 14px;
-    padding: 1rem 0.75rem;
+  /* True Geometric Seating Layouts (Figure U & Ring) */
+  .table-stage-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 480px;
+    height: 520px;
+    background: radial-gradient(ellipse at 50% 50%, #1e293b 0%, #0f172a 100%);
+    border-radius: 16px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 4px 20px rgba(0,0,0,0.12);
+    overflow: hidden;
     margin-bottom: 1rem;
+    user-select: none;
+  }
+  @media (max-width: 600px) {
+    .table-stage-wrapper {
+      min-height: 440px;
+      height: 460px;
+    }
+  }
+  .table-track-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .table-center-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+    color: #94a3b8;
+    pointer-events: none;
+    z-index: 5;
   }
-  .circle-gm-podium {
-    background: #1e293b;
+  .u-gm-podium {
+    position: absolute;
+    left: 50%;
+    top: 88%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
     color: #f8fafc;
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 0.35rem 0.9rem;
+    border: 2px solid #6366f1;
     border-radius: 999px;
-    display: inline-block;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  .horseshoe-container {
+    padding: 0.4rem 1.1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.6rem;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+    z-index: 10;
   }
-  .seat-node {
+  .table-seats-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .u-seat-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
     background: #ffffff;
     border: 2px solid #e2e8f0;
     border-radius: 10px;
-    padding: 0.6rem 0.65rem;
+    padding: 0.35rem 0.55rem;
     text-align: center;
-    min-width: 125px;
-    max-width: 170px;
-    flex: 1 1 130px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    width: 110px;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    z-index: 20;
+  }
+  @media (max-width: 600px) {
+    .u-seat-node {
+      width: 90px;
+      padding: 0.25rem 0.4rem;
+    }
+  }
+  .u-seat-node:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  }
+  .u-seat-node.alive { border-color: #22c55e; }
+  .u-seat-node.limbo { border-color: #f59e0b; background: #fffbeb; }
+  .u-seat-node.dead { border-color: #ef4444; background: #fef2f2; opacity: 0.65; }
+  .u-seat-node.is-target {
+    border-color: #ef4444 !important;
+    background: #fff1f2 !important;
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.5), 0 4px 15px rgba(239,68,68,0.35) !important;
+    animation: targetPulse 1.8s infinite;
+  }
+  @keyframes targetPulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(239,68,68,0.5), 0 4px 15px rgba(239,68,68,0.35); }
+    50% { box-shadow: 0 0 0 6px rgba(239,68,68,0.8), 0 4px 20px rgba(239,68,68,0.6); }
+  }
+  .u-seat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.65rem;
+    margin-bottom: 0.15rem;
+  }
+  .u-seat-num {
+    font-weight: 700;
+    color: #64748b;
+    background: #f1f5f9;
+    border-radius: 4px;
+    padding: 0.05rem 0.25rem;
+  }
+  .u-seat-status {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .u-seat-name {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .u-seat-role {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #475569;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .u-seat-target-badge {
+    margin-top: 0.15rem;
+    font-size: 0.6rem;
+    font-weight: 800;
+    background: #ef4444;
+    color: #fff;
+    border-radius: 999px;
+    padding: 0.05rem 0.35rem;
+    display: inline-block;
+  }
+
+  /* Night Stage Director Wizard */
+  .night-director-box {
+    background: #0f172a;
+    color: #f8fafc;
+    border-radius: 14px;
+    border: 2px solid #3b82f6;
+    padding: 1.1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .night-stages-stepper {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.85rem;
+    border-bottom: 1px solid #1e293b;
+    scrollbar-width: thin;
+  }
+  .stage-step-pill {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: #1e293b;
+    color: #94a3b8;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid #334155;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .stage-step-pill:hover {
+    background: #334155;
+    color: #fff;
+  }
+  .stage-step-pill.active {
+    background: #2563eb;
+    color: #fff;
+    border-color: #60a5fa;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.4);
+    font-weight: 700;
+  }
+  .stage-step-pill.completed {
+    border-color: #22c55e;
+    color: #86efac;
+  }
+  .stage-script-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.85rem;
+  }
+  .script-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.3rem;
+  }
+  .script-text {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    line-height: 1.4;
+  }
+  .stage-controls-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 0.35rem;
-    transition: transform 0.15s ease, border-color 0.15s ease;
+    gap: 0.65rem;
   }
-  .seat-node.alive { border-color: #22c55e; }
-  .seat-node.limbo { border-color: #f59e0b; background: #fffbeb; }
-  .seat-node.dead { border-color: #ef4444; background: #fef2f2; opacity: 0.65; }
+  .detective-result-badge {
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    display: inline-block;
+  }
+  .detective-result-badge.evil {
+    background: #991b1b;
+    color: #fee2e2;
+    border: 1px solid #ef4444;
+  }
+  .detective-result-badge.good {
+    background: #166534;
+    color: #dcfce7;
+    border: 1px solid #22c55e;
+  }
 
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
   .modal.active { display: flex; }
@@ -551,25 +747,130 @@
       </div>
     </div>
 
-    <!-- Night Intelligence & Actions Received -->
-    <div class="card-box" style="background: #fdfdfe; border-left: 4px solid #3f51b5;">
+    <!-- ============================================== -->
+    <!-- NIGHT STAGE DIRECTOR (Active During Night Phase) -->
+    <!-- ============================================== -->
+    <div id="night-director-box" class="night-director-box" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.4rem;">
+        <h3 style="font-size: 1.05rem; margin: 0; color: #93c5fd; display: flex; align-items: center; gap: 0.4rem;">
+          <span>🌙 Night Stage Director</span>
+          <span id="stage-counter" style="font-size: 0.8rem; background: #1e293b; color: #cbd5e1; padding: 0.15rem 0.5rem; border-radius: 999px; border: 1px solid #334155;">Step 1 of 1</span>
+        </h3>
+        <span style="font-size: 0.75rem; color: #94a3b8;">Players point fingers &middot; GM registers action</span>
+      </div>
+
+      <!-- Stage Stepper Pills -->
+      <div id="night-stages-stepper" class="night-stages-stepper">
+        <!-- Filled dynamically -->
+      </div>
+
+      <!-- GM Voice Script Card -->
+      <div class="stage-script-card">
+        <div class="script-label">📢 Game Master Voice Prompt (Read aloud to table):</div>
+        <div id="night-script-text" class="script-text">"Night falls. Everyone close your eyes."</div>
+      </div>
+
+      <!-- Action Recording & Target Control Card -->
+      <div class="stage-controls-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #e2e8f0;">
+            Target Action: <span id="stage-target-display" style="color: #60a5fa; font-weight: 800;">None selected</span>
+          </div>
+          <button id="btn-clear-target" onclick="clearActiveStageTarget()" class="btn btn-sm" style="display: none; background: #334155; color: #f87171; border-color: #475569; padding: 0.15rem 0.5rem; font-size: 0.72rem;">
+            ✕ Unset Target
+          </button>
+        </div>
+
+        <!-- Quick Target Selector (or tap table seats directly) -->
+        <div id="stage-picker-container" style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <label style="font-size: 0.8rem; color: #94a3b8; white-space: nowrap;">Or pick from list:</label>
+          <select id="stage-target-select" onchange="onSelectTargetChange(this.value)" style="flex: 1; min-width: 160px; padding: 0.4rem 0.6rem; border-radius: 6px; background: #0f172a; color: #fff; border: 1px solid #334155; font-size: 0.85rem;">
+            <!-- Living players filled dynamically -->
+          </select>
+        </div>
+
+        <!-- Detective Inspection Widget (Special) -->
+        <div id="detective-widget" style="display: none; background: #0f172a; border: 1px solid #475569; border-radius: 8px; padding: 0.75rem;">
+          <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.35rem; font-weight: 700; text-transform: uppercase;">
+            🔍 Inspection Secret Result:
+          </div>
+          <div id="detective-result-text" class="detective-result-badge evil">
+            EVIL / ENEMY
+          </div>
+          <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 0.45rem; line-height: 1.4;">
+            👉 <strong>Signal the Detective silently:</strong> Give a silent thumbs-up 👍 (Good) or thumbs-down 👎 (Evil).
+          </div>
+          <div style="margin-top: 0.5rem;">
+            <button onclick="revealDetectiveResult()" class="btn btn-sm" style="background: #6366f1; color: #fff; border-color: #6366f1; font-size: 0.75rem;">
+              📲 Push Secret Result to Detective's Screen
+            </button>
+          </div>
+        </div>
+
+        <!-- Witch Potions Widget (Special) -->
+        <div id="witch-widget" style="display: none; background: #0f172a; border: 1px solid #475569; border-radius: 8px; padding: 0.75rem;">
+          <div style="font-size: 0.8rem; color: #e2e8f0; margin-bottom: 0.4rem;">
+            Tonight's wolf victim: <strong id="witch-victim-name" style="color: #f87171;">None</strong>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button id="btn-witch-revive" onclick="toggleWitchRevive()" class="btn btn-sm" style="background: #065f46; color: #fff; border-color: #059669;">
+              🧪 Use Revive Potion
+            </button>
+            <div style="display: flex; align-items: center; gap: 0.35rem; flex: 1; min-width: 180px;">
+              <span style="font-size: 0.8rem; color: #94a3b8;">Poison:</span>
+              <select id="witch-poison-select" onchange="onWitchPoisonChange(this.value)" style="flex: 1; padding: 0.35rem; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; font-size: 0.8rem;">
+                <option value="">No Poison</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sniper Mix Bullet Option Widget -->
+        <div id="sniper-widget" style="display: none; align-items: center; gap: 0.5rem;">
+          <label style="font-size: 0.8rem; color: #94a3b8;">Bullet Type:</label>
+          <select id="stage-sniper-bullet" onchange="onSniperBulletChange(this.value)" style="padding: 0.35rem 0.6rem; border-radius: 6px; background: #0f172a; color: #fff; border: 1px solid #334155; font-size: 0.8rem;">
+            <option value="danger">Danger Bullet (Sniper dies if target is town)</option>
+            <option value="silver">Silver Bullet (Safe shot)</option>
+          </select>
+        </div>
+
+        <!-- Dawn Review Stage Summary -->
+        <div id="review-widget" style="display: none; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #facc15; margin-bottom: 0.4rem;">
+            🌅 Night Casualties &amp; Actions Recorded:
+          </div>
+          <div id="review-summary-list" style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.5;">
+            <!-- Summary filled dynamically -->
+          </div>
+          <div style="margin-top: 0.75rem; text-align: center;">
+            <button onclick="resolveNight()" class="btn btn-primary" style="background: #16a34a; border-color: #16a34a; font-size: 0.95rem; font-weight: 700; padding: 0.55rem 1.25rem;">
+              ☀️ Wake Up Town &amp; Announce Dawn!
+            </button>
+          </div>
+        </div>
+
+        <!-- Stage Navigation Controls -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #334155;">
+          <button id="btn-stage-prev" onclick="prevNightStage()" class="btn btn-sm" style="background: #334155; color: #fff; border-color: #475569;">
+            &larr; Prev Stage
+          </button>
+          <span style="font-size: 0.75rem; color: #94a3b8;">Tip: Tap any player in the U-table / Ring below to pick them!</span>
+          <button id="btn-stage-next" onclick="nextNightStage()" class="btn btn-sm btn-primary" style="background: #2563eb; border-color: #2563eb;">
+            Next Stage &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dawn Morning Report (Active during Day Phase) -->
+    <div id="day-dawn-card" class="card-box" style="display: none; background: #fdfdfe; border-left: 4px solid #3f51b5;">
       <h3 style="font-size: 0.95rem; margin-top: 0; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-        <span>🌙 Night Intel &amp; Action Queue</span>
-        <span style="font-size: 0.75rem; color: #888;">Live feed</span>
+        <span>☀️ Morning Dawn Report</span>
+        <span style="font-size: 0.75rem; color: #888;">Round <span id="report-round-num">-</span></span>
       </h3>
-      <div id="night-actions-feed" style="font-size: 0.85rem; min-height: 36px; color: #444;">
-        <em>No night actions recorded yet for this round.</em>
-      </div>
-      {% if state.night_report %}
-      <div style="margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed #ddd;">
-        <strong style="font-size: 0.8rem; color: #555;">Morning Dawn Report:</strong>
-        <ul id="morning-report" style="margin: 0.25rem 0 0 1.25rem; font-size: 0.85rem; padding: 0;">
-          {% for line in state.night_report %}
-          <li>{{ line }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
+      <ul id="morning-report" style="margin: 0.25rem 0 0 1.25rem; font-size: 0.85rem; padding: 0; color: #334155; line-height: 1.45;">
+        <!-- Filled dynamically -->
+      </ul>
     </div>
   </div>
 
@@ -581,7 +882,7 @@
           <span>👥 Physical Table Seating</span>
           <span style="font-size: 0.85rem; font-weight: normal; color: #64748b;">(<span id="player-count">{{ state.players|length }}</span>)</span>
         </h3>
-        <span style="font-size: 0.75rem; color: #64748b;">Ordered clockwise / left-to-right around your circle</span>
+        <span style="font-size: 0.75rem; color: #64748b;">Seated clockwise / left-to-right around your table</span>
       </div>
 
       <div style="display: flex; gap: 0.35rem; flex-wrap: wrap; align-items: center;">
@@ -590,10 +891,18 @@
           👁️ Roles: Visible
         </button>
 
-        <!-- View Switcher: List vs Circle/U-Shape -->
-        <button id="btn-toggle-layout" onclick="toggleLayoutMode()" class="btn btn-sm" title="Toggle between Card List and Horseshoe / Circle Map">
-          ⭕ Circle View
-        </button>
+        <!-- Layout Selector: Figure U vs Ring vs List -->
+        <div style="display: inline-flex; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden;">
+          <button id="btn-layout-u" onclick="setTableLayout('figure_u')" class="btn btn-sm" style="border: none; border-radius: 0; font-weight: 700;" title="Figure U (Horseshoe) with GM at open end">
+            🧲 Figure U
+          </button>
+          <button id="btn-layout-ring" onclick="setTableLayout('ring')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #cbd5e1;" title="Ring (Closed Circle)">
+            ⭕ Ring
+          </button>
+          <button id="btn-layout-list" onclick="setTableLayout('list')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #cbd5e1;" title="Card List">
+            📋 List
+          </button>
+        </div>
 
         <button onclick="reverseSeatingOrder()" class="btn btn-sm" title="Flip seating order (clockwise <-> counter-clockwise)">
           🔄 Flip
@@ -605,16 +914,24 @@
       </div>
     </div>
 
-    <!-- Circle / Horseshoe Visual Map View (Toggled via btn-toggle-layout) -->
-    <div id="circle-map-container" class="circle-stage" style="display: none;">
-      <div class="circle-gm-podium">🎤 Game Master (Podium / Open End of U)</div>
-      <div id="circle-nodes-wrap" class="horseshoe-container">
+    <!-- True Geometric Visual Seating Stage (Figure U or Ring) -->
+    <div id="table-visual-stage" class="table-stage-wrapper">
+      <svg id="table-track-svg" class="table-track-svg" viewBox="0 0 1000 750" preserveAspectRatio="none">
+        <!-- Track line rendered dynamically in JS -->
+      </svg>
+      <div id="u-gm-podium" class="u-gm-podium">🎤 Game Master (Open End of U)</div>
+      <div id="table-center-content" class="table-center-content" style="display: none;">
+        <div id="ring-center-title" style="font-size: 1.05rem; font-weight: 800; color: #f8fafc; letter-spacing: 0.5px;">LUPUS TABLE</div>
+        <div id="ring-center-phase" style="font-size: 0.78rem; color: #94a3b8; font-weight: 600; margin-top: 0.15rem;"></div>
+        <div id="ring-center-timer" style="font-size: 1.3rem; font-weight: 800; color: #38bdf8; font-family: monospace; margin-top: 0.2rem;">05:00</div>
+      </div>
+      <div id="table-seats-container" class="table-seats-container">
         <!-- Rendered dynamically -->
       </div>
     </div>
 
-    <!-- Mobile-First Player List -->
-    <div id="player-list-container">
+    <!-- Mobile-First Player List (Active when 'list' layout is selected) -->
+    <div id="player-list-container" style="display: none;">
       <!-- Rendered dynamically -->
     </div>
   </div>
@@ -653,6 +970,34 @@
     <img id="player-qr-img" src="" alt="Player QR" style="max-width: 200px; height: auto; margin: 0.5rem auto; border: 1px solid #ddd; padding: 4px; border-radius: 6px; display: block;">
     <div style="margin-top: 0.75rem;">
       <button onclick="closeModal('player-qr-modal')" class="btn">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Seat Node Quick Actions -->
+<div id="player-seat-modal" class="modal">
+  <div class="modal-content" style="max-width: 380px; text-align: left;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 0.75rem;">
+      <h3 id="seat-modal-name" style="margin: 0; font-size: 1.1rem; color: #0f172a;">Player Actions</h3>
+      <button onclick="closeModal('player-seat-modal')" class="btn btn-sm">&times;</button>
+    </div>
+    <div id="seat-modal-info" style="font-size: 0.85rem; color: #475569; margin-bottom: 0.75rem;"></div>
+    <div style="display: flex; flex-direction: column; gap: 0.45rem;">
+      <button id="btn-seat-cycle-status" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
+        ❤️ Cycle Status (Alive &rarr; Limbo &rarr; Dead)
+      </button>
+      <button id="btn-seat-move-ccw" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
+        ⬆️ Move Counter-Clockwise (Seat &minus;1)
+      </button>
+      <button id="btn-seat-move-cw" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
+        ⬇️ Move Clockwise (Seat +1)
+      </button>
+      <button id="btn-seat-change-role" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
+        🎭 Assign Role Manually
+      </button>
+      <button id="btn-seat-qr" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
+        📱 Show Private Reconnect QR
+      </button>
     </div>
   </div>
 </div>
@@ -1009,68 +1354,14 @@
     // Timer Sync
     syncTimer(state.timer);
 
-    // Night Intel Feed
-    const intelFeed = document.getElementById("night-actions-feed");
-    const actions = state.night_actions || {};
-    let intelHtml = "";
-    if (Object.keys(actions).length === 0) {
-      intelHtml = "<em>No night actions queued yet.</em>";
-    } else {
-      intelHtml = "<ul style='margin:0; padding-left: 1.25rem;'>";
-      if (actions.wolf_target) {
-        const target = state.players.find(p => p.id === actions.wolf_target);
-        intelHtml += `<li>🐺 <strong>Wolves target:</strong> ${target ? target.name : 'Unknown'}</li>`;
-      }
-      if (actions.detective_query) {
-        const actor = state.players.find(p => p.id === actions.detective_query.actor_id);
-        const target = state.players.find(p => p.id === actions.detective_query.target_id);
-        intelHtml += `<li>🔍 <strong>Detective (${actor ? actor.name : ''}) inspected:</strong> ${target ? target.name : ''} &rarr; <em>${actions.detective_query.result}</em></li>`;
-      }
-      if (actions.doctor_protect) {
-        const target = state.players.find(p => p.id === actions.doctor_protect);
-        intelHtml += `<li>🩺 <strong>Doctor protects:</strong> ${target ? target.name : 'Unknown'}</li>`;
-      }
-      if (actions.bodyguard_protect) {
-        const target = state.players.find(p => p.id === actions.bodyguard_protect);
-        const actor = state.players.find(p => p.id === actions.bodyguard_actor);
-        intelHtml += `<li>🛡️ <strong>Bodyguard (${actor ? actor.name : ''}) guards:</strong> ${target ? target.name : 'Unknown'}</li>`;
-      }
-      if (actions.framer_target) {
-        const target = state.players.find(p => p.id === actions.framer_target);
-        intelHtml += `<li>🎭 <strong>Framer frames:</strong> ${target ? target.name : 'Unknown'} (inspects as Evil)</li>`;
-      }
-      if (actions.sk_target) {
-        const target = state.players.find(p => p.id === actions.sk_target);
-        intelHtml += `<li>🔪 <strong>Serial Killer strikes:</strong> ${target ? target.name : 'Unknown'}</li>`;
-      }
-      if (actions.sniper_shot) {
-        const target = state.players.find(p => p.id === actions.sniper_shot.target_id);
-        intelHtml += `<li>🎯 <strong>Sniper shoots:</strong> ${target ? target.name : 'Unknown'} (${actions.sniper_shot.bullet_type} bullet)</li>`;
-      }
-      if (actions.silencer_target) {
-        const target = state.players.find(p => p.id === actions.silencer_target);
-        intelHtml += `<li>🤐 <strong>Silencer casts spell on:</strong> ${target ? target.name : 'Unknown'}</li>`;
-      }
-      if (actions.witch_action) {
-        intelHtml += `<li>🧙‍♀️ <strong>Witch:</strong> Revive: ${actions.witch_action.revive ? 'Yes' : 'No'}, Kill Target: ${actions.witch_action.kill_target || 'None'}</li>`;
-      }
-      if (actions.mayor_veto) {
-        intelHtml += `<li>🎖️ <strong>Mayor:</strong> Executive Veto Active!</li>`;
-      }
-      if (actions.cupid_lovers) {
-        const l1 = state.players.find(p => p.id === actions.cupid_lovers[0]);
-        const l2 = state.players.find(p => p.id === actions.cupid_lovers[1]);
-        intelHtml += `<li>💘 <strong>Cupid bound:</strong> ${l1 ? l1.name : ''} & ${l2 ? l2.name : ''}</li>`;
-      }
-      intelHtml += "</ul>";
-    }
-    intelFeed.innerHTML = intelHtml;
+    // Night Stage Director & Dawn Report
+    renderNightDirector(state);
 
-    // Update toolbar button states
+    // Update seating layout and roles visibility
     updateRoleVisBtn();
-    updateLayoutUI();
+    renderTableSeating(state);
 
-    // 1. Mobile-friendly Player Card Rows
+    // 1. Mobile-friendly Player Card Rows (for List View)
     const container = document.getElementById("player-list-container");
     container.innerHTML = "";
     if (state.players.length === 0) {
@@ -1183,44 +1474,6 @@
       });
     }
 
-    // 2. Physical Horseshoe / Circle Map Render
-    const circleWrap = document.getElementById("circle-nodes-wrap");
-    if (circleWrap) {
-      circleWrap.innerHTML = "";
-      if (state.players.length === 0) {
-        circleWrap.innerHTML = "<p style='font-size:0.85rem; color:#888; text-align:center;'>No players yet.</p>";
-      } else {
-        state.players.forEach((p, idx) => {
-          const node = document.createElement("div");
-          node.className = `seat-node ${p.status}`;
-
-          const isPeeking = peekingPlayerIds.has(p.id);
-          let nodeRoleHtml = "";
-          if (gmHideRoles && !isPeeking) {
-            nodeRoleHtml = `<div style="font-size:0.75rem; color:#64748b; font-style:italic;">🔒 Hidden</div>`;
-          } else {
-            nodeRoleHtml = `<div style="font-size:0.78rem; font-weight:600; color:#334155;">${p.role ? `${p.role.emoji} ${p.role.name}` : 'Unassigned'}</div>`;
-          }
-
-          node.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.72rem;">
-              <span class="seat-badge" style="padding:0.05rem 0.35rem; font-size:0.68rem;">#${p.seat_number || (idx + 1)}</span>
-              <span class="badge badge-${p.status}" style="font-size:0.65rem; padding:0.1rem 0.35rem;">${p.status.toUpperCase()}</span>
-            </div>
-            <div style="font-size:0.92rem; font-weight:700; color:#0f172a; margin:0.25rem 0; word-break:break-word;">
-              ${escapeHtml(p.name)}
-            </div>
-            ${nodeRoleHtml}
-            <div style="display:flex; justify-content:center; gap:0.2rem; margin-top:0.25rem;">
-              <button onclick="movePlayerSeat('${p.id}', 'up')" class="btn btn-sm" style="min-height:20px; padding:0.05rem 0.3rem; font-size:0.7rem;" title="Move Counter-Clockwise">&larr;</button>
-              <button onclick="movePlayerSeat('${p.id}', 'down')" class="btn btn-sm" style="min-height:20px; padding:0.05rem 0.3rem; font-size:0.7rem;" title="Move Clockwise">&rarr;</button>
-            </div>
-          `;
-          circleWrap.appendChild(node);
-        });
-      }
-    }
-
     // Events Log
     if (state.events_log) {
       const el = document.getElementById("events-log");
@@ -1303,25 +1556,437 @@
     }
   }
 
-  function toggleLayoutMode() {
-    gmLayoutMode = gmLayoutMode === "circle" ? "list" : "circle";
-    localStorage.setItem("lupus_gm_layout_mode", gmLayoutMode);
-    updateLayoutUI();
+  // --- Physical Table Seating & Layout Controls ---
+  let gmLayoutMode = localStorage.getItem("lupus_gm_layout_mode") || "figure_u";
+
+  function setTableLayout(mode) {
+    gmLayoutMode = mode;
+    localStorage.setItem("lupus_gm_layout_mode", mode);
+    updateLayoutButtons();
+    if (currentGameState) renderTableSeating(currentGameState);
   }
 
-  function updateLayoutUI() {
-    const btn = document.getElementById("btn-toggle-layout");
-    const circleEl = document.getElementById("circle-map-container");
-    const listEl = document.getElementById("player-list-container");
-    if (!btn || !circleEl || !listEl) return;
+  function updateLayoutButtons() {
+    const btnU = document.getElementById("btn-layout-u");
+    const btnRing = document.getElementById("btn-layout-ring");
+    const btnList = document.getElementById("btn-layout-list");
+    if (!btnU || !btnRing || !btnList) return;
 
-    if (gmLayoutMode === "circle") {
-      btn.innerText = "📋 List View";
-      circleEl.style.display = "block";
-    } else {
-      btn.innerText = "⭕ Circle View";
-      circleEl.style.display = "none";
+    btnU.style.background = gmLayoutMode === "figure_u" ? "#2563eb" : "#f1f5f9";
+    btnU.style.color = gmLayoutMode === "figure_u" ? "#fff" : "#334155";
+
+    btnRing.style.background = gmLayoutMode === "ring" ? "#2563eb" : "#f1f5f9";
+    btnRing.style.color = gmLayoutMode === "ring" ? "#fff" : "#334155";
+
+    btnList.style.background = gmLayoutMode === "list" ? "#2563eb" : "#f1f5f9";
+    btnList.style.color = gmLayoutMode === "list" ? "#fff" : "#334155";
+  }
+
+  function isCurrentStageTarget(playerId, state) {
+    if (!state || state.phase !== 'night' || !state.night_stages) return false;
+    const stage = state.night_stages[state.night_stage_index || 0];
+    if (!stage) return false;
+    const actions = state.night_actions || {};
+    if (stage.id === 'wolves') return actions.wolf_target === playerId;
+    if (stage.id === 'silencer') return actions.silencer_target === playerId;
+    if (stage.id === 'framer') return actions.framer_target === playerId;
+    if (stage.id === 'detective') return actions.detective_query && actions.detective_query.target_id === playerId;
+    if (stage.id === 'doctor') return actions.doctor_protect === playerId;
+    if (stage.id === 'bodyguard') return actions.bodyguard_protect === playerId;
+    if (stage.id === 'serial_killer') return actions.sk_target === playerId;
+    if (stage.id === 'sniper') return actions.sniper_shot && actions.sniper_shot.target_id === playerId;
+    if (stage.id === 'cupid') return actions.cupid_lovers && actions.cupid_lovers.includes(playerId);
+    if (stage.id === 'witch') return actions.witch_action && actions.witch_action.kill_target === playerId;
+    return false;
+  }
+
+  function renderTableSeating(state) {
+    const visualStage = document.getElementById("table-visual-stage");
+    const listContainer = document.getElementById("player-list-container");
+    const seatsWrap = document.getElementById("table-seats-container");
+    const trackSvg = document.getElementById("table-track-svg");
+    const podiumEl = document.getElementById("u-gm-podium");
+    const centerEl = document.getElementById("table-center-content");
+
+    updateLayoutButtons();
+
+    if (gmLayoutMode === "list") {
+      visualStage.style.display = "none";
+      listContainer.style.display = "block";
+      return;
     }
+
+    visualStage.style.display = "block";
+    listContainer.style.display = "none";
+    seatsWrap.innerHTML = "";
+
+    const players = state.players || [];
+    const N = players.length;
+
+    if (N === 0) {
+      trackSvg.innerHTML = "";
+      podiumEl.style.display = "none";
+      centerEl.style.display = "none";
+      seatsWrap.innerHTML = "<div style='position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#94a3b8; font-size:0.9rem;'>No players seated yet.</div>";
+      return;
+    }
+
+    if (gmLayoutMode === "figure_u") {
+      // FIGURE U (HORSESHOE) - GM podium at open bottom
+      podiumEl.style.display = "flex";
+      centerEl.style.display = "none";
+      trackSvg.innerHTML = `
+        <path d="M 140 562 C 140 180, 320 105, 500 105 C 680 105, 860 180, 860 562" fill="none" stroke="rgba(99, 102, 241, 0.45)" stroke-width="4" stroke-dasharray="8 8" />
+      `;
+
+      players.forEach((p, idx) => {
+        const t = N > 1 ? idx / (N - 1) : 0.5;
+        const x = 50 - 36 * Math.cos(Math.PI * t);
+        const y = 14 + 61 * Math.pow(2 * t - 1, 2);
+
+        renderSeatNode(p, idx, x, y, seatsWrap, state);
+      });
+    } else {
+      // RING (CLOSED CIRCLE) - Center hub with round/timer info
+      podiumEl.style.display = "none";
+      centerEl.style.display = "block";
+      document.getElementById("ring-center-phase").innerText = state.phase.toUpperCase();
+      document.getElementById("ring-center-title").innerText = `${state.title || 'LUPUS ROOM'}`;
+      trackSvg.innerHTML = `
+        <ellipse cx="500" cy="375" rx="380" ry="262" fill="none" stroke="rgba(99, 102, 241, 0.45)" stroke-width="4" stroke-dasharray="8 8" />
+      `;
+
+      players.forEach((p, idx) => {
+        const angle = -Math.PI / 2 + (2 * Math.PI * idx) / N;
+        const x = 50 + 38 * Math.cos(angle);
+        const y = 50 + 34 * Math.sin(angle);
+
+        renderSeatNode(p, idx, x, y, seatsWrap, state);
+      });
+    }
+  }
+
+  function renderSeatNode(p, idx, x, y, container, state) {
+    const isTarget = isCurrentStageTarget(p.id, state);
+    const isPeeking = peekingPlayerIds.has(p.id);
+
+    let roleHtml = "";
+    if (gmHideRoles && !isPeeking) {
+      roleHtml = "🔒 Hidden";
+    } else {
+      roleHtml = p.role ? `${p.role.emoji} ${p.role.name}` : "Unassigned";
+    }
+
+    const targetBadgeHtml = isTarget ? '<span class="u-seat-target-badge">🎯 TARGET</span>' : '';
+
+    const node = document.createElement("div");
+    node.className = `u-seat-node ${p.status} ${isTarget ? 'is-target' : ''}`;
+    node.style.left = `${x.toFixed(1)}%`;
+    node.style.top = `${y.toFixed(1)}%`;
+    node.title = `Seat #${p.seat_number}: ${p.name}`;
+
+    node.innerHTML = `
+      <div class="u-seat-header">
+        <span class="u-seat-num">#${p.seat_number || (idx + 1)}</span>
+        <span class="u-seat-status" style="color: ${p.status === 'alive' ? '#22c55e' : (p.status === 'limbo' ? '#f59e0b' : '#ef4444')};">
+          ${p.status}
+        </span>
+      </div>
+      <div class="u-seat-name">${escapeHtml(p.name)}</div>
+      <div class="u-seat-role">${roleHtml}</div>
+      ${targetBadgeHtml}
+    `;
+
+    node.onclick = (e) => {
+      e.stopPropagation();
+      onSeatClick(p.id);
+    };
+
+    container.appendChild(node);
+  }
+
+  function onSeatClick(playerId) {
+    if (!currentGameState) return;
+    if (currentGameState.phase === "night") {
+      // In night: click immediately registers active stage target
+      recordStageTarget(playerId);
+    } else {
+      openPlayerSeatModal(playerId);
+    }
+  }
+
+  function openPlayerSeatModal(playerId) {
+    if (!currentGameState) return;
+    const p = currentGameState.players.find(x => x.id === playerId);
+    if (!p) return;
+    document.getElementById("seat-modal-name").innerText = `${p.name} (Seat #${p.seat_number})`;
+    const roleText = p.role ? `${p.role.emoji} ${p.role.name} (${p.role.faction})` : "Unassigned";
+    document.getElementById("seat-modal-info").innerHTML = `
+      <strong>Status:</strong> ${p.status.toUpperCase()}<br>
+      <strong>Role:</strong> ${roleText}
+    `;
+    document.getElementById("btn-seat-cycle-status").onclick = () => {
+      cyclePlayerStatus(p.id, p.status);
+      closeModal('player-seat-modal');
+    };
+    document.getElementById("btn-seat-move-ccw").onclick = () => {
+      movePlayerSeat(p.id, 'up');
+      closeModal('player-seat-modal');
+    };
+    document.getElementById("btn-seat-move-cw").onclick = () => {
+      movePlayerSeat(p.id, 'down');
+      closeModal('player-seat-modal');
+    };
+    document.getElementById("btn-seat-change-role").onclick = () => {
+      closeModal('player-seat-modal');
+      setPlayerRoleManual(p.id, p.name);
+    };
+    document.getElementById("btn-seat-qr").onclick = () => {
+      closeModal('player-seat-modal');
+      showPlayerQR(p.id, p.name, p.token);
+    };
+    openModal('player-seat-modal');
+  }
+
+  // --- Night Stage Director Wizard ---
+  function renderNightDirector(state) {
+    const directorBox = document.getElementById("night-director-box");
+    const dayDawnCard = document.getElementById("day-dawn-card");
+
+    if (state.phase !== "night") {
+      directorBox.style.display = "none";
+      if (state.night_report && state.night_report.length > 0) {
+        dayDawnCard.style.display = "block";
+        document.getElementById("report-round-num").innerText = state.round_number;
+        document.getElementById("morning-report").innerHTML = state.night_report.map(r => `<li>${escapeHtml(r)}</li>`).join("");
+      } else {
+        dayDawnCard.style.display = "none";
+      }
+      return;
+    }
+
+    directorBox.style.display = "block";
+    dayDawnCard.style.display = "none";
+
+    const stages = state.night_stages || [];
+    const curIdx = state.night_stage_index || 0;
+    const stage = stages[curIdx] || null;
+
+    document.getElementById("stage-counter").innerText = `Step ${curIdx + 1} of ${stages.length}`;
+
+    // 1. Render Stepper Pills
+    const stepper = document.getElementById("night-stages-stepper");
+    stepper.innerHTML = stages.map((s, idx) => {
+      const isAct = idx === curIdx;
+      const isDone = s.is_complete;
+      const checkMark = isDone ? "✓ " : "";
+      return `
+        <div class="stage-step-pill ${isAct ? 'active' : ''} ${isDone ? 'completed' : ''}" onclick="jumpToNightStage(${idx})">
+          <span>${checkMark}${s.emoji || '🌙'} ${escapeHtml(s.title)}</span>
+        </div>
+      `;
+    }).join("");
+
+    if (!stage) return;
+
+    // 2. Render Script
+    document.getElementById("night-script-text").innerText = `"${stage.script}"`;
+
+    // 3. Render Target Status
+    const targetDisplay = document.getElementById("stage-target-display");
+    const clearBtn = document.getElementById("btn-clear-target");
+    const pickerWrap = document.getElementById("stage-picker-container");
+    const selectEl = document.getElementById("stage-target-select");
+
+    const detWidget = document.getElementById("detective-widget");
+    const witchWidget = document.getElementById("witch-widget");
+    const sniperWidget = document.getElementById("sniper-widget");
+    const reviewWidget = document.getElementById("review-widget");
+
+    detWidget.style.display = "none";
+    witchWidget.style.display = "none";
+    sniperWidget.style.display = "none";
+    reviewWidget.style.display = "none";
+    pickerWrap.style.display = "flex";
+
+    if (stage.id === "review") {
+      pickerWrap.style.display = "none";
+      clearBtn.style.display = "none";
+      targetDisplay.innerText = "Dawn Readiness";
+      reviewWidget.style.display = "block";
+
+      // Build summary of night
+      const actions = state.night_actions || {};
+      let summaryHtml = "<ul style='margin:0; padding-left:1.2rem;'>";
+      const wTarget = state.players.find(p => p.id === actions.wolf_target);
+      summaryHtml += `<li>🐺 <strong>Wolves Victim:</strong> ${wTarget ? escapeHtml(wTarget.name) : '<em style="color:#f87171;">None</em>'}</li>`;
+
+      if (actions.silencer_target) {
+        const sTarget = state.players.find(p => p.id === actions.silencer_target);
+        summaryHtml += `<li>🤐 <strong>Silenced tomorrow:</strong> ${sTarget ? escapeHtml(sTarget.name) : 'None'}</li>`;
+      }
+      if (actions.framer_target) {
+        const fTarget = state.players.find(p => p.id === actions.framer_target);
+        summaryHtml += `<li>🎭 <strong>Framed as Evil:</strong> ${fTarget ? escapeHtml(fTarget.name) : 'None'}</li>`;
+      }
+      if (actions.detective_query) {
+        summaryHtml += `<li>🔍 <strong>Detective checked:</strong> ${escapeHtml(actions.detective_query.target_name || '')} &rarr; <em>${actions.detective_query.result}</em></li>`;
+      }
+      if (actions.doctor_protect) {
+        const dTarget = state.players.find(p => p.id === actions.doctor_protect);
+        summaryHtml += `<li>🩺 <strong>Doctor Protects:</strong> ${dTarget ? escapeHtml(dTarget.name) : 'None'}</li>`;
+      }
+      if (actions.bodyguard_protect) {
+        const bTarget = state.players.find(p => p.id === actions.bodyguard_protect);
+        summaryHtml += `<li>🛡️ <strong>Bodyguard Shields:</strong> ${bTarget ? escapeHtml(bTarget.name) : 'None'}</li>`;
+      }
+      if (actions.witch_action) {
+        summaryHtml += `<li>🧙‍♀️ <strong>Witch Potion:</strong> Revive=${actions.witch_action.revive ? 'Yes' : 'No'}, Kill=${actions.witch_action.kill_target ? 'Yes' : 'No'}</li>`;
+      }
+      if (actions.sniper_shot) {
+        const snTarget = state.players.find(p => p.id === actions.sniper_shot.target_id);
+        summaryHtml += `<li>🎯 <strong>Sniper Shot:</strong> ${snTarget ? escapeHtml(snTarget.name) : 'None'}</li>`;
+      }
+      if (actions.sk_target) {
+        const skTarget = state.players.find(p => p.id === actions.sk_target);
+        summaryHtml += `<li>🔪 <strong>Serial Killer Solo:</strong> ${skTarget ? escapeHtml(skTarget.name) : 'None'}</li>`;
+      }
+      summaryHtml += "</ul>";
+      document.getElementById("review-summary-list").innerHTML = summaryHtml;
+    } else {
+      // Non-review stages: populate living players
+      selectEl.innerHTML = '<option value="">-- Choose player or tap seat on table --</option>';
+      state.players.forEach(p => {
+        if (p.status === "alive") {
+          const opt = document.createElement("option");
+          opt.value = p.id;
+          opt.innerText = `#${p.seat_number} ${p.name}`;
+          selectEl.appendChild(opt);
+        }
+      });
+
+      if (stage.id === "cupid") {
+        const names = stage.target_names || [];
+        targetDisplay.innerText = names.length > 0 ? names.join(" & ") : "Select 2 Lovers";
+        clearBtn.style.display = names.length > 0 ? "inline-block" : "none";
+      } else {
+        targetDisplay.innerText = stage.target_name ? `${stage.target_name}` : "None selected";
+        clearBtn.style.display = stage.target_id ? "inline-block" : "none";
+        selectEl.value = stage.target_id || "";
+      }
+
+      // Special widgets
+      if (stage.id === "detective") {
+        detWidget.style.display = "block";
+        const resEl = document.getElementById("detective-result-text");
+        if (stage.result) {
+          resEl.style.display = "inline-block";
+          resEl.innerText = `${stage.target_name || ''} is ${stage.result.toUpperCase()}`;
+          resEl.className = `detective-result-badge ${stage.is_evil ? 'evil' : 'good'}`;
+        } else {
+          resEl.style.display = "none";
+        }
+      } else if (stage.id === "witch") {
+        witchWidget.style.display = "block";
+        document.getElementById("witch-victim-name").innerText = stage.victim_name || "None";
+        const btnRev = document.getElementById("btn-witch-revive");
+        btnRev.style.background = stage.revive ? "#16a34a" : "#334155";
+        btnRev.innerText = stage.revive ? "✅ Revive Potion ACTIVE" : "🧪 Use Revive Potion";
+
+        const pSel = document.getElementById("witch-poison-select");
+        pSel.innerHTML = '<option value="">No Poison</option>';
+        state.players.forEach(p => {
+          if (p.status === "alive") {
+            const opt = document.createElement("option");
+            opt.value = p.id;
+            opt.innerText = p.name;
+            pSel.appendChild(opt);
+          }
+        });
+        pSel.value = stage.kill_target_id || "";
+      } else if (stage.id === "sniper") {
+        sniperWidget.style.display = "flex";
+        document.getElementById("stage-sniper-bullet").value = stage.bullet_type || "danger";
+      }
+    }
+
+    // Navigation buttons
+    document.getElementById("btn-stage-prev").disabled = curIdx === 0;
+    document.getElementById("btn-stage-next").disabled = curIdx === stages.length - 1;
+  }
+
+  function nextNightStage() {
+    if (!currentGameState) return;
+    const cur = currentGameState.night_stage_index || 0;
+    const stages = currentGameState.night_stages || [];
+    if (cur < stages.length - 1) {
+      sendAction("set_night_stage", { stage_index: cur + 1 });
+    }
+  }
+
+  function prevNightStage() {
+    if (!currentGameState) return;
+    const cur = currentGameState.night_stage_index || 0;
+    if (cur > 0) {
+      sendAction("set_night_stage", { stage_index: cur - 1 });
+    }
+  }
+
+  function jumpToNightStage(idx) {
+    sendAction("set_night_stage", { stage_index: idx });
+  }
+
+  function recordStageTarget(targetId) {
+    if (!currentGameState) return;
+    const stages = currentGameState.night_stages || [];
+    const stage = stages[currentGameState.night_stage_index || 0];
+    if (!stage || stage.id === "review") return;
+    sendAction("record_night_action", { stage_id: stage.id, target_id: targetId });
+  }
+
+  function clearActiveStageTarget() {
+    if (!currentGameState) return;
+    const stages = currentGameState.night_stages || [];
+    const stage = stages[currentGameState.night_stage_index || 0];
+    if (!stage) return;
+    sendAction("clear_night_action", { stage_id: stage.id });
+  }
+
+  function revealDetectiveResult() {
+    sendAction("reveal_detective");
+    alert("Secret inspection result pushed to Detective's device!");
+  }
+
+  function onSelectTargetChange(val) {
+    if (val) recordStageTarget(val);
+  }
+
+  function toggleWitchRevive() {
+    if (!currentGameState) return;
+    const w = currentGameState.night_actions.witch_action || {};
+    sendAction("record_night_action", {
+      stage_id: "witch",
+      extra: { revive: !w.revive, kill_target: w.kill_target }
+    });
+  }
+
+  function onWitchPoisonChange(val) {
+    if (!currentGameState) return;
+    const w = currentGameState.night_actions.witch_action || {};
+    sendAction("record_night_action", {
+      stage_id: "witch",
+      extra: { revive: w.revive, kill_target: val || null }
+    });
+  }
+
+  function onSniperBulletChange(val) {
+    if (!currentGameState) return;
+    const s = currentGameState.night_actions.sniper_shot || {};
+    sendAction("record_night_action", {
+      stage_id: "sniper",
+      target_id: s.target_id,
+      extra: { bullet_type: val }
+    });
   }
 
   function togglePeekPlayer(playerId) {
