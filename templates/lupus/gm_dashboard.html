@@ -7,11 +7,12 @@
 {% block extra_css %}
 html, body {
   margin: 0 !important;
-  padding: 0.5rem 0.85rem !important;
+  padding: max(0.5rem, env(safe-area-inset-top)) max(0.85rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(0.85rem, env(safe-area-inset-left)) !important;
   max-width: 100% !important;
   width: 100% !important;
   background: #f8fafc !important;
   box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
 }
 .gm-container {
   max-width: 1400px;

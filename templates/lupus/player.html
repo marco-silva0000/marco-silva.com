@@ -16,6 +16,7 @@ html, body {
   min-height: 100vh !important;
   min-height: 100dvh !important;
   overflow-x: hidden !important;
+  -webkit-text-size-adjust: 100%;
 }
 {% endblock %}
 
@@ -26,7 +27,7 @@ html, body {
     max-width: 1350px;
     margin: 0 auto;
     font-family: system-ui, -apple-system, sans-serif;
-    padding: 0.4rem 0.55rem 3.5rem;
+    padding: max(0.35rem, env(safe-area-inset-top)) max(0.5rem, env(safe-area-inset-right)) max(3.5rem, env(safe-area-inset-bottom)) max(0.5rem, env(safe-area-inset-left));
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
   }
@@ -45,7 +46,7 @@ html, body {
     background: #111827;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    margin-bottom: 0.65rem;
+    margin-bottom: 0.5rem;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   }
   .app-topbar-left {
@@ -82,6 +83,29 @@ html, body {
     padding: 0.05rem 0.35rem;
     border-radius: 4px;
   }
+  .ws-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.08rem 0.45rem;
+    border-radius: 999px;
+    margin-left: 0.35rem;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .ws-status-pill.ws-connected {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+  .ws-status-pill.ws-reconnecting {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
   .app-topbar-right {
     display: flex;
     align-items: center;
@@ -92,8 +116,8 @@ html, body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.2rem 0.5rem;
-    min-height: 28px;
+    padding: 0.25rem 0.55rem;
+    min-height: 32px;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -108,6 +132,78 @@ html, body {
     color: #ffffff;
   }
 
+  /* Mobile Segmented View Switcher (Only visible on mobile screens < 860px) */
+  .mobile-view-nav {
+    display: flex;
+    align-items: center;
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.25rem;
+    margin-bottom: 0.65rem;
+    gap: 0.25rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    position: sticky;
+    top: max(0.35rem, env(safe-area-inset-top));
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  @media (min-width: 860px) {
+    .mobile-view-nav {
+      display: none !important;
+    }
+  }
+
+  .mobile-nav-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.45rem 0.2rem;
+    min-height: 40px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    position: relative;
+    touch-action: manipulation;
+  }
+  .mobile-nav-btn.active {
+    background: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+  }
+  .mobile-nav-btn:active {
+    transform: scale(0.96);
+  }
+  .m-nav-counter {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.05rem 0.35rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    color: inherit;
+  }
+  .m-nav-alert {
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f59e0b;
+    box-shadow: 0 0 0 2px #111827;
+  }
+
   /* Responsive App Grid */
   .player-app-grid {
     display: flex;
@@ -116,7 +212,7 @@ html, body {
   }
   @media (min-width: 860px) {
     .player-app-grid {
-      display: grid;
+      display: grid !important;
       grid-template-columns: minmax(360px, 460px) 1fr;
       gap: 0.95rem;
       align-items: start;
@@ -124,11 +220,51 @@ html, body {
     .player-col-side {
       position: sticky;
       top: 0.65rem;
+      display: block !important;
+    }
+    .player-app-col-main {
+      display: block !important;
+    }
+    #player-notes-card {
+      display: block !important;
     }
     .table-stage-wrapper {
       min-height: 520px !important;
       height: calc(100vh - 130px) !important;
       max-height: 680px !important;
+    }
+  }
+
+  /* Declarative visibility for mobile tab modes (< 860px) */
+  @media (max-width: 859px) {
+    .player-app-grid[data-mobile-view="play"] .player-col-side,
+    .player-app-grid[data-mobile-view="play"] #player-notes-card {
+      display: none !important;
+    }
+    .player-app-grid[data-mobile-view="play"] .player-app-col-main {
+      display: block !important;
+    }
+
+    .player-app-grid[data-mobile-view="table"] .player-app-col-main {
+      display: none !important;
+    }
+    .player-app-grid[data-mobile-view="table"] .player-col-side {
+      display: block !important;
+    }
+
+    .player-app-grid[data-mobile-view="notes"] .player-col-side,
+    .player-app-grid[data-mobile-view="notes"] #player-active-game,
+    .player-app-grid[data-mobile-view="notes"] #player-lobby-view {
+      display: none !important;
+    }
+    .player-app-grid[data-mobile-view="notes"] #player-notes-card {
+      display: block !important;
+    }
+
+    .player-app-grid[data-mobile-view="all"] .player-app-col-main,
+    .player-app-grid[data-mobile-view="all"] .player-col-side,
+    .player-app-grid[data-mobile-view="all"] #player-notes-card {
+      display: block !important;
     }
   }
 
@@ -215,6 +351,7 @@ html, body {
     border: 2px solid #334155;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-touch-callout: none !important;
     position: relative;
     overflow: hidden;
     min-height: 205px;
@@ -224,7 +361,19 @@ html, body {
     align-items: center;
     cursor: pointer;
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s ease;
-    touch-action: pan-y;
+    touch-action: manipulation;
+  }
+  @media (max-width: 600px) {
+    .role-card {
+      min-height: 175px !important;
+      padding: 0.85rem 0.75rem !important;
+    }
+    .role-emoji {
+      font-size: 3.2rem !important;
+    }
+    .role-title {
+      font-size: 1.3rem !important;
+    }
   }
   .role-card:active {
     transform: scale(0.985);
@@ -473,12 +622,19 @@ html, body {
   }
   @media (max-width: 480px) {
     .u-seat-node {
-      width: 78px;
-      padding: 0.2rem 0.3rem;
+      width: 72px;
+      padding: 0.2rem 0.25rem;
+      border-radius: 6px;
+    }
+    .u-seat-name {
+      font-size: 0.7rem;
+    }
+    .u-seat-role {
+      font-size: 0.6rem;
     }
     .table-stage-wrapper {
-      min-height: 340px;
-      height: 350px;
+      min-height: 350px;
+      height: 370px;
     }
   }
   .u-seat-node.alive { border-color: #22c55e; }
@@ -537,9 +693,11 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.6rem 0.85rem;
-    border-bottom: 1px solid #334155;
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: #111827;
     color: #f8fafc;
+    min-height: 44px;
   }
   .player-item:last-child {
     border-bottom: none;
@@ -565,6 +723,8 @@ html, body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.65rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
   }
   .notes-title {
     font-size: 0.95rem;
@@ -579,6 +739,13 @@ html, body {
     display: flex;
     align-items: center;
     gap: 0.35rem;
+  }
+  .notes-tools .btn {
+    min-height: 36px;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    touch-action: manipulation;
   }
   .notes-subrow {
     margin-bottom: 0.55rem;
@@ -596,9 +763,9 @@ html, body {
   }
   .notes-chips-container {
     display: flex;
-    gap: 0.35rem;
+    gap: 0.4rem;
     overflow-x: auto;
-    padding-bottom: 0.25rem;
+    padding-bottom: 0.35rem;
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
   }
@@ -607,13 +774,18 @@ html, body {
     background: #1e293b;
     border: 1px solid #334155;
     color: #cbd5e1;
-    padding: 0.22rem 0.55rem;
+    padding: 0.3rem 0.65rem;
+    min-height: 34px;
     border-radius: 999px;
-    font-size: 0.76rem;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     user-select: none;
+    -webkit-user-select: none;
     transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    touch-action: manipulation;
   }
   .notes-chip:hover {
     background: #334155;
@@ -627,17 +799,20 @@ html, body {
     background: #1e293b;
     border: 1px solid #334155;
     color: #cbd5e1;
-    padding: 0.25rem 0.6rem;
-    border-radius: 6px;
-    font-size: 0.76rem;
+    padding: 0.35rem 0.65rem;
+    min-height: 36px;
+    border-radius: 8px;
+    font-size: 0.82rem;
     font-weight: 600;
     cursor: pointer;
     user-select: none;
+    -webkit-user-select: none;
     transition: all 0.15s ease;
     white-space: nowrap;
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.3rem;
+    touch-action: manipulation;
   }
   .notes-emoji-chip:hover {
     background: #334155;
@@ -653,13 +828,13 @@ html, body {
   }
   .notes-textarea {
     width: 100%;
-    min-height: 125px;
+    min-height: 140px;
     border: 1.5px solid #334155;
     border-radius: 10px;
-    padding: 0.7rem;
+    padding: 0.75rem;
     font-family: system-ui, -apple-system, sans-serif;
-    font-size: 0.92rem;
-    line-height: 1.45;
+    font-size: 16px !important; /* CRITICAL: Prevents iOS Safari auto-zoom on input focus */
+    line-height: 1.5;
     color: #f8fafc;
     background: #090d16;
     resize: vertical;
@@ -746,6 +921,7 @@ html, body {
         <div class="app-brand-title">{{ state.title }}</div>
         <div class="app-brand-sub">
           Room <span class="app-room-pill">{{ code }}</span> &bull; <strong>{{ state.me.name }}</strong>
+          <span id="ws-status-indicator" class="ws-status-pill ws-connected" title="Connection status">● Online</span>
         </div>
       </div>
     </div>
@@ -757,7 +933,25 @@ html, body {
     </div>
   </header>
 
-  <div class="player-app-grid">
+  <!-- Mobile Segmented View Switcher (Sticky on phones) -->
+  <nav class="mobile-view-nav" id="mobile-view-nav" aria-label="Game Screen Views">
+    <button type="button" class="mobile-nav-btn active" id="m-btn-play" onclick="setMobileView('play')">
+      <span>🎮 Role &amp; Play</span>
+      <span id="m-play-alert" class="m-nav-alert" style="display: none;"></span>
+    </button>
+    <button type="button" class="mobile-nav-btn" id="m-btn-table" onclick="setMobileView('table')">
+      <span>👥 Table</span>
+      <span id="m-alive-badge" class="m-nav-counter">--</span>
+    </button>
+    <button type="button" class="mobile-nav-btn" id="m-btn-notes" onclick="setMobileView('notes')">
+      <span>📝 Notepad</span>
+    </button>
+    <button type="button" class="mobile-nav-btn" id="m-btn-all" onclick="setMobileView('all')">
+      <span>📜 All</span>
+    </button>
+  </nav>
+
+  <div class="player-app-grid" id="player-app-grid" data-mobile-view="play">
     <div class="player-app-col-main">
       <!-- GM Announcement Banner -->
       <div id="gm-announcement-box" style="display: none; background: #422006; border: 1px solid #d97706; border-radius: 12px; padding: 0.75rem 1rem; color: #fef3c7; font-weight: 600; margin-bottom: 0.65rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
@@ -930,16 +1124,16 @@ html, body {
             </div>
           </div>
           <div class="notes-tools">
-            <button type="button" onclick="autoFillPlayerRoster(false)" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Populate or append player roster">
+            <button type="button" onclick="autoFillPlayerRoster(false)" class="btn btn-sm" title="Populate or append player roster">
               👥 Roster
             </button>
-            <button type="button" onclick="copyPlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Copy notes to clipboard">
+            <button type="button" onclick="copyPlayerNotes()" class="btn btn-sm" title="Copy notes to clipboard">
               📋 Copy
             </button>
-            <button type="button" onclick="clearPlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.75rem;" title="Clear notepad">
+            <button type="button" onclick="clearPlayerNotes()" class="btn btn-sm" style="background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.35); color: #fca5a5;" title="Clear notepad">
               🗑️ Clear
             </button>
-            <button type="button" id="btn-toggle-notes" onclick="togglePlayerNotes()" class="btn btn-sm" style="min-height: 28px; padding: 0.15rem 0.55rem; font-size: 0.85rem;" title="Collapse/Expand">
+            <button type="button" id="btn-toggle-notes" onclick="togglePlayerNotes()" class="btn btn-sm" style="font-size: 1rem; padding: 0.15rem 0.65rem;" title="Collapse/Expand">
               −
             </button>
           </div>
@@ -1256,6 +1450,44 @@ html, body {
     }
   });
 
+  // --- Mobile Segmented View Controller ---
+  let currentMobileView = localStorage.getItem("lupus_mobile_view") || "play";
+
+  function setMobileView(view) {
+    currentMobileView = view;
+    localStorage.setItem("lupus_mobile_view", view);
+
+    const grid = document.getElementById("player-app-grid");
+    if (grid) {
+      grid.setAttribute("data-mobile-view", view);
+    }
+
+    ["play", "table", "notes", "all"].forEach(tab => {
+      const btn = document.getElementById(`m-btn-${tab}`);
+      if (btn) {
+        if (tab === view) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      }
+    });
+
+    if (view === "play") {
+      const alertDot = document.getElementById("m-play-alert");
+      if (alertDot) alertDot.style.display = "none";
+    }
+
+    if (view === "table" && currentGameState) {
+      setTimeout(() => renderPlayerTableSeating(currentGameState), 50);
+    }
+
+    // Scroll to top of panel smoothly on mobile
+    if (window.innerWidth < 860) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
   // --- WebSocket Connection ---
   const wsProto = window.location.protocol === "https:" ? "wss:" : "ws:";
   const wsUrl = `${wsProto}//${window.location.host}/ws/lupus/${ROOM_CODE}/`;
@@ -1266,6 +1498,11 @@ html, body {
 
     socket.onopen = () => {
       console.log("Player WebSocket connected.");
+      const ind = document.getElementById("ws-status-indicator");
+      if (ind) {
+        ind.className = "ws-status-pill ws-connected";
+        ind.innerText = "● Online";
+      }
       socket.send(JSON.stringify({
         action: "init",
         player_token: MY_TOKEN,
@@ -1306,10 +1543,16 @@ html, body {
 
     socket.onclose = () => {
       console.warn("WebSocket closed, retrying in 2s...");
+      const ind = document.getElementById("ws-status-indicator");
+      if (ind) {
+        ind.className = "ws-status-pill ws-reconnecting";
+        ind.innerText = "● Reconnecting...";
+      }
       setTimeout(connectWS, 2000);
     };
   }
   connectWS();
+  setMobileView(currentMobileView);
 
   // --- Render State ---
   function renderPlayerState(state) {
@@ -1356,9 +1599,26 @@ html, body {
     document.getElementById("phase-text").innerText = state.phase.toUpperCase();
     document.getElementById("round-num").innerText = state.round_number;
 
+    // Update mobile alive counter badge
+    const aliveBadge = document.getElementById("m-alive-badge");
+    if (aliveBadge && state.players) {
+      const aliveN = state.players.filter(p => p.status === "alive").length;
+      aliveBadge.innerText = `${aliveN}/${state.players.length}`;
+    }
+
     // My Status
     const me = state.me;
     document.getElementById("my-status-badge").innerHTML = `<span class="badge badge-${me.status}">${me.status}</span>`;
+
+    // Update mobile play alert dot if voting or night actions require attention
+    const playAlert = document.getElementById("m-play-alert");
+    if (playAlert) {
+      const isVoting = state.phase === "day_voting" && state.voting && state.voting.stage !== "none";
+      const isNightAction = state.phase === "night" && me && me.status === "alive";
+      const hasInspect = !!state.revealed_inspect;
+      const needsAction = isVoting || isNightAction || hasInspect;
+      playAlert.style.display = (needsAction && currentMobileView !== "play" && currentMobileView !== "all") ? "block" : "none";
+    }
 
     // Silence Box
     document.getElementById("silence-alert-box").style.display = me.is_silenced ? "block" : "none";
@@ -1464,14 +1724,19 @@ html, body {
     const btnList = document.getElementById("p-btn-layout-list");
     if (!btnU || !btnRing || !btnList) return;
 
-    btnU.style.background = playerLayoutMode === "figure_u" ? "#2563eb" : "#f1f5f9";
-    btnU.style.color = playerLayoutMode === "figure_u" ? "#fff" : "#334155";
+    const activeBg = "#2563eb";
+    const activeColor = "#ffffff";
+    const inactiveBg = "#1e293b";
+    const inactiveColor = "#94a3b8";
 
-    btnRing.style.background = playerLayoutMode === "ring" ? "#2563eb" : "#f1f5f9";
-    btnRing.style.color = playerLayoutMode === "ring" ? "#fff" : "#334155";
+    btnU.style.background = playerLayoutMode === "figure_u" ? activeBg : inactiveBg;
+    btnU.style.color = playerLayoutMode === "figure_u" ? activeColor : inactiveColor;
 
-    btnList.style.background = playerLayoutMode === "list" ? "#2563eb" : "#f1f5f9";
-    btnList.style.color = playerLayoutMode === "list" ? "#fff" : "#334155";
+    btnRing.style.background = playerLayoutMode === "ring" ? activeBg : inactiveBg;
+    btnRing.style.color = playerLayoutMode === "ring" ? activeColor : inactiveColor;
+
+    btnList.style.background = playerLayoutMode === "list" ? activeBg : inactiveBg;
+    btnList.style.color = playerLayoutMode === "list" ? activeColor : inactiveColor;
   }
 
   function renderPlayerTableSeating(state) {
@@ -1489,11 +1754,11 @@ html, body {
     state.players.forEach(p => {
       const item = document.createElement("div");
       item.className = "player-item";
-      const meTag = p.is_me ? " <strong style='color:#2563eb;'>(You)</strong>" : "";
+      const meTag = p.is_me ? " <strong style='color:#38bdf8;'>(You)</strong>" : "";
       const silencedTag = p.is_silenced ? " 🤐" : "";
       const loverTag = p.is_lover ? " 💘" : "";
-      const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#64748b; background:#f1f5f9; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
-      const roleStr = p.role ? `<span style="font-size:0.8rem; color:#64748b; margin-left:0.25rem;">(${p.role.name})</span>` : "";
+      const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#94a3b8; background:#0f172a; border:1px solid #334155; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
+      const roleStr = p.role ? `<span style="font-size:0.8rem; color:#94a3b8; margin-left:0.25rem;">(${p.role.name})</span>` : "";
 
       item.innerHTML = `
         <div style="font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap;">
@@ -1670,7 +1935,7 @@ html, body {
         const isNom = cand.is_nominated;
         const hasMyVote = cand.has_my_vote;
         const myVoteBtn = isAlive ? `
-          <button onclick="playerVoteNominate('${cand.id}')" class="btn btn-sm" style="${hasMyVote ? 'background:#7c3aed; color:#fff; border-color:#7c3aed; font-weight:700;' : 'background:#0f172a; color:#cbd5e1; border-color:#475569;'}">
+          <button onclick="playerVoteNominate('${cand.id}')" class="btn" style="min-height:40px; padding:0.35rem 0.85rem; font-size:0.85rem; ${hasMyVote ? 'background:#7c3aed; color:#fff; border-color:#7c3aed; font-weight:700;' : 'background:#0f172a; color:#cbd5e1; border-color:#475569;'}">
             ${hasMyVote ? '✋ Hand Raised' : 'Raise Hand'}
           </button>
         ` : '';
@@ -1750,7 +2015,7 @@ html, body {
                 </div>
               </div>
               <div>
-                <button onclick="playerVoteFinal(${isMyChoice ? 'null' : `'${cand.id}'`})" class="btn btn-sm" style="${isMyChoice ? 'background:#dc2626; color:#fff; border-color:#dc2626; font-weight:700;' : 'background:#1e293b; color:#f87171; border-color:#991b1b;'}">
+                <button onclick="playerVoteFinal(${isMyChoice ? 'null' : `'${cand.id}'`})" class="btn" style="min-height:40px; padding:0.35rem 0.85rem; font-size:0.85rem; ${isMyChoice ? 'background:#dc2626; color:#fff; border-color:#dc2626; font-weight:700;' : 'background:#1e293b; color:#f87171; border-color:#991b1b;'}">
                   ${isMyChoice ? '✓ Voted (Remove)' : 'Vote to Execute'}
                 </button>
               </div>
@@ -1758,8 +2023,8 @@ html, body {
           `;
         });
         html += `
-          <div style="margin-top:0.4rem; text-align:center;">
-            <button onclick="playerVoteFinal(null)" class="btn btn-sm" style="background:#1e293b; color:#94a3b8; border-color:#475569; font-size:0.78rem;">
+          <div style="margin-top:0.5rem; text-align:center;">
+            <button onclick="playerVoteFinal(null)" class="btn" style="min-height:38px; padding:0.35rem 1rem; background:#1e293b; color:#94a3b8; border-color:#475569; font-size:0.82rem;">
               🕊️ Abstain (No Vote)
             </button>
           </div>
@@ -2073,15 +2338,26 @@ html, body {
   }
 
   function openAndScrollToNotes() {
-    notesCollapsed = false;
-    localStorage.setItem(`lupus_notes_collapsed_${ROOM_CODE}`, "false");
-    updateNotesCollapsedView();
-    const card = document.getElementById("player-notes-card");
-    if (card) {
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-      setTimeout(() => {
-        if (notesTextarea) notesTextarea.focus();
-      }, 250);
+    if (window.innerWidth < 860) {
+      if (currentMobileView === "notes") {
+        setMobileView("play");
+      } else {
+        setMobileView("notes");
+        setTimeout(() => {
+          if (notesTextarea) notesTextarea.focus();
+        }, 150);
+      }
+    } else {
+      notesCollapsed = false;
+      localStorage.setItem(`lupus_notes_collapsed_${ROOM_CODE}`, "false");
+      updateNotesCollapsedView();
+      const card = document.getElementById("player-notes-card");
+      if (card) {
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => {
+          if (notesTextarea) notesTextarea.focus();
+        }, 250);
+      }
     }
   }
 
@@ -2147,12 +2423,12 @@ html, body {
       item.dataset.index = idx;
       const statusColor = p.status === 'alive' ? '#16a34a' : (p.status === 'limbo' ? '#d97706' : '#dc2626');
       const isMe = p.is_me ? ' <span style="color:#2563eb; font-size:0.75rem;">(You)</span>' : '';
-      const seatBadge = p.seat_number ? `<span style="font-size:0.72rem; font-weight:700; color:#64748b; background:#f1f5f9; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem;">#${p.seat_number}</span>` : '';
+      const seatBadge = p.seat_number ? `<span style="font-size:0.72rem; font-weight:700; color:#94a3b8; background:#0f172a; border:1px solid #334155; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem;">#${p.seat_number}</span>` : '';
 
       item.innerHTML = `
         <div style="display:flex; align-items:center;">
           ${seatBadge}
-          <strong style="color:#0f172a;">${escapeHtml(p.name)}</strong>${isMe}
+          <strong style="color:#f8fafc; font-size:0.9rem;">${escapeHtml(p.name)}</strong>${isMe}
         </div>
         <span style="font-size:0.7rem; font-weight:700; color:${statusColor}; text-transform:uppercase;">${p.status}</span>
       `;
