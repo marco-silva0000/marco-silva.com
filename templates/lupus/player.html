@@ -31,7 +31,7 @@ html, body {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
   }
-  @media (min-width: 860px) {
+  @media (min-width: 1024px) and (min-height: 580px) and (pointer: fine) {
     .player-container {
       padding: 0.65rem 1.15rem 3.5rem;
     }
@@ -149,11 +149,6 @@ html, body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
-  @media (min-width: 860px) {
-    .mobile-view-nav {
-      display: none !important;
-    }
-  }
 
   .mobile-nav-btn {
     flex: 1;
@@ -204,17 +199,64 @@ html, body {
     box-shadow: 0 0 0 2px #111827;
   }
 
-  /* Responsive App Grid */
+  /* Responsive App Grid: Single-column flex by default (Mobile-First) */
   .player-app-grid {
     display: flex;
     flex-direction: column;
     gap: 0.65rem;
+    width: 100%;
+    box-sizing: border-box;
   }
-  @media (min-width: 860px) {
+  .player-app-col-main,
+  .player-col-side {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* Declarative visibility for mobile tab modes (Active by default for mobile, tablets, landscape, and touch) */
+  .player-app-grid[data-mobile-view="play"] .player-col-side,
+  .player-app-grid[data-mobile-view="play"] #player-notes-card {
+    display: none !important;
+  }
+  .player-app-grid[data-mobile-view="play"] .player-app-col-main {
+    display: block !important;
+  }
+
+  .player-app-grid[data-mobile-view="table"] .player-app-col-main {
+    display: none !important;
+  }
+  .player-app-grid[data-mobile-view="table"] .player-col-side {
+    display: block !important;
+  }
+
+  .player-app-grid[data-mobile-view="notes"] .player-col-side,
+  .player-app-grid[data-mobile-view="notes"] #player-active-game,
+  .player-app-grid[data-mobile-view="notes"] #player-lobby-view {
+    display: none !important;
+  }
+  .player-app-grid[data-mobile-view="notes"] #player-notes-card {
+    display: block !important;
+  }
+
+  .player-app-grid[data-mobile-view="all"] .player-app-col-main,
+  .player-app-grid[data-mobile-view="all"] .player-col-side,
+  .player-app-grid[data-mobile-view="all"] #player-notes-card {
+    display: block !important;
+  }
+
+  /* Desktop-Only 2-Column Mode:
+     Requires: Large desktop width (>= 1024px) AND adequate desktop height (>= 580px) AND mouse pointer (fine).
+     This guarantees phones (even in landscape 844-932px, or desktop-site mode 980px, or high-DPI) ALWAYS stay in the clean mobile layout!
+  */
+  @media (min-width: 1024px) and (min-height: 580px) and (pointer: fine) {
+    .mobile-view-nav {
+      display: none !important;
+    }
     .player-app-grid {
       display: grid !important;
-      grid-template-columns: minmax(360px, 460px) 1fr;
-      gap: 0.95rem;
+      grid-template-columns: minmax(380px, 460px) 1fr;
+      gap: 1rem;
       align-items: start;
     }
     .player-col-side {
@@ -232,39 +274,6 @@ html, body {
       min-height: 520px !important;
       height: calc(100vh - 130px) !important;
       max-height: 680px !important;
-    }
-  }
-
-  /* Declarative visibility for mobile tab modes (< 860px) */
-  @media (max-width: 859px) {
-    .player-app-grid[data-mobile-view="play"] .player-col-side,
-    .player-app-grid[data-mobile-view="play"] #player-notes-card {
-      display: none !important;
-    }
-    .player-app-grid[data-mobile-view="play"] .player-app-col-main {
-      display: block !important;
-    }
-
-    .player-app-grid[data-mobile-view="table"] .player-app-col-main {
-      display: none !important;
-    }
-    .player-app-grid[data-mobile-view="table"] .player-col-side {
-      display: block !important;
-    }
-
-    .player-app-grid[data-mobile-view="notes"] .player-col-side,
-    .player-app-grid[data-mobile-view="notes"] #player-active-game,
-    .player-app-grid[data-mobile-view="notes"] #player-lobby-view {
-      display: none !important;
-    }
-    .player-app-grid[data-mobile-view="notes"] #player-notes-card {
-      display: block !important;
-    }
-
-    .player-app-grid[data-mobile-view="all"] .player-app-col-main,
-    .player-app-grid[data-mobile-view="all"] .player-col-side,
-    .player-app-grid[data-mobile-view="all"] #player-notes-card {
-      display: block !important;
     }
   }
 
@@ -613,28 +622,37 @@ html, body {
     background: #1e293b;
     border: 2px solid #334155;
     border-radius: 8px;
-    padding: 0.3rem 0.45rem;
+    padding: 0.25rem 0.35rem;
     text-align: center;
-    width: 95px;
+    width: clamp(68px, 19vw, 92px);
+    box-sizing: border-box;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     z-index: 20;
     color: #f8fafc;
   }
+  .u-seat-name {
+    font-size: clamp(0.66rem, 2.2vw, 0.78rem);
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .u-seat-role {
+    font-size: clamp(0.56rem, 1.8vw, 0.68rem);
+    color: #94a3b8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   @media (max-width: 480px) {
     .u-seat-node {
-      width: 72px;
+      width: clamp(64px, 19vw, 76px);
       padding: 0.2rem 0.25rem;
       border-radius: 6px;
     }
-    .u-seat-name {
-      font-size: 0.7rem;
-    }
-    .u-seat-role {
-      font-size: 0.6rem;
-    }
     .table-stage-wrapper {
-      min-height: 350px;
-      height: 370px;
+      min-height: 330px;
+      height: clamp(330px, 50vh, 370px);
     }
   }
   .u-seat-node.alive { border-color: #22c55e; }
@@ -825,6 +843,9 @@ html, body {
   .notes-canvas-wrapper {
     position: relative;
     width: 100%;
+  }
+  input, select, textarea {
+    font-size: 16px !important; /* CRITICAL: Prevents iOS Safari auto-zoom on input focus */
   }
   .notes-textarea {
     width: 100%;
@@ -1483,7 +1504,7 @@ html, body {
     }
 
     // Scroll to top of panel smoothly on mobile
-    if (window.innerWidth < 860) {
+    if (window.innerWidth < 1024) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
@@ -2338,7 +2359,8 @@ html, body {
   }
 
   function openAndScrollToNotes() {
-    if (window.innerWidth < 860) {
+    const isDesktop = window.innerWidth >= 1024 && window.matchMedia("(pointer: fine)").matches;
+    if (!isDesktop) {
       if (currentMobileView === "notes") {
         setMobileView("play");
       } else {

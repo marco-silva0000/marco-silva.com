@@ -22,6 +22,7 @@ html, body {
 
 {% block content %}
 <style>
+  input, select, textarea { font-size: 16px !important; } /* Prevents iOS Safari auto-zoom */
   .gm-container { width: 100%; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; padding-bottom: 3rem; }
   .badge { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
   .badge-alive { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
@@ -187,8 +188,8 @@ html, body {
     gap: 0.5rem;
   }
 
-  /* Mobile Overrides (under 640px) */
-  @media (max-width: 640px) {
+  /* Mobile Overrides (under 960px or short landscape screens) */
+  @media (max-width: 960px), (max-height: 550px) {
     .control-grid {
       grid-template-columns: 1fr !important;
       gap: 1rem !important;
@@ -208,6 +209,7 @@ html, body {
       width: 100%;
       display: flex;
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
     .top-bar-buttons .btn {
       flex: 1;
@@ -254,8 +256,8 @@ html, body {
   .table-stage-wrapper {
     position: relative;
     width: 100%;
-    min-height: 480px;
-    height: 520px;
+    min-height: 340px;
+    height: clamp(360px, 58vh, 500px);
     background: radial-gradient(ellipse at 50% 50%, #1e293b 0%, #0f172a 100%);
     border-radius: 16px;
     box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 4px 20px rgba(0,0,0,0.12);
@@ -265,8 +267,8 @@ html, body {
   }
   @media (max-width: 600px) {
     .table-stage-wrapper {
-      min-height: 440px;
-      height: 460px;
+      min-height: 320px;
+      height: clamp(320px, 52vh, 420px);
     }
   }
   .table-track-svg {
@@ -316,9 +318,10 @@ html, body {
     background: #ffffff;
     border: 2px solid #e2e8f0;
     border-radius: 10px;
-    padding: 0.35rem 0.55rem;
+    padding: 0.25rem 0.4rem;
     text-align: center;
-    width: 110px;
+    width: clamp(74px, 20vw, 105px);
+    box-sizing: border-box;
     cursor: pointer;
     box-shadow: 0 3px 8px rgba(0,0,0,0.15);
     transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -326,8 +329,8 @@ html, body {
   }
   @media (max-width: 600px) {
     .u-seat-node {
-      width: 90px;
-      padding: 0.25rem 0.4rem;
+      width: clamp(66px, 19vw, 84px);
+      padding: 0.2rem 0.3rem;
     }
   }
   .u-seat-node:hover {
