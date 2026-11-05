@@ -164,6 +164,44 @@ def remove_player(state: dict[str, Any], player_id: str) -> dict[str, Any]:
     return state
 
 
+DEMO_PLAYER_NAMES = [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "Diana",
+    "Evan",
+    "Fiona",
+    "George",
+    "Hannah",
+    "Ian",
+    "Julia",
+]
+
+
+def should_autofill_demo(password: str, gm_name: str) -> bool:
+    """Check if room credentials match the demo autofill trigger (password 'test' & narrator 'marco')."""
+    pw = (password or "").strip().lower()
+    gm = (gm_name or "").strip().lower()
+    return (pw == "test" or pw.startswith("test") or pw == "demo") and "marco" in gm
+
+
+def setup_demo_room(state: dict[str, Any]) -> dict[str, Any]:
+    """Populate room with 10 demo test players and configure 10-player balanced deck."""
+    existing_names = {p["name"].lower() for p in state.get("players", {}).values()}
+    for name in DEMO_PLAYER_NAMES:
+        if name.lower() not in existing_names:
+            add_player(state, name, is_offline=False)
+
+    from .roles import DEFAULT_PRESETS
+
+    if len(state.get("deck", [])) < len(DEMO_PLAYER_NAMES):
+        state["deck"] = list(DEFAULT_PRESETS.get("full_10", DEFAULT_PRESETS["balanced_8"]))
+
+    log_event(state, "🎮 Demo mode active: 10 test players populated.")
+    save_game(state["code"], state)
+    return state
+
+
 def get_ordered_players(state: dict[str, Any]) -> list[dict[str, Any]]:
     """Return list of player dicts sorted according to the physical seating order."""
     order = state.get("player_order", [])

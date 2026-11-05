@@ -14,6 +14,8 @@ from .game_state import (
     get_game,
     get_gm_view,
     get_sanitized_player_view,
+    setup_demo_room,
+    should_autofill_demo,
 )
 from .qr import generate_qr_data_uri
 from .roles import DEFAULT_PRESETS, ROLE_REGISTRY, get_all_roles_catalogue
@@ -48,18 +50,25 @@ def create_room(request):
             "limbo_enabled": limbo_on,
         }
 
+        gm_name = request.POST.get("gm_name", "Game Master").strip() or "Game Master"
+
         state = create_initial_state(
             code=room.code,
             title=title,
             password=password,
-            gm_name=request.POST.get("gm_name", "Game Master").strip() or "Game Master",
+            gm_name=gm_name,
             theme=theme,
             settings=settings,
         )
 
         # Set default deck
         preset = request.POST.get("preset", "balanced_8")
-        state["deck"] = DEFAULT_PRESETS.get(preset, DEFAULT_PRESETS["balanced_8"])
+        state["deck"] = list(DEFAULT_PRESETS.get(preset, DEFAULT_PRESETS["balanced_8"]))
+
+        # Demo trigger: if password is like 'test' and narrator is 'marco', autofill 10 test players
+        if should_autofill_demo(password, gm_name):
+            setup_demo_room(state)
+
         from .game_state import save_game
 
         save_game(room.code, state)

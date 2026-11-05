@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from gamerooms.models import Room
 from lupus.game_state import (
+    DEMO_PLAYER_NAMES,
     add_player,
     cast_final_vote,
     check_win_condition,
@@ -32,6 +33,8 @@ from lupus.game_state import (
     set_manual_player_role,
     set_night_stage_index,
     set_player_status,
+    setup_demo_room,
+    should_autofill_demo,
     start_game,
     start_voting_session,
     submit_night_action,
@@ -750,6 +753,54 @@ class TestLupusNotepadTemplate:
         assert "detective" in role_ids
         assert "doctor" in role_ids
         assert "villager" in role_ids
+
+    def test_should_autofill_demo(self):
+        # Matching triggers
+        assert should_autofill_demo("test", "marco") is True
+        assert should_autofill_demo("TEST", "Marco") is True
+        assert should_autofill_demo("test123", "Marco Silva") is True
+        assert should_autofill_demo("demo", "marco") is True
+        assert should_autofill_demo("  test  ", "  Marco GM  ") is True
+
+        # Non-matching triggers
+        assert should_autofill_demo("secret", "marco") is False
+        assert should_autofill_demo("test", "Alice") is False
+        assert should_autofill_demo("", "marco") is False
+        assert should_autofill_demo("test", "") is False
+        assert should_autofill_demo(None, None) is False
+
+    def test_setup_demo_room(self, monkeypatch):
+        mock_redis = MockRedis()
+        monkeypatch.setattr("lupus.game_state.get_redis_client", lambda: mock_redis)
+
+        state = create_initial_state("DEMOROOM", "Demo Game", password="test", gm_name="Marco")
+        assert len(state["players"]) == 0
+
+        # Trigger demo room setup
+        setup_demo_room(state)
+
+        # Verify 10 players added
+        assert len(state["players"]) == 10
+        assert len(state["player_order"]) == 10
+
+        names = [p["name"] for p in state["players"].values()]
+        for expected_name in DEMO_PLAYER_NAMES:
+            assert expected_name in names
+
+        # Verify each player has proper alive status, token, and id
+        for p in state["players"].values():
+            assert p["status"] == "alive"
+            assert len(p["token"]) > 0
+            assert len(p["id"]) > 0
+            assert p["is_offline"] is False
+
+        # Deck should be adjusted to 10 cards (e.g. full_10)
+        assert len(state["deck"]) == 10
+
+        # Idempotency check: calling again does not duplicate players
+        setup_demo_room(state)
+        assert len(state["players"]) == 10
+        assert len(state["player_order"]) == 10
 
 
 @pytest.mark.django_db

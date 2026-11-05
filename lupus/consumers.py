@@ -34,6 +34,7 @@ from .game_state import (
     set_nomination_tally_direct,
     set_player_status,
     set_round_number,
+    setup_demo_room,
     start_game,
     start_timer,
     start_voting_session,
@@ -178,6 +179,11 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 name = content.get("name", "").strip()
                 if name:
                     add_player(state, name, is_offline=True)
+                    await self.broadcast_sync()
+
+            elif action == "autofill_demo_players":
+                if state.get("phase") == "lobby":
+                    setup_demo_room(state)
                     await self.broadcast_sync()
 
             elif action == "remove_player":
