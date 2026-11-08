@@ -1659,11 +1659,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
         # Roles are strictly hidden from the public table view during gameplay.
         # Private roles are exclusively displayed on the dedicated "My Role" tab behind the privacy peek shield.
         # Table seats and deceased players NEVER reveal roles until the game is over.
-        reveal_role = False
-        if state["phase"] == "gameover":
-            reveal_role = True
-        elif p["status"] == "dead" and state["settings"].get("reveal_roles_on_death", False):
-            reveal_role = True
+        reveal_role = state.get("phase") == "gameover"
 
         role_display = None
         if reveal_role and p.get("role"):

@@ -1477,7 +1477,7 @@ html, body {
   const JOIN_URL = "{{ join_url }}";
   let currentGameState = null;
   let timerInterval = null;
-  let gmHideRoles = localStorage.getItem("lupus_gm_hide_roles") === "true";
+  let gmHideRoles = localStorage.getItem("lupus_gm_hide_roles") !== "false";
   let gmLayoutMode = localStorage.getItem("lupus_gm_layout_mode") || "figure_u";
   const peekingPlayerIds = new Set();
   let manualRoleTargetPlayerId = null;
@@ -2264,12 +2264,13 @@ html, body {
 
     let roleHtml = "";
     if (gmHideRoles && !isPeeking) {
-      roleHtml = "🔒 Hidden";
+      roleHtml = "";
     } else {
       roleHtml = p.role ? `${p.role.emoji} ${p.role.name}` : "Unassigned";
     }
 
     const targetBadgeHtml = isTarget ? '<span class="u-seat-target-badge">🎯 TARGET</span>' : '';
+    const peekBtnHtml = gmHideRoles ? `<span onclick="event.stopPropagation(); togglePeekPlayer('${p.id}')" style="cursor:pointer; font-size:0.75rem; margin-left:auto; padding:0 2px;" title="${isPeeking ? 'Conceal role' : 'Peek secret role'}">${isPeeking ? '🙈' : '👁️'}</span>` : '';
 
     const node = document.createElement("div");
     node.className = `u-seat-node ${p.status} ${isTarget ? 'is-target' : ''}`;
@@ -2281,11 +2282,12 @@ html, body {
       <div class="u-seat-header">
         <span class="u-seat-num">#${p.seat_number || (idx + 1)}</span>
         <span class="u-seat-status" style="color: ${p.status === 'alive' ? '#22c55e' : (p.status === 'limbo' ? '#f59e0b' : '#ef4444')};">
-          ${p.status}
+          ${p.status.toUpperCase()}
         </span>
+        ${peekBtnHtml}
       </div>
       <div class="u-seat-name">${escapeHtml(p.name)}</div>
-      <div class="u-seat-role">${roleHtml}</div>
+      ${roleHtml ? `<div class="u-seat-role">${roleHtml}</div>` : ''}
       ${targetBadgeHtml}
     `;
 
@@ -2321,7 +2323,8 @@ html, body {
     const p = currentGameState.players.find(x => x.id === playerId);
     if (!p) return;
     document.getElementById("seat-modal-name").innerText = `${p.name} (Seat #${p.seat_number})`;
-    const roleText = p.role ? `${p.role.emoji} ${p.role.name} (${p.role.faction})` : "Unassigned";
+    const isPeeking = peekingPlayerIds.has(p.id);
+    const roleText = (!gmHideRoles || isPeeking) ? (p.role ? `${p.role.emoji} ${p.role.name} (${p.role.faction})` : "Unassigned") : "🔒 Hidden";
     document.getElementById("seat-modal-info").innerHTML = `
       <strong>Status:</strong> ${p.status.toUpperCase()}<br>
       <strong>Role:</strong> ${roleText}
@@ -2663,7 +2666,8 @@ html, body {
             const isNom = cand.is_nominated;
             card.className = `candidate-voting-card ${isNom ? 'nominated' : ''}`;
 
-            const roleDisplay = cand.role ? `${cand.role.emoji} ${cand.role.name}` : "";
+            const isPeeking = peekingPlayerIds.has(cand.id);
+            const roleDisplay = (!gmHideRoles || isPeeking) && cand.role ? `${cand.role.emoji} ${cand.role.name}` : "";
 
             card.innerHTML = `
               <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.4rem;">
