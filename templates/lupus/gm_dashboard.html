@@ -682,6 +682,42 @@ html, body {
   <!-- 1. PRE-GAME STAGE (LOBBY & ROLE SELECTION) -->
   <!-- ========================================== -->
   <div id="pregame-view" style="display: {% if state.phase == 'lobby' %}block{% else %}none{% endif %};">
+    <!-- Live Join QR & Table Invitation Card -->
+    <div class="card-box" style="border: 2px solid #10b981; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); margin-bottom: 1.25rem; padding: 1.15rem;">
+      <div style="display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;">
+        <div style="background: #ffffff; padding: 8px; border-radius: 12px; border: 1.5px solid #86efac; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); display: inline-block; flex-shrink: 0; margin: 0 auto;">
+          <img src="{{ join_qr }}" alt="Room Join QR" style="width: 140px; height: 140px; display: block; image-rendering: pixelated;">
+        </div>
+        <div style="flex: 1; min-width: 220px;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <span style="font-size: 0.75rem; font-weight: 800; background: #dcfce7; color: #166534; padding: 0.2rem 0.55rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">📱 Scan to Join</span>
+            {% if state.password %}
+            <span style="font-size: 0.75rem; font-weight: 700; background: #fef3c7; color: #92400e; padding: 0.2rem 0.55rem; border-radius: 4px;">🔒 Password included</span>
+            {% endif %}
+          </div>
+          <div style="margin-top: 0.35rem; font-size: 1.7rem; font-weight: 900; letter-spacing: 2.5px; font-family: monospace; color: #0f172a;">
+            {{ code }}
+          </div>
+          <p style="font-size: 0.82rem; color: #475569; margin: 0.35rem 0 0.75rem 0; line-height: 1.4;">
+            Point your phone camera here to join immediately, or open:
+            <br>
+            <code id="join-link-display" style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; word-break: break-all; color: #1e293b; font-weight: 600;">{{ join_url }}</code>
+          </p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" onclick="copyJoinLink(this)" class="btn btn-primary btn-sm" style="background: #059669; border-color: #047857; font-weight: 700; padding: 0.45rem 0.85rem;">
+              📋 Copy Join Link
+            </button>
+            <button type="button" onclick="openModal('room-qr-modal')" class="btn btn-sm" style="font-weight: 600;">
+              🔍 Enlarge QR
+            </button>
+            <button type="button" onclick="autofillDemoPlayers()" class="btn btn-sm" style="background: #f8fafc; border-color: #cbd5e1; color: #475569; font-weight: 600;" title="Fill room with 10 test players for live demo">
+              ⚡ Demo 10
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Role Selection & Deck Builder Card -->
     <div class="card-box" style="border: 2px solid #3b82f6;">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem;">
@@ -1290,9 +1326,9 @@ html, body {
   <div class="modal-content">
     <h3 style="margin-top: 0; font-size: 1.15rem;">Scan to Join Room</h3>
     <p style="font-size: 0.85rem; color: #666;">Scan with camera or share the code: <strong>{{ code }}</strong></p>
-    <img src="{{ join_qr }}" alt="Join QR" style="max-width: 220px; height: auto; margin: 0.5rem auto; border: 1px solid #ddd; padding: 4px; border-radius: 6px; display: block;">
-    <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center;">
-      <button onclick="copyJoinLink()" class="btn btn-primary">Copy Link</button>
+    <img src="{{ join_qr }}" alt="Join QR" style="max-width: 250px; width: 100%; height: auto; margin: 0.75rem auto; border: 1.5px solid #cbd5e1; padding: 6px; border-radius: 10px; display: block; image-rendering: pixelated; background: #fff;">
+    <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+      <button onclick="copyJoinLink(this)" class="btn btn-primary">📋 Copy Link</button>
       <button onclick="closeModal('room-qr-modal')" class="btn">Close</button>
     </div>
   </div>

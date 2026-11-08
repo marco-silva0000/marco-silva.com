@@ -24,6 +24,6 @@ def generate_qr_data_uri(content: str) -> str:
         img.save(buf, format="PNG")
         b64_str = base64.b64encode(buf.getvalue()).decode("utf-8")
         return f"data:image/png;base64,{b64_str}"
-    except ImportError:
+    except Exception:
         encoded = urllib.parse.quote(content)
         return f"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={encoded}"

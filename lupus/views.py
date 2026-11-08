@@ -106,12 +106,17 @@ def gm_dashboard(request, code):
     # Cache in session
     request.session[f"lupus_gm_{code}"] = gm_token
 
-    # Build join URL with embedded password if set
+    # Build join URL with embedded password if set (strictly HTTPS for public domains/proxies)
     join_path = reverse("gamerooms:lupus:join", kwargs={"code": code})
     query_params = {}
     if state.get("password"):
         query_params["pwd"] = state["password"]
-    join_url = request.build_absolute_uri(f"{join_path}?{urlencode(query_params)}" if query_params else join_path)
+
+    host = request.get_host()
+    is_public = any(d in host for d in ["marco-silva.com", "dev.marco-silva.com"])
+    scheme = "https" if (is_public or request.is_secure() or request.headers.get("x-forwarded-proto") == "https") else request.scheme
+    query_str = f"?{urlencode(query_params)}" if query_params else ""
+    join_url = f"{scheme}://{host}{join_path}{query_str}"
 
     join_qr_b64 = generate_qr_data_uri(join_url)
 
@@ -138,11 +143,19 @@ def room_join(request, code):
     if not state:
         raise Http404("Game room does not exist.")
 
+    # If player already joined from this device, redirect back to their active play view
+    existing_token = request.session.get(f"lupus_player_{code}")
+    if existing_token and not request.GET.get("new") and request.method != "POST":
+        for p in state.get("players", {}).values():
+            if p["token"] == existing_token:
+                play_url = reverse("gamerooms:lupus:play", kwargs={"code": code})
+                return redirect(f"{play_url}?token={p['token']}&pid={p['id']}")
+
     session_pw_key = f"lupus_pwd_ok_{code}"
     room_password = state.get("password", "")
 
-    # Auto-authenticate if password is provided in query params (?pwd=...)
-    param_pwd = request.GET.get("pwd")
+    # Auto-authenticate if password is provided in query params (?pwd=...) or POST
+    param_pwd = request.GET.get("pwd") or request.POST.get("pwd")
     if param_pwd and param_pwd == room_password:
         request.session[session_pw_key] = True
 
@@ -176,6 +189,21 @@ def room_join(request, code):
 
         state, player = add_player(state, name, is_offline=False)
         request.session[f"lupus_player_{code}"] = player["token"]
+
+        # Instantly sync GM dashboard and existing connected clients
+        try:
+            from asgiref.sync import async_to_sync
+            from channels.layers import get_channel_layer
+
+            channel_layer = get_channel_layer()
+            if channel_layer:
+                async_to_sync(channel_layer.group_send)(
+                    f"lupus_{code}",
+                    {"type": "game.state.sync"},
+                )
+        except Exception:
+            pass
+
         return redirect(
             f"{reverse('gamerooms:lupus:play', kwargs={'code': code})}?token={player['token']}&pid={player['id']}"
         )
@@ -183,7 +211,7 @@ def room_join(request, code):
     return render(
         request,
         "lupus/join.html",
-        {"code": code, "state": state, "need_password": False},
+        {"code": code, "state": state, "need_password": False, "param_pwd": param_pwd or ""},
     )
 
 
@@ -253,8 +281,10 @@ def player_reconnect(request, code, token):
 def player_qr(request, code, token):
     """Generate a QR code image for a player's secret reconnect URL."""
     code = code.upper()
-    reconnect_url = request.build_absolute_uri(
-        reverse("gamerooms:lupus:reconnect", kwargs={"code": code, "token": token})
-    )
+    reconnect_path = reverse("gamerooms:lupus:reconnect", kwargs={"code": code, "token": token})
+    host = request.get_host()
+    is_public = any(d in host for d in ["marco-silva.com", "dev.marco-silva.com"])
+    scheme = "https" if (is_public or request.is_secure() or request.headers.get("x-forwarded-proto") == "https") else request.scheme
+    reconnect_url = f"{scheme}://{host}{reconnect_path}"
     qr_data_uri = generate_qr_data_uri(reconnect_url)
     return JsonResponse({"qr": qr_data_uri, "url": reconnect_url})
