@@ -392,6 +392,7 @@ DEFAULT_PRESETS = {
     "chaos": [
         "werewolf",
         "alpha_wolf",
+        "silencer",
         "framer",
         "detective",
         "doctor",

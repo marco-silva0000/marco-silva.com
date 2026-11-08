@@ -70,9 +70,18 @@ html, body {
     border: 1px solid #cbd5e1;
     background: #f8fafc;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     transition: all 0.15s ease;
   }
   .preset-btn:hover { background: #e2e8f0; }
+  .preset-btn.active {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    border-color: #1d4ed8 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3) !important;
+  }
 
   .faction-section {
     background: #fafafa;
@@ -128,38 +137,111 @@ html, body {
   .role-toggle-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.45rem;
   }
   .role-toggle-chip {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.45rem 0.7rem;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.45rem 0.75rem;
     border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    background: #fff;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    color: #475569;
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
     user-select: none;
     -webkit-user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     transition: all 0.15s ease;
   }
-  .role-toggle-chip:active { transform: scale(0.97); }
+  .role-toggle-chip:hover {
+    border-color: #94a3b8;
+  }
+  .role-toggle-chip:active {
+    transform: scale(0.97);
+  }
+  .role-toggle-chip .chip-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    background: #e2e8f0;
+    color: #64748b;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  /* Active Evil */
   .role-toggle-chip.active.evil {
+    background: #fee2e2 !important;
+    color: #991b1b !important;
+    border: 2px solid #ef4444 !important;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+  }
+  .role-toggle-chip.active.evil .chip-badge {
+    background: #dc2626 !important;
+    color: #ffffff !important;
+  }
+
+  /* Active Good */
+  .role-toggle-chip.active.good {
+    background: #dcfce7 !important;
+    color: #166534 !important;
+    border: 2px solid #22c55e !important;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+  }
+  .role-toggle-chip.active.good .chip-badge {
+    background: #16a34a !important;
+    color: #ffffff !important;
+  }
+
+  /* Active Neutral */
+  .role-toggle-chip.active.neutral {
+    background: #f3e8ff !important;
+    color: #6b21a8 !important;
+    border: 2px solid #a855f7 !important;
+    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);
+  }
+  .role-toggle-chip.active.neutral .chip-badge {
+    background: #9333ea !important;
+    color: #ffffff !important;
+  }
+
+  /* Deck Roster Tag Pills */
+  .deck-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    user-select: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .deck-pill.evil {
     background: #fee2e2;
     color: #991b1b;
-    border-color: #f87171;
+    border: 1px solid #fca5a5;
   }
-  .role-toggle-chip.active.good {
+  .deck-pill.good {
     background: #dcfce7;
     color: #166534;
-    border-color: #4ade80;
+    border: 1px solid #86efac;
   }
-  .role-toggle-chip.active.neutral {
+  .deck-pill.neutral {
     background: #f3e8ff;
     color: #6b21a8;
-    border-color: #c084fc;
+    border: 1px solid #d8b4fe;
   }
 
   /* Responsive Grid for Timer & Phase Controls */
@@ -641,21 +723,39 @@ html, body {
         Quick Role Presets:
       </div>
       <div class="preset-btn-group">
-        <button onclick="applyPreset('simple')" class="preset-btn" title="Pure Werewolves vs Plain Villagers (No powers)">
+        <button type="button" id="preset-btn-simple" onclick="applyPreset('simple')" class="preset-btn" title="Pure Werewolves vs Plain Villagers (No powers)">
           🧑 Simple (No Powers)
         </button>
-        <button onclick="applyPreset('standard')" class="preset-btn" title="Wolves + Detective + Doctor + Villagers">
+        <button type="button" id="preset-btn-standard" onclick="applyPreset('standard')" class="preset-btn" title="Wolves + Detective + Doctor + Villagers">
           🔍 Standard (Classic)
         </button>
-        <button onclick="applyPreset('limbo')" class="preset-btn" title="Wolves + Detective + Doctor + Angel + Sniper + Villagers">
+        <button type="button" id="preset-btn-limbo" onclick="applyPreset('limbo')" class="preset-btn" title="Wolves + Detective + Doctor + Angel + Sniper + Villagers">
           👼 Limbo &amp; Angel
         </button>
-        <button onclick="applyPreset('chaos')" class="preset-btn" title="Full special role blend">
+        <button type="button" id="preset-btn-chaos" onclick="applyPreset('chaos')" class="preset-btn" title="Full special role blend">
           ⚡ Chaos / Specials
         </button>
-        <button onclick="autoFillVillagers()" class="preset-btn" style="background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">
+        <button type="button" id="preset-btn-fit" onclick="fitDeckToPlayers()" class="preset-btn" style="background: #e0f2fe; color: #0369a1; border-color: #7dd3fc; font-weight: 700;" title="Fit deck to exact number of players in lobby">
+          ✨ Fit to Players
+        </button>
+        <button type="button" onclick="autoFillVillagers()" class="preset-btn" style="background: #f1f5f9; color: #475569; border-color: #cbd5e1;" title="Fill remaining slots with Plain Villagers">
           🪄 Auto-Fill Villagers
         </button>
+      </div>
+
+      <!-- Live Deck Composition Roster (Always Visible in Lobby) -->
+      <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 0.75rem 0.9rem; margin: 0.75rem 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
+            <span>📋 Current Deck Roster (<span id="deck-roster-total">0</span> roles):</span>
+          </div>
+          <div>
+            <span id="active-preset-badge" class="badge" style="background: #ede9fe; color: #6d28d9; border: 1px solid #ddd6fe; font-size: 0.75rem;">Preset: Standard</span>
+          </div>
+        </div>
+        <div id="deck-roster-pills" style="display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; min-height: 28px;">
+          <!-- Dynamically populated tags with emoji, name, count -->
+        </div>
       </div>
 
       <!-- Faction Role Selectors -->
@@ -672,9 +772,9 @@ html, body {
             <span style="font-size: 0.75rem; color: #666;">Core night killers</span>
           </div>
           <div class="role-stepper">
-            <button class="stepper-btn" onclick="adjustCount('werewolf', -1)">&minus;</button>
+            <button type="button" class="stepper-btn" onclick="adjustCount('werewolf', -1)">&minus;</button>
             <span id="count-werewolf" class="stepper-val">2</span>
-            <button class="stepper-btn" onclick="adjustCount('werewolf', 1)">+</button>
+            <button type="button" class="stepper-btn" onclick="adjustCount('werewolf', 1)">+</button>
           </div>
         </div>
 
@@ -682,15 +782,18 @@ html, body {
           Special Evil Roles:
         </div>
         <div class="role-toggle-grid">
-          <div id="chip-alpha_wolf" class="role-toggle-chip evil" onclick="toggleSpecialRole('alpha_wolf')">
-            👑 Alpha Wolf (Appears Good)
-          </div>
-          <div id="chip-silencer" class="role-toggle-chip evil" onclick="toggleSpecialRole('silencer')">
-            🤐 Silencer (Mutes 1 player/day)
-          </div>
-          <div id="chip-framer" class="role-toggle-chip evil" onclick="toggleSpecialRole('framer')">
-            🎭 Framer (Frames innocent)
-          </div>
+          <button type="button" id="chip-alpha_wolf" class="role-toggle-chip evil" onclick="toggleSpecialRole('alpha_wolf')">
+            <span>👑 Alpha Wolf (Appears Good)</span>
+            <span class="chip-badge" id="badge-alpha_wolf">OFF</span>
+          </button>
+          <button type="button" id="chip-silencer" class="role-toggle-chip evil" onclick="toggleSpecialRole('silencer')">
+            <span>🤐 Silencer (Mutes 1/day)</span>
+            <span class="chip-badge" id="badge-silencer">OFF</span>
+          </button>
+          <button type="button" id="chip-framer" class="role-toggle-chip evil" onclick="toggleSpecialRole('framer')">
+            <span>🎭 Framer (Frames innocent)</span>
+            <span class="chip-badge" id="badge-framer">OFF</span>
+          </button>
         </div>
       </div>
 
@@ -707,10 +810,10 @@ html, body {
             <span style="font-size: 0.75rem; color: #666;">No powers &middot; Vote during day</span>
           </div>
           <div class="role-stepper">
-            <button class="stepper-btn" onclick="adjustCount('villager', -1)">&minus;</button>
+            <button type="button" class="stepper-btn" onclick="adjustCount('villager', -1)">&minus;</button>
             <span id="count-villager" class="stepper-val">4</span>
-            <button class="stepper-btn" onclick="adjustCount('villager', 1)">+</button>
-            <button onclick="autoFillVillagers()" class="btn btn-sm" style="font-size:0.75rem; padding: 0.25rem 0.5rem; margin-left: 0.25rem;" title="Fill remaining slots to match player count">
+            <button type="button" class="stepper-btn" onclick="adjustCount('villager', 1)">+</button>
+            <button type="button" onclick="autoFillVillagers()" class="btn btn-sm" style="font-size:0.75rem; padding: 0.25rem 0.5rem; margin-left: 0.25rem;" title="Fill remaining slots to match player count">
               Fill
             </button>
           </div>
@@ -720,27 +823,34 @@ html, body {
           Special Town Roles:
         </div>
         <div class="role-toggle-grid">
-          <div id="chip-detective" class="role-toggle-chip good" onclick="toggleSpecialRole('detective')">
-            🔍 Detective / Seer
-          </div>
-          <div id="chip-doctor" class="role-toggle-chip good" onclick="toggleSpecialRole('doctor')">
-            🩺 Doctor / Guard
-          </div>
-          <div id="chip-bodyguard" class="role-toggle-chip good" onclick="toggleSpecialRole('bodyguard')">
-            🛡️ Bodyguard (Sacrifice Save)
-          </div>
-          <div id="chip-angel" class="role-toggle-chip good" onclick="toggleSpecialRole('angel')">
-            👼 Angel (Limbo Revival)
-          </div>
-          <div id="chip-sniper" class="role-toggle-chip good" onclick="toggleSpecialRole('sniper')">
-            🎯 Sniper (Night Shot)
-          </div>
-          <div id="chip-mayor" class="role-toggle-chip good" onclick="toggleSpecialRole('mayor')">
-            🎖️ Mayor (Lynch Veto)
-          </div>
-          <div id="chip-witch" class="role-toggle-chip good" onclick="toggleSpecialRole('witch')">
-            🧙‍♀️ Witch (Revive/Poison)
-          </div>
+          <button type="button" id="chip-detective" class="role-toggle-chip good" onclick="toggleSpecialRole('detective')">
+            <span>🔍 Detective / Seer</span>
+            <span class="chip-badge" id="badge-detective">OFF</span>
+          </button>
+          <button type="button" id="chip-doctor" class="role-toggle-chip good" onclick="toggleSpecialRole('doctor')">
+            <span>🩺 Doctor / Guard</span>
+            <span class="chip-badge" id="badge-doctor">OFF</span>
+          </button>
+          <button type="button" id="chip-bodyguard" class="role-toggle-chip good" onclick="toggleSpecialRole('bodyguard')">
+            <span>🛡️ Bodyguard (Sacrifice Save)</span>
+            <span class="chip-badge" id="badge-bodyguard">OFF</span>
+          </button>
+          <button type="button" id="chip-angel" class="role-toggle-chip good" onclick="toggleSpecialRole('angel')">
+            <span>👼 Angel (Limbo Revival)</span>
+            <span class="chip-badge" id="badge-angel">OFF</span>
+          </button>
+          <button type="button" id="chip-sniper" class="role-toggle-chip good" onclick="toggleSpecialRole('sniper')">
+            <span>🎯 Sniper (Night Shot)</span>
+            <span class="chip-badge" id="badge-sniper">OFF</span>
+          </button>
+          <button type="button" id="chip-mayor" class="role-toggle-chip good" onclick="toggleSpecialRole('mayor')">
+            <span>🎖️ Mayor (Lynch Veto)</span>
+            <span class="chip-badge" id="badge-mayor">OFF</span>
+          </button>
+          <button type="button" id="chip-witch" class="role-toggle-chip good" onclick="toggleSpecialRole('witch')">
+            <span>🧙‍♀️ Witch (Revive/Poison)</span>
+            <span class="chip-badge" id="badge-witch">OFF</span>
+          </button>
         </div>
       </div>
 
@@ -751,21 +861,24 @@ html, body {
           <span id="neutral-subtotal" style="font-size: 0.8rem;">0 neutral</span>
         </div>
         <div class="role-toggle-grid">
-          <div id="chip-cupid" class="role-toggle-chip neutral" onclick="toggleSpecialRole('cupid')">
-            💘 Cupid (Links Lovers)
-          </div>
-          <div id="chip-jester" class="role-toggle-chip neutral" onclick="toggleSpecialRole('jester')">
-            🃏 Jester (Wins if Lynched)
-          </div>
-          <div id="chip-serial_killer" class="role-toggle-chip neutral" onclick="toggleSpecialRole('serial_killer')">
-            🔪 Serial Killer (Solo Win)
-          </div>
+          <button type="button" id="chip-cupid" class="role-toggle-chip neutral" onclick="toggleSpecialRole('cupid')">
+            <span>💘 Cupid (Links Lovers)</span>
+            <span class="chip-badge" id="badge-cupid">OFF</span>
+          </button>
+          <button type="button" id="chip-jester" class="role-toggle-chip neutral" onclick="toggleSpecialRole('jester')">
+            <span>🃏 Jester (Wins if Lynched)</span>
+            <span class="chip-badge" id="badge-jester">OFF</span>
+          </button>
+          <button type="button" id="chip-serial_killer" class="role-toggle-chip neutral" onclick="toggleSpecialRole('serial_killer')">
+            <span>🔪 Serial Killer (Solo Win)</span>
+            <span class="chip-badge" id="badge-serial_killer">OFF</span>
+          </button>
         </div>
       </div>
 
       <!-- Start Game Big Button -->
       <div style="margin-top: 1rem;">
-        <button id="btn-start-game" onclick="handleStartGame()" class="btn btn-primary" style="width: 100%; min-height: 48px; font-size: 1.05rem; background: #16a34a; border-color: #16a34a;">
+        <button type="button" id="btn-start-game" onclick="handleStartGame()" class="btn btn-primary" style="width: 100%; min-height: 48px; font-size: 1.05rem; background: #16a34a; border-color: #16a34a;">
           🚀 Start Game (Deal Roles &amp; Night 1)
         </button>
       </div>
@@ -1228,6 +1341,50 @@ html, body {
   </div>
 </div>
 
+<!-- Modal: Manual Role Picker -->
+<div id="manual-role-modal" class="modal">
+  <div class="modal-content" style="max-width: 440px; max-height: 85vh; overflow-y: auto; text-align: left; padding: 1.25rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 0.75rem;">
+      <h3 id="manual-role-title" style="margin: 0; font-size: 1.05rem; color: #0f172a;">Assign Role to Player</h3>
+      <button onclick="closeModal('manual-role-modal')" class="btn btn-sm">&times;</button>
+    </div>
+    <p style="font-size: 0.8rem; color: #64748b; margin-top: 0;">Tap any role below to assign it immediately to this player:</p>
+    
+    <div style="margin-bottom: 0.6rem;">
+      <div style="font-size: 0.75rem; font-weight: 700; color: #b91c1c; text-transform: uppercase; margin-bottom: 0.35rem;">🔴 Evil Team</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('werewolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;">🐺 Werewolf</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('alpha_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;">👑 Alpha Wolf</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('silencer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;">🤐 Silencer</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('framer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;">🎭 Framer</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 0.6rem;">
+      <div style="font-size: 0.75rem; font-weight: 700; color: #15803d; text-transform: uppercase; margin-bottom: 0.35rem;">🟢 Good Team</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('villager')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🧑 Plain Villager</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('detective')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🔍 Detective</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('doctor')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🩺 Doctor</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('bodyguard')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🛡️ Bodyguard</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('angel')" style="background:#dcfce7; color:#166534; border-color:#86efac;">👼 Angel</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('sniper')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🎯 Sniper</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('mayor')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🎖️ Mayor</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('witch')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🧙‍♀️ Witch</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 0.6rem;">
+      <div style="font-size: 0.75rem; font-weight: 700; color: #7e22ce; text-transform: uppercase; margin-bottom: 0.35rem;">🟣 Neutral Team</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('cupid')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;">💘 Cupid</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('jester')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;">🃏 Jester</button>
+        <button type="button" class="btn btn-sm" onclick="selectManualRole('serial_killer')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;">🔪 Serial Killer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal: Roles & Rules Reference Guide -->
 <div id="roles-guide-modal" class="modal">
   <div class="modal-content" style="max-width: 580px; max-height: 85vh; overflow-y: auto; text-align: left; padding: 1.25rem;">
@@ -1275,6 +1432,9 @@ html, body {
   </div>
 </div>
 
+{{ state.raw_deck|json_script:"initial-raw-deck" }}
+{{ presets|json_script:"server-presets" }}
+
 <script>
   const ROOM_CODE = "{{ code }}";
   const GM_TOKEN = "{{ gm_token|default:state.gm_token }}";
@@ -1284,8 +1444,35 @@ html, body {
   let gmHideRoles = localStorage.getItem("lupus_gm_hide_roles") === "true";
   let gmLayoutMode = localStorage.getItem("lupus_gm_layout_mode") || "list";
   const peekingPlayerIds = new Set();
+  let manualRoleTargetPlayerId = null;
+
+  // --- Role Metadata for Live UI Display ---
+  const SPECIAL_ROLES = [
+    'alpha_wolf', 'silencer', 'framer',
+    'detective', 'doctor', 'bodyguard', 'angel', 'sniper', 'mayor', 'witch',
+    'cupid', 'jester', 'serial_killer'
+  ];
+
+  const ROLE_META = {
+    werewolf: { name: "Werewolf", emoji: "🐺", faction: "evil" },
+    alpha_wolf: { name: "Alpha Wolf", emoji: "👑", faction: "evil" },
+    silencer: { name: "Silencer", emoji: "🤐", faction: "evil" },
+    framer: { name: "Framer", emoji: "🎭", faction: "evil" },
+    detective: { name: "Detective", emoji: "🔍", faction: "good" },
+    doctor: { name: "Doctor", emoji: "🩺", faction: "good" },
+    bodyguard: { name: "Bodyguard", emoji: "🛡️", faction: "good" },
+    angel: { name: "Angel", emoji: "👼", faction: "good" },
+    sniper: { name: "Sniper", emoji: "🎯", faction: "good" },
+    mayor: { name: "Mayor", emoji: "🎖️", faction: "good" },
+    witch: { name: "Witch", emoji: "🧙‍♀️", faction: "good" },
+    villager: { name: "Plain Villager", emoji: "🧑", faction: "good" },
+    cupid: { name: "Cupid", emoji: "💘", faction: "neutral" },
+    jester: { name: "Jester", emoji: "🃏", faction: "neutral" },
+    serial_killer: { name: "Serial Killer", emoji: "🔪", faction: "neutral" },
+  };
 
   // --- Deck Builder State ---
+  let currentActivePreset = "standard";
   let deckState = {
     werewolf: 2,
     villager: 4,
@@ -1303,6 +1490,29 @@ html, body {
     jester: 0,
     serial_killer: 0
   };
+
+  // Sync initial deck from room creation state if provided
+  try {
+    const rawDeckEl = document.getElementById("initial-raw-deck");
+    if (rawDeckEl) {
+      const rawArr = JSON.parse(rawDeckEl.textContent);
+      if (Array.isArray(rawArr) && rawArr.length > 0) {
+        for (const k in deckState) deckState[k] = 0;
+        rawArr.forEach(r => { deckState[r] = (deckState[r] || 0) + 1; });
+        if (deckState.alpha_wolf > 0 || deckState.framer > 0 || deckState.serial_killer > 0 || deckState.witch > 0) {
+          currentActivePreset = "chaos";
+        } else if (deckState.angel > 0 || deckState.sniper > 0) {
+          currentActivePreset = "limbo";
+        } else if (deckState.detective > 0 || deckState.doctor > 0) {
+          currentActivePreset = "standard";
+        } else {
+          currentActivePreset = "simple";
+        }
+      }
+    }
+  } catch (e) {
+    console.warn("Could not parse initial raw deck", e);
+  }
 
   // --- WebSocket Connection ---
   const wsProto = window.location.protocol === "https:" ? "wss:" : "ws:";
@@ -1368,158 +1578,262 @@ html, body {
     const stats = getDeckStats();
 
     // Steppers values
-    document.getElementById("count-werewolf").innerText = deckState.werewolf;
-    document.getElementById("count-villager").innerText = deckState.villager;
+    const elW = document.getElementById("count-werewolf");
+    if (elW) elW.innerText = deckState.werewolf;
+    const elV = document.getElementById("count-villager");
+    if (elV) elV.innerText = deckState.villager;
 
-    // Toggle chips
-    const specials = ['alpha_wolf', 'silencer', 'framer', 'detective', 'doctor', 'bodyguard', 'angel', 'sniper', 'mayor', 'witch', 'cupid', 'jester', 'serial_killer'];
-    specials.forEach(s => {
+    // Toggle chips & ON/OFF visual indicators
+    SPECIAL_ROLES.forEach(s => {
       const el = document.getElementById(`chip-${s}`);
+      const badge = document.getElementById(`badge-${s}`);
+      const isOn = (deckState[s] || 0) > 0;
       if (el) {
-        if (deckState[s] > 0) el.classList.add("active");
+        if (isOn) el.classList.add("active");
         else el.classList.remove("active");
+      }
+      if (badge) {
+        badge.innerText = isOn ? "✓ ON" : "OFF";
       }
     });
 
     // Counts & Totals
-    document.getElementById("deck-count-num").innerText = stats.total;
-    document.getElementById("lobby-count-num").innerText = playerCount;
-    document.getElementById("evil-subtotal").innerText = `${stats.evil} evil`;
-    document.getElementById("good-subtotal").innerText = `${stats.good} good`;
-    document.getElementById("neutral-subtotal").innerText = `${stats.neutral} neutral`;
+    const elDeckTotal = document.getElementById("deck-count-num");
+    if (elDeckTotal) elDeckTotal.innerText = stats.total;
+    const elRosterTotal = document.getElementById("deck-roster-total");
+    if (elRosterTotal) elRosterTotal.innerText = stats.total;
+    const elLobbyCount = document.getElementById("lobby-count-num");
+    if (elLobbyCount) elLobbyCount.innerText = playerCount;
+
+    const elEvilSub = document.getElementById("evil-subtotal");
+    if (elEvilSub) elEvilSub.innerText = `${stats.evil} evil`;
+    const elGoodSub = document.getElementById("good-subtotal");
+    if (elGoodSub) elGoodSub.innerText = `${stats.good} good`;
+    const elNeutralSub = document.getElementById("neutral-subtotal");
+    if (elNeutralSub) elNeutralSub.innerText = `${stats.neutral} neutral`;
 
     // Balance Bar
     const barGood = document.getElementById("bar-good");
     const barEvil = document.getElementById("bar-evil");
     const barNeutral = document.getElementById("bar-neutral");
-    barGood.style.width = `${stats.goodPct}%`;
-    barEvil.style.width = `${stats.evilPct}%`;
-    barNeutral.style.width = `${stats.neutralPct}%`;
+    if (barGood) barGood.style.width = `${stats.goodPct}%`;
+    if (barEvil) barEvil.style.width = `${stats.evilPct}%`;
+    if (barNeutral) barNeutral.style.width = `${stats.neutralPct}%`;
 
-    document.getElementById("balance-breakdown-text").innerText = `🟢 Good: ${stats.good} (${stats.goodPct}%) · 🔴 Evil: ${stats.evil} (${stats.evilPct}%)`;
+    const elBreakdown = document.getElementById("balance-breakdown-text");
+    if (elBreakdown) {
+      elBreakdown.innerText = `🟢 Good: ${stats.good} (${stats.goodPct}%) · 🔴 Evil: ${stats.evil} (${stats.evilPct}%) · 🟣 Neutral: ${stats.neutral}`;
+    }
 
     // Ratio Hint
     const hint = document.getElementById("balance-ratio-hint");
-    if (stats.evilPct >= 22 && stats.evilPct <= 35) {
-      hint.innerText = "⚖️ Balanced (~25–33% Evil)";
-      hint.style.color = "#16a34a";
-    } else if (stats.evilPct < 22) {
-      hint.innerText = "⚠️ Wolves may be too weak";
-      hint.style.color = "#eab308";
-    } else {
-      hint.innerText = "⚠️ Wolves may be too strong";
-      hint.style.color = "#ef4444";
+    if (hint) {
+      if (stats.evilPct >= 22 && stats.evilPct <= 35) {
+        hint.innerText = "⚖️ Balanced (~25–33% Evil)";
+        hint.style.color = "#16a34a";
+      } else if (stats.evilPct < 22) {
+        hint.innerText = "⚠️ Wolves may be too weak";
+        hint.style.color = "#eab308";
+      } else {
+        hint.innerText = "⚠️ Wolves may be too strong";
+        hint.style.color = "#ef4444";
+      }
+    }
+
+    // Preset button highlight & active preset badge
+    ['simple', 'standard', 'limbo', 'chaos'].forEach(p => {
+      const btn = document.getElementById(`preset-btn-${p}`);
+      if (btn) {
+        if (currentActivePreset === p) btn.classList.add("active");
+        else btn.classList.remove("active");
+      }
+    });
+
+    const activePresetBadge = document.getElementById("active-preset-badge");
+    if (activePresetBadge) {
+      const labels = { simple: "Simple", standard: "Standard", limbo: "Limbo & Angel", chaos: "Chaos / Specials", custom: "Custom Deck" };
+      activePresetBadge.innerText = `Preset: ${labels[currentActivePreset] || "Custom Deck"}`;
+    }
+
+    // Live Deck Roster Tags
+    const rosterContainer = document.getElementById("deck-roster-pills");
+    if (rosterContainer) {
+      rosterContainer.innerHTML = "";
+      if (stats.total === 0) {
+        rosterContainer.innerHTML = "<span style='font-size:0.8rem; color:#94a3b8; font-style:italic;'>No roles selected yet. Pick a preset above or tap roles to add!</span>";
+      } else {
+        const order = ['werewolf', 'alpha_wolf', 'silencer', 'framer', 'detective', 'doctor', 'bodyguard', 'angel', 'sniper', 'mayor', 'witch', 'villager', 'cupid', 'jester', 'serial_killer'];
+        order.forEach(roleKey => {
+          const count = deckState[roleKey] || 0;
+          if (count > 0) {
+            const meta = ROLE_META[roleKey] || { name: roleKey, emoji: "🎴", faction: "good" };
+            const pill = document.createElement("span");
+            pill.className = `deck-pill ${meta.faction}`;
+            pill.innerHTML = `<span>${meta.emoji} ${meta.name}${count > 1 ? ` ×${count}` : ''}</span><span class="deck-pill-remove" onclick="adjustCount('${roleKey}', -1)" title="Remove 1 role">&times;</span>`;
+            rosterContainer.appendChild(pill);
+          }
+        });
+      }
     }
 
     // Match Badge & Start Game Button
     const badge = document.getElementById("deck-match-badge");
     const btnStart = document.getElementById("btn-start-game");
 
-    if (playerCount === 0) {
-      badge.className = "badge";
-      badge.style.background = "#64748b";
-      badge.style.color = "#fff";
-      badge.innerText = "Waiting for players";
-      btnStart.innerText = "🚀 Start Game (Needs Players)";
-      btnStart.style.background = "#64748b";
-      btnStart.style.borderColor = "#64748b";
-    } else if (stats.total === playerCount) {
-      badge.className = "badge";
-      badge.style.background = "#16a34a";
-      badge.style.color = "#fff";
-      badge.innerText = `✅ Perfect Match (${stats.total}/${playerCount})`;
-      btnStart.innerText = `🚀 Start Game (${playerCount} Players & Night 1)`;
-      btnStart.style.background = "#16a34a";
-      btnStart.style.borderColor = "#16a34a";
-    } else if (stats.total < playerCount) {
-      const diff = playerCount - stats.total;
-      badge.className = "badge";
-      badge.style.background = "#eab308";
-      badge.style.color = "#000";
-      badge.innerText = `⚠️ Need ${diff} more role${diff > 1 ? 's' : ''}`;
-      btnStart.innerText = `🚀 Auto-Fill ${diff} Villager${diff > 1 ? 's' : ''} & Start`;
-      btnStart.style.background = "#2563eb";
-      btnStart.style.borderColor = "#2563eb";
-    } else {
-      const excess = stats.total - playerCount;
-      badge.className = "badge";
-      badge.style.background = "#dc2626";
-      badge.style.color = "#fff";
-      badge.innerText = `❌ ${excess} extra role${excess > 1 ? 's' : ''}`;
-      btnStart.innerText = `Remove ${excess} Role${excess > 1 ? 's' : ''} to Match`;
-      btnStart.style.background = "#dc2626";
-      btnStart.style.borderColor = "#dc2626";
+    if (badge && btnStart) {
+      if (playerCount === 0) {
+        badge.className = "badge";
+        badge.style.background = "#64748b";
+        badge.style.color = "#fff";
+        badge.innerText = `Roles Configured: ${stats.total}`;
+        btnStart.innerText = "🚀 Start Game (Needs Players in Room)";
+        btnStart.style.background = "#64748b";
+        btnStart.style.borderColor = "#64748b";
+      } else if (stats.total === playerCount) {
+        badge.className = "badge";
+        badge.style.background = "#16a34a";
+        badge.style.color = "#fff";
+        badge.innerText = `✅ Perfect Match (${stats.total}/${playerCount})`;
+        btnStart.innerText = `🚀 Start Game (${playerCount} Players & Night 1)`;
+        btnStart.style.background = "#16a34a";
+        btnStart.style.borderColor = "#16a34a";
+      } else if (stats.total < playerCount) {
+        const diff = playerCount - stats.total;
+        badge.className = "badge";
+        badge.style.background = "#eab308";
+        badge.style.color = "#000";
+        badge.innerText = `⚠️ Need ${diff} more role${diff > 1 ? 's' : ''}`;
+        btnStart.innerText = `🚀 Auto-Fill ${diff} Villager${diff > 1 ? 's' : ''} & Start`;
+        btnStart.style.background = "#2563eb";
+        btnStart.style.borderColor = "#2563eb";
+      } else {
+        const excess = stats.total - playerCount;
+        badge.className = "badge";
+        badge.style.background = "#dc2626";
+        badge.style.color = "#fff";
+        badge.innerText = `❌ ${excess} extra role${excess > 1 ? 's' : ''}`;
+        btnStart.innerText = `✨ Auto-Fit Deck to ${playerCount} Players & Start`;
+        btnStart.style.background = "#ea580c";
+        btnStart.style.borderColor = "#ea580c";
+      }
     }
   }
 
   function adjustCount(role, delta) {
     deckState[role] = Math.max(0, (deckState[role] || 0) + delta);
+    currentActivePreset = "custom";
     updateDeckUI();
   }
 
   function toggleSpecialRole(role) {
     deckState[role] = deckState[role] ? 0 : 1;
+    currentActivePreset = "custom";
     updateDeckUI();
   }
 
   function autoFillVillagers() {
     const playerCount = currentGameState ? currentGameState.players.length : 0;
     const stats = getDeckStats();
-    const nonVillagers = stats.total - deckState.villager;
+    const nonVillagers = stats.total - (deckState.villager || 0);
     deckState.villager = Math.max(0, playerCount - nonVillagers);
+    currentActivePreset = "custom";
+    updateDeckUI();
+  }
+
+  function fitDeckToPlayers() {
+    const playerCount = currentGameState ? currentGameState.players.length : 0;
+    if (playerCount === 0) {
+      alert("No players have joined the lobby yet. Have players join or click '⚡ Demo 10' first!");
+      return;
+    }
+    const stats = getDeckStats();
+    if (stats.total === playerCount) return;
+
+    if (stats.total < playerCount) {
+      deckState.villager = (deckState.villager || 0) + (playerCount - stats.total);
+    } else {
+      let excess = stats.total - playerCount;
+      // 1. Trim plain villagers first
+      if (deckState.villager > 0) {
+        const trimV = Math.min(deckState.villager, excess);
+        deckState.villager -= trimV;
+        excess -= trimV;
+      }
+      // 2. Trim specials from least to most critical
+      const trimOrder = ['serial_killer', 'jester', 'cupid', 'witch', 'mayor', 'bodyguard', 'framer', 'silencer'];
+      for (const r of trimOrder) {
+        if (excess <= 0) break;
+        if (deckState[r] > 0) {
+          deckState[r] = 0;
+          excess--;
+        }
+      }
+      // 3. Trim extra werewolves if still excess (keeping at least 1)
+      if (excess > 0 && deckState.werewolf > 1) {
+        const trimW = Math.min(deckState.werewolf - 1, excess);
+        deckState.werewolf -= trimW;
+        excess -= trimW;
+      }
+    }
+    currentActivePreset = "custom";
     updateDeckUI();
   }
 
   function applyPreset(presetName) {
-    const playerCount = currentGameState ? currentGameState.players.length : 7;
-    const count = Math.max(3, playerCount);
+    currentActivePreset = presetName;
+    const playerCount = currentGameState ? currentGameState.players.length : 0;
+    const effectiveCount = playerCount >= 3 ? playerCount : 10;
 
     let numEvil = 1;
-    if (count <= 5) numEvil = 1;
-    else if (count <= 8) numEvil = 2;
-    else if (count <= 11) numEvil = 3;
+    if (effectiveCount <= 5) numEvil = 1;
+    else if (effectiveCount <= 8) numEvil = 2;
+    else if (effectiveCount <= 11) numEvil = 3;
     else numEvil = 4;
 
     for (const k in deckState) deckState[k] = 0;
 
     if (presetName === 'simple') {
       deckState.werewolf = numEvil;
-      deckState.villager = Math.max(0, count - numEvil);
+      deckState.villager = Math.max(0, effectiveCount - numEvil);
     } else if (presetName === 'standard') {
       deckState.werewolf = numEvil;
-      if (count >= 4) deckState.detective = 1;
-      if (count >= 5) deckState.doctor = 1;
+      deckState.detective = 1;
+      deckState.doctor = 1;
       const used = deckState.werewolf + deckState.detective + deckState.doctor;
-      deckState.villager = Math.max(0, count - used);
+      deckState.villager = Math.max(0, effectiveCount - used);
     } else if (presetName === 'limbo') {
       deckState.werewolf = numEvil;
-      if (count >= 4) deckState.detective = 1;
-      if (count >= 5) deckState.doctor = 1;
-      if (count >= 6) deckState.angel = 1;
-      if (count >= 7) deckState.sniper = 1;
-      if (count >= 9) deckState.bodyguard = 1;
+      deckState.detective = 1;
+      deckState.doctor = 1;
+      deckState.angel = 1;
+      deckState.sniper = 1;
+      if (effectiveCount >= 9) deckState.bodyguard = 1;
       const used = deckState.werewolf + deckState.detective + deckState.doctor + deckState.angel + deckState.sniper + (deckState.bodyguard || 0);
-      deckState.villager = Math.max(0, count - used);
+      deckState.villager = Math.max(0, effectiveCount - used);
     } else if (presetName === 'chaos') {
-      if (numEvil >= 3) {
-        deckState.werewolf = numEvil - 2;
-        deckState.alpha_wolf = 1;
-        deckState.framer = 1;
-      } else if (numEvil >= 2) {
-        deckState.werewolf = numEvil - 1;
-        deckState.alpha_wolf = 1;
+      // FULL CHAOS & DIVERSE POWERS
+      deckState.werewolf = Math.max(1, numEvil - 1);
+      deckState.alpha_wolf = 1;
+      deckState.silencer = effectiveCount >= 10 ? 1 : 0;
+      deckState.framer = 1;
+      deckState.detective = 1;
+      deckState.doctor = 1;
+      deckState.bodyguard = 1;
+      deckState.angel = 1;
+      deckState.sniper = 1;
+      deckState.mayor = 1;
+      deckState.witch = 1;
+      deckState.cupid = 1;
+      deckState.jester = 1;
+      deckState.serial_killer = 1;
+
+      // Adjust villagers if room is bigger than specials
+      const stats = getDeckStats();
+      if (effectiveCount > stats.total) {
+        deckState.villager = effectiveCount - stats.total;
       } else {
-        deckState.werewolf = 1;
+        deckState.villager = 0;
       }
-      const specials = ['detective', 'doctor', 'bodyguard', 'angel', 'silencer', 'sniper', 'mayor', 'witch', 'cupid', 'jester', 'serial_killer'];
-      let used = deckState.werewolf + deckState.alpha_wolf + (deckState.framer || 0);
-      for (const s of specials) {
-        if (used < count - 1) {
-          deckState[s] = 1;
-          used++;
-        }
-      }
-      deckState.villager = Math.max(0, count - used);
     }
     updateDeckUI();
   }
@@ -1535,8 +1849,11 @@ html, body {
       deckState.villager += missing;
       updateDeckUI();
     } else if (stats.total > playerCount) {
-      alert(`You have ${stats.total} roles selected, but only ${playerCount} players in the room. Please remove ${stats.total - playerCount} role(s) to match.`);
-      return;
+      if (confirm(`You have ${stats.total} roles configured for ${playerCount} players.\n\nAuto-fit the deck to ${playerCount} players now?`)) {
+        fitDeckToPlayers();
+      } else {
+        return;
+      }
     }
 
     const deck = getDeckArray();
@@ -2629,9 +2946,17 @@ html, body {
   }
 
   function setPlayerRoleManual(playerId, playerName) {
-    const role = prompt(`Assign role for ${playerName}:\n(werewolf, alpha_wolf, silencer, framer, detective, doctor, bodyguard, sniper, angel, mayor, witch, cupid, jester, serial_killer, villager)`);
-    if (role && role.trim()) {
-      sendAction("set_manual_role", { player_id: playerId, role_id: role.trim().toLowerCase() });
+    manualRoleTargetPlayerId = playerId;
+    const titleEl = document.getElementById("manual-role-title");
+    if (titleEl) titleEl.innerText = `Assign Role: ${playerName}`;
+    openModal("manual-role-modal");
+  }
+
+  function selectManualRole(roleId) {
+    if (manualRoleTargetPlayerId && roleId) {
+      sendAction("set_manual_role", { player_id: manualRoleTargetPlayerId, role_id: roleId });
+      closeModal("manual-role-modal");
+      manualRoleTargetPlayerId = null;
     }
   }
 
