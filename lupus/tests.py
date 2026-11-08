@@ -29,6 +29,7 @@ from lupus.game_state import (
     reorder_players,
     resolve_night,
     return_to_lobby,
+    return_to_nominations,
     reveal_detective_to_player,
     set_deck,
     set_manual_player_role,
@@ -43,6 +44,7 @@ from lupus.game_state import (
     tally_and_resolve_vote,
     toggle_nomination_vote,
     toggle_official_nomination,
+    toggle_player_silence,
 )
 from lupus.qr import generate_qr_data_uri
 from lupus.roles import (
@@ -222,6 +224,45 @@ class TestLupusEngine:
         adjust_timer(state, -500)
         assert state["timer"]["remaining"] == 0
 
+    def test_toggle_player_silence(self):
+        state = create_initial_state("SILENCETEST", "Silence Test")
+        state, p = add_player(state, "Noisy")
+        assert p["is_silenced"] is False
+
+        ok, msg = toggle_player_silence(state, p["id"])
+        assert ok is True
+        assert state["players"][p["id"]]["is_silenced"] is True
+
+        ok, msg = toggle_player_silence(state, p["id"])
+        assert ok is True
+        assert state["players"][p["id"]]["is_silenced"] is False
+
+        # Nonexistent player returns False
+        ok, msg = toggle_player_silence(state, "nonexistent")
+        assert ok is False
+
+    def test_return_to_nominations(self):
+        state = create_initial_state("RETNOMTEST", "Return Nom Test")
+        state, p1 = add_player(state, "Alice")
+        state, p2 = add_player(state, "Bob")
+        start_voting_session(state, "two_stage_50pct")
+
+        # Manually nominate Bob
+        toggle_official_nomination(state, p2["id"])
+        assert p2["id"] in state["voting"]["nominated_player_ids"]
+
+        # Move to defense
+        proceed_to_defense(state, p2["id"])
+        assert state["voting"]["stage"] == "defense"
+        assert state["voting"]["defense_player_id"] == p2["id"]
+
+        # Return to nominations: stage should become nomination, defense cleared, but Bob stays nominated!
+        return_to_nominations(state)
+        assert state["voting"]["stage"] == "nomination"
+        assert state["voting"]["defense_player_id"] is None
+        assert p2["id"] in state["voting"]["nominated_player_ids"]
+        assert state["timer"]["label"] == "Nominations"
+
     def test_detective_inspection(self):
         state = create_initial_state("TEST3", "Det Test")
         state, p_det = add_player(state, "Sherlock")
@@ -349,13 +390,13 @@ class TestLupusEngine:
         dead_bob_in_view = next(p for p in v_view_after_death["players"] if p["id"] == p_bob["id"])
         assert dead_bob_in_view["role"] is None
 
-        # When game is over, roles are revealed to all
+        # Even when game is over, roles are NEVER revealed in player public roster view
         state["phase"] = "gameover"
         v_view_gameover = get_sanitized_player_view(state, p_villager["id"])
         gameover_bob = next(p for p in v_view_gameover["players"] if p["id"] == p_bob["id"])
         gameover_wolf = next(p for p in v_view_gameover["players"] if p["id"] == p_wolf["id"])
-        assert gameover_bob["role"]["id"] == "villager"
-        assert gameover_wolf["role"]["id"] == "werewolf"
+        assert gameover_bob["role"] is None
+        assert gameover_wolf["role"] is None
 
         # GM perspective sees everything
         gm_view = get_gm_view(state)

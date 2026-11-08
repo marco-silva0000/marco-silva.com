@@ -1862,14 +1862,11 @@ html, body {
       const silencedTag = p.is_silenced ? " 🤐" : "";
       const loverTag = p.is_lover ? " 💘" : "";
       const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#94a3b8; background:#0f172a; border:1px solid #334155; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
-      const isGameOver = currentGameState && currentGameState.phase === "gameover";
-      const roleStr = (isGameOver && p.role) ? `<span style="font-size:0.8rem; color:#94a3b8; margin-left:0.25rem;">(${p.role.name})</span>` : "";
 
       item.innerHTML = `
         <div style="font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap;">
           ${seatBadge}
           <span>${escapeHtml(p.name)}${meTag}${silencedTag}${loverTag}</span>
-          ${roleStr}
         </div>
         <span class="badge badge-${p.status}">${p.status.toUpperCase()}</span>
       `;
@@ -1940,11 +1937,9 @@ html, body {
 
     const meTag = isMe ? '<span style="color:#38bdf8; font-weight:800; font-size:0.6rem;">(You)</span>' : '';
     
-    // Status text on seat node - NEVER display secret role on the table during gameplay!
+    // Status text on seat node - NEVER display secret role on the table under any circumstances!
     let seatSubtext = "";
-    if (currentGameState && currentGameState.phase === "gameover" && p.role) {
-      seatSubtext = `${p.role.emoji} ${p.role.name}`;
-    } else if (p.status === "dead") {
+    if (p.status === "dead") {
       seatSubtext = "💀 Dead";
     } else if (p.status === "limbo") {
       seatSubtext = "🌫️ Limbo";

@@ -26,6 +26,7 @@ from .game_state import (
     resolve_night,
     resume_timer,
     return_to_lobby,
+    return_to_nominations,
     reveal_detective_to_player,
     save_game,
     set_broadcast_message,
@@ -42,6 +43,7 @@ from .game_state import (
     tally_and_resolve_vote,
     toggle_nomination_vote,
     toggle_official_nomination,
+    toggle_player_silence,
 )
 
 
@@ -327,6 +329,16 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 pid = content.get("player_id")
                 proceed_to_defense(state, pid)
                 await self.broadcast_sync()
+
+            elif action == "return_to_nominations":
+                return_to_nominations(state)
+                await self.broadcast_sync()
+
+            elif action == "toggle_silence":
+                pid = content.get("player_id")
+                if pid:
+                    toggle_player_silence(state, pid)
+                    await self.broadcast_sync()
 
             elif action == "proceed_final_vote":
                 proceed_to_final_vote(state)

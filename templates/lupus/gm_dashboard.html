@@ -1181,7 +1181,7 @@ html, body {
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid #334155; flex-wrap: wrap; gap: 0.5rem;">
-          <button onclick="startVotingSession()" class="btn btn-sm" style="background: #334155; color: #cbd5e1; border-color: #475569;">
+          <button onclick="returnToNominations()" class="btn btn-sm" style="background: #334155; color: #cbd5e1; border-color: #475569;">
             &larr; Back to Nominations
           </button>
           <button onclick="proceedToFinalVote()" class="btn btn-sm btn-primary" style="background: #7c3aed; border-color: #7c3aed; font-weight: 700;">
@@ -1201,9 +1201,14 @@ html, body {
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid #334155; flex-wrap: wrap; gap: 0.5rem;">
-          <button onclick="proceedToDefense()" class="btn btn-sm" style="background: #334155; color: #cbd5e1; border-color: #475569;">
-            &larr; Defense
-          </button>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <button onclick="proceedToDefense()" class="btn btn-sm" style="background: #334155; color: #cbd5e1; border-color: #475569;">
+              &larr; Defense
+            </button>
+            <button onclick="returnToNominations()" class="btn btn-sm" style="background: #334155; color: #cbd5e1; border-color: #475569;">
+              &larr; Nominations
+            </button>
+          </div>
           <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
             <button onclick="proceedToFinalVote()" class="btn btn-sm" style="background: #334155; color: #94a3b8; border-color: #475569;">
               Clear Ballot
@@ -1358,6 +1363,9 @@ html, body {
     </div>
     <div id="seat-modal-info" style="font-size: 0.85rem; color: #475569; margin-bottom: 0.75rem;"></div>
     <div style="display: flex; flex-direction: column; gap: 0.45rem;">
+      <button id="btn-seat-toggle-silence" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
+        🤐 Silence / Unsilence Player
+      </button>
       <button id="btn-seat-cycle-status" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
         ❤️ Cycle Status (Alive &rarr; Limbo &rarr; Dead)
       </button>
@@ -1973,9 +1981,13 @@ html, body {
         } else {
           if (p.status === "alive") {
             statusBadge = `<span class="badge badge-alive">ALIVE</span>`;
+            const silenceBtn = p.is_silenced
+              ? `<button onclick="togglePlayerSilence('${p.id}')" class="btn btn-sm" style="background:#581c87; color:#f3e8ff; border-color:#9333ea;" title="Remove silence spell">🔊 Unsilence</button>`
+              : `<button onclick="togglePlayerSilence('${p.id}')" class="btn btn-sm" style="background:#faf5ff; color:#6b21a8; border-color:#e9d5ff;" title="Silence player for the day">🤐 Silence</button>`;
             actionsHtml = `
               <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead immediately">☠️ Kill</button>
               <button onclick="setPlayerStatusDirect('${p.id}', 'limbo')" class="btn btn-sm" style="background:#fffbeb; color:#b45309; border-color:#fde047;" title="Send to Limbo">🌫️ Limbo</button>
+              ${silenceBtn}
               <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
@@ -1983,9 +1995,13 @@ html, body {
             `;
           } else if (p.status === "limbo") {
             statusBadge = `<span class="badge badge-limbo">LIMBO</span>`;
+            const silenceBtn = p.is_silenced
+              ? `<button onclick="togglePlayerSilence('${p.id}')" class="btn btn-sm" style="background:#581c87; color:#f3e8ff; border-color:#9333ea;" title="Remove silence spell">🔊 Unsilence</button>`
+              : `<button onclick="togglePlayerSilence('${p.id}')" class="btn btn-sm" style="background:#faf5ff; color:#6b21a8; border-color:#e9d5ff;" title="Silence player for the day">🤐 Silence</button>`;
             actionsHtml = `
               <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
               <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead">☠️ Kill</button>
+              ${silenceBtn}
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
               <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
@@ -2329,6 +2345,16 @@ html, body {
       <strong>Status:</strong> ${p.status.toUpperCase()}<br>
       <strong>Role:</strong> ${roleText}
     `;
+    const silenceBtnEl = document.getElementById("btn-seat-toggle-silence");
+    if (silenceBtnEl) {
+      silenceBtnEl.innerHTML = p.is_silenced
+        ? "🔊 Unsilence Player (Restore Voice)"
+        : "🤐 Silence Player (Mute for Day)";
+      silenceBtnEl.onclick = () => {
+        togglePlayerSilence(p.id);
+        closeModal('player-seat-modal');
+      };
+    }
     document.getElementById("btn-seat-cycle-status").onclick = () => {
       cyclePlayerStatus(p.id, p.status);
       closeModal('player-seat-modal');
@@ -2873,6 +2899,14 @@ html, body {
   // Day Voting Action Dispatchers
   function startVotingSession(sys) {
     sendAction("start_voting", { system: sys || (currentGameState && currentGameState.voting ? currentGameState.voting.system : "two_stage_50pct") });
+  }
+
+  function returnToNominations() {
+    sendAction("return_to_nominations");
+  }
+
+  function togglePlayerSilence(playerId) {
+    sendAction("toggle_silence", { player_id: playerId });
   }
 
   function changeVotingSystem(sys) {

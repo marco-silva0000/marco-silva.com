@@ -499,6 +499,19 @@ def set_player_status(state: dict[str, Any], player_id: str, new_status: str) ->
     return state
 
 
+def toggle_player_silence(state: dict[str, Any], player_id: str) -> tuple[bool, str]:
+    """Toggle a player's silenced status for the day."""
+    if player_id not in state.get("players", {}):
+        return False, "Player not found."
+    player = state["players"][player_id]
+    player["is_silenced"] = not player.get("is_silenced", False)
+    status_str = "silenced" if player["is_silenced"] else "unsilenced"
+    emoji = "🤐" if player["is_silenced"] else "🔊"
+    log_event(state, f"{emoji} {player['name']} was {status_str} by the Game Master.")
+    save_game(state["code"], state)
+    return True, f"Player {player['name']} {status_str}."
+
+
 def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id: str) -> tuple[bool, str]:
     """Limbo mechanic: Player guesses who the Angel is. If correct, revived!"""
     if player_id not in state["players"]:
@@ -1344,6 +1357,24 @@ def proceed_to_defense(state: dict[str, Any], player_id: Optional[str] = None) -
     return state
 
 
+def return_to_nominations(state: dict[str, Any]) -> dict[str, Any]:
+    """Return from defense or final vote stage back to nomination stage.
+    Preserves existing nominations and restarts the nomination/discussion timer.
+    """
+    voting = state.setdefault("voting", {})
+    voting["stage"] = "nomination"
+    voting["defense_player_id"] = None
+    voting["ballot_locked"] = False
+
+    # Restore nomination/discussion timer
+    timer_duration = state.get("settings", {}).get("discussion_timer", 300)
+    start_timer(state, timer_duration, "Nominations")
+
+    log_event(state, "↩️ Returned to nominations stage.")
+    save_game(state["code"], state)
+    return state
+
+
 def proceed_to_final_vote(state: dict[str, Any]) -> tuple[bool, str]:
     """Lock in nominees and start the final single-vote execution ballot."""
     voting = state.setdefault("voting", {})
@@ -1656,15 +1687,8 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     public_players = []
     for idx, p in enumerate(ordered_players):
         pid = p["id"]
-        # Roles are strictly hidden from the public table view during gameplay.
+        # Public player table view must NEVER reveal other players' secret roles under any circumstances.
         # Private roles are exclusively displayed on the dedicated "My Role" tab behind the privacy peek shield.
-        # Table seats and deceased players NEVER reveal roles until the game is over.
-        reveal_role = state.get("phase") == "gameover"
-
-        role_display = None
-        if reveal_role and p.get("role"):
-            role_display = get_role_info(p["role"], theme)
-
         public_players.append(
             {
                 "id": p["id"],
@@ -1675,7 +1699,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
                 "is_me": pid == player_id,
                 "is_lover": pid == lover_id,
                 "is_pack_mate": is_wolf and p["faction"] == FACTION_WOLVES and pid != player_id,
-                "role": role_display,
+                "role": None,
             }
         )
 
