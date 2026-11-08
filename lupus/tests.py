@@ -510,7 +510,63 @@ class TestLupusEngine:
         # Target should be saved (alive), but Bodyguard sacrifices themselves (dead)
         assert state["players"][p_target["id"]]["status"] == "alive"
         assert state["players"][p_bg["id"]]["status"] == "dead"
-        assert any("Bodyguard" in r and "sacrificed" in r for r in state["night_report"])
+        # Casualties announced generically without revealing role or sacrifice
+        assert any("Hero" in r and "slain" in r for r in state["night_report"])
+        assert not any("Bodyguard" in r for r in state["night_report"])
+        assert not any("sacrificed" in r for r in state["night_report"])
+
+    def test_night_actions_concealed_in_night_report(self):
+        """Verify that sniper shots, doctor saves, etc. are unknown in night_report, while Mayor veto is revealed."""
+        opts = {"limbo_enabled": False}
+        state = create_initial_state("SECRET1", "Secret Actions Test", settings=opts)
+        state, p_sniper = add_player(state, "SniperSam")
+        state, p_wolf = add_player(state, "Wolfie")
+        state, p_doc = add_player(state, "DrHouse")
+        state, p_innocent = add_player(state, "InnocentIan")
+        state, p_mayor = add_player(state, "MayorMike")
+        state, p_past_lynch = add_player(state, "WronglyLynched")
+
+        set_manual_player_role(state, p_sniper["id"], "sniper")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_doc["id"], "doctor")
+        set_manual_player_role(state, p_innocent["id"], "villager")
+        set_manual_player_role(state, p_mayor["id"], "mayor")
+
+        # Set up past lynched player
+        p_past_lynch["status"] = "dead"
+        state["last_lynched_id"] = p_past_lynch["id"]
+
+        # Sniper shoots wolf (hit mark)
+        submit_night_action(state, p_sniper["id"], "shoot", p_wolf["id"], extra={"bullet_type": "danger"})
+        # Wolf attacks innocent; Doctor protects innocent (save)
+        submit_night_action(state, p_wolf["id"], "kill", p_innocent["id"])
+        submit_night_action(state, p_doc["id"], "protect", p_innocent["id"])
+        # Mayor uses veto
+        submit_night_action(state, p_mayor["id"], "veto")
+
+        state = resolve_night(state)
+
+        # 1. Wolf is dead from sniper
+        assert state["players"][p_wolf["id"]]["status"] == "dead"
+        # 2. Innocent is saved by doctor
+        assert state["players"][p_innocent["id"]]["status"] == "alive"
+        # 3. Past lynched player pardoned by Mayor
+        assert state["players"][p_past_lynch["id"]]["status"] == "alive"
+
+        # 4. Check night_report contents:
+        report_text = " ".join(state["night_report"])
+        # Wolf death is reported neutrally:
+        assert any("Wolfie" in r and "slain" in r for r in state["night_report"])
+        # No mention of sniper or hit mark or evil!
+        assert "sniper" not in report_text.lower()
+        assert "mark" not in report_text.lower()
+        assert "evil" not in report_text.lower()
+        # No mention of doctor or protection shielding!
+        assert "doctor" not in report_text.lower()
+        assert "shielded" not in report_text.lower()
+        assert "protection" not in report_text.lower()
+        # Mayor veto IS explicitly announced as requested
+        assert any("Mayor exercised official veto" in r and "WronglyLynched" in r for r in state["night_report"])
 
     def test_framer_inspection(self):
         state = create_initial_state("FRAMETEST", "Framer Test")

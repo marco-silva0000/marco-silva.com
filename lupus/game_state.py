@@ -1099,7 +1099,6 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         if l1 in state["players"] and l2 in state["players"]:
             state["players"][l1]["lover_id"] = l2
             state["players"][l2]["lover_id"] = l1
-            report.append("💘 Cupid has secretly linked two souls in eternal bond.")
 
     # 2. Doctor protect
     doc_target = actions.get("doctor_protect")
@@ -1119,15 +1118,10 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             to_save.add(bg_target)
             if bg_actor and bg_actor in state["players"]:
                 to_kill.add(bg_actor)
-                bg_name = state["players"][bg_actor]["name"]
-                t_name = state["players"][bg_target]["name"]
-                report.append(f"🛡️ The Bodyguard ({bg_name}) sacrificed their life to protect {t_name} from death!")
 
     # 3. Werewolf kill
     if wolf_target and wolf_target in state["players"]:
-        if wolf_target in to_save:
-            report.append("🛡️ Protection shielded the victim from death.")
-        else:
+        if wolf_target not in to_save:
             to_kill.add(wolf_target)
 
     # 4. Witch action
@@ -1136,23 +1130,17 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         if wolf_target in to_kill:
             to_kill.remove(wolf_target)
             state["witch_used_revive"] = True
-            report.append("🧪 A mystical potion preserved a life from the jaws of death.")
     if witch_act.get("kill_target"):
         w_kill = witch_act["kill_target"]
         if w_kill in state["players"]:
             to_kill.add(w_kill)
             state["witch_used_kill"] = True
-            report.append("💀 A lethal poison was administered during the dark hours.")
 
     # 4b. Serial Killer solo kill
     sk_target = actions.get("sk_target")
     if sk_target and sk_target in state["players"]:
-        if sk_target in to_save:
-            report.append("🛡️ Protection shielded a victim from the Serial Killer's blade.")
-        else:
+        if sk_target not in to_save:
             to_kill.add(sk_target)
-            sk_victim = state["players"][sk_target]["name"]
-            report.append(f"🔪 A mysterious killer struck in the shadows! {sk_victim} was eliminated.")
 
     # 5. Sniper shot
     sniper_act = actions.get("sniper_shot")
@@ -1168,18 +1156,11 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                 "doctor_saves_from_sniper", False
             )
 
-            if protected_from_sniper:
-                report.append("🛡️ The sniper's bullet was deflected by the Doctor's guard!")
-            else:
+            if not protected_from_sniper:
                 to_kill.add(s_target_id)
-                if is_evil_wolf:
-                    report.append("🎯 A sniper shot found its mark in the heart of evil!")
-                else:
-                    report.append("💥 A tragic mistake! A sniper bullet hit an innocent civilian.")
-                    if b_type == "danger" and actor_id and actor_id in state["players"]:
-                        # Danger bullet: sniper dies of guilt!
-                        to_kill.add(actor_id)
-                        report.append("⚡ The sniper's danger bullet rebounded — the sniper died of remorse.")
+                if not is_evil_wolf and b_type == "danger" and actor_id and actor_id in state["players"]:
+                    # Danger bullet: sniper dies of guilt
+                    to_kill.add(actor_id)
 
     # 6. Silencer action
     silencer_target = actions.get("silencer_target")
@@ -1189,7 +1170,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     if silencer_target and silencer_target in state["players"]:
         state["players"][silencer_target]["is_silenced"] = True
         report.append(
-            f"🤐 {state['players'][silencer_target]['name']} has been cast under a silencing spell for the day!"
+            f"🤐 {state['players'][silencer_target]['name']} is silenced for the day and cannot speak."
         )
 
     # 7. Mayor veto of yesterday's vote
@@ -1205,6 +1186,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     limbo_on = state["settings"].get("limbo_enabled", True)
     has_angel = any(p["role"] == "angel" and p["status"] != "dead" for p in state["players"].values())
 
+    killed_players: set[str] = set()
     for pid in to_kill:
         p = state["players"][pid]
         if limbo_on and has_angel and not p["used_limbo"]:
@@ -1215,14 +1197,18 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             )
         else:
             p["status"] = "dead"
+            killed_players.add(pid)
             report.append(f"🪦 {p['name']} was slain in the night.")
-            # Cupid lover cascade
-            lover_id = p.get("lover_id")
-            if lover_id and lover_id in state["players"]:
-                lover = state["players"][lover_id]
-                if lover["status"] != "dead":
-                    lover["status"] = "dead"
-                    report.append(f"💔 {lover['name']} perished from profound grief over their lover {p['name']}!")
+
+    # Cupid lover cascade: if a player truly died, their lover also perishes
+    for pid in killed_players:
+        p = state["players"][pid]
+        lover_id = p.get("lover_id")
+        if lover_id and lover_id in state["players"] and lover_id not in killed_players:
+            lover = state["players"][lover_id]
+            if lover["status"] != "dead":
+                lover["status"] = "dead"
+                report.append(f"🪦 {lover['name']} was slain in the night.")
 
     if not to_kill:
         report.append("☀️ Dawn breaks over a peaceful night. No one died!")
