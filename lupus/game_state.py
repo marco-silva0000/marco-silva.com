@@ -569,7 +569,11 @@ def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id
 
 
 def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
-    """Determine the active ordered stages for the night phase based on living roles."""
+    """Determine the active ordered stages for the night phase.
+    
+    Roles dealt in the game deck are always called even if dead to prevent revealing
+    casualties through omission.
+    """
     stages = []
     players = state.get("players", {})
     theme = state.get("theme", "werewolf")
@@ -578,90 +582,123 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
     ordered = get_ordered_players(state)
     round_num = state.get("round_number", 1)
 
-    def living_with_role(r_id: str) -> list[dict[str, Any]]:
+    def is_role_in_game(r_id: str) -> bool:
+        if r_id in state.get("deck", []):
+            return True
+        return any(p.get("role") == r_id for p in players.values())
+
+    def get_role_actors(r_id: str) -> list[dict[str, Any]]:
         return [
-            {"id": p["id"], "name": p["name"], "seat_number": idx + 1, "last_guarded_id": p.get("last_guarded_id")}
+            {
+                "id": p["id"],
+                "name": p["name"],
+                "seat_number": idx + 1,
+                "status": p.get("status", "alive"),
+                "is_alive": p.get("status") == "alive",
+                "last_guarded_id": p.get("last_guarded_id"),
+            }
             for idx, p in enumerate(ordered)
-            if p.get("role") == r_id and p.get("status") == "alive"
+            if p.get("role") == r_id
         ]
 
-    # 1. Cupid (Night 1 only, if Cupid in game and alive)
-    cupid_players = living_with_role("cupid")
-    if round_num <= 1 and cupid_players:
+    # 1. Cupid (Night 1 only, if Cupid in game)
+    if round_num <= 1 and is_role_in_game("cupid"):
+        cupid_actors = get_role_actors("cupid")
+        is_alive = any(a["is_alive"] for a in cupid_actors)
         current_lovers = actions.get("cupid_lovers", [])
         stages.append(
             {
                 "id": "cupid",
                 "title": "💘 Cupid (Matchmaker)" if is_mafia else "💘 Cupid (Lovers)",
                 "role_id": "cupid",
-                "actors": cupid_players,
+                "actors": cupid_actors,
+                "is_alive": is_alive,
                 "script": "Cupid, wake up! Silently point at two players you bind as lovers.",
                 "target_ids": current_lovers,
                 "target_names": [players[pid]["name"] for pid in current_lovers if pid in players],
-                "is_complete": len(current_lovers) == 2,
+                "is_complete": len(current_lovers) == 2 or not is_alive,
             }
         )
 
     # 2. Werewolves / Mafia
-    wolves = [
-        {"id": p["id"], "name": p["name"], "seat_number": idx + 1}
-        for idx, p in enumerate(ordered)
-        if p.get("faction") == FACTION_WOLVES and p.get("status") == "alive"
-    ]
-    wolf_target_id = actions.get("wolf_target")
-    wolf_target_name = players[wolf_target_id]["name"] if wolf_target_id in players else None
-    stages.append(
-        {
-            "id": "wolves",
-            "title": "🐺 Mafia Hit" if is_mafia else "🐺 Werewolves Hunt",
-            "role_id": "werewolf",
-            "actors": wolves,
-            "script": "Mafia, wake up! Silently agree and point at your victim."
-            if is_mafia
-            else "Werewolves, wake up! Look at each other and silently point at your victim.",
-            "target_id": wolf_target_id,
-            "target_name": wolf_target_name,
-            "is_complete": bool(wolf_target_id),
-        }
+    has_wolves = any(p.get("faction") == FACTION_WOLVES for p in players.values()) or any(
+        r in ("werewolf", "alpha_wolf") for r in state.get("deck", [])
     )
+    if has_wolves:
+        wolves = [
+            {
+                "id": p["id"],
+                "name": p["name"],
+                "seat_number": idx + 1,
+                "status": p.get("status", "alive"),
+                "is_alive": p.get("status") == "alive",
+            }
+            for idx, p in enumerate(ordered)
+            if p.get("faction") == FACTION_WOLVES
+        ]
+        is_alive = any(w["is_alive"] for w in wolves)
+        wolf_target_id = actions.get("wolf_target")
+        wolf_target_name = players[wolf_target_id]["name"] if wolf_target_id in players else None
+        stages.append(
+            {
+                "id": "wolves",
+                "title": "🐺 Mafia Hit" if is_mafia else "🐺 Werewolves Hunt",
+                "role_id": "werewolf",
+                "actors": wolves,
+                "is_alive": is_alive,
+                "script": (
+                    "Mafia, wake up! Silently agree and point at your victim."
+                    if is_mafia
+                    else "Werewolves, wake up! Look at each other and silently point at your victim."
+                ),
+                "target_id": wolf_target_id,
+                "target_name": wolf_target_name,
+                "is_complete": bool(wolf_target_id) or not is_alive,
+            }
+        )
 
     # 3. Silencer
-    silencer_players = living_with_role("silencer")
-    if silencer_players:
+    if is_role_in_game("silencer"):
+        silencers = get_role_actors("silencer")
+        is_alive = any(s["is_alive"] for s in silencers)
         s_target_id = actions.get("silencer_target")
         stages.append(
             {
                 "id": "silencer",
                 "title": "🤐 Consigliere (Silence)" if is_mafia else "🤐 Silencer Spell",
                 "role_id": "silencer",
-                "actors": silencer_players,
+                "actors": silencers,
+                "is_alive": is_alive,
                 "script": "Silencer, wake up! Silently point at the player who cannot speak tomorrow.",
                 "target_id": s_target_id,
                 "target_name": players[s_target_id]["name"] if s_target_id in players else None,
-                "is_complete": bool(s_target_id),
+                "is_complete": bool(s_target_id) or not is_alive,
             }
         )
 
     # 4. Framer
-    framer_players = living_with_role("framer")
-    if framer_players:
+    if is_role_in_game("framer"):
+        framers = get_role_actors("framer")
+        is_alive = any(f["is_alive"] for f in framers)
         f_target_id = actions.get("framer_target")
         stages.append(
             {
                 "id": "framer",
                 "title": "🎭 Framer / Swindler",
                 "role_id": "framer",
-                "actors": framer_players,
+                "actors": framers,
+                "is_alive": is_alive,
                 "script": "Framer, wake up! Silently point at someone to frame so they appear evil to the Detective.",
                 "target_id": f_target_id,
                 "target_name": players[f_target_id]["name"] if f_target_id in players else None,
-                "is_complete": bool(f_target_id),
+                "is_complete": bool(f_target_id) or not is_alive,
             }
         )
 
     # 5. Detective
-    detective_players = living_with_role("detective")
-    if detective_players:
+    if is_role_in_game("detective"):
+        detectives = get_role_actors("detective")
+        is_alive = any(d["is_alive"] for d in detectives)
         det_query = actions.get("detective_query", {})
         det_target_id = det_query.get("target_id")
         stages.append(
@@ -669,57 +706,63 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "id": "detective",
                 "title": "🔍 Detective Investigation",
                 "role_id": "detective",
-                "actors": detective_players,
+                "actors": detectives,
+                "is_alive": is_alive,
                 "script": "Detective, wake up! Silently point at the person you want to inspect.",
                 "target_id": det_target_id,
                 "target_name": players[det_target_id]["name"] if det_target_id in players else None,
                 "result": det_query.get("result"),
                 "is_evil": det_query.get("is_evil"),
-                "is_complete": bool(det_target_id),
+                "is_complete": bool(det_target_id) or not is_alive,
             }
         )
 
     # 6. Doctor / Medic
-    doctor_players = living_with_role("doctor")
-    if doctor_players:
+    if is_role_in_game("doctor"):
+        doctors = get_role_actors("doctor")
+        is_alive = any(d["is_alive"] for d in doctors)
         doc_target_id = actions.get("doctor_protect")
-        last_guarded = doctor_players[0].get("last_guarded_id") if doctor_players else None
+        last_guarded = doctors[0].get("last_guarded_id") if doctors else None
         stages.append(
             {
                 "id": "doctor",
                 "title": "🩺 Doctor / Guard",
                 "role_id": "doctor",
-                "actors": doctor_players,
+                "actors": doctors,
+                "is_alive": is_alive,
                 "script": "Doctor, wake up! Silently point at the player you want to protect tonight.",
                 "target_id": doc_target_id,
                 "target_name": players[doc_target_id]["name"] if doc_target_id in players else None,
                 "last_guarded_id": last_guarded,
-                "is_complete": bool(doc_target_id),
+                "is_complete": bool(doc_target_id) or not is_alive,
             }
         )
 
     # 7. Bodyguard
-    bodyguard_players = living_with_role("bodyguard")
-    if bodyguard_players:
+    if is_role_in_game("bodyguard"):
+        bodyguards = get_role_actors("bodyguard")
+        is_alive = any(b["is_alive"] for b in bodyguards)
         bg_target_id = actions.get("bodyguard_protect")
         stages.append(
             {
                 "id": "bodyguard",
                 "title": "🛡️ Bodyguard Shield",
                 "role_id": "bodyguard",
-                "actors": bodyguard_players,
+                "actors": bodyguards,
+                "is_alive": is_alive,
                 "script": "Bodyguard, wake up! Silently point at who you will shield with your life.",
                 "target_id": bg_target_id,
                 "target_name": players[bg_target_id]["name"] if bg_target_id in players else None,
-                "is_complete": bool(bg_target_id),
+                "is_complete": bool(bg_target_id) or not is_alive,
             }
         )
 
     # 8. Witch
-    witch_players = living_with_role("witch")
-    has_revive = not state.get("witch_used_revive", False)
-    has_kill = not state.get("witch_used_kill", False)
-    if witch_players and (has_revive or has_kill):
+    if is_role_in_game("witch"):
+        witches = get_role_actors("witch")
+        is_alive = any(w["is_alive"] for w in witches)
+        has_revive = not state.get("witch_used_revive", False)
+        has_kill = not state.get("witch_used_kill", False)
         w_act = actions.get("witch_action", {})
         victim_id = actions.get("wolf_target")
         victim_name = players[victim_id]["name"] if victim_id in players else "Nobody"
@@ -728,26 +771,26 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "id": "witch",
                 "title": "🧙‍♀️ Witch / Chemist",
                 "role_id": "witch",
-                "actors": witch_players,
+                "actors": witches,
+                "is_alive": is_alive,
                 "script": (
                     f"Witch, wake up! Tonight's victim is {victim_name}. "
                     "Do you want to use your revival potion? Do you want to poison someone?"
-                ),
+                ) if victim_id else "Witch, wake up! Do you want to use your revival potion or lethal poison?",
                 "victim_name": victim_name,
                 "revive": w_act.get("revive", False),
                 "has_revive_potion": has_revive,
                 "has_kill_potion": has_kill,
                 "kill_target_id": w_act.get("kill_target"),
-                "kill_target_name": players[w_act["kill_target"]]["name"]
-                if w_act.get("kill_target") in players
-                else None,
-                "is_complete": bool(w_act),
+                "kill_target_name": players[w_act["kill_target"]]["name"] if w_act.get("kill_target") in players else None,
+                "is_complete": bool(w_act) or not is_alive or (not has_revive and not has_kill),
             }
         )
 
     # 9. Sniper
-    sniper_players = living_with_role("sniper")
-    if sniper_players:
+    if is_role_in_game("sniper"):
+        snipers = get_role_actors("sniper")
+        is_alive = any(s["is_alive"] for s in snipers)
         s_act = actions.get("sniper_shot", {})
         s_target_id = s_act.get("target_id")
         stages.append(
@@ -755,41 +798,72 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "id": "sniper",
                 "title": "🎯 Sniper / Vigilante",
                 "role_id": "sniper",
-                "actors": sniper_players,
+                "actors": snipers,
+                "is_alive": is_alive,
                 "script": (
                     "Sniper, wake up! Silently point if you wish to shoot someone tonight, or shake head to pass."
                 ),
                 "target_id": s_target_id,
                 "target_name": players[s_target_id]["name"] if s_target_id in players else None,
                 "bullet_type": s_act.get("bullet_type", "danger"),
-                "is_complete": bool(s_target_id),
+                "is_complete": bool(s_target_id) or not is_alive,
             }
         )
 
     # 10. Serial Killer
-    sk_players = living_with_role("serial_killer")
-    if sk_players:
+    if is_role_in_game("serial_killer"):
+        sks = get_role_actors("serial_killer")
+        is_alive = any(s["is_alive"] for s in sks)
         sk_target_id = actions.get("sk_target")
         stages.append(
             {
                 "id": "serial_killer",
                 "title": "🔪 Serial Killer Strike",
                 "role_id": "serial_killer",
-                "actors": sk_players,
+                "actors": sks,
+                "is_alive": is_alive,
                 "script": "Serial Killer, wake up! Silently point at your solo victim.",
                 "target_id": sk_target_id,
                 "target_name": players[sk_target_id]["name"] if sk_target_id in players else None,
-                "is_complete": bool(sk_target_id),
+                "is_complete": bool(sk_target_id) or not is_alive,
             }
         )
 
-    # 11. Dawn Review (Always final stage)
+    # 11. Mayor
+    if is_role_in_game("mayor"):
+        mayors = get_role_actors("mayor")
+        is_alive = any(m["is_alive"] for m in mayors)
+        has_veto = not state.get("mayor_used_veto", False)
+        last_lynched_id = state.get("last_lynched_id")
+        last_lynched_name = players[last_lynched_id]["name"] if last_lynched_id in players else None
+        if round_num <= 1 or not last_lynched_name:
+            script = "Mayor, wake up! Look at me so I know who you are... Mayor, close your eyes."
+        else:
+            script = f"Mayor, wake up! Yesterday, {last_lynched_name} was executed. Do you wish to exercise your one-time official veto to pardon them and return them alive?"
+        stages.append(
+            {
+                "id": "mayor",
+                "title": "🎖️ Mayor Veto",
+                "role_id": "mayor",
+                "actors": mayors,
+                "is_alive": is_alive,
+                "has_veto": has_veto,
+                "last_lynched_id": last_lynched_id,
+                "last_lynched_name": last_lynched_name,
+                "veto": actions.get("mayor_veto", False),
+                "script": script,
+                "is_complete": True,
+            }
+        )
+
+    # 12. Dawn Review (Always final stage)
     stages.append(
         {
             "id": "review",
             "title": "☀️ Dawn Review & Resolve",
             "role_id": None,
             "actors": [],
+            "is_alive": True,
             "script": (
                 "Review all registered night actions. When ready, wake up the town to "
                 "announce dawn and start day discussion!"
@@ -908,6 +982,21 @@ def record_gm_night_action(
         save_game(state["code"], state)
         return True, f"Serial Killer target: {name}"
 
+    elif stage_id == "mayor":
+        extra = extra or {}
+        veto = bool(extra.get("veto", True))
+        if veto:
+            actions["mayor_veto"] = True
+            victim_name = players[state["last_lynched_id"]]["name"] if state.get("last_lynched_id") in players else "None"
+            log_event(state, f"Game Master recorded Mayor veto: {victim_name} pardoned")
+            save_game(state["code"], state)
+            return True, f"Mayor veto: {victim_name}"
+        else:
+            actions.pop("mayor_veto", None)
+            log_event(state, "Game Master cleared Mayor veto")
+            save_game(state["code"], state)
+            return True, "Mayor veto cleared"
+
     elif stage_id == "cupid":
         extra = extra or {}
         lovers = list(actions.get("cupid_lovers", []))
@@ -939,6 +1028,7 @@ def clear_gm_night_action(state: dict[str, Any], stage_id: str) -> None:
         "witch": "witch_action",
         "sniper": "sniper_shot",
         "serial_killer": "sk_target",
+        "mayor": "mayor_veto",
         "cupid": "cupid_lovers",
     }
     key = mapping.get(stage_id)
@@ -1101,8 +1191,9 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             state["players"][l2]["lover_id"] = l1
 
     # 2. Doctor protect
+    has_living_doc = any(p["role"] == "doctor" and p["status"] == "alive" for p in state["players"].values())
     doc_target = actions.get("doctor_protect")
-    if doc_target and doc_target in state["players"]:
+    if doc_target and doc_target in state["players"] and has_living_doc:
         to_save.add(doc_target)
         # Record last guarded for staggering doctor
         for p in state["players"].values():
@@ -1110,71 +1201,80 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                 p["last_guarded_id"] = doc_target
 
     # 2b. Bodyguard protect & sacrifice
+    has_living_bg = any(p["role"] == "bodyguard" and p["status"] == "alive" for p in state["players"].values())
     bg_target = actions.get("bodyguard_protect")
     bg_actor = actions.get("bodyguard_actor")
     wolf_target = actions.get("wolf_target")
-    if bg_target and bg_target in state["players"] and wolf_target == bg_target:
+    if bg_target and bg_target in state["players"] and wolf_target == bg_target and has_living_bg:
         if wolf_target not in to_save:
             to_save.add(bg_target)
             if bg_actor and bg_actor in state["players"]:
                 to_kill.add(bg_actor)
 
     # 3. Werewolf kill
-    if wolf_target and wolf_target in state["players"]:
+    has_living_wolves = any(p.get("faction") == FACTION_WOLVES and p["status"] == "alive" for p in state["players"].values())
+    if wolf_target and wolf_target in state["players"] and has_living_wolves:
         if wolf_target not in to_save:
             to_kill.add(wolf_target)
 
     # 4. Witch action
+    has_living_witch = any(p["role"] == "witch" and p["status"] == "alive" for p in state["players"].values())
     witch_act = actions.get("witch_action", {})
-    if witch_act.get("revive") and wolf_target:
-        if wolf_target in to_kill:
-            to_kill.remove(wolf_target)
-            state["witch_used_revive"] = True
-    if witch_act.get("kill_target"):
-        w_kill = witch_act["kill_target"]
-        if w_kill in state["players"]:
-            to_kill.add(w_kill)
-            state["witch_used_kill"] = True
+    if has_living_witch:
+        if witch_act.get("revive") and wolf_target:
+            if wolf_target in to_kill:
+                to_kill.remove(wolf_target)
+                state["witch_used_revive"] = True
+        if witch_act.get("kill_target"):
+            w_kill = witch_act["kill_target"]
+            if w_kill in state["players"]:
+                to_kill.add(w_kill)
+                state["witch_used_kill"] = True
 
     # 4b. Serial Killer solo kill
+    has_living_sk = any(p["role"] == "serial_killer" and p["status"] == "alive" for p in state["players"].values())
     sk_target = actions.get("sk_target")
-    if sk_target and sk_target in state["players"]:
+    if sk_target and sk_target in state["players"] and has_living_sk:
         if sk_target not in to_save:
             to_kill.add(sk_target)
 
     # 5. Sniper shot
     sniper_act = actions.get("sniper_shot")
     if sniper_act:
-        s_target_id = sniper_act.get("target_id")
-        b_type = sniper_act.get("bullet_type", "danger")
         actor_id = sniper_act.get("actor_id")
-        if s_target_id and s_target_id in state["players"]:
-            s_target = state["players"][s_target_id]
-            is_evil_wolf = s_target["faction"] == FACTION_WOLVES
-            # Doctor saving from sniper toggle:
-            protected_from_sniper = (s_target_id in to_save) and state["settings"].get(
-                "doctor_saves_from_sniper", False
-            )
+        sniper_player = state["players"].get(actor_id)
+        if sniper_player and sniper_player["role"] == "sniper" and sniper_player["status"] == "alive":
+            s_target_id = sniper_act.get("target_id")
+            b_type = sniper_act.get("bullet_type", "danger")
+            if s_target_id and s_target_id in state["players"]:
+                s_target = state["players"][s_target_id]
+                is_evil_wolf = s_target["faction"] == FACTION_WOLVES
+                # Doctor saving from sniper toggle:
+                protected_from_sniper = (s_target_id in to_save) and state["settings"].get(
+                    "doctor_saves_from_sniper", False
+                )
 
-            if not protected_from_sniper:
-                to_kill.add(s_target_id)
-                if not is_evil_wolf and b_type == "danger" and actor_id and actor_id in state["players"]:
-                    # Danger bullet: sniper dies of guilt
-                    to_kill.add(actor_id)
+                if not protected_from_sniper:
+                    to_kill.add(s_target_id)
+                    if not is_evil_wolf and b_type == "danger" and actor_id and actor_id in state["players"]:
+                        # Danger bullet: sniper dies of guilt
+                        to_kill.add(actor_id)
 
     # 6. Silencer action
+    has_living_silencer = any(p["role"] == "silencer" and p["status"] == "alive" for p in state["players"].values())
     silencer_target = actions.get("silencer_target")
     # Reset previous day silences
     for p in state["players"].values():
         p["is_silenced"] = False
-    if silencer_target and silencer_target in state["players"]:
+    if silencer_target and silencer_target in state["players"] and has_living_silencer:
         state["players"][silencer_target]["is_silenced"] = True
         report.append(
             f"🤐 {state['players'][silencer_target]['name']} is silenced for the day and cannot speak."
         )
 
     # 7. Mayor veto of yesterday's vote
-    if actions.get("mayor_veto") and state.get("last_lynched_id"):
+    has_living_mayor = any(p["role"] == "mayor" and p["status"] == "alive" for p in state["players"].values())
+    if actions.get("mayor_veto") and has_living_mayor and not state.get("mayor_used_veto") and state.get("last_lynched_id"):
         lynched_id = state["last_lynched_id"]
         if lynched_id in state["players"]:
             p_name = state["players"][lynched_id]["name"]

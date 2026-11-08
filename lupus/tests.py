@@ -568,6 +568,108 @@ class TestLupusEngine:
         # Mayor veto IS explicitly announced as requested
         assert any("Mayor exercised official veto" in r and "WronglyLynched" in r for r in state["night_report"])
 
+    def test_dead_roles_still_called_in_night_stages(self):
+        """Dead roles must still appear in night stages so the GM calls them, keeping casualties secret."""
+        state = create_initial_state("DEADSTAGES", "Dead Stages Test")
+        state, p_doc = add_player(state, "DrDead")
+        state, p_snip = add_player(state, "SniperDead")
+        state, p_may = add_player(state, "MayorDead")
+        state, p_wolf = add_player(state, "LivingWolf")
+        state, p_town = add_player(state, "LivingTown")
+
+        set_manual_player_role(state, p_doc["id"], "doctor")
+        set_manual_player_role(state, p_snip["id"], "sniper")
+        set_manual_player_role(state, p_may["id"], "mayor")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_town["id"], "villager")
+
+        # Kill the doctor, sniper, and mayor
+        p_doc["status"] = "dead"
+        p_snip["status"] = "dead"
+        p_may["status"] = "dead"
+
+        stages = get_night_stages(state)
+        stage_ids = [s["id"] for s in stages]
+
+        # Verify all 3 dead roles STILL appear in the night stages list
+        assert "doctor" in stage_ids
+        assert "sniper" in stage_ids
+        assert "mayor" in stage_ids
+
+        # Verify stage flags: is_alive is False, but is_complete is True (does not block GM)
+        doc_stage = next(s for s in stages if s["id"] == "doctor")
+        snip_stage = next(s for s in stages if s["id"] == "sniper")
+        may_stage = next(s for s in stages if s["id"] == "mayor")
+
+        assert doc_stage["is_alive"] is False
+        assert doc_stage["is_complete"] is True
+
+        assert snip_stage["is_alive"] is False
+        assert snip_stage["is_complete"] is True
+
+        assert may_stage["is_alive"] is False
+        assert may_stage["is_complete"] is True
+
+    def test_gm_mayor_night_stage_and_veto(self):
+        """Mayor stage must prompt the GM and successfully record and execute a pardon veto."""
+        state = create_initial_state("MAYORSTAGE", "Mayor Stage Test")
+        state, p_mayor = add_player(state, "MayorLiving")
+        state, p_wolf = add_player(state, "Wolfie")
+        state, p_victim = add_player(state, "LynchedPlayer")
+
+        set_manual_player_role(state, p_mayor["id"], "mayor")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_victim["id"], "villager")
+
+        p_victim["status"] = "dead"
+        state["last_lynched_id"] = p_victim["id"]
+
+        stages = get_night_stages(state)
+        mayor_stage = next((s for s in stages if s["id"] == "mayor"), None)
+        assert mayor_stage is not None
+        assert mayor_stage["is_alive"] is True
+        assert mayor_stage["has_veto"] is True
+        assert mayor_stage["last_lynched_id"] == p_victim["id"]
+        assert mayor_stage["last_lynched_name"] == "LynchedPlayer"
+
+        # GM toggles Mayor veto
+        ok, msg = record_gm_night_action(state, "mayor", extra={"veto": True})
+        assert ok is True
+        assert state["night_actions"]["mayor_veto"] is True
+
+        state = resolve_night(state)
+
+        # Victim should be returned to alive, and veto marked as used
+        assert state["players"][p_victim["id"]]["status"] == "alive"
+        assert state["mayor_used_veto"] is True
+        assert any("Mayor exercised official veto" in r and "LynchedPlayer" in r for r in state["night_report"])
+
+        # Subsequent night: Mayor stage should indicate veto already used
+        next_stages = get_night_stages(state)
+        next_mayor = next(s for s in next_stages if s["id"] == "mayor")
+        assert next_mayor["has_veto"] is False
+
+    def test_dead_doctor_cannot_protect(self):
+        """A dead doctor cannot save a player even if a protect action was submitted."""
+        state = create_initial_state("DEADDOCTOR", "Dead Doctor Test")
+        state, p_doc = add_player(state, "DrGhost")
+        state, p_wolf = add_player(state, "Wolf")
+        state, p_town = add_player(state, "TargetTown")
+
+        set_manual_player_role(state, p_doc["id"], "doctor")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_town["id"], "villager")
+
+        p_doc["status"] = "dead"
+
+        # GM or leftover action tries to protect TargetTown
+        record_gm_night_action(state, "doctor", target_id=p_town["id"])
+        record_gm_night_action(state, "wolves", target_id=p_town["id"])
+
+        state = resolve_night(state)
+        # TargetTown must die because Doctor is dead
+        assert state["players"][p_town["id"]]["status"] == "dead"
+
     def test_framer_inspection(self):
         state = create_initial_state("FRAMETEST", "Framer Test")
         state, p_framer = add_player(state, "FramerFrank")

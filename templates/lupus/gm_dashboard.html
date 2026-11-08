@@ -1014,6 +1014,11 @@ html, body {
 
       <!-- Action Recording & Target Control Card -->
       <div class="stage-controls-card">
+        <!-- Dead Role Bluff Banner -->
+        <div id="stage-dead-role-banner" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 8px; padding: 0.45rem 0.75rem; font-size: 0.82rem; color: #fca5a5; margin-bottom: 0.5rem;">
+          💀 <strong>Role is dead:</strong> Call the voice prompt aloud, pause for 5–10s to keep dead roles secret, then click Next Stage.
+        </div>
+
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem;">
           <div style="font-size: 0.85rem; font-weight: 700; color: #e2e8f0;">
             Target Action: <span id="stage-target-display" style="color: #60a5fa; font-weight: 800;">None selected</span>
@@ -1074,6 +1079,19 @@ html, body {
             <option value="danger">Danger Bullet (Sniper dies if target is town)</option>
             <option value="silver">Silver Bullet (Safe shot)</option>
           </select>
+        </div>
+
+        <!-- Mayor Veto Option Widget (Special) -->
+        <div id="mayor-widget" style="display: none; background: #0f172a; border: 1px solid #475569; border-radius: 8px; padding: 0.75rem;">
+          <div style="font-size: 0.85rem; color: #e2e8f0; margin-bottom: 0.35rem;">
+            Yesterday's executed player: <strong id="mayor-victim-name" style="color: #f87171;">None</strong>
+          </div>
+          <div id="mayor-status-note" style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.5rem; line-height: 1.4;"></div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button id="btn-mayor-veto" type="button" onclick="toggleMayorVeto()" class="btn btn-sm" style="background: #334155; color: #fff; border: 1px solid #475569; font-weight: 700; padding: 0.45rem 1rem;">
+              📜 Exercise Official Veto (Pardon)
+            </button>
+          </div>
         </div>
 
         <!-- Dawn Review Stage Summary -->
@@ -2502,13 +2520,21 @@ html, body {
     const detWidget = document.getElementById("detective-widget");
     const witchWidget = document.getElementById("witch-widget");
     const sniperWidget = document.getElementById("sniper-widget");
+    const mayorWidget = document.getElementById("mayor-widget");
     const reviewWidget = document.getElementById("review-widget");
+    const deadRoleBanner = document.getElementById("stage-dead-role-banner");
 
     detWidget.style.display = "none";
     witchWidget.style.display = "none";
     sniperWidget.style.display = "none";
+    if (mayorWidget) mayorWidget.style.display = "none";
     reviewWidget.style.display = "none";
+    if (deadRoleBanner) deadRoleBanner.style.display = "none";
     pickerWrap.style.display = "flex";
+
+    if (stage.id !== "review" && stage.is_alive === false) {
+      if (deadRoleBanner) deadRoleBanner.style.display = "block";
+    }
 
     if (stage.id === "review") {
       pickerWrap.style.display = "none";
@@ -2552,6 +2578,10 @@ html, body {
         const skTarget = state.players.find(p => p.id === actions.sk_target);
         summaryHtml += `<li>🔪 <strong>Serial Killer Solo:</strong> ${skTarget ? escapeHtml(skTarget.name) : 'None'}</li>`;
       }
+      if (actions.mayor_veto) {
+        const lTarget = state.players.find(p => p.id === state.last_lynched_id);
+        summaryHtml += `<li>🎖️ <strong>Mayor Veto:</strong> Pardoning ${lTarget ? escapeHtml(lTarget.name) : 'yesterday\'s execution'}</li>`;
+      }
       summaryHtml += "</ul>";
       document.getElementById("review-summary-list").innerHTML = summaryHtml;
     } else {
@@ -2570,9 +2600,52 @@ html, body {
         const names = stage.target_names || [];
         targetDisplay.innerText = names.length > 0 ? names.join(" & ") : "Select 2 Lovers";
         clearBtn.style.display = names.length > 0 ? "inline-block" : "none";
+      } else if (stage.id === "mayor") {
+        pickerWrap.style.display = "none";
+        clearBtn.style.display = "none";
+        if (mayorWidget) {
+          mayorWidget.style.display = "block";
+          const vName = stage.last_lynched_name || "None (No execution yesterday)";
+          document.getElementById("mayor-victim-name").innerText = vName;
+          const noteEl = document.getElementById("mayor-status-note");
+          const vetoBtn = document.getElementById("btn-mayor-veto");
+
+          if (!stage.is_alive) {
+            noteEl.innerHTML = "💀 <strong>Mayor is dead:</strong> Call voice prompt aloud, pause 5–10s to keep dead roles secret, then click Next Stage.";
+            vetoBtn.disabled = true;
+            vetoBtn.style.opacity = "0.5";
+          } else if (!stage.has_veto) {
+            noteEl.innerHTML = "⚠️ Mayor has already used their 1-time official veto in an earlier round.";
+            vetoBtn.disabled = true;
+            vetoBtn.style.opacity = "0.5";
+          } else if (!stage.last_lynched_id) {
+            noteEl.innerHTML = "ℹ️ Nobody was executed yesterday. No victim available to pardon.";
+            vetoBtn.disabled = true;
+            vetoBtn.style.opacity = "0.5";
+          } else {
+            noteEl.innerHTML = `👉 Ask the Mayor silently if they wish to pardon <strong>${escapeHtml(stage.last_lynched_name)}</strong>. Nod = Veto, Shake = Pass.`;
+            vetoBtn.disabled = false;
+            vetoBtn.style.opacity = "1";
+          }
+
+          if (stage.veto) {
+            vetoBtn.style.background = "#16a34a";
+            vetoBtn.style.borderColor = "#16a34a";
+            vetoBtn.innerText = `✅ VETO ACTIVE (Pardoning ${stage.last_lynched_name || 'victim'})`;
+          } else {
+            vetoBtn.style.background = "#334155";
+            vetoBtn.style.borderColor = "#475569";
+            vetoBtn.innerText = "📜 Exercise Official Veto (Pardon)";
+          }
+        }
       } else {
-        targetDisplay.innerText = stage.target_name ? `${stage.target_name}` : "None selected";
-        clearBtn.style.display = stage.target_id ? "inline-block" : "none";
+        if (!stage.is_alive) {
+          targetDisplay.innerHTML = '<span style="color:#94a3b8; font-style:italic;">Role Dead (Bluff Pause)</span>';
+          clearBtn.style.display = "none";
+        } else {
+          targetDisplay.innerText = stage.target_name ? `${stage.target_name}` : "None selected";
+          clearBtn.style.display = stage.target_id ? "inline-block" : "none";
+        }
         selectEl.value = stage.target_id || "";
       }
 
@@ -3060,6 +3133,15 @@ html, body {
       stage_id: "sniper",
       target_id: s.target_id,
       extra: { bullet_type: val }
+    });
+  }
+
+  function toggleMayorVeto() {
+    if (!currentGameState) return;
+    const curVeto = !!(currentGameState.night_actions && currentGameState.night_actions.mayor_veto);
+    sendAction("record_night_action", {
+      stage_id: "mayor",
+      extra: { veto: !curVeto }
     });
   }
 
