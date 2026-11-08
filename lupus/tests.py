@@ -13,6 +13,7 @@ from lupus.game_state import (
     clear_gm_night_action,
     create_initial_state,
     deal_roles,
+    dismiss_pending_gameover,
     get_game,
     get_gm_view,
     get_night_stages,
@@ -47,6 +48,7 @@ from lupus.game_state import (
     toggle_nomination_vote,
     toggle_official_nomination,
     toggle_player_silence,
+    trigger_game_over,
 )
 from lupus.qr import generate_qr_data_uri
 from lupus.roles import (
@@ -478,13 +480,17 @@ class TestLupusEngine:
         dead_bob_in_view = next(p for p in v_view_after_death["players"] if p["id"] == p_bob["id"])
         assert dead_bob_in_view["role"] is None
 
-        # Even when game is over, roles are NEVER revealed in player public roster view
+        # Even when dead, roles are not revealed during active play
+        assert dead_bob_in_view["role"] is None
+        assert wolf_in_view["role"] is None
+
+        # When game is over (phase == 'gameover'), all roles are revealed to players
         state["phase"] = "gameover"
         v_view_gameover = get_sanitized_player_view(state, p_villager["id"])
         gameover_bob = next(p for p in v_view_gameover["players"] if p["id"] == p_bob["id"])
         gameover_wolf = next(p for p in v_view_gameover["players"] if p["id"] == p_wolf["id"])
-        assert gameover_bob["role"] is None
-        assert gameover_wolf["role"] is None
+        assert gameover_bob["role"]["id"] == "villager"
+        assert gameover_wolf["role"]["id"] == "werewolf"
 
         # GM perspective sees everything
         gm_view = get_gm_view(state)
@@ -705,7 +711,62 @@ class TestLupusEngine:
         # Win condition: Serial Killer is last survivor standing
         winner = check_win_condition(state)
         assert winner == "serial_killer"
+        assert state.get("pending_gameover", {}).get("winner") == "serial_killer"
+        assert state["phase"] != "gameover"
+
+        # Host triggers Game Over
+        trigger_game_over(state)
         assert state["phase"] == "gameover"
+        assert state["winner"] == "serial_killer"
+
+    def test_host_controlled_gameover_flow(self):
+        state = create_initial_state("HCTEST", "Host Control Test")
+        state, p_wolf = add_player(state, "Wolf")
+        state, p_v1 = add_player(state, "Villager 1")
+        state, p_v2 = add_player(state, "Villager 2")
+
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_v1["id"], "villager")
+        set_manual_player_role(state, p_v2["id"], "villager")
+
+        state["phase"] = "day_discussion"
+
+        # Eliminate the only wolf
+        set_player_status(state, p_wolf["id"], "dead")
+
+        # Win condition is met (all evil vanquished), but phase must NOT be gameover automatically!
+        assert state["phase"] == "day_discussion"
+        assert state["pending_gameover"] is not None
+        assert state["pending_gameover"]["winner"] == "town"
+        assert state["winner"] is None
+
+        # GM view contains pending_gameover
+        gm_view = get_gm_view(state)
+        assert gm_view["pending_gameover"]["winner"] == "town"
+
+        # Player view conceals roles while active
+        pv_before = get_sanitized_player_view(state, p_v1["id"])
+        assert pv_before["players"][0]["role"] is None
+        assert pv_before["winner"] is None
+
+        # Test GM dismissing warning
+        dismiss_pending_gameover(state)
+        assert state["pending_gameover"] is None
+        assert state["pending_gameover_dismissed"] is True
+
+        # Now GM explicitly triggers Game Over
+        trigger_game_over(state, winner="town")
+        assert state["phase"] == "gameover"
+        assert state["winner"] == "town"
+        assert state["pending_gameover"] is None
+
+        # Player view now reveals all roles
+        pv_after = get_sanitized_player_view(state, p_v1["id"])
+        assert pv_after["winner"] == "town"
+        wolf_in_view = next(p for p in pv_after["players"] if p["id"] == p_wolf["id"])
+        v2_in_view = next(p for p in pv_after["players"] if p["id"] == p_v2["id"])
+        assert wolf_in_view["role"]["id"] == "werewolf"
+        assert v2_in_view["role"]["id"] == "villager"
 
     def test_night_stage_system_flow(self):
         state = create_initial_state("STAGETEST", "Stage System Test")
@@ -1031,6 +1092,11 @@ class TestLupusVoting:
 
         assert res == "jester_win"
         assert "SOLO VICTORY" in msg
+        assert state.get("pending_gameover", {}).get("winner") == "jester"
+        assert state["phase"] != "gameover"
+
+        # Host triggers Game Over
+        trigger_game_over(state)
         assert state["winner"] == "jester"
         assert state["phase"] == "gameover"
 

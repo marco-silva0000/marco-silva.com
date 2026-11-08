@@ -117,6 +117,8 @@ def create_initial_state(
         "events_log": [],
         "night_report": [],
         "winner": None,
+        "pending_gameover": None,
+        "pending_gameover_dismissed": False,
     }
     save_game(code, state)
     return state
@@ -426,6 +428,8 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     state["voting"] = _reset_voting_state(state)
     state["defense_player_id"] = None
     state["winner"] = None
+    state["pending_gameover"] = None
+    state["pending_gameover_dismissed"] = False
     state["broadcast_message"] = None
     pause_timer(state)
     for p in state["players"].values():
@@ -485,6 +489,7 @@ def set_player_status(state: dict[str, Any], player_id: str, new_status: str) ->
         log_event(state, f"{player['name']} entered Limbo.")
     elif new_status == "dead":
         log_event(state, f"{player['name']} died.")
+        state["pending_gameover_dismissed"] = False
         # Check Cupid lover cascade!
         lover_id = player.get("lover_id")
         if lover_id and lover_id in state["players"]:
@@ -494,6 +499,8 @@ def set_player_status(state: dict[str, Any], player_id: str, new_status: str) ->
                 log_event(state, f"{lover['name']} died of a broken heart following their lover {player['name']}!")
     elif new_status == "alive":
         log_event(state, f"{player['name']} returned to life!")
+        state["pending_gameover"] = None
+        state["pending_gameover_dismissed"] = False
 
     check_win_condition(state)
     save_game(state["code"], state)
@@ -1624,8 +1631,11 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
 
     # Check JESTER instant win!
     if victim.get("role") == "jester":
-        state["winner"] = "jester"
-        state["phase"] = "gameover"
+        state["pending_gameover"] = {
+            "winner": "jester",
+            "reason": f"The Jester ({victim['name']}) was executed by town vote and won SOLO VICTORY!",
+            "faction_name": "Jester",
+        }
         voting["stage"] = "completed"
         voting["elimination_result"] = "jester_win"
         set_player_status(state, victim_id, "dead")
@@ -1733,22 +1743,36 @@ def get_voting_view(state: dict[str, Any], is_gm: bool = False, player_id: Optio
 
 
 def check_win_condition(state: dict[str, Any]) -> Optional[str]:
-    """Check if Town or Wolves have achieved victory."""
-    if state.get("winner") == "jester":
-        return "jester"
+    """Check if Town, Wolves, Lovers, Jester, or Serial Killer have achieved victory.
+    Does NOT automatically end the game or set phase = 'gameover'. Instead, stores
+    a pending_gameover record so the Game Master is alerted and can trigger game over."""
+    if state.get("phase") == "gameover":
+        return state.get("winner")
+
+    if state.get("pending_gameover"):
+        return state["pending_gameover"].get("winner")
+
+    if state.get("pending_gameover_dismissed"):
+        return None
 
     alive_players = [p for p in state["players"].values() if p["status"] == "alive"]
     if not alive_players:
-        state["winner"] = "tie"
+        state["pending_gameover"] = {
+            "winner": "tie",
+            "reason": "All players have perished. Nobody survived.",
+            "faction_name": "Nobody (Tie)",
+        }
         return "tie"
 
     # Check lovers win (if only 2 alive and they are lovers)
     if len(alive_players) == 2:
         p1, p2 = alive_players[0], alive_players[1]
         if p1.get("lover_id") == p2["id"]:
-            state["winner"] = "lovers"
-            state["phase"] = "gameover"
-            log_event(state, f"💘 Love conquers all! {p1['name']} and {p2['name']} won together!")
+            state["pending_gameover"] = {
+                "winner": "lovers",
+                "reason": f"Love conquers all! {p1['name']} and {p2['name']} are the last two standing!",
+                "faction_name": "The Lovers",
+            }
             return "lovers"
 
     wolves_count = sum(1 for p in alive_players if p["faction"] == FACTION_WOLVES)
@@ -1757,28 +1781,80 @@ def check_win_condition(state: dict[str, Any]) -> Optional[str]:
     # Check Serial Killer solo victory
     if sk_count > 0 and len(alive_players) <= 2 and wolves_count == 0:
         sk_player = next(p for p in alive_players if p.get("role") == "serial_killer")
-        state["winner"] = "serial_killer"
-        state["phase"] = "gameover"
-        log_event(state, f"🔪 The Serial Killer ({sk_player['name']}) has outlived everyone and claimed solo victory!")
+        state["pending_gameover"] = {
+            "winner": "serial_killer",
+            "reason": f"The Serial Killer ({sk_player['name']}) has outlived everyone and claimed solo victory!",
+            "faction_name": "Serial Killer",
+        }
         return "serial_killer"
 
     if wolves_count == 0 and sk_count == 0:
-        state["winner"] = "town"
-        state["phase"] = "gameover"
         theme = state.get("theme", "werewolf")
         faction_name = "Villagers" if theme == "werewolf" else "Civilians"
-        log_event(state, f"🏆 Victory for the {faction_name}! All evil has been vanquished.")
+        state["pending_gameover"] = {
+            "winner": "town",
+            "reason": f"Victory for the {faction_name}! All evil has been vanquished.",
+            "faction_name": faction_name,
+        }
         return "town"
 
     if wolves_count >= (len(alive_players) - wolves_count):
-        state["winner"] = "wolves"
-        state["phase"] = "gameover"
         theme = state.get("theme", "werewolf")
         faction_name = "Werewolves" if theme == "werewolf" else "Mafia"
-        log_event(state, f"🐺 Victory for the {faction_name}! They have overrun the town.")
+        state["pending_gameover"] = {
+            "winner": "wolves",
+            "reason": f"Victory for the {faction_name}! They have overrun the town.",
+            "faction_name": faction_name,
+        }
         return "wolves"
 
+    state["pending_gameover"] = None
     return None
+
+
+def trigger_game_over(state: dict[str, Any], winner: Optional[str] = None) -> dict[str, Any]:
+    """Host explicitly triggers the gameover state and announces winners."""
+    if not winner:
+        pending = state.get("pending_gameover")
+        if pending and pending.get("winner"):
+            winner = pending["winner"]
+        else:
+            winner = check_win_condition(state) or "town"
+
+    state["winner"] = winner
+    state["phase"] = "gameover"
+    state["pending_gameover"] = None
+    state["pending_gameover_dismissed"] = False
+
+    theme = state.get("theme", "werewolf")
+    if winner == "town":
+        faction_name = "Villagers" if theme == "werewolf" else "Civilians"
+        msg = f"🏆 GAME OVER! Victory for the {faction_name}!"
+    elif winner == "wolves":
+        faction_name = "Werewolves" if theme == "werewolf" else "Mafia"
+        msg = f"🐺 GAME OVER! Victory for the {faction_name}!"
+    elif winner == "lovers":
+        msg = "💘 GAME OVER! Love conquers all! The Lovers have won!"
+    elif winner == "jester":
+        msg = "🃏 GAME OVER! The Jester tricked everyone and claimed solo victory!"
+    elif winner == "serial_killer":
+        msg = "🔪 GAME OVER! The Serial Killer claimed solo victory!"
+    elif winner == "tie":
+        msg = "💀 GAME OVER! It is a tie - all souls have perished!"
+    else:
+        msg = f"🏁 GAME OVER! Winner: {winner.title()}"
+
+    log_event(state, msg)
+    save_game(state["code"], state)
+    return state
+
+
+def dismiss_pending_gameover(state: dict[str, Any]) -> dict[str, Any]:
+    """Host dismisses or defers the victory condition alert to continue playing."""
+    state["pending_gameover"] = None
+    state["pending_gameover_dismissed"] = True
+    save_game(state["code"], state)
+    return state
 
 
 # --- Sanitized Views for Clients ---
@@ -1794,12 +1870,14 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     is_wolf = player["faction"] == FACTION_WOLVES
     lover_id = player.get("lover_id")
 
+    is_gameover = state.get("phase") == "gameover"
     ordered_players = get_ordered_players(state)
     public_players = []
     for idx, p in enumerate(ordered_players):
         pid = p["id"]
-        # Public player table view must NEVER reveal other players' secret roles under any circumstances.
-        # Private roles are exclusively displayed on the dedicated "My Role" tab behind the privacy peek shield.
+        # Public player table view conceals roles during active play.
+        # When game is over (phase == "gameover"), all roles are revealed!
+        p_role = get_role_info(p["role"], theme) if (is_gameover and p.get("role")) else None
         public_players.append(
             {
                 "id": p["id"],
@@ -1810,7 +1888,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
                 "is_me": pid == player_id,
                 "is_lover": pid == lover_id,
                 "is_pack_mate": is_wolf and p["faction"] == FACTION_WOLVES and pid != player_id,
-                "role": None,
+                "role": p_role,
             }
         )
 
@@ -1939,6 +2017,7 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "events_log": state.get("events_log", [])[-25:],
         "settings": state.get("settings", {}),
         "winner": state.get("winner"),
+        "pending_gameover": state.get("pending_gameover"),
         "broadcast_message": state.get("broadcast_message"),
         "witch_used_revive": state.get("witch_used_revive", False),
         "witch_used_kill": state.get("witch_used_kill", False),

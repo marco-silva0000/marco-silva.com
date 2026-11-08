@@ -912,6 +912,9 @@ html, body {
       </div>
     </div>
     <div class="app-topbar-right">
+      <button id="btn-topbar-gameover" onclick="openPlayerModal('gameover-modal')" class="btn btn-sm" style="display: none; background: #7c3aed; color: #fff; border-color: #6d28d9; font-weight: 700; padding: 0.25rem 0.65rem; font-size: 0.78rem;">
+        🏆 Results
+      </button>
       <div id="topbar-timer-chip" class="topbar-timer-chip" title="Remaining Phase Time">
         <span>⏱️</span>
         <span id="topbar-timer-val">05:00</span>
@@ -1385,6 +1388,71 @@ html, body {
 
     <div style="margin-top: 1rem;">
       <button onclick="closePlayerModal('all-roles-modal')" class="btn btn-primary" style="width: 100%;">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Game Over / Outcome & Revealed Roles -->
+<div id="gameover-modal" class="modal">
+  <div class="modal-content" style="max-height: 90vh; max-width: 520px; overflow-y: auto; text-align: left; padding: 1.25rem; border-radius: 16px;">
+    <!-- Outcome Header Banner (Victory / Defeat / Draw) -->
+    <div id="gameover-header-card" style="padding: 1.25rem 1rem; border-radius: 12px; text-align: center; margin-bottom: 1.15rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+      <div id="gameover-outcome-emoji" style="font-size: 3rem; margin-bottom: 0.25rem;">🎉</div>
+      <h2 id="gameover-outcome-title" style="margin: 0 0 0.35rem; font-size: 1.65rem; font-weight: 900; letter-spacing: 0.5px;">VICTORY</h2>
+      <div id="gameover-outcome-subtitle" style="font-size: 0.95rem; font-weight: 600; opacity: 0.95; line-height: 1.4;">
+        Your faction won the game!
+      </div>
+      <div id="gameover-winner-pill" style="display: inline-block; margin-top: 0.75rem; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+        Town Victory
+      </div>
+    </div>
+
+    <!-- Personal Recap Card -->
+    <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 0.85rem 1rem; margin-bottom: 1.15rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+      <div>
+        <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Your Role</div>
+        <div id="gameover-my-role-display" style="font-size: 1.05rem; font-weight: 800; color: #f8fafc; margin-top: 0.15rem;">
+          -
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; text-align: right;">Final Status</div>
+        <div id="gameover-my-status-display" style="text-align: right; margin-top: 0.15rem;">
+          <span class="badge badge-alive">ALIVE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Roster Role Reveal Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+      <h4 style="margin: 0; font-size: 0.95rem; color: #f8fafc; font-weight: 800; display: flex; align-items: center; gap: 0.35rem;">
+        <span>🎭</span> All Players' Revealed Roles
+      </h4>
+      <span id="gameover-player-count" style="font-size: 0.75rem; color: #94a3b8;">-</span>
+    </div>
+
+    <!-- Full Revealed Roster Table -->
+    <div style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; overflow: hidden; margin-bottom: 1.15rem;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+        <thead>
+          <tr style="background: #1e293b; color: #94a3b8; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #334155;">
+            <th style="padding: 0.5rem 0.65rem; width: 42px;">#</th>
+            <th style="padding: 0.5rem 0.65rem;">Player</th>
+            <th style="padding: 0.5rem 0.65rem;">Role</th>
+            <th style="padding: 0.5rem 0.65rem; text-align: right;">Status</th>
+          </tr>
+        </thead>
+        <tbody id="gameover-roster-tbody">
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal Actions -->
+    <div style="display: flex; gap: 0.5rem;">
+      <button onclick="closePlayerModal('gameover-modal')" class="btn btn-primary" style="flex: 1; min-height: 44px; font-weight: 700;">
+        👀 Inspect Table &amp; Seating
+      </button>
     </div>
   </div>
 </div>
@@ -1893,6 +1961,162 @@ html, body {
     renderPlayerMentionChips();
     renderRoleChips(state);
     checkAutoPopulateRoster(state);
+
+    // Game Over Modal & Revealed Outcomes
+    updateGameOverModal(state);
+  }
+
+  let lastGameoverShown = false;
+
+  function calculatePlayerOutcome(me, winner) {
+    if (!winner) return { won: false, isTie: false, title: "GAME OVER", subtitle: "Game concluded.", pill: "Finished" };
+
+    const roleId = me && me.role ? me.role.id : null;
+    const faction = me && me.role ? me.role.faction : null;
+    const isLover = !!(me && me.lover_name);
+
+    let won = false;
+    let pill = "";
+
+    if (winner === "tie") {
+      won = false;
+      pill = "Draw / All Perished";
+    } else if (winner === "lovers") {
+      won = isLover;
+      pill = "Lovers Victory";
+    } else if (winner === "jester") {
+      won = (roleId === "jester");
+      pill = "Jester Solo Victory";
+    } else if (winner === "serial_killer") {
+      won = (roleId === "serial_killer");
+      pill = "Serial Killer Solo Victory";
+    } else if (winner === "wolves") {
+      won = (faction === "wolves");
+      pill = "Werewolves Victory";
+    } else if (winner === "town") {
+      won = (faction === "town");
+      pill = "Town / Villagers Victory";
+    } else {
+      won = (faction === winner);
+      pill = `${winner.toUpperCase()} Victory`;
+    }
+
+    const title = winner === "tie" ? "DRAW / NO SURVIVORS" : (won ? "🎉 VICTORY!" : "💀 DEFEAT");
+    let subtitle = "";
+    if (winner === "tie") {
+      subtitle = "All players have fallen. There are no survivors.";
+    } else if (won) {
+      subtitle = isLover && winner === "lovers"
+        ? "Love conquered all! You and your lover survived together!"
+        : "Congratulations! Your faction successfully claimed victory!";
+    } else {
+      subtitle = "Your faction was defeated. Better luck next game!";
+    }
+
+    return { won, isTie: winner === "tie", title, subtitle, pill };
+  }
+
+  function updateGameOverModal(state) {
+    const btnResults = document.getElementById("btn-topbar-gameover");
+    if (state.phase !== "gameover") {
+      lastGameoverShown = false;
+      if (btnResults) btnResults.style.display = "none";
+      closePlayerModal("gameover-modal");
+      return;
+    }
+
+    if (btnResults) btnResults.style.display = "inline-flex";
+
+    renderGameOverContent(state);
+
+    if (!lastGameoverShown) {
+      lastGameoverShown = true;
+      openPlayerModal("gameover-modal");
+    }
+  }
+
+  function renderGameOverContent(state) {
+    const outcome = calculatePlayerOutcome(state.me, state.winner);
+
+    const card = document.getElementById("gameover-header-card");
+    const emojiEl = document.getElementById("gameover-outcome-emoji");
+    const titleEl = document.getElementById("gameover-outcome-title");
+    const subEl = document.getElementById("gameover-outcome-subtitle");
+    const pillEl = document.getElementById("gameover-winner-pill");
+
+    if (card) {
+      if (outcome.isTie) {
+        card.style.background = "linear-gradient(135deg, #374151 0%, #1f2937 100%)";
+        card.style.border = "2px solid #6b7280";
+        card.style.color = "#f3f4f6";
+        if (emojiEl) emojiEl.innerText = "💀";
+      } else if (outcome.won) {
+        card.style.background = "linear-gradient(135deg, #065f46 0%, #047857 100%)";
+        card.style.border = "2px solid #10b981";
+        card.style.color = "#ecfdf5";
+        if (emojiEl) emojiEl.innerText = "🎉";
+      } else {
+        card.style.background = "linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%)";
+        card.style.border = "2px solid #ef4444";
+        card.style.color = "#fef2f2";
+        if (emojiEl) emojiEl.innerText = "💀";
+      }
+    }
+
+    if (titleEl) titleEl.innerText = outcome.title;
+    if (subEl) subEl.innerText = outcome.subtitle;
+    if (pillEl) {
+      pillEl.innerText = outcome.pill;
+      pillEl.style.background = outcome.won ? "#064e3b" : (outcome.isTie ? "#111827" : "#450a0a");
+      pillEl.style.color = outcome.won ? "#a7f3d0" : (outcome.isTie ? "#d1d5db" : "#fca5a5");
+      pillEl.style.border = `1px solid ${outcome.won ? '#059669' : (outcome.isTie ? '#4b5563' : '#b91c1c')}`;
+    }
+
+    // Personal recap
+    const myRoleEl = document.getElementById("gameover-my-role-display");
+    const myStatusEl = document.getElementById("gameover-my-status-display");
+    if (myRoleEl && state.me && state.me.role) {
+      myRoleEl.innerHTML = `${state.me.role.emoji || ''} ${escapeHtml(state.me.role.name)} <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">(${state.me.role.faction})</span>`;
+    }
+    if (myStatusEl && state.me) {
+      myStatusEl.innerHTML = `<span class="badge badge-${state.me.status}">${state.me.status.toUpperCase()}</span>`;
+    }
+
+    // Count
+    const countEl = document.getElementById("gameover-player-count");
+    if (countEl) countEl.innerText = `${(state.players || []).length} players`;
+
+    // Revealed roster table
+    const tbody = document.getElementById("gameover-roster-tbody");
+    if (tbody) {
+      tbody.innerHTML = "";
+      (state.players || []).forEach((p, idx) => {
+        const tr = document.createElement("tr");
+        tr.style.borderBottom = "1px solid #1e293b";
+        if (p.is_me) tr.style.background = "rgba(56, 189, 248, 0.12)";
+
+        const roleText = p.role ? `${p.role.emoji || ''} ${escapeHtml(p.role.name)}` : "Unknown";
+        const factionText = p.role ? p.role.faction : "-";
+        const fColor = factionText === "wolves" ? "#f87171" : (factionText === "town" ? "#4ade80" : "#c084fc");
+        const meTag = p.is_me ? " <strong style='color:#38bdf8;'>(You)</strong>" : "";
+        const loverTag = p.is_lover ? " 💘" : "";
+
+        tr.innerHTML = `
+          <td style="padding: 0.5rem 0.65rem; color: #94a3b8; font-family: ui-monospace, monospace;">#${p.seat_number || (idx + 1)}</td>
+          <td style="padding: 0.5rem 0.65rem; font-weight: 600; color: #f8fafc;">
+            ${escapeHtml(p.name)}${meTag}${loverTag}
+          </td>
+          <td style="padding: 0.5rem 0.65rem;">
+            <div style="font-weight: 600; color: #f8fafc;">${roleText}</div>
+            <div style="font-size: 0.72rem; color: ${fColor}; text-transform: uppercase; font-weight: 700;">${factionText}</div>
+          </td>
+          <td style="padding: 0.5rem 0.65rem; text-align: right;">
+            <span class="badge badge-${p.status}">${p.status.toUpperCase()}</span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
   }
 
   // --- Player Seating Layout Engine ---
@@ -1947,10 +2171,12 @@ html, body {
       const loverTag = p.is_lover ? " 💘" : "";
       const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#94a3b8; background:#0f172a; border:1px solid #334155; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
 
+      const roleBadge = p.role ? `<span style="font-size:0.75rem; font-weight:700; color:#cbd5e1; background:rgba(30,41,59,0.9); border:1px solid #475569; padding:0.1rem 0.4rem; border-radius:4px; margin-left:0.4rem;">${p.role.emoji || ''} ${escapeHtml(p.role.name)}</span>` : "";
+
       item.innerHTML = `
         <div style="font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap;">
           ${seatBadge}
-          <span>${escapeHtml(p.name)}${meTag}${meRenameBtn}${silencedTag}${loverTag}</span>
+          <span>${escapeHtml(p.name)}${meTag}${meRenameBtn}${silencedTag}${loverTag}${roleBadge}</span>
         </div>
         <span class="badge badge-${p.status}">${p.status.toUpperCase()}</span>
       `;
@@ -2021,9 +2247,12 @@ html, body {
 
     const meTag = isMe ? '<span style="color:#38bdf8; font-weight:800; font-size:0.6rem;">(You)</span>' : '';
     
-    // Status text on seat node - NEVER display secret role on the table under any circumstances!
+    // Status text on seat node - Concealed during active play, revealed upon GameOver!
     let seatSubtext = "";
-    if (p.status === "dead") {
+    if (p.role) {
+      seatSubtext = `${p.role.emoji || ''} ${p.role.name}`;
+      if (p.status === "dead") seatSubtext += " (💀)";
+    } else if (p.status === "dead") {
       seatSubtext = "💀 Dead";
     } else if (p.status === "limbo") {
       seatSubtext = "🌫️ Limbo";

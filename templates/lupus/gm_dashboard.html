@@ -939,6 +939,48 @@ html, body {
       </div>
     </div>
 
+    <!-- ============================================== -->
+    <!-- PENDING VICTORY ALERT BANNER -->
+    <!-- ============================================== -->
+    <div id="pending-gameover-banner" style="display: none; background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border: 2px solid #f59e0b; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1.05rem; color: #92400e;">
+            <span>⚠️</span>
+            <span>Victory Condition Met: <strong id="pending-gameover-title">Town Victory</strong></span>
+          </div>
+          <div id="pending-gameover-reason" style="font-size: 0.85rem; color: #78350f; margin-top: 0.25rem; line-height: 1.4;">
+            All evil roles have been eliminated.
+          </div>
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <button onclick="triggerGameOver()" class="btn btn-primary" style="background: #d97706; border-color: #b45309; font-weight: 800; font-size: 0.9rem; padding: 0.5rem 1.15rem; box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);">
+            🏆 End Game &amp; Announce Winners
+          </button>
+          <button onclick="dismissPendingGameOver()" class="btn btn-sm" style="background: #ffffff; color: #78350f; border-color: #fde68a;" title="Dismiss alert and keep playing">
+            ✕ Keep Playing
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active GameOver Notice Banner -->
+    <div id="active-gameover-banner" style="display: none; background: linear-gradient(135deg, #ede9fe 0%, #f5f3ff 100%); border: 2px solid #8b5cf6; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          <div style="font-weight: 800; font-size: 1.1rem; color: #5b21b6;">
+            🏁 GAME OVER: Winner is <strong id="active-gameover-winner">-</strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #6d28d9; margin-top: 0.25rem;">
+            All player roles have been revealed to all participants on their screens.
+          </div>
+        </div>
+        <button onclick="returnToLobby()" class="btn btn-primary" style="background: #7c3aed; border-color: #6d28d9; font-weight: 700;">
+          🔄 Back to Lobby (New Game)
+        </button>
+      </div>
+    </div>
+
     <!-- Timer & Phase Controls (Mobile First Layout) -->
     <div class="card-box">
       <div class="control-grid">
@@ -983,6 +1025,11 @@ html, body {
             </button>
             <button onclick="changePhase('day_voting')" class="btn">
               🗳️ Voting
+            </button>
+          </div>
+          <div style="margin-top: 0.5rem;">
+            <button onclick="promptCustomGameOver()" class="btn" style="width: 100%; background: #7c3aed; color: #fff; border-color: #6d28d9; font-weight: 700; font-size: 0.85rem;" title="Host-controlled conclusion: Reveal all roles to players">
+              🏆 End Game (Trigger GameOver)
             </button>
           </div>
         </div>
@@ -1981,6 +2028,23 @@ html, body {
     }
   }
 
+  function triggerGameOver(customWinner) {
+    const winner = customWinner || (currentGameState && currentGameState.pending_gameover ? currentGameState.pending_gameover.winner : null);
+    sendAction("trigger_gameover", { winner });
+  }
+
+  function dismissPendingGameOver() {
+    sendAction("dismiss_pending_gameover");
+  }
+
+  function promptCustomGameOver() {
+    const pending = currentGameState && currentGameState.pending_gameover ? currentGameState.pending_gameover.winner : "town";
+    const choice = prompt("Enter winning faction or result (town, wolves, lovers, jester, serial_killer, tie):", pending);
+    if (choice) {
+      triggerGameOver(choice.trim().toLowerCase());
+    }
+  }
+
   // --- Rendering GM State ---
   function renderGMState(state) {
     currentGameState = state;
@@ -1988,6 +2052,32 @@ html, body {
     document.getElementById("phase-badge").innerText = state.phase.toUpperCase();
     document.getElementById("round-num").innerText = state.round_number;
     document.getElementById("player-count").innerText = state.players.length;
+
+    // Pending GameOver Banner & Active GameOver Banner
+    const pendingBanner = document.getElementById("pending-gameover-banner");
+    const activeGameOverBanner = document.getElementById("active-gameover-banner");
+
+    if (state.pending_gameover && state.phase !== "gameover") {
+      if (pendingBanner) {
+        pendingBanner.style.display = "block";
+        const titleEl = document.getElementById("pending-gameover-title");
+        const reasonEl = document.getElementById("pending-gameover-reason");
+        if (titleEl) titleEl.innerText = state.pending_gameover.faction_name || (state.pending_gameover.winner || "").toUpperCase();
+        if (reasonEl) reasonEl.innerText = state.pending_gameover.reason || "End condition has been reached.";
+      }
+    } else {
+      if (pendingBanner) pendingBanner.style.display = "none";
+    }
+
+    if (state.phase === "gameover") {
+      if (activeGameOverBanner) {
+        activeGameOverBanner.style.display = "block";
+        const winEl = document.getElementById("active-gameover-winner");
+        if (winEl) winEl.innerText = (state.winner || "Town").toUpperCase();
+      }
+    } else {
+      if (activeGameOverBanner) activeGameOverBanner.style.display = "none";
+    }
 
     // Toggle Lobby vs Active Game Views
     const pregameEl = document.getElementById("pregame-view");

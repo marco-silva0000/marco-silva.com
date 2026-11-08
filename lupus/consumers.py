@@ -11,6 +11,7 @@ from .game_state import (
     adjust_timer,
     cast_final_vote,
     clear_gm_night_action,
+    dismiss_pending_gameover,
     get_game,
     get_gm_view,
     get_sanitized_player_view,
@@ -47,6 +48,7 @@ from .game_state import (
     toggle_nomination_vote,
     toggle_official_nomination,
     toggle_player_silence,
+    trigger_game_over,
 )
 
 
@@ -382,6 +384,15 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                         "commit": info["commit"],
                     },
                 )
+
+            elif action == "trigger_gameover":
+                winner = content.get("winner")
+                trigger_game_over(state, winner)
+                await self.broadcast_sync()
+
+            elif action == "dismiss_pending_gameover":
+                dismiss_pending_gameover(state)
+                await self.broadcast_sync()
 
             elif action == "proceed_final_vote":
                 proceed_to_final_vote(state)
