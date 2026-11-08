@@ -7,6 +7,7 @@ from gamerooms.models import Room
 from lupus.game_state import (
     DEMO_PLAYER_NAMES,
     add_player,
+    adjust_timer,
     cast_final_vote,
     check_win_condition,
     clear_gm_night_action,
@@ -36,6 +37,7 @@ from lupus.game_state import (
     setup_demo_room,
     should_autofill_demo,
     start_game,
+    start_timer,
     start_voting_session,
     submit_night_action,
     tally_and_resolve_vote,
@@ -193,6 +195,32 @@ class TestLupusEngine:
         # Round number
         state = set_round_number(state, 4)
         assert state["round_number"] == 4
+
+    def test_adjust_timer(self):
+        state = create_initial_state("TIMERTEST", "Timer Test")
+        state["timer"]["duration"] = 300
+        state["timer"]["remaining"] = 300
+        state["timer"]["paused"] = True
+
+        # Add 60s while paused
+        adjust_timer(state, 60)
+        assert state["timer"]["remaining"] == 360
+        assert state["timer"]["duration"] == 360
+
+        # Subtract 120s while paused
+        adjust_timer(state, -120)
+        assert state["timer"]["remaining"] == 240
+
+        # Running timer test
+        start_timer(state, 180, "Discussion")
+        assert state["timer"]["paused"] is False
+        old_ends = state["timer"]["ends_at"]
+        adjust_timer(state, 60)
+        assert state["timer"]["ends_at"] == pytest.approx(old_ends + 60, abs=1)
+
+        # Subtracting more than remaining clamps to 0
+        adjust_timer(state, -500)
+        assert state["timer"]["remaining"] == 0
 
     def test_detective_inspection(self):
         state = create_initial_state("TEST3", "Det Test")

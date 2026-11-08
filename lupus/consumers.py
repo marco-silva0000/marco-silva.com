@@ -6,6 +6,7 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from .game_state import (
     add_player,
+    adjust_timer,
     cast_final_vote,
     clear_gm_night_action,
     get_game,
@@ -271,6 +272,11 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 duration = int(content.get("duration", 300))
                 label = content.get("label", "Timer")
                 start_timer(state, duration, label)
+                await self.broadcast_sync()
+
+            elif action == "adjust_timer":
+                delta = int(content.get("delta", 60))
+                adjust_timer(state, delta)
                 await self.broadcast_sync()
 
             elif action == "pause_timer":

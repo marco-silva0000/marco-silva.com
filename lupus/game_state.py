@@ -309,6 +309,35 @@ def reset_timer(state: dict[str, Any], duration: Optional[int] = None) -> dict[s
     return state
 
 
+def adjust_timer(state: dict[str, Any], delta_seconds: int) -> dict[str, Any]:
+    """Add or subtract seconds from the running or paused game timer."""
+    timer = state.setdefault(
+        "timer",
+        {
+            "duration": 300,
+            "ends_at": None,
+            "paused": True,
+            "remaining": 300,
+            "label": "Discussion",
+        },
+    )
+    now = time.time()
+    if not timer.get("paused", True) and timer.get("ends_at"):
+        cur_rem = max(0, int(timer["ends_at"] - now))
+        new_rem = max(0, cur_rem + delta_seconds)
+        timer["ends_at"] = now + new_rem
+        timer["remaining"] = new_rem
+        timer["duration"] = max(new_rem, timer.get("duration", 300) + delta_seconds)
+    else:
+        cur_rem = timer.get("remaining", timer.get("duration", 300))
+        new_rem = max(0, cur_rem + delta_seconds)
+        timer["remaining"] = new_rem
+        timer["duration"] = max(new_rem, timer.get("duration", 300) + delta_seconds)
+        timer["ends_at"] = None
+    save_game(state["code"], state)
+    return state
+
+
 # --- Role Dealing ---
 
 

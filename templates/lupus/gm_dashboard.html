@@ -949,9 +949,9 @@ html, body {
           
           <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem;">
             <button id="btn-timer-toggle" onclick="toggleTimer()" class="btn btn-primary" style="min-width: 80px;">Start</button>
-            <button onclick="resetTimer(300, '5m Discussion')" class="btn">5m</button>
-            <button onclick="resetTimer(180, '3m Discussion')" class="btn">3m</button>
-            <button onclick="resetTimer(30, '30s Defense')" class="btn btn-danger">30s Defense</button>
+            <button type="button" onclick="adjustTimer(60)" class="btn" style="font-weight: 700; min-width: 46px;" title="Add 1 minute">+1</button>
+            <button type="button" onclick="adjustTimer(-60)" class="btn" style="font-weight: 700; min-width: 46px;" title="Subtract 1 minute">-1</button>
+            <button type="button" onclick="resetTimer(30, '30s Defense')" class="btn btn-danger">30s Defense</button>
           </div>
         </div>
 
@@ -2108,6 +2108,18 @@ html, body {
 
   function resetTimer(seconds, label) {
     sendAction("start_timer", { duration: seconds, label: label });
+  }
+
+  function adjustTimer(deltaSeconds) {
+    if (currentGameState && currentGameState.timer) {
+      if (!currentGameState.timer.paused && currentGameState.timer.ends_at) {
+        currentGameState.timer.ends_at += deltaSeconds;
+      } else if (currentGameState.timer.remaining !== undefined) {
+        currentGameState.timer.remaining = Math.max(0, currentGameState.timer.remaining + deltaSeconds);
+      }
+      syncTimer(currentGameState.timer);
+    }
+    sendAction("adjust_timer", { delta: deltaSeconds });
   }
 
   // --- Seating & Role Visibility Controls ---
