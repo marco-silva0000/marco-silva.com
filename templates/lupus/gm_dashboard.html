@@ -1478,7 +1478,7 @@ html, body {
   let currentGameState = null;
   let timerInterval = null;
   let gmHideRoles = localStorage.getItem("lupus_gm_hide_roles") === "true";
-  let gmLayoutMode = localStorage.getItem("lupus_gm_layout_mode") || "list";
+  let gmLayoutMode = localStorage.getItem("lupus_gm_layout_mode") || "figure_u";
   const peekingPlayerIds = new Set();
   let manualRoleTargetPlayerId = null;
 
@@ -2137,7 +2137,7 @@ html, body {
   }
 
   // --- Physical Table Seating & Layout Controls ---
-  let gmLayoutMode = localStorage.getItem("lupus_gm_layout_mode") || "figure_u";
+  // (gmLayoutMode initialized above)
 
   function setTableLayout(mode) {
     gmLayoutMode = mode;
