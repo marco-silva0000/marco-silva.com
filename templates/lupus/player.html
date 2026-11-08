@@ -900,9 +900,13 @@ html, body {
     <div class="app-topbar-left">
       <span class="app-brand-icon">🎭</span>
       <div style="min-width: 0;">
-        <div class="app-brand-title">{{ state.title }}</div>
+        <div class="app-brand-title" style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;">
+          <span>{{ state.title }}</span>
+          <span class="badge" style="background: #1e293b; color: #94a3b8; border: 1px solid #334155; font-family: ui-monospace, monospace; font-size: 0.65rem; padding: 0.05rem 0.35rem;" title="Deployment Version">{{ app_version }}</span>
+        </div>
         <div class="app-brand-sub">
-          Room <span class="app-room-pill">{{ code }}</span> &bull; <strong>{{ state.me.name }}</strong>
+          Room <span class="app-room-pill">{{ code }}</span> &bull; <strong id="topbar-my-name">{{ state.me.name }}</strong>
+          <button type="button" onclick="promptRenameSelf()" style="background: none; border: none; padding: 0 2px; cursor: pointer; font-size: 0.72rem; color: #94a3b8;" title="Change your name">✏️</button>
           <span id="ws-status-indicator" class="ws-status-pill ws-connected" title="Connection status">● Online</span>
         </div>
       </div>
@@ -1175,7 +1179,10 @@ html, body {
           <div style="display: flex; align-items: center; gap: 0.65rem;">
             <span style="font-size: 2rem; line-height: 1;">👤</span>
             <div>
-              <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #ffffff;" id="info-player-name">{{ state.me.name }}</h3>
+              <div style="display: flex; align-items: center; gap: 0.45rem;">
+                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #ffffff;" id="info-player-name">{{ state.me.name }}</h3>
+                <button type="button" onclick="promptRenameSelf()" class="btn btn-sm" style="min-height: 22px; padding: 0.1rem 0.45rem; font-size: 0.72rem; background: #334155; border: 1px solid #475569; color: #cbd5e1;" title="Change your name">✏️ Edit</button>
+              </div>
               <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.15rem;">
                 Room <span class="app-room-pill">{{ code }}</span> · <span id="info-player-seat">Seat #{% if state.me.seat_number %}{{ state.me.seat_number }}{% else %}--{% endif %}</span>
               </div>
@@ -1249,14 +1256,25 @@ html, body {
           <button type="button" onclick="openPlayerModal('all-roles-modal')" class="btn" style="width: 100%; background: #1e293b; border: 1px solid #334155; color: #f8fafc; min-height: 44px; font-size: 0.9rem;">
             📚 All Roles Catalogue &amp; Strategy
           </button>
+          <button type="button" onclick="promptRenameSelf()" class="btn" style="width: 100%; background: #1e293b; border: 1px solid #475569; color: #f8fafc; font-size: 0.9rem; min-height: 42px;">
+            ✏️ Change My Player Name
+          </button>
           <a href="{% url 'gamerooms:room-list' %}" class="btn" style="width: 100%; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); color: #fca5a5; text-decoration: none; min-height: 44px; font-weight: 600; font-size: 0.9rem;">
             🚪 Leave Game Room
           </a>
+        </div>
+        <div style="font-size: 0.75rem; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; padding-top: 0.45rem; border-top: 1px solid #334155; margin-top: 0.45rem;">
+          <span>System Version</span>
+          <span style="font-family: ui-monospace, monospace; color: #cbd5e1;" id="p-reconnect-version">{{ app_version }}</span>
         </div>
       </div>
     </section>
 
   </div><!-- end #player-app-grid -->
+
+  <div style="text-align: center; font-size: 0.72rem; color: #64748b; padding: 1.5rem 0 5rem; font-family: ui-monospace, monospace;">
+    Lupus Party Game · <span id="p-footer-version">{{ app_version }}</span>
+  </div>
 </div><!-- end .player-container -->
 
 <!-- Fixed Native App Bottom Navigation Bar -->
@@ -1618,6 +1636,8 @@ html, body {
         const res = document.getElementById("angel-guess-result");
         res.innerText = msg.message;
         res.style.color = msg.success ? "#2e7d32" : "#c62828";
+      } else if (msg.type === "error") {
+        alert(msg.message || "An error occurred.");
       }
     };
 
@@ -1634,9 +1654,31 @@ html, body {
   connectWS();
   setAppTab(currentAppTab);
 
+  function sendPlayerAction(action, data = {}) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({ action, ...data }));
+    }
+  }
+
+  function promptRenameSelf() {
+    if (!currentGameState || !currentGameState.me) return;
+    const current = currentGameState.me.name;
+    const newName = prompt("Enter your new player name:", current);
+    if (newName && newName.trim() && newName.trim() !== current) {
+      sendPlayerAction("rename_player", { player_id: currentGameState.me.id, name: newName.trim() });
+    }
+  }
+
   // --- Render State ---
   function renderPlayerState(state) {
     currentGameState = state;
+
+    if (state.app_version) {
+      const v1 = document.getElementById("p-reconnect-version");
+      if (v1) v1.innerText = state.app_version;
+      const v2 = document.getElementById("p-footer-version");
+      if (v2) v2.innerText = state.app_version;
+    }
 
     // GM Broadcast Announcement
     const bcBox = document.getElementById("gm-announcement-box");
@@ -1698,6 +1740,8 @@ html, body {
       if (myStatusBadge) myStatusBadge.innerHTML = `<span class="badge badge-${me.status}">${me.status}</span>`;
       const infoName = document.getElementById("info-player-name");
       if (infoName) infoName.innerText = me.name;
+      const topName = document.getElementById("topbar-my-name");
+      if (topName) topName.innerText = me.name;
       const infoSeat = document.getElementById("info-player-seat");
       if (infoSeat) {
         infoSeat.innerText = me.seat_number ? `Seat #${me.seat_number}` : "Seat --";
@@ -1859,6 +1903,7 @@ html, body {
       const item = document.createElement("div");
       item.className = "player-item";
       const meTag = p.is_me ? " <strong style='color:#38bdf8;'>(You)</strong>" : "";
+      const meRenameBtn = p.is_me ? ` <button onclick="promptRenameSelf()" style="background:none; border:none; padding:0 2px; cursor:pointer; font-size:0.75rem; color:#94a3b8;" title="Rename yourself">✏️</button>` : "";
       const silencedTag = p.is_silenced ? " 🤐" : "";
       const loverTag = p.is_lover ? " 💘" : "";
       const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#94a3b8; background:#0f172a; border:1px solid #334155; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
@@ -1866,7 +1911,7 @@ html, body {
       item.innerHTML = `
         <div style="font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap;">
           ${seatBadge}
-          <span>${escapeHtml(p.name)}${meTag}${silencedTag}${loverTag}</span>
+          <span>${escapeHtml(p.name)}${meTag}${meRenameBtn}${silencedTag}${loverTag}</span>
         </div>
         <span class="badge badge-${p.status}">${p.status.toUpperCase()}</span>
       `;

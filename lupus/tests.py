@@ -26,6 +26,8 @@ from lupus.game_state import (
     proceed_to_final_vote,
     record_gm_final_vote_tally,
     record_gm_night_action,
+    remove_player,
+    rename_player,
     reorder_players,
     resolve_night,
     return_to_lobby,
@@ -262,6 +264,55 @@ class TestLupusEngine:
         assert state["voting"]["defense_player_id"] is None
         assert p2["id"] in state["voting"]["nominated_player_ids"]
         assert state["timer"]["label"] == "Nominations"
+
+    def test_rename_player(self):
+        state = create_initial_state("RENAMETEST", "Rename Test")
+        state, p1 = add_player(state, "Alice")
+        state, p2 = add_player(state, "Bob")
+
+        # 1. Successful rename
+        ok, msg = rename_player(state, p1["id"], "Alicia")
+        assert ok is True
+        assert state["players"][p1["id"]]["name"] == "Alicia"
+        assert any("Alicia" in event["message"] for event in state["events_log"])
+
+        # 2. Duplicate name rejected (case-insensitive)
+        ok, msg = rename_player(state, p1["id"], "bob")
+        assert ok is False
+        assert "already taken" in msg.lower()
+        assert state["players"][p1["id"]]["name"] == "Alicia"
+
+        # 3. Empty or whitespace-only name rejected
+        ok, msg = rename_player(state, p1["id"], "   ")
+        assert ok is False
+        assert "cannot be empty" in msg.lower()
+
+        # 4. Nonexistent player returns False
+        ok, msg = rename_player(state, "nonexistent_pid", "Ghost")
+        assert ok is False
+        assert "not found" in msg.lower()
+
+        # 5. Long name truncated to 24 chars cleanly
+        ok, msg = rename_player(state, p1["id"], "A" * 50)
+        assert ok is True
+        assert len(state["players"][p1["id"]]["name"]) == 24
+
+    def test_version_counter_and_commit_hash(self):
+        from website.version import get_commit_count, get_git_commit_hash, get_version_info
+
+        info = get_version_info()
+        assert "version" in info
+        assert "commit" in info
+        assert "display" in info
+        assert info["version"].startswith("v")
+        assert len(info["commit"]) >= 7
+        assert f"{info['version']} ({info['commit']})" == info["display"]
+
+        # Check raw functions
+        hash_val = get_git_commit_hash()
+        assert len(hash_val) >= 7
+        count_val = get_commit_count()
+        assert count_val > 0
 
     def test_detective_inspection(self):
         state = create_initial_state("TEST3", "Det Test")

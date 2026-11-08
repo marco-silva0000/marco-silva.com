@@ -657,6 +657,7 @@ html, body {
         <span>🐺 {{ state.title }}</span>
         <span style="font-size: 0.85rem; background: #eee; padding: 0.2rem 0.55rem; border-radius: 4px; font-weight: 700; font-family: monospace;">{{ code }}</span>
         <span style="font-size: 0.75rem; color: #666;">({{ state.theme|title }} Theme)</span>
+        <span class="badge" style="background: #1e293b; color: #94a3b8; border: 1px solid #334155; font-family: ui-monospace, monospace; font-size: 0.72rem; padding: 0.15rem 0.5rem;" title="Deployment Version">{{ app_version }}</span>
       </h1>
     </div>
     <div class="top-bar-buttons" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
@@ -1324,6 +1325,11 @@ html, body {
       {% endfor %}
     </div>
   </div>
+
+  <!-- Footer Version Counter -->
+  <div style="text-align: center; font-size: 0.75rem; color: #64748b; margin-top: 2rem; padding: 1rem 0; border-top: 1px solid #e2e8f0; font-family: ui-monospace, monospace;">
+    Lupus in Tabula · Game Master Cockpit · <span id="gm-version-counter">{{ app_version }}</span>
+  </div>
 </div>
 
 <!-- Modal: Room QR Code -->
@@ -1363,6 +1369,9 @@ html, body {
     </div>
     <div id="seat-modal-info" style="font-size: 0.85rem; color: #475569; margin-bottom: 0.75rem;"></div>
     <div style="display: flex; flex-direction: column; gap: 0.45rem;">
+      <button id="btn-seat-rename" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
+        ✏️ Rename Player
+      </button>
       <button id="btn-seat-toggle-silence" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
         🤐 Silence / Unsilence Player
       </button>
@@ -1941,6 +1950,11 @@ html, body {
     // Timer Sync
     syncTimer(state.timer);
 
+    if (state.app_version) {
+      const verEl = document.getElementById("gm-version-counter");
+      if (verEl) verEl.innerText = state.app_version;
+    }
+
     // Night Stage Director & Dawn Report
     renderNightDirector(state);
     renderVotingDirector(state);
@@ -1975,6 +1989,7 @@ html, body {
         if (state.phase === 'lobby') {
           statusBadge = `<span class="badge" style="background:#e0f2fe; color:#0369a1;">In Lobby</span>`;
           actionsHtml = `
+            <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
             <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
             <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm btn-danger" style="margin-left: auto;">&times; Kick</button>
           `;
@@ -1988,6 +2003,7 @@ html, body {
               <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead immediately">☠️ Kill</button>
               <button onclick="setPlayerStatusDirect('${p.id}', 'limbo')" class="btn btn-sm" style="background:#fffbeb; color:#b45309; border-color:#fde047;" title="Send to Limbo">🌫️ Limbo</button>
               ${silenceBtn}
+              <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
               <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
@@ -2002,6 +2018,7 @@ html, body {
               <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
               <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead">☠️ Kill</button>
               ${silenceBtn}
+              <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
               <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
@@ -2010,6 +2027,7 @@ html, body {
             statusBadge = `<span class="badge badge-dead">DEAD</span>`;
             actionsHtml = `
               <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
+              <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
               <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
@@ -2054,6 +2072,7 @@ html, body {
             <div style="display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap;">
               <span class="seat-badge">🪑 #${p.seat_number || (idx + 1)}</span>
               <strong style="font-size: 0.98rem; color: #0f172a;">${escapeHtml(p.name)}</strong>
+              <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="min-height: 20px; padding: 0.05rem 0.35rem; font-size: 0.72rem; color: #64748b; border: 1px solid #cbd5e1;" title="Rename player">✏️</button>
               ${offlineBadge}
             </div>
             <div style="display: flex; align-items: center; gap: 0.35rem;">
@@ -2345,6 +2364,13 @@ html, body {
       <strong>Status:</strong> ${p.status.toUpperCase()}<br>
       <strong>Role:</strong> ${roleText}
     `;
+    const renameBtnEl = document.getElementById("btn-seat-rename");
+    if (renameBtnEl) {
+      renameBtnEl.onclick = () => {
+        closeModal('player-seat-modal');
+        promptRenamePlayer(p.id, p.name);
+      };
+    }
     const silenceBtnEl = document.getElementById("btn-seat-toggle-silence");
     if (silenceBtnEl) {
       silenceBtnEl.innerHTML = p.is_silenced
@@ -2907,6 +2933,13 @@ html, body {
 
   function togglePlayerSilence(playerId) {
     sendAction("toggle_silence", { player_id: playerId });
+  }
+
+  function promptRenamePlayer(playerId, currentName) {
+    const newName = prompt(`Enter new player name for "${currentName}":`, currentName);
+    if (newName && newName.trim() && newName.trim() !== currentName) {
+      sendAction("rename_player", { player_id: playerId, name: newName.trim() });
+    }
   }
 
   function changeVotingSystem(sys) {

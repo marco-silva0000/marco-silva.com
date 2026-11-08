@@ -20,6 +20,7 @@ from .game_state import (
     record_gm_final_vote_tally,
     record_gm_night_action,
     remove_player,
+    rename_player,
     reorder_players,
     reset_timer,
     reset_voting,
@@ -339,6 +340,17 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 if pid:
                     toggle_player_silence(state, pid)
                     await self.broadcast_sync()
+
+            elif action == "rename_player":
+                pid = content.get("player_id")
+                new_name = content.get("name")
+                if self.is_gm or (self.player_id and self.player_id == pid):
+                    if pid and new_name:
+                        ok, msg = rename_player(state, pid, new_name)
+                        if ok:
+                            await self.broadcast_sync()
+                        else:
+                            await self.send_json({"type": "error", "message": msg})
 
             elif action == "proceed_final_vote":
                 proceed_to_final_vote(state)

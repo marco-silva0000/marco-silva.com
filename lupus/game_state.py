@@ -15,6 +15,7 @@ from .roles import (
     get_all_roles_catalogue,
     get_role_info,
 )
+from website.version import get_version_info
 
 _redis_client = None
 
@@ -510,6 +511,30 @@ def toggle_player_silence(state: dict[str, Any], player_id: str) -> tuple[bool, 
     log_event(state, f"{emoji} {player['name']} was {status_str} by the Game Master.")
     save_game(state["code"], state)
     return True, f"Player {player['name']} {status_str}."
+
+
+def rename_player(state: dict[str, Any], player_id: str, new_name: str) -> tuple[bool, str]:
+    """Rename an existing player in the room state."""
+    new_name = (new_name or "").strip()
+    if not new_name:
+        return False, "Player name cannot be empty."
+    if len(new_name) > 24:
+        new_name = new_name[:24]
+
+    players = state.get("players", {})
+    if player_id not in players:
+        return False, "Player not found."
+
+    # Validate that no other player currently has this name (case-insensitive)
+    for pid, p in players.items():
+        if pid != player_id and p["name"].strip().lower() == new_name.lower():
+            return False, f"Name '{new_name}' is already taken by another player."
+
+    old_name = players[player_id]["name"]
+    players[player_id]["name"] = new_name
+    log_event(state, f"✏️ {old_name} was renamed to {new_name}.")
+    save_game(state["code"], state)
+    return True, f"Renamed to {new_name}."
 
 
 def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id: str) -> tuple[bool, str]:
@@ -1771,6 +1796,8 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
             "limbo_enabled": state["settings"].get("limbo_enabled", True),
             "voting_system": state["settings"].get("voting_system", "two_stage_50pct"),
         },
+        "app_version": get_version_info()["display"],
+        "commit_hash": get_version_info()["commit"],
     }
 
 
@@ -1830,4 +1857,6 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "witch_used_revive": state.get("witch_used_revive", False),
         "witch_used_kill": state.get("witch_used_kill", False),
         "mayor_used_veto": state.get("mayor_used_veto", False),
+        "app_version": get_version_info()["display"],
+        "commit_hash": get_version_info()["commit"],
     }
