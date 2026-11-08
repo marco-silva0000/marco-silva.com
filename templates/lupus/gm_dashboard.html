@@ -664,6 +664,7 @@ html, body {
       <button onclick="openModal('roles-guide-modal')" class="btn" style="background: #f1f5f9;" title="View all roles reference & rules">📚 Roles Guide</button>
       <button onclick="openModal('room-qr-modal')" class="btn">📱 Room QR</button>
       <button id="btn-copy-link" onclick="copyJoinLink(this)" class="btn">🔗 Copy Link</button>
+      <button onclick="forceRefreshAllClients()" class="btn" style="background: #fdf2f8; color: #be185d; border-color: #fbcfe8; font-weight: 600;" title="Force all connected devices (players and GM) to reload and fetch the latest website version">🔄 Sync All Screens</button>
       <a href="{% url 'gamerooms:room-list' %}" class="btn" style="text-decoration: none; color: #475569;" title="Exit to Games">🚪 Games</a>
     </div>
   </div>
@@ -1492,6 +1493,8 @@ html, body {
   const ROOM_CODE = "{{ code }}";
   const GM_TOKEN = "{{ gm_token|default:state.gm_token }}";
   const JOIN_URL = "{{ join_url }}";
+  const CLIENT_COMMIT = "{{ commit_hash }}";
+  const CLIENT_VERSION = "{{ app_version }}";
   let currentGameState = null;
   let timerInterval = null;
   let gmHideRoles = localStorage.getItem("lupus_gm_hide_roles") !== "false";
@@ -1584,6 +1587,10 @@ html, body {
       const msg = JSON.parse(e.data);
       if (msg.type === "gm_state") {
         renderGMState(msg.data);
+      } else if (msg.type === "force_refresh") {
+        triggerForceReload(msg.message);
+      } else if (msg.type === "error") {
+        alert(msg.message || "An error occurred.");
       }
     };
 
@@ -1593,6 +1600,43 @@ html, body {
     };
   }
   connectWS();
+
+  function triggerForceReload(reason) {
+    if (document.getElementById("force-reload-overlay")) return;
+    const banner = document.createElement("div");
+    banner.id = "force-reload-overlay";
+    banner.style.cssText = "position:fixed;inset:0;background:rgba(15,23,42,0.96);z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:1.5rem;font-family:system-ui,-apple-system,sans-serif;";
+    banner.innerHTML = `
+      <div style="font-size:3.5rem;margin-bottom:0.75rem;animation:pulse 1s infinite alternate;">🔄</div>
+      <h2 style="margin:0 0 0.5rem;font-size:1.35rem;color:#38bdf8;font-weight:800;">Updating Game Version</h2>
+      <p style="margin:0 0 1rem;font-size:0.95rem;color:#94a3b8;max-width:380px;line-height:1.5;">${escapeHtml(reason || "A new version of the website is ready. Synchronizing...")}</p>
+      <div style="font-size:0.8rem;color:#64748b;font-family:monospace;">Reloading fresh assets in 1 second...</div>
+      <style>@keyframes pulse { from { transform: scale(0.95); opacity: 0.8; } to { transform: scale(1.05); opacity: 1; } }</style>
+    `;
+    document.body.appendChild(banner);
+    setTimeout(() => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("_v", Date.now());
+      window.location.replace(url.toString());
+    }, 1200);
+  }
+
+  function checkVersionUpdate(state) {
+    if (!state || !state.commit_hash || !CLIENT_COMMIT) return;
+    if (CLIENT_COMMIT !== "unknown" && state.commit_hash !== CLIENT_COMMIT) {
+      const alreadyReloaded = sessionStorage.getItem("lupus_reloaded_commit");
+      if (alreadyReloaded !== state.commit_hash) {
+        sessionStorage.setItem("lupus_reloaded_commit", state.commit_hash);
+        triggerForceReload(`New version detected on server: ${state.app_version || state.commit_hash}`);
+      }
+    }
+  }
+
+  function forceRefreshAllClients() {
+    if (confirm("Force all connected devices and players to reload and fetch the latest website version?")) {
+      sendAction("force_refresh_clients", { target: "all" });
+    }
+  }
 
   function sendAction(action, payload = {}) {
     if (socket && socket.readyState === WebSocket.OPEN) {
@@ -1922,6 +1966,7 @@ html, body {
   // --- Rendering GM State ---
   function renderGMState(state) {
     currentGameState = state;
+    checkVersionUpdate(state);
     document.getElementById("phase-badge").innerText = state.phase.toUpperCase();
     document.getElementById("round-num").innerText = state.round_number;
     document.getElementById("player-count").innerText = state.players.length;

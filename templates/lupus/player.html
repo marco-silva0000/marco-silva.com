@@ -1259,6 +1259,9 @@ html, body {
           <button type="button" onclick="promptRenameSelf()" class="btn" style="width: 100%; background: #1e293b; border: 1px solid #475569; color: #f8fafc; font-size: 0.9rem; min-height: 42px;">
             ✏️ Change My Player Name
           </button>
+          <button type="button" onclick="triggerForceReload('Refreshing game to latest version...')" class="btn" style="width: 100%; background: #1e293b; border: 1px solid #334155; color: #cbd5e1; font-size: 0.85rem; min-height: 40px;">
+            🔄 Reload &amp; Sync Latest Version
+          </button>
           <a href="{% url 'gamerooms:room-list' %}" class="btn" style="width: 100%; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); color: #fca5a5; text-decoration: none; min-height: 44px; font-weight: 600; font-size: 0.9rem;">
             🚪 Leave Game Room
           </a>
@@ -1390,6 +1393,8 @@ html, body {
   const ROOM_CODE = "{{ code }}";
   const MY_TOKEN = "{{ player.token }}";
   const MY_PID = "{{ player.id }}";
+  const CLIENT_COMMIT = "{{ commit_hash }}";
+  const CLIENT_VERSION = "{{ app_version }}";
   localStorage.setItem(`lupus_token_${ROOM_CODE}`, MY_TOKEN);
   localStorage.setItem(`lupus_pid_${ROOM_CODE}`, MY_PID);
 
@@ -1612,6 +1617,8 @@ html, body {
       const msg = JSON.parse(e.data);
       if (msg.type === "player_state") {
         renderPlayerState(msg.data);
+      } else if (msg.type === "force_refresh") {
+        triggerForceReload(msg.message);
       } else if (msg.type === "player_kicked") {
         localStorage.removeItem(`lupus_token_${ROOM_CODE}`);
         localStorage.removeItem(`lupus_pid_${ROOM_CODE}`);
@@ -1669,9 +1676,41 @@ html, body {
     }
   }
 
+  function triggerForceReload(reason) {
+    if (document.getElementById("force-reload-overlay")) return;
+    const banner = document.createElement("div");
+    banner.id = "force-reload-overlay";
+    banner.style.cssText = "position:fixed;inset:0;background:rgba(15,23,42,0.96);z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:1.5rem;font-family:system-ui,-apple-system,sans-serif;";
+    banner.innerHTML = `
+      <div style="font-size:3.5rem;margin-bottom:0.75rem;animation:pulse 1s infinite alternate;">🔄</div>
+      <h2 style="margin:0 0 0.5rem;font-size:1.35rem;color:#38bdf8;font-weight:800;">Updating Game Version</h2>
+      <p style="margin:0 0 1rem;font-size:0.95rem;color:#94a3b8;max-width:380px;line-height:1.5;">${escapeHtml(reason || "A new version of the website is ready. Synchronizing...")}</p>
+      <div style="font-size:0.8rem;color:#64748b;font-family:monospace;">Reloading fresh assets in 1 second...</div>
+      <style>@keyframes pulse { from { transform: scale(0.95); opacity: 0.8; } to { transform: scale(1.05); opacity: 1; } }</style>
+    `;
+    document.body.appendChild(banner);
+    setTimeout(() => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("_v", Date.now());
+      window.location.replace(url.toString());
+    }, 1200);
+  }
+
+  function checkVersionUpdate(state) {
+    if (!state || !state.commit_hash || !CLIENT_COMMIT) return;
+    if (CLIENT_COMMIT !== "unknown" && state.commit_hash !== CLIENT_COMMIT) {
+      const alreadyReloaded = sessionStorage.getItem("lupus_reloaded_commit");
+      if (alreadyReloaded !== state.commit_hash) {
+        sessionStorage.setItem("lupus_reloaded_commit", state.commit_hash);
+        triggerForceReload(`New version detected on server: ${state.app_version || state.commit_hash}`);
+      }
+    }
+  }
+
   // --- Render State ---
   function renderPlayerState(state) {
     currentGameState = state;
+    checkVersionUpdate(state);
 
     if (state.app_version) {
       const v1 = document.getElementById("p-reconnect-version");

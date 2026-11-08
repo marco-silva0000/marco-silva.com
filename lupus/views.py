@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views.decorators.cache import never_cache
 
 from gamerooms.models import Room
 
@@ -21,6 +22,7 @@ from .qr import generate_qr_data_uri
 from .roles import DEFAULT_PRESETS, ROLE_REGISTRY, get_all_roles_catalogue
 
 
+@never_cache
 def create_room(request):
     """Create a new Lupus game room and initialize the GM dashboard."""
     if request.method == "POST":
@@ -88,6 +90,7 @@ def create_room(request):
     )
 
 
+@never_cache
 def gm_dashboard(request, code):
     """Cockpit for the Game Master."""
     code = code.upper()
@@ -137,6 +140,7 @@ def gm_dashboard(request, code):
     )
 
 
+@never_cache
 def room_join(request, code):
     """Player join screen. Automatically validates password from QR code query param."""
     code = code.upper()
@@ -216,6 +220,7 @@ def room_join(request, code):
     )
 
 
+@never_cache
 def player_view(request, code):
     """Player's responsive personal card and action interface."""
     code = code.upper()
@@ -253,6 +258,7 @@ def player_view(request, code):
     )
 
 
+@never_cache
 def player_reconnect(request, code, token):
     """Direct URL or scanned QR code for a player to seamlessly reconnect."""
     code = code.upper()
@@ -279,6 +285,7 @@ def player_reconnect(request, code, token):
     return redirect(f"{play_url}?token={token}&pid={matched_player['id']}")
 
 
+@never_cache
 def player_qr(request, code, token):
     """Generate a QR code image for a player's secret reconnect URL."""
     code = code.upper()

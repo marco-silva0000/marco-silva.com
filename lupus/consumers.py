@@ -4,6 +4,8 @@ from typing import Any, Optional
 
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
+from website.version import get_version_info
+
 from .game_state import (
     add_player,
     adjust_timer,
@@ -104,6 +106,20 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             {
                 "type": "player_kicked",
                 "message": event.get("message", "You were removed from this room by the Game Master."),
+            }
+        )
+
+    async def room_force_refresh(self, event):
+        """Instruct connected client to refresh and fetch fresh website assets."""
+        target = event.get("target", "all")
+        if target == "players" and self.is_gm:
+            return
+        await self.send_json(
+            {
+                "type": "force_refresh",
+                "message": event.get("message", "A new version of the website is ready. Updating..."),
+                "version": event.get("version"),
+                "commit": event.get("commit"),
             }
         )
 
@@ -351,6 +367,21 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                             await self.broadcast_sync()
                         else:
                             await self.send_json({"type": "error", "message": msg})
+
+            elif action == "force_refresh_clients":
+                target = content.get("target", "all")
+                msg = content.get("message", "Host synchronized all connected screens to the latest website version.")
+                info = get_version_info()
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        "type": "room.force.refresh",
+                        "target": target,
+                        "message": msg,
+                        "version": info["display"],
+                        "commit": info["commit"],
+                    },
+                )
 
             elif action == "proceed_final_vote":
                 proceed_to_final_vote(state)

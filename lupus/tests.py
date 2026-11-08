@@ -314,6 +314,43 @@ class TestLupusEngine:
         count_val = get_commit_count()
         assert count_val > 0
 
+    def test_never_cache_headers(self):
+        from django.views.decorators.cache import never_cache
+        from django.http import HttpResponse
+
+        @never_cache
+        def dummy_view(request):
+            return HttpResponse("ok")
+
+        from django.test import RequestFactory
+        res = dummy_view(RequestFactory().get("/"))
+        cache_hdr = res.headers.get("Cache-Control", "")
+        assert "no-cache" in cache_hdr
+        assert "no-store" in cache_hdr
+
+    def test_room_force_refresh_consumer(self):
+        import asyncio
+        from lupus.consumers import LupusConsumer
+
+        consumer = LupusConsumer()
+        sent = []
+
+        async def fake_send_json(data):
+            sent.append(data)
+
+        consumer.send_json = fake_send_json
+        consumer.is_gm = False
+        asyncio.run(consumer.room_force_refresh({"type": "room.force.refresh", "target": "all", "message": "Host refreshed."}))
+        assert len(sent) == 1
+        assert sent[0]["type"] == "force_refresh"
+        assert sent[0]["message"] == "Host refreshed."
+
+        # Target players only skips GM
+        consumer.is_gm = True
+        sent.clear()
+        asyncio.run(consumer.room_force_refresh({"type": "room.force.refresh", "target": "players", "message": "Host refreshed."}))
+        assert len(sent) == 0
+
     def test_detective_inspection(self):
         state = create_initial_state("TEST3", "Det Test")
         state, p_det = add_player(state, "Sherlock")
