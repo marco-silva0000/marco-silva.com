@@ -10,6 +10,7 @@ from typing import Any, Optional
 import redis
 
 from .roles import (
+    FACTION_TOWN,
     FACTION_WOLVES,
     ROLE_REGISTRY,
     get_all_roles_catalogue,
@@ -373,6 +374,21 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         state["players"][pid]["is_silenced"] = False
         state["players"][pid]["lover_id"] = None
 
+    # Automatically bind lovers if players were dealt the citizen lover role
+    lover_pids = [pid for pid in player_ids if state["players"][pid]["role"] == "lover"]
+    if len(lover_pids) % 2 != 0:
+        lonely_pid = lover_pids.pop()
+        state["players"][lonely_pid]["role"] = "villager"
+        state["players"][lonely_pid]["faction"] = FACTION_TOWN
+
+    for i in range(0, len(lover_pids), 2):
+        p1_id, p2_id = lover_pids[i], lover_pids[i + 1]
+        state["players"][p1_id]["lover_id"] = p2_id
+        state["players"][p2_id]["lover_id"] = p1_id
+        p1_name = state["players"][p1_id]["name"]
+        p2_name = state["players"][p2_id]["name"]
+        log_event(state, f"💘 Secret bond formed! Two Citizens ({p1_name} and {p2_name}) are bound as Lovers!")
+
     state["deck"] = deck
     log_event(state, f"Distributed {len(deck)} roles to players.")
     save_game(state["code"], state)
@@ -467,8 +483,29 @@ def set_broadcast_message(state: dict[str, Any], message: str) -> dict[str, Any]
 def set_manual_player_role(state: dict[str, Any], player_id: str, role_id: str) -> dict[str, Any]:
     if player_id in state["players"]:
         role_info = ROLE_REGISTRY.get(role_id, ROLE_REGISTRY["villager"])
+        old_role = state["players"][player_id].get("role")
         state["players"][player_id]["role"] = role_id
         state["players"][player_id]["faction"] = role_info["faction"]
+
+        # If unassigning lover, unlink partner
+        if old_role == "lover" and role_id != "lover":
+            old_partner_id = state["players"][player_id].get("lover_id")
+            if old_partner_id and old_partner_id in state["players"]:
+                state["players"][old_partner_id]["lover_id"] = None
+            state["players"][player_id]["lover_id"] = None
+
+        # If assigning lover, check if there is an unpartnered lover to bind with
+        if role_id == "lover":
+            unpartnered = [
+                p for p in state["players"].values()
+                if p.get("role") == "lover" and not p.get("lover_id")
+            ]
+            if len(unpartnered) >= 2:
+                p1, p2 = unpartnered[0], unpartnered[1]
+                p1["lover_id"] = p2["id"]
+                p2["lover_id"] = p1["id"]
+                log_event(state, f"💘 Secret bond formed! Two Citizens ({p1['name']} and {p2['name']}) are bound as Lovers!")
+
         save_game(state["code"], state)
     return state
 
@@ -607,6 +644,25 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             for idx, p in enumerate(ordered)
             if p.get("role") == r_id
         ]
+
+    # 0. Citizen Lovers (Night 1 only, if Lovers in game)
+    if round_num <= 1 and is_role_in_game("lover"):
+        lover_actors = get_role_actors("lover")
+        is_alive = any(a["is_alive"] for a in lover_actors)
+        lover_names = [a["name"] for a in lover_actors]
+        stages.append(
+            {
+                "id": "lovers_meet",
+                "title": "💘 Lovers Awaken",
+                "role_id": "lover",
+                "actors": lover_actors,
+                "is_alive": is_alive,
+                "script": "Lovers, open your eyes, discreetly make eye contact with your partner, and close your eyes.",
+                "target_ids": [a["id"] for a in lover_actors],
+                "target_names": lover_names,
+                "is_complete": True,
+            }
+        )
 
     # 1. Cupid (Night 1 only, if Cupid in game)
     if round_num <= 1 and is_role_in_game("cupid"):
@@ -1288,6 +1344,11 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             state["players"][lynched_id]["status"] = "alive"
             state["mayor_used_veto"] = True
             report.append(f"📜 The Mayor exercised official veto! {p_name} was pardoned and returned alive!")
+            lover_id = state["players"][lynched_id].get("lover_id")
+            if lover_id and lover_id in state["players"]:
+                lover = state["players"][lover_id]
+                lover["status"] = "alive"
+                report.append(f"❤️ {lover['name']} was revived as their lover was pardoned!")
 
     # 8. Apply casualties (handling Limbo)
     limbo_on = state["settings"].get("limbo_enabled", True)
@@ -1648,6 +1709,12 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
     limbo_on = state.get("settings", {}).get("limbo_enabled", True)
     has_angel = any(p["role"] == "angel" and p["status"] != "dead" for p in players.values())
 
+    lover_id = victim.get("lover_id")
+    lover_broken_heart_msg = ""
+    if lover_id and lover_id in players and players[lover_id]["status"] == "alive":
+        lover = players[lover_id]
+        lover_broken_heart_msg = f" 💔 {lover['name']} died of a broken heart following their lover {victim['name']}!"
+
     if limbo_on and has_angel and not victim["used_limbo"]:
         set_player_status(state, victim_id, "limbo")
         voting["elimination_result"] = "limbo"
@@ -1655,7 +1722,7 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
     else:
         set_player_status(state, victim_id, "dead")
         voting["elimination_result"] = "dead"
-        msg = f"🪦 {victim['name']} received {max_votes} votes and was executed by town vote!"
+        msg = f"🪦 {victim['name']} received {max_votes} votes and was executed by town vote!{lover_broken_heart_msg}"
 
     voting["stage"] = "completed"
     log_event(state, msg)

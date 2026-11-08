@@ -449,6 +449,79 @@ class TestLupusEngine:
         assert state["players"][p1["id"]]["status"] == "dead"
         assert state["players"][p2["id"]]["status"] == "dead"
 
+    def test_citizen_lovers_role_mechanics(self):
+        # 1. Role definition verification
+        from lupus.roles import FACTION_TOWN, ROLE_REGISTRY
+        assert "lover" in ROLE_REGISTRY
+        lover_def = ROLE_REGISTRY["lover"]
+        assert lover_def["faction"] == FACTION_TOWN
+        assert lover_def["night_action"] is None
+
+        # 2. Dealing roles with 2 lovers binds them automatically
+        state = create_initial_state("LOVETEST", "Lovers Test")
+        state, p1 = add_player(state, "Romeo")
+        state, p2 = add_player(state, "Juliet")
+        state, p3 = add_player(state, "Wolfie")
+        state, p4 = add_player(state, "Sherlock")
+
+        # Deal with exactly 2 lovers
+        deck = ["lover", "lover", "werewolf", "detective"]
+        deal_roles(state, deck)
+
+        # Both players who received lover must be bound
+        lovers = [p for p in state["players"].values() if p["role"] == "lover"]
+        assert len(lovers) == 2
+        l1, l2 = lovers[0], lovers[1]
+        assert l1["faction"] == FACTION_TOWN
+        assert l2["faction"] == FACTION_TOWN
+        assert l1["lover_id"] == l2["id"]
+        assert l2["lover_id"] == l1["id"]
+
+        # 3. Private perspective: each lover knows their partner from turn 1
+        pv1 = get_sanitized_player_view(state, l1["id"])
+        assert pv1["me"]["lover_name"] == l2["name"]
+        assert pv1["me"]["role"]["id"] == "lover"
+        # Table shows lover indicator only for the partner
+        l2_in_view = next(p for p in pv1["players"] if p["id"] == l2["id"])
+        assert l2_in_view["is_lover"] is True
+
+        # Non-lover perspective: wolf does NOT see lover bond
+        wolf_p = next(p for p in state["players"].values() if p["role"] == "werewolf")
+        wolf_pv = get_sanitized_player_view(state, wolf_p["id"])
+        assert wolf_pv["me"]["lover_name"] is None
+        assert not any(p["is_lover"] for p in wolf_pv["players"])
+
+        # 4. Night 1 stage director has Lovers Awaken step
+        stages = get_night_stages(state)
+        stage_ids = [s["id"] for s in stages]
+        assert "lovers_meet" in stage_ids
+
+        # 5. Wolves 2-for-1 kill: wolves attack one lover at night
+        submit_night_action(state, wolf_p["id"], "kill", l1["id"])
+        state = resolve_night(state)
+        assert state["players"][l1["id"]]["status"] == "dead"
+        assert state["players"][l2["id"]]["status"] == "dead"
+        # Night report contains both casualties
+        assert f"🪦 {l1['name']} was slain in the night." in state["night_report"]
+        assert f"🪦 {l2['name']} was slain in the night." in state["night_report"]
+
+    def test_solitary_lover_conversion_on_odd_deck(self):
+        state = create_initial_state("ODDTEST", "Odd Lovers Test")
+        state, p1 = add_player(state, "Lover1")
+        state, p2 = add_player(state, "Wolfie")
+        state, p3 = add_player(state, "Doc")
+
+        # 1 lover in deck (odd count)
+        deck = ["lover", "werewolf", "doctor"]
+        deal_roles(state, deck)
+
+        # Unpaired lover reverts to plain citizen
+        lovers = [p for p in state["players"].values() if p["role"] == "lover"]
+        assert len(lovers) == 0
+        p1_state = state["players"][p1["id"]]
+        assert p1_state["role"] in ("villager", "werewolf", "doctor")
+        assert p1_state["lover_id"] is None
+
     def test_sanitized_player_view_privacy(self):
         state = create_initial_state("TEST8", "Privacy Test")
         state, p_villager = add_player(state, "VillagerJoe")

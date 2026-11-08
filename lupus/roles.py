@@ -211,6 +211,23 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
             "pro_tip": "Use poison when you are confident someone is an evil wolf who avoided day execution.",
         },
     },
+    "lover": {
+        "id": "lover",
+        "faction": FACTION_TOWN,
+        "emoji": "💘",
+        "names": {"werewolf": "Lover", "mafia": "Lover"},
+        "descriptions": {
+            "werewolf": "An innocent Citizen bound in love to another Citizen. You know each other's identity from the start and form a voting block, but if one dies, both perish!",
+            "mafia": "An innocent Civilian bound in love to another Civilian. You know each other's identity from the start and form a voting block, but if one dies, both perish!",
+        },
+        "night_action": None,
+        "guide": {
+            "objective": "Town / Citizen: Eliminate all evil! Form a reliable 2-vote block with your lover to sway daytime trials.",
+            "day_tips": "Coordinate votes with your lover. Keep your connection discreet so wolves don't target you for a 2-for-1 kill!",
+            "night_tips": "Sleep safely. You have no night powers, but pray you both survive the night.",
+            "pro_tip": "You can 100% trust your lover as a fellow innocent Citizen. Protect each other's secrets!",
+        },
+    },
     "cupid": {
         "id": "cupid",
         "faction": FACTION_NEUTRAL,
