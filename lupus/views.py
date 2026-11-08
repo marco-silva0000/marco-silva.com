@@ -48,6 +48,7 @@ def create_room(request):
             "doctor_saves_from_sniper": save_from_sniper,
             "sniper_bullet_type": sniper_bullet,
             "limbo_enabled": limbo_on,
+            "reveal_roles_on_death": request.POST.get("reveal_roles_on_death") == "1",
         }
 
         gm_name = request.POST.get("gm_name", "Game Master").strip() or "Game Master"

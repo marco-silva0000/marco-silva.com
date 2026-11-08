@@ -293,17 +293,41 @@ class TestLupusEngine:
     def test_sanitized_player_view_privacy(self):
         state = create_initial_state("TEST8", "Privacy Test")
         state, p_villager = add_player(state, "VillagerJoe")
+        state, p_bob = add_player(state, "VillagerBob")
+        state, p_charlie = add_player(state, "VillagerCharlie")
         state, p_wolf = add_player(state, "SecretWolf")
 
         set_manual_player_role(state, p_villager["id"], "villager")
+        set_manual_player_role(state, p_bob["id"], "villager")
+        set_manual_player_role(state, p_charlie["id"], "villager")
         set_manual_player_role(state, p_wolf["id"], "werewolf")
 
         # Villager perspective
         v_view = get_sanitized_player_view(state, p_villager["id"])
         wolf_in_view = next(p for p in v_view["players"] if p["id"] == p_wolf["id"])
+        me_in_view = next(p for p in v_view["players"] if p["id"] == p_villager["id"])
 
         # The wolf's role should be None to the villager!
         assert wolf_in_view["role"] is None
+        # On the public table roster, own role is None to prevent table leaks,
+        # but present on v_view['me']['role'] for the private card!
+        assert me_in_view["role"] is None
+        assert v_view["me"]["role"]["id"] == "villager"
+
+        # Dead players do NOT reveal their roles to the town while game is active!
+        set_player_status(state, p_bob["id"], "dead")
+        assert state["phase"] != "gameover"
+        v_view_after_death = get_sanitized_player_view(state, p_villager["id"])
+        dead_bob_in_view = next(p for p in v_view_after_death["players"] if p["id"] == p_bob["id"])
+        assert dead_bob_in_view["role"] is None
+
+        # When game is over, roles are revealed to all
+        state["phase"] = "gameover"
+        v_view_gameover = get_sanitized_player_view(state, p_villager["id"])
+        gameover_bob = next(p for p in v_view_gameover["players"] if p["id"] == p_bob["id"])
+        gameover_wolf = next(p for p in v_view_gameover["players"] if p["id"] == p_wolf["id"])
+        assert gameover_bob["role"]["id"] == "villager"
+        assert gameover_wolf["role"]["id"] == "werewolf"
 
         # GM perspective sees everything
         gm_view = get_gm_view(state)

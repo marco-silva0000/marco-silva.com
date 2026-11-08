@@ -65,7 +65,7 @@ def create_initial_state(
         "staggering_doctor": True,  # Cannot save same player 2 nights in a row
         "doctor_saves_from_sniper": False,  # Doctor save does not stop sniper
         "sniper_bullet_type": "danger",  # "danger", "silver", "mix"
-        "reveal_roles_on_death": True,
+        "reveal_roles_on_death": False,
         "voting_system": "two_stage_50pct",  # "two_stage_50pct", "two_stage_top_n", "simple_plurality"
         "nomination_threshold_pct": 50,  # 50% of living players needed for nomination
     }
@@ -1627,18 +1627,13 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     public_players = []
     for idx, p in enumerate(ordered_players):
         pid = p["id"]
-        # Only show other players' roles if:
-        # 1. Game over
-        # 2. Both are wolves
-        # 3. Or player is dead and reveal_roles_on_death is enabled
+        # Roles are strictly hidden from the public table view during gameplay.
+        # Private roles are exclusively displayed on the dedicated "My Role" tab behind the privacy peek shield.
+        # Table seats and deceased players NEVER reveal roles until the game is over.
         reveal_role = False
         if state["phase"] == "gameover":
             reveal_role = True
-        elif is_wolf and p["faction"] == FACTION_WOLVES:
-            reveal_role = True
-        elif pid == player_id:
-            reveal_role = True
-        elif p["status"] == "dead" and state["settings"].get("reveal_roles_on_death", True):
+        elif p["status"] == "dead" and state["settings"].get("reveal_roles_on_death", False):
             reveal_role = True
 
         role_display = None

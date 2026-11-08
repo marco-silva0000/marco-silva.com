@@ -1863,7 +1863,8 @@ html, body {
       const silencedTag = p.is_silenced ? " 🤐" : "";
       const loverTag = p.is_lover ? " 💘" : "";
       const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#94a3b8; background:#0f172a; border:1px solid #334155; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
-      const roleStr = p.role ? `<span style="font-size:0.8rem; color:#94a3b8; margin-left:0.25rem;">(${p.role.name})</span>` : "";
+      const isGameOver = currentGameState && currentGameState.phase === "gameover";
+      const roleStr = (isGameOver && p.role) ? `<span style="font-size:0.8rem; color:#94a3b8; margin-left:0.25rem;">(${p.role.name})</span>` : "";
 
       item.innerHTML = `
         <div style="font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap;">
@@ -1871,7 +1872,7 @@ html, body {
           <span>${escapeHtml(p.name)}${meTag}${silencedTag}${loverTag}</span>
           ${roleStr}
         </div>
-        <span class="badge badge-${p.status}">${p.status}</span>
+        <span class="badge badge-${p.status}">${p.status.toUpperCase()}</span>
       `;
       listContainer.appendChild(item);
     });
@@ -1938,18 +1939,31 @@ html, body {
     node.style.left = `${x.toFixed(1)}%`;
     node.style.top = `${y.toFixed(1)}%`;
 
-    const meTag = isMe ? '<span style="color:#2563eb; font-weight:800; font-size:0.6rem;">(You)</span>' : '';
-    const roleText = p.role ? `${p.role.emoji} ${p.role.name}` : (p.status === 'dead' ? '💀' : 'Alive');
+    const meTag = isMe ? '<span style="color:#38bdf8; font-weight:800; font-size:0.6rem;">(You)</span>' : '';
+    
+    // Status text on seat node - NEVER display secret role on the table during gameplay!
+    let seatSubtext = "";
+    if (currentGameState && currentGameState.phase === "gameover" && p.role) {
+      seatSubtext = `${p.role.emoji} ${p.role.name}`;
+    } else if (p.status === "dead") {
+      seatSubtext = "💀 Dead";
+    } else if (p.status === "limbo") {
+      seatSubtext = "🌫️ Limbo";
+    } else if (p.is_silenced) {
+      seatSubtext = "🤐 Silenced";
+    } else {
+      seatSubtext = "● Alive";
+    }
 
     node.innerHTML = `
       <div class="u-seat-header">
         <span class="u-seat-num">#${p.seat_number || (idx + 1)}</span>
         <span class="u-seat-status" style="color: ${p.status === 'alive' ? '#22c55e' : (p.status === 'limbo' ? '#f59e0b' : '#ef4444')};">
-          ${p.status}
+          ${p.status.toUpperCase()}
         </span>
       </div>
       <div class="u-seat-name">${escapeHtml(p.name)} ${meTag}</div>
-      <div class="u-seat-role">${roleText}</div>
+      <div class="u-seat-role">${seatSubtext}</div>
     `;
 
     container.appendChild(node);
