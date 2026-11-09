@@ -3,7 +3,6 @@ import math
 from io import BytesIO
 
 import exifread
-import qrcode
 from django.core.files.base import ContentFile
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -351,6 +350,8 @@ def generate_instagram_qr_slide(
     draw.text(((1080 - s_w) // 2, 210), subtitle, font=sub_font, fill="#9ca3af")
 
     # 3. QR Code in centered white card
+    import qrcode
+
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_M,
