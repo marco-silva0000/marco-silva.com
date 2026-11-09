@@ -1085,6 +1085,68 @@ html, body {
           <div id="ghost-message-status" style="font-size: 0.75rem; color: #38bdf8; margin-top: 0.35rem; display: none;"></div>
         </div>
 
+        <!-- Lover Heartbreak Warning Banner -->
+        <div id="heartbreak-warning-banner" style="display: none; background: #450a0a; border: 2px solid #ef4444; border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.65rem; color: #fef2f2;">
+          <div style="font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>💔</span> <span>Grief-Stricken Lover</span>
+          </div>
+          <div style="font-size: 0.82rem; margin-top: 0.25rem; color: #fca5a5; line-height: 1.4;">
+            Your bound partner was executed by the town! You are overwhelmed with heartbreak and will perish at dawn unless a Successor steps in!
+          </div>
+        </div>
+
+        <!-- Successor Waiting Card -->
+        <div id="successor-waiting-card" style="display: none; background: #042f2e; border: 2px solid #14b8a6; border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.65rem; color: #ccfbf1;">
+          <div style="font-weight: 800; font-size: 0.98rem; display: flex; align-items: center; gap: 0.35rem; color: #2dd4bf;">
+            <span>⏳</span> <span>Successor (Inheritor) — Waiting in the Wings</span>
+          </div>
+          <div style="font-size: 0.82rem; margin-top: 0.25rem; color: #99f6e4; line-height: 1.45;">
+            You are observing the battle. The moment any player permanently falls, you will immediately inherit their role, faction, and abilities! If a lover dies, you will step in as the new partner and avert heartbreak!
+          </div>
+        </div>
+
+        <!-- Town Gazette / News Bulletin Card -->
+        <div id="player-gazette-card" style="background: #1e293b; border: 1px solid #d97706; border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.65rem; color: #f8fafc;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; flex-wrap: wrap; gap: 0.35rem;">
+            <div style="font-weight: 800; font-size: 0.95rem; color: #f59e0b; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🗞️ Town Gazette</span>
+            </div>
+            <span id="gazette-quota-badge" style="font-size: 0.72rem; color: #cbd5e1; background: #334155; padding: 0.15rem 0.45rem; border-radius: 999px;">1 post per day</span>
+          </div>
+
+          <!-- Submission Form -->
+          <div id="gazette-submit-form" style="margin-top: 0.4rem;">
+            <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.35rem;">
+              Submit a headline, tip, or suspicion. The Game Master will review and publish it at the start of the day:
+            </div>
+            <textarea id="gazette-message-input" maxlength="200" rows="2" placeholder="e.g. 'I do not trust Player #3, watch them carefully tonight!'" style="width: 100%; box-sizing: border-box; padding: 0.45rem 0.65rem; border-radius: 8px; background: #0f172a; border: 1px solid #475569; color: #fff; font-size: 0.85rem; resize: none; margin-bottom: 0.4rem;"></textarea>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem;">
+              <label style="font-size: 0.8rem; color: #cbd5e1; display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer;">
+                <input type="checkbox" id="gazette-anon-checkbox" style="cursor: pointer;">
+                <span>🕶️ Post Anonymously</span>
+              </label>
+              <button id="btn-submit-gazette" onclick="sendGazetteBulletin()" class="btn btn-sm" style="background: #d97706; border-color: #d97706; color: #fff; font-weight: 700;">
+                📰 Send to Gazette
+              </button>
+            </div>
+            <div id="gazette-submit-status" style="font-size: 0.78rem; color: #38bdf8; margin-top: 0.35rem; display: none;"></div>
+          </div>
+
+          <!-- Already submitted / quota reached notification -->
+          <div id="gazette-submitted-notice" style="display: none; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.82rem; color: #a7f3d0; margin-top: 0.4rem;">
+            ✓ Your bulletin was submitted to the Gazette desk. Awaiting morning publication.
+          </div>
+
+          <!-- Published Gazette Feed for Today -->
+          <div id="gazette-published-feed" style="display: none; margin-top: 0.65rem; border-top: 1px solid #334155; padding-top: 0.5rem;">
+            <div style="font-size: 0.78rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; margin-bottom: 0.35rem;">
+              📢 Today's Published Gazette:
+            </div>
+            <div id="gazette-feed-list" style="display: flex; flex-direction: column; gap: 0.35rem;"></div>
+          </div>
+        </div>
+
         <!-- Morning Dawn Report -->
         <div id="dawn-box" style="display: none; background: #2e1d05; border: 1px solid #92400e; border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.65rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
           <h3 style="margin-top: 0; font-size: 1rem; color: #fde68a; font-weight: 700;">☀️ Dawn Report</h3>
@@ -1732,6 +1794,14 @@ html, body {
         const res = document.getElementById("angel-guess-result");
         res.innerText = msg.message;
         res.style.color = msg.success ? "#2e7d32" : "#c62828";
+      } else if (msg.type === "bulletin_result") {
+        const st = document.getElementById("gazette-submit-status");
+        if (st) {
+          st.style.display = "block";
+          st.innerText = msg.message;
+          st.style.color = msg.success ? "#4ade80" : "#f87171";
+          setTimeout(() => { st.style.display = "none"; }, 5000);
+        }
       } else if (msg.type === "error") {
         alert(msg.message || "An error occurred.");
       }
@@ -1794,6 +1864,46 @@ html, body {
         triggerForceReload(`New version detected on server: ${state.app_version || state.commit_hash}`);
       }
     }
+  }
+
+  // --- Targeted Select Dropdown Reconciliation (Preserves Mobile Focus & Native Pickers) ---
+  function syncSelectOptions(selectEl, optionsList, targetValue) {
+    if (!selectEl) return;
+    if (document.activeElement === selectEl) return;
+
+    const currentOptions = Array.from(selectEl.options);
+    const isSameLength = currentOptions.length === optionsList.length;
+    const isIdentical = isSameLength && optionsList.every((opt, idx) => {
+      const cur = currentOptions[idx];
+      return cur.value === String(opt.value) && cur.text === String(opt.text);
+    });
+
+    if (!isIdentical) {
+      selectEl.innerHTML = "";
+      optionsList.forEach(opt => {
+        const el = document.createElement("option");
+        el.value = opt.value;
+        el.text = opt.text;
+        selectEl.appendChild(el);
+      });
+    }
+
+    const desiredVal = targetValue !== undefined && targetValue !== null ? String(targetValue) : "";
+    if (selectEl.value !== desiredVal) {
+      selectEl.value = desiredVal;
+    }
+  }
+
+  function populateLivingPlayers(selectId, players, includeSelf) {
+    const sel = document.getElementById(selectId);
+    if (!sel) return;
+    const opts = [{ value: "", text: "-- Select a living player --" }];
+    (players || []).forEach(p => {
+      if (p.status === "alive") {
+        opts.push({ value: p.id, text: `#${p.seat_number || ''} ${p.name}` });
+      }
+    });
+    syncSelectOptions(sel, opts, sel.value);
   }
 
   // --- Render State ---
@@ -1980,6 +2090,21 @@ html, body {
     if (csBanner) {
       csBanner.style.display = (me.cannot_speak && state.phase !== "night") ? "block" : "none";
     }
+
+    // Lover Heartbreak Warning Banner
+    const hbBanner = document.getElementById("heartbreak-warning-banner");
+    if (hbBanner) {
+      hbBanner.style.display = (me.pending_heartbreak && state.phase !== "night") ? "block" : "none";
+    }
+
+    // Successor Waiting Card
+    const succCard = document.getElementById("successor-waiting-card");
+    if (succCard) {
+      succCard.style.display = (me.is_successor && me.status === "waiting") ? "block" : "none";
+    }
+
+    // Town Gazette
+    renderPlayerGazette(state);
 
     // Ghost messaging widget
     const ghostCard = document.getElementById("ghost-message-card");
@@ -2213,6 +2338,8 @@ html, body {
       const loverTag = p.is_lover ? " 💘" : "";
       const travelerTag = p.is_traveler ? " 🧳<span style='font-size:0.75rem; color:#4ade80;'>[Confirmed Good]</span>" : "";
       const mayorTag = p.is_public_mayor ? " 🎖️<span style='font-size:0.75rem; color:#facc15;'>[Public Mayor]</span>" : "";
+      const successorTag = (p.is_successor || p.status === 'waiting') ? " ⏳<span style='font-size:0.75rem; color:#38bdf8;'>[Waiting Successor]</span>" : "";
+      const heartbreakTag = p.pending_heartbreak ? " 💔<span style='font-size:0.75rem; color:#f87171;'>[Heartbroken]</span>" : "";
       const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#94a3b8; background:#0f172a; border:1px solid #334155; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
 
       const roleBadge = p.role ? `<span style="font-size:0.75rem; font-weight:700; color:#cbd5e1; background:rgba(30,41,59,0.9); border:1px solid #475569; padding:0.1rem 0.4rem; border-radius:4px; margin-left:0.4rem;">${p.role.emoji || ''} ${escapeHtml(p.role.name)}</span>` : "";
@@ -2220,7 +2347,7 @@ html, body {
       item.innerHTML = `
         <div style="font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap;">
           ${seatBadge}
-          <span>${escapeHtml(p.name)}${meTag}${meRenameBtn}${silencedTag}${loverTag}${travelerTag}${mayorTag}${roleBadge}</span>
+          <span>${escapeHtml(p.name)}${meTag}${meRenameBtn}${silencedTag}${loverTag}${travelerTag}${mayorTag}${successorTag}${heartbreakTag}${roleBadge}</span>
         </div>
         <span class="badge badge-${p.status}">${p.status.toUpperCase()}</span>
       `;
@@ -2301,6 +2428,10 @@ html, body {
       seatSubtext = "🧳 Confirmed Good";
     } else if (p.is_public_mayor) {
       seatSubtext = "🎖️ Public Mayor";
+    } else if (p.is_successor || p.status === "waiting") {
+      seatSubtext = "⏳ Waiting Successor";
+    } else if (p.pending_heartbreak) {
+      seatSubtext = "💔 Heartbroken";
     } else if (p.status === "dead") {
       seatSubtext = "💀 Dead";
     } else if (p.status === "limbo") {
@@ -2377,6 +2508,84 @@ html, body {
       status.style.display = "block";
       status.innerText = "✓ Spectral clue sent to Game Master for review!";
       setTimeout(() => { status.style.display = "none"; }, 4000);
+    }
+  }
+
+  function sendGazetteBulletin() {
+    const input = document.getElementById("gazette-message-input");
+    const anonCheck = document.getElementById("gazette-anon-checkbox");
+    const status = document.getElementById("gazette-submit-status");
+    const text = (input ? input.value : "").trim();
+    if (!text) {
+      if (status) {
+        status.style.display = "block";
+        status.style.color = "#f87171";
+        status.innerText = "Please write a message before submitting.";
+        setTimeout(() => { status.style.display = "none"; }, 3000);
+      }
+      return;
+    }
+    const isAnon = anonCheck ? anonCheck.checked : false;
+    socket.send(JSON.stringify({
+      action: "submit_news_bulletin",
+      message: text,
+      anonymous: isAnon,
+    }));
+    if (input) input.value = "";
+    if (status) {
+      status.style.display = "block";
+      status.style.color = "#38bdf8";
+      status.innerText = "Submitting to Game Master...";
+    }
+  }
+
+  function renderPlayerGazette(state) {
+    const card = document.getElementById("player-gazette-card");
+    if (!card) return;
+
+    const me = state.me || {};
+    const badge = document.getElementById("gazette-quota-badge");
+    const formEl = document.getElementById("gazette-submit-form");
+    const noticeEl = document.getElementById("gazette-submitted-notice");
+    const feedSec = document.getElementById("gazette-published-feed");
+    const feedList = document.getElementById("gazette-feed-list");
+
+    const isAlive = me.status === "alive";
+    const isDeadOrLimbo = me.status === "dead" || me.status === "limbo";
+
+    if (badge) {
+      badge.innerText = isAlive ? "1 post per day" : (isDeadOrLimbo ? "1 lifetime whisper" : "-");
+    }
+
+    if (formEl && noticeEl) {
+      if (me.news_submitted_this_round || !me.can_submit_news) {
+        formEl.style.display = "none";
+        noticeEl.style.display = "block";
+      } else {
+        formEl.style.display = "block";
+        noticeEl.style.display = "none";
+      }
+    }
+
+    const bulletins = state.news_bulletins || [];
+    if (feedSec && feedList) {
+      if (bulletins.length > 0) {
+        feedSec.style.display = "block";
+        feedList.innerHTML = bulletins.map(b => {
+          return `
+            <div style="background:#0f172a; border:1px solid #334155; border-radius:8px; padding:0.55rem 0.75rem;">
+              <div style="font-size:0.75rem; color:#f59e0b; font-weight:700; margin-bottom:0.15rem;">
+                📢 ${escapeHtml(b.byline)}:
+              </div>
+              <div style="font-size:0.85rem; color:#e2e8f0; font-style:italic;">
+                "${escapeHtml(b.message)}"
+              </div>
+            </div>
+          `;
+        }).join("");
+      } else {
+        feedSec.style.display = "none";
+      }
     }
   }
 

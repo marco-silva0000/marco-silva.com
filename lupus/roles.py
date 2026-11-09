@@ -399,6 +399,23 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
             "pro_tip": "If the Detective is in danger of being lynched, stand in the line of fire to defend them!",
         },
     },
+    "successor": {
+        "id": "successor",
+        "faction": FACTION_NEUTRAL,
+        "emoji": "⏳",
+        "names": {"werewolf": "Successor (Inheritor)", "mafia": "Understudy (Inheritor)"},
+        "descriptions": {
+            "werewolf": "Mid-game arrival waiting in the wings. Inherits the role, faction, and abilities of the next player who dies. If a lover falls, inherits their place as the new lover, preventing heartbreak!",
+            "mafia": "Mid-game arrival waiting in the wings. Inherits the role, faction, and abilities of the next player who dies. If a lover falls, inherits their place as the new lover, preventing heartbreak!",
+        },
+        "night_action": None,
+        "guide": {
+            "objective": "Wait until a player falls to inherit their role and faction, then win with that faction.",
+            "day_tips": "Observe players closely while you wait so you understand the game board when you step into action.",
+            "night_tips": "Watch the night unfold. You will awaken as the role of the next player to fall.",
+            "pro_tip": "If a lover is eliminated, stepping in as their successor prevents their partner from dying of heartbreak!",
+        },
+    },
 }
 
 

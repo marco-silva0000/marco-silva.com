@@ -10,6 +10,7 @@ from .game_state import (
     add_player,
     adjust_timer,
     approve_ghost_message,
+    approve_news_bulletin,
     assign_midgame_role,
     cast_final_vote,
     clear_gm_night_action,
@@ -47,6 +48,7 @@ from .game_state import (
     start_timer,
     start_voting_session,
     submit_ghost_message,
+    submit_news_bulletin,
     tally_and_resolve_vote,
     toggle_nomination_vote,
     toggle_official_nomination,
@@ -205,6 +207,13 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 approved = bool(content.get("approved", True))
                 if mid:
                     approve_ghost_message(state, mid, approved)
+                    await self.broadcast_sync()
+
+            elif action == "approve_news_bulletin":
+                bid = content.get("bulletin_id")
+                approved = bool(content.get("approved", True))
+                if bid:
+                    approve_news_bulletin(state, bid, approved)
                     await self.broadcast_sync()
 
             elif action == "set_status":
@@ -480,3 +489,11 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 success, msg = submit_ghost_message(state, self.player_id, msg_text)
                 await self.send_json({"type": "ghost_message_result", "success": success, "message": msg})
                 await self.broadcast_sync()
+
+            elif action == "submit_news_bulletin":
+                msg_text = content.get("message", "")
+                is_anon = bool(content.get("anonymous", False))
+                success, msg = submit_news_bulletin(state, self.player_id, msg_text, is_anon)
+                await self.send_json({"type": "bulletin_result", "success": success, "message": msg})
+                if success:
+                    await self.broadcast_sync()

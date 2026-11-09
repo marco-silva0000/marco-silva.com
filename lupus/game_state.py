@@ -112,6 +112,7 @@ def create_initial_state(
         "voting_system": "two_stage_50pct",  # "two_stage_50pct", "two_stage_top_n", "simple_plurality"
         "nomination_threshold_pct": 50,  # 50% of living players needed for nomination
         "public_mayor": False,  # If true, Mayor's identity is publicly confirmed & votes count x2
+        "public_heartbreak_cause": False,  # If true, lover heartbreak cause announced; if false, concealed as "found dead"
     }
     if settings:
         default_settings.update(settings)
@@ -163,6 +164,8 @@ def create_initial_state(
         "day1_no_voting": False,
         "ghost_messages": [],
         "approved_ghost_messages": [],
+        "news_bulletins": [],
+        "approved_news_bulletins": [],
         "last_lynched_id": None,
         "defense_player_id": None,
         "events_log": [],
@@ -193,6 +196,12 @@ def add_player(state: dict[str, Any], name: str, is_offline: bool = False) -> tu
         "haunted_by": None,
         "is_traveler": False,
         "is_ghost": False,
+        "is_successor": False,
+        "last_news_post_round": None,
+        "used_dead_news_bulletin": False,
+        "pending_heartbreak": False,
+        "pending_heartbreak_from_id": None,
+        "pending_heartbreak_lover_name": None,
         "is_offline": is_offline,
         "connected": True,
         "channel_name": None,
@@ -605,6 +614,11 @@ def set_manual_player_role(state: dict[str, Any], player_id: str, role_id: str) 
                     f"💘 Secret bond formed! Two Citizens ({p1['name']} and {p2['name']}) are bound as Innocent Lovers!",
                 )
 
+        if role_id == "successor":
+            state["players"][player_id]["status"] = "waiting"
+            state["players"][player_id]["is_successor"] = True
+            log_event(state, f"⏳ {state['players'][player_id]['name']} joined as the Successor, waiting to inherit the role of the next fallen player!")
+
         save_game(state["code"], state)
     return state
 
@@ -632,20 +646,30 @@ def assign_midgame_role(state: dict[str, Any], player_id: str, role_id: str) -> 
         player["status"] = "alive"
         player["is_traveler"] = True
         player["is_ghost"] = False
+        player["is_successor"] = False
         msg = f"🧳 {player['name']} joined the game as a Confirmed Traveler on the side of Good!"
     elif role_id == "ghost":
         player["status"] = "dead"
         player["is_ghost"] = True
         player["is_traveler"] = False
+        player["is_successor"] = False
         msg = f"👻 {player['name']} joined as a Spectral Ghost (Town Spirit)!"
     elif role_id == "disgruntled_ghost":
         player["status"] = "dead"
         player["is_ghost"] = False
         player["is_traveler"] = False
+        player["is_successor"] = False
         msg = f"👿 {player['name']} entered as a Disgruntled Ghost!"
+    elif role_id == "successor":
+        player["status"] = "waiting"
+        player["is_successor"] = True
+        player["is_ghost"] = False
+        player["is_traveler"] = False
+        msg = f"⏳ {player['name']} joined as the Successor (Understudy), waiting to inherit the role of the next fallen player!"
     else:
         player["is_traveler"] = False
         player["is_ghost"] = False
+        player["is_successor"] = False
         msg = f"🎭 {player['name']} was assigned role {role_info['names']['werewolf']} mid-game."
 
     log_event(state, msg)
@@ -709,11 +733,155 @@ def approve_ghost_message(state: dict[str, Any], message_id: str, approved: bool
     return True, msg_str
 
 
+def submit_news_bulletin(
+    state: dict[str, Any],
+    player_id: str,
+    message: str,
+    anonymous: bool = False,
+) -> tuple[bool, str]:
+    """Player submits an announcement, accusation, or gossip for the Morning Gazette."""
+    player = state.get("players", {}).get(player_id)
+    if not player:
+        return False, "Player not found."
+
+    current_round = state.get("round_number", 1)
+    if player["status"] == "alive":
+        if player.get("last_news_post_round") == current_round:
+            return False, "You can only submit one news bulletin per day."
+    elif player["status"] in ("dead", "limbo"):
+        if player.get("used_dead_news_bulletin", False):
+            return False, "Deceased and Limbo souls may only submit one news bulletin total."
+    else:
+        return False, "Waiting players cannot submit bulletins yet."
+
+    clean_msg = (message or "").strip()
+    if not clean_msg:
+        return False, "Bulletin text cannot be empty."
+    if len(clean_msg) > 200:
+        clean_msg = clean_msg[:200]
+
+    bulletin_id = uuid.uuid4().hex[:8]
+    is_dead = player["status"] in ("dead", "limbo")
+    entry = {
+        "id": bulletin_id,
+        "round": current_round,
+        "player_id": player_id,
+        "player_name": player["name"],
+        "anonymous": bool(anonymous),
+        "message": clean_msg,
+        "status": "pending",
+        "created_at": time.time(),
+        "is_dead_author": is_dead,
+    }
+    state.setdefault("news_bulletins", []).append(entry)
+    if player["status"] == "alive":
+        player["last_news_post_round"] = current_round
+    else:
+        player["used_dead_news_bulletin"] = True
+
+    byline_note = " (as Anonymous)" if anonymous else ""
+    log_event(state, f"🗞️ {player['name']} submitted a bulletin for GM review{byline_note}: '{clean_msg}'")
+    save_game(state["code"], state)
+    return True, "Bulletin submitted to Game Master for review."
+
+
+def approve_news_bulletin(
+    state: dict[str, Any],
+    bulletin_id: str,
+    approved: bool = True,
+) -> tuple[bool, str]:
+    """Game Master approves or rejects a news bulletin for the morning gazette."""
+    bulletins = state.setdefault("news_bulletins", [])
+    found = None
+    for b in bulletins:
+        if b["id"] == bulletin_id:
+            b["status"] = "approved" if approved else "rejected"
+            b["approved"] = approved
+            found = b
+            break
+    if not found:
+        return False, "Bulletin not found."
+
+    appr_list = state.setdefault("approved_news_bulletins", [])
+    if approved:
+        if not any(x["id"] == bulletin_id for x in appr_list):
+            appr_list.append(found)
+        byline = "Anonymous" if found.get("anonymous") else found["player_name"]
+        log_event(state, f"🗞️ GM approved bulletin by {byline}: '{found['message']}'")
+        msg_str = "Bulletin approved for morning reading."
+    else:
+        state["approved_news_bulletins"] = [x for x in appr_list if x["id"] != bulletin_id]
+        log_event(state, f"❌ GM rejected bulletin by {found['player_name']}.")
+        msg_str = "Bulletin rejected."
+
+    save_game(state["code"], state)
+    return True, msg_str
+
+
+def check_and_trigger_successor_inheritance(state: dict[str, Any], deceased_id: str) -> Optional[str]:
+    """When a player dies, check if an active Successor is waiting to inherit their mantle.
+
+    If deceased was a lover with a surviving partner, Successor steps in as new lover, preventing heartbreak.
+    """
+    if deceased_id not in state.get("players", {}):
+        return None
+
+    deceased = state["players"][deceased_id]
+    successor = None
+    for p in state["players"].values():
+        if (p.get("role") == "successor" or p.get("is_successor")) and p.get("status") == "waiting":
+            successor = p
+            break
+    if not successor:
+        return None
+
+    target_role = deceased.get("role", "villager")
+    role_info = ROLE_REGISTRY.get(target_role, ROLE_REGISTRY["villager"])
+    successor["role"] = target_role
+    successor["faction"] = role_info["faction"]
+    successor["status"] = "alive"
+    successor["is_successor"] = False
+    successor["inherited_from_name"] = deceased["name"]
+
+    if target_role == "sniper":
+        successor["sniper_danger_bullets"] = deceased.get("sniper_danger_bullets", 1)
+        successor["sniper_silver_bullets"] = deceased.get("sniper_silver_bullets", 0)
+        successor["sniper_nights_held"] = 0
+
+    lover_id = deceased.get("lover_id")
+    if lover_id and lover_id in state["players"]:
+        partner = state["players"][lover_id]
+        if partner["status"] in ("alive", "limbo"):
+            successor["lover_id"] = lover_id
+            successor["lover_type"] = deceased.get("lover_type", "innocent")
+            partner["lover_id"] = successor["id"]
+            partner["pending_heartbreak"] = False
+            partner["pending_heartbreak_from_id"] = None
+            partner["pending_heartbreak_lover_name"] = None
+            role_title = role_info["names"].get("werewolf", target_role)
+            msg = (
+                f"💘 {successor['name']} stepped in as Successor, inheriting {deceased['name']}'s mantle as "
+                f"{role_title} and becoming {partner['name']}'s new lover! Heartbreak was averted!"
+            )
+            log_event(state, msg)
+            return msg
+
+    role_title = role_info["names"].get("werewolf", target_role)
+    msg = f"⏳ {successor['name']} stepped into the game as Successor, inheriting {deceased['name']}'s mantle as {role_title} ({role_info['faction'].upper()})!"
+    log_event(state, msg)
+    return msg
+
+
 # --- Status & Limbo ---
 
 
-def set_player_status(state: dict[str, Any], player_id: str, new_status: str) -> dict[str, Any]:
-    """Change player status between 'alive', 'limbo', and 'dead'. Handles lover cascade."""
+def set_player_status(
+    state: dict[str, Any],
+    player_id: str,
+    new_status: str,
+    stagger_lover_heartbreak: bool = False,
+) -> dict[str, Any]:
+    """Change player status between 'alive', 'limbo', and 'dead'. Handles lover cascade and successor inheritance."""
     if player_id not in state["players"]:
         return state
 
@@ -727,14 +895,28 @@ def set_player_status(state: dict[str, Any], player_id: str, new_status: str) ->
         player["used_limbo"] = True
         log_event(state, f"{player['name']} died.")
         state["pending_gameover_dismissed"] = False
+
+        # First check if successor inherits the deceased's role!
+        check_and_trigger_successor_inheritance(state, player_id)
+
         # Check lover cascade
         lover_id = player.get("lover_id")
         if lover_id and lover_id in state["players"]:
             lover = state["players"][lover_id]
-            if lover["status"] != "dead":
-                lover["status"] = "dead"
-                lover["used_limbo"] = True
-                log_event(state, f"{lover['name']} died of a broken heart following their lover {player['name']}!")
+            # If a successor took over and bound to the lover, heartbreak is averted!
+            if lover.get("lover_id") == player_id and lover["status"] != "dead":
+                if stagger_lover_heartbreak:
+                    lover["pending_heartbreak"] = True
+                    lover["pending_heartbreak_from_id"] = player_id
+                    lover["pending_heartbreak_lover_name"] = player["name"]
+                    log_event(
+                        state,
+                        f"💔 {lover['name']} is grief-stricken over {player['name']}'s execution... they will perish of grief at dawn unless saved!",
+                    )
+                else:
+                    lover["status"] = "dead"
+                    lover["used_limbo"] = True
+                    log_event(state, f"{lover['name']} died of a broken heart following their lover {player['name']}!")
     elif new_status == "alive":
         log_event(state, f"{player['name']} returned to life!")
         state["pending_gameover"] = None
@@ -1834,10 +2016,41 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         if lover_id and lover_id in state["players"] and lover_id not in killed_players:
             lover = state["players"][lover_id]
             if lover["status"] != "dead":
-                lover["status"] = "dead"
-                lover["used_limbo"] = True
-                killed_players.add(lover_id)
-                report.append(f"🪦 {lover['name']} was slain in the night.")
+                # Check if successor inherits the deceased's role!
+                succ_msg = check_and_trigger_successor_inheritance(state, pid)
+                if not succ_msg:
+                    lover["status"] = "dead"
+                    lover["used_limbo"] = True
+                    killed_players.add(lover_id)
+                    if state.get("settings", {}).get("public_heartbreak_cause", False):
+                        report.append(f"💔 {lover['name']} died of a broken heart following their lover {p['name']}!")
+                    else:
+                        report.append(f"🪦 {lover['name']} was slain in the night.")
+                else:
+                    report.append(succ_msg)
+
+    # Check pending heartbreak (from yesterday's day vote execution)
+    for p in list(state["players"].values()):
+        if p.get("status") == "alive" and p.get("pending_heartbreak"):
+            # Check if successor saved them
+            if p.get("lover_id") and state["players"].get(p["lover_id"], {}).get("status") == "alive":
+                p["pending_heartbreak"] = False
+            else:
+                p["status"] = "dead"
+                p["used_limbo"] = True
+                p["pending_heartbreak"] = False
+                killed_players.add(p["id"])
+                if state.get("settings", {}).get("public_heartbreak_cause", False):
+                    lover_name = p.get("pending_heartbreak_lover_name", "their lover")
+                    report.append(f"💔 {p['name']} died of a broken heart over their fallen lover {lover_name}!")
+                else:
+                    report.append(f"🪦 {p['name']} was found dead at dawn.")
+
+    # Gazette / News Bulletins
+    appr_bulletins = state.get("approved_news_bulletins", [])
+    for b in appr_bulletins:
+        byline = "Anonymous Informant" if b.get("anonymous") else b.get("player_name", "Villager")
+        report.append(f'🗞️ Gazette: {byline} writes: "{b["message"]}"')
 
     if not to_kill:
         report.append("☀️ Dawn breaks over a peaceful night. No one died!")
@@ -2174,18 +2387,18 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
     limbo_on = state.get("settings", {}).get("limbo_enabled", True)
     has_living_angel = any(p["role"] == "angel" and p["status"] == "alive" for p in players.values())
 
-    lover_id = victim.get("lover_id")
-    lover_broken_heart_msg = ""
-    if lover_id and lover_id in players and players[lover_id]["status"] == "alive":
-        lover = players[lover_id]
-        lover_broken_heart_msg = f" 💔 {lover['name']} died of a broken heart following their lover {victim['name']}!"
-
     if limbo_on and has_living_angel and not victim["used_limbo"]:
         set_player_status(state, victim_id, "limbo")
         voting["elimination_result"] = "limbo"
         msg = f"🌫️ {victim['name']} received {max_votes} votes and was banished to Limbo (can guess Angel to return)!"
     else:
-        set_player_status(state, victim_id, "dead")
+        lover_id = victim.get("lover_id")
+        lover_broken_heart_msg = ""
+        if lover_id and lover_id in players and players[lover_id]["status"] == "alive":
+            lover = players[lover_id]
+            lover_broken_heart_msg = f" (💔 {lover['name']} is stricken with grief and will succumb to heartbreak at dawn unless saved!)"
+
+        set_player_status(state, victim_id, "dead", stagger_lover_heartbreak=True)
         voting["elimination_result"] = "dead"
         msg = f"🪦 {victim['name']} received {max_votes} votes and was executed by town vote!{lover_broken_heart_msg}"
 
@@ -2482,6 +2695,27 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
                 }
             )
 
+    cur_rnd = state.get("round_number", 1)
+    if player["status"] == "alive":
+        can_submit_news = player.get("last_news_post_round") != cur_rnd
+        news_submitted_this_round = player.get("last_news_post_round") == cur_rnd
+    elif player["status"] in ("dead", "limbo"):
+        can_submit_news = not player.get("used_dead_news_bulletin", False)
+        news_submitted_this_round = player.get("used_dead_news_bulletin", False)
+    else:
+        can_submit_news = False
+        news_submitted_this_round = False
+
+    published_news = [
+        {
+            "id": b["id"],
+            "byline": "Anonymous Informant" if b.get("anonymous") else b.get("player_name", "Villager"),
+            "message": b["message"],
+            "round": b.get("round", 1),
+        }
+        for b in state.get("approved_news_bulletins", [])
+    ]
+
     return {
         "code": state["code"],
         "title": state["title"],
@@ -2502,6 +2736,10 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
             "watson_detective_id": watson_detective_id,
             "is_traveler": player.get("is_traveler", False) or player.get("role") == "traveler",
             "is_ghost": player.get("is_ghost", False) or player.get("role") == "ghost",
+            "is_successor": player.get("is_successor", False) or player.get("role") == "successor",
+            "pending_heartbreak": player.get("pending_heartbreak", False),
+            "can_submit_news": can_submit_news,
+            "news_submitted_this_round": news_submitted_this_round,
             "sniper_danger_bullets": player.get("sniper_danger_bullets", 0),
             "sniper_silver_bullets": player.get("sniper_silver_bullets", 0),
         },
@@ -2515,12 +2753,14 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
         "day1_no_voting": state.get("day1_no_voting", False),
         "voting": get_voting_view(state, is_gm=False, player_id=player_id),
         "night_report": state.get("night_report", []),
+        "news_bulletins": published_news,
         "winner": state.get("winner"),
         "broadcast_message": state.get("broadcast_message"),
         "settings": {
             "limbo_enabled": state["settings"].get("limbo_enabled", True),
             "voting_system": state["settings"].get("voting_system", "two_stage_50pct"),
             "public_mayor": state["settings"].get("public_mayor", False),
+            "public_heartbreak_cause": state["settings"].get("public_heartbreak_cause", False),
         },
         "app_version": get_version_info()["display"],
         "commit_hash": get_version_info()["commit"],
@@ -2548,6 +2788,8 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
                 "is_suppressed": p.get("is_suppressed", False),
                 "is_traveler": p.get("is_traveler", False) or p.get("role") == "traveler",
                 "is_ghost": p.get("is_ghost", False) or p.get("role") == "ghost",
+                "is_successor": p.get("is_successor", False) or p.get("role") == "successor",
+                "pending_heartbreak": p.get("pending_heartbreak", False),
                 "is_offline": p["is_offline"],
                 "used_limbo": p["used_limbo"],
                 "lover_name": lover_name,
@@ -2596,6 +2838,8 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "day1_no_voting": state.get("day1_no_voting", False),
         "ghost_messages": state.get("ghost_messages", []),
         "approved_ghost_messages": state.get("approved_ghost_messages", []),
+        "news_bulletins": state.get("news_bulletins", []),
+        "approved_news_bulletins": state.get("approved_news_bulletins", []),
         "app_version": get_version_info()["display"],
         "commit_hash": get_version_info()["commit"],
     }

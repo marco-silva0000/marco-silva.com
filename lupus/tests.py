@@ -9,6 +9,7 @@ from lupus.game_state import (
     add_player,
     adjust_timer,
     approve_ghost_message,
+    approve_news_bulletin,
     assign_midgame_role,
     cast_final_vote,
     check_win_condition,
@@ -46,6 +47,7 @@ from lupus.game_state import (
     start_timer,
     start_voting_session,
     submit_ghost_message,
+    submit_news_bulletin,
     submit_night_action,
     tally_and_resolve_vote,
     toggle_nomination_vote,
@@ -1495,6 +1497,10 @@ class TestLupusNotepadTemplate:
         assert "🤫 Quiet" in rendered
         assert "😰 Nervous" in rendered
         assert "floating-notes-pill" in rendered
+        assert "🗞️ Town Gazette" in rendered
+        assert "gazette-message-input" in rendered
+        assert "successor-waiting-card" in rendered
+        assert "heartbreak-warning-banner" in rendered
 
     def test_sanitized_view_roles_in_play(self, monkeypatch):
         mock_redis = MockRedis()
@@ -1560,6 +1566,131 @@ class TestLupusNotepadTemplate:
         setup_demo_room(state)
         assert len(state["players"]) == 10
         assert len(state["player_order"]) == 10
+
+    def test_successor_inherits_on_death(self):
+        state = create_initial_state("TEST_SUCC1", "Successor Room")
+        state, p_wolf = add_player(state, "Wolf Alpha")
+        state, p_succ = add_player(state, "Waiting Understudy")
+        set_manual_player_role(state, p_wolf["id"], "alpha_wolf")
+
+        # Assign successor role mid-game
+        ok, msg = assign_midgame_role(state, p_succ["id"], "successor")
+        assert ok is True
+        assert state["players"][p_succ["id"]]["status"] == "waiting"
+        assert state["players"][p_succ["id"]]["is_successor"] is True
+
+        # When wolf dies, waiting successor inherits the role & faction!
+        set_player_status(state, p_wolf["id"], "dead")
+        succ_state = state["players"][p_succ["id"]]
+        assert succ_state["status"] == "alive"
+        assert succ_state["role"] == "alpha_wolf"
+        assert succ_state["faction"] == "wolves"
+        assert succ_state["is_successor"] is False
+        assert succ_state["inherited_from_name"] == "Wolf Alpha"
+
+    def test_successor_saves_lover_from_heartbreak(self):
+        state = create_initial_state("TEST_SUCC2", "Successor Lover Room")
+        state, p_l1 = add_player(state, "Romeo")
+        state, p_l2 = add_player(state, "Juliet")
+        state, p_succ = add_player(state, "Paris Understudy")
+
+        set_manual_player_role(state, p_l1["id"], "villager")
+        set_manual_player_role(state, p_l2["id"], "villager")
+        state["players"][p_l1["id"]]["lover_id"] = p_l2["id"]
+        state["players"][p_l2["id"]]["lover_id"] = p_l1["id"]
+        state["players"][p_l1["id"]]["lover_type"] = "innocent"
+        state["players"][p_l2["id"]]["lover_type"] = "innocent"
+
+        assign_midgame_role(state, p_succ["id"], "successor")
+        assert state["players"][p_succ["id"]]["status"] == "waiting"
+
+        # Romeo dies: instead of Juliet dying of heartbreak, Successor Paris steps in as new lover!
+        set_player_status(state, p_l1["id"], "dead")
+        assert state["players"][p_l1["id"]]["status"] == "dead"
+        assert state["players"][p_l2["id"]]["status"] == "alive"  # Juliet is SAVED!
+        assert state["players"][p_succ["id"]]["status"] == "alive"
+        assert state["players"][p_succ["id"]]["lover_id"] == p_l2["id"]
+        assert state["players"][p_l2["id"]]["lover_id"] == p_succ["id"]
+
+    def test_lover_voted_out_staggered_heartbreak(self):
+        state = create_initial_state("TEST_STAG1", "Staggered Heartbreak")
+        state["settings"]["limbo_enabled"] = False  # Skip limbo for direct death test
+        state, p_l1 = add_player(state, "Romeo")
+        state, p_l2 = add_player(state, "Juliet")
+        state, p_v = add_player(state, "Voter")
+
+        state["players"][p_l1["id"]]["lover_id"] = p_l2["id"]
+        state["players"][p_l2["id"]]["lover_id"] = p_l1["id"]
+
+        state["phase"] = "day_voting"
+        state["voting"] = {
+            "stage": "final_vote",
+            "system": "two_stage_50pct",
+            "nomination_votes": {},
+            "nominated_player_ids": [p_l1["id"]],
+            "final_votes": {"v1": p_l1["id"], "v2": p_l1["id"]},
+            "tie_count": 0,
+            "revote_candidates": [],
+            "defense_player_id": None,
+            "eliminated_player_id": None,
+            "elimination_result": None,
+            "ballot_locked": False,
+        }
+
+        # Vote out Romeo
+        outcome, msg = tally_and_resolve_vote(state)
+        assert outcome == "eliminated"
+        assert state["players"][p_l1["id"]]["status"] == "dead"
+        # Staggered heartbreak: Juliet survives the day!
+        assert state["players"][p_l2["id"]]["status"] == "alive"
+        assert state["players"][p_l2["id"]]["pending_heartbreak"] is True
+
+        # When night resolves, Juliet succumbs at dawn!
+        # Test concealed cause first (default public_heartbreak_cause = False)
+        state["settings"]["public_heartbreak_cause"] = False
+        resolve_night(state)
+        assert state["players"][p_l2["id"]]["status"] == "dead"
+        assert "🪦 Juliet was found dead at dawn." in state["night_report"]
+
+    def test_news_bulletin_limits_and_gm_approval(self):
+        state = create_initial_state("TEST_NEWS", "Gazette Test")
+        state, p_alive = add_player(state, "Living Journalist")
+        state, p_dead = add_player(state, "Ghost Inquirer")
+        set_player_status(state, p_dead["id"], "dead")
+
+        # 1. Living player posts news
+        ok, msg = submit_news_bulletin(state, p_alive["id"], "I saw someone suspicious near the fountain!", anonymous=False)
+        assert ok is True
+        assert len(state["news_bulletins"]) == 1
+
+        # Living player tries posting second time on same day -> rejected (1 per day)
+        ok2, msg2 = submit_news_bulletin(state, p_alive["id"], "Another scoop!", anonymous=False)
+        assert ok2 is False
+        assert "one news bulletin per day" in msg2
+
+        # 2. Dead player posts news (anonymous)
+        ok_d, msg_d = submit_news_bulletin(state, p_dead["id"], "Watch out for player #3...", anonymous=True)
+        assert ok_d is True
+        assert len(state["news_bulletins"]) == 2
+
+        # Dead player tries posting a second time -> rejected (1 lifetime post)
+        ok_d2, msg_d2 = submit_news_bulletin(state, p_dead["id"], "Second whisper", anonymous=True)
+        assert ok_d2 is False
+        assert "only submit one news bulletin total" in msg_d2
+
+        # 3. GM approves both bulletins
+        b_alive_id = state["news_bulletins"][0]["id"]
+        b_dead_id = state["news_bulletins"][1]["id"]
+        approve_news_bulletin(state, b_alive_id, approved=True)
+        approve_news_bulletin(state, b_dead_id, approved=True)
+
+        assert len(state["approved_news_bulletins"]) == 2
+
+        # 4. Resolve night -> morning report includes Gazette bulletins!
+        resolve_night(state)
+        report = state["night_report"]
+        assert any("Living Journalist writes: \"I saw someone suspicious near the fountain!\"" in r for r in report)
+        assert any("Anonymous Informant writes: \"Watch out for player #3...\"" in r for r in report)
 
 
 @pytest.mark.django_db
