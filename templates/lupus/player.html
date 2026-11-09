@@ -1064,6 +1064,27 @@ html, body {
           </div>
         </div>
 
+        <!-- Silence / Limbo Speech Block Banner -->
+        <div id="cannot-speak-banner" style="display: none; background: #3b0764; border: 1px solid #9333ea; border-radius: 12px; padding: 0.75rem 1rem; margin-bottom: 0.65rem; color: #f3e8ff;">
+          <div style="font-weight: 800; font-size: 0.95rem;">🤐 Forced Silence Active!</div>
+          <div style="font-size: 0.82rem; margin-top: 0.2rem; color: #e9d5ff;">
+            You cannot speak, whisper, or gesture during daytime discussion! (You are still permitted to cast votes).
+          </div>
+        </div>
+
+        <!-- Town Ghost Spectral Messaging Widget -->
+        <div id="ghost-message-card" style="display: none; background: #1e1b4b; border: 1px solid #6366f1; border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.65rem;">
+          <div style="font-weight: 800; font-size: 0.92rem; color: #a5b4fc;">👻 Spectral Message to the Town</div>
+          <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 0.2rem; margin-bottom: 0.5rem;">
+            As a Ghost, you cannot vote or die, but you can transmit a secret spectral clue. The Game Master will review and announce it at dawn!
+          </div>
+          <div style="display: flex; gap: 0.4rem;">
+            <input id="ghost-message-input" type="text" maxlength="160" placeholder="Type your spectral clue here..." style="flex: 1; min-width: 0; padding: 0.45rem 0.65rem; border-radius: 6px; background: #0f172a; border: 1px solid #475569; color: #fff; font-size: 0.85rem;">
+            <button onclick="sendGhostMessage()" class="btn btn-sm" style="background: #6366f1; border-color: #6366f1; color: #fff; font-weight: 700; white-space: nowrap;">Send Clue</button>
+          </div>
+          <div id="ghost-message-status" style="font-size: 0.75rem; color: #38bdf8; margin-top: 0.35rem; display: none;"></div>
+        </div>
+
         <!-- Morning Dawn Report -->
         <div id="dawn-box" style="display: none; background: #2e1d05; border: 1px solid #92400e; border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.65rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
           <h3 style="margin-top: 0; font-size: 1rem; color: #fde68a; font-weight: 700;">☀️ Dawn Report</h3>
@@ -1900,9 +1921,18 @@ html, body {
         if (pack.length > 0) {
           secretNotes.push(`🐺 <strong>Packmates:</strong> ${escapeHtml(pack.join(", "))}`);
         }
+        if (state.saboteur_stolen_role) {
+          secretNotes.push(`🐺⚡ <strong>Saboteur Intel:</strong> Pack uncovered citizen role: <strong>${escapeHtml(state.saboteur_stolen_role.name)}</strong>`);
+        }
+      }
+      if (me.watson_detective_name) {
+        secretNotes.push(`🔍 <strong>Your Detective:</strong> ${escapeHtml(me.watson_detective_name)} <span style="font-size:0.75rem; color:#94a3b8;">(Deflect suspicion & protect them from execution!)</span>`);
+      }
+      if (me.role.id === "sniper") {
+        secretNotes.push(`🎯 <strong>Ammunition:</strong> ${me.sniper_danger_bullets || 0} Danger Bullet(s), ${me.sniper_silver_bullets || 0} Silver Bullet(s) <span style="font-size:0.75rem; color:#94a3b8;">(Silver bullets safe; hold fire 2 rounds to earn silver!)</span>`);
       }
       if (me.lover_name) {
-        secretNotes.push(`💘 <strong>Bound Lover:</strong> ${escapeHtml(me.lover_name)} <span style="font-size:0.75rem; color:#94a3b8;">(Citizen Partner &bull; Form a 2-vote block!)</span>`);
+        secretNotes.push(`💘 <strong>Bound Lover:</strong> ${escapeHtml(me.lover_name)} <span style="font-size:0.75rem; color:#94a3b8;">(${me.lover_type === 'obsessive' ? 'Obsessive Partner &bull; Win only if everyone else dies!' : 'Citizen Partner &bull; Form a 2-vote block!'})</span>`);
       }
       const notesEl = document.getElementById("role-secret-notes");
       if (secretNotes.length > 0) {
@@ -1944,6 +1974,18 @@ html, body {
 
     // Day Voting & Trial Controls
     updatePlayerVotingBox(state);
+
+    // Cannot speak banner
+    const csBanner = document.getElementById("cannot-speak-banner");
+    if (csBanner) {
+      csBanner.style.display = (me.cannot_speak && state.phase !== "night") ? "block" : "none";
+    }
+
+    // Ghost messaging widget
+    const ghostCard = document.getElementById("ghost-message-card");
+    if (ghostCard) {
+      ghostCard.style.display = me.is_ghost ? "block" : "none";
+    }
 
     // Dawn Report
     const dawnBox = document.getElementById("dawn-box");
@@ -2169,6 +2211,8 @@ html, body {
       const meRenameBtn = p.is_me ? ` <button onclick="promptRenameSelf()" style="background:none; border:none; padding:0 2px; cursor:pointer; font-size:0.75rem; color:#94a3b8;" title="Rename yourself">✏️</button>` : "";
       const silencedTag = p.is_silenced ? " 🤐" : "";
       const loverTag = p.is_lover ? " 💘" : "";
+      const travelerTag = p.is_traveler ? " 🧳<span style='font-size:0.75rem; color:#4ade80;'>[Confirmed Good]</span>" : "";
+      const mayorTag = p.is_public_mayor ? " 🎖️<span style='font-size:0.75rem; color:#facc15;'>[Public Mayor]</span>" : "";
       const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#94a3b8; background:#0f172a; border:1px solid #334155; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
 
       const roleBadge = p.role ? `<span style="font-size:0.75rem; font-weight:700; color:#cbd5e1; background:rgba(30,41,59,0.9); border:1px solid #475569; padding:0.1rem 0.4rem; border-radius:4px; margin-left:0.4rem;">${p.role.emoji || ''} ${escapeHtml(p.role.name)}</span>` : "";
@@ -2176,7 +2220,7 @@ html, body {
       item.innerHTML = `
         <div style="font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap;">
           ${seatBadge}
-          <span>${escapeHtml(p.name)}${meTag}${meRenameBtn}${silencedTag}${loverTag}${roleBadge}</span>
+          <span>${escapeHtml(p.name)}${meTag}${meRenameBtn}${silencedTag}${loverTag}${travelerTag}${mayorTag}${roleBadge}</span>
         </div>
         <span class="badge badge-${p.status}">${p.status.toUpperCase()}</span>
       `;
@@ -2253,6 +2297,10 @@ html, body {
     if (p.role) {
       seatSubtext = `${p.role.emoji || ''} ${p.role.name}`;
       if (p.status === "dead") seatSubtext += " (💀)";
+    } else if (p.is_traveler) {
+      seatSubtext = "🧳 Confirmed Good";
+    } else if (p.is_public_mayor) {
+      seatSubtext = "🎖️ Public Mayor";
     } else if (p.status === "dead") {
       seatSubtext = "💀 Dead";
     } else if (p.status === "limbo") {
@@ -2312,6 +2360,23 @@ html, body {
         action: "guess_angel",
         target_id: targetId
       }));
+    }
+  }
+
+  function sendGhostMessage() {
+    const input = document.getElementById("ghost-message-input");
+    const status = document.getElementById("ghost-message-status");
+    const text = (input ? input.value : "").trim();
+    if (!text) return;
+    socket.send(JSON.stringify({
+      action: "submit_ghost_message",
+      message: text
+    }));
+    if (input) input.value = "";
+    if (status) {
+      status.style.display = "block";
+      status.innerText = "✓ Spectral clue sent to Game Master for review!";
+      setTimeout(() => { status.style.display = "none"; }, 4000);
     }
   }
 

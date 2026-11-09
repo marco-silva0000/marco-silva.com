@@ -118,7 +118,11 @@ def gm_dashboard(request, code):
 
     host = request.get_host()
     is_public = any(d in host for d in ["marco-silva.com", "dev.marco-silva.com"])
-    scheme = "https" if (is_public or request.is_secure() or request.headers.get("x-forwarded-proto") == "https") else request.scheme
+    scheme = (
+        "https"
+        if (is_public or request.is_secure() or request.headers.get("x-forwarded-proto") == "https")
+        else request.scheme
+    )
     query_str = f"?{urlencode(query_params)}" if query_params else ""
     join_url = f"{scheme}://{host}{join_path}{query_str}"
 
@@ -292,7 +296,11 @@ def player_qr(request, code, token):
     reconnect_path = reverse("gamerooms:lupus:reconnect", kwargs={"code": code, "token": token})
     host = request.get_host()
     is_public = any(d in host for d in ["marco-silva.com", "dev.marco-silva.com"])
-    scheme = "https" if (is_public or request.is_secure() or request.headers.get("x-forwarded-proto") == "https") else request.scheme
+    scheme = (
+        "https"
+        if (is_public or request.is_secure() or request.headers.get("x-forwarded-proto") == "https")
+        else request.scheme
+    )
     reconnect_url = f"{scheme}://{host}{reconnect_path}"
     qr_data_uri = generate_qr_data_uri(reconnect_url)
     return JsonResponse({"qr": qr_data_uri, "url": reconnect_url})

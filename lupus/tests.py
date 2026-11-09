@@ -8,6 +8,8 @@ from lupus.game_state import (
     DEMO_PLAYER_NAMES,
     add_player,
     adjust_timer,
+    approve_ghost_message,
+    assign_midgame_role,
     cast_final_vote,
     check_win_condition,
     clear_gm_night_action,
@@ -43,6 +45,7 @@ from lupus.game_state import (
     start_game,
     start_timer,
     start_voting_session,
+    submit_ghost_message,
     submit_night_action,
     tally_and_resolve_vote,
     toggle_nomination_vote,
@@ -180,7 +183,7 @@ class TestLupusEngine:
         state, p2 = add_player(state, "Bob")
 
         # Kick Bob in lobby
-        from lupus.game_state import remove_player, set_broadcast_message, set_round_number
+        from lupus.game_state import set_broadcast_message, set_round_number
 
         state = remove_player(state, p2["id"])
         assert len(state["players"]) == 1
@@ -317,14 +320,15 @@ class TestLupusEngine:
         assert count_val > 0
 
     def test_never_cache_headers(self):
-        from django.views.decorators.cache import never_cache
         from django.http import HttpResponse
+        from django.views.decorators.cache import never_cache
 
         @never_cache
         def dummy_view(request):
             return HttpResponse("ok")
 
         from django.test import RequestFactory
+
         res = dummy_view(RequestFactory().get("/"))
         cache_hdr = res.headers.get("Cache-Control", "")
         assert "no-cache" in cache_hdr
@@ -332,6 +336,7 @@ class TestLupusEngine:
 
     def test_room_force_refresh_consumer(self):
         import asyncio
+
         from lupus.consumers import LupusConsumer
 
         consumer = LupusConsumer()
@@ -342,7 +347,9 @@ class TestLupusEngine:
 
         consumer.send_json = fake_send_json
         consumer.is_gm = False
-        asyncio.run(consumer.room_force_refresh({"type": "room.force.refresh", "target": "all", "message": "Host refreshed."}))
+        asyncio.run(
+            consumer.room_force_refresh({"type": "room.force.refresh", "target": "all", "message": "Host refreshed."})
+        )
         assert len(sent) == 1
         assert sent[0]["type"] == "force_refresh"
         assert sent[0]["message"] == "Host refreshed."
@@ -350,7 +357,11 @@ class TestLupusEngine:
         # Target players only skips GM
         consumer.is_gm = True
         sent.clear()
-        asyncio.run(consumer.room_force_refresh({"type": "room.force.refresh", "target": "players", "message": "Host refreshed."}))
+        asyncio.run(
+            consumer.room_force_refresh(
+                {"type": "room.force.refresh", "target": "players", "message": "Host refreshed."}
+            )
+        )
         assert len(sent) == 0
 
     def test_detective_inspection(self):
@@ -452,6 +463,7 @@ class TestLupusEngine:
     def test_citizen_lovers_role_mechanics(self):
         # 1. Role definition verification
         from lupus.roles import FACTION_TOWN, ROLE_REGISTRY
+
         assert "lover" in ROLE_REGISTRY
         lover_def = ROLE_REGISTRY["lover"]
         assert lover_def["faction"] == FACTION_TOWN
@@ -934,6 +946,275 @@ class TestLupusEngine:
         # Sanitized player view also reflects physical seating order
         p_view = get_sanitized_player_view(state, p_alice["id"])
         assert [p["name"] for p in p_view["players"]] == ["Bob", "Charlie", "Alice"]
+
+    def test_vigilante_sniper_bad_factions_and_safe_silver_bullets(self):
+        """Vigilante kills bad factions (Wolves, SK, Saboteur, Disgruntled Ghost).
+        Shooting innocents/Jester with danger bullet backfires. Silver bullets are safe.
+        Holding fire for 2 rounds awards a silver bullet.
+        """
+        opts = {"sniper_bullet_type": "danger", "limbo_enabled": False}
+        state = create_initial_state("VIGTEST", "Vigilante Test", settings=opts)
+        state, p_vig = add_player(state, "Vigilante")
+        state, p_wolf = add_player(state, "Wolf")
+        state, p_sk = add_player(state, "SerialKiller")
+        state, p_sab = add_player(state, "Saboteur")
+        state, p_dg = add_player(state, "DisgruntledGhost")
+        state, p_jester = add_player(state, "Jester")
+        state, p_cit = add_player(state, "Citizen")
+
+        set_manual_player_role(state, p_vig["id"], "sniper")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_sk["id"], "serial_killer")
+        set_manual_player_role(state, p_sab["id"], "saboteur_wolf")
+        set_manual_player_role(state, p_dg["id"], "disgruntled_ghost")
+        set_manual_player_role(state, p_jester["id"], "jester")
+        set_manual_player_role(state, p_cit["id"], "villager")
+
+        # 1. Vigilante shoots Serial Killer (evil neutral threat): SK dies, Vigilante survives
+        submit_night_action(state, p_vig["id"], "shoot", p_sk["id"], extra={"bullet_type": "danger"})
+        state = resolve_night(state)
+        assert state["players"][p_sk["id"]]["status"] == "dead"
+        assert state["players"][p_vig["id"]]["status"] == "alive"
+
+        # 2. Vigilante shoots Jester with danger bullet: Jester survives, gun backfires, Vigilante dies!
+        state["phase"] = "night"
+        submit_night_action(state, p_vig["id"], "shoot", p_jester["id"], extra={"bullet_type": "danger"})
+        state = resolve_night(state)
+        assert state["players"][p_jester["id"]]["status"] == "alive"
+        assert state["players"][p_vig["id"]]["status"] == "dead"
+
+        # Revive Vigilante for silver bullet test
+        state["players"][p_vig["id"]]["status"] = "alive"
+        state["players"][p_vig["id"]]["sniper_silver_bullets"] = 1
+
+        # 3. Vigilante shoots Citizen with safe silver bullet: Neither dies!
+        state["phase"] = "night"
+        submit_night_action(state, p_vig["id"], "shoot", p_cit["id"], extra={"bullet_type": "silver"})
+        state = resolve_night(state)
+        assert state["players"][p_cit["id"]]["status"] == "alive"
+        assert state["players"][p_vig["id"]]["status"] == "alive"
+
+        # 4. Holding fire for 2 consecutive rounds earns +1 silver bullet
+        vig = state["players"][p_vig["id"]]
+        vig["sniper_nights_held"] = 0
+        vig["sniper_silver_bullets"] = 0
+        # Round 1 hold
+        state["phase"] = "night"
+        state = resolve_night(state)
+        assert state["players"][p_vig["id"]]["sniper_nights_held"] == 1
+        assert state["players"][p_vig["id"]]["sniper_silver_bullets"] == 0
+        # Round 2 hold -> awards silver bullet!
+        state["phase"] = "night"
+        state = resolve_night(state)
+        assert state["players"][p_vig["id"]]["sniper_nights_held"] == 0
+        assert state["players"][p_vig["id"]]["sniper_silver_bullets"] == 1
+
+    def test_bodyguard_interceptions_wolf_sk_and_sniper(self):
+        """Bodyguard intercepts any attack (Wolf, SK, Sniper).
+        If guarding evil from Vigilante: Bodyguard dies, evil lives.
+        If guarding citizen from Vigilante danger bullet: gun backfires, citizen and BG survive!
+        """
+        opts = {"limbo_enabled": False}
+        state = create_initial_state("BGTEST", "Bodyguard Test", settings=opts)
+        state, p_bg = add_player(state, "Bodyguard")
+        state, p_vig = add_player(state, "Vigilante")
+        state, p_wolf = add_player(state, "Wolf")
+        state, p_cit = add_player(state, "Citizen")
+
+        set_manual_player_role(state, p_bg["id"], "bodyguard")
+        set_manual_player_role(state, p_vig["id"], "sniper")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_cit["id"], "villager")
+
+        # 1. Bodyguard guards evil wolf from Vigilante: BG dies, wolf survives!
+        submit_night_action(state, p_bg["id"], "guard_bodyguard", p_wolf["id"])
+        submit_night_action(state, p_vig["id"], "shoot", p_wolf["id"], extra={"bullet_type": "danger"})
+        state = resolve_night(state)
+        assert state["players"][p_bg["id"]]["status"] == "dead"
+        assert state["players"][p_wolf["id"]]["status"] == "alive"
+
+        # 2. Bodyguard guards Citizen from Vigilante danger bullet:
+        # Danger bullet backfires; both Citizen and Bodyguard survive!
+        state["players"][p_bg["id"]]["status"] = "alive"
+        state["phase"] = "night"
+        submit_night_action(state, p_bg["id"], "guard_bodyguard", p_cit["id"])
+        submit_night_action(state, p_vig["id"], "shoot", p_cit["id"], extra={"bullet_type": "danger"})
+        state = resolve_night(state)
+        assert state["players"][p_cit["id"]]["status"] == "alive"
+        assert state["players"][p_bg["id"]]["status"] == "alive"
+        assert state["players"][p_vig["id"]]["status"] == "dead"
+
+    def test_mayor_veto_once_per_person_and_public_double_vote(self):
+        """Mayor veto is once per person! Public Mayor setting grants 2x voting power."""
+        opts = {"limbo_enabled": False, "public_mayor": True}
+        state = create_initial_state("MAYORPER", "Mayor Per Person", settings=opts)
+        state, p_mayor = add_player(state, "Mayor")
+        state, p_wolf = add_player(state, "Wolf")
+        state, p_a = add_player(state, "PlayerA")
+        state, p_b = add_player(state, "PlayerB")
+
+        set_manual_player_role(state, p_mayor["id"], "mayor")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_a["id"], "villager")
+        set_manual_player_role(state, p_b["id"], "villager")
+
+        # 1. Player A executed -> Mayor vetoes -> Player A pardoned and lives
+        p_a["status"] = "dead"
+        state["last_lynched_id"] = p_a["id"]
+        ok, msg = record_gm_night_action(state, "mayor", extra={"veto": True})
+        assert ok is True
+        state = resolve_night(state)
+        assert state["players"][p_a["id"]]["status"] == "alive"
+        assert p_a["id"] in state["mayor_vetoed_ids"]
+
+        # 2. Player A executed again -> Mayor cannot veto Player A a second time!
+        state["phase"] = "night"
+        p_a["status"] = "dead"
+        state["last_lynched_id"] = p_a["id"]
+        ok, msg = record_gm_night_action(state, "mayor", extra={"veto": True})
+        assert ok is False
+        assert "limit 1 veto per person" in msg
+
+        # 3. Player B executed -> Mayor CAN veto Player B!
+        state["last_lynched_id"] = p_b["id"]
+        ok, msg = record_gm_night_action(state, "mayor", extra={"veto": True})
+        assert ok is True
+        state = resolve_night(state)
+        assert state["players"][p_b["id"]]["status"] == "alive"
+        assert p_b["id"] in state["mayor_vetoed_ids"]
+
+        # 4. Public Mayor 2x vote weight
+        state = start_voting_session(state, "two_stage_50pct")
+        toggle_nomination_vote(state, p_mayor["id"], p_wolf["id"])
+        # Mayor's vote has weight 2!
+        view = get_voting_view(state)
+        wolf_cand = next(c for c in view["nomination_candidates"] if c["id"] == p_wolf["id"])
+        assert wolf_cand["vote_count"] == 2
+
+    def test_silencer_can_vote_and_staggered_rule(self):
+        """Silenced player can vote! Silencer cannot silence same person twice in a row."""
+        state = create_initial_state("SILENCETEST", "Silence Test")
+        state, p_sil = add_player(state, "Silencer")
+        state, p_victim = add_player(state, "Victim")
+        state, p_other = add_player(state, "Other")
+
+        set_manual_player_role(state, p_sil["id"], "silencer")
+        set_manual_player_role(state, p_victim["id"], "villager")
+        set_manual_player_role(state, p_other["id"], "villager")
+
+        # Night 1: Silencer silences Victim
+        ok, msg = record_gm_night_action(state, "silencer", p_victim["id"])
+        assert ok is True
+        state = resolve_night(state)
+        assert state["players"][p_victim["id"]]["is_silenced"] is True
+
+        # Silenced player CAN vote in nomination and final vote!
+        state = start_voting_session(state, "two_stage_50pct")
+        ok_v, _ = toggle_nomination_vote(state, p_victim["id"], p_other["id"])
+        assert ok_v is True
+
+        # Night 2: Silencer attempts to silence Victim again -> rejected!
+        state["phase"] = "night"
+        ok_repeat, msg_repeat = record_gm_night_action(state, "silencer", p_victim["id"])
+        assert ok_repeat is False
+        assert "two nights in a row" in msg_repeat
+
+    def test_witch_alive_check_no_self_heal(self):
+        """Witch cannot self-heal if attacked tonight."""
+        state = create_initial_state("WITCHTEST", "Witch Test", settings={"limbo_enabled": False})
+        state, p_witch = add_player(state, "Witch")
+        state, p_wolf = add_player(state, "Wolf")
+        state, p_target = add_player(state, "Target")
+
+        set_manual_player_role(state, p_witch["id"], "witch")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_target["id"], "villager")
+
+        # Wolves attack Witch, and Witch attempts to revive herself
+        record_gm_night_action(state, "wolves", p_witch["id"])
+        record_gm_night_action(state, "witch", extra={"revive": True, "kill_target": p_target["id"]})
+        state = resolve_night(state)
+
+        # Witch dies and potions fail because she was attacked tonight!
+        assert state["players"][p_witch["id"]]["status"] == "dead"
+        assert state["players"][p_target["id"]]["status"] == "alive"
+
+    def test_serial_killer_instant_win_when_wolves_perish(self):
+        """If all wolves die and SK is alive, SK wins instant solo victory!"""
+        state = create_initial_state("SKTEST", "SK Test")
+        state, p_sk = add_player(state, "Dexter")
+        state, p_wolf = add_player(state, "BadWolf")
+        state, p_c1 = add_player(state, "Cit1")
+        state, p_c2 = add_player(state, "Cit2")
+
+        set_manual_player_role(state, p_sk["id"], "serial_killer")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_c1["id"], "villager")
+        set_manual_player_role(state, p_c2["id"], "villager")
+
+        # Wolf dies (executed)
+        set_player_status(state, p_wolf["id"], "dead")
+        winner = check_win_condition(state)
+        assert winner == "serial_killer"
+        assert state["pending_gameover"]["winner"] == "serial_killer"
+
+    def test_watson_and_traveler_and_ghost_mechanics(self):
+        """Watson sees Detective. Traveler is confirmed good. Ghost sends spectral clues."""
+        state = create_initial_state("NEWROLESTEST", "New Roles Test")
+        state, p_watson = add_player(state, "Watson")
+        state, p_det = add_player(state, "Sherlock")
+        state, p_trav = add_player(state, "Traveler")
+        state, p_ghost = add_player(state, "Casper")
+
+        set_manual_player_role(state, p_watson["id"], "watson")
+        set_manual_player_role(state, p_det["id"], "detective")
+        assign_midgame_role(state, p_trav["id"], "traveler")
+        assign_midgame_role(state, p_ghost["id"], "ghost")
+
+        # 1. Watson sanitized view sees Detective identity
+        w_view = get_sanitized_player_view(state, p_watson["id"])
+        assert w_view["me"]["watson_detective_name"] == "Sherlock"
+
+        # 2. Traveler has confirmed good flag
+        trav_entry = next(p for p in w_view["players"] if p["id"] == p_trav["id"])
+        assert trav_entry["is_traveler"] is True
+
+        # 3. Ghost can submit spectral message and GM approves it
+        ok, msg = submit_ghost_message(state, p_ghost["id"], "Watch Player 3!")
+        assert ok is True
+        msg_id = state["ghost_messages"][0]["id"]
+        ok_appr, _ = approve_ghost_message(state, msg_id, approved=True)
+        assert ok_appr is True
+        # At dawn, message appears in night report
+        state["phase"] = "night"
+        state = resolve_night(state)
+        assert any("Watch Player 3!" in r for r in state["night_report"])
+
+    def test_disgruntled_ghost_and_saboteur_wolf_suppression(self):
+        """Disgruntled Ghost and Saboteur Wolf suppress targets' night abilities."""
+        state = create_initial_state("SUPPTEST", "Suppression Test")
+        state, p_dg = add_player(state, "DisgruntledGhost")
+        state, p_sab = add_player(state, "Saboteur")
+        state, p_doc = add_player(state, "Doctor")
+        state, p_wolf = add_player(state, "Wolf")
+        state, p_victim = add_player(state, "Victim")
+
+        set_manual_player_role(state, p_dg["id"], "disgruntled_ghost")
+        set_manual_player_role(state, p_sab["id"], "saboteur_wolf")
+        set_manual_player_role(state, p_doc["id"], "doctor")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_victim["id"], "villager")
+
+        # Disgruntled ghost suppresses Doctor
+        record_gm_night_action(state, "disgruntled_ghost", p_doc["id"])
+        # Doctor tries to protect Victim
+        record_gm_night_action(state, "doctor", p_victim["id"])
+        # Wolves attack Victim
+        record_gm_night_action(state, "wolves", p_victim["id"])
+
+        state = resolve_night(state)
+        # Doctor was suppressed, so Victim dies!
+        assert state["players"][p_victim["id"]]["status"] in ("limbo", "dead")
 
 
 class TestLupusVoting:

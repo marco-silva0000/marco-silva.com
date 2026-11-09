@@ -2382,6 +2382,10 @@ html, body {
     const stage = state.night_stages[state.night_stage_index || 0];
     if (!stage) return false;
     const actions = state.night_actions || {};
+    if (stage.id === 'disgruntled_ghost') return actions.disgruntled_ghost_target === playerId;
+    if (stage.id === 'hacker') return actions.hacker_targets && actions.hacker_targets.includes(playerId);
+    if (stage.id === 'saboteur_wolf') return actions.saboteur_target === playerId;
+    if (stage.id === 'ghost') return actions.ghost_haunt === playerId;
     if (stage.id === 'wolves') return actions.wolf_target === playerId;
     if (stage.id === 'silencer') return actions.silencer_target === playerId;
     if (stage.id === 'framer') return actions.framer_target === playerId;
@@ -2656,6 +2660,25 @@ html, body {
       const wTarget = state.players.find(p => p.id === actions.wolf_target);
       summaryHtml += `<li>🐺 <strong>Wolves Victim:</strong> ${wTarget ? escapeHtml(wTarget.name) : '<em style="color:#f87171;">None</em>'}</li>`;
 
+      if (actions.disgruntled_ghost_target) {
+        const dgTarget = state.players.find(p => p.id === actions.disgruntled_ghost_target);
+        summaryHtml += `<li>👿 <strong>Disgruntled Ghost:</strong> Suppressing ${dgTarget ? escapeHtml(dgTarget.name) : 'None'}</li>`;
+      }
+      if (actions.hacker_targets && actions.hacker_targets.length > 0) {
+        const hNames = actions.hacker_targets.map(id => {
+          const hp = state.players.find(p => p.id === id);
+          return hp ? escapeHtml(hp.name) : 'Unknown';
+        }).join(", ");
+        summaryHtml += `<li>💻 <strong>Hacker Scan:</strong> Group [${hNames}]</li>`;
+      }
+      if (actions.saboteur_target) {
+        const sabTarget = state.players.find(p => p.id === actions.saboteur_target);
+        summaryHtml += `<li>🐺⚡ <strong>Saboteur Wolf:</strong> Suppressing & stealing role of ${sabTarget ? escapeHtml(sabTarget.name) : 'None'}</li>`;
+      }
+      if (actions.ghost_haunt) {
+        const ghTarget = state.players.find(p => p.id === actions.ghost_haunt);
+        summaryHtml += `<li>👻 <strong>Town Ghost:</strong> Haunting ${ghTarget ? escapeHtml(ghTarget.name) : 'None'}</li>`;
+      }
       if (actions.silencer_target) {
         const sTarget = state.players.find(p => p.id === actions.silencer_target);
         summaryHtml += `<li>🤐 <strong>Silenced tomorrow:</strong> ${sTarget ? escapeHtml(sTarget.name) : 'None'}</li>`;
@@ -2708,6 +2731,19 @@ html, body {
         const names = stage.target_names || [];
         targetDisplay.innerText = names.length > 0 ? names.join(" & ") : "Select 2 Lovers";
         clearBtn.style.display = names.length > 0 ? "inline-block" : "none";
+      } else if (stage.id === "hacker") {
+        const names = stage.target_names || [];
+        targetDisplay.innerText = names.length > 0 ? names.join(", ") : "Select 2-3 Players to Scan";
+        clearBtn.style.display = names.length > 0 ? "inline-block" : "none";
+      } else if (stage.id === "disgruntled_ghost") {
+        targetDisplay.innerText = stage.target_name || "None selected";
+        clearBtn.style.display = stage.target_name ? "inline-block" : "none";
+      } else if (stage.id === "saboteur_wolf") {
+        targetDisplay.innerText = stage.target_name || "None selected (1-time power)";
+        clearBtn.style.display = stage.target_name ? "inline-block" : "none";
+      } else if (stage.id === "ghost") {
+        targetDisplay.innerText = stage.target_name || "None selected";
+        clearBtn.style.display = stage.target_name ? "inline-block" : "none";
       } else if (stage.id === "mayor") {
         pickerWrap.style.display = "none";
         clearBtn.style.display = "none";
@@ -2723,7 +2759,7 @@ html, body {
             vetoBtn.disabled = true;
             vetoBtn.style.opacity = "0.5";
           } else if (!stage.has_veto) {
-            noteEl.innerHTML = "⚠️ Mayor has already used their 1-time official veto in an earlier round.";
+            noteEl.innerHTML = "⚠️ Mayor has already vetoed this person (limit: 1 veto per person).";
             vetoBtn.disabled = true;
             vetoBtn.style.opacity = "0.5";
           } else if (!stage.last_lynched_id) {
@@ -2731,7 +2767,7 @@ html, body {
             vetoBtn.disabled = true;
             vetoBtn.style.opacity = "0.5";
           } else {
-            noteEl.innerHTML = `👉 Ask the Mayor silently if they wish to pardon <strong>${escapeHtml(stage.last_lynched_name)}</strong>. Nod = Veto, Shake = Pass.`;
+            noteEl.innerHTML = `👉 Ask the Mayor silently if they wish to pardon <strong>${escapeHtml(stage.last_lynched_name)}</strong> (1 veto per person). Nod = Veto, Shake = Pass.`;
             vetoBtn.disabled = false;
             vetoBtn.style.opacity = "1";
           }

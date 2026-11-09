@@ -9,6 +9,8 @@ from website.version import get_version_info
 from .game_state import (
     add_player,
     adjust_timer,
+    approve_ghost_message,
+    assign_midgame_role,
     cast_final_vote,
     clear_gm_night_action,
     dismiss_pending_gameover,
@@ -44,6 +46,7 @@ from .game_state import (
     start_game,
     start_timer,
     start_voting_session,
+    submit_ghost_message,
     tally_and_resolve_vote,
     toggle_nomination_vote,
     toggle_official_nomination,
@@ -188,6 +191,20 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 rid = content.get("role_id")
                 if pid and rid:
                     set_manual_player_role(state, pid, rid)
+                    await self.broadcast_sync()
+
+            elif action == "assign_midgame_role":
+                pid = content.get("player_id")
+                rid = content.get("role_id")
+                if pid and rid:
+                    assign_midgame_role(state, pid, rid)
+                    await self.broadcast_sync()
+
+            elif action == "approve_ghost_message":
+                mid = content.get("message_id")
+                approved = bool(content.get("approved", True))
+                if mid:
+                    approve_ghost_message(state, mid, approved)
                     await self.broadcast_sync()
 
             elif action == "set_status":
@@ -456,4 +473,10 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 target_id = content.get("target_id")
                 success, msg = guess_angel_in_limbo(state, self.player_id, target_id)
                 await self.send_json({"type": "angel_guess_result", "success": success, "message": msg})
+                await self.broadcast_sync()
+
+            elif action == "submit_ghost_message":
+                msg_text = content.get("message", "")
+                success, msg = submit_ghost_message(state, self.player_id, msg_text)
+                await self.send_json({"type": "ghost_message_result", "success": success, "message": msg})
                 await self.broadcast_sync()
