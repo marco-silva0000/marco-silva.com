@@ -483,7 +483,29 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
 
             elif action == "update_settings":
                 new_settings = content.get("settings", {})
+                if "mayor_type" in new_settings:
+                    new_settings["public_mayor"] = new_settings["mayor_type"] == "public"
+                elif "public_mayor" in new_settings:
+                    new_settings["mayor_type"] = "public" if new_settings["public_mayor"] else "hidden"
                 state["settings"].update(new_settings)
+
+                # Keep player attributes in sync live
+                if "mayor_type" in new_settings or "public_mayor" in new_settings:
+                    is_pub = state["settings"].get("mayor_type") == "public" or state["settings"].get(
+                        "public_mayor", False
+                    )
+                    for p in state.get("players", {}).values():
+                        if p.get("role") == "mayor":
+                            p["is_public_mayor"] = is_pub
+
+                if "sniper_danger_bullets" in new_settings or "sniper_silver_bullets" in new_settings:
+                    for p in state.get("players", {}).values():
+                        if p.get("role") == "sniper":
+                            if "sniper_danger_bullets" in new_settings:
+                                p["sniper_danger_bullets"] = int(new_settings["sniper_danger_bullets"])
+                            if "sniper_silver_bullets" in new_settings:
+                                p["sniper_silver_bullets"] = int(new_settings["sniper_silver_bullets"])
+
                 save_game(self.code, state)
                 await self.broadcast_sync()
 

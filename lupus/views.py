@@ -165,6 +165,8 @@ def create_room(request):
             "sniper_silver_bullets": silver_bullets,
             "limbo_enabled": limbo_on,
             "reveal_roles_on_death": reveal_level,
+            "mayor_type": request.POST.get("mayor_type", "public"),
+            "public_mayor": request.POST.get("mayor_type", "public") == "public",
         }
 
         gm_name = request.POST.get("gm_name", "Game Master").strip() or "Game Master"

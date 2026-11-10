@@ -4,6 +4,23 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v115] - 2026-11-10
+
+### Added
+- **Pre-Game Role Card Tuning UI**: Integrated role tuning controls directly on role chips/cards in the pre-game deck builder instead of the room creation page:
+  - **Vigilante / Sniper Bullets Stepper**: Live steppers for Danger Bullets and Silver Bullets directly under the active Sniper card, automatically syncing to settings and player inventories.
+  - **Mayor Variation Selector**: Live toggle between **Public Mayor** and **Hidden Mayor** on the Mayor card.
+- **Public Mayor Lynching Immunity**:
+  - A Public Mayor cannot be voted out by town execution ("public mayor can't be voted out"). If the Public Mayor receives the highest vote tally, executive immunity activates, the execution fails, and the town proceeds to night peacefully.
+  - Public Mayor identity is confirmed publicly to all players and retains double voting power (`2x`).
+- **Hidden Mayor Mechanic**:
+  - Hidden Mayor keeps their role secret, votes with standard `1x` weight, and can be voted out normally (or exercise their 1-time pardon veto at night).
+- **Lobby Grid Additions**: Added `Death Angel` to the Good Team toggle grid and `Wolf Hunter` to the Neutral Team toggle grid with custom pill rendering in the deck roster.
+
+### Changed
+- **Create Room Page Streamlining**: Removed danger and silver bullet inputs from `templates/lupus/create.html` in favor of in-lobby role card tuning.
+- **Roster Tag Labels**: Dynamic deck roster tags now display tuned parameters (e.g. `🎯 Sniper (1D, 0S)`, `🎖️ Public Mayor`, `🎖️ Hidden Mayor`).
+
 ## [v114] - 2026-11-10
 
 ### Added

@@ -2148,6 +2148,13 @@ html, body {
       if (me.role.id === "sniper") {
         secretNotes.push(`🎯 <strong>Ammunition:</strong> ${me.sniper_danger_bullets || 0} Danger Bullet(s), ${me.sniper_silver_bullets || 0} Silver Bullet(s) <span style="font-size:0.75rem; color:#94a3b8;">(Silver bullets safe; hold fire 2 rounds to earn silver!)</span>`);
       }
+      if (me.role.id === "mayor") {
+        if (me.is_public_mayor) {
+          secretNotes.push(`🎖️ <strong>Public Mayor:</strong> You hold official executive immunity! You cannot be voted out by town execution, and your daytime vote counts double (2x).`);
+        } else {
+          secretNotes.push(`🎖️ <strong>Hidden Mayor:</strong> Your identity is secret. You vote with normal 1x weight, and you can exercise a one-time executive veto at night if someone is executed!`);
+        }
+      }
       if (me.lover_name) {
         secretNotes.push(`💘 <strong>Bound Lover:</strong> ${escapeHtml(me.lover_name)} <span style="font-size:0.75rem; color:#94a3b8;">(${me.lover_type === 'obsessive' ? 'Obsessive Partner &bull; Win only if everyone else dies!' : 'Citizen Partner &bull; Form a 2-vote block!'})</span>`);
       }
@@ -2901,6 +2908,16 @@ html, body {
             <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#4ade80;">SECOND TIE — TOWN SPARED!</h3>
             <p style="font-size:0.88rem; color:#cbd5e1; margin:0; line-height:1.45;">
               The runoff vote resulted in a second tie. By town law, <strong>NO ONE is eliminated today!</strong>
+            </p>
+          </div>
+        `;
+      } else if (res === "mayor_immune") {
+        html += `
+          <div style="text-align:center; padding:0.5rem 0;">
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🎖️</div>
+            <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#facc15;">MAYOR HOLDS IMMUNITY!</h3>
+            <p style="font-size:0.88rem; color:#cbd5e1; margin:0; line-height:1.45;">
+              The Public Mayor received the most votes, but <strong>holds executive immunity and cannot be voted out</strong> by the town!
             </p>
           </div>
         `;

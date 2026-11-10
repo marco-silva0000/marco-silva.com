@@ -2135,4 +2135,122 @@ class TestLupusNewFeaturesV114:
         bulletin2 = state["approved_news_bulletins"][1]
         assert "Werewolf" in bulletin2["message"]
 
+    def test_public_mayor_immunity_from_town_lynch(self):
+        """Public Mayor holds executive immunity and CANNOT be voted out by town execution."""
+        from lupus.game_state import (
+            add_player,
+            cast_final_vote,
+            create_initial_state,
+            get_voter_weight,
+            proceed_to_final_vote,
+            set_manual_player_role,
+            start_voting_session,
+            tally_and_resolve_vote,
+            toggle_official_nomination,
+        )
+
+        state = create_initial_state("PUBMAYOR", "Public Mayor Room", settings={"mayor_type": "public"})
+        state, p_mayor = add_player(state, "MayorDan")
+        state, p_wolf = add_player(state, "Wolfie")
+        state, p_v1 = add_player(state, "Villager1")
+
+        state["phase"] = "day_discussion"
+        set_manual_player_role(state, p_mayor["id"], "mayor")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_v1["id"], "villager")
+
+        # Public Mayor has 2x vote weight
+        assert get_voter_weight(state, p_mayor["id"]) == 2
+
+        # Start voting and nominate Mayor
+        state = start_voting_session(state, "two_stage_50pct")
+        toggle_official_nomination(state, p_mayor["id"])
+        proceed_to_final_vote(state)
+
+        # Both wolf and villager vote to execute Mayor
+        cast_final_vote(state, p_wolf["id"], p_mayor["id"])
+        cast_final_vote(state, p_v1["id"], p_mayor["id"])
+
+        result, msg = tally_and_resolve_vote(state)
+        assert result == "mayor_immune"
+        assert "holds executive immunity as Public Mayor" in msg
+        assert state["players"][p_mayor["id"]]["status"] == "alive"
+        assert state["voting"]["eliminated_player_id"] is None
+        assert state["voting"]["elimination_result"] == "mayor_immune"
+
+    def test_hidden_mayor_can_be_executed_and_has_single_vote(self):
+        """Hidden Mayor has 1x vote and CAN be voted out by town execution."""
+        from lupus.game_state import (
+            add_player,
+            cast_final_vote,
+            create_initial_state,
+            get_voter_weight,
+            proceed_to_final_vote,
+            set_manual_player_role,
+            start_voting_session,
+            tally_and_resolve_vote,
+            toggle_official_nomination,
+        )
+
+        state = create_initial_state(
+            "HIDMAYOR", "Hidden Mayor Room", settings={"mayor_type": "hidden", "limbo_enabled": False}
+        )
+        state, p_mayor = add_player(state, "SecretMayor")
+        state, p_wolf = add_player(state, "Wolfie")
+        state, p_v1 = add_player(state, "Villager1")
+
+        state["phase"] = "day_discussion"
+        set_manual_player_role(state, p_mayor["id"], "mayor")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_v1["id"], "villager")
+
+        # Hidden Mayor has standard 1x vote weight
+        assert get_voter_weight(state, p_mayor["id"]) == 1
+        assert state["players"][p_mayor["id"]]["is_public_mayor"] is False
+
+        # Start voting and nominate Hidden Mayor
+        state = start_voting_session(state, "two_stage_50pct")
+        toggle_official_nomination(state, p_mayor["id"])
+        proceed_to_final_vote(state)
+
+        cast_final_vote(state, p_wolf["id"], p_mayor["id"])
+        cast_final_vote(state, p_v1["id"], p_mayor["id"])
+
+        result, msg = tally_and_resolve_vote(state)
+        assert result == "eliminated"
+        assert state["players"][p_mayor["id"]]["status"] == "dead"
+        assert state["voting"]["eliminated_player_id"] == p_mayor["id"]
+
+    def test_sniper_bullet_tuning_deal_and_view(self):
+        """Sniper danger and silver bullet counts are tuned on card settings and dealt correctly."""
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            deal_roles,
+            get_sanitized_player_view,
+        )
+
+        state = create_initial_state(
+            "SNIPTUNE",
+            "Sniper Tuning Room",
+            settings={"sniper_danger_bullets": 3, "sniper_silver_bullets": 2},
+        )
+        state, p1 = add_player(state, "Hawkeye")
+        state, p2 = add_player(state, "WolfA")
+        state, p3 = add_player(state, "VillagerB")
+
+        deck = ["sniper", "werewolf", "villager"]
+        state = deal_roles(state, deck)
+
+        sniper_p = next(p for p in state["players"].values() if p["role"] == "sniper")
+        assert sniper_p["sniper_danger_bullets"] == 3
+        assert sniper_p["sniper_silver_bullets"] == 2
+
+        pv = get_sanitized_player_view(state, sniper_p["id"])
+        assert pv["me"]["sniper_danger_bullets"] == 3
+        assert pv["me"]["sniper_silver_bullets"] == 2
+        assert pv["settings"]["sniper_danger_bullets"] == 3
+        assert pv["settings"]["sniper_silver_bullets"] == 2
+
+
 

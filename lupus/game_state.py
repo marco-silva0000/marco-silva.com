@@ -88,8 +88,14 @@ def get_voter_weight(state: dict[str, Any], voter_id: str) -> int:
     if not voter_id or str(voter_id).startswith("tally_") or str(voter_id).startswith("gm_vote_"):
         return 1
     player = state.get("players", {}).get(voter_id)
-    if player and player.get("role") == "mayor" and state.get("settings", {}).get("public_mayor", False):
-        return 2
+    if player and player.get("role") == "mayor":
+        is_public = (
+            player.get("is_public_mayor", False)
+            or state.get("settings", {}).get("mayor_type") == "public"
+            or state.get("settings", {}).get("public_mayor", False)
+        )
+        if is_public:
+            return 2
     return 1
 
 
@@ -114,11 +120,17 @@ def create_initial_state(
         "reveal_roles_on_death": 0,  # 0: None, 1: Alignment, 2: Faction, 3: Full Role
         "voting_system": "two_stage_50pct",  # "two_stage_50pct", "two_stage_top_n", "simple_plurality"
         "nomination_threshold_pct": 50,  # 50% of living players needed for nomination
-        "public_mayor": False,  # If true, Mayor's identity is publicly confirmed & votes count x2
+        "mayor_type": "public",  # "public" (cannot be lynched, 2x vote) or "hidden" (secret, 1x vote)
+        "public_mayor": True,  # Kept in sync with mayor_type
         "public_heartbreak_cause": False,  # If true, lover heartbreak cause announced; if false, concealed as "found dead"
     }
     if settings:
         default_settings.update(settings)
+    # Ensure mayor_type and public_mayor remain synchronized
+    if "mayor_type" in default_settings:
+        default_settings["public_mayor"] = (default_settings["mayor_type"] == "public")
+    elif "public_mayor" in default_settings:
+        default_settings["mayor_type"] = "public" if default_settings["public_mayor"] else "hidden"
 
     state: dict[str, Any] = {
         "code": code.upper(),
@@ -215,6 +227,7 @@ def add_player(state: dict[str, Any], name: str, is_offline: bool = False) -> tu
         "lover_id": None,
         "lover_type": None,  # "innocent" or "obsessive"
         "last_guarded_id": None,
+        "is_public_mayor": False,
         "sniper_danger_bullets": 1,
         "sniper_silver_bullets": 1 if state.get("settings", {}).get("sniper_bullet_type") == "mix" else 0,
         "sniper_nights_held": 0,
@@ -352,6 +365,13 @@ def set_preassigned_role(state: dict[str, Any], player_id: str, role_id: Optiona
     if state.get("phase") == "lobby":
         player["role"] = role_id
         player["faction"] = role_info["faction"]
+        if role_id == "mayor":
+            player["is_public_mayor"] = (
+                state.get("settings", {}).get("mayor_type", "public") == "public"
+                or state.get("settings", {}).get("public_mayor", False)
+            )
+        else:
+            player["is_public_mayor"] = False
 
     # Ensure pre-assigned role is represented in state['deck']
     deck = list(state.get("deck", []))
@@ -620,6 +640,13 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         state["players"][pid]["is_successor"] = role_id == "successor"
         if role_id == "successor":
             state["players"][pid]["status"] = "waiting"
+        state["players"][pid]["is_public_mayor"] = (
+            role_id == "mayor"
+            and (
+                state.get("settings", {}).get("mayor_type", "public") == "public"
+                or state.get("settings", {}).get("public_mayor", False)
+            )
+        )
         state["players"][pid]["sniper_danger_bullets"] = danger_bullets_qty if role_id == "sniper" else 0
         state["players"][pid]["sniper_silver_bullets"] = silver_bullets_qty if role_id == "sniper" else 0
         state["players"][pid]["death_angel_strikes"] = 1 if role_id == "death_angel" else 0
@@ -798,6 +825,19 @@ def set_manual_player_role(state: dict[str, Any], player_id: str, role_id: str) 
             state["players"][player_id]["status"] = "waiting"
             state["players"][player_id]["is_successor"] = True
             log_event(state, f"⏳ {state['players'][player_id]['name']} joined as the Successor, waiting to inherit the role of the next fallen player!")
+
+        if role_id == "mayor":
+            state["players"][player_id]["is_public_mayor"] = (
+                state.get("settings", {}).get("mayor_type", "public") == "public"
+                or state.get("settings", {}).get("public_mayor", False)
+            )
+
+        if role_id == "sniper":
+            danger_setting = state.get("settings", {}).get("sniper_danger_bullets", 1)
+            silver_setting = state.get("settings", {}).get("sniper_silver_bullets", 0)
+            state["players"][player_id]["sniper_danger_bullets"] = int(danger_setting)
+            state["players"][player_id]["sniper_silver_bullets"] = int(silver_setting)
+            state["players"][player_id]["sniper_nights_held"] = 0
 
         save_game(state["code"], state)
     return state
@@ -2961,6 +3001,26 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
     state["last_lynched_id"] = victim_id
     voting["eliminated_player_id"] = victim_id
 
+    # Check PUBLIC MAYOR IMMUNITY: Public Mayor cannot be voted out!
+    is_public_mayor = victim.get("role") == "mayor" and (
+        victim.get("is_public_mayor", False)
+        or state.get("settings", {}).get("mayor_type") == "public"
+        or state.get("settings", {}).get("public_mayor", False)
+    )
+    if is_public_mayor:
+        voting["stage"] = "completed"
+        voting["eliminated_player_id"] = None
+        voting["elimination_result"] = "mayor_immune"
+        state["last_lynched_id"] = None
+        msg = (
+            f"🎖️ {victim['name']} received {max_votes} votes, but holds executive immunity as Public Mayor "
+            f"and cannot be voted out by the town!"
+        )
+        log_event(state, msg)
+        check_win_condition(state)
+        save_game(state["code"], state)
+        return "mayor_immune", msg
+
     # Check JESTER instant win!
     if victim.get("role") == "jester":
         state["pending_gameover"] = {
@@ -3216,7 +3276,11 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     for idx, p in enumerate(ordered_players):
         pid = p["id"]
         p_role = get_role_info(p["role"], theme) if (is_gameover and p.get("role")) else None
-        is_public_mayor = state.get("settings", {}).get("public_mayor", False) and p.get("role") == "mayor"
+        is_public_mayor = p.get("role") == "mayor" and (
+            p.get("is_public_mayor", False)
+            or state.get("settings", {}).get("mayor_type") == "public"
+            or state.get("settings", {}).get("public_mayor", False)
+        )
         public_players.append(
             {
                 "id": p["id"],
@@ -3338,6 +3402,11 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
             "sniper_danger_bullets": player.get("sniper_danger_bullets", 0),
             "sniper_silver_bullets": player.get("sniper_silver_bullets", 0),
             "death_angel_strikes": player.get("death_angel_strikes", 0),
+            "is_public_mayor": player.get("role") == "mayor" and (
+                player.get("is_public_mayor", False)
+                or state.get("settings", {}).get("mayor_type") == "public"
+                or state.get("settings", {}).get("public_mayor", False)
+            ),
         },
         "players": public_players,
         "roles_in_play": roles_in_play,
@@ -3357,7 +3426,12 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
         "settings": {
             "limbo_enabled": state["settings"].get("limbo_enabled", True),
             "voting_system": state["settings"].get("voting_system", "two_stage_50pct"),
+            "mayor_type": state["settings"].get(
+                "mayor_type", "public" if state["settings"].get("public_mayor", False) else "hidden"
+            ),
             "public_mayor": state["settings"].get("public_mayor", False),
+            "sniper_danger_bullets": state["settings"].get("sniper_danger_bullets", 1),
+            "sniper_silver_bullets": state["settings"].get("sniper_silver_bullets", 0),
             "public_heartbreak_cause": state["settings"].get("public_heartbreak_cause", False),
             "reveal_roles_on_death": state["settings"].get("reveal_roles_on_death", 0),
         },
@@ -3401,6 +3475,11 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
                 "sniper_danger_bullets": p.get("sniper_danger_bullets", 0),
                 "sniper_silver_bullets": p.get("sniper_silver_bullets", 0),
                 "death_angel_strikes": p.get("death_angel_strikes", 0),
+                "is_public_mayor": p.get("role") == "mayor" and (
+                    p.get("is_public_mayor", False)
+                    or state.get("settings", {}).get("mayor_type") == "public"
+                    or state.get("settings", {}).get("public_mayor", False)
+                ),
                 "point_target_id": state.get("player_points", {}).get(p["id"]),
             }
         )

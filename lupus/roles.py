@@ -184,13 +184,13 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
         "emoji": "🎖️",
         "names": {"werewolf": "Mayor", "mafia": "Mayor"},
         "descriptions": {
-            "werewolf": "Can secretly veto the town vote once per player to pardon and revive them. If Public Mayor is active, your daytime vote counts as 2!",
-            "mafia": "Can secretly veto the town vote once per player to pardon and revive them. If Public Mayor is active, your daytime vote counts as 2!",
+            "werewolf": "Leader of the town. Public Mayor cannot be voted out by town execution and has double voting power (2x). Hidden Mayor remains secret, has 1x vote, and can veto an execution at night once per person.",
+            "mafia": "Leader of the city. Public Mayor cannot be voted out by town execution and has double voting power (2x). Hidden Mayor remains secret, has 1x vote, and can veto an execution at night once per person.",
         },
         "night_action": "veto",
         "guide": {
-            "objective": "Town: Lead the town and veto incorrect executions.",
-            "day_tips": "Participate actively and watch the vote outcome. If you are a confirmed Public Mayor, your vote counts as 2!",
+            "objective": "Town: Lead the town and protect innocents. Public Mayor cannot be voted out and has double vote!",
+            "day_tips": "As Public Mayor, you cannot be voted out by town execution and your vote counts as 2! As Hidden Mayor, stay secret and use normal 1x voting.",
             "night_tips": "If an executed player was innocent, you can exercise an official veto to pardon them. You can pardon multiple players across the game, but each player only once!",
             "pro_tip": "Save your veto for a confirmed innocent or critical power role like the Detective.",
         },
