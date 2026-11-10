@@ -1742,3 +1742,54 @@ class TestLupusViews:
         )
         assert res_reconnect.status_code == 302
         assert "play" in res_reconnect.url
+
+    def test_lupus_hub_get_empty(self, client):
+        res = client.get(reverse("gamerooms:lupus:hub"))
+        assert res.status_code == 200
+        content = res.content.decode()
+        assert "Lupus in Tabula" in content
+        assert "Active Lupus Rooms" in content
+        assert "No Active Lupus Games Right Now" in content
+
+    def test_lupus_hub_lists_active_rooms(self, client):
+        lupus_room = Room.objects.create(code="WOLF1234", title="Wolf Pack Night", game_type="lupus")
+        create_initial_state(lupus_room.code, lupus_room.title, gm_name="Chief Wolf")
+        Room.objects.create(code="EMOJI999", title="Emojinary Fun", game_type="emojinary")
+
+        res = client.get(reverse("gamerooms:lupus:hub"))
+        assert res.status_code == 200
+        content = res.content.decode()
+        assert "Wolf Pack Night" in content
+        assert "WOLF1234" in content
+        assert "Chief Wolf" in content
+        # Emojinary room should NOT appear in Lupus-specific hub
+        assert "Emojinary Fun" not in content
+
+    def test_lupus_hub_code_redirect(self, client):
+        room = Room.objects.create(code="FASTJOIN", title="Fast Room", game_type="lupus")
+        create_initial_state(room.code, room.title)
+
+        # POST code
+        res_post = client.post(reverse("gamerooms:lupus:hub"), {"code": "fastjoin"})
+        assert res_post.status_code == 302
+        assert reverse("gamerooms:lupus:join", kwargs={"code": "FASTJOIN"}) in res_post.url
+
+        # GET ?code=...
+        res_get = client.get(f"{reverse('gamerooms:lupus:hub')}?code=fastjoin")
+        assert res_get.status_code == 302
+        assert reverse("gamerooms:lupus:join", kwargs={"code": "FASTJOIN"}) in res_get.url
+
+    def test_lupus_hub_invalid_code_error(self, client):
+        res = client.post(reverse("gamerooms:lupus:hub"), {"code": "NOTFOUND"})
+        assert res.status_code == 200
+        assert "Room code &#x27;NOTFOUND&#x27; was not found" in res.content.decode() or "not found" in res.content.decode()
+
+    def test_lupus_root_redirect(self, client):
+        res_slash = client.get("/lupus/")
+        assert res_slash.status_code == 302
+        assert res_slash.url == "/games/lupus/"
+
+        res_no_slash = client.get("/lupus")
+        assert res_no_slash.status_code == 302
+        assert res_no_slash.url == "/games/lupus/"
+

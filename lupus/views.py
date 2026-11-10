@@ -23,6 +23,102 @@ from .roles import DEFAULT_PRESETS, ROLE_REGISTRY, get_all_roles_catalogue
 
 
 @never_cache
+def lupus_hub(request):
+    """Active rooms and landing hub for Lupus / Werewolf game."""
+    error = None
+    # Support code join via GET (?code=ABC) or POST
+    code_input = (request.POST.get("code") or request.GET.get("code") or "").strip().upper()
+    if code_input:
+        if Room.objects.filter(code=code_input, is_active=True).exists():
+            return redirect("gamerooms:lupus:join", code=code_input)
+        error = f"Room code '{code_input}' was not found or is no longer active."
+    elif request.method == "POST":
+        error = "Please enter a valid room code."
+
+    # Query active lupus rooms
+    rooms_qs = Room.objects.filter(game_type="lupus", is_active=True).order_by("-created_at")
+    active_rooms = []
+    for r in rooms_qs:
+        state = None
+        try:
+            state = get_game(r.code)
+        except Exception:
+            state = None
+
+        room_info = {
+            "room": r,
+            "code": r.code,
+            "title": (state.get("title") if state else None) or r.title,
+            "created_at": r.created_at,
+            "has_password": r.has_password,
+            "gm_name": (state.get("gm_name") if state else None) or r.creator or "Game Master",
+            "player_count": len(state.get("players", {})) if state else 0,
+            "living_count": (
+                sum(1 for p in state.get("players", {}).values() if p.get("status") == "alive")
+                if state
+                else 0
+            ),
+            "phase": state.get("phase", "lobby") if state else "active",
+            "round": state.get("round", 1) if state else 1,
+            "theme": state.get("theme", "werewolf") if state else "werewolf",
+            "is_gm": bool(state and request.session.get(f"lupus_gm_{r.code}") == state.get("gm_token")),
+            "joined_player": None,
+        }
+
+        # Check if current visitor has a joined player session in this room
+        if state:
+            p_token = request.session.get(f"lupus_player_{r.code}")
+            if p_token:
+                for p in state.get("players", {}).values():
+                    if p.get("token") == p_token:
+                        room_info["joined_player"] = p
+                        break
+
+        # Friendly phase display
+        phase = room_info["phase"]
+        rnd = room_info["round"]
+        if phase == "lobby":
+            room_info["phase_label"] = "Lobby (Waiting for Players)"
+            room_info["phase_badge"] = "⏳ Lobby"
+            room_info["phase_color"] = "#64748b"
+        elif phase == "day":
+            room_info["phase_label"] = f"Day {rnd} - Discussion"
+            room_info["phase_badge"] = f"🌅 Day {rnd}"
+            room_info["phase_color"] = "#d97706"
+        elif phase == "voting":
+            room_info["phase_label"] = f"Day {rnd} - Town Voting"
+            room_info["phase_badge"] = f"⚖️ Voting {rnd}"
+            room_info["phase_color"] = "#b45309"
+        elif phase == "night":
+            room_info["phase_label"] = f"Night {rnd} - Silent Phase"
+            room_info["phase_badge"] = f"🌙 Night {rnd}"
+            room_info["phase_color"] = "#4338ca"
+        elif phase == "limbo":
+            room_info["phase_label"] = "Limbo Resolution"
+            room_info["phase_badge"] = "👻 Limbo"
+            room_info["phase_color"] = "#7c3aed"
+        elif phase == "gameover":
+            room_info["phase_label"] = "Game Over"
+            room_info["phase_badge"] = "🏆 Finished"
+            room_info["phase_color"] = "#059669"
+        else:
+            room_info["phase_label"] = "In Progress"
+            room_info["phase_badge"] = "🎮 Active"
+            room_info["phase_color"] = "#2563eb"
+
+        active_rooms.append(room_info)
+
+    return render(
+        request,
+        "lupus/hub.html",
+        {
+            "rooms": active_rooms,
+            "error": error,
+        },
+    )
+
+
+@never_cache
 def create_room(request):
     """Create a new Lupus game room and initialize the GM dashboard."""
     if request.method == "POST":

@@ -1,18 +1,133 @@
 {% extends 'base.html' %}
-{% block title %}game rooms{% endblock %}
+{% block title %}Game Rooms - Marco Silva{% endblock %}
+
 {% block content %}
-<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">game rooms</h1>
-<p style="margin-bottom: 1rem;">
-  <a href="{% url 'gamerooms:room-create' %}" style="font-size: 0.85rem;">+ create room</a>
-  · <a href="{% url 'gamerooms:lupus:create' %}" style="font-size: 0.85rem; font-weight: 600;">🐺 create lupus</a>
-  · <a href="/games/pictionary/" style="font-size: 0.85rem;">pictionary word generator</a>
-</p>
-{% for room in rooms %}
-<div style="margin-bottom: 0.75rem; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
-  <a href="{% url 'gamerooms:room-join' room.code %}" style="font-weight: 500; text-decoration: none;">{{ room.title }}</a>
-  <span style="font-size: 0.8rem; color: #888;"> · {{ room.game_type }} · {{ room.code }}{% if room.has_password %} 🔒{% endif %}</span>
+<div style="max-width: 600px; margin: 0 auto; padding-bottom: 2rem;">
+  <!-- Header -->
+  <div style="margin-bottom: 1.5rem;">
+    <h1 style="font-size: 1.4rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">Game Rooms</h1>
+    <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 1rem;">
+      Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.
+    </p>
+
+    <!-- Quick action links -->
+    <div style="display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; font-size: 0.85rem;">
+      <a href="{% url 'gamerooms:lupus:hub' %}" 
+         style="display: inline-flex; align-items: center; gap: 0.35rem; background: #0f172a; color: #ffffff; padding: 0.45rem 0.85rem; border-radius: 8px; font-weight: 600; text-decoration: none;">
+        🐺 Lupus Hub & Rooms
+      </a>
+      <a href="{% url 'gamerooms:lupus:create' %}" 
+         style="display: inline-flex; align-items: center; background: #f1f5f9; color: #1e293b; padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; border: 1px solid #cbd5e1;">
+        🐺 create lupus
+      </a>
+      <a href="{% url 'gamerooms:room-create' %}" 
+         style="display: inline-flex; align-items: center; background: #f8fafc; color: #475569; padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 500; text-decoration: none; border: 1px solid #e2e8f0;">
+        + create room
+      </a>
+      <a href="/games/pictionary/" 
+         style="display: inline-flex; align-items: center; background: #f8fafc; color: #475569; padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 500; text-decoration: none; border: 1px solid #e2e8f0;">
+        ✏️ pictionary
+      </a>
+    </div>
+  </div>
+
+  {% if error %}
+  <div style="background: #fee2e2; border: 1px solid #ef4444; color: #991b1b; padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.85rem; margin-bottom: 1.25rem; font-weight: 600;">
+    ⚠️ {{ error }}
+  </div>
+  {% endif %}
+
+  <!-- Quick Join Code Box -->
+  <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); margin-bottom: 1.5rem;">
+    <form method="post" style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+      {% csrf_token %}
+      <input type="text" name="code" maxlength="8" required
+             placeholder="Enter Room Code (e.g. 9B3A1C2D)"
+             style="flex: 1; min-width: 180px; padding: 0.55rem 0.75rem; font-size: 0.95rem; font-family: ui-monospace, SFMono-Regular, monospace; letter-spacing: 1px; text-transform: uppercase; border: 1.5px solid #cbd5e1; border-radius: 8px; box-sizing: border-box;">
+      <button type="submit"
+              style="padding: 0.55rem 1rem; font-size: 0.88rem; font-weight: 600; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; cursor: pointer; white-space: nowrap;">
+        Join &rarr;
+      </button>
+    </form>
+  </div>
+
+  <!-- Featured Lupus Card -->
+  <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.75rem; box-shadow: 0 4px 12px rgba(15,23,42,0.15);">
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+      <div>
+        <div style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.4rem;">
+          <span>🐺</span> Lupus in Tabula / Werewolf
+        </div>
+        <p style="font-size: 0.82rem; color: #94a3b8; max-width: 420px; line-height: 1.4; margin-bottom: 0.85rem;">
+          Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.
+        </p>
+      </div>
+    </div>
+    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+      <a href="{% url 'gamerooms:lupus:hub' %}" 
+         style="display: inline-flex; align-items: center; gap: 0.3rem; background: #ffffff; color: #0f172a; padding: 0.45rem 0.85rem; border-radius: 6px; font-size: 0.82rem; font-weight: 700; text-decoration: none;">
+        Browse Active Lupus Rooms &rarr;
+      </a>
+      <a href="{% url 'gamerooms:lupus:create' %}" 
+         style="display: inline-flex; align-items: center; gap: 0.3rem; background: rgba(255,255,255,0.15); color: #ffffff; padding: 0.45rem 0.85rem; border-radius: 6px; font-size: 0.82rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(255,255,255,0.2);">
+        + Host New Room
+      </a>
+    </div>
+  </div>
+
+  <!-- Active Rooms List -->
+  <div style="margin-bottom: 1.5rem;">
+    <h2 style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;">
+      <span>🎮</span> All Active Rooms
+      <span style="font-size: 0.75rem; font-weight: 600; background: #e2e8f0; color: #475569; padding: 0.1rem 0.5rem; border-radius: 999px;">
+        {{ rooms|length }}
+      </span>
+    </h2>
+
+    {% for room in rooms %}
+    <div style="margin-bottom: 0.75rem; padding: 0.85rem 1rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">
+      <div style="flex: 1; min-width: 0;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+          <a href="{% url 'gamerooms:room-join' room.code %}" style="font-size: 0.95rem; font-weight: 600; color: #0f172a; text-decoration: none;">
+            {{ room.title }}
+          </a>
+          {% if room.has_password %}
+          <span title="Password Protected" style="font-size: 0.75rem;">🔒</span>
+          {% endif %}
+          {% if room.phase_badge %}
+          <span style="font-size: 0.72rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.1rem 0.45rem; border-radius: 999px;">
+            {{ room.phase_badge }}
+          </span>
+          {% endif %}
+        </div>
+        <div style="font-size: 0.78rem; color: #64748b; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <span style="font-weight: 500; color: #334155;">
+            {% if room.game_type == "lupus" %}🐺 Lupus{% elif room.game_type == "emojinary" %}🎨 Emojinary{% else %}{{ room.game_type }}{% endif %}
+          </span>
+          <span>·</span>
+          <span style="font-family: ui-monospace, SFMono-Regular, monospace; background: #f8fafc; padding: 0.05rem 0.35rem; border-radius: 4px; border: 1px solid #e2e8f0;">
+            {{ room.code }}
+          </span>
+          {% if room.player_count is not None %}
+          <span>·</span>
+          <span>👥 {{ room.player_count }} players</span>
+          {% endif %}
+          <span>·</span>
+          <span>{{ room.created_at|timesince }} ago</span>
+        </div>
+      </div>
+      <div>
+        <a href="{% url 'gamerooms:room-join' room.code %}" 
+           style="display: inline-flex; align-items: center; padding: 0.4rem 0.75rem; font-size: 0.82rem; font-weight: 600; background: #f8fafc; color: #1e293b; border: 1px solid #cbd5e1; border-radius: 6px; text-decoration: none; white-space: nowrap;">
+          Join &rarr;
+        </a>
+      </div>
+    </div>
+    {% empty %}
+    <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 1.5rem; text-align: center; color: #64748b; font-size: 0.88rem;">
+      no active rooms. create one!
+    </div>
+    {% endfor %}
+  </div>
 </div>
-{% empty %}
-<p style="font-size: 0.85rem; color: #888;">no active rooms. create one!</p>
-{% endfor %}
 {% endblock %}

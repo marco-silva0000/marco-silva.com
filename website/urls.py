@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView, TemplateView
 from photologue.sitemaps import GallerySitemap, PhotoSitemap
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
@@ -30,6 +30,8 @@ urlpatterns = [
     path("photos/", include("photos.urls")),
     path("tools/", include("tools.urls")),
     path("games/", include("gamerooms.urls")),
+    path("lupus/", RedirectView.as_view(url="/games/lupus/", permanent=False)),
+    path("lupus", RedirectView.as_view(url="/games/lupus/", permanent=False)),
     path("admin/", admin.site.urls),
     path("cms/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),

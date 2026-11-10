@@ -12,8 +12,42 @@ def _make_captcha():
 
 
 def room_list(request):
-    rooms = Room.objects.filter(is_active=True)
-    return render(request, "gamerooms/room_list.html", {"rooms": rooms})
+    error = None
+    code_input = (request.POST.get("code") or request.GET.get("code") or "").strip().upper()
+    if code_input:
+        if Room.objects.filter(code=code_input, is_active=True).exists():
+            return redirect("gamerooms:room-join", code=code_input)
+        error = f"Room code '{code_input}' was not found or is no longer active."
+    elif request.method == "POST":
+        error = "Please enter a valid room code."
+
+    rooms = list(Room.objects.filter(is_active=True).order_by("-created_at"))
+    for r in rooms:
+        r.player_count = None
+        r.phase_badge = None
+        if r.game_type == "lupus":
+            try:
+                from lupus.game_state import get_game
+
+                state = get_game(r.code)
+                if state:
+                    r.player_count = len(state.get("players", {}))
+                    phase = state.get("phase", "lobby")
+                    rnd = state.get("round", 1)
+                    if phase == "lobby":
+                        r.phase_badge = "⏳ Lobby"
+                    elif phase in ("day", "voting"):
+                        r.phase_badge = f"🌅 Day {rnd}"
+                    elif phase == "night":
+                        r.phase_badge = f"🌙 Night {rnd}"
+                    elif phase == "gameover":
+                        r.phase_badge = "🏆 Finished"
+                    else:
+                        r.phase_badge = "🎮 Active"
+            except Exception:
+                pass
+
+    return render(request, "gamerooms/room_list.html", {"rooms": rooms, "error": error})
 
 
 def room_create(request):

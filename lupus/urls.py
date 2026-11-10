@@ -7,6 +7,8 @@ from . import views
 app_name = "lupus"
 
 urlpatterns = [
+    path("", views.lupus_hub, name="hub"),
+    path("", views.lupus_hub, name="index"),
     path("create/", views.create_room, name="create"),
     path("<str:code>/gm/", views.gm_dashboard, name="gm"),
     path("<str:code>/join/", views.room_join, name="join"),

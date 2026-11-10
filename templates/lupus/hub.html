@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block title %}Lupus in Tabula - Active Rooms & Game Hub{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto; padding-bottom: 2.5rem;">
+  <!-- Hub Header / Hero -->
+  <div style="margin-bottom: 1.75rem; text-align: left;">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+      <h1 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+        <span>🐺</span> Lupus in Tabula
+      </h1>
+      <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <a href="{% url 'gamerooms:lupus:create' %}" 
+           style="display: inline-flex; align-items: center; gap: 0.35rem; background: #0f172a; color: #ffffff; padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-decoration: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background 0.15s ease;">
+          + Create Room
+        </a>
+        <a href="{% url 'gamerooms:room-list' %}" 
+           style="display: inline-flex; align-items: center; background: #f1f5f9; color: #475569; padding: 0.5rem 0.75rem; border-radius: 8px; font-size: 0.85rem; font-weight: 500; text-decoration: none; border: 1px solid #e2e8f0;">
+          All Games
+        </a>
+      </div>
+    </div>
+    <p style="font-size: 0.88rem; color: #64748b; line-height: 1.45; margin: 0;">
+      Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.
+    </p>
+  </div>
+
+  {% if error %}
+  <div style="background: #fee2e2; border: 1px solid #ef4444; color: #991b1b; padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.85rem; margin-bottom: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+    <span>⚠️</span>
+    <span>{{ error }}</span>
+  </div>
+  {% endif %}
+
+  <!-- Quick Join by Code Card -->
+  <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.15rem 1.25rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 1.5rem;">
+    <h2 style="font-size: 0.95rem; font-weight: 700; color: #1e293b; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.4rem;">
+      <span>🔑</span> Join with Room Code
+    </h2>
+    <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.75rem;">
+      Have an 8-character code from your Game Master? Enter it here to jump straight in:
+    </p>
+    <form method="post" style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+      {% csrf_token %}
+      <input type="text" name="code" maxlength="8" required autofocus
+             placeholder="e.g. 9B3A1C2D"
+             style="flex: 1; min-width: 160px; padding: 0.6rem 0.85rem; font-size: 1rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: 1.5px; text-transform: uppercase; border: 1.5px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; touch-action: manipulation;">
+      <button type="submit"
+              style="padding: 0.65rem 1.15rem; font-size: 0.9rem; font-weight: 600; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background 0.15s ease;">
+        Join Game &rarr;
+      </button>
+    </form>
+  </div>
+
+  <!-- Active Rooms Section -->
+  <div style="margin-bottom: 2rem;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem;">
+      <h2 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.45rem; margin: 0;">
+        <span>🐺</span> Active Lupus Rooms
+        <span style="background: #e2e8f0; color: #475569; font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.55rem; border-radius: 999px;">
+          {{ rooms|length }}
+        </span>
+      </h2>
+      <a href="{% url 'gamerooms:lupus:create' %}" style="font-size: 0.82rem; color: #2563eb; text-decoration: none; font-weight: 600;">
+        + New Game
+      </a>
+    </div>
+
+    {% if rooms %}
+    <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+      {% for r in rooms %}
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 0.65rem; transition: border-color 0.15s ease;">
+        <!-- Header row -->
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;">
+          <div>
+            <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; margin-bottom: 0.2rem;">
+              {{ r.title }}
+            </div>
+            <div style="display: inline-flex; align-items: center; gap: 0.35rem; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.8rem; background: #f8fafc; border: 1px solid #e2e8f0; padding: 0.15rem 0.45rem; border-radius: 4px; color: #334155;">
+              <span>CODE:</span>
+              <strong style="color: #0f172a; letter-spacing: 0.5px;">{{ r.code }}</strong>
+            </div>
+          </div>
+          <span style="background: {{ r.phase_color }}15; color: {{ r.phase_color }}; border: 1px solid {{ r.phase_color }}30; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 999px; white-space: nowrap;">
+            {{ r.phase_badge }}
+          </span>
+        </div>
+
+        <!-- Room Metadata -->
+        <div style="display: flex; align-items: center; gap: 0.85rem; font-size: 0.8rem; color: #64748b; flex-wrap: wrap;">
+          <span>👑 GM: <strong style="color: #334155;">{{ r.gm_name }}</strong></span>
+          <span>👥 <strong style="color: #334155;">{{ r.player_count }}</strong> players{% if r.player_count > 0 and r.living_count != r.player_count %} ({{ r.living_count }} alive){% endif %}</span>
+          {% if r.has_password %}
+          <span style="color: #d97706; font-weight: 600;">🔒 Password</span>
+          {% else %}
+          <span style="color: #059669;">🌐 Public</span>
+          {% endif %}
+          <span>⏱️ {{ r.created_at|timesince }} ago</span>
+        </div>
+
+        <!-- Actions Bar -->
+        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem; margin-top: 0.35rem; padding-top: 0.65rem; border-top: 1px solid #f1f5f9; flex-wrap: wrap;">
+          {% if r.is_gm %}
+          <a href="{% url 'gamerooms:lupus:gm' r.code %}" 
+             style="display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.45rem 0.85rem; font-size: 0.82rem; font-weight: 600; background: #0f172a; color: #ffffff; border-radius: 6px; text-decoration: none;">
+            👑 Open GM Cockpit
+          </a>
+          {% endif %}
+
+          {% if r.joined_player %}
+          <a href="{% url 'gamerooms:lupus:play' r.code %}?token={{ r.joined_player.token }}&pid={{ r.joined_player.id }}" 
+             style="display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.45rem 0.85rem; font-size: 0.82rem; font-weight: 600; background: #2563eb; color: #ffffff; border-radius: 6px; text-decoration: none;">
+            🎮 Return as {{ r.joined_player.name }}
+          </a>
+          {% endif %}
+
+          <a href="{% url 'gamerooms:lupus:join' r.code %}" 
+             style="display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.45rem 0.85rem; font-size: 0.82rem; font-weight: 600; background: #f8fafc; color: #1e293b; border: 1px solid #cbd5e1; border-radius: 6px; text-decoration: none;">
+            Enter Room &rarr;
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- Empty State -->
+    <div style="background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 2.25rem 1.5rem; text-align: center;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🌙</div>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: #1e293b; margin-bottom: 0.35rem;">No Active Lupus Games Right Now</h3>
+      <p style="font-size: 0.85rem; color: #64748b; max-width: 380px; margin: 0 auto 1.25rem; line-height: 1.45;">
+        Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!
+      </p>
+      <a href="{% url 'gamerooms:lupus:create' %}"
+         style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.65rem 1.25rem; font-size: 0.92rem; font-weight: 600; background: #0f172a; color: #ffffff; border-radius: 8px; text-decoration: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        🐺 Create the First Lupus Room
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Party Game Features / Highlights -->
+  <div style="background: #fafafa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.25rem; font-size: 0.85rem; color: #475569;">
+    <h3 style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.65rem; display: flex; align-items: center; gap: 0.4rem;">
+      <span>✨</span> Table-First Lupus Highlights
+    </h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; line-height: 1.4;">
+      <div>
+        <strong style="color: #1e293b;">🎴 Hold-to-Peek Secret Roles:</strong>
+        <span style="color: #64748b;">Privacy shield keeps cards concealed from prying eyes at the table.</span>
+      </div>
+      <div>
+        <strong style="color: #1e293b;">🎙️ GM Director Cockpit:</strong>
+        <span style="color: #64748b;">Step-by-step night stages, bluffing calls, and voting manager.</span>
+      </div>
+      <div>
+        <strong style="color: #1e293b;">📰 Town Gazette:</strong>
+        <span style="color: #64748b;">Living & fallen players submit morning rumors read aloud at dawn.</span>
+      </div>
+      <div>
+        <strong style="color: #1e293b;">⏳ Midgame Arrivals:</strong>
+        <span style="color: #64748b;">Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
