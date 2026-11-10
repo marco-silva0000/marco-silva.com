@@ -11,6 +11,7 @@ from lupus.game_state import (
     approve_ghost_message,
     approve_news_bulletin,
     assign_midgame_role,
+    auto_assign_roles_from_names,
     cast_final_vote,
     check_win_condition,
     clear_gm_night_action,
@@ -41,6 +42,7 @@ from lupus.game_state import (
     set_manual_player_role,
     set_night_stage_index,
     set_player_status,
+    set_preassigned_role,
     setup_demo_room,
     should_autofill_demo,
     start_game,
@@ -1562,10 +1564,87 @@ class TestLupusNotepadTemplate:
         # Deck should be adjusted to 10 cards (e.g. full_10)
         assert len(state["deck"]) == 10
 
+        # Deal roles: each player named as their role gets their preassigned role!
+        deal_roles(state)
+        for p in state["players"].values():
+            if p["name"] == "Werewolf":
+                assert p["role"] == "werewolf"
+            elif p["name"] == "Alpha Wolf":
+                assert p["role"] == "alpha_wolf"
+            elif p["name"] == "Detective":
+                assert p["role"] == "detective"
+            elif p["name"] == "Doctor":
+                assert p["role"] == "doctor"
+            elif p["name"] == "Vigilante":
+                assert p["role"] == "sniper"
+            elif p["name"] == "Mayor":
+                assert p["role"] == "mayor"
+
         # Idempotency check: calling again does not duplicate players
         setup_demo_room(state)
         assert len(state["players"]) == 10
         assert len(state["player_order"]) == 10
+
+    def test_preassign_role_and_deal(self):
+        state = create_initial_state("PREASSIGN1", "Preassign Room")
+        state, p_alice = add_player(state, "Alice")
+        state, p_bob = add_player(state, "Bob")
+        state, p_charlie = add_player(state, "Charlie")
+        state, p_dave = add_player(state, "Dave")
+
+        # GM pre-assigns Alice -> doctor, Bob -> werewolf
+        ok, _ = set_preassigned_role(state, p_alice["id"], "doctor")
+        assert ok
+        ok, _ = set_preassigned_role(state, p_bob["id"], "werewolf")
+        assert ok
+
+        # Charlie and Dave have no preassigned role
+        assert state["players"][p_charlie["id"]]["preassigned_role"] is None
+
+        # Deal roles with 4 cards in deck
+        deck = ["doctor", "werewolf", "villager", "villager"]
+        deal_roles(state, deck)
+
+        # Alice must be Doctor, Bob must be Werewolf
+        assert state["players"][p_alice["id"]]["role"] == "doctor"
+        assert state["players"][p_bob["id"]]["role"] == "werewolf"
+
+        # Charlie and Dave must get the remaining villager cards
+        assert state["players"][p_charlie["id"]]["role"] == "villager"
+        assert state["players"][p_dave["id"]]["role"] == "villager"
+
+        # Test clearing preassigned role
+        ok, _ = set_preassigned_role(state, p_alice["id"], "clear")
+        assert ok
+        assert state["players"][p_alice["id"]]["preassigned_role"] is None
+
+    def test_auto_assign_roles_from_names(self):
+        state = create_initial_state("AUTOASSIGN1", "Autoassign Room")
+        state, p1 = add_player(state, "Doctor John")
+        state, p2 = add_player(state, "Werewolf Alpha")
+        state, p3 = add_player(state, "Sherlock")
+        state, p4 = add_player(state, "Vigilante")
+        state, p5 = add_player(state, "Citizen Joe")
+        state, p6 = add_player(state, "Random Person")
+
+        matched = auto_assign_roles_from_names(state)
+        assert matched == 5
+
+        assert state["players"][p1["id"]]["preassigned_role"] == "doctor"
+        assert state["players"][p2["id"]]["preassigned_role"] == "alpha_wolf"
+        assert state["players"][p3["id"]]["preassigned_role"] == "detective"
+        assert state["players"][p4["id"]]["preassigned_role"] == "sniper"
+        assert state["players"][p5["id"]]["preassigned_role"] == "villager"
+        assert state["players"][p6["id"]]["preassigned_role"] is None
+
+        # Deal roles
+        deal_roles(state)
+        assert state["players"][p1["id"]]["role"] == "doctor"
+        assert state["players"][p2["id"]]["role"] == "alpha_wolf"
+        assert state["players"][p3["id"]]["role"] == "detective"
+        assert state["players"][p4["id"]]["role"] == "sniper"
+        assert state["players"][p5["id"]]["role"] == "villager"
+
 
     def test_successor_inherits_on_death(self):
         state = create_initial_state("TEST_SUCC1", "Successor Room")

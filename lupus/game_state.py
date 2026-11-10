@@ -4,6 +4,7 @@ import json
 import math
 import os
 import random
+import re
 import time
 import uuid
 from typing import Any, Optional
@@ -197,6 +198,7 @@ def add_player(state: dict[str, Any], name: str, is_offline: bool = False) -> tu
         "is_traveler": False,
         "is_ghost": False,
         "is_successor": False,
+        "preassigned_role": None,
         "last_news_post_round": None,
         "used_dead_news_bulletin": False,
         "pending_heartbreak": False,
@@ -233,18 +235,131 @@ def remove_player(state: dict[str, Any], player_id: str) -> dict[str, Any]:
     return state
 
 
-DEMO_PLAYER_NAMES = [
-    "Alice",
-    "Bob",
-    "Charlie",
-    "Diana",
-    "Evan",
-    "Fiona",
-    "George",
-    "Hannah",
-    "Ian",
-    "Julia",
+DEMO_PLAYERS: list[tuple[str, str]] = [
+    ("Werewolf", "werewolf"),
+    ("Alpha Wolf", "alpha_wolf"),
+    ("Detective", "detective"),
+    ("Watson", "watson"),
+    ("Doctor", "doctor"),
+    ("Angel", "angel"),
+    ("Vigilante", "sniper"),
+    ("Mayor", "mayor"),
+    ("Silencer", "silencer"),
+    ("Citizen", "villager"),
 ]
+
+DEMO_PLAYER_NAMES: list[str] = [name for name, _ in DEMO_PLAYERS]
+
+ROLE_NAME_KEYWORDS: list[tuple[str, list[str]]] = [
+    # Multi-word or specific evil roles first
+    ("alpha_wolf", ["alpha wolf", "alpha_wolf", "lobo alpha", "alpha"]),
+    ("saboteur_wolf", ["saboteur wolf", "saboteur", "sabotador", "sabotage"]),
+    ("disgruntled_ghost", ["disgruntled ghost", "disgruntled", "bad ghost"]),
+    ("serial_killer", ["serial killer", "serial_killer", "serial", "killer", "sk", "assassino"]),
+    ("silencer", ["silencer", "silenciador", "muto"]),
+    ("werewolf", ["werewolf", "werewolves", "wolf", "lobo", "lupus"]),
+    # Specialized good roles
+    ("detective", ["detective", "seer", "sherlock", "investigador", "vidente", "cop"]),
+    ("watson", ["watson", "helper", "sidekick", "adjunto"]),
+    ("doctor", ["doctor", "doc", "medic", "nurse", "healer", "medico"]),
+    ("bodyguard", ["bodyguard", "guard", "protector", "guarda"]),
+    ("sniper", ["sniper", "vigilante", "hunter", "cacador", "gunner"]),
+    ("angel", ["angel", "guardian angel", "anjo"]),
+    ("mayor", ["mayor", "prefeito", "burgomestre", "presidente"]),
+    ("witch", ["witch", "sorceress", "bruxa", "maga"]),
+    ("hacker", ["hacker"]),
+    ("traveler", ["traveler", "viajante"]),
+    ("successor", ["successor", "understudy", "inheritor", "herdeiro"]),
+    ("ghost", ["ghost", "town ghost", "fantasma", "spirit"]),
+    ("cupid", ["cupid", "cupido", "obsessive lover"]),
+    ("lover", ["lover", "lovers", "innocent lover", "namorado"]),
+    ("jester", ["jester", "fool", "clown", "palhaco", "bobo"]),
+    ("villager", ["villager", "citizen", "aldeao", "cidadao", "townie", "peasant"]),
+]
+
+
+def match_role_from_name(name: str) -> Optional[str]:
+    """Match a player's name against known role keywords.
+
+    Normalizes by stripping non-alphanumeric chars and numbers.
+    """
+    if not name:
+        return None
+    clean = re.sub(r"[^a-zA-Z0-9_\s]", " ", name.lower()).strip()
+    clean = re.sub(r"\b\d+\b", " ", clean).strip()
+    clean = re.sub(r"\s+", " ", clean)
+
+    for role_id, keywords in ROLE_NAME_KEYWORDS:
+        for kw in keywords:
+            pattern = r"\b" + re.escape(kw) + r"\b"
+            if re.search(pattern, clean):
+                return role_id
+    return None
+
+
+def auto_assign_roles_from_names(state: dict[str, Any]) -> int:
+    """Scan all joined player names and pre-assign roles that match their names.
+
+    Returns the count of players whose roles were successfully matched and assigned.
+    """
+    matched = 0
+    deck = list(state.get("deck", []))
+    for p in state.get("players", {}).values():
+        role_id = match_role_from_name(p.get("name", ""))
+        if role_id and role_id in ROLE_REGISTRY and ROLE_REGISTRY[role_id].get("enabled", True):
+            p["preassigned_role"] = role_id
+            if state.get("phase") == "lobby":
+                p["role"] = role_id
+                p["faction"] = ROLE_REGISTRY[role_id]["faction"]
+            matched += 1
+            if role_id not in deck:
+                if "villager" in deck:
+                    deck.remove("villager")
+                deck.append(role_id)
+
+    state["deck"] = deck
+    if matched > 0:
+        log_event(state, f"✨ Auto-assigned {matched} roles based on player names.")
+        save_game(state["code"], state)
+    return matched
+
+
+def set_preassigned_role(state: dict[str, Any], player_id: str, role_id: Optional[str]) -> tuple[bool, str]:
+    """Pre-assign or clear a role for a player in the pre-game lobby."""
+    if player_id not in state.get("players", {}):
+        return False, "Player not found."
+
+    player = state["players"][player_id]
+    if not role_id or role_id in ("random", "clear", "none"):
+        player["preassigned_role"] = None
+        if state.get("phase") == "lobby":
+            player["role"] = None
+            player["faction"] = None
+        log_event(state, f"🎲 Cleared pre-assigned role for {player['name']} (will be dealt randomly).")
+        save_game(state["code"], state)
+        return True, f"Role cleared for {player['name']}."
+
+    role_info = ROLE_REGISTRY.get(role_id)
+    if not role_info:
+        return False, f"Invalid role '{role_id}'."
+
+    player["preassigned_role"] = role_id
+    if state.get("phase") == "lobby":
+        player["role"] = role_id
+        player["faction"] = role_info["faction"]
+
+    # Ensure pre-assigned role is represented in state['deck']
+    deck = list(state.get("deck", []))
+    if role_id not in deck:
+        if "villager" in deck:
+            deck.remove("villager")
+        deck.append(role_id)
+        state["deck"] = deck
+
+    role_title = role_info.get("title", role_id.title())
+    log_event(state, f"🎯 Game Master pre-assigned role '{role_title}' to {player['name']}.")
+    save_game(state["code"], state)
+    return True, f"Pre-assigned {role_title} to {player['name']}."
 
 
 def should_autofill_demo(password: str, gm_name: str) -> bool:
@@ -255,18 +370,17 @@ def should_autofill_demo(password: str, gm_name: str) -> bool:
 
 
 def setup_demo_room(state: dict[str, Any]) -> dict[str, Any]:
-    """Populate room with 10 demo test players and configure 10-player balanced deck."""
+    """Populate room with 10 demo test players named after their roles and pre-assign their roles."""
     existing_names = {p["name"].lower() for p in state.get("players", {}).values()}
-    for name in DEMO_PLAYER_NAMES:
+    for name, role_id in DEMO_PLAYERS:
         if name.lower() not in existing_names:
-            add_player(state, name, is_offline=False)
+            state, player = add_player(state, name, is_offline=False)
+            player["preassigned_role"] = role_id
+            player["role"] = role_id
+            player["faction"] = ROLE_REGISTRY.get(role_id, {}).get("faction", FACTION_TOWN)
 
-    from .roles import DEFAULT_PRESETS
-
-    if len(state.get("deck", [])) < len(DEMO_PLAYER_NAMES):
-        state["deck"] = list(DEFAULT_PRESETS.get("full_10", DEFAULT_PRESETS["balanced_8"]))
-
-    log_event(state, "🎮 Demo mode active: 10 test players populated.")
+    state["deck"] = [role_id for _, role_id in DEMO_PLAYERS]
+    log_event(state, "🎮 Demo mode active: 10 test players populated with pre-assigned roles matching their names.")
     save_game(state["code"], state)
     return state
 
@@ -417,26 +531,56 @@ def set_deck(state: dict[str, Any], role_list: list[str]) -> dict[str, Any]:
 
 
 def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> dict[str, Any]:
-    """Distribute roles randomly to all registered players."""
+    """Distribute roles to all registered players, respecting any pre-assigned roles."""
     deck = list(role_list) if role_list is not None else list(state.get("deck", []))
     player_ids = list(state["players"].keys())
 
-    # If deck count differs from player count, pad or trim with villagers
-    if len(deck) < len(player_ids):
-        deck.extend(["villager"] * (len(player_ids) - len(deck)))
-    elif len(deck) > len(player_ids):
-        deck = deck[: len(player_ids)]
+    # Map of player_id -> preassigned role_id
+    preassigned: dict[str, str] = {}
+    for pid in player_ids:
+        p = state["players"][pid]
+        p_role = p.get("preassigned_role") or (
+            p.get("role") if state.get("phase") == "lobby" and p.get("role") else None
+        )
+        if p_role and p_role in ROLE_REGISTRY:
+            preassigned[pid] = p_role
 
-    random.shuffle(deck)
-    random.shuffle(player_ids)
+    # Deduct preassigned roles from deck pool
+    deck_pool = list(deck)
+    assigned_roles: dict[str, str] = {}
+    for pid, r_id in preassigned.items():
+        assigned_roles[pid] = r_id
+        if r_id in deck_pool:
+            deck_pool.remove(r_id)
+        elif "villager" in deck_pool:
+            deck_pool.remove("villager")
+        elif deck_pool:
+            deck_pool.pop()
+
+    unassigned_pids = [pid for pid in player_ids if pid not in assigned_roles]
+
+    # Balance remaining deck_pool with unassigned_pids count
+    if len(deck_pool) < len(unassigned_pids):
+        deck_pool.extend(["villager"] * (len(unassigned_pids) - len(deck_pool)))
+    elif len(deck_pool) > len(unassigned_pids):
+        deck_pool = deck_pool[: len(unassigned_pids)]
+
+    random.shuffle(deck_pool)
+    random.shuffle(unassigned_pids)
+
+    for pid, r_id in zip(unassigned_pids, deck_pool):
+        assigned_roles[pid] = r_id
 
     # Evil count in dealt deck to calibrate Vigilante bullets
-    evil_count = sum(1 for r in deck if ROLE_REGISTRY.get(r, {}).get("faction") == FACTION_WOLVES)
+    evil_count = sum(
+        1 for r in assigned_roles.values() if ROLE_REGISTRY.get(r, {}).get("faction") == FACTION_WOLVES
+    )
     evil_bullets = max(1, evil_count)
 
-    for pid, role_id in zip(player_ids, deck):
+    for pid, role_id in assigned_roles.items():
         role_info = ROLE_REGISTRY.get(role_id, ROLE_REGISTRY["villager"])
         state["players"][pid]["role"] = role_id
+        state["players"][pid]["preassigned_role"] = role_id
         state["players"][pid]["faction"] = role_info["faction"]
         state["players"][pid]["status"] = "dead" if role_id == "ghost" else "alive"
         state["players"][pid]["used_limbo"] = False
@@ -447,6 +591,9 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         state["players"][pid]["lover_type"] = None
         state["players"][pid]["is_traveler"] = role_id == "traveler"
         state["players"][pid]["is_ghost"] = role_id == "ghost"
+        state["players"][pid]["is_successor"] = role_id == "successor"
+        if role_id == "successor":
+            state["players"][pid]["status"] = "waiting"
         state["players"][pid]["sniper_danger_bullets"] = evil_bullets if role_id == "sniper" else 1
         state["players"][pid]["sniper_silver_bullets"] = (
             1 if (role_id == "sniper" and state["settings"].get("sniper_bullet_type") == "mix") else 0
@@ -470,8 +617,8 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         p2_name = state["players"][p2_id]["name"]
         log_event(state, f"💘 Secret bond formed! Two Citizens ({p1_name} and {p2_name}) are bound as Innocent Lovers!")
 
-    state["deck"] = deck
-    log_event(state, f"Distributed {len(deck)} roles to players.")
+    state["deck"] = [assigned_roles[pid] for pid in player_ids]
+    log_event(state, f"Distributed {len(state['deck'])} roles to players.")
     save_game(state["code"], state)
     return state
 
@@ -584,6 +731,10 @@ def set_broadcast_message(state: dict[str, Any], message: str) -> dict[str, Any]
 
 
 def set_manual_player_role(state: dict[str, Any], player_id: str, role_id: str) -> dict[str, Any]:
+    if state.get("phase") == "lobby":
+        set_preassigned_role(state, player_id, role_id)
+        return state
+
     if player_id in state["players"]:
         role_info = ROLE_REGISTRY.get(role_id, ROLE_REGISTRY["villager"])
         old_role = state["players"][player_id].get("role")
@@ -636,8 +787,8 @@ def assign_midgame_role(state: dict[str, Any], player_id: str, role_id: str) -> 
 
     player = state["players"][player_id]
     role_info = ROLE_REGISTRY.get(role_id)
-    if not role_info or not role_info.get("enabled", True):
-        return False, f"Invalid or disabled role '{role_id}'."
+    if not role_info:
+        return False, f"Invalid role '{role_id}'."
 
     player["role"] = role_id
     player["faction"] = role_info["faction"]
@@ -2776,6 +2927,8 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
     for idx, p in enumerate(ordered_players):
         lover_name = state["players"][p["lover_id"]]["name"] if p.get("lover_id") in state["players"] else None
         role_info = get_role_info(p["role"], theme) if p.get("role") else None
+        if not role_info and p.get("preassigned_role"):
+            role_info = get_role_info(p["preassigned_role"], theme)
         all_players.append(
             {
                 "id": p["id"],
@@ -2784,6 +2937,7 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
                 "token": p["token"],
                 "status": p["status"],
                 "role": role_info,
+                "preassigned_role": p.get("preassigned_role"),
                 "is_silenced": p["is_silenced"],
                 "is_suppressed": p.get("is_suppressed", False),
                 "is_traveler": p.get("is_traveler", False) or p.get("role") == "traveler",

@@ -12,6 +12,7 @@ from .game_state import (
     approve_ghost_message,
     approve_news_bulletin,
     assign_midgame_role,
+    auto_assign_roles_from_names,
     cast_final_vote,
     clear_gm_night_action,
     dismiss_pending_gameover,
@@ -42,6 +43,7 @@ from .game_state import (
     set_night_stage_index,
     set_nomination_tally_direct,
     set_player_status,
+    set_preassigned_role,
     set_round_number,
     setup_demo_room,
     start_game,
@@ -193,6 +195,18 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 rid = content.get("role_id")
                 if pid and rid:
                     set_manual_player_role(state, pid, rid)
+                    await self.broadcast_sync()
+
+            elif action == "preassign_role":
+                pid = content.get("player_id")
+                rid = content.get("role_id")
+                if pid:
+                    set_preassigned_role(state, pid, rid)
+                    await self.broadcast_sync()
+
+            elif action == "auto_assign_roles_from_names":
+                if state.get("phase") == "lobby":
+                    auto_assign_roles_from_names(state)
                     await self.broadcast_sync()
 
             elif action == "assign_midgame_role":

@@ -712,8 +712,11 @@ html, body {
             <button type="button" onclick="openModal('room-qr-modal')" class="btn btn-sm" style="font-weight: 600;">
               🔍 Enlarge QR
             </button>
-            <button type="button" onclick="autofillDemoPlayers()" class="btn btn-sm" style="background: #f8fafc; border-color: #cbd5e1; color: #475569; font-weight: 600;" title="Fill room with 10 test players for live demo">
+            <button type="button" onclick="autofillDemoPlayers()" class="btn btn-sm" style="background: #f8fafc; border-color: #cbd5e1; color: #475569; font-weight: 600;" title="Fill room with 10 test players named after their roles">
               ⚡ Demo 10
+            </button>
+            <button type="button" onclick="autoAssignRolesFromNames()" class="btn btn-sm" style="background: #ede9fe; border-color: #ddd6fe; color: #6b21a8; font-weight: 600;" title="Scan player names and pre-assign matching roles (e.g. Doctor, Werewolf)">
+              ✨ Auto-Assign
             </button>
           </div>
         </div>
@@ -1389,8 +1392,12 @@ html, body {
           + Offline
         </button>
 
-        <button onclick="autofillDemoPlayers()" class="btn btn-sm" style="background:#fef3c7; color:#92400e; border-color:#fde68a;" title="Autofill lobby with 10 demo test players">
+        <button onclick="autofillDemoPlayers()" class="btn btn-sm" style="background:#fef3c7; color:#92400e; border-color:#fde68a;" title="Autofill lobby with 10 demo test players named after their roles">
           ⚡ Demo 10
+        </button>
+
+        <button onclick="autoAssignRolesFromNames()" class="btn btn-sm" style="background:#ede9fe; color:#6b21a8; border-color:#ddd6fe;" title="Scan player names and pre-assign matching roles (e.g. Doctor, Werewolf)">
+          ✨ Auto-Assign
         </button>
       </div>
     </div>
@@ -1503,6 +1510,12 @@ html, body {
       <button onclick="closeModal('manual-role-modal')" class="btn btn-sm">&times;</button>
     </div>
     <p style="font-size: 0.8rem; color: #64748b; margin-top: 0;">Tap any role below to assign it immediately to this player:</p>
+    
+    <div style="margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #e2e8f0;">
+      <button type="button" class="btn btn-sm" onclick="selectManualRole('clear')" style="background:#f8fafc; color:#475569; border-color:#cbd5e1; width: 100%; justify-content: center; font-weight: 600;">
+        🎲 Random / Clear Pre-assignment
+      </button>
+    </div>
     
     <div style="margin-bottom: 0.6rem;">
       <div style="font-size: 0.75rem; font-weight: 700; color: #b91c1c; text-transform: uppercase; margin-bottom: 0.35rem;">🔴 Evil Team</div>
@@ -2226,8 +2239,13 @@ html, body {
         `;
 
         if (state.phase === 'lobby') {
-          statusBadge = `<span class="badge" style="background:#e0f2fe; color:#0369a1;">In Lobby</span>`;
+          const preRole = p.preassigned_role || (p.role && p.role.id);
+          const roleLabel = p.role ? `${p.role.emoji || '🎴'} ${p.role.name || p.role.title}` : (preRole ? `🎯 ${preRole}` : '');
+          statusBadge = preRole
+            ? `<span class="badge" style="background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; font-weight:700;">🎯 Pre-assigned: ${escapeHtml(roleLabel)}</span>`
+            : `<span class="badge" style="background:#e0f2fe; color:#0369a1;">In Lobby</span>`;
           actionsHtml = `
+            <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe; font-weight:600;" title="Pre-assign role for this player">🎯 Pre-assign</button>
             <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
             <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
             <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm btn-danger" style="margin-left: auto;">&times; Kick</button>
@@ -2624,9 +2642,16 @@ html, body {
     if (gmHideRoles && !isPeeking) {
       roleHtml = "";
     } else {
-      roleHtml = p.role ? `${p.role.emoji} ${p.role.name}` : "Unassigned";
-      if (p.lover_name) {
-        roleHtml += ` <span style="font-size:0.75rem;" title="Bound to ${escapeHtml(p.lover_name)}">💘 ${escapeHtml(p.lover_name)}</span>`;
+      if (state.phase === 'lobby') {
+        const preRole = p.preassigned_role || (p.role && p.role.id);
+        roleHtml = preRole
+          ? `<span style="color:#2563eb; font-weight:700;">🎯 ${p.role ? `${p.role.emoji} ${p.role.name}` : preRole}</span>`
+          : `<span style="color:#94a3b8; font-style:italic;">🎲 Random</span>`;
+      } else {
+        roleHtml = p.role ? `${p.role.emoji} ${p.role.name}` : "Unassigned";
+        if (p.lover_name) {
+          roleHtml += ` <span style="font-size:0.75rem;" title="Bound to ${escapeHtml(p.lover_name)}">💘 ${escapeHtml(p.lover_name)}</span>`;
+        }
       }
     }
 
@@ -2719,6 +2744,10 @@ html, body {
       movePlayerSeat(p.id, 'down');
       closeModal('player-seat-modal');
     };
+    const changeRoleBtn = document.getElementById("btn-seat-change-role");
+    if (changeRoleBtn) {
+      changeRoleBtn.innerText = (currentGameState && currentGameState.phase === "lobby") ? "🎯 Pre-assign Role" : "🎭 Assign Role Manually";
+    }
     document.getElementById("btn-seat-change-role").onclick = () => {
       closeModal('player-seat-modal');
       setPlayerRoleManual(p.id, p.name);
@@ -3490,16 +3519,27 @@ html, body {
 
   function setPlayerRoleManual(playerId, playerName) {
     manualRoleTargetPlayerId = playerId;
+    const isLobby = currentGameState && currentGameState.phase === "lobby";
     const titleEl = document.getElementById("manual-role-title");
-    if (titleEl) titleEl.innerText = `Assign Role: ${playerName}`;
+    if (titleEl) titleEl.innerText = isLobby ? `Pre-assign Role: ${playerName}` : `Assign Role: ${playerName}`;
     openModal("manual-role-modal");
   }
 
   function selectManualRole(roleId) {
     if (manualRoleTargetPlayerId && roleId) {
-      sendAction("set_manual_role", { player_id: manualRoleTargetPlayerId, role_id: roleId });
+      if (currentGameState && currentGameState.phase === "lobby") {
+        sendAction("preassign_role", { player_id: manualRoleTargetPlayerId, role_id: roleId });
+      } else {
+        sendAction("set_manual_role", { player_id: manualRoleTargetPlayerId, role_id: roleId });
+      }
       closeModal("manual-role-modal");
       manualRoleTargetPlayerId = null;
+    }
+  }
+
+  function autoAssignRolesFromNames() {
+    if (confirm("Scan all joined player names and automatically pre-assign roles that match their names (e.g. Doctor, Werewolf, Detective)?")) {
+      sendAction("auto_assign_roles_from_names");
     }
   }
 
@@ -3542,7 +3582,7 @@ html, body {
   }
 
   function autofillDemoPlayers() {
-    if (confirm("Autofill lobby with 10 demo test players (Alice, Bob, Charlie...)?")) {
+    if (confirm("Autofill lobby with 10 demo test players named after their roles (Werewolf, Detective, Doctor...)?")) {
       sendAction("autofill_demo_players");
     }
   }
