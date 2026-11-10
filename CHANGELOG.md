@@ -4,6 +4,22 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v119] - 2026-11-10
+
+### Fixed
+- **Mayor Veto Status Check**: Fixed conditional evaluation order in the GM night stage view so that when nobody was executed yesterday (`last_lynched_id is None`), it accurately displays `ℹ️ Nobody was executed yesterday. No victim available to pardon.` rather than erroneously warning that the Mayor had already vetoed the person.
+- **Hacker Intel Announcement**: Decoupled Hacker Intel dawn reporting from hardcoded Round 1: Intel is now announced on the dawn immediately following the scan regardless of round number, and marked as announced.
+- **Full Resolution Report in Activity Log**: Dawn resolution reports are now systematically appended to the GM Live Activity Log (`state["events_log"]`), detailing all night casualties, Limbo transitions, silenced players, Hacker intel, and Gazette bulletins.
+
+### Added
+- **Dual Witch Potions Selection**:
+  - Redesigned Witch night interface to feature two dedicated, independent targets:
+    - **🧪 Revive Potion**: Restores souls currently in Limbo back to living status (or saves tonight's wolf attack victim).
+    - **☠️ Poison Potion**: Targets living players only.
+  - The Witch stage is always callable by the GM for natural bluffing and table scripts; if the Witch is not alive, any recorded actions silently no-op during night resolution without revealing dead roles.
+- **Final Night Stage Transition**:
+  - Transformed the "Next Stage &rarr;" button on the final Dawn Review summary stage into `☀️ Wake Town (Resolve Night)` with green accent styling, executing `resolveNight()` seamlessly.
+
 ## [v118] - 2026-11-10
 
 ### Added

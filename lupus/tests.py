@@ -2474,6 +2474,111 @@ class TestLupusV118Features:
         assert entry["rounds_played"] == 1
         assert len(entry["roster"]) == 4
 
+    def test_witch_potions_limbo_revive_and_noop_when_dead(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            record_gm_night_action,
+            resolve_night,
+            set_manual_player_role,
+            set_player_status,
+        )
+
+        state = create_initial_state("WITCH01", "Witch Limbo Revive Test")
+        for name in ["WitchAlice", "LimboBob", "LivingCharlie", "WolfDave"]:
+            state, _ = add_player(state, name)
+
+        pids = list(state["players"].keys())
+        w_id, l_id, c_id, wolf_id = pids[0], pids[1], pids[2], pids[3]
+        set_manual_player_role(state, w_id, "witch")
+        set_manual_player_role(state, l_id, "villager")
+        set_manual_player_role(state, c_id, "villager")
+        set_manual_player_role(state, wolf_id, "werewolf")
+
+        # Put Bob in Limbo
+        set_player_status(state, l_id, "limbo")
+        assert state["players"][l_id]["status"] == "limbo"
+
+        # 1. Alive Witch revives Bob from Limbo and poisons Charlie
+        ok, msg = record_gm_night_action(
+            state,
+            "witch",
+            extra={"revive_target": l_id, "kill_target": c_id},
+        )
+        assert ok is True
+        state["phase"] = "night"
+        state["round_number"] = 2
+        state = resolve_night(state)
+
+        # Bob is revived back to alive!
+        assert state["players"][l_id]["status"] == "alive"
+        # Charlie is poisoned!
+        assert state["players"][c_id]["status"] in ("dead", "limbo")
+        assert state["witch_used_revive"] is True
+        assert state["witch_used_kill"] is True
+
+        # 2. Dead Witch: actions are NOOP!
+        state2 = create_initial_state("WITCH02", "Dead Witch Noop Test")
+        for name in ["DeadWitch", "LimboSoul", "LivingPlayer", "LivingAngel"]:
+            state2, _ = add_player(state2, name)
+        pids2 = list(state2["players"].keys())
+        dw_id, ls_id, lp_id, la_id = pids2[0], pids2[1], pids2[2], pids2[3]
+        set_manual_player_role(state2, dw_id, "witch")
+        set_manual_player_role(state2, la_id, "angel")
+        set_player_status(state2, dw_id, "dead")
+        set_player_status(state2, ls_id, "limbo")
+
+        # GM enters witch targets even though witch is dead (bluffing/voice prompt)
+        record_gm_night_action(
+            state2,
+            "witch",
+            extra={"revive_target": ls_id, "kill_target": lp_id},
+        )
+        state2["phase"] = "night"
+        state2["round_number"] = 2
+        state2 = resolve_night(state2)
+
+        # No-op: Limbo soul remains in limbo, living player remains alive!
+        assert state2["players"][ls_id]["status"] == "limbo"
+        assert state2["players"][lp_id]["status"] == "alive"
+        assert state2["witch_used_revive"] is False
+        assert state2["witch_used_kill"] is False
+
+    def test_hacker_intel_announcement_and_activity_log(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            record_gm_night_action,
+            resolve_night,
+            set_manual_player_role,
+        )
+
+        state = create_initial_state("HACKRND2", "Hacker Intel Round 2 Test")
+        for name in ["Hacker", "Wolf", "Villager1", "Villager2"]:
+            state, _ = add_player(state, name)
+
+        pids = list(state["players"].keys())
+        set_manual_player_role(state, pids[0], "hacker")
+        set_manual_player_role(state, pids[1], "werewolf")
+        set_manual_player_role(state, pids[2], "villager")
+        set_manual_player_role(state, pids[3], "villager")
+
+        # Record hacker scan during night (even on Round 2)
+        state["phase"] = "night"
+        state["round_number"] = 2
+        record_gm_night_action(state, "hacker", extra={"targets": [pids[1], pids[2], pids[3]]})
+
+        state = resolve_night(state)
+
+        # Hacker intel is announced in night_report and logged to events_log
+        assert any("Hacker Intel:" in r for r in state["night_report"])
+        assert any("Hacker scan revealed:" in e["message"] for e in state["events_log"])
+        assert state["hacker_announced"] is True
+
+        # Dawn report is fully logged in events_log
+        assert any("--- Dawn Report" in e["message"] for e in state["events_log"])
+
+
 
 
 

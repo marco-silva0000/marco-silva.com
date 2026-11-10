@@ -1256,20 +1256,33 @@ html, body {
           </div>
         </div>
 
-        <!-- Witch Potions Widget (Special) -->
+        <!-- Witch Potions Widget (Special: Revive souls in Limbo & Poison living) -->
         <div id="witch-widget" style="display: none; background: #0f172a; border: 1px solid #475569; border-radius: 8px; padding: 0.75rem;">
-          <div style="font-size: 0.8rem; color: #e2e8f0; margin-bottom: 0.4rem;">
-            Tonight's wolf victim: <strong id="witch-victim-name" style="color: #f87171;">None</strong>
+          <div style="font-size: 0.85rem; font-weight: 700; color: #a78bfa; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
+            <span>🧙‍♀️ Witch Potions (2 Separate Powers)</span>
+            <span style="font-size: 0.7rem; color: #94a3b8; font-weight: normal;">Always callable (noop if Witch is dead)</span>
           </div>
-          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <button id="btn-witch-revive" onclick="toggleWitchRevive()" class="btn btn-sm" style="background: #065f46; color: #fff; border-color: #059669;">
-              🧪 Use Revive Potion
-            </button>
-            <div style="display: flex; align-items: center; gap: 0.35rem; flex: 1; min-width: 180px;">
-              <span style="font-size: 0.8rem; color: #94a3b8;">Poison:</span>
-              <select id="witch-poison-select" onchange="onWitchPoisonChange(this.value)" style="flex: 1; padding: 0.35rem; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; font-size: 0.8rem;">
-                <option value="">No Poison</option>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.65rem;">
+            <!-- Revive Soul in Limbo -->
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid #334155; border-radius: 6px; padding: 0.5rem;">
+              <div style="font-size: 0.78rem; font-weight: 700; color: #34d399; margin-bottom: 0.25rem;">
+                🧪 Revive Potion (Souls in Limbo only)
+              </div>
+              <select id="witch-revive-select" onchange="onWitchTargetChange('revive', this.value)" style="width: 100%; padding: 0.35rem; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; font-size: 0.8rem;">
+                <option value="">-- No Revive / Pass --</option>
               </select>
+              <div id="witch-revive-note" style="font-size: 0.7rem; color: #94a3b8; margin-top: 0.25rem;"></div>
+            </div>
+
+            <!-- Poison Living Player -->
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid #334155; border-radius: 6px; padding: 0.5rem;">
+              <div style="font-size: 0.78rem; font-weight: 700; color: #f87171; margin-bottom: 0.25rem;">
+                ☠️ Poison Potion (Living Players only)
+              </div>
+              <select id="witch-poison-select" onchange="onWitchTargetChange('kill', this.value)" style="width: 100%; padding: 0.35rem; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; font-size: 0.8rem;">
+                <option value="">-- No Poison / Pass --</option>
+              </select>
+              <div id="witch-poison-note" style="font-size: 0.7rem; color: #94a3b8; margin-top: 0.25rem;"></div>
             </div>
           </div>
         </div>
@@ -3395,7 +3408,13 @@ html, body {
         summaryHtml += `<li>🛡️ <strong>Bodyguard Shields:</strong> ${bTarget ? escapeHtml(bTarget.name) : 'None'}</li>`;
       }
       if (actions.witch_action) {
-        summaryHtml += `<li>🧙‍♀️ <strong>Witch Potion:</strong> Revive=${actions.witch_action.revive ? 'Yes' : 'No'}, Kill=${actions.witch_action.kill_target ? 'Yes' : 'No'}</li>`;
+        const rId = actions.witch_action.revive_target;
+        const kId = actions.witch_action.kill_target;
+        const rPlayer = rId ? state.players.find(p => p.id === rId) : null;
+        const kPlayer = kId ? state.players.find(p => p.id === kId) : null;
+        const rText = rPlayer ? escapeHtml(rPlayer.name) : (actions.witch_action.revive ? 'Wolf Victim' : 'None');
+        const kText = kPlayer ? escapeHtml(kPlayer.name) : 'None';
+        summaryHtml += `<li>🧙‍♀️ <strong>Witch Potions:</strong> Revive=${rText}, Poison=${kText}</li>`;
       }
       if (actions.sniper_shot) {
         const snTarget = state.players.find(p => p.id === actions.sniper_shot.target_id);
@@ -3464,12 +3483,12 @@ html, body {
             noteEl.innerHTML = "💀 <strong>Mayor is dead:</strong> Call voice prompt aloud, pause 5–10s to keep dead roles secret, then click Next Stage.";
             vetoBtn.disabled = true;
             vetoBtn.style.opacity = "0.5";
-          } else if (!stage.has_veto) {
-            noteEl.innerHTML = "⚠️ Mayor has already vetoed this person (limit: 1 veto per person).";
-            vetoBtn.disabled = true;
-            vetoBtn.style.opacity = "0.5";
           } else if (!stage.last_lynched_id) {
             noteEl.innerHTML = "ℹ️ Nobody was executed yesterday. No victim available to pardon.";
+            vetoBtn.disabled = true;
+            vetoBtn.style.opacity = "0.5";
+          } else if (!stage.has_veto) {
+            noteEl.innerHTML = "⚠️ Mayor has already vetoed this person (limit: 1 veto per person).";
             vetoBtn.disabled = true;
             vetoBtn.style.opacity = "0.5";
           } else {
@@ -3560,19 +3579,47 @@ html, body {
         }
       } else if (stage.id === "witch") {
         witchWidget.style.display = "block";
-        document.getElementById("witch-victim-name").innerText = stage.victim_name || "None";
-        const btnRev = document.getElementById("btn-witch-revive");
-        btnRev.style.background = stage.revive ? "#16a34a" : "#334155";
-        btnRev.innerText = stage.revive ? "✅ Revive Potion ACTIVE" : "🧪 Use Revive Potion";
+        pickerWrap.style.display = "none";
+        clearBtn.style.display = "none";
 
+        const rSel = document.getElementById("witch-revive-select");
         const pSel = document.getElementById("witch-poison-select");
-        const poisonOpts = [{ value: "", text: "No Poison" }];
-        state.players.forEach(p => {
-          if (p.status === "alive") {
-            poisonOpts.push({ value: p.id, text: p.name });
-          }
+        const rNote = document.getElementById("witch-revive-note");
+        const pNote = document.getElementById("witch-poison-note");
+
+        // 1. Revive options: souls in Limbo only
+        const limboPlayers = state.players.filter(p => p.status === "limbo");
+        const reviveOpts = [{ value: "", text: "-- No Revive / Pass --" }];
+        limboPlayers.forEach(p => {
+          reviveOpts.push({ value: p.id, text: `🌫️ #${p.seat_number} ${p.name}` });
         });
-        syncSelectOptions(pSel, poisonOpts, stage.kill_target_id || "");
+        syncSelectOptions(rSel, reviveOpts, stage.revive_target || "");
+        if (state.witch_used_revive) {
+          rSel.disabled = true;
+          if (rNote) rNote.innerText = "❌ Revival Potion already expended";
+        } else {
+          rSel.disabled = false;
+          if (rNote) rNote.innerText = limboPlayers.length === 0 ? "ℹ️ No players currently in Limbo" : "Select soul in Limbo to restore to life";
+        }
+
+        // 2. Poison options: living players only
+        const livingPlayers = state.players.filter(p => p.status === "alive");
+        const poisonOpts = [{ value: "", text: "-- No Poison / Pass --" }];
+        livingPlayers.forEach(p => {
+          poisonOpts.push({ value: p.id, text: `#${p.seat_number} ${p.name}` });
+        });
+        syncSelectOptions(pSel, poisonOpts, stage.kill_target || "");
+        if (state.witch_used_kill) {
+          pSel.disabled = true;
+          if (pNote) pNote.innerText = "❌ Poison Potion already expended";
+        } else {
+          pSel.disabled = false;
+          if (pNote) pNote.innerText = "Select living player to poison";
+        }
+
+        const rName = stage.revive_target_name;
+        const kName = stage.kill_target_name;
+        targetDisplay.innerText = `Revive: ${rName || 'None'} | Poison: ${kName || 'None'}`;
       } else if (stage.id === "sniper") {
         sniperWidget.style.display = "flex";
         const snSel = document.getElementById("stage-sniper-bullet");
@@ -3583,8 +3630,24 @@ html, body {
     }
 
     // Navigation buttons
-    document.getElementById("btn-stage-prev").disabled = curIdx === 0;
-    document.getElementById("btn-stage-next").disabled = curIdx === stages.length - 1;
+    const prevBtn = document.getElementById("btn-stage-prev");
+    const nextBtn = document.getElementById("btn-stage-next");
+    if (prevBtn) prevBtn.disabled = curIdx === 0;
+    if (nextBtn) {
+      if (curIdx === stages.length - 1) {
+        nextBtn.disabled = false;
+        nextBtn.innerHTML = "☀️ Wake Town (Resolve Night)";
+        nextBtn.style.background = "#16a34a";
+        nextBtn.style.borderColor = "#15803d";
+        nextBtn.onclick = resolveNight;
+      } else {
+        nextBtn.disabled = false;
+        nextBtn.innerHTML = "Next Stage &rarr;";
+        nextBtn.style.background = "#2563eb";
+        nextBtn.style.borderColor = "#2563eb";
+        nextBtn.onclick = nextNightStage;
+      }
+    }
   }
 
   function nextNightStage() {
@@ -3593,6 +3656,8 @@ html, body {
     const stages = currentGameState.night_stages || [];
     if (cur < stages.length - 1) {
       sendAction("set_night_stage", { stage_index: cur + 1 });
+    } else {
+      resolveNight();
     }
   }
 
@@ -4019,21 +4084,14 @@ html, body {
     sendAction("tally_vote");
   }
 
-  function toggleWitchRevive() {
+  function onWitchTargetChange(type, val) {
     if (!currentGameState) return;
-    const w = currentGameState.night_actions.witch_action || {};
+    const w = (currentGameState.night_actions && currentGameState.night_actions.witch_action) || {};
+    const reviveVal = (type === "revive") ? (val || null) : (w.revive_target || null);
+    const killVal = (type === "kill") ? (val || null) : (w.kill_target || null);
     sendAction("record_night_action", {
       stage_id: "witch",
-      extra: { revive: !w.revive, kill_target: w.kill_target }
-    });
-  }
-
-  function onWitchPoisonChange(val) {
-    if (!currentGameState) return;
-    const w = currentGameState.night_actions.witch_action || {};
-    sendAction("record_night_action", {
-      stage_id: "witch",
-      extra: { revive: w.revive, kill_target: val || null }
+      extra: { revive_target: reviveVal, kill_target: killVal }
     });
   }
 

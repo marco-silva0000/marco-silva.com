@@ -704,6 +704,7 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     state["saboteur_used"] = False
     state["hacker_scanned_ids"] = []
     state["hacker_result"] = None
+    state["hacker_announced"] = False
     state["day1_no_voting"] = False
     state["player_points"] = {}
     state["ghost_messages"] = []
@@ -763,6 +764,7 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     state["saboteur_used"] = False
     state["hacker_scanned_ids"] = []
     state["hacker_result"] = None
+    state["hacker_announced"] = False
     state["day1_no_voting"] = False
     state["player_points"] = {}
     state["ghost_messages"] = []
@@ -1701,8 +1703,12 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         has_revive = not state.get("witch_used_revive", False)
         has_kill = not state.get("witch_used_kill", False)
         w_act = actions.get("witch_action", {})
-        victim_id = actions.get("wolf_target")
-        victim_name = players[victim_id]["name"] if victim_id in players else "Nobody"
+        revive_target = w_act.get("revive_target") or (
+            actions.get("wolf_target") if w_act.get("revive") else None
+        )
+        kill_target = w_act.get("kill_target")
+        revive_name = players[revive_target]["name"] if revive_target in players else None
+        kill_name = players[kill_target]["name"] if kill_target in players else None
         stages.append(
             {
                 "id": "witch",
@@ -1711,20 +1717,18 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "actors": witches,
                 "is_alive": is_alive,
                 "script": (
-                    f"Witch, wake up! Tonight's victim is {victim_name}. "
-                    "Do you want to use your revival potion? Do you want to poison someone? (Cannot self-heal if attacked tonight!)"
-                )
-                if victim_id
-                else "Witch, wake up! Do you want to use your revival potion or lethal poison?",
-                "victim_name": victim_name,
-                "revive": w_act.get("revive", False),
+                    "Witch, wake up! Do you want to use your Revival Potion on a soul hovering in Limbo? "
+                    "Do you want to use your Poison Potion on a living player? (Cannot self-heal if attacked tonight!)"
+                ),
                 "has_revive_potion": has_revive,
                 "has_kill_potion": has_kill,
-                "kill_target_id": w_act.get("kill_target"),
-                "kill_target_name": players[w_act["kill_target"]]["name"]
-                if w_act.get("kill_target") in players
-                else None,
-                "is_complete": bool(w_act) or not is_alive or (not has_revive and not has_kill),
+                "revive": bool(revive_target),
+                "revive_target": revive_target,
+                "revive_target_name": revive_name,
+                "kill_target": kill_target,
+                "kill_target_id": kill_target,
+                "kill_target_name": kill_name,
+                "is_complete": bool(revive_target or kill_target or "witch_action" in actions),
             }
         )
 
@@ -1924,7 +1928,9 @@ def record_gm_night_action(
 
     elif stage_id == "hacker":
         targets = list(actions.get("hacker_targets", []))
-        if target_id:
+        if extra and "targets" in extra:
+            targets = list(extra["targets"])
+        elif target_id:
             if target_id in targets:
                 targets.remove(target_id)
             else:
@@ -2005,15 +2011,20 @@ def record_gm_night_action(
 
     elif stage_id == "witch":
         extra = extra or {}
-        revive = bool(extra.get("revive"))
+        revive_target = extra.get("revive_target")
+        if extra.get("revive") and not revive_target:
+            revive_target = actions.get("wolf_target")
         kill_target = extra.get("kill_target")
         actions["witch_action"] = {
-            "revive": revive,
+            "revive": bool(revive_target),
+            "revive_target": revive_target,
             "kill_target": kill_target,
         }
-        log_event(state, f"Witch action set (revive={revive}, kill={kill_target})")
+        r_name = players[revive_target]["name"] if revive_target in players else "None"
+        k_name = players[kill_target]["name"] if kill_target in players else "None"
+        log_event(state, f"Witch action set (revive={r_name}, kill={k_name})")
         save_game(state["code"], state)
-        return True, "Witch action updated"
+        return True, f"Witch action updated (Revive: {r_name}, Kill: {k_name})"
 
     elif stage_id == "sniper":
         extra = extra or {}
@@ -2328,6 +2339,9 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             "☀️ Dawn breaks over Day 0. The village awakens peacefully!",
             "💬 Day 0 is reserved for player introductions and initial suspicions. Voting and executions begin on Day 1.",
         ]
+        log_event(state, "☀️ --- Dawn Report (Day 0) ---")
+        for r_line in state["night_report"]:
+            log_event(state, r_line)
         start_timer(state, state["settings"].get("discussion_timer", 300), "Day 0 Introductions")
         check_win_condition(state)
         save_game(state["code"], state)
@@ -2361,8 +2375,31 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             state, f"⚡ Saboteur Wolf suppressed {t_player['name']} and uncovered their role ({t_player.get('role')})!"
         )
 
-    # --- 3. Hacker Intel Announcement (Dawn of Day 1) ---
-    if state.get("round_number", 1) == 1 and state.get("hacker_scanned_ids"):
+    # --- 3. Hacker Intel Announcement (Dawn following scan) ---
+    if actions.get("hacker_targets"):
+        scanned_ids = actions["hacker_targets"]
+        state["hacker_scanned_ids"] = list(scanned_ids)
+        total_scanned = len(scanned_ids)
+        evil_count = sum(
+            1
+            for pid in scanned_ids
+            if pid in state["players"] and is_evil_faction_or_threat(state["players"][pid])
+        )
+        if evil_count == total_scanned and total_scanned > 0:
+            result_str = "All Evil"
+        elif evil_count > (total_scanned / 2.0):
+            result_str = "Majority Evil"
+        elif total_scanned > 0 and evil_count == (total_scanned / 2.0):
+            result_str = "Even Split"
+        elif evil_count > 0:
+            result_str = "Minority Evil"
+        else:
+            result_str = "Clean (All Good)"
+        state["hacker_result"] = result_str
+        state["hacker_evil_count"] = evil_count
+        state["hacker_total_count"] = total_scanned
+
+    if state.get("hacker_scanned_ids") and not state.get("hacker_announced"):
         res = state.get("hacker_result", "Clean")
         evil_c = state.get("hacker_evil_count", 0)
         tot_c = state.get("hacker_total_count", len(state["hacker_scanned_ids"]))
@@ -2370,6 +2407,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             f"💻 Hacker Intel: Scanned suspects evaluated as '{res}' ({evil_c} of {tot_c} Evil)!"
         )
         log_event(state, f"💻 Hacker scan revealed: {res}")
+        state["hacker_announced"] = True
 
     # --- 4. Cupid Lovers (Fallback / Dynamic Bind) ---
     if "cupid_lovers" in actions:
@@ -2559,25 +2597,56 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             log_event(state, f"👼🗡️ Death Angel permanently eliminated {t_name} from Limbo.")
 
     # --- 10. Witch Action (Revive / Poison) ---
-    witch_actor = next((p for p in state["players"].values() if p["role"] == "witch" and p["status"] == "alive"), None)
+    witch_actor = next(
+        (p for p in state["players"].values() if p["role"] == "witch" and p["status"] == "alive"),
+        None,
+    )
     witch_act = actions.get("witch_action", {})
     if witch_actor and witch_actor["id"] not in suppressed_pids:
         # Crucial rule: Witch can only act if alive and CANNOT self-heal if attacked tonight!
         if witch_actor["id"] in to_kill:
             log_event(state, "🧙‍♀️ Witch was attacked tonight and could not brew potions!")
         else:
-            if witch_act.get("revive") and not state.get("witch_used_revive", False):
-                w_victim = actions.get("wolf_target")
-                if w_victim and w_victim in to_kill:
-                    to_kill.remove(w_victim)
+            # 1. Revival Potion: Only souls in Limbo (or wolf victim save)
+            revive_pid = witch_act.get("revive_target") or (
+                actions.get("wolf_target") if witch_act.get("revive") else None
+            )
+            if revive_pid and not state.get("witch_used_revive", False):
+                if (
+                    revive_pid in state["players"]
+                    and state["players"][revive_pid]["status"] == "limbo"
+                ):
+                    state["players"][revive_pid]["status"] = "alive"
+                    state["players"][revive_pid]["used_limbo"] = False
                     state["witch_used_revive"] = True
-                    log_event(state, f"🧙‍♀️ Witch used revival potion to save {state['players'][w_victim]['name']}!")
-            if witch_act.get("kill_target") and not state.get("witch_used_kill", False):
-                w_poison = witch_act["kill_target"]
-                if w_poison in state["players"]:
-                    to_kill.add(w_poison)
+                    p_name = state["players"][revive_pid]["name"]
+                    log_event(
+                        state,
+                        f"🧙‍♀️ Witch used revival potion to restore {p_name} from Limbo back to life!",
+                    )
+                    report.append(
+                        f"✨ Witch used a mystical elixir to revive {p_name} from Limbo back to life!"
+                    )
+                elif revive_pid in to_kill:
+                    to_kill.remove(revive_pid)
+                    state["witch_used_revive"] = True
+                    p_name = state["players"][revive_pid]["name"]
+                    log_event(
+                        state,
+                        f"🧙‍♀️ Witch used revival potion to save {p_name} from death tonight!",
+                    )
+                    report.append(
+                        f"✨ Witch used a mystical elixir to save {p_name} from death tonight!"
+                    )
+
+            # 2. Poison Potion: Only living players
+            kill_pid = witch_act.get("kill_target")
+            if kill_pid and not state.get("witch_used_kill", False):
+                if kill_pid in state["players"] and state["players"][kill_pid]["status"] == "alive":
+                    to_kill.add(kill_pid)
                     state["witch_used_kill"] = True
-                    log_event(state, f"🧙‍♀️ Witch used poison on {state['players'][w_poison]['name']}!")
+                    p_name = state["players"][kill_pid]["name"]
+                    log_event(state, f"🧙‍♀️ Witch used poison on {p_name}!")
 
     # --- 11. Silencer (Staggered Rule) ---
     silencer_actor = next(
@@ -2703,6 +2772,9 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         report.append("☀️ Dawn breaks over a peaceful night. No one died!")
 
     state["night_report"] = report
+    log_event(state, f"☀️ --- Dawn Report (Round {state.get('round_number', 1)}) ---")
+    for r_line in report:
+        log_event(state, r_line)
     state["night_actions"] = {}
     state["night_stage_index"] = 0
     state["revealed_inspect"] = None
