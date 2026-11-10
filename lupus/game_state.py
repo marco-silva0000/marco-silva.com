@@ -2059,13 +2059,11 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                     log_event(state, f"🎯 Vigilante eliminated evil threat {s_target_player['name']}!")
             else:
                 if sniper_bullet_type == "danger":
-                    if s_target_player.get("role") != "jester":
-                        if sniper_target not in to_save:
-                            to_kill.add(sniper_target)
+                    # Danger bullet backfires into shooter! Innocent target is unharmed.
                     to_kill.add(sniper_actor["id"])
                     log_event(
                         state,
-                        f"🎯 Vigilante shot innocent {s_target_player['name']}! Gun backfired and shooter died of guilt.",
+                        f"🎯 Vigilante shot innocent {s_target_player['name']}! Gun backfired and shooter died of guilt (target survives unharmed).",
                     )
                 else:
                     log_event(

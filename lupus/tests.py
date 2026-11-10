@@ -424,8 +424,8 @@ class TestLupusEngine:
         submit_night_action(state, p_sniper["id"], "shoot", p_innocent["id"], extra={"bullet_type": "danger"})
         state = resolve_night(state)
 
-        # Both the target and the sniper die!
-        assert state["players"][p_innocent["id"]]["status"] == "dead"
+        # Danger bullet backfires: innocent target survives unharmed, shooter dies of guilt!
+        assert state["players"][p_innocent["id"]]["status"] == "alive"
         assert state["players"][p_sniper["id"]]["status"] == "dead"
 
     def test_limbo_and_angel_revival(self):
@@ -1047,6 +1047,24 @@ class TestLupusEngine:
         assert state["players"][p_cit["id"]]["status"] == "alive"
         assert state["players"][p_bg["id"]]["status"] == "alive"
         assert state["players"][p_vig["id"]]["status"] == "dead"
+
+    def test_sniper_shooting_detective_with_danger_bullet_backfires_and_detective_survives(self):
+        """When Vigilante shoots innocent Detective with danger bullet, gun backfires.
+        Vigilante dies of guilt, but Detective survives unharmed!
+        """
+        opts = {"sniper_bullet_type": "danger", "limbo_enabled": False}
+        state = create_initial_state("SNIPER_DET", "Sniper Det Test", settings=opts)
+        state, p_vig = add_player(state, "Vigilante")
+        state, p_det = add_player(state, "Detective")
+        set_manual_player_role(state, p_vig["id"], "sniper")
+        set_manual_player_role(state, p_det["id"], "detective")
+
+        record_gm_night_action(state, "sniper", p_det["id"], extra={"bullet_type": "danger"})
+        resolve_night(state)
+
+        # Vigilante died of backfire/guilt; Detective is alive!
+        assert state["players"][p_vig["id"]]["status"] == "dead"
+        assert state["players"][p_det["id"]]["status"] == "alive"
 
     def test_mayor_veto_once_per_person_and_public_double_vote(self):
         """Mayor veto is once per person! Public Mayor setting grants 2x voting power."""
