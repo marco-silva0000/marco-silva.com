@@ -4,6 +4,29 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v118] - 2026-11-10
+
+### Added
+- **Death Angel Standalone Role Card**:
+  - Separated Death Angel from being an Angel add-on into an independent Good Team role card in the deck builder.
+  - Removed mandatory Angel requirement / demotion to citizen: Death Angel can now be assigned and dealt in games without an Angel (acting harmlessly like a citizen if no souls enter Limbo).
+  - Updated pre-assignment manual modal with complete role listings including Framer and Cupid (Matchmaker).
+- **Game History Archiving & Full Gazette Reset**:
+  - `return_to_lobby` archives completed games into `state["game_history"]` capturing game number, timestamp, rounds played, winner, and full player rosters with roles, factions, and survival statuses.
+  - Gazette submissions (`news_bulletins`, `approved_news_bulletins`), player bulletin limits (`last_news_post_round`, `used_dead_news_bulletin`), and player finger points are thoroughly wiped clean upon returning to the lobby or starting a new game.
+
+### Changed
+- **Ring Table Seating with GM Podium**:
+  - Streamlined table layouts to exclusively use the open **Ring Table** (with GM podium anchored at the bottom) and the accessible **Card List** view, removing the overlapping Figure U mode.
+  - Symmetrically distributed seats along an elliptical arc without corner overcrowding or node overlaps.
+- **Eye-Contact / Recognition Night Stages**:
+  - Non-targeting night stages (`lovers_meet`, `watson_intro`, `wolves_meet`) are designated as `no_target: True`.
+  - GM night stage view hides target selection dropdowns and displays clear visual-check banners (`👀 Visual / Eye-Contact Only (No target action required)`), preventing accidental target registrations when tapping seats.
+- **Hacker Night Scheduling**:
+  - Hacker scan is strictly scheduled for Round 0 (Night 0) only, with scan intel announced on Day 1 dawn, eliminating redundant Night 1 scan steps.
+- **Live Finger Pointers Placement**:
+  - Relocated live finger pointers box right inside the Phase & Round controls card for instant visibility when the GM conducts table votes or suspect accusations.
+
 ## [v117] - 2026-11-10
 
 ### Added

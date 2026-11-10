@@ -605,18 +605,6 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     )
     evil_bullets = max(1, evil_count)
 
-    # Check Death Angel constraint: only exists if regular Angel is also dealt!
-    has_angel_dealt = any(r == "angel" for r in assigned_roles.values())
-    if not has_angel_dealt:
-        for pid, r in list(assigned_roles.items()):
-            if r == "death_angel":
-                assigned_roles[pid] = "villager"
-                p_name = state["players"][pid]["name"]
-                log_event(
-                    state,
-                    f"👼 Death Angel ({p_name}) demoted to standard Citizen because no Angel is in play.",
-                )
-
     danger_setting = state.get("settings", {}).get("sniper_danger_bullets")
     silver_setting = state.get("settings", {}).get("sniper_silver_bullets")
     danger_bullets_qty = int(danger_setting) if danger_setting is not None else evil_bullets
@@ -720,6 +708,11 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     state["player_points"] = {}
     state["ghost_messages"] = []
     state["approved_ghost_messages"] = []
+    state["news_bulletins"] = []
+    state["approved_news_bulletins"] = []
+    for p in state["players"].values():
+        p["last_news_post_round"] = None
+        p["used_dead_news_bulletin"] = False
     reset_timer(state, state["settings"].get("discussion_timer", 300))
     pause_timer(state)
     log_event(state, f"🚀 Game started with {len(state['players'])} players! Night 0 begins.")
@@ -729,6 +722,29 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
 
 def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     """End or reset the active game back to the Pre-Game Lobby while keeping players connected."""
+    # Archive finished game into room history if the game was actually played
+    if state.get("round_number", 0) > 0 or state.get("winner") or state.get("pending_gameover"):
+        history = state.setdefault("game_history", [])
+        history.append(
+            {
+                "game_number": len(history) + 1,
+                "timestamp": time.time(),
+                "rounds_played": state.get("round_number", 0),
+                "winner": state.get("winner"),
+                "pending_gameover": state.get("pending_gameover"),
+                "roster": [
+                    {
+                        "name": p["name"],
+                        "role": p.get("role"),
+                        "faction": p.get("faction"),
+                        "status": p.get("status"),
+                    }
+                    for p in state.get("players", {}).values()
+                ],
+                "events_count": len(state.get("events_log", [])),
+            }
+        )
+
     state["phase"] = "lobby"
     state["round_number"] = 0
     state["is_night_zero"] = False
@@ -748,8 +764,11 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     state["hacker_scanned_ids"] = []
     state["hacker_result"] = None
     state["day1_no_voting"] = False
+    state["player_points"] = {}
     state["ghost_messages"] = []
     state["approved_ghost_messages"] = []
+    state["news_bulletins"] = []
+    state["approved_news_bulletins"] = []
     pause_timer(state)
     for p in state["players"].values():
         p["role"] = None
@@ -764,6 +783,8 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
         p["lover_id"] = None
         p["lover_type"] = None
         p["last_guarded_id"] = None
+        p["last_news_post_round"] = None
+        p["used_dead_news_bulletin"] = False
         p["sniper_danger_bullets"] = 1
         p["sniper_silver_bullets"] = 1 if state["settings"].get("sniper_bullet_type") == "mix" else 0
         p["sniper_nights_held"] = 0
@@ -1370,8 +1391,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                     "actors": lover_actors,
                     "is_alive": True,
                     "script": "Innocent Lovers, open your eyes, discreetly make eye contact with your partner, and close your eyes.",
-                    "target_ids": [a["id"] for a in lover_actors],
-                    "target_names": [a["name"] for a in lover_actors],
+                    "no_target": True,
                     "is_complete": True,
                 }
             )
@@ -1408,6 +1428,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                     "is_alive": True,
                     "script": f"Watson, wake up! Look at me... {det_name} is your Detective. Protect them! Watson, close your eyes.",
                     "target_name": det_name,
+                    "no_target": True,
                     "is_complete": True,
                 }
             )
@@ -1458,6 +1479,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                         if is_mafia
                         else "Werewolves, open your eyes and look around! Acknowledge your pack. No hunting tonight; close your eyes."
                     ),
+                    "no_target": True,
                     "is_complete": True,
                 }
             )
@@ -1494,26 +1516,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    # 2. Hacker (Night 1 only)
-    if round_num <= 1 and is_role_in_game("hacker"):
-        hacker_actors = get_role_actors("hacker")
-        is_alive = any(a["is_alive"] for a in hacker_actors)
-        hacker_targets = actions.get("hacker_targets", [])
-        stages.append(
-            {
-                "id": "hacker",
-                "title": "💻 Hacker Scan",
-                "role_id": "hacker",
-                "actors": hacker_actors,
-                "is_alive": is_alive,
-                "script": "Hacker, wake up! Silently point at the group of players (2-3) you want to scan for evil presence.",
-                "target_ids": hacker_targets,
-                "target_names": [players[pid]["name"] for pid in hacker_targets if pid in players],
-                "is_complete": len(hacker_targets) >= 2 or not is_alive,
-            }
-        )
-
-    # 3. Citizen Lovers Meet (Night 1 only)
+    # 3. Citizen Lovers Meet (Night 1 only if starting without Night 0)
     if round_num <= 1 and is_role_in_game("lover"):
         lover_actors = get_role_actors("lover")
         is_alive = any(a["is_alive"] for a in lover_actors)
@@ -1528,6 +1531,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "script": "Innocent Lovers, open your eyes, discreetly make eye contact with your partner, and close your eyes.",
                 "target_ids": [a["id"] for a in lover_actors],
                 "target_names": lover_names,
+                "no_target": True,
                 "is_complete": True,
             }
         )

@@ -1961,17 +1961,17 @@ class TestLupusNewFeaturesV114:
             set_player_status,
         )
 
-        # 1. Death Angel without Angel dealt -> demotes to Citizen (villager)
+        # 1. Death Angel standalone: remains death_angel even without Angel dealt!
         state = create_initial_state("DATEST1", "Death Angel Test")
         for name in ["P1", "P2", "P3", "P4"]:
             state, _ = add_player(state, name)
 
         deck_no_angel = ["death_angel", "werewolf", "villager", "villager"]
         deal_roles(state, deck_no_angel)
-        # Demoted because room has no angel!
-        assert not any(p["role"] == "death_angel" for p in state["players"].values())
-        villagers = [p for p in state["players"].values() if p["role"] == "villager"]
-        assert len(villagers) == 3
+        # Standalone role: not demoted, keeps death_angel!
+        assert any(p["role"] == "death_angel" for p in state["players"].values())
+        da_player = next(p for p in state["players"].values() if p["role"] == "death_angel")
+        assert da_player["death_angel_strikes"] == 1
 
         # 2. Death Angel with Angel dealt -> kept as death_angel!
         state2 = create_initial_state("DATEST2", "Death Angel with Angel")
@@ -2351,6 +2351,129 @@ class TestLupusMayorCancelVoteAndPreassignV116:
         assert state["players"][p2["id"]]["preassigned_role"] == "wolf_hunter"
         assert state["players"][p3["id"]]["preassigned_role"] == "death_angel"
         assert state["players"][p4["id"]]["preassigned_role"] == "wolf_hunter"
+
+
+class TestLupusV118Features:
+    """Test suite for v118 features:
+    - Death Angel standalone role (no demotion without Angel).
+    - Wakeup stages without targets (lovers_meet, watson_intro, wolves_meet).
+    - Hacker waking only on Round 0 (Night 0), not on Round 1.
+    - Gazette reset and game_history archiving on return_to_lobby.
+    """
+
+    def test_hacker_only_on_round_0(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            get_night_stages,
+            set_manual_player_role,
+        )
+
+        state = create_initial_state("HACKER01", "Hacker Night Scheduling Test")
+        for name in ["Alice", "Bob", "Charlie", "Dave"]:
+            state, _ = add_player(state, name)
+
+        pids = list(state["players"].keys())
+        set_manual_player_role(state, pids[0], "hacker")
+        set_manual_player_role(state, pids[1], "werewolf")
+        set_manual_player_role(state, pids[2], "villager")
+        set_manual_player_role(state, pids[3], "villager")
+
+        # Round 0 (Night 0): Hacker scan is present
+        state["round_number"] = 0
+        state["is_night_zero"] = True
+        state["phase"] = "night"
+        stages_r0 = get_night_stages(state)
+        assert any(s["id"] == "hacker" for s in stages_r0)
+
+        # Round 1 (Night 1): Hacker scan is NOT scheduled (only on Round 0)
+        state["round_number"] = 1
+        state["is_night_zero"] = False
+        state["phase"] = "night"
+        stages_r1 = get_night_stages(state)
+        assert not any(s["id"] == "hacker" for s in stages_r1)
+
+    def test_no_target_on_wakeup_stages(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            get_night_stages,
+            set_manual_player_role,
+        )
+
+        state = create_initial_state("NOTARGET1", "No Target Stages Test")
+        for name in ["Lover1", "Lover2", "Det", "Wat", "Wolf1"]:
+            state, _ = add_player(state, name)
+
+        pids = list(state["players"].keys())
+        set_manual_player_role(state, pids[0], "lover")
+        set_manual_player_role(state, pids[1], "lover")
+        set_manual_player_role(state, pids[2], "detective")
+        set_manual_player_role(state, pids[3], "watson")
+        set_manual_player_role(state, pids[4], "werewolf")
+
+        state["round_number"] = 0
+        state["is_night_zero"] = True
+        state["phase"] = "night"
+        stages = get_night_stages(state)
+
+        stage_map = {s["id"]: s for s in stages}
+        assert "lovers_meet" in stage_map
+        assert stage_map["lovers_meet"].get("no_target") is True
+
+        assert "watson_intro" in stage_map
+        assert stage_map["watson_intro"].get("no_target") is True
+
+        assert "wolves_meet" in stage_map
+        assert stage_map["wolves_meet"].get("no_target") is True
+
+    def test_return_to_lobby_resets_gazette_and_archives_history(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            deal_roles,
+            return_to_lobby,
+            submit_news_bulletin,
+        )
+
+        state = create_initial_state("HIST01", "History and Gazette Reset Test")
+        for name in ["P1", "P2", "P3", "P4"]:
+            state, _ = add_player(state, name)
+
+        deal_roles(state, ["werewolf", "villager", "villager", "villager"])
+        pids = list(state["players"].keys())
+
+        # Submit news bulletins
+        state["round_number"] = 1
+        ok, _ = submit_news_bulletin(state, pids[1], "I suspect P1 is evil!", anonymous=False)
+        assert ok is True
+        assert len(state["news_bulletins"]) == 1
+        assert state["players"][pids[1]]["last_news_post_round"] == 1
+
+        state["player_points"] = {pids[0]: pids[1]}
+        state["winner"] = "town"
+
+        # Return to lobby
+        state = return_to_lobby(state)
+
+        # 1. State reset to lobby
+        assert state["phase"] == "lobby"
+        assert state["round_number"] == 0
+        assert state["news_bulletins"] == []
+        assert state["approved_news_bulletins"] == []
+        assert state["player_points"] == {}
+        assert state["players"][pids[1]]["last_news_post_round"] is None
+        assert state["players"][pids[1]]["used_dead_news_bulletin"] is False
+
+        # 2. Archive saved in game_history
+        history = state.get("game_history", [])
+        assert len(history) == 1
+        entry = history[0]
+        assert entry["game_number"] == 1
+        assert entry["winner"] == "town"
+        assert entry["rounds_played"] == 1
+        assert len(entry["roster"]) == 4
+
 
 
 

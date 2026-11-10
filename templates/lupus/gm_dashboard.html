@@ -974,16 +974,14 @@ html, body {
             <span>🛡️ Bodyguard (Sacrifice Save)</span>
             <span class="chip-badge" id="badge-bodyguard">OFF</span>
           </button>
-          <!-- 👼 Angel with inline Death Angel extension -->
-          <div id="chip-angel" class="role-toggle-chip good" onclick="toggleSpecialRole('angel')">
-            <span class="chip-title">👼 Angel (Limbo Revival)</span>
-            <span id="angel-ext-wrap" class="chip-ext" style="display: none;" onclick="event.stopPropagation()">
-              <button type="button" class="chip-ext-btn" id="btn-angel-death" onclick="toggleDeathAngel(event)" title="Toggle Death Angel role (requires Angel in game)">
-                +🗡️ Death Angel: <span id="angel-death-val" style="font-weight: 800;">OFF</span>
-              </button>
-            </span>
+          <button type="button" id="chip-angel" class="role-toggle-chip good" onclick="toggleSpecialRole('angel')">
+            <span>👼 Angel (Limbo Revival)</span>
             <span class="chip-badge" id="badge-angel">OFF</span>
-          </div>
+          </button>
+          <button type="button" id="chip-death_angel" class="role-toggle-chip good" onclick="toggleSpecialRole('death_angel')">
+            <span>👼🗡️ Death Angel</span>
+            <span class="chip-badge" id="badge-death_angel">OFF</span>
+          </button>
 
           <!-- 🎯 Vigilante / Sniper with inline ammunition extension -->
           <div id="chip-sniper" class="role-toggle-chip good" onclick="toggleSpecialRole('sniper')">
@@ -1124,20 +1122,6 @@ html, body {
       </div>
     </div>
 
-    <!-- Real-Time Player Finger Pointers Display -->
-    <div id="gm-player-pointers-box" style="display: none; background: #0f172a; border: 1px solid #38bdf8; border-radius: 10px; padding: 0.65rem 1rem; margin-bottom: 0.75rem; color: #f8fafc; box-shadow: 0 4px 12px rgba(56,189,248,0.15);">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-        <div style="font-weight: 700; font-size: 0.85rem; color: #38bdf8; display: flex; align-items: center; gap: 0.35rem;">
-          <span>👉 Player Finger Pointers (Live)</span>
-        </div>
-        <button type="button" onclick="sendAction('clear_player_points')" class="btn btn-sm" style="background: rgba(255,255,255,0.08); border: 1px solid #475569; color: #cbd5e1; font-size: 0.75rem; padding: 0.15rem 0.5rem; cursor: pointer;">
-          ✕ Clear All
-        </button>
-      </div>
-      <div id="gm-player-pointers-list" style="display: flex; flex-wrap: wrap; gap: 0.45rem; font-size: 0.85rem;">
-      </div>
-    </div>
-
     <!-- Timer & Phase Controls (Mobile First Layout) -->
     <div class="gm-section" style="border-top: 1px solid #e2e8f0; padding-top: 0.85rem; margin-bottom: 1.25rem;">
       <div class="control-grid">
@@ -1167,6 +1151,20 @@ html, body {
               <button onclick="adjustRound(-1)" class="btn btn-sm" style="min-height: 24px; padding: 0.05rem 0.4rem; font-weight: 700;">&minus;</button>
               <strong id="round-num">{{ state.round_number }}</strong>
               <button onclick="adjustRound(1)" class="btn btn-sm" style="min-height: 24px; padding: 0.05rem 0.4rem; font-weight: 700;">+</button>
+            </div>
+          </div>
+
+          <!-- Real-Time Player Finger Pointers Display (Right next to Round controls) -->
+          <div id="gm-player-pointers-box" style="display: none; background: #0f172a; border: 1px solid #38bdf8; border-radius: 8px; padding: 0.45rem 0.75rem; margin-bottom: 0.65rem; color: #f8fafc; box-shadow: 0 4px 12px rgba(56,189,248,0.15);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
+              <div style="font-weight: 700; font-size: 0.8rem; color: #38bdf8; display: flex; align-items: center; gap: 0.35rem;">
+                <span>👉 Player Finger Pointers (Live)</span>
+              </div>
+              <button type="button" onclick="sendAction('clear_player_points')" class="btn btn-sm" style="background: rgba(255,255,255,0.08); border: 1px solid #475569; color: #cbd5e1; font-size: 0.7rem; padding: 0.1rem 0.4rem; cursor: pointer;">
+                ✕ Clear
+              </button>
+            </div>
+            <div id="gm-player-pointers-list" style="display: flex; flex-wrap: wrap; gap: 0.35rem; font-size: 0.8rem;">
             </div>
           </div>
 
@@ -1535,13 +1533,10 @@ html, body {
           💔 Heartbreak: Secret
         </button>
 
-        <!-- Layout Selector: Figure U vs Ring vs List -->
+        <!-- Layout Selector: Ring vs List -->
         <div style="display: inline-flex; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden;">
-          <button id="btn-layout-u" onclick="setTableLayout('figure_u')" class="btn btn-sm" style="border: none; border-radius: 0; font-weight: 700;" title="Figure U (Horseshoe) with GM at open end">
-            🧲 Figure U
-          </button>
-          <button id="btn-layout-ring" onclick="setTableLayout('ring')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #cbd5e1;" title="Ring (Closed Circle)">
-            ⭕ Ring
+          <button id="btn-layout-ring" onclick="setTableLayout('ring')" class="btn btn-sm" style="border: none; border-radius: 0; font-weight: 700;" title="Ring Table with GM Podium">
+            ⭕ Ring Table
           </button>
           <button id="btn-layout-list" onclick="setTableLayout('list')" class="btn btn-sm" style="border: none; border-radius: 0; border-left: 1px solid #cbd5e1;" title="Card List">
             📋 List
@@ -1566,12 +1561,12 @@ html, body {
       </div>
     </div>
 
-    <!-- True Geometric Visual Seating Stage (Figure U or Ring) -->
+    <!-- True Geometric Visual Seating Stage (Ring with GM Podium) -->
     <div id="table-visual-stage" class="table-stage-wrapper">
       <svg id="table-track-svg" class="table-track-svg" viewBox="0 0 1000 750" preserveAspectRatio="none">
         <!-- Track line rendered dynamically in JS -->
       </svg>
-      <div id="u-gm-podium" class="u-gm-podium">🎤 Game Master (Open End of U)</div>
+      <div id="u-gm-podium" class="u-gm-podium">🎤 Game Master Podium</div>
       <div id="table-center-content" class="table-center-content" style="display: none;">
         <div id="ring-center-title" style="font-size: 1.05rem; font-weight: 800; color: #f8fafc; letter-spacing: 0.5px;">LUPUS TABLE</div>
         <div id="ring-center-phase" style="font-size: 0.78rem; color: #94a3b8; font-weight: 600; margin-top: 0.15rem;"></div>
@@ -1704,6 +1699,7 @@ html, body {
         <button type="button" class="btn btn-sm role-pick-btn" data-role="werewolf" onclick="selectManualRole('werewolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🐺 Werewolf</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="alpha_wolf" onclick="selectManualRole('alpha_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">👑 Alpha Wolf</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="silencer" onclick="selectManualRole('silencer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🤐 Silencer</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="framer" onclick="selectManualRole('framer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🎭 Framer</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="saboteur_wolf" onclick="selectManualRole('saboteur_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🐺⚡ Saboteur Wolf</span></button>
       </div>
     </div>
@@ -1729,7 +1725,7 @@ html, body {
     <div style="margin-bottom: 0.6rem;">
       <div style="font-size: 0.75rem; font-weight: 700; color: #7e22ce; text-transform: uppercase; margin-bottom: 0.35rem;">🟣 Neutral Team</div>
       <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
-        <button type="button" class="btn btn-sm role-pick-btn" data-role="cupid" onclick="selectManualRole('cupid')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">💘 Obsessive Lover</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="cupid" onclick="selectManualRole('cupid')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">💘 Cupid (Matchmaker)</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="jester" onclick="selectManualRole('jester')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🃏 Jester</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="serial_killer" onclick="selectManualRole('serial_killer')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🔪 Serial Killer</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="wolf_hunter" onclick="selectManualRole('wolf_hunter')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🏹 Wolf Hunter</span></button>
@@ -1913,7 +1909,8 @@ html, body {
   let currentGameState = null;
   let timerInterval = null;
   let gmHideRoles = localStorage.getItem("lupus_gm_hide_roles") !== "false";
-  let gmLayoutMode = localStorage.getItem("lupus_gm_layout_mode") || "figure_u";
+  let gmLayoutMode = localStorage.getItem("lupus_gm_layout_mode") || "ring";
+  if (gmLayoutMode === "figure_u") gmLayoutMode = "ring";
   const peekingPlayerIds = new Set();
   let manualRoleTargetPlayerId = null;
 
@@ -2208,33 +2205,7 @@ html, body {
       }
     }
 
-    // 3. Angel & Death Angel Inline Extended Pill
-    const chipAngel = document.getElementById("chip-angel");
-    const angelExtWrap = document.getElementById("angel-ext-wrap");
-    const badgeAngel = document.getElementById("badge-angel");
-    const isAngelOn = (deckState.angel || 0) > 0;
-    if (chipAngel && angelExtWrap) {
-      if (isAngelOn) {
-        chipAngel.classList.add("active", "extended");
-        angelExtWrap.style.display = "inline-flex";
-        if (badgeAngel) badgeAngel.innerText = "✓ ON";
-        const deathVal = document.getElementById("angel-death-val");
-        const btnDeath = document.getElementById("btn-angel-death");
-        const isDeathOn = (deckState.death_angel || 0) > 0;
-        if (deathVal) deathVal.innerText = isDeathOn ? "✓ ON" : "OFF";
-        if (btnDeath) {
-          btnDeath.style.color = isDeathOn ? "#15803d" : "#64748b";
-          btnDeath.style.fontWeight = isDeathOn ? "800" : "600";
-        }
-      } else {
-        deckState.death_angel = 0;
-        chipAngel.classList.remove("active", "extended");
-        angelExtWrap.style.display = "none";
-        if (badgeAngel) badgeAngel.innerText = "OFF";
-      }
-    }
-
-    // 4. Serial Killer & Wolf Hunter Inline Extended Pill
+    // 3. Serial Killer & Wolf Hunter Inline Extended Pill
     const chipSk = document.getElementById("chip-serial_killer");
     const skExtWrap = document.getElementById("sk-ext-wrap");
     const badgeSk = document.getElementById("badge-serial_killer");
@@ -2406,13 +2377,6 @@ html, body {
   function toggleSpecialRole(role) {
     if (role === "lover") {
       deckState.lover = deckState.lover ? 0 : 2;
-    } else if (role === "angel") {
-      if (deckState.angel) {
-        deckState.angel = 0;
-        deckState.death_angel = 0;
-      } else {
-        deckState.angel = 1;
-      }
     } else if (role === "serial_killer") {
       if (deckState.serial_killer || deckState.wolf_hunter) {
         deckState.serial_killer = 0;
@@ -2447,13 +2411,6 @@ html, body {
     const nextVal = !cur;
     settings.mayor_can_cancel_vote = nextVal;
     sendAction("update_settings", { settings: { mayor_can_cancel_vote: nextVal } });
-    updateDeckUI();
-  }
-
-  function toggleDeathAngel(event) {
-    if (event) event.stopPropagation();
-    deckState.death_angel = deckState.death_angel ? 0 : 1;
-    currentActivePreset = "custom";
     updateDeckUI();
   }
 
@@ -3047,20 +3004,16 @@ html, body {
   // (gmLayoutMode initialized above)
 
   function setTableLayout(mode) {
-    gmLayoutMode = mode;
-    localStorage.setItem("lupus_gm_layout_mode", mode);
+    gmLayoutMode = (mode === "list") ? "list" : "ring";
+    localStorage.setItem("lupus_gm_layout_mode", gmLayoutMode);
     updateLayoutButtons();
     if (currentGameState) renderTableSeating(currentGameState);
   }
 
   function updateLayoutButtons() {
-    const btnU = document.getElementById("btn-layout-u");
     const btnRing = document.getElementById("btn-layout-ring");
     const btnList = document.getElementById("btn-layout-list");
-    if (!btnU || !btnRing || !btnList) return;
-
-    btnU.style.background = gmLayoutMode === "figure_u" ? "#2563eb" : "#f1f5f9";
-    btnU.style.color = gmLayoutMode === "figure_u" ? "#fff" : "#334155";
+    if (!btnRing || !btnList) return;
 
     btnRing.style.background = gmLayoutMode === "ring" ? "#2563eb" : "#f1f5f9";
     btnRing.style.color = gmLayoutMode === "ring" ? "#fff" : "#334155";
@@ -3141,39 +3094,22 @@ html, body {
       return;
     }
 
-    if (gmLayoutMode === "figure_u") {
-      // FIGURE U (HORSESHOE) - GM podium at open bottom
-      podiumEl.style.display = "flex";
-      centerEl.style.display = "none";
-      trackSvg.innerHTML = `
-        <path d="M 140 562 C 140 180, 320 105, 500 105 C 680 105, 860 180, 860 562" fill="none" stroke="rgba(99, 102, 241, 0.45)" stroke-width="4" stroke-dasharray="8 8" />
-      `;
+    // RING TABLE WITH GM PODIUM AT BOTTOM
+    podiumEl.style.display = "flex";
+    centerEl.style.display = "block";
+    document.getElementById("ring-center-phase").innerText = state.phase.toUpperCase();
+    document.getElementById("ring-center-title").innerText = `${state.title || 'LUPUS ROOM'}`;
+    trackSvg.innerHTML = `
+      <path d="M 323 565 A 390 247 0 1 1 677 565" fill="none" stroke="rgba(99, 102, 241, 0.45)" stroke-width="4" stroke-dasharray="8 8" />
+    `;
 
-      players.forEach((p, idx) => {
-        const t = N > 1 ? idx / (N - 1) : 0.5;
-        const x = 50 - 36 * Math.cos(Math.PI * t);
-        const y = 14 + 61 * Math.pow(2 * t - 1, 2);
+    players.forEach((p, idx) => {
+      const angle = N > 1 ? (0.65 * Math.PI + (idx / (N - 1)) * 1.7 * Math.PI) : (1.5 * Math.PI);
+      const x = 50 + 39 * Math.cos(angle);
+      const y = 46 + 33 * Math.sin(angle);
 
-        renderSeatNode(p, idx, x, y, seatsWrap, state);
-      });
-    } else {
-      // RING (CLOSED CIRCLE) - Center hub with round/timer info
-      podiumEl.style.display = "none";
-      centerEl.style.display = "block";
-      document.getElementById("ring-center-phase").innerText = state.phase.toUpperCase();
-      document.getElementById("ring-center-title").innerText = `${state.title || 'LUPUS ROOM'}`;
-      trackSvg.innerHTML = `
-        <ellipse cx="500" cy="375" rx="380" ry="262" fill="none" stroke="rgba(99, 102, 241, 0.45)" stroke-width="4" stroke-dasharray="8 8" />
-      `;
-
-      players.forEach((p, idx) => {
-        const angle = -Math.PI / 2 + (2 * Math.PI * idx) / N;
-        const x = 50 + 38 * Math.cos(angle);
-        const y = 50 + 34 * Math.sin(angle);
-
-        renderSeatNode(p, idx, x, y, seatsWrap, state);
-      });
-    }
+      renderSeatNode(p, idx, x, y, seatsWrap, state);
+    });
   }
 
   function renderSeatNode(p, idx, x, y, container, state) {
@@ -3232,6 +3168,12 @@ html, body {
   function onSeatClick(playerId) {
     if (!currentGameState) return;
     if (currentGameState.phase === "night") {
+      const stages = currentGameState.night_stages || [];
+      const stage = stages[currentGameState.night_stage_index || 0];
+      if (stage && stage.no_target) {
+        openPlayerSeatModal(playerId);
+        return;
+      }
       // In night: click immediately registers active stage target
       recordStageTarget(playerId);
     } else if (currentGameState.phase === "day_voting" && currentGameState.voting) {
@@ -3477,6 +3419,10 @@ html, body {
       }
       summaryHtml += "</ul>";
       document.getElementById("review-summary-list").innerHTML = summaryHtml;
+    } else if (stage.no_target) {
+      pickerWrap.style.display = "none";
+      clearBtn.style.display = "none";
+      targetDisplay.innerHTML = '<span style="color:#38bdf8; font-weight:600;">👀 Visual / Eye-Contact Only (No target action required)</span>';
     } else {
       // Non-review stages: populate living players with focus-guarded reconciliation
       const livingOpts = [{ value: "", text: "-- Choose player or tap seat on table --" }];
@@ -3666,7 +3612,7 @@ html, body {
     if (!currentGameState) return;
     const stages = currentGameState.night_stages || [];
     const stage = stages[currentGameState.night_stage_index || 0];
-    if (!stage || stage.id === "review") return;
+    if (!stage || stage.id === "review" || stage.no_target) return;
     sendAction("record_night_action", { stage_id: stage.id, target_id: targetId });
   }
 
