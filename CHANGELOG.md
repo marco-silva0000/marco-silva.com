@@ -4,6 +4,17 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v116] - 2026-11-10
+
+### Changed
+- **Inline Extended Role Pills for Tuning & Variations**:
+  - Replaced separate tuning sub-cards with seamless inline-extending pill chips in the lobby deck builder grid (`.role-toggle-chip.extended`).
+  - **Mayor**: Pill extends when active to include an inline mode toggle (`📢 Public (Immune) ⇄` vs `🕵️ Hidden ⇄`).
+  - **Sniper / Vigilante**: Pill extends when active to display danger (`💥`) and silver (`✨`) bullet steppers inline.
+  - **Angel**: Pill extends when active to include an inline `+🗡️ Death Angel` add-on toggle button.
+  - **Serial Killer**: Pill extends when active to toggle between `🔪 Solo Win ⇄` and `🎯 Wolf Hunter ⇄`.
+  - Removed separate detached chips for Death Angel and Wolf Hunter, keeping the role selection grid tight, cohesive, and perfectly aligned across mobile and desktop.
+
 ## [v115] - 2026-11-10
 
 ### Added

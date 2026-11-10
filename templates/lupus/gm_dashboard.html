@@ -215,51 +215,75 @@ html, body {
     color: #ffffff !important;
   }
 
-  /* Role Card Tuning Containers */
-  .role-chip-card {
+  /* Extended Role Chip Controls (Extends the pill itself inline) */
+  .role-toggle-chip.extended {
+    gap: 0.55rem;
+  }
+  .chip-ext {
     display: inline-flex;
-    flex-direction: column;
+    align-items: center;
     gap: 0.35rem;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   }
-  .role-tuning-panel {
-    background: #f8fafc;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 8px;
-    padding: 0.5rem 0.65rem;
-    font-size: 0.78rem;
-    color: #334155;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  }
-  .stepper-btn.mini {
-    width: 22px;
-    height: 22px;
-    font-size: 0.8rem;
+  .chip-ext-btn {
+    background: transparent;
+    border: none;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1e293b;
+    cursor: pointer;
     border-radius: 4px;
-    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    line-height: 1.3;
+    transition: all 0.12s ease;
+  }
+  .chip-ext-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+  .chip-ext-stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1e293b;
+  }
+  .chip-step-btn {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #0f172a;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    line-height: 1;
+    transition: all 0.1s ease;
   }
-  .tuning-pill-btn {
-    padding: 0.25rem 0.55rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 6px;
-    border: 1.5px solid #cbd5e1;
-    background: #ffffff;
-    color: #475569;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-  .tuning-pill-btn:hover {
+  .chip-step-btn:hover {
+    background: #f1f5f9;
     border-color: #94a3b8;
   }
-  .tuning-pill-btn.active {
-    background: #3b82f6 !important;
-    color: #ffffff !important;
-    border-color: #2563eb !important;
-    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+  .chip-step-btn:active {
+    transform: scale(0.9);
+  }
+  .chip-step-val {
+    min-width: 14px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 800;
   }
 
   /* Deck Roster Tag Pills */
@@ -923,69 +947,44 @@ html, body {
             <span>🛡️ Bodyguard (Sacrifice Save)</span>
             <span class="chip-badge" id="badge-bodyguard">OFF</span>
           </button>
-          <button type="button" id="chip-angel" class="role-toggle-chip good" onclick="toggleSpecialRole('angel')">
-            <span>👼 Angel (Limbo Revival)</span>
+          <!-- 👼 Angel with inline Death Angel extension -->
+          <div id="chip-angel" class="role-toggle-chip good" onclick="toggleSpecialRole('angel')">
+            <span class="chip-title">👼 Angel (Limbo Revival)</span>
+            <span id="angel-ext-wrap" class="chip-ext" style="display: none;" onclick="event.stopPropagation()">
+              <button type="button" class="chip-ext-btn" id="btn-angel-death" onclick="toggleDeathAngel(event)" title="Toggle Death Angel role (requires Angel in game)">
+                +🗡️ Death Angel: <span id="angel-death-val" style="font-weight: 800;">OFF</span>
+              </button>
+            </span>
             <span class="chip-badge" id="badge-angel">OFF</span>
-          </button>
-          <button type="button" id="chip-death_angel" class="role-toggle-chip good" onclick="toggleSpecialRole('death_angel')">
-            <span>👼🗡️ Death Angel (Strikes Limbo)</span>
-            <span class="chip-badge" id="badge-death_angel">OFF</span>
-          </button>
-
-          <!-- Sniper / Vigilante with Live Ammunition Tuning -->
-          <div class="role-chip-card" id="card-sniper" style="flex: 1 1 220px;">
-            <button type="button" id="chip-sniper" class="role-toggle-chip good" style="width: 100%;" onclick="toggleSpecialRole('sniper')">
-              <span>🎯 Vigilante / Sniper</span>
-              <span class="chip-badge" id="badge-sniper">OFF</span>
-            </button>
-            <div id="tuning-sniper" class="role-tuning-panel" style="display: none;">
-              <div style="font-weight: 700; color: #1e293b; margin-bottom: 0.35rem; display: flex; align-items: center; justify-content: space-between;">
-                <span>⚙️ Bullets Tuning:</span>
-                <span style="font-size: 0.7rem; color: #64748b;">(Auto-saved)</span>
-              </div>
-              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
-                <div style="display: flex; align-items: center; gap: 0.25rem;">
-                  <span title="Danger bullet: backfires and kills shooter if innocent or jester is shot" style="cursor: help; font-weight: 600;">💥 Danger:</span>
-                  <button type="button" class="stepper-btn mini" onclick="adjustSniperBullet('danger', -1)">&minus;</button>
-                  <span id="tuning-val-sniper-danger" style="font-weight: 800; min-width: 18px; text-align: center;">1</span>
-                  <button type="button" class="stepper-btn mini" onclick="adjustSniperBullet('danger', 1)">+</button>
-                </div>
-                <div style="display: flex; align-items: center; gap: 0.25rem;">
-                  <span title="Silver bullet: safe shot, does not kill shooter on miss" style="cursor: help; font-weight: 600;">✨ Silver:</span>
-                  <button type="button" class="stepper-btn mini" onclick="adjustSniperBullet('silver', -1)">&minus;</button>
-                  <span id="tuning-val-sniper-silver" style="font-weight: 800; min-width: 18px; text-align: center;">0</span>
-                  <button type="button" class="stepper-btn mini" onclick="adjustSniperBullet('silver', 1)">+</button>
-                </div>
-              </div>
-              <div style="font-size: 0.7rem; color: #64748b; margin-top: 0.25rem;">
-                💡 Danger backfires on innocent miss; Silver is safe to shoot.
-              </div>
-            </div>
           </div>
 
-          <!-- Mayor with Live Public vs Hidden Variation Selection -->
-          <div class="role-chip-card" id="card-mayor" style="flex: 1 1 260px;">
-            <button type="button" id="chip-mayor" class="role-toggle-chip good" style="width: 100%;" onclick="toggleSpecialRole('mayor')">
-              <span>🎖️ Mayor</span>
-              <span class="chip-badge" id="badge-mayor">OFF</span>
-            </button>
-            <div id="tuning-mayor" class="role-tuning-panel" style="display: none;">
-              <div style="font-weight: 700; color: #1e293b; margin-bottom: 0.35rem; display: flex; align-items: center; justify-content: space-between;">
-                <span>⚙️ Mayor Variation:</span>
-                <span id="mayor-variation-status" class="badge" style="font-size: 0.68rem; background: #dbeafe; color: #1d4ed8;">Public</span>
-              </div>
-              <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
-                <button type="button" id="btn-mayor-public" class="tuning-pill-btn active" onclick="setMayorVariation('public')">
-                  📢 Public (Immune to lynch, 2x vote)
-                </button>
-                <button type="button" id="btn-mayor-hidden" class="tuning-pill-btn" onclick="setMayorVariation('hidden')">
-                  🔒 Hidden (Secret identity, 1x vote)
-                </button>
-              </div>
-              <div id="mayor-variation-hint" style="font-size: 0.7rem; color: #64748b; margin-top: 0.25rem;">
-                Public Mayor cannot be voted out by town execution and votes count double (2x).
-              </div>
-            </div>
+          <!-- 🎯 Vigilante / Sniper with inline ammunition extension -->
+          <div id="chip-sniper" class="role-toggle-chip good" onclick="toggleSpecialRole('sniper')">
+            <span class="chip-title">🎯 Vigilante / Sniper</span>
+            <span id="sniper-ext-wrap" class="chip-ext" style="display: none;" onclick="event.stopPropagation()">
+              <span class="chip-ext-stepper" title="Danger Bullets (Misses backfire on shooter)">
+                💥 <button type="button" class="chip-step-btn" onclick="adjustSniperBullet('danger', -1, event)">&minus;</button>
+                <span id="chip-sniper-danger-val">1</span>
+                <button type="button" class="chip-step-btn" onclick="adjustSniperBullet('danger', 1, event)">+</button>
+              </span>
+              <span class="chip-ext-stepper" title="Silver Bullets (Safe shot)">
+                ✨ <button type="button" class="chip-step-btn" onclick="adjustSniperBullet('silver', -1, event)">&minus;</button>
+                <span id="chip-sniper-silver-val">0</span>
+                <button type="button" class="chip-step-btn" onclick="adjustSniperBullet('silver', 1, event)">+</button>
+              </span>
+            </span>
+            <span class="chip-badge" id="badge-sniper">OFF</span>
+          </div>
+
+          <!-- 🎖️ Mayor with inline Public vs Hidden variation extension -->
+          <div id="chip-mayor" class="role-toggle-chip good" onclick="toggleSpecialRole('mayor')">
+            <span class="chip-title">🎖️ Mayor</span>
+            <span id="mayor-ext-wrap" class="chip-ext" style="display: none;" onclick="event.stopPropagation()">
+              <button type="button" class="chip-ext-btn" id="btn-mayor-var" onclick="cycleMayorVariation(event)" title="Click to switch between Public Mayor (immune to lynch, 2x vote) and Hidden Mayor (secret, 1x vote)">
+                <span id="mayor-var-icon">📢</span> <span id="mayor-var-text">Public (Immune)</span> <span style="font-size: 0.65rem; opacity: 0.7;">⇄</span>
+              </button>
+            </span>
+            <span class="chip-badge" id="badge-mayor">OFF</span>
           </div>
 
           <button type="button" id="chip-witch" class="role-toggle-chip good" onclick="toggleSpecialRole('witch')">
@@ -1014,14 +1013,17 @@ html, body {
             <span>🃏 Jester (Wins if Lynched)</span>
             <span class="chip-badge" id="badge-jester">OFF</span>
           </button>
-          <button type="button" id="chip-serial_killer" class="role-toggle-chip neutral" onclick="toggleSpecialRole('serial_killer')">
-            <span>🔪 Serial Killer (Solo Win)</span>
+
+          <!-- 🔪 Serial Killer with inline Wolf Hunter variation extension -->
+          <div id="chip-serial_killer" class="role-toggle-chip neutral" onclick="toggleSpecialRole('serial_killer')">
+            <span class="chip-title" id="sk-chip-title">🔪 Serial Killer</span>
+            <span id="sk-ext-wrap" class="chip-ext" style="display: none;" onclick="event.stopPropagation()">
+              <button type="button" class="chip-ext-btn" id="btn-sk-variation" onclick="cycleSkVariation(event)" title="Click to switch between Serial Killer (Solo Win) and Wolf Hunter">
+                <span id="sk-var-text">🔪 Solo Win ⇄</span>
+              </button>
+            </span>
             <span class="chip-badge" id="badge-serial_killer">OFF</span>
-          </button>
-          <button type="button" id="chip-wolf_hunter" class="role-toggle-chip neutral" onclick="toggleSpecialRole('wolf_hunter')">
-            <span>🏹 Wolf Hunter (Kills Wolves Only)</span>
-            <span class="chip-badge" id="badge-wolf_hunter">OFF</span>
-          </button>
+          </div>
         </div>
       </div>
 
@@ -2106,46 +2108,109 @@ html, body {
       }
     });
 
-    // Update role tuning panels visibility and values
-    const sniperTuning = document.getElementById("tuning-sniper");
-    if (sniperTuning) {
-      const isSniperActive = (deckState.sniper || 0) > 0;
-      sniperTuning.style.display = isSniperActive ? "block" : "none";
-      const settings = (currentGameState && currentGameState.settings) ? currentGameState.settings : {};
-      const dVal = document.getElementById("tuning-val-sniper-danger");
-      const sVal = document.getElementById("tuning-val-sniper-silver");
-      if (dVal) dVal.innerText = settings.sniper_danger_bullets !== undefined ? settings.sniper_danger_bullets : 1;
-      if (sVal) sVal.innerText = settings.sniper_silver_bullets !== undefined ? settings.sniper_silver_bullets : 0;
+    // Update inline extended pills controls & values
+    const settings = (currentGameState && currentGameState.settings) ? currentGameState.settings : {};
+
+    // 1. Mayor Inline Extended Pill
+    const chipMayor = document.getElementById("chip-mayor");
+    const mayorExtWrap = document.getElementById("mayor-ext-wrap");
+    const badgeMayor = document.getElementById("badge-mayor");
+    const isMayorOn = (deckState.mayor || 0) > 0;
+    if (chipMayor && mayorExtWrap) {
+      if (isMayorOn) {
+        chipMayor.classList.add("active", "extended");
+        mayorExtWrap.style.display = "inline-flex";
+        if (badgeMayor) badgeMayor.innerText = "✓ ON";
+        const mType = settings.mayor_type || (settings.public_mayor ? "public" : "hidden") || "public";
+        const varIcon = document.getElementById("mayor-var-icon");
+        const varText = document.getElementById("mayor-var-text");
+        if (mType === "public") {
+          if (varIcon) varIcon.innerText = "📢";
+          if (varText) varText.innerText = "Public (Immune)";
+        } else {
+          if (varIcon) varIcon.innerText = "🔒";
+          if (varText) varText.innerText = "Hidden (Secret)";
+        }
+      } else {
+        chipMayor.classList.remove("active", "extended");
+        mayorExtWrap.style.display = "none";
+        if (badgeMayor) badgeMayor.innerText = "OFF";
+      }
     }
 
-    const mayorTuning = document.getElementById("tuning-mayor");
-    if (mayorTuning) {
-      const isMayorActive = (deckState.mayor || 0) > 0;
-      mayorTuning.style.display = isMayorActive ? "block" : "none";
-      const settings = (currentGameState && currentGameState.settings) ? currentGameState.settings : {};
-      const mayorType = settings.mayor_type || (settings.public_mayor ? "public" : "hidden") || "public";
-      const btnPub = document.getElementById("btn-mayor-public");
-      const btnHid = document.getElementById("btn-mayor-hidden");
-      const badgeStatus = document.getElementById("mayor-variation-status");
-      const hint = document.getElementById("mayor-variation-hint");
-      if (mayorType === "public") {
-        if (btnPub) btnPub.classList.add("active");
-        if (btnHid) btnHid.classList.remove("active");
-        if (badgeStatus) {
-          badgeStatus.innerText = "Public";
-          badgeStatus.style.background = "#dbeafe";
-          badgeStatus.style.color = "#1d4ed8";
-        }
-        if (hint) hint.innerText = "Public Mayor cannot be voted out by town execution and votes count double (2x).";
+    // 2. Sniper Inline Extended Pill
+    const chipSniper = document.getElementById("chip-sniper");
+    const sniperExtWrap = document.getElementById("sniper-ext-wrap");
+    const badgeSniper = document.getElementById("badge-sniper");
+    const isSniperOn = (deckState.sniper || 0) > 0;
+    if (chipSniper && sniperExtWrap) {
+      if (isSniperOn) {
+        chipSniper.classList.add("active", "extended");
+        sniperExtWrap.style.display = "inline-flex";
+        if (badgeSniper) badgeSniper.innerText = "✓ ON";
+        const dVal = document.getElementById("chip-sniper-danger-val");
+        const sVal = document.getElementById("chip-sniper-silver-val");
+        if (dVal) dVal.innerText = settings.sniper_danger_bullets !== undefined ? settings.sniper_danger_bullets : 1;
+        if (sVal) sVal.innerText = settings.sniper_silver_bullets !== undefined ? settings.sniper_silver_bullets : 0;
       } else {
-        if (btnPub) btnPub.classList.remove("active");
-        if (btnHid) btnHid.classList.add("active");
-        if (badgeStatus) {
-          badgeStatus.innerText = "Hidden";
-          badgeStatus.style.background = "#f3e8ff";
-          badgeStatus.style.color = "#7e22ce";
+        chipSniper.classList.remove("active", "extended");
+        sniperExtWrap.style.display = "none";
+        if (badgeSniper) badgeSniper.innerText = "OFF";
+      }
+    }
+
+    // 3. Angel & Death Angel Inline Extended Pill
+    const chipAngel = document.getElementById("chip-angel");
+    const angelExtWrap = document.getElementById("angel-ext-wrap");
+    const badgeAngel = document.getElementById("badge-angel");
+    const isAngelOn = (deckState.angel || 0) > 0;
+    if (chipAngel && angelExtWrap) {
+      if (isAngelOn) {
+        chipAngel.classList.add("active", "extended");
+        angelExtWrap.style.display = "inline-flex";
+        if (badgeAngel) badgeAngel.innerText = "✓ ON";
+        const deathVal = document.getElementById("angel-death-val");
+        const btnDeath = document.getElementById("btn-angel-death");
+        const isDeathOn = (deckState.death_angel || 0) > 0;
+        if (deathVal) deathVal.innerText = isDeathOn ? "✓ ON" : "OFF";
+        if (btnDeath) {
+          btnDeath.style.color = isDeathOn ? "#15803d" : "#64748b";
+          btnDeath.style.fontWeight = isDeathOn ? "800" : "600";
         }
-        if (hint) hint.innerText = "Hidden Mayor identity is secret, has 1x vote, and can veto an execution at night (1 veto per person).";
+      } else {
+        deckState.death_angel = 0;
+        chipAngel.classList.remove("active", "extended");
+        angelExtWrap.style.display = "none";
+        if (badgeAngel) badgeAngel.innerText = "OFF";
+      }
+    }
+
+    // 4. Serial Killer & Wolf Hunter Inline Extended Pill
+    const chipSk = document.getElementById("chip-serial_killer");
+    const skExtWrap = document.getElementById("sk-ext-wrap");
+    const badgeSk = document.getElementById("badge-serial_killer");
+    const isSkOn = (deckState.serial_killer || 0) > 0;
+    const isWhOn = (deckState.wolf_hunter || 0) > 0;
+    if (chipSk && skExtWrap) {
+      if (isSkOn || isWhOn) {
+        chipSk.classList.add("active", "extended");
+        skExtWrap.style.display = "inline-flex";
+        if (badgeSk) badgeSk.innerText = "✓ ON";
+        const skTitle = document.getElementById("sk-chip-title");
+        const skVarText = document.getElementById("sk-var-text");
+        if (isWhOn) {
+          if (skTitle) skTitle.innerText = "🏹 Wolf Hunter";
+          if (skVarText) skVarText.innerText = "🏹 Hunter (Wolves Only) ⇄";
+        } else {
+          if (skTitle) skTitle.innerText = "🔪 Serial Killer";
+          if (skVarText) skVarText.innerText = "🔪 Solo Win ⇄";
+        }
+      } else {
+        chipSk.classList.remove("active", "extended");
+        skExtWrap.style.display = "none";
+        if (badgeSk) badgeSk.innerText = "OFF";
+        const skTitle = document.getElementById("sk-chip-title");
+        if (skTitle) skTitle.innerText = "🔪 Serial Killer";
       }
     }
 
@@ -2291,10 +2356,73 @@ html, body {
   function toggleSpecialRole(role) {
     if (role === "lover") {
       deckState.lover = deckState.lover ? 0 : 2;
+    } else if (role === "angel") {
+      if (deckState.angel) {
+        deckState.angel = 0;
+        deckState.death_angel = 0;
+      } else {
+        deckState.angel = 1;
+      }
+    } else if (role === "serial_killer") {
+      if (deckState.serial_killer || deckState.wolf_hunter) {
+        deckState.serial_killer = 0;
+        deckState.wolf_hunter = 0;
+      } else {
+        deckState.serial_killer = 1;
+      }
     } else {
       deckState[role] = deckState[role] ? 0 : 1;
     }
     currentActivePreset = "custom";
+    updateDeckUI();
+  }
+
+  function cycleMayorVariation(event) {
+    if (event) event.stopPropagation();
+    if (!currentGameState) return;
+    const settings = currentGameState.settings || {};
+    const cur = settings.mayor_type || (settings.public_mayor ? "public" : "hidden") || "public";
+    const nextVar = cur === "public" ? "hidden" : "public";
+    settings.mayor_type = nextVar;
+    settings.public_mayor = (nextVar === "public");
+    sendAction("update_settings", { settings: { mayor_type: nextVar, public_mayor: nextVar === "public" } });
+    updateDeckUI();
+  }
+
+  function toggleDeathAngel(event) {
+    if (event) event.stopPropagation();
+    deckState.death_angel = deckState.death_angel ? 0 : 1;
+    currentActivePreset = "custom";
+    updateDeckUI();
+  }
+
+  function cycleSkVariation(event) {
+    if (event) event.stopPropagation();
+    if (deckState.wolf_hunter) {
+      deckState.wolf_hunter = 0;
+      deckState.serial_killer = 1;
+    } else {
+      deckState.serial_killer = 0;
+      deckState.wolf_hunter = 1;
+    }
+    currentActivePreset = "custom";
+    updateDeckUI();
+  }
+
+  function adjustSniperBullet(type, delta, event) {
+    if (event) event.stopPropagation();
+    if (!currentGameState) return;
+    const settings = currentGameState.settings || {};
+    let d = settings.sniper_danger_bullets !== undefined ? parseInt(settings.sniper_danger_bullets) : 1;
+    let s = settings.sniper_silver_bullets !== undefined ? parseInt(settings.sniper_silver_bullets) : 0;
+    if (type === "danger") {
+      d = Math.max(0, Math.min(10, d + delta));
+      settings.sniper_danger_bullets = d;
+    } else if (type === "silver") {
+      s = Math.max(0, Math.min(10, s + delta));
+      settings.sniper_silver_bullets = s;
+    }
+    sendAction("update_settings", { settings: { sniper_danger_bullets: d, sniper_silver_bullets: s } });
     updateDeckUI();
   }
 
@@ -2343,31 +2471,6 @@ html, body {
       }
     }
     currentActivePreset = "custom";
-    updateDeckUI();
-  }
-
-  function adjustSniperBullet(type, delta) {
-    if (!currentGameState) return;
-    const settings = currentGameState.settings || {};
-    let d = settings.sniper_danger_bullets !== undefined ? parseInt(settings.sniper_danger_bullets) : 1;
-    let s = settings.sniper_silver_bullets !== undefined ? parseInt(settings.sniper_silver_bullets) : 0;
-    if (type === "danger") {
-      d = Math.max(0, Math.min(10, d + delta));
-      settings.sniper_danger_bullets = d;
-    } else if (type === "silver") {
-      s = Math.max(0, Math.min(10, s + delta));
-      settings.sniper_silver_bullets = s;
-    }
-    sendAction("update_settings", { settings: { sniper_danger_bullets: d, sniper_silver_bullets: s } });
-    updateDeckUI();
-  }
-
-  function setMayorVariation(variation) {
-    if (!currentGameState) return;
-    const settings = currentGameState.settings || {};
-    settings.mayor_type = variation;
-    settings.public_mayor = (variation === "public");
-    sendAction("update_settings", { settings: { mayor_type: variation, public_mayor: variation === "public" } });
     updateDeckUI();
   }
 
