@@ -122,6 +122,7 @@ def create_initial_state(
         "nomination_threshold_pct": 50,  # 50% of living players needed for nomination
         "mayor_type": "public",  # "public" (cannot be lynched, 2x vote) or "hidden" (secret, 1x vote)
         "public_mayor": True,  # Kept in sync with mayor_type
+        "mayor_can_cancel_vote": True,  # Both public and hidden mayors can have or not the power to cancel the vote (pardon veto)
         "public_heartbreak_cause": False,  # If true, lover heartbreak cause announced; if false, concealed as "found dead"
     }
     if settings:
@@ -274,6 +275,7 @@ ROLE_NAME_KEYWORDS: list[tuple[str, list[str]]] = [
     ("saboteur_wolf", ["saboteur wolf", "saboteur", "sabotador", "sabotage"]),
     ("disgruntled_ghost", ["disgruntled ghost", "disgruntled", "bad ghost"]),
     ("serial_killer", ["serial killer", "serial_killer", "serial", "killer", "sk", "assassino"]),
+    ("wolf_hunter", ["wolf hunter", "wolf_hunter", "lone hunter", "cacador de lobos"]),
     ("silencer", ["silencer", "silenciador", "muto"]),
     ("werewolf", ["werewolf", "werewolves", "wolf", "lobo", "lupus"]),
     # Specialized good roles
@@ -281,6 +283,7 @@ ROLE_NAME_KEYWORDS: list[tuple[str, list[str]]] = [
     ("watson", ["watson", "helper", "sidekick", "adjunto"]),
     ("doctor", ["doctor", "doc", "medic", "nurse", "healer", "medico"]),
     ("bodyguard", ["bodyguard", "guard", "protector", "guarda"]),
+    ("death_angel", ["death angel", "death_angel", "dark angel", "anjo da morte"]),
     ("sniper", ["sniper", "vigilante", "hunter", "cacador", "gunner"]),
     ("angel", ["angel", "guardian angel", "anjo"]),
     ("mayor", ["mayor", "prefeito", "burgomestre", "presidente"]),
@@ -1831,23 +1834,27 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         is_alive = any(m["is_alive"] for m in mayors)
         last_lynched_id = state.get("last_lynched_id")
         vetoed_ids = state.get("mayor_vetoed_ids", [])
-        has_veto = (last_lynched_id is not None) and (last_lynched_id not in vetoed_ids)
+        can_cancel_vote = state.get("settings", {}).get("mayor_can_cancel_vote", True)
+        has_veto = can_cancel_vote and (last_lynched_id is not None) and (last_lynched_id not in vetoed_ids)
         last_lynched_name = players[last_lynched_id]["name"] if last_lynched_id in players else None
-        if round_num <= 1 or not last_lynched_name:
+        if not can_cancel_vote:
+            script = "Mayor, wake up! Look at me so I know who you are... Mayor, close your eyes."
+        elif round_num <= 1 or not last_lynched_name:
             script = "Mayor, wake up! Look at me so I know who you are... Mayor, close your eyes."
         else:
-            script = f"Mayor, wake up! Yesterday, {last_lynched_name} was executed. Do you wish to exercise your veto to pardon them? (Limit: once per person)."
+            script = f"Mayor, wake up! Yesterday, {last_lynched_name} was executed. Do you wish to exercise your veto to cancel the vote and pardon them? (Limit: once per person)."
         stages.append(
             {
                 "id": "mayor",
-                "title": "🎖️ Mayor Veto",
+                "title": "🎖️ Mayor Veto" if can_cancel_vote else "🎖️ Mayor Wakeup",
                 "role_id": "mayor",
                 "actors": mayors,
                 "is_alive": is_alive,
                 "has_veto": has_veto,
+                "can_cancel_vote": can_cancel_vote,
                 "last_lynched_id": last_lynched_id,
                 "last_lynched_name": last_lynched_name,
-                "veto": actions.get("mayor_veto", False),
+                "veto": actions.get("mayor_veto", False) if can_cancel_vote else False,
                 "script": script,
                 "is_complete": True,
             }
@@ -2033,6 +2040,8 @@ def record_gm_night_action(
         last_lynched = state.get("last_lynched_id")
         vetoed_ids = state.get("mayor_vetoed_ids", [])
         if veto:
+            if not state.get("settings", {}).get("mayor_can_cancel_vote", True):
+                return False, "Mayor does not have the power to cancel the vote in this game."
             if not last_lynched:
                 return False, "No executed player to veto."
             if last_lynched in vetoed_ids:
@@ -2046,6 +2055,7 @@ def record_gm_night_action(
             actions.pop("mayor_veto", None)
             log_event(state, "Game Master cleared Mayor veto")
             save_game(state["code"], state)
+            return True, "Cleared Mayor veto."
             return True, "Mayor veto cleared"
 
     elif stage_id == "cupid":
@@ -2225,6 +2235,8 @@ def submit_night_action(
     elif action_type == "veto":
         if actor["role"] != "mayor":
             return False, "Not a mayor."
+        if not state.get("settings", {}).get("mayor_can_cancel_vote", True):
+            return False, "Mayor does not have the power to cancel the vote in this game."
         last_lynched = state.get("last_lynched_id")
         if not last_lynched or last_lynched in state.get("mayor_vetoed_ids", []):
             return False, "Cannot veto: Person already vetoed or no executed player."
@@ -2595,6 +2607,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     if (
         actions.get("mayor_veto")
         and mayor_actor
+        and state.get("settings", {}).get("mayor_can_cancel_vote", True)
         and mayor_actor["id"] not in suppressed_pids
         and state.get("last_lynched_id")
     ):
@@ -3430,6 +3443,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
                 "mayor_type", "public" if state["settings"].get("public_mayor", False) else "hidden"
             ),
             "public_mayor": state["settings"].get("public_mayor", False),
+            "mayor_can_cancel_vote": state["settings"].get("mayor_can_cancel_vote", True),
             "sniper_danger_bullets": state["settings"].get("sniper_danger_bullets", 1),
             "sniper_silver_bullets": state["settings"].get("sniper_silver_bullets", 0),
             "public_heartbreak_cause": state["settings"].get("public_heartbreak_cause", False),

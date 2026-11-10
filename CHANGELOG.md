@@ -4,6 +4,25 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v117] - 2026-11-10
+
+### Added
+- **Mayor Vote-Canceling Power Toggle (`mayor_can_cancel_vote`)**:
+  - Both Public and Hidden Mayors can independently have the power to cancel the vote (executive pardon veto) enabled or disabled.
+  - Added inline toggle to Mayor role chip in deck builder (`[ ⚖️ Cancel: ON ⇄ ]` vs `[ 🚫 Cancel: OFF ⇄ ]`).
+  - Synced to player role descriptions and night execution veto permissions.
+- **Pre-Assignment List & Indicators**:
+  - Added missing roles `death_angel` and `wolf_hunter` to pre-assignment role picker modal.
+  - Added dynamic status banner in modal showing player's current pre-assignment (`🎯 Currently Pre-assigned` vs `🎲 Random / Unassigned`).
+  - Added active highlight (`✓ [Role] [Assigned]`) on current pre-assignment and subtle claimant tags (`[Role] (Pre-assigned: Alice)`) when a role is already claimed by another player at the table.
+  - Added live header badge (`🎯 X Pre-assigned`) and seating node highlights (`.u-seat-node.is-preassigned`) on table diagram.
+  - Enhanced name auto-assign keywords for `death_angel` ("death angel", "dark angel") and `wolf_hunter` ("wolf hunter", "lone hunter").
+
+### Changed
+- **Divider-Based GM Dashboard Layout**:
+  - Replaced bulky enclosed card boxes (`.card-box`) with sleek horizontal section dividers (`.gm-section`).
+  - Eliminated side whitespace padding to maximize horizontal density for role grids, table seating diagrams, and player controls on both mobile and desktop.
+
 ## [v116] - 2026-11-10
 
 ### Changed

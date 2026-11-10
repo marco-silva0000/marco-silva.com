@@ -2149,10 +2149,14 @@ html, body {
         secretNotes.push(`🎯 <strong>Ammunition:</strong> ${me.sniper_danger_bullets || 0} Danger Bullet(s), ${me.sniper_silver_bullets || 0} Silver Bullet(s) <span style="font-size:0.75rem; color:#94a3b8;">(Silver bullets safe; hold fire 2 rounds to earn silver!)</span>`);
       }
       if (me.role.id === "mayor") {
+        const canCancel = (currentState.settings && currentState.settings.mayor_can_cancel_vote !== false);
+        const cancelNote = canCancel
+          ? "You possess the executive veto power to cancel an execution vote at night (limit: once per person)."
+          : "You do not have vote-canceling powers in this game.";
         if (me.is_public_mayor) {
-          secretNotes.push(`🎖️ <strong>Public Mayor:</strong> You hold official executive immunity! You cannot be voted out by town execution, and your daytime vote counts double (2x).`);
+          secretNotes.push(`🎖️ <strong>Public Mayor:</strong> You hold official executive immunity! You cannot be voted out by town execution, and your daytime vote counts double (2x). ${cancelNote}`);
         } else {
-          secretNotes.push(`🎖️ <strong>Hidden Mayor:</strong> Your identity is secret. You vote with normal 1x weight, and you can exercise a one-time executive veto at night if someone is executed!`);
+          secretNotes.push(`🎖️ <strong>Hidden Mayor:</strong> Your identity is secret, and you vote with normal 1x weight. ${cancelNote}`);
         }
       }
       if (me.lover_name) {

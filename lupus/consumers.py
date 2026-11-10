@@ -487,6 +487,8 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                     new_settings["public_mayor"] = new_settings["mayor_type"] == "public"
                 elif "public_mayor" in new_settings:
                     new_settings["mayor_type"] = "public" if new_settings["public_mayor"] else "hidden"
+                if "mayor_can_cancel_vote" in new_settings:
+                    new_settings["mayor_can_cancel_vote"] = bool(new_settings["mayor_can_cancel_vote"])
                 state["settings"].update(new_settings)
 
                 # Keep player attributes in sync live

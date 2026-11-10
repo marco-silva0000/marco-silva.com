@@ -30,7 +30,29 @@ html, body {
   .badge-dead { background: #ffebee; color: #c62828; text-decoration: line-through; border: 1px solid #ffcdd2; }
   .badge-silenced { background: #ede7f6; color: #512da8; border: 1px solid #d1c4e9; }
   
-  .card-box { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.15rem; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  /* Modern High-Density GM Layout: clean section dividers instead of heavy enclosed square cards */
+  .card-box {
+    background: transparent;
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    border-radius: 0;
+    padding: 0.85rem 0;
+    margin-bottom: 1rem;
+    box-shadow: none;
+  }
+  .gm-section {
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid #e2e8f0;
+    padding: 0.85rem 0;
+    margin-bottom: 1rem;
+  }
+  .gm-card-inset {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.75rem 0.85rem;
+  }
   .timer-display { font-size: 3.2rem; font-weight: 800; font-family: ui-monospace, monospace; letter-spacing: 2px; color: #111; line-height: 1.1; margin: 0.35rem 0; }
   .timer-pulse { color: #d32f2f; animation: pulse 1s infinite alternate; }
   @keyframes pulse { from { opacity: 1; transform: scale(1); } to { opacity: 0.6; transform: scale(0.98); } }
@@ -493,6 +515,11 @@ html, body {
   .u-seat-node.alive { border-color: #22c55e; }
   .u-seat-node.limbo { border-color: #f59e0b; background: #fffbeb; }
   .u-seat-node.dead { border-color: #ef4444; background: #fef2f2; opacity: 0.65; }
+  .u-seat-node.is-preassigned {
+    border-color: #3b82f6 !important;
+    background: #eff6ff !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4), 0 2px 8px rgba(59, 130, 246, 0.25) !important;
+  }
   .u-seat-node.is-target {
     border-color: #ef4444 !important;
     background: #fff1f2 !important;
@@ -741,7 +768,7 @@ html, body {
   </div>
 
   <!-- GM Broadcast Announcement Bar -->
-  <div class="card-box" style="padding: 0.65rem 0.85rem; background: #fffde7; border-color: #fde047; margin-bottom: 1rem;">
+  <div style="padding: 0.5rem 0.75rem; background: #fffde7; border: 1px solid #fde047; border-radius: 8px; margin-bottom: 0.75rem;">
     <div style="display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap;">
       <span style="font-size: 1.1rem;">📢</span>
       <input id="gm-broadcast-input" type="text" placeholder="Broadcast announcement to all player screens..."
@@ -755,8 +782,8 @@ html, body {
   <!-- 1. PRE-GAME STAGE (LOBBY & ROLE SELECTION) -->
   <!-- ========================================== -->
   <div id="pregame-view" style="display: {% if state.phase == 'lobby' %}block{% else %}none{% endif %};">
-    <!-- Live Join QR & Table Invitation Card -->
-    <div class="card-box" style="border: 2px solid #10b981; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); margin-bottom: 1.25rem; padding: 1.15rem;">
+    <!-- Live Join QR & Table Invitation Section -->
+    <div class="gm-section" style="border-top: 1px solid #86efac; border-bottom: 1px solid #86efac; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); margin-bottom: 1rem; padding: 0.85rem 0.5rem; border-radius: 8px;">
       <div style="display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;">
         <div style="background: #ffffff; padding: 8px; border-radius: 12px; border: 1.5px solid #86efac; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); display: inline-block; flex-shrink: 0; margin: 0 auto;">
           <img src="{{ join_qr }}" alt="Room Join QR" style="width: 140px; height: 140px; display: block; image-rendering: pixelated;">
@@ -794,8 +821,8 @@ html, body {
       </div>
     </div>
 
-    <!-- Role Selection & Deck Builder Card -->
-    <div class="card-box" style="border: 2px solid #3b82f6;">
+    <!-- Role Selection & Deck Builder Section (Full Width with Top Divider) -->
+    <div class="gm-section" style="border-top: 2px solid #3b82f6; padding-top: 0.85rem; margin-bottom: 1.25rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem;">
         <div>
           <h2 style="font-size: 1.15rem; margin: 0; font-weight: 700;">🎴 Pre-Game Setup &amp; Role Deck</h2>
@@ -976,12 +1003,15 @@ html, body {
             <span class="chip-badge" id="badge-sniper">OFF</span>
           </div>
 
-          <!-- 🎖️ Mayor with inline Public vs Hidden variation extension -->
+          <!-- 🎖️ Mayor with inline Public vs Hidden variation and Cancel Vote power extensions -->
           <div id="chip-mayor" class="role-toggle-chip good" onclick="toggleSpecialRole('mayor')">
             <span class="chip-title">🎖️ Mayor</span>
             <span id="mayor-ext-wrap" class="chip-ext" style="display: none;" onclick="event.stopPropagation()">
               <button type="button" class="chip-ext-btn" id="btn-mayor-var" onclick="cycleMayorVariation(event)" title="Click to switch between Public Mayor (immune to lynch, 2x vote) and Hidden Mayor (secret, 1x vote)">
                 <span id="mayor-var-icon">📢</span> <span id="mayor-var-text">Public (Immune)</span> <span style="font-size: 0.65rem; opacity: 0.7;">⇄</span>
+              </button>
+              <button type="button" class="chip-ext-btn" id="btn-mayor-cancel" onclick="cycleMayorCancelVote(event)" title="Click to toggle power to cancel vote / pardon veto">
+                <span id="mayor-cancel-icon">⚖️</span> <span id="mayor-cancel-text">Cancel: ON</span> <span style="font-size: 0.65rem; opacity: 0.7;">⇄</span>
               </button>
             </span>
             <span class="chip-badge" id="badge-mayor">OFF</span>
@@ -1041,7 +1071,7 @@ html, body {
   <!-- ========================================== -->
   <div id="active-game-view" style="display: {% if state.phase != 'lobby' %}block{% else %}none{% endif %};">
     <!-- Active Stage Banner & Return to Lobby -->
-    <div class="card-box" style="background: #f8fafc; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding: 0.75rem 1rem;">
+    <div class="gm-section" style="border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding: 0.5rem 0; margin-bottom: 0.75rem;">
       <div style="font-size: 0.85rem;">
         Active Deck: <strong id="active-deck-summary">-</strong>
       </div>
@@ -1109,7 +1139,7 @@ html, body {
     </div>
 
     <!-- Timer & Phase Controls (Mobile First Layout) -->
-    <div class="card-box">
+    <div class="gm-section" style="border-top: 1px solid #e2e8f0; padding-top: 0.85rem; margin-bottom: 1.25rem;">
       <div class="control-grid">
         <!-- Left / Top: Countdown Timer -->
         <div class="timer-section">
@@ -1483,12 +1513,13 @@ html, body {
   </div>
 
   <!-- Table & Players Management (Common to both Lobby and Active Game) -->
-  <div class="card-box">
+  <div class="gm-section" style="border-top: 2px solid #6366f1; padding-top: 0.85rem; margin-bottom: 1.25rem;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.5rem;">
       <div>
         <h3 style="font-size: 1rem; margin: 0; display: flex; align-items: center; gap: 0.35rem;">
           <span>👥 Physical Table Seating</span>
           <span style="font-size: 0.85rem; font-weight: normal; color: #64748b;">(<span id="player-count">{{ state.players|length }}</span>)</span>
+          <span id="lobby-preassigned-badge" class="badge" style="display: none; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; font-size: 0.75rem; text-transform: none; letter-spacing: 0;">🎯 0 Pre-assigned</span>
         </h3>
         <span style="font-size: 0.75rem; color: #64748b;">Seated clockwise / left-to-right around your table</span>
       </div>
@@ -1558,7 +1589,7 @@ html, body {
   </div>
 
   <!-- Activity Log -->
-  <div class="card-box">
+  <div class="gm-section" style="border-top: 1px solid #cbd5e1; padding-top: 0.75rem; margin-top: 1.25rem; margin-bottom: 1rem;">
     <h3 style="font-size: 0.9rem; margin-top: 0; margin-bottom: 0.5rem; color: #666;">📜 Live Activity Log</h3>
     <div id="events-log" style="font-size: 0.8rem; color: #666; max-height: 120px; overflow-y: auto; font-family: monospace;">
       {% for event in state.events_log %}
@@ -1648,62 +1679,70 @@ html, body {
 
 <!-- Modal: Manual Role Picker -->
 <div id="manual-role-modal" class="modal">
-  <div class="modal-content" style="max-width: 440px; max-height: 85vh; overflow-y: auto; text-align: left; padding: 1.25rem;">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 0.75rem;">
+  <div class="modal-content" style="max-width: 460px; max-height: 85vh; overflow-y: auto; text-align: left; padding: 1.25rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
       <h3 id="manual-role-title" style="margin: 0; font-size: 1.05rem; color: #0f172a;">Assign Role to Player</h3>
       <button onclick="closeModal('manual-role-modal')" class="btn btn-sm">&times;</button>
     </div>
-    <p style="font-size: 0.8rem; color: #64748b; margin-top: 0;">Tap any role below to assign it immediately to this player:</p>
+    
+    <!-- Dynamic Current Assignment Banner -->
+    <div id="manual-role-current-banner" style="margin-bottom: 0.75rem; padding: 0.45rem 0.65rem; border-radius: 6px; font-size: 0.82rem; font-weight: 600; background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe;">
+      Current: 🎲 Random / Unassigned
+    </div>
+
+    <p style="font-size: 0.78rem; color: #64748b; margin-top: 0; margin-bottom: 0.5rem;">Tap any role below to pre-assign it immediately (deal respects pre-assignments):</p>
     
     <div style="margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #e2e8f0;">
-      <button type="button" class="btn btn-sm" onclick="selectManualRole('clear')" style="background:#f8fafc; color:#475569; border-color:#cbd5e1; width: 100%; justify-content: center; font-weight: 600;">
-        🎲 Random / Clear Pre-assignment
+      <button type="button" id="btn-role-pick-clear" class="btn btn-sm role-pick-btn" data-role="clear" onclick="selectManualRole('clear')" style="background:#f8fafc; color:#475569; border-color:#cbd5e1; width: 100%; justify-content: center; font-weight: 600;">
+        <span class="role-pick-label">🎲 Random / Clear Pre-assignment</span>
       </button>
     </div>
     
     <div style="margin-bottom: 0.6rem;">
       <div style="font-size: 0.75rem; font-weight: 700; color: #b91c1c; text-transform: uppercase; margin-bottom: 0.35rem;">🔴 Evil Team</div>
       <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('werewolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;">🐺 Werewolf</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('alpha_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;">👑 Alpha Wolf</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('silencer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;">🤐 Silencer</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('saboteur_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;">🐺⚡ Saboteur Wolf</button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="werewolf" onclick="selectManualRole('werewolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🐺 Werewolf</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="alpha_wolf" onclick="selectManualRole('alpha_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">👑 Alpha Wolf</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="silencer" onclick="selectManualRole('silencer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🤐 Silencer</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="saboteur_wolf" onclick="selectManualRole('saboteur_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🐺⚡ Saboteur Wolf</span></button>
       </div>
     </div>
 
     <div style="margin-bottom: 0.6rem;">
       <div style="font-size: 0.75rem; font-weight: 700; color: #15803d; text-transform: uppercase; margin-bottom: 0.35rem;">🟢 Good Team</div>
       <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('villager')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🧑 Plain Villager</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('detective')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🔍 Detective</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('watson')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🕵️‍♂️ Watson</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('doctor')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🩺 Doctor</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('bodyguard')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🛡️ Bodyguard</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('angel')" style="background:#dcfce7; color:#166534; border-color:#86efac;">👼 Angel</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('sniper')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🎯 Vigilante / Sniper</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('mayor')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🎖️ Mayor</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('witch')" style="background:#dcfce7; color:#166534; border-color:#86efac;">🧙‍♀️ Witch</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('hacker')" style="background:#dcfce7; color:#166534; border-color:#86efac;">💻 Hacker</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('lover')" style="background:#dcfce7; color:#166534; border-color:#86efac;">💘 Innocent Lover</button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="villager" onclick="selectManualRole('villager')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🧑 Plain Villager</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="detective" onclick="selectManualRole('detective')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🔍 Detective</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="watson" onclick="selectManualRole('watson')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🕵️‍♂️ Watson</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="doctor" onclick="selectManualRole('doctor')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🩺 Doctor</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="bodyguard" onclick="selectManualRole('bodyguard')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🛡️ Bodyguard</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="angel" onclick="selectManualRole('angel')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">👼 Angel</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="death_angel" onclick="selectManualRole('death_angel')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">👼🗡️ Death Angel</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="sniper" onclick="selectManualRole('sniper')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🎯 Vigilante / Sniper</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="mayor" onclick="selectManualRole('mayor')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🎖️ Mayor</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="witch" onclick="selectManualRole('witch')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🧙‍♀️ Witch</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="hacker" onclick="selectManualRole('hacker')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">💻 Hacker</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="lover" onclick="selectManualRole('lover')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">💘 Innocent Lover</span></button>
       </div>
     </div>
 
     <div style="margin-bottom: 0.6rem;">
       <div style="font-size: 0.75rem; font-weight: 700; color: #7e22ce; text-transform: uppercase; margin-bottom: 0.35rem;">🟣 Neutral Team</div>
       <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('cupid')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;">💘 Obsessive Lover</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('jester')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;">🃏 Jester</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('serial_killer')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;">🔪 Serial Killer</button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="cupid" onclick="selectManualRole('cupid')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">💘 Obsessive Lover</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="jester" onclick="selectManualRole('jester')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🃏 Jester</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="serial_killer" onclick="selectManualRole('serial_killer')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🔪 Serial Killer</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="wolf_hunter" onclick="selectManualRole('wolf_hunter')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🏹 Wolf Hunter</span></button>
       </div>
     </div>
 
     <div style="margin-bottom: 0.6rem;">
       <div style="font-size: 0.75rem; font-weight: 700; color: #0284c7; text-transform: uppercase; margin-bottom: 0.35rem;">🧳 Mid-Game Roles &amp; Spirits</div>
       <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('successor')" style="background:#f0fdf4; color:#15803d; border-color:#bbf7d0;">⏳ Successor (Inherits on Death)</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('traveler')" style="background:#f0fdf4; color:#15803d; border-color:#bbf7d0;">🧳 Traveler (Confirmed Good)</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('ghost')" style="background:#f8fafc; color:#334155; border-color:#cbd5e1;">👻 Town Ghost (Town Spirit)</button>
-        <button type="button" class="btn btn-sm" onclick="selectManualRole('disgruntled_ghost')" style="background:#fef2f2; color:#991b1b; border-color:#fca5a5;">👿 Disgruntled Ghost</button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="successor" onclick="selectManualRole('successor')" style="background:#f0fdf4; color:#15803d; border-color:#bbf7d0;"><span class="role-pick-label">⏳ Successor (Inherits on Death)</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="traveler" onclick="selectManualRole('traveler')" style="background:#f0fdf4; color:#15803d; border-color:#bbf7d0;"><span class="role-pick-label">🧳 Traveler (Confirmed Good)</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="ghost" onclick="selectManualRole('ghost')" style="background:#f8fafc; color:#334155; border-color:#cbd5e1;"><span class="role-pick-label">👻 Town Ghost (Town Spirit)</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="disgruntled_ghost" onclick="selectManualRole('disgruntled_ghost')" style="background:#fef2f2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">👿 Disgruntled Ghost</span></button>
       </div>
     </div>
   </div>
@@ -2131,6 +2170,16 @@ html, body {
           if (varIcon) varIcon.innerText = "🔒";
           if (varText) varText.innerText = "Hidden (Secret)";
         }
+        const canCancel = settings.mayor_can_cancel_vote !== false;
+        const cancelIcon = document.getElementById("mayor-cancel-icon");
+        const cancelText = document.getElementById("mayor-cancel-text");
+        if (canCancel) {
+          if (cancelIcon) cancelIcon.innerText = "⚖️";
+          if (cancelText) cancelText.innerText = "Cancel: ON";
+        } else {
+          if (cancelIcon) cancelIcon.innerText = "🚫";
+          if (cancelText) cancelText.innerText = "Cancel: OFF";
+        }
       } else {
         chipMayor.classList.remove("active", "extended");
         mayorExtWrap.style.display = "none";
@@ -2295,7 +2344,8 @@ html, body {
             } else if (roleKey === "mayor") {
               const settings = (currentGameState && currentGameState.settings) ? currentGameState.settings : {};
               const mType = settings.mayor_type || (settings.public_mayor ? "public" : "hidden") || "public";
-              label = mType === "public" ? "🎖️ Public Mayor" : "🎖️ Hidden Mayor";
+              const canCancel = settings.mayor_can_cancel_vote !== false;
+              label = (mType === "public" ? "🎖️ Public Mayor" : "🎖️ Hidden Mayor") + (canCancel ? " (Veto)" : " (No Veto)");
             }
             pill.innerHTML = `<span>${label}</span><span class="deck-pill-remove" onclick="adjustCount('${roleKey}', -1)" title="Remove 1 role">&times;</span>`;
             rosterContainer.appendChild(pill);
@@ -2386,6 +2436,17 @@ html, body {
     settings.mayor_type = nextVar;
     settings.public_mayor = (nextVar === "public");
     sendAction("update_settings", { settings: { mayor_type: nextVar, public_mayor: nextVar === "public" } });
+    updateDeckUI();
+  }
+
+  function cycleMayorCancelVote(event) {
+    if (event) event.stopPropagation();
+    if (!currentGameState) return;
+    const settings = currentGameState.settings || {};
+    const cur = settings.mayor_can_cancel_vote !== false;
+    const nextVal = !cur;
+    settings.mayor_can_cancel_vote = nextVal;
+    sendAction("update_settings", { settings: { mayor_can_cancel_vote: nextVal } });
     updateDeckUI();
   }
 
@@ -3055,6 +3116,23 @@ html, body {
     const players = state.players || [];
     const N = players.length;
 
+    // Update pre-assigned counter badge in table header
+    const preassignedBadge = document.getElementById("lobby-preassigned-badge");
+    if (preassignedBadge) {
+      if (state.phase === "lobby") {
+        const preList = players.filter(p => p.preassigned_role || (p.role && p.role.id));
+        if (preList.length > 0) {
+          preassignedBadge.style.display = "inline-block";
+          preassignedBadge.innerText = `🎯 ${preList.length} Pre-assigned`;
+          preassignedBadge.title = preList.map(p => `${p.name}: ${p.role ? p.role.name : p.preassigned_role}`).join(", ");
+        } else {
+          preassignedBadge.style.display = "none";
+        }
+      } else {
+        preassignedBadge.style.display = "none";
+      }
+    }
+
     if (N === 0) {
       trackSvg.innerHTML = "";
       podiumEl.style.display = "none";
@@ -3108,9 +3186,10 @@ html, body {
     } else {
       if (state.phase === 'lobby') {
         const preRole = p.preassigned_role || (p.role && p.role.id);
+        const roleLabel = p.role ? `${p.role.emoji} ${p.role.name}` : preRole;
         roleHtml = preRole
-          ? `<span style="color:#2563eb; font-weight:700;">🎯 ${p.role ? `${p.role.emoji} ${p.role.name}` : preRole}</span>`
-          : `<span style="color:#94a3b8; font-style:italic;">🎲 Random</span>`;
+          ? `<span style="color:#1d4ed8; font-weight:800; background:#dbeafe; padding:1px 5px; border-radius:4px; font-size:0.75rem;">🎯 ${escapeHtml(roleLabel)}</span>`
+          : `<span style="color:#94a3b8; font-style:italic; font-size:0.75rem;">🎲 Random</span>`;
       } else {
         roleHtml = p.role ? `${p.role.emoji} ${p.role.name}` : "Unassigned";
         if (p.lover_name) {
@@ -3122,8 +3201,9 @@ html, body {
     const targetBadgeHtml = isTarget ? '<span class="u-seat-target-badge">🎯 TARGET</span>' : '';
     const peekBtnHtml = gmHideRoles ? `<span onclick="event.stopPropagation(); togglePeekPlayer('${p.id}')" style="cursor:pointer; font-size:0.75rem; margin-left:auto; padding:0 2px;" title="${isPeeking ? 'Conceal role' : 'Peek secret role'}">${isPeeking ? '🙈' : '👁️'}</span>` : '';
 
+    const isPreassigned = state.phase === 'lobby' && Boolean(p.preassigned_role || (p.role && p.role.id));
     const node = document.createElement("div");
-    node.className = `u-seat-node ${p.status} ${isTarget ? 'is-target' : ''}`;
+    node.className = `u-seat-node ${p.status} ${isTarget ? 'is-target' : ''} ${isPreassigned ? 'is-preassigned' : ''}`;
     node.style.left = `${x.toFixed(1)}%`;
     node.style.top = `${y.toFixed(1)}%`;
     node.title = `Seat #${p.seat_number}: ${p.name}`;
@@ -3174,9 +3254,17 @@ html, body {
     if (!p) return;
     document.getElementById("seat-modal-name").innerText = `${p.name} (Seat #${p.seat_number})`;
     const isPeeking = peekingPlayerIds.has(p.id);
-    const roleText = (!gmHideRoles || isPeeking) ? (p.role ? `${p.role.emoji} ${p.role.name} (${p.role.faction})` : "Unassigned") : "🔒 Hidden";
+    const isLobby = currentGameState.phase === "lobby";
+    const preRole = p.preassigned_role || (p.role && isLobby ? p.role.id : null);
+    const preRoleLabel = p.role ? `${p.role.emoji} ${p.role.name}` : preRole;
+    let roleText = "";
+    if (isLobby) {
+      roleText = preRole ? `🎯 Pre-assigned: <strong>${escapeHtml(preRoleLabel)}</strong>` : "🎲 Random / Unassigned";
+    } else {
+      roleText = (!gmHideRoles || isPeeking) ? (p.role ? `${p.role.emoji} ${p.role.name} (${p.role.faction})` : "Unassigned") : "🔒 Hidden";
+    }
     document.getElementById("seat-modal-info").innerHTML = `
-      <strong>Status:</strong> ${p.status.toUpperCase()}<br>
+      <strong>Status:</strong> ${isLobby ? "IN LOBBY" : p.status.toUpperCase()}<br>
       <strong>Role:</strong> ${roleText}
     `;
     const renameBtnEl = document.getElementById("btn-seat-rename");
@@ -3210,7 +3298,11 @@ html, body {
     };
     const changeRoleBtn = document.getElementById("btn-seat-change-role");
     if (changeRoleBtn) {
-      changeRoleBtn.innerText = (currentGameState && currentGameState.phase === "lobby") ? "🎯 Pre-assign Role" : "🎭 Assign Role Manually";
+      if (isLobby) {
+        changeRoleBtn.innerText = preRole ? `🎯 Change Pre-assigned Role (${preRoleLabel})` : "🎯 Pre-assign Role";
+      } else {
+        changeRoleBtn.innerText = "🎭 Assign Role Manually";
+      }
     }
     document.getElementById("btn-seat-change-role").onclick = () => {
       closeModal('player-seat-modal');
@@ -4078,6 +4170,85 @@ html, body {
     const isLobby = currentGameState && currentGameState.phase === "lobby";
     const titleEl = document.getElementById("manual-role-title");
     if (titleEl) titleEl.innerText = isLobby ? `Pre-assign Role: ${playerName}` : `Assign Role: ${playerName}`;
+
+    // Find target player & their current assignment
+    const targetPlayer = currentGameState && currentGameState.players ? currentGameState.players.find(p => p.id === playerId) : null;
+    const curRole = targetPlayer ? (targetPlayer.preassigned_role || (targetPlayer.role ? targetPlayer.role.id : null)) : null;
+    const curRoleName = targetPlayer && targetPlayer.role ? `${targetPlayer.role.emoji || '🎴'} ${targetPlayer.role.name || targetPlayer.role.title}` : (curRole ? `🎯 ${curRole}` : null);
+
+    // Update Banner
+    const bannerEl = document.getElementById("manual-role-current-banner");
+    if (bannerEl) {
+      if (curRole) {
+        bannerEl.innerHTML = `Current: <strong style="color:#1d4ed8;">🎯 ${escapeHtml(curRoleName)}</strong> (Pre-assigned)`;
+        bannerEl.style.background = "#eff6ff";
+        bannerEl.style.borderColor = "#93c5fd";
+        bannerEl.style.color = "#1e40af";
+      } else {
+        bannerEl.innerHTML = `Current: <strong>🎲 Random / Unassigned</strong> (Will be dealt randomly)`;
+        bannerEl.style.background = "#f8fafc";
+        bannerEl.style.borderColor = "#cbd5e1";
+        bannerEl.style.color = "#475569";
+      }
+    }
+
+    // Build map of who else at table is pre-assigned to each role
+    const claimantsByRole = {};
+    if (currentGameState && currentGameState.players) {
+      currentGameState.players.forEach(p => {
+        if (p.id !== playerId) {
+          const r = p.preassigned_role || (p.role && isLobby ? p.role.id : null);
+          if (r) {
+            if (!claimantsByRole[r]) claimantsByRole[r] = [];
+            claimantsByRole[r].push(p.name);
+          }
+        }
+      });
+    }
+
+    // Decorate every role button in the modal
+    const buttons = document.querySelectorAll("#manual-role-modal .role-pick-btn");
+    buttons.forEach(btn => {
+      const rId = btn.getAttribute("data-role");
+      const labelSpan = btn.querySelector(".role-pick-label");
+      if (!labelSpan) return;
+
+      if (!btn._baseLabel) {
+        btn._baseLabel = labelSpan.innerText;
+      }
+      const base = btn._baseLabel;
+
+      if (rId === "clear") {
+        if (!curRole) {
+          btn.style.outline = "2px solid #2563eb";
+          btn.style.background = "#dbeafe";
+          btn.style.fontWeight = "800";
+          labelSpan.innerHTML = `✓ ${base} <span style="font-size:0.75rem; color:#1d4ed8;">(Current)</span>`;
+        } else {
+          btn.style.outline = "none";
+          btn.style.background = "#f8fafc";
+          btn.style.fontWeight = "600";
+          labelSpan.innerText = base;
+        }
+      } else if (rId === curRole) {
+        btn.style.outline = "2px solid #2563eb";
+        btn.style.boxShadow = "0 0 0 2px #bfdbfe";
+        btn.style.fontWeight = "800";
+        labelSpan.innerHTML = `✓ ${base} <span style="font-size:0.72rem; background:#2563eb; color:#fff; padding:1px 5px; border-radius:3px; margin-left:3px;">Assigned</span>`;
+      } else {
+        btn.style.outline = "none";
+        btn.style.boxShadow = "none";
+        btn.style.fontWeight = "600";
+        const others = claimantsByRole[rId];
+        if (others && others.length > 0) {
+          const namesStr = escapeHtml(others.join(", "));
+          labelSpan.innerHTML = `${base} <span class="badge" style="background:#fef3c7; color:#92400e; border:1px solid #fde68a; font-size:0.68rem; padding:1px 4px; text-transform:none; margin-left:2px;" title="Already assigned to ${namesStr}">Pre-assigned: ${namesStr}</span>`;
+        } else {
+          labelSpan.innerText = base;
+        }
+      }
+    });
+
     openModal("manual-role-modal");
   }
 

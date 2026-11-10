@@ -2253,4 +2253,105 @@ class TestLupusNewFeaturesV114:
         assert pv["settings"]["sniper_silver_bullets"] == 2
 
 
+class TestLupusMayorCancelVoteAndPreassignV116:
+    """Test suite for v116: Mayor vote canceling toggles and pre-assignment enhancements."""
+
+    def test_mayor_can_cancel_vote_toggle_on_and_off(self):
+        """Both Public and Hidden Mayors can have the power to cancel the vote enabled or disabled."""
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            get_night_stages,
+            record_gm_night_action,
+            resolve_night,
+            set_manual_player_role,
+        )
+
+        # 1. Mayor with cancel vote power ENABLED (default True)
+        state_on = create_initial_state(
+            "MAYORVETO1",
+            "Mayor Veto Room",
+            settings={"mayor_type": "public", "mayor_can_cancel_vote": True, "limbo_enabled": False},
+        )
+        state_on, p_mayor = add_player(state_on, "PublicMayor")
+        state_on, p_victim = add_player(state_on, "Condemned")
+        state_on, p_wolf = add_player(state_on, "Wolf")
+
+        state_on["phase"] = "night"
+        state_on["round_number"] = 2
+        set_manual_player_role(state_on, p_mayor["id"], "mayor")
+        set_manual_player_role(state_on, p_victim["id"], "villager")
+        set_manual_player_role(state_on, p_wolf["id"], "werewolf")
+
+        # Condemned was lynched
+        state_on["last_lynched_id"] = p_victim["id"]
+        state_on["players"][p_victim["id"]]["status"] = "dead"
+
+        stages_on = get_night_stages(state_on)
+        m_stage_on = next(s for s in stages_on if s["id"] == "mayor")
+        assert m_stage_on["has_veto"] is True
+        assert m_stage_on["can_cancel_vote"] is True
+
+        # GM can record veto
+        ok, msg = record_gm_night_action(state_on, "mayor", extra={"veto": True})
+        assert ok is True
+        assert state_on["night_actions"]["mayor_veto"] is True
+
+        # Dawn resolution revives condemned
+        state_on = resolve_night(state_on)
+        assert state_on["players"][p_victim["id"]]["status"] == "alive"
+        assert state_on["mayor_used_veto"] is True
+
+        # 2. Mayor with cancel vote power DISABLED (mayor_can_cancel_vote = False)
+        state_off = create_initial_state(
+            "MAYORVETO2",
+            "Mayor No Veto Room",
+            settings={"mayor_type": "hidden", "mayor_can_cancel_vote": False, "limbo_enabled": False},
+        )
+        state_off, p_m2 = add_player(state_off, "HiddenMayor")
+        state_off, p_v2 = add_player(state_off, "Condemned2")
+        state_off, p_w2 = add_player(state_off, "Wolf2")
+
+        state_off["phase"] = "night"
+        state_off["round_number"] = 2
+        set_manual_player_role(state_off, p_m2["id"], "mayor")
+        set_manual_player_role(state_off, p_v2["id"], "villager")
+        set_manual_player_role(state_off, p_w2["id"], "werewolf")
+
+        state_off["last_lynched_id"] = p_v2["id"]
+        state_off["players"][p_v2["id"]]["status"] = "dead"
+
+        stages_off = get_night_stages(state_off)
+        m_stage_off = next(s for s in stages_off if s["id"] == "mayor")
+        assert m_stage_off["has_veto"] is False
+        assert m_stage_off["can_cancel_vote"] is False
+
+        # GM cannot record veto when power is disabled
+        ok, err_msg = record_gm_night_action(state_off, "mayor", extra={"veto": True})
+        assert ok is False
+        assert "power to cancel the vote" in err_msg
+
+    def test_auto_assign_death_angel_and_wolf_hunter_keywords(self):
+        """Auto-assign scans and matches player names for Death Angel and Wolf Hunter."""
+        from lupus.game_state import (
+            add_player,
+            auto_assign_roles_from_names,
+            create_initial_state,
+        )
+
+        state = create_initial_state("AUTOASSIGN2", "Autoassign Addons Room")
+        state, p1 = add_player(state, "Death Angel 1")
+        state, p2 = add_player(state, "Wolf Hunter Bob")
+        state, p3 = add_player(state, "Dark Angel")
+        state, p4 = add_player(state, "Lone Hunter")
+
+        matched = auto_assign_roles_from_names(state)
+        assert matched == 4
+        assert state["players"][p1["id"]]["preassigned_role"] == "death_angel"
+        assert state["players"][p2["id"]]["preassigned_role"] == "wolf_hunter"
+        assert state["players"][p3["id"]]["preassigned_role"] == "death_angel"
+        assert state["players"][p4["id"]]["preassigned_role"] == "wolf_hunter"
+
+
+
 
