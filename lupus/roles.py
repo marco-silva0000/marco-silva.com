@@ -44,7 +44,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
     "alpha_wolf": {
         "id": "alpha_wolf",
         "faction": FACTION_WOLVES,
-        "emoji": "👑",
+        "emoji": "🦍",
         "names": {"werewolf": "Alpha Wolf", "mafia": "Godfather"},
         "descriptions": {
             "werewolf": "Pack leader. Appears innocent ('Good') to the Detective's investigation.",
@@ -78,7 +78,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
     "framer": {
         "id": "framer",
         "faction": FACTION_WOLVES,
-        "emoji": "🎭",
+        "emoji": "😵‍💫",
         "enabled": False,  # Disabled per user request
         "names": {"werewolf": "Cursed Shaman (Framer)", "mafia": "Framer / Swindler"},
         "descriptions": {
@@ -181,7 +181,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
     "mayor": {
         "id": "mayor",
         "faction": FACTION_TOWN,
-        "emoji": "🎖️",
+        "emoji": "👨‍⚖️",
         "names": {"werewolf": "Mayor", "mafia": "Mayor"},
         "descriptions": {
             "werewolf": "Leader of the town. Public Mayor cannot be voted out by town execution and has double voting power (2x). Hidden Mayor remains secret, has 1x vote, and can veto an execution at night once per person.",
@@ -215,7 +215,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
     "lover": {
         "id": "lover",
         "faction": FACTION_TOWN,
-        "emoji": "💘",
+        "emoji": "💞",
         "names": {"werewolf": "Innocent Lovers (New Couple)", "mafia": "Innocent Lovers (New Couple)"},
         "descriptions": {
             "werewolf": "Two innocent Citizens bound in love from the start. You know each other's identity and win with the Town. If one dies, both perish!",
@@ -232,7 +232,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
     "cupid": {
         "id": "cupid",
         "faction": FACTION_NEUTRAL,
-        "emoji": "💘",
+        "emoji": "🏹",
         "names": {"werewolf": "Cupid (Matchmaker)", "mafia": "Cupid (Matchmaker)"},
         "descriptions": {
             "werewolf": "On Night 0, binds two players into Obsessive Lovers. Bound by obsession, they only win if everyone else dies!",
@@ -249,7 +249,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
     "obsessive_lover": {
         "id": "obsessive_lover",
         "faction": FACTION_NEUTRAL,
-        "emoji": "💔",
+        "emoji": "❤️‍🔥",
         "enabled": False,  # Status/condition applied by Cupid, not a dealable deck card
         "names": {"werewolf": "Obsessive Lover (Cupid Victim)", "mafia": "Obsessive Lover (Cupid Victim)"},
         "descriptions": {
@@ -301,7 +301,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
     "death_angel": {
         "id": "death_angel",
         "faction": FACTION_TOWN,
-        "emoji": "👼🗡️",
+        "emoji": "💀",
         "names": {"werewolf": "Death Angel (Limbo Executioner)", "mafia": "Angel of Death"},
         "descriptions": {
             "werewolf": "Aligned with Good. Can strike a soul lingering in Limbo to kill them permanently. Can act even while in Limbo! Reverts to Citizen if no Angel in play.",

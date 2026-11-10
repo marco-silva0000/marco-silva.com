@@ -658,7 +658,7 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         state["players"][p2_id]["lover_type"] = "innocent"
         p1_name = state["players"][p1_id]["name"]
         p2_name = state["players"][p2_id]["name"]
-        log_event(state, f"💘 Secret bond formed! Two Citizens ({p1_name} and {p2_name}) are bound as Innocent Lovers!")
+        log_event(state, f"💞 Secret bond formed! Two Citizens ({p1_name} and {p2_name}) are bound as Innocent Lovers!")
 
     state["deck"] = [assigned_roles[pid] for pid in player_ids]
     log_event(state, f"Distributed {len(state['deck'])} roles to players.")
@@ -844,7 +844,7 @@ def set_manual_player_role(state: dict[str, Any], player_id: str, role_id: str) 
                 p2["lover_type"] = "innocent"
                 log_event(
                     state,
-                    f"💘 Secret bond formed! Two Citizens ({p1['name']} and {p2['name']}) are bound as Innocent Lovers!",
+                    f"💞 Secret bond formed! Two Citizens ({p1['name']} and {p2['name']}) are bound as Innocent Lovers!",
                 )
 
         if role_id == "successor":
@@ -1105,8 +1105,9 @@ def check_and_trigger_successor_inheritance(state: dict[str, Any], deceased_id: 
             partner["pending_heartbreak_from_id"] = None
             partner["pending_heartbreak_lover_name"] = None
             role_title = role_info["names"].get("werewolf", target_role)
+            l_icon = "❤️‍🔥" if deceased.get("lover_type") == "obsessive" else "💞"
             msg = (
-                f"💘 {successor['name']} stepped in as Successor, inheriting {deceased['name']}'s mantle as "
+                f"{l_icon} {successor['name']} stepped in as Successor, inheriting {deceased['name']}'s mantle as "
                 f"{role_title} and becoming {partner['name']}'s new lover! Heartbreak was averted!"
             )
             log_event(state, msg)
@@ -1388,7 +1389,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             stages.append(
                 {
                     "id": "lovers_meet",
-                    "title": "💘 Innocent Lovers Awaken",
+                    "title": "💞 Innocent Lovers Awaken",
                     "role_id": "lover",
                     "actors": lover_actors,
                     "is_alive": True,
@@ -1405,7 +1406,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             stages.append(
                 {
                     "id": "cupid",
-                    "title": "💘 Cupid (Obsessive Lovers)",
+                    "title": "🏹 Cupid (Obsessive Lovers)",
                     "role_id": "cupid",
                     "actors": cupid_actors,
                     "is_alive": True,
@@ -1526,7 +1527,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         stages.append(
             {
                 "id": "lovers_meet",
-                "title": "💘 Innocent Lovers Awaken",
+                "title": "💞 Innocent Lovers Awaken",
                 "role_id": "lover",
                 "actors": lover_actors,
                 "is_alive": is_alive,
@@ -1546,7 +1547,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         stages.append(
             {
                 "id": "cupid",
-                "title": "💘 Cupid (Obsessive Lovers)",
+                "title": "🏹 Cupid (Obsessive Lovers)",
                 "role_id": "cupid",
                 "actors": cupid_actors,
                 "is_alive": is_alive,
@@ -1807,7 +1808,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         stages.append(
             {
                 "id": "death_angel",
-                "title": "👼🗡️ Death Angel Strike",
+                "title": "💀 Death Angel Strike",
                 "role_id": "death_angel",
                 "actors": death_angels,
                 "is_alive": can_act,
@@ -1854,7 +1855,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         stages.append(
             {
                 "id": "mayor",
-                "title": "🎖️ Mayor Veto" if can_cancel_vote else "🎖️ Mayor Wakeup",
+                "title": "👨‍⚖️ Mayor Veto" if can_cancel_vote else "👨‍⚖️ Mayor Wakeup",
                 "role_id": "mayor",
                 "actors": mayors,
                 "is_alive": is_alive,
@@ -2299,7 +2300,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                     state["players"][l2]["lover_type"] = "obsessive"
                     log_event(
                         state,
-                        f"💘 Cupid bound {state['players'][l1]['name']} and {state['players'][l2]['name']} as Obsessive Lovers!",
+                        f"🏹 Cupid bound {state['players'][l1]['name']} and {state['players'][l2]['name']} as Obsessive Lovers!",
                     )
 
         # Hacker Night 0 Scan
@@ -2421,7 +2422,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                 state["players"][l2]["lover_type"] = "obsessive"
                 log_event(
                     state,
-                    f"💘 Cupid bound {state['players'][l1]['name']} and {state['players'][l2]['name']} as Obsessive Lovers!",
+                    f"🏹 Cupid bound {state['players'][l1]['name']} and {state['players'][l2]['name']} as Obsessive Lovers!",
                 )
 
     # --- 5. Doctor Protect ---
@@ -2592,9 +2593,9 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                 else ""
             )
             report.append(
-                f"👼🗡️ Death Angel struck {t_name} in Limbo, severing their earthly tether forever!{reveal_suffix}"
+                f"💀 Death Angel struck {t_name} in Limbo, severing their earthly tether forever!{reveal_suffix}"
             )
-            log_event(state, f"👼🗡️ Death Angel permanently eliminated {t_name} from Limbo.")
+            log_event(state, f"💀 Death Angel permanently eliminated {t_name} from Limbo.")
 
     # --- 10. Witch Action (Revive / Poison) ---
     witch_actor = next(
@@ -3102,7 +3103,7 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
         voting["elimination_result"] = "mayor_immune"
         state["last_lynched_id"] = None
         msg = (
-            f"🎖️ {victim['name']} received {max_votes} votes, but holds executive immunity as Public Mayor "
+            f"👨‍⚖️ {victim['name']} received {max_votes} votes, but holds executive immunity as Public Mayor "
             f"and cannot be voted out by the town!"
         )
         log_event(state, msg)
@@ -3323,7 +3324,7 @@ def trigger_game_over(state: dict[str, Any], winner: Optional[str] = None) -> di
         faction_name = "Werewolves" if theme == "werewolf" else "Mafia"
         msg = f"🐺 GAME OVER! Victory for the {faction_name}!"
     elif winner == "lovers":
-        msg = "💘 GAME OVER! Love conquers all! The Lovers have won!"
+        msg = "❤️‍🔥 GAME OVER! Love conquers all! The Lovers have won!"
     elif winner == "jester":
         msg = "🃏 GAME OVER! The Jester tricked everyone and claimed solo victory!"
     elif winner == "serial_killer":

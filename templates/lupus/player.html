@@ -2154,13 +2154,14 @@ html, body {
           ? "You possess the executive veto power to cancel an execution vote at night (limit: once per person)."
           : "You do not have vote-canceling powers in this game.";
         if (me.is_public_mayor) {
-          secretNotes.push(`🎖️ <strong>Public Mayor:</strong> You hold official executive immunity! You cannot be voted out by town execution, and your daytime vote counts double (2x). ${cancelNote}`);
+          secretNotes.push(`👨‍⚖️ <strong>Public Mayor:</strong> You hold official executive immunity! You cannot be voted out by town execution, and your daytime vote counts double (2x). ${cancelNote}`);
         } else {
-          secretNotes.push(`🎖️ <strong>Hidden Mayor:</strong> Your identity is secret, and you vote with normal 1x weight. ${cancelNote}`);
+          secretNotes.push(`👨‍⚖️ <strong>Hidden Mayor:</strong> Your identity is secret, and you vote with normal 1x weight. ${cancelNote}`);
         }
       }
       if (me.lover_name) {
-        secretNotes.push(`💘 <strong>Bound Lover:</strong> ${escapeHtml(me.lover_name)} <span style="font-size:0.75rem; color:#94a3b8;">(${me.lover_type === 'obsessive' ? 'Obsessive Partner &bull; Win only if everyone else dies!' : 'Citizen Partner &bull; Form a 2-vote block!'})</span>`);
+        const loverEmoji = me.lover_type === 'obsessive' ? '❤️‍🔥' : '💞';
+        secretNotes.push(`${loverEmoji} <strong>Bound Lover:</strong> ${escapeHtml(me.lover_name)} <span style="font-size:0.75rem; color:#94a3b8;">(${me.lover_type === 'obsessive' ? 'Obsessive Partner &bull; Win only if everyone else dies!' : 'Citizen Partner &bull; Form a 2-vote block!'})</span>`);
       }
       const notesEl = document.getElementById("role-secret-notes");
       if (secretNotes.length > 0) {
@@ -2421,7 +2422,7 @@ html, body {
         const factionText = p.role ? p.role.faction : "-";
         const fColor = factionText === "wolves" ? "#f87171" : (factionText === "town" ? "#4ade80" : "#c084fc");
         const meTag = p.is_me ? " <strong style='color:#38bdf8;'>(You)</strong>" : "";
-        const loverTag = p.is_lover ? " 💘" : "";
+        const loverTag = p.is_lover ? (p.lover_type === 'obsessive' ? " ❤️‍🔥" : " 💞") : "";
 
         tr.innerHTML = `
           <td style="padding: 0.5rem 0.65rem; color: #94a3b8; font-family: ui-monospace, monospace;">#${p.seat_number || (idx + 1)}</td>
@@ -2490,9 +2491,9 @@ html, body {
       const meTag = p.is_me ? " <strong style='color:#38bdf8;'>(You)</strong>" : "";
       const meRenameBtn = p.is_me ? ` <button onclick="promptRenameSelf()" style="background:none; border:none; padding:0 2px; cursor:pointer; font-size:0.75rem; color:#94a3b8;" title="Rename yourself">✏️</button>` : "";
       const silencedTag = p.is_silenced ? " 🤐" : "";
-      const loverTag = p.is_lover ? " 💘" : "";
+      const loverTag = p.is_lover ? (p.lover_type === 'obsessive' ? " ❤️‍🔥" : " 💞") : "";
       const travelerTag = p.is_traveler ? " 🧳<span style='font-size:0.75rem; color:#4ade80;'>[Confirmed Good]</span>" : "";
-      const mayorTag = p.is_public_mayor ? " 🎖️<span style='font-size:0.75rem; color:#facc15;'>[Public Mayor]</span>" : "";
+      const mayorTag = p.is_public_mayor ? " 👨‍⚖️<span style='font-size:0.75rem; color:#facc15;'>[Public Mayor]</span>" : "";
       const successorTag = (p.is_successor || p.status === 'waiting') ? " ⏳<span style='font-size:0.75rem; color:#38bdf8;'>[Waiting Successor]</span>" : "";
       const heartbreakTag = p.pending_heartbreak ? " 💔<span style='font-size:0.75rem; color:#f87171;'>[Heartbroken]</span>" : "";
       const seatBadge = p.seat_number ? `<span style="font-size:0.75rem; font-weight:700; color:#94a3b8; background:#0f172a; border:1px solid #334155; padding:0.1rem 0.35rem; border-radius:4px; margin-right:0.35rem; font-family:ui-monospace, monospace;">#${p.seat_number}</span>` : "";
@@ -2572,7 +2573,7 @@ html, body {
     node.style.top = `${y.toFixed(1)}%`;
 
     const meTag = isMe ? '<span style="color:#38bdf8; font-weight:800; font-size:0.6rem;">(You)</span>' : '';
-    const loverTag = p.is_lover ? ' <span style="font-size:0.75rem;" title="Your Bound Lover">💘</span>' : '';
+    const loverTag = p.is_lover ? ` <span style="font-size:0.75rem;" title="Your Bound Lover">${p.lover_type === 'obsessive' ? '❤️‍🔥' : '💞'}</span>` : '';
     
     // Status text on seat node - Concealed during active play, revealed upon GameOver!
     let seatSubtext = "";
@@ -2582,7 +2583,7 @@ html, body {
     } else if (p.is_traveler) {
       seatSubtext = "🧳 Confirmed Good";
     } else if (p.is_public_mayor) {
-      seatSubtext = "🎖️ Public Mayor";
+      seatSubtext = "👨‍⚖️ Public Mayor";
     } else if (p.is_successor || p.status === "waiting") {
       seatSubtext = "⏳ Waiting Successor";
     } else if (p.pending_heartbreak) {
@@ -2918,7 +2919,7 @@ html, body {
       } else if (res === "mayor_immune") {
         html += `
           <div style="text-align:center; padding:0.5rem 0;">
-            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">🎖️</div>
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.35rem;">👨‍⚖️</div>
             <h3 style="margin:0 0 0.35rem; font-size:1.15rem; color:#facc15;">MAYOR HOLDS IMMUNITY!</h3>
             <p style="font-size:0.88rem; color:#cbd5e1; margin:0; line-height:1.45;">
               The Public Mayor received the most votes, but <strong>holds executive immunity and cannot be voted out</strong> by the town!

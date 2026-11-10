@@ -4,6 +4,20 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v120] - 2026-11-10
+
+### Changed
+- **Distinct Role Emojis Across UI and Game State**:
+  - **Alpha Wolf (`alpha_wolf`)**: Updated emoji to Gorilla `🦍` (replacing `👑`), distinguishing pack leadership from royalty/host icons.
+  - **Framer (`framer`)**: Updated emoji to Face with Spiral Eyes `😵‍💫` (replacing `🎭`), visually highlighting hypnotic misdirection.
+  - **Death Angel (`death_angel`)**: Updated emoji to Skull `💀` (replacing `👼🗡️`), cleanly signifying execution of souls hovering in Limbo.
+  - **Mayor (`mayor`)**: Updated emoji to Man Judge `👨‍⚖️` (replacing `🎖️`), reinforcing daytime executive voting authority and immunity.
+  - **Distinguished Lover Emojis**:
+    - **Innocent Lovers (`lover`)**: Revolving Hearts `💞` for the bonded Town citizen couple across deck chips, pre-assign modal, night stages, table nodes, and secret notes.
+    - **Cupid (`cupid`)**: Bow & Arrow `🏹` for the neutral matchmaker who binds obsessive lovers.
+    - **Obsessive Lovers (`obsessive_lover` / Cupid victims)**: Heart on Fire `❤️‍🔥` across player secret cards, table seat nodes, and victory game over announcements.
+    - **Wolf Hunter (`wolf_hunter`)**: Bow & Wolf `🏹🐺` distinguishing solo vigilante hunting from Cupid's matchmaker bow.
+
 ## [v119] - 2026-11-10
 
 ### Fixed

@@ -922,7 +922,7 @@ html, body {
         </div>
         <div class="role-toggle-grid">
           <button type="button" id="chip-alpha_wolf" class="role-toggle-chip evil" onclick="toggleSpecialRole('alpha_wolf')">
-            <span>👑 Alpha Wolf (Appears Good)</span>
+            <span>🦍 Alpha Wolf (Appears Good)</span>
             <span class="chip-badge" id="badge-alpha_wolf">OFF</span>
           </button>
           <button type="button" id="chip-silencer" class="role-toggle-chip evil" onclick="toggleSpecialRole('silencer')">
@@ -930,7 +930,7 @@ html, body {
             <span class="chip-badge" id="badge-silencer">OFF</span>
           </button>
           <button type="button" id="chip-framer" class="role-toggle-chip evil" onclick="toggleSpecialRole('framer')">
-            <span>🎭 Framer (Frames innocent)</span>
+            <span>😵‍💫 Framer (Frames innocent)</span>
             <span class="chip-badge" id="badge-framer">OFF</span>
           </button>
         </div>
@@ -979,7 +979,7 @@ html, body {
             <span class="chip-badge" id="badge-angel">OFF</span>
           </button>
           <button type="button" id="chip-death_angel" class="role-toggle-chip good" onclick="toggleSpecialRole('death_angel')">
-            <span>👼🗡️ Death Angel</span>
+            <span>💀 Death Angel</span>
             <span class="chip-badge" id="badge-death_angel">OFF</span>
           </button>
 
@@ -1001,9 +1001,9 @@ html, body {
             <span class="chip-badge" id="badge-sniper">OFF</span>
           </div>
 
-          <!-- 🎖️ Mayor with inline Public vs Hidden variation and Cancel Vote power extensions -->
+          <!-- 👨‍⚖️ Mayor with inline Public vs Hidden variation and Cancel Vote power extensions -->
           <div id="chip-mayor" class="role-toggle-chip good" onclick="toggleSpecialRole('mayor')">
-            <span class="chip-title">🎖️ Mayor</span>
+            <span class="chip-title">👨‍⚖️ Mayor</span>
             <span id="mayor-ext-wrap" class="chip-ext" style="display: none;" onclick="event.stopPropagation()">
               <button type="button" class="chip-ext-btn" id="btn-mayor-var" onclick="cycleMayorVariation(event)" title="Click to switch between Public Mayor (immune to lynch, 2x vote) and Hidden Mayor (secret, 1x vote)">
                 <span id="mayor-var-icon">📢</span> <span id="mayor-var-text">Public (Immune)</span> <span style="font-size: 0.65rem; opacity: 0.7;">⇄</span>
@@ -1020,7 +1020,7 @@ html, body {
             <span class="chip-badge" id="badge-witch">OFF</span>
           </button>
           <button type="button" id="chip-lover" class="role-toggle-chip good" onclick="toggleSpecialRole('lover')">
-            <span>💘 Lovers (2 Citizens)</span>
+            <span>💞 Lovers (2 Citizens)</span>
             <span class="chip-badge" id="badge-lover">OFF</span>
           </button>
         </div>
@@ -1034,7 +1034,7 @@ html, body {
         </div>
         <div class="role-toggle-grid">
           <button type="button" id="chip-cupid" class="role-toggle-chip neutral" onclick="toggleSpecialRole('cupid')">
-            <span>💘 Cupid (Links Lovers)</span>
+            <span>🏹 Cupid (Links Lovers)</span>
             <span class="chip-badge" id="badge-cupid">OFF</span>
           </button>
           <button type="button" id="chip-jester" class="role-toggle-chip neutral" onclick="toggleSpecialRole('jester')">
@@ -1710,9 +1710,9 @@ html, body {
       <div style="font-size: 0.75rem; font-weight: 700; color: #b91c1c; text-transform: uppercase; margin-bottom: 0.35rem;">🔴 Evil Team</div>
       <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
         <button type="button" class="btn btn-sm role-pick-btn" data-role="werewolf" onclick="selectManualRole('werewolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🐺 Werewolf</span></button>
-        <button type="button" class="btn btn-sm role-pick-btn" data-role="alpha_wolf" onclick="selectManualRole('alpha_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">👑 Alpha Wolf</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="alpha_wolf" onclick="selectManualRole('alpha_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🦍 Alpha Wolf</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="silencer" onclick="selectManualRole('silencer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🤐 Silencer</span></button>
-        <button type="button" class="btn btn-sm role-pick-btn" data-role="framer" onclick="selectManualRole('framer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🎭 Framer</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="framer" onclick="selectManualRole('framer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">😵‍💫 Framer</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="saboteur_wolf" onclick="selectManualRole('saboteur_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🐺⚡ Saboteur Wolf</span></button>
       </div>
     </div>
@@ -1726,22 +1726,22 @@ html, body {
         <button type="button" class="btn btn-sm role-pick-btn" data-role="doctor" onclick="selectManualRole('doctor')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🩺 Doctor</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="bodyguard" onclick="selectManualRole('bodyguard')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🛡️ Bodyguard</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="angel" onclick="selectManualRole('angel')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">👼 Angel</span></button>
-        <button type="button" class="btn btn-sm role-pick-btn" data-role="death_angel" onclick="selectManualRole('death_angel')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">👼🗡️ Death Angel</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="death_angel" onclick="selectManualRole('death_angel')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">💀 Death Angel</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="sniper" onclick="selectManualRole('sniper')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🎯 Vigilante / Sniper</span></button>
-        <button type="button" class="btn btn-sm role-pick-btn" data-role="mayor" onclick="selectManualRole('mayor')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🎖️ Mayor</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="mayor" onclick="selectManualRole('mayor')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">👨‍⚖️ Mayor</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="witch" onclick="selectManualRole('witch')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🧙‍♀️ Witch</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="hacker" onclick="selectManualRole('hacker')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">💻 Hacker</span></button>
-        <button type="button" class="btn btn-sm role-pick-btn" data-role="lover" onclick="selectManualRole('lover')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">💘 Innocent Lover</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="lover" onclick="selectManualRole('lover')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">💞 Innocent Lover</span></button>
       </div>
     </div>
 
     <div style="margin-bottom: 0.6rem;">
       <div style="font-size: 0.75rem; font-weight: 700; color: #7e22ce; text-transform: uppercase; margin-bottom: 0.35rem;">🟣 Neutral Team</div>
       <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
-        <button type="button" class="btn btn-sm role-pick-btn" data-role="cupid" onclick="selectManualRole('cupid')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">💘 Cupid (Matchmaker)</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="cupid" onclick="selectManualRole('cupid')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🏹 Cupid (Matchmaker)</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="jester" onclick="selectManualRole('jester')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🃏 Jester</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="serial_killer" onclick="selectManualRole('serial_killer')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🔪 Serial Killer</span></button>
-        <button type="button" class="btn btn-sm role-pick-btn" data-role="wolf_hunter" onclick="selectManualRole('wolf_hunter')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🏹 Wolf Hunter</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="wolf_hunter" onclick="selectManualRole('wolf_hunter')" style="background:#f3e8ff; color:#6b21a8; border-color:#d8b4fe;"><span class="role-pick-label">🏹🐺 Wolf Hunter</span></button>
       </div>
     </div>
 
@@ -1964,23 +1964,23 @@ html, body {
 
   const ROLE_META = {
     werewolf: { name: "Werewolf", emoji: "🐺", faction: "evil" },
-    alpha_wolf: { name: "Alpha Wolf", emoji: "👑", faction: "evil" },
+    alpha_wolf: { name: "Alpha Wolf", emoji: "🦍", faction: "evil" },
     silencer: { name: "Silencer", emoji: "🤐", faction: "evil" },
-    framer: { name: "Framer", emoji: "🎭", faction: "evil" },
+    framer: { name: "Framer", emoji: "😵‍💫", faction: "evil" },
     detective: { name: "Detective", emoji: "🔍", faction: "good" },
     doctor: { name: "Doctor", emoji: "🩺", faction: "good" },
     bodyguard: { name: "Bodyguard", emoji: "🛡️", faction: "good" },
     angel: { name: "Angel", emoji: "👼", faction: "good" },
-    death_angel: { name: "Death Angel", emoji: "👼🗡️", faction: "good" },
+    death_angel: { name: "Death Angel", emoji: "💀", faction: "good" },
     sniper: { name: "Sniper", emoji: "🎯", faction: "good" },
-    mayor: { name: "Mayor", emoji: "🎖️", faction: "good" },
+    mayor: { name: "Mayor", emoji: "👨‍⚖️", faction: "good" },
     witch: { name: "Witch", emoji: "🧙‍♀️", faction: "good" },
-    lover: { name: "Lovers (2)", emoji: "💘", faction: "good" },
+    lover: { name: "Lovers (2)", emoji: "💞", faction: "good" },
     villager: { name: "Plain Villager", emoji: "🧑", faction: "good" },
-    cupid: { name: "Cupid", emoji: "💘", faction: "neutral" },
+    cupid: { name: "Cupid", emoji: "🏹", faction: "neutral" },
     jester: { name: "Jester", emoji: "🃏", faction: "neutral" },
     serial_killer: { name: "Serial Killer", emoji: "🔪", faction: "neutral" },
-    wolf_hunter: { name: "Wolf Hunter", emoji: "🏹", faction: "neutral" },
+    wolf_hunter: { name: "Wolf Hunter", emoji: "🏹🐺", faction: "neutral" },
   };
 
   // --- Deck Builder State ---
@@ -2329,7 +2329,7 @@ html, body {
               const settings = (currentGameState && currentGameState.settings) ? currentGameState.settings : {};
               const mType = settings.mayor_type || (settings.public_mayor ? "public" : "hidden") || "public";
               const canCancel = settings.mayor_can_cancel_vote !== false;
-              label = (mType === "public" ? "🎖️ Public Mayor" : "🎖️ Hidden Mayor") + (canCancel ? " (Veto)" : " (No Veto)");
+              label = (mType === "public" ? "👨‍⚖️ Public Mayor" : "👨‍⚖️ Hidden Mayor") + (canCancel ? " (Veto)" : " (No Veto)");
             }
             pill.innerHTML = `<span>${label}</span><span class="deck-pill-remove" onclick="adjustCount('${roleKey}', -1)" title="Remove 1 role">&times;</span>`;
             rosterContainer.appendChild(pill);
@@ -2790,7 +2790,10 @@ html, body {
         const roleStr = p.role ? `<span style="font-weight:600;">${p.role.emoji} ${p.role.name}</span>` : '<em style="color:#aaa;">Unassigned (Lobby)</em>';
 
         let notes = [];
-        if (p.lover_name) notes.push(`💘 Lover: ${p.lover_name}`);
+        if (p.lover_name) {
+          const loverIcon = p.lover_type === 'obsessive' ? '❤️‍🔥' : '💞';
+          notes.push(`${loverIcon} Lover: ${p.lover_name}`);
+        }
         if (p.used_limbo) notes.push(`Used Limbo`);
         if (p.last_guarded_id) {
           const guarded = state.players.find(g => g.id === p.last_guarded_id);
@@ -3142,7 +3145,8 @@ html, body {
       } else {
         roleHtml = p.role ? `${p.role.emoji} ${p.role.name}` : "Unassigned";
         if (p.lover_name) {
-          roleHtml += ` <span style="font-size:0.75rem;" title="Bound to ${escapeHtml(p.lover_name)}">💘 ${escapeHtml(p.lover_name)}</span>`;
+          const loverIcon = p.lover_type === 'obsessive' ? '❤️‍🔥' : '💞';
+          roleHtml += ` <span style="font-size:0.75rem;" title="Bound to ${escapeHtml(p.lover_name)}">${loverIcon} ${escapeHtml(p.lover_name)}</span>`;
         }
       }
     }
@@ -3426,15 +3430,15 @@ html, body {
       }
       if (actions.wolf_hunter_target) {
         const whTarget = state.players.find(p => p.id === actions.wolf_hunter_target);
-        summaryHtml += `<li>🏹 <strong>Wolf Hunter Strike:</strong> ${whTarget ? escapeHtml(whTarget.name) : 'None'}</li>`;
+        summaryHtml += `<li>🏹🐺 <strong>Wolf Hunter Strike:</strong> ${whTarget ? escapeHtml(whTarget.name) : 'None'}</li>`;
       }
       if (actions.death_angel_target) {
         const daTarget = state.players.find(p => p.id === actions.death_angel_target);
-        summaryHtml += `<li>👼🗡️ <strong>Death Angel Strike:</strong> ${daTarget ? escapeHtml(daTarget.name) : 'None'}</li>`;
+        summaryHtml += `<li>💀 <strong>Death Angel Strike:</strong> ${daTarget ? escapeHtml(daTarget.name) : 'None'}</li>`;
       }
       if (actions.mayor_veto) {
         const lTarget = state.players.find(p => p.id === state.last_lynched_id);
-        summaryHtml += `<li>🎖️ <strong>Mayor Veto:</strong> Pardoning ${lTarget ? escapeHtml(lTarget.name) : 'yesterday\'s execution'}</li>`;
+        summaryHtml += `<li>👨‍⚖️ <strong>Mayor Veto:</strong> Pardoning ${lTarget ? escapeHtml(lTarget.name) : 'yesterday\'s execution'}</li>`;
       }
       summaryHtml += "</ul>";
       document.getElementById("review-summary-list").innerHTML = summaryHtml;
@@ -3962,7 +3966,7 @@ html, body {
           outcomeCard.style.background = "#422006";
           outcomeCard.style.border = "2px solid #eab308";
           outcomeCard.innerHTML = `
-            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.4rem;">🎖️</div>
+            <div style="font-size:2.8rem; line-height:1; margin-bottom:0.4rem;">👨‍⚖️</div>
             <h2 style="font-size:1.35rem; color:#fde047; margin:0 0 0.4rem;">PUBLIC MAYOR HOLDS IMMUNITY!</h2>
             <p style="font-size:0.95rem; color:#fefce8; line-height:1.45; max-width:440px; margin:0 auto;">
               The Public Mayor received the most votes, but <strong>holds executive immunity and cannot be voted out</strong> by the town!
