@@ -19,7 +19,7 @@ from .game_state import (
     should_autofill_demo,
 )
 from .qr import generate_qr_data_uri
-from .roles import DEFAULT_PRESETS, ROLE_REGISTRY, get_all_roles_catalogue
+from .roles import DEFAULT_PRESETS, ROLE_REGISTRY, get_all_roles_by_category, get_all_roles_catalogue
 
 
 @never_cache
@@ -139,14 +139,32 @@ def create_room(request):
             game_type="lupus",
         )
 
+        reveal_raw = request.POST.get("reveal_roles_on_death", "0")
+        try:
+            reveal_level = int(reveal_raw)
+        except (ValueError, TypeError):
+            reveal_level = 1 if reveal_raw in ("1", "true", "True") else 0
+
+        try:
+            danger_bullets = int(request.POST.get("sniper_danger_bullets", 1) or 1)
+        except (ValueError, TypeError):
+            danger_bullets = 1
+
+        try:
+            silver_bullets = int(request.POST.get("sniper_silver_bullets", 0) or 0)
+        except (ValueError, TypeError):
+            silver_bullets = 0
+
         settings = {
             "discussion_timer": discussion_timer,
             "defense_timer": defense_timer,
             "staggering_doctor": staggering_doc,
             "doctor_saves_from_sniper": save_from_sniper,
             "sniper_bullet_type": sniper_bullet,
+            "sniper_danger_bullets": danger_bullets,
+            "sniper_silver_bullets": silver_bullets,
             "limbo_enabled": limbo_on,
-            "reveal_roles_on_death": request.POST.get("reveal_roles_on_death") == "1",
+            "reveal_roles_on_death": reveal_level,
         }
 
         gm_name = request.POST.get("gm_name", "Game Master").strip() or "Game Master"
@@ -235,6 +253,7 @@ def gm_dashboard(request, code):
             "join_qr": join_qr_b64,
             "roles": ROLE_REGISTRY,
             "roles_catalogue": get_all_roles_catalogue(state.get("theme", "werewolf")),
+            "roles_by_category": get_all_roles_by_category(state.get("theme", "werewolf")),
             "presets": DEFAULT_PRESETS,
         },
     )
@@ -354,6 +373,7 @@ def player_view(request, code):
             "player": matched_player,
             "state": get_sanitized_player_view(state, matched_player["id"]),
             "roles_catalogue": get_all_roles_catalogue(state.get("theme", "werewolf")),
+            "roles_by_category": get_all_roles_by_category(state.get("theme", "werewolf")),
         },
     )
 

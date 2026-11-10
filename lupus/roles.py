@@ -235,14 +235,14 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
         "emoji": "💘",
         "names": {"werewolf": "Cupid (Matchmaker)", "mafia": "Cupid (Matchmaker)"},
         "descriptions": {
-            "werewolf": "On Night 1, binds two players into Obsessive Lovers. Bound by obsession, they only win if everyone else dies!",
-            "mafia": "On Night 1, binds two players into Obsessive Lovers. Bound by obsession, they only win if everyone else dies!",
+            "werewolf": "On Night 0, binds two players into Obsessive Lovers. Bound by obsession, they only win if everyone else dies!",
+            "mafia": "On Night 0, binds two players into Obsessive Lovers. Bound by obsession, they only win if everyone else dies!",
         },
         "night_action": "link_lovers",
         "guide": {
             "objective": "Neutral: Link two players into Obsessive Lovers whose only win condition is being the last survivors.",
             "day_tips": "Observe how your chosen lovers behave and protect their secret bond.",
-            "night_tips": "On Night 1 only, select two players to bind as obsessive lovers.",
+            "night_tips": "On Night 0 only, select two players to bind as obsessive lovers.",
             "pro_tip": "Binding a Wolf to a Villager creates an exciting romance that flips the game!",
         },
     },
@@ -250,6 +250,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
         "id": "obsessive_lover",
         "faction": FACTION_NEUTRAL,
         "emoji": "💔",
+        "enabled": False,  # Status/condition applied by Cupid, not a dealable deck card
         "names": {"werewolf": "Obsessive Lover (Cupid Victim)", "mafia": "Obsessive Lover (Cupid Victim)"},
         "descriptions": {
             "werewolf": "Stricken by Cupid's arrow. You and your partner are so obsessed that you abandon your factions: you only win if everyone else is eliminated!",
@@ -297,10 +298,45 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
             "pro_tip": "Target vocal players or wolves; let Town and Wolves tear each other apart while you clean up.",
         },
     },
+    "death_angel": {
+        "id": "death_angel",
+        "faction": FACTION_TOWN,
+        "emoji": "👼🗡️",
+        "names": {"werewolf": "Death Angel (Limbo Executioner)", "mafia": "Angel of Death"},
+        "descriptions": {
+            "werewolf": "Aligned with Good. Can strike a soul lingering in Limbo to kill them permanently. Can act even while in Limbo! Reverts to Citizen if no Angel in play.",
+            "mafia": "Aligned with Good. Can strike a soul lingering in Limbo to kill them permanently. Can act even while in Limbo! Reverts to Civilian if no Angel in play.",
+        },
+        "night_action": "kill_limbo",
+        "guide": {
+            "objective": "Town: Cleanse Limbo of dangerous or suspicious souls so they cannot resurrect.",
+            "day_tips": "Pay attention to who entered Limbo. Coordinate with town on whether that soul is trustworthy.",
+            "night_tips": "You may strike once per game to permanently extinguish a soul in Limbo (even if you are in Limbo yourself!). If the room has no Angel, you are a regular Citizen.",
+            "pro_tip": "If a suspected werewolf or serial killer is in Limbo trying to guess the Angel, strike them before they get lucky!",
+        },
+    },
+    "wolf_hunter": {
+        "id": "wolf_hunter",
+        "faction": FACTION_NEUTRAL,
+        "emoji": "🏹🐺",
+        "names": {"werewolf": "Wolf Hunter (Lone Vigilante)", "mafia": "Mob Hunter"},
+        "descriptions": {
+            "werewolf": "Solo hunter. Can strike a player at night: if the target is a Werewolf, the wolf dies. If the target is NOT a werewolf, the hunter dies of backfire instead!",
+            "mafia": "Solo hunter. Can strike a player at night: if the target is Mafia, the mobster dies. If the target is NOT Mafia, the hunter dies of backfire instead!",
+        },
+        "night_action": "hunt_wolf",
+        "guide": {
+            "objective": "Eliminate the Werewolves! Strike evil with deadly precision. A miscalculation will cost your life.",
+            "day_tips": "Observe player behavior closely. You can only strike at night when you are 100% sure your target is a Wolf.",
+            "night_tips": "Select a suspected Wolf. If they are a Werewolf, they die. If they are innocent or independent, your weapon backfires and you die!",
+            "pro_tip": "Never guess randomly. Wait for Detective clues, slip-ups, or solid voting evidence before pulling the trigger.",
+        },
+    },
     "traveler": {
         "id": "traveler",
         "faction": FACTION_TOWN,
         "emoji": "🧳",
+        "midgame_only": True,  # Added only mid-game by moderator
         "names": {"werewolf": "Traveler (Confirmed Good)", "mafia": "Traveler (Confirmed Good)"},
         "descriptions": {
             "werewolf": "A mid-game arrival on the side of good. Has no night powers, but everyone publicly knows they are confirmed good!",
@@ -318,6 +354,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
         "id": "ghost",
         "faction": FACTION_TOWN,
         "emoji": "👻",
+        "midgame_only": True,  # Added only mid-game by moderator
         "names": {"werewolf": "Ghost (Town Spirit)", "mafia": "Ghost (Town Spirit)"},
         "descriptions": {
             "werewolf": "A traveler who died immediately upon arrival. Cannot vote or die. Can haunt a player at night and leave a spectral message for the town (moderator approved).",
@@ -335,6 +372,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
         "id": "disgruntled_ghost",
         "faction": FACTION_NEUTRAL,
         "emoji": "👿",
+        "midgame_only": True,  # Added only mid-game by moderator
         "names": {"werewolf": "Disgruntled Ghost", "mafia": "Vengeful Spirit"},
         "descriptions": {
             "werewolf": "A spiteful spirit who cannot vote or die. Wakes early each night to hunt a player and suppress their powers for that night!",
@@ -403,6 +441,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
         "id": "successor",
         "faction": FACTION_NEUTRAL,
         "emoji": "⏳",
+        "midgame_only": True,  # Added only mid-game by moderator
         "names": {"werewolf": "Successor (Inheritor)", "mafia": "Understudy (Inheritor)"},
         "descriptions": {
             "werewolf": "Mid-game arrival waiting in the wings. Inherits the role, faction, and abilities of the next player who dies. If a lover falls, inherits their place as the new lover, preventing heartbreak!",
@@ -429,8 +468,10 @@ def get_role_info(role_id: str, theme: str = "werewolf") -> dict[str, Any]:
         "emoji": base["emoji"],
         "name": base["names"].get(theme_key, base["names"]["werewolf"]),
         "description": base["descriptions"].get(theme_key, base["descriptions"]["werewolf"]),
-        "night_action": base["night_action"],
+        "night_action": base.get("night_action"),
         "guide": base.get("guide", {}),
+        "enabled": base.get("enabled", True),
+        "midgame_only": base.get("midgame_only", False),
     }
 
 
@@ -442,12 +483,37 @@ def get_faction_display(faction: str, theme: str = "werewolf") -> str:
     return "Neutral"
 
 
-def get_all_roles_catalogue(theme: str = "werewolf") -> list[dict[str, Any]]:
+def get_all_roles_catalogue(theme: str = "werewolf", include_midgame: bool = True) -> list[dict[str, Any]]:
     """Return all available roles with localized names, descriptions, and beginner guides.
 
-    Filters out any disabled roles.
+    Filters out any disabled roles. If include_midgame is False, excludes midgame-only add-ons.
     """
-    return [get_role_info(role_id, theme) for role_id, data in ROLE_REGISTRY.items() if data.get("enabled", True)]
+    roles = []
+    for role_id, data in ROLE_REGISTRY.items():
+        if not data.get("enabled", True):
+            continue
+        if not include_midgame and data.get("midgame_only", False):
+            continue
+        roles.append(get_role_info(role_id, theme))
+    return roles
+
+
+def get_all_roles_by_category(theme: str = "werewolf") -> dict[str, list[dict[str, Any]]]:
+    """Return enabled roles organized into 4 categories: good, bad, neutral, and addon."""
+    cats: dict[str, list[dict[str, Any]]] = {"good": [], "bad": [], "neutral": [], "addon": []}
+    for role_id, data in ROLE_REGISTRY.items():
+        if not data.get("enabled", True):
+            continue
+        info = get_role_info(role_id, theme)
+        if data.get("midgame_only", False):
+            cats["addon"].append(info)
+        elif data.get("faction") == FACTION_WOLVES:
+            cats["bad"].append(info)
+        elif data.get("faction") == FACTION_TOWN:
+            cats["good"].append(info)
+        else:
+            cats["neutral"].append(info)
+    return cats
 
 
 def generate_preset_deck(player_count: int, preset: str = "simple") -> list[str]:
@@ -526,7 +592,8 @@ def generate_preset_deck(player_count: int, preset: str = "simple") -> list[str]
             "mayor",
             "witch",
             "hacker",
-            "disgruntled_ghost",
+            "death_angel",
+            "wolf_hunter",
             "cupid",
             "jester",
             "serial_killer",
@@ -563,7 +630,8 @@ DEFAULT_PRESETS = {
         "mayor",
         "witch",
         "hacker",
-        "disgruntled_ghost",
+        "death_angel",
+        "wolf_hunter",
         "cupid",
         "jester",
         "serial_killer",

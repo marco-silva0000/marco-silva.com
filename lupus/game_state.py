@@ -109,7 +109,9 @@ def create_initial_state(
         "staggering_doctor": True,  # Cannot save same player 2 nights in a row
         "doctor_saves_from_sniper": False,  # Doctor save does not stop sniper
         "sniper_bullet_type": "danger",  # "danger", "silver", "mix"
-        "reveal_roles_on_death": False,
+        "sniper_danger_bullets": 1,
+        "sniper_silver_bullets": 0,
+        "reveal_roles_on_death": 0,  # 0: None, 1: Alignment, 2: Faction, 3: Full Role
         "voting_system": "two_stage_50pct",  # "two_stage_50pct", "two_stage_top_n", "simple_plurality"
         "nomination_threshold_pct": 50,  # 50% of living players needed for nomination
         "public_mayor": False,  # If true, Mayor's identity is publicly confirmed & votes count x2
@@ -140,7 +142,10 @@ def create_initial_state(
         "player_order": [],
         "night_actions": {},
         "night_stage_index": 0,
+        "is_night_zero": False,
         "revealed_inspect": None,
+        "player_points": {},
+        "death_angel_used": False,
         "voting": {
             "stage": "none",
             "system": default_settings.get("voting_system", "two_stage_50pct"),
@@ -577,6 +582,27 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     )
     evil_bullets = max(1, evil_count)
 
+    # Check Death Angel constraint: only exists if regular Angel is also dealt!
+    has_angel_dealt = any(r == "angel" for r in assigned_roles.values())
+    if not has_angel_dealt:
+        for pid, r in list(assigned_roles.items()):
+            if r == "death_angel":
+                assigned_roles[pid] = "villager"
+                p_name = state["players"][pid]["name"]
+                log_event(
+                    state,
+                    f"👼 Death Angel ({p_name}) demoted to standard Citizen because no Angel is in play.",
+                )
+
+    danger_setting = state.get("settings", {}).get("sniper_danger_bullets")
+    silver_setting = state.get("settings", {}).get("sniper_silver_bullets")
+    danger_bullets_qty = int(danger_setting) if danger_setting is not None else evil_bullets
+    silver_bullets_qty = (
+        int(silver_setting)
+        if silver_setting is not None
+        else (1 if state["settings"].get("sniper_bullet_type") == "mix" else 0)
+    )
+
     for pid, role_id in assigned_roles.items():
         role_info = ROLE_REGISTRY.get(role_id, ROLE_REGISTRY["villager"])
         state["players"][pid]["role"] = role_id
@@ -594,10 +620,9 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         state["players"][pid]["is_successor"] = role_id == "successor"
         if role_id == "successor":
             state["players"][pid]["status"] = "waiting"
-        state["players"][pid]["sniper_danger_bullets"] = evil_bullets if role_id == "sniper" else 1
-        state["players"][pid]["sniper_silver_bullets"] = (
-            1 if (role_id == "sniper" and state["settings"].get("sniper_bullet_type") == "mix") else 0
-        )
+        state["players"][pid]["sniper_danger_bullets"] = danger_bullets_qty if role_id == "sniper" else 0
+        state["players"][pid]["sniper_silver_bullets"] = silver_bullets_qty if role_id == "sniper" else 0
+        state["players"][pid]["death_angel_strikes"] = 1 if role_id == "death_angel" else 0
         state["players"][pid]["sniper_nights_held"] = 0
 
     # Automatically bind lovers if players were dealt the citizen lover role
@@ -640,10 +665,11 @@ def _reset_voting_state(state: dict[str, Any]) -> dict[str, Any]:
 
 
 def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> dict[str, Any]:
-    """Transition from Pre-Game Lobby to Night 1, dealing roles to all joined players."""
+    """Transition from Pre-Game Lobby to Night 0, dealing roles to all joined players."""
     deal_roles(state, role_list)
     state["phase"] = "night"
-    state["round_number"] = 1
+    state["round_number"] = 0  # Starts with Night 0
+    state["is_night_zero"] = True
     state["night_actions"] = {}
     state["night_report"] = []
     state["night_stage_index"] = 0
@@ -653,6 +679,7 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     state["winner"] = None
     state["witch_used_revive"] = False
     state["witch_used_kill"] = False
+    state["death_angel_used"] = False
     state["mayor_used_veto"] = False
     state["mayor_vetoed_ids"] = []
     state["last_silenced_id"] = None
@@ -660,11 +687,12 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     state["hacker_scanned_ids"] = []
     state["hacker_result"] = None
     state["day1_no_voting"] = False
+    state["player_points"] = {}
     state["ghost_messages"] = []
     state["approved_ghost_messages"] = []
     reset_timer(state, state["settings"].get("discussion_timer", 300))
     pause_timer(state)
-    log_event(state, f"🚀 Game started with {len(state['players'])} players! Round 1 (Night) begins.")
+    log_event(state, f"🚀 Game started with {len(state['players'])} players! Night 0 begins.")
     save_game(state["code"], state)
     return state
 
@@ -673,6 +701,7 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     """End or reset the active game back to the Pre-Game Lobby while keeping players connected."""
     state["phase"] = "lobby"
     state["round_number"] = 0
+    state["is_night_zero"] = False
     state["night_actions"] = {}
     state["night_report"] = []
     state["night_stage_index"] = 0
@@ -1041,11 +1070,49 @@ def set_player_status(
 
     if new_status == "limbo":
         player["used_limbo"] = True
+        player["death_reveal"] = None
         log_event(state, f"{player['name']} entered Limbo.")
     elif new_status == "dead":
         player["used_limbo"] = True
-        log_event(state, f"{player['name']} died.")
         state["pending_gameover_dismissed"] = False
+
+        # Calculate quantified role reveal strictly upon permanent death ("death death")
+        level = state.get("settings", {}).get("reveal_roles_on_death", 0)
+        if level is True:
+            level = 3
+        elif level is False or level is None:
+            level = 0
+        else:
+            try:
+                level = int(level)
+            except (ValueError, TypeError):
+                level = 0
+
+        reveal_msg = ""
+        if level > 0:
+            role_id = player.get("role", "villager")
+            faction = player.get("faction", FACTION_TOWN)
+            theme = state.get("theme", "werewolf")
+            from .roles import get_faction_display, get_role_info
+
+            r_info = get_role_info(role_id, theme)
+            if level == 1:
+                align_str = (
+                    "GOOD"
+                    if faction == FACTION_TOWN
+                    else ("EVIL" if faction == FACTION_WOLVES else "NEUTRAL")
+                )
+                reveal_msg = f"Alignment: {align_str}"
+            elif level == 2:
+                reveal_msg = f"Faction: {get_faction_display(faction, theme)}"
+            else:
+                reveal_msg = f"Role: {r_info['emoji']} {r_info['name']}"
+
+            player["death_reveal"] = reveal_msg
+            log_event(state, f"🪦 {player['name']} died permanently. [{reveal_msg}]")
+        else:
+            player["death_reveal"] = None
+            log_event(state, f"{player['name']} died.")
 
         # First check if successor inherits the deceased's role!
         check_and_trigger_successor_inheritance(state, player_id)
@@ -1116,7 +1183,8 @@ def rename_player(state: dict[str, Any], player_id: str, new_name: str) -> tuple
 
 def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id: str) -> tuple[bool, str]:
     """Limbo mechanic: Player gets 1 guess total to identify the Angel.
-    If correct, revived! If incorrect, permanently dies.
+    If correct AND Angel is alive: revived!
+    If incorrect (or Angel is dead): permanently dies.
     """
     if player_id not in state["players"]:
         return False, "Player not found."
@@ -1130,18 +1198,80 @@ def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id
 
     target = state["players"][guessed_angel_id]
     player["used_limbo"] = True
-    if target["role"] == "angel":
-        player["status"] = "alive"
+    if target["role"] == "angel" and target["status"] == "alive":
+        set_player_status(state, player_id, "alive")
         msg = f"✨ Divine Revelation! {player['name']} found the Angel ({target['name']}) and returned to the living!"
         log_event(state, msg)
         save_game(state["code"], state)
         return True, msg
     else:
-        player["status"] = "dead"
-        msg = f"💀 {player['name']} guessed wrong ({target['name']} is not Angel) and died."
+        set_player_status(state, player_id, "dead")
+        reveal_suffix = f" [{player.get('death_reveal')}]" if player.get("death_reveal") else ""
+        msg = f"💀 {player['name']} guessed wrong ({target['name']} is not the living Angel) and died permanently.{reveal_suffix}"
         log_event(state, msg)
         save_game(state["code"], state)
         return False, msg
+
+
+def point_at_player(
+    state: dict[str, Any], source_id: str, target_id: Optional[str]
+) -> dict[str, Any]:
+    """Record or clear a real-time player pointing gesture."""
+    points = state.setdefault("player_points", {})
+    if not target_id:
+        points.pop(source_id, None)
+    else:
+        points[source_id] = target_id
+    save_game(state["code"], state)
+    return state
+
+
+def clear_all_player_points(state: dict[str, Any]) -> dict[str, Any]:
+    """Clear all active player pointing gestures."""
+    state["player_points"] = {}
+    save_game(state["code"], state)
+    return state
+
+
+def coroner_leak_to_gazette(
+    state: dict[str, Any], player_id: str, reveal_type: str = "alignment"
+) -> tuple[bool, str]:
+    """GM action to officially leak a deceased player's alignment or full role to the Town Gazette."""
+    if player_id not in state.get("players", {}):
+        return False, "Player not found."
+    player = state["players"][player_id]
+    if player.get("status") not in ("dead", "limbo"):
+        return False, "Can only leak autopsy report for fallen players."
+
+    theme = state.get("theme", "werewolf")
+    from .roles import get_role_info
+
+    if reveal_type == "role":
+        r_info = get_role_info(player.get("role", "villager"), theme)
+        msg_text = f"Coroner's Report: Autopsy confirms {player['name']} was {r_info['emoji']} {r_info['name']}."
+    else:
+        faction = player.get("faction", FACTION_TOWN)
+        align_str = (
+            "GOOD"
+            if faction == FACTION_TOWN
+            else ("EVIL" if faction == FACTION_WOLVES else "NEUTRAL")
+        )
+        msg_text = f"Coroner's Report: Autopsy of {player['name']} confirms alignment: {align_str}."
+
+    bulletins = state.setdefault("approved_news_bulletins", [])
+    bulletins.append(
+        {
+            "id": uuid.uuid4().hex[:8],
+            "player_id": "gm_coroner",
+            "player_name": "Official Coroner",
+            "message": msg_text,
+            "anonymous": False,
+            "timestamp": time.time(),
+        }
+    )
+    log_event(state, f"🗞️ {msg_text}")
+    save_game(state["code"], state)
+    return True, msg_text
 
 
 # --- Night Actions & Resolution Engine ---
@@ -1159,7 +1289,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
     is_mafia = theme == "mafia"
     actions = state.get("night_actions", {})
     ordered = get_ordered_players(state)
-    round_num = state.get("round_number", 1)
+    round_num = state.get("round_number", 0)
 
     def is_role_in_game(r_id: str) -> bool:
         if r_id == "framer":
@@ -1181,6 +1311,127 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             for idx, p in enumerate(ordered)
             if p.get("role") == r_id
         ]
+
+    # =========================================================================
+    # NIGHT 0: Introductory night with weapons holstered. No kills allowed!
+    # =========================================================================
+    if state.get("is_night_zero", False):
+        # 1. Citizen Lovers Awaken
+        if is_role_in_game("lover"):
+            lover_actors = get_role_actors("lover")
+            stages.append(
+                {
+                    "id": "lovers_meet",
+                    "title": "💘 Innocent Lovers Awaken",
+                    "role_id": "lover",
+                    "actors": lover_actors,
+                    "is_alive": True,
+                    "script": "Innocent Lovers, open your eyes, discreetly make eye contact with your partner, and close your eyes.",
+                    "target_ids": [a["id"] for a in lover_actors],
+                    "target_names": [a["name"] for a in lover_actors],
+                    "is_complete": True,
+                }
+            )
+
+        # 2. Cupid (Binds Obsessive Lovers)
+        if is_role_in_game("cupid"):
+            cupid_actors = get_role_actors("cupid")
+            current_lovers = actions.get("cupid_lovers", [])
+            stages.append(
+                {
+                    "id": "cupid",
+                    "title": "💘 Cupid (Obsessive Lovers)",
+                    "role_id": "cupid",
+                    "actors": cupid_actors,
+                    "is_alive": True,
+                    "script": "Cupid, wake up! Silently point at two players you bind as Obsessive Lovers.",
+                    "target_ids": current_lovers,
+                    "target_names": [players[pid]["name"] for pid in current_lovers if pid in players],
+                    "is_complete": len(current_lovers) == 2 or not cupid_actors,
+                }
+            )
+
+        # 3. Watson identifies Detective
+        if is_role_in_game("watson"):
+            watson_actors = get_role_actors("watson")
+            detectives = [p["name"] for p in players.values() if p.get("role") == "detective"]
+            det_name = detectives[0] if detectives else "Unknown"
+            stages.append(
+                {
+                    "id": "watson_intro",
+                    "title": "🕵️‍♂️ Watson Identification",
+                    "role_id": "watson",
+                    "actors": watson_actors,
+                    "is_alive": True,
+                    "script": f"Watson, wake up! Look at me... {det_name} is your Detective. Protect them! Watson, close your eyes.",
+                    "target_name": det_name,
+                    "is_complete": True,
+                }
+            )
+
+        # 4. Hacker scan
+        if is_role_in_game("hacker"):
+            hacker_actors = get_role_actors("hacker")
+            hacker_targets = actions.get("hacker_targets", [])
+            stages.append(
+                {
+                    "id": "hacker",
+                    "title": "💻 Hacker Scan",
+                    "role_id": "hacker",
+                    "actors": hacker_actors,
+                    "is_alive": True,
+                    "script": "Hacker, wake up! Silently point at the group of players (2-3) you want to scan for evil presence.",
+                    "target_ids": hacker_targets,
+                    "target_names": [players[pid]["name"] for pid in hacker_targets if pid in players],
+                    "is_complete": len(hacker_targets) >= 2 or not hacker_actors,
+                }
+            )
+
+        # 5. Wolves Meet (No attack!)
+        wolves = [
+            {
+                "id": p["id"],
+                "name": p["name"],
+                "seat_number": idx + 1,
+                "status": p.get("status", "alive"),
+                "is_alive": p.get("status") == "alive",
+            }
+            for idx, p in enumerate(ordered)
+            if p.get("faction") == FACTION_WOLVES
+        ]
+        has_wolves = bool(wolves) or any(
+            r in ("werewolf", "alpha_wolf", "saboteur_wolf", "silencer") for r in state.get("deck", [])
+        )
+        if has_wolves:
+            stages.append(
+                {
+                    "id": "wolves_meet",
+                    "title": "🐺 Mafia Introduction" if is_mafia else "🐺 Werewolves Meet",
+                    "role_id": "werewolf",
+                    "actors": wolves,
+                    "is_alive": True,
+                    "script": (
+                        "Mafia, open your eyes and look around! Acknowledge your family. No hits tonight; close your eyes."
+                        if is_mafia
+                        else "Werewolves, open your eyes and look around! Acknowledge your pack. No hunting tonight; close your eyes."
+                    ),
+                    "is_complete": True,
+                }
+            )
+
+        # 6. Dawn Review (Day 0)
+        stages.append(
+            {
+                "id": "review",
+                "title": "🌅 Dawn Breaks (Day 0)",
+                "role_id": "narrator",
+                "actors": [],
+                "is_alive": True,
+                "script": "The village awakens peacefully for Day 0! Player introductions and suspicions only today; no daytime voting.",
+                "is_complete": True,
+            }
+        )
+        return stages
 
     # 1. Disgruntled Ghost (Called early in the night: power suppression)
     if is_role_in_game("disgruntled_ghost"):
@@ -1478,7 +1729,45 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    # 14. Town Ghost Haunt
+    # 14. Wolf Hunter
+    if is_role_in_game("wolf_hunter"):
+        hunters = get_role_actors("wolf_hunter")
+        is_alive = any(h["is_alive"] for h in hunters)
+        wh_target_id = actions.get("wolf_hunter_target")
+        stages.append(
+            {
+                "id": "wolf_hunter",
+                "title": "🏹 Wolf Hunter Strike",
+                "role_id": "wolf_hunter",
+                "actors": hunters,
+                "is_alive": is_alive,
+                "script": "Wolf Hunter, wake up! Point at a player to hunt. If they are a werewolf, they die; if not, your shot backfires and you die!",
+                "target_id": wh_target_id,
+                "target_name": players[wh_target_id]["name"] if wh_target_id in players else None,
+                "is_complete": bool(wh_target_id) or not is_alive,
+            }
+        )
+
+    # 15. Death Angel (can strike from living or Limbo)
+    if is_role_in_game("death_angel"):
+        death_angels = get_role_actors("death_angel")
+        can_act = any(da["status"] in ("alive", "limbo") for da in death_angels) and not state.get("death_angel_used", False)
+        da_target_id = actions.get("death_angel_target")
+        stages.append(
+            {
+                "id": "death_angel",
+                "title": "👼🗡️ Death Angel Strike",
+                "role_id": "death_angel",
+                "actors": death_angels,
+                "is_alive": can_act,
+                "script": "Death Angel, wake up! Point at a soul hovering in Limbo to sever their earthly tether permanently (limit: 1 strike per game).",
+                "target_id": da_target_id,
+                "target_name": players[da_target_id]["name"] if da_target_id in players else None,
+                "is_complete": bool(da_target_id) or not can_act,
+            }
+        )
+
+    # 16. Town Ghost Haunt
     if is_role_in_game("ghost"):
         ghost_actors = get_role_actors("ghost")
         ghost_target_id = actions.get("ghost_haunt")
@@ -1496,7 +1785,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    # 15. Mayor Veto (Once Per Person!)
+    # 17. Mayor Veto (Once Per Person!)
     if is_role_in_game("mayor"):
         mayors = get_role_actors("mayor")
         is_alive = any(m["is_alive"] for m in mayors)
@@ -1524,7 +1813,29 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    # 16. Dawn Review (Always final stage)
+    # 18. Limbo Angel Guessing Stage (Penultimate stage when souls are in Limbo)
+    limbo_souls = [p for p in ordered if p.get("status") == "limbo"]
+    if limbo_souls:
+        stages.append(
+            {
+                "id": "limbo_angel_guess",
+                "title": "🌫️ Limbo Souls: Angel Guess",
+                "role_id": None,
+                "actors": limbo_souls,
+                "is_alive": True,
+                "limbo_players": [
+                    {"id": p["id"], "name": p["name"], "seat_number": p.get("seat_number", 0)}
+                    for p in limbo_souls
+                ],
+                "script": (
+                    "Call souls in Limbo one by one in secret. Ask: 'Do you wish to use your 1 guess "
+                    "for the Angel tonight?' If correct and Angel lives, they return to life! If wrong, they pass away permanently."
+                ),
+                "is_complete": True,
+            }
+        )
+
+    # 19. Dawn Review (Always final stage)
     stages.append(
         {
             "id": "review",
@@ -1608,7 +1919,7 @@ def record_gm_night_action(
         target = players[target_id]
         is_framed = actions.get("framer_target") == target_id
         is_evil = is_evil_for_detective(target, is_framed=is_framed)
-        result_text = "Evil / Enemy" if is_evil else "Good / Innocent"
+        result_text = "Evil" if is_evil else "Good"
         det_actor = next(
             (p["id"] for p in players.values() if p["role"] == "detective" and p["status"] == "alive"), None
         )
@@ -1712,6 +2023,20 @@ def record_gm_night_action(
         save_game(state["code"], state)
         return True, f"Cupid lovers: {len(actions['cupid_lovers'])} selected"
 
+    elif stage_id == "wolf_hunter":
+        actions["wolf_hunter_target"] = target_id
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Wolf Hunter target set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Wolf Hunter targets: {name}"
+
+    elif stage_id == "death_angel":
+        actions["death_angel_target"] = target_id
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Death Angel strike set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Death Angel strikes: {name}"
+
     return False, "Unknown stage"
 
 
@@ -1722,6 +2047,8 @@ def clear_gm_night_action(state: dict[str, Any], stage_id: str) -> None:
         "hacker": "hacker_targets",
         "saboteur_wolf": "saboteur_target",
         "wolves": "wolf_target",
+        "wolf_hunter": "wolf_hunter_target",
+        "death_angel": "death_angel_target",
         "silencer": "silencer_target",
         "framer": "framer_target",
         "detective": "detective_query",
@@ -1786,7 +2113,7 @@ def submit_night_action(
         target = state["players"][target_id]
         is_framed = actions.get("framer_target") == target_id
         is_evil = is_evil_for_detective(target, is_framed=is_framed)
-        result_text = "Evil / Enemy" if is_evil else "Good / Innocent"
+        result_text = "Evil" if is_evil else "Good"
         actions["detective_query"] = {
             "actor_id": actor_id,
             "target_id": target_id,
@@ -1885,6 +2212,71 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     to_save: set[str] = set()
     suppressed_pids: set[str] = set()
 
+    # Clear player pointing gestures on dawn
+    state["player_points"] = {}
+
+    # =========================================================================
+    # NIGHT 0 RESOLUTION: Transition peacefully to Day 0 (Introductions only)
+    # =========================================================================
+    if state.get("is_night_zero", False):
+        state["is_night_zero"] = False
+        # Cupid Lovers (Night 0 Obsessive Bond)
+        if "cupid_lovers" in actions:
+            lovers = actions["cupid_lovers"]
+            if len(lovers) == 2:
+                l1, l2 = lovers[0], lovers[1]
+                if l1 in state["players"] and l2 in state["players"]:
+                    state["players"][l1]["lover_id"] = l2
+                    state["players"][l1]["lover_type"] = "obsessive"
+                    state["players"][l2]["lover_id"] = l1
+                    state["players"][l2]["lover_type"] = "obsessive"
+                    log_event(
+                        state,
+                        f"💘 Cupid bound {state['players'][l1]['name']} and {state['players'][l2]['name']} as Obsessive Lovers!",
+                    )
+
+        # Hacker Night 0 Scan
+        if actions.get("hacker_targets"):
+            scanned_ids = actions["hacker_targets"]
+            state["hacker_scanned_ids"] = list(scanned_ids)
+            total_scanned = len(scanned_ids)
+            evil_count = sum(
+                1
+                for pid in scanned_ids
+                if pid in state["players"]
+                and is_evil_faction_or_threat(state["players"][pid])
+            )
+            if evil_count == total_scanned and total_scanned > 0:
+                result_str = "All Evil"
+            elif evil_count > (total_scanned / 2.0):
+                result_str = "Majority Evil"
+            elif total_scanned > 0 and evil_count == (total_scanned / 2.0):
+                result_str = "Even Split"
+            elif evil_count > 0:
+                result_str = "Minority Evil"
+            else:
+                result_str = "Clean (All Good)"
+            state["hacker_result"] = result_str
+            state["hacker_evil_count"] = evil_count
+            state["hacker_total_count"] = total_scanned
+
+        # Transition to Day 0
+        state["phase"] = "day_discussion"
+        state["round_number"] = 0
+        state["is_day_zero"] = True
+        state["night_actions"] = {}
+        state["night_stage_index"] = 0
+        state["revealed_inspect"] = None
+        state["voting"] = _reset_voting_state(state)
+        state["night_report"] = [
+            "☀️ Dawn breaks over Day 0. The village awakens peacefully!",
+            "💬 Day 0 is reserved for player introductions and initial suspicions. Voting and executions begin on Day 1.",
+        ]
+        start_timer(state, state["settings"].get("discussion_timer", 300), "Day 0 Introductions")
+        check_win_condition(state)
+        save_game(state["code"], state)
+        return state
+
     # Reset per-night temporary suppression and haunted markers
     for p in state["players"].values():
         p["is_suppressed"] = False
@@ -1913,34 +2305,17 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             state, f"⚡ Saboteur Wolf suppressed {t_player['name']} and uncovered their role ({t_player.get('role')})!"
         )
 
-    # --- 3. Hacker (Night 1 Scan) ---
-    if state.get("round_number", 1) <= 1 and actions.get("hacker_targets"):
-        scanned_ids = actions["hacker_targets"]
-        state["hacker_scanned_ids"] = list(scanned_ids)
-        total_scanned = len(scanned_ids)
-        evil_count = sum(
-            1 for pid in scanned_ids if pid in state["players"] and is_evil_faction_or_threat(state["players"][pid])
-        )
-        if evil_count == total_scanned and total_scanned > 0:
-            result_str = "All Evil"
-        elif evil_count > (total_scanned / 2.0):
-            result_str = "Majority Evil"
-        elif total_scanned > 0 and evil_count == (total_scanned / 2.0):
-            result_str = "Even Split"
-        elif evil_count > 0:
-            result_str = "Minority Evil"
-        else:
-            result_str = "Clean (All Good)"
-
-        state["hacker_result"] = result_str
-        state["day1_no_voting"] = True
+    # --- 3. Hacker Intel Announcement (Dawn of Day 1) ---
+    if state.get("round_number", 1) == 1 and state.get("hacker_scanned_ids"):
+        res = state.get("hacker_result", "Clean")
+        evil_c = state.get("hacker_evil_count", 0)
+        tot_c = state.get("hacker_total_count", len(state["hacker_scanned_ids"]))
         report.append(
-            f"💻 Hacker Intel: Scanned group evaluated as '{result_str}'! "
-            "Day 1 is dedicated to player introductions and suspicions (no daytime voting today)."
+            f"💻 Hacker Intel: Scanned suspects evaluated as '{res}' ({evil_c} of {tot_c} Evil)!"
         )
-        log_event(state, f"💻 Hacker scan revealed: {result_str}")
+        log_event(state, f"💻 Hacker scan revealed: {res}")
 
-    # --- 4. Cupid Lovers (Night 1 Obsessive Bond) ---
+    # --- 4. Cupid Lovers (Fallback / Dynamic Bind) ---
     if "cupid_lovers" in actions:
         lovers = actions["cupid_lovers"]
         if len(lovers) == 2:
@@ -2071,7 +2446,63 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                         f"🎯 Vigilante shot innocent {s_target_player['name']} with safe Silver Bullet. No harm done.",
                     )
 
-    # --- 8. Witch Action (Revive / Poison) ---
+    # --- 8. Wolf Hunter Strike ---
+    wh_actor = next(
+        (p for p in state["players"].values() if p["role"] == "wolf_hunter" and p["status"] == "alive"),
+        None,
+    )
+    wh_target = actions.get("wolf_hunter_target")
+    if (
+        wh_actor
+        and wh_actor["id"] not in suppressed_pids
+        and wh_target
+        and wh_target in state["players"]
+    ):
+        t_player = state["players"][wh_target]
+        if t_player.get("faction") == FACTION_WOLVES:
+            if wh_target not in to_save:
+                to_kill.add(wh_target)
+            log_event(state, f"🏹 Wolf Hunter eliminated Werewolf threat {t_player['name']}!")
+        else:
+            # Shot innocent / non-wolf -> Hunter dies!
+            to_kill.add(wh_actor["id"])
+            log_event(
+                state,
+                f"🏹 Wolf Hunter shot non-wolf {t_player['name']}! Gun backfired and hunter died of guilt (target survives unharmed).",
+            )
+
+    # --- 9. Death Angel Strike (Targets soul in Limbo) ---
+    da_actor = next(
+        (
+            p
+            for p in state["players"].values()
+            if p["role"] == "death_angel" and p["status"] in ("alive", "limbo")
+        ),
+        None,
+    )
+    da_target = actions.get("death_angel_target")
+    if (
+        da_actor
+        and da_actor["id"] not in suppressed_pids
+        and da_target
+        and da_target in state["players"]
+        and not state.get("death_angel_used", False)
+    ):
+        if state["players"][da_target]["status"] == "limbo":
+            state["death_angel_used"] = True
+            set_player_status(state, da_target, "dead")
+            t_name = state["players"][da_target]["name"]
+            reveal_suffix = (
+                f" [{state['players'][da_target].get('death_reveal')}]"
+                if state["players"][da_target].get("death_reveal")
+                else ""
+            )
+            report.append(
+                f"👼🗡️ Death Angel struck {t_name} in Limbo, severing their earthly tether forever!{reveal_suffix}"
+            )
+            log_event(state, f"👼🗡️ Death Angel permanently eliminated {t_name} from Limbo.")
+
+    # --- 10. Witch Action (Revive / Poison) ---
     witch_actor = next((p for p in state["players"].values() if p["role"] == "witch" and p["status"] == "alive"), None)
     witch_act = actions.get("witch_action", {})
     if witch_actor and witch_actor["id"] not in suppressed_pids:
@@ -2092,7 +2523,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                     state["witch_used_kill"] = True
                     log_event(state, f"🧙‍♀️ Witch used poison on {state['players'][w_poison]['name']}!")
 
-    # --- 9. Silencer (Staggered Rule) ---
+    # --- 11. Silencer (Staggered Rule) ---
     silencer_actor = next(
         (p for p in state["players"].values() if p["role"] == "silencer" and p["status"] == "alive"), None
     )
@@ -2108,7 +2539,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                 f"🤐 {state['players'][silencer_target]['name']} is silenced for the day (cannot speak, but can still vote!)."
             )
 
-    # --- 10. Town Ghost Haunt & Spectral Messages ---
+    # --- 12. Town Ghost Haunt & Spectral Messages ---
     ghost_haunt = actions.get("ghost_haunt")
     if ghost_haunt and ghost_haunt in state["players"]:
         state["players"][ghost_haunt]["haunted_by"] = "ghost"
@@ -2119,7 +2550,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             report.append(f'👻 Spectral Message from beyond: "{gm["message"]}"')
         state["approved_ghost_messages"] = []
 
-    # --- 11. Mayor Veto (Once Per Person!) ---
+    # --- 13. Mayor Veto (Once Per Person!) ---
     mayor_actor = next((p for p in state["players"].values() if p["role"] == "mayor" and p["status"] == "alive"), None)
     if (
         actions.get("mayor_veto")
@@ -2132,15 +2563,15 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         if lynched_id in state["players"] and lynched_id not in vetoed_ids:
             vetoed_ids.append(lynched_id)
             state["mayor_used_veto"] = True
-            state["players"][lynched_id]["status"] = "alive"
+            set_player_status(state, lynched_id, "alive")
             p_name = state["players"][lynched_id]["name"]
             report.append(f"📜 The Mayor exercised official veto! {p_name} was pardoned and returned alive!")
             lover_id = state["players"][lynched_id].get("lover_id")
             if lover_id and lover_id in state["players"]:
-                state["players"][lover_id]["status"] = "alive"
+                set_player_status(state, lover_id, "alive")
                 report.append(f"❤️ {state['players'][lover_id]['name']} was revived as their lover returned to life!")
 
-    # --- 12. Casualties & Limbo (Concealed Angel Death) ---
+    # --- 14. Casualties & Limbo (Concealed Angel Death) ---
     limbo_on = state["settings"].get("limbo_enabled", True)
     has_living_angel = any(p["role"] == "angel" and p["status"] == "alive" for p in state["players"].values())
 
@@ -2148,35 +2579,45 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     for pid in to_kill:
         p = state["players"][pid]
         if limbo_on and has_living_angel and not p["used_limbo"]:
-            p["status"] = "limbo"
-            p["used_limbo"] = True
+            set_player_status(state, pid, "limbo")
             report.append(
                 f"🌫️ {p['name']} fell during the night, but hovers in Limbo with one chance to guess the Angel!"
             )
         else:
-            p["status"] = "dead"
-            p["used_limbo"] = True
+            set_player_status(state, pid, "dead")
             killed_players.add(pid)
-            report.append(f"🪦 {p['name']} was slain in the night.")
+            reveal_suffix = f" [{p.get('death_reveal')}]" if p.get("death_reveal") else ""
+            report.append(f"🪦 {p['name']} was slain in the night.{reveal_suffix}")
+
+    # Check Limbo souls when Angel is dead:
+    if not has_living_angel:
+        for p in list(state["players"].values()):
+            if p["status"] == "limbo":
+                set_player_status(state, p["id"], "dead")
+                reveal_suffix = f" [{p.get('death_reveal')}]" if p.get("death_reveal") else ""
+                report.append(
+                    f"🌫️ With the Angel absent, {p['name']}'s spirit passed from Limbo into eternal death.{reveal_suffix}"
+                )
 
     for pid in list(killed_players):
         p = state["players"][pid]
         lover_id = p.get("lover_id")
         if lover_id and lover_id in state["players"] and lover_id not in killed_players:
             lover = state["players"][lover_id]
-            if lover["status"] != "dead":
-                # Check if successor inherits the deceased's role!
-                succ_msg = check_and_trigger_successor_inheritance(state, pid)
-                if not succ_msg:
-                    lover["status"] = "dead"
-                    lover["used_limbo"] = True
-                    killed_players.add(lover_id)
-                    if state.get("settings", {}).get("public_heartbreak_cause", False):
-                        report.append(f"💔 {lover['name']} died of a broken heart following their lover {p['name']}!")
-                    else:
-                        report.append(f"🪦 {lover['name']} was slain in the night.")
+            # Check if successor inherits the deceased's role!
+            succ_msg = check_and_trigger_successor_inheritance(state, pid)
+            if not succ_msg:
+                set_player_status(state, lover_id, "dead")
+                killed_players.add(lover_id)
+                reveal_suffix = f" [{lover.get('death_reveal')}]" if lover.get("death_reveal") else ""
+                if state.get("settings", {}).get("public_heartbreak_cause", False):
+                    report.append(
+                        f"💔 {lover['name']} died of a broken heart following their lover {p['name']}!{reveal_suffix}"
+                    )
                 else:
-                    report.append(succ_msg)
+                    report.append(f"🪦 {lover['name']} was slain in the night.{reveal_suffix}")
+            else:
+                report.append(succ_msg)
 
     # Check pending heartbreak (from yesterday's day vote execution)
     for p in list(state["players"].values()):
@@ -2210,7 +2651,6 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     state["revealed_inspect"] = None
     state["voting"] = _reset_voting_state(state)
     state["phase"] = "day_discussion"
-    state["round_number"] += 1
 
     start_timer(state, state["settings"].get("discussion_timer", 300), "Discussion")
     check_win_condition(state)
@@ -2236,7 +2676,11 @@ def get_nomination_threshold(state: dict[str, Any]) -> int:
 
 
 def start_voting_session(state: dict[str, Any], system: Optional[str] = None) -> dict[str, Any]:
-    """Initiate day voting. Blocks Day 1 voting if Hacker Intel announcement was active."""
+    """Initiate day voting. Blocks Day 0 voting and Day 1 voting if Hacker Intel announcement was active."""
+    if state.get("is_day_zero", False):
+        log_event(state, "🚫 Day 0 voting blocked: Introductions and suspicions only.")
+        return state
+
     if state.get("day1_no_voting") and state.get("round_number", 1) <= 1:
         log_event(state, "🚫 Day 1 voting blocked: Introductions and suspicions only per Hacker Intel.")
         return state
@@ -2786,6 +3230,8 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
                 "is_me": pid == player_id,
                 "is_lover": pid == lover_id,
                 "is_pack_mate": is_wolf and p["faction"] == FACTION_WOLVES and pid != player_id,
+                "death_reveal": p.get("death_reveal") if p["status"] == "dead" else None,
+                "point_target_id": state.get("player_points", {}).get(pid),
                 "role": p_role,
             }
         )
@@ -2891,9 +3337,12 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
             "news_submitted_this_round": news_submitted_this_round,
             "sniper_danger_bullets": player.get("sniper_danger_bullets", 0),
             "sniper_silver_bullets": player.get("sniper_silver_bullets", 0),
+            "death_angel_strikes": player.get("death_angel_strikes", 0),
         },
         "players": public_players,
         "roles_in_play": roles_in_play,
+        "player_points": state.get("player_points", {}),
+        "my_point_target_id": state.get("player_points", {}).get(player_id),
         "timer": timer_data,
         "night_stage_title": night_stage_title,
         "revealed_inspect": revealed_inspect,
@@ -2910,6 +3359,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
             "voting_system": state["settings"].get("voting_system", "two_stage_50pct"),
             "public_mayor": state["settings"].get("public_mayor", False),
             "public_heartbreak_cause": state["settings"].get("public_heartbreak_cause", False),
+            "reveal_roles_on_death": state["settings"].get("reveal_roles_on_death", 0),
         },
         "app_version": get_version_info()["display"],
         "commit_hash": get_version_info()["commit"],
@@ -2947,8 +3397,11 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
                 "lover_name": lover_name,
                 "lover_type": p.get("lover_type"),
                 "last_guarded_id": p.get("last_guarded_id"),
+                "death_reveal": p.get("death_reveal") if p["status"] == "dead" else None,
                 "sniper_danger_bullets": p.get("sniper_danger_bullets", 0),
                 "sniper_silver_bullets": p.get("sniper_silver_bullets", 0),
+                "death_angel_strikes": p.get("death_angel_strikes", 0),
+                "point_target_id": state.get("player_points", {}).get(p["id"]),
             }
         )
 
@@ -2965,9 +3418,11 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "phase": state["phase"],
         "round_number": state["round_number"],
         "players": all_players,
+        "player_points": state.get("player_points", {}),
+        "death_angel_used": state.get("death_angel_used", False),
         "deck": [get_role_info(r, theme) for r in state.get("deck", [])],
         "raw_deck": state.get("deck", []),
-        "available_roles": get_all_roles_catalogue(theme),
+        "available_roles": get_all_roles_catalogue(theme, include_midgame=True),
         "player_count": len(all_players),
         "timer": timer_data,
         "night_stages": get_night_stages(state),

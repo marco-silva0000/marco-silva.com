@@ -988,6 +988,20 @@ html, body {
       </div>
     </div>
 
+    <!-- Real-Time Player Finger Pointers Display -->
+    <div id="gm-player-pointers-box" style="display: none; background: #0f172a; border: 1px solid #38bdf8; border-radius: 10px; padding: 0.65rem 1rem; margin-bottom: 0.75rem; color: #f8fafc; box-shadow: 0 4px 12px rgba(56,189,248,0.15);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+        <div style="font-weight: 700; font-size: 0.85rem; color: #38bdf8; display: flex; align-items: center; gap: 0.35rem;">
+          <span>👉 Player Finger Pointers (Live)</span>
+        </div>
+        <button type="button" onclick="sendAction('clear_player_points')" class="btn btn-sm" style="background: rgba(255,255,255,0.08); border: 1px solid #475569; color: #cbd5e1; font-size: 0.75rem; padding: 0.15rem 0.5rem; cursor: pointer;">
+          ✕ Clear All
+        </button>
+      </div>
+      <div id="gm-player-pointers-list" style="display: flex; flex-wrap: wrap; gap: 0.45rem; font-size: 0.85rem;">
+      </div>
+    </div>
+
     <!-- Timer & Phase Controls (Mobile First Layout) -->
     <div class="card-box">
       <div class="control-grid">
@@ -1096,7 +1110,7 @@ html, body {
             🔍 Inspection Secret Result:
           </div>
           <div id="detective-result-text" class="detective-result-badge evil">
-            EVIL / ENEMY
+            EVIL
           </div>
           <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 0.45rem; line-height: 1.4;">
             👉 <strong>Signal the Detective silently:</strong> Give a silent thumbs-up 👍 (Good) or thumbs-down 👎 (Evil).
@@ -1145,6 +1159,19 @@ html, body {
             <button id="btn-mayor-veto" type="button" onclick="toggleMayorVeto()" class="btn btn-sm" style="background: #334155; color: #fff; border: 1px solid #475569; font-weight: 700; padding: 0.45rem 1rem;">
               📜 Exercise Official Veto (Pardon)
             </button>
+          </div>
+        </div>
+
+        <!-- Limbo Angel Guessing Widget (Special) -->
+        <div id="limbo-angel-widget" style="display: none; background: #0f172a; border: 1px solid #d97706; border-radius: 8px; padding: 0.75rem;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #fbbf24; margin-bottom: 0.35rem;">
+            🌫️ Limbo Souls: Angel Guess
+          </div>
+          <div style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 0.65rem; line-height: 1.4;">
+            Check with each soul in Limbo one-by-one. If they wish to guess the Angel tonight, pick their guess below. If correct and the Angel lives, they return to life! If wrong, they pass away permanently.
+          </div>
+          <div id="limbo-angel-souls-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <!-- Rendered dynamically -->
           </div>
         </div>
 
@@ -1498,6 +1525,17 @@ html, body {
       <button id="btn-seat-qr" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
         📱 Show Private Reconnect QR
       </button>
+      <div id="seat-coroner-actions" style="display: none; border-top: 1px dashed #cbd5e1; padding-top: 0.5rem; margin-top: 0.35rem;">
+        <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 0.35rem;">📰 Coroner's Leak (Town Gazette):</div>
+        <div style="display: flex; gap: 0.4rem;">
+          <button id="btn-seat-leak-alignment" type="button" class="btn btn-sm" style="flex: 1; font-size: 0.75rem; background: #fef3c7; border: 1px solid #d97706; color: #92400e; font-weight: 700; padding: 0.35rem 0.5rem;">
+            Leak Alignment
+          </button>
+          <button id="btn-seat-leak-role" type="button" class="btn btn-sm" style="flex: 1; font-size: 0.75rem; background: #fee2e2; border: 1px solid #dc2626; color: #991b1b; font-weight: 700; padding: 0.35rem 0.5rem;">
+            Leak Full Role
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1579,32 +1617,138 @@ html, body {
       Complete guide for Game Masters and players. Includes win conditions, night actions, and gameplay tactics.
     </p>
 
-    {% for role in roles_catalogue %}
-    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.85rem; margin-bottom: 0.75rem; border-left: 4px solid {% if role.faction == 'wolves' %}#ef4444{% elif role.faction == 'town' %}#22c55e{% else %}#a855f7{% endif %};">
-      <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
-        <div>
-          <strong style="font-size: 1rem; color: #0f172a;">{{ role.emoji }} {{ role.name }}</strong>
-          <span class="badge" style="margin-left: 0.35rem; font-size: 0.7rem; background: {% if role.faction == 'wolves' %}#fee2e2; color: #991b1b;{% elif role.faction == 'town' %}#dcfce7; color: #166534;{% else %}#f3e8ff; color: #6b21a8;{% endif %}">
-            {{ role.faction|title }}
-          </span>
+    {% if roles_by_category %}
+      <!-- 🟢 GOOD FACTION -->
+      {% if roles_by_category.good %}
+      <div style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #16a34a; margin: 1rem 0 0.4rem; padding-bottom: 0.25rem; border-bottom: 2px solid #bbf7d0;">
+        🟢 Good / Civilians Alignment ({{ roles_by_category.good|length }})
+      </div>
+      {% for role in roles_by_category.good %}
+      <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 0.85rem; margin-bottom: 0.75rem; border-left: 4px solid #22c55e;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
+          <div>
+            <strong style="font-size: 1rem; color: #0f172a;">{{ role.emoji }} {{ role.name }}</strong>
+            <span class="badge" style="margin-left: 0.35rem; font-size: 0.7rem; background: #dcfce7; color: #166534;">Good</span>
+          </div>
         </div>
-      </div>
-      <p style="font-size: 0.85rem; color: #475569; margin: 0.4rem 0 0.5rem; line-height: 1.4;">
-        {{ role.description }}
-      </p>
-
-      {% if role.guide %}
-      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 0.55rem 0.75rem; font-size: 0.8rem; line-height: 1.45; color: #334155;">
-        <div style="margin-bottom: 0.25rem;"><strong>🎯 Objective:</strong> {{ role.guide.objective }}</div>
-        <div style="margin-bottom: 0.25rem;"><strong>☀️ Day Tactics:</strong> {{ role.guide.day_tips }}</div>
-        {% if role.guide.night_tips %}
-        <div style="margin-bottom: 0.25rem;"><strong>🌙 Night Action:</strong> {{ role.guide.night_tips }}</div>
+        <p style="font-size: 0.85rem; color: #475569; margin: 0.4rem 0 0.5rem; line-height: 1.4;">{{ role.description }}</p>
+        {% if role.guide %}
+        <div style="background: #ffffff; border: 1px solid #bbf7d0; border-radius: 6px; padding: 0.55rem 0.75rem; font-size: 0.8rem; line-height: 1.45; color: #334155;">
+          <div style="margin-bottom: 0.25rem;"><strong>🎯 Objective:</strong> {{ role.guide.objective }}</div>
+          <div style="margin-bottom: 0.25rem;"><strong>☀️ Day Tactics:</strong> {{ role.guide.day_tips }}</div>
+          {% if role.guide.night_tips %}<div style="margin-bottom: 0.25rem;"><strong>🌙 Night Action:</strong> {{ role.guide.night_tips }}</div>{% endif %}
+          <div style="color: #b45309; margin-top: 0.25rem;"><strong>💡 Pro Tip:</strong> {{ role.guide.pro_tip }}</div>
+        </div>
         {% endif %}
-        <div style="color: #b45309; margin-top: 0.25rem;"><strong>💡 Pro Tip:</strong> {{ role.guide.pro_tip }}</div>
       </div>
+      {% endfor %}
       {% endif %}
-    </div>
-    {% endfor %}
+
+      <!-- 🔴 BAD FACTION -->
+      {% if roles_by_category.bad %}
+      <div style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #dc2626; margin: 1.25rem 0 0.4rem; padding-bottom: 0.25rem; border-bottom: 2px solid #fecaca;">
+        🔴 Bad / Werewolf Alignment ({{ roles_by_category.bad|length }})
+      </div>
+      {% for role in roles_by_category.bad %}
+      <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 0.85rem; margin-bottom: 0.75rem; border-left: 4px solid #ef4444;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
+          <div>
+            <strong style="font-size: 1rem; color: #0f172a;">{{ role.emoji }} {{ role.name }}</strong>
+            <span class="badge" style="margin-left: 0.35rem; font-size: 0.7rem; background: #fee2e2; color: #991b1b;">Evil</span>
+          </div>
+        </div>
+        <p style="font-size: 0.85rem; color: #475569; margin: 0.4rem 0 0.5rem; line-height: 1.4;">{{ role.description }}</p>
+        {% if role.guide %}
+        <div style="background: #ffffff; border: 1px solid #fecaca; border-radius: 6px; padding: 0.55rem 0.75rem; font-size: 0.8rem; line-height: 1.45; color: #334155;">
+          <div style="margin-bottom: 0.25rem;"><strong>🎯 Objective:</strong> {{ role.guide.objective }}</div>
+          <div style="margin-bottom: 0.25rem;"><strong>☀️ Day Tactics:</strong> {{ role.guide.day_tips }}</div>
+          {% if role.guide.night_tips %}<div style="margin-bottom: 0.25rem;"><strong>🌙 Night Action:</strong> {{ role.guide.night_tips }}</div>{% endif %}
+          <div style="color: #b45309; margin-top: 0.25rem;"><strong>💡 Pro Tip:</strong> {{ role.guide.pro_tip }}</div>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      <!-- 🟡 NEUTRAL / SOLO FACTION -->
+      {% if roles_by_category.neutral %}
+      <div style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #d97706; margin: 1.25rem 0 0.4rem; padding-bottom: 0.25rem; border-bottom: 2px solid #fde68a;">
+        🟡 Neutral &amp; Solo Alignments ({{ roles_by_category.neutral|length }})
+      </div>
+      {% for role in roles_by_category.neutral %}
+      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 0.85rem; margin-bottom: 0.75rem; border-left: 4px solid #eab308;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
+          <div>
+            <strong style="font-size: 1rem; color: #0f172a;">{{ role.emoji }} {{ role.name }}</strong>
+            <span class="badge" style="margin-left: 0.35rem; font-size: 0.7rem; background: #fef3c7; color: #92400e;">Neutral</span>
+          </div>
+        </div>
+        <p style="font-size: 0.85rem; color: #475569; margin: 0.4rem 0 0.5rem; line-height: 1.4;">{{ role.description }}</p>
+        {% if role.guide %}
+        <div style="background: #ffffff; border: 1px solid #fde68a; border-radius: 6px; padding: 0.55rem 0.75rem; font-size: 0.8rem; line-height: 1.45; color: #334155;">
+          <div style="margin-bottom: 0.25rem;"><strong>🎯 Objective:</strong> {{ role.guide.objective }}</div>
+          <div style="margin-bottom: 0.25rem;"><strong>☀️ Day Tactics:</strong> {{ role.guide.day_tips }}</div>
+          {% if role.guide.night_tips %}<div style="margin-bottom: 0.25rem;"><strong>🌙 Night Action:</strong> {{ role.guide.night_tips }}</div>{% endif %}
+          <div style="color: #b45309; margin-top: 0.25rem;"><strong>💡 Pro Tip:</strong> {{ role.guide.pro_tip }}</div>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      <!-- 🟣 ADD-ON / MID-GAME ROLES -->
+      {% if roles_by_category.addon %}
+      <div style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #7e22ce; margin: 1.25rem 0 0.4rem; padding-bottom: 0.25rem; border-bottom: 2px solid #e9d5ff;">
+        🟣 Add-on &amp; Mid-Game Roles ({{ roles_by_category.addon|length }})
+      </div>
+      {% for role in roles_by_category.addon %}
+      <div style="background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px; padding: 0.85rem; margin-bottom: 0.75rem; border-left: 4px solid #a855f7;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
+          <div>
+            <strong style="font-size: 1rem; color: #0f172a;">{{ role.emoji }} {{ role.name }}</strong>
+            <span class="badge" style="margin-left: 0.35rem; font-size: 0.7rem; background: #f3e8ff; color: #6b21a8;">Mid-Game Only</span>
+          </div>
+        </div>
+        <p style="font-size: 0.85rem; color: #475569; margin: 0.4rem 0 0.5rem; line-height: 1.4;">{{ role.description }}</p>
+        {% if role.guide %}
+        <div style="background: #ffffff; border: 1px solid #e9d5ff; border-radius: 6px; padding: 0.55rem 0.75rem; font-size: 0.8rem; line-height: 1.45; color: #334155;">
+          <div style="margin-bottom: 0.25rem;"><strong>🎯 Objective:</strong> {{ role.guide.objective }}</div>
+          <div style="margin-bottom: 0.25rem;"><strong>☀️ Day Tactics:</strong> {{ role.guide.day_tips }}</div>
+          {% if role.guide.night_tips %}<div style="margin-bottom: 0.25rem;"><strong>🌙 Night Action:</strong> {{ role.guide.night_tips }}</div>{% endif %}
+          <div style="color: #b45309; margin-top: 0.25rem;"><strong>💡 Pro Tip:</strong> {{ role.guide.pro_tip }}</div>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+    {% else %}
+      {% for role in roles_catalogue %}
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.85rem; margin-bottom: 0.75rem; border-left: 4px solid {% if role.faction == 'wolves' %}#ef4444{% elif role.faction == 'town' %}#22c55e{% else %}#a855f7{% endif %};">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
+          <div>
+            <strong style="font-size: 1rem; color: #0f172a;">{{ role.emoji }} {{ role.name }}</strong>
+            <span class="badge" style="margin-left: 0.35rem; font-size: 0.7rem; background: {% if role.faction == 'wolves' %}#fee2e2; color: #991b1b;{% elif role.faction == 'town' %}#dcfce7; color: #166534;{% else %}#f3e8ff; color: #6b21a8;{% endif %}">
+              {{ role.faction|title }}
+            </span>
+          </div>
+        </div>
+        <p style="font-size: 0.85rem; color: #475569; margin: 0.4rem 0 0.5rem; line-height: 1.4;">
+          {{ role.description }}
+        </p>
+
+        {% if role.guide %}
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 0.55rem 0.75rem; font-size: 0.8rem; line-height: 1.45; color: #334155;">
+          <div style="margin-bottom: 0.25rem;"><strong>🎯 Objective:</strong> {{ role.guide.objective }}</div>
+          <div style="margin-bottom: 0.25rem;"><strong>☀️ Day Tactics:</strong> {{ role.guide.day_tips }}</div>
+          {% if role.guide.night_tips %}
+          <div style="margin-bottom: 0.25rem;"><strong>🌙 Night Action:</strong> {{ role.guide.night_tips }}</div>
+          {% endif %}
+          <div style="color: #b45309; margin-top: 0.25rem;"><strong>💡 Pro Tip:</strong> {{ role.guide.pro_tip }}</div>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    {% endif %}
 
     <div style="text-align: center; margin-top: 1rem;">
       <button onclick="closeModal('roles-guide-modal')" class="btn btn-primary" style="width: 100%;">Got It</button>
@@ -2144,10 +2288,38 @@ html, body {
     }
   }
 
+  function renderPlayerPoints(state) {
+    const box = document.getElementById("gm-player-pointers-box");
+    const list = document.getElementById("gm-player-pointers-list");
+    if (!box || !list) return;
+
+    const points = state.player_points || {};
+    const entries = Object.entries(points);
+    if (entries.length === 0) {
+      box.style.display = "none";
+      list.innerHTML = "";
+      return;
+    }
+
+    box.style.display = "block";
+    list.innerHTML = entries.map(([srcId, tgtId]) => {
+      const src = state.players.find(p => p.id === srcId);
+      const tgt = state.players.find(p => p.id === tgtId);
+      const srcName = src ? escapeHtml(src.name) : "Unknown";
+      const tgtName = tgt ? escapeHtml(tgt.name) : "Unknown";
+      return `
+        <span style="background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 0.25rem 0.6rem; color: #f8fafc;">
+          <strong>${srcName}</strong> 👉 <span style="color: #38bdf8; font-weight: 700;">${tgtName}</span>
+        </span>
+      `;
+    }).join("");
+  }
+
   // --- Rendering GM State ---
   function renderGMState(state) {
     currentGameState = state;
     checkVersionUpdate(state);
+    renderPlayerPoints(state);
     document.getElementById("phase-badge").innerText = state.phase.toUpperCase();
     document.getElementById("round-num").innerText = state.round_number;
     document.getElementById("player-count").innerText = state.players.length;
@@ -2562,6 +2734,8 @@ html, body {
     if (stage.id === 'doctor') return actions.doctor_protect === playerId;
     if (stage.id === 'bodyguard') return actions.bodyguard_protect === playerId;
     if (stage.id === 'serial_killer') return actions.sk_target === playerId;
+    if (stage.id === 'wolf_hunter') return actions.wolf_hunter_target === playerId;
+    if (stage.id === 'death_angel') return actions.death_angel_target === playerId;
     if (stage.id === 'sniper') return actions.sniper_shot && actions.sniper_shot.target_id === playerId;
     if (stage.id === 'cupid') return actions.cupid_lovers && actions.cupid_lovers.includes(playerId);
     if (stage.id === 'witch') return actions.witch_action && actions.witch_action.kill_target === playerId;
@@ -2756,6 +2930,22 @@ html, body {
       closeModal('player-seat-modal');
       showPlayerQR(p.id, p.name, p.token);
     };
+    const coronerDiv = document.getElementById("seat-coroner-actions");
+    if (coronerDiv) {
+      if (p.status === "dead" || p.status === "limbo") {
+        coronerDiv.style.display = "block";
+        document.getElementById("btn-seat-leak-alignment").onclick = () => {
+          closeModal('player-seat-modal');
+          sendAction("coroner_leak", { player_id: p.id, reveal_type: "alignment" });
+        };
+        document.getElementById("btn-seat-leak-role").onclick = () => {
+          closeModal('player-seat-modal');
+          sendAction("coroner_leak", { player_id: p.id, reveal_type: "role" });
+        };
+      } else {
+        coronerDiv.style.display = "none";
+      }
+    }
     openModal('player-seat-modal');
   }
 
@@ -2813,6 +3003,7 @@ html, body {
     const witchWidget = document.getElementById("witch-widget");
     const sniperWidget = document.getElementById("sniper-widget");
     const mayorWidget = document.getElementById("mayor-widget");
+    const limboWidget = document.getElementById("limbo-angel-widget");
     const reviewWidget = document.getElementById("review-widget");
     const deadRoleBanner = document.getElementById("stage-dead-role-banner");
 
@@ -2820,6 +3011,7 @@ html, body {
     witchWidget.style.display = "none";
     sniperWidget.style.display = "none";
     if (mayorWidget) mayorWidget.style.display = "none";
+    if (limboWidget) limboWidget.style.display = "none";
     reviewWidget.style.display = "none";
     if (deadRoleBanner) deadRoleBanner.style.display = "none";
     pickerWrap.style.display = "flex";
@@ -2888,6 +3080,14 @@ html, body {
       if (actions.sk_target) {
         const skTarget = state.players.find(p => p.id === actions.sk_target);
         summaryHtml += `<li>🔪 <strong>Serial Killer Solo:</strong> ${skTarget ? escapeHtml(skTarget.name) : 'None'}</li>`;
+      }
+      if (actions.wolf_hunter_target) {
+        const whTarget = state.players.find(p => p.id === actions.wolf_hunter_target);
+        summaryHtml += `<li>🏹 <strong>Wolf Hunter Strike:</strong> ${whTarget ? escapeHtml(whTarget.name) : 'None'}</li>`;
+      }
+      if (actions.death_angel_target) {
+        const daTarget = state.players.find(p => p.id === actions.death_angel_target);
+        summaryHtml += `<li>👼🗡️ <strong>Death Angel Strike:</strong> ${daTarget ? escapeHtml(daTarget.name) : 'None'}</li>`;
       }
       if (actions.mayor_veto) {
         const lTarget = state.players.find(p => p.id === state.last_lynched_id);
@@ -2958,6 +3158,52 @@ html, body {
             vetoBtn.style.background = "#334155";
             vetoBtn.style.borderColor = "#475569";
             vetoBtn.innerText = "📜 Exercise Official Veto (Pardon)";
+          }
+        }
+      } else if (stage.id === "death_angel") {
+        const limboOpts = [{ value: "", text: "-- Choose soul in Limbo to strike --" }];
+        state.players.forEach(p => {
+          if (p.status === "limbo") {
+            limboOpts.push({ value: p.id, text: `🌫️ #${p.seat_number} ${p.name}` });
+          }
+        });
+        syncSelectOptions(selectEl, limboOpts, stage.target_id || "");
+        targetDisplay.innerText = stage.target_name ? `Strike: ${stage.target_name}` : "None selected";
+        clearBtn.style.display = stage.target_id ? "inline-block" : "none";
+      } else if (stage.id === "limbo_angel_guess") {
+        pickerWrap.style.display = "none";
+        clearBtn.style.display = "none";
+        targetDisplay.innerText = "Limbo Souls Guessing";
+        if (limboWidget) {
+          limboWidget.style.display = "block";
+          const limboList = document.getElementById("limbo-angel-souls-list");
+          const limboSouls = (stage.limbo_players && stage.limbo_players.length > 0)
+            ? stage.limbo_players
+            : state.players.filter(p => p.status === "limbo");
+
+          if (limboSouls.length === 0) {
+            limboList.innerHTML = "<div style='color: #94a3b8;'>No players currently hovering in Limbo.</div>";
+          } else {
+            const livingPlayers = state.players.filter(p => p.status === "alive");
+            limboList.innerHTML = limboSouls.map(soul => {
+              const soulName = escapeHtml(soul.name);
+              const soulId = soul.id;
+              const options = livingPlayers.map(lp => `<option value="${lp.id}">#${lp.seat_number} ${escapeHtml(lp.name)}</option>`).join("");
+              return `
+                <div style="background: #1e293b; border: 1px solid #475569; border-radius: 6px; padding: 0.5rem 0.65rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;">
+                  <div style="font-weight: 700; color: #fef08a;">🌫️ ${soulName}</div>
+                  <div style="display: flex; gap: 0.35rem; align-items: center;">
+                    <select id="limbo-guess-sel-${soulId}" style="padding: 0.3rem 0.45rem; background: #0f172a; color: #fff; border: 1px solid #334155; border-radius: 4px; font-size: 0.8rem;">
+                      <option value="">-- Guess Angel --</option>
+                      ${options}
+                    </select>
+                    <button type="button" onclick="submitGmLimboGuess('${soulId}')" class="btn btn-sm" style="background: #e65100; border-color: #e65100; color: #fff; font-weight: 700; font-size: 0.75rem;">
+                      Guess Angel
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join("");
           }
         }
       } else {
@@ -3469,6 +3715,15 @@ html, body {
       stage_id: "mayor",
       extra: { veto: !curVeto }
     });
+  }
+
+  function submitGmLimboGuess(soulId) {
+    const sel = document.getElementById(`limbo-guess-sel-${soulId}`);
+    if (!sel || !sel.value) {
+      alert("Please choose who they guess is the Angel.");
+      return;
+    }
+    sendAction("gm_guess_angel", { player_id: soulId, target_id: sel.value });
   }
 
   function togglePeekPlayer(playerId) {

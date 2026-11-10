@@ -92,21 +92,31 @@
           </span>
         </label>
 
-        <label style="font-size: 0.85rem; cursor: pointer; display: flex; align-items: flex-start; gap: 0.5rem;">
-          <input type="checkbox" name="reveal_roles_on_death" value="1" style="margin-top: 0.2rem;">
-          <span>
-            <strong>Reveal Roles on Death:</strong> If checked, eliminated players' roles are announced publicly. (Default is unchecked: closed graveyard, roles remain secret until game over).
+        <div style="margin-top: 0.65rem;">
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">
+            Reveal Roles on Death:
+          </label>
+          <select name="reveal_roles_on_death" style="width: 100%; padding: 0.45rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc;">
+            <option value="0" selected>0 &mdash; Secret (Closed graveyard, roles concealed until game over)</option>
+            <option value="1">1 &mdash; Alignment Only (Announces "GOOD" vs "EVIL")</option>
+            <option value="2">2 &mdash; Faction / Team (Announces "Town", "Werewolves", "Neutral")</option>
+            <option value="3">3 &mdash; Full Role Card (Announces exact card name and icon)</option>
+          </select>
+          <span style="font-size: 0.75rem; color: #666; display: block; margin-top: 0.2rem;">
+            💡 In Limbo games, role revelation strictly occurs on permanent death ("death death"), never while hovering in Limbo.
           </span>
-        </label>
+        </div>
       </div>
 
-      <div style="margin-top: 0.75rem;">
-        <label style="font-size: 0.85rem; font-weight: 500;">Sniper Bullet Types</label><br>
-        <select name="sniper_bullet_type" style="padding: 0.4rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc;">
-          <option value="danger" selected>Danger Bullets (Sniper dies if target is innocent Town)</option>
-          <option value="silver">Silver Bullets (Safe shot - sniper survives even on miss)</option>
-          <option value="mix">Mix (1 Danger + 1 Silver bullet)</option>
-        </select>
+      <div style="margin-top: 0.85rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Danger Bullets (Backfires on miss)</label>
+          <input type="number" name="sniper_danger_bullets" value="1" min="0" max="10" style="width: 100%; padding: 0.4rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc;">
+        </div>
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Silver Bullets (Safe shot)</label>
+          <input type="number" name="sniper_silver_bullets" value="0" min="0" max="10" style="width: 100%; padding: 0.4rem; font-size: 0.85rem; border-radius: 4px; border: 1px solid #ccc;">
+        </div>
       </div>
     </div>
 

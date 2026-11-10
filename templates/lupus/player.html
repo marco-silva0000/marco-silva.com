@@ -1045,6 +1045,27 @@ html, body {
           <div id="timer-val" class="timer-val">05:00</div>
         </div>
 
+        <!-- Real-Time Finger Pointing Card -->
+        <div id="player-pointing-card" style="background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 0.75rem 1rem; margin-bottom: 0.65rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <div style="font-weight: 700; font-size: 0.88rem; color: #f8fafc; display: flex; align-items: center; gap: 0.35rem;">
+              <span>👉 Point Finger at Player</span>
+            </div>
+            <span id="player-pointing-status" style="font-size: 0.75rem; color: #94a3b8;">Not pointing</span>
+          </div>
+          <div style="display: flex; gap: 0.4rem; align-items: center;">
+            <select id="player-pointing-select" style="flex: 1; min-width: 0; padding: 0.45rem 0.6rem; border-radius: 8px; background: #0f172a; border: 1px solid #475569; color: #fff; font-size: 0.85rem;">
+              <option value="">-- Choose player --</option>
+            </select>
+            <button type="button" onclick="sendPlayerPoint()" class="btn btn-sm" style="background: #38bdf8; border-color: #38bdf8; color: #0f172a; font-weight: 700; white-space: nowrap;">
+              👉 Point
+            </button>
+            <button type="button" id="btn-clear-point" onclick="clearPlayerPoint()" class="btn btn-sm" style="background: rgba(255,255,255,0.08); border-color: #475569; color: #cbd5e1; white-space: nowrap; display: none;">
+              ✕ Clear
+            </button>
+          </div>
+        </div>
+
         <!-- Night Mode (Eyes Closed Anti-Cheat Screen) -->
         <div id="night-screen-box" style="display: none; background: #0f172a; color: #fff; padding: 1.5rem 1.15rem; border-radius: 14px; margin-bottom: 0.65rem; border: 2px solid #3b82f6; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
           <div style="font-size: 2.75rem; margin-bottom: 0.4rem;">😴</div>
@@ -1308,7 +1329,7 @@ html, body {
             <div id="role-secret-notes" class="role-notes"></div>
 
             <!-- How to Play Quick Modal Trigger -->
-            <div style="margin-top: 0.65rem; display: flex; justify-content: flex-end;">
+            <div id="role-guide-btn-wrap" style="margin-top: 0.65rem; display: {% if state.phase != 'lobby' and state.me.role and state.me.role.guide %}flex{% else %}none{% endif %}; justify-content: flex-end;">
               <button type="button" onclick="event.stopPropagation(); openPlayerModal('my-role-guide-modal')" onpointerdown="event.stopPropagation()" class="btn btn-sm" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); color: #fff; font-size: 0.8rem; border-radius: 999px; padding: 0.35rem 0.85rem; cursor: pointer;">
                 📖 How to Play this Role
               </button>
@@ -1450,24 +1471,110 @@ html, body {
       Here is how the roles work in this game. Browse while waiting for the host to deal cards.
     </p>
 
-    {% for role in roles_catalogue %}
-    <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.65rem; border-left: 4px solid {% if role.faction == 'wolves' %}#ef4444{% elif role.faction == 'town' %}#22c55e{% else %}#a855f7{% endif %};">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <strong style="font-size: 0.95rem; color: #f8fafc;">{{ role.emoji }} {{ role.name }}</strong>
-        <span class="badge" style="font-size: 0.68rem; background: {% if role.faction == 'wolves' %}#450a0a; color: #fca5a5; border: 1px solid #991b1b;{% elif role.faction == 'town' %}#052e16; color: #86efac; border: 1px solid #166534;{% else %}#3b0764; color: #d8b4fe; border: 1px solid #7e22ce;{% endif %}">
-          {{ role.faction|title }}
-        </span>
+    {% if roles_by_category %}
+      <!-- 🟢 GOOD FACTION -->
+      {% if roles_by_category.good %}
+      <div style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #4ade80; margin: 1rem 0 0.4rem; padding-bottom: 0.25rem; border-bottom: 1px solid #166534;">
+        🟢 Good / Civilians Alignment ({{ roles_by_category.good|length }})
       </div>
-      <p style="font-size: 0.82rem; color: #cbd5e1; margin: 0.35rem 0 0.4rem; line-height: 1.4;">
-        {{ role.description }}
-      </p>
-      {% if role.guide.pro_tip %}
-      <div style="font-size: 0.76rem; color: #fef3c7; background: #451a03; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #92400e;">
-        💡 <strong>Tip:</strong> {{ role.guide.pro_tip }}
+      {% for role in roles_by_category.good %}
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.65rem; border-left: 4px solid #22c55e;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 0.95rem; color: #f8fafc;">{{ role.emoji }} {{ role.name }}</strong>
+          <span class="badge" style="font-size: 0.68rem; background: #052e16; color: #86efac; border: 1px solid #166534;">Good</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #cbd5e1; margin: 0.35rem 0 0.4rem; line-height: 1.4;">{{ role.description }}</p>
+        {% if role.guide.pro_tip %}
+        <div style="font-size: 0.76rem; color: #fef3c7; background: #451a03; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #92400e;">
+          💡 <strong>Tip:</strong> {{ role.guide.pro_tip }}
+        </div>
+        {% endif %}
       </div>
+      {% endfor %}
       {% endif %}
-    </div>
-    {% endfor %}
+
+      <!-- 🔴 BAD FACTION -->
+      {% if roles_by_category.bad %}
+      <div style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #f87171; margin: 1.25rem 0 0.4rem; padding-bottom: 0.25rem; border-bottom: 1px solid #991b1b;">
+        🔴 Bad / Werewolf Alignment ({{ roles_by_category.bad|length }})
+      </div>
+      {% for role in roles_by_category.bad %}
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.65rem; border-left: 4px solid #ef4444;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 0.95rem; color: #f8fafc;">{{ role.emoji }} {{ role.name }}</strong>
+          <span class="badge" style="font-size: 0.68rem; background: #450a0a; color: #fca5a5; border: 1px solid #991b1b;">Evil</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #cbd5e1; margin: 0.35rem 0 0.4rem; line-height: 1.4;">{{ role.description }}</p>
+        {% if role.guide.pro_tip %}
+        <div style="font-size: 0.76rem; color: #fef3c7; background: #451a03; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #92400e;">
+          💡 <strong>Tip:</strong> {{ role.guide.pro_tip }}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      <!-- 🟡 NEUTRAL / SOLO FACTION -->
+      {% if roles_by_category.neutral %}
+      <div style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #facc15; margin: 1.25rem 0 0.4rem; padding-bottom: 0.25rem; border-bottom: 1px solid #854d0e;">
+        🟡 Neutral &amp; Solo Alignments ({{ roles_by_category.neutral|length }})
+      </div>
+      {% for role in roles_by_category.neutral %}
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.65rem; border-left: 4px solid #eab308;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 0.95rem; color: #f8fafc;">{{ role.emoji }} {{ role.name }}</strong>
+          <span class="badge" style="font-size: 0.68rem; background: #422006; color: #fde047; border: 1px solid #854d0e;">Neutral</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #cbd5e1; margin: 0.35rem 0 0.4rem; line-height: 1.4;">{{ role.description }}</p>
+        {% if role.guide.pro_tip %}
+        <div style="font-size: 0.76rem; color: #fef3c7; background: #451a03; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #92400e;">
+          💡 <strong>Tip:</strong> {{ role.guide.pro_tip }}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      <!-- 🟣 ADD-ON / MID-GAME ROLES -->
+      {% if roles_by_category.addon %}
+      <div style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #c084fc; margin: 1.25rem 0 0.4rem; padding-bottom: 0.25rem; border-bottom: 1px solid #581c87;">
+        🟣 Add-on &amp; Mid-Game Roles ({{ roles_by_category.addon|length }})
+      </div>
+      {% for role in roles_by_category.addon %}
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.65rem; border-left: 4px solid #a855f7;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 0.95rem; color: #f8fafc;">{{ role.emoji }} {{ role.name }}</strong>
+          <span class="badge" style="font-size: 0.68rem; background: #3b0764; color: #d8b4fe; border: 1px solid #7e22ce;">Mid-Game Only</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #cbd5e1; margin: 0.35rem 0 0.4rem; line-height: 1.4;">{{ role.description }}</p>
+        {% if role.guide.pro_tip %}
+        <div style="font-size: 0.76rem; color: #fef3c7; background: #451a03; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #92400e;">
+          💡 <strong>Tip:</strong> {{ role.guide.pro_tip }}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+    {% else %}
+      {% for role in roles_catalogue %}
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.65rem; border-left: 4px solid {% if role.faction == 'wolves' %}#ef4444{% elif role.faction == 'town' %}#22c55e{% else %}#a855f7{% endif %};">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 0.95rem; color: #f8fafc;">{{ role.emoji }} {{ role.name }}</strong>
+          <span class="badge" style="font-size: 0.68rem; background: {% if role.faction == 'wolves' %}#450a0a; color: #fca5a5; border: 1px solid #991b1b;{% elif role.faction == 'town' %}#052e16; color: #86efac; border: 1px solid #166534;{% else %}#3b0764; color: #d8b4fe; border: 1px solid #7e22ce;{% endif %}">
+            {{ role.faction|title }}
+          </span>
+        </div>
+        <p style="font-size: 0.82rem; color: #cbd5e1; margin: 0.35rem 0 0.4rem; line-height: 1.4;">
+          {{ role.description }}
+        </p>
+        {% if role.guide.pro_tip %}
+        <div style="font-size: 0.76rem; color: #fef3c7; background: #451a03; padding: 0.35rem 0.5rem; border-radius: 4px; border: 1px solid #92400e;">
+          💡 <strong>Tip:</strong> {{ role.guide.pro_tip }}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    {% endif %}
 
     <div style="margin-top: 1rem;">
       <button onclick="closePlayerModal('all-roles-modal')" class="btn btn-primary" style="width: 100%;">Done</button>
@@ -2076,6 +2183,11 @@ html, body {
       }
     }
 
+    const guideWrap = document.getElementById("role-guide-btn-wrap");
+    if (guideWrap) {
+      guideWrap.style.display = (state.phase !== "lobby" && me && me.role && me.role.id && me.role.guide) ? "flex" : "none";
+    }
+
     // Timer Sync
     syncTimer(state.timer);
 
@@ -2105,6 +2217,38 @@ html, body {
 
     // Town Gazette
     renderPlayerGazette(state);
+
+    // Finger Pointing Card
+    const pointingCard = document.getElementById("player-pointing-card");
+    if (pointingCard) {
+      if (state.phase === "lobby" || !me || (me.status !== "alive" && me.status !== "limbo")) {
+        pointingCard.style.display = "none";
+      } else {
+        pointingCard.style.display = "block";
+        const pointSel = document.getElementById("player-pointing-select");
+        const pointStatus = document.getElementById("player-pointing-status");
+        const clearBtn = document.getElementById("btn-clear-point");
+        const myTargetId = state.my_point_target_id || (state.player_points && state.player_points[me.id]);
+
+        const opts = [{ value: "", text: "-- Choose player --" }];
+        state.players.forEach(p => {
+          if (p.id !== me.id && (p.status === "alive" || p.status === "limbo")) {
+            opts.push({ value: p.id, text: `#${p.seat_number} ${p.name}` });
+          }
+        });
+        syncSelectOptions(pointSel, opts, myTargetId || pointSel.value);
+
+        if (myTargetId) {
+          const tgt = state.players.find(p => p.id === myTargetId);
+          const tgtName = tgt ? tgt.name : "Unknown";
+          pointStatus.innerHTML = `👉 Pointing at <strong style="color: #38bdf8;">${escapeHtml(tgtName)}</strong>`;
+          clearBtn.style.display = "inline-block";
+        } else {
+          pointStatus.innerText = "Not pointing";
+          clearBtn.style.display = "none";
+        }
+      }
+    }
 
     // Ghost messaging widget
     const ghostCard = document.getElementById("ghost-message-card");
@@ -2492,6 +2636,22 @@ html, body {
         target_id: targetId
       }));
     }
+  }
+
+  function sendPlayerPoint() {
+    const sel = document.getElementById("player-pointing-select");
+    if (!sel || !sel.value) return;
+    socket.send(JSON.stringify({
+      action: "point_at_player",
+      target_id: sel.value
+    }));
+  }
+
+  function clearPlayerPoint() {
+    socket.send(JSON.stringify({
+      action: "point_at_player",
+      target_id: null
+    }));
   }
 
   function sendGhostMessage() {

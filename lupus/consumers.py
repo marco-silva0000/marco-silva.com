@@ -14,7 +14,9 @@ from .game_state import (
     assign_midgame_role,
     auto_assign_roles_from_names,
     cast_final_vote,
+    clear_all_player_points,
     clear_gm_night_action,
+    coroner_leak_to_gazette,
     dismiss_pending_gameover,
     get_game,
     get_gm_view,
@@ -22,6 +24,7 @@ from .game_state import (
     guess_angel_in_limbo,
     move_player,
     pause_timer,
+    point_at_player,
     proceed_to_defense,
     proceed_to_final_vote,
     record_gm_final_vote_tally,
@@ -301,6 +304,9 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                     else:
                         state["phase"] = new_phase
                         if new_phase == "night":
+                            state["is_day_zero"] = False
+                            if state.get("round_number", 0) == 0 and not state.get("is_night_zero", False):
+                                state["round_number"] = 1
                             set_night_stage_index(state, 0)
                             state["revealed_inspect"] = None
                         elif new_phase == "day_discussion":
@@ -457,6 +463,24 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 resolve_night(state)
                 await self.broadcast_sync()
 
+            elif action == "coroner_leak":
+                pid = content.get("player_id")
+                rtype = content.get("reveal_type", "alignment")
+                if pid:
+                    coroner_leak_to_gazette(state, pid, rtype)
+                    await self.broadcast_sync()
+
+            elif action == "clear_player_points":
+                clear_all_player_points(state)
+                await self.broadcast_sync()
+
+            elif action == "gm_guess_angel":
+                pid = content.get("player_id")
+                target_id = content.get("target_id")
+                if pid and target_id:
+                    guess_angel_in_limbo(state, pid, target_id)
+                    await self.broadcast_sync()
+
             elif action == "update_settings":
                 new_settings = content.get("settings", {})
                 state["settings"].update(new_settings)
@@ -478,6 +502,11 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                         ),
                     }
                 )
+
+            elif action == "point_at_player":
+                target_id = content.get("target_id")
+                point_at_player(state, self.player_id, target_id)
+                await self.broadcast_sync()
 
             elif action == "vote_nominate":
                 cid = content.get("candidate_id")

@@ -168,7 +168,8 @@ class TestLupusEngine:
         # Start game
         state = start_game(state, ["werewolf", "detective", "doctor", "villager", "villager"])
         assert state["phase"] == "night"
-        assert state["round_number"] == 1
+        assert state["round_number"] == 0
+        assert state["is_night_zero"] is True
         for p in state["players"].values():
             assert p["role"] is not None
 
@@ -381,12 +382,12 @@ class TestLupusEngine:
         # Inspect regular wolf
         ok, msg = submit_night_action(state, p_det["id"], "inspect", p_wolf["id"])
         assert ok is True
-        assert "Evil / Enemy" in msg
+        assert "Evil" in msg
 
         # Inspect alpha wolf (should appear innocent!)
         ok2, msg2 = submit_night_action(state, p_det["id"], "inspect", p_alpha["id"])
         assert ok2 is True
-        assert "Good / Innocent" in msg2
+        assert "Good" in msg2
 
     def test_staggering_doctor_protection(self):
         state = create_initial_state("TEST4", "Doc Test", settings={"staggering_doctor": True})
@@ -781,7 +782,7 @@ class TestLupusEngine:
         submit_night_action(state, p_det["id"], "inspect", p_town["id"])
 
         query = state["night_actions"]["detective_query"]
-        assert query["result"] == "Evil / Enemy"
+        assert query["result"] == "Evil"
 
     def test_serial_killer_night_action_and_win(self):
         state = create_initial_state("SKTEST", "SK Test")
@@ -894,14 +895,14 @@ class TestLupusEngine:
         assert ok is True
         assert "Evil" in msg
         query = state["night_actions"]["detective_query"]
-        assert query["result"] == "Evil / Enemy"
+        assert query["result"] == "Evil"
         assert query["is_evil"] is True
 
         # 5. Test reveal_detective_to_player: only Detective sees the revealed inspect
         reveal_detective_to_player(state)
         det_view = get_sanitized_player_view(state, p_det["id"])
         assert det_view["revealed_inspect"] is not None
-        assert det_view["revealed_inspect"]["result"] == "Evil / Enemy"
+        assert det_view["revealed_inspect"]["result"] == "Evil"
 
         town_view = get_sanitized_player_view(state, p_town["id"])
         assert town_view["revealed_inspect"] is None  # Civilians cannot see!
@@ -1889,4 +1890,249 @@ class TestLupusViews:
         res_no_slash = client.get("/lupus")
         assert res_no_slash.status_code == 302
         assert res_no_slash.url == "/games/lupus/"
+
+
+class TestLupusNewFeaturesV114:
+    """Unit tests for v114 feature set:
+
+    - Night 0 / Day 0 sequence with voting locks
+    - Death Angel role & Angel dependency demotion
+    - Wolf Hunter role (hunting wolves vs guilt backfire on innocent)
+    - Quantified role reveal levels on death-death
+    - Real-time player finger pointing and dawn clearance
+    - Coroner autopsy report Gazette leaks
+    """
+
+    def test_night0_and_day0_sequence_and_voting_lock(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            get_night_stages,
+            record_gm_night_action,
+            resolve_night,
+            start_game,
+            start_voting_session,
+        )
+
+        state = create_initial_state("N0TEST", "Night 0 Flow")
+        for name in ["Alice", "Bob", "Charlie", "David", "Eve"]:
+            state, _ = add_player(state, name)
+
+        deck = ["werewolf", "hacker", "detective", "villager", "villager"]
+        state = start_game(state, deck)
+
+        # 1. Starts at Night 0
+        assert state["phase"] == "night"
+        assert state["round_number"] == 0
+        assert state["is_night_zero"] is True
+
+        # Night 0 stages have weapons holstered
+        n0_stages = get_night_stages(state)
+        n0_stage_ids = [s["id"] for s in n0_stages]
+        assert "wolves" not in n0_stage_ids  # lethal wolves hunt is NOT in Night 0
+        assert "wolves_meet" in n0_stage_ids  # wolves only awaken to see each other
+        assert "hacker" in n0_stage_ids
+
+        # Hacker scans 2 players during Night 0
+        c_id = next(p["id"] for p in state["players"].values() if p["name"] == "Charlie")
+        d_id = next(p["id"] for p in state["players"].values() if p["name"] == "David")
+        record_gm_night_action(state, "hacker", c_id)
+        record_gm_night_action(state, "hacker", d_id)
+
+        # 2. Resolve Night 0 -> transitions to Day 0
+        state = resolve_night(state)
+        assert state["phase"] == "day_discussion"
+        assert state["round_number"] == 0
+        assert state["is_night_zero"] is False
+        assert state["is_day_zero"] is True
+        assert any("Day 0" in r for r in state["night_report"])
+
+        # Voting is strictly locked on Day 0
+        start_voting_session(state)
+        assert state["voting"]["stage"] == "none"
+
+    def test_death_angel_and_angel_dependency(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            deal_roles,
+            record_gm_night_action,
+            resolve_night,
+            set_player_status,
+        )
+
+        # 1. Death Angel without Angel dealt -> demotes to Citizen (villager)
+        state = create_initial_state("DATEST1", "Death Angel Test")
+        for name in ["P1", "P2", "P3", "P4"]:
+            state, _ = add_player(state, name)
+
+        deck_no_angel = ["death_angel", "werewolf", "villager", "villager"]
+        deal_roles(state, deck_no_angel)
+        # Demoted because room has no angel!
+        assert not any(p["role"] == "death_angel" for p in state["players"].values())
+        villagers = [p for p in state["players"].values() if p["role"] == "villager"]
+        assert len(villagers) == 3
+
+        # 2. Death Angel with Angel dealt -> kept as death_angel!
+        state2 = create_initial_state("DATEST2", "Death Angel with Angel")
+        for name in ["P1", "P2", "P3", "P4"]:
+            state2, _ = add_player(state2, name)
+
+        deck_with_angel = ["death_angel", "angel", "werewolf", "villager"]
+        deal_roles(state2, deck_with_angel)
+        p_da = next(p for p in state2["players"].values() if p["role"] == "death_angel")
+        p_target = next(p for p in state2["players"].values() if p["role"] == "villager")
+        assert p_da is not None
+        assert p_da["death_angel_strikes"] == 1
+
+        # Put target in Limbo
+        set_player_status(state2, p_target["id"], "limbo")
+        assert p_target["status"] == "limbo"
+
+        # Death Angel strikes target in Limbo
+        ok, msg = record_gm_night_action(state2, "death_angel", p_target["id"])
+        assert ok is True
+        state2 = resolve_night(state2)
+
+        # Target in Limbo is struck to eternal death!
+        assert state2["players"][p_target["id"]]["status"] == "dead"
+        assert state2["death_angel_used"] is True
+        assert any("Death Angel struck" in r for r in state2["night_report"])
+
+    def test_wolf_hunter_mechanics(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            record_gm_night_action,
+            resolve_night,
+            set_manual_player_role,
+        )
+
+        # 1. Wolf Hunter shoots a Werewolf -> Werewolf dies
+        state = create_initial_state("WHTEST1", "Wolf Hunter Win")
+        state, p_hunter = add_player(state, "Hunter")
+        state, p_wolf = add_player(state, "Wolfie")
+        state, p_innocent = add_player(state, "Innocent")
+
+        set_manual_player_role(state, p_hunter["id"], "wolf_hunter")
+        set_manual_player_role(state, p_wolf["id"], "werewolf")
+        set_manual_player_role(state, p_innocent["id"], "villager")
+
+        record_gm_night_action(state, "wolf_hunter", p_wolf["id"])
+        state = resolve_night(state)
+        assert state["players"][p_wolf["id"]]["status"] == "dead"
+        assert state["players"][p_hunter["id"]]["status"] == "alive"
+
+        # 2. Wolf Hunter shoots non-wolf -> Hunter dies of guilt, innocent unharmed!
+        state2 = create_initial_state("WHTEST2", "Wolf Hunter Backfire")
+        state2, p_hunter2 = add_player(state2, "Hunter2")
+        state2, p_wolf2 = add_player(state2, "Wolfie2")
+        state2, p_innocent2 = add_player(state2, "Innocent2")
+
+        set_manual_player_role(state2, p_hunter2["id"], "wolf_hunter")
+        set_manual_player_role(state2, p_wolf2["id"], "werewolf")
+        set_manual_player_role(state2, p_innocent2["id"], "villager")
+
+        record_gm_night_action(state2, "wolf_hunter", p_innocent2["id"])
+        state2 = resolve_night(state2)
+        assert state2["players"][p_innocent2["id"]]["status"] == "alive"
+        assert state2["players"][p_hunter2["id"]]["status"] == "dead"
+
+    def test_quantified_death_reveals(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            set_manual_player_role,
+            set_player_status,
+        )
+
+        # Level 1: Alignment (GOOD / EVIL)
+        s1 = create_initial_state("REV1", "Rev 1", settings={"reveal_roles_on_death": 1})
+        s1, p_good = add_player(s1, "GoodDoc")
+        s1, p_evil = add_player(s1, "BadWolf")
+        set_manual_player_role(s1, p_good["id"], "doctor")
+        set_manual_player_role(s1, p_evil["id"], "werewolf")
+
+        # In Limbo: reveal suppressed!
+        set_player_status(s1, p_good["id"], "limbo")
+        assert s1["players"][p_good["id"]]["death_reveal"] is None
+
+        # Death Death: reveal computed!
+        set_player_status(s1, p_good["id"], "dead")
+        assert s1["players"][p_good["id"]]["death_reveal"] == "Alignment: GOOD"
+
+        set_player_status(s1, p_evil["id"], "dead")
+        assert s1["players"][p_evil["id"]]["death_reveal"] == "Alignment: EVIL"
+
+        # Level 3: Full Role
+        s3 = create_initial_state("REV3", "Rev 3", settings={"reveal_roles_on_death": 3})
+        s3, p_doc = add_player(s3, "Medic")
+        set_manual_player_role(s3, p_doc["id"], "doctor")
+        set_player_status(s3, p_doc["id"], "dead")
+        assert "Doctor" in s3["players"][p_doc["id"]]["death_reveal"]
+
+    def test_player_pointing_and_clearing(self):
+        from lupus.game_state import (
+            add_player,
+            clear_all_player_points,
+            create_initial_state,
+            get_sanitized_player_view,
+            point_at_player,
+            resolve_night,
+        )
+
+        state = create_initial_state("POINTTEST", "Pointing Test")
+        state, p_alice = add_player(state, "Alice")
+        state, p_bob = add_player(state, "Bob")
+
+        # Alice points at Bob
+        point_at_player(state, p_alice["id"], p_bob["id"])
+        assert state["player_points"][p_alice["id"]] == p_bob["id"]
+
+        pv = get_sanitized_player_view(state, p_alice["id"])
+        assert pv["my_point_target_id"] == p_bob["id"]
+
+        # Alice unpoints
+        point_at_player(state, p_alice["id"], None)
+        assert p_alice["id"] not in state["player_points"]
+
+        # Clear all
+        point_at_player(state, p_alice["id"], p_bob["id"])
+        clear_all_player_points(state)
+        assert len(state["player_points"]) == 0
+
+        # Auto-clear on dawn
+        point_at_player(state, p_alice["id"], p_bob["id"])
+        resolve_night(state)
+        assert len(state["player_points"]) == 0
+
+    def test_coroner_leak_to_gazette(self):
+        from lupus.game_state import (
+            add_player,
+            coroner_leak_to_gazette,
+            create_initial_state,
+            set_manual_player_role,
+            set_player_status,
+        )
+
+        state = create_initial_state("CORONERTEST", "Coroner Test")
+        state, p_dead = add_player(state, "Deceased")
+        set_manual_player_role(state, p_dead["id"], "werewolf")
+        set_player_status(state, p_dead["id"], "dead")
+
+        # Leak alignment
+        ok, msg = coroner_leak_to_gazette(state, p_dead["id"], "alignment")
+        assert ok is True
+        assert len(state["approved_news_bulletins"]) == 1
+        bulletin = state["approved_news_bulletins"][0]
+        assert "Coroner's Report" in bulletin["message"]
+        assert "confirms alignment: EVIL" in bulletin["message"]
+
+        # Leak role
+        ok2, msg2 = coroner_leak_to_gazette(state, p_dead["id"], "role")
+        assert ok2 is True
+        assert len(state["approved_news_bulletins"]) == 2
+        bulletin2 = state["approved_news_bulletins"][1]
+        assert "Werewolf" in bulletin2["message"]
+
 
