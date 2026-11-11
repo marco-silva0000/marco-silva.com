@@ -133,17 +133,24 @@ def convert_to_robot(data: dict[str, Any], output_path: Optional[str] = None) ->
             lines.append(f'    And Player Nominates    {voter_name}    {cand_name}')
 
         elif action == "proceed_to_final_vote":
+            nominees = payload.get("nominees", [])
+            if nominees:
+                nominee_names = [id_to_name.get(n, n) for n in nominees]
+                lines.append(f"    And Set Official Nominees    {'    '.join(nominee_names)}")
             lines.append("    And Proceed To Final Vote")
 
         elif action == "final_vote":
             voter_id = payload.get("voter_id")
             cand_id = payload.get("candidate_id")
             voter_name = id_to_name.get(voter_id, voter_id)
-            cand_name = id_to_name.get(cand_id, cand_id)
+            cand_name = id_to_name.get(cand_id, cand_id) if cand_id else "${NONE}"
             lines.append(f'    And Player Votes For    {voter_name}    {cand_name}')
 
         elif action == "resolve_vote":
             lines.append("    And Final Vote Is Tallied")
+
+        elif action == "advance_to_night":
+            lines.append("    And Night Falls")
 
         elif action == "guess_angel":
             player_id = payload.get("player_id")
@@ -227,17 +234,23 @@ def verify_replay(data: dict[str, Any]) -> bool:
             sim.nominate(voter_name, cand_name)
 
         elif action == "proceed_to_final_vote":
+            nominees = payload.get("nominees", [])
+            if nominees:
+                sim.set_official_nominees([id_to_name.get(n, n) for n in nominees])
             sim.proceed_to_final_vote()
 
         elif action == "final_vote":
             voter_id = payload.get("voter_id")
             cand_id = payload.get("candidate_id")
             voter_name = id_to_name.get(voter_id, voter_id)
-            cand_name = id_to_name.get(cand_id, cand_id)
+            cand_name = id_to_name.get(cand_id, cand_id) if cand_id else None
             sim.cast_final_vote(voter_name, cand_name)
 
         elif action == "resolve_vote":
             sim.tally_vote()
+
+        elif action == "advance_to_night":
+            sim.advance_to_night()
 
         elif action == "guess_angel":
             player_id = payload.get("player_id")
