@@ -1032,6 +1032,44 @@ html, body {
           <div id="angel-guess-result" style="font-size: 0.9rem; margin-top: 0.65rem; font-weight: 700;"></div>
         </div>
 
+        <!-- Martyrdom Detonation Trigger Card (when eliminated) -->
+        <div id="martyrdom-detonation-box" style="display: none; background: #450a0a; border: 2px solid #ef4444; border-radius: 12px; padding: 1rem; margin-bottom: 0.65rem; text-align: center;">
+          <div style="font-size: 2.2rem; line-height: 1;">💣💥</div>
+          <h3 style="margin: 0.35rem 0 0.4rem; font-size: 1.15rem; color: #fca5a5; font-weight: 800;">MARTYRDOM: LIVE GRENADE ACTIVATED!</h3>
+          <p style="font-size: 0.85rem; color: #fecaca; margin-bottom: 0.75rem; line-height: 1.4;">
+            You were eliminated! Drop your live grenade to take down one player with you into the grave:
+          </p>
+          <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <select id="martyrdom-detonate-select" style="padding: 0.5rem; font-size: 0.9rem; border-radius: 8px; border: 1px solid #7f1d1d; background: #1c1917; color: #fff; min-width: 180px;">
+              <!-- Filled dynamically -->
+            </select>
+            <button onclick="submitMartyrdomDetonate()" class="btn btn-primary" style="background: #dc2626; border-color: #dc2626; min-height: 40px; font-weight: 800;">
+              💥 Detonate Grenade
+            </button>
+          </div>
+        </div>
+
+        <!-- Martyrdom Target Priming Box (when alive) -->
+        <div id="martyrdom-arm-box" style="display: none; background: #1c1917; border: 1px solid #78350f; border-radius: 10px; padding: 0.65rem 0.85rem; margin-bottom: 0.65rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <div style="font-weight: 700; font-size: 0.85rem; color: #fbbf24; display: flex; align-items: center; gap: 0.3rem;">
+              <span>💣 Prime Live Grenade Revenge</span>
+            </div>
+            <span id="martyrdom-armed-status" style="font-size: 0.75rem; color: #94a3b8;">Unarmed</span>
+          </div>
+          <div style="display: flex; gap: 0.4rem; align-items: center;">
+            <select id="martyrdom-arm-select" style="flex: 1; min-width: 0; padding: 0.4rem 0.55rem; border-radius: 6px; background: #0c0a09; border: 1px solid #78350f; color: #fff; font-size: 0.82rem;">
+              <option value="">-- Choose revenge victim --</option>
+            </select>
+            <button type="button" onclick="submitMartyrdomArm()" class="btn btn-sm" style="background: #b45309; border-color: #b45309; color: #fff; font-weight: 700; white-space: nowrap;">
+              Arm
+            </button>
+            <button type="button" id="btn-clear-martyrdom-target" onclick="clearMartyrdomTarget()" class="btn btn-sm" style="display: none; background: #292524; border-color: #44403c; color: #f87171; font-weight: 700; white-space: nowrap;">
+              Clear
+            </button>
+          </div>
+        </div>
+
         <!-- Timer Banner -->
         <div class="timer-banner">
           <div>
@@ -2169,6 +2207,16 @@ html, body {
         const loverEmoji = me.lover_type === 'obsessive' ? '❤️‍🔥' : '💞';
         secretNotes.push(`${loverEmoji} <strong>Bound Lover:</strong> ${escapeHtml(me.lover_name)} <span style="font-size:0.75rem; color:#94a3b8;">(${me.lover_type === 'obsessive' ? 'Obsessive Partner &bull; Win only if everyone else dies!' : 'Citizen Partner &bull; Form a 2-vote block!'})</span>`);
       }
+      if (me.gull_converted || (me.role.id === "gull" && me.role.faction === "wolves")) {
+        secretNotes.push(`<div style="background: rgba(220, 38, 38, 0.25); border: 1px solid #ef4444; border-radius: 6px; padding: 0.5rem; margin-top: 0.35rem; color: #fca5a5; font-size: 0.85rem; line-height: 1.4;">🐺 <strong>YOU WERE BITTEN!</strong> You were attacked by Werewolves and infected. You are now secretly a <strong>Werewolf</strong>! Play to help the wolves win!</div>`);
+      }
+      if (state.wolf_cub_rampage && (me.role.faction === "wolves" || me.gull_converted)) {
+        secretNotes.push(`<div style="background: rgba(147, 51, 234, 0.25); border: 1px solid #a855f7; border-radius: 6px; padding: 0.5rem; margin-top: 0.35rem; color: #d8b4fe; font-size: 0.85rem; line-height: 1.4;">🐾 <strong>WOLF RAMPAGE ACTIVE!</strong> The Wolf Cub was killed! Your pack strikes with <strong>TWO KILLS</strong> tonight!</div>`);
+      }
+      if (me.role.id === "martyrdom") {
+        const primedName = me.martyrdom_target_name ? escapeHtml(me.martyrdom_target_name) : "None (Unarmed)";
+        secretNotes.push(`💣 <strong>Martyrdom Revenge:</strong> Live grenade is primed on: <strong style="color: #f87171;">${primedName}</strong>. If you are eliminated, your grenade will blow them up with you!`);
+      }
       const notesEl = document.getElementById("role-secret-notes");
       if (secretNotes.length > 0) {
         notesEl.style.display = "block";
@@ -2231,6 +2279,53 @@ html, body {
     const succCard = document.getElementById("successor-waiting-card");
     if (succCard) {
       succCard.style.display = (me.is_successor && me.status === "waiting") ? "block" : "none";
+    }
+
+    // Martyrdom Detonation Box (when eliminated)
+    const mDetonateBox = document.getElementById("martyrdom-detonation-box");
+    if (mDetonateBox) {
+      if (me.pending_martyrdom) {
+        mDetonateBox.style.display = "block";
+        const mDetSel = document.getElementById("martyrdom-detonate-select");
+        if (mDetSel) {
+          const livingOpts = [{ value: "", text: "-- Choose revenge victim --" }];
+          state.players.forEach(p => {
+            if (p.id !== me.id && p.status === "alive") {
+              livingOpts.push({ value: p.id, text: `#${p.seat_number} ${p.name}` });
+            }
+          });
+          syncSelectOptions(mDetSel, livingOpts, mDetSel.value);
+        }
+      } else {
+        mDetonateBox.style.display = "none";
+      }
+    }
+
+    // Martyrdom Arm Box (when alive)
+    const mArmBox = document.getElementById("martyrdom-arm-box");
+    if (mArmBox) {
+      if (state.phase !== "lobby" && me.role && me.role.id === "martyrdom" && me.status === "alive") {
+        mArmBox.style.display = "block";
+        const mArmSel = document.getElementById("martyrdom-arm-select");
+        const mArmStatus = document.getElementById("martyrdom-armed-status");
+        const mClearBtn = document.getElementById("btn-clear-martyrdom-target");
+        const livingOpts = [{ value: "", text: "-- Choose revenge victim --" }];
+        state.players.forEach(p => {
+          if (p.id !== me.id && p.status === "alive") {
+            livingOpts.push({ value: p.id, text: `#${p.seat_number} ${p.name}` });
+          }
+        });
+        syncSelectOptions(mArmSel, livingOpts, me.martyrdom_target_id || "");
+        if (me.martyrdom_target_id) {
+          mArmStatus.innerHTML = `💣 Armed: <strong style="color: #f87171;">${escapeHtml(me.martyrdom_target_name || 'Selected')}</strong>`;
+          if (mClearBtn) mClearBtn.style.display = "inline-block";
+        } else {
+          mArmStatus.innerText = "Unarmed";
+          if (mClearBtn) mClearBtn.style.display = "none";
+        }
+      } else {
+        mArmBox.style.display = "none";
+      }
     }
 
     // Town Gazette
@@ -2654,6 +2749,35 @@ html, body {
         target_id: targetId
       }));
     }
+  }
+
+  function submitMartyrdomArm() {
+    const sel = document.getElementById("martyrdom-arm-select");
+    const targetId = sel ? sel.value : null;
+    socket.send(JSON.stringify({
+      action: "set_martyrdom_target",
+      target_id: targetId
+    }));
+  }
+
+  function clearMartyrdomTarget() {
+    socket.send(JSON.stringify({
+      action: "set_martyrdom_target",
+      target_id: null
+    }));
+  }
+
+  function submitMartyrdomDetonate() {
+    const sel = document.getElementById("martyrdom-detonate-select");
+    const targetId = sel ? sel.value : null;
+    if (!targetId) {
+      alert("Please select a living player for your live grenade.");
+      return;
+    }
+    socket.send(JSON.stringify({
+      action: "detonate_martyrdom",
+      target_id: targetId
+    }));
   }
 
   function sendPlayerPoint() {

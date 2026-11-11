@@ -49,6 +49,8 @@ from .game_state import (
     set_player_status,
     set_preassigned_role,
     set_round_number,
+    set_martyrdom_target,
+    trigger_martyrdom_detonation,
     setup_demo_room,
     start_game,
     start_timer,
@@ -500,6 +502,13 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                     guess_angel_in_limbo(state, pid, target_id)
                     await self.broadcast_sync()
 
+            elif action == "trigger_martyrdom_detonation":
+                martyr_id = content.get("martyr_id")
+                target_id = content.get("target_id")
+                if martyr_id and target_id:
+                    trigger_martyrdom_detonation(state, martyr_id, target_id)
+                    await self.broadcast_sync()
+
             elif action == "update_settings":
                 new_settings = content.get("settings", {})
                 if "mayor_type" in new_settings:
@@ -582,4 +591,17 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 success, msg = submit_news_bulletin(state, self.player_id, msg_text, is_anon)
                 await self.send_json({"type": "bulletin_result", "success": success, "message": msg})
                 if success:
+                    await self.broadcast_sync()
+
+            elif action == "set_martyrdom_target":
+                target_id = content.get("target_id")
+                success, msg = set_martyrdom_target(state, self.player_id, target_id)
+                await self.send_json({"type": "martyrdom_result", "success": success, "message": msg})
+                await self.broadcast_sync()
+
+            elif action == "detonate_martyrdom":
+                target_id = content.get("target_id")
+                if target_id:
+                    success, msg = trigger_martyrdom_detonation(state, self.player_id, target_id)
+                    await self.send_json({"type": "martyrdom_result", "success": success, "message": msg})
                     await self.broadcast_sync()

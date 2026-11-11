@@ -1240,6 +1240,39 @@ html, body {
           </select>
         </div>
 
+        <!-- Wolves Rampage Widget (Double Kill from Wolf Cub death) -->
+        <div id="wolves-rampage-widget" style="display: none; background: #1e1b4b; border: 1px solid #7c3aed; border-radius: 8px; padding: 0.75rem; width: 100%;">
+          <div style="font-size: 0.82rem; font-weight: 700; color: #c4b5fd; margin-bottom: 0.35rem;">
+            🐾 Wolf Cub Slain! Double Kill Rampage Active:
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.5rem;">
+            <div>
+              <label style="font-size: 0.75rem; color: #a5b4fc; display: block; margin-bottom: 0.2rem;">Victim 1:</label>
+              <select id="wolves-victim-1-select" onchange="onWolvesRampageTargetChange()" style="width: 100%; padding: 0.35rem; background: #0f172a; color: #fff; border: 1px solid #4338ca; border-radius: 6px; font-size: 0.8rem;"></select>
+            </div>
+            <div>
+              <label style="font-size: 0.75rem; color: #a5b4fc; display: block; margin-bottom: 0.2rem;">Victim 2:</label>
+              <select id="wolves-victim-2-select" onchange="onWolvesRampageTargetChange()" style="width: 100%; padding: 0.35rem; background: #0f172a; color: #fff; border: 1px solid #4338ca; border-radius: 6px; font-size: 0.8rem;"></select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Martyrdom Detonation Trigger Widget -->
+        <div id="martyrdom-detonation-widget" style="display: none; background: #450a0a; border: 1px solid #dc2626; border-radius: 8px; padding: 0.75rem; width: 100%;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #fca5a5; margin-bottom: 0.35rem;">
+            💣 Martyrdom Live Grenade Detonation!
+          </div>
+          <div id="martyrdom-detonation-desc" style="font-size: 0.8rem; color: #fecaca; margin-bottom: 0.45rem;">
+            A Martyr has fallen! Choose a victim to eliminate with the live grenade:
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+            <select id="martyrdom-detonation-select" style="flex: 1; min-width: 160px; padding: 0.4rem; background: #1c1917; color: #fff; border: 1px solid #7f1d1d; border-radius: 6px; font-size: 0.85rem;"></select>
+            <button type="button" onclick="submitGmMartyrdomDetonation()" class="btn btn-sm" style="background: #dc2626; color: #fff; border-color: #dc2626; font-weight: 700;">
+              💥 Detonate Grenade
+            </button>
+          </div>
+        </div>
+
         <!-- Detective Inspection Widget (Special) -->
         <div id="detective-widget" style="display: none; background: #0f172a; border: 1px solid #475569; border-radius: 8px; padding: 0.75rem;">
           <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.35rem; font-weight: 700; text-transform: uppercase;">
@@ -3376,15 +3409,41 @@ html, body {
     const limboWidget = document.getElementById("limbo-angel-widget");
     const reviewWidget = document.getElementById("review-widget");
     const deadRoleBanner = document.getElementById("stage-dead-role-banner");
+    const wolvesRampageWidget = document.getElementById("wolves-rampage-widget");
+    const martyrdomWidget = document.getElementById("martyrdom-detonation-widget");
 
     detWidget.style.display = "none";
     witchWidget.style.display = "none";
     sniperWidget.style.display = "none";
     if (mayorWidget) mayorWidget.style.display = "none";
     if (limboWidget) limboWidget.style.display = "none";
+    if (wolvesRampageWidget) wolvesRampageWidget.style.display = "none";
     reviewWidget.style.display = "none";
     if (deadRoleBanner) deadRoleBanner.style.display = "none";
     pickerWrap.style.display = "flex";
+
+    if (martyrdomWidget) {
+      if (state.pending_martyrdom_player_id) {
+        martyrdomWidget.style.display = "block";
+        const martyr = state.players.find(p => p.id === state.pending_martyrdom_player_id);
+        const mDesc = document.getElementById("martyrdom-detonation-desc");
+        if (mDesc) {
+          mDesc.innerText = `💣 ${martyr ? martyr.name : 'Martyr'} fell and dropped a live grenade! Choose who blows up with them:`;
+        }
+        const mSel = document.getElementById("martyrdom-detonation-select");
+        if (mSel) {
+          const livingOpts = [{ value: "", text: "-- Choose victim to blow up --" }];
+          state.players.forEach(p => {
+            if (p.status === "alive") {
+              livingOpts.push({ value: p.id, text: `#${p.seat_number} ${p.name}` });
+            }
+          });
+          syncSelectOptions(mSel, livingOpts, mSel.value);
+        }
+      } else {
+        martyrdomWidget.style.display = "none";
+      }
+    }
 
     if (stage.id !== "review" && stage.is_alive === false) {
       if (deadRoleBanner) deadRoleBanner.style.display = "block";
@@ -3400,7 +3459,12 @@ html, body {
       const actions = state.night_actions || {};
       let summaryHtml = "<ul style='margin:0; padding-left:1.2rem;'>";
       const wTarget = state.players.find(p => p.id === actions.wolf_target);
-      summaryHtml += `<li>🐺 <strong>Wolves Victim:</strong> ${wTarget ? escapeHtml(wTarget.name) : '<em style="color:#f87171;">None</em>'}</li>`;
+      if (actions.wolf_target_2) {
+        const wTarget2 = state.players.find(p => p.id === actions.wolf_target_2);
+        summaryHtml += `<li>🐺🐾 <strong>Wolves Rampage (2 Kills):</strong> ${wTarget ? escapeHtml(wTarget.name) : 'None'} &amp; ${wTarget2 ? escapeHtml(wTarget2.name) : 'None'}</li>`;
+      } else {
+        summaryHtml += `<li>🐺 <strong>Wolves Victim:</strong> ${wTarget ? escapeHtml(wTarget.name) : '<em style="color:#f87171;">None</em>'}</li>`;
+      }
 
       if (actions.disgruntled_ghost_target) {
         const dgTarget = state.players.find(p => p.id === actions.disgruntled_ghost_target);
@@ -3485,7 +3549,28 @@ html, body {
       });
       syncSelectOptions(selectEl, livingOpts, stage.target_id || "");
 
-      if (stage.id === "cupid") {
+      if (stage.id === "wolves" && stage.wolf_cub_rampage) {
+        pickerWrap.style.display = "none";
+        clearBtn.style.display = (stage.target_id || stage.target_id_2) ? "inline-block" : "none";
+        if (wolvesRampageWidget) {
+          wolvesRampageWidget.style.display = "block";
+          const v1Sel = document.getElementById("wolves-victim-1-select");
+          const v2Sel = document.getElementById("wolves-victim-2-select");
+          const livingOpts1 = [{ value: "", text: "-- Choose Victim 1 --" }];
+          const livingOpts2 = [{ value: "", text: "-- Choose Victim 2 --" }];
+          state.players.forEach(p => {
+            if (p.status === "alive") {
+              livingOpts1.push({ value: p.id, text: `#${p.seat_number} ${p.name}` });
+              livingOpts2.push({ value: p.id, text: `#${p.seat_number} ${p.name}` });
+            }
+          });
+          syncSelectOptions(v1Sel, livingOpts1, stage.target_id || "");
+          syncSelectOptions(v2Sel, livingOpts2, stage.target_id_2 || "");
+        }
+        const n1 = stage.target_name || "None";
+        const n2 = stage.target_name_2 || "None";
+        targetDisplay.innerText = `🐾 Rampage: Victim 1: ${n1} | Victim 2: ${n2}`;
+      } else if (stage.id === "cupid") {
         const names = stage.target_names || [];
         targetDisplay.innerText = names.length > 0 ? names.join(" & ") : "Select 2 Lovers";
         clearBtn.style.display = names.length > 0 ? "inline-block" : "none";
@@ -3729,6 +3814,26 @@ html, body {
 
   function onSelectTargetChange(val) {
     if (val) recordStageTarget(val);
+  }
+
+  function onWolvesRampageTargetChange() {
+    const v1 = document.getElementById("wolves-victim-1-select").value;
+    const v2 = document.getElementById("wolves-victim-2-select").value;
+    sendAction("record_night_action", { stage_id: "wolves", target_id: v1, extra: { target_id_2: v2 } });
+  }
+
+  function submitGmMartyrdomDetonation() {
+    if (!currentGameState || !currentGameState.pending_martyrdom_player_id) return;
+    const sel = document.getElementById("martyrdom-detonation-select");
+    const victimId = sel ? sel.value : null;
+    if (!victimId) {
+      alert("Please select a living player for the Martyrdom live grenade.");
+      return;
+    }
+    sendAction("trigger_martyrdom_detonation", {
+      martyr_id: currentGameState.pending_martyrdom_player_id,
+      target_id: victimId,
+    });
   }
 
   // --- Day Voting & Trial Director Wizard ---

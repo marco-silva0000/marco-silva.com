@@ -93,6 +93,23 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
             "pro_tip": "A framed villager who gets investigated leads to an instant town mislynch!",
         },
     },
+    "wolf_cub": {
+        "id": "wolf_cub",
+        "faction": FACTION_WOLVES,
+        "emoji": "🐾",
+        "names": {"werewolf": "Wolf Cub", "mafia": "Mob Junior"},
+        "descriptions": {
+            "werewolf": "Beloved pup of the wolf pack. If the Wolf Cub is killed (by day execution, vigilante, witch, or killer), the enraged Werewolves attack TWICE the following night!",
+            "mafia": "Young protege of the family. If the Mob Junior is killed (by day execution, vigilante, witch, or killer), the enraged Mafia strikes TWICE the following night!",
+        },
+        "night_action": "kill",
+        "guide": {
+            "objective": "Evil: Hunt with your pack. If the town executes or shoots you, your pack will avenge you with a double kill the following night!",
+            "day_tips": "Act like an active townsperson. If you get lynched, your death unleashes double werewolf carnage!",
+            "night_tips": "Wake and hunt with the wolves. You are a full member of the wolf pack.",
+            "pro_tip": "Town players often hesitate to lynch a suspected Wolf Cub because the next night's 2 kills could wipe out their power roles.",
+        },
+    },
     "detective": {
         "id": "detective",
         "faction": FACTION_TOWN,
@@ -176,6 +193,40 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
             "day_tips": "Drop subtle hints to townspeople you trust so they know who to guess if sent to Limbo.",
             "night_tips": "Sleep safely. Souls in Limbo cannot speak and have only 1 total guess to return. If you die, Limbo ends secretly without tipping off the wolves!",
             "pro_tip": "If wolves figure out you are the Angel, they will eliminate you immediately to stop revivals.",
+        },
+    },
+    "martyrdom": {
+        "id": "martyrdom",
+        "faction": FACTION_TOWN,
+        "emoji": "💣",
+        "names": {"werewolf": "Martyrdom (Live Grenade)", "mafia": "Martyrdom (Dead Man's Trigger)"},
+        "descriptions": {
+            "werewolf": "Call of Duty inspired perk! When eliminated (at night or executed by the village), you drop a live grenade and take down one chosen target with you!",
+            "mafia": "Call of Duty inspired perk! When eliminated (at night or executed by the family), you drop a live grenade and take down one chosen target with you!",
+        },
+        "night_action": None,
+        "guide": {
+            "objective": "Town: Deter enemies from attacking or lynching you, and take down a confirmed evil player when you die!",
+            "day_tips": "Bluff and warn the town: 'If you lynch me, my martyrdom grenade will blow up one of you!'",
+            "night_tips": "Keep your martyrdom live grenade target primed in your app so if wolves strike you, your grenade takes them down with you.",
+            "pro_tip": "If you are confident in who the Alpha Wolf or Serial Killer is, prime them as your revenge victim before going to sleep or before a close vote!",
+        },
+    },
+    "gull": {
+        "id": "gull",
+        "faction": FACTION_TOWN,
+        "emoji": "🕊️",
+        "names": {"werewolf": "The Gull (Cursed)", "mafia": "The Gull (Turncoat)"},
+        "descriptions": {
+            "werewolf": "Naive villager. Believes they are innocent town, but if attacked by Werewolves at night, they do not die — they secretly turn into a Werewolf!",
+            "mafia": "Gullible civilian. Believes they are innocent town, but if hit by the Mafia at night, they do not die — they secretly turn into a Mafioso!",
+        },
+        "night_action": None,
+        "guide": {
+            "objective": "Town initially, but if bitten by wolves, you secretly become a Werewolf and must help the wolves win!",
+            "day_tips": "Play as an honest villager. If you are attacked at night, your phone will secretly notify you that you are now a Wolf!",
+            "night_tips": "Sleep safely. If the wolves attack you, you survive and join their pack.",
+            "pro_tip": "If the Doctor protects you on the night wolves attack, you are shielded and stay human. If unprotected, you become a Wolf!",
         },
     },
     "mayor": {

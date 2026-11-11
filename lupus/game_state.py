@@ -263,6 +263,8 @@ def create_initial_state(
         "night_report": [],
         "action_history": [],
         "winner": None,
+        "wolf_cub_rampage": False,
+        "pending_martyrdom_shooter_id": None,
         "pending_gameover": None,
         "pending_gameover_dismissed": False,
     }
@@ -310,6 +312,8 @@ def add_player(state: dict[str, Any], name: str, is_offline: bool = False) -> tu
         "sniper_danger_bullets": 1,
         "sniper_silver_bullets": 1 if state.get("settings", {}).get("sniper_bullet_type") == "mix" else 0,
         "sniper_nights_held": 0,
+        "martyrdom_target_id": None,
+        "gull_converted": False,
     }
     state["players"][player_id] = player
     if "player_order" not in state or not isinstance(state["player_order"], list):
@@ -368,6 +372,9 @@ DEMO_PLAYERS: list[tuple[str, str]] = [
     ("Assassino em Série", "serial_killer"),
     ("Caçador de Lobos", "wolf_hunter"),
     ("Hacker", "hacker"),
+    ("Filhote de Lobo", "wolf_cub"),
+    ("Mártir", "martyrdom"),
+    ("O Pato", "gull"),
     ("Aldeão", "villager"),
 ]
 
@@ -375,6 +382,7 @@ DEMO_PLAYER_NAMES: list[str] = [name for name, _ in DEMO_PLAYERS]
 
 ROLE_NAME_KEYWORDS: list[tuple[str, list[str]]] = [
     # Multi-word or specific evil roles first
+    ("wolf_cub", ["wolf cub", "wolf_cub", "cub", "filhote de lobo", "filhote", "lobito", "mob junior"]),
     ("alpha_wolf", ["alpha wolf", "alpha_wolf", "lobo alpha", "lobo alfa", "alpha"]),
     ("saboteur_wolf", ["saboteur wolf", "saboteur", "sabotador", "lobo sabotador", "sabotage"]),
     ("framer", ["framer", "incriminador", "falsificador"]),
@@ -384,6 +392,8 @@ ROLE_NAME_KEYWORDS: list[tuple[str, list[str]]] = [
     ("silencer", ["silencer", "silenciador", "muto"]),
     ("werewolf", ["werewolf", "werewolves", "wolf", "lobo", "lobisomem", "lupus"]),
     # Specialized good roles
+    ("martyrdom", ["martyrdom", "martir", "martirio", "granada", "grenade", "martyr"]),
+    ("gull", ["gull", "the gull", "pato", "o pato", "ingenuo", "amaldicoado", "cursed", "gaivota"]),
     ("detective", ["detective", "seer", "sherlock", "investigador", "vidente", "cop"]),
     ("watson", ["watson", "helper", "sidekick", "adjunto"]),
     ("doctor", ["doctor", "doc", "medic", "medico", "doutor", "nurse", "healer"]),
@@ -1414,6 +1424,8 @@ def set_player_status(
         return state
 
     player = state["players"][player_id]
+    if player.get("status") == new_status:
+        return state
     player["status"] = new_status
 
     if new_status == "limbo":
@@ -1462,6 +1474,36 @@ def set_player_status(
             player["death_reveal"] = None
             log_event(state, f"{player['name']} died.")
 
+        # Check Wolf Cub rampage: enraged wolves strike twice following night!
+        if player.get("role") == "wolf_cub":
+            state["wolf_cub_rampage"] = True
+            log_event(
+                state,
+                f"🐾 {player['name']} (Wolf Cub) was killed! The enraged wolf pack will strike TWICE next night!",
+            )
+
+        # Check Martyrdom live grenade revenge
+        if player.get("role") == "martyrdom":
+            m_target_id = player.get("martyrdom_target_id")
+            if m_target_id and m_target_id in state["players"] and state["players"][m_target_id].get("status") != "dead":
+                target_p = state["players"][m_target_id]
+                player["martyrdom_target_id"] = None
+                log_event(
+                    state,
+                    f"💣 Martyrdom! As {player['name']} fell, they dropped a live grenade, blowing up {target_p['name']}!",
+                )
+                if state.get("night_report") is not None and state.get("phase") in ("night", "day_discussion", "day_voting"):
+                    state.setdefault("night_report", []).append(
+                        f"💣 Martyrdom! As {player['name']} fell, they dropped a live grenade, blowing up {target_p['name']}!"
+                    )
+                set_player_status(state, m_target_id, "dead", stagger_lover_heartbreak=stagger_lover_heartbreak)
+            else:
+                state["pending_martyrdom_player_id"] = player_id
+                log_event(
+                    state,
+                    f"💣 Martyrdom! {player['name']} dropped a live grenade! Awaiting detonation target...",
+                )
+
         # First check if successor inherits the deceased's role!
         check_and_trigger_successor_inheritance(state, player_id)
 
@@ -1504,6 +1546,83 @@ def toggle_player_silence(state: dict[str, Any], player_id: str) -> tuple[bool, 
     log_event(state, f"{emoji} {player['name']} was {status_str} by the Game Master.")
     save_game(state["code"], state)
     return True, f"Player {player['name']} {status_str}."
+
+
+def set_martyrdom_target(
+    state: dict[str, Any], player_id: str, target_id: Optional[str]
+) -> tuple[bool, str]:
+    """Prime or clear Martyrdom live grenade revenge target."""
+    if player_id not in state.get("players", {}):
+        return False, "Player not found."
+    player = state["players"][player_id]
+    if player.get("role") != "martyrdom":
+        return False, "Only Martyrdom can prime a live grenade."
+    if player.get("status") != "alive":
+        return False, "Only living Martyrdom can prime a revenge target."
+    if target_id:
+        if target_id not in state["players"]:
+            return False, "Target not found."
+        if target_id == player_id:
+            return False, "Cannot target yourself."
+        if state["players"][target_id].get("status") == "dead":
+            return False, "Target is already dead."
+        player["martyrdom_target_id"] = target_id
+        name = state["players"][target_id]["name"]
+        log_event(state, f"💣 {player['name']} primed live grenade on {name}.")
+        record_action(
+            state,
+            "set_martyrdom_target",
+            {"player_id": player_id, "target_id": target_id},
+            actor_id=player_id,
+            actor_name=player["name"],
+        )
+        save_game(state["code"], state)
+        return True, f"Martyrdom primed on {name}."
+    else:
+        player["martyrdom_target_id"] = None
+        log_event(state, f"💣 {player['name']} cleared martyrdom revenge target.")
+        record_action(
+            state,
+            "clear_martyrdom_target",
+            {"player_id": player_id},
+            actor_id=player_id,
+            actor_name=player["name"],
+        )
+        save_game(state["code"], state)
+        return True, "Martyrdom target cleared."
+
+
+def trigger_martyrdom_detonation(
+    state: dict[str, Any], martyr_id: str, victim_id: str
+) -> tuple[bool, str]:
+    """Detonate Martyrdom's live grenade manually (e.g. if killed without a primed target)."""
+    if martyr_id not in state.get("players", {}):
+        return False, "Martyr not found."
+    if victim_id not in state.get("players", {}):
+        return False, "Victim not found."
+    martyr = state["players"][martyr_id]
+    victim = state["players"][victim_id]
+    if victim.get("status") == "dead":
+        return False, "Victim is already dead."
+    if martyr.get("role") != "martyrdom":
+        return False, "Player is not Martyrdom."
+
+    state["pending_martyrdom_player_id"] = None
+    martyr["martyrdom_target_id"] = None
+    msg = f"💣 Martyrdom! {martyr['name']}'s live grenade detonated, blowing up {victim['name']}!"
+    log_event(state, msg)
+    if state.get("phase") in ("night", "day_discussion", "day_voting"):
+        state.setdefault("night_report", []).append(msg)
+    record_action(
+        state,
+        "martyrdom_detonation",
+        {"martyr_id": martyr_id, "victim_id": victim_id},
+        actor_id=martyr_id,
+        actor_name=martyr["name"],
+    )
+    set_player_status(state, victim_id, "dead")
+    save_game(state["code"], state)
+    return True, f"Martyrdom eliminated {victim['name']}."
 
 
 def rename_player(state: dict[str, Any], player_id: str, new_name: str) -> tuple[bool, str]:
@@ -1874,7 +1993,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
 
     # 6. Werewolves / Mafia
     has_wolves = any(p.get("faction") == FACTION_WOLVES for p in players.values()) or any(
-        r in ("werewolf", "alpha_wolf", "saboteur_wolf", "silencer") for r in state.get("deck", [])
+        r in ("werewolf", "alpha_wolf", "saboteur_wolf", "silencer", "wolf_cub") for r in state.get("deck", [])
     )
     if has_wolves:
         wolves = [
@@ -1891,21 +2010,48 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         is_alive = any(w["is_alive"] for w in wolves)
         wolf_target_id = actions.get("wolf_target")
         wolf_target_name = players[wolf_target_id]["name"] if wolf_target_id in players else None
+        wolf_target_id_2 = actions.get("wolf_target_2")
+        wolf_target_name_2 = players[wolf_target_id_2]["name"] if wolf_target_id_2 in players else None
+        is_rampage = bool(state.get("wolf_cub_rampage", False))
+
+        title = (
+            ("🐺 Mafia Rampage (2 Kills Tonight!)" if is_mafia else "🐺 Werewolves Rampage (2 Kills Tonight!)")
+            if is_rampage
+            else ("🐺 Mafia Hit" if is_mafia else "🐺 Werewolves Hunt")
+        )
+        script = (
+            (
+                "Mafia, wake up in fury! Mob Junior was eliminated! Agree and point at TWO victims tonight!"
+                if is_mafia
+                else "Werewolves, wake up in fury! The Wolf Cub was slain! Agree and silently point at TWO victims tonight!"
+            )
+            if is_rampage
+            else (
+                "Mafia, wake up! Silently agree and point at your victim."
+                if is_mafia
+                else "Werewolves, wake up! Look at each other and silently point at your victim."
+            )
+        )
+        is_complete = (
+            (bool(wolf_target_id and wolf_target_id_2) or not is_alive)
+            if is_rampage
+            else (bool(wolf_target_id) or not is_alive)
+        )
         stages.append(
             {
                 "id": "wolves",
-                "title": "🐺 Mafia Hit" if is_mafia else "🐺 Werewolves Hunt",
+                "title": title,
                 "role_id": "werewolf",
                 "actors": wolves,
                 "is_alive": is_alive,
-                "script": (
-                    "Mafia, wake up! Silently agree and point at your victim."
-                    if is_mafia
-                    else "Werewolves, wake up! Look at each other and silently point at your victim."
-                ),
+                "script": script,
+                "wolf_cub_rampage": is_rampage,
+                "requires_two_targets": is_rampage,
                 "target_id": wolf_target_id,
                 "target_name": wolf_target_name,
-                "is_complete": bool(wolf_target_id) or not is_alive,
+                "target_id_2": wolf_target_id_2,
+                "target_name_2": wolf_target_name_2,
+                "is_complete": is_complete,
             }
         )
 
@@ -2251,11 +2397,39 @@ def _do_record_gm_night_action(
         return True, f"Ghost haunts: {name}"
 
     elif stage_id == "wolves":
-        actions["wolf_target"] = target_id
-        name = players[target_id]["name"] if target_id in players else "None"
-        log_event(state, f"Wolves victim set to: {name}")
-        save_game(state["code"], state)
-        return True, f"Wolves target: {name}"
+        is_rampage = bool(state.get("wolf_cub_rampage", False))
+        if is_rampage:
+            t2 = None
+            if extra and "target_id_2" in extra:
+                t2 = extra["target_id_2"]
+            elif extra and "target_2" in extra:
+                t2 = extra["target_2"]
+
+            if target_id:
+                if not actions.get("wolf_target") or actions.get("wolf_target") == target_id:
+                    actions["wolf_target"] = target_id
+                elif not actions.get("wolf_target_2"):
+                    actions["wolf_target_2"] = target_id
+                else:
+                    actions["wolf_target_2"] = target_id
+
+            if t2:
+                actions["wolf_target_2"] = t2
+
+            w1 = actions.get("wolf_target")
+            w2 = actions.get("wolf_target_2")
+            n1 = players[w1]["name"] if w1 in players else "None"
+            n2 = players[w2]["name"] if w2 in players else "None"
+            log_event(state, f"🐺 Rampage! Wolves victims set to: {n1} & {n2}")
+            save_game(state["code"], state)
+            return True, f"Wolves targets: {n1} & {n2}"
+        else:
+            actions["wolf_target"] = target_id
+            actions.pop("wolf_target_2", None)
+            name = players[target_id]["name"] if target_id in players else "None"
+            log_event(state, f"Wolves victim set to: {name}")
+            save_game(state["code"], state)
+            return True, f"Wolves target: {name}"
 
     elif stage_id == "silencer":
         if target_id and target_id == state.get("last_silenced_id"):
@@ -2450,6 +2624,8 @@ def clear_gm_night_action(state: dict[str, Any], stage_id: str) -> None:
     key = mapping.get(stage_id)
     if key and key in actions:
         del actions[key]
+        if stage_id == "wolves":
+            actions.pop("wolf_target_2", None)
         record_action(state, "clear_night_action", {"stage_id": stage_id})
         save_game(state["code"], state)
 
@@ -2788,6 +2964,9 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     wolf_target = actions.get("wolf_target")
     wolf_attack = wolf_target if (has_living_wolves and wolf_target in state["players"]) else None
 
+    wolf_target_2 = actions.get("wolf_target_2") if state.get("wolf_cub_rampage") else None
+    wolf_attack_2 = wolf_target_2 if (has_living_wolves and wolf_target_2 in state["players"]) else None
+
     sk_actor = next(
         (p for p in state["players"].values() if p["role"] == "serial_killer" and p["status"] == "alive"), None
     )
@@ -2825,14 +3004,44 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             to_kill.add(bg_actor["id"])
             log_event(state, f"🛡️ Bodyguard intercepted werewolf attack on {state['players'][bg_target]['name']}!")
             wolf_attack = None
+        if wolf_attack_2 == bg_target:
+            to_save.add(bg_target)
+            to_kill.add(bg_actor["id"])
+            log_event(state, f"🛡️ Bodyguard intercepted werewolf rampage attack on {state['players'][bg_target]['name']}!")
+            wolf_attack_2 = None
         if sk_attack == bg_target:
             to_save.add(bg_target)
             to_kill.add(bg_actor["id"])
             log_event(state, f"🛡️ Bodyguard intercepted Serial Killer attack on {state['players'][bg_target]['name']}!")
             sk_attack = None
 
+    # The Gull: If attacked by werewolves without protection, survives and secretly converts into a Werewolf!
+    for w_tgt in [wolf_attack, wolf_attack_2]:
+        if not w_tgt:
+            continue
+        tgt_p = state["players"].get(w_tgt)
+        if tgt_p and tgt_p.get("role") == "gull" and tgt_p.get("faction") == FACTION_TOWN:
+            if w_tgt in to_save:
+                log_event(
+                    state,
+                    f"🕊️ {tgt_p['name']} (The Gull) was attacked by werewolves, but Doctor/protection shielded them from infection!",
+                )
+            else:
+                tgt_p["faction"] = FACTION_WOLVES
+                tgt_p["gull_converted"] = True
+                to_save.add(w_tgt)
+                log_event(
+                    state,
+                    f"🐺 BITTEN! {tgt_p['name']} (The Gull) was bitten by werewolves and secretly converted into a Werewolf!",
+                )
+                report.append(
+                    "🕊️ Nocturnal growls echoed through the village... an innocent soul was marked by the wild!"
+                )
+
     if wolf_attack and wolf_attack not in to_save:
         to_kill.add(wolf_attack)
+    if wolf_attack_2 and wolf_attack_2 not in to_save:
+        to_kill.add(wolf_attack_2)
     if sk_attack and sk_attack not in to_save:
         to_kill.add(sk_attack)
 
@@ -3119,6 +3328,10 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     state["revealed_inspect"] = None
     state["voting"] = _reset_voting_state(state)
     state["phase"] = "day_discussion"
+
+    if state.get("wolf_cub_rampage"):
+        state["wolf_cub_rampage"] = False
+        log_event(state, "🐾 The wolf pack's double-kill rampage has concluded.")
 
     start_timer(state, state["settings"].get("discussion_timer", 300), "Discussion")
     check_win_condition(state)
@@ -3903,6 +4116,14 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
             "sniper_danger_bullets": player.get("sniper_danger_bullets", 0),
             "sniper_silver_bullets": player.get("sniper_silver_bullets", 0),
             "death_angel_strikes": player.get("death_angel_strikes", 0),
+            "martyrdom_target_id": player.get("martyrdom_target_id"),
+            "martyrdom_target_name": (
+                state["players"][player.get("martyrdom_target_id")]["name"]
+                if player.get("martyrdom_target_id") in state["players"]
+                else None
+            ),
+            "gull_converted": player.get("gull_converted", False),
+            "pending_martyrdom": state.get("pending_martyrdom_player_id") == player_id,
             "is_public_mayor": player.get("role") == "mayor" and (
                 player.get("is_public_mayor", False)
                 or state.get("settings", {}).get("mayor_type") == "public"
@@ -3914,6 +4135,8 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
         "player_points": state.get("player_points", {}),
         "my_point_target_id": state.get("player_points", {}).get(player_id),
         "timer": timer_data,
+        "wolf_cub_rampage": state.get("wolf_cub_rampage", False),
+        "pending_martyrdom_player_id": state.get("pending_martyrdom_player_id"),
         "night_stage_title": night_stage_title,
         "revealed_inspect": revealed_inspect,
         "saboteur_stolen_role": stolen_role_info,
@@ -3977,6 +4200,8 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
                 "sniper_danger_bullets": p.get("sniper_danger_bullets", 0),
                 "sniper_silver_bullets": p.get("sniper_silver_bullets", 0),
                 "death_angel_strikes": p.get("death_angel_strikes", 0),
+                "martyrdom_target_id": p.get("martyrdom_target_id"),
+                "gull_converted": p.get("gull_converted", False),
                 "is_public_mayor": p.get("role") == "mayor" and (
                     p.get("is_public_mayor", False)
                     or state.get("settings", {}).get("mayor_type") == "public"
@@ -4001,6 +4226,8 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "theme": theme,
         "phase": state["phase"],
         "round_number": state["round_number"],
+        "wolf_cub_rampage": state.get("wolf_cub_rampage", False),
+        "pending_martyrdom_player_id": state.get("pending_martyrdom_player_id"),
         "players": all_players,
         "player_points": state.get("player_points", {}),
         "death_angel_used": state.get("death_angel_used", False),

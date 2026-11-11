@@ -4,6 +4,27 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v125] - 2026-11-11
+
+### Added
+- **Wolf Cub Role (`wolf_cub`, Werewolf Pack, 🐾)**:
+  - Added beloved pup of the wolf pack to `ROLE_REGISTRY` and demo deck (`Filhote de Lobo`).
+  - **Carnage Rampage Trigger**: When the Wolf Cub dies (via day execution, vigilante sniper, witch poison, or serial killer), the wolf pack enters an enraged frenzy (`state["wolf_cub_rampage"] = True`).
+  - **Double Kill Night Hunt**: On the following night, the Werewolves hunt stage prompts the wolves for two victims, and `resolve_night` eliminates both chosen targets (with Bodyguard, Doctor, and Gull interactions).
+- **Martyrdom Role (`martyrdom`, Town, 💣)**:
+  - Call of Duty inspired perk! When eliminated (at night or executed by the village), drops a live grenade taking down one chosen player with them.
+  - Players can prime their live grenade target in advance on their phone screen.
+  - If eliminated without a primed target, GM dashboard and player screens present an interactive live grenade detonation picker.
+- **The Gull Role (`gull`, Town ➔ Werewolf, 🕊️)**:
+  - Based on "The Cursed" from Ultimate Werewolf.
+  - Naive villager who starts aligned with Town and inspects as Good to the Detective.
+  - **Nocturnal Infection**: If attacked by werewolves at night without Doctor protection, they do not die — they are secretly converted into a Werewolf (`faction: FACTION_WOLVES`, `gull_converted: True`).
+  - After conversion, Detective inspects them as Evil, and their phone secret role view notifies them they are now a Wolf.
+  - Doctor protection successfully shields The Gull from infection and death.
+- **Robot Framework Test Suite (`07_roles_special_pack.robot`)**:
+  - Added 4 end-to-end simulation tests covering Wolf Cub double-kill rampage, Martyrdom revenge live grenade, The Gull werewolf bite conversion, and Doctor protection immunity.
+  - Extended `LupusLibrary.py` with `Wolves Attack With Rampage`, `Martyrdom Primes Target`, and `Player Faction Should Be`.
+
 ## [v124] - 2026-11-11
 
 ### Added

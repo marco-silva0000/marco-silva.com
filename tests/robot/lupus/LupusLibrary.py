@@ -84,6 +84,34 @@ class LupusLibrary:
         if not success:
             raise AssertionError(f"Failed to record wolves attack: {msg}")
 
+    def wolves_attack_with_rampage(self, target_1_name: str, target_2_name: str) -> None:
+        """Enraged werewolves attack two victims during cub rampage."""
+        t2_id = self.sim.get_pid(target_2_name)
+        success, msg = self.sim.record_night_action(
+            "wolves", target_1_name, extra={"target_id_2": t2_id}
+        )
+        if not success:
+            raise AssertionError(f"Failed to record wolves rampage attack: {msg}")
+
+    def martyrdom_primes_target(self, martyr_name: str, target_name: str) -> None:
+        """Martyr primes their live grenade revenge on a chosen player."""
+        m_id = self.sim.get_pid(martyr_name)
+        t_id = self.sim.get_pid(target_name)
+        from lupus.game_state import set_martyrdom_target
+        success, msg = set_martyrdom_target(self.sim.state, m_id, t_id)
+        if not success:
+            raise AssertionError(f"Failed to prime martyrdom target: {msg}")
+
+    def player_faction_should_be(self, player_name: str, expected_faction: str) -> None:
+        """Assert player's active faction."""
+        pid = self.sim.get_pid(player_name)
+        player = self.sim.state["players"].get(pid, {})
+        actual = player.get("faction")
+        if actual != expected_faction:
+            raise AssertionError(
+                f"Expected {player_name} faction '{expected_faction}', got '{actual}'"
+            )
+
     def doctor_protects(self, target_name: str) -> None:
         """Doctor protects target player."""
         success, msg = self.sim.record_night_action("doctor", target_name)

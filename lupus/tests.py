@@ -41,9 +41,11 @@ from lupus.game_state import (
     reveal_detective_to_player,
     set_deck,
     set_manual_player_role,
+    set_martyrdom_target,
     set_night_stage_index,
     set_player_status,
     set_preassigned_role,
+    trigger_martyrdom_detonation,
     setup_demo_room,
     should_autofill_demo,
     start_game,
@@ -2798,19 +2800,19 @@ class TestLupusRoomLifecycleAndPortugueseDemo:
         assert third_state["status"] == "open"
         assert third_state["previous_room_code"] == new_state["code"]
 
-    def test_demo_room_populates_22_portuguese_roles(self):
+    def test_demo_room_populates_portuguese_roles(self):
         from lupus.game_state import (
             DEMO_PLAYERS,
             create_initial_state,
             setup_demo_room,
         )
 
-        state = create_initial_state("DEMO22", "Demo Test")
+        state = create_initial_state("DEMO25", "Demo Test")
         state = setup_demo_room(state)
 
-        assert len(state["players"]) == 22
-        assert len(state["deck"]) == 22
-        assert len(DEMO_PLAYERS) == 22
+        assert len(state["players"]) == len(DEMO_PLAYERS)
+        assert len(state["deck"]) == len(DEMO_PLAYERS)
+        assert len(DEMO_PLAYERS) == 25
 
         roles_assigned = {p["role"] for p in state["players"].values()}
         assert "werewolf" in roles_assigned
@@ -2830,6 +2832,9 @@ class TestLupusRoomLifecycleAndPortugueseDemo:
         assert "serial_killer" in roles_assigned
         assert "wolf_hunter" in roles_assigned
         assert "hacker" in roles_assigned
+        assert "wolf_cub" in roles_assigned
+        assert "martyrdom" in roles_assigned
+        assert "gull" in roles_assigned
         assert "villager" in roles_assigned
 
         player_names = {p["name"] for p in state["players"].values()}
@@ -2851,6 +2856,9 @@ class TestLupusRoomLifecycleAndPortugueseDemo:
         assert "Assassino em Série" in player_names
         assert "Caçador de Lobos" in player_names
         assert "Hacker" in player_names
+        assert "Filhote de Lobo" in player_names
+        assert "Mártir" in player_names
+        assert "O Pato" in player_names
         assert "Aldeão" in player_names
 
     @pytest.mark.django_db
@@ -2892,6 +2900,161 @@ class TestLupusRoomLifecycleAndPortugueseDemo:
         stay_gm_url = f"{reverse('gamerooms:lupus:gm', kwargs={'code': 'OLDROOM1'})}?gm_token=GM_TOK_123&stay=1"
         res = client.get(stay_gm_url)
         assert res.status_code == 200
+
+    def test_wolf_cub_rampage_double_kill(self):
+        """When Wolf Cub dies, wolf_cub_rampage becomes active and wolves hunt two victims."""
+        state = create_initial_state("TESTCUB", "Test Cub")
+        state["settings"]["limbo_enabled"] = False
+        state, p_wolf = add_player(state, "Alpha")
+        state, p_cub = add_player(state, "LittleCub")
+        state, p_v1 = add_player(state, "Villager1")
+        state, p_v2 = add_player(state, "Villager2")
+        state, p_v3 = add_player(state, "Villager3")
+
+        p_wolf["role"] = "werewolf"
+        p_wolf["faction"] = "wolves"
+        p_cub["role"] = "wolf_cub"
+        p_cub["faction"] = "wolves"
+        p_v1["role"] = "villager"
+        p_v1["faction"] = "town"
+        p_v2["role"] = "villager"
+        p_v2["faction"] = "town"
+        p_v3["role"] = "villager"
+        p_v3["faction"] = "town"
+
+        assert state.get("wolf_cub_rampage") is False
+
+        # Wolf Cub dies
+        set_player_status(state, p_cub["id"], "dead")
+        assert state["wolf_cub_rampage"] is True
+
+        # Advance to night
+        state["phase"] = "night"
+        stages = get_night_stages(state)
+        wolf_stage = next(s for s in stages if s["id"] == "wolves")
+        assert wolf_stage["wolf_cub_rampage"] is True
+        assert wolf_stage["requires_two_targets"] is True
+        assert "Rampage (2 Kills Tonight!)" in wolf_stage["title"]
+
+        # Wolves select 2 victims
+        record_gm_night_action(
+            state, "wolves", target_id=p_v1["id"], extra={"target_id_2": p_v2["id"]}
+        )
+        assert state["night_actions"]["wolf_target"] == p_v1["id"]
+        assert state["night_actions"]["wolf_target_2"] == p_v2["id"]
+
+        # Resolve night
+        resolve_night(state)
+        assert state["players"][p_v1["id"]]["status"] == "dead"
+        assert state["players"][p_v2["id"]]["status"] == "dead"
+        assert state["players"][p_v3["id"]]["status"] == "alive"
+        # Rampage is consumed
+        assert state["wolf_cub_rampage"] is False
+
+    def test_martyrdom_revenge_grenade(self):
+        """When Martyrdom dies, their live grenade takes down their primed victim."""
+        state = create_initial_state("TESTMARTYR", "Test Martyr")
+        state["settings"]["limbo_enabled"] = False
+        state, p_martyr = add_player(state, "Soldier")
+        state, p_wolf = add_player(state, "BadWolf")
+        state, p_villager = add_player(state, "GoodGuy")
+
+        p_martyr["role"] = "martyrdom"
+        p_martyr["faction"] = "town"
+        p_wolf["role"] = "werewolf"
+        p_wolf["faction"] = "wolves"
+        p_villager["role"] = "villager"
+        p_villager["faction"] = "town"
+
+        # Soldier primes grenade on BadWolf
+        ok, msg = set_martyrdom_target(state, p_martyr["id"], p_wolf["id"])
+        assert ok is True
+        assert p_martyr["martyrdom_target_id"] == p_wolf["id"]
+
+        # Soldier is lynched / killed
+        set_player_status(state, p_martyr["id"], "dead")
+        assert p_martyr["status"] == "dead"
+        # Revenge grenade blew up BadWolf!
+        assert state["players"][p_wolf["id"]]["status"] == "dead"
+        assert state["players"][p_villager["id"]]["status"] == "alive"
+
+        # Test manual detonation when killed without primed target
+        state2 = create_initial_state("TESTMARTYR2", "Test Martyr 2")
+        state2["settings"]["limbo_enabled"] = False
+        state2, m2 = add_player(state2, "Soldier2")
+        state2, w2 = add_player(state2, "Wolf2")
+        m2["role"] = "martyrdom"
+        m2["faction"] = "town"
+        w2["role"] = "werewolf"
+        w2["faction"] = "wolves"
+
+        set_player_status(state2, m2["id"], "dead")
+        assert state2.get("pending_martyrdom_player_id") == m2["id"]
+        assert state2["players"][w2["id"]]["status"] == "alive"
+
+        # Detonate live grenade manually
+        ok2, msg2 = trigger_martyrdom_detonation(state2, m2["id"], w2["id"])
+        assert ok2 is True
+        assert state2["players"][w2["id"]]["status"] == "dead"
+        assert state2.get("pending_martyrdom_player_id") is None
+
+    def test_gull_wolf_bite_conversion(self):
+        """When The Gull is attacked by wolves without Doctor protection, they survive and convert to Werewolf."""
+        from lupus.game_state import is_evil_for_detective
+
+        state = create_initial_state("TESTGULL", "Test Gull")
+        state["settings"]["limbo_enabled"] = False
+        state, p_wolf = add_player(state, "Wolf")
+        state, p_gull = add_player(state, "NaiveGull")
+        state, p_doc = add_player(state, "Medic")
+
+        p_wolf["role"] = "werewolf"
+        p_wolf["faction"] = "wolves"
+        p_gull["role"] = "gull"
+        p_gull["faction"] = "town"
+        p_doc["role"] = "doctor"
+        p_doc["faction"] = "town"
+
+        # Detective inspection before bite: Good
+        assert is_evil_for_detective(p_gull) is False
+
+        # Wolves attack The Gull without Doctor protect
+        state["phase"] = "night"
+        record_gm_night_action(state, "wolves", target_id=p_gull["id"])
+        resolve_night(state)
+
+        # The Gull survives and converts to Werewolf
+        assert p_gull["status"] == "alive"
+        assert p_gull["faction"] == "wolves"
+        assert p_gull["gull_converted"] is True
+
+        # Detective inspection after bite: Evil
+        assert is_evil_for_detective(p_gull) is True
+
+        # Test Doctor protect prevents bite/conversion
+        state2 = create_initial_state("TESTGULL2", "Test Gull Protected")
+        state2["settings"]["limbo_enabled"] = False
+        state2, w2 = add_player(state2, "Wolf2")
+        state2, g2 = add_player(state2, "Gull2")
+        state2, d2 = add_player(state2, "Medic2")
+
+        w2["role"] = "werewolf"
+        w2["faction"] = "wolves"
+        g2["role"] = "gull"
+        g2["faction"] = "town"
+        d2["role"] = "doctor"
+        d2["faction"] = "town"
+
+        state2["phase"] = "night"
+        record_gm_night_action(state2, "doctor", target_id=g2["id"])
+        record_gm_night_action(state2, "wolves", target_id=g2["id"])
+        resolve_night(state2)
+
+        # Protected by Doctor: stays town, alive, not converted
+        assert g2["status"] == "alive"
+        assert g2["faction"] == "town"
+        assert g2["gull_converted"] is False
+        assert is_evil_for_detective(g2) is False
 
 
 
