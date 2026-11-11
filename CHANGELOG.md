@@ -4,6 +4,32 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v122] - 2026-11-11
+
+### Added
+- **Robot Framework Game Simulation Testing Framework**:
+  - Implemented headless in-memory simulation engine [`LupusSimulator.py`](file:///home/msilva/projects/marco-silva.com/tests/robot/lupus/LupusSimulator.py) using a dictionary-backed `MockRedis` to run multi-round Lupus sessions in milliseconds without external daemons.
+  - Developed high-level Robot keyword library [`LupusLibrary.py`](file:///home/msilva/projects/marco-silva.com/tests/robot/lupus/LupusLibrary.py) with intuitive DSL keywords (`Given A New Game`, `Player Joins As`, `Wolves Attack`, `Doctor Protects`, `Sniper Shoots`, `Night Resolves`, `Day Voting Begins`, `Final Vote Is Tallied`).
+  - Added 6 simulation test suites with 32 automated scenarios under `tests/robot/lupus/suites/`:
+    - `01_roles_lethal.robot`: Werewolves, Serial Killer, Sniper (Danger & Silver), Death Angel, Saboteur Wolf.
+    - `02_roles_protection.robot`: Doctor, Bodyguard single and double intercept, Witch revive, Angel limbo mechanic.
+    - `03_roles_information.robot`: Detective, Alpha Wolf passive camouflage, Framer misdirection, Silencer.
+    - `04_roles_social_and_power.robot`: Public Mayor immunity & 2x vote weight, Hidden Mayor, Mayor night veto, Innocent Lovers heartbreak, Jester solo victory.
+    - `05_game_cycles.robot`: Multi-round game progression, voting runoff & double-tie peace, room lobby archival.
+    - `06_regressions.robot`: v121 simultaneous resolution, dual witch potions, silenced voter rights, limbo voter restrictions.
+- **Deterministic Action History Tape & Replay Export**:
+  - Structured event recording (`state["action_history"]`) across room creation, player joins, role dealing, night actions, and day trials in [`lupus/game_state.py`](file:///home/msilva/projects/marco-silva.com/lupus/game_state.py).
+  - Added `💾 Export Replay JSON` and `📋 Copy Replay Tape` buttons in the GM cockpit navigation bar and Live Activity Log header (`templates/lupus/gm_dashboard.html`).
+  - Added HTTP export endpoint at `GET /games/lupus/<code/export-replay/`.
+- **Replay CLI & Auto-Converter (`lupus/replay.py`)**:
+  - Built CLI runner for inspecting exported games (`--summary`), verifying deterministic execution headlessly (`--verify`), and auto-generating reproducible `.robot` test files (`--to-robot`) from bug reports and live sessions.
+
+### Fixed
+- **Framer Night Action Recording**:
+  - Added missing `stage_id == "framer"` handler to `record_gm_night_action` so Game Master finger-pointing records Framer targets accurately.
+- **Jester Solo Victory State**:
+  - Set `state["winner"] = "jester"` directly alongside `pending_gameover` when the Jester is executed by town vote.
+
 ## [v121] - 2026-11-11
 
 ### Fixed

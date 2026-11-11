@@ -18,6 +18,7 @@ from lupus.game_state import (
     create_initial_state,
     deal_roles,
     dismiss_pending_gameover,
+    export_game_replay,
     get_game,
     get_gm_view,
     get_night_stages,
@@ -2658,6 +2659,66 @@ class TestLupusV118Features:
         assert state2["players"][lc2_id]["status"] == "alive"
         assert state2["witch_used_revive"] is False
         assert state2["witch_used_kill"] is False
+
+    def test_action_history_recording_and_export_bundle(self):
+        """Verify action tape recording on mutations and export bundle structure."""
+        state = create_initial_state("ACTIONTAPE", "Action Tape Test Room")
+        assert len(state["action_history"]) == 1
+        assert state["action_history"][0]["action"] == "create_game"
+
+        state, p1 = add_player(state, "Alice")
+        state, p2 = add_player(state, "Bob")
+        set_preassigned_role(state, p1["id"], "werewolf")
+        set_preassigned_role(state, p2["id"], "villager")
+
+        state = start_game(state)
+        # Advance to round 1
+        state["is_night_zero"] = False
+        state["round_number"] = 1
+
+        record_gm_night_action(state, "wolves", p2["id"])
+        state = resolve_night(state)
+
+        # Verify action history tracked sequence
+        actions = [a["action"] for a in state["action_history"]]
+        assert "create_game" in actions
+        assert "player_joined" in actions
+        assert "set_preassigned_role" in actions
+        assert "start_game" in actions
+        assert "night_action" in actions
+        assert "resolve_night" in actions
+
+        # Verify GM view contains action history
+        gm_view = get_gm_view(state)
+        assert "action_history" in gm_view
+        assert len(gm_view["action_history"]) == len(state["action_history"])
+
+        # Verify exported replay bundle
+        bundle = export_game_replay(state)
+        assert bundle["code"] == "ACTIONTAPE"
+        assert bundle["version"] is not None
+        assert bundle["summary"]["rounds_played"] == 1
+        assert len(bundle["players"]) == 2
+        assert len(bundle["action_history"]) == len(state["action_history"])
+
+    @pytest.mark.django_db
+    def test_export_replay_view_endpoint(self, client):
+        """Verify GET <code/export-replay/ returns JSON replay attachment."""
+        Room.objects.create(code="REPLAYHTTP", title="HTTP Replay Room", game_type="lupus", is_active=True)
+        state = create_initial_state("REPLAYHTTP", "HTTP Replay Room")
+        state, _ = add_player(state, "Player1")
+
+        url = reverse("gamerooms:lupus:export-replay", kwargs={"code": "REPLAYHTTP"})
+        res = client.get(url)
+        assert res.status_code == 200
+        assert res["Content-Type"] == "application/json"
+        assert "lupus_replay_replayhttp.json" in res["Content-Disposition"]
+
+        data = res.json()
+        assert data["code"] == "REPLAYHTTP"
+        assert len(data["players"]) == 1
+        assert len(data["action_history"]) >= 2
+
 
 
 

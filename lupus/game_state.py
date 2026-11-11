@@ -99,6 +99,71 @@ def get_voter_weight(state: dict[str, Any], voter_id: str) -> int:
     return 1
 
 
+def record_action(
+    state: dict[str, Any],
+    action_type: str,
+    payload: Optional[dict[str, Any]] = None,
+    actor_id: Optional[str] = None,
+    actor_name: Optional[str] = None,
+    round_num: Optional[int] = None,
+    phase: Optional[str] = None,
+) -> dict[str, Any]:
+    """Record a game action in state['action_history'] for deterministic replays, simulation, and bug reporting."""
+    if "action_history" not in state or not isinstance(state["action_history"], list):
+        state["action_history"] = []
+
+    seq = len(state["action_history"]) + 1
+    current_round = round_num if round_num is not None else state.get("round_number", 0)
+    current_phase = phase if phase is not None else state.get("phase", "lobby")
+
+    entry = {
+        "seq": seq,
+        "timestamp": round(time.time(), 3),
+        "round": current_round,
+        "phase": current_phase,
+        "action": action_type,
+        "actor_id": actor_id,
+        "actor_name": actor_name,
+        "payload": payload or {},
+    }
+    state["action_history"].append(entry)
+    return entry
+
+
+def export_game_replay(state: dict[str, Any]) -> dict[str, Any]:
+    """Export complete, reproducible replay bundle of the game."""
+    theme = state.get("theme", "werewolf")
+    return {
+        "version": get_version_info().get("version", "v122"),
+        "code": state.get("code", ""),
+        "title": state.get("title", ""),
+        "theme": theme,
+        "settings": state.get("settings", {}),
+        "exported_at": round(time.time(), 3),
+        "summary": {
+            "rounds_played": state.get("round_number", 0),
+            "winner": state.get("winner"),
+            "total_players": len(state.get("players", {})),
+            "actions_count": len(state.get("action_history", [])),
+        },
+        "players": [
+            {
+                "id": p["id"],
+                "name": p["name"],
+                "role": p.get("role"),
+                "faction": p.get("faction"),
+                "status": p.get("status"),
+                "is_public_mayor": p.get("is_public_mayor", False),
+                "is_offline": p.get("is_offline", False),
+            }
+            for p in state.get("players", {}).values()
+        ],
+        "action_history": state.get("action_history", []),
+        "events_log": state.get("events_log", []),
+        "night_report": state.get("night_report", []),
+    }
+
+
 def create_initial_state(
     code: str,
     title: str,
@@ -189,10 +254,16 @@ def create_initial_state(
         "defense_player_id": None,
         "events_log": [],
         "night_report": [],
+        "action_history": [],
         "winner": None,
         "pending_gameover": None,
         "pending_gameover_dismissed": False,
     }
+    record_action(
+        state,
+        "create_game",
+        {"title": title, "settings": default_settings, "theme": theme},
+    )
     save_game(code, state)
     return state
 
@@ -239,6 +310,13 @@ def add_player(state: dict[str, Any], name: str, is_offline: bool = False) -> tu
     elif player_id not in state["player_order"]:
         state["player_order"].append(player_id)
     log_event(state, f"{name} entered the room.")
+    record_action(
+        state,
+        "player_joined",
+        {"player_id": player_id, "name": player["name"], "is_offline": is_offline},
+        actor_id=player_id,
+        actor_name=player["name"],
+    )
     save_game(state["code"], state)
     return state, player
 
@@ -250,6 +328,13 @@ def remove_player(state: dict[str, Any], player_id: str) -> dict[str, Any]:
         if "player_order" in state and player_id in state["player_order"]:
             state["player_order"].remove(player_id)
         log_event(state, f"{name} left the room.")
+        record_action(
+            state,
+            "player_removed",
+            {"player_id": player_id, "name": name},
+            actor_id=player_id,
+            actor_name=name,
+        )
         save_game(state["code"], state)
     return state
 
@@ -386,6 +471,13 @@ def set_preassigned_role(state: dict[str, Any], player_id: str, role_id: Optiona
 
     role_title = role_info.get("title", role_id.title())
     log_event(state, f"🎯 Game Master pre-assigned role '{role_title}' to {player['name']}.")
+    record_action(
+        state,
+        "set_preassigned_role",
+        {"player_id": player_id, "role": role_id},
+        actor_id=player_id,
+        actor_name=player["name"],
+    )
     save_game(state["code"], state)
     return True, f"Pre-assigned {role_title} to {player['name']}."
 
@@ -662,6 +754,11 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
 
     state["deck"] = [assigned_roles[pid] for pid in player_ids]
     log_event(state, f"Distributed {len(state['deck'])} roles to players.")
+    record_action(
+        state,
+        "deal_roles",
+        {"assignments": {pid: p.get("role") for pid, p in state["players"].items()}},
+    )
     save_game(state["code"], state)
     return state
 
@@ -717,6 +814,11 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     reset_timer(state, state["settings"].get("discussion_timer", 300))
     pause_timer(state)
     log_event(state, f"🚀 Game started with {len(state['players'])} players! Night 0 begins.")
+    record_action(
+        state,
+        "start_game",
+        {"round": state["round_number"], "phase": state["phase"]},
+    )
     save_game(state["code"], state)
     return state
 
@@ -791,6 +893,7 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
         p["sniper_silver_bullets"] = 1 if state["settings"].get("sniper_bullet_type") == "mix" else 0
         p["sniper_nights_held"] = 0
     log_event(state, "Returned to Pre-Game Lobby. Ready to configure roles for a new game.")
+    record_action(state, "return_to_lobby", {})
     save_game(state["code"], state)
     return state
 
@@ -865,6 +968,13 @@ def set_manual_player_role(state: dict[str, Any], player_id: str, role_id: str) 
             state["players"][player_id]["sniper_silver_bullets"] = int(silver_setting)
             state["players"][player_id]["sniper_nights_held"] = 0
 
+        record_action(
+            state,
+            "set_manual_role",
+            {"player_id": player_id, "role": role_id},
+            actor_id=player_id,
+            actor_name=state["players"][player_id].get("name"),
+        )
         save_game(state["code"], state)
     return state
 
@@ -920,6 +1030,13 @@ def assign_midgame_role(state: dict[str, Any], player_id: str, role_id: str) -> 
 
     log_event(state, msg)
     check_win_condition(state)
+    record_action(
+        state,
+        "assign_midgame_role",
+        {"player_id": player_id, "role": role_id},
+        actor_id=player_id,
+        actor_name=player["name"],
+    )
     save_game(state["code"], state)
     return True, msg
 
@@ -1269,6 +1386,13 @@ def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id
         set_player_status(state, player_id, "alive")
         msg = f"✨ Divine Revelation! {player['name']} found the Angel ({target['name']}) and returned to the living!"
         log_event(state, msg)
+        record_action(
+            state,
+            "guess_angel",
+            {"player_id": player_id, "guessed_angel_id": guessed_angel_id, "success": True},
+            actor_id=player_id,
+            actor_name=player["name"],
+        )
         save_game(state["code"], state)
         return True, msg
     else:
@@ -1276,6 +1400,13 @@ def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id
         reveal_suffix = f" [{player.get('death_reveal')}]" if player.get("death_reveal") else ""
         msg = f"💀 {player['name']} guessed wrong ({target['name']} is not the living Angel) and died permanently.{reveal_suffix}"
         log_event(state, msg)
+        record_action(
+            state,
+            "guess_angel",
+            {"player_id": player_id, "guessed_angel_id": guessed_angel_id, "success": False},
+            actor_id=player_id,
+            actor_name=player["name"],
+        )
         save_game(state["code"], state)
         return False, msg
 
@@ -1910,7 +2041,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
     return stages
 
 
-def record_gm_night_action(
+def _do_record_gm_night_action(
     state: dict[str, Any],
     stage_id: str,
     target_id: Optional[str] = None,
@@ -1970,6 +2101,13 @@ def record_gm_night_action(
         log_event(state, f"Silencer target set to: {name}")
         save_game(state["code"], state)
         return True, f"Silencer target: {name}"
+
+    elif stage_id == "framer":
+        actions["framer_target"] = target_id
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Framer target set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Framer frames: {name}"
 
     elif stage_id == "detective":
         if not target_id or target_id not in players:
@@ -2106,6 +2244,24 @@ def record_gm_night_action(
     return False, "Unknown stage"
 
 
+def record_gm_night_action(
+    state: dict[str, Any],
+    stage_id: str,
+    target_id: Optional[str] = None,
+    extra: Optional[dict[str, Any]] = None,
+) -> tuple[bool, str]:
+    """Store night action directly registered by the Game Master from player finger-pointing."""
+    success, msg = _do_record_gm_night_action(state, stage_id, target_id, extra)
+    if success:
+        record_action(
+            state,
+            "night_action",
+            {"stage_id": stage_id, "target_id": target_id, "extra": extra},
+        )
+        save_game(state["code"], state)
+    return success, msg
+
+
 def clear_gm_night_action(state: dict[str, Any], stage_id: str) -> None:
     actions = state.setdefault("night_actions", {})
     mapping = {
@@ -2130,6 +2286,7 @@ def clear_gm_night_action(state: dict[str, Any], stage_id: str) -> None:
     key = mapping.get(stage_id)
     if key and key in actions:
         del actions[key]
+        record_action(state, "clear_night_action", {"stage_id": stage_id})
         save_game(state["code"], state)
 
 
@@ -2138,6 +2295,23 @@ def set_night_stage_index(state: dict[str, Any], index: int) -> None:
     max_idx = max(0, len(stages) - 1)
     state["night_stage_index"] = max(0, min(index, max_idx))
     save_game(state["code"], state)
+
+
+def advance_to_night(state: dict[str, Any]) -> dict[str, Any]:
+    """Transition game phase from Day to Night, advancing round counter."""
+    state["phase"] = "night"
+    state["is_day_zero"] = False
+    state["is_night_zero"] = False
+    if state.get("round_number", 0) == 0:
+        state["round_number"] = 1
+    else:
+        state["round_number"] = state.get("round_number", 1) + 1
+    set_night_stage_index(state, 0)
+    state["revealed_inspect"] = None
+    state["night_actions"] = {}
+    record_action(state, "advance_to_night", {"round": state["round_number"]})
+    save_game(state["code"], state)
+    return state
 
 
 def reveal_detective_to_player(state: dict[str, Any]) -> None:
@@ -2784,6 +2958,11 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
 
     start_timer(state, state["settings"].get("discussion_timer", 300), "Discussion")
     check_win_condition(state)
+    record_action(
+        state,
+        "resolve_night",
+        {"round": state["round_number"], "night_report": list(report)},
+    )
     save_game(state["code"], state)
     return state
 
@@ -2834,6 +3013,11 @@ def start_voting_session(state: dict[str, Any], system: Optional[str] = None) ->
         "ballot_locked": False,
     }
     log_event(state, f"🗳️ Voting session opened! System: {voting_system}. Stage: {initial_stage}.")
+    record_action(
+        state,
+        "start_voting",
+        {"system": voting_system, "stage": initial_stage},
+    )
     save_game(state["code"], state)
     return state
 
@@ -2864,6 +3048,13 @@ def toggle_nomination_vote(state: dict[str, Any], voter_id: str, candidate_id: s
 
     votes_map[candidate_id] = list(voters)
     update_nominated_candidates(state)
+    record_action(
+        state,
+        "nomination_vote",
+        {"voter_id": voter_id, "candidate_id": candidate_id, "active": voter_id in voters},
+        actor_id=voter_id,
+        actor_name=players[voter_id]["name"] if voter_id in players else None,
+    )
     save_game(state["code"], state)
     return True, msg
 
@@ -2878,6 +3069,11 @@ def set_nomination_tally_direct(state: dict[str, Any], candidate_id: str, count:
     count = max(0, int(count))
     votes_map[candidate_id] = [f"tally_{i}" for i in range(count)]
     update_nominated_candidates(state)
+    record_action(
+        state,
+        "set_nomination_tally",
+        {"candidate_id": candidate_id, "count": count},
+    )
     save_game(state["code"], state)
     return True
 
@@ -2935,6 +3131,11 @@ def proceed_to_defense(state: dict[str, Any], player_id: Optional[str] = None) -
     if player_id and player_id in state["players"]:
         name = state["players"][player_id]["name"]
         start_timer(state, state["settings"].get("defense_timer", 30), f"Defense: {name}")
+    record_action(
+        state,
+        "proceed_to_defense",
+        {"defense_player_id": player_id},
+    )
     save_game(state["code"], state)
     return state
 
@@ -2948,6 +3149,7 @@ def return_to_nominations(state: dict[str, Any]) -> dict[str, Any]:
     timer_duration = state.get("settings", {}).get("discussion_timer", 300)
     start_timer(state, timer_duration, "Nominations")
     log_event(state, "↩️ Returned to nominations stage.")
+    record_action(state, "return_to_nominations", {})
     save_game(state["code"], state)
     return state
 
@@ -2966,6 +3168,11 @@ def proceed_to_final_vote(state: dict[str, Any]) -> tuple[bool, str]:
     voting["revote_candidates"] = []
     nominee_names = [state["players"][pid]["name"] for pid in nominees if pid in state["players"]]
     log_event(state, f"⚖️ Final execution vote started for nominees: {nominee_names}.")
+    record_action(
+        state,
+        "proceed_to_final_vote",
+        {"nominees": list(nominees)},
+    )
     save_game(state["code"], state)
     return True, "Final vote active."
 
@@ -2999,6 +3206,13 @@ def cast_final_vote(state: dict[str, Any], voter_id: str, candidate_id: Optional
         final_votes[voter_id] = candidate_id
         msg = f"{voter['name']} voted for {players[candidate_id]['name']}."
 
+    record_action(
+        state,
+        "final_vote",
+        {"voter_id": voter_id, "candidate_id": candidate_id},
+        actor_id=voter_id,
+        actor_name=voter["name"],
+    )
     save_game(state["code"], state)
     return True, msg
 
@@ -3018,11 +3232,16 @@ def record_gm_final_vote_tally(state: dict[str, Any], candidate_id: str, count: 
     for i in range(max(0, int(count))):
         final_votes[f"gm_vote_{candidate_id}_{i}"] = candidate_id
 
+    record_action(
+        state,
+        "set_final_tally",
+        {"candidate_id": candidate_id, "count": count},
+    )
     save_game(state["code"], state)
     return True
 
 
-def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
+def _do_tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
     """Execute the tie-breaking and elimination resolution engine!
     Tie rules:
       1. On first tie: revote exclusively among people tied.
@@ -3113,6 +3332,7 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
 
     # Check JESTER instant win!
     if victim.get("role") == "jester":
+        state["winner"] = "jester"
         state["pending_gameover"] = {
             "winner": "jester",
             "reason": f"The Jester ({victim['name']}) was executed by town vote and won SOLO VICTORY!",
@@ -3150,6 +3370,28 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
     check_win_condition(state)
     save_game(state["code"], state)
     return "eliminated", msg
+
+
+def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
+    """Execute the tie-breaking and elimination resolution engine!
+    Tie rules:
+      1. On first tie: revote exclusively among people tied.
+      2. On second tie: no one gets eliminated!
+    """
+    res, msg = _do_tally_and_resolve_vote(state)
+    if res != "error":
+        record_action(
+            state,
+            "resolve_vote",
+            {
+                "result": res,
+                "message": msg,
+                "eliminated_id": state.get("voting", {}).get("eliminated_player_id"),
+                "winner": state.get("winner"),
+            },
+        )
+        save_game(state["code"], state)
+    return res, msg
 
 
 def reset_voting(state: dict[str, Any]) -> dict[str, Any]:
@@ -3617,6 +3859,7 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
         "approved_ghost_messages": state.get("approved_ghost_messages", []),
         "news_bulletins": state.get("news_bulletins", []),
         "approved_news_bulletins": state.get("approved_news_bulletins", []),
+        "action_history": state.get("action_history", []),
         "app_version": get_version_info()["display"],
         "commit_hash": get_version_info()["commit"],
     }

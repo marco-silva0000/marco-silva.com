@@ -763,6 +763,7 @@ html, body {
       <button onclick="openModal('room-qr-modal')" class="btn">📱 Room QR</button>
       <button id="btn-copy-link" onclick="copyJoinLink(this)" class="btn">🔗 Copy Link</button>
       <button onclick="forceRefreshAllClients()" class="btn" style="background: #fdf2f8; color: #be185d; border-color: #fbcfe8; font-weight: 600;" title="Force all connected devices (players and GM) to reload and fetch the latest website version">🔄 Sync All Screens</button>
+      <button onclick="exportGameReplayJson()" class="btn" style="background: #f0fdf4; color: #15803d; border-color: #bbf7d0; font-weight: 600;" title="Download complete replay JSON for simulation testing or bug reporting">💾 Export Replay</button>
       <a href="{% url 'gamerooms:room-list' %}" class="btn" style="text-decoration: none; color: #475569;" title="Exit to Games">🚪 Games</a>
     </div>
   </div>
@@ -1598,7 +1599,13 @@ html, body {
 
   <!-- Activity Log -->
   <div class="gm-section" style="border-top: 1px solid #cbd5e1; padding-top: 0.75rem; margin-top: 1.25rem; margin-bottom: 1rem;">
-    <h3 style="font-size: 0.9rem; margin-top: 0; margin-bottom: 0.5rem; color: #666;">📜 Live Activity Log</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+      <h3 style="font-size: 0.9rem; margin: 0; color: #666;">📜 Live Activity Log</h3>
+      <div style="display: flex; gap: 0.4rem;">
+        <button onclick="exportGameReplayJson()" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #f0fdf4; color: #15803d; border-color: #bbf7d0;" title="Download complete reproducible game replay JSON">💾 Export Replay</button>
+        <button onclick="copyBugReportPayload(this)" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #f8fafc; color: #475569; border-color: #cbd5e1;" title="Copy game tape JSON to clipboard for bug reports / test conversion">📋 Copy Tape</button>
+      </div>
+    </div>
     <div id="events-log" style="font-size: 0.8rem; color: #666; max-height: 120px; overflow-y: auto; font-family: monospace;">
       {% for event in state.events_log %}
       <div>[{{ event.phase }}] {{ event.message }}</div>
@@ -4351,6 +4358,69 @@ html, body {
         const orig = target.innerHTML;
         target.innerHTML = "✅ Copied!";
         setTimeout(() => { target.innerHTML = orig; }, 2000);
+      }
+    });
+  }
+
+  function exportGameReplayJson() {
+    if (!currentGameState) {
+      alert("No active game state to export.");
+      return;
+    }
+    const replayBundle = {
+      version: currentGameState.app_version || "v122",
+      code: currentGameState.code,
+      title: currentGameState.title,
+      theme: currentGameState.theme,
+      settings: currentGameState.settings,
+      exported_at: Date.now() / 1000,
+      summary: {
+        rounds_played: currentGameState.round_number,
+        winner: currentGameState.winner,
+        total_players: currentGameState.players ? currentGameState.players.length : 0,
+        actions_count: currentGameState.action_history ? currentGameState.action_history.length : 0
+      },
+      players: currentGameState.players,
+      action_history: currentGameState.action_history || [],
+      events_log: currentGameState.events_log || [],
+      night_report: currentGameState.night_report || []
+    };
+    const blob = new Blob([JSON.stringify(replayBundle, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `lupus_replay_${(currentGameState.code || "game").toLowerCase()}_round_${currentGameState.round_number || 0}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function copyBugReportPayload(btn) {
+    if (!currentGameState) {
+      alert("No active game state to copy.");
+      return;
+    }
+    const minimalPayload = {
+      version: currentGameState.app_version || "v122",
+      code: currentGameState.code,
+      round: currentGameState.round_number,
+      phase: currentGameState.phase,
+      settings: currentGameState.settings,
+      players: (currentGameState.players || []).map(p => ({
+        id: p.id,
+        name: p.name,
+        role: p.role ? (p.role.id || p.role) : null,
+        status: p.status
+      })),
+      action_history: currentGameState.action_history || [],
+      events_log: currentGameState.events_log || []
+    };
+    navigator.clipboard.writeText(JSON.stringify(minimalPayload, null, 2)).then(() => {
+      if (btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = "✅ Copied!";
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
       }
     });
   }

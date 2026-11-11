@@ -12,6 +12,7 @@ from gamerooms.models import Room
 from .game_state import (
     add_player,
     create_initial_state,
+    export_game_replay,
     get_game,
     get_gm_view,
     get_sanitized_player_view,
@@ -259,6 +260,19 @@ def gm_dashboard(request, code):
             "presets": DEFAULT_PRESETS,
         },
     )
+
+
+@never_cache
+def export_replay(request, code):
+    """Export complete reproducible replay JSON of the room's game state."""
+    code = code.upper()
+    state = get_game(code)
+    if not state:
+        raise Http404("Game not found.")
+    replay_data = export_game_replay(state)
+    response = JsonResponse(replay_data, json_dumps_params={"indent": 2})
+    response["Content-Disposition"] = f'attachment; filename="lupus_replay_{code.lower()}.json"'
+    return response
 
 
 @never_cache

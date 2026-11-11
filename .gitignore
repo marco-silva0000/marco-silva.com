@@ -226,6 +226,7 @@ tags
 .idea/
 
 .pytest_cache/
+tests/robot/results/
 
 # k8s secrets (contain real credentials)
 k8s/base/postgres/secret.yaml
