@@ -102,6 +102,25 @@ class LupusLibrary:
         if not success:
             raise AssertionError(f"Failed to prime martyrdom target: {msg}")
 
+    def martyrdom_sets_night_target(self, target_name: str) -> None:
+        """GM records martyrdom hidden booby trap night target."""
+        success, msg = self.sim.record_night_action("martyrdom", target_name)
+        if not success:
+            raise AssertionError(f"Failed to record martyrdom night action: {msg}")
+
+    def night_stage_should_be_active(self, stage_id: str, expected_active: bool = True) -> None:
+        """Assert whether a night stage is alive / active vs dead bluff pause."""
+        from lupus.game_state import get_night_stages
+        stages = get_night_stages(self.sim.state)
+        stg = next((s for s in stages if s["id"] == stage_id), None)
+        if not stg:
+            raise AssertionError(f"Stage '{stage_id}' not found in night stages.")
+        expected_bool = str(expected_active).lower() in ("true", "1", "yes")
+        if bool(stg.get("is_alive")) != expected_bool:
+            raise AssertionError(
+                f"Expected stage '{stage_id}' is_alive to be {expected_bool}, got {stg.get('is_alive')}"
+            )
+
     def player_faction_should_be(self, player_name: str, expected_faction: str) -> None:
         """Assert player's active faction."""
         pid = self.sim.get_pid(player_name)

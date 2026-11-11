@@ -935,6 +935,10 @@ html, body {
             <span>😵‍💫 Framer (Frames innocent)</span>
             <span class="chip-badge" id="badge-framer">OFF</span>
           </button>
+          <button type="button" id="chip-wolf_cub" class="role-toggle-chip evil" onclick="toggleSpecialRole('wolf_cub')">
+            <span>🐾 Wolf Cub (Double Kill)</span>
+            <span class="chip-badge" id="badge-wolf_cub">OFF</span>
+          </button>
         </div>
       </div>
 
@@ -1024,6 +1028,22 @@ html, body {
           <button type="button" id="chip-lover" class="role-toggle-chip good" onclick="toggleSpecialRole('lover')">
             <span>💞 Lovers (2 Citizens)</span>
             <span class="chip-badge" id="badge-lover">OFF</span>
+          </button>
+
+          <!-- 💣 Martyrdom with inline Public vs Hidden variation -->
+          <div id="chip-martyrdom" class="role-toggle-chip good" onclick="toggleSpecialRole('martyrdom')">
+            <span class="chip-title">💣 Martyrdom</span>
+            <span id="martyrdom-ext-wrap" class="chip-ext" style="display: none;" onclick="event.stopPropagation()">
+              <button type="button" class="chip-ext-btn" id="btn-martyrdom-var" onclick="cycleMartyrdomVariation(event)" title="Click to switch between Public (Instant Grenade) and Hidden (Stealth Night Trap)">
+                <span id="martyrdom-var-icon">📢</span> <span id="martyrdom-var-text">Public (Instant)</span> <span style="font-size: 0.65rem; opacity: 0.7;">⇄</span>
+              </button>
+            </span>
+            <span class="chip-badge" id="badge-martyrdom">OFF</span>
+          </div>
+
+          <button type="button" id="chip-gull" class="role-toggle-chip good" onclick="toggleSpecialRole('gull')">
+            <span>🕊️ The Gull (Infection Bite)</span>
+            <span class="chip-badge" id="badge-gull">OFF</span>
           </button>
         </div>
       </div>
@@ -1998,8 +2018,8 @@ html, body {
 
   // --- Role Metadata for Live UI Display ---
   const SPECIAL_ROLES = [
-    'alpha_wolf', 'silencer', 'framer', 'saboteur_wolf',
-    'detective', 'doctor', 'watson', 'bodyguard', 'angel', 'death_angel', 'sniper', 'mayor', 'witch', 'lover', 'hacker',
+    'alpha_wolf', 'silencer', 'framer', 'saboteur_wolf', 'wolf_cub',
+    'detective', 'doctor', 'watson', 'bodyguard', 'angel', 'death_angel', 'sniper', 'mayor', 'witch', 'lover', 'hacker', 'martyrdom', 'gull',
     'cupid', 'jester', 'serial_killer', 'wolf_hunter'
   ];
 
@@ -2009,6 +2029,7 @@ html, body {
     silencer: { name: "Silencer", emoji: "🤐", faction: "evil" },
     framer: { name: "Framer", emoji: "😵‍💫", faction: "evil" },
     saboteur_wolf: { name: "Saboteur Wolf", emoji: "🐺⚡", faction: "evil" },
+    wolf_cub: { name: "Wolf Cub", emoji: "🐾", faction: "evil" },
     detective: { name: "Detective", emoji: "🔍", faction: "good" },
     doctor: { name: "Doctor", emoji: "🩺", faction: "good" },
     watson: { name: "Watson", emoji: "🩺", faction: "good" },
@@ -2019,6 +2040,8 @@ html, body {
     mayor: { name: "Mayor", emoji: "👨‍⚖️", faction: "good" },
     witch: { name: "Witch", emoji: "🧙‍♀️", faction: "good" },
     lover: { name: "Lovers (2)", emoji: "💞", faction: "good" },
+    martyrdom: { name: "Martyrdom", emoji: "💣", faction: "good" },
+    gull: { name: "The Gull", emoji: "🕊️", faction: "good" },
     villager: { name: "Plain Villager", emoji: "🧑", faction: "good" },
     hacker: { name: "Hacker", emoji: "💻", faction: "good" },
     cupid: { name: "Cupid", emoji: "🏹", faction: "neutral" },
@@ -2050,7 +2073,10 @@ html, body {
     cupid: 0,
     jester: 0,
     serial_killer: 0,
-    wolf_hunter: 0
+    wolf_hunter: 0,
+    wolf_cub: 0,
+    martyrdom: 0,
+    gull: 0
   };
 
   // Sync initial deck from room creation state if provided
@@ -2245,6 +2271,33 @@ html, body {
         chipMayor.classList.remove("active", "extended");
         mayorExtWrap.style.display = "none";
         if (badgeMayor) badgeMayor.innerText = "OFF";
+      }
+    }
+
+    // 1b. Martyrdom Inline Extended Pill
+    const chipMartyrdom = document.getElementById("chip-martyrdom");
+    const martyrdomExtWrap = document.getElementById("martyrdom-ext-wrap");
+    const badgeMartyrdom = document.getElementById("badge-martyrdom");
+    const isMartyrdomOn = (deckState.martyrdom || 0) > 0;
+    if (chipMartyrdom && martyrdomExtWrap) {
+      if (isMartyrdomOn) {
+        chipMartyrdom.classList.add("active", "extended");
+        martyrdomExtWrap.style.display = "inline-flex";
+        if (badgeMartyrdom) badgeMartyrdom.innerText = "✓ ON";
+        const mType = settings.martyrdom_type || (settings.public_martyrdom !== false ? "public" : "hidden") || "public";
+        const varIcon = document.getElementById("martyrdom-var-icon");
+        const varText = document.getElementById("martyrdom-var-text");
+        if (mType === "public") {
+          if (varIcon) varIcon.innerText = "📢";
+          if (varText) varText.innerText = "Public (Instant)";
+        } else {
+          if (varIcon) varIcon.innerText = "🔒";
+          if (varText) varText.innerText = "Hidden (Night Trap)";
+        }
+      } else {
+        chipMartyrdom.classList.remove("active", "extended");
+        martyrdomExtWrap.style.display = "none";
+        if (badgeMartyrdom) badgeMartyrdom.innerText = "OFF";
       }
     }
 
@@ -2480,6 +2533,18 @@ html, body {
     const nextVal = !cur;
     settings.mayor_can_cancel_vote = nextVal;
     sendAction("update_settings", { settings: { mayor_can_cancel_vote: nextVal } });
+    updateDeckUI();
+  }
+
+  function cycleMartyrdomVariation(event) {
+    if (event) event.stopPropagation();
+    if (!currentGameState) return;
+    const settings = currentGameState.settings || {};
+    const cur = settings.martyrdom_type || (settings.public_martyrdom !== false ? "public" : "hidden") || "public";
+    const nextVar = cur === "public" ? "hidden" : "public";
+    settings.martyrdom_type = nextVar;
+    settings.public_martyrdom = (nextVar === "public");
+    sendAction("update_settings", { settings: { martyrdom_type: nextVar, public_martyrdom: nextVar === "public" } });
     updateDeckUI();
   }
 
@@ -3528,6 +3593,10 @@ html, body {
       if (actions.death_angel_target) {
         const daTarget = state.players.find(p => p.id === actions.death_angel_target);
         summaryHtml += `<li>💀 <strong>Death Angel Strike:</strong> ${daTarget ? escapeHtml(daTarget.name) : 'None'}</li>`;
+      }
+      if (actions.martyrdom_target) {
+        const mTarget = state.players.find(p => p.id === actions.martyrdom_target);
+        summaryHtml += `<li>💣 <strong>Martyrdom Booby Trap:</strong> ${mTarget ? escapeHtml(mTarget.name) : 'None'}</li>`;
       }
       if (actions.mayor_veto) {
         const lTarget = state.players.find(p => p.id === state.last_lynched_id);

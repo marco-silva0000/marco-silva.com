@@ -37,20 +37,18 @@ from .game_state import (
     reset_voting,
     resolve_night,
     resume_timer,
-    return_to_lobby,
     return_to_nominations,
     reveal_detective_to_player,
     save_game,
     set_broadcast_message,
     set_deck,
     set_manual_player_role,
+    set_martyrdom_target,
     set_night_stage_index,
     set_nomination_tally_direct,
     set_player_status,
     set_preassigned_role,
     set_round_number,
-    set_martyrdom_target,
-    trigger_martyrdom_detonation,
     setup_demo_room,
     start_game,
     start_timer,
@@ -62,6 +60,7 @@ from .game_state import (
     toggle_official_nomination,
     toggle_player_silence,
     trigger_game_over,
+    trigger_martyrdom_detonation,
 )
 
 
@@ -515,6 +514,10 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                     new_settings["public_mayor"] = new_settings["mayor_type"] == "public"
                 elif "public_mayor" in new_settings:
                     new_settings["mayor_type"] = "public" if new_settings["public_mayor"] else "hidden"
+                if "martyrdom_type" in new_settings:
+                    new_settings["public_martyrdom"] = new_settings["martyrdom_type"] == "public"
+                elif "public_martyrdom" in new_settings:
+                    new_settings["martyrdom_type"] = "public" if new_settings["public_martyrdom"] else "hidden"
                 if "mayor_can_cancel_vote" in new_settings:
                     new_settings["mayor_can_cancel_vote"] = bool(new_settings["mayor_can_cancel_vote"])
                 state["settings"].update(new_settings)
@@ -527,6 +530,14 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                     for p in state.get("players", {}).values():
                         if p.get("role") == "mayor":
                             p["is_public_mayor"] = is_pub
+
+                if "martyrdom_type" in new_settings or "public_martyrdom" in new_settings:
+                    is_pub_martyr = state["settings"].get("martyrdom_type") == "public" or state["settings"].get(
+                        "public_martyrdom", True
+                    )
+                    for p in state.get("players", {}).values():
+                        if p.get("role") == "martyrdom":
+                            p["is_public_martyrdom"] = is_pub_martyr
 
                 if "sniper_danger_bullets" in new_settings or "sniper_silver_bullets" in new_settings:
                     for p in state.get("players", {}).values():

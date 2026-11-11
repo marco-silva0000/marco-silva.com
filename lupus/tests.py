@@ -45,7 +45,6 @@ from lupus.game_state import (
     set_night_stage_index,
     set_player_status,
     set_preassigned_role,
-    trigger_martyrdom_detonation,
     setup_demo_room,
     should_autofill_demo,
     start_game,
@@ -59,6 +58,7 @@ from lupus.game_state import (
     toggle_official_nomination,
     toggle_player_silence,
     trigger_game_over,
+    trigger_martyrdom_detonation,
 )
 from lupus.qr import generate_qr_data_uri
 from lupus.roles import (
@@ -2997,6 +2997,120 @@ class TestLupusRoomLifecycleAndPortugueseDemo:
         assert ok2 is True
         assert state2["players"][w2["id"]]["status"] == "dead"
         assert state2.get("pending_martyrdom_player_id") is None
+
+    def test_martyrdom_hidden_variety_night_trap(self):
+        """Hidden Martyrdom does not detonate on death, but wakes up on next night to trap their victim."""
+        from lupus.game_state import (
+            advance_to_night,
+            get_night_stages,
+            resolve_night,
+        )
+
+        state = create_initial_state(
+            "TESTHIDMARTYR",
+            "Hidden Martyr Room",
+            settings={"martyrdom_type": "hidden", "limbo_enabled": False},
+        )
+        state, p_martyr = add_player(state, "StealthSoldier")
+        state, p_wolf = add_player(state, "BadWolf")
+        state, p_doc = add_player(state, "Doctor")
+        state, p_villager = add_player(state, "GoodGuy")
+
+        p_martyr["role"] = "martyrdom"
+        p_martyr["faction"] = "town"
+        p_martyr["is_public_martyrdom"] = False
+        p_wolf["role"] = "werewolf"
+        p_wolf["faction"] = "wolves"
+        p_doc["role"] = "doctor"
+        p_doc["faction"] = "town"
+        p_villager["role"] = "villager"
+        p_villager["faction"] = "town"
+
+        # 1. Before death: Night stages show Martyrdom stage with is_alive=False (bluff pause)
+        advance_to_night(state)
+        stages = get_night_stages(state)
+        m_stage = next((s for s in stages if s["id"] == "martyrdom"), None)
+        assert m_stage is not None
+        assert m_stage["is_alive"] is False  # Not dead yet: GM bluffs for 5-10s
+
+        # Resolve peaceful night 1
+        resolve_night(state)
+
+        # 2. Daytime: StealthSoldier is eliminated by town execution
+        set_player_status(state, p_martyr["id"], "dead")
+        assert p_martyr["status"] == "dead"
+        # In hidden variety: NO instant explosion, NO pending_martyrdom_player_id
+        assert state.get("pending_martyrdom_player_id") is None
+        assert state["players"][p_wolf["id"]]["status"] == "alive"
+        # Secret pending flag is active
+        assert p_martyr["pending_hidden_martyrdom"] is True
+
+        # 3. Night 2: StealthSoldier is called in secret to designate their revenge trap
+        advance_to_night(state)
+        stages2 = get_night_stages(state)
+        m_stage2 = next((s for s in stages2 if s["id"] == "martyrdom"), None)
+        assert m_stage2 is not None
+        assert m_stage2["is_alive"] is True  # Active! Pending revenge
+
+        # Deceased soldier can pick their revenge target in secret
+        ok, msg = set_martyrdom_target(state, p_martyr["id"], p_wolf["id"])
+        assert ok is True
+        assert state["night_actions"]["martyrdom_target"] == p_wolf["id"]
+
+        # 4. Night 2 resolves at dawn: Booby trap explodes and eliminates BadWolf!
+        resolve_night(state)
+        assert state["players"][p_wolf["id"]]["status"] == "dead"
+        assert any("explosive booby trap" in line for line in state["night_report"])
+        # Revenge window is closed
+        assert p_martyr["pending_hidden_martyrdom"] is False
+        assert p_martyr["used_hidden_martyrdom"] is True
+
+        # 5. Night 3: Martyrdom is called again for bluffing, but is_alive is False
+        advance_to_night(state)
+        stages3 = get_night_stages(state)
+        m_stage3 = next((s for s in stages3 if s["id"] == "martyrdom"), None)
+        assert m_stage3 is not None
+        assert m_stage3["is_alive"] is False  # Window expired: bluff pause only
+
+    def test_martyrdom_hidden_doctor_protection(self):
+        """If Doctor protects the target of hidden Martyrdom booby trap, target survives."""
+        from lupus.game_state import (
+            advance_to_night,
+            record_gm_night_action,
+            resolve_night,
+        )
+
+        state = create_initial_state(
+            "TESTHIDDOC",
+            "Hidden Martyr Doc Room",
+            settings={"martyrdom_type": "hidden", "limbo_enabled": False},
+        )
+        state, p_martyr = add_player(state, "Martyr")
+        state, p_wolf = add_player(state, "Wolf")
+        state, p_doc = add_player(state, "Doc")
+
+        p_martyr["role"] = "martyrdom"
+        p_martyr["faction"] = "town"
+        p_martyr["is_public_martyrdom"] = False
+        p_wolf["role"] = "werewolf"
+        p_wolf["faction"] = "wolves"
+        p_doc["role"] = "doctor"
+        p_doc["faction"] = "town"
+
+        # Martyr dies
+        set_player_status(state, p_martyr["id"], "dead")
+        assert p_martyr["pending_hidden_martyrdom"] is True
+
+        # Night falls
+        advance_to_night(state)
+        # Martyr targets Wolf with booby trap
+        record_gm_night_action(state, "martyrdom", target_id=p_wolf["id"])
+        # Doctor protects Wolf
+        record_gm_night_action(state, "doctor", target_id=p_wolf["id"])
+
+        resolve_night(state)
+        # Protected! Wolf survives!
+        assert state["players"][p_wolf["id"]]["status"] == "alive"
 
     def test_gull_wolf_bite_conversion(self):
         """When The Gull is attacked by wolves without Doctor protection, they survive and convert to Werewolf."""

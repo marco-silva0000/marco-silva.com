@@ -1,6 +1,7 @@
 import json
 from unittest.mock import patch
 
+import pytest
 from django.test import RequestFactory
 
 from tools.ai_extract import EventSchema, _fallback
@@ -15,6 +16,7 @@ MOCK_EVENT = {
 }
 
 
+@pytest.mark.django_db
 class TestIcsMakerPage:
     def test_returns_200(self, settings):
         settings.TEMPLATES[0]["OPTIONS"]["context_processors"] = [

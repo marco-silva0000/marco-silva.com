@@ -4,6 +4,25 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v126] - 2026-11-11
+
+### Added
+- **Public vs. Hidden Martyrdom Variations (`martyrdom_type`)**:
+  - **Public Variety (`public`)**: Instant loud grenade detonation. When eliminated (by village vote or night attack), the grenade explodes immediately in the village square, taking down their primed target in public with a town-wide announcement. If unprimed, presents a live detonation picker.
+  - **Hidden Variety (`hidden`)**: Stealthy delayed revenge trap. When eliminated (day or night), death remains silent with no public grenade leak. On the **immediate following night**, a dedicated secret night stage (`martyrdom`) prompts the deceased martyr to designate an explosive booby trap victim. Detonates at dawn alongside night casualties unless protected by Doctor.
+  - **One-Night Revenge Window**: Enforced one-night limit; after dawn of the subsequent night, `pending_hidden_martyrdom` is retired.
+  - **Bluff Pause**: On all other nights (or if Martyr is alive or not in play), the GM cockpit displays the standard 5–10s bluff pause to avoid leaking the Martyr's status.
+- **Cockpit Role Builder Enhancements**:
+  - Added `chip-martyrdom` with inline variation toggle (`📢 Public (Instant)` vs `🔒 Hidden (Night Trap)`).
+  - Added `chip-wolf_cub` (🐾) and `chip-gull` (🕊️) into GM deck builder with complete metadata.
+  - Added night review summary entry for Martyrdom explosive booby trap.
+- **Frontend Testing & Smoke Suite**:
+  - Built lean Playwright smoke tests (`tests/playwright/test_lupus.py`) verifying Lupus hub rendering, GM room creation, and player join/privacy peek shield, adhering to Carson Gross's *"Codin' Dirty"* testing philosophy.
+  - Added host environment fallback in `tests/playwright/conftest.py` ensuring clean pytest execution across environments without FHS browser dependencies while relying on the ultra-fast (1.4s) Robot Framework simulation suite for rules verification.
+- **Testing**:
+  - Added unit tests in `lupus/tests.py` covering hidden martyrdom night trap resolution, one-night window expiration, and Doctor protection immunity.
+  - Added Robot Framework scenario in `tests/robot/lupus/suites/07_roles_special_pack.robot` (37 passed).
+
 ## [v125] - 2026-11-11
 
 ### Added

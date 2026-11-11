@@ -41,6 +41,33 @@ Martyrdom Eliminates Primed Target When Killed
     And Player Status Should Be     Innocent    alive
     And Event Log Should Contain    live grenade, blowing up BadWolf
 
+Hidden Martyrdom Executes Secret Night Booby Trap On Next Night
+    [Documentation]    In hidden mode, Martyr death is stealthy. Next night, Martyrdom stage wakes up to target victim, then detonates at dawn.
+    Given A New Game    code=MART02    martyrdom_type=hidden    limbo_enabled=${FALSE}
+    And Player Joins As    StealthSoldier    role=martyrdom
+    And Player Joins As    SneakyWolf        role=werewolf
+    And Player Joins As    Citizen           role=villager
+    When Game Starts
+    # Night 1: Soldier is alive; martyrdom stage is present but inactive (is_alive=False for bluff pause)
+    And Night Stage Should Be Active    martyrdom    expected_active=${FALSE}
+    And Night Resolves
+    # Day 1: Soldier is voted out by town
+    And Player Status Is Set To    StealthSoldier    dead
+    # In hidden mode, no immediate grenade explosion!
+    Then Player Status Should Be    SneakyWolf    alive
+    # Night 2: Soldier's secret martyrdom stage is now ACTIVE
+    When Night Falls
+    Then Night Stage Should Be Active    martyrdom    expected_active=${TRUE}
+    # Martyrdom targets SneakyWolf
+    When Martyrdom Sets Night Target    SneakyWolf
+    And Night Resolves
+    # Dawn report announces explosive booby trap and SneakyWolf is dead!
+    Then Player Status Should Be    SneakyWolf    dead
+    And Event Log Should Contain    explosive booby trap
+    # Night 3: Martyrdom revenge window has expired, stage reverts to bluff pause
+    When Night Falls
+    Then Night Stage Should Be Active    martyrdom    expected_active=${FALSE}
+
 The Gull Converts To Werewolf When Bitten By Wolves
     [Documentation]    The Gull is initially Town, but when bitten by wolves without doctor shield, they survive and convert secretly to Wolves.
     Given A New Game    code=GULL01    limbo_enabled=${FALSE}

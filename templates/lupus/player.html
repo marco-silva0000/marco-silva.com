@@ -2214,8 +2214,12 @@ html, body {
         secretNotes.push(`<div style="background: rgba(147, 51, 234, 0.25); border: 1px solid #a855f7; border-radius: 6px; padding: 0.5rem; margin-top: 0.35rem; color: #d8b4fe; font-size: 0.85rem; line-height: 1.4;">🐾 <strong>WOLF RAMPAGE ACTIVE!</strong> The Wolf Cub was killed! Your pack strikes with <strong>TWO KILLS</strong> tonight!</div>`);
       }
       if (me.role.id === "martyrdom") {
-        const primedName = me.martyrdom_target_name ? escapeHtml(me.martyrdom_target_name) : "None (Unarmed)";
-        secretNotes.push(`💣 <strong>Martyrdom Revenge:</strong> Live grenade is primed on: <strong style="color: #f87171;">${primedName}</strong>. If you are eliminated, your grenade will blow them up with you!`);
+        if (me.is_public_martyrdom !== false) {
+          const primedName = me.martyrdom_target_name ? escapeHtml(me.martyrdom_target_name) : "None (Unarmed)";
+          secretNotes.push(`💣 <strong>Public Martyrdom:</strong> Live grenade is primed on: <strong style="color: #f87171;">${primedName}</strong>. If you are eliminated, your grenade immediately blows them up with you in public!`);
+        } else {
+          secretNotes.push(`💣 <strong>Hidden Martyrdom (Stealth Trap):</strong> If eliminated, you will NOT detonate immediately. Instead, on the night immediately following your death, you will awaken in secret to trigger an explosive booby trap on your victim!`);
+        }
       }
       const notesEl = document.getElementById("role-secret-notes");
       if (secretNotes.length > 0) {
@@ -2301,10 +2305,16 @@ html, body {
       }
     }
 
-    // Martyrdom Arm Box (when alive)
+    // Martyrdom Arm Box (when alive or when dead with pending hidden martyrdom)
     const mArmBox = document.getElementById("martyrdom-arm-box");
     if (mArmBox) {
-      if (state.phase !== "lobby" && me.role && me.role.id === "martyrdom" && me.status === "alive") {
+      const canArm = (
+        state.phase !== "lobby" &&
+        me.role &&
+        me.role.id === "martyrdom" &&
+        (me.status === "alive" || (me.pending_hidden_martyrdom && state.phase === "night"))
+      );
+      if (canArm) {
         mArmBox.style.display = "block";
         const mArmSel = document.getElementById("martyrdom-arm-select");
         const mArmStatus = document.getElementById("martyrdom-armed-status");

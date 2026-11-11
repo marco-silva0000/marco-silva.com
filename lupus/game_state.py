@@ -193,6 +193,8 @@ def create_initial_state(
         "public_mayor": True,  # Kept in sync with mayor_type
         "mayor_can_cancel_vote": True,  # Both public and hidden mayors can have or not the power to cancel the vote (pardon veto)
         "public_heartbreak_cause": False,  # If true, lover heartbreak cause announced; if false, concealed as "found dead"
+        "martyrdom_type": "public",  # "public" (instant town square grenade) or "hidden" (secret night booby trap)
+        "public_martyrdom": True,  # Kept in sync with martyrdom_type
     }
     if settings:
         default_settings.update(settings)
@@ -201,6 +203,12 @@ def create_initial_state(
         default_settings["public_mayor"] = (default_settings["mayor_type"] == "public")
     elif "public_mayor" in default_settings:
         default_settings["mayor_type"] = "public" if default_settings["public_mayor"] else "hidden"
+
+    # Ensure martyrdom_type and public_martyrdom remain synchronized
+    if "martyrdom_type" in default_settings:
+        default_settings["public_martyrdom"] = (default_settings["martyrdom_type"] == "public")
+    elif "public_martyrdom" in default_settings:
+        default_settings["martyrdom_type"] = "public" if default_settings["public_martyrdom"] else "hidden"
 
     state: dict[str, Any] = {
         "code": code.upper(),
@@ -313,6 +321,12 @@ def add_player(state: dict[str, Any], name: str, is_offline: bool = False) -> tu
         "sniper_silver_bullets": 1 if state.get("settings", {}).get("sniper_bullet_type") == "mix" else 0,
         "sniper_nights_held": 0,
         "martyrdom_target_id": None,
+        "is_public_martyrdom": (
+            state.get("settings", {}).get("martyrdom_type", "public") == "public"
+            or state.get("settings", {}).get("public_martyrdom", True)
+        ),
+        "pending_hidden_martyrdom": False,
+        "used_hidden_martyrdom": False,
         "gull_converted": False,
     }
     state["players"][player_id] = player
@@ -499,6 +513,13 @@ def set_preassigned_role(state: dict[str, Any], player_id: str, role_id: Optiona
             )
         else:
             player["is_public_mayor"] = False
+        if role_id == "martyrdom":
+            player["is_public_martyrdom"] = (
+                state.get("settings", {}).get("martyrdom_type", "public") == "public"
+                or state.get("settings", {}).get("public_martyrdom", True)
+            )
+        else:
+            player["is_public_martyrdom"] = True
 
     # Ensure pre-assigned role is represented in state['deck']
     deck = list(state.get("deck", []))
@@ -769,6 +790,15 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
                 or state.get("settings", {}).get("public_mayor", False)
             )
         )
+        state["players"][pid]["is_public_martyrdom"] = (
+            role_id == "martyrdom"
+            and (
+                state.get("settings", {}).get("martyrdom_type", "public") == "public"
+                or state.get("settings", {}).get("public_martyrdom", True)
+            )
+        )
+        state["players"][pid]["pending_hidden_martyrdom"] = False
+        state["players"][pid]["used_hidden_martyrdom"] = False
         state["players"][pid]["sniper_danger_bullets"] = danger_bullets_qty if role_id == "sniper" else 0
         state["players"][pid]["sniper_silver_bullets"] = silver_bullets_qty if role_id == "sniper" else 0
         state["players"][pid]["death_angel_strikes"] = 1 if role_id == "death_angel" else 0
@@ -1135,6 +1165,13 @@ def set_manual_player_role(state: dict[str, Any], player_id: str, role_id: str) 
                 or state.get("settings", {}).get("public_mayor", False)
             )
 
+        if role_id == "martyrdom":
+            state["players"][player_id]["is_public_martyrdom"] = (
+                state.get("settings", {}).get("martyrdom_type", "public") == "public"
+                or state.get("settings", {}).get("public_martyrdom", True)
+            )
+            state["players"][player_id]["pending_hidden_martyrdom"] = False
+
         if role_id == "sniper":
             danger_setting = state.get("settings", {}).get("sniper_danger_bullets", 1)
             silver_setting = state.get("settings", {}).get("sniper_silver_bullets", 0)
@@ -1484,24 +1521,41 @@ def set_player_status(
 
         # Check Martyrdom live grenade revenge
         if player.get("role") == "martyrdom":
-            m_target_id = player.get("martyrdom_target_id")
-            if m_target_id and m_target_id in state["players"] and state["players"][m_target_id].get("status") != "dead":
-                target_p = state["players"][m_target_id]
-                player["martyrdom_target_id"] = None
-                log_event(
-                    state,
-                    f"💣 Martyrdom! As {player['name']} fell, they dropped a live grenade, blowing up {target_p['name']}!",
+            is_pub_martyr = (
+                player.get("is_public_martyrdom")
+                if player.get("is_public_martyrdom") is not None
+                else (
+                    state.get("settings", {}).get("martyrdom_type", "public") == "public"
+                    or state.get("settings", {}).get("public_martyrdom", True)
                 )
-                if state.get("night_report") is not None and state.get("phase") in ("night", "day_discussion", "day_voting"):
-                    state.setdefault("night_report", []).append(
-                        f"💣 Martyrdom! As {player['name']} fell, they dropped a live grenade, blowing up {target_p['name']}!"
+            )
+            if is_pub_martyr:
+                m_target_id = player.get("martyrdom_target_id")
+                if m_target_id and m_target_id in state["players"] and state["players"][m_target_id].get("status") != "dead":
+                    target_p = state["players"][m_target_id]
+                    player["martyrdom_target_id"] = None
+                    log_event(
+                        state,
+                        f"💣 Martyrdom! As {player['name']} fell, they dropped a live grenade, blowing up {target_p['name']}!",
                     )
-                set_player_status(state, m_target_id, "dead", stagger_lover_heartbreak=stagger_lover_heartbreak)
+                    if state.get("night_report") is not None and state.get("phase") in ("night", "day_discussion", "day_voting"):
+                        state.setdefault("night_report", []).append(
+                            f"💣 Martyrdom! As {player['name']} fell, they dropped a live grenade, blowing up {target_p['name']}!"
+                        )
+                    set_player_status(state, m_target_id, "dead", stagger_lover_heartbreak=stagger_lover_heartbreak)
+                else:
+                    state["pending_martyrdom_player_id"] = player_id
+                    log_event(
+                        state,
+                        f"💣 Martyrdom! {player['name']} dropped a live grenade! Awaiting detonation target...",
+                    )
             else:
-                state["pending_martyrdom_player_id"] = player_id
+                # Hidden variety: Stealthy delayed revenge. Death is NOT announced as martyrdom grenade detonation!
+                # Instead, set pending_hidden_martyrdom so they get called on the immediate next night.
+                player["pending_hidden_martyrdom"] = True
                 log_event(
                     state,
-                    f"💣 Martyrdom! {player['name']} dropped a live grenade! Awaiting detonation target...",
+                    f"💣 [Secret] {player['name']} (Martyrdom) fell silently. Hidden revenge trap primed for the next night.",
                 )
 
         # First check if successor inherits the deceased's role!
@@ -1558,7 +1612,8 @@ def set_martyrdom_target(
     if player.get("role") != "martyrdom":
         return False, "Only Martyrdom can prime a live grenade."
     if player.get("status") != "alive":
-        return False, "Only living Martyrdom can prime a revenge target."
+        if not player.get("pending_hidden_martyrdom"):
+            return False, "Only living Martyrdom or deceased Martyr with pending revenge can prime a revenge target."
     if target_id:
         if target_id not in state["players"]:
             return False, "Target not found."
@@ -1567,6 +1622,8 @@ def set_martyrdom_target(
         if state["players"][target_id].get("status") == "dead":
             return False, "Target is already dead."
         player["martyrdom_target_id"] = target_id
+        if player.get("pending_hidden_martyrdom"):
+            state.setdefault("night_actions", {})["martyrdom_target"] = target_id
         name = state["players"][target_id]["name"]
         log_event(state, f"💣 {player['name']} primed live grenade on {name}.")
         record_action(
@@ -1580,6 +1637,8 @@ def set_martyrdom_target(
         return True, f"Martyrdom primed on {name}."
     else:
         player["martyrdom_target_id"] = None
+        if "night_actions" in state and "martyrdom_target" in state["night_actions"]:
+            del state["night_actions"]["martyrdom_target"]
         log_event(state, f"💣 {player['name']} cleared martyrdom revenge target.")
         record_action(
             state,
@@ -2278,7 +2337,34 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    # 17. Mayor Veto (Once Per Person!)
+    # 17. Hidden Martyrdom Revenge (Stealth Booby Trap)
+    is_hidden_martyrdom = (
+        state.get("settings", {}).get("martyrdom_type") == "hidden"
+        or not state.get("settings", {}).get("public_martyrdom", True)
+    )
+    if is_role_in_game("martyrdom") and is_hidden_martyrdom:
+        martyr_actors = get_role_actors("martyrdom")
+        has_pending = any(
+            p.get("pending_hidden_martyrdom")
+            for p in players.values()
+            if p.get("role") == "martyrdom"
+        )
+        m_target_id = actions.get("martyrdom_target")
+        stages.append(
+            {
+                "id": "martyrdom",
+                "title": "💣 Martyrdom Revenge",
+                "role_id": "martyrdom",
+                "actors": martyr_actors,
+                "is_alive": has_pending,
+                "script": "Martyrdom, wake up! If you fell recently, silently point at the player who steps on your explosive booby trap tonight.",
+                "target_id": m_target_id,
+                "target_name": players[m_target_id]["name"] if m_target_id in players else None,
+                "is_complete": bool(m_target_id) or not has_pending,
+            }
+        )
+
+    # 18. Mayor Veto (Once Per Person!)
     if is_role_in_game("mayor"):
         mayors = get_role_actors("mayor")
         is_alive = any(m["is_alive"] for m in mayors)
@@ -2579,6 +2665,13 @@ def _do_record_gm_night_action(
         save_game(state["code"], state)
         return True, f"Death Angel strikes: {name}"
 
+    elif stage_id == "martyrdom":
+        actions["martyrdom_target"] = target_id
+        name = players[target_id]["name"] if target_id in players else "None"
+        log_event(state, f"Martyrdom booby trap set to: {name}")
+        save_game(state["code"], state)
+        return True, f"Martyrdom targets: {name}"
+
     return False, "Unknown stage"
 
 
@@ -2618,6 +2711,7 @@ def clear_gm_night_action(state: dict[str, Any], stage_id: str) -> None:
         "sniper": "sniper_shot",
         "serial_killer": "sk_target",
         "ghost": "ghost_haunt",
+        "martyrdom": "martyrdom_target",
         "mayor": "mayor_veto",
         "cupid": "cupid_lovers",
     }
@@ -3196,6 +3290,21 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                 p_name = state["players"][kill_pid]["name"]
                 log_event(state, f"🧙‍♀️ Witch used poison on {p_name}!")
 
+    # --- 10b. Hidden Martyrdom Booby Trap Detonation ---
+    has_pending_martyr = any(
+        p.get("role") == "martyrdom" and p.get("pending_hidden_martyrdom")
+        for p in state["players"].values()
+    )
+    m_target = actions.get("martyrdom_target")
+    if has_pending_martyr and m_target and m_target in state["players"]:
+        t_player = state["players"][m_target]
+        if m_target not in to_save:
+            to_kill.add(m_target)
+            log_event(state, f"💣 A hidden Martyrdom booby trap detonated on {t_player['name']}!")
+            report.append(f"💣 An explosive booby trap detonated in the night! {t_player['name']} was slain.")
+        else:
+            log_event(state, f"💣 A hidden Martyrdom booby trap detonated on {t_player['name']}, but they were protected!")
+
     # --- 11. Silencer (Staggered Rule) ---
     silencer_actor = next(
         (p for p in state["players"].values() if p["role"] == "silencer" and p["status"] == "alive"), None
@@ -3332,6 +3441,13 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     if state.get("wolf_cub_rampage"):
         state["wolf_cub_rampage"] = False
         log_event(state, "🐾 The wolf pack's double-kill rampage has concluded.")
+
+    # Clear pending_hidden_martyrdom on all players (the one-night revenge window closes!)
+    for p in state["players"].values():
+        if p.get("pending_hidden_martyrdom"):
+            p["pending_hidden_martyrdom"] = False
+            p["used_hidden_martyrdom"] = True
+            log_event(state, f"💣 {p['name']}'s hidden martyrdom revenge window has closed.")
 
     start_timer(state, state["settings"].get("discussion_timer", 300), "Discussion")
     check_win_condition(state)
@@ -4124,6 +4240,12 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
             ),
             "gull_converted": player.get("gull_converted", False),
             "pending_martyrdom": state.get("pending_martyrdom_player_id") == player_id,
+            "pending_hidden_martyrdom": player.get("pending_hidden_martyrdom", False),
+            "is_public_martyrdom": player.get("role") == "martyrdom" and (
+                player.get("is_public_martyrdom", False)
+                or state.get("settings", {}).get("martyrdom_type") == "public"
+                or state.get("settings", {}).get("public_martyrdom", True)
+            ),
             "is_public_mayor": player.get("role") == "mayor" and (
                 player.get("is_public_mayor", False)
                 or state.get("settings", {}).get("mayor_type") == "public"
@@ -4154,6 +4276,10 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
                 "mayor_type", "public" if state["settings"].get("public_mayor", False) else "hidden"
             ),
             "public_mayor": state["settings"].get("public_mayor", False),
+            "martyrdom_type": state["settings"].get(
+                "martyrdom_type", "public" if state["settings"].get("public_martyrdom", True) else "hidden"
+            ),
+            "public_martyrdom": state["settings"].get("public_martyrdom", True),
             "mayor_can_cancel_vote": state["settings"].get("mayor_can_cancel_vote", True),
             "sniper_danger_bullets": state["settings"].get("sniper_danger_bullets", 1),
             "sniper_silver_bullets": state["settings"].get("sniper_silver_bullets", 0),
@@ -4207,6 +4333,12 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
                     or state.get("settings", {}).get("mayor_type") == "public"
                     or state.get("settings", {}).get("public_mayor", False)
                 ),
+                "is_public_martyrdom": p.get("role") == "martyrdom" and (
+                    p.get("is_public_martyrdom", False)
+                    or state.get("settings", {}).get("martyrdom_type") == "public"
+                    or state.get("settings", {}).get("public_martyrdom", True)
+                ),
+                "pending_hidden_martyrdom": p.get("pending_hidden_martyrdom", False),
                 "point_target_id": state.get("player_points", {}).get(p["id"]),
             }
         )

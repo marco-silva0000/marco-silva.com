@@ -192,6 +192,8 @@ def create_room(request):
             "reveal_roles_on_death": reveal_level,
             "mayor_type": request.POST.get("mayor_type", "public"),
             "public_mayor": request.POST.get("mayor_type", "public") == "public",
+            "martyrdom_type": request.POST.get("martyrdom_type", "public"),
+            "public_martyrdom": request.POST.get("martyrdom_type", "public") == "public",
         }
 
         gm_name = request.POST.get("gm_name", "Game Master").strip() or "Game Master"
