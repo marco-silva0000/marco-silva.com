@@ -3653,6 +3653,177 @@ class TestLupusV129HackerDeckAndScan:
         voting_state = start_voting_session(state)
         assert voting_state.get("phase") != "day_voting"
 
+    def test_mayor_self_pardon_veto_when_executed(self):
+        """When Mayor is executed by day vote, they can exercise executive veto during night to revive themselves."""
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            get_night_stages,
+            record_gm_night_action,
+            resolve_night,
+            set_player_status,
+            start_game,
+        )
+
+        state = create_initial_state("MAYOR_TEST", "Mayor Pardon Room")
+        for name in ["Mayor Bob", "Wolf Alice", "Villager Charlie", "Villager Dave"]:
+            state, _ = add_player(state, name)
+
+        roles = ["mayor", "werewolf", "villager", "villager"]
+        state = start_game(state, role_list=roles)
+
+        mayor_p = next(p for p in state["players"].values() if p["role"] == "mayor")
+
+        # Simulate Mayor was lynched during the day
+        state["last_lynched_id"] = mayor_p["id"]
+        set_player_status(state, mayor_p["id"], "dead")
+        state["phase"] = "night"
+        state["round_number"] = 2
+        state["is_night_zero"] = False
+
+        # Check Night stages: Mayor stage must allow self-pardon
+        stages = get_night_stages(state)
+        mayor_stage = next((s for s in stages if s.get("id") == "mayor"), None)
+        assert mayor_stage is not None
+        assert mayor_stage["was_lynched_yesterday"] is True
+        assert mayor_stage["is_alive"] is True
+        assert mayor_stage["has_veto"] is True
+
+        # GM records Mayor exercising veto
+        record_gm_night_action(state, "mayor", mayor_p["id"], extra={"mayor_veto": True})
+        assert state["night_actions"]["mayor_veto"] is True
+
+        # Resolve night -> Mayor should be revived and alive again!
+        state = resolve_night(state)
+        assert state["players"][mayor_p["id"]]["status"] == "alive"
+        assert state["mayor_used_veto"] is True
+        assert any("pardoned and returned alive" in r for r in state["night_report"])
+
+    def test_cancel_day_vote_veto(self):
+        """Verify GM / Mayor can cancel day vote outcome and restore eliminated player."""
+        from lupus.game_state import (
+            add_player,
+            cancel_day_vote_veto,
+            create_initial_state,
+            set_player_status,
+            start_game,
+        )
+
+        state = create_initial_state("VETO_DAY", "Cancel Day Vote Room")
+        for name in ["Victim", "Wolf", "Villager1", "Villager2"]:
+            state, _ = add_player(state, name)
+
+        roles = ["mayor", "werewolf", "villager", "villager"]
+        state = start_game(state, role_list=roles)
+
+        victim = state["players"][list(state["players"].keys())[0]]
+        set_player_status(state, victim["id"], "dead")
+        state["last_lynched_id"] = victim["id"]
+        state["voting"] = {"stage": "outcome", "eliminated_player_id": victim["id"]}
+
+        success, msg = cancel_day_vote_veto(state)
+        assert success is True
+        assert "pardoned and returned alive" in msg
+        assert state["players"][victim["id"]]["status"] == "alive"
+        assert state["voting"]["eliminated_player_id"] is None
+        assert state["voting"]["elimination_result"] == "mayor_vetoed"
+
+    def test_direct_messages_player_and_gm(self):
+        """Verify private direct messaging system between players and Game Master."""
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            get_gm_view,
+            get_sanitized_player_view,
+            mark_dms_read,
+            send_direct_message,
+        )
+
+        state = create_initial_state("DM_TEST", "Direct Message Room")
+        state, p1 = add_player(state, "Alice")
+        state, p2 = add_player(state, "Bob")
+
+        # 1. Alice sends DM to GM
+        ok, msg, entry = send_direct_message(state, p1["id"], "gm", "Can I use my ability tonight?")
+        assert ok is True
+        assert entry["message"] == "Can I use my ability tonight?"
+        assert entry["sender_name"] == "Alice"
+
+        # Check views: Alice view has 1 DM, unread=0 (she sent it); Bob has 0 DMs; GM view has unread=1
+        alice_view = get_sanitized_player_view(state, p1["id"])
+        assert len(alice_view["my_dms"]) == 1
+        assert alice_view["unread_dms_count"] == 0
+
+        bob_view = get_sanitized_player_view(state, p2["id"])
+        assert len(bob_view["my_dms"]) == 0
+        assert bob_view["unread_dms_count"] == 0
+
+        gm_view = get_gm_view(state)
+        assert len(gm_view["direct_messages"]) == 1
+        assert gm_view["unread_dms_count"] == 1
+
+        # 2. GM replies to Alice
+        ok, msg, entry2 = send_direct_message(state, "gm", p1["id"], "Yes, you may target anyone alive.")
+        assert ok is True
+        assert entry2["sender_id"] == "gm"
+
+        alice_view = get_sanitized_player_view(state, p1["id"])
+        assert len(alice_view["my_dms"]) == 2
+        assert alice_view["unread_dms_count"] == 1
+
+        # 3. Alice marks DMs as read
+        updated = mark_dms_read(state, p1["id"])
+        assert updated is True
+        alice_view = get_sanitized_player_view(state, p1["id"])
+        assert alice_view["unread_dms_count"] == 0
+
+    def test_ghost_midgame_lifecycle_and_optional_haunt(self):
+        """Mid-game spirits (ghost, disgruntled ghost) only exist when a player holds them, and haunt is optional."""
+        from lupus.game_state import (
+            add_player,
+            assign_midgame_role,
+            create_initial_state,
+            get_night_stages,
+            remove_player,
+            start_game,
+        )
+
+        state = create_initial_state("GHOST_TEST", "Ghost Lifecycle Room")
+        for name in ["P1", "P2", "P3", "P4"]:
+            state, _ = add_player(state, name)
+
+        roles = ["werewolf", "villager", "villager", "villager"]
+        state = start_game(state, role_list=roles)
+        state["is_night_zero"] = False
+        state["round_number"] = 1
+
+        # Before any ghost is in room, ghost must NOT be in night stages
+        stages = get_night_stages(state)
+        assert not any(s.get("id") == "ghost" for s in stages)
+        assert not any(s.get("id") == "disgruntled_ghost" for s in stages)
+
+        # New player joins mid-game
+        state, p_new = add_player(state, "New Joiner")
+        assert p_new["status"] == "waiting"
+
+        # GM assigns Town Ghost
+        assign_midgame_role(state, p_new["id"], "ghost")
+        assert state["players"][p_new["id"]]["role"] == "ghost"
+
+        # Now Ghost stage appears in night stages and is_complete is True (optional action)
+        stages = get_night_stages(state)
+        ghost_stage = next((s for s in stages if s.get("id") == "ghost"), None)
+        assert ghost_stage is not None
+        assert ghost_stage["is_complete"] is True
+
+        # Player leaves room
+        remove_player(state, p_new["id"])
+
+        # Ghost stage must cease to exist in night stages!
+        stages = get_night_stages(state)
+        assert not any(s.get("id") == "ghost" for s in stages)
+
+
 
 
 

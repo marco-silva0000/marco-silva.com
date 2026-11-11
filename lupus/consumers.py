@@ -13,6 +13,7 @@ from .game_state import (
     approve_news_bulletin,
     assign_midgame_role,
     auto_assign_roles_from_names,
+    cancel_day_vote_veto,
     cast_final_vote,
     clear_all_player_points,
     clear_gm_night_action,
@@ -23,6 +24,7 @@ from .game_state import (
     get_gm_view,
     get_sanitized_player_view,
     guess_angel_in_limbo,
+    mark_dms_read,
     move_player,
     pause_timer,
     point_at_player,
@@ -40,6 +42,7 @@ from .game_state import (
     return_to_nominations,
     reveal_detective_to_player,
     save_game,
+    send_direct_message,
     set_broadcast_message,
     set_deck,
     set_manual_player_role,
@@ -497,6 +500,12 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 reset_voting(state)
                 await self.broadcast_sync()
 
+            elif action == "cancel_day_vote_veto":
+                success, msg = cancel_day_vote_veto(state)
+                await self.send_json({"type": "veto_result", "success": success, "message": msg})
+                if success:
+                    await self.broadcast_sync()
+
             elif action == "resolve_night":
                 resolve_night(state)
                 await self.broadcast_sync()
@@ -568,6 +577,20 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 save_game(self.code, state)
                 await self.broadcast_sync()
 
+            elif action == "send_dm":
+                recipient_id = content.get("recipient_id")
+                message = content.get("message")
+                success, msg, entry = send_direct_message(state, "gm", recipient_id, message)
+                await self.send_json({"type": "dm_result", "success": success, "message": msg, "entry": entry})
+                if success:
+                    await self.broadcast_sync()
+
+            elif action == "mark_dms_read":
+                target_player_id = content.get("player_id")
+                updated = mark_dms_read(state, "gm", target_player_id)
+                if updated:
+                    await self.broadcast_sync()
+
             return
 
         # 3. Player Operations
@@ -633,4 +656,16 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 if target_id:
                     success, msg = trigger_martyrdom_detonation(state, self.player_id, target_id)
                     await self.send_json({"type": "martyrdom_result", "success": success, "message": msg})
+                    await self.broadcast_sync()
+
+            elif action == "send_dm":
+                message = content.get("message")
+                success, msg, entry = send_direct_message(state, self.player_id, "gm", message)
+                await self.send_json({"type": "dm_result", "success": success, "message": msg, "entry": entry})
+                if success:
+                    await self.broadcast_sync()
+
+            elif action == "mark_dms_read":
+                updated = mark_dms_read(state, self.player_id)
+                if updated:
                     await self.broadcast_sync()

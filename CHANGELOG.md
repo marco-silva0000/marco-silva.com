@@ -4,6 +4,33 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v130] - 2026-11-12
+
+### Added
+- **Two-Way Private Direct Messaging (DMs)**:
+  - Added discrete, real-time messaging between players and the Game Master (`send_dm`, `mark_dms_read`).
+  - Added dedicated 5th tab `Host Chat` (`tab-content-chat`) on the player screen with full message feed, unread badge counter, and private composer.
+  - Added `gm-dms-modal` on the Game Master Cockpit with player list conversation selector, live unread counter badge in top-bar, and direct response composer.
+- **Mid-Game Waiting Player Prompt**:
+  - Prominent alert banner (`#midgame-waiting-banner`) appears at the top of the GM cockpit whenever a player connects mid-game (`status="waiting"`).
+  - Quick `Assign Role Now` shortcut opens role assignment with one click.
+- **Mayor Executive Day Vote Veto & Self-Pardon**:
+  - Mayor can now exercise executive veto to pardon themselves if voted out by town execution during the day (`was_lynched_yesterday`).
+  - Added direct `👨‍⚖️ Mayor Veto / Cancel Vote` button in GM Day Voting Director (`cancel_day_vote_veto`) to immediately overturn day vote outcomes.
+
+### Fixed
+- **Mobile Bottom Navigation Dock**:
+  - Modern native dock component fixed to the screen bottom (`z-index: 99999`) with proper mobile safe area inset padding (`max(env(safe-area-inset-bottom), 8px)`).
+  - Clean active pill indicators, 5 tabs (`Table`, `Game`, `Chat`, `Notes`, `My Role`), and adjusted page container bottom padding to prevent content overlap.
+- **Town Gazette Bulletin Visibility & Status**:
+  - Resolved mobile viewport truncation and ensured submission box remains responsive.
+  - Fixed misleading "submitted" notice for waiting players/spectators; displays clear waiting prompt instead.
+- **Ghost & Disgruntled Ghost Lifecycle**:
+  - Spirit roles only activate in night stages when an active player holds the role; leaving or removing the ghost removes the stage.
+  - Haunting and suppression actions are now optional (`is_complete: True`), preventing blocked night transitions.
+- **Iterative Multi-Language Localization**:
+  - Localized all remaining hardcoded player screen UI strings (tabs, gazette, pointing, night rules, dawn report, timers) across 9 languages (`en`, `pt`, `it`, `es`, `fr`, `el`, `ru`, `hi`, `kn`).
+
 ## [v129] - 2026-11-12
 
 ### Fixed

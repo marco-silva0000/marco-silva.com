@@ -759,6 +759,7 @@ html, body {
       </h1>
     </div>
     <div class="top-bar-buttons" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button onclick="openGMDMsModal()" class="btn" style="background: #e0f2fe; color: #0369a1; border-color: #bae6fd; font-weight: 700; position: relative;" title="Direct Messages with Players">💬 DMs <span id="gm-topbar-dms-badge" class="badge" style="display: none; background: #ef4444; color: #fff; font-size: 0.65rem; padding: 1px 6px; border-radius: 999px; margin-left: 0.25rem;">0</span></button>
       <button onclick="startNewLobby()" class="btn" style="background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; font-weight: 700;" title="Create a new lobby room and move all connected players to it">➕ New Lobby</button>
       <button onclick="openModal('roles-guide-modal')" class="btn" style="background: #f1f5f9;" title="View all roles reference & rules">📚 Roles Guide</button>
       <button onclick="openModal('room-qr-modal')" class="btn">📱 Room QR</button>
@@ -777,6 +778,24 @@ html, body {
         style="flex: 1; min-width: 180px; padding: 0.45rem 0.65rem; font-size: 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;">
       <button onclick="sendBroadcast()" class="btn btn-sm btn-primary" style="white-space: nowrap;">📢 Broadcast</button>
       <button onclick="clearBroadcast()" class="btn btn-sm" style="white-space: nowrap; color: #666;" title="Clear announcement">Clear</button>
+    </div>
+  </div>
+
+  <!-- Mid-Game Waiting Player Prompt Banner -->
+  <div id="midgame-waiting-banner" style="display: none; padding: 0.65rem 0.9rem; background: #ecfdf5; border: 2px solid #10b981; border-radius: 8px; margin-bottom: 0.75rem; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.3rem;">👋</span>
+        <div>
+          <strong style="color: #065f46; font-size: 0.95rem;">New Player Joined Mid-Game!</strong>
+          <div id="midgame-waiting-player-names" style="font-size: 0.82rem; color: #047857;">Waiting for role assignment.</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 0.4rem;">
+        <button type="button" id="btn-midgame-assign-prompt" onclick="openWaitingPlayerAssignModal()" class="btn btn-sm" style="background: #059669; color: #fff; border-color: #047857; font-weight: 800; padding: 0.4rem 0.85rem;">
+          ✨ Assign Role Now
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1560,6 +1579,9 @@ html, body {
           <button onclick="changePhase('night')" class="btn" style="background: #1e1e24; color: #fff; border-color: #3b82f6; font-weight: 700; padding: 0.55rem 1.25rem;">
             🌙 Proceed to Night Phase
           </button>
+          <button id="btn-cancel-day-vote" onclick="cancelDayVoteVeto()" class="btn" style="background: #7c2d12; color: #fef08a; border-color: #f59e0b; font-weight: 700; padding: 0.55rem 1.25rem;" title="Exercise Mayor Executive Veto to cancel the day vote and pardon the eliminated player">
+            👨‍⚖️ Mayor Veto / Cancel Vote
+          </button>
           <button onclick="startVotingSession()" class="btn btn-sm" style="background: #334155; color: #cbd5e1; border-color: #475569;">
             🗳️ Hold Another Vote Session
           </button>
@@ -1843,6 +1865,45 @@ html, body {
         <button type="button" class="btn btn-sm role-pick-btn" data-role="traveler" onclick="selectManualRole('traveler')" style="background:#f0fdf4; color:#15803d; border-color:#bbf7d0;"><span class="role-pick-label">🧳 Traveler (Confirmed Good)</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="ghost" onclick="selectManualRole('ghost')" style="background:#f8fafc; color:#334155; border-color:#cbd5e1;"><span class="role-pick-label">👻 Town Ghost (Town Spirit)</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="disgruntled_ghost" onclick="selectManualRole('disgruntled_ghost')" style="background:#fef2f2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">👿 Disgruntled Ghost</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Game Master Direct Messages -->
+<div id="gm-dms-modal" class="modal">
+  <div class="modal-content" style="max-width: 680px; width: 95%; max-height: 85vh; display: flex; flex-direction: column; text-align: left; padding: 1.25rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.65rem; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 0.4rem; color: #0f172a;">
+        <span>💬</span> <span>Direct Messages with Players</span>
+      </h3>
+      <button onclick="closeModal('gm-dms-modal')" class="btn btn-sm">&times; Close</button>
+    </div>
+
+    <div style="display: flex; gap: 0.75rem; flex: 1; min-height: 360px; max-height: 58vh; overflow: hidden;">
+      <!-- Player List (Conversations) -->
+      <div style="width: 190px; border-right: 1px solid #e2e8f0; overflow-y: auto; padding-right: 0.5rem; display: flex; flex-direction: column; gap: 0.35rem;" id="gm-dm-player-list">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Active Conversation Panel -->
+      <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+        <div id="gm-dm-active-header" style="padding: 0.4rem 0.6rem; background: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 0.5rem; font-weight: 700; font-size: 0.85rem; color: #1e293b;">
+          Select a player to chat
+        </div>
+
+        <!-- Chat messages scroll area -->
+        <div id="gm-dm-chat-history" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.45rem; padding: 0.65rem; background: #f1f5f9; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 0.65rem;">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Composer -->
+        <form id="gm-dm-composer" onsubmit="sendGMDM(event)" style="display: flex; gap: 0.4rem; margin: 0;">
+          <input type="text" id="gm-dm-input" maxlength="300" placeholder="Type a private reply to this player..." style="flex: 1; min-width: 0; padding: 0.45rem 0.65rem; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.88rem;" autocomplete="off" />
+          <button type="submit" class="btn btn-sm btn-primary" style="font-weight: 700; padding: 0.45rem 0.85rem; white-space: nowrap;">
+            Send
+          </button>
+        </form>
       </div>
     </div>
   </div>
@@ -2861,6 +2922,24 @@ html, body {
     renderNightDirector(state);
     renderVotingDirector(state);
 
+    // Mid-Game Waiting Player Prompt Banner
+    const waitingBanner = document.getElementById("midgame-waiting-banner");
+    if (waitingBanner) {
+      const waitingPlayers = (state.players || []).filter(p => p.status === "waiting");
+      if (waitingPlayers.length > 0 && state.phase !== "lobby") {
+        waitingBanner.style.display = "block";
+        const namesEl = document.getElementById("midgame-waiting-player-names");
+        if (namesEl) {
+          namesEl.innerHTML = waitingPlayers.map(p => `<strong>${escapeHtml(p.name)}</strong>`).join(", ") + " — needs a role assigned!";
+        }
+      } else {
+        waitingBanner.style.display = "none";
+      }
+    }
+
+    // Direct Messages update
+    renderGMDMsModal();
+
     // Update seating layout and roles visibility
     updateRoleVisBtn();
     renderTableSeating(state);
@@ -3753,7 +3832,11 @@ html, body {
           const noteEl = document.getElementById("mayor-status-note");
           const vetoBtn = document.getElementById("btn-mayor-veto");
 
-          if (!stage.is_alive) {
+          if (stage.was_lynched_yesterday) {
+            noteEl.innerHTML = "👨‍⚖️ <strong>Mayor was executed yesterday!</strong> The Mayor has executive power to cancel the vote, pardon themselves, and return alive! Ask silently if they wish to exercise self-pardon.";
+            vetoBtn.disabled = false;
+            vetoBtn.style.opacity = "1";
+          } else if (!stage.is_alive) {
             noteEl.innerHTML = "💀 <strong>Mayor is dead:</strong> Call voice prompt aloud, pause 5–10s to keep dead roles secret, then click Next Stage.";
             vetoBtn.disabled = true;
             vetoBtn.style.opacity = "0.5";
@@ -3774,11 +3857,12 @@ html, body {
           if (stage.veto) {
             vetoBtn.style.background = "#16a34a";
             vetoBtn.style.borderColor = "#16a34a";
-            vetoBtn.innerText = `✅ VETO ACTIVE (Pardoning ${stage.last_lynched_name || 'victim'})`;
+            const targetLbl = stage.was_lynched_yesterday ? 'Mayor (Self-Pardon)' : (stage.last_lynched_name || 'victim');
+            vetoBtn.innerText = `✅ VETO ACTIVE (Pardoning ${targetLbl})`;
           } else {
             vetoBtn.style.background = "#334155";
             vetoBtn.style.borderColor = "#475569";
-            vetoBtn.innerText = "📜 Exercise Official Veto (Pardon)";
+            vetoBtn.innerText = stage.was_lynched_yesterday ? "⚖️ Veto Execution & Pardon Mayor (Self-Pardon)" : "📜 Exercise Official Veto (Pardon)";
           }
         }
       } else if (stage.id === "death_angel") {
@@ -4706,6 +4790,145 @@ html, body {
         setTimeout(() => { btn.innerHTML = orig; }, 2000);
       }
     });
+  }
+
+  function cancelDayVoteVeto() {
+    if (confirm("Exercise Mayor Executive Veto to cancel the day vote and pardon the eliminated player?")) {
+      sendAction("cancel_day_vote_veto");
+    }
+  }
+
+  function openWaitingPlayerAssignModal() {
+    if (!currentGameState || !currentGameState.players) return;
+    const waiting = currentGameState.players.filter(p => p.status === "waiting");
+    if (waiting.length > 0) {
+      openManualRoleModal(waiting[0].id);
+    }
+  }
+
+  // --- Game Master Direct Messages ---
+  let selectedGMDMPlayerId = null;
+
+  function openGMDMsModal(targetPlayerId) {
+    if (targetPlayerId) {
+      selectedGMDMPlayerId = targetPlayerId;
+    }
+    renderGMDMsModal();
+    openModal("gm-dms-modal");
+  }
+
+  function selectGMDMPlayer(playerId) {
+    selectedGMDMPlayerId = playerId;
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      sendAction("mark_dms_read", { player_id: playerId });
+    }
+    renderGMDMsModal();
+    setTimeout(() => {
+      const inp = document.getElementById("gm-dm-input");
+      if (inp) inp.focus();
+    }, 50);
+  }
+
+  function sendGMDM(e) {
+    if (e) e.preventDefault();
+    if (!selectedGMDMPlayerId) {
+      alert("Please select a player to message.");
+      return;
+    }
+    const inp = document.getElementById("gm-dm-input");
+    if (!inp) return;
+    const msg = (inp.value || "").trim();
+    if (!msg) return;
+    sendAction("send_dm", { recipient_id: selectedGMDMPlayerId, message: msg });
+    inp.value = "";
+  }
+
+  function renderGMDMsModal() {
+    if (!currentGameState) return;
+    const dms = currentGameState.direct_messages || [];
+    const players = currentGameState.players || [];
+    const unreadCount = currentGameState.unread_dms_count || 0;
+
+    const topBadge = document.getElementById("gm-topbar-dms-badge");
+    if (topBadge) {
+      if (unreadCount > 0) {
+        topBadge.style.display = "inline-block";
+        topBadge.innerText = unreadCount > 9 ? "9+" : unreadCount;
+      } else {
+        topBadge.style.display = "none";
+      }
+    }
+
+    if (!selectedGMDMPlayerId && players.length > 0) {
+      const lastMsg = dms.slice().reverse().find(m => m.sender_id !== "gm");
+      if (lastMsg) {
+        selectedGMDMPlayerId = lastMsg.sender_id;
+      } else {
+        selectedGMDMPlayerId = players[0].id;
+      }
+    }
+
+    const playerListEl = document.getElementById("gm-dm-player-list");
+    if (playerListEl) {
+      playerListEl.innerHTML = players.map(p => {
+        const isSelected = p.id === selectedGMDMPlayerId;
+        const unreadForPlayer = dms.filter(m => m.sender_id === p.id && m.recipient_id === "gm" && !m.read).length;
+        const bg = isSelected ? "#e0f2fe" : "#ffffff";
+        const border = isSelected ? "2px solid #0284c7" : "1px solid #e2e8f0";
+        return `
+          <button type="button" onclick="selectGMDMPlayer('${p.id}')" style="display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left; padding: 0.45rem 0.65rem; border-radius: 6px; background: ${bg}; border: ${border}; cursor: pointer; font-size: 0.85rem; font-weight: ${isSelected ? '700' : '500'}; color: #0f172a;">
+            <div style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+              #${p.seat_number} ${escapeHtml(p.name)}
+            </div>
+            ${unreadForPlayer > 0 ? `<span class="badge" style="background: #ef4444; color: #fff; font-size: 0.65rem; padding: 1px 5px; border-radius: 999px;">${unreadForPlayer}</span>` : ''}
+          </button>
+        `;
+      }).join("");
+    }
+
+    const activeHeaderEl = document.getElementById("gm-dm-active-header");
+    const chatHistoryEl = document.getElementById("gm-dm-chat-history");
+    const activePlayer = players.find(p => p.id === selectedGMDMPlayerId);
+
+    if (activeHeaderEl) {
+      if (activePlayer) {
+        const roleLabel = activePlayer.role ? ` (${activePlayer.role.emoji} ${activePlayer.role.name})` : '';
+        activeHeaderEl.innerHTML = `Conversation with <strong>#${activePlayer.seat_number} ${escapeHtml(activePlayer.name)}</strong>${escapeHtml(roleLabel)}`;
+      } else {
+        activeHeaderEl.innerText = "Select a player to chat";
+      }
+    }
+
+    if (chatHistoryEl) {
+      if (!selectedGMDMPlayerId) {
+        chatHistoryEl.innerHTML = `<div style="text-align: center; color: #64748b; font-size: 0.82rem; padding: 2rem;">Select a player from the left list.</div>`;
+      } else {
+        const activeDMs = dms.filter(m => m.sender_id === selectedGMDMPlayerId || m.recipient_id === selectedGMDMPlayerId);
+        if (activeDMs.length === 0) {
+          chatHistoryEl.innerHTML = `<div style="text-align: center; color: #64748b; font-size: 0.82rem; padding: 2rem;">No messages with this player yet. Send a message below.</div>`;
+        } else {
+          chatHistoryEl.innerHTML = activeDMs.map(m => {
+            const isFromGM = m.sender_id === "gm";
+            const align = isFromGM ? "flex-end" : "flex-start";
+            const bg = isFromGM ? "#0284c7" : "#ffffff";
+            const color = isFromGM ? "#ffffff" : "#0f172a";
+            const border = isFromGM ? "1px solid #0369a1" : "1px solid #cbd5e1";
+            const senderLabel = isFromGM ? "You (GM)" : (m.sender_name || "Player");
+            const timeStr = m.created_at ? new Date(m.created_at * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
+            return `
+              <div style="align-self: ${align}; max-width: 80%; background: ${bg}; color: ${color}; border: ${border}; border-radius: 8px; padding: 0.45rem 0.65rem; font-size: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <div style="font-size: 0.68rem; opacity: 0.8; margin-bottom: 0.15rem; display: flex; justify-content: space-between; gap: 0.5rem; font-weight: 700;">
+                  <span>${escapeHtml(senderLabel)}</span>
+                  <span style="font-weight: normal;">${timeStr}</span>
+                </div>
+                <div style="word-break: break-word; white-space: pre-wrap; line-height: 1.35;">${escapeHtml(m.message)}</div>
+              </div>
+            `;
+          }).join("");
+          chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
+        }
+      }
+    }
   }
 
   function escapeHtml(text) {

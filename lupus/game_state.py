@@ -271,6 +271,7 @@ def create_initial_state(
         "approved_ghost_messages": [],
         "news_bulletins": [],
         "approved_news_bulletins": [],
+        "direct_messages": [],
         "last_lynched_id": None,
         "defense_player_id": None,
         "events_log": [],
@@ -1406,6 +1407,89 @@ def approve_news_bulletin(
     return True, msg_str
 
 
+def send_direct_message(
+    state: dict[str, Any],
+    sender_id: str,
+    recipient_id: str,
+    message: str,
+) -> tuple[bool, str, Optional[dict[str, Any]]]:
+    """Deliver a private direct message between a player and the Game Master."""
+    clean_msg = (message or "").strip()
+    if not clean_msg:
+        return False, "Message cannot be empty.", None
+
+    if len(clean_msg) > 300:
+        clean_msg = clean_msg[:300]
+
+    players = state.get("players", {})
+
+    if sender_id == "gm":
+        sender_name = "Game Master"
+        if recipient_id not in players:
+            return False, "Recipient player not found.", None
+        recipient_name = players[recipient_id]["name"]
+    else:
+        if sender_id not in players:
+            return False, "Sender player not found.", None
+        sender_name = players[sender_id]["name"]
+        recipient_id = "gm"
+        recipient_name = "Game Master"
+
+    entry = {
+        "id": uuid.uuid4().hex[:8],
+        "sender_id": sender_id,
+        "sender_name": sender_name,
+        "recipient_id": recipient_id,
+        "recipient_name": recipient_name,
+        "message": clean_msg,
+        "created_at": time.time(),
+        "read": False,
+    }
+
+    state.setdefault("direct_messages", []).append(entry)
+    record_action(
+        state,
+        "direct_message",
+        {
+            "id": entry["id"],
+            "sender_id": sender_id,
+            "sender_name": sender_name,
+            "recipient_id": recipient_id,
+            "recipient_name": recipient_name,
+            "message": clean_msg,
+        },
+        actor_id=sender_id,
+        actor_name=sender_name,
+    )
+    save_game(state["code"], state)
+    return True, "Message sent.", entry
+
+
+def mark_dms_read(
+    state: dict[str, Any],
+    reader_id: str,
+    target_player_id: Optional[str] = None,
+) -> bool:
+    """Mark direct messages addressed to reader as read."""
+    dms = state.get("direct_messages", [])
+    updated = False
+    for m in dms:
+        if reader_id == "gm":
+            if m.get("recipient_id") == "gm":
+                if not target_player_id or m.get("sender_id") == target_player_id:
+                    if not m.get("read", False):
+                        m["read"] = True
+                        updated = True
+        else:
+            if m.get("recipient_id") == reader_id:
+                if not m.get("read", False):
+                    m["read"] = True
+                    updated = True
+    if updated:
+        save_game(state["code"], state)
+    return updated
+
+
 def check_and_trigger_successor_inheritance(state: dict[str, Any], deceased_id: str) -> Optional[str]:
     """When a player dies, check if an active Successor is waiting to inherit their mantle.
 
@@ -1848,6 +1932,8 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
     def is_role_in_game(r_id: str) -> bool:
         if r_id == "framer":
             return False
+        if r_id in ("ghost", "disgruntled_ghost", "traveler", "successor"):
+            return any(p.get("role") == r_id for p in players.values())
         if r_id in state.get("deck", []):
             return True
         return any(p.get("role") == r_id for p in players.values())
@@ -1998,11 +2084,11 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "title": "👿 Disgruntled Ghost",
                 "role_id": "disgruntled_ghost",
                 "actors": dg_actors,
-                "is_alive": True,  # Ghost exists in spirit
+                "is_alive": bool(dg_actors),  # Ghost exists in spirit if player is in room
                 "script": "Disgruntled Ghost, wake up! Silently point at the player whose powers you will suppress tonight.",
                 "target_id": dg_target_id,
                 "target_name": players[dg_target_id]["name"] if dg_target_id in players else None,
-                "is_complete": bool(dg_target_id),
+                "is_complete": True,  # Suppression is optional
             }
         )
 
@@ -2343,11 +2429,11 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "title": "👻 Town Ghost Haunt",
                 "role_id": "ghost",
                 "actors": ghost_actors,
-                "is_alive": True,  # Spirit acts from beyond
+                "is_alive": bool(ghost_actors),  # Spirit acts if player is in room
                 "script": "Town Ghost, wake up! Silently point at the player you wish to haunt tonight.",
                 "target_id": ghost_target_id,
                 "target_name": players[ghost_target_id]["name"] if ghost_target_id in players else None,
-                "is_complete": bool(ghost_target_id),
+                "is_complete": True,  # Haunt action is optional
             }
         )
 
@@ -2385,12 +2471,15 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         last_lynched_id = state.get("last_lynched_id")
         vetoed_ids = state.get("mayor_vetoed_ids", [])
         can_cancel_vote = state.get("settings", {}).get("mayor_can_cancel_vote", True)
-        has_veto = can_cancel_vote and (last_lynched_id is not None) and (last_lynched_id not in vetoed_ids)
+        was_lynched_yesterday = any(m["id"] == last_lynched_id for m in mayors)
+        has_veto = can_cancel_vote and (last_lynched_id is not None) and (last_lynched_id not in vetoed_ids) and (is_alive or was_lynched_yesterday)
         last_lynched_name = players[last_lynched_id]["name"] if last_lynched_id in players else None
         if not can_cancel_vote:
             script = "Mayor, wake up! Look at me so I know who you are... Mayor, close your eyes."
         elif round_num <= 1 or not last_lynched_name:
             script = "Mayor, wake up! Look at me so I know who you are... Mayor, close your eyes."
+        elif was_lynched_yesterday:
+            script = "Mayor, wake up! You were voted out yesterday. Do you wish to exercise your executive veto to cancel the vote, pardon yourself, and return alive?"
         else:
             script = f"Mayor, wake up! Yesterday, {last_lynched_name} was executed. Do you wish to exercise your veto to cancel the vote and pardon them? (Limit: once per person)."
         stages.append(
@@ -2399,7 +2488,8 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "title": "👨‍⚖️ Mayor Veto" if can_cancel_vote else "👨‍⚖️ Mayor Wakeup",
                 "role_id": "mayor",
                 "actors": mayors,
-                "is_alive": is_alive,
+                "is_alive": is_alive or was_lynched_yesterday,
+                "was_lynched_yesterday": was_lynched_yesterday,
                 "has_veto": has_veto,
                 "can_cancel_vote": can_cancel_vote,
                 "last_lynched_id": last_lynched_id,
@@ -3357,13 +3447,21 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         state["approved_ghost_messages"] = []
 
     # --- 13. Mayor Veto (Once Per Person!) ---
-    mayor_actor = next((p for p in state["players"].values() if p["role"] == "mayor" and p["status"] == "alive"), None)
+    lynched_id = state.get("last_lynched_id")
+    mayor_actor = next(
+        (
+            p
+            for p in state["players"].values()
+            if p["role"] == "mayor" and (p["status"] == "alive" or p["id"] == lynched_id)
+        ),
+        None,
+    )
     if (
         actions.get("mayor_veto")
         and mayor_actor
         and state.get("settings", {}).get("mayor_can_cancel_vote", True)
         and mayor_actor["id"] not in suppressed_pids
-        and state.get("last_lynched_id")
+        and lynched_id
     ):
         lynched_id = state["last_lynched_id"]
         vetoed_ids = state.setdefault("mayor_vetoed_ids", [])
@@ -3955,6 +4053,44 @@ def reset_voting(state: dict[str, Any]) -> dict[str, Any]:
     return state
 
 
+def cancel_day_vote_veto(state: dict[str, Any]) -> tuple[bool, str]:
+    """Allow Mayor or GM to cancel/veto the day vote outcome and pardon the lynched player.
+
+    Can be used right after day voting completes or during the day.
+    """
+    voting = state.get("voting", {})
+    last_lynched_id = state.get("last_lynched_id") or voting.get("eliminated_player_id")
+    if not last_lynched_id:
+        return False, "No eliminated player found to pardon or cancel vote."
+
+    players = state.get("players", {})
+    if last_lynched_id not in players:
+        return False, "Eliminated player does not exist."
+
+    vetoed_ids = state.setdefault("mayor_vetoed_ids", [])
+    if last_lynched_id in vetoed_ids:
+        return False, "The Mayor has already used their veto on this player once."
+
+    vetoed_ids.append(last_lynched_id)
+    state["mayor_used_veto"] = True
+    set_player_status(state, last_lynched_id, "alive")
+    voting["stage"] = "completed"
+    voting["eliminated_player_id"] = None
+    voting["elimination_result"] = "mayor_vetoed"
+    state["last_lynched_id"] = None
+
+    p_name = players[last_lynched_id]["name"]
+    msg = f"📜 Official Mayor Executive Veto! The vote was cancelled and {p_name} was pardoned and returned alive!"
+    log_event(state, msg)
+    record_action(
+        state,
+        "cancel_day_vote_veto",
+        {"pardoned_player_id": last_lynched_id, "pardoned_player_name": p_name},
+    )
+    save_game(state["code"], state)
+    return True, msg
+
+
 def get_voting_view(state: dict[str, Any], is_gm: bool = False, player_id: Optional[str] = None) -> dict[str, Any]:
     voting = state.get("voting", {})
     stage = voting.get("stage", "none")
@@ -4267,6 +4403,26 @@ def get_sanitized_player_view(
         for b in state.get("approved_news_bulletins", [])
     ]
 
+    # Direct Messages between this player and GM
+    raw_dms = state.get("direct_messages", [])
+    my_dms = [
+        {
+            "id": m["id"],
+            "sender_id": m["sender_id"],
+            "sender_name": m["sender_name"],
+            "recipient_id": m["recipient_id"],
+            "message": m["message"],
+            "created_at": m.get("created_at", 0),
+            "read": m.get("read", False),
+            "is_from_gm": m.get("sender_id") == "gm",
+        }
+        for m in raw_dms
+        if m.get("sender_id") == player_id or m.get("recipient_id") == player_id
+    ]
+    unread_dms_count = sum(
+        1 for m in my_dms if m.get("recipient_id") == player_id and not m.get("read", False)
+    )
+
     return {
         "code": state["code"],
         "title": state["title"],
@@ -4355,6 +4511,8 @@ def get_sanitized_player_view(
             "public_heartbreak_cause": state["settings"].get("public_heartbreak_cause", False),
             "reveal_roles_on_death": state["settings"].get("reveal_roles_on_death", 0),
         },
+        "my_dms": my_dms,
+        "unread_dms_count": unread_dms_count,
         "app_version": get_version_info()["display"],
         "commit_hash": get_version_info()["commit"],
     }
@@ -4460,6 +4618,10 @@ def get_gm_view(state: dict[str, Any], lang: Optional[str] = "en") -> dict[str, 
         "approved_ghost_messages": state.get("approved_ghost_messages", []),
         "news_bulletins": state.get("news_bulletins", []),
         "approved_news_bulletins": state.get("approved_news_bulletins", []),
+        "direct_messages": state.get("direct_messages", []),
+        "unread_dms_count": sum(
+            1 for m in state.get("direct_messages", []) if m.get("recipient_id") == "gm" and not m.get("read", False)
+        ),
         "action_history": state.get("action_history", []),
         "app_version": get_version_info()["display"],
         "commit_hash": get_version_info()["commit"],

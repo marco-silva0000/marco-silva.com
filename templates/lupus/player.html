@@ -27,7 +27,7 @@ html, body {
     max-width: 680px;
     margin: 0 auto;
     font-family: system-ui, -apple-system, sans-serif;
-    padding: max(0.4rem, env(safe-area-inset-top)) max(0.6rem, env(safe-area-inset-right)) calc(70px + env(safe-area-inset-bottom, 0px)) max(0.6rem, env(safe-area-inset-left));
+    padding: max(0.4rem, env(safe-area-inset-top)) max(0.6rem, env(safe-area-inset-right)) calc(82px + max(env(safe-area-inset-bottom, 0px), 8px)) max(0.6rem, env(safe-area-inset-left));
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
   }
@@ -150,17 +150,17 @@ html, body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: calc(56px + env(safe-area-inset-bottom, 0px));
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    height: calc(58px + max(env(safe-area-inset-bottom, 0px), 8px));
+    padding: 4px 6px calc(max(env(safe-area-inset-bottom, 0px), 8px)) 6px;
     background: rgba(15, 23, 42, 0.96);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    align-items: stretch;
+    align-items: center;
     justify-content: space-around;
-    z-index: 1000;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    z-index: 99999;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
   }
   @media (min-width: 768px) {
@@ -176,6 +176,7 @@ html, body {
 
   .bottom-tab-btn {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -185,29 +186,28 @@ html, body {
     border: none;
     color: #94a3b8;
     cursor: pointer;
-    padding: 4px 2px;
+    padding: 2px 1px;
     position: relative;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
     transition: color 0.15s ease;
   }
-  .bottom-tab-btn.active {
-    color: #38bdf8;
+  .bottom-tab-icon-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 26px;
+    border-radius: 13px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .bottom-tab-btn.active::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 20%;
-    right: 20%;
-    height: 3px;
-    background: #38bdf8;
-    border-radius: 0 0 3px 3px;
-    box-shadow: 0 0 8px #38bdf8;
+  .bottom-tab-btn.active .bottom-tab-icon-wrap {
+    background: rgba(56, 189, 248, 0.2);
   }
   .bottom-tab-icon {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     line-height: 1;
     transition: transform 0.15s ease;
   }
@@ -215,20 +215,30 @@ html, body {
     transform: scale(1.1);
   }
   .bottom-tab-label {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    color: #94a3b8;
+    transition: color 0.15s ease;
+  }
+  .bottom-tab-btn.active .bottom-tab-label {
+    color: #38bdf8;
+    font-weight: 800;
   }
   .bottom-tab-badge {
     position: absolute;
-    top: 4px;
-    right: calc(50% - 18px);
+    top: -2px;
+    right: -2px;
     min-width: 16px;
     height: 16px;
     border-radius: 999px;
     background: #ef4444;
     color: #fff;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 800;
     display: flex;
     align-items: center;
@@ -237,13 +247,13 @@ html, body {
     box-shadow: 0 0 0 2px #0f172a;
   }
   .bottom-tab-badge.badge-counter {
-    background: rgba(56, 189, 248, 0.2);
+    background: rgba(56, 189, 248, 0.25);
     color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.4);
+    border: 1px solid rgba(56, 189, 248, 0.5);
     box-shadow: none;
     font-size: 0.62rem;
     font-family: ui-monospace, monospace;
-    min-width: 22px;
+    min-width: 20px;
   }
 
   /* Single-column app container with declarative screen switcher */
@@ -259,6 +269,7 @@ html, body {
 
   .player-app-grid[data-app-tab="table"] #tab-content-table,
   .player-app-grid[data-app-tab="play"] #tab-content-play,
+  .player-app-grid[data-app-tab="chat"] #tab-content-chat,
   .player-app-grid[data-app-tab="notes"] #tab-content-notes,
   .player-app-grid[data-app-tab="info"] #tab-content-info {
     display: block !important;
@@ -267,6 +278,7 @@ html, body {
   /* Backwards compatibility */
   .player-app-grid[data-mobile-view="table"] #tab-content-table,
   .player-app-grid[data-mobile-view="play"] #tab-content-play,
+  .player-app-grid[data-mobile-view="chat"] #tab-content-chat,
   .player-app-grid[data-mobile-view="notes"] #tab-content-notes,
   .player-app-grid[data-mobile-view="info"] #tab-content-info {
     display: block !important;
@@ -1098,7 +1110,7 @@ html, body {
         <div id="player-pointing-card" style="background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 0.75rem 1rem; margin-bottom: 0.65rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
             <div style="font-weight: 700; font-size: 0.88rem; color: #f8fafc; display: flex; align-items: center; gap: 0.35rem;">
-              <span>👉 Point Finger at Player</span>
+              <span id="pointing-title-text">👉 Point Finger at Player</span>
             </div>
             <span id="player-pointing-status" style="font-size: 0.75rem; color: #94a3b8;">Not pointing</span>
           </div>
@@ -1106,7 +1118,7 @@ html, body {
             <select id="player-pointing-select" style="flex: 1; min-width: 0; padding: 0.45rem 0.6rem; border-radius: 8px; background: #0f172a; border: 1px solid #475569; color: #fff; font-size: 0.85rem;">
               <option value="">-- Choose player --</option>
             </select>
-            <button type="button" onclick="sendPlayerPoint()" class="btn btn-sm" style="background: #38bdf8; border-color: #38bdf8; color: #0f172a; font-weight: 700; white-space: nowrap;">
+            <button type="button" id="btn-submit-point" onclick="sendPlayerPoint()" class="btn btn-sm" style="background: #38bdf8; border-color: #38bdf8; color: #0f172a; font-weight: 700; white-space: nowrap;">
               👉 Point
             </button>
             <button type="button" id="btn-clear-point" onclick="clearPlayerPoint()" class="btn btn-sm" style="background: rgba(255,255,255,0.08); border-color: #475569; color: #cbd5e1; white-space: nowrap; display: none;">
@@ -1118,12 +1130,12 @@ html, body {
         <!-- Night Mode (Eyes Closed Anti-Cheat Screen) -->
         <div id="night-screen-box" style="display: none; background: #0f172a; color: #fff; padding: 1.5rem 1.15rem; border-radius: 14px; margin-bottom: 0.65rem; border: 2px solid #3b82f6; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
           <div style="font-size: 2.75rem; margin-bottom: 0.4rem;">😴</div>
-          <h3 style="margin-top: 0; font-size: 1.2rem; color: #93c5fd; font-weight: 800;">🌙 Night Phase — Eyes Closed</h3>
-          <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.45;">
+          <h3 id="night-title-text" style="margin-top: 0; font-size: 1.2rem; color: #93c5fd; font-weight: 800;">🌙 Night Phase — Eyes Closed</h3>
+          <p id="night-desc-text" style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.45;">
             Put your head down and close your eyes. Listen to the Game Master's voice.
           </p>
           
-          <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 0.65rem 0.85rem; font-size: 0.82rem; color: #94a3b8; line-height: 1.4; margin-bottom: 0.5rem;">
+          <div id="night-rule-text" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 0.65rem 0.85rem; font-size: 0.82rem; color: #94a3b8; line-height: 1.4; margin-bottom: 0.5rem;">
             👉 When your role is called, wake up silently and <strong>point your finger</strong> at your target. Do NOT touch or look at your phone.
           </div>
 
@@ -1179,14 +1191,14 @@ html, body {
         <div id="player-gazette-card" style="background: #1e293b; border: 1px solid #d97706; border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.65rem; color: #f8fafc;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; flex-wrap: wrap; gap: 0.35rem;">
             <div style="font-weight: 800; font-size: 0.95rem; color: #f59e0b; display: flex; align-items: center; gap: 0.35rem;">
-              <span>🗞️ Town Gazette</span>
+              <span id="gazette-title-text">🗞️ Town Gazette</span>
             </div>
             <span id="gazette-quota-badge" style="font-size: 0.72rem; color: #cbd5e1; background: #334155; padding: 0.15rem 0.45rem; border-radius: 999px;">1 post per day</span>
           </div>
 
           <!-- Submission Form -->
           <div id="gazette-submit-form" style="margin-top: 0.4rem;">
-            <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.35rem;">
+            <div id="gazette-desc-text" style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.35rem;">
               Submit a headline, tip, or suspicion. The Game Master will review and publish it at the start of the day:
             </div>
             <textarea id="gazette-message-input" maxlength="200" rows="2" placeholder="e.g. 'I do not trust Player #3, watch them carefully tonight!'" style="width: 100%; box-sizing: border-box; padding: 0.45rem 0.65rem; border-radius: 8px; background: #0f172a; border: 1px solid #475569; color: #fff; font-size: 0.85rem; resize: none; margin-bottom: 0.4rem;"></textarea>
@@ -1194,7 +1206,7 @@ html, body {
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem;">
               <label style="font-size: 0.8rem; color: #cbd5e1; display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer;">
                 <input type="checkbox" id="gazette-anon-checkbox" style="cursor: pointer;">
-                <span>🕶️ Post Anonymously</span>
+                <span id="gazette-anon-text">🕶️ Post Anonymously</span>
               </label>
               <button id="btn-submit-gazette" onclick="sendGazetteBulletin()" class="btn btn-sm" style="background: #d97706; border-color: #d97706; color: #fff; font-weight: 700;">
                 📰 Send to Gazette
@@ -1210,7 +1222,7 @@ html, body {
 
           <!-- Published Gazette Feed for Today -->
           <div id="gazette-published-feed" style="display: none; margin-top: 0.65rem; border-top: 1px solid #334155; padding-top: 0.5rem;">
-            <div style="font-size: 0.78rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; margin-bottom: 0.35rem;">
+            <div id="gazette-feed-title" style="font-size: 0.78rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; margin-bottom: 0.35rem;">
               📢 Today's Published Gazette:
             </div>
             <div id="gazette-feed-list" style="display: flex; flex-direction: column; gap: 0.35rem;"></div>
@@ -1219,7 +1231,7 @@ html, body {
 
         <!-- Morning Dawn Report -->
         <div id="dawn-box" style="display: none; background: #2e1d05; border: 1px solid #92400e; border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.65rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
-          <h3 style="margin-top: 0; font-size: 1rem; color: #fde68a; font-weight: 700;">☀️ Dawn Report</h3>
+          <h3 id="dawn-title-text" style="margin-top: 0; font-size: 1rem; color: #fde68a; font-weight: 700;">☀️ Dawn Report</h3>
           <ul id="dawn-report-list" style="margin: 0; padding-left: 1.25rem; font-size: 0.88rem; color: #fef3c7; line-height: 1.45;"></ul>
         </div>
 
@@ -1231,7 +1243,39 @@ html, body {
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 3: 📝 INVESTIGATION NOTEPAD            -->
+    <!-- TAB 3: 💬 PRIVATE HOST DIRECT MESSAGES     -->
+    <!-- ========================================== -->
+    <section class="tab-screen" id="tab-content-chat">
+      <div class="player-panel" style="display: flex; flex-direction: column; min-height: 480px; max-height: 75vh;">
+        <div style="border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 0.65rem; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h3 id="p-chat-title" style="margin: 0; font-size: 1.05rem; color: #38bdf8; display: flex; align-items: center; gap: 0.4rem;">
+              <span>💬</span> <span>Host Direct Messages</span>
+            </h3>
+            <div id="p-chat-desc" style="font-size: 0.76rem; color: #94a3b8; margin-top: 0.2rem;">
+              Send a discreet private question or note to the Game Master without alerting other players.
+            </div>
+          </div>
+          <span style="font-size: 0.72rem; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 0.15rem 0.45rem; border-radius: 999px; white-space: nowrap;">🔒 Private</span>
+        </div>
+
+        <!-- Message History List -->
+        <div id="player-chat-feed" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding: 0.5rem; background: #0b1120; border-radius: 10px; border: 1px solid #1e293b; margin-bottom: 0.65rem;">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Composer -->
+        <form id="player-chat-form" onsubmit="sendPlayerDirectMessage(event)" style="display: flex; gap: 0.4rem; align-items: center; margin: 0;">
+          <input type="text" id="player-chat-input" maxlength="300" placeholder="Type a private message to the Host..." style="flex: 1; min-width: 0; padding: 0.55rem 0.75rem; border-radius: 8px; background: #0f172a; border: 1px solid #475569; color: #fff; font-size: 0.88rem; outline: none;" autocomplete="off" />
+          <button type="submit" id="btn-player-chat-send" class="btn btn-sm" style="background: #0284c7; border-color: #0284c7; color: #fff; font-weight: 700; padding: 0.55rem 0.9rem; white-space: nowrap;">
+            Send
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: 📝 INVESTIGATION NOTEPAD            -->
     <!-- ========================================== -->
     <section class="tab-screen" id="tab-content-notes">
       <div id="player-notes-card" class="notes-card">
@@ -1439,22 +1483,37 @@ html, body {
 <!-- Fixed Native App Bottom Navigation Bar -->
 <nav class="app-bottom-bar" id="app-bottom-bar" aria-label="Game App Tabs">
   <button type="button" class="bottom-tab-btn" id="b-tab-table" onclick="setAppTab('table')">
-    <span class="bottom-tab-icon">👥</span>
-    <span class="bottom-tab-label">Table</span>
-    <span id="b-alive-count" class="bottom-tab-badge badge-counter">--</span>
+    <div class="bottom-tab-icon-wrap">
+      <span class="bottom-tab-icon">👥</span>
+      <span id="b-alive-count" class="bottom-tab-badge badge-counter">--</span>
+    </div>
+    <span class="bottom-tab-label" id="b-lbl-table">Table</span>
   </button>
   <button type="button" class="bottom-tab-btn active" id="b-tab-play" onclick="setAppTab('play')">
-    <span class="bottom-tab-icon">⚡</span>
-    <span class="bottom-tab-label">Game</span>
-    <span id="b-play-badge" class="bottom-tab-badge" style="display: none;">!</span>
+    <div class="bottom-tab-icon-wrap">
+      <span class="bottom-tab-icon">⚡</span>
+      <span id="b-play-badge" class="bottom-tab-badge" style="display: none;">!</span>
+    </div>
+    <span class="bottom-tab-label" id="b-lbl-play">Game</span>
+  </button>
+  <button type="button" class="bottom-tab-btn" id="b-tab-chat" onclick="setAppTab('chat')">
+    <div class="bottom-tab-icon-wrap">
+      <span class="bottom-tab-icon">💬</span>
+      <span id="b-chat-badge" class="bottom-tab-badge" style="display: none;">0</span>
+    </div>
+    <span class="bottom-tab-label" id="b-lbl-chat">Host Chat</span>
   </button>
   <button type="button" class="bottom-tab-btn" id="b-tab-notes" onclick="setAppTab('notes')">
-    <span class="bottom-tab-icon">📝</span>
-    <span class="bottom-tab-label">Notes</span>
+    <div class="bottom-tab-icon-wrap">
+      <span class="bottom-tab-icon">📝</span>
+    </div>
+    <span class="bottom-tab-label" id="b-lbl-notes">Notes</span>
   </button>
   <button type="button" class="bottom-tab-btn" id="b-tab-info" onclick="setAppTab('info')">
-    <span class="bottom-tab-icon">🎴</span>
-    <span class="bottom-tab-label">My Role</span>
+    <div class="bottom-tab-icon-wrap">
+      <span class="bottom-tab-icon">🎴</span>
+    </div>
+    <span class="bottom-tab-label" id="b-lbl-info">My Role</span>
   </button>
 </nav>
 
@@ -1841,7 +1900,7 @@ html, body {
       grid.setAttribute("data-mobile-view", tab);
     }
 
-    ["table", "play", "notes", "info"].forEach(t => {
+    ["table", "play", "chat", "notes", "info"].forEach(t => {
       const btn = document.getElementById(`b-tab-${t}`);
       if (btn) {
         if (t === tab) {
@@ -1859,6 +1918,20 @@ html, body {
       if (alertDot) alertDot.style.display = "none";
       const legacyAlert = document.getElementById("m-play-alert");
       if (legacyAlert) legacyAlert.style.display = "none";
+    }
+
+    if (tab === "chat") {
+      const chatBadge = document.getElementById("b-chat-badge");
+      if (chatBadge) chatBadge.style.display = "none";
+      if (socket && socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({ action: "mark_dms_read" }));
+      }
+      setTimeout(() => {
+        const feed = document.getElementById("player-chat-feed");
+        if (feed) feed.scrollTop = feed.scrollHeight;
+        const inp = document.getElementById("player-chat-input");
+        if (inp) inp.focus();
+      }, 50);
     }
 
     if (tab === "table" && currentGameState) {
@@ -2139,14 +2212,67 @@ html, body {
       }
     }
     if (state.ui_strings) {
+      const u = state.ui_strings;
       const shieldTitle = document.getElementById("shield-title");
-      if (shieldTitle && state.ui_strings.hold_to_peek) {
-        shieldTitle.innerText = state.ui_strings.hold_to_peek;
-      }
+      if (shieldTitle && u.hold_to_peek) shieldTitle.innerText = u.hold_to_peek;
       const shieldDesc = document.getElementById("shield-desc");
-      if (shieldDesc && state.ui_strings.release_to_hide) {
-        shieldDesc.innerText = state.ui_strings.release_to_hide;
-      }
+      if (shieldDesc && u.release_to_hide) shieldDesc.innerText = u.release_to_hide;
+
+      // Bottom bar tab labels
+      const lTable = document.getElementById("b-lbl-table");
+      if (lTable && u.tab_table) lTable.innerText = u.tab_table;
+      const lPlay = document.getElementById("b-lbl-play");
+      if (lPlay && u.tab_game) lPlay.innerText = u.tab_game;
+      const lChat = document.getElementById("b-lbl-chat");
+      if (lChat && u.tab_chat) lChat.innerText = u.tab_chat;
+      const lNotes = document.getElementById("b-lbl-notes");
+      if (lNotes && u.tab_notes) lNotes.innerText = u.tab_notes;
+      const lInfo = document.getElementById("b-lbl-info");
+      if (lInfo && u.tab_role) lInfo.innerText = u.tab_role;
+
+      // Gazette texts
+      const gTitle = document.getElementById("gazette-title-text");
+      if (gTitle && u.gazette_title) gTitle.innerText = u.gazette_title;
+      const gDesc = document.getElementById("gazette-desc-text");
+      if (gDesc && u.gazette_desc) gDesc.innerText = u.gazette_desc;
+      const gInput = document.getElementById("gazette-message-input");
+      if (gInput && u.gazette_placeholder) gInput.placeholder = u.gazette_placeholder;
+      const gAnon = document.getElementById("gazette-anon-text");
+      if (gAnon && u.post_anonymously) gAnon.innerText = u.post_anonymously;
+      const gBtn = document.getElementById("btn-submit-gazette");
+      if (gBtn && u.send_to_gazette) gBtn.innerText = "📰 " + u.send_to_gazette;
+      const gFeedTitle = document.getElementById("gazette-feed-title");
+      if (gFeedTitle && u.gazette_feed_today) gFeedTitle.innerText = "📢 " + u.gazette_feed_today + ":";
+
+      // Pointing card
+      const ptTitle = document.getElementById("pointing-title-text");
+      if (ptTitle && u.point_finger_title) ptTitle.innerText = "👉 " + u.point_finger_title;
+      const ptBtn = document.getElementById("btn-submit-point");
+      if (ptBtn && u.point_finger_btn) ptBtn.innerText = u.point_finger_btn;
+      const ptClr = document.getElementById("btn-clear-point");
+      if (ptClr && u.clear_point_btn) ptClr.innerText = u.clear_point_btn;
+
+      // Night box
+      const nTitle = document.getElementById("night-title-text");
+      if (nTitle && u.night_title) nTitle.innerText = u.night_title;
+      const nDesc = document.getElementById("night-desc-text");
+      if (nDesc && u.night_desc) nDesc.innerText = u.night_desc;
+      const nRule = document.getElementById("night-rule-text");
+      if (nRule && u.night_rule) nRule.innerText = u.night_rule;
+
+      // Dawn box
+      const dTitle = document.getElementById("dawn-title-text");
+      if (dTitle && u.dawn_report_title) dTitle.innerText = "☀️ " + u.dawn_report_title;
+
+      // Chat tab
+      const cTitle = document.getElementById("p-chat-title");
+      if (cTitle && u.chat_title) cTitle.innerHTML = `<span>💬</span> <span>${escapeHtml(u.chat_title)}</span>`;
+      const cDesc = document.getElementById("p-chat-desc");
+      if (cDesc && u.chat_desc) cDesc.innerText = u.chat_desc;
+      const cInp = document.getElementById("player-chat-input");
+      if (cInp && u.chat_placeholder) cInp.placeholder = u.chat_placeholder;
+      const cBtn = document.getElementById("btn-player-chat-send");
+      if (cBtn && u.chat_send_btn) cBtn.innerText = u.chat_send_btn;
     }
 
     document.getElementById("phase-text").innerText = (state.phase_display || state.phase).toUpperCase();
@@ -2389,6 +2515,9 @@ html, body {
 
     // Town Gazette
     renderPlayerGazette(state);
+
+    // Direct Messages
+    renderPlayerDirectMessages(state);
 
     // Finger Pointing Card
     const pointingCard = document.getElementById("player-pointing-card");
@@ -2904,6 +3033,12 @@ html, body {
     const card = document.getElementById("player-gazette-card");
     if (!card) return;
 
+    if (state.phase === "lobby") {
+      card.style.display = "none";
+      return;
+    }
+    card.style.display = "block";
+
     const me = state.me || {};
     const badge = document.getElementById("gazette-quota-badge");
     const formEl = document.getElementById("gazette-submit-form");
@@ -2913,15 +3048,23 @@ html, body {
 
     const isAlive = me.status === "alive";
     const isDeadOrLimbo = me.status === "dead" || me.status === "limbo";
+    const u = state.ui_strings || {};
 
     if (badge) {
-      badge.innerText = isAlive ? "1 post per day" : (isDeadOrLimbo ? "1 lifetime whisper" : "-");
+      badge.innerText = isAlive ? (u.gazette_quota_alive || "1 post per day") : (isDeadOrLimbo ? (u.gazette_quota_dead || "1 lifetime whisper") : "-");
     }
 
     if (formEl && noticeEl) {
-      if (me.news_submitted_this_round || !me.can_submit_news) {
+      if (me.status === "waiting") {
         formEl.style.display = "none";
         noticeEl.style.display = "block";
+        noticeEl.style.color = "#fbbf24";
+        noticeEl.innerText = "⏳ Waiting for role assignment from the Game Master before you can submit to the Gazette.";
+      } else if (me.news_submitted_this_round || !me.can_submit_news) {
+        formEl.style.display = "none";
+        noticeEl.style.display = "block";
+        noticeEl.style.color = "#a7f3d0";
+        noticeEl.innerText = u.gazette_submitted_waiting || "✓ Your bulletin was submitted to the Gazette desk. Awaiting morning publication.";
       } else {
         formEl.style.display = "block";
         noticeEl.style.display = "none";
@@ -2947,6 +3090,73 @@ html, body {
       } else {
         feedSec.style.display = "none";
       }
+    }
+  }
+
+  function sendPlayerDirectMessage(e) {
+    if (e) e.preventDefault();
+    const inp = document.getElementById("player-chat-input");
+    if (!inp) return;
+    const msg = (inp.value || "").trim();
+    if (!msg) return;
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({
+        action: "send_dm",
+        message: msg,
+      }));
+      inp.value = "";
+    }
+  }
+
+  function renderPlayerDirectMessages(state) {
+    const feed = document.getElementById("player-chat-feed");
+    const badge = document.getElementById("b-chat-badge");
+    if (!feed) return;
+
+    const dms = state.my_dms || [];
+    const unread = state.unread_dms_count || 0;
+
+    if (badge) {
+      if (unread > 0 && currentAppTab !== "chat") {
+        badge.style.display = "flex";
+        badge.innerText = unread > 9 ? "9+" : unread;
+      } else {
+        badge.style.display = "none";
+      }
+    }
+
+    if (dms.length === 0) {
+      const emptyText = (state.ui_strings && state.ui_strings.chat_empty) || "No messages yet. Send a message to chat silently with the Game Master.";
+      feed.innerHTML = `
+        <div style="text-align: center; color: #64748b; font-size: 0.82rem; padding: 2.5rem 1rem;">
+          💬 ${escapeHtml(emptyText)}
+        </div>
+      `;
+      return;
+    }
+
+    const wasAtBottom = (feed.scrollHeight - feed.scrollTop - feed.clientHeight) < 60;
+
+    feed.innerHTML = dms.map(m => {
+      const isFromGM = m.is_from_gm || m.sender_id === "gm";
+      const align = isFromGM ? "flex-start" : "flex-end";
+      const bg = isFromGM ? "#1e293b" : "#0369a1";
+      const border = isFromGM ? "1px solid #334155" : "1px solid #0284c7";
+      const senderLabel = isFromGM ? "🎙️ Game Master" : "You";
+      const timeStr = m.created_at ? new Date(m.created_at * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
+      return `
+        <div style="align-self: ${align}; max-width: 82%; background: ${bg}; border: ${border}; border-radius: 10px; padding: 0.45rem 0.65rem; color: #fff; font-size: 0.85rem; box-shadow: 0 2px 6px rgba(0,0,0,0.25);">
+          <div style="font-size: 0.68rem; color: ${isFromGM ? '#38bdf8' : '#bae6fd'}; font-weight: 700; margin-bottom: 0.15rem; display: flex; justify-content: space-between; gap: 0.5rem;">
+            <span>${escapeHtml(senderLabel)}</span>
+            <span style="opacity: 0.75; font-weight: normal;">${timeStr}</span>
+          </div>
+          <div style="word-break: break-word; white-space: pre-wrap; line-height: 1.35;">${escapeHtml(m.message)}</div>
+        </div>
+      `;
+    }).join("");
+
+    if (wasAtBottom || currentAppTab === "chat") {
+      feed.scrollTop = feed.scrollHeight;
     }
   }
 
