@@ -4,6 +4,28 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v124] - 2026-11-11
+
+### Added
+- **Portuguese 22-Role Demo Room**:
+  - Replaced the 10 English demo players with all 22 playable Lupus roles with authentic Portuguese names (`Lobisomem`, `Lobo Alfa`, `Silenciador`, `Incriminador`, `Lobo Sabotador`, `Vidente`, `Watson`, `Médico`, `Guarda-Costas`, `Anjo`, `Anjo da Morte`, `Vigilante`, `Presidente`, `Bruxa`, `Amante 1`, `Amante 2`, `Cupido`, `Bobo da Corte`, `Assassino em Série`, `Caçador de Lobos`, `Hacker`, `Aldeão`).
+  - Added NFKD unicode normalization (`normalize_text_for_matching`) so Portuguese accented names (`Médico`, `Aldeão`, `Assassino em Série`, `Caçador de Lobos`) match their role keywords 100% reliably.
+  - Enabled Framer role in registry (`lupus/roles.py`).
+- **Room Lifecycle States (`open`, `running`, `finished`)**:
+  - Added `status` field to `gamerooms.models.Room` with database index and choices `open`, `running`, and `finished`.
+  - Added migration `gamerooms/migrations/0003_room_status.py`.
+  - Synchronized `state["status"]` across `create_initial_state` (`open`), `start_game` (`running`), `trigger_game_over` (`finished`), and `create_next_game_lobby`.
+- **Automatic Room Title Incrementing (`increment_room_title`)**:
+  - Automatically appends `" 2"` or increments trailing numbers (e.g. `"someones birthday"` ➔ `"someones birthday 2"` ➔ `"someones birthday 3"`).
+- **Seamless Player Migration & WebSocket Redirection**:
+  - Implemented `create_next_game_lobby`: creates the next room in `open` status, marks the existing room as `finished`, and moves all players across while preserving their reconnect tokens, player IDs, and table seating order.
+  - Channels WebSocket broadcast `room.redirect`: automatically redirects GM cockpit and all connected players to the new room URL.
+  - Added automatic forwarding in `gm_dashboard`, `room_play`, and `room_join` when visiting a room that has a `next_room_code`.
+- **Finished Rooms Archive on Lupus Hub**:
+  - Separated active games (`open`, `running`) from past finished games on `templates/lupus/hub.html` with direct links to GM cockpit and replay export.
+- **Enhanced `clear_games` Management Command**:
+  - Updated `clear_games` command to flush both `emojinary:game:*` and `lupus:*` Redis/Valkey keys alongside database rooms and sessions.
+
 ## [v122] - 2026-11-11
 
 ### Added

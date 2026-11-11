@@ -38,7 +38,7 @@ def lupus_hub(request):
 
     # Query active lupus rooms
     rooms_qs = Room.objects.filter(game_type="lupus", is_active=True).order_by("-created_at")
-    active_rooms = []
+    all_rooms = []
     for r in rooms_qs:
         state = None
         try:
@@ -60,11 +60,27 @@ def lupus_hub(request):
                 else 0
             ),
             "phase": state.get("phase", "lobby") if state else "active",
-            "round": state.get("round", 1) if state else 1,
+            "round": state.get("round_number", 0) if state else 0,
             "theme": state.get("theme", "werewolf") if state else "werewolf",
             "is_gm": bool(state and request.session.get(f"lupus_gm_{r.code}") == state.get("gm_token")),
             "joined_player": None,
         }
+
+        # Lifecycle status (open, running, finished)
+        status = getattr(r, "status", None) or (state.get("status") if state else Room.STATUS_OPEN)
+        room_info["status"] = status
+        if status == Room.STATUS_FINISHED or room_info["phase"] == "gameover":
+            room_info["status_label"] = "Finished"
+            room_info["status_badge"] = "🏁 Finished"
+            room_info["status_color"] = "#64748b"
+        elif status == Room.STATUS_RUNNING or room_info["phase"] in ("night", "day_discussion", "day_defense", "day_voting", "limbo"):
+            room_info["status_label"] = "Running"
+            room_info["status_badge"] = "⚡ Running"
+            room_info["status_color"] = "#2563eb"
+        else:
+            room_info["status_label"] = "Open"
+            room_info["status_badge"] = "🟢 Open (Lobby)"
+            room_info["status_color"] = "#16a34a"
 
         # Check if current visitor has a joined player session in this room
         if state:
@@ -82,11 +98,11 @@ def lupus_hub(request):
             room_info["phase_label"] = "Lobby (Waiting for Players)"
             room_info["phase_badge"] = "⏳ Lobby"
             room_info["phase_color"] = "#64748b"
-        elif phase == "day":
+        elif phase == "day_discussion":
             room_info["phase_label"] = f"Day {rnd} - Discussion"
             room_info["phase_badge"] = f"🌅 Day {rnd}"
             room_info["phase_color"] = "#d97706"
-        elif phase == "voting":
+        elif phase in ("day_voting", "day_defense"):
             room_info["phase_label"] = f"Day {rnd} - Town Voting"
             room_info["phase_badge"] = f"⚖️ Voting {rnd}"
             room_info["phase_color"] = "#b45309"
@@ -107,13 +123,18 @@ def lupus_hub(request):
             room_info["phase_badge"] = "🎮 Active"
             room_info["phase_color"] = "#2563eb"
 
-        active_rooms.append(room_info)
+        all_rooms.append(room_info)
+
+    active_rooms = [r for r in all_rooms if r["status"] != Room.STATUS_FINISHED]
+    finished_rooms = [r for r in all_rooms if r["status"] == Room.STATUS_FINISHED]
 
     return render(
         request,
         "lupus/hub.html",
         {
             "rooms": active_rooms,
+            "active_rooms": active_rooms,
+            "finished_rooms": finished_rooms,
             "error": error,
         },
     )
@@ -134,10 +155,13 @@ def create_room(request):
         limbo_on = request.POST.get("limbo_enabled") == "1"
 
         # Create gamerooms.Room
+        gm_name = request.POST.get("gm_name", "Game Master").strip() or "Game Master"
         room = Room.objects.create(
             title=title,
             password=password,
             game_type="lupus",
+            creator=gm_name,
+            status=Room.STATUS_OPEN,
         )
 
         reveal_raw = request.POST.get("reveal_roles_on_death", "0")
@@ -215,6 +239,17 @@ def gm_dashboard(request, code):
     if not state:
         raise Http404("Game not found.")
 
+    if state.get("next_room_code") and not request.GET.get("stay"):
+        next_code = state["next_room_code"]
+        gm_token = request.GET.get("gm_token") or request.session.get(f"lupus_gm_{code}")
+        next_url = reverse("gamerooms:lupus:gm", kwargs={"code": next_code})
+        params = {}
+        if gm_token:
+            params["gm_token"] = gm_token
+            request.session[f"lupus_gm_{next_code}"] = gm_token
+        qs = f"?{urlencode(params)}" if params else ""
+        return redirect(f"{next_url}{qs}")
+
     gm_token = request.GET.get("gm_token") or request.session.get(f"lupus_gm_{code}")
     if gm_token != state.get("gm_token"):
         return render(
@@ -282,6 +317,16 @@ def room_join(request, code):
     state = get_game(code)
     if not state:
         raise Http404("Game room does not exist.")
+
+    if state.get("next_room_code"):
+        next_code = state["next_room_code"]
+        next_url = reverse("gamerooms:lupus:join", kwargs={"code": next_code})
+        params = {}
+        param_pwd = request.GET.get("pwd") or request.POST.get("pwd")
+        if param_pwd:
+            params["pwd"] = param_pwd
+        qs = f"?{urlencode(params)}" if params else ""
+        return redirect(f"{next_url}{qs}")
 
     # If player already joined from this device, redirect back to their active play view
     existing_token = request.session.get(f"lupus_player_{code}")
@@ -362,6 +407,20 @@ def player_view(request, code):
     state = get_game(code)
     if not state:
         raise Http404("Game room not found.")
+
+    if state.get("next_room_code"):
+        next_code = state["next_room_code"]
+        token = request.GET.get("token") or request.session.get(f"lupus_player_{code}")
+        player_id = request.GET.get("pid")
+        next_url = reverse("gamerooms:lupus:play", kwargs={"code": next_code})
+        params = {}
+        if token:
+            params["token"] = token
+            request.session[f"lupus_player_{next_code}"] = token
+        if player_id:
+            params["pid"] = player_id
+        qs = f"?{urlencode(params)}" if params else ""
+        return redirect(f"{next_url}{qs}")
 
     token = request.GET.get("token") or request.session.get(f"lupus_player_{code}")
     player_id = request.GET.get("pid")

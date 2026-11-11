@@ -17,6 +17,7 @@ from .game_state import (
     clear_all_player_points,
     clear_gm_night_action,
     coroner_leak_to_gazette,
+    create_next_game_lobby,
     dismiss_pending_gameover,
     get_game,
     get_gm_view,
@@ -135,6 +136,17 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             }
         )
 
+    async def room_redirect(self, event):
+        """Handle room redirection when game is finished or lobby restarted."""
+        await self.send_json(
+            {
+                "type": "room_redirect",
+                "new_code": event.get("new_code"),
+                "new_title": event.get("new_title", ""),
+                "is_gm": self.is_gm,
+            }
+        )
+
     async def receive_json(self, content: dict[str, Any]):
         action = content.get("action")
         state = get_game(self.code)
@@ -179,9 +191,16 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 start_game(state, deck)
                 await self.broadcast_sync()
 
-            elif action == "return_to_lobby":
-                return_to_lobby(state)
-                await self.broadcast_sync()
+            elif action in ("return_to_lobby", "start_new_lobby"):
+                new_state = create_next_game_lobby(state)
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        "type": "room.redirect",
+                        "new_code": new_state["code"],
+                        "new_title": new_state["title"],
+                    },
+                )
 
             elif action == "set_deck":
                 deck = content.get("deck", [])

@@ -759,6 +759,7 @@ html, body {
       </h1>
     </div>
     <div class="top-bar-buttons" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button onclick="startNewLobby()" class="btn" style="background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; font-weight: 700;" title="Create a new lobby room and move all connected players to it">➕ New Lobby</button>
       <button onclick="openModal('roles-guide-modal')" class="btn" style="background: #f1f5f9;" title="View all roles reference & rules">📚 Roles Guide</button>
       <button onclick="openModal('room-qr-modal')" class="btn">📱 Room QR</button>
       <button id="btn-copy-link" onclick="copyJoinLink(this)" class="btn">🔗 Copy Link</button>
@@ -811,8 +812,8 @@ html, body {
             <button type="button" onclick="openModal('room-qr-modal')" class="btn btn-sm" style="font-weight: 600;">
               🔍 Enlarge QR
             </button>
-            <button type="button" onclick="autofillDemoPlayers()" class="btn btn-sm" style="background: #f8fafc; border-color: #cbd5e1; color: #475569; font-weight: 600;" title="Fill room with 10 test players named after their roles">
-              ⚡ Demo 10
+            <button type="button" onclick="autofillDemoPlayers()" class="btn btn-sm" style="background: #f8fafc; border-color: #cbd5e1; color: #475569; font-weight: 600;" title="Fill room with all 22 test players named in Portuguese after their roles">
+              ⚡ Demo 22 (Todos os Papéis)
             </button>
             <button type="button" onclick="autoAssignRolesFromNames()" class="btn btn-sm" style="background: #ede9fe; border-color: #ddd6fe; color: #6b21a8; font-weight: 600;" title="Scan player names and pre-assign matching roles (e.g. Doctor, Werewolf)">
               ✨ Auto-Assign
@@ -1075,8 +1076,8 @@ html, body {
         Active Deck: <strong id="active-deck-summary">-</strong>
       </div>
       <div>
-        <button onclick="returnToLobby()" class="btn btn-sm" style="color: #64748b;" title="End active game and return to Pre-Game Lobby">
-          🔄 Return to Lobby (New Game)
+        <button onclick="returnToLobby()" class="btn btn-sm" style="background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; font-weight: 700;" title="End active game and create a new lobby (moves connected players)">
+          ➕ New Game Lobby
         </button>
       </div>
     </div>
@@ -1118,7 +1119,7 @@ html, body {
           </div>
         </div>
         <button onclick="returnToLobby()" class="btn btn-primary" style="background: #7c3aed; border-color: #6d28d9; font-weight: 700;">
-          🔄 Back to Lobby (New Game)
+          🚀 Start New Game (Move Players to New Lobby)
         </button>
       </div>
     </div>
@@ -2059,6 +2060,10 @@ html, body {
       const msg = JSON.parse(e.data);
       if (msg.type === "gm_state") {
         renderGMState(msg.data);
+      } else if (msg.type === "room_redirect") {
+        if (msg.new_code) {
+          window.location.href = `/games/lupus/${msg.new_code}/gm/?gm_token=${encodeURIComponent(GM_TOKEN)}`;
+        }
       } else if (msg.type === "force_refresh") {
         triggerForceReload(msg.message);
       } else if (msg.type === "error") {
@@ -2605,8 +2610,14 @@ html, body {
   }
 
   function returnToLobby() {
-    if (confirm("End current game and return to Pre-Game Lobby? Players remain connected and you can configure new roles.")) {
+    if (confirm("End current game and create a new lobby? All connected players will automatically move to the new room.")) {
       sendAction("return_to_lobby");
+    }
+  }
+
+  function startNewLobby() {
+    if (confirm("Start a new game lobby? Current players and seating order will be transferred to a new room.")) {
+      sendAction("start_new_lobby");
     }
   }
 

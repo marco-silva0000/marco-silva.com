@@ -79,7 +79,7 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
         "id": "framer",
         "faction": FACTION_WOLVES,
         "emoji": "😵‍💫",
-        "enabled": False,  # Disabled per user request
+        "enabled": True,
         "names": {"werewolf": "Cursed Shaman (Framer)", "mafia": "Framer / Swindler"},
         "descriptions": {
             "werewolf": "Frames an innocent player at night. If inspected by the Detective, they appear Evil for that night!",

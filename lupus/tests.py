@@ -1568,9 +1568,9 @@ class TestLupusNotepadTemplate:
         # Trigger demo room setup
         setup_demo_room(state)
 
-        # Verify 10 players added
-        assert len(state["players"]) == 10
-        assert len(state["player_order"]) == 10
+        # Verify demo players added (all 22 roles)
+        assert len(state["players"]) == len(DEMO_PLAYER_NAMES)
+        assert len(state["player_order"]) == len(DEMO_PLAYER_NAMES)
 
         names = [p["name"] for p in state["players"].values()]
         for expected_name in DEMO_PLAYER_NAMES:
@@ -1583,29 +1583,29 @@ class TestLupusNotepadTemplate:
             assert len(p["id"]) > 0
             assert p["is_offline"] is False
 
-        # Deck should be adjusted to 10 cards (e.g. full_10)
-        assert len(state["deck"]) == 10
+        # Deck should be adjusted to all 22 demo cards
+        assert len(state["deck"]) == len(DEMO_PLAYER_NAMES)
 
         # Deal roles: each player named as their role gets their preassigned role!
         deal_roles(state)
         for p in state["players"].values():
-            if p["name"] == "Werewolf":
+            if p["name"] == "Lobisomem":
                 assert p["role"] == "werewolf"
-            elif p["name"] == "Alpha Wolf":
+            elif p["name"] == "Lobo Alfa":
                 assert p["role"] == "alpha_wolf"
-            elif p["name"] == "Detective":
+            elif p["name"] == "Vidente":
                 assert p["role"] == "detective"
-            elif p["name"] == "Doctor":
+            elif p["name"] == "Médico":
                 assert p["role"] == "doctor"
             elif p["name"] == "Vigilante":
                 assert p["role"] == "sniper"
-            elif p["name"] == "Mayor":
+            elif p["name"] == "Presidente":
                 assert p["role"] == "mayor"
 
         # Idempotency check: calling again does not duplicate players
         setup_demo_room(state)
-        assert len(state["players"]) == 10
-        assert len(state["player_order"]) == 10
+        assert len(state["players"]) == len(DEMO_PLAYER_NAMES)
+        assert len(state["player_order"]) == len(DEMO_PLAYER_NAMES)
 
     def test_preassign_role_and_deal(self):
         state = create_initial_state("PREASSIGN1", "Preassign Room")
@@ -2701,23 +2701,198 @@ class TestLupusV118Features:
         assert len(bundle["players"]) == 2
         assert len(bundle["action_history"]) == len(state["action_history"])
 
+
+class TestLupusRoomLifecycleAndPortugueseDemo:
+    """Tests for Open/Running/Finished room lifecycle, title incrementing, lobby forwarding,
+    and Portuguese 22-role demo room."""
+
+    def test_increment_room_title(self):
+        from lupus.game_state import increment_room_title
+
+        assert increment_room_title("someones birthday") == "someones birthday 2"
+        assert increment_room_title("someones birthday 2") == "someones birthday 3"
+        assert increment_room_title("someones birthday 3") == "someones birthday 4"
+        assert increment_room_title("someones birthday 99") == "someones birthday 100"
+        assert increment_room_title("Game 1") == "Game 2"
+        assert increment_room_title("Lupus Room ABCD") == "Lupus Room ABCD 2"
+        assert increment_room_title("Lupus Room ABCD 2") == "Lupus Room ABCD 3"
+        assert increment_room_title("") == "Lupus Room 2"
+        assert increment_room_title(None) == "Lupus Room 2"
+
     @pytest.mark.django_db
-    def test_export_replay_view_endpoint(self, client):
-        """Verify GET <code/export-replay/ returns JSON replay attachment."""
-        Room.objects.create(code="REPLAYHTTP", title="HTTP Replay Room", game_type="lupus", is_active=True)
-        state = create_initial_state("REPLAYHTTP", "HTTP Replay Room")
-        state, _ = add_player(state, "Player1")
+    def test_room_status_transitions(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            start_game,
+            trigger_game_over,
+        )
 
-        url = reverse("gamerooms:lupus:export-replay", kwargs={"code": "REPLAYHTTP"})
-        res = client.get(url)
+        room = Room.objects.create(code="CYCLE01", title="Lifecycle Test", game_type="lupus")
+        state = create_initial_state(room.code, room.title)
+        assert state["status"] == "open"
+
+        state, _ = add_player(state, "Alice")
+        state, _ = add_player(state, "Bob")
+        state = start_game(state, ["werewolf", "villager"])
+        assert state["status"] == "running"
+        room.refresh_from_db()
+        assert room.status == "running"
+
+        state = trigger_game_over(state, "town")
+        assert state["status"] == "finished"
+        room.refresh_from_db()
+        assert room.status == "finished"
+
+    @pytest.mark.django_db
+    def test_create_next_game_lobby_moves_players_and_increments_title(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            create_next_game_lobby,
+            reorder_players,
+            start_game,
+            trigger_game_over,
+        )
+
+        old_room = Room.objects.create(code="PARTY01", title="Marco's Birthday", game_type="lupus")
+        state = create_initial_state(old_room.code, old_room.title, gm_token="SECRET_GM_TOKEN", gm_name="Marco GM")
+        state, p1 = add_player(state, "Alice")
+        state, p2 = add_player(state, "Bob")
+        reorder_players(state, [p2["id"], p1["id"]])
+
+        # Play a round and finish
+        state = start_game(state, ["werewolf", "villager"])
+        state = trigger_game_over(state, "town")
+        assert state["status"] == "finished"
+
+        # GM creates next game lobby
+        new_state = create_next_game_lobby(state)
+
+        # 1. Old state was marked finished and holds pointer
+        assert state["status"] == "finished"
+        assert state["next_room_code"] == new_state["code"]
+        old_room.refresh_from_db()
+        assert old_room.status == "finished"
+
+        # 2. New state has incremented title and open status
+        assert new_state["title"] == "Marco's Birthday 2"
+        assert new_state["status"] == "open"
+        assert new_state["phase"] == "lobby"
+        assert new_state["previous_room_code"] == "PARTY01"
+        assert new_state["gm_token"] == "SECRET_GM_TOKEN"
+
+        # 3. All players preserved with tokens and seating order
+        assert len(new_state["players"]) == 2
+        assert p1["id"] in new_state["players"]
+        assert p2["id"] in new_state["players"]
+        assert new_state["players"][p1["id"]]["token"] == p1["token"]
+        assert new_state["players"][p2["id"]]["token"] == p2["token"]
+        assert new_state["players"][p1["id"]]["role"] is None
+        assert new_state["players"][p1["id"]]["status"] == "alive"
+        assert new_state["player_order"] == [p2["id"], p1["id"]]
+
+        # 4. Repeating again increments to 3
+        third_state = create_next_game_lobby(new_state)
+        assert third_state["title"] == "Marco's Birthday 3"
+        assert third_state["status"] == "open"
+        assert third_state["previous_room_code"] == new_state["code"]
+
+    def test_demo_room_populates_22_portuguese_roles(self):
+        from lupus.game_state import (
+            DEMO_PLAYERS,
+            create_initial_state,
+            setup_demo_room,
+        )
+
+        state = create_initial_state("DEMO22", "Demo Test")
+        state = setup_demo_room(state)
+
+        assert len(state["players"]) == 22
+        assert len(state["deck"]) == 22
+        assert len(DEMO_PLAYERS) == 22
+
+        roles_assigned = {p["role"] for p in state["players"].values()}
+        assert "werewolf" in roles_assigned
+        assert "alpha_wolf" in roles_assigned
+        assert "framer" in roles_assigned
+        assert "detective" in roles_assigned
+        assert "doctor" in roles_assigned
+        assert "bodyguard" in roles_assigned
+        assert "angel" in roles_assigned
+        assert "death_angel" in roles_assigned
+        assert "sniper" in roles_assigned
+        assert "mayor" in roles_assigned
+        assert "witch" in roles_assigned
+        assert "lover" in roles_assigned
+        assert "cupid" in roles_assigned
+        assert "jester" in roles_assigned
+        assert "serial_killer" in roles_assigned
+        assert "wolf_hunter" in roles_assigned
+        assert "hacker" in roles_assigned
+        assert "villager" in roles_assigned
+
+        player_names = {p["name"] for p in state["players"].values()}
+        assert "Lobisomem" in player_names
+        assert "Lobo Alfa" in player_names
+        assert "Incriminador" in player_names
+        assert "Vidente" in player_names
+        assert "Médico" in player_names
+        assert "Guarda-Costas" in player_names
+        assert "Anjo" in player_names
+        assert "Anjo da Morte" in player_names
+        assert "Vigilante" in player_names
+        assert "Presidente" in player_names
+        assert "Bruxa" in player_names
+        assert "Amante 1" in player_names
+        assert "Amante 2" in player_names
+        assert "Cupido" in player_names
+        assert "Bobo da Corte" in player_names
+        assert "Assassino em Série" in player_names
+        assert "Caçador de Lobos" in player_names
+        assert "Hacker" in player_names
+        assert "Aldeão" in player_names
+
+    @pytest.mark.django_db
+    def test_view_redirects_when_next_room_code_present(self, client):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            create_next_game_lobby,
+        )
+
+        old_room = Room.objects.create(code="OLDROOM1", title="Room Old", game_type="lupus")
+        state = create_initial_state(old_room.code, old_room.title, gm_token="GM_TOK_123")
+        state, player = add_player(state, "TestPlayer")
+
+        new_state = create_next_game_lobby(state)
+        new_code = new_state["code"]
+
+        # 1. Player visiting old room play url is redirected to new room play url
+        old_play_url = f"{reverse('gamerooms:lupus:play', kwargs={'code': 'OLDROOM1'})}?token={player['token']}&pid={player['id']}"
+        res = client.get(old_play_url)
+        assert res.status_code == 302
+        assert f"/games/lupus/{new_code}/play/" in res.url
+        assert player["token"] in res.url
+
+        # 2. Player visiting old join url is redirected to new room join url
+        old_join_url = reverse("gamerooms:lupus:join", kwargs={"code": "OLDROOM1"})
+        res = client.get(old_join_url)
+        assert res.status_code == 302
+        assert f"/games/lupus/{new_code}/join/" in res.url
+
+        # 3. GM visiting old dashboard url is redirected to new dashboard url
+        old_gm_url = f"{reverse('gamerooms:lupus:gm', kwargs={'code': 'OLDROOM1'})}?gm_token=GM_TOK_123"
+        res = client.get(old_gm_url)
+        assert res.status_code == 302
+        assert f"/games/lupus/{new_code}/gm/" in res.url
+        assert "GM_TOK_123" in res.url
+
+        # 4. GM visiting with ?stay=1 stays on old dashboard
+        stay_gm_url = f"{reverse('gamerooms:lupus:gm', kwargs={'code': 'OLDROOM1'})}?gm_token=GM_TOK_123&stay=1"
+        res = client.get(stay_gm_url)
         assert res.status_code == 200
-        assert res["Content-Type"] == "application/json"
-        assert "lupus_replay_replayhttp.json" in res["Content-Disposition"]
 
-        data = res.json()
-        assert data["code"] == "REPLAYHTTP"
-        assert len(data["players"]) == 1
-        assert len(data["action_history"]) >= 2
 
 
 

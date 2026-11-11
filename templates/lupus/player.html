@@ -1875,6 +1875,12 @@ html, body {
       const msg = JSON.parse(e.data);
       if (msg.type === "player_state") {
         renderPlayerState(msg.data);
+      } else if (msg.type === "room_redirect") {
+        if (msg.new_code) {
+          if (MY_TOKEN) localStorage.setItem(`lupus_token_${msg.new_code}`, MY_TOKEN);
+          if (MY_PID) localStorage.setItem(`lupus_pid_${msg.new_code}`, MY_PID);
+          window.location.href = `/games/lupus/${msg.new_code}/play/?token=${encodeURIComponent(MY_TOKEN)}&pid=${encodeURIComponent(MY_PID)}`;
+        }
       } else if (msg.type === "force_refresh") {
         triggerForceReload(msg.message);
       } else if (msg.type === "player_kicked") {

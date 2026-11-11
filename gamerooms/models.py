@@ -4,12 +4,27 @@ from django.db import models
 
 
 class Room(models.Model):
+    STATUS_OPEN = "open"
+    STATUS_RUNNING = "running"
+    STATUS_FINISHED = "finished"
+    STATUS_CHOICES = [
+        (STATUS_OPEN, "Open"),
+        (STATUS_RUNNING, "Running"),
+        (STATUS_FINISHED, "Finished"),
+    ]
+
     code = models.CharField(max_length=8, unique=True, db_index=True)
     title = models.CharField(max_length=100)
     password = models.CharField(max_length=100, blank=True)
     game_type = models.CharField(max_length=50, default="emojinary")
     creator = models.CharField(max_length=100, blank=True)
     max_players = models.PositiveIntegerField(default=8)
+    status = models.CharField(
+        max_length=20,
+        default=STATUS_OPEN,
+        choices=STATUS_CHOICES,
+        db_index=True,
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

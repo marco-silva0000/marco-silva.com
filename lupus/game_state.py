@@ -1,11 +1,13 @@
 """Lupus game state management with Redis backend and robust rule engine."""
 
+import copy
 import json
 import math
 import os
 import random
 import re
 import time
+import unicodedata
 import uuid
 from typing import Any, Optional
 
@@ -171,8 +173,10 @@ def create_initial_state(
     gm_name: str = "Game Master",
     theme: str = "werewolf",
     settings: Optional[dict[str, Any]] = None,
+    gm_token: Optional[str] = None,
 ) -> dict[str, Any]:
-    gm_token = uuid.uuid4().hex
+    if not gm_token:
+        gm_token = uuid.uuid4().hex
     default_settings = {
         "discussion_timer": 300,  # 5 min
         "defense_timer": 30,  # 30 sec
@@ -205,6 +209,9 @@ def create_initial_state(
         "gm_token": gm_token,
         "gm_name": gm_name,
         "theme": "mafia" if theme == "mafia" else "werewolf",
+        "status": "open",  # "open", "running", "finished"
+        "next_room_code": None,
+        "previous_room_code": None,
         "phase": "lobby",  # lobby, night, day_discussion, day_defense, day_voting, gameover
         "round_number": 0,
         "settings": default_settings,
@@ -340,60 +347,82 @@ def remove_player(state: dict[str, Any], player_id: str) -> dict[str, Any]:
 
 
 DEMO_PLAYERS: list[tuple[str, str]] = [
-    ("Werewolf", "werewolf"),
-    ("Alpha Wolf", "alpha_wolf"),
-    ("Detective", "detective"),
+    ("Lobisomem", "werewolf"),
+    ("Lobo Alfa", "alpha_wolf"),
+    ("Silenciador", "silencer"),
+    ("Incriminador", "framer"),
+    ("Lobo Sabotador", "saboteur_wolf"),
+    ("Vidente", "detective"),
     ("Watson", "watson"),
-    ("Doctor", "doctor"),
-    ("Angel", "angel"),
+    ("Médico", "doctor"),
+    ("Guarda-Costas", "bodyguard"),
+    ("Anjo", "angel"),
+    ("Anjo da Morte", "death_angel"),
     ("Vigilante", "sniper"),
-    ("Mayor", "mayor"),
-    ("Silencer", "silencer"),
-    ("Citizen", "villager"),
+    ("Presidente", "mayor"),
+    ("Bruxa", "witch"),
+    ("Amante 1", "lover"),
+    ("Amante 2", "lover"),
+    ("Cupido", "cupid"),
+    ("Bobo da Corte", "jester"),
+    ("Assassino em Série", "serial_killer"),
+    ("Caçador de Lobos", "wolf_hunter"),
+    ("Hacker", "hacker"),
+    ("Aldeão", "villager"),
 ]
 
 DEMO_PLAYER_NAMES: list[str] = [name for name, _ in DEMO_PLAYERS]
 
 ROLE_NAME_KEYWORDS: list[tuple[str, list[str]]] = [
     # Multi-word or specific evil roles first
-    ("alpha_wolf", ["alpha wolf", "alpha_wolf", "lobo alpha", "alpha"]),
-    ("saboteur_wolf", ["saboteur wolf", "saboteur", "sabotador", "sabotage"]),
+    ("alpha_wolf", ["alpha wolf", "alpha_wolf", "lobo alpha", "lobo alfa", "alpha"]),
+    ("saboteur_wolf", ["saboteur wolf", "saboteur", "sabotador", "lobo sabotador", "sabotage"]),
+    ("framer", ["framer", "incriminador", "falsificador"]),
     ("disgruntled_ghost", ["disgruntled ghost", "disgruntled", "bad ghost"]),
-    ("serial_killer", ["serial killer", "serial_killer", "serial", "killer", "sk", "assassino"]),
-    ("wolf_hunter", ["wolf hunter", "wolf_hunter", "lone hunter", "cacador de lobos"]),
+    ("serial_killer", ["serial killer", "serial_killer", "serial", "killer", "sk", "assassino em serie", "assassino"]),
+    ("wolf_hunter", ["wolf hunter", "wolf_hunter", "lone hunter", "cacador de lobos", "cacador"]),
     ("silencer", ["silencer", "silenciador", "muto"]),
-    ("werewolf", ["werewolf", "werewolves", "wolf", "lobo", "lupus"]),
+    ("werewolf", ["werewolf", "werewolves", "wolf", "lobo", "lobisomem", "lupus"]),
     # Specialized good roles
     ("detective", ["detective", "seer", "sherlock", "investigador", "vidente", "cop"]),
     ("watson", ["watson", "helper", "sidekick", "adjunto"]),
-    ("doctor", ["doctor", "doc", "medic", "nurse", "healer", "medico"]),
-    ("bodyguard", ["bodyguard", "guard", "protector", "guarda"]),
+    ("doctor", ["doctor", "doc", "medic", "medico", "doutor", "nurse", "healer"]),
+    ("bodyguard", ["bodyguard", "guard", "guarda costas", "guarda-costas", "protector", "guarda"]),
     ("death_angel", ["death angel", "death_angel", "dark angel", "anjo da morte"]),
-    ("sniper", ["sniper", "vigilante", "hunter", "cacador", "gunner"]),
+    ("sniper", ["sniper", "vigilante", "hunter", "gunner", "atirador"]),
     ("angel", ["angel", "guardian angel", "anjo"]),
-    ("mayor", ["mayor", "prefeito", "burgomestre", "presidente"]),
+    ("mayor", ["mayor", "prefeito", "burgomestre", "presidente da camara", "presidente"]),
     ("witch", ["witch", "sorceress", "bruxa", "maga"]),
     ("hacker", ["hacker"]),
     ("traveler", ["traveler", "viajante"]),
     ("successor", ["successor", "understudy", "inheritor", "herdeiro"]),
     ("ghost", ["ghost", "town ghost", "fantasma", "spirit"]),
     ("cupid", ["cupid", "cupido", "obsessive lover"]),
-    ("lover", ["lover", "lovers", "innocent lover", "namorado"]),
-    ("jester", ["jester", "fool", "clown", "palhaco", "bobo"]),
+    ("lover", ["lover", "lovers", "amante", "innocent lover", "namorado"]),
+    ("jester", ["jester", "fool", "clown", "palhaco", "bobo da corte", "bobo"]),
     ("villager", ["villager", "citizen", "aldeao", "cidadao", "townie", "peasant"]),
 ]
+
+
+def normalize_text_for_matching(text: str) -> str:
+    """Normalize accented characters to clean lowercase ASCII words."""
+    if not text:
+        return ""
+    nfkd = unicodedata.normalize("NFKD", text)
+    ascii_text = "".join(c for c in nfkd if not unicodedata.combining(c)).lower()
+    clean = re.sub(r"[^a-z0-9_\s]", " ", ascii_text).strip()
+    clean = re.sub(r"\b\d+\b", " ", clean).strip()
+    return re.sub(r"\s+", " ", clean)
 
 
 def match_role_from_name(name: str) -> Optional[str]:
     """Match a player's name against known role keywords.
 
-    Normalizes by stripping non-alphanumeric chars and numbers.
+    Normalizes by stripping accents, non-alphanumeric chars, and standalone numbers.
     """
-    if not name:
+    clean = normalize_text_for_matching(name)
+    if not clean:
         return None
-    clean = re.sub(r"[^a-zA-Z0-9_\s]", " ", name.lower()).strip()
-    clean = re.sub(r"\b\d+\b", " ", clean).strip()
-    clean = re.sub(r"\s+", " ", clean)
 
     for role_id, keywords in ROLE_NAME_KEYWORDS:
         for kw in keywords:
@@ -490,7 +519,7 @@ def should_autofill_demo(password: str, gm_name: str) -> bool:
 
 
 def setup_demo_room(state: dict[str, Any]) -> dict[str, Any]:
-    """Populate room with 10 demo test players named after their roles and pre-assign their roles."""
+    """Populate room with demo test players in Portuguese named after their roles and pre-assign their roles."""
     existing_names = {p["name"].lower() for p in state.get("players", {}).values()}
     for name, role_id in DEMO_PLAYERS:
         if name.lower() not in existing_names:
@@ -500,7 +529,7 @@ def setup_demo_room(state: dict[str, Any]) -> dict[str, Any]:
             player["faction"] = ROLE_REGISTRY.get(role_id, {}).get("faction", FACTION_TOWN)
 
     state["deck"] = [role_id for _, role_id in DEMO_PLAYERS]
-    log_event(state, "🎮 Demo mode active: 10 test players populated with pre-assigned roles matching their names.")
+    log_event(state, f"🎮 Demo mode active: {len(DEMO_PLAYERS)} test players populated with pre-assigned roles in Portuguese.")
     save_game(state["code"], state)
     return state
 
@@ -779,9 +808,34 @@ def _reset_voting_state(state: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def update_room_model_status(code: str, status: str) -> None:
+    """Safely synchronize Room model status in DB if available."""
+    try:
+        from gamerooms.models import Room
+
+        Room.objects.filter(code=code).update(status=status)
+    except Exception:
+        pass
+
+
+def increment_room_title(title: str) -> str:
+    """Increment trailing number of room title or append 2."""
+    clean = (title or "").strip()
+    if not clean:
+        return "Lupus Room 2"
+    match = re.search(r"^(.*?)(?:\s+(\d+))$", clean)
+    if match:
+        base = match.group(1).strip()
+        num = int(match.group(2)) + 1
+        return f"{base} {num}"
+    return f"{clean} 2"
+
+
 def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> dict[str, Any]:
     """Transition from Pre-Game Lobby to Night 0, dealing roles to all joined players."""
     deal_roles(state, role_list)
+    state["status"] = "running"
+    update_room_model_status(state["code"], "running")
     state["phase"] = "night"
     state["round_number"] = 0  # Starts with Night 0
     state["is_night_zero"] = True
@@ -892,10 +946,120 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
         p["sniper_danger_bullets"] = 1
         p["sniper_silver_bullets"] = 1 if state["settings"].get("sniper_bullet_type") == "mix" else 0
         p["sniper_nights_held"] = 0
+    state["status"] = "open"
+    update_room_model_status(state["code"], "open")
     log_event(state, "Returned to Pre-Game Lobby. Ready to configure roles for a new game.")
     record_action(state, "return_to_lobby", {})
     save_game(state["code"], state)
     return state
+
+
+def create_next_game_lobby(state: dict[str, Any]) -> dict[str, Any]:
+    """Archive current game as finished, create a new room in open status with incremented title,
+    and move all connected players, seating order, and GM credentials across."""
+    old_code = state["code"]
+    old_title = state.get("title", "")
+    new_title = increment_room_title(old_title)
+
+    # 1. Archive finished game into old state's game_history if played
+    if state.get("round_number", 0) > 0 or state.get("winner") or state.get("pending_gameover"):
+        history = state.setdefault("game_history", [])
+        history.append(
+            {
+                "game_number": len(history) + 1,
+                "timestamp": time.time(),
+                "rounds_played": state.get("round_number", 0),
+                "winner": state.get("winner"),
+                "pending_gameover": state.get("pending_gameover"),
+                "roster": [
+                    {
+                        "name": p["name"],
+                        "role": p.get("role"),
+                        "faction": p.get("faction"),
+                        "status": p.get("status"),
+                    }
+                    for p in state.get("players", {}).values()
+                ],
+                "events_count": len(state.get("events_log", [])),
+            }
+        )
+
+    # 2. Mark old game as finished in Redis and DB
+    state["status"] = "finished"
+    update_room_model_status(old_code, "finished")
+
+    # 3. Create new database Room model
+    new_code = None
+    try:
+        from gamerooms.models import Room
+
+        new_room = Room.objects.create(
+            title=new_title,
+            password=state.get("password", ""),
+            game_type="lupus",
+            creator=state.get("gm_name", "Game Master"),
+            status=Room.STATUS_OPEN,
+        )
+        new_code = new_room.code
+    except Exception:
+        new_code = uuid.uuid4().hex[:8].upper()
+
+    state["next_room_code"] = new_code
+    save_game(old_code, state)
+
+    # 4. Initialize clean state for new room
+    new_state = create_initial_state(
+        code=new_code,
+        title=new_title,
+        password=state.get("password", ""),
+        gm_token=state.get("gm_token"),
+        gm_name=state.get("gm_name", "Game Master"),
+        theme=state.get("theme", "werewolf"),
+        settings=copy.deepcopy(state.get("settings", {})),
+    )
+    new_state["previous_room_code"] = old_code
+    new_state["status"] = "open"
+    new_state["deck"] = list(state.get("deck", []))
+
+    # 5. Move all players across, preserving id and reconnect token
+    new_players = {}
+    for pid, p in state.get("players", {}).items():
+        new_players[pid] = {
+            "id": p["id"],
+            "name": p["name"],
+            "token": p["token"],
+            "role": None,
+            "faction": None,
+            "status": "alive",
+            "used_limbo": False,
+            "is_silenced": False,
+            "is_suppressed": False,
+            "haunted_by": None,
+            "is_traveler": False,
+            "is_ghost": False,
+            "is_successor": False,
+            "preassigned_role": p.get("preassigned_role"),
+            "last_news_post_round": None,
+            "used_dead_news_bulletin": False,
+            "pending_heartbreak": False,
+            "pending_heartbreak_from_id": None,
+            "pending_heartbreak_lover_name": None,
+            "is_offline": p.get("is_offline", False),
+            "connected": p.get("connected", True),
+            "channel_name": None,
+            "lover_id": None,
+            "lover_type": None,
+            "last_guarded_id": None,
+            "sniper_danger_bullets": new_state["settings"].get("sniper_danger_bullets", 1),
+            "sniper_silver_bullets": new_state["settings"].get("sniper_silver_bullets", 0),
+            "sniper_nights_held": 0,
+        }
+    new_state["players"] = new_players
+    new_state["player_order"] = [pid for pid in state.get("player_order", []) if pid in new_players]
+
+    log_event(new_state, f"🌟 Welcome to {new_title}! {len(new_players)} players moved from {old_code}.")
+    save_game(new_code, new_state)
+    return new_state
 
 
 def set_round_number(state: dict[str, Any], round_number: int) -> dict[str, Any]:
@@ -3555,6 +3719,8 @@ def trigger_game_over(state: dict[str, Any], winner: Optional[str] = None) -> di
 
     state["winner"] = winner
     state["phase"] = "gameover"
+    state["status"] = "finished"
+    update_room_model_status(state["code"], "finished")
     state["pending_gameover"] = None
     state["pending_gameover_dismissed"] = False
 
@@ -3710,6 +3876,9 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     return {
         "code": state["code"],
         "title": state["title"],
+        "status": state.get("status", "open"),
+        "next_room_code": state.get("next_room_code"),
+        "previous_room_code": state.get("previous_room_code"),
         "theme": theme,
         "phase": state["phase"],
         "round_number": state["round_number"],
@@ -3824,6 +3993,9 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
     return {
         "code": state["code"],
         "title": state["title"],
+        "status": state.get("status", "open"),
+        "next_room_code": state.get("next_room_code"),
+        "previous_room_code": state.get("previous_room_code"),
         "password": state.get("password", ""),
         "gm_token": state.get("gm_token", ""),
         "theme": theme,
