@@ -2604,50 +2604,50 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     )
     witch_act = actions.get("witch_action", {})
     if witch_actor and witch_actor["id"] not in suppressed_pids:
-        # Crucial rule: Witch can only act if alive and CANNOT self-heal if attacked tonight!
-        if witch_actor["id"] in to_kill:
-            log_event(state, "🧙‍♀️ Witch was attacked tonight and could not brew potions!")
-        else:
-            # 1. Revival Potion: Only souls in Limbo (or wolf victim save)
-            revive_pid = witch_act.get("revive_target") or (
-                actions.get("wolf_target") if witch_act.get("revive") else None
-            )
-            if revive_pid and not state.get("witch_used_revive", False):
-                if (
-                    revive_pid in state["players"]
-                    and state["players"][revive_pid]["status"] == "limbo"
-                ):
-                    state["players"][revive_pid]["status"] = "alive"
-                    state["players"][revive_pid]["used_limbo"] = False
-                    state["witch_used_revive"] = True
-                    p_name = state["players"][revive_pid]["name"]
-                    log_event(
-                        state,
-                        f"🧙‍♀️ Witch used revival potion to restore {p_name} from Limbo back to life!",
-                    )
-                    report.append(
-                        f"✨ Witch used a mystical elixir to revive {p_name} from Limbo back to life!"
-                    )
-                elif revive_pid in to_kill:
-                    to_kill.remove(revive_pid)
-                    state["witch_used_revive"] = True
-                    p_name = state["players"][revive_pid]["name"]
-                    log_event(
-                        state,
-                        f"🧙‍♀️ Witch used revival potion to save {p_name} from death tonight!",
-                    )
-                    report.append(
-                        f"✨ Witch used a mystical elixir to save {p_name} from death tonight!"
-                    )
+        # Witch acts if she started the night alive. If she is attacked tonight (in to_kill),
+        # her potions still resolve at dawn alongside all simultaneous night actions!
+        # (She cannot self-heal if attacked tonight).
 
-            # 2. Poison Potion: Only living players
-            kill_pid = witch_act.get("kill_target")
-            if kill_pid and not state.get("witch_used_kill", False):
-                if kill_pid in state["players"] and state["players"][kill_pid]["status"] == "alive":
-                    to_kill.add(kill_pid)
-                    state["witch_used_kill"] = True
-                    p_name = state["players"][kill_pid]["name"]
-                    log_event(state, f"🧙‍♀️ Witch used poison on {p_name}!")
+        # 1. Revival Potion: Only souls in Limbo (or saving another wolf attack victim)
+        revive_pid = witch_act.get("revive_target") or (
+            actions.get("wolf_target") if witch_act.get("revive") else None
+        )
+        if revive_pid and not state.get("witch_used_revive", False):
+            if (
+                revive_pid in state["players"]
+                and state["players"][revive_pid]["status"] == "limbo"
+            ):
+                state["players"][revive_pid]["status"] = "alive"
+                state["players"][revive_pid]["used_limbo"] = False
+                state["witch_used_revive"] = True
+                p_name = state["players"][revive_pid]["name"]
+                log_event(
+                    state,
+                    f"🧙‍♀️ Witch used revival potion to restore {p_name} from Limbo back to life!",
+                )
+                report.append(
+                    f"✨ Witch used a mystical elixir to revive {p_name} from Limbo back to life!"
+                )
+            elif revive_pid in to_kill and revive_pid != witch_actor["id"]:
+                to_kill.remove(revive_pid)
+                state["witch_used_revive"] = True
+                p_name = state["players"][revive_pid]["name"]
+                log_event(
+                    state,
+                    f"🧙‍♀️ Witch used revival potion to save {p_name} from death tonight!",
+                )
+                report.append(
+                    f"✨ Witch used a mystical elixir to save {p_name} from death tonight!"
+                )
+
+        # 2. Poison Potion: Only living players
+        kill_pid = witch_act.get("kill_target")
+        if kill_pid and not state.get("witch_used_kill", False):
+            if kill_pid in state["players"] and state["players"][kill_pid]["status"] == "alive":
+                to_kill.add(kill_pid)
+                state["witch_used_kill"] = True
+                p_name = state["players"][kill_pid]["name"]
+                log_event(state, f"🧙‍♀️ Witch used poison on {p_name}!")
 
     # --- 11. Silencer (Staggered Rule) ---
     silencer_actor = next(

@@ -1143,7 +1143,7 @@ class TestLupusEngine:
         assert "two nights in a row" in msg_repeat
 
     def test_witch_alive_check_no_self_heal(self):
-        """Witch cannot self-heal if attacked tonight."""
+        """Witch cannot self-heal if attacked tonight, but her recorded powers still work."""
         state = create_initial_state("WITCHTEST", "Witch Test", settings={"limbo_enabled": False})
         state, p_witch = add_player(state, "Witch")
         state, p_wolf = add_player(state, "Wolf")
@@ -1153,14 +1153,16 @@ class TestLupusEngine:
         set_manual_player_role(state, p_wolf["id"], "werewolf")
         set_manual_player_role(state, p_target["id"], "villager")
 
-        # Wolves attack Witch, and Witch attempts to revive herself
+        # Wolves attack Witch, and Witch attempts to revive herself and poison Target
         record_gm_night_action(state, "wolves", p_witch["id"])
         record_gm_night_action(state, "witch", extra={"revive": True, "kill_target": p_target["id"]})
         state = resolve_night(state)
 
-        # Witch dies and potions fail because she was attacked tonight!
+        # Witch cannot self-heal from wolf attack, so she dies:
         assert state["players"][p_witch["id"]]["status"] == "dead"
-        assert state["players"][p_target["id"]]["status"] == "alive"
+        # BUT her recorded poison potion still resolves simultaneously, killing Target!
+        assert state["players"][p_target["id"]]["status"] == "dead"
+        assert state["witch_used_kill"] is True
 
     def test_serial_killer_instant_win_when_wolves_perish(self):
         """If all wolves die and SK is alive, SK wins instant solo victory!"""
@@ -2577,6 +2579,85 @@ class TestLupusV118Features:
 
         # Dawn report is fully logged in events_log
         assert any("--- Dawn Report" in e["message"] for e in state["events_log"])
+
+    def test_witch_killed_tonight_powers_still_work_and_limbo_witch_noop(self):
+        """If Witch is alive and killed tonight, her recorded potions still execute at dawn.
+        If Witch is already in Limbo, her actions silently no-op."""
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            record_gm_night_action,
+            resolve_night,
+            set_manual_player_role,
+            set_player_status,
+        )
+
+        # Part 1: Alive Witch attacked by Wolves tonight; her poison and limbo-revive still resolve!
+        state = create_initial_state("WITCHKILL", "Witch Killed Tonight Test", settings={"limbo_enabled": False})
+        for name in ["WitchAlice", "LimboBob", "TargetCharlie", "WolfDave"]:
+            state, _ = add_player(state, name)
+
+        pids = list(state["players"].keys())
+        w_id, l_id, tc_id, wolf_id = pids[0], pids[1], pids[2], pids[3]
+        set_manual_player_role(state, w_id, "witch")
+        set_manual_player_role(state, l_id, "villager")
+        set_manual_player_role(state, tc_id, "villager")
+        set_manual_player_role(state, wolf_id, "werewolf")
+
+        # Put Bob in Limbo
+        set_player_status(state, l_id, "limbo")
+
+        # Wolves attack Witch!
+        record_gm_night_action(state, "wolves", w_id)
+        # Witch revives Bob from Limbo and poisons Charlie!
+        record_gm_night_action(
+            state,
+            "witch",
+            extra={"revive_target": l_id, "kill_target": tc_id},
+        )
+        state["phase"] = "night"
+        state["round_number"] = 2
+        state = resolve_night(state)
+
+        # Witch died from wolf attack
+        assert state["players"][w_id]["status"] == "dead"
+        # BUT LimboBob was revived back to alive!
+        assert state["players"][l_id]["status"] == "alive"
+        # AND TargetCharlie was killed by Witch's poison!
+        assert state["players"][tc_id]["status"] == "dead"
+        assert state["witch_used_revive"] is True
+        assert state["witch_used_kill"] is True
+
+        # Part 2: Witch already in Limbo at night start cannot act (silent no-op)
+        state2 = create_initial_state("WITCHLIMBO", "Witch In Limbo Test", settings={"limbo_enabled": True})
+        for name in ["LimboWitch", "LimboBob2", "LivingCharlie2", "AngelAlice"]:
+            state2, _ = add_player(state2, name)
+
+        pids2 = list(state2["players"].keys())
+        lw_id, lb2_id, lc2_id, a_id = pids2[0], pids2[1], pids2[2], pids2[3]
+        set_manual_player_role(state2, lw_id, "witch")
+        set_manual_player_role(state2, lb2_id, "villager")
+        set_manual_player_role(state2, lc2_id, "villager")
+        set_manual_player_role(state2, a_id, "angel")
+
+        set_player_status(state2, lw_id, "limbo")
+        set_player_status(state2, lb2_id, "limbo")
+
+        # GM enters actions for LimboWitch (bluffing call)
+        record_gm_night_action(
+            state2,
+            "witch",
+            extra={"revive_target": lb2_id, "kill_target": lc2_id},
+        )
+        state2["phase"] = "night"
+        state2["round_number"] = 2
+        state2 = resolve_night(state2)
+
+        # Witch was in Limbo so potions do NOT execute
+        assert state2["players"][lb2_id]["status"] == "limbo"
+        assert state2["players"][lc2_id]["status"] == "alive"
+        assert state2["witch_used_revive"] is False
+        assert state2["witch_used_kill"] is False
 
 
 

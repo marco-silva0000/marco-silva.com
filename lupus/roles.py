@@ -201,14 +201,14 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
         "emoji": "🧙‍♀️",
         "names": {"werewolf": "Witch", "mafia": "Chemist"},
         "descriptions": {
-            "werewolf": "Possesses two 1-time potions: one revival potion and one lethal poison. Can only brew while alive (cannot self-heal if attacked tonight).",
-            "mafia": "Possesses two 1-time potions: one revival potion and one lethal poison. Can only brew while alive (cannot self-heal if attacked tonight).",
+            "werewolf": "Possesses two 1-time potions: one revival potion and one lethal poison. Can only brew while alive (cannot brew from Limbo or death; cannot self-heal). If attacked tonight, your potions still resolve at dawn!",
+            "mafia": "Possesses two 1-time potions: one revival potion and one lethal poison. Can only brew while alive (cannot brew from Limbo or death; cannot self-heal). If attacked tonight, your potions still resolve at dawn!",
         },
         "night_action": "potion",
         "guide": {
             "objective": "Town: Use your two powerful potions at crucial turning points.",
             "day_tips": "Keep quiet about your potion inventory.",
-            "night_tips": "You have 1 revival potion (saves tonight's victim) and 1 poison potion (kills any player). You can use one, both, or neither, but only if you survive the night!",
+            "night_tips": "You have 1 revival potion (restores a soul from Limbo) and 1 poison potion (kills any living player). Even if you are attacked tonight, your potions still take effect at dawn!",
             "pro_tip": "Use poison when you are confident someone is an evil wolf who avoided day execution.",
         },
     },

@@ -4,6 +4,15 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v121] - 2026-11-11
+
+### Fixed
+- **Simultaneous Night Action Resolution for Alive Powers (Witch & Living Roles)**:
+  - Fixed night resolution so that all players who started the night alive have their recorded powers execute simultaneously at dawn, even if the player is attacked and killed during that same night.
+  - Specifically fixed the Witch: if the Witch was alive and is attacked/killed tonight by Wolves, Serial Killer, or Vigilante, her recorded potions (reviving a soul in Limbo and/or poisoning a living player) now successfully take effect at dawn instead of being wrongly cancelled.
+  - The Witch cannot self-heal if attacked tonight (she still dies or enters Limbo alongside her potion victims).
+  - Preserved no-op rule for non-living states: if the Witch was already dead or hovering in Limbo before the night began, or is suppressed by a Ghost/Saboteur, her recorded potion actions silently no-op.
+
 ## [v120] - 2026-11-10
 
 ### Changed
