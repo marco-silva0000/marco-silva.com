@@ -1,6 +1,6 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,7 +13,7 @@
   <link rel="icon" href="{% static 'favicon.ico' %}">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, sans-serif; color: #222; line-height: 1.6; max-width: 640px; margin: 0 auto; padding: 2rem 1rem; }
+    body { font-family: system-ui, -apple-system, sans-serif, 'Noto Sans Devanagari', 'Noto Sans Kannada', 'Nirmala UI'; color: #222; line-height: 1.6; max-width: 640px; margin: 0 auto; padding: 2rem 1rem; }
     a { color: #222; }
     a:hover { color: #555; }
     nav { margin-bottom: 2rem; font-size: 0.9rem; }
@@ -26,16 +26,34 @@
 <body>
   {% block nav %}
   <nav>
-    <a href="/">home</a>
-    <a href="{% url 'photos:gallery-list' %}">photos</a>
-    <a href="/blog/">blog</a>
-    <a href="{% url 'gamerooms:room-list' %}">games</a>
-    <a href="/cv">cv</a>
+    <a href="/">{% trans "home" %}</a>
+    <a href="{% url 'photos:gallery-list' %}">{% trans "photos" %}</a>
+    <a href="/blog/">{% trans "blog" %}</a>
+    <a href="{% url 'gamerooms:room-list' %}">{% trans "games" %}</a>
+    <a href="/cv">{% trans "cv" %}</a>
   </nav>
   {% endblock %}
   {% block content %}{% endblock %}
   {% block footer %}
-  <footer>marco silva {{ year }}</footer>
+  <footer>
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+      <span>marco silva {{ year }}</span>
+      <form action="{% url 'set_language' %}" method="post" style="display: inline-flex; align-items: center; gap: 0.35rem; margin: 0;">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+        <label for="site-language-select" style="font-size: 0.75rem; color: #666;">🌐</label>
+        <select id="site-language-select" name="language" onchange="this.form.submit()" style="font-size: 0.75rem; padding: 2px 6px; border: 1px solid #ccc; border-radius: 4px; background: #fff; color: #333; cursor: pointer;">
+          {% get_current_language as CURRENT_LANGUAGE %}
+          {% get_available_languages as AVAILABLE_LANGUAGES %}
+          {% for lang_code, lang_name in AVAILABLE_LANGUAGES %}
+            <option value="{{ lang_code }}" {% if lang_code == CURRENT_LANGUAGE %}selected{% endif %}>
+              {{ lang_name }}
+            </option>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
+  </footer>
   {% endblock %}
 </body>
 </html>

@@ -1,6 +1,6 @@
 """Role definitions, factions, abilities, beginner guides, and theme mappings (Werewolf vs. Mafia)."""
 
-from typing import Any
+from typing import Any, Optional
 
 FACTION_TOWN = "town"
 FACTION_WOLVES = "wolves"
@@ -509,11 +509,11 @@ ROLE_REGISTRY: dict[str, dict[str, Any]] = {
 }
 
 
-def get_role_info(role_id: str, theme: str = "werewolf") -> dict[str, Any]:
-    """Retrieve localized role configuration according to selected theme."""
+def get_role_info(role_id: str, theme: str = "werewolf", lang: Optional[str] = "en") -> dict[str, Any]:
+    """Retrieve localized role configuration according to selected theme and player language."""
     base = ROLE_REGISTRY.get(role_id, ROLE_REGISTRY["villager"])
     theme_key = "mafia" if theme == "mafia" else "werewolf"
-    return {
+    info = {
         "id": base["id"],
         "faction": base["faction"],
         "emoji": base["emoji"],
@@ -524,6 +524,10 @@ def get_role_info(role_id: str, theme: str = "werewolf") -> dict[str, Any]:
         "enabled": base.get("enabled", True),
         "midgame_only": base.get("midgame_only", False),
     }
+    if lang and lang != "en":
+        from lupus.translations import get_localized_role
+        info = get_localized_role(role_id, info, lang=lang)
+    return info
 
 
 def get_faction_display(faction: str, theme: str = "werewolf") -> str:

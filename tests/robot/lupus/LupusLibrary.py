@@ -403,3 +403,55 @@ class LupusLibrary:
         gs.save_game(self.sim.code, self.sim.state)
         self.sim.refresh_state()
         return winner
+
+    def player_view_role_name_should_be(
+        self, player_name: str, expected_name: str, lang: str = "en"
+    ) -> None:
+        """Verify that sanitized player view contains the localized role name."""
+        import lupus.game_state as gs
+        pid = self.sim.get_pid(player_name)
+        view = gs.get_sanitized_player_view(self.sim.state, pid, lang=lang)
+        actual_name = view.get("me", {}).get("role", {}).get("name")
+        if actual_name != expected_name:
+            raise AssertionError(
+                f"Expected role name for '{player_name}' in lang '{lang}' to be '{expected_name}', got '{actual_name}'"
+            )
+
+    def player_view_status_display_should_be(
+        self, player_name: str, expected_status_display: str, lang: str = "en"
+    ) -> None:
+        """Verify that sanitized player view contains the localized status display."""
+        import lupus.game_state as gs
+        pid = self.sim.get_pid(player_name)
+        view = gs.get_sanitized_player_view(self.sim.state, pid, lang=lang)
+        actual_status = view.get("me", {}).get("status_display")
+        if actual_status != expected_status_display:
+            raise AssertionError(
+                f"Expected status_display for '{player_name}' in lang '{lang}' to be '{expected_status_display}', got '{actual_status}'"
+            )
+
+    def player_view_phase_display_should_be(
+        self, player_name: str, expected_phase_display: str, lang: str = "en"
+    ) -> None:
+        """Verify that sanitized player view contains the localized phase display."""
+        import lupus.game_state as gs
+        pid = self.sim.get_pid(player_name)
+        view = gs.get_sanitized_player_view(self.sim.state, pid, lang=lang)
+        actual_phase = view.get("phase_display")
+        if actual_phase != expected_phase_display:
+            raise AssertionError(
+                f"Expected phase_display for '{player_name}' in lang '{lang}' to be '{expected_phase_display}', got '{actual_phase}'"
+            )
+
+    def player_view_ui_string_should_be(
+        self, player_name: str, key: str, expected_value: str, lang: str = "en"
+    ) -> None:
+        """Verify that sanitized player view contains the localized UI string."""
+        import lupus.game_state as gs
+        pid = self.sim.get_pid(player_name)
+        view = gs.get_sanitized_player_view(self.sim.state, pid, lang=lang)
+        actual_val = view.get("ui_strings", {}).get(key)
+        if actual_val != expected_value:
+            raise AssertionError(
+                f"Expected UI string '{key}' in lang '{lang}' to be '{expected_value}', got '{actual_val}'"
+            )

@@ -912,6 +912,17 @@ html, body {
       </div>
     </div>
     <div class="app-topbar-right">
+      <select id="player-lang-select" onchange="changePlayerLanguage(this.value)" style="background: #1f2937; color: #94a3b8; border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; font-size: 0.72rem; padding: 2px 4px; cursor: pointer; outline: none; margin-right: 0.35rem;" title="Change Language / Idioma">
+        <option value="en">🇬🇧 EN</option>
+        <option value="pt">🇵🇹 PT</option>
+        <option value="it">🇮🇹 IT</option>
+        <option value="es">🇪🇸 ES</option>
+        <option value="fr">🇫🇷 FR</option>
+        <option value="el">🇬🇷 EL</option>
+        <option value="ru">🇷🇺 RU</option>
+        <option value="hi">🇮🇳 HI</option>
+        <option value="kn">🇮🇳 KN</option>
+      </select>
       <button id="btn-topbar-gameover" onclick="openPlayerModal('gameover-modal')" class="btn btn-sm" style="display: none; background: #7c3aed; color: #fff; border-color: #6d28d9; font-weight: 700; padding: 0.25rem 0.65rem; font-size: 0.78rem;">
         🏆 Results
       </button>
@@ -920,7 +931,7 @@ html, body {
         <span id="topbar-timer-val">05:00</span>
       </div>
       <div id="my-status-badge">
-        <span class="badge badge-{{ state.me.status }}">{{ state.me.status }}</span>
+        <span class="badge badge-{{ state.me.status }}">{{ state.me.status_display|default:state.me.status }}</span>
       </div>
     </div>
   </header>
@@ -1887,6 +1898,17 @@ html, body {
     }
   }
 
+  // --- Language Switching ---
+  function changePlayerLanguage(lang) {
+    try {
+      localStorage.setItem("lupus_lang", lang);
+      document.cookie = "django_language=" + lang + ";path=/;max-age=31536000";
+    } catch (e) {}
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({ action: "set_player_language", lang: lang }));
+    }
+  }
+
   // --- WebSocket Connection ---
   const wsProto = window.location.protocol === "https:" ? "wss:" : "ws:";
   const wsUrl = `${wsProto}//${window.location.host}/ws/lupus/${ROOM_CODE}/`;
@@ -1902,10 +1924,12 @@ html, body {
         ind.className = "ws-status-pill ws-connected";
         ind.innerText = "● Online";
       }
+      const savedLang = localStorage.getItem("lupus_lang") || "en";
       socket.send(JSON.stringify({
         action: "init",
         player_token: MY_TOKEN,
-        player_id: MY_PID
+        player_id: MY_PID,
+        lang: savedLang
       }));
     };
 
@@ -2107,7 +2131,25 @@ html, body {
       activeView.style.display = "block";
     }
 
-    document.getElementById("phase-text").innerText = state.phase.toUpperCase();
+    // Sync Language Selector and UI strings
+    if (state.lang) {
+      const pLangSelect = document.getElementById("player-lang-select");
+      if (pLangSelect && pLangSelect.value !== state.lang) {
+        pLangSelect.value = state.lang;
+      }
+    }
+    if (state.ui_strings) {
+      const shieldTitle = document.getElementById("shield-title");
+      if (shieldTitle && state.ui_strings.hold_to_peek) {
+        shieldTitle.innerText = state.ui_strings.hold_to_peek;
+      }
+      const shieldDesc = document.getElementById("shield-desc");
+      if (shieldDesc && state.ui_strings.release_to_hide) {
+        shieldDesc.innerText = state.ui_strings.release_to_hide;
+      }
+    }
+
+    document.getElementById("phase-text").innerText = (state.phase_display || state.phase).toUpperCase();
     document.getElementById("round-num").innerText = state.round_number;
 
     // Update alive counter badges
@@ -2126,7 +2168,7 @@ html, body {
     const me = state.me;
     if (me) {
       const myStatusBadge = document.getElementById("my-status-badge");
-      if (myStatusBadge) myStatusBadge.innerHTML = `<span class="badge badge-${me.status}">${me.status}</span>`;
+      if (myStatusBadge) myStatusBadge.innerHTML = `<span class="badge badge-${me.status}">${me.status_display || me.status}</span>`;
       const infoName = document.getElementById("info-player-name");
       if (infoName) infoName.innerText = me.name;
       const topName = document.getElementById("topbar-my-name");
@@ -2138,7 +2180,7 @@ html, body {
       const infoStatus = document.getElementById("info-status-pill");
       if (infoStatus) {
         infoStatus.className = `badge badge-${me.status}`;
-        infoStatus.innerText = me.status;
+        infoStatus.innerText = me.status_display || me.status;
       }
     }
 

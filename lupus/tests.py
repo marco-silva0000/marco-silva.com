@@ -3452,6 +3452,131 @@ class TestMidgameJoinerAndNearGameoverEdgeCases:
         assert late["id"] in [p["id"] for p in get_living_players(state)]
 
 
+class TestLupusInternationalization:
+    """Validate internationalization (i18n) across supported languages and verify engine English invariance."""
+
+    def test_engine_invariance_rules_and_state_stay_canonical_english(self):
+        """Internal game state, factions, roles, and phases remain 100% in English."""
+        state = create_initial_state("I18N01", "Engine Invariance Test")
+        state, p1 = add_player(state, "Alice")
+        state, p2 = add_player(state, "Bob")
+
+        p1["role"] = "werewolf"
+        p1["faction"] = "wolves"
+        p1["status"] = "alive"
+
+        p2["role"] = "detective"
+        p2["faction"] = "town"
+        p2["status"] = "alive"
+
+        state["phase"] = "night"
+        state["status"] = "running"
+
+        # Assert internal engine fields are canonical English
+        assert state["players"][p1["id"]]["role"] == "werewolf"
+        assert state["players"][p1["id"]]["faction"] == "wolves"
+        assert state["players"][p1["id"]]["status"] == "alive"
+        assert state["players"][p2["id"]]["role"] == "detective"
+        assert state["players"][p2["id"]]["faction"] == "town"
+        assert state["phase"] == "night"
+        assert state["status"] == "running"
+
+    def test_presentation_boundary_role_localization_all_9_languages(self):
+        """get_role_info returns localized display name and guide while preserving engine id and faction."""
+        from lupus.roles import get_role_info
+
+        expected_names = {
+            "en": "Werewolf",
+            "pt": "Lobisomem",
+            "it": "Lupo Mannaro",
+            "es": "Hombre Lobo",
+            "fr": "Loup-Garou",
+            "el": "Λυκάνθρωπος",
+            "ru": "Оборотень",
+            "hi": "भेड़िया",
+            "kn": "ತೋಳ",
+        }
+
+        for lang, expected_name in expected_names.items():
+            info = get_role_info("werewolf", lang=lang)
+            assert info["name"] == expected_name, f"Failed for {lang}: got {info['name']}"
+            assert info["id"] == "werewolf"
+            assert info["faction"] == "wolves"
+            assert "objective" in info["guide"]
+
+    def test_status_phase_and_faction_translation_lookups(self):
+        """Localized helper functions correctly translate statuses, phases, and factions."""
+        from lupus.translations import (
+            get_localized_status,
+            get_localized_phase,
+            get_localized_faction,
+            get_localized_ui_strings,
+        )
+
+        # Status translations
+        assert get_localized_status("alive", lang="pt") == "Vivo"
+        assert get_localized_status("dead", lang="it") == "Morto"
+        assert get_localized_status("limbo", lang="ru") == "В лимбе"
+        assert get_localized_status("spectator", lang="es") == "Espectador"
+
+        # Phase translations
+        assert get_localized_phase("night", lang="es") == "Noche"
+        assert get_localized_phase("day_voting", lang="fr") == "Vote du Jour"
+        assert get_localized_phase("gameover", lang="pt") == "Fim de Jogo"
+
+        # Faction translations
+        assert get_localized_faction("wolves", lang="kn") == "ತೋಳಗಳು / ಮಾಫಿಯಾ"
+        assert get_localized_faction("town", lang="el") == "Χωρικοί / Χωριό"
+
+        # UI strings
+        pt_ui = get_localized_ui_strings(lang="pt")
+        assert pt_ui["hold_to_peek"] == "Segure para espiar o papel secreto"
+        assert pt_ui["release_to_hide"] == "Solte para esconder de olhares curiosos"
+
+        it_ui = get_localized_ui_strings(lang="it")
+        assert it_ui["hold_to_peek"] == "Tieni premuto per vedere il ruolo segreto"
+
+    def test_sanitized_player_view_localized_presentation(self):
+        """get_sanitized_player_view includes localized status_display, phase_display, and ui_strings."""
+        from lupus.game_state import get_sanitized_player_view
+
+        state = create_initial_state("I18N02", "Player View Test")
+        state, p1 = add_player(state, "Carlos")
+        p1["role"] = "doctor"
+        p1["faction"] = "town"
+        p1["status"] = "alive"
+        state["phase"] = "night"
+
+        # Request Portuguese view
+        view_pt = get_sanitized_player_view(state, p1["id"], lang="pt")
+        assert view_pt["lang"] == "pt"
+        assert view_pt["phase_display"] == "Noite"
+        assert view_pt["phase"] == "night"  # Engine phase preserved
+        assert view_pt["me"]["status_display"] == "Vivo"
+        assert view_pt["me"]["status"] == "alive"  # Engine status preserved
+        assert view_pt["me"]["role"]["name"] == "Médico"
+        assert view_pt["ui_strings"]["hold_to_peek"] == "Segure para espiar o papel secreto"
+
+        # Engine state itself untouched
+        assert state["players"][p1["id"]]["status"] == "alive"
+        assert state["phase"] == "night"
+
+    def test_all_29_roles_have_complete_translations_for_all_supported_languages(self):
+        """Verify that every single role in ROLE_REGISTRY has valid translations across all 9 languages."""
+        from lupus.roles import ROLE_REGISTRY, get_role_info
+        from lupus.translations import SUPPORTED_LANGUAGES
+
+        assert len(ROLE_REGISTRY) >= 29
+
+        for role_id in ROLE_REGISTRY:
+            for lang in SUPPORTED_LANGUAGES:
+                info = get_role_info(role_id, lang=lang)
+                assert info["name"], f"Role {role_id} missing name in {lang}"
+                assert info["description"], f"Role {role_id} missing description in {lang}"
+                assert "objective" in info["guide"], f"Role {role_id} missing objective in {lang}"
+
+
+
 
 
 

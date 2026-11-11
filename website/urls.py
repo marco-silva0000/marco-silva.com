@@ -27,6 +27,7 @@ urlpatterns = [
     path("bot/terms-of-service", TemplateView.as_view(template_name="bot_terms.html")),
     path("privacy-policy/", TemplateView.as_view(template_name="bot_privacy.html")),
     path("terms-of-service/", TemplateView.as_view(template_name="bot_terms.html")),
+    path("i18n/", include("django.conf.urls.i18n")),
     path("photos/", include("photos.urls")),
     path("tools/", include("tools.urls")),
     path("games/", include("gamerooms.urls")),

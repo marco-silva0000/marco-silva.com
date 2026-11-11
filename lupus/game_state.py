@@ -22,6 +22,12 @@ from .roles import (
     get_all_roles_catalogue,
     get_role_info,
 )
+from .translations import (
+    get_localized_faction,
+    get_localized_phase,
+    get_localized_status,
+    get_localized_ui_strings,
+)
 
 _redis_client = None
 
@@ -4130,7 +4136,9 @@ def dismiss_pending_gameover(state: dict[str, Any]) -> dict[str, Any]:
 # --- Sanitized Views for Clients ---
 
 
-def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str, Any]:
+def get_sanitized_player_view(
+    state: dict[str, Any], player_id: str, lang: Optional[str] = "en"
+) -> dict[str, Any]:
     """Client view for a specific player: hides secret GM data and others' secret roles."""
     player = state["players"].get(player_id)
     if not player:
@@ -4145,7 +4153,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     public_players = []
     for idx, p in enumerate(ordered_players):
         pid = p["id"]
-        p_role = get_role_info(p["role"], theme) if (is_gameover and p.get("role")) else None
+        p_role = get_role_info(p["role"], theme, lang=lang) if (is_gameover and p.get("role")) else None
         is_public_mayor = p.get("role") == "mayor" and (
             p.get("is_public_mayor", False)
             or state.get("settings", {}).get("mayor_type") == "public"
@@ -4157,6 +4165,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
                 "seat_number": idx + 1,
                 "name": p["name"],
                 "status": p["status"],
+                "status_display": get_localized_status(p["status"], lang=lang),
                 "is_silenced": p["is_silenced"],
                 "is_traveler": p.get("is_traveler", False) or p.get("role") == "traveler",
                 "is_ghost": p.get("is_ghost", False) or p.get("role") == "ghost",
@@ -4170,7 +4179,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
             }
         )
 
-    my_role_info = get_role_info(player["role"], theme) if player.get("role") else None
+    my_role_info = get_role_info(player["role"], theme, lang=lang) if player.get("role") else None
 
     revealed_inspect = None
     if player.get("role") == "detective":
@@ -4188,7 +4197,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     # Saboteur stolen role view for wolves
     stolen_role_info = None
     if is_wolf and state.get("night_actions", {}).get("saboteur_stolen_role"):
-        stolen_role_info = get_role_info(state["night_actions"]["saboteur_stolen_role"], theme)
+        stolen_role_info = get_role_info(state["night_actions"]["saboteur_stolen_role"], theme, lang=lang)
 
     cannot_speak = (player["status"] == "limbo") or player.get("is_silenced", False)
 
@@ -4214,7 +4223,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     for rid in deck_role_ids:
         if rid not in seen_roles and rid in ROLE_REGISTRY and ROLE_REGISTRY[rid].get("enabled", True):
             seen_roles.add(rid)
-            r_info = get_role_info(rid, theme)
+            r_info = get_role_info(rid, theme, lang=lang)
             roles_in_play.append(
                 {
                     "id": rid,
@@ -4253,11 +4262,15 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
         "previous_room_code": state.get("previous_room_code"),
         "theme": theme,
         "phase": state["phase"],
+        "phase_display": get_localized_phase(state["phase"], lang=lang),
         "round_number": state["round_number"],
+        "lang": lang or "en",
+        "ui_strings": get_localized_ui_strings(lang=lang),
         "me": {
             "id": player["id"],
             "name": player["name"],
             "status": player["status"],
+            "status_display": get_localized_status(player["status"], lang=lang),
             "is_silenced": player["is_silenced"],
             "cannot_speak": cannot_speak,
             "used_limbo": player["used_limbo"],
@@ -4334,7 +4347,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str) -> dict[str
     }
 
 
-def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
+def get_gm_view(state: dict[str, Any], lang: Optional[str] = "en") -> dict[str, Any]:
     """Complete, unrestricted view for the Game Master cockpit."""
     theme = state.get("theme", "werewolf")
 
@@ -4342,9 +4355,9 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
     all_players = []
     for idx, p in enumerate(ordered_players):
         lover_name = state["players"][p["lover_id"]]["name"] if p.get("lover_id") in state["players"] else None
-        role_info = get_role_info(p["role"], theme) if p.get("role") else None
+        role_info = get_role_info(p["role"], theme, lang=lang) if p.get("role") else None
         if not role_info and p.get("preassigned_role"):
-            role_info = get_role_info(p["preassigned_role"], theme)
+            role_info = get_role_info(p["preassigned_role"], theme, lang=lang)
         all_players.append(
             {
                 "id": p["id"],
@@ -4352,6 +4365,7 @@ def get_gm_view(state: dict[str, Any]) -> dict[str, Any]:
                 "name": p["name"],
                 "token": p["token"],
                 "status": p["status"],
+                "status_display": get_localized_status(p["status"], lang=lang),
                 "role": role_info,
                 "preassigned_role": p.get("preassigned_role"),
                 "is_silenced": p["is_silenced"],

@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail",
+    "wagtail.locales",
     "modelcluster",
     "taggit",
     "wagtailmarkdown",
@@ -88,6 +89,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -107,6 +109,7 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
+                "django.template.context_processors.i18n",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "website.context_processors.year",
@@ -172,7 +175,27 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"
+
+LANGUAGES = [
+    ("en", "English"),
+    ("pt", "Português"),
+    ("it", "Italiano"),
+    ("es", "Español"),
+    ("fr", "Français"),
+    ("el", "Ελληνικά"),
+    ("ru", "Русский"),
+    ("hi", "हिन्दी"),
+    ("kn", "ಕನ್ನಡ"),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
+
+# Wagtail i18n support
+WAGTAIL_I18N_ENABLED = True
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
 
 TIME_ZONE = "UTC"
 

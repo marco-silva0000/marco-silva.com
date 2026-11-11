@@ -71,10 +71,13 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
         self.group_name: str = ""
         self.is_gm: bool = False
         self.player_id: Optional[str] = None
+        self.lang: str = "en"
 
     async def connect(self):
         self.code = self.scope["url_route"]["kwargs"]["code"].upper()
         self.group_name = f"lupus_{self.code}"
+        cookies = self.scope.get("cookies", {})
+        self.lang = cookies.get("django_language") or "en"
         await self.channel_layer.group_add(self.group_name, self.channel_name)
         await self.accept()
 
@@ -101,7 +104,7 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             return
 
         if self.is_gm:
-            await self.send_json({"type": "gm_state", "data": get_gm_view(state)})
+            await self.send_json({"type": "gm_state", "data": get_gm_view(state, lang=self.lang)})
         elif self.player_id:
             if self.player_id not in state["players"]:
                 await self.send_json(
@@ -111,7 +114,7 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             await self.send_json(
                 {
                     "type": "player_state",
-                    "data": get_sanitized_player_view(state, self.player_id),
+                    "data": get_sanitized_player_view(state, self.player_id, lang=self.lang),
                 }
             )
 
@@ -157,13 +160,15 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
 
         # 1. Connection Identification & Reconnection Handshake
         if action == "init":
+            if content.get("lang"):
+                self.lang = content["lang"]
             gm_token = content.get("gm_token")
             player_token = content.get("player_token")
             player_id = content.get("player_id")
 
             if gm_token and gm_token == state.get("gm_token"):
                 self.is_gm = True
-                await self.send_json({"type": "gm_state", "data": get_gm_view(state)})
+                await self.send_json({"type": "gm_state", "data": get_gm_view(state, lang=self.lang)})
                 return
 
             if player_token or player_id:
@@ -176,13 +181,26 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                         await self.send_json(
                             {
                                 "type": "player_state",
-                                "data": get_sanitized_player_view(state, self.player_id),
+                                "data": get_sanitized_player_view(state, self.player_id, lang=self.lang),
                             }
                         )
                         await self.broadcast_sync()
                         return
 
             await self.send_json({"type": "auth_error", "message": "Unrecognized session."})
+            return
+
+        elif action == "set_player_language":
+            self.lang = content.get("lang", "en")
+            if self.is_gm:
+                await self.send_json({"type": "gm_state", "data": get_gm_view(state, lang=self.lang)})
+            elif self.player_id:
+                await self.send_json(
+                    {
+                        "type": "player_state",
+                        "data": get_sanitized_player_view(state, self.player_id, lang=self.lang),
+                    }
+                )
             return
 
         # 2. Game Master Authorized Operations

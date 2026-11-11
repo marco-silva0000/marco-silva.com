@@ -4,6 +4,29 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v128] - 2026-11-11
+
+### Added
+- **Comprehensive Internationalization (i18n) Supporting 9 Languages**:
+  - Full platform and game client localization across 9 languages: English (`en` - main/default), Portuguese (`pt`), Italian (`it`), Spanish (`es`), French (`fr`), Greek (`el`), Russian (`ru`), Hindi (`hi`), and Kannada (`kn`).
+  - Added font fallbacks for non-Latin typography (`Noto Sans Devanagari`, `Noto Sans Kannada`, `Nirmala UI`) in base template layout.
+- **Strict Separation of Concerns & Engine English Invariance**:
+  - Internal game state, Redis storage keys, player attributes (`role`, `status`, `faction`), phases, rule mechanics, and action tapes remain 100% in canonical English.
+  - Localization occurs exclusively at the serialization and presentation boundary (`get_sanitized_player_view` and `get_gm_view`).
+- **Complete Role Catalog Translations (29 Roles)**:
+  - Translated all 29 roles across all 9 languages in `lupus/translations.py`: localized display names, descriptions, objectives, day tips, night tips, and pro tips.
+  - Localized lookups for player statuses (`Vivo`, `Morto`, `В лимбе`, `ಜೀವಂತ`, etc.), factions (`Aldeões`, `Lupo Mannaro`, `ತೋಳಗಳು`, etc.), phases (`Votação do Dia`, `Vote du Jour`, etc.), and UI strings (`hold_to_peek`, `release_to_hide`, `secret_role`).
+- **Player Screen Dynamic Localization & Privacy Shield**:
+  - Added `#player-lang-select` language switcher dropdown in top app bar.
+  - Supported dynamic WebSocket language updates (`action: "set_player_language"`) allowing live switching without page reloads.
+  - Localized privacy shield text (`#shield-title`, `#shield-desc`), status badges (`#my-status-badge`), and phase badges on the player screen.
+- **Django Core i18n & Wagtail Readiness**:
+  - Configured `LocaleMiddleware`, `LANGUAGES` tuple, and compiled binary gettext message catalogs (`locale/*/LC_MESSAGES/django.mo`) for all 9 languages.
+  - Enabled Wagtail multi-locale infrastructure (`WAGTAIL_I18N_ENABLED = True`, `WAGTAIL_CONTENT_LANGUAGES`).
+- **Testing**:
+  - Added `TestLupusInternationalization` in `lupus/tests.py` verifying state invariance and presentation boundary translations (170 passed in `pytest`).
+  - Added `tests/robot/lupus/suites/09_internationalization.robot` simulating simultaneous multi-lingual players in a single match and dynamic language switching (47 passed in Robot Framework).
+
 ## [v127] - 2026-11-11
 
 ### Added
