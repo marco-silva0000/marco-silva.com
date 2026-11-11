@@ -339,3 +339,67 @@ class LupusLibrary:
             raise AssertionError(
                 f"Expected {expected_count} archived games, but got {actual}"
             )
+
+    def assign_midgame_role(self, player_name: str, role_id: str) -> None:
+        """Assign role to mid-game joiner or convert player to midgame role."""
+        success, msg = self.sim.assign_midgame_role(player_name, role_id)
+        if not success:
+            raise AssertionError(f"Failed to assign midgame role '{role_id}' to '{player_name}': {msg}")
+
+    def pending_gameover_winner_should_be(self, expected_winner: Optional[str]) -> None:
+        """Assert the winner recorded in pending_gameover record."""
+        exp = None if str(expected_winner).lower() in ("none", "${none}", "") else expected_winner
+        actual = self.sim.get_pending_gameover_winner()
+        if actual != exp:
+            raise AssertionError(
+                f"Expected pending gameover winner to be '{exp}', but got '{actual}'"
+            )
+
+    def pending_gameover_should_be_none(self) -> None:
+        """Assert that pending_gameover is cleared / None."""
+        actual = self.sim.get_pending_gameover_winner()
+        if actual is not None:
+            raise AssertionError(
+                f"Expected pending gameover to be None, but got '{actual}'"
+            )
+
+    def trigger_game_over(self, winner: Optional[str] = None) -> None:
+        """GM explicitly triggers Game Over."""
+        import lupus.game_state as gs
+        w = None if str(winner).lower() in ("none", "${none}", "") else winner
+        self.sim.state = gs.trigger_game_over(self.sim.state, winner=w)
+        self.sim.refresh_state()
+
+    def living_players_count_should_be(self, expected_count: int) -> None:
+        """Assert count of currently alive players."""
+        import lupus.game_state as gs
+        actual = len(gs.get_living_players(self.sim.state))
+        if actual != int(expected_count):
+            raise AssertionError(
+                f"Expected {expected_count} living players, but got {actual}"
+            )
+
+    def pair_lovers(
+        self,
+        lover_1_name: str,
+        lover_2_name: str,
+        lover_type: str = "innocent",
+    ) -> None:
+        """Pair two players as Lovers (innocent or obsessive)."""
+        import lupus.game_state as gs
+        p1_id = self.sim.get_pid(lover_1_name)
+        p2_id = self.sim.get_pid(lover_2_name)
+        self.sim.state["players"][p1_id]["lover_id"] = p2_id
+        self.sim.state["players"][p1_id]["lover_type"] = lover_type
+        self.sim.state["players"][p2_id]["lover_id"] = p1_id
+        self.sim.state["players"][p2_id]["lover_type"] = lover_type
+        gs.save_game(self.sim.code, self.sim.state)
+        self.sim.refresh_state()
+
+    def check_win_condition(self) -> Optional[str]:
+        """Explicitly evaluate win condition on the current state."""
+        import lupus.game_state as gs
+        winner = gs.check_win_condition(self.sim.state)
+        gs.save_game(self.sim.code, self.sim.state)
+        self.sim.refresh_state()
+        return winner

@@ -242,3 +242,16 @@ class LupusSimulator:
         self.refresh_state()
         pid = self.get_pid(name)
         return bool(self.state.get("players", {}).get(pid, {}).get("is_silenced", False))
+
+    def assign_midgame_role(self, name: str, role: str) -> tuple[bool, str]:
+        pid = self.get_pid(name)
+        if not pid:
+            return False, f"Player '{name}' not found"
+        success, msg = gs.assign_midgame_role(self.state, pid, role)
+        self.refresh_state()
+        return success, msg
+
+    def get_pending_gameover_winner(self) -> Optional[str]:
+        self.refresh_state()
+        pending = self.state.get("pending_gameover")
+        return pending.get("winner") if pending else None

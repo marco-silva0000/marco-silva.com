@@ -4,6 +4,26 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v127] - 2026-11-11
+
+### Added
+- **Mid-Game Joiners & Near-GameOver Edge Cases Simulation Suite (`tests/robot/lupus/suites/08_midgame_joiners.robot`)**:
+  - Added dedicated Robot Framework simulation test suite covering 7 distinct late-arrival and near-gameover edge cases.
+  - Added keywords in `LupusLibrary`: `Assign Midgame Role`, `Pending Gameover Winner Should Be`, `Pending Gameover Should Be None`, `Living Players Count Should Be`, `Pair Lovers`, `Check Win Condition`.
+  - Added 8 unit tests in `lupus/tests.py` under `TestMidgameJoinerAndNearGameoverEdgeCases`.
+
+### Fixed
+- **Unassigned Mid-Game Joiner Status**:
+  - Late players joining mid-game (`phase != "lobby"`) now enter with `status="waiting"` rather than `"alive"`, preventing unassigned spectators from distorting living player counts, day voting thresholds, or wolf parity calculations.
+- **Dynamic Pending GameOver Invalidation on Mid-Game Role Assignment**:
+  - `assign_midgame_role` resets `pending_gameover = None` when the game is still active, allowing `check_win_condition` to re-evaluate whether a new Confirmed Traveler or Town player breaks parity and saves the village.
+- **Successor (Understudy) Heartbreak & Role Inheritance at Dawn**:
+  - Prevented double-killing lovers when a waiting Successor steps in to inherit a fallen Lover's role and binds to the surviving partner.
+  - Added explicit announcement in the dawn report when a Successor steps in to avert heartbreak or inherit a fallen player's role.
+  - Day vote elimination message accurately acknowledges when a Successor stepped in to avert lover heartbreak.
+  - Standard roles assigned mid-game explicitly activate status as `"alive"`.
+  - Joined players or role assignments after `phase="gameover"` strictly preserve finished state and recorded winner.
+
 ## [v126] - 2026-11-11
 
 ### Added

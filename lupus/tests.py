@@ -21,6 +21,7 @@ from lupus.game_state import (
     export_game_replay,
     get_game,
     get_gm_view,
+    get_living_players,
     get_night_stages,
     get_nomination_threshold,
     get_ordered_players,
@@ -3169,6 +3170,287 @@ class TestLupusRoomLifecycleAndPortugueseDemo:
         assert g2["faction"] == "town"
         assert g2["gull_converted"] is False
         assert is_evil_for_detective(g2) is False
+
+
+class TestMidgameJoinerAndNearGameoverEdgeCases:
+    def test_midgame_unassigned_joiner_does_not_break_wolf_parity(self):
+        """A spectator joining mid-game without a role starts as 'waiting' and does not disrupt wolf parity."""
+        state = create_initial_state("TESTMID1", "Test Midgame Joiner")
+        state, w1 = add_player(state, "Wolf1")
+        state, w2 = add_player(state, "Wolf2")
+        state, v1 = add_player(state, "Villager1")
+
+        w1["role"] = "werewolf"
+        w1["faction"] = "wolves"
+        w2["role"] = "werewolf"
+        w2["faction"] = "wolves"
+        v1["role"] = "villager"
+        v1["faction"] = "town"
+
+        state["phase"] = "night"
+        state["status"] = "running"
+
+        # 2 wolves vs 1 villager -> Wolf parity win condition met
+        winner = check_win_condition(state)
+        assert winner == "wolves"
+        assert state.get("pending_gameover", {}).get("winner") == "wolves"
+
+        # Late spectator joins mid-game
+        state, late = add_player(state, "SpectatorLate")
+        assert late["status"] == "waiting"
+        assert late["role"] is None
+        assert late["faction"] is None
+
+        # Verify living players still only counts active alive players
+        living = get_living_players(state)
+        assert len(living) == 3
+        assert late["id"] not in [p["id"] for p in living]
+
+        # Verify wolf parity remains intact despite spectator presence
+        winner = check_win_condition(state)
+        assert winner == "wolves"
+
+    def test_traveler_midgame_assignment_reverses_pending_wolf_win(self):
+        """Assigning a Traveler mid-game adds a living Town member and clears pending wolf victory."""
+        state = create_initial_state("TESTMID2", "Test Traveler Reversal")
+        state, w1 = add_player(state, "Wolf1")
+        state, w2 = add_player(state, "Wolf2")
+        state, v1 = add_player(state, "Villager1")
+        state, v2 = add_player(state, "Villager2")
+
+        w1["role"] = "werewolf"
+        w1["faction"] = "wolves"
+        w2["role"] = "werewolf"
+        w2["faction"] = "wolves"
+        v1["role"] = "villager"
+        v1["faction"] = "town"
+        v2["role"] = "villager"
+        v2["faction"] = "town"
+
+        state["phase"] = "day"
+        state["status"] = "running"
+
+        # 2 wolves vs 2 villagers -> Parity reached (2 >= 4 - 2)
+        winner = check_win_condition(state)
+        assert winner == "wolves"
+        assert state.get("pending_gameover") is not None
+
+        # Late joiner enters mid-game and is assigned Traveler
+        state, late = add_player(state, "TravelerJoiner")
+        success, msg = assign_midgame_role(state, late["id"], "traveler")
+        assert success
+        assert late["status"] == "alive"
+        assert late["faction"] == "town"
+        assert late["is_traveler"] is True
+
+        # Now 2 wolves vs 3 town -> Wolf parity is broken!
+        assert state.get("pending_gameover") is None
+        assert check_win_condition(state) is None
+        assert len(get_living_players(state)) == 5
+
+    def test_successor_inherits_last_werewolf_preventing_premature_town_win(self):
+        """When the last werewolf is executed, a waiting Successor inherits the role and averts Town victory."""
+        state = create_initial_state("TESTMID3", "Test Successor Last Wolf")
+        state["settings"]["limbo_enabled"] = False
+        state, w1 = add_player(state, "AlphaWolf")
+        state, v1 = add_player(state, "Villager1")
+        state, v2 = add_player(state, "Villager2")
+        state, succ = add_player(state, "Understudy")
+
+        w1["role"] = "werewolf"
+        w1["faction"] = "wolves"
+        v1["role"] = "villager"
+        v1["faction"] = "town"
+        v2["role"] = "villager"
+        v2["faction"] = "town"
+
+        state["phase"] = "day"
+        state["status"] = "running"
+
+        # Assign understudy as Successor
+        assign_midgame_role(state, succ["id"], "successor")
+        assert succ["status"] == "waiting"
+        assert succ["role"] == "successor"
+
+        # Town executes AlphaWolf by day vote
+        start_voting_session(state)
+        toggle_official_nomination(state, w1["id"])
+        proceed_to_final_vote(state)
+        cast_final_vote(state, v1["id"], w1["id"])
+        cast_final_vote(state, v2["id"], w1["id"])
+        res, msg = tally_and_resolve_vote(state)
+        assert res == "eliminated"
+
+        # Verify AlphaWolf is dead
+        assert w1["status"] == "dead"
+
+        # Verify Successor inherited Werewolf role and became alive!
+        assert succ["status"] == "alive"
+        assert succ["role"] == "werewolf"
+        assert succ["faction"] == "wolves"
+        assert succ["inherited_from_name"] == "AlphaWolf"
+
+        # Verify Town does NOT win because the pack lives on through the Successor
+        assert state.get("pending_gameover") is None
+        assert check_win_condition(state) is None
+
+    def test_successor_inherits_werewolf_from_serial_killer_night_kill(self):
+        """Serial Killer killing the last werewolf does not trigger instant solo win if Successor inherits."""
+        state = create_initial_state("TESTMID4", "Test SK vs Successor")
+        state["settings"]["limbo_enabled"] = False
+        state, w1 = add_player(state, "LoneWolf")
+        state, sk = add_player(state, "Dexter")
+        state, v1 = add_player(state, "Villager1")
+        state, succ = add_player(state, "Understudy")
+
+        w1["role"] = "werewolf"
+        w1["faction"] = "wolves"
+        sk["role"] = "serial_killer"
+        sk["faction"] = "evil"
+        v1["role"] = "villager"
+        v1["faction"] = "town"
+
+        state["phase"] = "night"
+        state["status"] = "running"
+        assign_midgame_role(state, succ["id"], "successor")
+
+        # Serial Killer strikes LoneWolf at night
+        record_gm_night_action(state, "serial_killer", target_id=w1["id"])
+        resolve_night(state)
+
+        # LoneWolf is dead, but Successor inherited the Werewolf role
+        assert w1["status"] == "dead"
+        assert succ["status"] == "alive"
+        assert succ["role"] == "werewolf"
+        assert succ["faction"] == "wolves"
+
+        # SK does not win solo victory because wolves faction is still alive
+        assert state.get("pending_gameover") is None
+        assert check_win_condition(state) is None
+
+    def test_successor_saves_obsessive_lovers_to_trigger_lovers_win(self):
+        """Successor inherits fallen Lover, averts heartbreak, and enables 2-survivor Lovers victory."""
+        state = create_initial_state("TESTMID5", "Test Successor Lovers Win")
+        state["settings"]["limbo_enabled"] = False
+        state, r = add_player(state, "Romeo")
+        state, j = add_player(state, "Juliet")
+        state, w = add_player(state, "BigBadWolf")
+        state, succ = add_player(state, "Paris")
+
+        r["role"] = "villager"
+        r["faction"] = "town"
+        j["role"] = "villager"
+        j["faction"] = "town"
+        w["role"] = "werewolf"
+        w["faction"] = "wolves"
+
+        r["lover_id"] = j["id"]
+        r["lover_type"] = "obsessive"
+        j["lover_id"] = r["id"]
+        j["lover_type"] = "obsessive"
+        assign_midgame_role(state, succ["id"], "successor")
+
+        state["phase"] = "night"
+        state["status"] = "running"
+
+        # Wolves attack Romeo, but Wolf is eliminated simultaneously by a night kill (e.g. status dead)
+        set_player_status(state, r["id"], "dead")
+        set_player_status(state, w["id"], "dead")
+
+        # Romeo died, but Paris stepped in as Successor, inheriting Romeo and becoming Juliet's new lover!
+        assert succ["status"] == "alive"
+        assert succ["lover_id"] == j["id"]
+        assert j["lover_id"] == succ["id"]
+        assert j["status"] == "alive"
+        assert succ["lover_type"] == "obsessive"
+
+        # The only 2 living players left are Paris and Juliet (Obsessive Lovers)!
+        winner = check_win_condition(state)
+        assert winner == "lovers"
+        assert state.get("pending_gameover", {}).get("winner") == "lovers"
+
+    def test_ghost_and_disgruntled_ghost_midgame_do_not_affect_alive_counts(self):
+        """Ghosts join with status 'dead' and do not disturb alive counts or wolf parity."""
+        state = create_initial_state("TESTMID6", "Test Spectral Ghosts")
+        state, w1 = add_player(state, "Wolf1")
+        state, v1 = add_player(state, "Villager1")
+        state, v2 = add_player(state, "Villager2")
+
+        w1["role"] = "werewolf"
+        w1["faction"] = "wolves"
+        v1["role"] = "villager"
+        v1["faction"] = "town"
+        v2["role"] = "villager"
+        v2["faction"] = "town"
+
+        state["phase"] = "day"
+        state["status"] = "running"
+
+        # Late joiners enter as Ghosts
+        state, g1 = add_player(state, "Casper")
+        state, g2 = add_player(state, "Poltergeist")
+
+        assign_midgame_role(state, g1["id"], "ghost")
+        assign_midgame_role(state, g2["id"], "disgruntled_ghost")
+
+        assert g1["status"] == "dead"
+        assert g1["is_ghost"] is True
+        assert g2["status"] == "dead"
+
+        # Living players count remains 3
+        living = get_living_players(state)
+        assert len(living) == 3
+        assert g1["id"] not in [p["id"] for p in living]
+        assert g2["id"] not in [p["id"] for p in living]
+
+    def test_midgame_joiner_after_gameover_does_not_mutate_winner(self):
+        """Joining or assigning roles after GameOver preserves finished status and recorded winner."""
+        state = create_initial_state("TESTMID7", "Test Post GameOver")
+        state, w1 = add_player(state, "Wolf1")
+        state, v1 = add_player(state, "Villager1")
+
+        w1["role"] = "werewolf"
+        w1["faction"] = "wolves"
+        v1["role"] = "villager"
+        v1["faction"] = "town"
+
+        trigger_game_over(state, "wolves")
+        assert state["phase"] == "gameover"
+        assert state["status"] == "finished"
+        assert state["winner"] == "wolves"
+
+        # Late player joins and tries to take a town role
+        state, late = add_player(state, "LateArrival")
+        assign_midgame_role(state, late["id"], "traveler")
+
+        # Concluded game status and winner are strictly maintained
+        assert state["phase"] == "gameover"
+        assert state["status"] == "finished"
+        assert state["winner"] == "wolves"
+
+    def test_late_joiner_assigned_standard_town_role_activates_alive(self):
+        """A mid-game joiner assigned a standard role (e.g. Villager) becomes alive and can participate."""
+        state = create_initial_state("TESTMID8", "Test Standard Midgame Role")
+        state, w1 = add_player(state, "Wolf1")
+        state, v1 = add_player(state, "Villager1")
+
+        w1["role"] = "werewolf"
+        w1["faction"] = "wolves"
+        v1["role"] = "villager"
+        v1["faction"] = "town"
+
+        state["phase"] = "day"
+        state["status"] = "running"
+
+        state, late = add_player(state, "LateCitizen")
+        assert late["status"] == "waiting"
+
+        success, msg = assign_midgame_role(state, late["id"], "villager")
+        assert success
+        assert late["status"] == "alive"
+        assert late["faction"] == "town"
+        assert late["id"] in [p["id"] for p in get_living_players(state)]
+
 
 
 

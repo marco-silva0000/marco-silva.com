@@ -296,7 +296,7 @@ def add_player(state: dict[str, Any], name: str, is_offline: bool = False) -> tu
         "token": token,
         "role": None,
         "faction": None,
-        "status": "alive",  # "alive", "limbo", "dead"
+        "status": "alive" if state.get("phase") == "lobby" else "waiting",
         "used_limbo": False,
         "is_silenced": False,
         "is_suppressed": False,
@@ -913,6 +913,7 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         "start_game",
         {"round": state["round_number"], "phase": state["phase"]},
     )
+    check_win_condition(state)
     save_game(state["code"], state)
     return state
 
@@ -1234,13 +1235,17 @@ def assign_midgame_role(state: dict[str, Any], player_id: str, role_id: str) -> 
         player["is_traveler"] = False
         msg = f"⏳ {player['name']} joined as the Successor (Understudy), waiting to inherit the role of the next fallen player!"
     else:
+        player["status"] = "alive"
         player["is_traveler"] = False
         player["is_ghost"] = False
         player["is_successor"] = False
         msg = f"🎭 {player['name']} was assigned role {role_info['names']['werewolf']} mid-game."
 
     log_event(state, msg)
-    check_win_condition(state)
+    if state.get("phase") != "gameover":
+        state["pending_gameover"] = None
+        state["pending_gameover_dismissed"] = False
+        check_win_condition(state)
     record_action(
         state,
         "assign_midgame_role",
@@ -3384,10 +3389,43 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
 
     for pid in list(killed_players):
         p = state["players"][pid]
+
+        # Check if a non-lover successor stepped in for this fallen player:
+        succ = next(
+            (
+                s
+                for s in state["players"].values()
+                if s.get("inherited_from_name") == p["name"]
+                and s.get("status") == "alive"
+                and not s.get("lover_id")
+            ),
+            None,
+        )
+        if succ:
+            r_info = ROLE_REGISTRY.get(succ["role"], ROLE_REGISTRY["villager"])
+            r_title = r_info["names"].get("werewolf", succ["role"])
+            succ_line = f"⏳ {succ['name']} stepped into the game as Successor, inheriting {p['name']}'s mantle as {r_title} ({r_info['faction'].upper()})!"
+            if succ_line not in report:
+                report.append(succ_line)
+
         lover_id = p.get("lover_id")
         if lover_id and lover_id in state["players"] and lover_id not in killed_players:
             lover = state["players"][lover_id]
-            # Check if successor inherits the deceased's role!
+            # If lover already bound to a new living partner (e.g. Successor stepped in during set_player_status), heartbreak is averted!
+            if lover.get("lover_id") != pid:
+                new_partner = state["players"].get(lover.get("lover_id"))
+                if new_partner and new_partner.get("status") == "alive":
+                    role_title = new_partner.get("role", "villager")
+                    l_icon = "❤️‍🔥" if new_partner.get("lover_type") == "obsessive" else "💞"
+                    succ_line = (
+                        f"{l_icon} {new_partner['name']} stepped in as Successor, inheriting {p['name']}'s mantle as "
+                        f"{role_title} and becoming {lover['name']}'s new lover! Heartbreak was averted!"
+                    )
+                    if succ_line not in report:
+                        report.append(succ_line)
+                    continue
+
+            # Otherwise check if a successor can step in now:
             succ_msg = check_and_trigger_successor_inheritance(state, pid)
             if not succ_msg:
                 set_player_status(state, lover_id, "dead")
@@ -3849,13 +3887,18 @@ def _do_tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
         msg = f"🌫️ {victim['name']} received {max_votes} votes and was banished to Limbo (can guess Angel to return)!"
     else:
         lover_id = victim.get("lover_id")
+        set_player_status(state, victim_id, "dead", stagger_lover_heartbreak=True)
+        voting["elimination_result"] = "dead"
         lover_broken_heart_msg = ""
         if lover_id and lover_id in players and players[lover_id]["status"] == "alive":
             lover = players[lover_id]
-            lover_broken_heart_msg = f" (💔 {lover['name']} is stricken with grief and will succumb to heartbreak at dawn unless saved!)"
+            if lover.get("pending_heartbreak"):
+                lover_broken_heart_msg = f" (💔 {lover['name']} is stricken with grief and will succumb to heartbreak at dawn unless saved!)"
+            elif lover.get("lover_id") != victim_id:
+                succ = players.get(lover.get("lover_id"))
+                succ_name = succ["name"] if succ else "the Successor"
+                lover_broken_heart_msg = f" (⏳ {succ_name} stepped in as Successor, saving {lover['name']} from heartbreak!)"
 
-        set_player_status(state, victim_id, "dead", stagger_lover_heartbreak=True)
-        voting["elimination_result"] = "dead"
         msg = f"🪦 {victim['name']} received {max_votes} votes and was executed by town vote!{lover_broken_heart_msg}"
 
     voting["stage"] = "completed"
