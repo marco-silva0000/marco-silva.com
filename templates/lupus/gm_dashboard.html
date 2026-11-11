@@ -838,10 +838,10 @@ html, body {
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem; margin: 0.75rem 0;">
         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 700;">
           <div>
-            Total Roles: <span id="deck-count-num" style="font-size: 1.1rem; color: #2563eb;">0</span>
+            🎴 Deck Size (Roles): <span id="deck-count-num" style="font-size: 1.1rem; color: #2563eb;">0</span>
           </div>
           <div>
-            Players in Lobby: <span id="lobby-count-num" style="font-size: 1.1rem; color: #0f172a;">{{ state.players|length }}</span>
+            👥 Players at Table: <span id="lobby-count-num" style="font-size: 1.1rem; color: #0f172a;">{{ state.players|length }}</span>
           </div>
         </div>
 
@@ -1964,8 +1964,8 @@ html, body {
 
   // --- Role Metadata for Live UI Display ---
   const SPECIAL_ROLES = [
-    'alpha_wolf', 'silencer', 'framer',
-    'detective', 'doctor', 'bodyguard', 'angel', 'death_angel', 'sniper', 'mayor', 'witch', 'lover',
+    'alpha_wolf', 'silencer', 'framer', 'saboteur_wolf',
+    'detective', 'doctor', 'watson', 'bodyguard', 'angel', 'death_angel', 'sniper', 'mayor', 'witch', 'lover', 'hacker',
     'cupid', 'jester', 'serial_killer', 'wolf_hunter'
   ];
 
@@ -1974,8 +1974,10 @@ html, body {
     alpha_wolf: { name: "Alpha Wolf", emoji: "🦍", faction: "evil" },
     silencer: { name: "Silencer", emoji: "🤐", faction: "evil" },
     framer: { name: "Framer", emoji: "😵‍💫", faction: "evil" },
+    saboteur_wolf: { name: "Saboteur Wolf", emoji: "🐺⚡", faction: "evil" },
     detective: { name: "Detective", emoji: "🔍", faction: "good" },
     doctor: { name: "Doctor", emoji: "🩺", faction: "good" },
+    watson: { name: "Watson", emoji: "🩺", faction: "good" },
     bodyguard: { name: "Bodyguard", emoji: "🛡️", faction: "good" },
     angel: { name: "Angel", emoji: "👼", faction: "good" },
     death_angel: { name: "Death Angel", emoji: "💀", faction: "good" },
@@ -1984,6 +1986,7 @@ html, body {
     witch: { name: "Witch", emoji: "🧙‍♀️", faction: "good" },
     lover: { name: "Lovers (2)", emoji: "💞", faction: "good" },
     villager: { name: "Plain Villager", emoji: "🧑", faction: "good" },
+    hacker: { name: "Hacker", emoji: "💻", faction: "good" },
     cupid: { name: "Cupid", emoji: "🏹", faction: "neutral" },
     jester: { name: "Jester", emoji: "🃏", faction: "neutral" },
     serial_killer: { name: "Serial Killer", emoji: "🔪", faction: "neutral" },
@@ -1998,8 +2001,10 @@ html, body {
     alpha_wolf: 0,
     silencer: 0,
     framer: 0,
+    saboteur_wolf: 0,
     detective: 1,
     doctor: 1,
+    watson: 0,
     bodyguard: 0,
     angel: 0,
     death_angel: 0,
@@ -2007,6 +2012,7 @@ html, body {
     mayor: 0,
     witch: 0,
     lover: 0,
+    hacker: 0,
     cupid: 0,
     jester: 0,
     serial_killer: 0,
@@ -2125,7 +2131,7 @@ html, body {
     const deck = getDeckArray();
     let good = 0, evil = 0, neutral = 0;
     deck.forEach(r => {
-      if (["werewolf", "alpha_wolf", "silencer", "framer"].includes(r)) evil++;
+      if (["werewolf", "alpha_wolf", "silencer", "framer", "saboteur_wolf"].includes(r)) evil++;
       else if (["cupid", "jester", "serial_killer", "wolf_hunter"].includes(r)) neutral++;
       else good++;
     });
@@ -2319,8 +2325,13 @@ html, body {
       if (stats.total === 0) {
         rosterContainer.innerHTML = "<span style='font-size:0.8rem; color:#94a3b8; font-style:italic;'>No roles selected yet. Pick a preset above or tap roles to add!</span>";
       } else {
-        const order = ['werewolf', 'alpha_wolf', 'silencer', 'framer', 'detective', 'doctor', 'bodyguard', 'angel', 'death_angel', 'sniper', 'mayor', 'witch', 'villager', 'cupid', 'jester', 'serial_killer', 'wolf_hunter'];
-        order.forEach(roleKey => {
+        const preferredOrder = [
+          'werewolf', 'alpha_wolf', 'silencer', 'framer', 'saboteur_wolf',
+          'detective', 'doctor', 'watson', 'bodyguard', 'angel', 'death_angel', 'sniper', 'mayor', 'witch', 'lover', 'hacker', 'villager',
+          'cupid', 'jester', 'serial_killer', 'wolf_hunter'
+        ];
+        const allRoles = Array.from(new Set([...preferredOrder, ...Object.keys(deckState)]));
+        allRoles.forEach(roleKey => {
           const count = deckState[roleKey] || 0;
           if (count > 0) {
             const meta = ROLE_META[roleKey] || { name: roleKey, emoji: "🎴", faction: "good" };
@@ -2362,7 +2373,7 @@ html, body {
         badge.className = "badge";
         badge.style.background = "#16a34a";
         badge.style.color = "#fff";
-        badge.innerText = `✅ Perfect Match (${stats.total}/${playerCount})`;
+        badge.innerText = `✅ Perfect Match (${stats.total} roles / ${playerCount} players)`;
         btnStart.innerText = `🚀 Start Game (${playerCount} Players & Night 1)`;
         btnStart.style.background = "#16a34a";
         btnStart.style.borderColor = "#16a34a";
@@ -2371,7 +2382,7 @@ html, body {
         badge.className = "badge";
         badge.style.background = "#eab308";
         badge.style.color = "#000";
-        badge.innerText = `⚠️ Need ${diff} more role${diff > 1 ? 's' : ''}`;
+        badge.innerText = `⚠️ Need ${diff} more role${diff > 1 ? 's' : ''} (${stats.total} roles / ${playerCount} players)`;
         btnStart.innerText = `🚀 Auto-Fill ${diff} Villager${diff > 1 ? 's' : ''} & Start`;
         btnStart.style.background = "#2563eb";
         btnStart.style.borderColor = "#2563eb";
@@ -2380,7 +2391,7 @@ html, body {
         badge.className = "badge";
         badge.style.background = "#dc2626";
         badge.style.color = "#fff";
-        badge.innerText = `❌ ${excess} extra role${excess > 1 ? 's' : ''}`;
+        badge.innerText = `❌ ${excess} extra role${excess > 1 ? 's' : ''} (${stats.total} roles / ${playerCount} players)`;
         btnStart.innerText = `✨ Auto-Fit Deck to ${playerCount} Players & Start`;
         btnStart.style.background = "#ea580c";
         btnStart.style.borderColor = "#ea580c";
@@ -2493,7 +2504,7 @@ html, body {
         excess -= trimV;
       }
       // 2. Trim specials from least to most critical
-      const trimOrder = ['serial_killer', 'wolf_hunter', 'jester', 'cupid', 'witch', 'mayor', 'bodyguard', 'framer', 'silencer'];
+      const trimOrder = ['serial_killer', 'wolf_hunter', 'jester', 'cupid', 'hacker', 'watson', 'witch', 'mayor', 'bodyguard', 'death_angel', 'framer', 'silencer', 'saboteur_wolf'];
       for (const r of trimOrder) {
         if (excess <= 0) break;
         if (deckState[r] > 0) {
