@@ -4,6 +4,28 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v129] - 2026-11-12
+
+### Fixed
+- **Hacker Role Deck Builder & Selection**:
+  - Restored missing `chip-hacker` toggle button in GM Dashboard Deck Builder (`templates/lupus/gm_dashboard.html`), allowing hosts to toggle and play the Hacker role.
+  - Also added missing `chip-watson` (🕵️‍♂️ Watson) and `chip-saboteur_wolf` (🐺⚡ Saboteur Wolf) toggle chips in the Deck Builder HTML.
+  - Added missing role pre-assignment buttons for `wolf_cub` (🐾 Wolf Cub) in Evil Team, and `martyrdom` (💣 Martyrdom) and `gull` (🕊️ The Gull) in Good Team within `manual-role-modal`.
+- **Hacker Night Scan GM Interface & Real-Time Ratio Preview**:
+  - Added specialized `hacker-widget` during the Hacker night stage:
+    - Multi-select player toggle buttons and table-ring seat selection to pick 2–3 scan suspects.
+    - Real-time evil presence ratio evaluation preview (All Evil, Majority Evil, Even Split, Minority Evil, Clean).
+    - Clear selection button and scan target counter badge.
+- **Hacker Player Screen Secret Intelligence Notes**:
+  - Enhanced player view for Hacker to display scan mission instructions on Night 0 and live evaluated scan intel (`state.hacker_result`) during daytime deduction.
+- **Engine Night Resolution & Day Voting Interlock**:
+  - Automatically locks Day 1 voting when Hacker is in play or scan intelligence is announced, keeping Day 1 reserved for deduction and suspicions.
+  - Updated Night 0 resolution to announce Hacker Intel in the dawn report immediately following the scan.
+
+### Testing
+- Added unit tests in `TestLupusV129HackerDeckAndScan` in `lupus/tests.py` verifying HTML markup, Hacker dealing, scan calculation, and day voting lock (172 passed in `pytest`).
+- Verified all 47 Robot Framework game simulation scenarios pass.
+
 ## [v128] - 2026-11-11
 
 ### Added

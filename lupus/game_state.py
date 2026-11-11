@@ -827,6 +827,9 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         p2_name = state["players"][p2_id]["name"]
         log_event(state, f"💞 Secret bond formed! Two Citizens ({p1_name} and {p2_name}) are bound as Innocent Lovers!")
 
+    if any(assigned_roles[pid] == "hacker" for pid in player_ids):
+        state["day1_no_voting"] = True
+
     state["deck"] = [assigned_roles[pid] for pid in player_ids]
     log_event(state, f"Distributed {len(state['deck'])} roles to players.")
     record_action(
@@ -902,7 +905,7 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     state["hacker_scanned_ids"] = []
     state["hacker_result"] = None
     state["hacker_announced"] = False
-    state["day1_no_voting"] = False
+    state["day1_no_voting"] = any(p.get("role") == "hacker" for p in state["players"].values())
     state["player_points"] = {}
     state["ghost_messages"] = []
     state["approved_ghost_messages"] = []
@@ -968,7 +971,7 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     state["hacker_scanned_ids"] = []
     state["hacker_result"] = None
     state["hacker_announced"] = False
-    state["day1_no_voting"] = False
+    state["day1_no_voting"] = any(p.get("role") == "hacker" for p in state["players"].values())
     state["player_points"] = {}
     state["ghost_messages"] = []
     state["approved_ghost_messages"] = []
@@ -2959,6 +2962,15 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             "☀️ Dawn breaks over Day 0. The village awakens peacefully!",
             "💬 Day 0 is reserved for player introductions and initial suspicions. Voting and executions begin on Day 1.",
         ]
+        if state.get("hacker_scanned_ids"):
+            res = state.get("hacker_result", "Clean")
+            evil_c = state.get("hacker_evil_count", 0)
+            tot_c = state.get("hacker_total_count", len(state["hacker_scanned_ids"]))
+            state["night_report"].append(
+                f"💻 Hacker Intel: Scanned suspects evaluated as '{res}' ({evil_c} of {tot_c} Evil)!"
+            )
+            log_event(state, f"💻 Hacker scan revealed: {res}")
+            state["hacker_announced"] = True
         log_event(state, "☀️ --- Dawn Report (Day 0) ---")
         for r_line in state["night_report"]:
             log_event(state, r_line)
@@ -3028,6 +3040,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         )
         log_event(state, f"💻 Hacker scan revealed: {res}")
         state["hacker_announced"] = True
+        state["day1_no_voting"] = True
 
     # --- 4. Cupid Lovers (Fallback / Dynamic Bind) ---
     if "cupid_lovers" in actions:

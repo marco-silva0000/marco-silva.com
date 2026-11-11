@@ -939,6 +939,10 @@ html, body {
             <span>🐾 Wolf Cub (Double Kill)</span>
             <span class="chip-badge" id="badge-wolf_cub">OFF</span>
           </button>
+          <button type="button" id="chip-saboteur_wolf" class="role-toggle-chip evil" onclick="toggleSpecialRole('saboteur_wolf')">
+            <span>🐺⚡ Saboteur Wolf (Mutes &amp; Steals)</span>
+            <span class="chip-badge" id="badge-saboteur_wolf">OFF</span>
+          </button>
         </div>
       </div>
 
@@ -975,6 +979,10 @@ html, body {
           <button type="button" id="chip-doctor" class="role-toggle-chip good" onclick="toggleSpecialRole('doctor')">
             <span>🩺 Doctor / Guard</span>
             <span class="chip-badge" id="badge-doctor">OFF</span>
+          </button>
+          <button type="button" id="chip-watson" class="role-toggle-chip good" onclick="toggleSpecialRole('watson')">
+            <span>🕵️‍♂️ Watson (Detective Helper)</span>
+            <span class="chip-badge" id="badge-watson">OFF</span>
           </button>
           <button type="button" id="chip-bodyguard" class="role-toggle-chip good" onclick="toggleSpecialRole('bodyguard')">
             <span>🛡️ Bodyguard (Sacrifice Save)</span>
@@ -1044,6 +1052,10 @@ html, body {
           <button type="button" id="chip-gull" class="role-toggle-chip good" onclick="toggleSpecialRole('gull')">
             <span>🕊️ The Gull (Infection Bite)</span>
             <span class="chip-badge" id="badge-gull">OFF</span>
+          </button>
+          <button type="button" id="chip-hacker" class="role-toggle-chip good" onclick="toggleSpecialRole('hacker')">
+            <span>💻 Hacker (Analyst)</span>
+            <span class="chip-badge" id="badge-hacker">OFF</span>
           </button>
         </div>
       </div>
@@ -1290,6 +1302,21 @@ html, body {
             <button type="button" onclick="submitGmMartyrdomDetonation()" class="btn btn-sm" style="background: #dc2626; color: #fff; border-color: #dc2626; font-weight: 700;">
               💥 Detonate Grenade
             </button>
+          </div>
+        </div>
+
+        <!-- Hacker Scan Widget (Special Multi-Select & Live Evil Ratio Evaluation) -->
+        <div id="hacker-widget" style="display: none; background: #064e3b; border: 1px solid #059669; border-radius: 8px; padding: 0.75rem; width: 100%;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #a7f3d0; margin-bottom: 0.35rem; display: flex; align-items: center; justify-content: space-between;">
+            <span>💻 Hacker Scan (Night Intelligence)</span>
+            <span id="hacker-scan-count-badge" style="font-size: 0.72rem; background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 999px; color: #6ee7b7;">0 selected (need 2–3)</span>
+          </div>
+          <div style="font-size: 0.8rem; color: #d1fae5; margin-bottom: 0.5rem; line-height: 1.35;">
+            Ask the Hacker to silently point at a group of 2–3 players. Tap the player buttons below or click their seats on the table:
+          </div>
+          <div id="hacker-player-toggles" style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.5rem;"></div>
+          <div id="hacker-result-preview-box" style="display: none; background: rgba(0,0,0,0.25); border-radius: 6px; padding: 0.4rem 0.6rem; font-size: 0.82rem; color: #ecfdf5;">
+            <strong>Scan Evaluation:</strong> <span id="hacker-result-preview-text">-</span>
           </div>
         </div>
 
@@ -1775,6 +1802,7 @@ html, body {
         <button type="button" class="btn btn-sm role-pick-btn" data-role="silencer" onclick="selectManualRole('silencer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🤐 Silencer</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="framer" onclick="selectManualRole('framer')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">😵‍💫 Framer</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="saboteur_wolf" onclick="selectManualRole('saboteur_wolf')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🐺⚡ Saboteur Wolf</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="wolf_cub" onclick="selectManualRole('wolf_cub')" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;"><span class="role-pick-label">🐾 Wolf Cub</span></button>
       </div>
     </div>
 
@@ -1793,6 +1821,8 @@ html, body {
         <button type="button" class="btn btn-sm role-pick-btn" data-role="witch" onclick="selectManualRole('witch')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🧙‍♀️ Witch</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="hacker" onclick="selectManualRole('hacker')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">💻 Hacker</span></button>
         <button type="button" class="btn btn-sm role-pick-btn" data-role="lover" onclick="selectManualRole('lover')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">💞 Innocent Lover</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="martyrdom" onclick="selectManualRole('martyrdom')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">💣 Martyrdom</span></button>
+        <button type="button" class="btn btn-sm role-pick-btn" data-role="gull" onclick="selectManualRole('gull')" style="background:#dcfce7; color:#166534; border-color:#86efac;"><span class="role-pick-label">🕊️ The Gull</span></button>
       </div>
     </div>
 
@@ -3476,6 +3506,7 @@ html, body {
     const deadRoleBanner = document.getElementById("stage-dead-role-banner");
     const wolvesRampageWidget = document.getElementById("wolves-rampage-widget");
     const martyrdomWidget = document.getElementById("martyrdom-detonation-widget");
+    const hackerWidget = document.getElementById("hacker-widget");
 
     detWidget.style.display = "none";
     witchWidget.style.display = "none";
@@ -3483,6 +3514,7 @@ html, body {
     if (mayorWidget) mayorWidget.style.display = "none";
     if (limboWidget) limboWidget.style.display = "none";
     if (wolvesRampageWidget) wolvesRampageWidget.style.display = "none";
+    if (hackerWidget) hackerWidget.style.display = "none";
     reviewWidget.style.display = "none";
     if (deadRoleBanner) deadRoleBanner.style.display = "none";
     pickerWrap.style.display = "flex";
@@ -3647,6 +3679,61 @@ html, body {
         const names = stage.target_names || [];
         targetDisplay.innerText = names.length > 0 ? names.join(", ") : "Select 2-3 Players to Scan";
         clearBtn.style.display = names.length > 0 ? "inline-block" : "none";
+        pickerWrap.style.display = "none";
+        if (hackerWidget) {
+          hackerWidget.style.display = "block";
+          const currentTargets = stage.target_ids || [];
+          const countBadge = document.getElementById("hacker-scan-count-badge");
+          if (countBadge) {
+            countBadge.innerText = `${currentTargets.length} selected (need 2–3)`;
+            countBadge.style.color = (currentTargets.length >= 2 && currentTargets.length <= 3) ? "#34d399" : "#fbbf24";
+          }
+          const togglesContainer = document.getElementById("hacker-player-toggles");
+          if (togglesContainer) {
+            togglesContainer.innerHTML = "";
+            state.players.forEach(p => {
+              if (p.status === "alive") {
+                const isSel = currentTargets.includes(p.id);
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = `btn btn-sm ${isSel ? "btn-primary" : ""}`;
+                btn.style.cssText = isSel
+                  ? "background:#059669; color:#fff; border-color:#10b981; font-weight:700; padding: 0.25rem 0.5rem;"
+                  : "background:#0f172a; color:#cbd5e1; border:1px solid #334155; padding: 0.25rem 0.5rem;";
+                btn.innerHTML = `${isSel ? "✓ " : ""}#${p.seat_number} ${escapeHtml(p.name)}`;
+                btn.onclick = () => recordStageTarget(p.id);
+                togglesContainer.appendChild(btn);
+              }
+            });
+          }
+          const prevBox = document.getElementById("hacker-result-preview-box");
+          const prevText = document.getElementById("hacker-result-preview-text");
+          if (prevBox && prevText) {
+            if (currentTargets.length >= 2) {
+              prevBox.style.display = "block";
+              let evilCount = 0;
+              currentTargets.forEach(pid => {
+                const targetPlayer = state.players.find(p => p.id === pid);
+                if (targetPlayer) {
+                  const fac = targetPlayer.faction || (targetPlayer.role ? targetPlayer.role.faction : "");
+                  const rId = targetPlayer.role ? (typeof targetPlayer.role === 'object' ? targetPlayer.role.id : targetPlayer.role) : "";
+                  if (fac === "wolves" || fac === "evil" || rId === "serial_killer") {
+                    evilCount++;
+                  }
+                }
+              });
+              const total = currentTargets.length;
+              let ratioStr = "Clean (All Good)";
+              if (evilCount === total && total > 0) ratioStr = "All Evil";
+              else if (evilCount > total / 2.0) ratioStr = "Majority Evil";
+              else if (evilCount === total / 2.0) ratioStr = "Even Split";
+              else if (evilCount > 0) ratioStr = "Minority Evil";
+              prevText.innerHTML = `<span style="color:#6ee7b7; font-weight:700;">${ratioStr}</span> (${evilCount} of ${total} evil)`;
+            } else {
+              prevBox.style.display = "none";
+            }
+          }
+        }
       } else if (stage.id === "disgruntled_ghost") {
         targetDisplay.innerText = stage.target_name || "None selected";
         clearBtn.style.display = stage.target_name ? "inline-block" : "none";

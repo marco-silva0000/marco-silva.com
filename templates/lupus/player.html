@@ -2263,6 +2263,13 @@ html, body {
           secretNotes.push(`💣 <strong>Hidden Martyrdom (Stealth Trap):</strong> If eliminated, you will NOT detonate immediately. Instead, on the night immediately following your death, you will awaken in secret to trigger an explosive booby trap on your victim!`);
         }
       }
+      if (me.role.id === "hacker") {
+        if (state.hacker_result) {
+          secretNotes.push(`💻 <strong>Hacker Intel:</strong> Evaluated scan: <strong>${escapeHtml(state.hacker_result)}</strong>! Use this insight to lead daytime deduction.`);
+        } else {
+          secretNotes.push(`💻 <strong>Hacker Mission:</strong> On Night 1, the GM will wake you to silently point at a group of 2–3 players to scan for evil presence!`);
+        }
+      }
       const notesEl = document.getElementById("role-secret-notes");
       if (secretNotes.length > 0) {
         notesEl.style.display = "block";

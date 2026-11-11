@@ -3576,6 +3576,85 @@ class TestLupusInternationalization:
                 assert "objective" in info["guide"], f"Role {role_id} missing objective in {lang}"
 
 
+class TestLupusV129HackerDeckAndScan:
+    def test_deck_builder_and_manual_modal_contain_all_roles(self):
+        """Verify that gm_dashboard.html has toggle chips and widgets for hacker, watson, and saboteur_wolf."""
+        import os
+        from django.conf import settings
+
+        tpl_path = os.path.join(settings.BASE_DIR, "templates", "lupus", "gm_dashboard.html")
+        with open(tpl_path, "r", encoding="utf-8") as f:
+            html = f.read()
+
+        # Deck builder toggle chips
+        assert 'id="chip-hacker"' in html
+        assert 'id="badge-hacker"' in html
+        assert 'id="chip-watson"' in html
+        assert 'id="badge-watson"' in html
+        assert 'id="chip-saboteur_wolf"' in html
+        assert 'id="badge-saboteur_wolf"' in html
+
+        # Manual role modal buttons
+        assert 'data-role="wolf_cub"' in html
+        assert 'data-role="martyrdom"' in html
+        assert 'data-role="gull"' in html
+        assert 'data-role="hacker"' in html
+        assert 'data-role="watson"' in html
+        assert 'data-role="saboteur_wolf"' in html
+
+        # Hacker scan night widget
+        assert 'id="hacker-widget"' in html
+        assert 'id="hacker-player-toggles"' in html
+        assert 'id="hacker-result-preview-box"' in html
+
+    def test_hacker_deal_and_scan_evil_ratio_and_day_voting_block(self):
+        """Verify Hacker dealing blocks Day 1 voting, and scan evaluates evil ratios accurately."""
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            get_night_stages,
+            record_gm_night_action,
+            resolve_night,
+            start_game,
+            start_voting_session,
+        )
+
+        state = create_initial_state("HACK01", "Hacker Full Cycle Test")
+        for name in ["Alice", "Bob", "Charlie", "Dave"]:
+            state, _ = add_player(state, name)
+
+        roles = ["hacker", "werewolf", "serial_killer", "villager"]
+        state = start_game(state, role_list=roles)
+
+        assert state["day1_no_voting"] is True
+
+        # Night 0 stages
+        stages = get_night_stages(state)
+        hacker_stage = next((s for s in stages if s["id"] == "hacker"), None)
+        assert hacker_stage is not None
+
+        wolf_p = next(p for p in state["players"].values() if p["role"] == "werewolf")
+        sk_p = next(p for p in state["players"].values() if p["role"] == "serial_killer")
+        vil_p = next(p for p in state["players"].values() if p["role"] == "villager")
+
+        # Scan Wolf and Serial Killer -> Both Evil -> "All Evil"
+        record_gm_night_action(state, "hacker", wolf_p["id"])
+        record_gm_night_action(state, "hacker", sk_p["id"])
+        assert set(state["night_actions"]["hacker_targets"]) == {wolf_p["id"], sk_p["id"]}
+
+        # Resolve Night 0 into Day 0
+        state = resolve_night(state)
+        assert state["hacker_result"] == "All Evil"
+        assert state["hacker_evil_count"] == 2
+        assert state["hacker_total_count"] == 2
+        assert state["hacker_announced"] is True
+
+        # Day 0 voting is blocked
+        voting_state = start_voting_session(state)
+        assert voting_state.get("phase") != "day_voting"
+
+
+
 
 
 
