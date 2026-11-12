@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 
 from gamerooms.models import Room
@@ -32,9 +33,9 @@ def lupus_hub(request):
     if code_input:
         if Room.objects.filter(code=code_input, is_active=True).exists():
             return redirect("gamerooms:lupus:join", code=code_input)
-        error = f"Room code '{code_input}' was not found or is no longer active."
+        error = _("Room code '%(code)s' was not found or is no longer active.") % {"code": code_input}
     elif request.method == "POST":
-        error = "Please enter a valid room code."
+        error = _("Please enter a valid room code.")
 
     # Query active lupus rooms
     rooms_qs = Room.objects.filter(game_type="lupus", is_active=True).order_by("-created_at")
@@ -70,16 +71,16 @@ def lupus_hub(request):
         status = getattr(r, "status", None) or (state.get("status") if state else Room.STATUS_OPEN)
         room_info["status"] = status
         if status == Room.STATUS_FINISHED or room_info["phase"] == "gameover":
-            room_info["status_label"] = "Finished"
-            room_info["status_badge"] = "🏁 Finished"
+            room_info["status_label"] = _("Finished")
+            room_info["status_badge"] = f"🏁 {_('Finished')}"
             room_info["status_color"] = "#64748b"
         elif status == Room.STATUS_RUNNING or room_info["phase"] in ("night", "day_discussion", "day_defense", "day_voting", "limbo"):
-            room_info["status_label"] = "Running"
-            room_info["status_badge"] = "⚡ Running"
+            room_info["status_label"] = _("Running")
+            room_info["status_badge"] = f"⚡ {_('Running')}"
             room_info["status_color"] = "#2563eb"
         else:
-            room_info["status_label"] = "Open"
-            room_info["status_badge"] = "🟢 Open (Lobby)"
+            room_info["status_label"] = _("Open")
+            room_info["status_badge"] = f"🟢 {_('Open (Lobby)')}"
             room_info["status_color"] = "#16a34a"
 
         # Check if current visitor has a joined player session in this room
@@ -95,32 +96,32 @@ def lupus_hub(request):
         phase = room_info["phase"]
         rnd = room_info["round"]
         if phase == "lobby":
-            room_info["phase_label"] = "Lobby (Waiting for Players)"
-            room_info["phase_badge"] = "⏳ Lobby"
+            room_info["phase_label"] = _("Lobby (Waiting for Players)")
+            room_info["phase_badge"] = f"⏳ {_('Lobby')}"
             room_info["phase_color"] = "#64748b"
         elif phase == "day_discussion":
-            room_info["phase_label"] = f"Day {rnd} - Discussion"
-            room_info["phase_badge"] = f"🌅 Day {rnd}"
+            room_info["phase_label"] = f"{_('Day')} {rnd} - {_('Discussion')}"
+            room_info["phase_badge"] = f"🌅 {_('Day')} {rnd}"
             room_info["phase_color"] = "#d97706"
         elif phase in ("day_voting", "day_defense"):
-            room_info["phase_label"] = f"Day {rnd} - Town Voting"
-            room_info["phase_badge"] = f"⚖️ Voting {rnd}"
+            room_info["phase_label"] = f"{_('Day')} {rnd} - {_('Town Voting')}"
+            room_info["phase_badge"] = f"⚖️ {_('Voting')} {rnd}"
             room_info["phase_color"] = "#b45309"
         elif phase == "night":
-            room_info["phase_label"] = f"Night {rnd} - Silent Phase"
-            room_info["phase_badge"] = f"🌙 Night {rnd}"
+            room_info["phase_label"] = f"{_('Night')} {rnd} - {_('Silent Phase')}"
+            room_info["phase_badge"] = f"🌙 {_('Night')} {rnd}"
             room_info["phase_color"] = "#4338ca"
         elif phase == "limbo":
-            room_info["phase_label"] = "Limbo Resolution"
-            room_info["phase_badge"] = "👻 Limbo"
+            room_info["phase_label"] = _("Limbo Resolution")
+            room_info["phase_badge"] = f"👻 {_('Limbo')}"
             room_info["phase_color"] = "#7c3aed"
         elif phase == "gameover":
-            room_info["phase_label"] = "Game Over"
-            room_info["phase_badge"] = "🏆 Finished"
+            room_info["phase_label"] = _("Game Over")
+            room_info["phase_badge"] = f"🏆 {_('Finished')}"
             room_info["phase_color"] = "#059669"
         else:
-            room_info["phase_label"] = "In Progress"
-            room_info["phase_badge"] = "🎮 Active"
+            room_info["phase_label"] = _("In Progress")
+            room_info["phase_badge"] = f"🎮 {_('Active')}"
             room_info["phase_color"] = "#2563eb"
 
         all_rooms.append(room_info)
@@ -239,7 +240,7 @@ def gm_dashboard(request, code):
     code = code.upper()
     state = get_game(code)
     if not state:
-        raise Http404("Game not found.")
+        raise Http404(_("Game not found."))
 
     if state.get("next_room_code") and not request.GET.get("stay"):
         next_code = state["next_room_code"]
@@ -257,7 +258,7 @@ def gm_dashboard(request, code):
         return render(
             request,
             "lupus/unauthorized.html",
-            {"message": "Invalid Game Master secret key.", "code": code},
+            {"message": _("Invalid Game Master secret key."), "code": code},
             status=403,
         )
 
@@ -318,7 +319,7 @@ def room_join(request, code):
     code = code.upper()
     state = get_game(code)
     if not state:
-        raise Http404("Game room does not exist.")
+        raise Http404(_("Game room does not exist."))
 
     if state.get("next_room_code"):
         next_code = state["next_room_code"]
@@ -355,7 +356,7 @@ def room_join(request, code):
                 return render(
                     request,
                     "lupus/join.html",
-                    {"code": code, "error": "Incorrect room password.", "need_password": True},
+                    {"code": code, "error": _("Incorrect room password."), "need_password": True},
                 )
         else:
             return render(
@@ -371,7 +372,7 @@ def room_join(request, code):
             return render(
                 request,
                 "lupus/join.html",
-                {"code": code, "error": "Please enter a player name."},
+                {"code": code, "error": _("Please enter a player name.")},
             )
 
         state, player = add_player(state, name, is_offline=False)

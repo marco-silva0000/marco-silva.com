@@ -19,3 +19,432 @@ msgstr "игры"
 
 msgid "cv"
 msgstr "резюме"
+
+msgid "Game Rooms"
+msgstr "Игровые комнаты"
+
+msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
+msgstr "Многопользовательские браузерные игры для вечеринок в реальном времени. Без регистрации — просто заходите и играйте с друзьями."
+
+msgid "🐺 Lupus Hub & Rooms"
+msgstr "🐺 Центр и комнаты Lupus"
+
+msgid "🐺 create lupus"
+msgstr "🐺 создать lupus"
+
+msgid "+ create room"
+msgstr "+ создать комнату"
+
+msgid "✏️ pictionary"
+msgstr "✏️ pictionary"
+
+msgid "Enter Room Code (e.g. 9B3A1C2D)"
+msgstr "Введите код комнаты (напр. 9B3A1C2D)"
+
+msgid "Join"
+msgstr "Войти"
+
+msgid "Lupus in Tabula / Werewolf"
+msgstr "Lupus in Tabula / Оборотень"
+
+msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
+msgstr "Настольная игра для компании с тайными ролями, живым голосованием, Городской газетой и пультом ведущего."
+
+msgid "Browse Active Lupus Rooms"
+msgstr "Смотреть активные комнаты Lupus"
+
+msgid "+ Host New Room"
+msgstr "+ Создать новую комнату"
+
+msgid "All Active Rooms"
+msgstr "Все активные комнаты"
+
+msgid "Password Protected"
+msgstr "Защищено паролем"
+
+msgid "players"
+msgstr "игроков"
+
+msgid "ago"
+msgstr "назад"
+
+msgid "no active rooms. create one!"
+msgstr "нет активных комнат. создайте первую!"
+
+msgid "🐺 Lupus"
+msgstr "🐺 Lupus"
+
+msgid "🎨 Emojinary"
+msgstr "🎨 Emojinary"
+
+msgid "Lupus in Tabula - Active Rooms & Game Hub"
+msgstr "Lupus in Tabula - Активные комнаты и игровой центр"
+
+msgid "+ Create Room"
+msgstr "+ Создать комнату"
+
+msgid "All Games"
+msgstr "Все игры"
+
+msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
+msgstr "Настольная игра для компании в стиле Мафия и Оборотни. Без аккаунтов. Каждый игрок использует телефон для тайных ролей и голосований, пока вы управляете партией в роли Ведущего."
+
+msgid "Join with Room Code"
+msgstr "Войти по коду комнаты"
+
+msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+msgstr "Есть 8-значный код от Ведущего? Введите его здесь, чтобы сразу присоединиться:"
+
+msgid "Join Game"
+msgstr "Войти в игру"
+
+msgid "Active Lupus Rooms"
+msgstr "Активные комнаты Lupus"
+
+msgid "+ New Game"
+msgstr "+ Новая игра"
+
+msgid "CODE"
+msgstr "КОД"
+
+msgid "GM"
+msgstr "Ведущий"
+
+msgid "alive"
+msgstr "в живых"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Public"
+msgstr "Открытая"
+
+msgid "Open GM Cockpit"
+msgstr "Открыть пульт ведущего"
+
+msgid "Return as %(name)s"
+msgstr "Вернуться как %(name)s"
+
+msgid "Enter Room"
+msgstr "Войти в комнату"
+
+msgid "No Active Lupus Games Right Now"
+msgstr "Сейчас нет активных игр Lupus"
+
+msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
+msgstr "Комнаты создаются по запросу и активны 24 часа. Создайте новую партию и пригласите компанию!"
+
+msgid "Create the First Lupus Room"
+msgstr "Создать первую комнату Lupus"
+
+msgid "Past & Finished Games"
+msgstr "Прошедшие и завершённые игры"
+
+msgid "Replay"
+msgstr "Повтор"
+
+msgid "Cockpit"
+msgstr "Пульт"
+
+msgid "Table-First Lupus Highlights"
+msgstr "Особенности настольного Lupus"
+
+msgid "Hold-to-Peek Secret Roles:"
+msgstr "Удерживайте для просмотра тайных ролей:"
+
+msgid "Privacy shield keeps cards concealed from prying eyes at the table."
+msgstr "Защита конфиденциальности скрывает карты от любопытных глаз за столом."
+
+msgid "GM Director Cockpit:"
+msgstr "Пульт управления Ведущего:"
+
+msgid "Step-by-step night stages, bluffing calls, and voting manager."
+msgstr "Пошаговые ночные фазы, блеф-вызовы и управление голосованием."
+
+msgid "Town Gazette:"
+msgstr "Городская газета:"
+
+msgid "Living & fallen players submit morning rumors read aloud at dawn."
+msgstr "Живые и выбывшие игроки присылают утренние слухи, зачитываемые на рассвете."
+
+msgid "Midgame Arrivals:"
+msgstr "Присоединение посреди игры:"
+
+msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
+msgstr "Опоздавшие входят как Доверенные путешественники, Призраки или Преемники."
+
+msgid "Create Lupus / Werewolf Room"
+msgstr "Создать комнату Lupus / Оборотни"
+
+msgid "Back to Active Lupus Rooms"
+msgstr "Назад к активным комнатам Lupus"
+
+msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
+msgstr "Гибридная настольная игра для компании. Без регистрации. Игроки входят по QR-коду, а вы ведёте игру."
+
+msgid "Room Setup"
+msgstr "Настройка комнаты"
+
+msgid "Room Title"
+msgstr "Название комнаты"
+
+msgid "Game Master Display Name"
+msgstr "Имя Ведущего"
+
+msgid "Room Password (optional)"
+msgstr "Пароль комнаты (необязательно)"
+
+msgid "Leave empty for public join"
+msgstr "Оставьте пустым для свободного входа"
+
+msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
+msgstr "Если задан, вход по QR-коду автоматически авторизует игроков. (💡 Трюк для демо: имя ведущего с Marco и пароль test создадут 10 тестовых игроков)."
+
+msgid "Theme & Terms"
+msgstr "Тема и термины"
+
+msgid "Werewolf / Lupus"
+msgstr "Оборотень / Lupus"
+
+msgid "Villagers, Wolves, Seer"
+msgstr "Мирные, Волки, Провидец"
+
+msgid "Mafia"
+msgstr "Мафия"
+
+msgid "Civilians, Mobsters, Cop"
+msgstr "Мирные, Мафиози, Шериф"
+
+msgid "Game Rules & Timers"
+msgstr "Правила игры и таймеры"
+
+msgid "Discussion Round Timer"
+msgstr "Время на обсуждение"
+
+msgid "5 Minutes (Standard)"
+msgstr "5 минут (стандарт)"
+
+msgid "3 Minutes (Fast)"
+msgstr "3 минуты (быстро)"
+
+msgid "7 Minutes (Deliberate)"
+msgstr "7 минут (вдумчиво)"
+
+msgid "10 Minutes"
+msgstr "10 минут"
+
+msgid "Defense Timer"
+msgstr "Время на защиту"
+
+msgid "30 Seconds (Standard)"
+msgstr "30 секунд (стандарт)"
+
+msgid "45 Seconds"
+msgstr "45 секунд"
+
+msgid "60 Seconds"
+msgstr "60 секунд"
+
+msgid "Limbo & Angel Mechanic:"
+msgstr "Механика Лимба и Ангела:"
+
+msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+msgstr "Убитые игроки сначала попадают в Лимб. Если они угадают Ангела, они воскресают!"
+
+msgid "Staggering Doctor:"
+msgstr "Доктор без повторов:"
+
+msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
+msgstr "Доктор / Телохранитель не может защищать одного и того же игрока две ночи подряд."
+
+msgid "Doctor Shields From Sniper:"
+msgstr "Доктор защищает от снайпера:"
+
+msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
+msgstr "Если включено, защита Доктора может спасти от выстрела Снайпера. (Выключено = выстрел пробивает защиту)."
+
+msgid "Reveal Roles on Death:"
+msgstr "Раскрытие ролей при смерти:"
+
+msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
+msgstr "0 — Тайна (Закрытое кладбище, роли скрыты до конца игры)"
+
+msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
+msgstr "1 — Только сторона (Объявляет \"ДОБРО\" или \"ЗЛО\")"
+
+msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
+msgstr "2 — Фракция / Команда (Объявляет \"Город\", \"Волки\", \"Нейтрал\")"
+
+msgid "3 — Full Role Card (Announces exact card name and icon)"
+msgstr "3 — Полная карта роли (Объявляет точное имя роли и значок)"
+
+msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
+msgstr "💡 В играх с Лимбом раскрытие роли происходит только при окончательной смерти, но не в Лимбе."
+
+msgid "Starting Role Deck Preset"
+msgstr "Набор колоды ролей"
+
+msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+msgstr "🧑 Простой / Классический (Без суперсил — только Волки против Мирных)"
+
+msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
+msgstr "🔍 Стандарт (Волки + Детектив/Провидец + Доктор + Мирные)"
+
+msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+msgstr "👼 Лимб и Ангел (Волки + Детектив + Доктор + Ангел + Снайпер + Мирные)"
+
+msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
+msgstr "⚡ Хаос и спецы (Альфа-волк, Глушитель, Детектив, Доктор, Снайпер, Мэр, Ведьма...)"
+
+msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
+msgstr "💡 Колода автоматически подстраивается под число игроков. Вы сможете настроить баланс сил в лобби перед стартом игры."
+
+msgid "Launch Lupus Room"
+msgstr "Запустить комнату Lupus"
+
+msgid "Lupus Party Game"
+msgstr "Игра для вечеринок Lupus"
+
+msgid "Join Lupus Game"
+msgstr "Присоединиться к игре Lupus"
+
+msgid "Lupus Game"
+msgstr "Игра Lupus"
+
+msgid "Room Code:"
+msgstr "Код комнаты:"
+
+msgid "Room Password"
+msgstr "Пароль комнаты"
+
+msgid "Unlock Room"
+msgstr "Разблокировать комнату"
+
+msgid "Your Name / Nickname"
+msgstr "Ваше имя / никнейм"
+
+msgid "e.g. Marco"
+msgstr "напр. Марко"
+
+msgid "Pick the name others at the table know you by."
+msgstr "Выберите имя, под которым вас знают за столом."
+
+msgid "Enter Game"
+msgstr "Войти в игру"
+
+msgid "Lupus Active Rooms & Hub"
+msgstr "Активные комнаты и центр Lupus"
+
+msgid "create room"
+msgstr "создать комнату"
+
+msgid "title"
+msgstr "название"
+
+msgid "password (optional)"
+msgstr "пароль (необязательно)"
+
+msgid "what is %(a)s + %(b)s?"
+msgstr "сколько будет %(a)s + %(b)s?"
+
+msgid "create"
+msgstr "создать"
+
+msgid "join"
+msgstr "войти"
+
+msgid "your name"
+msgstr "ваше имя"
+
+msgid "room password"
+msgstr "пароль комнаты"
+
+msgid "Access Denied"
+msgstr "Доступ запрещён"
+
+msgid "You need an authorized key to access this page."
+msgstr "Для доступа к этой странице требуется ключ авторизации."
+
+msgid "Join as Player"
+msgstr "Войти как игрок"
+
+msgid "Lobby"
+msgstr "Лобби"
+
+msgid "Lobby (Waiting for Players)"
+msgstr "Лобби (Ожидание игроков)"
+
+msgid "Open"
+msgstr "Открыта"
+
+msgid "Open (Lobby)"
+msgstr "Открыта (Лобби)"
+
+msgid "Running"
+msgstr "Идёт игра"
+
+msgid "Finished"
+msgstr "Завершено"
+
+msgid "Active"
+msgstr "Активно"
+
+msgid "Day"
+msgstr "День"
+
+msgid "Night"
+msgstr "Ночь"
+
+msgid "Voting"
+msgstr "Голосование"
+
+msgid "Discussion"
+msgstr "Обсуждение"
+
+msgid "Town Voting"
+msgstr "Голосование города"
+
+msgid "Silent Phase"
+msgstr "Тихая фаза"
+
+msgid "Limbo"
+msgstr "Лимб"
+
+msgid "Limbo Resolution"
+msgstr "Разрешение Лимба"
+
+msgid "Game Over"
+msgstr "Конец игры"
+
+msgid "In Progress"
+msgstr "В процессе"
+
+msgid "Please enter a valid room code."
+msgstr "Пожалуйста, введите корректный код комнаты."
+
+msgid "Room code '%(code)s' was not found or is no longer active."
+msgstr "Код комнаты '%(code)s' не найден или комната неактивна."
+
+msgid "Incorrect room password."
+msgstr "Неверный пароль комнаты."
+
+msgid "Please enter a player name."
+msgstr "Пожалуйста, введите имя игрока."
+
+msgid "title is required"
+msgstr "название обязательно"
+
+msgid "wrong captcha"
+msgstr "неверная капча"
+
+msgid "wrong password"
+msgstr "неверный пароль"
+
+msgid "Game not found."
+msgstr "Игра не найдена."
+
+msgid "Game room does not exist."
+msgstr "Игровая комната не существует."
+
+msgid "Invalid Game Master secret key."
+msgstr "Неверный секретный ключ Ведущего."

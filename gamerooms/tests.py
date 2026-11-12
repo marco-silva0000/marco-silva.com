@@ -120,3 +120,81 @@ class TestRoomModel:
         assert not room.has_password
         room2 = Room.objects.create(title="Locked", password="abc")
         assert room2.has_password
+
+
+class TestGameroomsI18n:
+    """Verify localization across all 9 supported languages on the game rooms pages."""
+
+    @pytest.mark.parametrize(
+        "lang,expected_title",
+        [
+            ("en", "Game Rooms"),
+            ("pt", "Salas de Jogos"),
+            ("it", "Sale Giochi"),
+            ("es", "Salas de Juegos"),
+            ("fr", "Salons de Jeux"),
+            ("el", "Αίθουσες Παιχνιδιών"),
+            ("ru", "Игровые комнаты"),
+            ("hi", "गेम रूम"),
+            ("kn", "ಆಟದ ಕೊಠಡಿಗಳು"),
+        ],
+    )
+    def test_room_list_multilingual_titles(self, client, db, lang, expected_title):
+        client.cookies["django_language"] = lang
+        resp = client.get(reverse("gamerooms:room-list"))
+        assert resp.status_code == 200
+        content = resp.content.decode("utf-8")
+        assert expected_title in content
+
+    @pytest.mark.parametrize(
+        "lang,expected_hub_title",
+        [
+            ("en", "Active Lupus Rooms"),
+            ("pt", "Salas Ativas de Lupus"),
+            ("it", "Stanze Lupus Attive"),
+            ("es", "Salas Activas de Lupus"),
+            ("fr", "Salons Lupus Actifs"),
+            ("el", "Ενεργές Αίθουσες Lupus"),
+            ("ru", "Активные комнаты Lupus"),
+            ("hi", "सक्रिय लुपस कमरे"),
+            ("kn", "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳು"),
+        ],
+    )
+    def test_lupus_hub_multilingual(self, client, db, lang, expected_hub_title):
+        client.cookies["django_language"] = lang
+        resp = client.get(reverse("gamerooms:lupus:hub"))
+        assert resp.status_code == 200
+        content = resp.content.decode("utf-8")
+        assert expected_hub_title in content
+
+    @pytest.mark.parametrize(
+        "lang,expected_create_title",
+        [
+            ("en", "Create Lupus / Werewolf Room"),
+            ("pt", "Criar Sala de Lupus / Lobisomem"),
+            ("it", "Crea Stanza Lupus / Licantropo"),
+            ("es", "Crear Sala de Lupus / Hombre Lobo"),
+            ("fr", "Créer un Salon Lupus / Loup-Garou"),
+            ("el", "Δημιουργία Αίθουσας Lupus / Λυκάνθρωπου"),
+            ("ru", "Создать комнату Lupus / Оборотни"),
+            ("hi", "लुपस / वेयरवोल्फ कमरा बनाएं"),
+            ("kn", "ಲೂಪಸ್ / ತೋಳಮಾನವ ಕೊಠಡಿ ರಚಿಸಿ"),
+        ],
+    )
+    def test_lupus_create_multilingual(self, client, db, lang, expected_create_title):
+        client.cookies["django_language"] = lang
+        resp = client.get(reverse("gamerooms:lupus:create"))
+        assert resp.status_code == 200
+        content = resp.content.decode("utf-8")
+        assert expected_create_title in content
+
+    def test_room_create_error_localized_pt(self, client, db):
+        client.cookies["django_language"] = "pt"
+        resp = client.post(
+            reverse("gamerooms:room-create"),
+            {"title": "Sala", "password": "", "captcha_answer": "99", "captcha_expected": "15"},
+        )
+        assert resp.status_code == 200
+        content = resp.content.decode("utf-8")
+        assert "captcha incorreto" in content
+

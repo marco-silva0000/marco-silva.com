@@ -138,3 +138,39 @@ Eliminated Player Status And Day Voting Phase Localization
     And Player View Phase Display Should Be     Voter    Дневное голосование    lang=ru
     And Player View Phase Display Should Be     Voter    दिन का मतदान           lang=hi
     And Player View Phase Display Should Be     Voter    ಹಗಲಿನ ಮತದಾನ             lang=kn
+
+Game Rooms And Lupus Landing Hub Pages Presentation Localization
+    [Documentation]    Game rooms hub (/games/), Lupus active rooms hub (/games/lupus/), and room creation (/games/lupus/create/) dynamically render localized text across all 9 supported languages.
+    # /games/ Hub
+    Then Game Rooms Hub Content Should Contain    Game Rooms             lang=en
+    And Game Rooms Hub Content Should Contain     Salas de Jogos         lang=pt
+    And Game Rooms Hub Content Should Contain     Sale Giochi            lang=it
+    And Game Rooms Hub Content Should Contain     Salas de Juegos        lang=es
+    And Game Rooms Hub Content Should Contain     Salons de Jeux         lang=fr
+    And Game Rooms Hub Content Should Contain     Αίθουσες Παιχνιδιών    lang=el
+    And Game Rooms Hub Content Should Contain     Игровые комнаты        lang=ru
+    And Game Rooms Hub Content Should Contain     गेम रूम                lang=hi
+    And Game Rooms Hub Content Should Contain     ಆಟದ ಕೊಠಡಿಗಳು           lang=kn
+
+    # /games/lupus/ Hub
+    Then Lupus Hub Content Should Contain         Active Lupus Rooms      lang=en
+    And Lupus Hub Content Should Contain          Salas Ativas de Lupus   lang=pt
+    And Lupus Hub Content Should Contain          Stanze Lupus Attive     lang=it
+    And Lupus Hub Content Should Contain          Salas Activas de Lupus    lang=es
+    And Lupus Hub Content Should Contain          Salons Lupus Actifs     lang=fr
+    And Lupus Hub Content Should Contain          Ενεργές Αίθουσες Lupus    lang=el
+    And Lupus Hub Content Should Contain          Активные комнаты Lupus    lang=ru
+    And Lupus Hub Content Should Contain          सक्रिय लुपस कमरे        lang=hi
+    And Lupus Hub Content Should Contain          ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳು   lang=kn
+
+    # /games/lupus/create/ Page
+    Then Lupus Create Content Should Contain      Create Lupus / Werewolf Room    lang=en
+    And Lupus Create Content Should Contain       Criar Sala de Lupus / Lobisomem    lang=pt
+    And Lupus Create Content Should Contain       Crea Stanza Lupus / Licantropo    lang=it
+    And Lupus Create Content Should Contain       Crear Sala de Lupus / Hombre Lobo    lang=es
+    And Lupus Create Content Should Contain       Créer un Salon Lupus / Loup-Garou    lang=fr
+    And Lupus Create Content Should Contain       Δημιουργία Αίθουσας Lupus / Λυκάνθρωπου    lang=el
+    And Lupus Create Content Should Contain       Создать комнату Lupus / Оборотни    lang=ru
+    And Lupus Create Content Should Contain       लुपस / वेयरवोल्फ कमरा बनाएं    lang=hi
+    And Lupus Create Content Should Contain       ಲೂಪಸ್ / ತೋಳಮಾನವ ಕೊಠಡಿ ರಚಿಸಿ    lang=kn
+

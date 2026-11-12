@@ -2,6 +2,7 @@ import random
 
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from .models import Room
 
@@ -17,9 +18,9 @@ def room_list(request):
     if code_input:
         if Room.objects.filter(code=code_input, is_active=True).exists():
             return redirect("gamerooms:room-join", code=code_input)
-        error = f"Room code '{code_input}' was not found or is no longer active."
+        error = _("Room code '%(code)s' was not found or is no longer active.") % {"code": code_input}
     elif request.method == "POST":
-        error = "Please enter a valid room code."
+        error = _("Please enter a valid room code.")
 
     rooms = list(Room.objects.filter(is_active=True).order_by("-created_at"))
     for r in rooms:
@@ -35,15 +36,15 @@ def room_list(request):
                     phase = state.get("phase", "lobby")
                     rnd = state.get("round", 1)
                     if phase == "lobby":
-                        r.phase_badge = "⏳ Lobby"
+                        r.phase_badge = f"⏳ {_('Lobby')}"
                     elif phase in ("day", "voting"):
-                        r.phase_badge = f"🌅 Day {rnd}"
+                        r.phase_badge = f"🌅 {_('Day')} {rnd}"
                     elif phase == "night":
-                        r.phase_badge = f"🌙 Night {rnd}"
+                        r.phase_badge = f"🌙 {_('Night')} {rnd}"
                     elif phase == "gameover":
-                        r.phase_badge = "🏆 Finished"
+                        r.phase_badge = f"🏆 {_('Finished')}"
                     else:
-                        r.phase_badge = "🎮 Active"
+                        r.phase_badge = f"🎮 {_('Active')}"
             except Exception:
                 pass
 
@@ -58,12 +59,12 @@ def room_create(request):
         captcha_expected = request.POST.get("captcha_expected", "")
 
         if not title:
-            return _render_create(request, error="title is required")
+            return _render_create(request, error=_("title is required"))
         try:
             if int(captcha_answer) != int(captcha_expected):
-                return _render_create(request, error="wrong captcha")
+                return _render_create(request, error=_("wrong captcha"))
         except (ValueError, TypeError):
-            return _render_create(request, error="wrong captcha")
+            return _render_create(request, error=_("wrong captcha"))
 
         room = Room.objects.create(title=title, password=password)
         request.session[f"room_{room.code}"] = True
@@ -94,7 +95,7 @@ def room_join(request, code):
             if request.POST["password"] == room.password:
                 request.session[session_key] = True
             else:
-                return render(request, "gamerooms/room_password.html", {"room": room, "error": "wrong password"})
+                return render(request, "gamerooms/room_password.html", {"room": room, "error": _("wrong password")})
         else:
             return render(request, "gamerooms/room_password.html", {"room": room})
 

@@ -455,3 +455,47 @@ class LupusLibrary:
             raise AssertionError(
                 f"Expected UI string '{key}' in lang '{lang}' to be '{expected_value}', got '{actual_val}'"
             )
+
+    def _ensure_django(self) -> None:
+        """Ensure Django apps registry and test host settings are initialized."""
+        import os
+        import django
+        from django.conf import settings
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings")
+        if not django.apps.apps.ready:
+            django.setup()
+        if "*" not in settings.ALLOWED_HOSTS:
+            settings.ALLOWED_HOSTS = ["*"]
+
+    def game_rooms_hub_content_should_contain(self, expected_text: str, lang: str = "en") -> None:
+        """Verify that /games/ hub template renders expected localized text."""
+        self._ensure_django()
+        from django.test import Client
+        c = Client()
+        c.cookies["django_language"] = lang
+        resp = c.get("/games/")
+        content = resp.content.decode("utf-8")
+        if expected_text not in content:
+            raise AssertionError(f"Expected '{expected_text}' in /games/ [{lang}], but it was not found.")
+
+    def lupus_hub_content_should_contain(self, expected_text: str, lang: str = "en") -> None:
+        """Verify that /games/lupus/ template renders expected localized text."""
+        self._ensure_django()
+        from django.test import Client
+        c = Client()
+        c.cookies["django_language"] = lang
+        resp = c.get("/games/lupus/")
+        content = resp.content.decode("utf-8")
+        if expected_text not in content:
+            raise AssertionError(f"Expected '{expected_text}' in /games/lupus/ [{lang}], but it was not found.")
+
+    def lupus_create_content_should_contain(self, expected_text: str, lang: str = "en") -> None:
+        """Verify that /games/lupus/create/ template renders expected localized text."""
+        self._ensure_django()
+        from django.test import Client
+        c = Client()
+        c.cookies["django_language"] = lang
+        resp = c.get("/games/lupus/create/")
+        content = resp.content.decode("utf-8")
+        if expected_text not in content:
+            raise AssertionError(f"Expected '{expected_text}' in /games/lupus/create/ [{lang}], but it was not found.")

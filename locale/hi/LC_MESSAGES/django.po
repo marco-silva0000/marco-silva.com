@@ -19,3 +19,432 @@ msgstr "खेल"
 
 msgid "cv"
 msgstr "सीवी"
+
+msgid "Game Rooms"
+msgstr "गेम रूम"
+
+msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
+msgstr "रीयल-टाइम मल्टीप्लेयर ब्राउज़र पार्टी गेम। किसी खाते की आवश्यकता नहीं — बस शामिल हों और दोस्तों के साथ खेलें।"
+
+msgid "🐺 Lupus Hub & Rooms"
+msgstr "🐺 लुपस हब और कमरे"
+
+msgid "🐺 create lupus"
+msgstr "🐺 लुपस बनाएं"
+
+msgid "+ create room"
+msgstr "+ कमरा बनाएं"
+
+msgid "✏️ pictionary"
+msgstr "✏️ पिकश्नरी"
+
+msgid "Enter Room Code (e.g. 9B3A1C2D)"
+msgstr "कमरा कोड दर्ज करें (उदा. 9B3A1C2D)"
+
+msgid "Join"
+msgstr "शामिल हों"
+
+msgid "Lupus in Tabula / Werewolf"
+msgstr "लुपस इन तबुला / वेयरवोल्फ"
+
+msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
+msgstr "गुप्त भूमिकाओं, लाइव वोटिंग, टाउन गजट और जीएम डायरेक्टर कॉकपिट के साथ टेबल-फर्स्ट पार्टी गेम।"
+
+msgid "Browse Active Lupus Rooms"
+msgstr "सक्रिय लुपस कमरे देखें"
+
+msgid "+ Host New Room"
+msgstr "+ नया कमरा बनाएं"
+
+msgid "All Active Rooms"
+msgstr "सभी सक्रिय कमरे"
+
+msgid "Password Protected"
+msgstr "पासवर्ड से सुरक्षित"
+
+msgid "players"
+msgstr "खिलाड़ी"
+
+msgid "ago"
+msgstr "पहले"
+
+msgid "no active rooms. create one!"
+msgstr "कोई सक्रिय कमरा नहीं है। एक बनाएं!"
+
+msgid "🐺 Lupus"
+msgstr "🐺 लुपस"
+
+msgid "🎨 Emojinary"
+msgstr "🎨 इमोजीनरी"
+
+msgid "Lupus in Tabula - Active Rooms & Game Hub"
+msgstr "लुपस इन तबुला - सक्रिय कमरे और गेम हब"
+
+msgid "+ Create Room"
+msgstr "+ कमरा बनाएं"
+
+msgid "All Games"
+msgstr "सभी खेल"
+
+msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
+msgstr "टेबल-फर्स्ट वेयरवोल्फ और माफिया पार्टी गेम। शून्य खाता लॉगिन आवश्यक। प्रत्येक खिलाड़ी गुप्त भूमिकाओं और मतदान के लिए अपने फोन का उपयोग करता है जबकि आप गेम मास्टर के रूप में रूम चलाते हैं।"
+
+msgid "Join with Room Code"
+msgstr "कमरा कोड के साथ शामिल हों"
+
+msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+msgstr "क्या आपके गेम मास्टर से 8-अक्षरों का कोड मिला है? सीधे शामिल होने के लिए इसे यहां दर्ज करें:"
+
+msgid "Join Game"
+msgstr "गेम में शामिल हों"
+
+msgid "Active Lupus Rooms"
+msgstr "सक्रिय लुपस कमरे"
+
+msgid "+ New Game"
+msgstr "+ नया खेल"
+
+msgid "CODE"
+msgstr "कोड"
+
+msgid "GM"
+msgstr "जीएम"
+
+msgid "alive"
+msgstr "जीवित"
+
+msgid "Password"
+msgstr "पासवर्ड"
+
+msgid "Public"
+msgstr "सार्वजनिक"
+
+msgid "Open GM Cockpit"
+msgstr "जीएम कॉकपिट खोलें"
+
+msgid "Return as %(name)s"
+msgstr "%(name)s के रूप में वापस आएं"
+
+msgid "Enter Room"
+msgstr "कमरे में प्रवेश करें"
+
+msgid "No Active Lupus Games Right Now"
+msgstr "अभी कोई सक्रिय लुपस गेम नहीं है"
+
+msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
+msgstr "कमरे आवश्यकतानुसार बनाए जाते हैं और 24 घंटे तक सक्रिय रहते हैं। एक नया गेम सत्र शुरू करें और अपने समूह को आमंत्रित करें!"
+
+msgid "Create the First Lupus Room"
+msgstr "पहला लुपस कमरा बनाएं"
+
+msgid "Past & Finished Games"
+msgstr "पिछले और समाप्त हुए खेल"
+
+msgid "Replay"
+msgstr "रीप्ले"
+
+msgid "Cockpit"
+msgstr "कॉकपिट"
+
+msgid "Table-First Lupus Highlights"
+msgstr "टेबल-फर्स्ट लुपस की मुख्य विशेषताएं"
+
+msgid "Hold-to-Peek Secret Roles:"
+msgstr "गुप्त भूमिका देखने के लिए दबाकर रखें:"
+
+msgid "Privacy shield keeps cards concealed from prying eyes at the table."
+msgstr "गोपनीयता शील्ड मेज पर ताक-झांक से पत्तों को छिपाकर रखती है।"
+
+msgid "GM Director Cockpit:"
+msgstr "जीएम डायरेक्टर कॉकपिट:"
+
+msgid "Step-by-step night stages, bluffing calls, and voting manager."
+msgstr "कदम-दर-कदम रात्रि चरण, ब्लफ़िंग कॉल और वोटिंग प्रबंधक।"
+
+msgid "Town Gazette:"
+msgstr "टाउन गजट:"
+
+msgid "Living & fallen players submit morning rumors read aloud at dawn."
+msgstr "जीवित और मृत खिलाड़ी सुबह की अफवाहें भेजते हैं जो भोर में जोर से पढ़ी जाती हैं।"
+
+msgid "Midgame Arrivals:"
+msgstr "खेल के बीच में आगमन:"
+
+msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
+msgstr "देर से आने वाले कन्फर्म्ड ट्रेवलर, टाउन घोस्ट या उत्तराधिकारी के रूप में शामिल होते हैं।"
+
+msgid "Create Lupus / Werewolf Room"
+msgstr "लुपस / वेयरवोल्फ कमरा बनाएं"
+
+msgid "Back to Active Lupus Rooms"
+msgstr "सक्रिय लुपस कमरों पर वापस जाएं"
+
+msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
+msgstr "टेबल-फर्स्ट हाइब्रिड पार्टी गेम। कोई खाता या लॉगिन आवश्यक नहीं। खिलाड़ी क्यूआर कोड से जुड़ते हैं, और आप गेम मास्टर के रूप में चलाते हैं।"
+
+msgid "Room Setup"
+msgstr "कमरा सेटअप"
+
+msgid "Room Title"
+msgstr "कमरे का शीर्षक"
+
+msgid "Game Master Display Name"
+msgstr "गेम मास्टर का नाम"
+
+msgid "Room Password (optional)"
+msgstr "कमरा पासवर्ड (वैकल्पिक)"
+
+msgid "Leave empty for public join"
+msgstr "सार्वजनिक प्रवेश के लिए खाली छोड़ें"
+
+msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
+msgstr "यदि सेट है, तो क्यूआर कोड से जुड़ने पर खिलाड़ी स्वतः प्रमाणित हो जाएंगे। (💡 डेमो ट्रिक: Marco युक्त जीएम नाम और test पासवर्ड 10 टेस्ट खिलाड़ी जोड़ता है)।"
+
+msgid "Theme & Terms"
+msgstr "थीम और नियम"
+
+msgid "Werewolf / Lupus"
+msgstr "वेयरवोल्फ / लुपस"
+
+msgid "Villagers, Wolves, Seer"
+msgstr "ग्रामीण, भेड़िए, द्रष्टा"
+
+msgid "Mafia"
+msgstr "माफिया"
+
+msgid "Civilians, Mobsters, Cop"
+msgstr "नागरिक, गैंगस्टर, पुलिस"
+
+msgid "Game Rules & Timers"
+msgstr "खेल के नियम और टाइमर"
+
+msgid "Discussion Round Timer"
+msgstr "चर्चा दौर का टाइमर"
+
+msgid "5 Minutes (Standard)"
+msgstr "5 मिनट (मानक)"
+
+msgid "3 Minutes (Fast)"
+msgstr "3 मिनट (तेज़)"
+
+msgid "7 Minutes (Deliberate)"
+msgstr "7 मिनट (विचारशील)"
+
+msgid "10 Minutes"
+msgstr "10 मिनट"
+
+msgid "Defense Timer"
+msgstr "बचाव का टाइमर"
+
+msgid "30 Seconds (Standard)"
+msgstr "30 सेकंड (मानक)"
+
+msgid "45 Seconds"
+msgstr "45 सेकंड"
+
+msgid "60 Seconds"
+msgstr "60 सेकंड"
+
+msgid "Limbo & Angel Mechanic:"
+msgstr "लिम्बो और एंजेल मैकेनिक्स:"
+
+msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+msgstr "मारे गए खिलाड़ी सीधे मरने के बजाय एक बार लिम्बो में प्रवेश करते हैं। यदि वे अनुमान लगाते हैं कि एंजेल कौन है, तो वे पुनर्जीवित हो जाते हैं!"
+
+msgid "Staggering Doctor:"
+msgstr "अल्टरनेट डॉक्टर:"
+
+msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
+msgstr "डॉक्टर / गार्ड लगातार दो रातों तक एक ही व्यक्ति की रक्षा नहीं कर सकता।"
+
+msgid "Doctor Shields From Sniper:"
+msgstr "डॉक्टर स्नाइपर से बचाता है:"
+
+msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
+msgstr "यदि सक्षम है, तो डॉक्टर का संरक्षण किसी को स्नाइपर की गोली से बचा सकता है। (अक्षम = स्नाइपर सुरक्षा को भेद देगा)।"
+
+msgid "Reveal Roles on Death:"
+msgstr "मृत्यु पर भूमिकाएं प्रकट करें:"
+
+msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
+msgstr "0 — गुप्त (बंद कब्रिस्तान, खेल खत्म होने तक भूमिकाएं छिपी रहेंगी)"
+
+msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
+msgstr "1 — केवल संरेखण (\"अच्छा\" बनाम \"बुरा\" घोषित करता है)"
+
+msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
+msgstr "2 — गुट / टीम (\"शहर\", \"वेयरवोल्फ\", \"तटस्थ\" घोषित करता है)"
+
+msgid "3 — Full Role Card (Announces exact card name and icon)"
+msgstr "3 — पूरा रोल कार्ड (सटीक भूमिका नाम और आइकन घोषित करता है)"
+
+msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
+msgstr "💡 लिम्बो गेम्स में, भूमिका का खुलासा केवल स्थायी मृत्यु पर होता है, लिम्बो में रहने के दौरान कभी नहीं।"
+
+msgid "Starting Role Deck Preset"
+msgstr "प्रारंभिक रोल डेक प्रीसेट"
+
+msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+msgstr "🧑 सरल / क्लासिक (कोई विशेष शक्तियां नहीं — शुद्ध भेड़िए बनाम ग्रामीण)"
+
+msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
+msgstr "🔍 मानक (भेड़िए + जासूस/द्रष्टा + डॉक्टर/गार्ड + ग्रामीण)"
+
+msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+msgstr "👼 लिम्बो और एंजेल (भेड़िए + जासूस + डॉक्टर + एंजेल + स्नाइपर + ग्रामीण)"
+
+msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
+msgstr "⚡ अराजकता और विशेष (अल्फा वुल्फ, साइलेंसर, जासूस, डॉक्टर, स्नाइपर, मेयर, चुड़ैल...)"
+
+msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
+msgstr "💡 डेक शामिल होने वाले खिलाड़ियों की संख्या के अनुसार स्वचालित रूप से अनुकूलित होता है। आप शुरू करने से पहले लॉबी में हर भूमिका को ठीक कर सकते हैं।"
+
+msgid "Launch Lupus Room"
+msgstr "लुपस कमरा शुरू करें"
+
+msgid "Lupus Party Game"
+msgstr "लुपस पार्टी गेम"
+
+msgid "Join Lupus Game"
+msgstr "लुपस गेम में शामिल हों"
+
+msgid "Lupus Game"
+msgstr "लुपस खेल"
+
+msgid "Room Code:"
+msgstr "कमरा कोड:"
+
+msgid "Room Password"
+msgstr "कमरा पासवर्ड"
+
+msgid "Unlock Room"
+msgstr "कमरा अनलॉक करें"
+
+msgid "Your Name / Nickname"
+msgstr "आपका नाम / उपनाम"
+
+msgid "e.g. Marco"
+msgstr "उदा. मार्को"
+
+msgid "Pick the name others at the table know you by."
+msgstr "वह नाम चुनें जिससे मेज पर मौजूद अन्य लोग आपको जानते हैं।"
+
+msgid "Enter Game"
+msgstr "गेम में प्रवेश करें"
+
+msgid "Lupus Active Rooms & Hub"
+msgstr "लुपस सक्रिय कमरे और हब"
+
+msgid "create room"
+msgstr "कमरा बनाएं"
+
+msgid "title"
+msgstr "शीर्षक"
+
+msgid "password (optional)"
+msgstr "पासवर्ड (वैकल्पिक)"
+
+msgid "what is %(a)s + %(b)s?"
+msgstr "%(a)s + %(b)s कितना होता है?"
+
+msgid "create"
+msgstr "बनाएं"
+
+msgid "join"
+msgstr "शामिल हों"
+
+msgid "your name"
+msgstr "आपका नाम"
+
+msgid "room password"
+msgstr "कमरे का पासवर्ड"
+
+msgid "Access Denied"
+msgstr "प्रवेश अस्वीकृत"
+
+msgid "You need an authorized key to access this page."
+msgstr "इस पृष्ठ तक पहुँचने के लिए आपको एक अधिकृत कुंजी की आवश्यकता है।"
+
+msgid "Join as Player"
+msgstr "खिलाड़ी के रूप में शामिल हों"
+
+msgid "Lobby"
+msgstr "लॉबी"
+
+msgid "Lobby (Waiting for Players)"
+msgstr "लॉबी (खिलाड़ियों का इंतज़ार)"
+
+msgid "Open"
+msgstr "खुला"
+
+msgid "Open (Lobby)"
+msgstr "खुला (लॉबी)"
+
+msgid "Running"
+msgstr "चल रहा है"
+
+msgid "Finished"
+msgstr "समाप्त"
+
+msgid "Active"
+msgstr "सक्रिय"
+
+msgid "Day"
+msgstr "दिन"
+
+msgid "Night"
+msgstr "रात"
+
+msgid "Voting"
+msgstr "मतदान"
+
+msgid "Discussion"
+msgstr "चर्चा"
+
+msgid "Town Voting"
+msgstr "नगर मतदान"
+
+msgid "Silent Phase"
+msgstr "शांत चरण"
+
+msgid "Limbo"
+msgstr "लिम्बो"
+
+msgid "Limbo Resolution"
+msgstr "लिम्बो समाधान"
+
+msgid "Game Over"
+msgstr "खेल समाप्त"
+
+msgid "In Progress"
+msgstr "प्रगति में"
+
+msgid "Please enter a valid room code."
+msgstr "कृपया एक मान्य कमरा कोड दर्ज करें।"
+
+msgid "Room code '%(code)s' was not found or is no longer active."
+msgstr "कमरा कोड '%(code)s' नहीं मिला या अब सक्रिय नहीं है।"
+
+msgid "Incorrect room password."
+msgstr "कमरे का पासवर्ड गलत है।"
+
+msgid "Please enter a player name."
+msgstr "कृपया खिलाड़ी का नाम दर्ज करें।"
+
+msgid "title is required"
+msgstr "शीर्षक आवश्यक है"
+
+msgid "wrong captcha"
+msgstr "गलत कैप्चा"
+
+msgid "wrong password"
+msgstr "गलत पासवर्ड"
+
+msgid "Game not found."
+msgstr "खेल नहीं मिला।"
+
+msgid "Game room does not exist."
+msgstr "गेम रूम मौजूद नहीं है।"
+
+msgid "Invalid Game Master secret key."
+msgstr "अमान्य गेम मास्टर गुप्त कुंजी।"

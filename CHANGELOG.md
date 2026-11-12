@@ -4,6 +4,17 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v131] - 2026-11-12
+
+### Added
+- **Multi-Language Presentation Localization for Game Rooms & Lupus Hub**:
+  - Fully translated `/games/` (`gamerooms:room-list`), `/games/lupus/` (`lupus:hub`), `/games/lupus/create/`, `/games/lupus/join/`, and legacy game room forms into all 9 supported languages (`en`, `pt`, `it`, `es`, `fr`, `el`, `ru`, `hi`, `kn`).
+  - Localized room badges, lifecycle states (`Open (Lobby)`, `Running`, `Finished`, `Active`), and phase badges (`Day`, `Night`, `Voting`, `Limbo`) across views and templates.
+  - Localized interactive forms, placeholders, help texts, and error/validation feedback.
+- **Automated Locale Compilation**:
+  - Overhauled `scripts/generate_locales.py` with full catalogs and dual-engine binary `.mo` compilation (native pure-Python + GNU `msgfmt`).
+  - Added pytest suite `TestGameroomsI18n` (28 new test cases) and extended Robot Framework suite `09_internationalization.robot`.
+
 ## [v130] - 2026-11-12
 
 ### Added

@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}Join Lupus Game - {{ code }}{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Join Lupus Game" %} - {{ code }}{% endblock %}
 
 {% block content %}
 <div style="max-width: 440px; margin: 1.5rem auto; padding: 0 1rem; text-align: center;">
   <div style="font-size: 2.75rem; margin-bottom: 0.25rem;">🐺</div>
-  <h1 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem; color: #0f172a;">{{ state.title|default:"Lupus Game" }}</h1>
+  <h1 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem; color: #0f172a;">{{ state.title|default:_("Lupus Game") }}</h1>
   <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: #e2e8f0; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 1.25rem;">
-    <span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Room Code:</span>
+    <span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase;">{% trans "Room Code:" %}</span>
     <strong style="font-family: monospace; font-size: 0.95rem; letter-spacing: 1px; color: #0f172a;">{{ code }}</strong>
   </div>
 
@@ -21,12 +22,12 @@
     <form method="post" style="display: flex; flex-direction: column; gap: 1rem;">
       {% csrf_token %}
       <div>
-        <label style="font-size: 0.85rem; font-weight: 700; color: #334155; display: block; margin-bottom: 0.4rem;">🔒 Room Password</label>
+        <label style="font-size: 0.85rem; font-weight: 700; color: #334155; display: block; margin-bottom: 0.4rem;">🔒 {% trans "Room Password" %}</label>
         <input type="password" name="password" required autofocus
           style="width: 100%; padding: 0.7rem 0.85rem; font-size: 16px; border: 1.5px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">
       </div>
       <button type="submit" style="padding: 0.75rem 1rem; font-size: 1rem; font-weight: 700; background: #0f172a; color: #ffffff; border: none; border-radius: 8px; cursor: pointer; touch-action: manipulation; transition: background 0.15s ease;">
-        Unlock Room &rarr;
+        {% trans "Unlock Room" %} &rarr;
       </button>
     </form>
   </div>
@@ -38,20 +39,20 @@
       <input type="hidden" name="pwd" value="{{ param_pwd }}">
       {% endif %}
       <div>
-        <label style="font-size: 0.85rem; font-weight: 700; color: #334155; display: block; margin-bottom: 0.4rem;">Your Name / Nickname</label>
-        <input type="text" name="name" maxlength="30" required autofocus placeholder="e.g. Marco"
+        <label style="font-size: 0.85rem; font-weight: 700; color: #334155; display: block; margin-bottom: 0.4rem;">{% trans "Your Name / Nickname" %}</label>
+        <input type="text" name="name" maxlength="30" required autofocus placeholder="{% trans 'e.g. Marco' %}"
           style="width: 100%; padding: 0.7rem 0.85rem; font-size: 16px; border: 1.5px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">
-        <span style="font-size: 0.75rem; color: #64748b; margin-top: 0.3rem; display: block;">Pick the name others at the table know you by.</span>
+        <span style="font-size: 0.75rem; color: #64748b; margin-top: 0.3rem; display: block;">{% trans "Pick the name others at the table know you by." %}</span>
       </div>
       <button type="submit" style="padding: 0.75rem 1rem; font-size: 1rem; font-weight: 700; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; cursor: pointer; touch-action: manipulation; box-shadow: 0 2px 6px rgba(37,99,235,0.3); transition: background 0.15s ease;">
-        Enter Game &rarr;
+        {% trans "Enter Game" %} &rarr;
       </button>
     </form>
   </div>
   {% endif %}
 
   <div style="margin-top: 1.5rem; font-size: 0.82rem; color: #94a3b8;">
-    <a href="{% url 'gamerooms:lupus:hub' %}" style="color: #64748b; text-decoration: none; font-weight: 500;">🐺 Lupus Active Rooms & Hub</a>
+    <a href="{% url 'gamerooms:lupus:hub' %}" style="color: #64748b; text-decoration: none; font-weight: 500;">🐺 {% trans "Lupus Active Rooms & Hub" %}</a>
   </div>
 </div>
 {% endblock %}

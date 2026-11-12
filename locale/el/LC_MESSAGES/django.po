@@ -19,3 +19,432 @@ msgstr "παιχνίδια"
 
 msgid "cv"
 msgstr "βιογραφικό"
+
+msgid "Game Rooms"
+msgstr "Αίθουσες Παιχνιδιών"
+
+msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
+msgstr "Παιχνίδια παρέας για πολλούς παίκτες σε πραγματικό χρόνο στο πρόγραμμα περιήγησης. Δεν απαιτούνται λογαριασμοί — απλώς μπείτε και παίξτε με φίλους."
+
+msgid "🐺 Lupus Hub & Rooms"
+msgstr "🐺 Κέντρο & Αίθουσες Lupus"
+
+msgid "🐺 create lupus"
+msgstr "🐺 δημιουργία lupus"
+
+msgid "+ create room"
+msgstr "+ δημιουργία αίθουσας"
+
+msgid "✏️ pictionary"
+msgstr "✏️ pictionary"
+
+msgid "Enter Room Code (e.g. 9B3A1C2D)"
+msgstr "Εισαγάγετε Κωδικό Αίθουσας (π.χ. 9B3A1C2D)"
+
+msgid "Join"
+msgstr "Σύνδεση"
+
+msgid "Lupus in Tabula / Werewolf"
+msgstr "Lupus in Tabula / Λυκάνθρωπος"
+
+msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
+msgstr "Επιτραπέζιο παιχνίδι παρέας με μυστικούς ρόλους, ζωντανή ψηφοφορία, Εφημερίδα του Χωριού και κονσόλα αφηγητή."
+
+msgid "Browse Active Lupus Rooms"
+msgstr "Περιήγηση σε Ενεργές Αίθουσες Lupus"
+
+msgid "+ Host New Room"
+msgstr "+ Δημιουργία Νέας Αίθουσας"
+
+msgid "All Active Rooms"
+msgstr "Όλες οι Ενεργές Αίθουσες"
+
+msgid "Password Protected"
+msgstr "Προστατεύεται με Κωδικό"
+
+msgid "players"
+msgstr "παίκτες"
+
+msgid "ago"
+msgstr "πριν"
+
+msgid "no active rooms. create one!"
+msgstr "δεν υπάρχουν ενεργές αίθουσες. δημιουργήστε μία!"
+
+msgid "🐺 Lupus"
+msgstr "🐺 Lupus"
+
+msgid "🎨 Emojinary"
+msgstr "🎨 Emojinary"
+
+msgid "Lupus in Tabula - Active Rooms & Game Hub"
+msgstr "Lupus in Tabula - Ενεργές Αίθουσες & Κέντρο Παιχνιδιού"
+
+msgid "+ Create Room"
+msgstr "+ Δημιουργία Αίθουσας"
+
+msgid "All Games"
+msgstr "Όλα τα Παιχνίδια"
+
+msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
+msgstr "Επιτραπέζιο παιχνίδι παρέας τύπου Λυκάνθρωπος & Μαφία. Δεν απαιτούνται λογαριασμοί. Κάθε παίκτης χρησιμοποιεί το κινητό του για μυστικούς ρόλους και ψηφοφορία ενώ εσείς διευθύνετε ως Αφηγητής."
+
+msgid "Join with Room Code"
+msgstr "Σύνδεση με Κωδικό Αίθουσας"
+
+msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+msgstr "Έχετε 8-ψήφιο κωδικό από τον Αφηγητή σας; Εισαγάγετέ τον εδώ για να μπείτε απευθείας:"
+
+msgid "Join Game"
+msgstr "Σύνδεση στο Παιχνίδι"
+
+msgid "Active Lupus Rooms"
+msgstr "Ενεργές Αίθουσες Lupus"
+
+msgid "+ New Game"
+msgstr "+ Νέο Παιχνίδι"
+
+msgid "CODE"
+msgstr "ΚΩΔΙΚΟΣ"
+
+msgid "GM"
+msgstr "Αφηγητής"
+
+msgid "alive"
+msgstr "ζωντανοί"
+
+msgid "Password"
+msgstr "Κωδικός"
+
+msgid "Public"
+msgstr "Δημόσια"
+
+msgid "Open GM Cockpit"
+msgstr "Άνοιγμα Κονσόλας Αφηγητή"
+
+msgid "Return as %(name)s"
+msgstr "Επιστροφή ως %(name)s"
+
+msgid "Enter Room"
+msgstr "Είσοδος στην Αίθουσα"
+
+msgid "No Active Lupus Games Right Now"
+msgstr "Δεν Υπάρχουν Ενεργά Παιχνίδια Lupus Αυτή τη Στιγμή"
+
+msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
+msgstr "Οι αίθουσες δημιουργούνται κατ' απαίτηση και παραμένουν ενεργές για 24 ώρες. Ξεκινήστε μια νέα συνεδρία και προσκαλέστε την παρέα σας!"
+
+msgid "Create the First Lupus Room"
+msgstr "Δημιουργήστε την Πρώτη Αίθουσα Lupus"
+
+msgid "Past & Finished Games"
+msgstr "Παλαιότερα & Ολοκληρωμένα Παιχνίδια"
+
+msgid "Replay"
+msgstr "Επανάληψη"
+
+msgid "Cockpit"
+msgstr "Κονσόλα"
+
+msgid "Table-First Lupus Highlights"
+msgstr "Χαρακτηριστικά του Επιτραπέζιου Lupus"
+
+msgid "Hold-to-Peek Secret Roles:"
+msgstr "Κρατήστε Πατημένο για Μυστικούς Ρόλους:"
+
+msgid "Privacy shield keeps cards concealed from prying eyes at the table."
+msgstr "Η ασπίδα απορρήτου προστατεύει τις κάρτες από περίεργα βλέμματα στο τραπέζι."
+
+msgid "GM Director Cockpit:"
+msgstr "Κονσόλα Σκηνοθέτη Αφηγητή:"
+
+msgid "Step-by-step night stages, bluffing calls, and voting manager."
+msgstr "Νυχτερινά στάδια βήμα προς βήμα, κλήσεις μπλόφας και διαχείριση ψηφοφορίας."
+
+msgid "Town Gazette:"
+msgstr "Εφημερίδα του Χωριού:"
+
+msgid "Living & fallen players submit morning rumors read aloud at dawn."
+msgstr "Ζωντανοί και νεκροί παίκτες στέλνουν πρωινές φήμες που διαβάζονται δυνατά στην αυγή."
+
+msgid "Midgame Arrivals:"
+msgstr "Αφίξεις στη Μέση του Παιχνιδιού:"
+
+msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
+msgstr "Όσοι αργοπορούν μπαίνουν ως Επιβεβαιωμένοι Ταξιδιώτες, Φαντάσματα ή Διάδοχοι."
+
+msgid "Create Lupus / Werewolf Room"
+msgstr "Δημιουργία Αίθουσας Lupus / Λυκάνθρωπου"
+
+msgid "Back to Active Lupus Rooms"
+msgstr "Πίσω στις Ενεργές Αίθουσες Lupus"
+
+msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
+msgstr "Υβριδικό επιτραπέζιο παιχνίδι παρέας. Δεν απαιτούνται λογαριασμοί. Οι παίκτες μπαίνουν μέσω QR code και διευθύνετε ως Αφηγητής."
+
+msgid "Room Setup"
+msgstr "Ρύθμιση Αίθουσας"
+
+msgid "Room Title"
+msgstr "Τίτλος Αίθουσας"
+
+msgid "Game Master Display Name"
+msgstr "Όνομα Εμφάνισης Αφηγητή"
+
+msgid "Room Password (optional)"
+msgstr "Κωδικός Αίθουσας (προαιρετικό)"
+
+msgid "Leave empty for public join"
+msgstr "Αφήστε κενό για δημόσια είσοδο"
+
+msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
+msgstr "Αν οριστεί, η είσοδος μέσω QR code πιστοποιεί τους παίκτες αυτόματα. (💡 Κόλπο επίδειξης: όνομα Αφηγητή με Marco και κωδικός test προσθέτει 10 δοκιμαστικούς παίκτες)."
+
+msgid "Theme & Terms"
+msgstr "Θέμα & Ορολογία"
+
+msgid "Werewolf / Lupus"
+msgstr "Λυκάνθρωπος / Lupus"
+
+msgid "Villagers, Wolves, Seer"
+msgstr "Χωρικοί, Λύκοι, Μάντης"
+
+msgid "Mafia"
+msgstr "Μαφία"
+
+msgid "Civilians, Mobsters, Cop"
+msgstr "Πολίτες, Μαφιόζοι, Αστυνόμος"
+
+msgid "Game Rules & Timers"
+msgstr "Κανόνες Παιχνιδιού & Χρονόμετρα"
+
+msgid "Discussion Round Timer"
+msgstr "Χρονόμετρο Συζήτησης"
+
+msgid "5 Minutes (Standard)"
+msgstr "5 Λεπτά (Κανονικό)"
+
+msgid "3 Minutes (Fast)"
+msgstr "3 Λεπτά (Γρήγορο)"
+
+msgid "7 Minutes (Deliberate)"
+msgstr "7 Λεπτά (Αναλυτικό)"
+
+msgid "10 Minutes"
+msgstr "10 Λεπτά"
+
+msgid "Defense Timer"
+msgstr "Χρονόμετρο Απολογίας"
+
+msgid "30 Seconds (Standard)"
+msgstr "30 Δευτερόλεπτα (Κανονικό)"
+
+msgid "45 Seconds"
+msgstr "45 Δευτερόλεπτα"
+
+msgid "60 Seconds"
+msgstr "60 Δευτερόλεπτα"
+
+msgid "Limbo & Angel Mechanic:"
+msgstr "Μηχανισμός Καθαρτηρίου & Αγγέλου:"
+
+msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+msgstr "Οι παίκτες που χάνουν μπαίνουν στο Καθαρτήριο πριν πεθάνουν οριστικά. Αν μαντέψουν ποιος είναι ο Άγγελος, ανασταίνονται!"
+
+msgid "Staggering Doctor:"
+msgstr "Εναλλασσόμενος Γιατρός:"
+
+msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
+msgstr "Ο Γιατρός / Φύλακας δεν μπορεί να προστατεύσει το ίδιο άτομο δύο συνεχόμενες νύχτες."
+
+msgid "Doctor Shields From Sniper:"
+msgstr "Ο Γιατρός Προστατεύει από τον Ελεύθερο Σκοπευτή:"
+
+msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
+msgstr "Αν ενεργοποιηθεί, η ασπίδα του Γιατρού μπορεί να σώσει έναν στόχο από τον Σκοπευτή. (Ανενεργό = η σφαίρα διαπερνά την προστασία)."
+
+msgid "Reveal Roles on Death:"
+msgstr "Αποκάλυψη Ρόλων στον Θάνατο:"
+
+msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
+msgstr "0 — Μυστικό (Κλειστό νεκροταφείο, κρυφοί ρόλοι μέχρι το τέλος)"
+
+msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
+msgstr "1 — Μόνο Παράταξη (Ανακοινώνει \"ΚΑΛΟ\" vs \"ΚΑΚΟ\")"
+
+msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
+msgstr "2 — Φατρία / Ομάδα (Ανακοινώνει \"Χωριό\", \"Λυκάνθρωποι\", \"Ουδέτερος\")"
+
+msgid "3 — Full Role Card (Announces exact card name and icon)"
+msgstr "3 — Πλήρης Κάρτα Ρόλου (Ανακοινώνει το ακριβές όνομα και εικονίδιο)"
+
+msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
+msgstr "💡 Στα παιχνίδια με Καθαρτήριο, η αποκάλυψη γίνεται μόνο στον οριστικό θάνατο, ποτέ μέσα στο Καθαρτήριο."
+
+msgid "Starting Role Deck Preset"
+msgstr "Προκαθορισμένη Τράπουλα Ρόλων"
+
+msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+msgstr "🧑 Απλό / Κλασικό (Χωρίς ειδικές δυνάμεις — μόνο Λύκοι vs Χωρικοί)"
+
+msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
+msgstr "🔍 Κανονικό (Λύκοι + Ντετέκτιβ/Μάντης + Γιατρός/Φύλακας + Χωρικοί)"
+
+msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+msgstr "👼 Καθαρτήριο & Άγγελος (Λύκοι + Ντετέκτιβ + Γιατρός + Άγγελος + Σκοπευτής + Χωρικοί)"
+
+msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
+msgstr "⚡ Χάος & Ειδικοί (Άλφα Λύκος, Σιωπηλός, Ντετέκτιβ, Γιατρός, Σκοπευτής, Δήμαρχος, Μάγισσα...)"
+
+msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
+msgstr "💡 Η τράπουλα προσαρμόζεται αυτόματα στον αριθμό παικτών. Μπορείτε να ρυθμίσετε κάθε ρόλο και την ισορροπία καλού/κακού στην αίθουσα αναμονής πριν ξεκινήσετε."
+
+msgid "Launch Lupus Room"
+msgstr "Έναρξη Αίθουσας Lupus"
+
+msgid "Lupus Party Game"
+msgstr "Παιχνίδι Παρέας Lupus"
+
+msgid "Join Lupus Game"
+msgstr "Σύνδεση στο Παιχνίδι Lupus"
+
+msgid "Lupus Game"
+msgstr "Παιχνίδι Lupus"
+
+msgid "Room Code:"
+msgstr "Κωδικός Αίθουσας:"
+
+msgid "Room Password"
+msgstr "Κωδικός Αίθουσας"
+
+msgid "Unlock Room"
+msgstr "Ξεκλείδωμα Αίθουσας"
+
+msgid "Your Name / Nickname"
+msgstr "Το Όνομά / Ψευδώνυμό σας"
+
+msgid "e.g. Marco"
+msgstr "π.χ. Μάρκο"
+
+msgid "Pick the name others at the table know you by."
+msgstr "Επιλέξτε το όνομα με το οποίο σας ξέρουν οι υπόλοιποι στο τραπέζι."
+
+msgid "Enter Game"
+msgstr "Είσοδος στο Παιχνίδι"
+
+msgid "Lupus Active Rooms & Hub"
+msgstr "Ενεργές Αίθουσες & Κέντρο Lupus"
+
+msgid "create room"
+msgstr "δημιουργία αίθουσας"
+
+msgid "title"
+msgstr "τίτλος"
+
+msgid "password (optional)"
+msgstr "κωδικός (προαιρετικό)"
+
+msgid "what is %(a)s + %(b)s?"
+msgstr "πόσο κάνει %(a)s + %(b)s;"
+
+msgid "create"
+msgstr "δημιουργία"
+
+msgid "join"
+msgstr "σύνδεση"
+
+msgid "your name"
+msgstr "το όνομά σας"
+
+msgid "room password"
+msgstr "κωδικός αίθουσας"
+
+msgid "Access Denied"
+msgstr "Δεν επιτρέπεται η πρόσβαση"
+
+msgid "You need an authorized key to access this page."
+msgstr "Χρειάζεστε εξουσιοδοτημένο κλειδί για πρόσβαση σε αυτή τη σελίδα."
+
+msgid "Join as Player"
+msgstr "Σύνδεση ως Παίκτης"
+
+msgid "Lobby"
+msgstr "Αναμονή"
+
+msgid "Lobby (Waiting for Players)"
+msgstr "Αναμονή (Αναμονή παικτών)"
+
+msgid "Open"
+msgstr "Ανοιχτή"
+
+msgid "Open (Lobby)"
+msgstr "Ανοιχτή (Αναμονή)"
+
+msgid "Running"
+msgstr "Σε Εξέλιξη"
+
+msgid "Finished"
+msgstr "Ολοκληρώθηκε"
+
+msgid "Active"
+msgstr "Ενεργό"
+
+msgid "Day"
+msgstr "Ημέρα"
+
+msgid "Night"
+msgstr "Νύχτα"
+
+msgid "Voting"
+msgstr "Ψηφοφορία"
+
+msgid "Discussion"
+msgstr "Συζήτηση"
+
+msgid "Town Voting"
+msgstr "Ψηφοφορία Χωριού"
+
+msgid "Silent Phase"
+msgstr "Σιωπηλή Φάση"
+
+msgid "Limbo"
+msgstr "Καθαρτήριο"
+
+msgid "Limbo Resolution"
+msgstr "Επίλυση Καθαρτηρίου"
+
+msgid "Game Over"
+msgstr "Τέλος Παιχνιδιού"
+
+msgid "In Progress"
+msgstr "Σε Εξέλιξη"
+
+msgid "Please enter a valid room code."
+msgstr "Παρακαλώ εισαγάγετε έναν έγκυρο κωδικό αίθουσας."
+
+msgid "Room code '%(code)s' was not found or is no longer active."
+msgstr "Ο κωδικός αίθουσας '%(code)s' δεν βρέθηκε ή δεν είναι πλέον ενεργός."
+
+msgid "Incorrect room password."
+msgstr "Εσφαλμένος κωδικός αίθουσας."
+
+msgid "Please enter a player name."
+msgstr "Παρακαλώ εισαγάγετε όνομα παίκτη."
+
+msgid "title is required"
+msgstr "ο τίτλος είναι υποχρεωτικός"
+
+msgid "wrong captcha"
+msgstr "εσφαλμένο captcha"
+
+msgid "wrong password"
+msgstr "εσφαλμένος κωδικός"
+
+msgid "Game not found."
+msgstr "Το παιχνίδι δεν βρέθηκε."
+
+msgid "Game room does not exist."
+msgstr "Η αίθουσα παιχνιδιού δεν υπάρχει."
+
+msgid "Invalid Game Master secret key."
+msgstr "Μη έγκυρο μυστικό κλειδί Αφηγητή."

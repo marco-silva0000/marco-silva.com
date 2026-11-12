@@ -19,3 +19,432 @@ msgstr "games"
 
 msgid "cv"
 msgstr "cv"
+
+msgid "Game Rooms"
+msgstr "Game Rooms"
+
+msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
+msgstr "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
+
+msgid "🐺 Lupus Hub & Rooms"
+msgstr "🐺 Lupus Hub & Rooms"
+
+msgid "🐺 create lupus"
+msgstr "🐺 create lupus"
+
+msgid "+ create room"
+msgstr "+ create room"
+
+msgid "✏️ pictionary"
+msgstr "✏️ pictionary"
+
+msgid "Enter Room Code (e.g. 9B3A1C2D)"
+msgstr "Enter Room Code (e.g. 9B3A1C2D)"
+
+msgid "Join"
+msgstr "Join"
+
+msgid "Lupus in Tabula / Werewolf"
+msgstr "Lupus in Tabula / Werewolf"
+
+msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
+msgstr "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
+
+msgid "Browse Active Lupus Rooms"
+msgstr "Browse Active Lupus Rooms"
+
+msgid "+ Host New Room"
+msgstr "+ Host New Room"
+
+msgid "All Active Rooms"
+msgstr "All Active Rooms"
+
+msgid "Password Protected"
+msgstr "Password Protected"
+
+msgid "players"
+msgstr "players"
+
+msgid "ago"
+msgstr "ago"
+
+msgid "no active rooms. create one!"
+msgstr "no active rooms. create one!"
+
+msgid "🐺 Lupus"
+msgstr "🐺 Lupus"
+
+msgid "🎨 Emojinary"
+msgstr "🎨 Emojinary"
+
+msgid "Lupus in Tabula - Active Rooms & Game Hub"
+msgstr "Lupus in Tabula - Active Rooms & Game Hub"
+
+msgid "+ Create Room"
+msgstr "+ Create Room"
+
+msgid "All Games"
+msgstr "All Games"
+
+msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
+msgstr "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
+
+msgid "Join with Room Code"
+msgstr "Join with Room Code"
+
+msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+msgstr "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+
+msgid "Join Game"
+msgstr "Join Game"
+
+msgid "Active Lupus Rooms"
+msgstr "Active Lupus Rooms"
+
+msgid "+ New Game"
+msgstr "+ New Game"
+
+msgid "CODE"
+msgstr "CODE"
+
+msgid "GM"
+msgstr "GM"
+
+msgid "alive"
+msgstr "alive"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Open GM Cockpit"
+msgstr "Open GM Cockpit"
+
+msgid "Return as %(name)s"
+msgstr "Return as %(name)s"
+
+msgid "Enter Room"
+msgstr "Enter Room"
+
+msgid "No Active Lupus Games Right Now"
+msgstr "No Active Lupus Games Right Now"
+
+msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
+msgstr "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
+
+msgid "Create the First Lupus Room"
+msgstr "Create the First Lupus Room"
+
+msgid "Past & Finished Games"
+msgstr "Past & Finished Games"
+
+msgid "Replay"
+msgstr "Replay"
+
+msgid "Cockpit"
+msgstr "Cockpit"
+
+msgid "Table-First Lupus Highlights"
+msgstr "Table-First Lupus Highlights"
+
+msgid "Hold-to-Peek Secret Roles:"
+msgstr "Hold-to-Peek Secret Roles:"
+
+msgid "Privacy shield keeps cards concealed from prying eyes at the table."
+msgstr "Privacy shield keeps cards concealed from prying eyes at the table."
+
+msgid "GM Director Cockpit:"
+msgstr "GM Director Cockpit:"
+
+msgid "Step-by-step night stages, bluffing calls, and voting manager."
+msgstr "Step-by-step night stages, bluffing calls, and voting manager."
+
+msgid "Town Gazette:"
+msgstr "Town Gazette:"
+
+msgid "Living & fallen players submit morning rumors read aloud at dawn."
+msgstr "Living & fallen players submit morning rumors read aloud at dawn."
+
+msgid "Midgame Arrivals:"
+msgstr "Midgame Arrivals:"
+
+msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
+msgstr "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
+
+msgid "Create Lupus / Werewolf Room"
+msgstr "Create Lupus / Werewolf Room"
+
+msgid "Back to Active Lupus Rooms"
+msgstr "Back to Active Lupus Rooms"
+
+msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
+msgstr "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
+
+msgid "Room Setup"
+msgstr "Room Setup"
+
+msgid "Room Title"
+msgstr "Room Title"
+
+msgid "Game Master Display Name"
+msgstr "Game Master Display Name"
+
+msgid "Room Password (optional)"
+msgstr "Room Password (optional)"
+
+msgid "Leave empty for public join"
+msgstr "Leave empty for public join"
+
+msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
+msgstr "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
+
+msgid "Theme & Terms"
+msgstr "Theme & Terms"
+
+msgid "Werewolf / Lupus"
+msgstr "Werewolf / Lupus"
+
+msgid "Villagers, Wolves, Seer"
+msgstr "Villagers, Wolves, Seer"
+
+msgid "Mafia"
+msgstr "Mafia"
+
+msgid "Civilians, Mobsters, Cop"
+msgstr "Civilians, Mobsters, Cop"
+
+msgid "Game Rules & Timers"
+msgstr "Game Rules & Timers"
+
+msgid "Discussion Round Timer"
+msgstr "Discussion Round Timer"
+
+msgid "5 Minutes (Standard)"
+msgstr "5 Minutes (Standard)"
+
+msgid "3 Minutes (Fast)"
+msgstr "3 Minutes (Fast)"
+
+msgid "7 Minutes (Deliberate)"
+msgstr "7 Minutes (Deliberate)"
+
+msgid "10 Minutes"
+msgstr "10 Minutes"
+
+msgid "Defense Timer"
+msgstr "Defense Timer"
+
+msgid "30 Seconds (Standard)"
+msgstr "30 Seconds (Standard)"
+
+msgid "45 Seconds"
+msgstr "45 Seconds"
+
+msgid "60 Seconds"
+msgstr "60 Seconds"
+
+msgid "Limbo & Angel Mechanic:"
+msgstr "Limbo & Angel Mechanic:"
+
+msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+msgstr "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+
+msgid "Staggering Doctor:"
+msgstr "Staggering Doctor:"
+
+msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
+msgstr "The Doctor / Guard cannot protect the same person two consecutive nights."
+
+msgid "Doctor Shields From Sniper:"
+msgstr "Doctor Shields From Sniper:"
+
+msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
+msgstr "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
+
+msgid "Reveal Roles on Death:"
+msgstr "Reveal Roles on Death:"
+
+msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
+msgstr "0 — Secret (Closed graveyard, roles concealed until game over)"
+
+msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
+msgstr "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
+
+msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
+msgstr "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
+
+msgid "3 — Full Role Card (Announces exact card name and icon)"
+msgstr "3 — Full Role Card (Announces exact card name and icon)"
+
+msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
+msgstr "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
+
+msgid "Starting Role Deck Preset"
+msgstr "Starting Role Deck Preset"
+
+msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+msgstr "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+
+msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
+msgstr "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
+
+msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+msgstr "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+
+msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
+msgstr "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
+
+msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
+msgstr "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
+
+msgid "Launch Lupus Room"
+msgstr "Launch Lupus Room"
+
+msgid "Lupus Party Game"
+msgstr "Lupus Party Game"
+
+msgid "Join Lupus Game"
+msgstr "Join Lupus Game"
+
+msgid "Lupus Game"
+msgstr "Lupus Game"
+
+msgid "Room Code:"
+msgstr "Room Code:"
+
+msgid "Room Password"
+msgstr "Room Password"
+
+msgid "Unlock Room"
+msgstr "Unlock Room"
+
+msgid "Your Name / Nickname"
+msgstr "Your Name / Nickname"
+
+msgid "e.g. Marco"
+msgstr "e.g. Marco"
+
+msgid "Pick the name others at the table know you by."
+msgstr "Pick the name others at the table know you by."
+
+msgid "Enter Game"
+msgstr "Enter Game"
+
+msgid "Lupus Active Rooms & Hub"
+msgstr "Lupus Active Rooms & Hub"
+
+msgid "create room"
+msgstr "create room"
+
+msgid "title"
+msgstr "title"
+
+msgid "password (optional)"
+msgstr "password (optional)"
+
+msgid "what is %(a)s + %(b)s?"
+msgstr "what is %(a)s + %(b)s?"
+
+msgid "create"
+msgstr "create"
+
+msgid "join"
+msgstr "join"
+
+msgid "your name"
+msgstr "your name"
+
+msgid "room password"
+msgstr "room password"
+
+msgid "Access Denied"
+msgstr "Access Denied"
+
+msgid "You need an authorized key to access this page."
+msgstr "You need an authorized key to access this page."
+
+msgid "Join as Player"
+msgstr "Join as Player"
+
+msgid "Lobby"
+msgstr "Lobby"
+
+msgid "Lobby (Waiting for Players)"
+msgstr "Lobby (Waiting for Players)"
+
+msgid "Open"
+msgstr "Open"
+
+msgid "Open (Lobby)"
+msgstr "Open (Lobby)"
+
+msgid "Running"
+msgstr "Running"
+
+msgid "Finished"
+msgstr "Finished"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Day"
+msgstr "Day"
+
+msgid "Night"
+msgstr "Night"
+
+msgid "Voting"
+msgstr "Voting"
+
+msgid "Discussion"
+msgstr "Discussion"
+
+msgid "Town Voting"
+msgstr "Town Voting"
+
+msgid "Silent Phase"
+msgstr "Silent Phase"
+
+msgid "Limbo"
+msgstr "Limbo"
+
+msgid "Limbo Resolution"
+msgstr "Limbo Resolution"
+
+msgid "Game Over"
+msgstr "Game Over"
+
+msgid "In Progress"
+msgstr "In Progress"
+
+msgid "Please enter a valid room code."
+msgstr "Please enter a valid room code."
+
+msgid "Room code '%(code)s' was not found or is no longer active."
+msgstr "Room code '%(code)s' was not found or is no longer active."
+
+msgid "Incorrect room password."
+msgstr "Incorrect room password."
+
+msgid "Please enter a player name."
+msgstr "Please enter a player name."
+
+msgid "title is required"
+msgstr "title is required"
+
+msgid "wrong captcha"
+msgstr "wrong captcha"
+
+msgid "wrong password"
+msgstr "wrong password"
+
+msgid "Game not found."
+msgstr "Game not found."
+
+msgid "Game room does not exist."
+msgstr "Game room does not exist."
+
+msgid "Invalid Game Master secret key."
+msgstr "Invalid Game Master secret key."
