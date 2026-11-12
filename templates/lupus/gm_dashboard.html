@@ -804,6 +804,7 @@ html, body {
       </h1>
     </div>
     <div class="top-bar-buttons" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button onclick="openSettingsModal()" class="btn" style="background: #fef3c7; color: #92400e; border-color: #fde68a; font-weight: 700;" title="Game Rules & Tunable Settings">⚙️ Settings</button>
       <button onclick="openGMDMsModal()" class="btn" style="background: #e0f2fe; color: #0369a1; border-color: #bae6fd; font-weight: 700; position: relative;" title="Direct Messages with Players">💬 DMs <span id="gm-topbar-dms-badge" class="badge" style="display: none; background: #ef4444; color: #fff; font-size: 0.65rem; padding: 1px 6px; border-radius: 999px; margin-left: 0.25rem;">0</span></button>
       <button onclick="startNewLobby()" class="btn" style="background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; font-weight: 700;" title="Create a new lobby room and move all connected players to it">➕ New Lobby</button>
       <button onclick="openModal('roles-guide-modal')" class="btn" style="background: #f1f5f9;" title="View all roles reference & rules">📚 Roles Guide</button>
@@ -1795,6 +1796,68 @@ html, body {
     </div>
     <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
       <button onclick="closeModal('gm-timeline-modal')" class="btn">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Comprehensive Game Rules & Tunable Settings Cockpit -->
+<div id="gm-settings-modal" class="modal">
+  <div class="modal-content" style="max-width: 860px; width: 95%; max-height: 88vh; display: flex; flex-direction: column; text-align: left; padding: 1.25rem; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+    <!-- Modal Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.65rem; margin-bottom: 0.75rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.35rem;">⚙️</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.15rem; color: #0f172a; font-weight: 800;">Game Rules &amp; Tunable Settings</h3>
+          <span style="font-size: 0.75rem; color: #64748b;">Fine-tune all capacities, timers, voting thresholds, and mechanics</span>
+        </div>
+      </div>
+      <button onclick="closeModal('gm-settings-modal')" class="btn btn-sm" style="min-height: 32px; padding: 0.2rem 0.6rem; font-weight: 700; color: #64748b;">&times; Close</button>
+    </div>
+
+    <!-- Presets & Quick Actions Toolbar -->
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.85rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+        <label for="settings-preset-select" style="font-size: 0.82rem; font-weight: 700; color: #334155;">✨ Preset:</label>
+        <select id="settings-preset-select" style="padding: 0.35rem 0.6rem; font-size: 0.82rem; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; font-weight: 600;">
+          <option value="default">Standard Lupus (Balanced Defaults)</option>
+          <option value="blitz">Blitz / Speed Game (Fast Timers &amp; Extra Ammo)</option>
+          <option value="chaos">Chaos / High Power (2x Potions &amp; Double Hits)</option>
+          <option value="competitive">Competitive / Mystery (Closed Graveyard &amp; Strict)</option>
+        </select>
+        <button type="button" onclick="applySettingsPresetUI()" class="btn btn-sm" style="background: #e0e7ff; color: #3730a3; border-color: #c7d2fe; font-weight: 700;">
+          Apply Preset
+        </button>
+      </div>
+      <div>
+        <button type="button" onclick="resetSettingsToDefaultUI()" class="btn btn-sm" style="background: #fee2e2; color: #991b1b; border-color: #fecaca; font-weight: 700;" title="Reset all variables back to standard schema defaults">
+          ↺ Reset to Defaults
+        </button>
+      </div>
+    </div>
+
+    <!-- Search & Category Filters Bar -->
+    <div style="display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 0.75rem;">
+      <div style="position: relative;">
+        <input id="settings-search-input" type="text" placeholder="🔍 Search settings (e.g. potion, bullet, timer, mayor, gazette)..." oninput="onSettingsSearchChange(this.value)"
+          style="width: 100%; box-sizing: border-box; padding: 0.45rem 0.75rem; font-size: 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff;">
+      </div>
+      <div id="settings-category-tabs" style="display: flex; gap: 0.35rem; overflow-x: auto; padding-bottom: 0.25rem;">
+        <!-- Dynamically rendered tabs -->
+      </div>
+    </div>
+
+    <!-- Scrollable Settings Cards Container -->
+    <div id="settings-cards-container" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding-right: 0.25rem; max-height: 52vh;">
+      <!-- Dynamically rendered settings cards -->
+    </div>
+
+    <!-- Modal Footer -->
+    <div style="border-top: 1px solid #e2e8f0; margin-top: 0.75rem; padding-top: 0.6rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+      <div style="font-size: 0.75rem; color: #64748b;">
+        💡 <em>Changes update in real-time across all connected devices.</em>
+      </div>
+      <button onclick="closeModal('gm-settings-modal')" class="btn btn-primary btn-sm" style="font-weight: 700; padding: 0.4rem 1rem;">Done</button>
     </div>
   </div>
 </div>
@@ -2966,6 +3029,9 @@ html, body {
     currentGameState = state;
     checkVersionUpdate(state);
     renderPlayerPoints(state);
+    if (document.getElementById("gm-settings-modal") && document.getElementById("gm-settings-modal").classList.contains("active")) {
+      renderSettingsModal();
+    }
     document.getElementById("phase-badge").innerText = state.phase.toUpperCase();
     document.getElementById("round-num").innerText = state.round_number;
     document.getElementById("player-count").innerText = state.players.length;
@@ -5356,6 +5422,208 @@ html, body {
           chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
         }
       }
+    }
+  }
+
+  // --- GM Tunable Game Rules & Settings Cockpit ---
+  let currentSettingsFilterCategory = "all";
+  let currentSettingsSearchQuery = "";
+
+  function openSettingsModal() {
+    renderSettingsModal();
+    openModal("gm-settings-modal");
+  }
+
+  function onSettingsSearchChange(val) {
+    currentSettingsSearchQuery = (val || "").trim().toLowerCase();
+    renderSettingsCards();
+  }
+
+  function setSettingsCategory(catId) {
+    currentSettingsFilterCategory = catId;
+    renderSettingsModal();
+  }
+
+  function renderSettingsModal() {
+    if (!currentGameState) return;
+    const schema = currentGameState.settings_schema || [];
+    const settings = currentGameState.settings || {};
+
+    // 1. Render Category Tabs with dynamic badge counts
+    const tabsContainer = document.getElementById("settings-category-tabs");
+    if (tabsContainer) {
+      let totalCount = 0;
+      schema.forEach(cat => { totalCount += (cat.items || []).length; });
+
+      let tabsHtml = `
+        <button type="button" onclick="setSettingsCategory('all')" class="btn btn-sm"
+          style="padding: 0.25rem 0.6rem; font-size: 0.78rem; font-weight: 700; border-radius: 999px; white-space: nowrap; ${
+            currentSettingsFilterCategory === 'all'
+              ? 'background: #0f172a; color: #fff; border-color: #0f172a;'
+              : 'background: #f1f5f9; color: #475569; border-color: #cbd5e1;'
+          }">
+          ⭐ All (${totalCount})
+        </button>
+      `;
+
+      schema.forEach(cat => {
+        const isSel = currentSettingsFilterCategory === cat.id;
+        const count = (cat.items || []).length;
+        tabsHtml += `
+          <button type="button" onclick="setSettingsCategory('${cat.id}')" class="btn btn-sm"
+            style="padding: 0.25rem 0.6rem; font-size: 0.78rem; font-weight: 700; border-radius: 999px; white-space: nowrap; ${
+              isSel
+                ? 'background: #0f172a; color: #fff; border-color: #0f172a;'
+                : 'background: #f1f5f9; color: #475569; border-color: #cbd5e1;'
+            }">
+            ${cat.emoji || ''} ${escapeHtml(cat.name)} (${count})
+          </button>
+        `;
+      });
+      tabsContainer.innerHTML = tabsHtml;
+    }
+
+    // 2. Render Cards
+    renderSettingsCards();
+  }
+
+  function renderSettingsCards() {
+    if (!currentGameState) return;
+    const schema = currentGameState.settings_schema || [];
+    const settings = currentGameState.settings || {};
+    const container = document.getElementById("settings-cards-container");
+    if (!container) return;
+
+    // Collect matching items
+    let matchedCategories = [];
+    schema.forEach(cat => {
+      if (currentSettingsFilterCategory !== "all" && currentSettingsFilterCategory !== cat.id) {
+        return;
+      }
+      const filteredItems = (cat.items || []).filter(item => {
+        if (!currentSettingsSearchQuery) return true;
+        const q = currentSettingsSearchQuery;
+        return (
+          (item.label || "").toLowerCase().includes(q) ||
+          (item.key || "").toLowerCase().includes(q) ||
+          (item.description || "").toLowerCase().includes(q)
+        );
+      });
+
+      if (filteredItems.length > 0) {
+        matchedCategories.push({
+          id: cat.id,
+          name: cat.name,
+          emoji: cat.emoji,
+          items: filteredItems,
+        });
+      }
+    });
+
+    if (matchedCategories.length === 0) {
+      container.innerHTML = `
+        <div style="text-align: center; padding: 2rem; color: #64748b; font-size: 0.85rem;">
+          🔍 No settings matched your search query. Try clearing the filter.
+        </div>
+      `;
+      return;
+    }
+
+    let html = "";
+    matchedCategories.forEach(cat => {
+      html += `
+        <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; margin-top: 0.6rem; margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.35rem;">
+          <span>${cat.emoji || '⚙️'}</span> ${escapeHtml(cat.name)}
+        </div>
+      `;
+
+      cat.items.forEach(meta => {
+        const key = meta.key;
+        const curVal = settings[key] !== undefined ? settings[key] : meta.default;
+        const stype = meta.type;
+
+        let controlHtml = "";
+        if (stype === "bool") {
+          const isTrue = !!curVal;
+          controlHtml = `
+            <button type="button" onclick="updateSettingKey('${key}', ${!isTrue})" class="btn btn-sm"
+              style="font-weight: 800; font-size: 0.78rem; min-width: 90px; padding: 0.35rem 0.75rem; border-radius: 6px; ${
+                isTrue
+                  ? 'background: #059669; color: #ffffff; border-color: #047857;'
+                  : 'background: #e2e8f0; color: #475569; border-color: #cbd5e1;'
+              }">
+              ${isTrue ? '✓ ON' : '✕ OFF'}
+            </button>
+          `;
+        } else if (stype === "int") {
+          const min = meta.min !== undefined ? meta.min : 0;
+          const max = meta.max !== undefined ? meta.max : 999;
+          const step = meta.step || 1;
+          const intVal = parseInt(curVal, 10) || 0;
+          controlHtml = `
+            <div style="display: flex; align-items: center; gap: 0.35rem;">
+              <button type="button" onclick="updateSettingKey('${key}', Math.max(${min}, ${intVal - step}))" class="btn btn-sm"
+                style="padding: 0.2rem 0.55rem; font-weight: 800; font-size: 0.85rem;" ${intVal <= min ? 'disabled' : ''}>-</button>
+              <span style="font-family: monospace; font-size: 0.95rem; font-weight: 800; min-width: 32px; text-align: center; color: #0f172a;">${intVal}</span>
+              <button type="button" onclick="updateSettingKey('${key}', Math.min(${max}, ${intVal + step}))" class="btn btn-sm"
+                style="padding: 0.2rem 0.55rem; font-weight: 800; font-size: 0.85rem;" ${intVal >= max ? 'disabled' : ''}>+</button>
+            </div>
+          `;
+        } else if (stype === "choice") {
+          const choices = meta.choices || [];
+          controlHtml = `
+            <select onchange="updateSettingKey('${key}', this.value)" style="padding: 0.3rem 0.5rem; font-size: 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; max-width: 220px;">
+              ${choices.map(c => `
+                <option value="${escapeHtml(String(c[0]))}" ${String(curVal) === String(c[0]) ? 'selected' : ''}>
+                  ${escapeHtml(String(c[1]))}
+                </option>
+              `).join('')}
+            </select>
+          `;
+        }
+
+        html += `
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem 0.9rem; display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap;">
+                <strong style="font-size: 0.88rem; color: #0f172a;">${escapeHtml(meta.label)}</strong>
+                <code style="font-size: 0.7rem; background: #f1f5f9; color: #64748b; padding: 1px 4px; border-radius: 4px;">${escapeHtml(meta.key)}</code>
+              </div>
+              <div style="font-size: 0.78rem; color: #64748b; margin-top: 0.2rem; line-height: 1.35;">
+                ${escapeHtml(meta.description || '')}
+              </div>
+            </div>
+            <div style="flex-shrink: 0;">
+              ${controlHtml}
+            </div>
+          </div>
+        `;
+      });
+    });
+
+    container.innerHTML = html;
+  }
+
+  function updateSettingKey(key, value) {
+    if (currentGameState && currentGameState.settings) {
+      currentGameState.settings[key] = value;
+    }
+    sendAction("update_settings", { settings: { [key]: value } });
+    renderSettingsCards();
+  }
+
+  function applySettingsPresetUI() {
+    const sel = document.getElementById("settings-preset-select");
+    if (!sel) return;
+    const preset = sel.value;
+    if (confirm(`Apply settings preset '${preset}'? This will override rule variables with preset defaults.`)) {
+      sendAction("apply_settings_preset", { preset: preset });
+    }
+  }
+
+  function resetSettingsToDefaultUI() {
+    if (confirm("Reset all game rules and settings back to standard schema defaults?")) {
+      sendAction("reset_settings_to_default");
     }
   }
 

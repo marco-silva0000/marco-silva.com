@@ -10,6 +10,7 @@ from .game_state import (
     add_player,
     adjust_timer,
     advance_circular_turn,
+    apply_settings_preset,
     approve_ghost_message,
     approve_news_bulletin,
     assign_midgame_role,
@@ -38,6 +39,7 @@ from .game_state import (
     reorder_players,
     reset_timer,
     reset_voting,
+    reset_settings_to_default,
     resolve_night,
     resume_timer,
     return_to_nominations,
@@ -71,6 +73,7 @@ from .game_state import (
     toggle_player_silence,
     trigger_game_over,
     trigger_martyrdom_detonation,
+    update_settings,
 )
 
 
@@ -584,44 +587,17 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
 
             elif action == "update_settings":
                 new_settings = content.get("settings", {})
-                if "mayor_type" in new_settings:
-                    new_settings["public_mayor"] = new_settings["mayor_type"] == "public"
-                elif "public_mayor" in new_settings:
-                    new_settings["mayor_type"] = "public" if new_settings["public_mayor"] else "hidden"
-                if "martyrdom_type" in new_settings:
-                    new_settings["public_martyrdom"] = new_settings["martyrdom_type"] == "public"
-                elif "public_martyrdom" in new_settings:
-                    new_settings["martyrdom_type"] = "public" if new_settings["public_martyrdom"] else "hidden"
-                if "mayor_can_cancel_vote" in new_settings:
-                    new_settings["mayor_can_cancel_vote"] = bool(new_settings["mayor_can_cancel_vote"])
-                state["settings"].update(new_settings)
+                update_settings(state, new_settings)
+                await self.broadcast_sync()
 
-                # Keep player attributes in sync live
-                if "mayor_type" in new_settings or "public_mayor" in new_settings:
-                    is_pub = state["settings"].get("mayor_type") == "public" or state["settings"].get(
-                        "public_mayor", False
-                    )
-                    for p in state.get("players", {}).values():
-                        if p.get("role") == "mayor":
-                            p["is_public_mayor"] = is_pub
+            elif action == "apply_settings_preset":
+                preset_name = content.get("preset")
+                if preset_name:
+                    apply_settings_preset(state, preset_name)
+                    await self.broadcast_sync()
 
-                if "martyrdom_type" in new_settings or "public_martyrdom" in new_settings:
-                    is_pub_martyr = state["settings"].get("martyrdom_type") == "public" or state["settings"].get(
-                        "public_martyrdom", True
-                    )
-                    for p in state.get("players", {}).values():
-                        if p.get("role") == "martyrdom":
-                            p["is_public_martyrdom"] = is_pub_martyr
-
-                if "sniper_danger_bullets" in new_settings or "sniper_silver_bullets" in new_settings:
-                    for p in state.get("players", {}).values():
-                        if p.get("role") == "sniper":
-                            if "sniper_danger_bullets" in new_settings:
-                                p["sniper_danger_bullets"] = int(new_settings["sniper_danger_bullets"])
-                            if "sniper_silver_bullets" in new_settings:
-                                p["sniper_silver_bullets"] = int(new_settings["sniper_silver_bullets"])
-
-                save_game(self.code, state)
+            elif action == "reset_settings_to_default":
+                reset_settings_to_default(state)
                 await self.broadcast_sync()
 
             elif action == "send_dm":

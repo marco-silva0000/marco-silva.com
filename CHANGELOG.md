@@ -4,6 +4,26 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v136] - 2026-11-12
+
+### Added
+- **Comprehensive Tunable Settings & Rules Schema (`lupus/settings_schema.py`)**:
+  - Catalog of 38 granular game parameters grouped into 5 categories:
+    - 🧙 **Roles & Powers**: Witch revive and poison potion inventories (0-3), Witch dual-use toggle, Sniper danger and silver bullet counts (0-5), Doctor consecutive shield cooldown, Doctor sniper save, Bodyguard self-guard & sacrifice rules, Detective investigation modes, Cupid lover bindings, Saboteur charges, Hacker scan quotas, Disgruntled ghost suppression, Wolf cub frenzy kills.
+    - ⏱️ **Timers & Pacing**: Discussion timer (30-1800s), Defense timer (10-300s), Night stage timer (10-180s), Voting countdown timer (10-180s).
+    - 🗳️ **Voting & Trials**: Voting system archetype (`two_stage_50pct`, `two_stage_top_n`, `simple_plurality`), Nomination threshold percentage (10-100%), Mayor variant (`public` vs `hidden`), Mayor pardon veto toggle, Self-voting allowance, Tie runoffs limit (0-5).
+    - ⚰️ **Death, Limbo & Reveals**: Limbo mechanic toggle, Angel guess duration (10-180s), Death role reveal policy (Secret / Alignment / Faction / Full Role Card), Public heartbreak cause announcement, Martyrdom variant (`public` vs `hidden`).
+    - 🗞️ **Gazette & Communications**: Anonymous news submissions toggle, Direct messaging toggle, Gazette posting cooldown (1-5 rounds).
+  - Defined ready-to-use rule presets: `default` (Standard Lupus), `blitz` (Speed / fast pace), `chaos` (High firepower 2x potions & rampage), `competitive` (Strict mystery & closed graveyard).
+  - Validation engine with boundary clamping, choice verification, and bidirectional legacy alias synchronization.
+- **Game Master Settings Cockpit Modal (`#gm-settings-modal`)**:
+  - Accessible via top-bar `⚙️ Settings` button.
+  - Interactive search bar for instant filtering across variable names, keys, and descriptions.
+  - Category pill tabs with dynamic counts (`⭐ All`, `🧙 Roles`, `⏱️ Timers`, `🗳️ Voting`, `⚰️ Death & Limbo`, `🗞️ Gazette`).
+  - Granular responsive controls: toggle switches for booleans, stepper counters `[-] [val] [+]` with boundary clamping, and dropdown selects.
+  - One-click preset loader (`✨ Preset: [...] -> Apply Preset`) and `↺ Reset to Defaults`.
+  - Real-time Redis state synchronization pushing updates across all connected player devices.
+
 ## [v135] - 2026-11-12
 
 ### Added

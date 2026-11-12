@@ -4049,6 +4049,216 @@ class TestLupusV134GazetteLimitationsAndReplay:
         assert state["voting"]["turn_order"]["active"] is False
 
 
+class TestLupusTunableSettingsAndPresetsV136:
+    """Tests for the comprehensive game settings schema, presets, and live tuning engine (v136)."""
+
+    def test_settings_schema_defaults_and_validation(self):
+        from lupus.settings_schema import (
+            LUPUS_SETTINGS_SCHEMA,
+            get_default_settings,
+            validate_and_sanitize_settings,
+        )
+
+        defaults = get_default_settings()
+        assert defaults["witch_revive_potions"] == 1
+        assert defaults["witch_kill_potions"] == 1
+        assert defaults["witch_can_use_both_in_one_night"] is True
+        assert defaults["sniper_danger_bullets"] == 1
+        assert defaults["sniper_silver_bullets"] == 0
+        assert defaults["discussion_timer"] == 300
+        assert defaults["defense_timer"] == 30
+        assert defaults["public_mayor"] is True
+        assert defaults["mayor_type"] == "public"
+
+        # Test boundary clamping
+        updates = {
+            "witch_revive_potions": 99,  # max is 3
+            "witch_kill_potions": -5,   # min is 0
+            "sniper_danger_bullets": 10,  # max is 5
+            "discussion_timer": 5,      # min is 30
+            "mayor_type": "hidden",
+            "reveal_roles_on_death": "3",
+            "invalid_key_should_be_ignored": 123,
+        }
+        sanitized = validate_and_sanitize_settings(defaults, updates)
+        assert sanitized["witch_revive_potions"] == 3
+        assert sanitized["witch_kill_potions"] == 0
+        assert sanitized["sniper_danger_bullets"] == 5
+        assert sanitized["discussion_timer"] == 30
+        assert sanitized["mayor_type"] == "hidden"
+        assert sanitized["public_mayor"] is False
+        assert sanitized["reveal_roles_on_death"] == 3
+        assert "invalid_key_should_be_ignored" not in sanitized
+
+    def test_update_settings_and_player_sync(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            set_manual_player_role,
+            update_settings,
+        )
+
+        state = create_initial_state("SETT1", "Settings Test Room")
+        state, p_mayor = add_player(state, "AliceMayor")
+        state, p_sniper = add_player(state, "BobSniper")
+        set_manual_player_role(state, p_mayor["id"], "mayor")
+        set_manual_player_role(state, p_sniper["id"], "sniper")
+
+        assert state["players"][p_mayor["id"]]["is_public_mayor"] is True
+
+        # Update settings to hidden mayor and extra bullets
+        state = update_settings(
+            state,
+            {
+                "mayor_type": "hidden",
+                "sniper_danger_bullets": 3,
+                "sniper_silver_bullets": 2,
+            },
+        )
+        assert state["settings"]["mayor_type"] == "hidden"
+        assert state["settings"]["public_mayor"] is False
+        assert state["players"][p_mayor["id"]]["is_public_mayor"] is False
+        assert state["players"][p_sniper["id"]]["sniper_danger_bullets"] == 3
+        assert state["players"][p_sniper["id"]]["sniper_silver_bullets"] == 2
+
+        # Verify action recorded in history
+        last_action = state["action_history"][-1]
+        assert last_action["action"] == "update_settings"
+        assert "mayor_type" in last_action["payload"]["updated_keys"]
+
+    def test_settings_presets_application(self):
+        from lupus.game_state import (
+            apply_settings_preset,
+            create_initial_state,
+            reset_settings_to_default,
+        )
+
+        state = create_initial_state("PRE1", "Preset Test Room")
+
+        # Apply chaos preset
+        state = apply_settings_preset(state, "chaos")
+        assert state["settings"]["witch_revive_potions"] == 2
+        assert state["settings"]["witch_kill_potions"] == 2
+        assert state["settings"]["sniper_danger_bullets"] == 2
+        assert state["settings"]["sniper_silver_bullets"] == 2
+
+        # Apply blitz preset
+        state = apply_settings_preset(state, "blitz")
+        assert state["settings"]["discussion_timer"] == 120
+        assert state["settings"]["defense_timer"] == 20
+        assert state["settings"]["reveal_roles_on_death"] == 1
+
+        # Reset back to defaults
+        state = reset_settings_to_default(state)
+        assert state["settings"]["discussion_timer"] == 300
+        assert state["settings"]["defense_timer"] == 30
+        assert state["settings"]["witch_revive_potions"] == 1
+        assert state["settings"]["witch_kill_potions"] == 1
+
+    def test_witch_multiple_potions_and_dual_use_limitation(self):
+        from lupus.game_state import (
+            add_player,
+            create_initial_state,
+            record_gm_night_action,
+            resolve_night,
+            set_manual_player_role,
+            set_player_status,
+            submit_night_action,
+            update_settings,
+        )
+
+        state = create_initial_state("WTCH1", "Witch Test Room")
+        state, p_witch = add_player(state, "WandaWitch")
+        state, p_victim1 = add_player(state, "VictimOne")
+        state, p_victim2 = add_player(state, "VictimTwo")
+        state, p_enemy1 = add_player(state, "EnemyOne")
+        state, p_enemy2 = add_player(state, "EnemyTwo")
+
+        set_manual_player_role(state, p_witch["id"], "witch")
+        set_manual_player_role(state, p_victim1["id"], "villager")
+        set_manual_player_role(state, p_victim2["id"], "villager")
+        set_manual_player_role(state, p_enemy1["id"], "werewolf")
+        set_manual_player_role(state, p_enemy2["id"], "werewolf")
+
+        # Now start night 1
+        state["phase"] = "night"
+        state["round_number"] = 1
+        state["is_night_zero"] = False
+
+        # Configure Witch with 2 revive and 2 kill potions, but NO dual-use in same night, and limbo disabled
+        state = update_settings(
+            state,
+            {
+                "witch_revive_potions": 2,
+                "witch_kill_potions": 2,
+                "witch_can_use_both_in_one_night": False,
+                "limbo_enabled": False,
+            },
+        )
+        assert state["witch_revive_potions_left"] == 2
+        assert state["witch_kill_potions_left"] == 2
+        assert state["witch_used_revive"] is False
+        assert state["witch_used_kill"] is False
+
+        # Attempt to queue both revive and kill when dual use is forbidden
+        ok, err = submit_night_action(
+            state,
+            p_witch["id"],
+            "potion",
+            extra={"revive": True, "kill_target": p_enemy1["id"]},
+        )
+        assert ok is False
+        assert "both" in err.lower()
+
+        # Night 1: Witch uses poison potion on Enemy 1
+        record_gm_night_action(
+            state,
+            "witch",
+            target_id=None,
+            extra={"revive": False, "kill_target": p_enemy1["id"]},
+        )
+        resolve_night(state)
+        assert state["players"][p_enemy1["id"]]["status"] == "dead"
+        assert state["witch_kill_potions_left"] == 1
+        assert state["witch_used_kill"] is False  # Still has 1 kill potion left!
+
+        # Night 2: Advance round to night 2, Witch uses poison potion again on Enemy 2
+        state["phase"] = "night"
+        state["round_number"] = 2
+        state["is_night_zero"] = False
+        record_gm_night_action(
+            state,
+            "witch",
+            target_id=None,
+            extra={"revive": False, "kill_target": p_enemy2["id"]},
+        )
+        resolve_night(state)
+        assert state["players"][p_enemy2["id"]]["status"] == "dead"
+        assert state["witch_kill_potions_left"] == 0
+        assert state["witch_used_kill"] is True  # Now kill potions exhausted!
+
+    def test_gm_view_contains_settings_schema_and_presets(self):
+        from lupus.game_state import create_initial_state, get_gm_view
+
+        state = create_initial_state("VIEW1", "View Test Room")
+        gm_view = get_gm_view(state)
+
+        assert "settings_schema" in gm_view
+        assert len(gm_view["settings_schema"]) == 5  # 5 categories
+        cat_ids = [c["id"] for c in gm_view["settings_schema"]]
+        assert "roles" in cat_ids
+        assert "timers" in cat_ids
+        assert "voting" in cat_ids
+        assert "death_limbo" in cat_ids
+        assert "communication" in cat_ids
+
+        assert "settings_presets" in gm_view
+        assert "default" in gm_view["settings_presets"]
+        assert "chaos" in gm_view["settings_presets"]
+        assert "blitz" in gm_view["settings_presets"]
+        assert "competitive" in gm_view["settings_presets"]
+
+
 
 
 

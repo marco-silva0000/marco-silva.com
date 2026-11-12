@@ -22,6 +22,13 @@ from .roles import (
     get_all_roles_catalogue,
     get_role_info,
 )
+from .settings_schema import (
+    LUPUS_SETTINGS_SCHEMA,
+    SETTINGS_PRESETS,
+    get_default_settings,
+    get_settings_schema_view,
+    validate_and_sanitize_settings,
+)
 from .translations import (
     get_localized_faction,
     get_localized_phase,
@@ -183,38 +190,9 @@ def create_initial_state(
 ) -> dict[str, Any]:
     if not gm_token:
         gm_token = uuid.uuid4().hex
-    default_settings = {
-        "discussion_timer": 300,  # 5 min
-        "defense_timer": 30,  # 30 sec
-        "limbo_enabled": True,  # Limbo mechanic
-        "staggering_doctor": True,  # Cannot save same player 2 nights in a row
-        "doctor_saves_from_sniper": False,  # Doctor save does not stop sniper
-        "sniper_bullet_type": "danger",  # "danger", "silver", "mix"
-        "sniper_danger_bullets": 1,
-        "sniper_silver_bullets": 0,
-        "reveal_roles_on_death": 0,  # 0: None, 1: Alignment, 2: Faction, 3: Full Role
-        "voting_system": "two_stage_50pct",  # "two_stage_50pct", "two_stage_top_n", "simple_plurality"
-        "nomination_threshold_pct": 50,  # 50% of living players needed for nomination
-        "mayor_type": "public",  # "public" (cannot be lynched, 2x vote) or "hidden" (secret, 1x vote)
-        "public_mayor": True,  # Kept in sync with mayor_type
-        "mayor_can_cancel_vote": True,  # Both public and hidden mayors can have or not the power to cancel the vote (pardon veto)
-        "public_heartbreak_cause": False,  # If true, lover heartbreak cause announced; if false, concealed as "found dead"
-        "martyrdom_type": "public",  # "public" (instant town square grenade) or "hidden" (secret night booby trap)
-        "public_martyrdom": True,  # Kept in sync with martyrdom_type
-    }
+    default_settings = get_default_settings()
     if settings:
-        default_settings.update(settings)
-    # Ensure mayor_type and public_mayor remain synchronized
-    if "mayor_type" in default_settings:
-        default_settings["public_mayor"] = (default_settings["mayor_type"] == "public")
-    elif "public_mayor" in default_settings:
-        default_settings["mayor_type"] = "public" if default_settings["public_mayor"] else "hidden"
-
-    # Ensure martyrdom_type and public_martyrdom remain synchronized
-    if "martyrdom_type" in default_settings:
-        default_settings["public_martyrdom"] = (default_settings["martyrdom_type"] == "public")
-    elif "public_martyrdom" in default_settings:
-        default_settings["martyrdom_type"] = "public" if default_settings["public_martyrdom"] else "hidden"
+        default_settings = validate_and_sanitize_settings(default_settings, settings)
 
     state: dict[str, Any] = {
         "code": code.upper(),
@@ -258,8 +236,10 @@ def create_initial_state(
             "elimination_result": None,
             "ballot_locked": False,
         },
-        "witch_used_revive": False,
-        "witch_used_kill": False,
+        "witch_revive_potions_left": default_settings.get("witch_revive_potions", 1),
+        "witch_kill_potions_left": default_settings.get("witch_kill_potions", 1),
+        "witch_used_revive": default_settings.get("witch_revive_potions", 1) <= 0,
+        "witch_used_kill": default_settings.get("witch_kill_potions", 1) <= 0,
         "mayor_used_veto": False,
         "mayor_vetoed_ids": [],
         "last_silenced_id": None,
@@ -905,8 +885,12 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     state["voting"] = _reset_voting_state(state)
     state["defense_player_id"] = None
     state["winner"] = None
-    state["witch_used_revive"] = False
-    state["witch_used_kill"] = False
+    revive_pots = state.get("settings", {}).get("witch_revive_potions", 1)
+    kill_pots = state.get("settings", {}).get("witch_kill_potions", 1)
+    state["witch_revive_potions_left"] = revive_pots
+    state["witch_kill_potions_left"] = kill_pots
+    state["witch_used_revive"] = (revive_pots <= 0)
+    state["witch_used_kill"] = (kill_pots <= 0)
     state["death_angel_used"] = False
     state["mayor_used_veto"] = False
     state["mayor_vetoed_ids"] = []
@@ -2586,8 +2570,10 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
     if is_role_in_game("witch"):
         witches = get_role_actors("witch")
         is_alive = any(w["is_alive"] for w in witches)
-        has_revive = not state.get("witch_used_revive", False)
-        has_kill = not state.get("witch_used_kill", False)
+        revive_left = state.get("witch_revive_potions_left", 0 if state.get("witch_used_revive", False) else 1)
+        kill_left = state.get("witch_kill_potions_left", 0 if state.get("witch_used_kill", False) else 1)
+        has_revive = revive_left > 0
+        has_kill = kill_left > 0
         w_act = actions.get("witch_action", {})
         revive_target = w_act.get("revive_target") or (
             actions.get("wolf_target") if w_act.get("revive") else None
@@ -2608,6 +2594,9 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 ),
                 "has_revive_potion": has_revive,
                 "has_kill_potion": has_kill,
+                "revive_potions_left": revive_left,
+                "kill_potions_left": kill_left,
+                "can_use_both_in_one_night": state.get("settings", {}).get("witch_can_use_both_in_one_night", True),
                 "revive": bool(revive_target),
                 "revive_target": revive_target,
                 "revive_target_name": revive_name,
@@ -3236,10 +3225,14 @@ def submit_night_action(
             return False, "Not a witch."
         revive = bool((extra or {}).get("revive"))
         kill_target = (extra or {}).get("kill_target")
-        if revive and state["witch_used_revive"]:
-            return False, "Revive potion already used."
-        if kill_target and state["witch_used_kill"]:
-            return False, "Death potion already used."
+        revive_left = state.get("witch_revive_potions_left", 0 if state.get("witch_used_revive", False) else 1)
+        kill_left = state.get("witch_kill_potions_left", 0 if state.get("witch_used_kill", False) else 1)
+        if revive and revive_left <= 0:
+            return False, "Revive potion already exhausted."
+        if kill_target and kill_left <= 0:
+            return False, "Death potion already exhausted."
+        if revive and kill_target and not state.get("settings", {}).get("witch_can_use_both_in_one_night", True):
+            return False, "Cannot use both revive and kill potions on the same night."
         actions["witch_action"] = {
             "revive": revive,
             "kill_target": kill_target,
@@ -3654,14 +3647,16 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         revive_pid = witch_act.get("revive_target") or (
             actions.get("wolf_target") if witch_act.get("revive") else None
         )
-        if revive_pid and not state.get("witch_used_revive", False):
+        revive_left = state.get("witch_revive_potions_left", 0 if state.get("witch_used_revive", False) else 1)
+        if revive_pid and revive_left > 0:
             if (
                 revive_pid in state["players"]
                 and state["players"][revive_pid]["status"] == "limbo"
             ):
                 state["players"][revive_pid]["status"] = "alive"
                 state["players"][revive_pid]["used_limbo"] = False
-                state["witch_used_revive"] = True
+                state["witch_revive_potions_left"] = max(0, revive_left - 1)
+                state["witch_used_revive"] = (state["witch_revive_potions_left"] <= 0)
                 p_name = state["players"][revive_pid]["name"]
                 log_event(
                     state,
@@ -3672,7 +3667,8 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                 )
             elif revive_pid in to_kill and revive_pid != witch_actor["id"]:
                 to_kill.remove(revive_pid)
-                state["witch_used_revive"] = True
+                state["witch_revive_potions_left"] = max(0, revive_left - 1)
+                state["witch_used_revive"] = (state["witch_revive_potions_left"] <= 0)
                 p_name = state["players"][revive_pid]["name"]
                 log_event(
                     state,
@@ -3684,10 +3680,12 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
 
         # 2. Poison Potion: Only living players
         kill_pid = witch_act.get("kill_target")
-        if kill_pid and not state.get("witch_used_kill", False):
+        kill_left = state.get("witch_kill_potions_left", 0 if state.get("witch_used_kill", False) else 1)
+        if kill_pid and kill_left > 0:
             if kill_pid in state["players"] and state["players"][kill_pid]["status"] == "alive":
                 to_kill.add(kill_pid)
-                state["witch_used_kill"] = True
+                state["witch_kill_potions_left"] = max(0, kill_left - 1)
+                state["witch_used_kill"] = (state["witch_kill_potions_left"] <= 0)
                 p_name = state["players"][kill_pid]["name"]
                 log_event(state, f"🧙‍♀️ Witch used poison on {p_name}!")
 
@@ -4824,6 +4822,81 @@ def dismiss_pending_gameover(state: dict[str, Any]) -> dict[str, Any]:
     return state
 
 
+def update_settings(state: dict[str, Any], updates: dict[str, Any]) -> dict[str, Any]:
+    """Sanitize and apply settings updates to the game state.
+    Clamps numeric values to schema boundaries, synchronizes live player attributes,
+    and logs the action to action_history.
+    """
+    if "settings" not in state or not isinstance(state["settings"], dict):
+        state["settings"] = get_default_settings()
+
+    sanitized = validate_and_sanitize_settings(state["settings"], updates)
+    state["settings"] = sanitized
+
+    # Synchronize player attributes live based on new settings
+    is_pub_mayor = state["settings"].get("mayor_type") == "public" or state["settings"].get("public_mayor", False)
+    is_pub_martyr = state["settings"].get("martyrdom_type") == "public" or state["settings"].get("public_martyrdom", True)
+
+    danger_bullets = state["settings"].get("sniper_danger_bullets", 1)
+    silver_bullets = state["settings"].get("sniper_silver_bullets", 0)
+
+    for p in state.get("players", {}).values():
+        role = p.get("role")
+        if role == "mayor":
+            p["is_public_mayor"] = is_pub_mayor
+        elif role == "martyrdom":
+            p["is_public_martyrdom"] = is_pub_martyr
+        elif role == "sniper":
+            if "sniper_danger_bullets" in updates:
+                p["sniper_danger_bullets"] = int(danger_bullets)
+            if "sniper_silver_bullets" in updates:
+                p["sniper_silver_bullets"] = int(silver_bullets)
+
+    # Sync witch potion capacity
+    if "witch_revive_potions" in updates or state.get("phase") == "lobby":
+        revive_pots = state["settings"].get("witch_revive_potions", 1)
+        state["witch_revive_potions_left"] = revive_pots
+        state["witch_used_revive"] = (revive_pots <= 0)
+    if "witch_kill_potions" in updates or state.get("phase") == "lobby":
+        kill_pots = state["settings"].get("witch_kill_potions", 1)
+        state["witch_kill_potions_left"] = kill_pots
+        state["witch_used_kill"] = (kill_pots <= 0)
+
+    # Sync timers if during lobby
+    if state.get("phase") == "lobby" and "timer" in state:
+        disc = state["settings"].get("discussion_timer", 300)
+        state["timer"]["duration"] = disc
+        state["timer"]["remaining"] = disc
+
+    record_action(
+        state,
+        "update_settings",
+        {"updated_keys": list(updates.keys()), "settings": state["settings"]},
+    )
+    log_event(state, f"Game settings updated ({len(updates)} parameter(s) modified).")
+    save_game(state["code"], state)
+    return state
+
+
+def apply_settings_preset(state: dict[str, Any], preset_name: str) -> dict[str, Any]:
+    """Apply a named preset to the game settings."""
+    if preset_name not in SETTINGS_PRESETS:
+        return state
+    preset = SETTINGS_PRESETS[preset_name]
+    preset_settings = preset.get("settings", {})
+    state = update_settings(state, preset_settings)
+    log_event(state, f"Applied settings preset: {preset.get('name', preset_name)}")
+    return state
+
+
+def reset_settings_to_default(state: dict[str, Any]) -> dict[str, Any]:
+    """Reset all game settings back to schema defaults."""
+    defaults = get_default_settings()
+    state = update_settings(state, defaults)
+    log_event(state, "Reset all game settings to default values.")
+    return state
+
+
 # --- Sanitized Views for Clients ---
 
 
@@ -5159,6 +5232,11 @@ def get_gm_view(state: dict[str, Any], lang: Optional[str] = "en") -> dict[str, 
         "night_report": state.get("night_report", []),
         "events_log": state.get("events_log", [])[-25:],
         "settings": state.get("settings", {}),
+        "settings_schema": get_settings_schema_view(),
+        "settings_presets": {
+            k: {"name": p["name"], "description": p["description"]}
+            for k, p in SETTINGS_PRESETS.items()
+        },
         "winner": state.get("winner"),
         "pending_gameover": state.get("pending_gameover"),
         "broadcast_message": state.get("broadcast_message"),
