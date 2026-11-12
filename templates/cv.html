@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Marco Silva's CV{% endblock %}
+{% block title %}{% trans "Marco Silva's CV" %}{% endblock %}
 
 {% block extra_css %}
 .cv { max-width: 720px; }
@@ -46,10 +47,10 @@ th { background: #f5f5f5; }
   <div style="display: flex; justify-content: space-between; align-items: baseline;">
     <h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Marco Silva</h1>
     <div class="cv-actions">
-      <a href="/static/cv.pdf" download>↓ Download PDF</a>
+      <a href="/static/cv.pdf" download>{% trans "↓ Download PDF" %}</a>
     </div>
   </div>
-  <p class="meta">Portuguese · Helsinki, Finland</p>
+  <p class="meta">{% trans "Portuguese · Helsinki, Finland" %}</p>
   <p class="meta">
     inbox at marco-silva dot com ·
     <a href="https://marco-silva.com">marco-silva.com</a> ·
@@ -60,22 +61,22 @@ th { background: #f5f5f5; }
   <div class="cv-grid">
     <div class="sidebar">
 
-      <h2>Hobbies</h2>
-      <h3>Outdoors</h3>
+      <h2>{% trans "Hobbies" %}</h2>
+      <h3>{% trans "Outdoors" %}</h3>
       <ul>
-        <li>Photography</li>
-        <li>Kayak, surf, SUP, windsurf</li>
-        <li>Hiking and climbing</li>
+        <li>{% trans "Photography" %}</li>
+        <li>{% trans "Kayak, surf, SUP, windsurf" %}</li>
+        <li>{% trans "Hiking and climbing" %}</li>
       </ul>
-      <h3>Techy</h3>
+      <h3>{% trans "Techy" %}</h3>
       <ul>
-        <li>Electronics/embedded (some rust embedded)</li>
-        <li>Custom split keyboards (colemak + nvim)</li>
-        <li>Ham radio, UK foundation license</li>
-        <li>Home automation and homelab</li>
+        <li>{% trans "Electronics/embedded (some rust embedded)" %}</li>
+        <li>{% trans "Custom split keyboards (colemak + nvim)" %}</li>
+        <li>{% trans "Ham radio, UK foundation license" %}</li>
+        <li>{% trans "Home automation and homelab" %}</li>
       </ul>
 
-      <h2>Skills</h2>
+      <h2>{% trans "Skills" %}</h2>
       <div class="skills">
         <span class="skill">Django</span>
         <span class="skill">DRF</span>
@@ -93,7 +94,7 @@ th { background: #f5f5f5; }
         <span class="skill">Git</span>
       </div>
 
-      <h2>Conferences</h2>
+      <h2>{% trans "Conferences" %}</h2>
       <div class="conf-group">
         <strong>DjangoCon EU</strong>
         <ul>
@@ -117,14 +118,14 @@ th { background: #f5f5f5; }
         </ul>
       </div>
       <div class="conf-group">
-        <strong>Other</strong>
+        <strong>{% trans "Other" %}</strong>
         <ul>
           <li>RootedCon PT 2025</li>
           <li>EuroPython 2025</li>
         </ul>
       </div>
 
-      <h2>CTFs</h2>
+      <h2>{% trans "CTFs" %}</h2>
       <ul>
         <li class="ctf-entry"><a href="https://ctf.hackthebox.com/event/details/global-cyber-skills-benchmark-ctf-2025-operation-blackout-2174">HTB Business CTF 2025</a> <span>#19</span></li>
         <li class="ctf-entry"><a href="https://ctf.hackthebox.com/event/details/cyber-apocalypse-ctf-2025-tales-from-eldoria-2107">Cyber Apocalypse 2025</a> <span>#86</span></li>
@@ -145,7 +146,7 @@ th { background: #f5f5f5; }
     </div>
     <div>
 
-      <h2>Work Experience</h2>
+      <h2>{% trans "Work Experience" %}</h2>
 
       <h3>Senior Cybersecurity Software Developer — Ericsson</h3>
       <p class="meta">08/2025 – Present · Remote · Helsinki, Finland · <a href="https://www.ericsson.com">ericsson.com</a></p>
@@ -182,7 +183,7 @@ th { background: #f5f5f5; }
         <li><strong>Mentorship</strong>: Guided university interns and junior engineers through practical software engineering, code reviews, and Git collaboration.</li>
       </ul>
 
-      <h2>Education</h2>
+      <h2>{% trans "Education" %}</h2>
 
       <h3>Postgraduate Diploma in Cybersecurity — University of the Algarve (Universidade do Algarve)</h3>
       <p class="meta">09/2024 – 06/2025 · Faro, Portugal · EQF Level 7</p>
@@ -204,14 +205,14 @@ th { background: #f5f5f5; }
         <li><strong>Machine Learning & AI</strong>: Neural networks, pattern recognition, regression models, supervised/unsupervised learning.</li>
       </ul>
 
-      <h2>Languages</h2>
+      <h2>{% trans "Languages" %}</h2>
       <table>
         <thead>
-          <tr><th></th><th>Listening</th><th>Reading</th><th>Speaking</th><th>Writing</th></tr>
+          <tr><th></th><th>{% trans "Listening" %}</th><th>{% trans "Reading" %}</th><th>{% trans "Speaking" %}</th><th>{% trans "Writing" %}</th></tr>
         </thead>
         <tbody>
-          <tr><td>English</td><td>C2</td><td>C2</td><td>C2</td><td>C2</td></tr>
-          <tr><td>Spanish</td><td>B1</td><td>B1</td><td>B1</td><td>A2</td></tr>
+          <tr><td>{% trans "English" %}</td><td>C2</td><td>C2</td><td>C2</td><td>C2</td></tr>
+          <tr><td>{% trans "Spanish" %}</td><td>B1</td><td>B1</td><td>B1</td><td>A2</td></tr>
         </tbody>
       </table>
 

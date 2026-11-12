@@ -4,6 +4,24 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v132] - 2026-11-12
+
+### Added
+- **Systematic Internationalization (i18n) Across All Website Templates**:
+  - Implemented `{% load i18n %}`, `{% trans "..." %}`, and `{% blocktrans %}` across all remaining template files in the platform:
+    - Base & Error pages: `templates/index.html`, `templates/404.html`, `templates/500.html`, `templates/wip.html`, `templates/cv.html`, `templates/bot_privacy.html`, `templates/bot_terms.html`.
+    - Photos gallery: `gallery_list.html`, `gallery_detail.html`, `photo_viewer.html`, `upload.html`, `map.html`, and partials.
+    - Tools: `pictionary.html`, `ics_maker.html`, `planz.html`, `planz_full.html`, and `calendar.html`.
+    - Blog: `blog_index_page.html`, `blog_post_page.html`, `post_list.html`, `post_detail.html`, and photo blocks.
+    - Emojinary & Lupus: `templates/emojinary/game.html`, `templates/lupus/player.html`, `templates/lupus/gm_dashboard.html`.
+  - Discovered and indexed 337 unique translatable strings, with core seed translations raising translation coverage to ~78% across 9 languages.
+- **Centralized Translation Management CLI Tool (`scripts/translations_tool.py`)**:
+  - `export-csv`: Generates spreadsheet-ready master CSV (`locale/translations_master.csv`) and per-language CSVs (`locale/translations_<lang>.csv`) compatible with Google Sheets and Excel (UTF-8 BOM).
+  - `import-csv`: Parses translated CSV back from native speakers/Google Sheets, automatically updates GNU gettext `.po` files, and compiles binary `.mo` catalogs.
+  - `status`: Displays real-time translation completion table and coverage metrics.
+  - `extract`: Scans codebase for translatable strings and synchronizes catalogs.
+  - `compile`: Pure-Python `.mo` binary compilation with GNU `msgfmt` verification.
+
 ## [v131] - 2026-11-12
 
 ### Added

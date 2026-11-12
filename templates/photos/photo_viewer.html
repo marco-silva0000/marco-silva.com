@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}{{ photo.title }}{% endblock %}
 
@@ -16,9 +17,9 @@
 {% if photo.caption %}<p style="font-size: 0.85rem; color: #555;">{{ photo.caption }}</p>{% endif %}
 
 <div class="version-switcher">
-  <a href="?version=watermarked" hx-get="{% url 'photos:photo-viewer-partial' photo.slug %}?version=watermarked" hx-target="#photo-container" class="{% if version == 'watermarked' %}active{% endif %}">watermarked</a>
-  <a href="?version=web" hx-get="{% url 'photos:photo-viewer-partial' photo.slug %}?version=web" hx-target="#photo-container" class="{% if version == 'web' %}active{% endif %}">web</a>
-  <a href="?version=original" hx-get="{% url 'photos:photo-viewer-partial' photo.slug %}?version=original" hx-target="#photo-container" class="{% if version == 'original' %}active{% endif %}">original</a>
+  <a href="?version=watermarked" hx-get="{% url 'photos:photo-viewer-partial' photo.slug %}?version=watermarked" hx-target="#photo-container" class="{% if version == 'watermarked' %}active{% endif %}">{% trans "watermarked" %}</a>
+  <a href="?version=web" hx-get="{% url 'photos:photo-viewer-partial' photo.slug %}?version=web" hx-target="#photo-container" class="{% if version == 'web' %}active{% endif %}">{% trans "web" %}</a>
+  <a href="?version=original" hx-get="{% url 'photos:photo-viewer-partial' photo.slug %}?version=original" hx-target="#photo-container" class="{% if version == 'original' %}active{% endif %}">{% trans "original" %}</a>
 </div>
 
 <div id="photo-container">
@@ -28,15 +29,15 @@
 {% if ext %}
 <div class="exif">
   {% if ext.exif_summary %}{{ ext.exif_summary }}{% endif %}
-  {% if ext.has_location %} · <a href="{% url 'photos:map' %}?lat={{ ext.latitude }}&lng={{ ext.longitude }}">view on map</a>{% endif %}
+  {% if ext.has_location %} · <a href="{% url 'photos:map' %}?lat={{ ext.latitude }}&lng={{ ext.longitude }}">{% trans "view on map" %}</a>{% endif %}
 </div>
 {% if ext.is_for_sale %}
 <div style="margin-top: 1rem; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
-  <p style="font-size: 0.85rem; margin-bottom: 0.75rem;">RAW available for purchase{% if ext.price_raw %} — €{{ ext.price_raw }}{% endif %}</p>
+  <p style="font-size: 0.85rem; margin-bottom: 0.75rem;">{% trans "RAW available for purchase" %}{% if ext.price_raw %} — €{{ ext.price_raw }}{% endif %}</p>
   <form hx-post="{% url 'photos:photo-request' photo.slug %}" hx-target="#request-result" hx-swap="innerHTML" style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: end;">
-    <input type="email" name="email" placeholder="your email" required style="padding: 0.35rem; font-size: 0.85rem; flex: 1; min-width: 200px;">
-    <input type="text" name="message" placeholder="message (optional)" style="padding: 0.35rem; font-size: 0.85rem; flex: 1; min-width: 150px;">
-    <button type="submit" style="padding: 0.35rem 0.7rem; font-size: 0.85rem; cursor: pointer;">request</button>
+    <input type="email" name="email" placeholder="{% trans 'your email' %}" required style="padding: 0.35rem; font-size: 0.85rem; flex: 1; min-width: 200px;">
+    <input type="text" name="message" placeholder="{% trans 'message (optional)' %}" style="padding: 0.35rem; font-size: 0.85rem; flex: 1; min-width: 150px;">
+    <button type="submit" style="padding: 0.35rem 0.7rem; font-size: 0.85rem; cursor: pointer;">{% trans "request" %}</button>
   </form>
   <div id="request-result" style="margin-top: 0.5rem;"></div>
 </div>
@@ -45,13 +46,13 @@
 
 <div style="margin-top: 1.5rem; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
   <div>
-    {% if prev_photo %}<a href="{% url 'photos:photo-viewer' prev_photo.slug %}">← prev</a>{% endif %}
+    {% if prev_photo %}<a href="{% url 'photos:photo-viewer' prev_photo.slug %}">{% trans "← prev" %}</a>{% endif %}
   </div>
   <div>
     {% if gallery %}<a href="{% url 'photos:gallery-detail' gallery.slug %}">{{ gallery.title }}</a>{% endif %}
   </div>
   <div>
-    {% if next_photo %}<a href="{% url 'photos:photo-viewer' next_photo.slug %}">next →</a>{% endif %}
+    {% if next_photo %}<a href="{% url 'photos:photo-viewer' next_photo.slug %}">{% trans "next →" %}</a>{% endif %}
   </div>
 </div>
 

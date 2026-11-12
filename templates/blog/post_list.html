@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}blog{% if tag %} — #{{ tag.name }}{% endif %}{% endblock %}
+{% block title %}{% trans "blog" %}{% if tag %} — #{{ tag.name }}{% endif %}{% endblock %}
 
 {% block content %}
 <h1 style="font-size: 1.3rem; margin-bottom: 1.5rem;">
-  {% if tag %}posts tagged #{{ tag.name }}{% else %}blog{% endif %}
+  {% if tag %}{% blocktrans with tag_name=tag.name %}posts tagged #{{ tag_name }}{% endblocktrans %}{% else %}{% trans "blog" %}{% endif %}
 </h1>
 
 {% for post in posts %}
@@ -18,13 +19,13 @@
   {% endfor %}
 </article>
 {% empty %}
-<p>no posts yet.</p>
+<p>{% trans "no posts yet." %}</p>
 {% endfor %}
 
 {% if page_obj.has_other_pages %}
 <nav style="margin-top: 2rem; font-size: 0.9rem;">
-  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">← newer</a>{% endif %}
-  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}" style="margin-left: 1rem;">older →</a>{% endif %}
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">{% trans "← newer" %}</a>{% endif %}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}" style="margin-left: 1rem;">{% trans "older →" %}</a>{% endif %}
 </nav>
 {% endif %}
 {% endblock %}

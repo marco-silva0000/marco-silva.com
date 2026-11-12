@@ -1,1 +1,2 @@
-<p style="color: green;">✓ {{ count }} photo{{ count|pluralize }} uploaded and processing.</p>
+{% load i18n %}
+<p style="color: green;">{% blocktrans count counter=count %}✓ {{ counter }} photo uploaded and processing.{% plural %}✓ {{ counter }} photos uploaded and processing.{% endblocktrans %}</p>

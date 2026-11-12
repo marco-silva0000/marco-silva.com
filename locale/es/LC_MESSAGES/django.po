@@ -5,440 +5,224 @@ msgstr ""
 "Language: es\n"
 "MIME-Version: 1.0\n"
 
-msgid "home"
-msgstr "inicio"
-
-msgid "photos"
-msgstr "fotos"
-
-msgid "blog"
-msgstr "blog"
-
-msgid "games"
-msgstr "juegos"
-
-msgid "cv"
-msgstr "currículum"
-
-msgid "Game Rooms"
-msgstr "Salas de Juegos"
-
-msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr "Juegos de fiesta multijugador en tiempo real en el navegador. No se requieren cuentas: entra y juega con amigos."
-
-msgid "🐺 Lupus Hub & Rooms"
-msgstr "🐺 Centro y Salas de Lupus"
-
-msgid "🐺 create lupus"
-msgstr "🐺 crear lupus"
-
-msgid "+ create room"
-msgstr "+ crear sala"
-
-msgid "✏️ pictionary"
-msgstr "✏️ pictionary"
-
-msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr "Introduce el Código de Sala (ej. 9B3A1C2D)"
-
-msgid "Join"
-msgstr "Entrar"
-
-msgid "Lupus in Tabula / Werewolf"
-msgstr "Lupus in Tabula / Hombre Lobo"
-
-msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr "Juego de fiesta de mesa con roles secretos, votaciones en directo, Gaceta del Pueblo y cabina de director para el GM."
-
-msgid "Browse Active Lupus Rooms"
-msgstr "Explorar Salas Activas de Lupus"
+msgid "+ Create Room"
+msgstr "+ Crear Sala"
 
 msgid "+ Host New Room"
 msgstr "+ Crear Nueva Sala"
 
-msgid "All Active Rooms"
-msgstr "Todas las Salas Activas"
-
-msgid "Password Protected"
-msgstr "Protegido por Contraseña"
-
-msgid "players"
-msgstr "jugadores"
-
-msgid "ago"
-msgstr "hace"
-
-msgid "no active rooms. create one!"
-msgstr "no hay salas activas. ¡crea una!"
-
-msgid "🐺 Lupus"
-msgstr "🐺 Lupus"
-
-msgid "🎨 Emojinary"
-msgstr "🎨 Emojinary"
-
-msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr "Lupus in Tabula - Salas Activas y Centro de Juego"
-
-msgid "+ Create Room"
-msgstr "+ Crear Sala"
-
-msgid "All Games"
-msgstr "Todos los Juegos"
-
-msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr "Juego de fiesta estilo Hombre Lobo y Mafia para mesa. Cero cuentas requeridas. Cada jugador usa su teléfono para roles secretos y votaciones mientras diriges la sala como Game Master."
-
-msgid "Join with Room Code"
-msgstr "Entrar con Código de Sala"
-
-msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr "¿Tienes un código de 8 caracteres de tu Game Master? Introdúcelo aquí para entrar directamente:"
-
-msgid "Join Game"
-msgstr "Entrar a la Partida"
-
-msgid "Active Lupus Rooms"
-msgstr "Salas Activas de Lupus"
-
 msgid "+ New Game"
 msgstr "+ Nueva Partida"
 
-msgid "CODE"
-msgstr "CÓDIGO"
-
-msgid "GM"
-msgstr "GM"
-
-msgid "alive"
-msgstr "vivos"
-
-msgid "Password"
-msgstr "Contraseña"
-
-msgid "Public"
-msgstr "Público"
-
-msgid "Open GM Cockpit"
-msgstr "Abrir Cabina del GM"
-
-msgid "Return as %(name)s"
-msgstr "Volver como %(name)s"
-
-msgid "Enter Room"
-msgstr "Entrar a la Sala"
-
-msgid "No Active Lupus Games Right Now"
-msgstr "No Hay Partidas Activas de Lupus en Este Momento"
-
-msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr "Las salas se crean a petición y permanecen activas durante 24 horas. ¡Inicia una nueva partida e invita a tu grupo!"
-
-msgid "Create the First Lupus Room"
-msgstr "Crear la Primera Sala de Lupus"
-
-msgid "Past & Finished Games"
-msgstr "Partidas Pasadas y Terminadas"
-
-msgid "Replay"
-msgstr "Repetición"
-
-msgid "Cockpit"
-msgstr "Cabina"
-
-msgid "Table-First Lupus Highlights"
-msgstr "Aspectos Destacados de Lupus en Mesa"
-
-msgid "Hold-to-Peek Secret Roles:"
-msgstr "Mantén Presionado para Roles Secretos:"
-
-msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr "El escudo de privacidad oculta las cartas de miradas curiosas en la mesa."
-
-msgid "GM Director Cockpit:"
-msgstr "Cabina de Dirección del GM:"
-
-msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr "Fases nocturnas paso a paso, llamadas de farol y gestor de votaciones."
-
-msgid "Town Gazette:"
-msgstr "Gaceta del Pueblo:"
-
-msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr "Los jugadores vivos y caídos envían rumores matutinos que se leen en voz alta al amanecer."
-
-msgid "Midgame Arrivals:"
-msgstr "Llegadas a Mitad de Partida:"
-
-msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr "Los recién llegados se unen como Viajeros Confirmados, Fantasmas o Sucesores."
-
-msgid "Create Lupus / Werewolf Room"
-msgstr "Crear Sala de Lupus / Hombre Lobo"
-
-msgid "Back to Active Lupus Rooms"
-msgstr "Volver a las Salas Activas de Lupus"
-
-msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr "Juego de fiesta híbrido para mesa. Sin cuentas ni registros. Los jugadores se unen mediante código QR y diriges como Game Master."
-
-msgid "Room Setup"
-msgstr "Configuración de la Sala"
-
-msgid "Room Title"
-msgstr "Título de la Sala"
-
-msgid "Game Master Display Name"
-msgstr "Nombre Visible del Game Master"
-
-msgid "Room Password (optional)"
-msgstr "Contraseña de la Sala (opcional)"
-
-msgid "Leave empty for public join"
-msgstr "Dejar vacío para acceso público"
-
-msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr "Si se establece, unirse mediante código QR autentica a los jugadores automáticamente. (💡 Truco demo: nombre GM con Marco y contraseña test añade 10 jugadores de prueba)."
-
-msgid "Theme & Terms"
-msgstr "Tema y Términos"
-
-msgid "Werewolf / Lupus"
-msgstr "Hombre Lobo / Lupus"
-
-msgid "Villagers, Wolves, Seer"
-msgstr "Aldeanos, Lobos, Vidente"
-
-msgid "Mafia"
-msgstr "Mafia"
-
-msgid "Civilians, Mobsters, Cop"
-msgstr "Civiles, Mafiosos, Policía"
-
-msgid "Game Rules & Timers"
-msgstr "Reglas de Juego y Temporizadores"
-
-msgid "Discussion Round Timer"
-msgstr "Temporizador de Discusión"
-
-msgid "5 Minutes (Standard)"
-msgstr "5 Minutos (Estándar)"
-
-msgid "3 Minutes (Fast)"
-msgstr "3 Minutos (Rápido)"
-
-msgid "7 Minutes (Deliberate)"
-msgstr "7 Minutos (Tranquilo)"
-
-msgid "10 Minutes"
-msgstr "10 Minutos"
-
-msgid "Defense Timer"
-msgstr "Temporizador de Defensa"
-
-msgid "30 Seconds (Standard)"
-msgstr "30 Segundos (Estándar)"
-
-msgid "45 Seconds"
-msgstr "45 Segundos"
-
-msgid "60 Seconds"
-msgstr "60 Segundos"
-
-msgid "Limbo & Angel Mechanic:"
-msgstr "Mecánica del Limbo y el Ángel:"
-
-msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr "Los jugadores abatidos entran al Limbo una vez en lugar de morir de inmediato. Si adivinan quién es el Ángel, ¡resucitan!"
-
-msgid "Staggering Doctor:"
-msgstr "Médico Alternado:"
-
-msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr "El Médico / Guardaespaldas no puede proteger a la misma persona dos noches consecutivas."
-
-msgid "Doctor Shields From Sniper:"
-msgstr "El Médico Protege del Francotirador:"
-
-msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr "Si se activa, la protección del Médico puede salvar a un objetivo del disparo del Francotirador. (Desactivado = el tiro penetra la guardia)."
-
-msgid "Reveal Roles on Death:"
-msgstr "Revelar Roles al Morir:"
+msgid "+ create room"
+msgstr "+ crear sala"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
 msgstr "0 — Secreto (Cementerio cerrado, roles ocultos hasta el fin del juego)"
 
+msgid "1 day"
+msgstr "1 día"
+
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
 msgstr "1 — Solo Alineación (Anuncia \"BIEN\" vs \"MAL\")"
+
+msgid "1. Acceptance of Terms"
+msgstr ""
+
+msgid "1. Overview"
+msgstr ""
+
+msgid "10 Minutes"
+msgstr "10 Minutos"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Facción / Equipo (Anuncia \"Pueblo\", \"Hombres Lobo\", \"Neutral\")"
 
+msgid "2. Information We Access"
+msgstr ""
+
+msgid "2. Permitted Use"
+msgstr ""
+
+msgid "3 Minutes (Fast)"
+msgstr "3 Minutos (Rápido)"
+
+msgid "3 day"
+msgstr "3 días"
+
 msgid "3 — Full Role Card (Announces exact card name and icon)"
 msgstr "3 — Carta Completa (Anuncia el nombre exacto del rol e icono)"
 
-msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr "💡 En partidas con Limbo, la revelación ocurre solo tras la muerte definitiva, nunca en el Limbo."
+msgid "3. Data Storage & Security"
+msgstr ""
 
-msgid "Starting Role Deck Preset"
-msgstr "Mazo Inicial Predeterminado"
+msgid "3. Disclaimer of Warranties"
+msgstr ""
 
-msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr "🧑 Simple / Clásico (Sin poderes especiales — Lobos vs Aldeanos puros)"
+msgid "30 Seconds (Standard)"
+msgstr "30 Segundos (Estándar)"
 
-msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr "🔍 Estándar (Lobos + Detective/Vidente + Médico/Guarda + Aldeanos)"
+msgid "4. Limitation of Liability"
+msgstr ""
 
-msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr "👼 Limbo y Ángel (Lobos + Detective + Médico + Ángel + Francotirador + Aldeanos)"
+msgid "4. Third-Party Sharing"
+msgstr ""
 
-msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr "⚡ Caos y Especiales (Lobo Alfa, Silenciador, Detective, Médico, Francotirador, Alcalde, Bruja...)"
+msgid "404 — page not found"
+msgstr "404 — página no encontrada"
 
-msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr "💡 El mazo se adapta automáticamente al número de jugadores que se unen. Puedes ajustar cada rol y el equilibrio bien/mal en el vestíbulo antes de comenzar."
+msgid "45 Seconds"
+msgstr "45 Segundos"
 
-msgid "Launch Lupus Room"
-msgstr "Lanzar Sala de Lupus"
+msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
+msgstr ""
 
-msgid "Lupus Party Game"
-msgstr "Juego de Fiesta Lupus"
+msgid "5 Minutes (Standard)"
+msgstr "5 Minutos (Estándar)"
 
-msgid "Join Lupus Game"
-msgstr "Entrar a la Partida de Lupus"
+msgid "5. Changes & Termination"
+msgstr ""
 
-msgid "Lupus Game"
-msgstr "Partida Lupus"
+msgid "5. Revoking Access & Data Deletion"
+msgstr ""
 
-msgid "Room Code:"
-msgstr "Código de la Sala:"
+msgid "500 — something went wrong"
+msgstr "500 — algo salió mal"
 
-msgid "Room Password"
-msgstr "Contraseña de la Sala"
+msgid "6. Contact"
+msgstr ""
 
-msgid "Unlock Room"
-msgstr "Desbloquear Sala"
+msgid "60 Seconds"
+msgstr "60 Segundos"
 
-msgid "Your Name / Nickname"
-msgstr "Tu Nombre / Apodo"
-
-msgid "e.g. Marco"
-msgstr "ej. Marco"
-
-msgid "Pick the name others at the table know you by."
-msgstr "Elige el nombre por el que te conocen en la mesa."
-
-msgid "Enter Game"
-msgstr "Entrar al Juego"
-
-msgid "Lupus Active Rooms & Hub"
-msgstr "Salas Activas y Centro de Lupus"
-
-msgid "create room"
-msgstr "crear sala"
-
-msgid "title"
-msgstr "título"
-
-msgid "password (optional)"
-msgstr "contraseña (opcional)"
-
-msgid "what is %(a)s + %(b)s?"
-msgstr "¿cuánto es %(a)s + %(b)s?"
-
-msgid "create"
-msgstr "crear"
-
-msgid "join"
-msgstr "entrar"
-
-msgid "your name"
-msgstr "tu nombre"
-
-msgid "room password"
-msgstr "contraseña de la sala"
+msgid "7 Minutes (Deliberate)"
+msgstr "7 Minutos (Tranquilo)"
 
 msgid "Access Denied"
 msgstr "Acceso Denegado"
 
-msgid "You need an authorized key to access this page."
-msgstr "Necesitas una clave autorizada para acceder a esta página."
-
-msgid "Join as Player"
-msgstr "Entrar como Jugador"
-
-msgid "Lobby"
-msgstr "Espera"
-
-msgid "Lobby (Waiting for Players)"
-msgstr "Lobby (Esperando jugadores)"
-
-msgid "Open"
-msgstr "Abierta"
-
-msgid "Open (Lobby)"
-msgstr "Abierta (Lobby)"
-
-msgid "Running"
-msgstr "En Curso"
-
-msgid "Finished"
-msgstr "Terminado"
-
 msgid "Active"
 msgstr "Activo"
+
+msgid "Active Lupus Rooms"
+msgstr "Salas Activas de Lupus"
+
+msgid "All Active Rooms"
+msgstr "Todas las Salas Activas"
+
+msgid "All Games"
+msgstr "Todos los Juegos"
+
+msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
+msgstr ""
+
+msgid "Back to Active Lupus Rooms"
+msgstr "Volver a las Salas Activas de Lupus"
+
+msgid "Browse Active Lupus Rooms"
+msgstr "Explorar Salas Activas de Lupus"
+
+msgid "CC BY-NC-SA license"
+msgstr ""
+
+msgid "CODE"
+msgstr "CÓDIGO"
+
+msgid "CTFs"
+msgstr ""
+
+msgid "Calendar navigation"
+msgstr "Navegación del calendario"
+
+msgid "Civilians, Mobsters, Cop"
+msgstr "Civiles, Mafiosos, Policía"
+
+msgid "Cockpit"
+msgstr "Cabina"
+
+msgid "Conferences"
+msgstr "Conferencias"
+
+msgid "Create Lupus / Werewolf Room"
+msgstr "Crear Sala de Lupus / Hombre Lobo"
+
+msgid "Create the First Lupus Room"
+msgstr "Crear la Primera Sala de Lupus"
+
+msgid "Curated"
+msgstr ""
+
+msgid "Custom split keyboards (colemak + nvim)"
+msgstr ""
+
+msgid "Date of the trip/shoot."
+msgstr ""
 
 msgid "Day"
 msgstr "Día"
 
-msgid "Night"
-msgstr "Noche"
+msgid "Day Trip"
+msgstr ""
 
-msgid "Voting"
-msgstr "Votación"
+msgid "Defense Timer"
+msgstr "Temporizador de Defensa"
 
 msgid "Discussion"
 msgstr "Discusión"
 
-msgid "Town Voting"
-msgstr "Votación del Pueblo"
+msgid "Discussion Round Timer"
+msgstr "Temporizador de Discusión"
 
-msgid "Silent Phase"
-msgstr "Fase Silenciosa"
+msgid "Doctor Shields From Sniper:"
+msgstr "El Médico Protege del Francotirador:"
 
-msgid "Limbo"
-msgstr "Limbo"
+msgid "Done"
+msgstr ""
 
-msgid "Limbo Resolution"
-msgstr "Resolución del Limbo"
+msgid "Education"
+msgstr "Educación"
+
+msgid "Electronics/embedded (some rust embedded)"
+msgstr ""
+
+msgid "English"
+msgstr "Inglés"
+
+msgid "Enter Game"
+msgstr "Entrar al Juego"
+
+msgid "Enter Room"
+msgstr "Entrar a la Sala"
+
+msgid "Enter Room Code (e.g. 9B3A1C2D)"
+msgstr "Introduce el Código de Sala (ej. 9B3A1C2D)"
+
+msgid "Failed"
+msgstr ""
+
+msgid "Finished"
+msgstr "Terminado"
+
+msgid "GM"
+msgstr "GM"
+
+msgid "GM Cockpit"
+msgstr ""
+
+msgid "GM Director Cockpit:"
+msgstr "Cabina de Dirección del GM:"
+
+msgid "Game Master Display Name"
+msgstr "Nombre Visible del Game Master"
 
 msgid "Game Over"
 msgstr "Fin de la Partida"
 
-msgid "In Progress"
-msgstr "En Progreso"
+msgid "Game Rooms"
+msgstr "Salas de Juegos"
 
-msgid "Please enter a valid room code."
-msgstr "Por favor introduce un código de sala válido."
-
-msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr "El código de sala '%(code)s' no se encontró o ya no está activo."
-
-msgid "Incorrect room password."
-msgstr "Contraseña de sala incorrecta."
-
-msgid "Please enter a player name."
-msgstr "Por favor introduce un nombre de jogador."
-
-msgid "title is required"
-msgstr "el título es obligatorio"
-
-msgid "wrong captcha"
-msgstr "captcha incorrecto"
-
-msgid "wrong password"
-msgstr "contraseña incorrecta"
+msgid "Game Rules & Timers"
+msgstr "Reglas de Juego y Temporizadores"
 
 msgid "Game not found."
 msgstr "Partida no encontrada."
@@ -446,5 +230,797 @@ msgstr "Partida no encontrada."
 msgid "Game room does not exist."
 msgstr "La sala de juego no existe."
 
+msgid "Ham radio, UK foundation license"
+msgstr ""
+
+msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+msgstr "¿Tienes un código de 8 caracteres de tu Game Master? Introdúcelo aquí para entrar directamente:"
+
+msgid "Hiking and climbing"
+msgstr ""
+
+msgid "Hobbies"
+msgstr "Aficiones"
+
+msgid "Hold-to-Peek Secret Roles:"
+msgstr "Mantén Presionado para Roles Secretos:"
+
+msgid "Home automation and homelab"
+msgstr ""
+
+msgid "Horizontal focal point: 0=left, 50=center, 100=right."
+msgstr ""
+
+msgid "I code, take pics and many other things"
+msgstr "Programo, saco fotos y muchas otras cosas"
+
+msgid "ISO"
+msgstr ""
+
+msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
+msgstr "Si se activa, la protección del Médico puede salvar a un objetivo del disparo del Francotirador. (Desactivado = el tiro penetra la guardia)."
+
+msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
+msgstr "Si se establece, unirse mediante código QR autentica a los jugadores automáticamente. (💡 Truco demo: nombre GM con Marco y contraseña test añade 10 jugadores de prueba)."
+
+msgid "In Progress"
+msgstr "En Progreso"
+
+msgid "Incorrect room password."
+msgstr "Contraseña de sala incorrecta."
+
+msgid "Instagram 4:5 Preview"
+msgstr ""
+
+msgid "Instagram 4:5 image"
+msgstr ""
+
 msgid "Invalid Game Master secret key."
 msgstr "Clave secreta del Game Master no válida."
+
+msgid "Join"
+msgstr "Entrar"
+
+msgid "Join Game"
+msgstr "Entrar a la Partida"
+
+msgid "Join Lupus Game"
+msgstr "Entrar a la Partida de Lupus"
+
+msgid "Join as Player"
+msgstr "Entrar como Jugador"
+
+msgid "Join with Room Code"
+msgstr "Entrar con Código de Sala"
+
+msgid "Kayak, surf, SUP, windsurf"
+msgstr ""
+
+msgid "Languages"
+msgstr "Idiomas"
+
+msgid "Last updated: October 27, 2026"
+msgstr ""
+
+msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
+msgstr "Los recién llegados se unen como Viajeros Confirmados, Fantasmas o Sucesores."
+
+msgid "Launch Lupus Room"
+msgstr "Lanzar Sala de Lupus"
+
+msgid "Leave empty for public join"
+msgstr "Dejar vacío para acceso público"
+
+msgid "Limbo"
+msgstr "Limbo"
+
+msgid "Limbo & Angel Mechanic:"
+msgstr "Mecánica del Limbo y el Ángel:"
+
+msgid "Limbo Resolution"
+msgstr "Resolución del Limbo"
+
+msgid "Listening"
+msgstr "Comprensión auditiva"
+
+msgid "Living & fallen players submit morning rumors read aloud at dawn."
+msgstr "Los jugadores vivos y caídos envían rumores matutinos que se leen en voz alta al amanecer."
+
+msgid "Lobby"
+msgstr "Espera"
+
+msgid "Lobby (Waiting for Players)"
+msgstr "Lobby (Esperando jugadores)"
+
+msgid "Lupus Active Rooms & Hub"
+msgstr "Salas Activas y Centro de Lupus"
+
+msgid "Lupus Game"
+msgstr "Partida Lupus"
+
+msgid "Lupus Party Game"
+msgstr "Juego de Fiesta Lupus"
+
+msgid "Lupus in Tabula - Active Rooms & Game Hub"
+msgstr "Lupus in Tabula - Salas Activas y Centro de Juego"
+
+msgid "Lupus in Tabula / Werewolf"
+msgstr "Lupus in Tabula / Hombre Lobo"
+
+msgid "Mafia"
+msgstr "Mafia"
+
+msgid "Marco Silva's CV"
+msgstr "Currículum de Marco Silva"
+
+msgid "Midgame Arrivals:"
+msgstr "Llegadas a Mitad de Partida:"
+
+msgid "Next day"
+msgstr "Día siguiente"
+
+msgid "Night"
+msgstr "Noche"
+
+msgid "No Active Lupus Games Right Now"
+msgstr "No Hay Partidas Activas de Lupus en Este Momento"
+
+msgid "No Instagram crop generated yet."
+msgstr ""
+
+msgid "Open"
+msgstr "Abierta"
+
+msgid "Open (Lobby)"
+msgstr "Abierta (Lobby)"
+
+msgid "Open GM Cockpit"
+msgstr "Abrir Cabina del GM"
+
+msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
+msgstr ""
+
+msgid "Other"
+msgstr "Otros"
+
+msgid "Outdoors"
+msgstr "Al aire libre"
+
+msgid "Page Not Found — Marco Silva"
+msgstr ""
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Password Protected"
+msgstr "Protegido por Contraseña"
+
+msgid "Past & Finished Games"
+msgstr "Partidas Pasadas y Terminadas"
+
+msgid "Pending"
+msgstr ""
+
+msgid "Photography"
+msgstr "Fotografía"
+
+msgid "Pick the name others at the table know you by."
+msgstr "Elige el nombre por el que te conocen en la mesa."
+
+msgid "Please enter a player name."
+msgstr "Por favor introduce un nombre de jogador."
+
+msgid "Please enter a valid room code."
+msgstr "Por favor introduce un código de sala válido."
+
+msgid "Portuguese · Helsinki, Finland"
+msgstr "Portugués · Helsinki, Finlandia"
+
+msgid "Previous day"
+msgstr "Día anterior"
+
+msgid "Price for the RAW file download."
+msgstr ""
+
+msgid "Privacy Policy"
+msgstr "Política de Privacidad"
+
+msgid "Privacy Policy - Homelab Telegram Bot"
+msgstr ""
+
+msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
+msgstr ""
+
+msgid "Privacy shield keeps cards concealed from prying eyes at the table."
+msgstr "El escudo de privacidad oculta las cartas de miradas curiosas en la mesa."
+
+msgid "Processing"
+msgstr ""
+
+msgid "Public"
+msgstr "Público"
+
+msgid "RAW available for purchase"
+msgstr "RAW disponible para compra"
+
+msgid "RAW file"
+msgstr ""
+
+msgid "RAW price"
+msgstr ""
+
+msgid "Reading"
+msgstr "Lectura"
+
+msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
+msgstr "Juegos de fiesta multijugador en tiempo real en el navegador. No se requieren cuentas: entra y juega con amigos."
+
+msgid "Regenerate 4:5 Instagram crops for selected photos"
+msgstr ""
+
+msgid "Replay"
+msgstr "Repetición"
+
+msgid "Return as %(name)s"
+msgstr "Volver como %(name)s"
+
+msgid "Reveal Roles on Death:"
+msgstr "Revelar Roles al Morir:"
+
+msgid "Room Code:"
+msgstr "Código de la Sala:"
+
+msgid "Room Password"
+msgstr "Contraseña de la Sala"
+
+msgid "Room Password (optional)"
+msgstr "Contraseña de la Sala (opcional)"
+
+msgid "Room Setup"
+msgstr "Configuración de la Sala"
+
+msgid "Room Title"
+msgstr "Título de la Sala"
+
+msgid "Room code '%(code)s' was not found or is no longer active."
+msgstr "El código de sala '%(code)s' no se encontró o ya no está activo."
+
+msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
+msgstr "Las salas se crean a petición y permanecen activas durante 24 horas. ¡Inicia una nueva partida e invita a tu grupo!"
+
+msgid "Running"
+msgstr "En Curso"
+
+msgid "Send Instagram carousel pack to Telegram"
+msgstr ""
+
+msgid "Server Error — Marco Silva"
+msgstr ""
+
+msgid "Silent Phase"
+msgstr "Fase Silenciosa"
+
+msgid "Skills"
+msgstr "Habilidades"
+
+msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+msgstr "Los jugadores abatidos entran al Limbo una vez en lugar de morir de inmediato. Si adivinan quién es el Ángel, ¡resucitan!"
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "Speaking"
+msgstr "Expresión oral"
+
+msgid "Staggering Doctor:"
+msgstr "Médico Alternado:"
+
+msgid "Starting Role Deck Preset"
+msgstr "Mazo Inicial Predeterminado"
+
+msgid "Step-by-step night stages, bluffing calls, and voting manager."
+msgstr "Fases nocturnas paso a paso, llamadas de farol y gestor de votaciones."
+
+msgid "Table-First Lupus Highlights"
+msgstr "Aspectos Destacados de Lupus en Mesa"
+
+msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
+msgstr "Juego de fiesta estilo Hombre Lobo y Mafia para mesa. Cero cuentas requeridas. Cada jugador usa su teléfono para roles secretos y votaciones mientras diriges la sala como Game Master."
+
+msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
+msgstr "Juego de fiesta híbrido para mesa. Sin cuentas ni registros. Los jugadores se unen mediante código QR y diriges como Game Master."
+
+msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
+msgstr "Juego de fiesta de mesa con roles secretos, votaciones en directo, Gaceta del Pueblo y cabina de director para el GM."
+
+msgid "Techy"
+msgstr "Tecnología"
+
+msgid "Terms of Service"
+msgstr "Términos de Servicio"
+
+msgid "Terms of Service - Homelab Telegram Bot"
+msgstr ""
+
+msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
+msgstr ""
+
+msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
+msgstr "El Médico / Guardaespaldas no puede proteger a la misma persona dos noches consecutivas."
+
+msgid "The page you're looking for doesn't exist."
+msgstr "La página que buscas no existe."
+
+msgid "Theme & Terms"
+msgstr "Tema y Términos"
+
+msgid "Town Gazette:"
+msgstr "Gaceta del Pueblo:"
+
+msgid "Town Voting"
+msgstr "Votación del Pueblo"
+
+msgid "Unlock Room"
+msgstr "Desbloquear Sala"
+
+msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
+msgstr ""
+
+msgid "Villagers, Wolves, Seer"
+msgstr "Aldeanos, Lobos, Vidente"
+
+msgid "Voting"
+msgstr "Votación"
+
+msgid "We're working on it. Please try again later."
+msgstr "Estamos trabajando en ello. Por favor, inténtelo de nuevo más tarde."
+
+msgid "Werewolf / Lupus"
+msgstr "Hombre Lobo / Lupus"
+
+msgid "Whether focus coordinates were automatically calculated via edge saliency."
+msgstr ""
+
+msgid "Work Experience"
+msgstr "Experiencia Laboral"
+
+msgid "Writing"
+msgstr "Escritura"
+
+msgid "You need an authorized key to access this page."
+msgstr "Necesitas una clave autorizada para acceder a esta página."
+
+msgid "Your Name / Nickname"
+msgstr "Tu Nombre / Apodo"
+
+msgid "adjective"
+msgstr "adjetivo"
+
+msgid "ago"
+msgstr "hace"
+
+msgid "alive"
+msgstr "vivos"
+
+msgid "all"
+msgstr ""
+
+msgid "all day"
+msgstr "todo el día"
+
+msgid "any"
+msgstr "cualquiera"
+
+msgid "aperture"
+msgstr ""
+
+msgid "auto focus detected"
+msgstr ""
+
+msgid "available for sale"
+msgstr ""
+
+msgid "best guess"
+msgstr "mejor conjetura"
+
+msgid "blog"
+msgstr "blog"
+
+msgid "camera make"
+msgstr ""
+
+msgid "camera model"
+msgstr ""
+
+msgid "chat"
+msgstr "chat"
+
+msgid "chat..."
+msgstr "escribe un mensaje..."
+
+msgid "chat:"
+msgstr "chat:"
+
+msgid "clear"
+msgstr "borrar"
+
+msgid "create"
+msgstr "crear"
+
+msgid "create room"
+msgstr "crear sala"
+
+msgid "crop focus X (%)"
+msgstr ""
+
+msgid "crop focus Y (%)"
+msgstr ""
+
+msgid "cv"
+msgstr "currículum"
+
+msgid "date"
+msgstr ""
+
+msgid "description"
+msgstr "descripción"
+
+msgid "difficulty"
+msgstr "dificultad"
+
+msgid "difficulty:"
+msgstr "dificultad:"
+
+msgid "download .ics"
+msgstr "descargar .ics"
+
+msgid "e.g. 9B3A1C2D"
+msgstr ""
+
+msgid "e.g. Marco"
+msgstr "ej. Marco"
+
+msgid "easy"
+msgstr "fácil"
+
+msgid "emoji time:"
+msgstr "tiempo de emoji:"
+
+msgid "end"
+msgstr "fin"
+
+msgid "enter password to view the calendar."
+msgstr "introduce la contraseña para ver el calendario."
+
+msgid "extract event"
+msgstr "extraer evento"
+
+msgid "focal length"
+msgstr ""
+
+msgid "gallery"
+msgstr "galería"
+
+msgid "gallery extension"
+msgstr ""
+
+msgid "gallery extensions"
+msgstr ""
+
+msgid "gallery not found."
+msgstr "galería no encontrada."
+
+msgid "games"
+msgstr "juegos"
+
+msgid "go"
+msgstr "ir"
+
+msgid "guess"
+msgstr "adivinar"
+
+msgid "guess time:"
+msgstr "tiempo de conjetura:"
+
+msgid "hard"
+msgstr "difícil"
+
+msgid "home"
+msgstr "inicio"
+
+msgid "ics maker"
+msgstr "creador ics"
+
+msgid "join"
+msgstr "entrar"
+
+msgid "latest posts"
+msgstr "últimas publicaciones"
+
+msgid "latitude"
+msgstr ""
+
+msgid "lens"
+msgstr ""
+
+msgid "location"
+msgstr "ubicación"
+
+msgid "location name"
+msgstr ""
+
+msgid "longitude"
+msgstr ""
+
+msgid "map view"
+msgstr "ver mapa"
+
+msgid "medium"
+msgstr "medio"
+
+msgid "message (optional)"
+msgstr "mensaje (opcional)"
+
+msgid "mode"
+msgstr "modo"
+
+msgid "mode:"
+msgstr "modo:"
+
+msgid "new word"
+msgstr "nueva palabra"
+
+msgid "next →"
+msgstr "siguiente →"
+
+msgid "no active rooms. create one!"
+msgstr "no hay salas activas. ¡crea una!"
+
+msgid "no galleries yet."
+msgstr "aún no hay galerías."
+
+msgid "no posts yet."
+msgstr "aún no hay publicaciones."
+
+msgid "noun"
+msgstr "sustantivo"
+
+msgid "older →"
+msgstr "más antiguas →"
+
+msgid "original"
+msgstr "original"
+
+msgid "password"
+msgstr "contraseña"
+
+msgid "password (optional)"
+msgstr "contraseña (opcional)"
+
+msgid "paste event details here..."
+msgstr "pega aquí los detalles del evento..."
+
+msgid "paste text or a url with event details, and get an .ics file."
+msgstr "pega texto o una url con los detalles del evento y obtén un archivo .ics."
+
+msgid "photo"
+msgstr ""
+
+msgid "photo extension"
+msgstr ""
+
+msgid "photo extensions"
+msgstr ""
+
+msgid "photo map"
+msgstr "mapa de fotos"
+
+msgid "photo not found."
+msgstr "foto no encontrada."
+
+msgid "photos"
+msgstr "fotos"
+
+msgid "photos (select multiple)"
+msgstr "fotos (seleccionar varias)"
+
+msgid "pick your options, hit the button, draw!"
+msgstr "¡elige tus opciones, pulsa el botón y dibuja!"
+
+msgid "pictionary"
+msgstr "pictionary"
+
+msgid "planz"
+msgstr "planz"
+
+msgid "play again"
+msgstr "jugar de nuevo"
+
+msgid "players"
+msgstr "jugadores"
+
+msgid "press the button to get a word"
+msgstr "presiona el botón para obtener una palabra"
+
+msgid "private"
+msgstr "privado"
+
+msgid "processing status"
+msgstr ""
+
+msgid "public"
+msgstr "público"
+
+msgid "request"
+msgstr "solicitar"
+
+msgid "reveal"
+msgstr "revelar"
+
+msgid "room password"
+msgstr "contraseña de la sala"
+
+msgid "round robin"
+msgstr "todos contra todos"
+
+msgid "rounds:"
+msgstr "rondas:"
+
+msgid "search emoji..."
+msgstr "buscar emoji..."
+
+msgid "send"
+msgstr "enviar"
+
+msgid "sentence"
+msgstr "frase"
+
+msgid "settings"
+msgstr "ajustes"
+
+msgid "shutter speed"
+msgstr ""
+
+msgid "skip"
+msgstr "saltar"
+
+msgid "start"
+msgstr "inicio"
+
+msgid "start game"
+msgstr "iniciar juego"
+
+msgid "text"
+msgstr "texto"
+
+msgid "title"
+msgstr "título"
+
+msgid "title is required"
+msgstr "el título es obligatorio"
+
+msgid "today"
+msgstr "hoy"
+
+msgid "type"
+msgstr "tipo"
+
+msgid "type your guess..."
+msgstr "escribe tu respuesta..."
+
+msgid "upload"
+msgstr "subir"
+
+msgid "upload photos"
+msgstr "subir fotos"
+
+msgid "url"
+msgstr "url"
+
+msgid "verb"
+msgstr "verbo"
+
+msgid "view full resolution ↗"
+msgstr "ver resolución máxima ↗"
+
+msgid "view on map"
+msgstr "ver en el mapa"
+
+msgid "waiting for clue..."
+msgstr "esperando pista..."
+
+msgid "waiting for players..."
+msgstr "esperando jugadores..."
+
+msgid "watermarked"
+msgstr "marca de agua"
+
+msgid "watermarked image"
+msgstr ""
+
+msgid "web"
+msgstr "web"
+
+msgid "web-optimized image"
+msgstr ""
+
+msgid "week"
+msgstr "semana"
+
+msgid "what is %(a)s + %(b)s?"
+msgstr "¿cuánto es %(a)s + %(b)s?"
+
+msgid "word"
+msgstr "palabra"
+
+msgid "work in progress — check back soon."
+msgstr "trabajo en progreso — vuelva pronto."
+
+msgid "wrong captcha"
+msgstr "captcha incorrecto"
+
+msgid "wrong password"
+msgstr "contraseña incorrecta"
+
+msgid "your email"
+msgstr "tu correo"
+
+msgid "your name"
+msgstr "tu nombre"
+
+msgid "— none —"
+msgstr "— ninguna —"
+
+msgid "← all galleries"
+msgstr "← todas las galerías"
+
+msgid "← all posts"
+msgstr "← todas las publicaciones"
+
+msgid "← back home"
+msgstr "← volver al inicio"
+
+msgid "← galleries"
+msgstr "← galerías"
+
+msgid "← newer"
+msgstr "← más recientes"
+
+msgid "← prev"
+msgstr "← anterior"
+
+msgid "↓ Download PDF"
+msgstr "↓ Descargar PDF"
+
+msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
+msgstr "⚡ Caos y Especiales (Lobo Alfa, Silenciador, Detective, Médico, Francotirador, Alcalde, Bruja...)"
+
+msgid "✏️ pictionary"
+msgstr "✏️ pictionary"
+
+msgid "🎨 Emojinary"
+msgstr "🎨 Emojinary"
+
+msgid "🐺 Lupus"
+msgstr "🐺 Lupus"
+
+msgid "🐺 Lupus Hub & Rooms"
+msgstr "🐺 Centro y Salas de Lupus"
+
+msgid "🐺 create lupus"
+msgstr "🐺 crear lupus"
+
+msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+msgstr "👼 Limbo y Ángel (Lobos + Detective + Médico + Ángel + Francotirador + Aldeanos)"
+
+msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
+msgstr "💡 En partidas con Limbo, la revelación ocurre solo tras la muerte definitiva, nunca en el Limbo."
+
+msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
+msgstr "💡 El mazo se adapta automáticamente al número de jugadores que se unen. Puedes ajustar cada rol y el equilibrio bien/mal en el vestíbulo antes de comenzar."
+
+msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
+msgstr "🔍 Estándar (Lobos + Detective/Vidente + Médico/Guarda + Aldeanos)"
+
+msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+msgstr "🧑 Simple / Clásico (Sin poderes especiales — Lobos vs Aldeanos puros)"

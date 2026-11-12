@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Page Not Found — Marco Silva{% endblock %}
+{% block title %}{% trans "Page Not Found — Marco Silva" %}{% endblock %}
 
 {% block content %}
 <div style="text-align: center; margin-top: 4rem;">
-  <h1 style="font-size: 1.5rem; font-weight: 600;">404 — page not found</h1>
-  <p style="color: #555; margin-top: 1rem;">The page you're looking for doesn't exist.</p>
-  <a href="/" style="display: inline-block; margin-top: 1.5rem;">← back home</a>
+  <h1 style="font-size: 1.5rem; font-weight: 600;">{% trans "404 — page not found" %}</h1>
+  <p style="color: #555; margin-top: 1rem;">{% trans "The page you're looking for doesn't exist." %}</p>
+  <a href="/" style="display: inline-block; margin-top: 1.5rem;">{% trans "← back home" %}</a>
 </div>
 {% endblock %}

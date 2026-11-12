@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}planz{% endblock %}
+{% block title %}{% trans "planz" %}{% endblock %}
 
 {% block extra_css %}
 {% include "tools/partials/planz_styles.html" %}
 {% endblock %}
 
 {% block content %}
-<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">planz</h1>
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">{% trans "planz" %}</h1>
 <div id="calendar">
   {% include "tools/partials/calendar.html" %}
 </div>

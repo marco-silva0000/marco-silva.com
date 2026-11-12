@@ -5,440 +5,224 @@ msgstr ""
 "Language: kn\n"
 "MIME-Version: 1.0\n"
 
-msgid "home"
-msgstr "ಮುಖಪುಟ"
-
-msgid "photos"
-msgstr "ಫೋಟೋಗಳು"
-
-msgid "blog"
-msgstr "ಬ್ಲಾಗ್"
-
-msgid "games"
-msgstr "ಆಟಗಳು"
-
-msgid "cv"
-msgstr "ಸಿವಿ"
-
-msgid "Game Rooms"
-msgstr "ಆಟದ ಕೊಠಡಿಗಳು"
-
-msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr "ನೈಜ-ಸಮಯದ ಮಲ್ಟಿಪ್ಲೇಯರ್ ಬ್ರೌಸರ್ ಪಾರ್ಟಿ ಆಟಗಳು. ಯಾವುದೇ ಖಾತೆಯ ಅಗತ್ಯವಿಲ್ಲ — ಕೇವಲ ಸೇರಿ ಮತ್ತು ಸ್ನೇಹಿತರೊಂದಿಗೆ ಆಟವಾಡಿ."
-
-msgid "🐺 Lupus Hub & Rooms"
-msgstr "🐺 ಲೂಪಸ್ ಹಬ್ ಮತ್ತು ಕೊಠಡಿಗಳು"
-
-msgid "🐺 create lupus"
-msgstr "🐺 ಲೂಪಸ್ ರಚಿಸಿ"
-
-msgid "+ create room"
+msgid "+ Create Room"
 msgstr "+ ಕೊಠಡಿ ರಚಿಸಿ"
-
-msgid "✏️ pictionary"
-msgstr "✏️ ಪಿಕ್ಶನರಿ"
-
-msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr "ಕೊಠಡಿ ಕೋಡ್ ನಮೂದಿಸಿ (ಉದಾ. 9B3A1C2D)"
-
-msgid "Join"
-msgstr "ಸೇರಿ"
-
-msgid "Lupus in Tabula / Werewolf"
-msgstr "ಲೂಪಸ್ ಇನ್ ತಬುಲಾ / ತೋಳಮಾನವ"
-
-msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr "ರಹಸ್ಯ ಪಾತ್ರಗಳು, ನೇರ ಮತದಾನ, ಟೌನ್ ಗೆಜೆಟ್ ಮತ್ತು ಜಿಎಂ ನಿರ್ದೇಶಕರ ಕಾಕ್‌ಪಿಟ್ ಹೊಂದಿರುವ ಟೇಬಲ್-ಆಧಾರಿತ ಪಾರ್ಟಿ ಆಟ."
-
-msgid "Browse Active Lupus Rooms"
-msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ"
 
 msgid "+ Host New Room"
 msgstr "+ ಹೊಸ ಕೊಠಡಿ ರಚಿಸಿ"
 
-msgid "All Active Rooms"
-msgstr "ಎಲ್ಲಾ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು"
-
-msgid "Password Protected"
-msgstr "ಪಾಸ್‌ವರ್ಡ್‌ನಿಂದ ಸಂರಕ್ಷಿಸಲಾಗಿದೆ"
-
-msgid "players"
-msgstr "ಆಟಗಾರರು"
-
-msgid "ago"
-msgstr "ಹಿಂದೆ"
-
-msgid "no active rooms. create one!"
-msgstr "ಯಾವುದೇ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳಿಲ್ಲ. ಒಂದನ್ನು ರಚಿಸಿ!"
-
-msgid "🐺 Lupus"
-msgstr "🐺 ಲೂಪಸ್"
-
-msgid "🎨 Emojinary"
-msgstr "🎨 ಇಮೋಜಿ‌ನರಿ"
-
-msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr "ಲೂಪಸ್ ಇನ್ ತಬುಲಾ - ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು ಮತ್ತು ಆಟದ ಹಬ್"
-
-msgid "+ Create Room"
-msgstr "+ ಕೊಠಡಿ ರಚಿಸಿ"
-
-msgid "All Games"
-msgstr "ಎಲ್ಲಾ ಆಟಗಳು"
-
-msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr "ಟೇಬಲ್-ಆಧಾರಿತ ತೋಳಮಾನವ ಮತ್ತು ಮಾಫಿಯಾ ಪಾರ್ಟಿ ಆಟ. ಯಾವುದೇ ಲಾಗಿನ್ ಅಗತ್ಯವಿಲ್ಲ. ಪ್ರತಿಯೊಬ್ಬ ಆಟಗಾರನು ರಹಸ್ಯ ಪಾತ್ರಗಳು ಮತ್ತು ಮತದಾನಕ್ಕಾಗಿ ತಮ್ಮ ಫೋನ್ ಬಳಸುತ್ತಾರೆ ಮತ್ತು ನೀವು ಗೇಮ್ ಮಾಸ್ಟರ್ ಆಗಿ ನಡೆಸುತ್ತೀರಿ."
-
-msgid "Join with Room Code"
-msgstr "ಕೊಠಡಿ ಕೋಡ್‌ನೊಂದಿಗೆ ಸೇರಿ"
-
-msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr "ನಿಮ್ಮ ಗೇಮ್ ಮಾಸ್ಟರ್‌ನಿಂದ 8-ಅಕ್ಷರಗಳ ಕೋಡ್ ಹೊಂದಿದ್ದೀರಾ? ನೇರವಾಗಿ ಪ್ರವೇಶಿಸಲು ಇಲ್ಲಿ ನಮೂದಿಸಿ:"
-
-msgid "Join Game"
-msgstr "ಆಟಕ್ಕೆ ಸೇರಿ"
-
-msgid "Active Lupus Rooms"
-msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳು"
-
 msgid "+ New Game"
 msgstr "+ ಹೊಸ ಆಟ"
 
-msgid "CODE"
-msgstr "ಕೋಡ್"
-
-msgid "GM"
-msgstr "ಜಿಎಂ"
-
-msgid "alive"
-msgstr "ಜೀವಂತ"
-
-msgid "Password"
-msgstr "ಪಾಸ್‌ವರ್ಡ್"
-
-msgid "Public"
-msgstr "ಸಾರ್ವಜನಿಕ"
-
-msgid "Open GM Cockpit"
-msgstr "ಜಿಎಂ ಕಾಕ್‌ಪಿಟ್ ತೆರೆಯಿರಿ"
-
-msgid "Return as %(name)s"
-msgstr "%(name)s ಆಗಿ ಹಿಂತಿರುಗಿ"
-
-msgid "Enter Room"
-msgstr "ಕೊಠಡಿಗೆ ಪ್ರವೇಶಿಸಿ"
-
-msgid "No Active Lupus Games Right Now"
-msgstr "ಪ್ರಸ್ತುತ ಯಾವುದೇ ಸಕ್ರಿಯ ಲೂಪಸ್ ಆಟಗಳಿಲ್ಲ"
-
-msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr "ಕೊಠಡಿಗಳನ್ನು ಅಗತ್ಯವಿದ್ದಾಗ ರಚಿಸಲಾಗುತ್ತದೆ ಮತ್ತು 24 ಗಂಟೆಗಳ ಕಾಲ ಸಕ್ರಿಯವಾಗಿರುತ್ತವೆ. ಹೊಸ ಆಟದ ಸೆಷನ್ ಪ್ರಾರಂಭಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಗುಂಪನ್ನು ಆಹ್ವಾನಿಸಿ!"
-
-msgid "Create the First Lupus Room"
-msgstr "ಮೊದಲ ಲೂಪಸ್ ಕೊಠಡಿ ರಚಿಸಿ"
-
-msgid "Past & Finished Games"
-msgstr "ಹಿಂದಿನ ಮತ್ತು ಪೂರ್ಣಗೊಂಡ ಆಟಗಳು"
-
-msgid "Replay"
-msgstr "ಮರುಪಂದ್ಯ"
-
-msgid "Cockpit"
-msgstr "ಕಾಕ್‌ಪಿಟ್"
-
-msgid "Table-First Lupus Highlights"
-msgstr "ಟೇಬಲ್-ಆಧಾರಿತ ಲೂಪಸ್ ಮುಖ್ಯಾಂಶಗಳು"
-
-msgid "Hold-to-Peek Secret Roles:"
-msgstr "ರಹಸ್ಯ ಪಾತ್ರಗಳನ್ನು ನೋಡಲು ಒತ್ತಿಹಿಡಿಯಿರಿ:"
-
-msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr "ಗೌಪ್ಯತೆ ರಕ್ಷಕವು ಮೇಜಿನ ಮೇಲಿರುವ ಇತರರ ಕಣ್ಣುಗಳಿಂದ ಕಾರ್ಡ್‌ಗಳನ್ನು ರಹಸ್ಯವಾಗಿರಿಸುತ್ತದೆ."
-
-msgid "GM Director Cockpit:"
-msgstr "ಜಿಎಂ ನಿರ್ದೇಶಕರ ಕಾಕ್‌ಪಿಟ್:"
-
-msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr "ಹಂತ-ಹಂತದ ರಾತ್ರಿ ಹಂತಗಳು, ಬ್ಲಫ್ ಕರೆಗಳು ಮತ್ತು ಮತದಾನ ವ್ಯವಸ್ಥಾಪಕ."
-
-msgid "Town Gazette:"
-msgstr "ಟೌನ್ ಗೆಜೆಟ್:"
-
-msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr "ಜೀವಂತ ಮತ್ತು ಮೃತ ಆಟಗಾರರು ಮುಂಜಾನೆ ಗಟ್ಟಿಯಾಗಿ ಓದಲಾಗುವ ವದಂತಿಗಳನ್ನು ಕಳುಹಿಸುತ್ತಾರೆ."
-
-msgid "Midgame Arrivals:"
-msgstr "ಆಟದ ಮಧ್ಯೆ ಬರುವವರು:"
-
-msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr "ತಡವಾಗಿ ಬಂದವರು ದೃಢೀಕೃತ ಪ್ರಯಾಣಿಕರು, ಪ್ರೇತಗಳು ಅಥವಾ ಉತ್ತರಾಧಿಕಾರಿಗಳಾಗಿ ಸೇರುತ್ತಾರೆ."
-
-msgid "Create Lupus / Werewolf Room"
-msgstr "ಲೂಪಸ್ / ತೋಳಮಾನವ ಕೊಠಡಿ ರಚಿಸಿ"
-
-msgid "Back to Active Lupus Rooms"
-msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳಿಗೆ ಹಿಂತಿರುಗಿ"
-
-msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr "ಟೇಬಲ್-ಆಧಾರಿತ ಹೈಬ್ರಿಡ್ ಪಾರ್ಟಿ ಆಟ. ಯಾವುದೇ ಖಾತೆ ಅಥವಾ ಲಾಗಿನ್ ಅಗತ್ಯವಿಲ್ಲ. ಆಟಗಾರರು QR ಕೋಡ್ ಮೂಲಕ ಸೇರುತ್ತಾರೆ ಮತ್ತು ನೀವು ಗೇಮ್ ಮಾಸ್ಟರ್ ಆಗಿ ನಡೆಸುತ್ತೀರಿ."
-
-msgid "Room Setup"
-msgstr "ಕೊಠಡಿ ಸೆಟಪ್"
-
-msgid "Room Title"
-msgstr "ಕೊಠಡಿಯ ಶೀರ್ಷಿಕೆ"
-
-msgid "Game Master Display Name"
-msgstr "ಗೇಮ್ ಮಾಸ್ಟರ್ ಪ್ರದರ್ಶನ ಹೆಸರು"
-
-msgid "Room Password (optional)"
-msgstr "ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್ (ಐಚ್ಛಿಕ)"
-
-msgid "Leave empty for public join"
-msgstr "ಸಾರ್ವಜನಿಕ ಪ್ರವೇಶಕ್ಕಾಗಿ ಖಾಲಿ ಬಿಡಿ"
-
-msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr "ಸೆಟ್ ಮಾಡಿದ್ದರೆ, QR ಕೋಡ್ ಮೂಲಕ ಸೇರಿದಾಗ ಆಟಗಾರರು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ದೃಢೀಕರಿಸಲ್ಪಡುತ್ತಾರೆ. (💡 ಡೆಮೊ ಟ್ರಿಕ್: Marco ಹೊಂದಿರುವ ಜಿಎಂ ಹೆಸರು ಮತ್ತು test ಪಾಸ್‌ವರ್ಡ್ 10 ಟೆಸ್ಟ್ ಆಟಗಾರರನ್ನು ಸೇರಿಸುತ್ತದೆ)."
-
-msgid "Theme & Terms"
-msgstr "ಥೀಮ್ ಮತ್ತು ನಿಯಮಗಳು"
-
-msgid "Werewolf / Lupus"
-msgstr "ತೋಳಮಾನವ / ಲೂಪಸ್"
-
-msgid "Villagers, Wolves, Seer"
-msgstr "ಗ್ರಾಮಸ್ಥರು, ತೋಳಗಳು, ದ್ರಷ್ಟಾರ"
-
-msgid "Mafia"
-msgstr "ಮಾಫಿಯಾ"
-
-msgid "Civilians, Mobsters, Cop"
-msgstr "ನಾಗರಿಕರು, ದರೋಡೆಕೋರರು, ಪೊಲೀಸ್"
-
-msgid "Game Rules & Timers"
-msgstr "ಆಟದ ನಿಯಮಗಳು ಮತ್ತು ಟೈಮರ್‌ಗಳು"
-
-msgid "Discussion Round Timer"
-msgstr "ಚರ್ಚಾ ಸುತ್ತಿನ ಟೈಮರ್"
-
-msgid "5 Minutes (Standard)"
-msgstr "5 ನಿಮಿಷಗಳು (ಪ್ರಮಾಣಿತ)"
-
-msgid "3 Minutes (Fast)"
-msgstr "3 ನಿಮಿಷಗಳು (ವೇಗವಾಗಿ)"
-
-msgid "7 Minutes (Deliberate)"
-msgstr "7 ನಿಮಿಷಗಳು (ವಿವರವಾಗಿ)"
-
-msgid "10 Minutes"
-msgstr "10 ನಿಮಿಷಗಳು"
-
-msgid "Defense Timer"
-msgstr "ರಕ್ಷಣಾ ಟೈಮರ್"
-
-msgid "30 Seconds (Standard)"
-msgstr "30 ಸೆಕೆಂಡುಗಳು (ಪ್ರಮಾಣಿತ)"
-
-msgid "45 Seconds"
-msgstr "45 ಸೆಕೆಂಡುಗಳು"
-
-msgid "60 Seconds"
-msgstr "60 ಸೆಕೆಂಡುಗಳು"
-
-msgid "Limbo & Angel Mechanic:"
-msgstr "ಲಿಂಬೋ ಮತ್ತು ದೇವದೂತ ತಂತ್ರ:"
-
-msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr "ಕೊಲ್ಲಲ್ಪಟ್ಟ ಆಟಗಾರರು ನೇರವಾಗಿ ಸಾಯುವ ಬದಲು ಒಮ್ಮೆ ಲಿಂಬೋಗೆ ಪ್ರವೇಶಿಸುತ್ತಾರೆ. ಅವರು ದೇವದೂತ ಯಾರೆಂದು ಊಹಿಸಿದರೆ ಪುನರುತ್ಥಾನಗೊಳ್ಳುತ್ತಾರೆ!"
-
-msgid "Staggering Doctor:"
-msgstr "ಬದಲಾಗುವ ವೈದ್ಯ:"
-
-msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr "ವೈದ್ಯ / ಅಂಗರಕ್ಷಕ ಸತತ ಎರಡು ರಾತ್ರಿಗಳಲ್ಲಿ ಒಬ್ಬನೇ ವ್ಯಕ್ತಿಯನ್ನು ರಕ್ಷಿಸುವಂತಿಲ್ಲ."
-
-msgid "Doctor Shields From Sniper:"
-msgstr "ವೈದ್ಯ ಸ್ನೈಪರ್‌ನಿಂದ ರಕ್ಷಿಸುತ್ತಾನೆ:"
-
-msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr "ಸಕ್ರಿಯಗೊಳಿಸಿದರೆ, ವೈದ್ಯರ ರಕ್ಷಣೆಯು ಸ್ನೈಪರ್ ಗುಂಡಿನಿಂದ ಗುರಿಯನ್ನು ಉಳಿಸಬಹುದು. (ನಿಷ್ಕ್ರಿಯ = ಸ್ನೈಪರ್ ರಕ್ಷಣೆಯನ್ನು ಭೇದಿಸುತ್ತಾನೆ)."
-
-msgid "Reveal Roles on Death:"
-msgstr "ಮರಣದ ಸಮಯದಲ್ಲಿ ಪಾತ್ರಗಳನ್ನು ಬಹಿರಂಗಪಡಿಸಿ:"
+msgid "+ create room"
+msgstr "+ ಕೊಠಡಿ ರಚಿಸಿ"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
 msgstr "0 — ರಹಸ್ಯ (ಮುಚ್ಚಿದ ಸ್ಮಶಾನ, ಆಟ ಮುಗಿಯುವವರೆಗೆ ಪಾತ್ರಗಳು ಗೌಪ್ಯ)"
 
+msgid "1 day"
+msgstr "1 ದಿನ"
+
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
 msgstr "1 — ನಿಷ್ಠೆ ಮಾತ್ರ (\"ಒಳ್ಳೆಯದು\" ವಿರುದ್ಧ \"ಕೆಟ್ಟದ್ದು\" ಪ್ರಕಟಿಸುತ್ತದೆ)"
+
+msgid "1. Acceptance of Terms"
+msgstr ""
+
+msgid "1. Overview"
+msgstr ""
+
+msgid "10 Minutes"
+msgstr "10 ನಿಮಿಷಗಳು"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — ಬಣ / ತಂಡ (\"ನಗರ\", \"ತೋಳಗಳು\", \"ತಟಸ್ಥ\" ಪ್ರಕಟಿಸುತ್ತದೆ)"
 
+msgid "2. Information We Access"
+msgstr ""
+
+msgid "2. Permitted Use"
+msgstr ""
+
+msgid "3 Minutes (Fast)"
+msgstr "3 ನಿಮಿಷಗಳು (ವೇಗವಾಗಿ)"
+
+msgid "3 day"
+msgstr "3 ದಿನಗಳು"
+
 msgid "3 — Full Role Card (Announces exact card name and icon)"
 msgstr "3 — ಸಂಪೂರ್ಣ ಪಾತ್ರ ಕಾರ್ಡ್ (ನಿಖರವಾದ ಕಾರ್ಡ್ ಹೆಸರು ಮತ್ತು ಐಕಾನ್ ಪ್ರಕಟಿಸುತ್ತದೆ)"
 
-msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr "💡 ಲಿಂಬೋ ಆಟಗಳಲ್ಲಿ, ಪಾತ್ರದ ಬಹಿರಂಗಪಡಿಸುವಿಕೆ ಕೇವಲ ಶಾಶ್ವತ ಮರಣದ ನಂತರವೇ ಆಗುತ್ತದೆ, ಲಿಂಬೋದಲ್ಲಿರುವಾಗಲ್ಲ."
+msgid "3. Data Storage & Security"
+msgstr ""
 
-msgid "Starting Role Deck Preset"
-msgstr "ಆರಂಭಿಕ ರೋಲ್ ಡೆಕ್ ಪ್ರಿಸೆಟ್"
+msgid "3. Disclaimer of Warranties"
+msgstr ""
 
-msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr "🧑 ಸರಳ / ಕ್ಲಾಸಿಕ್ (ಯಾವುದೇ ವಿಶೇಷ ಶಕ್ತಿಗಳಿಲ್ಲ — ಕೇವಲ ತೋಳಗಳು ವಿರುದ್ಧ ಗ್ರಾಮಸ್ಥರು)"
+msgid "30 Seconds (Standard)"
+msgstr "30 ಸೆಕೆಂಡುಗಳು (ಪ್ರಮಾಣಿತ)"
 
-msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr "🔍 ಪ್ರಮಾಣಿತ (ತೋಳಗಳು + ಪತ್ತೇದಾರಿ/ದ್ರಷ್ಟಾರ + ವೈದ್ಯ/ಅಂಗರಕ್ಷಕ + ಗ್ರಾಮಸ್ಥರು)"
+msgid "4. Limitation of Liability"
+msgstr ""
 
-msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr "👼 ಲಿಂಬೋ ಮತ್ತು ದೇವದೂತ (ತೋಳಗಳು + ಪತ್ತೇದಾರಿ + ವೈದ್ಯ + ದೇವದೂತ + ಸ್ನೈಪರ್ + ಗ್ರಾಮಸ್ಥರು)"
+msgid "4. Third-Party Sharing"
+msgstr ""
 
-msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr "⚡ ಅವ್ಯವಸ್ಥೆ ಮತ್ತು ವಿಶೇಷತೆಗಳು (ಆಲ್ಫಾ ತೋಳ, ಸೈಲೆನ್ಸರ್, ಪತ್ತೇದಾರಿ, ವೈದ್ಯ, ಸ್ನೈಪರ್, ಮೇಯರ್, ಮಾಟಗಾತಿ...)"
+msgid "404 — page not found"
+msgstr "404 — ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ"
 
-msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr "💡 ಸೇರಿದ ಆಟಗಾರರ ಸಂಖ್ಯೆಗೆ ಡೆಕ್ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಹೊಂದಿಕೊಳ್ಳುತ್ತದೆ. ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು ಲಾಬಿಯಲ್ಲಿ ಪ್ರತಿ ಪಾತ್ರವನ್ನು ಮತ್ತು ಸಮತೋಲನವನ್ನು ಸರಿಹೊಂದಿಸಬಹುದು."
+msgid "45 Seconds"
+msgstr "45 ಸೆಕೆಂಡುಗಳು"
 
-msgid "Launch Lupus Room"
-msgstr "ಲೂಪಸ್ ಕೊಠಡಿಯನ್ನು ಪ್ರಾರಂಭಿಸಿ"
+msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
+msgstr ""
 
-msgid "Lupus Party Game"
-msgstr "ಲೂಪಸ್ ಪಾರ್ಟಿ ಆಟ"
+msgid "5 Minutes (Standard)"
+msgstr "5 ನಿಮಿಷಗಳು (ಪ್ರಮಾಣಿತ)"
 
-msgid "Join Lupus Game"
-msgstr "ಲೂಪಸ್ ಆಟಕ್ಕೆ ಸೇರಿ"
+msgid "5. Changes & Termination"
+msgstr ""
 
-msgid "Lupus Game"
-msgstr "ಲೂಪಸ್ ಆಟ"
+msgid "5. Revoking Access & Data Deletion"
+msgstr ""
 
-msgid "Room Code:"
-msgstr "ಕೊಠಡಿ ಕೋಡ್:"
+msgid "500 — something went wrong"
+msgstr "500 — ಏನೋ ತಪ್ಪಾಗಿದೆ"
 
-msgid "Room Password"
-msgstr "ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್"
+msgid "6. Contact"
+msgstr ""
 
-msgid "Unlock Room"
-msgstr "ಕೊಠಡಿಯನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿ"
+msgid "60 Seconds"
+msgstr "60 ಸೆಕೆಂಡುಗಳು"
 
-msgid "Your Name / Nickname"
-msgstr "ನಿಮ್ಮ ಹೆಸರು / ಅಡ್ಡಹೆಸರು"
-
-msgid "e.g. Marco"
-msgstr "ಉದಾ. ಮಾರ್ಕೊ"
-
-msgid "Pick the name others at the table know you by."
-msgstr "ಮೇಜಿನ ಮೇಲಿರುವ ಇತರರು ನಿಮ್ಮನ್ನು ಗುರುತಿಸುವ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ."
-
-msgid "Enter Game"
-msgstr "ಆಟಕ್ಕೆ ಪ್ರವೇಶಿಸಿ"
-
-msgid "Lupus Active Rooms & Hub"
-msgstr "ಲೂಪಸ್ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು ಮತ್ತು ಹಬ್"
-
-msgid "create room"
-msgstr "ಕೊಠಡಿ ರಚಿಸಿ"
-
-msgid "title"
-msgstr "ಶೀರ್ಷಿಕೆ"
-
-msgid "password (optional)"
-msgstr "ಪಾಸ್‌ವರ್ಡ್ (ಐಚ್ಛಿಕ)"
-
-msgid "what is %(a)s + %(b)s?"
-msgstr "%(a)s + %(b)s ಎಷ್ಟು?"
-
-msgid "create"
-msgstr "ರಚಿಸಿ"
-
-msgid "join"
-msgstr "ಸೇರಿ"
-
-msgid "your name"
-msgstr "ನಿಮ್ಮ ಹೆಸರು"
-
-msgid "room password"
-msgstr "ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್"
+msgid "7 Minutes (Deliberate)"
+msgstr "7 ನಿಮಿಷಗಳು (ವಿವರವಾಗಿ)"
 
 msgid "Access Denied"
 msgstr "ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಗಿದೆ"
 
-msgid "You need an authorized key to access this page."
-msgstr "ಈ ಪುಟವನ್ನು ಪ್ರವೇಶಿಸಲು ನಿಮಗೆ ಅಧಿಕೃತ ಕೀ ಅಗತ್ಯವಿದೆ."
-
-msgid "Join as Player"
-msgstr "ಆಟಗಾರನಾಗಿ ಸೇರಿ"
-
-msgid "Lobby"
-msgstr "ಲಾಬಿ"
-
-msgid "Lobby (Waiting for Players)"
-msgstr "ಲಾಬಿ (ಆಟಗಾರರಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ)"
-
-msgid "Open"
-msgstr "ತೆರೆದಿದೆ"
-
-msgid "Open (Lobby)"
-msgstr "ತೆರೆದಿದೆ (ಲಾಬಿ)"
-
-msgid "Running"
-msgstr "ನಡೆಯುತ್ತಿದೆ"
-
-msgid "Finished"
-msgstr "ಮುಕ್ತಾಯವಾಗಿದೆ"
-
 msgid "Active"
 msgstr "ಸಕ್ರಿಯ"
+
+msgid "Active Lupus Rooms"
+msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳು"
+
+msgid "All Active Rooms"
+msgstr "ಎಲ್ಲಾ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು"
+
+msgid "All Games"
+msgstr "ಎಲ್ಲಾ ಆಟಗಳು"
+
+msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
+msgstr ""
+
+msgid "Back to Active Lupus Rooms"
+msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳಿಗೆ ಹಿಂತಿರುಗಿ"
+
+msgid "Browse Active Lupus Rooms"
+msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ"
+
+msgid "CC BY-NC-SA license"
+msgstr ""
+
+msgid "CODE"
+msgstr "ಕೋಡ್"
+
+msgid "CTFs"
+msgstr ""
+
+msgid "Calendar navigation"
+msgstr "ಕ್ಯಾಲೆಂಡರ್ ನ್ಯಾವಿಗೇಷನ್"
+
+msgid "Civilians, Mobsters, Cop"
+msgstr "ನಾಗರಿಕರು, ದರೋಡೆಕೋರರು, ಪೊಲೀಸ್"
+
+msgid "Cockpit"
+msgstr "ಕಾಕ್‌ಪಿಟ್"
+
+msgid "Conferences"
+msgstr "ಸಮ್ಮೇಳನಗಳು"
+
+msgid "Create Lupus / Werewolf Room"
+msgstr "ಲೂಪಸ್ / ತೋಳಮಾನವ ಕೊಠಡಿ ರಚಿಸಿ"
+
+msgid "Create the First Lupus Room"
+msgstr "ಮೊದಲ ಲೂಪಸ್ ಕೊಠಡಿ ರಚಿಸಿ"
+
+msgid "Curated"
+msgstr ""
+
+msgid "Custom split keyboards (colemak + nvim)"
+msgstr ""
+
+msgid "Date of the trip/shoot."
+msgstr ""
 
 msgid "Day"
 msgstr "ದಿನ"
 
-msgid "Night"
-msgstr "ರಾತ್ರಿ"
+msgid "Day Trip"
+msgstr ""
 
-msgid "Voting"
-msgstr "ಮತದಾನ"
+msgid "Defense Timer"
+msgstr "ರಕ್ಷಣಾ ಟೈಮರ್"
 
 msgid "Discussion"
 msgstr "ಚರ್ಚೆ"
 
-msgid "Town Voting"
-msgstr "ಪಟ್ಟಣ ಮತದಾನ"
+msgid "Discussion Round Timer"
+msgstr "ಚರ್ಚಾ ಸುತ್ತಿನ ಟೈಮರ್"
 
-msgid "Silent Phase"
-msgstr "ಶಾಂತ ಹಂತ"
+msgid "Doctor Shields From Sniper:"
+msgstr "ವೈದ್ಯ ಸ್ನೈಪರ್‌ನಿಂದ ರಕ್ಷಿಸುತ್ತಾನೆ:"
 
-msgid "Limbo"
-msgstr "ಲಿಂಬೋ"
+msgid "Done"
+msgstr ""
 
-msgid "Limbo Resolution"
-msgstr "ಲಿಂಬೋ ಪರಿಹಾರ"
+msgid "Education"
+msgstr "ಶಿಕ್ಷಣ"
+
+msgid "Electronics/embedded (some rust embedded)"
+msgstr ""
+
+msgid "English"
+msgstr "ಇಂಗ್ಲಿಷ್"
+
+msgid "Enter Game"
+msgstr "ಆಟಕ್ಕೆ ಪ್ರವೇಶಿಸಿ"
+
+msgid "Enter Room"
+msgstr "ಕೊಠಡಿಗೆ ಪ್ರವೇಶಿಸಿ"
+
+msgid "Enter Room Code (e.g. 9B3A1C2D)"
+msgstr "ಕೊಠಡಿ ಕೋಡ್ ನಮೂದಿಸಿ (ಉದಾ. 9B3A1C2D)"
+
+msgid "Failed"
+msgstr ""
+
+msgid "Finished"
+msgstr "ಮುಕ್ತಾಯವಾಗಿದೆ"
+
+msgid "GM"
+msgstr "ಜಿಎಂ"
+
+msgid "GM Cockpit"
+msgstr ""
+
+msgid "GM Director Cockpit:"
+msgstr "ಜಿಎಂ ನಿರ್ದೇಶಕರ ಕಾಕ್‌ಪಿಟ್:"
+
+msgid "Game Master Display Name"
+msgstr "ಗೇಮ್ ಮಾಸ್ಟರ್ ಪ್ರದರ್ಶನ ಹೆಸರು"
 
 msgid "Game Over"
 msgstr "ಆಟ ಮುಗಿದಿದೆ"
 
-msgid "In Progress"
-msgstr "ಪ್ರಗತಿಯಲ್ಲಿದೆ"
+msgid "Game Rooms"
+msgstr "ಆಟದ ಕೊಠಡಿಗಳು"
 
-msgid "Please enter a valid room code."
-msgstr "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಕೊಠಡಿ ಕೋಡ್ ನಮೂದಿಸಿ."
-
-msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr "ಕೊಠಡಿ ಕೋಡ್ '%(code)s' ಕಂಡುಬಂದಿಲ್ಲ ಅಥವಾ ಇನ್ನು ಮುಂದೆ ಸಕ್ರಿಯವಾಗಿಲ್ಲ."
-
-msgid "Incorrect room password."
-msgstr "ತಪ್ಪಾದ ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್."
-
-msgid "Please enter a player name."
-msgstr "ದಯವಿಟ್ಟು ಆಟಗಾರನ ಹೆಸರನ್ನು ನಮೂದಿಸಿ."
-
-msgid "title is required"
-msgstr "ಶೀರ್ಷಿಕೆ ಅಗತ್ಯವಿದೆ"
-
-msgid "wrong captcha"
-msgstr "ತಪ್ಪು ಕ್ಯಾಪ್ಚಾ"
-
-msgid "wrong password"
-msgstr "ತಪ್ಪು ಪಾಸ್‌ವರ್ಡ್"
+msgid "Game Rules & Timers"
+msgstr "ಆಟದ ನಿಯಮಗಳು ಮತ್ತು ಟೈಮರ್‌ಗಳು"
 
 msgid "Game not found."
 msgstr "ಆಟ ಕಂಡುಬಂದಿಲ್ಲ."
@@ -446,5 +230,797 @@ msgstr "ಆಟ ಕಂಡುಬಂದಿಲ್ಲ."
 msgid "Game room does not exist."
 msgstr "ಆಟದ ಕೊಠಡಿ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ."
 
+msgid "Ham radio, UK foundation license"
+msgstr ""
+
+msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+msgstr "ನಿಮ್ಮ ಗೇಮ್ ಮಾಸ್ಟರ್‌ನಿಂದ 8-ಅಕ್ಷರಗಳ ಕೋಡ್ ಹೊಂದಿದ್ದೀರಾ? ನೇರವಾಗಿ ಪ್ರವೇಶಿಸಲು ಇಲ್ಲಿ ನಮೂದಿಸಿ:"
+
+msgid "Hiking and climbing"
+msgstr ""
+
+msgid "Hobbies"
+msgstr "ಹವ್ಯಾಸಗಳು"
+
+msgid "Hold-to-Peek Secret Roles:"
+msgstr "ರಹಸ್ಯ ಪಾತ್ರಗಳನ್ನು ನೋಡಲು ಒತ್ತಿಹಿಡಿಯಿರಿ:"
+
+msgid "Home automation and homelab"
+msgstr ""
+
+msgid "Horizontal focal point: 0=left, 50=center, 100=right."
+msgstr ""
+
+msgid "I code, take pics and many other things"
+msgstr "ನಾನು ಕೋಡ್ ಮಾಡುತ್ತೇನೆ, ಫೋಟೋಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತೇನೆ ಮತ್ತು ಇನ್ನಷ್ಟು"
+
+msgid "ISO"
+msgstr ""
+
+msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
+msgstr "ಸಕ್ರಿಯಗೊಳಿಸಿದರೆ, ವೈದ್ಯರ ರಕ್ಷಣೆಯು ಸ್ನೈಪರ್ ಗುಂಡಿನಿಂದ ಗುರಿಯನ್ನು ಉಳಿಸಬಹುದು. (ನಿಷ್ಕ್ರಿಯ = ಸ್ನೈಪರ್ ರಕ್ಷಣೆಯನ್ನು ಭೇದಿಸುತ್ತಾನೆ)."
+
+msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
+msgstr "ಸೆಟ್ ಮಾಡಿದ್ದರೆ, QR ಕೋಡ್ ಮೂಲಕ ಸೇರಿದಾಗ ಆಟಗಾರರು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ದೃಢೀಕರಿಸಲ್ಪಡುತ್ತಾರೆ. (💡 ಡೆಮೊ ಟ್ರಿಕ್: Marco ಹೊಂದಿರುವ ಜಿಎಂ ಹೆಸರು ಮತ್ತು test ಪಾಸ್‌ವರ್ಡ್ 10 ಟೆಸ್ಟ್ ಆಟಗಾರರನ್ನು ಸೇರಿಸುತ್ತದೆ)."
+
+msgid "In Progress"
+msgstr "ಪ್ರಗತಿಯಲ್ಲಿದೆ"
+
+msgid "Incorrect room password."
+msgstr "ತಪ್ಪಾದ ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್."
+
+msgid "Instagram 4:5 Preview"
+msgstr ""
+
+msgid "Instagram 4:5 image"
+msgstr ""
+
 msgid "Invalid Game Master secret key."
 msgstr "ಅಮಾನ್ಯ ಗೇಮ್ ಮಾಸ್ಟರ್ ರಹಸ್ಯ ಕೀಲಿ."
+
+msgid "Join"
+msgstr "ಸೇರಿ"
+
+msgid "Join Game"
+msgstr "ಆಟಕ್ಕೆ ಸೇರಿ"
+
+msgid "Join Lupus Game"
+msgstr "ಲೂಪಸ್ ಆಟಕ್ಕೆ ಸೇರಿ"
+
+msgid "Join as Player"
+msgstr "ಆಟಗಾರನಾಗಿ ಸೇರಿ"
+
+msgid "Join with Room Code"
+msgstr "ಕೊಠಡಿ ಕೋಡ್‌ನೊಂದಿಗೆ ಸೇರಿ"
+
+msgid "Kayak, surf, SUP, windsurf"
+msgstr ""
+
+msgid "Languages"
+msgstr "ಭಾಷೆಗಳು"
+
+msgid "Last updated: October 27, 2026"
+msgstr ""
+
+msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
+msgstr "ತಡವಾಗಿ ಬಂದವರು ದೃಢೀಕೃತ ಪ್ರಯಾಣಿಕರು, ಪ್ರೇತಗಳು ಅಥವಾ ಉತ್ತರಾಧಿಕಾರಿಗಳಾಗಿ ಸೇರುತ್ತಾರೆ."
+
+msgid "Launch Lupus Room"
+msgstr "ಲೂಪಸ್ ಕೊಠಡಿಯನ್ನು ಪ್ರಾರಂಭಿಸಿ"
+
+msgid "Leave empty for public join"
+msgstr "ಸಾರ್ವಜನಿಕ ಪ್ರವೇಶಕ್ಕಾಗಿ ಖಾಲಿ ಬಿಡಿ"
+
+msgid "Limbo"
+msgstr "ಲಿಂಬೋ"
+
+msgid "Limbo & Angel Mechanic:"
+msgstr "ಲಿಂಬೋ ಮತ್ತು ದೇವದೂತ ತಂತ್ರ:"
+
+msgid "Limbo Resolution"
+msgstr "ಲಿಂಬೋ ಪರಿಹಾರ"
+
+msgid "Listening"
+msgstr "ಕೇಳುವುದು"
+
+msgid "Living & fallen players submit morning rumors read aloud at dawn."
+msgstr "ಜೀವಂತ ಮತ್ತು ಮೃತ ಆಟಗಾರರು ಮುಂಜಾನೆ ಗಟ್ಟಿಯಾಗಿ ಓದಲಾಗುವ ವದಂತಿಗಳನ್ನು ಕಳುಹಿಸುತ್ತಾರೆ."
+
+msgid "Lobby"
+msgstr "ಲಾಬಿ"
+
+msgid "Lobby (Waiting for Players)"
+msgstr "ಲಾಬಿ (ಆಟಗಾರರಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ)"
+
+msgid "Lupus Active Rooms & Hub"
+msgstr "ಲೂಪಸ್ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು ಮತ್ತು ಹಬ್"
+
+msgid "Lupus Game"
+msgstr "ಲೂಪಸ್ ಆಟ"
+
+msgid "Lupus Party Game"
+msgstr "ಲೂಪಸ್ ಪಾರ್ಟಿ ಆಟ"
+
+msgid "Lupus in Tabula - Active Rooms & Game Hub"
+msgstr "ಲೂಪಸ್ ಇನ್ ತಬುಲಾ - ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು ಮತ್ತು ಆಟದ ಹಬ್"
+
+msgid "Lupus in Tabula / Werewolf"
+msgstr "ಲೂಪಸ್ ಇನ್ ತಬುಲಾ / ತೋಳಮಾನವ"
+
+msgid "Mafia"
+msgstr "ಮಾಫಿಯಾ"
+
+msgid "Marco Silva's CV"
+msgstr "ಮಾರ್ಕೊ ಸಿಲ್ವಾ ಅವರ ಸಿವಿ"
+
+msgid "Midgame Arrivals:"
+msgstr "ಆಟದ ಮಧ್ಯೆ ಬರುವವರು:"
+
+msgid "Next day"
+msgstr "ಮುಂದಿನ ದಿನ"
+
+msgid "Night"
+msgstr "ರಾತ್ರಿ"
+
+msgid "No Active Lupus Games Right Now"
+msgstr "ಪ್ರಸ್ತುತ ಯಾವುದೇ ಸಕ್ರಿಯ ಲೂಪಸ್ ಆಟಗಳಿಲ್ಲ"
+
+msgid "No Instagram crop generated yet."
+msgstr ""
+
+msgid "Open"
+msgstr "ತೆರೆದಿದೆ"
+
+msgid "Open (Lobby)"
+msgstr "ತೆರೆದಿದೆ (ಲಾಬಿ)"
+
+msgid "Open GM Cockpit"
+msgstr "ಜಿಎಂ ಕಾಕ್‌ಪಿಟ್ ತೆರೆಯಿರಿ"
+
+msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
+msgstr ""
+
+msgid "Other"
+msgstr "ಇತರೆ"
+
+msgid "Outdoors"
+msgstr "ಹೊರಾಂಗಣ"
+
+msgid "Page Not Found — Marco Silva"
+msgstr ""
+
+msgid "Password"
+msgstr "ಪಾಸ್‌ವರ್ಡ್"
+
+msgid "Password Protected"
+msgstr "ಪಾಸ್‌ವರ್ಡ್‌ನಿಂದ ಸಂರಕ್ಷಿಸಲಾಗಿದೆ"
+
+msgid "Past & Finished Games"
+msgstr "ಹಿಂದಿನ ಮತ್ತು ಪೂರ್ಣಗೊಂಡ ಆಟಗಳು"
+
+msgid "Pending"
+msgstr ""
+
+msgid "Photography"
+msgstr "ಛಾಯಾಗ್ರಹಣ"
+
+msgid "Pick the name others at the table know you by."
+msgstr "ಮೇಜಿನ ಮೇಲಿರುವ ಇತರರು ನಿಮ್ಮನ್ನು ಗುರುತಿಸುವ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ."
+
+msgid "Please enter a player name."
+msgstr "ದಯವಿಟ್ಟು ಆಟಗಾರನ ಹೆಸರನ್ನು ನಮೂದಿಸಿ."
+
+msgid "Please enter a valid room code."
+msgstr "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಕೊಠಡಿ ಕೋಡ್ ನಮೂದಿಸಿ."
+
+msgid "Portuguese · Helsinki, Finland"
+msgstr "ಪೋರ್ಚುಗೀಸ್ · ಹೆಲ್ಸಿಂಕಿ, ಫಿನ್ಲ್ಯಾಂಡ್"
+
+msgid "Previous day"
+msgstr "ಹಿಂದಿನ ದಿನ"
+
+msgid "Price for the RAW file download."
+msgstr ""
+
+msgid "Privacy Policy"
+msgstr "ಗೌಪ್ಯತೆ ನೀತಿ"
+
+msgid "Privacy Policy - Homelab Telegram Bot"
+msgstr ""
+
+msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
+msgstr ""
+
+msgid "Privacy shield keeps cards concealed from prying eyes at the table."
+msgstr "ಗೌಪ್ಯತೆ ರಕ್ಷಕವು ಮೇಜಿನ ಮೇಲಿರುವ ಇತರರ ಕಣ್ಣುಗಳಿಂದ ಕಾರ್ಡ್‌ಗಳನ್ನು ರಹಸ್ಯವಾಗಿರಿಸುತ್ತದೆ."
+
+msgid "Processing"
+msgstr ""
+
+msgid "Public"
+msgstr "ಸಾರ್ವಜನಿಕ"
+
+msgid "RAW available for purchase"
+msgstr "RAW ಖರೀದಿಗೆ ಲಭ್ಯವಿದೆ"
+
+msgid "RAW file"
+msgstr ""
+
+msgid "RAW price"
+msgstr ""
+
+msgid "Reading"
+msgstr "ಓದುವುದು"
+
+msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
+msgstr "ನೈಜ-ಸಮಯದ ಮಲ್ಟಿಪ್ಲೇಯರ್ ಬ್ರೌಸರ್ ಪಾರ್ಟಿ ಆಟಗಳು. ಯಾವುದೇ ಖಾತೆಯ ಅಗತ್ಯವಿಲ್ಲ — ಕೇವಲ ಸೇರಿ ಮತ್ತು ಸ್ನೇಹಿತರೊಂದಿಗೆ ಆಟವಾಡಿ."
+
+msgid "Regenerate 4:5 Instagram crops for selected photos"
+msgstr ""
+
+msgid "Replay"
+msgstr "ಮರುಪಂದ್ಯ"
+
+msgid "Return as %(name)s"
+msgstr "%(name)s ಆಗಿ ಹಿಂತಿರುಗಿ"
+
+msgid "Reveal Roles on Death:"
+msgstr "ಮರಣದ ಸಮಯದಲ್ಲಿ ಪಾತ್ರಗಳನ್ನು ಬಹಿರಂಗಪಡಿಸಿ:"
+
+msgid "Room Code:"
+msgstr "ಕೊಠಡಿ ಕೋಡ್:"
+
+msgid "Room Password"
+msgstr "ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್"
+
+msgid "Room Password (optional)"
+msgstr "ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್ (ಐಚ್ಛಿಕ)"
+
+msgid "Room Setup"
+msgstr "ಕೊಠಡಿ ಸೆಟಪ್"
+
+msgid "Room Title"
+msgstr "ಕೊಠಡಿಯ ಶೀರ್ಷಿಕೆ"
+
+msgid "Room code '%(code)s' was not found or is no longer active."
+msgstr "ಕೊಠಡಿ ಕೋಡ್ '%(code)s' ಕಂಡುಬಂದಿಲ್ಲ ಅಥವಾ ಇನ್ನು ಮುಂದೆ ಸಕ್ರಿಯವಾಗಿಲ್ಲ."
+
+msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
+msgstr "ಕೊಠಡಿಗಳನ್ನು ಅಗತ್ಯವಿದ್ದಾಗ ರಚಿಸಲಾಗುತ್ತದೆ ಮತ್ತು 24 ಗಂಟೆಗಳ ಕಾಲ ಸಕ್ರಿಯವಾಗಿರುತ್ತವೆ. ಹೊಸ ಆಟದ ಸೆಷನ್ ಪ್ರಾರಂಭಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಗುಂಪನ್ನು ಆಹ್ವಾನಿಸಿ!"
+
+msgid "Running"
+msgstr "ನಡೆಯುತ್ತಿದೆ"
+
+msgid "Send Instagram carousel pack to Telegram"
+msgstr ""
+
+msgid "Server Error — Marco Silva"
+msgstr ""
+
+msgid "Silent Phase"
+msgstr "ಶಾಂತ ಹಂತ"
+
+msgid "Skills"
+msgstr "ಕೌಶಲ್ಯಗಳು"
+
+msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+msgstr "ಕೊಲ್ಲಲ್ಪಟ್ಟ ಆಟಗಾರರು ನೇರವಾಗಿ ಸಾಯುವ ಬದಲು ಒಮ್ಮೆ ಲಿಂಬೋಗೆ ಪ್ರವೇಶಿಸುತ್ತಾರೆ. ಅವರು ದೇವದೂತ ಯಾರೆಂದು ಊಹಿಸಿದರೆ ಪುನರುತ್ಥಾನಗೊಳ್ಳುತ್ತಾರೆ!"
+
+msgid "Spanish"
+msgstr "ಸ್ಪ್ಯಾನಿಷ್"
+
+msgid "Speaking"
+msgstr "ಮಾತನಾಡುವುದು"
+
+msgid "Staggering Doctor:"
+msgstr "ಬದಲಾಗುವ ವೈದ್ಯ:"
+
+msgid "Starting Role Deck Preset"
+msgstr "ಆರಂಭಿಕ ರೋಲ್ ಡೆಕ್ ಪ್ರಿಸೆಟ್"
+
+msgid "Step-by-step night stages, bluffing calls, and voting manager."
+msgstr "ಹಂತ-ಹಂತದ ರಾತ್ರಿ ಹಂತಗಳು, ಬ್ಲಫ್ ಕರೆಗಳು ಮತ್ತು ಮತದಾನ ವ್ಯವಸ್ಥಾಪಕ."
+
+msgid "Table-First Lupus Highlights"
+msgstr "ಟೇಬಲ್-ಆಧಾರಿತ ಲೂಪಸ್ ಮುಖ್ಯಾಂಶಗಳು"
+
+msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
+msgstr "ಟೇಬಲ್-ಆಧಾರಿತ ತೋಳಮಾನವ ಮತ್ತು ಮಾಫಿಯಾ ಪಾರ್ಟಿ ಆಟ. ಯಾವುದೇ ಲಾಗಿನ್ ಅಗತ್ಯವಿಲ್ಲ. ಪ್ರತಿಯೊಬ್ಬ ಆಟಗಾರನು ರಹಸ್ಯ ಪಾತ್ರಗಳು ಮತ್ತು ಮತದಾನಕ್ಕಾಗಿ ತಮ್ಮ ಫೋನ್ ಬಳಸುತ್ತಾರೆ ಮತ್ತು ನೀವು ಗೇಮ್ ಮಾಸ್ಟರ್ ಆಗಿ ನಡೆಸುತ್ತೀರಿ."
+
+msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
+msgstr "ಟೇಬಲ್-ಆಧಾರಿತ ಹೈಬ್ರಿಡ್ ಪಾರ್ಟಿ ಆಟ. ಯಾವುದೇ ಖಾತೆ ಅಥವಾ ಲಾಗಿನ್ ಅಗತ್ಯವಿಲ್ಲ. ಆಟಗಾರರು QR ಕೋಡ್ ಮೂಲಕ ಸೇರುತ್ತಾರೆ ಮತ್ತು ನೀವು ಗೇಮ್ ಮಾಸ್ಟರ್ ಆಗಿ ನಡೆಸುತ್ತೀರಿ."
+
+msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
+msgstr "ರಹಸ್ಯ ಪಾತ್ರಗಳು, ನೇರ ಮತದಾನ, ಟೌನ್ ಗೆಜೆಟ್ ಮತ್ತು ಜಿಎಂ ನಿರ್ದೇಶಕರ ಕಾಕ್‌ಪಿಟ್ ಹೊಂದಿರುವ ಟೇಬಲ್-ಆಧಾರಿತ ಪಾರ್ಟಿ ಆಟ."
+
+msgid "Techy"
+msgstr "ತಂತ್ರಜ್ಞಾನ"
+
+msgid "Terms of Service"
+msgstr "ಸೇವಾ ನಿಯಮಗಳು"
+
+msgid "Terms of Service - Homelab Telegram Bot"
+msgstr ""
+
+msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
+msgstr ""
+
+msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
+msgstr "ವೈದ್ಯ / ಅಂಗರಕ್ಷಕ ಸತತ ಎರಡು ರಾತ್ರಿಗಳಲ್ಲಿ ಒಬ್ಬನೇ ವ್ಯಕ್ತಿಯನ್ನು ರಕ್ಷಿಸುವಂತಿಲ್ಲ."
+
+msgid "The page you're looking for doesn't exist."
+msgstr "ನೀವು ಹುಡುಕುತ್ತಿರುವ ಪುಟ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ."
+
+msgid "Theme & Terms"
+msgstr "ಥೀಮ್ ಮತ್ತು ನಿಯಮಗಳು"
+
+msgid "Town Gazette:"
+msgstr "ಟೌನ್ ಗೆಜೆಟ್:"
+
+msgid "Town Voting"
+msgstr "ಪಟ್ಟಣ ಮತದಾನ"
+
+msgid "Unlock Room"
+msgstr "ಕೊಠಡಿಯನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿ"
+
+msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
+msgstr ""
+
+msgid "Villagers, Wolves, Seer"
+msgstr "ಗ್ರಾಮಸ್ಥರು, ತೋಳಗಳು, ದ್ರಷ್ಟಾರ"
+
+msgid "Voting"
+msgstr "ಮತದಾನ"
+
+msgid "We're working on it. Please try again later."
+msgstr "ನಾವು ಇದರ ಮೇಲೆ ಕೆಲಸ ಮಾಡುತ್ತಿದ್ದೇವೆ. ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ."
+
+msgid "Werewolf / Lupus"
+msgstr "ತೋಳಮಾನವ / ಲೂಪಸ್"
+
+msgid "Whether focus coordinates were automatically calculated via edge saliency."
+msgstr ""
+
+msgid "Work Experience"
+msgstr "ಕೆಲಸದ ಅನುಭವ"
+
+msgid "Writing"
+msgstr "ಬರೆಯುವುದು"
+
+msgid "You need an authorized key to access this page."
+msgstr "ಈ ಪುಟವನ್ನು ಪ್ರವೇಶಿಸಲು ನಿಮಗೆ ಅಧಿಕೃತ ಕೀ ಅಗತ್ಯವಿದೆ."
+
+msgid "Your Name / Nickname"
+msgstr "ನಿಮ್ಮ ಹೆಸರು / ಅಡ್ಡಹೆಸರು"
+
+msgid "adjective"
+msgstr "ವಿಶೇಷಣ"
+
+msgid "ago"
+msgstr "ಹಿಂದೆ"
+
+msgid "alive"
+msgstr "ಜೀವಂತ"
+
+msgid "all"
+msgstr ""
+
+msgid "all day"
+msgstr "ದಿನವಿಡೀ"
+
+msgid "any"
+msgstr "ಯಾವುದಾದರೂ"
+
+msgid "aperture"
+msgstr ""
+
+msgid "auto focus detected"
+msgstr ""
+
+msgid "available for sale"
+msgstr ""
+
+msgid "best guess"
+msgstr "ಅತ್ಯುತ್ತಮ ಊಹೆ"
+
+msgid "blog"
+msgstr "ಬ್ಲಾಗ್"
+
+msgid "camera make"
+msgstr ""
+
+msgid "camera model"
+msgstr ""
+
+msgid "chat"
+msgstr "ಚಾಟ್"
+
+msgid "chat..."
+msgstr "ಚಾಟ್..."
+
+msgid "chat:"
+msgstr "ಚಾಟ್:"
+
+msgid "clear"
+msgstr "ಅಳಿಸಿ"
+
+msgid "create"
+msgstr "ರಚಿಸಿ"
+
+msgid "create room"
+msgstr "ಕೊಠಡಿ ರಚಿಸಿ"
+
+msgid "crop focus X (%)"
+msgstr ""
+
+msgid "crop focus Y (%)"
+msgstr ""
+
+msgid "cv"
+msgstr "ಸಿವಿ"
+
+msgid "date"
+msgstr ""
+
+msgid "description"
+msgstr "ವಿವರಣೆ"
+
+msgid "difficulty"
+msgstr "ಕಷ್ಟದ ಮಟ್ಟ"
+
+msgid "difficulty:"
+msgstr "ಕಷ್ಟದ ಮಟ್ಟ:"
+
+msgid "download .ics"
+msgstr ".ics ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ"
+
+msgid "e.g. 9B3A1C2D"
+msgstr ""
+
+msgid "e.g. Marco"
+msgstr "ಉದಾ. ಮಾರ್ಕೊ"
+
+msgid "easy"
+msgstr "ಸುಲಭ"
+
+msgid "emoji time:"
+msgstr "ಎಮೋಜಿ ಸಮಯ:"
+
+msgid "end"
+msgstr "ಅಂತ್ಯ"
+
+msgid "enter password to view the calendar."
+msgstr "ಕ್ಯಾಲೆಂಡರ್ ವೀಕ್ಷಿಸಲು ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ."
+
+msgid "extract event"
+msgstr "ಈವೆಂಟ್ ಹೊರತೆಗೆಯಿರಿ"
+
+msgid "focal length"
+msgstr ""
+
+msgid "gallery"
+msgstr "ಗ್ಯಾಲರಿ"
+
+msgid "gallery extension"
+msgstr ""
+
+msgid "gallery extensions"
+msgstr ""
+
+msgid "gallery not found."
+msgstr "ಗ್ಯಾಲರಿ ಕಂಡುಬಂದಿಲ್ಲ."
+
+msgid "games"
+msgstr "ಆಟಗಳು"
+
+msgid "go"
+msgstr "ಹೋಗಿ"
+
+msgid "guess"
+msgstr "ಊಹಿಸಿ"
+
+msgid "guess time:"
+msgstr "ಊಹೆ ಸಮಯ:"
+
+msgid "hard"
+msgstr "ಕಷ್ಟ"
+
+msgid "home"
+msgstr "ಮುಖಪುಟ"
+
+msgid "ics maker"
+msgstr "ಐಸಿಎಸ್ ಮೇಕರ್"
+
+msgid "join"
+msgstr "ಸೇರಿ"
+
+msgid "latest posts"
+msgstr "ಇತ್ತೀಚಿನ ಪೋಸ್ಟ್‌ಗಳು"
+
+msgid "latitude"
+msgstr ""
+
+msgid "lens"
+msgstr ""
+
+msgid "location"
+msgstr "ಸ್ಥಳ"
+
+msgid "location name"
+msgstr ""
+
+msgid "longitude"
+msgstr ""
+
+msgid "map view"
+msgstr "ನಕ್ಷೆ ನೋಟ"
+
+msgid "medium"
+msgstr "ಮಧ್ಯಮ"
+
+msgid "message (optional)"
+msgstr "ಸಂದೇಶ (ಐಚ್ಛಿಕ)"
+
+msgid "mode"
+msgstr "ಮೋಡ್"
+
+msgid "mode:"
+msgstr "ಮೋಡ್:"
+
+msgid "new word"
+msgstr "ಹೊಸ ಪದ"
+
+msgid "next →"
+msgstr "ಮುಂದಿನ →"
+
+msgid "no active rooms. create one!"
+msgstr "ಯಾವುದೇ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳಿಲ್ಲ. ಒಂದನ್ನು ರಚಿಸಿ!"
+
+msgid "no galleries yet."
+msgstr "ಇನ್ನೂ ಗ್ಯಾಲರಿಗಳಿಲ್ಲ."
+
+msgid "no posts yet."
+msgstr "ಇನ್ನೂ ಯಾವುದೇ ಪೋಸ್ಟ್‌ಗಳಿಲ್ಲ."
+
+msgid "noun"
+msgstr "ನಾಮಪದ"
+
+msgid "older →"
+msgstr "ಹಳೆಯದು →"
+
+msgid "original"
+msgstr "ಮೂಲ"
+
+msgid "password"
+msgstr "ಪಾಸ್‌ವರ್ಡ್"
+
+msgid "password (optional)"
+msgstr "ಪಾಸ್‌ವರ್ಡ್ (ಐಚ್ಛಿಕ)"
+
+msgid "paste event details here..."
+msgstr "ಈವೆಂಟ್ ವಿವರಗಳನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ..."
+
+msgid "paste text or a url with event details, and get an .ics file."
+msgstr "ಈವೆಂಟ್ ವಿವರಗಳೊಂದಿಗೆ ಪಠ್ಯ ಅಥವಾ url ಅನ್ನು ಅಂಟಿಸಿ ಮತ್ತು .ics ಫೈಲ್ ಪಡೆಯಿರಿ."
+
+msgid "photo"
+msgstr ""
+
+msgid "photo extension"
+msgstr ""
+
+msgid "photo extensions"
+msgstr ""
+
+msgid "photo map"
+msgstr "ಫೋಟೋ ನಕ್ಷೆ"
+
+msgid "photo not found."
+msgstr "ಫೋಟೋ ಕಂಡುಬಂದಿಲ್ಲ."
+
+msgid "photos"
+msgstr "ಫೋಟೋಗಳು"
+
+msgid "photos (select multiple)"
+msgstr "ಫೋಟೋಗಳು (ಹಲವಾರು ಆಯ್ಕೆಮಾಡಿ)"
+
+msgid "pick your options, hit the button, draw!"
+msgstr "ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ, ಬಟನ್ ಒತ್ತಿ, ಚಿತ್ರಿಸಿ!"
+
+msgid "pictionary"
+msgstr "ಪಿಕ್ಷನರಿ"
+
+msgid "planz"
+msgstr "ಪ್ಲಾನ್ಜ್"
+
+msgid "play again"
+msgstr "ಮತ್ತೆ ಆಟವಾಡಿ"
+
+msgid "players"
+msgstr "ಆಟಗಾರರು"
+
+msgid "press the button to get a word"
+msgstr "ಪದವನ್ನು ಪಡೆಯಲು ಬಟನ್ ಒತ್ತಿರಿ"
+
+msgid "private"
+msgstr "ಖಾಸಗಿ"
+
+msgid "processing status"
+msgstr ""
+
+msgid "public"
+msgstr "ಸಾರ್ವಜನಿಕ"
+
+msgid "request"
+msgstr "ವಿನಂತಿ"
+
+msgid "reveal"
+msgstr "ತೋರಿಸಿ"
+
+msgid "room password"
+msgstr "ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್"
+
+msgid "round robin"
+msgstr "ರೌಂಡ್ ರಾಬಿನ್"
+
+msgid "rounds:"
+msgstr "ಸುತ್ತುಗಳು:"
+
+msgid "search emoji..."
+msgstr "ಎಮೋಜಿ ಹುಡುಕಿ..."
+
+msgid "send"
+msgstr "ಕಳುಹಿಸಿ"
+
+msgid "sentence"
+msgstr "ವಾಕ್ಯ"
+
+msgid "settings"
+msgstr "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+
+msgid "shutter speed"
+msgstr ""
+
+msgid "skip"
+msgstr "ಬಿಟ್ಟುಬಿಡಿ"
+
+msgid "start"
+msgstr "ಪ್ರಾರಂಭ"
+
+msgid "start game"
+msgstr "ಆಟ ಪ್ರಾರಂಭಿಸಿ"
+
+msgid "text"
+msgstr "ಪಠ್ಯ"
+
+msgid "title"
+msgstr "ಶೀರ್ಷಿಕೆ"
+
+msgid "title is required"
+msgstr "ಶೀರ್ಷಿಕೆ ಅಗತ್ಯವಿದೆ"
+
+msgid "today"
+msgstr "ಇಂದು"
+
+msgid "type"
+msgstr "ವಿಧ"
+
+msgid "type your guess..."
+msgstr "ನಿಮ್ಮ ಊಹೆಯನ್ನು ಟೈಪ್ ಮಾಡಿ..."
+
+msgid "upload"
+msgstr "ಅಪ್‌ಲೋಡ್"
+
+msgid "upload photos"
+msgstr "ಫೋಟೋಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ"
+
+msgid "url"
+msgstr "url"
+
+msgid "verb"
+msgstr "ಕ್ರಿಯಾಪದ"
+
+msgid "view full resolution ↗"
+msgstr "ಪೂರ್ಣ ರೆಸಲ್ಯೂಶನ್ ನೋಡಿ ↗"
+
+msgid "view on map"
+msgstr "ನಕ್ಷೆಯಲ್ಲಿ ನೋಡಿ"
+
+msgid "waiting for clue..."
+msgstr "ಸುಳಿವಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ..."
+
+msgid "waiting for players..."
+msgstr "ಆಟಗಾರರಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ..."
+
+msgid "watermarked"
+msgstr "ವಾಟರ್‌ಮಾರ್ಕ್"
+
+msgid "watermarked image"
+msgstr ""
+
+msgid "web"
+msgstr "ವೆಬ್"
+
+msgid "web-optimized image"
+msgstr ""
+
+msgid "week"
+msgstr "ವಾರ"
+
+msgid "what is %(a)s + %(b)s?"
+msgstr "%(a)s + %(b)s ಎಷ್ಟು?"
+
+msgid "word"
+msgstr "ಪದ"
+
+msgid "work in progress — check back soon."
+msgstr "ಕೆಲಸ ಪ್ರಗತಿಯಲ್ಲಿದೆ — ಶೀಘ್ರದಲ್ಲೇ ಪರಿಶೀಲಿಸಿ."
+
+msgid "wrong captcha"
+msgstr "ತಪ್ಪು ಕ್ಯಾಪ್ಚಾ"
+
+msgid "wrong password"
+msgstr "ತಪ್ಪು ಪಾಸ್‌ವರ್ಡ್"
+
+msgid "your email"
+msgstr "ನಿಮ್ಮ ಇಮೇಲ್"
+
+msgid "your name"
+msgstr "ನಿಮ್ಮ ಹೆಸರು"
+
+msgid "— none —"
+msgstr "— ಯಾವುದೂ ಇಲ್ಲ —"
+
+msgid "← all galleries"
+msgstr "← ಎಲ್ಲಾ ಗ್ಯಾಲರಿಗಳು"
+
+msgid "← all posts"
+msgstr "← ಎಲ್ಲಾ ಪೋಸ್ಟ್‌ಗಳು"
+
+msgid "← back home"
+msgstr "← ಮುಖಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ"
+
+msgid "← galleries"
+msgstr "← ಗ್ಯಾಲರಿಗಳು"
+
+msgid "← newer"
+msgstr "← ಹೊಸತು"
+
+msgid "← prev"
+msgstr "← ಹಿಂದಿನ"
+
+msgid "↓ Download PDF"
+msgstr "↓ ಪಿಡಿಎಫ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ"
+
+msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
+msgstr "⚡ ಅವ್ಯವಸ್ಥೆ ಮತ್ತು ವಿಶೇಷತೆಗಳು (ಆಲ್ಫಾ ತೋಳ, ಸೈಲೆನ್ಸರ್, ಪತ್ತೇದಾರಿ, ವೈದ್ಯ, ಸ್ನೈಪರ್, ಮೇಯರ್, ಮಾಟಗಾತಿ...)"
+
+msgid "✏️ pictionary"
+msgstr "✏️ ಪಿಕ್ಶನರಿ"
+
+msgid "🎨 Emojinary"
+msgstr "🎨 ಇಮೋಜಿ‌ನರಿ"
+
+msgid "🐺 Lupus"
+msgstr "🐺 ಲೂಪಸ್"
+
+msgid "🐺 Lupus Hub & Rooms"
+msgstr "🐺 ಲೂಪಸ್ ಹಬ್ ಮತ್ತು ಕೊಠಡಿಗಳು"
+
+msgid "🐺 create lupus"
+msgstr "🐺 ಲೂಪಸ್ ರಚಿಸಿ"
+
+msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+msgstr "👼 ಲಿಂಬೋ ಮತ್ತು ದೇವದೂತ (ತೋಳಗಳು + ಪತ್ತೇದಾರಿ + ವೈದ್ಯ + ದೇವದೂತ + ಸ್ನೈಪರ್ + ಗ್ರಾಮಸ್ಥರು)"
+
+msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
+msgstr "💡 ಲಿಂಬೋ ಆಟಗಳಲ್ಲಿ, ಪಾತ್ರದ ಬಹಿರಂಗಪಡಿಸುವಿಕೆ ಕೇವಲ ಶಾಶ್ವತ ಮರಣದ ನಂತರವೇ ಆಗುತ್ತದೆ, ಲಿಂಬೋದಲ್ಲಿರುವಾಗಲ್ಲ."
+
+msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
+msgstr "💡 ಸೇರಿದ ಆಟಗಾರರ ಸಂಖ್ಯೆಗೆ ಡೆಕ್ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಹೊಂದಿಕೊಳ್ಳುತ್ತದೆ. ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು ಲಾಬಿಯಲ್ಲಿ ಪ್ರತಿ ಪಾತ್ರವನ್ನು ಮತ್ತು ಸಮತೋಲನವನ್ನು ಸರಿಹೊಂದಿಸಬಹುದು."
+
+msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
+msgstr "🔍 ಪ್ರಮಾಣಿತ (ತೋಳಗಳು + ಪತ್ತೇದಾರಿ/ದ್ರಷ್ಟಾರ + ವೈದ್ಯ/ಅಂಗರಕ್ಷಕ + ಗ್ರಾಮಸ್ಥರು)"
+
+msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+msgstr "🧑 ಸರಳ / ಕ್ಲಾಸಿಕ್ (ಯಾವುದೇ ವಿಶೇಷ ಶಕ್ತಿಗಳಿಲ್ಲ — ಕೇವಲ ತೋಳಗಳು ವಿರುದ್ಧ ಗ್ರಾಮಸ್ಥರು)"

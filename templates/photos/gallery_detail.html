@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}{{ gallery.title }}{% endblock %}
 
@@ -12,7 +13,7 @@
 {% block content %}
 <h1 style="font-size: 1.3rem; margin-bottom: 0.3rem;">{{ gallery.title }}</h1>
 {% if gallery.description %}<p style="font-size: 0.85rem; color: #555;">{{ gallery.description }}</p>{% endif %}
-<p style="font-size: 0.8rem; color: #888;">{{ photos.count }} photos · <a href="{% url 'photos:gallery-list' %}">← all galleries</a></p>
+<p style="font-size: 0.8rem; color: #888;">{% blocktrans count counter=photos.count %}{{ counter }} photo{% plural %}{{ counter }} photos{% endblocktrans %} · <a href="{% url 'photos:gallery-list' %}">{% trans "← all galleries" %}</a></p>
 
 <div class="photo-grid">
   {% for photo in photos %}

@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}upload photos{% endblock %}
+{% block title %}{% trans "upload photos" %}{% endblock %}
 
 {% block content %}
-<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">upload photos</h1>
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">{% trans "upload photos" %}</h1>
 
 <form method="post" enctype="multipart/form-data"
       hx-post="{% url 'photos:upload' %}"
@@ -12,9 +13,9 @@
   {% csrf_token %}
 
   <div style="margin-bottom: 1rem;">
-    <label for="gallery" style="font-size: 0.85rem;">gallery</label><br>
+    <label for="gallery" style="font-size: 0.85rem;">{% trans "gallery" %}</label><br>
     <select name="gallery" id="gallery" style="padding: 0.3rem; font-size: 0.85rem;">
-      <option value="">— none —</option>
+      <option value="">{% trans "— none —" %}</option>
       {% for g in galleries %}
       <option value="{{ g.id }}">{{ g.title }}</option>
       {% endfor %}
@@ -22,11 +23,11 @@
   </div>
 
   <div style="margin-bottom: 1rem;">
-    <label for="photos" style="font-size: 0.85rem;">photos (select multiple)</label><br>
+    <label for="photos" style="font-size: 0.85rem;">{% trans "photos (select multiple)" %}</label><br>
     <input type="file" name="photos" id="photos" multiple accept="image/*" style="font-size: 0.85rem;">
   </div>
 
-  <button type="submit" style="padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer;">upload</button>
+  <button type="submit" style="padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer;">{% trans "upload" %}</button>
 </form>
 
 <div id="result" style="margin-top: 1rem;"></div>

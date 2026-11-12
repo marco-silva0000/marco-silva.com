@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
 <div style="text-align: center; margin-top: 3rem;">
   <img src="{% static 'img/avatar.png' %}" alt="Marco Silva" width="140" height="140" style="border-radius: 50%;">
   <h1 style="margin-top: 1rem; font-size: 1.5rem; font-weight: 600;">Marco Silva</h1>
-  <p style="color: #555; margin-top: 0.5rem;">I code, take pics and many other things</p>
+  <p style="color: #555; margin-top: 0.5rem;">{% trans "I code, take pics and many other things" %}</p>
 
   <div style="margin-top: 1.5rem;">
-    <a href="{% url 'photos:gallery-list' %}" style="margin: 0 0.75rem;">photos</a>
+    <a href="{% url 'photos:gallery-list' %}" style="margin: 0 0.75rem;">{% trans "photos" %}</a>
     <a href="https://linkedin.com/in/marco-silva-665793140/" style="margin: 0 0.75rem;">linkedin</a>
     <a href="https://github.com/marco-silva0000" style="margin: 0 0.75rem;">github</a>
   </div>
@@ -16,7 +16,7 @@
 
 {% if latest_posts %}
 <div style="margin-top: 3rem;">
-  <h2 style="font-size: 1.1rem; margin-bottom: 1rem;">latest posts</h2>
+  <h2 style="font-size: 1.1rem; margin-bottom: 1rem;">{% trans "latest posts" %}</h2>
   {% for post in latest_posts %}
   <div style="margin-bottom: 1rem;">
     <a href="{{ post.url }}" style="font-size: 0.95rem; text-decoration: none; font-weight: 500;">{{ post.title }}</a>

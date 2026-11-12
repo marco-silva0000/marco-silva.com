@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}photo map{% endblock %}
+{% block title %}{% trans "photo map" %}{% endblock %}
 
 {% block extra_css %}
 #map { height: 500px; width: 100%; margin-top: 1rem; }
 {% endblock %}
 
 {% block content %}
-<h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">photo map</h1>
-<p style="font-size: 0.85rem; color: #888;"><a href="{% url 'photos:gallery-list' %}">← galleries</a></p>
+<h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">{% trans "photo map" %}</h1>
+<p style="font-size: 0.85rem; color: #888;"><a href="{% url 'photos:gallery-list' %}">{% trans "← galleries" %}</a></p>
 
 <div id="map"></div>
 

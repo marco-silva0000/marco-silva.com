@@ -1,3 +1,4 @@
+{% load i18n %}
 {% if photo %}
 <figure style="margin: 1.5rem 0;">
   <a href="{% url 'photos:photo-viewer' photo.slug %}">
@@ -6,5 +7,5 @@
   {% if caption %}<figcaption style="font-size: 0.8rem; color: #888; margin-top: 0.3rem;">{{ caption }}</figcaption>{% endif %}
 </figure>
 {% else %}
-<p style="color: #888; font-size: 0.85rem;">photo not found.</p>
+<p style="color: #888; font-size: 0.85rem;">{% trans "photo not found." %}</p>
 {% endif %}

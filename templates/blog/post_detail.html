@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -24,6 +25,6 @@ th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
 </article>
 
 <div style="margin-top: 3rem; font-size: 0.9rem;">
-  <a href="{% url 'blog:list' %}">← all posts</a>
+  <a href="{% url 'blog:list' %}">{% trans "← all posts" %}</a>
 </div>
 {% endblock %}

@@ -1,17 +1,17 @@
-{% load tz %}
+{% load tz i18n %}
 {% timezone "Europe/Helsinki" %}
 
-<nav class="planz-nav" aria-label="Calendar navigation">
+<nav class="planz-nav" aria-label="{% trans 'Calendar navigation' %}">
   <div class="planz-btn-group">
-    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" role="button" aria-label="Previous day">←</a>
-    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}" role="button">today</a>
-    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" role="button" aria-label="Next day">→</a>
+    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" role="button" aria-label="{% trans 'Previous day' %}">←</a>
+    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}" role="button">{% trans "today" %}</a>
+    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" role="button" aria-label="{% trans 'Next day' %}">→</a>
   </div>
 
   <div class="planz-btn-group">
-    <a class="planz-btn {% if days == 1 %}active{% endif %}" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}" role="button">1 day</a>
-    <a class="planz-btn {% if days == 3 %}active{% endif %}" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}" role="button">3 day</a>
-    <a class="planz-btn {% if days == 7 %}active{% endif %}" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}" role="button">week</a>
+    <a class="planz-btn {% if days == 1 %}active{% endif %}" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days=1&start={{ start_date|date:'Y-m-d' }}" role="button">{% trans "1 day" %}</a>
+    <a class="planz-btn {% if days == 3 %}active{% endif %}" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days=3&start={{ start_date|date:'Y-m-d' }}" role="button">{% trans "3 day" %}</a>
+    <a class="planz-btn {% if days == 7 %}active{% endif %}" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days=7&start={{ start_date|date:'Y-m-d' }}" role="button">{% trans "week" %}</a>
   </div>
 
   <span class="planz-date-range">{{ start_date|date:"j M" }} – {{ end_date|date:"j M Y" }}</span>
@@ -29,7 +29,7 @@
       <div style="margin-bottom: 0.6rem; padding-left: 0.4rem; border-left: 3px solid {% if slot.is_today %}#4a9eff{% else %}#ddd{% endif %};">
         <div style="font-size: 0.8rem; font-weight: 500;">{{ event.title }}</div>
         <div style="font-size: 0.75rem; color: #888;">
-          {% if event.all_day %}all day{% else %}{{ event.start|date:"H:i" }}{% if event.end %} – {{ event.end|date:"H:i" }}{% endif %}{% endif %}
+          {% if event.all_day %}{% trans "all day" %}{% else %}{{ event.start|date:"H:i" }}{% if event.end %} – {{ event.end|date:"H:i" }}{% endif %}{% endif %}
         </div>
         {% if event.location %}<div style="font-size: 0.75rem; color: #888;">{{ event.location }}</div>{% endif %}
         <div style="font-size: 0.7rem; margin-top: 0.2rem;">

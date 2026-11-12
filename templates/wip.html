@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}blog{% endblock %}
+{% block title %}{% trans "blog" %}{% endblock %}
 
 {% block content %}
-<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">blog</h1>
-<p>work in progress — check back soon.</p>
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">{% trans "blog" %}</h1>
+<p>{% trans "work in progress — check back soon." %}</p>
 {% endblock %}

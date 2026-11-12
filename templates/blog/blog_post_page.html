@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags wagtailmarkdown %}
+{% load wagtailcore_tags wagtailmarkdown i18n %}
 
 {% block title %}{{ page.title }}{% endblock %}
 
@@ -29,6 +29,6 @@ th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
 </article>
 
 <div style="margin-top: 3rem; font-size: 0.9rem;">
-  <a href="{{ page.get_parent.url }}">← all posts</a>
+  <a href="{{ page.get_parent.url }}">{% trans "← all posts" %}</a>
 </div>
 {% endblock %}

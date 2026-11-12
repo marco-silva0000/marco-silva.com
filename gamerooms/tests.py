@@ -198,3 +198,67 @@ class TestGameroomsI18n:
         content = resp.content.decode("utf-8")
         assert "captcha incorreto" in content
 
+
+class TestSiteWideI18n:
+    """Verify site-wide template internationalization and tooling."""
+
+    @pytest.mark.parametrize(
+        "lang,expected_phrase",
+        [
+            ("en", "I code, take pics and many other things"),
+            ("pt", "Eu programo, tiro fotos e muitas outras coisas"),
+            ("es", "Programo, saco fotos y muchas otras cosas"),
+            ("fr", "Je code, je prends des photos et bien plus encore"),
+            ("it", "Sviluppo software, scatto foto e molto altro"),
+        ],
+    )
+    def test_homepage_multilingual(self, client, db, lang, expected_phrase):
+        client.cookies["django_language"] = lang
+        resp = client.get("/")
+        assert resp.status_code == 200
+        content = resp.content.decode("utf-8")
+        assert expected_phrase in content
+
+    @pytest.mark.parametrize(
+        "lang,expected_phrase",
+        [
+            ("en", "Hobbies"),
+            ("pt", "Passatempos"),
+            ("es", "Aficiones"),
+            ("fr", "Loisirs"),
+            ("it", "Hobby"),
+        ],
+    )
+    def test_cv_multilingual(self, client, db, lang, expected_phrase):
+        client.cookies["django_language"] = lang
+        resp = client.get("/cv")
+        assert resp.status_code == 200
+        content = resp.content.decode("utf-8")
+        assert expected_phrase in content
+
+    def test_pictionary_multilingual(self, client, db):
+        client.cookies["django_language"] = "pt"
+        resp = client.get(reverse("gamerooms:pictionary"))
+        assert resp.status_code == 200
+        content = resp.content.decode("utf-8")
+        assert "escolha as opções, clique no botão e desenhe!" in content
+        assert "dificuldade" in content
+
+    def test_translations_tool_discovery_and_export(self, tmp_path):
+        from scripts.translations_tool import extract_translatable_strings, cmd_export_csv
+        import argparse
+
+        extracted = extract_translatable_strings()
+        assert len(extracted) >= 300
+        assert "I code, take pics and many other things" in extracted
+        assert "Hobbies" in extracted
+
+        out_csv = tmp_path / "test_export.csv"
+        args = argparse.Namespace(lang="pt", output=str(out_csv), untranslated_only=False)
+        cmd_export_csv(args)
+        assert out_csv.exists()
+        csv_text = out_csv.read_text(encoding="utf-8-sig")
+        assert "msgid,context,en,pt" in csv_text
+        assert "Eu programo, tiro fotos e muitas outras coisas" in csv_text
+
+

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}photos{% endblock %}
+{% block title %}{% trans "photos" %}{% endblock %}
 
 {% block extra_css %}
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
@@ -11,9 +12,9 @@
 {% endblock %}
 
 {% block content %}
-<h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">photos</h1>
+<h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">{% trans "photos" %}</h1>
 <p style="font-size: 0.85rem; color: #888; margin-bottom: 1rem;">
-  <a href="{% url 'photos:map' %}">map view</a>
+  <a href="{% url 'photos:map' %}">{% trans "map view" %}</a>
 </p>
 
 <div class="gallery-grid">
@@ -23,13 +24,13 @@
     <img src="{{ gallery.sample.0.get_thumbnail_url }}" alt="{{ gallery.title }}" loading="lazy">
     {% endif %}
     <h3>{{ gallery.title }}</h3>
-    <span class="meta">{{ gallery.photo_count }} photos</span>
+    <span class="meta">{% blocktrans count counter=gallery.photo_count %}{{ counter }} photo{% plural %}{{ counter }} photos{% endblocktrans %}</span>
     {% if gallery.extension %}
     <span class="meta"> · {{ gallery.extension.get_gallery_type_display }}</span>
     {% endif %}
   </a>
   {% empty %}
-  <p>no galleries yet.</p>
+  <p>{% trans "no galleries yet." %}</p>
   {% endfor %}
 </div>
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}emojinary — {{ room.title }}{% endblock %}
 {% block extra_css %}
 #game-area { display: grid; grid-template-columns: 1fr 250px; gap: 1rem; margin-top: 1rem; }
@@ -40,22 +41,22 @@
 
 <div id="game-area">
   <div>
-    <div id="status" style="font-size: 0.85rem; margin-bottom: 0.5rem;">waiting for players...</div>
+    <div id="status" style="font-size: 0.85rem; margin-bottom: 0.5rem;">{% trans "waiting for players..." %}</div>
     <div id="timer-bar" style="width: 100%; display: none;"></div>
     <div id="your-word" style="display:none;"></div>
     <div id="word-hint"></div>
     <div id="emoji-display"></div>
-    <div id="wait-msg" style="display:none; font-size: 0.9rem; color: #888; margin-top: 0.5rem;">⏳ waiting for clue...</div>
+    <div id="wait-msg" style="display:none; font-size: 0.9rem; color: #888; margin-top: 0.5rem;">⏳ {% trans "waiting for clue..." %}</div>
 
     <div id="emoji-input-area" style="display:none;">
       <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
         <input type="text" id="emoji-field" readonly style="flex: 1; font-size: 1.5rem; padding: 0.3rem;">
-        <button onclick="revealEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer; background: #4a9eff; color: #fff; border: none; border-radius: 4px;">reveal</button>
-        <button onclick="clearEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer;">clear</button>
-        <button onclick="skipWord()" style="padding: 0.3rem 0.7rem; cursor: pointer; color: #888;">skip</button>
+        <button onclick="revealEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer; background: #4a9eff; color: #fff; border: none; border-radius: 4px;">{% trans "reveal" %}</button>
+        <button onclick="clearEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer;">{% trans "clear" %}</button>
+        <button onclick="skipWord()" style="padding: 0.3rem 0.7rem; cursor: pointer; color: #888;">{% trans "skip" %}</button>
       </div>
       <div style="margin-top: 0.5rem;">
-        <input type="text" id="emoji-search-input" placeholder="search emoji..." oninput="searchEmoji(this.value)" style="width: 100%; padding: 0.3rem; font-size: 0.85rem;">
+        <input type="text" id="emoji-search-input" placeholder="{% trans 'search emoji...' %}" oninput="searchEmoji(this.value)" style="width: 100%; padding: 0.3rem; font-size: 0.85rem;">
         <div id="emoji-search-results"></div>
       </div>
       <div class="emoji-pages" id="emoji-pages"></div>
@@ -64,36 +65,36 @@
 
     <div id="guess-area" style="display:none; margin-top: 0.5rem;">
       <form onsubmit="sendGuess(event)">
-        <input type="text" id="guess-field" placeholder="type your guess..." style="width: 70%; padding: 0.35rem; font-size: 0.85rem;">
-        <button type="submit" style="padding: 0.35rem 0.7rem; font-size: 0.85rem; cursor: pointer;">guess</button>
+        <input type="text" id="guess-field" placeholder="{% trans 'type your guess...' %}" style="width: 70%; padding: 0.35rem; font-size: 0.85rem;">
+        <button type="submit" style="padding: 0.35rem 0.7rem; font-size: 0.85rem; cursor: pointer;">{% trans "guess" %}</button>
       </form>
       <div id="partial-feedback" style="font-size: 0.8rem; color: #4a9eff; margin-top: 0.3rem;"></div>
     </div>
 
-    <button id="start-btn" onclick="startGame()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">start game</button>
-    <button id="play-again-btn" onclick="playAgain()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">play again</button>
+    <button id="start-btn" onclick="startGame()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">{% trans "start game" %}</button>
+    <button id="play-again-btn" onclick="playAgain()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">{% trans "play again" %}</button>
 
     <div id="settings-area" style="display:none; margin-top: 1rem; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem;">
-      <strong>settings</strong>
+      <strong>{% trans "settings" %}</strong>
       <div style="margin-top: 0.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-        <label>mode: <select id="set-mode" onchange="updateSettings()"><option value="round_robin">round robin</option><option value="best_guess">best guess</option></select></label>
-        <label>rounds: <input type="number" id="set-rounds" value="10" min="1" max="50" style="width: 50px;" onchange="updateSettings()"></label>
-        <label>emoji time: <input type="number" id="set-emoji-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
-        <label>guess time: <input type="number" id="set-guess-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
-        <label>chat: <select id="set-chat" onchange="updateSettings()"><option value="public">public</option><option value="private">private</option></select></label>
-        <label>difficulty: <select id="set-difficulty" onchange="updateSettings()"><option value="0">all</option><option value="1">easy</option><option value="2">medium</option><option value="3">hard</option></select></label>
+        <label>{% trans "mode:" %} <select id="set-mode" onchange="updateSettings()"><option value="round_robin">{% trans "round robin" %}</option><option value="best_guess">{% trans "best guess" %}</option></select></label>
+        <label>{% trans "rounds:" %} <input type="number" id="set-rounds" value="10" min="1" max="50" style="width: 50px;" onchange="updateSettings()"></label>
+        <label>{% trans "emoji time:" %} <input type="number" id="set-emoji-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
+        <label>{% trans "guess time:" %} <input type="number" id="set-guess-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
+        <label>{% trans "chat:" %} <select id="set-chat" onchange="updateSettings()"><option value="public">{% trans "public" %}</option><option value="private">{% trans "private" %}</option></select></label>
+        <label>{% trans "difficulty:" %} <select id="set-difficulty" onchange="updateSettings()"><option value="0">{% trans "all" %}</option><option value="1">{% trans "easy" %}</option><option value="2">{% trans "medium" %}</option><option value="3">{% trans "hard" %}</option></select></label>
       </div>
     </div>
   </div>
 
   <div>
-    <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem;">players</h3>
+    <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem;">{% trans "players" %}</h3>
     <div id="players"></div>
-    <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem;">chat</h3>
+    <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem;">{% trans "chat" %}</h3>
     <div id="chat"></div>
     <form onsubmit="sendChat(event)" style="margin-top: 0.3rem; display: flex; gap: 0.3rem;">
-      <input type="text" id="chat-field" placeholder="chat..." style="flex: 1; padding: 0.3rem; font-size: 0.8rem;">
-      <button type="submit" style="padding: 0.3rem 0.5rem; font-size: 0.8rem; cursor: pointer;">send</button>
+      <input type="text" id="chat-field" placeholder="{% trans 'chat...' %}" style="flex: 1; padding: 0.3rem; font-size: 0.8rem;">
+      <button type="submit" style="padding: 0.3rem 0.5rem; font-size: 0.8rem; cursor: pointer;">{% trans "send" %}</button>
     </form>
   </div>
 </div>

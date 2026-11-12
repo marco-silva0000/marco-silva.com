@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}pictionary{% endblock %}
+{% block title %}{% trans "pictionary" %}{% endblock %}
 
 {% block extra_css %}
 .pic-btn { display: inline-block; text-decoration: none; padding: 0.35rem 0.7rem; border: 1px solid #ccc; border-radius: 4px; color: #222; background: #fafafa; cursor: pointer; font-size: 0.85rem; }
@@ -15,44 +16,44 @@
 {% endblock %}
 
 {% block content %}
-<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">pictionary</h1>
-<p style="font-size: 0.85rem; color: #555; margin-bottom: 1.5rem;">pick your options, hit the button, draw!</p>
+<h1 style="font-size: 1.3rem; margin-bottom: 1rem;">{% trans "pictionary" %}</h1>
+<p style="font-size: 0.85rem; color: #555; margin-bottom: 1.5rem;">{% trans "pick your options, hit the button, draw!" %}</p>
 
 <div class="pic-row">
-  <span class="pic-label">difficulty</span>
+  <span class="pic-label">{% trans "difficulty" %}</span>
   <div class="pic-group" id="diff-select">
-    <a class="pic-btn" onclick="selectBtn(this)" data-d="easy">easy</a>
-    <a class="pic-btn active" onclick="selectBtn(this)" data-d="medium">medium</a>
-    <a class="pic-btn" onclick="selectBtn(this)" data-d="hard">hard</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-d="easy">{% trans "easy" %}</a>
+    <a class="pic-btn active" onclick="selectBtn(this)" data-d="medium">{% trans "medium" %}</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-d="hard">{% trans "hard" %}</a>
   </div>
 </div>
 
 <div class="pic-row">
-  <span class="pic-label">type</span>
+  <span class="pic-label">{% trans "type" %}</span>
   <div class="pic-group" id="cat-select">
-    <a class="pic-btn active" onclick="selectBtn(this)" data-cat="noun">noun</a>
-    <a class="pic-btn" onclick="selectBtn(this)" data-cat="verb">verb</a>
-    <a class="pic-btn" onclick="selectBtn(this)" data-cat="adjective">adjective</a>
-    <a class="pic-btn" onclick="selectBtn(this)" data-cat="any">any</a>
+    <a class="pic-btn active" onclick="selectBtn(this)" data-cat="noun">{% trans "noun" %}</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-cat="verb">{% trans "verb" %}</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-cat="adjective">{% trans "adjective" %}</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-cat="any">{% trans "any" %}</a>
   </div>
 </div>
 
 <div class="pic-row">
-  <span class="pic-label">mode</span>
+  <span class="pic-label">{% trans "mode" %}</span>
   <div class="pic-group" id="mode-select">
-    <a class="pic-btn active" onclick="selectBtn(this)" data-mode="word">word</a>
-    <a class="pic-btn" onclick="selectBtn(this)" data-mode="sentence">sentence</a>
+    <a class="pic-btn active" onclick="selectBtn(this)" data-mode="word">{% trans "word" %}</a>
+    <a class="pic-btn" onclick="selectBtn(this)" data-mode="sentence">{% trans "sentence" %}</a>
   </div>
 </div>
 
 <div style="margin: 1.5rem 0;">
   <button onclick="getWord()" style="padding: 0.5rem 1.5rem; font-size: 1rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: #fafafa;">
-    new word
+    {% trans "new word" %}
   </button>
 </div>
 
 <div id="word-target" style="min-height: 3rem; display: flex; align-items: center;">
-  <span style="font-size: 0.9rem; color: #888;">press the button to get a word</span>
+  <span style="font-size: 0.9rem; color: #888;">{% trans "press the button to get a word" %}</span>
 </div>
 
 <script>
