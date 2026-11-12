@@ -3790,6 +3790,14 @@ class TestLupusV129HackerDeckAndScan:
         alice_view = get_sanitized_player_view(state, p1["id"])
         assert alice_view["unread_dms_count"] == 0
 
+        # 4. GM marks DMs read for Alice
+        gm_view = get_gm_view(state)
+        assert gm_view["unread_dms_count"] == 1
+        updated_gm = mark_dms_read(state, "gm", p1["id"])
+        assert updated_gm is True
+        gm_view = get_gm_view(state)
+        assert gm_view["unread_dms_count"] == 0
+
     def test_ghost_midgame_lifecycle_and_optional_haunt(self):
         """Mid-game spirits (ghost, disgruntled ghost) only exist when a player holds them, and haunt is optional."""
         from lupus.game_state import (

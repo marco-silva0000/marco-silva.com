@@ -790,6 +790,70 @@ html, body {
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
   .modal.active { display: flex; }
   .modal-content { background: #fff; padding: 1.5rem; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+
+  /* Responsive DM Cockpit */
+  .gm-dm-layout {
+    display: flex;
+    gap: 0.75rem;
+    flex: 1;
+    min-height: 400px;
+    max-height: 62vh;
+    overflow: hidden;
+  }
+  .gm-dm-sidebar {
+    width: 220px;
+    border-right: 1px solid #e2e8f0;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+  .gm-dm-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .gm-dm-mobile-selector-wrap {
+    display: none;
+    margin-bottom: 0.65rem;
+  }
+  .gm-dm-mobile-pill {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 999px;
+    white-space: nowrap;
+    border: 1px solid #cbd5e1;
+    background: #f1f5f9;
+    color: #334155;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all 0.15s ease;
+  }
+  .gm-dm-mobile-pill.active {
+    background: #0284c7;
+    color: #fff;
+    border-color: #0284c7;
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+  }
+  @media (max-width: 640px) {
+    .gm-dm-sidebar {
+      display: none !important;
+    }
+    .gm-dm-mobile-selector-wrap {
+      display: block !important;
+    }
+    .gm-dm-layout {
+      flex-direction: column !important;
+      max-height: 74vh !important;
+      min-height: 320px !important;
+    }
+  }
 </style>
 
 <div class="gm-container">
@@ -1920,6 +1984,9 @@ html, body {
       <button id="btn-seat-qr" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem;">
         📱 Show Private Reconnect QR
       </button>
+      <button id="btn-seat-dm" class="btn btn-sm" style="text-align: left; padding: 0.5rem 0.75rem; background: #e0f2fe; color: #0369a1; border-color: #bae6fd; font-weight: 700;">
+        💬 Direct Message Player
+      </button>
       <div id="seat-coroner-actions" style="display: none; border-top: 1px dashed #cbd5e1; padding-top: 0.5rem; margin-top: 0.35rem;">
         <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 0.35rem;">📰 Coroner's Leak (Town Gazette):</div>
         <div style="display: flex; gap: 0.4rem;">
@@ -2012,36 +2079,78 @@ html, body {
 
 <!-- Modal: Game Master Direct Messages -->
 <div id="gm-dms-modal" class="modal">
-  <div class="modal-content" style="max-width: 680px; width: 95%; max-height: 85vh; display: flex; flex-direction: column; text-align: left; padding: 1.25rem;">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.65rem; margin-bottom: 0.75rem;">
-      <h3 style="margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 0.4rem; color: #0f172a;">
-        <span>💬</span> <span>Direct Messages with Players</span>
-      </h3>
-      <button onclick="closeModal('gm-dms-modal')" class="btn btn-sm">&times; Close</button>
+  <div class="modal-content" style="max-width: 780px; width: 96%; max-height: 88vh; display: flex; flex-direction: column; text-align: left; padding: 1.15rem; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+    <!-- Modal Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.65rem; margin-bottom: 0.65rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.35rem;">💬</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.15rem; color: #0f172a; font-weight: 800;">
+            Direct Messages with Players
+          </h3>
+          <span style="font-size: 0.75rem; color: #64748b;">Private 1-on-1 whispers between Host and players</span>
+        </div>
+      </div>
+      <button onclick="closeModal('gm-dms-modal')" class="btn btn-sm" style="min-height: 32px; padding: 0.2rem 0.65rem; font-weight: 700;">&times; Close</button>
     </div>
 
-    <div style="display: flex; gap: 0.75rem; flex: 1; min-height: 360px; max-height: 58vh; overflow: hidden;">
-      <!-- Player List (Conversations) -->
-      <div style="width: 190px; border-right: 1px solid #e2e8f0; overflow-y: auto; padding-right: 0.5rem; display: flex; flex-direction: column; gap: 0.35rem;" id="gm-dm-player-list">
+    <!-- Mobile Switcher (Visible on mobile screens <= 640px, hidden on desktop) -->
+    <div id="gm-dm-mobile-selector-wrap" class="gm-dm-mobile-selector-wrap">
+      <div style="display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.4rem;">
+        <label for="gm-dm-mobile-select" style="font-size: 0.85rem; font-weight: 800; color: #0f172a; white-space: nowrap;">
+          👥 Chat with:
+        </label>
+        <select id="gm-dm-mobile-select" onchange="selectGMDMPlayer(this.value)"
+          style="flex: 1; min-height: 44px; padding: 0.45rem 0.65rem; font-size: 1rem; border: 1.5px solid #0284c7; border-radius: 8px; font-weight: 700; background: #f0f9ff; color: #0369a1; outline: none;">
+          <!-- Rendered dynamically -->
+        </select>
+      </div>
+      <!-- Horizontal Scrollable Player Pills on Mobile -->
+      <div id="gm-dm-mobile-pills" style="display: flex; gap: 0.35rem; overflow-x: auto; padding: 0.25rem 0; margin-bottom: 0.25rem; -webkit-overflow-scrolling: touch;">
         <!-- Rendered dynamically -->
       </div>
+    </div>
 
-      <!-- Active Conversation Panel -->
-      <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
-        <div id="gm-dm-active-header" style="padding: 0.4rem 0.6rem; background: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 0.5rem; font-weight: 700; font-size: 0.85rem; color: #1e293b;">
-          Select a player to chat
+    <!-- Main Layout (Two columns on desktop, full-width single column on mobile) -->
+    <div class="gm-dm-layout">
+      <!-- Desktop Sidebar (Hidden on mobile) -->
+      <div id="gm-dm-sidebar" class="gm-dm-sidebar">
+        <input id="gm-dm-player-search" type="text" placeholder="🔍 Search players..." oninput="onGMDMPlayerSearch(this.value)"
+          style="width: 100%; box-sizing: border-box; padding: 0.45rem 0.65rem; font-size: 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 0.45rem; background: #fff;">
+        <div id="gm-dm-player-list" style="overflow-y: auto; display: flex; flex-direction: column; gap: 0.35rem; flex: 1;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Active Conversation Panel (Takes 100% width on mobile) -->
+      <div class="gm-dm-main">
+        <!-- Conversation Header -->
+        <div id="gm-dm-active-header" style="padding: 0.45rem 0.75rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 0.5rem; font-size: 0.85rem; color: #1e293b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.35rem;">
+          <span>Select a player to chat</span>
         </div>
 
-        <!-- Chat messages scroll area -->
-        <div id="gm-dm-chat-history" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.45rem; padding: 0.65rem; background: #f1f5f9; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 0.65rem;">
+        <!-- Chat History Area -->
+        <div id="gm-dm-chat-history" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding: 0.75rem; background: #f8fafc; border-radius: 10px; border: 1px solid #cbd5e1; margin-bottom: 0.5rem; min-height: 190px;">
           <!-- Rendered dynamically -->
         </div>
 
-        <!-- Composer -->
-        <form id="gm-dm-composer" onsubmit="sendGMDM(event)" style="display: flex; gap: 0.4rem; margin: 0;">
-          <input type="text" id="gm-dm-input" maxlength="300" placeholder="Type a private reply to this player..." style="flex: 1; min-width: 0; padding: 0.45rem 0.65rem; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.88rem;" autocomplete="off" />
-          <button type="submit" class="btn btn-sm btn-primary" style="font-weight: 700; padding: 0.45rem 0.85rem; white-space: nowrap;">
-            Send
+        <!-- Quick Reply Chips for GM -->
+        <div id="gm-dm-quick-replies" style="display: flex; gap: 0.35rem; overflow-x: auto; padding-bottom: 0.35rem; margin-bottom: 0.35rem; -webkit-overflow-scrolling: touch;">
+          <button type="button" onclick="quickReplyGMDM('👍 Understood / Confirmed.')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 999px; background: #f1f5f9; color: #334155; border-color: #cbd5e1; white-space: nowrap;">👍 Confirmed</button>
+          <button type="button" onclick="quickReplyGMDM('🤫 Please stay silent for now.')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 999px; background: #f1f5f9; color: #334155; border-color: #cbd5e1; white-space: nowrap;">🤫 Stay Silent</button>
+          <button type="button" onclick="quickReplyGMDM('❓ Could you clarify your question?')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 999px; background: #f1f5f9; color: #334155; border-color: #cbd5e1; white-space: nowrap;">❓ Clarify</button>
+          <button type="button" onclick="quickReplyGMDM('⏳ Wait for dawn to resolve.')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 999px; background: #f1f5f9; color: #334155; border-color: #cbd5e1; white-space: nowrap;">⏳ Wait for Dawn</button>
+          <button type="button" onclick="quickReplyGMDM('✅ Yes.')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 999px; background: #f1f5f9; color: #334155; border-color: #cbd5e1; white-space: nowrap;">✅ Yes</button>
+          <button type="button" onclick="quickReplyGMDM('❌ No.')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 999px; background: #f1f5f9; color: #334155; border-color: #cbd5e1; white-space: nowrap;">❌ No</button>
+        </div>
+
+        <!-- Composer Form with Roomy 48px Input -->
+        <form id="gm-dm-composer" onsubmit="sendGMDM(event)" style="display: flex; gap: 0.45rem; margin: 0; align-items: center;">
+          <input type="text" id="gm-dm-input" maxlength="500" placeholder="Type a private reply to this player... (Press Enter)"
+            style="flex: 1; min-width: 0; min-height: 48px; padding: 0.65rem 0.9rem; border-radius: 8px; border: 1.5px solid #cbd5e1; font-size: 1rem; color: #0f172a; background: #ffffff; outline: none; box-sizing: border-box;" autocomplete="off" />
+          <button type="submit" id="btn-gm-dm-send" class="btn btn-primary"
+            style="min-height: 48px; padding: 0.55rem 1.15rem; font-size: 0.95rem; font-weight: 700; white-space: nowrap; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.35rem;">
+            <span>Send</span> <span>➤</span>
           </button>
         </form>
       </div>
@@ -3029,8 +3138,21 @@ html, body {
     currentGameState = state;
     checkVersionUpdate(state);
     renderPlayerPoints(state);
+    const topBadge = document.getElementById("gm-topbar-dms-badge");
+    const unreadCount = state.unread_dms_count || 0;
+    if (topBadge) {
+      if (unreadCount > 0) {
+        topBadge.style.display = "inline-block";
+        topBadge.innerText = unreadCount > 9 ? "9+" : unreadCount;
+      } else {
+        topBadge.style.display = "none";
+      }
+    }
     if (document.getElementById("gm-settings-modal") && document.getElementById("gm-settings-modal").classList.contains("active")) {
       renderSettingsModal();
+    }
+    if (document.getElementById("gm-dms-modal") && document.getElementById("gm-dms-modal").classList.contains("active")) {
+      renderGMDMsModal();
     }
     document.getElementById("phase-badge").innerText = state.phase.toUpperCase();
     document.getElementById("round-num").innerText = state.round_number;
@@ -3869,6 +3991,13 @@ html, body {
       closeModal('player-seat-modal');
       showPlayerQR(p.id, p.name, p.token);
     };
+    const seatDmBtn = document.getElementById("btn-seat-dm");
+    if (seatDmBtn) {
+      seatDmBtn.onclick = () => {
+        closeModal('player-seat-modal');
+        openGMDMsModal(p.id);
+      };
+    }
     const coronerDiv = document.getElementById("seat-coroner-actions");
     if (coronerDiv) {
       if (p.status === "dead" || p.status === "limbo") {
@@ -5302,6 +5431,7 @@ html, body {
 
   // --- Game Master Direct Messages ---
   let selectedGMDMPlayerId = null;
+  let gmDMPlayerSearchQuery = "";
 
   function openGMDMsModal(targetPlayerId) {
     if (targetPlayerId) {
@@ -5309,18 +5439,32 @@ html, body {
     }
     renderGMDMsModal();
     openModal("gm-dms-modal");
+    if (selectedGMDMPlayerId) {
+      sendAction("mark_dms_read", { player_id: selectedGMDMPlayerId });
+    }
+  }
+
+  function onGMDMPlayerSearch(val) {
+    gmDMPlayerSearchQuery = (val || "").trim().toLowerCase();
+    renderGMDMsModal();
   }
 
   function selectGMDMPlayer(playerId) {
+    if (!playerId) return;
     selectedGMDMPlayerId = playerId;
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      sendAction("mark_dms_read", { player_id: playerId });
-    }
+    sendAction("mark_dms_read", { player_id: playerId });
     renderGMDMsModal();
     setTimeout(() => {
       const inp = document.getElementById("gm-dm-input");
       if (inp) inp.focus();
     }, 50);
+  }
+
+  function quickReplyGMDM(text) {
+    const inp = document.getElementById("gm-dm-input");
+    if (!inp) return;
+    inp.value = text;
+    inp.focus();
   }
 
   function sendGMDM(e) {
@@ -5354,68 +5498,154 @@ html, body {
     }
 
     if (!selectedGMDMPlayerId && players.length > 0) {
-      const lastMsg = dms.slice().reverse().find(m => m.sender_id !== "gm");
-      if (lastMsg) {
-        selectedGMDMPlayerId = lastMsg.sender_id;
+      const unreadMsg = dms.slice().reverse().find(m => m.sender_id !== "gm" && !m.read);
+      if (unreadMsg) {
+        selectedGMDMPlayerId = unreadMsg.sender_id;
       } else {
-        selectedGMDMPlayerId = players[0].id;
+        const lastMsg = dms.slice().reverse().find(m => m.sender_id !== "gm");
+        if (lastMsg) {
+          selectedGMDMPlayerId = lastMsg.sender_id;
+        } else {
+          selectedGMDMPlayerId = players[0].id;
+        }
       }
     }
 
-    const playerListEl = document.getElementById("gm-dm-player-list");
-    if (playerListEl) {
-      playerListEl.innerHTML = players.map(p => {
-        const isSelected = p.id === selectedGMDMPlayerId;
-        const unreadForPlayer = dms.filter(m => m.sender_id === p.id && m.recipient_id === "gm" && !m.read).length;
-        const bg = isSelected ? "#e0f2fe" : "#ffffff";
-        const border = isSelected ? "2px solid #0284c7" : "1px solid #e2e8f0";
+    // 1. Mobile Dropdown Selector
+    const mobileSelectEl = document.getElementById("gm-dm-mobile-select");
+    if (mobileSelectEl) {
+      let optionsHtml = `<option value="" disabled ${!selectedGMDMPlayerId ? 'selected' : ''}>-- Choose player to whisper --</option>`;
+      optionsHtml += players.map(p => {
+        const isSel = p.id === selectedGMDMPlayerId;
+        const unread = dms.filter(m => m.sender_id === p.id && m.recipient_id === "gm" && !m.read).length;
+        const unreadTag = unread > 0 ? ` 🔴 (${unread} new)` : "";
+        const statusTag = p.status !== "alive" ? ` [${p.status.toUpperCase()}]` : "";
+        const roleTag = p.role ? ` (${p.role.emoji} ${p.role.name})` : "";
+        return `<option value="${p.id}" ${isSel ? 'selected' : ''}>#${p.seat_number} ${escapeHtml(p.name)}${roleTag}${statusTag}${unreadTag}</option>`;
+      }).join("");
+      mobileSelectEl.innerHTML = optionsHtml;
+      if (selectedGMDMPlayerId) {
+        mobileSelectEl.value = selectedGMDMPlayerId;
+      }
+    }
+
+    // 2. Mobile Quick Horizontal Pills
+    const mobilePillsEl = document.getElementById("gm-dm-mobile-pills");
+    if (mobilePillsEl) {
+      mobilePillsEl.innerHTML = players.map(p => {
+        const isSel = p.id === selectedGMDMPlayerId;
+        const unread = dms.filter(m => m.sender_id === p.id && m.recipient_id === "gm" && !m.read).length;
+        const statusDot = p.status === 'alive' ? '🟢' : (p.status === 'limbo' ? '🌫️' : '💀');
         return `
-          <button type="button" onclick="selectGMDMPlayer('${p.id}')" style="display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left; padding: 0.45rem 0.65rem; border-radius: 6px; background: ${bg}; border: ${border}; cursor: pointer; font-size: 0.85rem; font-weight: ${isSelected ? '700' : '500'}; color: #0f172a;">
-            <div style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-              #${p.seat_number} ${escapeHtml(p.name)}
-            </div>
-            ${unreadForPlayer > 0 ? `<span class="badge" style="background: #ef4444; color: #fff; font-size: 0.65rem; padding: 1px 5px; border-radius: 999px;">${unreadForPlayer}</span>` : ''}
+          <button type="button" class="gm-dm-mobile-pill ${isSel ? 'active' : ''}" onclick="selectGMDMPlayer('${p.id}')">
+            <span>${statusDot}</span>
+            <span>#${p.seat_number} ${escapeHtml(p.name)}</span>
+            ${unread > 0 ? `<span class="badge" style="background:#ef4444;color:#fff;font-size:0.65rem;padding:1px 5px;border-radius:999px;">${unread}</span>` : ''}
           </button>
         `;
       }).join("");
+
+      const activePill = mobilePillsEl.querySelector(".gm-dm-mobile-pill.active");
+      if (activePill && typeof activePill.scrollIntoView === "function") {
+        activePill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }
     }
 
+    // 3. Desktop Sidebar Player List
+    const playerListEl = document.getElementById("gm-dm-player-list");
+    if (playerListEl) {
+      const filteredPlayers = players.filter(p => {
+        if (!gmDMPlayerSearchQuery) return true;
+        const q = gmDMPlayerSearchQuery;
+        return (
+          p.name.toLowerCase().includes(q) ||
+          String(p.seat_number).includes(q) ||
+          (p.role && p.role.name.toLowerCase().includes(q)) ||
+          p.status.toLowerCase().includes(q)
+        );
+      });
+
+      if (filteredPlayers.length === 0) {
+        playerListEl.innerHTML = `<div style="font-size: 0.78rem; color: #94a3b8; text-align: center; padding: 1rem 0;">No matching players</div>`;
+      } else {
+        playerListEl.innerHTML = filteredPlayers.map(p => {
+          const isSelected = p.id === selectedGMDMPlayerId;
+          const unreadForPlayer = dms.filter(m => m.sender_id === p.id && m.recipient_id === "gm" && !m.read).length;
+          const bg = isSelected ? "#e0f2fe" : "#ffffff";
+          const border = isSelected ? "2px solid #0284c7" : "1px solid #e2e8f0";
+          const statusDot = p.status === 'alive' ? '🟢' : (p.status === 'limbo' ? '🌫️' : '💀');
+          return `
+            <button type="button" onclick="selectGMDMPlayer('${p.id}')"
+              style="display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left; padding: 0.45rem 0.65rem; border-radius: 8px; background: ${bg}; border: ${border}; cursor: pointer; font-size: 0.85rem; font-weight: ${isSelected ? '700' : '500'}; color: #0f172a; transition: background 0.15s ease;">
+              <div style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 0.35rem;">
+                <span>${statusDot}</span>
+                <span style="overflow: hidden; text-overflow: ellipsis;">#${p.seat_number} ${escapeHtml(p.name)}</span>
+              </div>
+              ${unreadForPlayer > 0 ? `<span class="badge" style="background: #ef4444; color: #fff; font-size: 0.68rem; padding: 1px 6px; border-radius: 999px; font-weight: 800;">${unreadForPlayer}</span>` : ''}
+            </button>
+          `;
+        }).join("");
+      }
+    }
+
+    // 4. Active Conversation Header
     const activeHeaderEl = document.getElementById("gm-dm-active-header");
     const chatHistoryEl = document.getElementById("gm-dm-chat-history");
     const activePlayer = players.find(p => p.id === selectedGMDMPlayerId);
 
     if (activeHeaderEl) {
       if (activePlayer) {
-        const roleLabel = activePlayer.role ? ` (${activePlayer.role.emoji} ${activePlayer.role.name})` : '';
-        activeHeaderEl.innerHTML = `Conversation with <strong>#${activePlayer.seat_number} ${escapeHtml(activePlayer.name)}</strong>${escapeHtml(roleLabel)}`;
+        const roleLabel = activePlayer.role ? ` • <span>${activePlayer.role.emoji} ${escapeHtml(activePlayer.role.name)}</span>` : '';
+        const statusBadge = activePlayer.status === 'alive'
+          ? `<span class="badge" style="background: #dcfce7; color: #166534; font-size: 0.72rem; padding: 2px 7px; border-radius: 999px;">Alive</span>`
+          : (activePlayer.status === 'limbo'
+            ? `<span class="badge" style="background: #e0e7ff; color: #3730a3; font-size: 0.72rem; padding: 2px 7px; border-radius: 999px;">Limbo</span>`
+            : `<span class="badge" style="background: #fee2e2; color: #991b1b; font-size: 0.72rem; padding: 2px 7px; border-radius: 999px;">Dead</span>`);
+        activeHeaderEl.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap;">
+            <span>Whispering with <strong>#${activePlayer.seat_number} ${escapeHtml(activePlayer.name)}</strong></span>
+            ${roleLabel}
+            ${statusBadge}
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.35rem;">
+            <button type="button" onclick="sendAction('mark_dms_read', { player_id: '${activePlayer.id}' })" class="btn btn-sm" style="font-size: 0.72rem; padding: 0.15rem 0.5rem; background: #f1f5f9; color: #475569; border-color: #cbd5e1;">Mark Read</button>
+          </div>
+        `;
       } else {
-        activeHeaderEl.innerText = "Select a player to chat";
+        activeHeaderEl.innerHTML = `<span>Select a player to chat</span>`;
       }
     }
 
+    // 5. Chat History Messages
     if (chatHistoryEl) {
       if (!selectedGMDMPlayerId) {
-        chatHistoryEl.innerHTML = `<div style="text-align: center; color: #64748b; font-size: 0.82rem; padding: 2rem;">Select a player from the left list.</div>`;
+        chatHistoryEl.innerHTML = `<div style="text-align: center; color: #64748b; font-size: 0.88rem; padding: 3rem 1rem;">👈 Select a player above or from the list to start whispering.</div>`;
       } else {
         const activeDMs = dms.filter(m => m.sender_id === selectedGMDMPlayerId || m.recipient_id === selectedGMDMPlayerId);
         if (activeDMs.length === 0) {
-          chatHistoryEl.innerHTML = `<div style="text-align: center; color: #64748b; font-size: 0.82rem; padding: 2rem;">No messages with this player yet. Send a message below.</div>`;
+          chatHistoryEl.innerHTML = `
+            <div style="text-align: center; color: #64748b; font-size: 0.88rem; padding: 3rem 1rem; line-height: 1.5;">
+              <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🤫</div>
+              No private messages with <strong>${escapeHtml(activePlayer ? activePlayer.name : 'this player')}</strong> yet.<br>
+              <span style="font-size: 0.8rem; color: #94a3b8;">Type a whisper below or pick a quick response.</span>
+            </div>
+          `;
         } else {
           chatHistoryEl.innerHTML = activeDMs.map(m => {
             const isFromGM = m.sender_id === "gm";
             const align = isFromGM ? "flex-end" : "flex-start";
             const bg = isFromGM ? "#0284c7" : "#ffffff";
             const color = isFromGM ? "#ffffff" : "#0f172a";
-            const border = isFromGM ? "1px solid #0369a1" : "1px solid #cbd5e1";
-            const senderLabel = isFromGM ? "You (GM)" : (m.sender_name || "Player");
+            const border = isFromGM ? "1px solid #0369a1" : "1.5px solid #cbd5e1";
+            const senderLabel = isFromGM ? "👑 You (Game Master)" : (m.sender_name || (activePlayer ? activePlayer.name : "Player"));
             const timeStr = m.created_at ? new Date(m.created_at * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
             return `
-              <div style="align-self: ${align}; max-width: 80%; background: ${bg}; color: ${color}; border: ${border}; border-radius: 8px; padding: 0.45rem 0.65rem; font-size: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                <div style="font-size: 0.68rem; opacity: 0.8; margin-bottom: 0.15rem; display: flex; justify-content: space-between; gap: 0.5rem; font-weight: 700;">
+              <div style="align-self: ${align}; max-width: 82%; background: ${bg}; color: ${color}; border: ${border}; border-radius: 10px; padding: 0.55rem 0.8rem; font-size: 0.9rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">
+                <div style="font-size: 0.72rem; opacity: 0.85; margin-bottom: 0.2rem; display: flex; justify-content: space-between; gap: 0.6rem; font-weight: 700;">
                   <span>${escapeHtml(senderLabel)}</span>
-                  <span style="font-weight: normal;">${timeStr}</span>
+                  <span style="font-weight: 400; opacity: 0.75;">${timeStr}</span>
                 </div>
-                <div style="word-break: break-word; white-space: pre-wrap; line-height: 1.35;">${escapeHtml(m.message)}</div>
+                <div style="word-break: break-word; white-space: pre-wrap; line-height: 1.4;">${escapeHtml(m.message)}</div>
               </div>
             `;
           }).join("");

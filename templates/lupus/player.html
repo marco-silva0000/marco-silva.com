@@ -1308,15 +1308,23 @@ html, body {
         </div>
 
         <!-- Message History List -->
-        <div id="player-chat-feed" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding: 0.5rem; background: #0b1120; border-radius: 10px; border: 1px solid #1e293b; margin-bottom: 0.65rem;">
+        <div id="player-chat-feed" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding: 0.65rem; background: #0b1120; border-radius: 10px; border: 1px solid #1e293b; margin-bottom: 0.65rem; min-height: 220px;">
           <!-- Rendered dynamically -->
         </div>
 
+        <!-- Quick Prompts for Player -->
+        <div id="player-chat-quick-prompts" style="display: flex; gap: 0.35rem; overflow-x: auto; padding-bottom: 0.4rem; margin-bottom: 0.4rem; -webkit-overflow-scrolling: touch;">
+          <button type="button" onclick="quickFillPlayerChat('❓ Can I use my ability tonight?')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.55rem; border-radius: 999px; background: rgba(255,255,255,0.06); color: #cbd5e1; border: 1px solid #334155; white-space: nowrap;">❓ Use power tonight?</button>
+          <button type="button" onclick="quickFillPlayerChat('🌫️ Who is currently in Limbo?')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.55rem; border-radius: 999px; background: rgba(255,255,255,0.06); color: #cbd5e1; border: 1px solid #334155; white-space: nowrap;">🌫️ Who in Limbo?</button>
+          <button type="button" onclick="quickFillPlayerChat('🤐 Am I silenced or suppressed?')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.55rem; border-radius: 999px; background: rgba(255,255,255,0.06); color: #cbd5e1; border: 1px solid #334155; white-space: nowrap;">🤐 Am I silenced?</button>
+          <button type="button" onclick="quickFillPlayerChat('👀 Quick rule question.')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.55rem; border-radius: 999px; background: rgba(255,255,255,0.06); color: #cbd5e1; border: 1px solid #334155; white-space: nowrap;">👀 Rule question</button>
+        </div>
+
         <!-- Composer -->
-        <form id="player-chat-form" onsubmit="sendPlayerDirectMessage(event)" style="display: flex; gap: 0.4rem; align-items: center; margin: 0;">
-          <input type="text" id="player-chat-input" maxlength="300" placeholder="Type a private message to the Host..." style="flex: 1; min-width: 0; padding: 0.55rem 0.75rem; border-radius: 8px; background: #0f172a; border: 1px solid #475569; color: #fff; font-size: 0.88rem; outline: none;" autocomplete="off" />
-          <button type="submit" id="btn-player-chat-send" class="btn btn-sm" style="background: #0284c7; border-color: #0284c7; color: #fff; font-weight: 700; padding: 0.55rem 0.9rem; white-space: nowrap;">
-            Send
+        <form id="player-chat-form" onsubmit="sendPlayerDirectMessage(event)" style="display: flex; gap: 0.5rem; align-items: center; margin: 0;">
+          <input type="text" id="player-chat-input" maxlength="500" placeholder="Type private message to Host... (Press Enter)" style="flex: 1; min-width: 0; min-height: 48px; padding: 0.65rem 0.85rem; border-radius: 10px; background: #0f172a; border: 1.5px solid #334155; color: #fff; font-size: 1rem; outline: none; box-sizing: border-box;" autocomplete="off" />
+          <button type="submit" id="btn-player-chat-send" class="btn btn-primary" style="min-height: 48px; padding: 0.55rem 1.15rem; font-size: 0.95rem; font-weight: 700; white-space: nowrap; border-radius: 10px; display: inline-flex; align-items: center; gap: 0.35rem;">
+            <span>Send</span> <span>➤</span>
           </button>
         </form>
       </div>
@@ -3368,6 +3376,13 @@ html, body {
         feedSec.style.display = "none";
       }
     }
+  }
+
+  function quickFillPlayerChat(text) {
+    const inp = document.getElementById("player-chat-input");
+    if (!inp) return;
+    inp.value = text;
+    inp.focus();
   }
 
   function sendPlayerDirectMessage(e) {

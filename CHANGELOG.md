@@ -4,6 +4,24 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v137] - 2026-11-13
+
+### Fixed
+- **GM Direct Message Player Switching Bug**:
+  - Fixed `Uncaught ReferenceError: ws is not defined` in `selectGMDMPlayer` within `templates/lupus/gm_dashboard.html`, which prevented Game Masters from selecting and switching between different players in the DM modal.
+  - Replaced rogue `ws` socket reference with standardized `sendAction("mark_dms_read", { player_id })`.
+
+### Improved
+- **Mobile Direct Message Interface Redesign**:
+  - **Responsive Layout**: Replaced the cramped two-column layout on mobile devices ($\le 640\text{px}$) with an adaptive single-column conversation view.
+  - **Mobile Player Switcher**: Added top player select dropdown (`#gm-dm-mobile-select`) and touch-friendly horizontal scrolling player pills (`#gm-dm-mobile-pills`) with status indicators and live unread badges.
+  - **Input Box & Ergonomics**: Upgraded message input fields to 48px height with $1\text{rem}$ ($16\text{px}$) font size across GM Cockpit and Player Screen (preventing unwanted iOS mobile zoom).
+  - **Quick Reply & Inquiry Chips**:
+    - GM quick-replies: `👍 Confirmed`, `🤫 Stay Silent`, `❓ Clarify`, `⏳ Wait for Dawn`, `✅ Yes`, `❌ No`.
+    - Player quick-inquiries: power check, limbo query, silence status, rule clarification.
+  - **Table Seat Integration**: Added `💬 Direct Message Player` 1-tap launcher directly from the circular table seat details modal (`#player-seat-modal`).
+  - **Desktop Search**: Integrated instant search filter (`#gm-dm-player-search`) into the GM DM sidebar.
+
 ## [v136] - 2026-11-12
 
 ### Added
