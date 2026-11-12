@@ -36,7 +36,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOCALE_DIR = BASE_DIR / "locale"
 
-LANGUAGES = ["en", "pt", "it", "es", "fr", "el", "ru", "hi", "kn"]
+LANGUAGES = ["en", "pt", "it", "es", "fr", "el", "ru", "hi", "kn", "ar", "fa", "ur"]
 LANGUAGE_NAMES = {
     "en": "English",
     "pt": "Português",
@@ -47,6 +47,9 @@ LANGUAGE_NAMES = {
     "ru": "Русский",
     "hi": "हिन्दी",
     "kn": "ಕನ್ನಡ",
+    "ar": "العربية",
+    "fa": "فارسی",
+    "ur": "اردو",
 }
 
 

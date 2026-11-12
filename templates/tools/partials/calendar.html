@@ -3,9 +3,9 @@
 
 <nav class="planz-nav" aria-label="{% trans 'Calendar navigation' %}">
   <div class="planz-btn-group">
-    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" role="button" aria-label="{% trans 'Previous day' %}">←</a>
+    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ prev_date }}" role="button" aria-label="{% trans 'Previous day' %}"><span class="dir-back-arrow">←</span></a>
     <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}" role="button">{% trans "today" %}</a>
-    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" role="button" aria-label="{% trans 'Next day' %}">→</a>
+    <a class="planz-btn" href="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-get="{% url 'tools:planz-nav' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" hx-target="#calendar" hx-push-url="{% url 'tools:planz' %}?passwd={{ passwd }}&days={{ days }}&start={{ next_date }}" role="button" aria-label="{% trans 'Next day' %}"><span class="dir-forward-arrow">→</span></a>
   </div>
 
   <div class="planz-btn-group">

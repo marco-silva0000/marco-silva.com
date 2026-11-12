@@ -4,6 +4,27 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v133] - 2026-11-12
+
+### Added
+- **Right-to-Left (RTL) Internationalization & Accessibility (WCAG 2.1/2.2)**:
+  - Added Arabic (`ar`), Persian / Farsi (`fa`), and Urdu (`ur`) to `LANGUAGES` and `WAGTAIL_CONTENT_LANGUAGES` (now 12 supported languages total), strictly excluding Hebrew (`he`).
+  - Dynamic BiDi directionality: root `<html lang="..." dir="...">` dynamically switches between `ltr` and `rtl` via Django's `get_current_language_bidi`.
+  - W3C Accessibility conformance:
+    - Directional navigation mirroring: chronological arrows (`←` back) mirror to `→` under `[dir="rtl"]` using CSS transforms.
+    - Media controls and mathematical/technical text isolation: room codes, timers (`05:00`), and timestamps strictly isolated using `<bdi>` and `dir="ltr"` to prevent punctuation scrambling.
+    - WCAG 1.4.12 typography: increased line-height (1.8) and specialized Arabic/Persian/Urdu font stack (`Noto Sans Arabic`, `Amiri`, `Vazirmatn`, `Noto Nastaliq Urdu`).
+    - CSS logical properties transition: replaced directional physical properties (`margin-right`, `padding-left`) with logical counterparts (`margin-inline-end`, `padding-inline-start`, `text-align: start`).
+- **Lupus Werewolf Mobile Game BiDi Presentation**:
+  - Added live client-side RTL switching (`applyDirectionality(lang)`) updating `document.documentElement.dir` on the fly without disconnecting the WebSocket.
+  - Room code pill and phase clock chips tagged with `dir="ltr"` and `unicode-bidi: isolate`.
+  - Host Chat direct messages: player and GM messages align dynamically to flex-start/flex-end based on reading order, message text isolated with `<bdi>`, and timestamps forced to LTR.
+  - Localized Lupus roles, phases, factions, statuses, and player screen UI strings for Arabic, Persian, and Urdu.
+- **Translation Tooling & PO/MO Catalogs**:
+  - Seeded and compiled `locale/ar/`, `locale/fa/`, `locale/ur/` GNU gettext catalogs (`django.po` and `django.mo`).
+  - Exported master CSV (`locale/translations_master.csv`) and dedicated untranslated hand-off CSVs (`locale/translations_ar.csv`, `locale/translations_fa.csv`, `locale/translations_ur.csv`).
+  - Added unit test suite in `gamerooms/tests.py` covering BiDi root directionality, RTL translations, and Lupus dictionary localization.
+
 ## [v132] - 2026-11-12
 
 ### Added

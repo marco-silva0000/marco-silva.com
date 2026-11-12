@@ -14,7 +14,7 @@ Supported Languages:
 
 from typing import Any, Optional
 
-SUPPORTED_LANGUAGES = ["en", "pt", "it", "es", "fr", "el", "ru", "hi", "kn"]
+SUPPORTED_LANGUAGES = ["en", "pt", "it", "es", "fr", "el", "ru", "hi", "kn", "ar", "fa", "ur"]
 
 ROLE_TRANSLATIONS: dict[str, dict[str, dict[str, str]]] = {
     "villager": {
@@ -2177,6 +2177,9 @@ FACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Мирные жители / Город",
         "hi": "गाँववाले / शहर",
         "kn": "ಗ್ರಾಮಸ್ಥರು / ನಗರ",
+        "ar": "أهل القرية / المدينة",
+        "fa": "اهالی روستا / شهر",
+        "ur": "اہل دیہات / قصبہ",
     },
     "wolves": {
         "en": "Werewolves / Mafia",
@@ -2188,6 +2191,9 @@ FACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Оборотни / Мафия",
         "hi": "भेड़िये / माफिया",
         "kn": "ತೋಳಗಳು / ಮಾಫಿಯಾ",
+        "ar": "المستذئبون / المافيا",
+        "fa": "گرگینه‌ها / مافیا",
+        "ur": "بھیڑیے / مافیا",
     },
     "neutral": {
         "en": "Neutral",
@@ -2199,6 +2205,9 @@ FACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Нейтральный",
         "hi": "तटस्थ",
         "kn": "ತಟಸ್ಥ",
+        "ar": "محايد",
+        "fa": "بی‌طرف",
+        "ur": "غیر جانبدار",
     },
     "evil": {
         "en": "Evil / Solo Killer",
@@ -2210,6 +2219,9 @@ FACTION_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Зло / Одиночка",
         "hi": "दुष्ट / हत्यारा",
         "kn": "ದುಷ್ಟ / ಕೊಲೆಗಾರ",
+        "ar": "شرير / قاتل منفرد",
+        "fa": "شرور / قاتل تنها",
+        "ur": "بدکار / تنہا قاتل",
     },
 }
 
@@ -2224,6 +2236,9 @@ STATUS_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Жив",
         "hi": "जीवित",
         "kn": "ಜೀವಂತ",
+        "ar": "حي",
+        "fa": "زنده",
+        "ur": "زندہ",
     },
     "waiting": {
         "en": "Waiting",
@@ -2235,6 +2250,9 @@ STATUS_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "В ожидании",
         "hi": "प्रतीक्षा में",
         "kn": "ಕಾಯುತ್ತಿದೆ",
+        "ar": "في الانتظار",
+        "fa": "در انتظار",
+        "ur": "انتظار میں",
     },
     "limbo": {
         "en": "In Limbo",
@@ -2246,6 +2264,9 @@ STATUS_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "В лимбе",
         "hi": "लिम्बो में",
         "kn": "ಲಿಂಬೊದಲ್ಲಿ",
+        "ar": "في البرزخ",
+        "fa": "در برزخ",
+        "ur": "برزخ میں",
     },
     "dead": {
         "en": "Dead",
@@ -2257,6 +2278,9 @@ STATUS_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Мёртв",
         "hi": "मृत",
         "kn": "ಮೃತ",
+        "ar": "ميت",
+        "fa": "مرده",
+        "ur": "مردہ",
     },
     "spectator": {
         "en": "Spectator",
@@ -2268,6 +2292,9 @@ STATUS_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Зритель",
         "hi": "दर्शक",
         "kn": "ವೀಕ್ಷಕ",
+        "ar": "مشاهد",
+        "fa": "تماشاگر",
+        "ur": "تماشائی",
     },
 }
 
@@ -2282,6 +2309,9 @@ PHASE_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Лобби",
         "hi": "लॉबी",
         "kn": "ಲಾಬಿ",
+        "ar": "غرفة الانتظار",
+        "fa": "لابی",
+        "ur": "انتظار گاہ",
     },
     "night": {
         "en": "Night",
@@ -2293,6 +2323,9 @@ PHASE_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Ночь",
         "hi": "रात",
         "kn": "ರಾತ್ರಿ",
+        "ar": "الليل",
+        "fa": "شب",
+        "ur": "رات",
     },
     "day": {
         "en": "Day",
@@ -2304,6 +2337,9 @@ PHASE_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "День",
         "hi": "दिन",
         "kn": "ದಿನ",
+        "ar": "النهار",
+        "fa": "روز",
+        "ur": "دن",
     },
     "voting": {
         "en": "Voting",
@@ -2315,6 +2351,9 @@ PHASE_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Голосование",
         "hi": "मतदान",
         "kn": "ಮತದಾನ",
+        "ar": "التصويت",
+        "fa": "رأی‌گیری",
+        "ur": "ووٹنگ",
     },
     "day_voting": {
         "en": "Day Voting",
@@ -2326,6 +2365,9 @@ PHASE_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Дневное голосование",
         "hi": "दिन का मतदान",
         "kn": "ಹಗಲಿನ ಮತದಾನ",
+        "ar": "تصويت النهار",
+        "fa": "رأی‌گیری روز",
+        "ur": "دن کی ووٹنگ",
     },
     "defense": {
         "en": "Defense",
@@ -2337,6 +2379,9 @@ PHASE_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Защитная речь",
         "hi": "बचाव",
         "kn": "ರಕ್ಷಣೆ",
+        "ar": "الدفاع",
+        "fa": "دفاعیه",
+        "ur": "دفاع",
     },
     "gameover": {
         "en": "Game Over",
@@ -2348,6 +2393,9 @@ PHASE_TRANSLATIONS: dict[str, dict[str, str]] = {
         "ru": "Конец игры",
         "hi": "खेल समाप्त",
         "kn": "ಆಟ ಮುಕ್ತಾಯ",
+        "ar": "نهاية اللعبة",
+        "fa": "پایان بازی",
+        "ur": "کھیل ختم",
     },
 }
 
@@ -2670,6 +2718,9 @@ UI_STRINGS: dict[str, dict[str, str]] = {
         "ru": "Личное сообщение ведущему",
         "hi": "गेम मास्टर को सीधा संदेश",
         "kn": "ಗೇಮ್ ಮಾಸ್ಟರ್‌ಗೆ ನೇರ ಸಂದೇಶ",
+        "ar": "رسالة خاصة إلى راوي اللعبة",
+        "fa": "پیام خصوصی به مدیر بازی",
+        "ur": "گیم ماسٹر کو براہ راست پیغام",
     },
     "chat_desc": {
         "en": "Send a discreet private question or note to the Game Master without alerting other players:",
@@ -2681,6 +2732,9 @@ UI_STRINGS: dict[str, dict[str, str]] = {
         "ru": "Отправьте личный вопрос или заметку ведущему, не привлекая внимания игроков:",
         "hi": "अन्य खिलाड़ियों को बताए बिना गेम मास्टर को एक निजी संदेश भेजें:",
         "kn": "ಇತರ ಆಟಗಾರರಿಗೆ ತಿಳಿಯದಂತೆ ಗೇಮ್ ಮಾಸ್ಟರ್‌ಗೆ ಗೌಪ್ಯ ಸಂದೇಶ ಕಳುಹಿಸಿ:",
+        "ar": "أرسل ملاحظة أو سؤالاً خاصاً إلى راوي اللعبة دون تنبيه الآخرين:",
+        "fa": "ارسال یک پیام خصوصی به مدیر بازی بدون مطلع شدن سایر بازیکنان:",
+        "ur": "دوسرے کھلاڑیوں کو بتائے بغیر گیم ماسٹر کو پرائیویٹ پیغام بھیجیں:",
     },
     "chat_placeholder": {
         "en": "Type a private message to the Host...",
@@ -2692,6 +2746,9 @@ UI_STRINGS: dict[str, dict[str, str]] = {
         "ru": "Напишите ведущему...",
         "hi": "होस्ट को एक निजी संदेश लिखें...",
         "kn": "ಹೋಸ್ಟ್‌ಗೆ ಗೌಪ್ಯ ಸಂದೇಶ ಬರೆಯಿರಿ...",
+        "ar": "اكتب رسالة خاصة إلى الراوي...",
+        "fa": "نوشتن پیام خصوصی به مدیر...",
+        "ur": "ہوسٹ کو نجی پیغام لکھیں...",
     },
     "chat_send_btn": {
         "en": "Send DM",
@@ -2703,6 +2760,9 @@ UI_STRINGS: dict[str, dict[str, str]] = {
         "ru": "Отправить",
         "hi": "भेजें",
         "kn": "ಕಳುಹಿಸಿ",
+        "ar": "إرسال",
+        "fa": "ارسال",
+        "ur": "ارسال کریں",
     },
     "chat_empty": {
         "en": "No messages yet. Send a message to chat silently with the Game Master.",
@@ -2714,6 +2774,9 @@ UI_STRINGS: dict[str, dict[str, str]] = {
         "ru": "Сообщений пока нет. Напишите ведущему для бесшумной связи.",
         "hi": "अभी कोई संदेश नहीं है। चुपचाप बात करने के लिए गेम मास्टर को संदेश भेजें।",
         "kn": "ಇನ್ನೂ ಯಾವುದೇ ಸಂದೇಶಗಳಿಲ್ಲ. ಗೇಮ್ ಮಾಸ್ಟರ್ ಜೊತೆ ಗೌಪ್ಯವಾಗಿ ಮಾತನಾಡಲು ಸಂದೇಶ ಕಳುಹಿಸಿ.",
+        "ar": "لا توجد رسائل بعد. أرسل رسالة للتحدث سراً مع الراوي.",
+        "fa": "هنوز پیامی وجود ندارد. برای گفتگوی پنهانی با مدیر بازی پیام بفرستید.",
+        "ur": "ابھی تک کوئی پیغام نہیں ہے۔ گیم ماسٹر سے خاموشی سے بات کرنے کے لیے پیغام بھیجیں۔",
     },
     "phase_label": {
         "en": "Phase",

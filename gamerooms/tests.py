@@ -227,6 +227,9 @@ class TestSiteWideI18n:
             ("es", "Aficiones"),
             ("fr", "Loisirs"),
             ("it", "Hobby"),
+            ("ar", "الهوايات"),
+            ("fa", "سرگرمی‌ها"),
+            ("ur", "مشاغل"),
         ],
     )
     def test_cv_multilingual(self, client, db, lang, expected_phrase):
@@ -235,6 +238,63 @@ class TestSiteWideI18n:
         assert resp.status_code == 200
         content = resp.content.decode("utf-8")
         assert expected_phrase in content
+
+    @pytest.mark.parametrize(
+        "lang,expected_dir",
+        [
+            ("en", "ltr"),
+            ("pt", "ltr"),
+            ("es", "ltr"),
+            ("fr", "ltr"),
+            ("it", "ltr"),
+            ("el", "ltr"),
+            ("ru", "ltr"),
+            ("hi", "ltr"),
+            ("kn", "ltr"),
+            ("ar", "rtl"),
+            ("fa", "rtl"),
+            ("ur", "rtl"),
+        ],
+    )
+    def test_bidi_directionality(self, client, db, lang, expected_dir):
+        """Test root html tag dir attribute respects Django LANGUAGE_BIDI."""
+        client.cookies["django_language"] = lang
+        for path in ["/", "/cv", "/games/lupus/"]:
+            resp = client.get(path)
+            assert resp.status_code == 200
+            content = resp.content.decode("utf-8")
+            assert f'dir="{expected_dir}"' in content
+            assert f'lang="{lang}"' in content
+
+    def test_lupus_rtl_translations(self):
+        """Test Lupus translation dictionaries for Arabic, Persian, and Urdu."""
+        from lupus.translations import (
+            get_localized_status,
+            get_localized_phase,
+            get_localized_faction,
+            get_localized_ui_strings,
+        )
+
+        # Arabic
+        assert get_localized_status("alive", "ar") == "حي"
+        assert get_localized_faction("wolves", "ar") == "المستذئبون / المافيا"
+        assert get_localized_phase("night", "ar") == "الليل"
+        ar_ui = get_localized_ui_strings("ar")
+        assert ar_ui["chat_title"] == "رسالة خاصة إلى راوي اللعبة"
+
+        # Persian / Farsi
+        assert get_localized_status("alive", "fa") == "زنده"
+        assert get_localized_faction("town", "fa") == "اهالی روستا / شهر"
+        assert get_localized_phase("day", "fa") == "روز"
+        fa_ui = get_localized_ui_strings("fa")
+        assert fa_ui["chat_title"] == "پیام خصوصی به مدیر بازی"
+
+        # Urdu
+        assert get_localized_status("alive", "ur") == "زندہ"
+        assert get_localized_faction("neutral", "ur") == "غیر جانبدار"
+        assert get_localized_phase("lobby", "ur") == "انتظار گاہ"
+        ur_ui = get_localized_ui_strings("ur")
+        assert ur_ui["chat_title"] == "گیم ماسٹر کو براہ راست پیغام"
 
     def test_pictionary_multilingual(self, client, db):
         client.cookies["django_language"] = "pt"

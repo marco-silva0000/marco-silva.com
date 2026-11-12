@@ -918,14 +918,14 @@ html, body {
           <span class="badge" style="background: #1e293b; color: #94a3b8; border: 1px solid #334155; font-family: ui-monospace, monospace; font-size: 0.65rem; padding: 0.05rem 0.35rem;" title="Deployment Version">{{ app_version }}</span>
         </div>
         <div class="app-brand-sub">
-          Room <span class="app-room-pill">{{ code }}</span> &bull; <strong id="topbar-my-name">{{ state.me.name }}</strong>
+          Room <span class="app-room-pill" dir="ltr">{{ code }}</span> &bull; <strong id="topbar-my-name"><bdi>{{ state.me.name }}</bdi></strong>
           <button type="button" onclick="promptRenameSelf()" style="background: none; border: none; padding: 0 2px; cursor: pointer; font-size: 0.72rem; color: #94a3b8;" title="Change your name">✏️</button>
           <span id="ws-status-indicator" class="ws-status-pill ws-connected" title="Connection status">● Online</span>
         </div>
       </div>
     </div>
     <div class="app-topbar-right">
-      <select id="player-lang-select" onchange="changePlayerLanguage(this.value)" style="background: #1f2937; color: #94a3b8; border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; font-size: 0.72rem; padding: 2px 4px; cursor: pointer; outline: none; margin-right: 0.35rem;" title="Change Language / Idioma">
+      <select id="player-lang-select" onchange="changePlayerLanguage(this.value)" style="background: #1f2937; color: #94a3b8; border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; font-size: 0.72rem; padding: 2px 4px; cursor: pointer; outline: none; margin-inline-end: 0.35rem;" title="Change Language / Idioma">
         <option value="en">🇬🇧 EN</option>
         <option value="pt">🇵🇹 PT</option>
         <option value="it">🇮🇹 IT</option>
@@ -935,13 +935,16 @@ html, body {
         <option value="ru">🇷🇺 RU</option>
         <option value="hi">🇮🇳 HI</option>
         <option value="kn">🇮🇳 KN</option>
+        <option value="ar">🇸🇦 العربية</option>
+        <option value="fa">🇮🇷 فارسی</option>
+        <option value="ur">🇵🇰 اردو</option>
       </select>
       <button id="btn-topbar-gameover" onclick="openPlayerModal('gameover-modal')" class="btn btn-sm" style="display: none; background: #7c3aed; color: #fff; border-color: #6d28d9; font-weight: 700; padding: 0.25rem 0.65rem; font-size: 0.78rem;">
         🏆 Results
       </button>
-      <div id="topbar-timer-chip" class="topbar-timer-chip" title="Remaining Phase Time">
+      <div id="topbar-timer-chip" class="topbar-timer-chip dir-ltr" dir="ltr" title="Remaining Phase Time">
         <span>⏱️</span>
-        <span id="topbar-timer-val">05:00</span>
+        <span id="topbar-timer-val" dir="ltr">05:00</span>
       </div>
       <div id="my-status-badge">
         <span class="badge badge-{{ state.me.status }}">{{ state.me.status_display|default:state.me.status }}</span>
@@ -1972,11 +1975,24 @@ html, body {
     }
   }
 
-  // --- Language Switching ---
+  // --- Language Switching & BiDi Support ---
+  const RTL_LANGUAGES = ["ar", "fa", "ur"];
+
+  function applyDirectionality(lang) {
+    const isRTL = RTL_LANGUAGES.includes(lang);
+    document.documentElement.setAttribute("dir", isRTL ? "rtl" : "ltr");
+    document.documentElement.setAttribute("lang", lang || "en");
+    const container = document.querySelector(".player-container");
+    if (container) {
+      container.style.textAlign = "start";
+    }
+  }
+
   function changePlayerLanguage(lang) {
     try {
       localStorage.setItem("lupus_lang", lang);
       document.cookie = "django_language=" + lang + ";path=/;max-age=31536000";
+      applyDirectionality(lang);
     } catch (e) {}
     if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify({ action: "set_player_language", lang: lang }));
@@ -1999,6 +2015,9 @@ html, body {
         ind.innerText = "● Online";
       }
       const savedLang = localStorage.getItem("lupus_lang") || "en";
+      applyDirectionality(savedLang);
+      const sel = document.getElementById("player-lang-select");
+      if (sel) sel.value = savedLang;
       socket.send(JSON.stringify({
         action: "init",
         player_token: MY_TOKEN,
@@ -3146,12 +3165,12 @@ html, body {
       const senderLabel = isFromGM ? "🎙️ Game Master" : "You";
       const timeStr = m.created_at ? new Date(m.created_at * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
       return `
-        <div style="align-self: ${align}; max-width: 82%; background: ${bg}; border: ${border}; border-radius: 10px; padding: 0.45rem 0.65rem; color: #fff; font-size: 0.85rem; box-shadow: 0 2px 6px rgba(0,0,0,0.25);">
+        <div style="align-self: ${align}; max-width: 82%; background: ${bg}; border: ${border}; border-radius: 10px; padding: 0.45rem 0.65rem; color: #fff; font-size: 0.85rem; box-shadow: 0 2px 6px rgba(0,0,0,0.25); text-align: start;">
           <div style="font-size: 0.68rem; color: ${isFromGM ? '#38bdf8' : '#bae6fd'}; font-weight: 700; margin-bottom: 0.15rem; display: flex; justify-content: space-between; gap: 0.5rem;">
-            <span>${escapeHtml(senderLabel)}</span>
-            <span style="opacity: 0.75; font-weight: normal;">${timeStr}</span>
+            <span><bdi>${escapeHtml(senderLabel)}</bdi></span>
+            <span dir="ltr" style="opacity: 0.75; font-weight: normal;">${timeStr}</span>
           </div>
-          <div style="word-break: break-word; white-space: pre-wrap; line-height: 1.35;">${escapeHtml(m.message)}</div>
+          <div style="word-break: break-word; white-space: pre-wrap; line-height: 1.45; text-align: start;"><bdi>${escapeHtml(m.message)}</bdi></div>
         </div>
       `;
     }).join("");

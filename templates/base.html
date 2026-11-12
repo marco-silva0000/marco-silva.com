@@ -1,6 +1,7 @@
 {% load static i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+<html lang="{{ LANGUAGE_CODE|default:'en' }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,13 +14,33 @@
   <link rel="icon" href="{% static 'favicon.ico' %}">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, sans-serif, 'Noto Sans Devanagari', 'Noto Sans Kannada', 'Nirmala UI'; color: #222; line-height: 1.6; max-width: 640px; margin: 0 auto; padding: 2rem 1rem; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif, 'Noto Sans Arabic', 'Segoe UI', Tahoma, 'Amiri', 'Vazirmatn', 'Noto Nastaliq Urdu', 'Noto Sans Devanagari', 'Noto Sans Kannada', 'Nirmala UI';
+      color: #222;
+      line-height: 1.6;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      text-align: start;
+    }
+    [dir="rtl"] body {
+      /* WCAG 1.4.12: Slightly increased line-height for Arabic, Persian, and Urdu diacritical marks */
+      line-height: 1.8;
+    }
     a { color: #222; }
     a:hover { color: #555; }
     nav { margin-bottom: 2rem; font-size: 0.9rem; }
-    nav a { margin-right: 1.5rem; text-decoration: none; }
+    nav a { margin-inline-end: 1.5rem; text-decoration: none; }
     nav a:hover { text-decoration: underline; }
     footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.8rem; color: #888; }
+
+    /* W3C Accessibility BiDi Navigation: Mirror directional navigation arrows in RTL */
+    .dir-back-arrow, .dir-forward-arrow { display: inline-block; transition: transform 0.2s ease; }
+    [dir="rtl"] .dir-back-arrow { transform: scaleX(-1); }
+    [dir="rtl"] .dir-forward-arrow { transform: scaleX(-1); }
+
+    /* Isolate numeric strings, technical codes, and timers */
+    code, pre, .dir-ltr, .bidi-isolate { direction: ltr; unicode-bidi: isolate; }
     {% block extra_css %}{% endblock %}
   </style>
 </head>

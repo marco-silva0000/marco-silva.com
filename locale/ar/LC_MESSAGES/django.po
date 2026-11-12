@@ -1,0 +1,1038 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+
+msgid "+ Create Room"
+msgstr ""
+
+msgid "+ Host New Room"
+msgstr "+ استضافة غرفة جديدة"
+
+msgid "+ New Game"
+msgstr "+ لعبة جديدة"
+
+msgid "+ create room"
+msgstr "+ إنشاء غرفة"
+
+msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
+msgstr ""
+
+msgid "1 day"
+msgstr "يوم واحد"
+
+msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
+msgstr ""
+
+msgid "1. Acceptance of Terms"
+msgstr ""
+
+msgid "1. Overview"
+msgstr ""
+
+msgid "10 Minutes"
+msgstr ""
+
+msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
+msgstr ""
+
+msgid "2. Information We Access"
+msgstr ""
+
+msgid "2. Permitted Use"
+msgstr ""
+
+msgid "3 Minutes (Fast)"
+msgstr ""
+
+msgid "3 day"
+msgstr "3 أيام"
+
+msgid "3 — Full Role Card (Announces exact card name and icon)"
+msgstr ""
+
+msgid "3. Data Storage & Security"
+msgstr ""
+
+msgid "3. Disclaimer of Warranties"
+msgstr ""
+
+msgid "30 Seconds (Standard)"
+msgstr ""
+
+msgid "4. Limitation of Liability"
+msgstr ""
+
+msgid "4. Third-Party Sharing"
+msgstr ""
+
+msgid "404 — page not found"
+msgstr "404 — الصفحة غير موجودة"
+
+msgid "45 Seconds"
+msgstr ""
+
+msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
+msgstr ""
+
+msgid "5 Minutes (Standard)"
+msgstr ""
+
+msgid "5. Changes & Termination"
+msgstr ""
+
+msgid "5. Revoking Access & Data Deletion"
+msgstr ""
+
+msgid "500 — something went wrong"
+msgstr "500 — حدث خطأ ما"
+
+msgid "6. Contact"
+msgstr ""
+
+msgid "60 Seconds"
+msgstr ""
+
+msgid "7 Minutes (Deliberate)"
+msgstr ""
+
+msgid "Access Denied"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Active Lupus Rooms"
+msgstr "غرف لوبوس النشطة"
+
+msgid "All Active Rooms"
+msgstr ""
+
+msgid "All Games"
+msgstr ""
+
+msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
+msgstr ""
+
+msgid "Back to Active Lupus Rooms"
+msgstr ""
+
+msgid "Browse Active Lupus Rooms"
+msgstr ""
+
+msgid "CC BY-NC-SA license"
+msgstr ""
+
+msgid "CODE"
+msgstr ""
+
+msgid "CTFs"
+msgstr ""
+
+msgid "Calendar navigation"
+msgstr ""
+
+msgid "Civilians, Mobsters, Cop"
+msgstr ""
+
+msgid "Cockpit"
+msgstr ""
+
+msgid "Conferences"
+msgstr "المؤتمرات"
+
+msgid "Create Lupus / Werewolf Room"
+msgstr ""
+
+msgid "Create Room"
+msgstr "إنشاء غرفة"
+
+msgid "Create the First Lupus Room"
+msgstr ""
+
+msgid "Curated"
+msgstr ""
+
+msgid "Custom split keyboards (colemak + nvim)"
+msgstr ""
+
+msgid "Date of the trip/shoot."
+msgstr ""
+
+msgid "Day"
+msgstr "النهار"
+
+msgid "Day Trip"
+msgstr ""
+
+msgid "Defense Timer"
+msgstr ""
+
+msgid "Discussion"
+msgstr ""
+
+msgid "Discussion Round Timer"
+msgstr ""
+
+msgid "Doctor Shields From Sniper:"
+msgstr ""
+
+msgid "Done"
+msgstr ""
+
+msgid "Education"
+msgstr "التعليم"
+
+msgid "Electronics/embedded (some rust embedded)"
+msgstr ""
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "Enter Game"
+msgstr "دخول اللعبة"
+
+msgid "Enter Room"
+msgstr ""
+
+msgid "Enter Room Code (e.g. 9B3A1C2D)"
+msgstr ""
+
+msgid "Failed"
+msgstr ""
+
+msgid "Finished"
+msgstr "منتهية"
+
+msgid "GM"
+msgstr ""
+
+msgid "GM Cockpit"
+msgstr ""
+
+msgid "GM Director Cockpit:"
+msgstr ""
+
+msgid "Game Master Display Name"
+msgstr ""
+
+msgid "Game Over"
+msgstr ""
+
+msgid "Game Rooms"
+msgstr "غرف الألعاب"
+
+msgid "Game Rules & Timers"
+msgstr ""
+
+msgid "Game not found."
+msgstr ""
+
+msgid "Game room does not exist."
+msgstr ""
+
+msgid "Ham radio, UK foundation license"
+msgstr ""
+
+msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+msgstr ""
+
+msgid "Hiking and climbing"
+msgstr ""
+
+msgid "Hobbies"
+msgstr "الهوايات"
+
+msgid "Hold-to-Peek Secret Roles:"
+msgstr ""
+
+msgid "Home automation and homelab"
+msgstr ""
+
+msgid "Horizontal focal point: 0=left, 50=center, 100=right."
+msgstr ""
+
+msgid "I code, take pics and many other things"
+msgstr "أبرمج، ألتقط الصور وأقوم بأشياء أخرى كثيرة"
+
+msgid "ISO"
+msgstr ""
+
+msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
+msgstr ""
+
+msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
+msgstr ""
+
+msgid "In Progress"
+msgstr ""
+
+msgid "Incorrect room password."
+msgstr ""
+
+msgid "Instagram 4:5 Preview"
+msgstr ""
+
+msgid "Instagram 4:5 image"
+msgstr ""
+
+msgid "Invalid Game Master secret key."
+msgstr ""
+
+msgid "Join"
+msgstr ""
+
+msgid "Join Game"
+msgstr "الانضمام إلى اللعبة"
+
+msgid "Join Lupus Game"
+msgstr ""
+
+msgid "Join Room"
+msgstr "الانضمام إلى الغرفة"
+
+msgid "Join as Player"
+msgstr ""
+
+msgid "Join with Room Code"
+msgstr ""
+
+msgid "Kayak, surf, SUP, windsurf"
+msgstr ""
+
+msgid "Languages"
+msgstr "اللغات"
+
+msgid "Last updated: October 27, 2026"
+msgstr ""
+
+msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
+msgstr ""
+
+msgid "Launch Lupus Room"
+msgstr ""
+
+msgid "Leave empty for public join"
+msgstr ""
+
+msgid "Limbo"
+msgstr "البرزخ"
+
+msgid "Limbo & Angel Mechanic:"
+msgstr ""
+
+msgid "Limbo Resolution"
+msgstr ""
+
+msgid "Listening"
+msgstr "الاستماع"
+
+msgid "Living & fallen players submit morning rumors read aloud at dawn."
+msgstr ""
+
+msgid "Lobby"
+msgstr "غرفة الانتظار"
+
+msgid "Lobby (Waiting for Players)"
+msgstr ""
+
+msgid "Lupus Active Rooms & Hub"
+msgstr ""
+
+msgid "Lupus Game"
+msgstr ""
+
+msgid "Lupus Party Game"
+msgstr ""
+
+msgid "Lupus in Tabula - Active Rooms & Game Hub"
+msgstr ""
+
+msgid "Lupus in Tabula / Werewolf"
+msgstr ""
+
+msgid "Mafia"
+msgstr ""
+
+msgid "Marco Silva's CV"
+msgstr "السيرة الذاتية لماركو سيلفا"
+
+msgid "Midgame Arrivals:"
+msgstr ""
+
+msgid "Next day"
+msgstr ""
+
+msgid "Night"
+msgstr "الليل"
+
+msgid "No Active Lupus Games Right Now"
+msgstr ""
+
+msgid "No Instagram crop generated yet."
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "Open (Lobby)"
+msgstr "مفتوح (غرفة الانتظار)"
+
+msgid "Open GM Cockpit"
+msgstr ""
+
+msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
+msgstr ""
+
+msgid "Other"
+msgstr "أخرى"
+
+msgid "Outdoors"
+msgstr "في الهواء الطلق"
+
+msgid "Page Not Found — Marco Silva"
+msgstr ""
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "Password Protected"
+msgstr ""
+
+msgid "Past & Finished Games"
+msgstr ""
+
+msgid "Pending"
+msgstr ""
+
+msgid "Photography"
+msgstr "التصوير الفوتوغرافي"
+
+msgid "Pick the name others at the table know you by."
+msgstr ""
+
+msgid "Please enter a player name."
+msgstr ""
+
+msgid "Please enter a valid room code."
+msgstr ""
+
+msgid "Portuguese · Helsinki, Finland"
+msgstr "برتغالي · هلسنكي، فنلندا"
+
+msgid "Previous day"
+msgstr ""
+
+msgid "Price for the RAW file download."
+msgstr ""
+
+msgid "Privacy Policy"
+msgstr "سياسة الخصوصية"
+
+msgid "Privacy Policy - Homelab Telegram Bot"
+msgstr ""
+
+msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
+msgstr ""
+
+msgid "Privacy shield keeps cards concealed from prying eyes at the table."
+msgstr ""
+
+msgid "Processing"
+msgstr ""
+
+msgid "Public"
+msgstr ""
+
+msgid "RAW available for purchase"
+msgstr "ملف RAW متاح للشراء"
+
+msgid "RAW file"
+msgstr ""
+
+msgid "RAW price"
+msgstr ""
+
+msgid "Reading"
+msgstr "القراءة"
+
+msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
+msgstr "ألعاب جماعية متعددة اللاعبين في الوقت الفعلي عبر المتصفح. لا حاجة لحسابات — فقط انضم والعب مع أصدقائك."
+
+msgid "Regenerate 4:5 Instagram crops for selected photos"
+msgstr ""
+
+msgid "Replay"
+msgstr ""
+
+msgid "Return as %(name)s"
+msgstr ""
+
+msgid "Reveal Roles on Death:"
+msgstr ""
+
+msgid "Room Code"
+msgstr "رمز الغرفة"
+
+msgid "Room Code:"
+msgstr ""
+
+msgid "Room Password"
+msgstr ""
+
+msgid "Room Password (optional)"
+msgstr ""
+
+msgid "Room Setup"
+msgstr ""
+
+msgid "Room Title"
+msgstr ""
+
+msgid "Room code '%(code)s' was not found or is no longer active."
+msgstr ""
+
+msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
+msgstr ""
+
+msgid "Running"
+msgstr "قيد التشغيل"
+
+msgid "Send Instagram carousel pack to Telegram"
+msgstr ""
+
+msgid "Server Error — Marco Silva"
+msgstr ""
+
+msgid "Silent Phase"
+msgstr ""
+
+msgid "Skills"
+msgstr "المهارات"
+
+msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+msgstr ""
+
+msgid "Spanish"
+msgstr "الإسبانية"
+
+msgid "Speaking"
+msgstr "التحدث"
+
+msgid "Staggering Doctor:"
+msgstr ""
+
+msgid "Starting Role Deck Preset"
+msgstr ""
+
+msgid "Step-by-step night stages, bluffing calls, and voting manager."
+msgstr ""
+
+msgid "Table-First Lupus Highlights"
+msgstr ""
+
+msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
+msgstr ""
+
+msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
+msgstr ""
+
+msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
+msgstr ""
+
+msgid "Techy"
+msgstr "تقنيات"
+
+msgid "Terms of Service"
+msgstr "شروط الخدمة"
+
+msgid "Terms of Service - Homelab Telegram Bot"
+msgstr ""
+
+msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
+msgstr ""
+
+msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
+msgstr ""
+
+msgid "The page you're looking for doesn't exist."
+msgstr "الصفحة التي تبحث عنها غير موجودة."
+
+msgid "Theme & Terms"
+msgstr ""
+
+msgid "Town Gazette:"
+msgstr ""
+
+msgid "Town Voting"
+msgstr ""
+
+msgid "Unlock Room"
+msgstr ""
+
+msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
+msgstr ""
+
+msgid "Villagers, Wolves, Seer"
+msgstr ""
+
+msgid "Voting"
+msgstr "التصويت"
+
+msgid "We're working on it. Please try again later."
+msgstr "نعمل على حل المشكلة. يرجى المحاولة لاحقاً."
+
+msgid "Werewolf / Lupus"
+msgstr ""
+
+msgid "Whether focus coordinates were automatically calculated via edge saliency."
+msgstr ""
+
+msgid "Work Experience"
+msgstr "الخبرة المهنية"
+
+msgid "Writing"
+msgstr "الكتابة"
+
+msgid "You need an authorized key to access this page."
+msgstr ""
+
+msgid "Your Name"
+msgstr "اسمك"
+
+msgid "Your Name / Nickname"
+msgstr ""
+
+msgid "adjective"
+msgstr "صفة"
+
+msgid "ago"
+msgstr ""
+
+msgid "alive"
+msgstr ""
+
+msgid "all"
+msgstr ""
+
+msgid "all day"
+msgstr "طوال اليوم"
+
+msgid "any"
+msgstr "أي نوع"
+
+msgid "aperture"
+msgstr ""
+
+msgid "auto focus detected"
+msgstr ""
+
+msgid "available for sale"
+msgstr ""
+
+msgid "best guess"
+msgstr ""
+
+msgid "blog"
+msgstr "المدونة"
+
+msgid "camera make"
+msgstr ""
+
+msgid "camera model"
+msgstr ""
+
+msgid "chat"
+msgstr "المحادثة"
+
+msgid "chat..."
+msgstr ""
+
+msgid "chat:"
+msgstr ""
+
+msgid "clear"
+msgstr "مسح"
+
+msgid "create"
+msgstr ""
+
+msgid "create room"
+msgstr ""
+
+msgid "crop focus X (%)"
+msgstr ""
+
+msgid "crop focus Y (%)"
+msgstr ""
+
+msgid "cv"
+msgstr "السيرة الذاتية"
+
+msgid "date"
+msgstr ""
+
+msgid "description"
+msgstr "الوصف"
+
+msgid "difficulty"
+msgstr "مستوى الصعوبة"
+
+msgid "difficulty:"
+msgstr "مستوى الصعوبة:"
+
+msgid "download .ics"
+msgstr "تنزيل .ics"
+
+msgid "e.g. 9B3A1C2D"
+msgstr ""
+
+msgid "e.g. Marco"
+msgstr ""
+
+msgid "easy"
+msgstr "سهل"
+
+msgid "emoji time:"
+msgstr ""
+
+msgid "end"
+msgstr "الانتهاء"
+
+msgid "enter password to view the calendar."
+msgstr "أدخل كلمة المرور لعرض التقويم."
+
+msgid "extract event"
+msgstr "استخراج الحدث"
+
+msgid "focal length"
+msgstr ""
+
+msgid "gallery"
+msgstr "المعرض"
+
+msgid "gallery extension"
+msgstr ""
+
+msgid "gallery extensions"
+msgstr ""
+
+msgid "gallery not found."
+msgstr ""
+
+msgid "games"
+msgstr "الألعاب"
+
+msgid "go"
+msgstr "دخول"
+
+msgid "guess"
+msgstr "تخمين"
+
+msgid "guess time:"
+msgstr ""
+
+msgid "hard"
+msgstr "صعب"
+
+msgid "home"
+msgstr "الرئيسية"
+
+msgid "ics maker"
+msgstr "منشئ ملفات ics"
+
+msgid "join"
+msgstr ""
+
+msgid "latest posts"
+msgstr "أحدث المقالات"
+
+msgid "latitude"
+msgstr ""
+
+msgid "lens"
+msgstr ""
+
+msgid "location"
+msgstr "الموقع"
+
+msgid "location name"
+msgstr ""
+
+msgid "longitude"
+msgstr ""
+
+msgid "map view"
+msgstr "عرض الخريطة"
+
+msgid "medium"
+msgstr "متوسط"
+
+msgid "message (optional)"
+msgstr "الرسالة (اختياري)"
+
+msgid "mode"
+msgstr "الوضع"
+
+msgid "mode:"
+msgstr "الوضع:"
+
+msgid "new word"
+msgstr "كلمة جديدة"
+
+msgid "next →"
+msgstr "التالي →"
+
+msgid "no active rooms. create one!"
+msgstr ""
+
+msgid "no galleries yet."
+msgstr "لا توجد معارض بعد."
+
+msgid "no posts yet."
+msgstr "لا توجد مقالات بعد."
+
+msgid "noun"
+msgstr "اسم"
+
+msgid "older →"
+msgstr "الأقدم →"
+
+msgid "original"
+msgstr "الأصلي"
+
+msgid "password"
+msgstr "كلمة المرور"
+
+msgid "password (optional)"
+msgstr ""
+
+msgid "paste event details here..."
+msgstr ""
+
+msgid "paste text or a url with event details, and get an .ics file."
+msgstr ""
+
+msgid "photo"
+msgstr ""
+
+msgid "photo extension"
+msgstr ""
+
+msgid "photo extensions"
+msgstr ""
+
+msgid "photo map"
+msgstr "خريطة الصور"
+
+msgid "photo not found."
+msgstr ""
+
+msgid "photos"
+msgstr "الصور"
+
+msgid "photos (select multiple)"
+msgstr "الصور (حدد عدة صور)"
+
+msgid "pick your options, hit the button, draw!"
+msgstr "اختر الخيارات، اضغط على الزر، وارسم!"
+
+msgid "pictionary"
+msgstr "بيكشنري"
+
+msgid "planz"
+msgstr "بلانز"
+
+msgid "play again"
+msgstr "اللعب مجدداً"
+
+msgid "players"
+msgstr "اللاعبون"
+
+msgid "press the button to get a word"
+msgstr "اضغط على الزر للحصول على كلمة"
+
+msgid "private"
+msgstr ""
+
+msgid "processing status"
+msgstr ""
+
+msgid "public"
+msgstr ""
+
+msgid "request"
+msgstr "طلب"
+
+msgid "reveal"
+msgstr "كشف"
+
+msgid "room password"
+msgstr ""
+
+msgid "round robin"
+msgstr ""
+
+msgid "rounds:"
+msgstr ""
+
+msgid "search emoji..."
+msgstr "بحث عن إيموجي..."
+
+msgid "send"
+msgstr "إرسال"
+
+msgid "sentence"
+msgstr "جملة"
+
+msgid "settings"
+msgstr "الإعدادات"
+
+msgid "shutter speed"
+msgstr ""
+
+msgid "skip"
+msgstr "تخطي"
+
+msgid "start"
+msgstr "البدء"
+
+msgid "start game"
+msgstr "بدء اللعبة"
+
+msgid "text"
+msgstr ""
+
+msgid "title"
+msgstr "العنوان"
+
+msgid "title is required"
+msgstr ""
+
+msgid "today"
+msgstr "اليوم"
+
+msgid "type"
+msgstr "النوع"
+
+msgid "type your guess..."
+msgstr "اكتب تخمينك..."
+
+msgid "upload"
+msgstr "رفع"
+
+msgid "upload photos"
+msgstr "رفع الصور"
+
+msgid "url"
+msgstr ""
+
+msgid "verb"
+msgstr "فعل"
+
+msgid "view full resolution ↗"
+msgstr ""
+
+msgid "view on map"
+msgstr "عرض على الخريطة"
+
+msgid "waiting for clue..."
+msgstr ""
+
+msgid "waiting for players..."
+msgstr "في انتظار اللاعبين..."
+
+msgid "watermarked"
+msgstr "علامة مائية"
+
+msgid "watermarked image"
+msgstr ""
+
+msgid "web"
+msgstr "ويب"
+
+msgid "web-optimized image"
+msgstr ""
+
+msgid "week"
+msgstr "أسبوع"
+
+msgid "what is %(a)s + %(b)s?"
+msgstr ""
+
+msgid "word"
+msgstr "كلمة"
+
+msgid "work in progress — check back soon."
+msgstr "العمل قيد التنفيذ — تفضل بزيارتنا قريباً."
+
+msgid "wrong captcha"
+msgstr ""
+
+msgid "wrong password"
+msgstr "كلمة المرور غير صحيحة"
+
+msgid "your email"
+msgstr "بريدك الإلكتروني"
+
+msgid "your name"
+msgstr ""
+
+msgid "— none —"
+msgstr "— لا يوجد —"
+
+msgid "← all galleries"
+msgstr "← جميع المعارض"
+
+msgid "← all posts"
+msgstr "← جميع المقالات"
+
+msgid "← back home"
+msgstr "← العودة إلى الرئيسية"
+
+msgid "← galleries"
+msgstr "← المعارض"
+
+msgid "← newer"
+msgstr "← الأحدث"
+
+msgid "← prev"
+msgstr "← السابق"
+
+msgid "↓ Download PDF"
+msgstr "↓ تنزيل PDF"
+
+msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
+msgstr ""
+
+msgid "✏️ pictionary"
+msgstr "✏️ بيكشنري"
+
+msgid "🎨 Emojinary"
+msgstr ""
+
+msgid "🐺 Lupus"
+msgstr ""
+
+msgid "🐺 Lupus Hub & Rooms"
+msgstr "🐺 مركز وغرف لوبوس"
+
+msgid "🐺 create lupus"
+msgstr "🐺 إنشاء لعبة لوبوس"
+
+msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+msgstr ""
+
+msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
+msgstr ""
+
+msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
+msgstr ""
+
+msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
+msgstr ""
+
+msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+msgstr ""
