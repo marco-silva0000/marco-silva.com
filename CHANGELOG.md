@@ -4,6 +4,19 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v138] - 2026-11-13
+
+### Changed
+- **GM Dashboard Layout Overhaul (Table Next to Round Card)**:
+  - Relocated the Physical Table Seating section (`#table-management-section` with the circular Ring Table and List view) from the very bottom of the page up directly adjacent to the Round Card in `#active-game-view`.
+  - Implemented responsive side-by-side grid (`.gm-round-table-layout`):
+    - **Desktop ($\ge 1040\text{px}$)**: 360px left sidebar for the Round Card (Phase badge, Round number steppers, Countdown Timer with quick actions, Phase buttons, and live player finger pointers) side-by-side with the Physical Table Seating stage, eliminating page scrolling during game rounds.
+    - **Tablet / Mobile ($\le 1040\text{px}$)**: Seamless stacked layout keeping the Table immediately adjacent to the Round Card, instead of buried below 10 director cards, reports, and gazettes.
+  - Implemented dual-slot DOM synchronization (`syncTableSlot`):
+    - In active gameplay (`phase != 'lobby'`), the Table lives inside `#active-table-slot` next to the Round Card.
+    - In lobby mode (`phase == 'lobby'`), the Table lives inside `#lobby-table-slot` directly below the Deck Builder and Start Game button.
+  - Added unit test `test_table_placed_next_to_round_card_in_gm_dashboard` to `lupus/tests.py`.
+
 ## [v137] - 2026-11-13
 
 ### Fixed

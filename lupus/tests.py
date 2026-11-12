@@ -4266,6 +4266,29 @@ class TestLupusTunableSettingsAndPresetsV136:
         assert "blitz" in gm_view["settings_presets"]
         assert "competitive" in gm_view["settings_presets"]
 
+    def test_table_placed_next_to_round_card_in_gm_dashboard(self):
+        """Verify the physical table seating is placed right next to the round card."""
+        with open("templates/lupus/gm_dashboard.html", "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Layout container containing both Round Card and Table
+        assert "gm-round-table-layout" in content
+        assert "active-table-slot" in content
+        assert "lobby-table-slot" in content
+        assert "table-management-section" in content
+        assert "syncTableSlot" in content
+
+        # Verify Round Card and Table live together in the layout grid
+        layout_idx = content.find("class=\"gm-round-table-layout\"")
+        assert layout_idx != -1
+        active_slot_idx = content.find("id=\"active-table-slot\"")
+        assert active_slot_idx > layout_idx
+
+        # Verify table-management-section is next to the round card
+        table_mgmt_idx = content.find("id=\"table-management-section\"")
+        assert table_mgmt_idx != -1
+        assert active_slot_idx < table_mgmt_idx < active_slot_idx + 300
+
 
 
 
