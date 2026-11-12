@@ -61,6 +61,7 @@ from .game_state import (
     tally_and_resolve_vote,
     toggle_nomination_vote,
     toggle_official_nomination,
+    toggle_player_gazette_mute,
     toggle_player_silence,
     trigger_game_over,
     trigger_martyrdom_detonation,
@@ -272,6 +273,13 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 approved = bool(content.get("approved", True))
                 if bid:
                     approve_news_bulletin(state, bid, approved)
+                    await self.broadcast_sync()
+
+            elif action == "toggle_gazette_mute":
+                pid = content.get("player_id")
+                muted = content.get("muted")
+                if pid:
+                    toggle_player_gazette_mute(state, pid, muted=muted)
                     await self.broadcast_sync()
 
             elif action == "set_status":

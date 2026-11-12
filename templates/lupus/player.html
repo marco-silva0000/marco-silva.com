@@ -1750,10 +1750,33 @@ html, body {
       </table>
     </div>
 
+    <!-- Game Replay & Round-by-Round Breakdown -->
+    <div id="gameover-replay-section" style="margin-bottom: 1.15rem; display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+        <h4 style="margin: 0; font-size: 0.95rem; color: #f8fafc; font-weight: 800; display: flex; align-items: center; gap: 0.35rem;">
+          <span>🎬</span> Game Replay Timeline
+        </h4>
+        <span style="font-size: 0.72rem; color: #94a3b8;">Round-by-Round Breakdown</span>
+      </div>
+
+      <!-- Round selector tabs / pills -->
+      <div id="gameover-replay-rounds-bar" style="display: flex; gap: 0.35rem; overflow-x: auto; padding-bottom: 0.4rem; margin-bottom: 0.65rem;">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Active Round Card Details -->
+      <div id="gameover-replay-card" style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 0.85rem; font-size: 0.82rem;">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
     <!-- Modal Actions -->
     <div style="display: flex; gap: 0.5rem;">
       <button onclick="closePlayerModal('gameover-modal')" class="btn btn-primary" style="flex: 1; min-height: 44px; font-weight: 700;">
         👀 Inspect Table &amp; Seating
+      </button>
+      <button onclick="closePlayerModal('gameover-modal'); switchMobileView('chat');" class="btn btn-secondary" style="flex: 1; min-height: 44px; font-weight: 700; background: #334155; border-color: #475569; color: #f8fafc;">
+        💬 Discuss in Host Chat
       </button>
     </div>
   </div>
@@ -2749,6 +2772,132 @@ html, body {
         tbody.appendChild(tr);
       });
     }
+
+    renderGameOverReplay(state);
+  }
+
+  let selectedReplayRoundIndex = 0;
+
+  function renderGameOverReplay(state) {
+    const replaySec = document.getElementById("gameover-replay-section");
+    const roundsBar = document.getElementById("gameover-replay-rounds-bar");
+    const cardEl = document.getElementById("gameover-replay-card");
+    if (!replaySec || !roundsBar || !cardEl) return;
+
+    const timeline = state.round_timeline || [];
+    if (!timeline || timeline.length === 0) {
+      replaySec.style.display = "none";
+      return;
+    }
+    replaySec.style.display = "block";
+
+    if (selectedReplayRoundIndex >= timeline.length) {
+      selectedReplayRoundIndex = timeline.length - 1;
+    }
+
+    roundsBar.innerHTML = timeline.map((step, idx) => {
+      const isNight = step.phase === "night";
+      const icon = isNight ? "🌙" : "☀️";
+      const label = isNight ? `N${step.round}` : `D${step.round}`;
+      const isSel = idx === selectedReplayRoundIndex;
+      const bg = isSel ? "#3b82f6" : "#1e293b";
+      const color = isSel ? "#ffffff" : "#94a3b8";
+      const border = isSel ? "1px solid #60a5fa" : "1px solid #334155";
+      return `
+        <button onclick="selectReplayRound(${idx})" class="btn btn-sm" style="background:${bg}; color:${color}; border:${border}; border-radius:999px; padding:0.25rem 0.65rem; font-size:0.75rem; font-weight:700; white-space:nowrap; flex-shrink:0;">
+          ${icon} ${label}
+        </button>
+      `;
+    }).join("");
+
+    const step = timeline[selectedReplayRoundIndex];
+    if (!step) return;
+
+    const isNight = step.phase === "night";
+    let html = `
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e293b; padding-bottom:0.5rem; margin-bottom:0.6rem;">
+        <strong style="font-size:0.95rem; color:#f8fafc; display:flex; align-items:center; gap:0.35rem;">
+          <span>${isNight ? '🌙' : '☀️'}</span> ${escapeHtml(step.title)}
+        </strong>
+        <span style="font-size:0.72rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">Round ${step.round}</span>
+      </div>
+    `;
+
+    if (step.dawn_report && step.dawn_report.length > 0) {
+      html += `
+        <div style="margin-bottom:0.65rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:#fbbf24; margin-bottom:0.25rem;">🌅 Dawn Report:</div>
+          <div style="background:#1e293b; border-radius:6px; padding:0.45rem 0.65rem; font-size:0.78rem; line-height:1.4; color:#e2e8f0;">
+            ${step.dawn_report.map(r => `<div>${escapeHtml(r)}</div>`).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.deaths && step.deaths.length > 0) {
+      html += `
+        <div style="margin-bottom:0.65rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:#f87171; margin-bottom:0.25rem;">☠️ Casualties:</div>
+          <div style="display:flex; flex-direction:column; gap:0.25rem;">
+            ${step.deaths.map(d => `
+              <div style="background:#450a0a; border:1px solid #7f1d1d; border-radius:6px; padding:0.35rem 0.55rem; font-size:0.78rem; color:#fca5a5; display:flex; justify-content:space-between; align-items:center;">
+                <strong>${escapeHtml(d.name)}</strong>
+                <span>${d.role ? escapeHtml(d.role) : (d.cause || 'Eliminated')}</span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.bulletins && step.bulletins.length > 0) {
+      html += `
+        <div style="margin-bottom:0.65rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:#38bdf8; margin-bottom:0.25rem;">🗞️ Town Gazette Published:</div>
+          <div style="display:flex; flex-direction:column; gap:0.25rem;">
+            ${step.bulletins.map(b => `
+              <div style="background:#082f49; border:1px solid #0369a1; border-radius:6px; padding:0.35rem 0.55rem; font-size:0.78rem; color:#bae6fd;">
+                <strong>${escapeHtml(b.byline)}:</strong> "${escapeHtml(b.message)}"
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.voting || step.execution || (step.nominations && step.nominations.length > 0)) {
+      html += `
+        <div style="margin-bottom:0.65rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:#a78bfa; margin-bottom:0.25rem;">🗳️ Trial &amp; Voting:</div>
+          <div style="background:#1e1b4b; border:1px solid #4338ca; border-radius:6px; padding:0.45rem 0.65rem; font-size:0.78rem; color:#c7d2fe;">
+            ${step.execution ? `<div style="font-weight:700; margin-bottom:0.3rem;">⚖️ ${escapeHtml(step.execution)}</div>` : ''}
+            ${step.voting && step.voting.votes && Object.keys(step.voting.votes).length > 0 ? `
+              <div style="font-size:0.74rem; color:#94a3b8; margin-top:0.25rem;">
+                Votes: ${Object.entries(step.voting.votes).map(([v, c]) => `${escapeHtml(v)} ➔ ${escapeHtml(c)}`).join(", ")}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.events && step.events.length > 0) {
+      html += `
+        <div>
+          <div style="font-size:0.75rem; font-weight:700; color:#e2e8f0; margin-bottom:0.25rem;">⚡ Notable Events:</div>
+          <ul style="margin:0; padding-inline-start:1.1rem; font-size:0.78rem; color:#cbd5e1; line-height:1.4;">
+            ${step.events.map(ev => `<li>${escapeHtml(ev)}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+    }
+
+    cardEl.innerHTML = html;
+  }
+
+  function selectReplayRound(idx) {
+    selectedReplayRoundIndex = idx;
+    if (currentGameState) renderGameOverReplay(currentGameState);
   }
 
   // --- Player Seating Layout Engine ---
@@ -3071,7 +3220,13 @@ html, body {
     const u = state.ui_strings || {};
 
     if (badge) {
-      badge.innerText = isAlive ? (u.gazette_quota_alive || "1 post per day") : (isDeadOrLimbo ? (u.gazette_quota_dead || "1 lifetime whisper") : "-");
+      if (me.is_gazette_muted) {
+        badge.innerText = u.gazette_quota_muted || "🔇 Muted for this round";
+      } else if (me.has_pending_bulletin) {
+        badge.innerText = u.gazette_quota_pending || "⏳ Awaiting Review";
+      } else {
+        badge.innerText = u.gazette_quota_alive || "1 at a time (unlimited)";
+      }
     }
 
     if (formEl && noticeEl) {
@@ -3080,11 +3235,17 @@ html, body {
         noticeEl.style.display = "block";
         noticeEl.style.color = "#fbbf24";
         noticeEl.innerText = "⏳ Waiting for role assignment from the Game Master before you can submit to the Gazette.";
-      } else if (me.news_submitted_this_round || !me.can_submit_news) {
+      } else if (me.is_gazette_muted) {
+        formEl.style.display = "none";
+        noticeEl.style.display = "block";
+        noticeEl.style.color = "#f87171";
+        noticeEl.innerText = u.gazette_muted_notice || "🔇 You have been muted by the Game Master for the rest of this round.";
+      } else if (me.has_pending_bulletin) {
         formEl.style.display = "none";
         noticeEl.style.display = "block";
         noticeEl.style.color = "#a7f3d0";
-        noticeEl.innerText = u.gazette_submitted_waiting || "✓ Your bulletin was submitted to the Gazette desk. Awaiting morning publication.";
+        const pendMsg = me.my_pending_bulletin ? ` "${escapeHtml(me.my_pending_bulletin.message)}"` : '';
+        noticeEl.innerHTML = `<div>✓ ${u.gazette_submitted_waiting || "Your bulletin is awaiting Game Master review:"}</div><div style="font-style:italic; margin-top:0.3rem; color:#f1f5f9;">${pendMsg}</div><div style="font-size:0.75rem; color:#94a3b8; margin-top:0.3rem;">You can submit another once this one is approved or rejected.</div>`;
       } else {
         formEl.style.display = "block";
         noticeEl.style.display = "none";

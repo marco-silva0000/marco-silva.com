@@ -4,6 +4,25 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v134] - 2026-11-12
+
+### Added
+- **Town Gazette Multi-Posting with Single-Pending Review Constraint**:
+  - Relaxed former strict 1-post-per-day restriction, enabling players to submit multiple bulletins across a round or game.
+  - Enforced single pending bulletin constraint: a player can only have one bulletin pending GM review at any time. If a submission is waiting, attempting to post another is cleanly prevented with an informative review notice.
+  - As soon as the Game Master approves or rejects the pending submission, the player is immediately unlocked to post their next bulletin.
+- **Game Master Round-Mute for Town Gazette**:
+  - Implemented `toggle_player_gazette_mute(state, player_id, muted)` enabling the GM to silence disruptive players from posting to the Gazette for the rest of the round.
+  - Added 1-click `🔇 Mute (Round)` and `🔊 Unmute` actions directly on pending bulletin review cards and player table rows in the GM Cockpit.
+  - Displays a dedicated `🔇 Gazette Muted` badge and list of currently muted players with quick unmute.
+  - Implemented automatic phase-change reset: all player gazette mutes automatically reset on every dusk (`advance_to_night`) and dawn (`resolve_night`).
+- **Interactive Round-by-Round Game Replay Timeline**:
+  - Implemented `build_round_timeline(state)` aggregating `action_history`, dawn reports, casualties, gazette editions, nominations, and trial execution votes into a clean chronological timeline.
+  - Added interactive Replay Navigator in `templates/lupus/player.html` and `templates/lupus/gm_dashboard.html`:
+    - Quick round pills (`[🌙 N0] [☀️ D0] [🌙 N1] [☀️ D1] ...`).
+    - Detailed round inspection cards showing dawn reports, unmasked role casualties, published bulletins, trial voting breakdowns, and notable ability activations.
+    - Added one-click `💬 Discuss in Host Chat` shortcut so players can discuss what happened directly with the GM and room.
+
 ## [v133] - 2026-11-12
 
 ### Added

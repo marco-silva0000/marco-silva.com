@@ -1706,6 +1706,7 @@ html, body {
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
       <h3 style="font-size: 0.9rem; margin: 0; color: #666;">📜 Live Activity Log</h3>
       <div style="display: flex; gap: 0.4rem;">
+        <button onclick="openModal('gm-timeline-modal')" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe;" title="View interactive round-by-round replay breakdown">🎬 Round Timeline</button>
         <button onclick="exportGameReplayJson()" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #f0fdf4; color: #15803d; border-color: #bbf7d0;" title="Download complete reproducible game replay JSON">💾 Export Replay</button>
         <button onclick="copyBugReportPayload(this)" class="btn btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #f8fafc; color: #475569; border-color: #cbd5e1;" title="Copy game tape JSON to clipboard for bug reports / test conversion">📋 Copy Tape</button>
       </div>
@@ -1720,6 +1721,27 @@ html, body {
   <!-- Footer Version Counter -->
   <div style="text-align: center; font-size: 0.75rem; color: #64748b; margin-top: 2rem; padding: 1rem 0; border-top: 1px solid #e2e8f0; font-family: ui-monospace, monospace;">
     Lupus in Tabula · Game Master Cockpit · <span id="gm-version-counter">{{ app_version }}</span>
+  </div>
+</div>
+
+<!-- Modal: Game Replay Round Timeline -->
+<div id="gm-timeline-modal" class="modal">
+  <div class="modal-content" style="max-width: 640px; text-align: left; max-height: 85vh; overflow-y: auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0; font-size: 1.15rem; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
+        <span>🎬</span> Round-by-Round Game Replay
+      </h3>
+      <button onclick="closeModal('gm-timeline-modal')" class="btn btn-sm" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #64748b;">&times;</button>
+    </div>
+    <div id="gm-replay-rounds-bar" style="display: flex; gap: 0.35rem; overflow-x: auto; padding-bottom: 0.4rem; margin-bottom: 0.75rem;">
+      <!-- Populated dynamically -->
+    </div>
+    <div id="gm-replay-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.85rem; font-size: 0.82rem;">
+      <!-- Populated dynamically -->
+    </div>
+    <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
+      <button onclick="closeModal('gm-timeline-modal')" class="btn">Close</button>
+    </div>
   </div>
 </div>
 
@@ -2981,6 +3003,10 @@ html, body {
             <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm btn-danger" style="margin-left: auto;">&times; Kick</button>
           `;
         } else {
+          const gazetteMuteBtn = p.is_gazette_muted
+            ? `<button onclick="toggleGazetteMute('${p.id}', false)" class="btn btn-sm" style="background:#581c87; color:#f3e8ff; border-color:#9333ea;" title="Player is muted from Gazette for this round">🔊 Unmute Gazette</button>`
+            : `<button onclick="toggleGazetteMute('${p.id}', true)" class="btn btn-sm" style="background:#fef2f2; color:#b91c1c; border-color:#fecaca;" title="Mute player from posting in Gazette for this round">🔇 Mute Gazette</button>`;
+
           if (p.status === "alive") {
             statusBadge = `<span class="badge badge-alive">ALIVE</span>`;
             const silenceBtn = p.is_silenced
@@ -2990,6 +3016,7 @@ html, body {
               <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead immediately">☠️ Kill</button>
               <button onclick="setPlayerStatusDirect('${p.id}', 'limbo')" class="btn btn-sm" style="background:#fffbeb; color:#b45309; border-color:#fde047;" title="Send to Limbo">🌫️ Limbo</button>
               ${silenceBtn}
+              ${gazetteMuteBtn}
               <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
               <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
@@ -3005,6 +3032,7 @@ html, body {
               <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
               <button onclick="setPlayerStatusDirect('${p.id}', 'dead')" class="btn btn-sm btn-danger" title="Mark dead">☠️ Kill</button>
               ${silenceBtn}
+              ${gazetteMuteBtn}
               <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
@@ -3014,6 +3042,7 @@ html, body {
             statusBadge = `<span class="badge badge-dead">DEAD</span>`;
             actionsHtml = `
               <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
+              ${gazetteMuteBtn}
               <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
@@ -3023,6 +3052,7 @@ html, body {
         }
 
         const silencedBadge = p.is_silenced ? '<span class="badge badge-silenced">🤐 Silenced</span>' : '';
+        const gazetteMutedBadge = p.is_gazette_muted ? '<span class="badge" style="background:#450a0a; color:#fca5a5; border:1px solid #f87171;">🔇 Gazette Muted</span>' : '';
         const offlineBadge = p.is_offline ? '<span style="font-size:0.75rem; color:#888;">(Offline)</span>' : '';
         const roleStr = p.role ? `<span style="font-weight:600;">${p.role.emoji} ${p.role.name}</span>` : '<em style="color:#aaa;">Unassigned (Lobby)</em>';
 
@@ -3098,6 +3128,9 @@ html, body {
 
     // Town Gazette Desk
     renderGazetteDesk(state);
+
+    // Replay Round Timeline
+    renderGmReplay(state);
   }
 
   function toggleLoverCause() {
@@ -3132,22 +3165,45 @@ html, body {
       queueEl.innerHTML = pending.map(b => {
         const deadBadge = b.is_dead_author ? '<span style="font-size:0.7rem; background:#450a0a; color:#fca5a5; padding:0.1rem 0.35rem; border-radius:4px;">Ghost/Limbo Post</span>' : '<span style="font-size:0.7rem; background:#064e3b; color:#a7f3d0; padding:0.1rem 0.35rem; border-radius:4px;">Alive</span>';
         const anonBadge = b.anonymous ? '<span style="font-size:0.7rem; background:#1e293b; color:#94a3b8; padding:0.1rem 0.35rem; border-radius:4px;">🕶️ Anonymous</span>' : '<span style="font-size:0.7rem; background:#1e1b4b; color:#c7d2fe; padding:0.1rem 0.35rem; border-radius:4px;">📢 Public Byline</span>';
+        const authorP = state.players && state.players[b.player_id];
+        const isAuthorMuted = authorP ? !!authorP.is_gazette_muted : false;
+        const muteBtn = isAuthorMuted
+          ? `<button onclick="toggleGazetteMute('${b.player_id}', false)" class="btn btn-sm" style="background:#581c87; color:#f3e8ff; border-color:#9333ea; font-size:0.75rem;" title="Player is currently muted for this round">🔊 Unmute</button>`
+          : `<button onclick="toggleGazetteMute('${b.player_id}', true)" class="btn btn-sm" style="background:#fef2f2; color:#b91c1c; border-color:#fecaca; font-size:0.75rem;" title="Mute player from posting in Gazette for the rest of this round">🔇 Mute (Round)</button>`;
+
         return `
           <div style="background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:0.6rem 0.8rem; margin-bottom:0.45rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem;">
             <div style="flex:1; min-width:200px;">
               <div style="display:flex; align-items:center; gap:0.35rem; margin-bottom:0.2rem;">
                 <strong style="font-size:0.85rem; color:#0f172a;">${escapeHtml(b.player_name)}</strong>
                 ${deadBadge} ${anonBadge}
+                ${isAuthorMuted ? '<span style="font-size:0.7rem; background:#450a0a; color:#fca5a5; padding:0.1rem 0.35rem; border-radius:4px;">🔇 Muted</span>' : ''}
               </div>
               <div style="font-size:0.85rem; color:#334155; font-style:italic;">"${escapeHtml(b.message)}"</div>
             </div>
-            <div style="display:flex; gap:0.35rem;">
+            <div style="display:flex; gap:0.35rem; align-items:center;">
               <button onclick="approveBulletin('${b.id}', true)" class="btn btn-sm btn-success" style="font-size:0.75rem;">✅ Approve</button>
               <button onclick="approveBulletin('${b.id}', false)" class="btn btn-sm btn-danger" style="font-size:0.75rem;">❌ Reject</button>
+              ${muteBtn}
             </div>
           </div>
         `;
       }).join("");
+    }
+
+    const mutedPlayers = Object.values(state.players || {}).filter(p => p.is_gazette_muted);
+    if (mutedPlayers.length > 0) {
+      queueEl.innerHTML += `
+        <div style="margin-top:0.5rem; padding:0.4rem 0.6rem; background:#fef2f2; border:1px solid #fee2e2; border-radius:6px; font-size:0.75rem; color:#991b1b; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <strong>🔇 Gazette Muted this round:</strong>
+          ${mutedPlayers.map(p => `
+            <span style="background:#fff; border:1px solid #fca5a5; padding:0.1rem 0.35rem; border-radius:4px; display:inline-flex; align-items:center; gap:0.25rem;">
+              ${escapeHtml(p.name)}
+              <button onclick="toggleGazetteMute('${p.id}', false)" style="background:none; border:none; cursor:pointer; font-weight:bold; color:#ef4444;" title="Unmute">&times;</button>
+            </span>
+          `).join("")}
+        </div>
+      `;
     }
 
     if (approved.length > 0) {
@@ -3165,6 +3221,133 @@ html, body {
 
   function approveBulletin(bulletinId, approved) {
     sendAction("approve_news_bulletin", { bulletin_id: bulletinId, approved: !!approved });
+  }
+
+  function toggleGazetteMute(playerId, muted) {
+    sendAction("toggle_gazette_mute", { player_id: playerId, muted: muted !== undefined ? muted : undefined });
+  }
+
+  let selectedGmReplayRoundIndex = 0;
+
+  function renderGmReplay(state) {
+    const roundsBar = document.getElementById("gm-replay-rounds-bar");
+    const cardEl = document.getElementById("gm-replay-card");
+    if (!roundsBar || !cardEl) return;
+
+    const timeline = state.round_timeline || [];
+    if (!timeline || timeline.length === 0) {
+      roundsBar.innerHTML = `<div style="font-size:0.8rem; color:#94a3b8; font-style:italic;">No round history recorded yet.</div>`;
+      cardEl.innerHTML = `<div style="font-size:0.8rem; color:#94a3b8; font-style:italic;">Start the game to record round events.</div>`;
+      return;
+    }
+
+    if (selectedGmReplayRoundIndex >= timeline.length) {
+      selectedGmReplayRoundIndex = timeline.length - 1;
+    }
+
+    roundsBar.innerHTML = timeline.map((step, idx) => {
+      const isNight = step.phase === "night";
+      const icon = isNight ? "🌙" : "☀️";
+      const label = isNight ? `N${step.round}` : `D${step.round}`;
+      const isSel = idx === selectedGmReplayRoundIndex;
+      const bg = isSel ? "#2563eb" : "#f1f5f9";
+      const color = isSel ? "#ffffff" : "#475569";
+      const border = isSel ? "1px solid #1d4ed8" : "1px solid #cbd5e1";
+      return `
+        <button onclick="selectGmReplayRound(${idx})" class="btn btn-sm" style="background:${bg}; color:${color}; border:${border}; border-radius:999px; padding:0.25rem 0.65rem; font-size:0.75rem; font-weight:700; white-space:nowrap; flex-shrink:0;">
+          ${icon} ${label}
+        </button>
+      `;
+    }).join("");
+
+    const step = timeline[selectedGmReplayRoundIndex];
+    if (!step) return;
+
+    const isNight = step.phase === "night";
+    let html = `
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem; margin-bottom:0.6rem;">
+        <strong style="font-size:0.95rem; color:#0f172a; display:flex; align-items:center; gap:0.35rem;">
+          <span>${isNight ? '🌙' : '☀️'}</span> ${escapeHtml(step.title)}
+        </strong>
+        <span style="font-size:0.72rem; color:#64748b; text-transform:uppercase; font-weight:700;">Round ${step.round}</span>
+      </div>
+    `;
+
+    if (step.dawn_report && step.dawn_report.length > 0) {
+      html += `
+        <div style="margin-bottom:0.65rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:#b45309; margin-bottom:0.25rem;">🌅 Dawn Report:</div>
+          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:6px; padding:0.45rem 0.65rem; font-size:0.78rem; line-height:1.4; color:#334155;">
+            ${step.dawn_report.map(r => `<div>${escapeHtml(r)}</div>`).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.deaths && step.deaths.length > 0) {
+      html += `
+        <div style="margin-bottom:0.65rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:#dc2626; margin-bottom:0.25rem;">☠️ Casualties:</div>
+          <div style="display:flex; flex-direction:column; gap:0.25rem;">
+            ${step.deaths.map(d => `
+              <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:6px; padding:0.35rem 0.55rem; font-size:0.78rem; color:#991b1b; display:flex; justify-content:space-between; align-items:center;">
+                <strong>${escapeHtml(d.name)}</strong>
+                <span>${d.role ? escapeHtml(d.role) : (d.cause || 'Eliminated')}</span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.bulletins && step.bulletins.length > 0) {
+      html += `
+        <div style="margin-bottom:0.65rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:#0284c7; margin-bottom:0.25rem;">🗞️ Town Gazette Published:</div>
+          <div style="display:flex; flex-direction:column; gap:0.25rem;">
+            ${step.bulletins.map(b => `
+              <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:0.35rem 0.55rem; font-size:0.78rem; color:#0369a1;">
+                <strong>${escapeHtml(b.byline)}:</strong> "${escapeHtml(b.message)}"
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.voting || step.execution || (step.nominations && step.nominations.length > 0)) {
+      html += `
+        <div style="margin-bottom:0.65rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:#6366f1; margin-bottom:0.25rem;">🗳️ Trial &amp; Voting:</div>
+          <div style="background:#eef2ff; border:1px solid #c7d2fe; border-radius:6px; padding:0.45rem 0.65rem; font-size:0.78rem; color:#3730a3;">
+            ${step.execution ? `<div style="font-weight:700; margin-bottom:0.3rem;">⚖️ ${escapeHtml(step.execution)}</div>` : ''}
+            ${step.voting && step.voting.votes && Object.keys(step.voting.votes).length > 0 ? `
+              <div style="font-size:0.74rem; color:#475569; margin-top:0.25rem;">
+                Votes: ${Object.entries(step.voting.votes).map(([v, c]) => `${escapeHtml(v)} ➔ ${escapeHtml(c)}`).join(", ")}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.events && step.events.length > 0) {
+      html += `
+        <div>
+          <div style="font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:0.25rem;">⚡ Notable Events:</div>
+          <ul style="margin:0; padding-inline-start:1.1rem; font-size:0.78rem; color:#334155; line-height:1.4;">
+            ${step.events.map(ev => `<li>${escapeHtml(ev)}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+    }
+
+    cardEl.innerHTML = html;
+  }
+
+  function selectGmReplayRound(idx) {
+    selectedGmReplayRoundIndex = idx;
+    if (currentGameState) renderGmReplay(currentGameState);
   }
 
   // --- Timer Engine ---

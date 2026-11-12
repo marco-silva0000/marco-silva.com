@@ -313,6 +313,7 @@ def add_player(state: dict[str, Any], name: str, is_offline: bool = False) -> tu
         "is_successor": False,
         "preassigned_role": None,
         "last_news_post_round": None,
+        "is_gazette_muted": False,
         "used_dead_news_bulletin": False,
         "pending_heartbreak": False,
         "pending_heartbreak_from_id": None,
@@ -914,6 +915,7 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     state["approved_news_bulletins"] = []
     for p in state["players"].values():
         p["last_news_post_round"] = None
+        p["is_gazette_muted"] = False
         p["used_dead_news_bulletin"] = False
     reset_timer(state, state["settings"].get("discussion_timer", 300))
     pause_timer(state)
@@ -993,6 +995,7 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
         p["lover_type"] = None
         p["last_guarded_id"] = None
         p["last_news_post_round"] = None
+        p["is_gazette_muted"] = False
         p["used_dead_news_bulletin"] = False
         p["sniper_danger_bullets"] = 1
         p["sniper_silver_bullets"] = 1 if state["settings"].get("sniper_bullet_type") == "mix" else 0
@@ -1091,6 +1094,7 @@ def create_next_game_lobby(state: dict[str, Any]) -> dict[str, Any]:
             "is_successor": False,
             "preassigned_role": p.get("preassigned_role"),
             "last_news_post_round": None,
+            "is_gazette_muted": False,
             "used_dead_news_bulletin": False,
             "pending_heartbreak": False,
             "pending_heartbreak_from_id": None,
@@ -1322,26 +1326,64 @@ def approve_ghost_message(state: dict[str, Any], message_id: str, approved: bool
     return True, msg_str
 
 
+def toggle_player_gazette_mute(
+    state: dict[str, Any],
+    player_id: str,
+    muted: Optional[bool] = None,
+) -> tuple[bool, str]:
+    """Game Master mutes or unmutes a player from posting in the Town Gazette for the rest of this round."""
+    player = state.get("players", {}).get(player_id)
+    if not player:
+        return False, "Player not found."
+
+    new_val = (not player.get("is_gazette_muted", False)) if muted is None else bool(muted)
+    player["is_gazette_muted"] = new_val
+    action_str = "muted from posting in the Town Gazette for this round" if new_val else "unmuted in the Town Gazette"
+    log_event(state, f"🔇 {player['name']} was {action_str}.")
+    record_action(
+        state,
+        "toggle_gazette_mute",
+        {"player_id": player_id, "is_gazette_muted": new_val},
+    )
+    save_game(state["code"], state)
+    return True, f"Player {player['name']} was {action_str}."
+
+
+def reset_gazette_mutes(state: dict[str, Any]) -> None:
+    """Reset all player gazette mutes across day/night phase transitions."""
+    for p in state.get("players", {}).values():
+        p["is_gazette_muted"] = False
+
+
 def submit_news_bulletin(
     state: dict[str, Any],
     player_id: str,
     message: str,
     anonymous: bool = False,
 ) -> tuple[bool, str]:
-    """Player submits an announcement, accusation, or gossip for the Morning Gazette."""
+    """Player submits an announcement, accusation, or gossip for the Morning Gazette.
+
+    Multiple bulletins may be submitted across a game/round, but only one pending submission
+    at a time until approved or rejected by the Game Master. Muted players cannot submit for
+    the rest of the current round.
+    """
     player = state.get("players", {}).get(player_id)
     if not player:
         return False, "Player not found."
 
-    current_round = state.get("round_number", 1)
-    if player["status"] == "alive":
-        if player.get("last_news_post_round") == current_round:
-            return False, "You can only submit one news bulletin per day."
-    elif player["status"] in ("dead", "limbo"):
-        if player.get("used_dead_news_bulletin", False):
-            return False, "Deceased and Limbo souls may only submit one news bulletin total."
-    else:
+    if player.get("status") == "waiting":
         return False, "Waiting players cannot submit bulletins yet."
+
+    if player.get("is_gazette_muted", False):
+        return False, "You have been muted from posting in the Town Gazette for the rest of this round."
+
+    # Check for active pending bulletin: only one at a time while waiting for GM review!
+    has_pending = any(
+        b.get("player_id") == player_id and b.get("status") == "pending"
+        for b in state.get("news_bulletins", [])
+    )
+    if has_pending:
+        return False, "You already have a news bulletin waiting for Game Master review. Wait until it is approved or rejected before submitting another."
 
     clean_msg = (message or "").strip()
     if not clean_msg:
@@ -1349,6 +1391,7 @@ def submit_news_bulletin(
     if len(clean_msg) > 200:
         clean_msg = clean_msg[:200]
 
+    current_round = state.get("round_number", 1)
     bulletin_id = uuid.uuid4().hex[:8]
     is_dead = player["status"] in ("dead", "limbo")
     entry = {
@@ -1363,13 +1406,22 @@ def submit_news_bulletin(
         "is_dead_author": is_dead,
     }
     state.setdefault("news_bulletins", []).append(entry)
-    if player["status"] == "alive":
-        player["last_news_post_round"] = current_round
-    else:
-        player["used_dead_news_bulletin"] = True
+    player["last_news_post_round"] = current_round
 
     byline_note = " (as Anonymous)" if anonymous else ""
     log_event(state, f"🗞️ {player['name']} submitted a bulletin for GM review{byline_note}: '{clean_msg}'")
+    record_action(
+        state,
+        "submit_news_bulletin",
+        {
+            "bulletin_id": bulletin_id,
+            "player_id": player_id,
+            "player_name": player["name"],
+            "anonymous": bool(anonymous),
+            "message": clean_msg,
+            "round": current_round,
+        },
+    )
     save_game(state["code"], state)
     return True, "Bulletin submitted to Game Master for review."
 
@@ -1403,8 +1455,200 @@ def approve_news_bulletin(
         log_event(state, f"❌ GM rejected bulletin by {found['player_name']}.")
         msg_str = "Bulletin rejected."
 
+    record_action(
+        state,
+        "approve_news_bulletin",
+        {
+            "bulletin_id": bulletin_id,
+            "player_id": found.get("player_id"),
+            "approved": bool(approved),
+            "status": found["status"],
+        },
+    )
     save_game(state["code"], state)
     return True, msg_str
+
+
+def build_round_timeline(state: dict[str, Any]) -> list[dict[str, Any]]:
+    """Build a structured chronological round-by-round timeline from action_history and game state.
+
+    Returns an ordered list of rounds (Night 0, Day 0, Night 1, Day 1, ...) detailing:
+    - Phase & Round number
+    - Dawn Report & Casualties
+    - Published Gazette Bulletins
+    - Trial, Nominations, and Execution Votes
+    - Major abilities used and status changes
+    """
+    history = state.get("action_history", [])
+    players = state.get("players", {})
+    id_to_player = {pid: p for pid, p in players.items()}
+
+    # Gather all rounds present in history or state
+    max_round = state.get("round_number", 0)
+    for entry in history:
+        r = entry.get("payload", {}).get("round")
+        if isinstance(r, int) and r > max_round:
+            max_round = r
+
+    rounds_data: dict[int, dict[str, Any]] = {}
+
+    def ensure_round(rnd: int) -> dict[str, Any]:
+        if rnd not in rounds_data:
+            rounds_data[rnd] = {
+                "night": {
+                    "round": rnd,
+                    "phase": "night",
+                    "title": f"Night {rnd}" if rnd > 0 else "Night 0 (Opening Night)",
+                    "dawn_report": [],
+                    "actions": [],
+                    "deaths": [],
+                },
+                "day": {
+                    "round": rnd,
+                    "phase": "day",
+                    "title": f"Day {rnd}" if rnd > 0 else "Day 0 (Village Awakening)",
+                    "bulletins": [],
+                    "nominations": [],
+                    "voting": None,
+                    "execution": None,
+                    "deaths": [],
+                    "events": [],
+                },
+            }
+        return rounds_data[rnd]
+
+    # Pre-populate rounds up to max_round
+    for r in range(0, max_round + 1):
+        ensure_round(r)
+
+    # Replay through action_history to populate each round cleanly
+    for entry in history:
+        act = entry.get("action")
+        payload = entry.get("payload", {})
+        rnd = payload.get("round", 0)
+        rd = ensure_round(rnd)
+
+        if act == "night_action":
+            stage = payload.get("stage_id")
+            target_id = payload.get("target_id")
+            target_p = id_to_player.get(target_id)
+            target_name = target_p["name"] if target_p else (target_id or "Nobody")
+            rd["night"]["actions"].append({
+                "stage": stage,
+                "target_id": target_id,
+                "target_name": target_name,
+            })
+
+        elif act == "resolve_night":
+            report = payload.get("night_report", [])
+            rd["night"]["dawn_report"] = list(report)
+            for line in report:
+                if any(k in line.lower() for k in ("slain", "killed", "died", "slaughtered", "eliminated")):
+                    for p in players.values():
+                        if p["name"] in line and not any(d["name"] == p["name"] for d in rd["night"]["deaths"]):
+                            rd["night"]["deaths"].append({
+                                "name": p["name"],
+                                "role": p.get("role"),
+                                "faction": p.get("faction"),
+                                "report": line,
+                            })
+
+        elif act == "start_voting":
+            sys_name = payload.get("system", "two_stage_50pct")
+            rd["day"]["voting"] = {
+                "system": sys_name,
+                "nominees": [],
+                "votes": {},
+                "result": None,
+            }
+
+        elif act == "nomination_vote":
+            v_id = payload.get("voter_id")
+            c_id = payload.get("candidate_id")
+            v_name = id_to_player.get(v_id, {}).get("name", v_id)
+            c_name = id_to_player.get(c_id, {}).get("name", c_id)
+            rd["day"]["nominations"].append({"voter": v_name, "candidate": c_name})
+
+        elif act == "proceed_to_final_vote":
+            noms = payload.get("nominees", [])
+            nom_names = [id_to_player.get(n, {}).get("name", n) for n in noms]
+            if rd["day"]["voting"] is None:
+                rd["day"]["voting"] = {"system": "voting", "nominees": nom_names, "votes": {}, "result": None}
+            else:
+                rd["day"]["voting"]["nominees"] = nom_names
+
+        elif act == "final_vote":
+            v_id = payload.get("voter_id")
+            c_id = payload.get("candidate_id")
+            v_name = id_to_player.get(v_id, {}).get("name", v_id)
+            c_name = id_to_player.get(c_id, {}).get("name", c_id) if c_id else "Abstain"
+            if rd["day"]["voting"]:
+                rd["day"]["voting"]["votes"][v_name] = c_name
+
+        elif act == "resolve_vote":
+            exec_id = payload.get("executed_id")
+            is_tie = payload.get("tie", False)
+            if exec_id and exec_id in id_to_player:
+                victim = id_to_player[exec_id]
+                res_str = f"Town executed {victim['name']} ({victim.get('role', 'Villager')})."
+                rd["day"]["execution"] = res_str
+                if rd["day"]["voting"]:
+                    rd["day"]["voting"]["result"] = res_str
+                rd["day"]["deaths"].append({
+                    "name": victim["name"],
+                    "role": victim.get("role"),
+                    "faction": victim.get("faction"),
+                    "cause": "Executed by Town Vote",
+                })
+            elif is_tie:
+                res_str = "Voting ended in a tie. No execution occurred."
+                rd["day"]["execution"] = res_str
+                if rd["day"]["voting"]:
+                    rd["day"]["voting"]["result"] = res_str
+
+        elif act == "cancel_day_vote_veto":
+            rd["day"]["execution"] = "👨‍⚖️ Mayor exercised executive veto to cancel daytime execution."
+            if rd["day"]["voting"]:
+                rd["day"]["voting"]["result"] = rd["day"]["execution"]
+
+        elif act == "trigger_martyrdom_detonation":
+            a_id = payload.get("actor_id")
+            t_id = payload.get("target_id")
+            a_name = id_to_player.get(a_id, {}).get("name", "Martyr")
+            t_name = id_to_player.get(t_id, {}).get("name", "Target")
+            rd["day"]["events"].append(f"💣 Martyrdom detonation: {a_name} blew up {t_name}!")
+
+        elif act == "toggle_silence":
+            p_id = payload.get("player_id")
+            is_sil = payload.get("is_silenced")
+            p_name = id_to_player.get(p_id, {}).get("name", "Player")
+            verb = "silenced" if is_sil else "unsilenced"
+            rd["day"]["events"].append(f"🤐 {p_name} was {verb}.")
+
+        elif act == "toggle_gazette_mute":
+            p_id = payload.get("player_id")
+            is_muted = payload.get("is_gazette_muted")
+            p_name = id_to_player.get(p_id, {}).get("name", "Player")
+            verb = "muted from Gazette" if is_muted else "unmuted in Gazette"
+            rd["day"]["events"].append(f"🔇 {p_name} was {verb}.")
+
+    # Attach approved news bulletins to their respective rounds
+    for b in state.get("approved_news_bulletins", []):
+        b_rnd = b.get("round", 1)
+        r_item = ensure_round(b_rnd)
+        byline = "Anonymous Informant" if b.get("anonymous") else b.get("player_name", "Villager")
+        r_item["day"]["bulletins"].append({
+            "byline": byline,
+            "message": b.get("message", ""),
+        })
+
+    # Linearize rounds into a smooth chronological sequence: Night 0, Day 0, Night 1, Day 1, ...
+    timeline: list[dict[str, Any]] = []
+    for r in sorted(rounds_data.keys()):
+        timeline.append(rounds_data[r]["night"])
+        timeline.append(rounds_data[r]["day"])
+
+    return timeline
 
 
 def send_direct_message(
@@ -2847,6 +3091,7 @@ def advance_to_night(state: dict[str, Any]) -> dict[str, Any]:
     set_night_stage_index(state, 0)
     state["revealed_inspect"] = None
     state["night_actions"] = {}
+    reset_gazette_mutes(state)
     record_action(state, "advance_to_night", {"round": state["round_number"]})
     save_game(state["code"], state)
     return state
@@ -3042,6 +3287,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
 
         # Transition to Day 0
         state["phase"] = "day_discussion"
+        reset_gazette_mutes(state)
         state["round_number"] = 0
         state["is_day_zero"] = True
         state["night_actions"] = {}
@@ -3592,6 +3838,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     state["revealed_inspect"] = None
     state["voting"] = _reset_voting_state(state)
     state["phase"] = "day_discussion"
+    reset_gazette_mutes(state)
 
     if state.get("wolf_cub_rampage"):
         state["wolf_cub_rampage"] = False
@@ -4383,15 +4630,24 @@ def get_sanitized_player_view(
             )
 
     cur_rnd = state.get("round_number", 1)
-    if player["status"] == "alive":
-        can_submit_news = player.get("last_news_post_round") != cur_rnd
-        news_submitted_this_round = player.get("last_news_post_round") == cur_rnd
-    elif player["status"] in ("dead", "limbo"):
-        can_submit_news = not player.get("used_dead_news_bulletin", False)
-        news_submitted_this_round = player.get("used_dead_news_bulletin", False)
-    else:
-        can_submit_news = False
-        news_submitted_this_round = False
+    is_muted = player.get("is_gazette_muted", False)
+    is_waiting = player.get("status") == "waiting"
+
+    # Find if this player currently has a pending bulletin waiting for GM review
+    my_pending_bulletin = None
+    for b in state.get("news_bulletins", []):
+        if b.get("player_id") == player_id and b.get("status") == "pending":
+            my_pending_bulletin = {
+                "id": b["id"],
+                "message": b["message"],
+                "anonymous": b.get("anonymous", False),
+                "round": b.get("round", cur_rnd),
+            }
+            break
+
+    has_pending = my_pending_bulletin is not None
+    can_submit_news = (not is_waiting) and (not is_muted) and (not has_pending)
+    news_submitted_this_round = has_pending
 
     published_news = [
         {
@@ -4453,6 +4709,9 @@ def get_sanitized_player_view(
             "is_successor": player.get("is_successor", False) or player.get("role") == "successor",
             "pending_heartbreak": player.get("pending_heartbreak", False),
             "can_submit_news": can_submit_news,
+            "has_pending_bulletin": has_pending,
+            "my_pending_bulletin": my_pending_bulletin,
+            "is_gazette_muted": is_muted,
             "news_submitted_this_round": news_submitted_this_round,
             "sniper_danger_bullets": player.get("sniper_danger_bullets", 0),
             "sniper_silver_bullets": player.get("sniper_silver_bullets", 0),
@@ -4513,6 +4772,7 @@ def get_sanitized_player_view(
         },
         "my_dms": my_dms,
         "unread_dms_count": unread_dms_count,
+        "round_timeline": build_round_timeline(state) if state.get("phase") == "gameover" else [],
         "app_version": get_version_info()["display"],
         "commit_hash": get_version_info()["commit"],
     }
@@ -4622,6 +4882,7 @@ def get_gm_view(state: dict[str, Any], lang: Optional[str] = "en") -> dict[str, 
         "unread_dms_count": sum(
             1 for m in state.get("direct_messages", []) if m.get("recipient_id") == "gm" and not m.get("read", False)
         ),
+        "round_timeline": build_round_timeline(state),
         "action_history": state.get("action_history", []),
         "app_version": get_version_info()["display"],
         "commit_hash": get_version_info()["commit"],

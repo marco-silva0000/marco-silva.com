@@ -8,10 +8,12 @@ from lupus.game_state import (
     DEMO_PLAYER_NAMES,
     add_player,
     adjust_timer,
+    advance_to_night,
     approve_ghost_message,
     approve_news_bulletin,
     assign_midgame_role,
     auto_assign_roles_from_names,
+    build_round_timeline,
     cast_final_vote,
     check_win_condition,
     clear_gm_night_action,
@@ -57,6 +59,7 @@ from lupus.game_state import (
     tally_and_resolve_vote,
     toggle_nomination_vote,
     toggle_official_nomination,
+    toggle_player_gazette_mute,
     toggle_player_silence,
     trigger_game_over,
     trigger_martyrdom_detonation,
@@ -1767,20 +1770,20 @@ class TestLupusNotepadTemplate:
         assert ok is True
         assert len(state["news_bulletins"]) == 1
 
-        # Living player tries posting second time on same day -> rejected (1 per day)
+        # Living player tries posting second time while first is still pending -> rejected (only 1 pending at a time)
         ok2, msg2 = submit_news_bulletin(state, p_alive["id"], "Another scoop!", anonymous=False)
         assert ok2 is False
-        assert "one news bulletin per day" in msg2
+        assert "waiting for Game Master review" in msg2
 
         # 2. Dead player posts news (anonymous)
         ok_d, msg_d = submit_news_bulletin(state, p_dead["id"], "Watch out for player #3...", anonymous=True)
         assert ok_d is True
         assert len(state["news_bulletins"]) == 2
 
-        # Dead player tries posting a second time -> rejected (1 lifetime post)
+        # Dead player tries posting a second time while first is pending -> rejected
         ok_d2, msg_d2 = submit_news_bulletin(state, p_dead["id"], "Second whisper", anonymous=True)
         assert ok_d2 is False
-        assert "only submit one news bulletin total" in msg_d2
+        assert "waiting for Game Master review" in msg_d2
 
         # 3. GM approves both bulletins
         b_alive_id = state["news_bulletins"][0]["id"]
@@ -1790,7 +1793,12 @@ class TestLupusNotepadTemplate:
 
         assert len(state["approved_news_bulletins"]) == 2
 
-        # 4. Resolve night -> morning report includes Gazette bulletins!
+        # 4. Now that prior bulletin was approved, player can post another bulletin!
+        ok3, msg3 = submit_news_bulletin(state, p_alive["id"], "Second breaking scoop!", anonymous=False)
+        assert ok3 is True
+        assert len(state["news_bulletins"]) == 3
+
+        # 5. Resolve night -> morning report includes Gazette bulletins!
         resolve_night(state)
         report = state["night_report"]
         assert any("Living Journalist writes: \"I saw someone suspicious near the fountain!\"" in r for r in report)
@@ -3822,6 +3830,143 @@ class TestLupusV129HackerDeckAndScan:
         # Ghost stage must cease to exist in night stages!
         stages = get_night_stages(state)
         assert not any(s.get("id") == "ghost" for s in stages)
+
+
+@pytest.mark.django_db
+class TestLupusV134GazetteLimitationsAndReplay:
+    """Test v134 Gazette multi-posting (one-at-a-time pending) and GM round mute, plus Replay Timeline."""
+
+    def test_gazette_multi_post_and_single_pending_enforcement(self):
+        state = create_initial_state("TEST_GZ1", "Gazette Test")
+        state, p1 = add_player(state, "Reporter1")
+        state, p2 = add_player(state, "Reporter2")
+        roles = ["villager", "villager"]
+        state = start_game(state, role_list=roles)
+
+        # 1. P1 submits first bulletin
+        ok, msg = submit_news_bulletin(state, p1["id"], "News bulletin #1", anonymous=False)
+        assert ok is True
+        assert len(state["news_bulletins"]) == 1
+
+        # 2. P1 tries to submit second bulletin while first is pending -> rejected!
+        ok2, msg2 = submit_news_bulletin(state, p1["id"], "News bulletin #2", anonymous=False)
+        assert ok2 is False
+        assert "waiting for Game Master review" in msg2
+
+        # 3. P2 can submit because P2 has no pending bulletins
+        ok_p2, _ = submit_news_bulletin(state, p2["id"], "P2 News", anonymous=False)
+        assert ok_p2 is True
+
+        # 4. Check sanitized player view reflects pending bulletin
+        view_p1 = get_sanitized_player_view(state, p1["id"])
+        assert view_p1["me"]["has_pending_bulletin"] is True
+        assert view_p1["me"]["can_submit_news"] is False
+        assert view_p1["me"]["my_pending_bulletin"]["message"] == "News bulletin #1"
+
+        # 5. GM rejects P1's first bulletin
+        b1_id = state["news_bulletins"][0]["id"]
+        ok_rej, _ = approve_news_bulletin(state, b1_id, approved=False)
+        assert ok_rej is True
+
+        # 6. Now that P1's bulletin was rejected, P1 CAN submit a second bulletin immediately!
+        view_p1_after = get_sanitized_player_view(state, p1["id"])
+        assert view_p1_after["me"]["has_pending_bulletin"] is False
+        assert view_p1_after["me"]["can_submit_news"] is True
+
+        ok3, _ = submit_news_bulletin(state, p1["id"], "Revised bulletin #2", anonymous=False)
+        assert ok3 is True
+
+        # 7. GM approves revised bulletin
+        b2_id = state["news_bulletins"][-1]["id"]
+        approve_news_bulletin(state, b2_id, approved=True)
+
+        # 8. P1 can now submit a third bulletin!
+        ok4, _ = submit_news_bulletin(state, p1["id"], "Breaking bulletin #3", anonymous=True)
+        assert ok4 is True
+
+    def test_gazette_gm_round_mute_and_automatic_reset(self):
+        state = create_initial_state("TEST_MUTE", "Mute Test")
+        state, p1 = add_player(state, "Troublemaker")
+        state, p2 = add_player(state, "Townsperson")
+        roles = ["villager", "villager"]
+        state = start_game(state, role_list=roles)
+
+        # GM mutes P1 from the gazette
+        ok_m, msg_m = toggle_player_gazette_mute(state, p1["id"], muted=True)
+        assert ok_m is True
+        assert state["players"][p1["id"]]["is_gazette_muted"] is True
+
+        # P1 tries to submit bulletin while muted -> rejected!
+        ok_sub, msg_sub = submit_news_bulletin(state, p1["id"], "I want to spam!")
+        assert ok_sub is False
+        assert "muted from posting in the Town Gazette" in msg_sub
+
+        # Player view indicates muted state
+        view = get_sanitized_player_view(state, p1["id"])
+        assert view["me"]["is_gazette_muted"] is True
+        assert view["me"]["can_submit_news"] is False
+
+        # Advance to night -> mute must reset!
+        advance_to_night(state)
+        assert state["players"][p1["id"]]["is_gazette_muted"] is False
+
+        # Living player can now submit at night
+        ok_night, _ = submit_news_bulletin(state, p1["id"], "Night scoop")
+        assert ok_night is True
+
+        # GM mutes P1 during night
+        toggle_player_gazette_mute(state, p1["id"], muted=True)
+        assert state["players"][p1["id"]]["is_gazette_muted"] is True
+
+        # Dawn breaks (resolve_night) -> mute must reset again!
+        resolve_night(state)
+        assert state["players"][p1["id"]]["is_gazette_muted"] is False
+
+    def test_build_round_timeline_and_gameover_view(self):
+        state = create_initial_state("TEST_REPLAY", "Replay Test")
+        state, p_wolf = add_player(state, "Wolfie")
+        state, p_doc = add_player(state, "Doc")
+        state, p_vill = add_player(state, "VillagerJoe")
+        roles = ["werewolf", "doctor", "villager"]
+        state = start_game(state, role_list=roles)
+
+        # Submit bulletin on Day 0
+        submit_news_bulletin(state, p_vill["id"], "Good morning town!")
+        b_id = state["news_bulletins"][0]["id"]
+        approve_news_bulletin(state, b_id, approved=True)
+
+        # Night 1: Wolf attacks Joe, Doctor saves Joe
+        advance_to_night(state)
+        submit_night_action(state, p_wolf["id"], "kill", target_id=p_vill["id"])
+        submit_night_action(state, p_doc["id"], "heal", target_id=p_vill["id"])
+        resolve_night(state)
+
+        # Day 1: Voting
+        start_voting_session(state, system="two_stage_50pct")
+        toggle_nomination_vote(state, p_doc["id"], p_wolf["id"])
+        toggle_official_nomination(state, p_wolf["id"])
+        proceed_to_final_vote(state)
+        cast_final_vote(state, p_doc["id"], p_wolf["id"])
+        tally_and_resolve_vote(state)
+
+        # Build timeline
+        timeline = build_round_timeline(state)
+        assert len(timeline) >= 2
+
+        # Verify round properties
+        step_n0 = timeline[0]
+        assert step_n0["phase"] == "night"
+        assert step_n0["round"] == 0
+
+        # Trigger Game Over
+        state["phase"] = "gameover"
+        state["winner"] = "town"
+
+        # Verify get_sanitized_player_view contains round_timeline on gameover
+        p_view = get_sanitized_player_view(state, p_vill["id"])
+        assert "round_timeline" in p_view
+        assert len(p_view["round_timeline"]) >= 2
+
 
 
 
