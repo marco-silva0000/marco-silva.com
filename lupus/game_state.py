@@ -856,6 +856,14 @@ def _reset_voting_state(state: dict[str, Any]) -> dict[str, Any]:
         "eliminated_player_id": None,
         "elimination_result": None,
         "ballot_locked": False,
+        "turn_order": {
+            "active": False,
+            "starter_id": None,
+            "direction": "clockwise",
+            "active_suspect_id": None,
+            "turn_index": 0,
+            "turn_roster": [],
+        },
     }
 
 
@@ -1509,6 +1517,7 @@ def build_round_timeline(state: dict[str, Any]) -> list[dict[str, Any]]:
                     "title": f"Day {rnd}" if rnd > 0 else "Day 0 (Village Awakening)",
                     "bulletins": [],
                     "nominations": [],
+                    "hand_raises": {},
                     "voting": None,
                     "execution": None,
                     "deaths": [],
@@ -1561,6 +1570,29 @@ def build_round_timeline(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "votes": {},
                 "result": None,
             }
+
+        elif act == "start_circular_turn_order":
+            starter_name = payload.get("starter_name") or id_to_player.get(payload.get("starter_id"), {}).get("name", "Someone")
+            dir_str = "Clockwise (Right)" if payload.get("direction") == "clockwise" else "Counter-Clockwise (Left)"
+            rd["day"]["events"].append(f"🔄 Turn order started from {starter_name} ({dir_str}).")
+
+        elif act == "advance_circular_turn":
+            s_name = payload.get("suspect_name") or id_to_player.get(payload.get("active_suspect_id"), {}).get("name", "Someone")
+            t_idx = payload.get("turn_index", 0)
+            rd["day"]["events"].append(f"👉 Inquired #{t_idx + 1}: {s_name}.")
+
+        elif act == "hand_raise":
+            v_id = payload.get("voter_id")
+            c_id = payload.get("candidate_id")
+            v_name = payload.get("voter_name") or id_to_player.get(v_id, {}).get("name", v_id)
+            c_name = payload.get("candidate_name") or id_to_player.get(c_id, {}).get("name", c_id)
+            is_active = payload.get("active", True)
+            hr_map = rd["day"].setdefault("hand_raises", {})
+            v_set = hr_map.setdefault(c_name, set())
+            if is_active:
+                v_set.add(v_name)
+            else:
+                v_set.discard(v_name)
 
         elif act == "nomination_vote":
             v_id = payload.get("voter_id")
@@ -1641,6 +1673,15 @@ def build_round_timeline(state: dict[str, Any]) -> list[dict[str, Any]]:
             "byline": byline,
             "message": b.get("message", ""),
         })
+
+    # Clean up hand_raises sets into sorted lists
+    for r_item in rounds_data.values():
+        if "hand_raises" in r_item["day"]:
+            r_item["day"]["hand_raises"] = {
+                c: sorted(list(voters))
+                for c, voters in r_item["day"]["hand_raises"].items()
+                if voters
+            }
 
     # Linearize rounds into a smooth chronological sequence: Night 0, Day 0, Night 1, Day 1, ...
     timeline: list[dict[str, Any]] = []
@@ -4018,6 +4059,238 @@ def toggle_official_nomination(state: dict[str, Any], player_id: str) -> bool:
     return True
 
 
+def start_circular_turn_order(
+    state: dict[str, Any], starter_id: Optional[str] = None, direction: Optional[str] = None
+) -> dict[str, Any]:
+    """Initiate circular turn order around the physical table for nominations or voting."""
+    living_players = [p for p in get_ordered_players(state) if p.get("status") == "alive"]
+    if not living_players:
+        return state
+    living_ids = [p["id"] for p in living_players]
+
+    if not starter_id or starter_id not in living_ids:
+        starter_id = random.choice(living_ids)
+
+    if not direction or direction not in ("clockwise", "counterclockwise"):
+        direction = random.choice(["clockwise", "counterclockwise"])
+
+    start_idx = living_ids.index(starter_id)
+    n = len(living_ids)
+
+    if direction == "clockwise":
+        roster = [living_ids[(start_idx + i) % n] for i in range(n)]
+    else:
+        roster = [living_ids[(start_idx - i) % n] for i in range(n)]
+
+    voting = state.setdefault("voting", {})
+    voting["turn_order"] = {
+        "active": True,
+        "starter_id": starter_id,
+        "direction": direction,
+        "active_suspect_id": starter_id,
+        "turn_index": 0,
+        "turn_roster": roster,
+    }
+
+    starter_name = state.get("players", {}).get(starter_id, {}).get("name", "Someone")
+    dir_label = "Clockwise (Right)" if direction == "clockwise" else "Counter-Clockwise (Left)"
+    log_event(state, f"🔄 Circular turn order started from {starter_name} ({dir_label}).")
+    record_action(
+        state,
+        "start_circular_turn_order",
+        {
+            "starter_id": starter_id,
+            "starter_name": starter_name,
+            "direction": direction,
+            "active_suspect_id": starter_id,
+            "roster": roster,
+            "round": state.get("round_number", 0),
+        },
+    )
+    save_game(state["code"], state)
+    return state
+
+
+def advance_circular_turn(state: dict[str, Any], step: int = 1) -> dict[str, Any]:
+    """Advance or rewind turn order stepper along the table circle."""
+    voting = state.setdefault("voting", {})
+    to = voting.setdefault("turn_order", {})
+    if not to.get("active"):
+        return state
+
+    roster = to.get("turn_roster", [])
+    if not roster:
+        living_ids = [p["id"] for p in get_ordered_players(state) if p.get("status") == "alive"]
+        roster = living_ids
+        to["turn_roster"] = roster
+
+    if not roster:
+        return state
+
+    curr_idx = to.get("turn_index", 0)
+    new_idx = (curr_idx + step) % len(roster)
+    to["turn_index"] = new_idx
+    to["active_suspect_id"] = roster[new_idx]
+
+    suspect_name = state.get("players", {}).get(roster[new_idx], {}).get("name", "Someone")
+    log_event(state, f"👉 Questioning turned to #{new_idx + 1}: {suspect_name}.")
+    record_action(
+        state,
+        "advance_circular_turn",
+        {
+            "turn_index": new_idx,
+            "active_suspect_id": roster[new_idx],
+            "suspect_name": suspect_name,
+            "round": state.get("round_number", 0),
+        },
+    )
+    save_game(state["code"], state)
+    return state
+
+
+def set_active_suspect(state: dict[str, Any], suspect_id: Optional[str]) -> dict[str, Any]:
+    """Highlight and focus inquiry on a specific suspect."""
+    voting = state.setdefault("voting", {})
+    to = voting.setdefault(
+        "turn_order",
+        {
+            "active": True,
+            "starter_id": suspect_id,
+            "direction": "clockwise",
+            "active_suspect_id": suspect_id,
+            "turn_index": 0,
+            "turn_roster": [],
+        },
+    )
+    to["active"] = bool(suspect_id)
+    to["active_suspect_id"] = suspect_id
+    if suspect_id and to.get("turn_roster") and suspect_id in to["turn_roster"]:
+        to["turn_index"] = to["turn_roster"].index(suspect_id)
+
+    suspect_name = state.get("players", {}).get(suspect_id, {}).get("name", "None") if suspect_id else "None"
+    log_event(state, f"🎯 Active suspect set to: {suspect_name}.")
+    record_action(
+        state,
+        "set_active_suspect",
+        {
+            "suspect_id": suspect_id,
+            "suspect_name": suspect_name,
+            "round": state.get("round_number", 0),
+        },
+    )
+    save_game(state["code"], state)
+    return state
+
+
+def set_turn_order_direction(state: dict[str, Any], direction: str) -> dict[str, Any]:
+    """Change inquiry direction between clockwise and counter-clockwise."""
+    voting = state.setdefault("voting", {})
+    to = voting.setdefault("turn_order", {})
+    to["direction"] = direction
+    living_ids = [p["id"] for p in get_ordered_players(state) if p.get("status") == "alive"]
+    if living_ids:
+        active_id = to.get("active_suspect_id") or living_ids[0]
+        idx = living_ids.index(active_id) if active_id in living_ids else 0
+        n = len(living_ids)
+        if direction == "clockwise":
+            to["turn_roster"] = [living_ids[(idx + i) % n] for i in range(n)]
+        else:
+            to["turn_roster"] = [living_ids[(idx - i) % n] for i in range(n)]
+        to["turn_index"] = 0
+    save_game(state["code"], state)
+    return state
+
+
+def stop_circular_turn_order(state: dict[str, Any]) -> dict[str, Any]:
+    """Stop active turn order inquiry."""
+    voting = state.setdefault("voting", {})
+    to = voting.setdefault("turn_order", {})
+    to["active"] = False
+    to["active_suspect_id"] = None
+    log_event(state, "⏹ Circular turn order inquiry stopped.")
+    save_game(state["code"], state)
+    return state
+
+
+def toggle_hand_raise(
+    state: dict[str, Any],
+    voter_id: str,
+    candidate_id: Optional[str] = None,
+    raised: Optional[bool] = None,
+    source: str = "player",
+) -> tuple[bool, str]:
+    """Toggle or set a player's raised arm/hand for a candidate (player tap or GM table tap)."""
+    voting = state.setdefault("voting", {})
+    to = voting.get("turn_order", {})
+    if not candidate_id:
+        candidate_id = to.get("active_suspect_id")
+
+    if not candidate_id:
+        return False, "No active candidate selected to raise arm for."
+
+    players = state.get("players", {})
+    if candidate_id not in players or players[candidate_id]["status"] != "alive":
+        return False, "Candidate must be alive."
+
+    if voter_id not in players or players[voter_id]["status"] != "alive":
+        return False, "Only living players can raise their hand."
+
+    v_stage = voting.get("stage", "nomination")
+
+    if v_stage == "nomination":
+        votes_map = voting.setdefault("nomination_votes", {})
+        voters = set(votes_map.get(candidate_id, []))
+        if raised is None:
+            new_raised = voter_id not in voters
+        else:
+            new_raised = bool(raised)
+
+        if new_raised:
+            voters.add(voter_id)
+            msg = f"{players[voter_id]['name']} raised arm for {players[candidate_id]['name']}."
+        else:
+            voters.discard(voter_id)
+            msg = f"{players[voter_id]['name']} lowered arm for {players[candidate_id]['name']}."
+
+        votes_map[candidate_id] = list(voters)
+        update_nominated_candidates(state)
+    elif v_stage in ("final_vote", "revote"):
+        final_votes = voting.setdefault("final_votes", {})
+        if raised is None:
+            new_raised = final_votes.get(voter_id) != candidate_id
+        else:
+            new_raised = bool(raised)
+
+        if new_raised:
+            final_votes[voter_id] = candidate_id
+            msg = f"{players[voter_id]['name']} voted for {players[candidate_id]['name']}."
+        else:
+            if final_votes.get(voter_id) == candidate_id:
+                final_votes.pop(voter_id, None)
+            msg = f"{players[voter_id]['name']} removed vote for {players[candidate_id]['name']}."
+    else:
+        return False, f"Not currently in a voting phase (current: {v_stage})."
+
+    record_action(
+        state,
+        "hand_raise",
+        {
+            "voter_id": voter_id,
+            "voter_name": players[voter_id]["name"],
+            "candidate_id": candidate_id,
+            "candidate_name": players[candidate_id]["name"],
+            "active": new_raised,
+            "stage": v_stage,
+            "source": source,
+            "round": state.get("round_number", 0),
+        },
+        actor_id=voter_id,
+        actor_name=players[voter_id]["name"],
+    )
+    save_game(state["code"], state)
+    return True, msg
+
+
 def proceed_to_defense(state: dict[str, Any], player_id: Optional[str] = None) -> dict[str, Any]:
     """Move to defense stage for nominated players."""
     voting = state.setdefault("voting", {})
@@ -4383,6 +4656,14 @@ def get_voting_view(state: dict[str, Any], is_gm: bool = False, player_id: Optio
                 }
             )
 
+    to = voting.get("turn_order", {})
+    active_suspect_id = to.get("active_suspect_id")
+    if stage == "nomination":
+        active_raised_ids = nom_votes.get(active_suspect_id, []) if active_suspect_id else []
+    else:
+        active_raised_ids = [vid for vid, cid in final_votes.items() if cid == active_suspect_id] if active_suspect_id else []
+    is_my_hand_raised = player_id in active_raised_ids if player_id else False
+
     my_vote = final_votes.get(player_id) if player_id else None
     eliminated_name = None
     if voting.get("eliminated_player_id"):
@@ -4405,6 +4686,20 @@ def get_voting_view(state: dict[str, Any], is_gm: bool = False, player_id: Optio
         "eliminated_player_name": eliminated_name,
         "elimination_result": voting.get("elimination_result"),
         "ballot_locked": voting.get("ballot_locked", False),
+        "turn_order": {
+            "active": to.get("active", False),
+            "starter_id": to.get("starter_id"),
+            "starter_name": state.get("players", {}).get(to.get("starter_id"), {}).get("name"),
+            "direction": to.get("direction", "clockwise"),
+            "active_suspect_id": active_suspect_id,
+            "active_suspect_name": state.get("players", {}).get(active_suspect_id, {}).get("name") if active_suspect_id else None,
+            "active_suspect_seat": next((p.get("seat_number", idx + 1) for idx, p in enumerate(ordered) if p["id"] == active_suspect_id), None) if active_suspect_id else None,
+            "turn_index": to.get("turn_index", 0),
+            "turn_roster_count": len(to.get("turn_roster", [])),
+            "hands_raised_ids": active_raised_ids,
+            "hands_raised_count": len(active_raised_ids),
+            "is_my_hand_raised": is_my_hand_raised,
+        },
     }
 
 

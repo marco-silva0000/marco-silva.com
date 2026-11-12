@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}🐺 {{ state.title }} - {{ state.me.name|default:"Player" }}{% endblock %}
 
 {% block nav %}{% endblock %}
@@ -631,6 +631,50 @@ html, body {
   .u-seat-node.is-me {
     border-color: #38bdf8 !important;
     box-shadow: 0 0 0 3px rgba(56,189,248,0.4) !important;
+  }
+  .u-seat-node.is-active-suspect {
+    border-color: #f59e0b !important;
+    background: #382405 !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.7), 0 0 20px rgba(245, 158, 11, 0.45) !important;
+    animation: pulseSuspect 1.4s ease-in-out infinite alternate !important;
+    z-index: 25;
+  }
+  @keyframes pulseSuspect {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    100% { transform: translate(-50%, -50%) scale(1.08); }
+  }
+  .u-seat-suspect-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #fde68a;
+    background: #78350f;
+    border: 1px solid #f59e0b;
+    border-radius: 4px;
+    padding: 1px 4px;
+    margin-top: 2px;
+  }
+  .u-seat-hand-badge {
+    position: absolute;
+    top: -12px;
+    right: -8px;
+    background: #f59e0b;
+    color: #111;
+    font-size: 0.95rem;
+    line-height: 1;
+    border-radius: 999px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    animation: bounceHand 0.75s ease-in-out infinite alternate;
+    z-index: 26;
+  }
+  @keyframes bounceHand {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
   }
   .u-seat-header {
     display: flex;
@@ -1771,7 +1815,10 @@ html, body {
     </div>
 
     <!-- Modal Actions -->
-    <div style="display: flex; gap: 0.5rem;">
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button onclick="triggerWinningFactionConfetti()" class="btn btn-warning" style="min-height: 44px; font-weight: 800; background: #a855f7; border-color: #9333ea; color: #fff; padding: 0.5rem 0.9rem;" title="Throw victory confetti">
+        🎉 Confetti
+      </button>
       <button onclick="closePlayerModal('gameover-modal')" class="btn btn-primary" style="flex: 1; min-height: 44px; font-weight: 700;">
         👀 Inspect Table &amp; Seating
       </button>
@@ -1782,6 +1829,7 @@ html, body {
   </div>
 </div>
 
+<script src="{% static 'vendor/js-confetti.browser.js' %}"></script>
 <script>
   const ROOM_CODE = "{{ code }}";
   const MY_TOKEN = "{{ player.token }}";
@@ -2671,6 +2719,34 @@ html, body {
     return { won, isTie: winner === "tie", title, subtitle, pill };
   }
 
+  let playerJsConfettiInstance = null;
+  function triggerWinningFactionConfetti(winner) {
+    if (!window.JSConfetti) return;
+    if (!playerJsConfettiInstance) {
+      playerJsConfettiInstance = new JSConfetti();
+    }
+    const w = (winner || (currentGameState && currentGameState.winner) || "").toLowerCase();
+    let emojis = ['🎉', '✨', '🏆', '⭐', '🎊'];
+    if (w.includes('wolf') || w.includes('wolves')) {
+      emojis = ['🐺', '🌕', '🐾', '🩸', '🌙', '💀'];
+    } else if (w.includes('town') || w.includes('villag')) {
+      emojis = ['👨‍🌾', '🌱', '🏡', '🎉', '🕊️', '✨'];
+    } else if (w.includes('lover')) {
+      emojis = ['💞', '❤️‍🔥', '💖', '💘', '🌹', '✨'];
+    } else if (w.includes('jester')) {
+      emojis = ['🃏', '🎭', '🎉', '👑', '⭐', '🔥'];
+    } else if (w.includes('serial') || w.includes('killer')) {
+      emojis = ['🔪', '🩸', '💀', '🖤', '⚡', '🔥'];
+    } else if (w.includes('tie')) {
+      emojis = ['💀', '🌫️', '⚰️', '🥀', '🖤'];
+    }
+    playerJsConfettiInstance.addConfetti({
+      emojis: emojis,
+      emojiSize: 45,
+      confettiNumber: 65,
+    });
+  }
+
   function updateGameOverModal(state) {
     const btnResults = document.getElementById("btn-topbar-gameover");
     if (state.phase !== "gameover") {
@@ -2687,6 +2763,7 @@ html, body {
     if (!lastGameoverShown) {
       lastGameoverShown = true;
       openPlayerModal("gameover-modal");
+      triggerWinningFactionConfetti(state.winner);
     }
   }
 
@@ -2876,6 +2953,16 @@ html, body {
                 Votes: ${Object.entries(step.voting.votes).map(([v, c]) => `${escapeHtml(v)} ➔ ${escapeHtml(c)}`).join(", ")}
               </div>
             ` : ''}
+            ${step.hand_raises && Object.keys(step.hand_raises).length > 0 ? `
+              <div style="margin-top:0.35rem; font-size:0.75rem;">
+                <div style="font-weight:700; color:#fbbf24;">✋ Raised Hands Nominations:</div>
+                ${Object.entries(step.hand_raises).map(([c, voters]) => `
+                  <div style="margin-top:0.15rem; color:#fde68a;">
+                    🎯 <strong>${escapeHtml(c)}</strong>: ${voters.length} hands (${voters.map(v => escapeHtml(v)).join(", ")})
+                  </div>
+                `).join("")}
+              </div>
+            ` : ''}
           </div>
         </div>
       `;
@@ -3025,8 +3112,15 @@ html, body {
 
   function renderPlayerSeatNode(p, idx, x, y, container) {
     const isMe = p.is_me;
+    const to = (currentGameState && currentGameState.voting && currentGameState.voting.turn_order) || {};
+    const isActiveSuspect = Boolean(to.active && to.active_suspect_id === p.id);
+    const hasHandRaised = Boolean(to.active && (to.hands_raised_ids || []).includes(p.id));
+
+    const suspectBadgeHtml = isActiveSuspect ? '<span class="u-seat-suspect-badge">🎯 ASKING</span>' : '';
+    const handBadgeHtml = hasHandRaised ? '<span class="u-seat-hand-badge" title="Arm Raised">✋</span>' : '';
+
     const node = document.createElement("div");
-    node.className = `u-seat-node ${p.status} ${isMe ? 'is-me' : ''}`;
+    node.className = `u-seat-node ${p.status} ${isMe ? 'is-me' : ''} ${isActiveSuspect ? 'is-active-suspect' : ''}`;
     node.style.left = `${x.toFixed(1)}%`;
     node.style.top = `${y.toFixed(1)}%`;
 
@@ -3055,6 +3149,7 @@ html, body {
     }
 
     node.innerHTML = `
+      ${handBadgeHtml}
       <div class="u-seat-header">
         <span class="u-seat-num">#${p.seat_number || (idx + 1)}</span>
         <span class="u-seat-status" style="color: ${p.status === 'alive' ? '#22c55e' : (p.status === 'limbo' ? '#f59e0b' : '#ef4444')};">
@@ -3063,6 +3158,7 @@ html, body {
       </div>
       <div class="u-seat-name">${escapeHtml(p.name)} ${meTag}${loverTag}</div>
       ${seatSubtext ? `<div class="u-seat-role">${seatSubtext}</div>` : ''}
+      ${suspectBadgeHtml}
     `;
 
     container.appendChild(node);
@@ -3376,6 +3472,49 @@ html, body {
         </div>
       `;
 
+      if (v.turn_order && v.turn_order.active && v.turn_order.active_suspect_id) {
+        const to = v.turn_order;
+        const suspectName = to.active_suspect_name || "Nominee";
+        const suspectSeat = to.active_suspect_seat || "";
+        const isMyHandRaised = Boolean(to.is_my_hand_raised);
+        const handsCount = to.hands_raised_count || 0;
+        const threshold = v.threshold_votes || 1;
+
+        html += `
+          <div style="background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); border: 2px solid #f59e0b; border-radius: 12px; padding: 1rem; margin-bottom: 0.85rem; box-shadow: 0 4px 18px rgba(245, 158, 11, 0.25);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <span style="font-size: 0.75rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.5px;">🎯 Circular Inquiry In Progress</span>
+              <span style="font-size: 0.72rem; background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.4); padding: 0.15rem 0.45rem; border-radius: 999px;">
+                ${to.direction === 'clockwise' ? '↻ Clockwise' : '↺ Counter-Clockwise'}
+              </span>
+            </div>
+
+            <div style="font-size: 1.15rem; font-weight: 900; color: #fff; margin-bottom: 0.75rem;">
+              Who wants to nominate <span style="color: #f59e0b;">#${suspectSeat} ${escapeHtml(suspectName)}</span>?
+            </div>
+
+            ${isAlive ? `
+              <div style="margin-bottom: 0.65rem;">
+                <button onclick="playerToggleArmRaise()" class="btn" style="width: 100%; min-height: 52px; font-size: 1.1rem; font-weight: 900; border-radius: 10px; transition: all 0.2s; ${isMyHandRaised ? 'background:#f59e0b; color:#0f172a; border: 2px solid #fef08a; box-shadow: 0 0 16px rgba(245, 158, 11, 0.6);' : 'background:#2563eb; color:#fff; border: 2px solid #60a5fa; box-shadow: 0 4px 14px rgba(37,99,235,0.3);'}">
+                  ${isMyHandRaised ? '<span style="display:inline-block; animation:bounceHand 0.7s infinite alternate;">✋</span> ARM RAISED! (Tap to Lower)' : `✋ Raise Arm to Nominate ${escapeHtml(suspectName)}`}
+                </button>
+              </div>
+            ` : `
+              <div style="background: #450a0a; color: #fca5a5; border: 1px solid #991b1b; padding: 0.5rem; border-radius: 8px; font-size: 0.8rem; text-align: center; margin-bottom: 0.5rem;">
+                💀 You are dead and cannot raise your arm.
+              </div>
+            `}
+
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #cbd5e1;">
+              <span>Arms raised around table:</span>
+              <strong style="font-size: 0.95rem; color: ${handsCount >= threshold ? '#34d399' : '#f59e0b'};">
+                ✋ ${handsCount} / ${threshold} Needed
+              </strong>
+            </div>
+          </div>
+        `;
+      }
+
       if (!isAlive) {
         html += `<div style="background:#450a0a; color:#fca5a5; border:1px solid #991b1b; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem;">💀 You are dead and cannot participate in town nominations.</div>`;
       }
@@ -3557,6 +3696,14 @@ html, body {
       socket.send(JSON.stringify({
         action: "vote_nominate",
         candidate_id: candId
+      }));
+    }
+  }
+
+  function playerToggleArmRaise() {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({
+        action: "toggle_hand_raise"
       }));
     }
   }

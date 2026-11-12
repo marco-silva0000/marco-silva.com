@@ -8,6 +8,7 @@ from lupus.game_state import (
     DEMO_PLAYER_NAMES,
     add_player,
     adjust_timer,
+    advance_circular_turn,
     advance_to_night,
     approve_ghost_message,
     approve_news_bulletin,
@@ -48,15 +49,19 @@ from lupus.game_state import (
     set_night_stage_index,
     set_player_status,
     set_preassigned_role,
+    set_turn_order_direction,
     setup_demo_room,
     should_autofill_demo,
+    start_circular_turn_order,
     start_game,
     start_timer,
     start_voting_session,
+    stop_circular_turn_order,
     submit_ghost_message,
     submit_news_bulletin,
     submit_night_action,
     tally_and_resolve_vote,
+    toggle_hand_raise,
     toggle_nomination_vote,
     toggle_official_nomination,
     toggle_player_gazette_mute,
@@ -3966,6 +3971,82 @@ class TestLupusV134GazetteLimitationsAndReplay:
         p_view = get_sanitized_player_view(state, p_vill["id"])
         assert "round_timeline" in p_view
         assert len(p_view["round_timeline"]) >= 2
+
+    def test_circular_turn_order_mechanics_and_hand_raising(self):
+        """Test circular turn order initialization, directionality, steppers, and arm-raising."""
+        state = create_initial_state("ROOM_TURN", "Turn Order Room")
+        state, p1 = add_player(state, "Alice")
+        state, p2 = add_player(state, "Bob")
+        state, p3 = add_player(state, "Charlie")
+        state, p4 = add_player(state, "David")
+
+        start_game(state)
+        # Advance to day voting
+        state["phase"] = "day_voting"
+        start_voting_session(state, "two_stage_50pct")
+
+        # 1. Start circular turn order clockwise starting at Bob (p2)
+        start_circular_turn_order(state, starter_id=p2["id"], direction="clockwise")
+        to = state["voting"]["turn_order"]
+        assert to["active"] is True
+        assert to["starter_id"] == p2["id"]
+        assert to["direction"] == "clockwise"
+        assert to["active_suspect_id"] == p2["id"]
+        assert to["turn_index"] == 0
+        assert to["turn_roster"] == [p2["id"], p3["id"], p4["id"], p1["id"]]
+
+        # 2. Step forward clockwise -> Charlie (p3)
+        advance_circular_turn(state, step=1)
+        assert state["voting"]["turn_order"]["turn_index"] == 1
+        assert state["voting"]["turn_order"]["active_suspect_id"] == p3["id"]
+
+        # 3. Step forward clockwise -> David (p4)
+        advance_circular_turn(state, step=1)
+        assert state["voting"]["turn_order"]["turn_index"] == 2
+        assert state["voting"]["turn_order"]["active_suspect_id"] == p4["id"]
+
+        # 4. Step backward -> Charlie (p3)
+        advance_circular_turn(state, step=-1)
+        assert state["voting"]["turn_order"]["turn_index"] == 1
+        assert state["voting"]["turn_order"]["active_suspect_id"] == p3["id"]
+
+        # 5. Flip direction to counter-clockwise
+        set_turn_order_direction(state, "counterclockwise")
+        assert state["voting"]["turn_order"]["direction"] == "counterclockwise"
+        assert state["voting"]["turn_order"]["turn_roster"] == [p3["id"], p2["id"], p1["id"], p4["id"]]
+
+        # 6. Player arm-raising: Alice and Bob raise arms for Charlie
+        ok, msg = toggle_hand_raise(state, p1["id"], candidate_id=p3["id"], source="player")
+        assert ok is True
+        assert "raised arm" in msg
+        ok, msg = toggle_hand_raise(state, p2["id"], candidate_id=p3["id"], source="gm")
+        assert ok is True
+
+        # Check view
+        v_view = get_voting_view(state, is_gm=False, player_id=p1["id"])
+        assert v_view["turn_order"]["active"] is True
+        assert v_view["turn_order"]["is_my_hand_raised"] is True
+        assert v_view["turn_order"]["hands_raised_count"] == 2
+        assert set(v_view["turn_order"]["hands_raised_ids"]) == {p1["id"], p2["id"]}
+
+        # Alice lowers arm
+        ok, msg = toggle_hand_raise(state, p1["id"], candidate_id=p3["id"])
+        assert ok is True
+        assert "lowered arm" in msg
+        v_view_alice = get_voting_view(state, is_gm=False, player_id=p1["id"])
+        assert v_view_alice["turn_order"]["is_my_hand_raised"] is False
+        assert v_view_alice["turn_order"]["hands_raised_count"] == 1
+
+        # Check timeline logs turn order and arm raises
+        timeline = build_round_timeline(state)
+        day_step = next(s for s in timeline if s["phase"] == "day")
+        assert any("Turn order started" in ev for ev in day_step.get("events", []))
+        assert "Charlie" in day_step.get("hand_raises", {})
+        assert "Bob" in day_step["hand_raises"]["Charlie"]
+
+        # 7. Stop turn order
+        stop_circular_turn_order(state)
+        assert state["voting"]["turn_order"]["active"] is False
 
 
 

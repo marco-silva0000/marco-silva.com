@@ -4,6 +4,30 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v135] - 2026-11-12
+
+### Added
+- **Circular Table Turn Order Engine**:
+  - Implemented `start_circular_turn_order(state, starter_id=None, direction=None)` allowing the Game Master to pick a random starting living player and a random direction (`clockwise` / "right" or `counterclockwise` / "left"), or manually choose.
+  - Active queried player $X$ is prominently spotlighted across both GM Cockpit and all player screens with a golden pulsing ring, target icon, and directional turn indicators.
+  - Added stepper controls (`⬅ Prev Player`, `Next Player ➔`) to advance or rewind through living players along the table circle.
+- **Physical & Digital Arm/Hand-Raising System**:
+  - Implemented `toggle_hand_raise(state, voter_id, candidate_id=None, raised=None, source="player"|"gm")`:
+    - Players tap their screen (`✋ Raise Arm to Nominate X`) to raise or lower their hand in real-time.
+    - Game Master can tap seats directly on the circular Ring Table (or quick player list buttons) to toggle hand raises for real-life players.
+    - Real-time visualization: seats display floating bouncing `✋` badges, glowing gold borders, and live count vs threshold.
+    - Synchronized with nomination threshold calculations and final trial execution votes.
+    - Every arm raise is logged in `action_history` and recorded in the round replay breakdown (`hand_raises` mapping).
+- **Winning Faction JS Confetti on Game Over**:
+  - Bundled `static/vendor/js-confetti.browser.js` locally (100% offline homelab support, zero external CDN dependency).
+  - Fires customized confetti explosions on the Game Over screen featuring the winning faction's distinct emojis:
+    - Town: `👨‍🌾🌱🏡🎉🕊️✨`
+    - Werewolves: `🐺🌕🐾🩸🌙💀`
+    - Lovers: `💞❤️‍🔥💖💘🌹✨`
+    - Jester: `🃏🎭🎉👑⭐🔥`
+    - Serial Killer: `🔪🩸💀🖤⚡🔥`
+  - Added interactive `🎉 Throw Confetti` celebration buttons in player and GM Game Over views.
+
 ## [v134] - 2026-11-12
 
 ### Added

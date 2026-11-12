@@ -9,6 +9,7 @@ from website.version import get_version_info
 from .game_state import (
     add_player,
     adjust_timer,
+    advance_circular_turn,
     approve_ghost_message,
     approve_news_bulletin,
     assign_midgame_role,
@@ -43,6 +44,7 @@ from .game_state import (
     reveal_detective_to_player,
     save_game,
     send_direct_message,
+    set_active_suspect,
     set_broadcast_message,
     set_deck,
     set_manual_player_role,
@@ -52,13 +54,17 @@ from .game_state import (
     set_player_status,
     set_preassigned_role,
     set_round_number,
+    set_turn_order_direction,
     setup_demo_room,
+    start_circular_turn_order,
     start_game,
     start_timer,
     start_voting_session,
+    stop_circular_turn_order,
     submit_ghost_message,
     submit_news_bulletin,
     tally_and_resolve_vote,
+    toggle_hand_raise,
     toggle_nomination_vote,
     toggle_official_nomination,
     toggle_player_gazette_mute,
@@ -419,6 +425,39 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 start_voting_session(state, sys)
                 await self.broadcast_sync()
 
+            elif action == "start_circular_turn_order":
+                starter_id = content.get("starter_id")
+                direction = content.get("direction")
+                start_circular_turn_order(state, starter_id, direction)
+                await self.broadcast_sync()
+
+            elif action == "advance_circular_turn":
+                step = int(content.get("step", 1))
+                advance_circular_turn(state, step)
+                await self.broadcast_sync()
+
+            elif action == "set_active_suspect":
+                suspect_id = content.get("suspect_id")
+                set_active_suspect(state, suspect_id)
+                await self.broadcast_sync()
+
+            elif action == "set_turn_order_direction":
+                direction = content.get("direction", "clockwise")
+                set_turn_order_direction(state, direction)
+                await self.broadcast_sync()
+
+            elif action == "stop_circular_turn_order":
+                stop_circular_turn_order(state)
+                await self.broadcast_sync()
+
+            elif action == "toggle_hand_raise_gm":
+                voter_id = content.get("voter_id")
+                candidate_id = content.get("candidate_id")
+                raised = content.get("raised")
+                if voter_id:
+                    toggle_hand_raise(state, voter_id, candidate_id, raised, source="gm")
+                    await self.broadcast_sync()
+
             elif action == "toggle_nomination":
                 voter_id = content.get("voter_id", "gm")
                 cid = content.get("candidate_id")
@@ -618,6 +657,13 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
             elif action == "point_at_player":
                 target_id = content.get("target_id")
                 point_at_player(state, self.player_id, target_id)
+                await self.broadcast_sync()
+
+            elif action == "toggle_hand_raise":
+                candidate_id = content.get("candidate_id")
+                raised = content.get("raised")
+                success, msg = toggle_hand_raise(state, self.player_id, candidate_id, raised, source="player")
+                await self.send_json({"type": "hand_raise_result", "success": success, "message": msg})
                 await self.broadcast_sync()
 
             elif action == "vote_nominate":
