@@ -54,6 +54,7 @@ jobs:
       DEBUG: "true"
       PLANZ_PASSWORD: planz
       CELERY_BROKER_URL: redis://localhost:6379/0
+      CELERY_TASK_ALWAYS_EAGER: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -65,14 +66,7 @@ jobs:
       - run: uv run python scripts/generate_all_64_locales.py
 
       # Unit tests
-      - run: |
-          set -o pipefail
-          USE_SQLITE=1 uv run pytest gamerooms/ lupus/ photos/ tools/ -v 2>&1 | tee /tmp/pytest.log || {
-            tail -n 60 /tmp/pytest.log | while IFS= read -r line; do
-              echo "::error::$line"
-            done
-            exit 1
-          }
+      - run: USE_SQLITE=1 uv run pytest gamerooms/ lupus/ photos/ tools/ -v
 
       # Start Django for integration tests
       - run: uv run python manage.py migrate --noinput

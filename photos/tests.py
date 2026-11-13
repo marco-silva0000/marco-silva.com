@@ -187,6 +187,7 @@ class TestInstagramProcessing:
         photo = Photo.objects.create(title="IG Test", image=_make_image("ig.jpg"), is_public=True)
         ext, _ = PhotoExtension.objects.get_or_create(photo=photo)
         generate_instagram_crop(ext)
+        ext.save()
         ext.refresh_from_db()
 
         assert bool(ext.instagram_image)

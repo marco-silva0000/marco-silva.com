@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr "+ Create Room"
+msgstr "+ إنشاء غرفة"
 
 msgid "+ Host New Room"
 msgstr "+ استضافة غرفة جديدة"
@@ -18,70 +18,70 @@ msgid "+ create room"
 msgstr "+ إنشاء غرفة"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr "0 — Secret (Closed graveyard, roles concealed until game over)"
+msgstr "0 — سري (مقبرة مغلقة، تُحجب الأدوار حتى نهاية اللعبة)"
 
 msgid "1 day"
 msgstr "يوم واحد"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
+msgstr "1 — الانتماء فقط (يُعلن \"خير\" مقابل \"شر\")"
 
 msgid "1. Acceptance of Terms"
-msgstr "1. Acceptance of Terms"
+msgstr "1. قبول الشروط"
 
 msgid "1. Overview"
-msgstr "1. Overview"
+msgstr "1. نظرة عامة"
 
 msgid "10 Minutes"
-msgstr "10 Minutes"
+msgstr "10 دقائق"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
+msgstr "2 — الفصيل / الفريق (يُعلن \"القرية\"، \"المستذئبون\"، \"محايد\")"
 
 msgid "2. Information We Access"
-msgstr "2. Information We Access"
+msgstr "2. المعلومات التي نصل إليها"
 
 msgid "2. Permitted Use"
-msgstr "2. Permitted Use"
+msgstr "2. الاستخدام المسموح به"
 
 msgid "3 Minutes (Fast)"
-msgstr "3 Minutes (Fast)"
+msgstr "3 دقائق (سريع)"
 
 msgid "3 day"
 msgstr "3 أيام"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr "3 — Full Role Card (Announces exact card name and icon)"
+msgstr "3 — بطاقة الدور الكاملة (يُعلن اسم البطاقة وأيقونتها بدقة)"
 
 msgid "3. Data Storage & Security"
-msgstr "3. Data Storage & Security"
+msgstr "3. تخزين البيانات وأمانها"
 
 msgid "3. Disclaimer of Warranties"
-msgstr "3. Disclaimer of Warranties"
+msgstr "3. إخلاء المسؤولية عن الضمانات"
 
 msgid "30 Seconds (Standard)"
-msgstr "30 Seconds (Standard)"
+msgstr "30 ثانية (قياسي)"
 
 msgid "4. Limitation of Liability"
-msgstr "4. Limitation of Liability"
+msgstr "4. حدود المسؤولية"
 
 msgid "4. Third-Party Sharing"
-msgstr "4. Third-Party Sharing"
+msgstr "4. المشاركة مع أطراف ثالثة"
 
 msgid "404 — page not found"
 msgstr "404 — الصفحة غير موجودة"
 
 msgid "45 Seconds"
-msgstr "45 Seconds"
+msgstr "45 ثانية"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr "4:5 vertical crop (1080x1350) for Instagram carousels."
+msgstr "قص رأسي بنسبة 4:5 (1080x1350) لألبومات إنستغرام المتتابعة."
 
 msgid "5 Minutes (Standard)"
-msgstr "5 Minutes (Standard)"
+msgstr "5 دقائق (قياسي)"
 
 msgid "5. Changes & Termination"
-msgstr "5. Changes & Termination"
+msgstr "5. التعديلات وإنهاء الخدمة"
 
 msgid "5. Revoking Access & Data Deletion"
 msgstr "5. Revoking Access & Data Deletion"

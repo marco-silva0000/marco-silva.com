@@ -515,11 +515,18 @@ def discover_files(
     po_files = []
 
     if file_type in ("auto", "csv", "all"):
-        # Match translations_*.csv in current dir
-        csv_files.extend(target_dir.glob("translations_*.csv"))
+        # Match per-language translations_*.csv in current dir first
+        per_lang = [p for p in target_dir.glob("translations_*.csv") if p.name != "translations_master.csv"]
+        csv_files.extend(sorted(per_lang))
+
+        # Add translations_master.csv last (if present) so it benefits from per-language updates
+        master_path = target_dir / "translations_master.csv"
+        if master_path.exists():
+            csv_files.append(master_path)
+
         # Match other .csv files if no translations_*.csv
         if not csv_files:
-            csv_files.extend(target_dir.glob("*.csv"))
+            csv_files.extend(sorted(target_dir.glob("*.csv")))
 
     if file_type in ("po", "all") or (file_type == "auto" and not csv_files):
         # Match LC_MESSAGES/django.po across subdirectories
@@ -676,6 +683,22 @@ def main():
         )
 
     elapsed_total = time.time() - t_start
+
+    # If any strings were translated and sync_po was enabled, refresh translations_master.csv
+    if grand_total > 0 and not args.no_sync_po:
+        try:
+            from scripts.translations_tool import cmd_export_csv
+
+            class ExportArgs:
+                lang = "all"
+                output = str(target_dir / "translations_master.csv")
+                untranslated_only = False
+
+            print("\n🔄 Refreshing translations_master.csv with latest translations...")
+            cmd_export_csv(ExportArgs())
+        except Exception as e:
+            print(f"⚠️  Note: Could not refresh master CSV: {e}")
+
     print("\n==================================================================")
     print(f"🎉 All batches completed in {elapsed_total:.1f}s!")
     print(f"Total Strings Translated & Saved: {grand_total}")

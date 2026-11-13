@@ -320,7 +320,7 @@ def generate_instagram_crop(photo_extension):
     buf = BytesIO()
     cropped.save(buf, format="JPEG", quality=90)
     filename = f"ig_{photo_extension.photo.slug}.jpg"
-    photo_extension.instagram_image.save(filename, ContentFile(buf.getvalue()), save=False)
+    photo_extension.instagram_image.save(filename, ContentFile(buf.getvalue()), save=True)
 
 
 def generate_instagram_qr_slide(

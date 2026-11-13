@@ -1,24 +1,24 @@
 ﻿msgid,context,en,ar
-+ Create Room,"scripts/generate_locales.py, templates/lupus/hub.html",+ Create Room,
-"0 — Secret (Closed graveyard, roles concealed until game over)","scripts/generate_locales.py, templates/lupus/create.html","0 — Secret (Closed graveyard, roles concealed until game over)",
-"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")",scripts/generate_locales.py,"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")",
-1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,
-1. Overview,templates/bot_privacy.html,1. Overview,
-10 Minutes,"scripts/generate_locales.py, templates/lupus/create.html",10 Minutes,
-"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")",scripts/generate_locales.py,"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")",
-2. Information We Access,templates/bot_privacy.html,2. Information We Access,
-2. Permitted Use,templates/bot_terms.html,2. Permitted Use,
-3 Minutes (Fast),"scripts/generate_locales.py, templates/lupus/create.html",3 Minutes (Fast),
-3 — Full Role Card (Announces exact card name and icon),"scripts/generate_locales.py, templates/lupus/create.html",3 — Full Role Card (Announces exact card name and icon),
-3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,
-3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,
-30 Seconds (Standard),"scripts/generate_locales.py, templates/lupus/create.html",30 Seconds (Standard),
-4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,
-4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,
-45 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",45 Seconds,
-4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,
-5 Minutes (Standard),"scripts/generate_locales.py, templates/lupus/create.html",5 Minutes (Standard),
-5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,
++ Create Room,"scripts/generate_locales.py, templates/lupus/hub.html",+ Create Room,+ إنشاء غرفة
+"0 — Secret (Closed graveyard, roles concealed until game over)","scripts/generate_locales.py, templates/lupus/create.html","0 — Secret (Closed graveyard, roles concealed until game over)",0 — سري (مقبرة مغلقة، تُحجب الأدوار حتى نهاية اللعبة)
+"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")",scripts/generate_locales.py,"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")","1 — الانتماء فقط (يُعلن ""خير"" مقابل ""شر"")"
+1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. قبول الشروط
+1. Overview,templates/bot_privacy.html,1. Overview,1. نظرة عامة
+10 Minutes,"scripts/generate_locales.py, templates/lupus/create.html",10 Minutes,10 دقائق
+"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")",scripts/generate_locales.py,"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")","2 — الفصيل / الفريق (يُعلن ""القرية""، ""المستذئبون""، ""محايد"")"
+2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. المعلومات التي نصل إليها
+2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. الاستخدام المسموح به
+3 Minutes (Fast),"scripts/generate_locales.py, templates/lupus/create.html",3 Minutes (Fast),3 دقائق (سريع)
+3 — Full Role Card (Announces exact card name and icon),"scripts/generate_locales.py, templates/lupus/create.html",3 — Full Role Card (Announces exact card name and icon),3 — بطاقة الدور الكاملة (يُعلن اسم البطاقة وأيقونتها بدقة)
+3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,3. تخزين البيانات وأمانها
+3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,3. إخلاء المسؤولية عن الضمانات
+30 Seconds (Standard),"scripts/generate_locales.py, templates/lupus/create.html",30 Seconds (Standard),30 ثانية (قياسي)
+4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,4. حدود المسؤولية
+4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,4. المشاركة مع أطراف ثالثة
+45 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",45 Seconds,45 ثانية
+4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,قص رأسي بنسبة 4:5 (1080x1350) لألبومات إنستغرام المتتابعة.
+5 Minutes (Standard),"scripts/generate_locales.py, templates/lupus/create.html",5 Minutes (Standard),5 دقائق (قياسي)
+5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,5. التعديلات وإنهاء الخدمة
 5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,
 6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,
 60 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",60 Seconds,
