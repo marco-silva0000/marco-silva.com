@@ -84,106 +84,106 @@ msgid "5. Changes & Termination"
 msgstr "5. التعديلات وإنهاء الخدمة"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr "5. Revoking Access & Data Deletion"
+msgstr "5. إلغاء الوصول وحذف البيانات"
 
 msgid "500 — something went wrong"
 msgstr "500 — حدث خطأ ما"
 
 msgid "6. Contact"
-msgstr "6. Contact"
+msgstr "6. التواصل"
 
 msgid "60 Seconds"
-msgstr "60 Seconds"
+msgstr "60 ثانية"
 
 msgid "7 Minutes (Deliberate)"
-msgstr "7 Minutes (Deliberate)"
+msgstr "7 دقائق (متأنٍ)"
 
 msgid "Access Denied"
-msgstr "Access Denied"
+msgstr "تم رفض الوصول"
 
 msgid "Active"
-msgstr "Active"
+msgstr "نشط"
 
 msgid "Active Lupus Rooms"
 msgstr "غرف لوبوس النشطة"
 
 msgid "All Active Rooms"
-msgstr "All Active Rooms"
+msgstr "جميع الغرف النشطة"
 
 msgid "All Games"
-msgstr "All Games"
+msgstr "جميع الألعاب"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
+msgstr "تطبيق ترخيص المشاع الإبداعي (نسب المصنف - غير تجاري - الترخيص بالمثل) والعلامة المائية."
 
 msgid "Back to Active Lupus Rooms"
-msgstr "Back to Active Lupus Rooms"
+msgstr "العودة إلى غرف لوبوس النشطة"
 
 msgid "Browse Active Lupus Rooms"
-msgstr "Browse Active Lupus Rooms"
+msgstr "تصفح غرف لوبوس النشطة"
 
 msgid "CC BY-NC-SA license"
-msgstr "CC BY-NC-SA license"
+msgstr "ترخيص CC BY-NC-SA"
 
 msgid "CODE"
-msgstr "CODE"
+msgstr "الرمز"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr "Calendar navigation"
+msgstr "التنقل في التقويم"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr "Civilians, Mobsters, Cop"
+msgstr "مدنيون، رجال عصابات، شرطي"
 
 msgid "Cockpit"
-msgstr "Cockpit"
+msgstr "لوحة التحكم"
 
 msgid "Conferences"
 msgstr "المؤتمرات"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr "Create Lupus / Werewolf Room"
+msgstr "إنشاء غرفة لوبوس / المستذئب"
 
 msgid "Create the First Lupus Room"
-msgstr "Create the First Lupus Room"
+msgstr "إنشاء أول غرفة لوبوس"
 
 msgid "Curated"
-msgstr "Curated"
+msgstr "مختارة"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr "Custom split keyboards (colemak + nvim)"
+msgstr "لوحات مفاتيح منفصلة مخصصة (colemak + nvim)"
 
 msgid "Date of the trip/shoot."
-msgstr "Date of the trip/shoot."
+msgstr "تاريخ الرحلة/جلسة التصوير."
 
 msgid "Day"
 msgstr "النهار"
 
 msgid "Day Trip"
-msgstr "Day Trip"
+msgstr "رحلة ليوم واحد"
 
 msgid "Defense Timer"
-msgstr "Defense Timer"
+msgstr "مؤقت الدفاع"
 
 msgid "Discussion"
-msgstr "Discussion"
+msgstr "نقاش"
 
 msgid "Discussion Round Timer"
-msgstr "Discussion Round Timer"
+msgstr "مؤقت جولة النقاش"
 
 msgid "Doctor Shields From Sniper:"
-msgstr "Doctor Shields From Sniper:"
+msgstr "الطبيب يحمي من القناص:"
 
 msgid "Done"
-msgstr "Done"
+msgstr "مكتمل"
 
 msgid "Education"
 msgstr "التعليم"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr "Electronics/embedded (some rust embedded)"
+msgstr "إلكترونيات/أنظمة مدمجة (بعض من rust embedded)"
 
 msgid "English"
 msgstr "الإنجليزية"
@@ -192,64 +192,64 @@ msgid "Enter Game"
 msgstr "دخول اللعبة"
 
 msgid "Enter Room"
-msgstr "Enter Room"
+msgstr "دخول الغرفة"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr "Enter Room Code (e.g. 9B3A1C2D)"
+msgstr "أدخل رمز الغرفة (مثال: 9B3A1C2D)"
 
 msgid "Failed"
-msgstr "Failed"
+msgstr "فشل"
 
 msgid "Finished"
 msgstr "منتهية"
 
 msgid "GM"
-msgstr "GM"
+msgstr "مدير اللعبة"
 
 msgid "GM Cockpit"
-msgstr "GM Cockpit"
+msgstr "لوحة قيادة مدير اللعبة"
 
 msgid "GM Director Cockpit:"
-msgstr "GM Director Cockpit:"
+msgstr "لوحة قيادة مدير اللعبة (المخرج):"
 
 msgid "Game Master Display Name"
-msgstr "Game Master Display Name"
+msgstr "اسم عرض مدير اللعبة"
 
 msgid "Game Over"
-msgstr "Game Over"
+msgstr "انتهت اللعبة"
 
 msgid "Game Rooms"
 msgstr "غرف الألعاب"
 
 msgid "Game Rules & Timers"
-msgstr "Game Rules & Timers"
+msgstr "قواعد اللعبة والمؤقتات"
 
 msgid "Game not found."
-msgstr "Game not found."
+msgstr "لم يتم العثور على اللعبة."
 
 msgid "Game room does not exist."
-msgstr "Game room does not exist."
+msgstr "غرفة اللعبة غير موجودة."
 
 msgid "Ham radio, UK foundation license"
-msgstr "Ham radio, UK foundation license"
+msgstr "راديو الهواة، رخصة التأسيس في المملكة المتحدة"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+msgstr "هل لديك رمز مكوّن من 8 خانات من مدير اللعبة؟ أدخله هنا للانضمام مباشرة:"
 
 msgid "Hiking and climbing"
-msgstr "Hiking and climbing"
+msgstr "المشي لمسافات طويلة والتسلق"
 
 msgid "Hobbies"
 msgstr "الهوايات"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr "Hold-to-Peek Secret Roles:"
+msgstr "اضغط مع الاستمرار للاطلاع على الأدوار السرية:"
 
 msgid "Home automation and homelab"
-msgstr "Home automation and homelab"
+msgstr "الأتمتة المنزلية والمختبر المنزلي"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr "Horizontal focal point: 0=left, 50=center, 100=right."
+msgstr "نقطة التركيز الأفقية: 0=يسار، 50=وسط، 100=يمين."
 
 msgid "I code, take pics and many other things"
 msgstr "أبرمج، ألتقط الصور وأقوم بأشياء أخرى كثيرة"
@@ -258,124 +258,124 @@ msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
+msgstr "في حال التفعيل، يمكن لحماية الطبيب إنقاذ ذئب من رصاصة القناص. (معطل = القناص يخترق حماية الطبيب)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
+msgstr "إذا تم التحديد، فإن الانضمام عبر رمز QR سيقوم بمصادقة اللاعبين تلقائياً. (💡 خدعة العرض: إذا تضمن اسم مدير اللعبة Marco وكانت كلمة المرور test فسيتم ملء 10 لاعبين تجريبيين تلقائياً للعرض التوضيحي المباشر)."
 
 msgid "In Progress"
-msgstr "In Progress"
+msgstr "قيد التقدم"
 
 msgid "Incorrect room password."
-msgstr "Incorrect room password."
+msgstr "كلمة مرور الغرفة غير صحيحة."
 
 msgid "Instagram 4:5 Preview"
-msgstr "Instagram 4:5 Preview"
+msgstr "معاينة إنستغرام 4:5"
 
 msgid "Instagram 4:5 image"
-msgstr "Instagram 4:5 image"
+msgstr "صورة إنستغرام 4:5"
 
 msgid "Invalid Game Master secret key."
-msgstr "Invalid Game Master secret key."
+msgstr "المفتاح السري لمدير اللعبة غير صالح."
 
 msgid "Join"
-msgstr "Join"
+msgstr "انضمام"
 
 msgid "Join Game"
 msgstr "الانضمام إلى اللعبة"
 
 msgid "Join Lupus Game"
-msgstr "Join Lupus Game"
+msgstr "الانضمام إلى لعبة لوبوس"
 
 msgid "Join as Player"
-msgstr "Join as Player"
+msgstr "الانضمام كلاعب"
 
 msgid "Join with Room Code"
-msgstr "Join with Room Code"
+msgstr "الانضمام برمز الغرفة"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr "Kayak, surf, SUP, windsurf"
+msgstr "الكاياك، ركوب الأمواج، التجديف وقوفاً (SUP)، ركوب الأمواج الشراعي"
 
 msgid "Languages"
 msgstr "اللغات"
 
 msgid "Last updated: October 27, 2026"
-msgstr "Last updated: October 27, 2026"
+msgstr "آخر تحديث: 27 أكتوبر 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
+msgstr "ينضم المتأخرون كمسافرين مؤكدين، أو أشباح بلدة، أو خلفاء."
 
 msgid "Launch Lupus Room"
-msgstr "Launch Lupus Room"
+msgstr "إطلاق غرفة لوبوس"
 
 msgid "Leave empty for public join"
-msgstr "Leave empty for public join"
+msgstr "اتركه فارغاً للانضمام العام"
 
 msgid "Limbo"
 msgstr "البرزخ"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr "Limbo & Angel Mechanic:"
+msgstr "آلية البرزخ والملاك:"
 
 msgid "Limbo Resolution"
-msgstr "Limbo Resolution"
+msgstr "حسم البرزخ"
 
 msgid "Listening"
 msgstr "الاستماع"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr "Living & fallen players submit morning rumors read aloud at dawn."
+msgstr "يقدم اللاعبون الأحياء والراحلون شائعات الصباح لتُقرأ بصوت عالٍ عند الفجر."
 
 msgid "Lobby"
 msgstr "غرفة الانتظار"
 
 msgid "Lobby (Waiting for Players)"
-msgstr "Lobby (Waiting for Players)"
+msgstr "الردهة (في انتظار اللاعبين)"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr "Lupus Active Rooms & Hub"
+msgstr "غرف لوبوس النشطة والمركز"
 
 msgid "Lupus Game"
-msgstr "Lupus Game"
+msgstr "لعبة لوبوس"
 
 msgid "Lupus Party Game"
-msgstr "Lupus Party Game"
+msgstr "لعبة الحفلات لوبوس"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr "Lupus in Tabula - Active Rooms & Game Hub"
+msgstr "لوبوس إن تابولا - الغرف النشطة ومركز اللعبة"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr "Lupus in Tabula / Werewolf"
+msgstr "لوبوس إن تابولا / المستذئب"
 
 msgid "Mafia"
-msgstr "Mafia"
+msgstr "مافيا"
 
 msgid "Midgame Arrivals:"
-msgstr "Midgame Arrivals:"
+msgstr "الوافدون في منتصف اللعبة:"
 
 msgid "Next day"
-msgstr "Next day"
+msgstr "اليوم التالي"
 
 msgid "Night"
 msgstr "الليل"
 
 msgid "No Active Lupus Games Right Now"
-msgstr "No Active Lupus Games Right Now"
+msgstr "لا توجد ألعاب لوبوس نشطة حالياً"
 
 msgid "No Instagram crop generated yet."
-msgstr "No Instagram crop generated yet."
+msgstr "لم يتم إنشاء اقتصاص إنستغرام بعد."
 
 msgid "Open"
-msgstr "Open"
+msgstr "مفتوح"
 
 msgid "Open (Lobby)"
 msgstr "مفتوح (غرفة الانتظار)"
 
 msgid "Open GM Cockpit"
-msgstr "Open GM Cockpit"
+msgstr "فتح لوحة تحكم مدير اللعبة"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr "Original camera RAW file (CR3, ARW, NEF, etc.)"
+msgstr "ملف RAW الأصلي من الكاميرا (CR3، ARW، NEF، إلخ)"
 
 msgid "Other"
 msgstr "أخرى"

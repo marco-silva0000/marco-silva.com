@@ -19,86 +19,86 @@
 4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,قص رأسي بنسبة 4:5 (1080x1350) لألبومات إنستغرام المتتابعة.
 5 Minutes (Standard),"scripts/generate_locales.py, templates/lupus/create.html",5 Minutes (Standard),5 دقائق (قياسي)
 5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,5. التعديلات وإنهاء الخدمة
-5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,
-6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,
-60 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",60 Seconds,
-7 Minutes (Deliberate),"scripts/generate_locales.py, templates/lupus/create.html",7 Minutes (Deliberate),
-Access Denied,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Access Denied,
-Active,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Active,
-All Active Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",All Active Rooms,
-All Games,"scripts/generate_locales.py, templates/lupus/hub.html",All Games,
-Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,
-Back to Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/create.html",Back to Active Lupus Rooms,
-Browse Active Lupus Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Browse Active Lupus Rooms,
-CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,
-CODE,"scripts/generate_locales.py, templates/lupus/hub.html",CODE,
-CTFs,templates/cv.html,CTFs,
-Calendar navigation,templates/tools/partials/calendar.html,Calendar navigation,
-"Civilians, Mobsters, Cop","scripts/generate_locales.py, templates/lupus/create.html","Civilians, Mobsters, Cop",
-Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Cockpit,
-Create Lupus / Werewolf Room,"scripts/generate_locales.py, templates/lupus/create.html",Create Lupus / Werewolf Room,
-Create the First Lupus Room,"scripts/generate_locales.py, templates/lupus/hub.html",Create the First Lupus Room,
-Curated,photos/models.py,Curated,
-Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),
-Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,
-Day Trip,photos/models.py,Day Trip,
-Defense Timer,"scripts/generate_locales.py, templates/lupus/create.html",Defense Timer,
-Discussion,"lupus/views.py, scripts/generate_locales.py",Discussion,
-Discussion Round Timer,"scripts/generate_locales.py, templates/lupus/create.html",Discussion Round Timer,
-Doctor Shields From Sniper:,"scripts/generate_locales.py, templates/lupus/create.html",Doctor Shields From Sniper:,
-Done,photos/models.py,Done,
-Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),
-Enter Room,"scripts/generate_locales.py, templates/lupus/hub.html",Enter Room,
-Enter Room Code (e.g. 9B3A1C2D),"scripts/generate_locales.py, templates/gamerooms/room_list.html",Enter Room Code (e.g. 9B3A1C2D),
-Failed,photos/models.py,Failed,
-GM,"scripts/generate_locales.py, templates/lupus/hub.html",GM,
-GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,
-GM Director Cockpit:,"scripts/generate_locales.py, templates/lupus/hub.html",GM Director Cockpit:,
-Game Master Display Name,"scripts/generate_locales.py, templates/lupus/create.html",Game Master Display Name,
-Game Over,"lupus/views.py, scripts/generate_locales.py",Game Over,
-Game Rules & Timers,"scripts/generate_locales.py, templates/lupus/create.html",Game Rules & Timers,
-Game not found.,"lupus/views.py, scripts/generate_locales.py",Game not found.,
-Game room does not exist.,"lupus/views.py, scripts/generate_locales.py",Game room does not exist.,
-"Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license",
-Have an 8-character code from your Game Master? Enter it here to jump straight in:,"scripts/generate_locales.py, templates/lupus/hub.html",Have an 8-character code from your Game Master? Enter it here to jump straight in:,
-Hiking and climbing,templates/cv.html,Hiking and climbing,
-Hold-to-Peek Secret Roles:,"scripts/generate_locales.py, templates/lupus/hub.html",Hold-to-Peek Secret Roles:,
-Home automation and homelab,templates/cv.html,Home automation and homelab,
-"Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.",
-ISO,photos/models.py,ISO,
-"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",scripts/generate_locales.py,"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",
-"If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).","scripts/generate_locales.py, templates/lupus/create.html","If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).",
-In Progress,"lupus/views.py, scripts/generate_locales.py",In Progress,
-Incorrect room password.,"lupus/views.py, scripts/generate_locales.py",Incorrect room password.,
-Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,
-Instagram 4:5 image,photos/models.py,Instagram 4:5 image,
-Invalid Game Master secret key.,"lupus/views.py, scripts/generate_locales.py",Invalid Game Master secret key.,
-Join,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Join,
-Join Lupus Game,"scripts/generate_locales.py, templates/lupus/join.html",Join Lupus Game,
-Join as Player,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Join as Player,
-Join with Room Code,"scripts/generate_locales.py, templates/lupus/hub.html",Join with Room Code,
-"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf",
-"Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",
-"Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","scripts/generate_locales.py, templates/lupus/hub.html","Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.",
-Launch Lupus Room,"scripts/generate_locales.py, templates/lupus/create.html",Launch Lupus Room,
-Leave empty for public join,"scripts/generate_locales.py, templates/lupus/create.html",Leave empty for public join,
-Limbo & Angel Mechanic:,"scripts/generate_locales.py, templates/lupus/create.html",Limbo & Angel Mechanic:,
-Limbo Resolution,"lupus/views.py, scripts/generate_locales.py",Limbo Resolution,
-Living & fallen players submit morning rumors read aloud at dawn.,"scripts/generate_locales.py, templates/lupus/hub.html",Living & fallen players submit morning rumors read aloud at dawn.,
-Lobby (Waiting for Players),"lupus/views.py, scripts/generate_locales.py",Lobby (Waiting for Players),
-Lupus Active Rooms & Hub,"scripts/generate_locales.py, templates/lupus/join.html",Lupus Active Rooms & Hub,
-Lupus Game,scripts/generate_locales.py,Lupus Game,
-Lupus Party Game,"scripts/generate_locales.py, templates/lupus/create.html",Lupus Party Game,
-Lupus in Tabula - Active Rooms & Game Hub,"scripts/generate_locales.py, templates/lupus/hub.html",Lupus in Tabula - Active Rooms & Game Hub,
-Lupus in Tabula / Werewolf,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Lupus in Tabula / Werewolf,
-Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,
-Midgame Arrivals:,"scripts/generate_locales.py, templates/lupus/hub.html",Midgame Arrivals:,
-Next day,templates/tools/partials/calendar.html,Next day,
-No Active Lupus Games Right Now,"scripts/generate_locales.py, templates/lupus/hub.html",No Active Lupus Games Right Now,
-No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,
-Open,"lupus/views.py, scripts/generate_locales.py",Open,
-Open GM Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Open GM Cockpit,
-"Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)",
+5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,5. إلغاء الوصول وحذف البيانات
+6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,6. التواصل
+60 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",60 Seconds,60 ثانية
+7 Minutes (Deliberate),"scripts/generate_locales.py, templates/lupus/create.html",7 Minutes (Deliberate),7 دقائق (متأنٍ)
+Access Denied,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Access Denied,تم رفض الوصول
+Active,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Active,نشط
+All Active Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",All Active Rooms,جميع الغرف النشطة
+All Games,"scripts/generate_locales.py, templates/lupus/hub.html",All Games,جميع الألعاب
+Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,تطبيق ترخيص المشاع الإبداعي (نسب المصنف - غير تجاري - الترخيص بالمثل) والعلامة المائية.
+Back to Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/create.html",Back to Active Lupus Rooms,العودة إلى غرف لوبوس النشطة
+Browse Active Lupus Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Browse Active Lupus Rooms,تصفح غرف لوبوس النشطة
+CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,ترخيص CC BY-NC-SA
+CODE,"scripts/generate_locales.py, templates/lupus/hub.html",CODE,الرمز
+CTFs,templates/cv.html,CTFs,CTFs
+Calendar navigation,templates/tools/partials/calendar.html,Calendar navigation,التنقل في التقويم
+"Civilians, Mobsters, Cop","scripts/generate_locales.py, templates/lupus/create.html","Civilians, Mobsters, Cop",مدنيون، رجال عصابات، شرطي
+Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Cockpit,لوحة التحكم
+Create Lupus / Werewolf Room,"scripts/generate_locales.py, templates/lupus/create.html",Create Lupus / Werewolf Room,إنشاء غرفة لوبوس / المستذئب
+Create the First Lupus Room,"scripts/generate_locales.py, templates/lupus/hub.html",Create the First Lupus Room,إنشاء أول غرفة لوبوس
+Curated,photos/models.py,Curated,مختارة
+Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),لوحات مفاتيح منفصلة مخصصة (colemak + nvim)
+Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,تاريخ الرحلة/جلسة التصوير.
+Day Trip,photos/models.py,Day Trip,رحلة ليوم واحد
+Defense Timer,"scripts/generate_locales.py, templates/lupus/create.html",Defense Timer,مؤقت الدفاع
+Discussion,"lupus/views.py, scripts/generate_locales.py",Discussion,نقاش
+Discussion Round Timer,"scripts/generate_locales.py, templates/lupus/create.html",Discussion Round Timer,مؤقت جولة النقاش
+Doctor Shields From Sniper:,"scripts/generate_locales.py, templates/lupus/create.html",Doctor Shields From Sniper:,الطبيب يحمي من القناص:
+Done,photos/models.py,Done,مكتمل
+Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),إلكترونيات/أنظمة مدمجة (بعض من rust embedded)
+Enter Room,"scripts/generate_locales.py, templates/lupus/hub.html",Enter Room,دخول الغرفة
+Enter Room Code (e.g. 9B3A1C2D),"scripts/generate_locales.py, templates/gamerooms/room_list.html",Enter Room Code (e.g. 9B3A1C2D),أدخل رمز الغرفة (مثال: 9B3A1C2D)
+Failed,photos/models.py,Failed,فشل
+GM,"scripts/generate_locales.py, templates/lupus/hub.html",GM,مدير اللعبة
+GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,لوحة قيادة مدير اللعبة
+GM Director Cockpit:,"scripts/generate_locales.py, templates/lupus/hub.html",GM Director Cockpit:,لوحة قيادة مدير اللعبة (المخرج):
+Game Master Display Name,"scripts/generate_locales.py, templates/lupus/create.html",Game Master Display Name,اسم عرض مدير اللعبة
+Game Over,"lupus/views.py, scripts/generate_locales.py",Game Over,انتهت اللعبة
+Game Rules & Timers,"scripts/generate_locales.py, templates/lupus/create.html",Game Rules & Timers,قواعد اللعبة والمؤقتات
+Game not found.,"lupus/views.py, scripts/generate_locales.py",Game not found.,لم يتم العثور على اللعبة.
+Game room does not exist.,"lupus/views.py, scripts/generate_locales.py",Game room does not exist.,غرفة اللعبة غير موجودة.
+"Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license",راديو الهواة، رخصة التأسيس في المملكة المتحدة
+Have an 8-character code from your Game Master? Enter it here to jump straight in:,"scripts/generate_locales.py, templates/lupus/hub.html",Have an 8-character code from your Game Master? Enter it here to jump straight in:,هل لديك رمز مكوّن من 8 خانات من مدير اللعبة؟ أدخله هنا للانضمام مباشرة:
+Hiking and climbing,templates/cv.html,Hiking and climbing,المشي لمسافات طويلة والتسلق
+Hold-to-Peek Secret Roles:,"scripts/generate_locales.py, templates/lupus/hub.html",Hold-to-Peek Secret Roles:,اضغط مع الاستمرار للاطلاع على الأدوار السرية:
+Home automation and homelab,templates/cv.html,Home automation and homelab,الأتمتة المنزلية والمختبر المنزلي
+"Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.",نقطة التركيز الأفقية: 0=يسار، 50=وسط، 100=يمين.
+ISO,photos/models.py,ISO,ISO
+"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",scripts/generate_locales.py,"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",في حال التفعيل، يمكن لحماية الطبيب إنقاذ ذئب من رصاصة القناص. (معطل = القناص يخترق حماية الطبيب).
+"If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).","scripts/generate_locales.py, templates/lupus/create.html","If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).",إذا تم التحديد، فإن الانضمام عبر رمز QR سيقوم بمصادقة اللاعبين تلقائياً. (💡 خدعة العرض: إذا تضمن اسم مدير اللعبة Marco وكانت كلمة المرور test فسيتم ملء 10 لاعبين تجريبيين تلقائياً للعرض التوضيحي المباشر).
+In Progress,"lupus/views.py, scripts/generate_locales.py",In Progress,قيد التقدم
+Incorrect room password.,"lupus/views.py, scripts/generate_locales.py",Incorrect room password.,كلمة مرور الغرفة غير صحيحة.
+Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,معاينة إنستغرام 4:5
+Instagram 4:5 image,photos/models.py,Instagram 4:5 image,صورة إنستغرام 4:5
+Invalid Game Master secret key.,"lupus/views.py, scripts/generate_locales.py",Invalid Game Master secret key.,المفتاح السري لمدير اللعبة غير صالح.
+Join,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Join,انضمام
+Join Lupus Game,"scripts/generate_locales.py, templates/lupus/join.html",Join Lupus Game,الانضمام إلى لعبة لوبوس
+Join as Player,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Join as Player,الانضمام كلاعب
+Join with Room Code,"scripts/generate_locales.py, templates/lupus/hub.html",Join with Room Code,الانضمام برمز الغرفة
+"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf",الكاياك، ركوب الأمواج، التجديف وقوفاً (SUP)، ركوب الأمواج الشراعي
+"Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",آخر تحديث: 27 أكتوبر 2026
+"Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","scripts/generate_locales.py, templates/lupus/hub.html","Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.",ينضم المتأخرون كمسافرين مؤكدين، أو أشباح بلدة، أو خلفاء.
+Launch Lupus Room,"scripts/generate_locales.py, templates/lupus/create.html",Launch Lupus Room,إطلاق غرفة لوبوس
+Leave empty for public join,"scripts/generate_locales.py, templates/lupus/create.html",Leave empty for public join,اتركه فارغاً للانضمام العام
+Limbo & Angel Mechanic:,"scripts/generate_locales.py, templates/lupus/create.html",Limbo & Angel Mechanic:,آلية البرزخ والملاك:
+Limbo Resolution,"lupus/views.py, scripts/generate_locales.py",Limbo Resolution,حسم البرزخ
+Living & fallen players submit morning rumors read aloud at dawn.,"scripts/generate_locales.py, templates/lupus/hub.html",Living & fallen players submit morning rumors read aloud at dawn.,يقدم اللاعبون الأحياء والراحلون شائعات الصباح لتُقرأ بصوت عالٍ عند الفجر.
+Lobby (Waiting for Players),"lupus/views.py, scripts/generate_locales.py",Lobby (Waiting for Players),الردهة (في انتظار اللاعبين)
+Lupus Active Rooms & Hub,"scripts/generate_locales.py, templates/lupus/join.html",Lupus Active Rooms & Hub,غرف لوبوس النشطة والمركز
+Lupus Game,scripts/generate_locales.py,Lupus Game,لعبة لوبوس
+Lupus Party Game,"scripts/generate_locales.py, templates/lupus/create.html",Lupus Party Game,لعبة الحفلات لوبوس
+Lupus in Tabula - Active Rooms & Game Hub,"scripts/generate_locales.py, templates/lupus/hub.html",Lupus in Tabula - Active Rooms & Game Hub,لوبوس إن تابولا - الغرف النشطة ومركز اللعبة
+Lupus in Tabula / Werewolf,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Lupus in Tabula / Werewolf,لوبوس إن تابولا / المستذئب
+Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,مافيا
+Midgame Arrivals:,"scripts/generate_locales.py, templates/lupus/hub.html",Midgame Arrivals:,الوافدون في منتصف اللعبة:
+Next day,templates/tools/partials/calendar.html,Next day,اليوم التالي
+No Active Lupus Games Right Now,"scripts/generate_locales.py, templates/lupus/hub.html",No Active Lupus Games Right Now,لا توجد ألعاب لوبوس نشطة حالياً
+No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,لم يتم إنشاء اقتصاص إنستغرام بعد.
+Open,"lupus/views.py, scripts/generate_locales.py",Open,مفتوح
+Open GM Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Open GM Cockpit,فتح لوحة تحكم مدير اللعبة
+"Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)",ملف RAW الأصلي من الكاميرا (CR3، ARW، NEF، إلخ)
 Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,
 Password Protected,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Password Protected,
 Past & Finished Games,"scripts/generate_locales.py, templates/lupus/hub.html",Past & Finished Games,
