@@ -191,7 +191,7 @@
         <div id="gm-toolbar" style="display:none; padding:0.55rem 0.7rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; margin-bottom:0.75rem;">
           <div class="imp-section-label" style="margin-bottom:0.35rem;">👑 {% trans "Participating Host Controls (Zero-Spoiler)" %}</div>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <button type="button" id="btn-blind-redraw" class="imp-btn" onclick="sendAction('blind_redraw')" style="display:none;">🎲 {% trans "Blind Redraw Pair" %}</button>
+            <button type="button" id="btn-blind-redraw" class="imp-btn" onclick="sendAction('blind_redraw')" style="display:none;">🎲 {% trans "New Game / Redraw" %}</button>
             <button type="button" id="btn-skip-turn" class="imp-btn" onclick="sendAction('skip_turn')" style="display:none;">⏭️ {% trans "Skip Turn" %}</button>
             <button type="button" id="btn-open-vote" class="imp-btn imp-btn-amber" onclick="sendAction('start_voting')" style="display:none;">🗳️ {% trans "Start Voting Early" %}</button>
             <button type="button" id="btn-tally-votes" class="imp-btn imp-btn-primary" onclick="sendAction('tally_votes')" style="display:none;">🧮 {% trans "Tally Votes Now" %}</button>
@@ -203,7 +203,7 @@
 
         <!-- Clue Input Box -->
         <div id="clue-input-box" style="display:none; background:#eff6ff; border:1.5px solid #93c5fd; border-radius:10px; padding:0.85rem; margin-bottom:0.85rem;">
-          <div id="clue-input-label" style="font-size:0.85rem; font-weight:700; color:#1e40af; margin-bottom:0.5rem;">🎙️ {% trans "It's your turn! Type your clue (or mark spoken):" %}</div>
+          <div id="clue-input-label" style="font-size:0.85rem; font-weight:700; color:#1e40af; margin-bottom:0.5rem;">🎙️ {% trans "It's your turn! Type your clue:" %}</div>
           <div id="mod-speaker-row" style="display:none; align-items:center; gap:0.5rem; margin-bottom:0.5rem; flex-wrap:wrap;">
             <label for="clue-speaker-select" style="font-size:0.78rem; font-weight:700; color:#1e3a8a;">👑 {% trans "Speaker (oral clue):" %}</label>
             <select id="clue-speaker-select" style="padding:0.35rem 0.55rem; border:1.5px solid #93c5fd; border-radius:7px; font-size:0.83rem; background:#fff; color:#0f172a; font-weight:600;"></select>
@@ -211,7 +211,6 @@
           <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
             <input type="text" id="clue-input" maxlength="80" placeholder="{% trans 'Type clue or what was said orally...' %}" onkeydown="if(event.key==='Enter')submitClue();" style="flex:1; min-width:170px; padding:0.45rem 0.7rem; border:1.5px solid #93c5fd; border-radius:8px; font-size:0.88rem; background:#fff; color:#0f172a;">
             <button type="button" class="imp-btn imp-btn-primary" onclick="submitClue()">{% trans "Submit Clue" %}</button>
-            <button type="button" class="imp-btn" onclick="submitSpokenClue()">🎙️ {% trans "Spoke Out Loud" %}</button>
           </div>
         </div>
 
@@ -412,6 +411,20 @@
   </div>
 </div>
 
+<!-- Per-Player Reconnect QR Modal -->
+<div class="imp-modal-backdrop" id="modal-player-qr">
+  <div class="imp-modal" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 id="player-qr-title" style="margin:0; font-size:1.05rem;">📱 {% trans "Player QR" %}</h3>
+      <button type="button" class="imp-btn" onclick="closeModal('modal-player-qr')">✕</button>
+    </div>
+    <p style="font-size:0.8rem; color:#475569;">{% trans "Scan this QR code on the player's phone to join as this player:" %}</p>
+    <img id="player-qr-img" src="" alt="Player QR" style="display:none; max-width:210px; border-radius:10px; border:1px solid #e2e8f0; margin:0 auto 0.65rem;">
+    <div id="player-qr-url" style="font-size:0.72rem; color:#64748b; word-break:break-all; margin-bottom:0.65rem;"></div>
+    <a id="player-qr-open-link" href="#" target="_blank" rel="noopener" class="imp-btn primary" style="display:none; text-decoration:none;">🔗 {% trans "Open Player Link" %}</a>
+  </div>
+</div>
+
 <script>
 const CODE = "{{ room.code|escapejs }}";
 const MY_NAME = "{{ player_name|escapejs }}";
@@ -432,6 +445,36 @@ function escapeHtml(t) {
 }
 function openModal(id) { const el = $(id); if (el) el.classList.add('show'); }
 function closeModal(id) { const el = $(id); if (el) el.classList.remove('show'); }
+
+async function showPlayerQR(playerId) {
+  const players = (state && state.players) || [];
+  const p = players.find(x => x.id === playerId);
+  const titleEl = $('player-qr-title');
+  const imgEl = $('player-qr-img');
+  const urlEl = $('player-qr-url');
+  const linkEl = $('player-qr-open-link');
+  if (titleEl) titleEl.textContent = p ? `📱 ${p.name}` : '📱 Player QR';
+  if (imgEl) { imgEl.style.display = 'none'; imgEl.src = ''; }
+  if (urlEl) urlEl.textContent = 'Loading...';
+  if (linkEl) { linkEl.style.display = 'none'; linkEl.href = '#'; }
+  openModal('modal-player-qr');
+  try {
+    const resp = await fetch(`/games/impostor/${encodeURIComponent(CODE)}/qr/${encodeURIComponent(playerId)}/`);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    if (imgEl && data.qr) {
+      imgEl.src = data.qr;
+      imgEl.style.display = 'block';
+    }
+    if (urlEl) urlEl.textContent = data.url || '';
+    if (linkEl && data.url) {
+      linkEl.href = data.url;
+      linkEl.style.display = 'inline-flex';
+    }
+  } catch (err) {
+    if (urlEl) urlEl.textContent = 'Failed to load QR code.';
+  }
+}
 
 function showError(msg) {
   const b = $('error-banner');
@@ -580,13 +623,6 @@ function submitClue() {
   inp.value = '';
 }
 
-function submitSpokenClue() {
-  const isAdmin = Boolean(state && state.me && state.me.is_admin);
-  const sel = $('clue-speaker-select');
-  const targetId = (isAdmin && sel && sel.value) ? sel.value : undefined;
-  sendAction('spoken_clue', targetId ? {target_player_id: targetId} : {});
-}
-
 function submitSteal() {
   const inp = $('steal-input');
   const val = (inp.value || '').trim();
@@ -676,7 +712,7 @@ function renderState() {
 
   // Host controls (Zero-Spoiler!)
   $('gm-toolbar').style.display = (isAdmin && phase !== 'lobby') ? 'block' : 'none';
-  $('btn-blind-redraw').style.display = (isAdmin && s.can_blind_redraw) ? 'inline-flex' : 'none';
+  $('btn-blind-redraw').style.display = (isAdmin && phase !== 'lobby' && phase !== 'gameover') ? 'inline-flex' : 'none';
   $('btn-skip-turn').style.display = (isAdmin && phase === 'clue') ? 'inline-flex' : 'none';
   $('btn-open-vote').style.display = (isAdmin && phase === 'clue') ? 'inline-flex' : 'none';
   $('btn-tally-votes').style.display = (isAdmin && phase === 'voting') ? 'inline-flex' : 'none';
@@ -717,7 +753,7 @@ function renderState() {
   if (canSeeClueBox) {
     const box = $('clue-input-box');
     if (me.is_turn) {
-      $('clue-input-label').textContent = "🎙️ It's your turn! Type your clue (or mark spoken):";
+      $('clue-input-label').textContent = "🎙️ It's your turn! Type your clue:";
       box.style.background = '#eff6ff';
       box.style.borderColor = '#60a5fa';
     } else if (isAdmin) {
@@ -930,8 +966,8 @@ function renderState() {
     const stealStr = r.steal_guess ? `<div>⚡ <strong>Steal Guess:</strong> "${escapeHtml(r.steal_guess)}" (${r.steal_success ? 'SUCCESS!' : 'FAILED'})</div>` : '';
     $('reveal-votes-list').innerHTML = `${drunkStr}${stealStr}${voteStr ? `<div>🗳️ <strong>Votes:</strong> ${voteStr}</div>` : ''}`;
     $('btn-next-round').style.display = (isAdmin && phase === 'reveal') ? 'inline-flex' : 'none';
-    $('btn-next-round').textContent = '➡️ Next Word';
-    $('btn-play-again').style.display = (isAdmin && phase === 'gameover') ? 'inline-flex' : 'none';
+    $('btn-next-round').textContent = '🎲 New Game (Deal Word & Redraw Impostor)';
+    $('btn-play-again').style.display = (isAdmin && (phase === 'reveal' || phase === 'gameover')) ? 'inline-flex' : 'none';
   }
 
   // Clues Feed
@@ -951,6 +987,9 @@ function renderState() {
     if (p.is_spectator) badges.push('👀');
     if (p.is_poisoned) badges.push('☠️');
     if (p.has_voted && phase === 'voting') badges.push('✓');
+    const qrBtn = (isAdmin || p.id === me.id)
+      ? `<button type="button" onclick="showPlayerQR('${escapeHtml(p.id)}')" title="Player QR Code" style="border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:5px;padding:0.1rem 0.35rem;cursor:pointer;font-size:0.7rem;">📱 QR</button>`
+      : '';
     const kickBtn = (isAdmin && p.id !== me.id)
       ? `<button type="button" onclick="sendAction('kick_player',{player_id:'${p.id}'})" title="Remove" style="border:none;background:none;color:#94a3b8;cursor:pointer;font-size:0.75rem;">✕</button>`
       : '';
@@ -962,7 +1001,7 @@ function renderState() {
           <span>${badges.join(' ')}</span>
         </span>
         <span style="display:flex;align-items:center;gap:0.35rem;">
-          <strong>${p.score}pt</strong>${kickBtn}
+          ${qrBtn}<strong>${p.score}pt</strong>${kickBtn}
         </span>
       </div>
     `;

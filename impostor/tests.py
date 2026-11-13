@@ -240,6 +240,29 @@ class TestLethalWordCustomDeckAndVoting:
         assert state["round_outcome"] == "impostor_steal"
         assert state["players"][imp_id]["score"] == 3
 
+    def test_new_game_redraws_distinct_impostor_and_preserves_last_impostor(self):
+        state = create_initial_state("IMPRDR01")
+        state, p1, _ = add_player(state, "Alice", is_admin=True)
+        state, p2, _ = add_player(state, "Bob")
+        assert {p1["id"], p2["id"]} == set(state["players"].keys())
+
+        start_round(state)
+        prev_imp = state["impostor_id"]
+        assert state["last_impostor_id"] == prev_imp
+
+        # With 2 active participants, every subsequent start_round must swap to the other player
+        for _ in range(8):
+            start_round(state)
+            assert state["impostor_id"] != prev_imp
+            assert state["last_impostor_id"] == state["impostor_id"]
+            prev_imp = state["impostor_id"]
+
+        # Simulating play_again (clearing impostor_id while keeping last_impostor_id)
+        state["impostor_id"] = None
+        state["phase"] = "lobby"
+        start_round(state)
+        assert state["impostor_id"] != prev_imp
+
 
 class TestImpostorHttpAndWebsocket:
     def test_game_view_and_reconnect_http(self, db):
@@ -442,13 +465,16 @@ class TestImpostorHttpAndWebsocket:
 
         imp_id = state["impostor_id"]
         non_imps = [pid for pid in state["round_participants"] if pid != imp_id]
-        other_voter = non_imps[0]
+        non_admins = [pid for pid in state["round_participants"] if pid != gm["id"]]
+        other_voter = non_admins[0]
+        spoof_voter = non_admins[1]
 
         # Non-admin cannot forge another voter's ballot via on_behalf_of
-        ok, _ = cast_vote(state, other_voter, non_imps[1], on_behalf_of=imp_id, auto_tally=False)
+        ok, _ = cast_vote(state, other_voter, gm["id"], on_behalf_of=spoof_voter, auto_tally=False)
         assert ok is True
-        assert state["votes"].get(other_voter) == non_imps[1]
-        assert imp_id not in state["votes"]
+        assert state["votes"].get(other_voter) == gm["id"]
+        assert spoof_voter not in state["votes"]
+        state["votes"].clear()
 
         # Moderator assigns votes on behalf of table players to eject Impostor
         ok, _ = cast_vote(state, gm["id"], imp_id, on_behalf_of=non_imps[0], auto_tally=False)
@@ -502,3 +528,49 @@ class TestImpostorHttpAndWebsocket:
             await c1.disconnect()
 
         async_to_sync(_run)()
+
+    def test_player_qr_and_reconnect_http(self, db):
+        from urllib.parse import urlparse
+
+        Room.objects.create(title="QR Spy Table", code="IMPQR001", game_type="impostor", language="en")
+
+        async def _setup_players():
+            c1 = WebsocketCommunicator(application, "/ws/impostor/IMPQR001/")
+            c2 = WebsocketCommunicator(application, "/ws/impostor/IMPQR001/")
+            assert (await c1.connect())[0] is True
+            assert (await c2.connect())[0] is True
+            await c1.send_json_to({"action": "join", "name": "HostAlice"})
+            s1 = await c1.receive_json_from()
+            await c2.send_json_to({"action": "join", "name": "GuestBob"})
+            s2 = await c2.receive_json_from()
+            await c1.disconnect()
+            await c2.disconnect()
+            return s1["me"], s2["me"]
+
+        host_me, guest_me = async_to_sync(_setup_players)()
+        assert host_me["is_admin"] is True
+        assert guest_me["is_admin"] is False
+
+        client = Client()
+        game_resp = client.get(reverse("gamerooms:impostor:game", kwargs={"code": "IMPQR001", "name": "HostAlice"}))
+        assert game_resp.status_code == 200
+        html = game_resp.content.decode()
+        assert "modal-player-qr" in html
+        assert "showPlayerQR" in html
+        assert "Spoke Out Loud" not in html
+
+        qr_url = reverse("gamerooms:impostor:player-qr", kwargs={"code": "IMPQR001", "token": guest_me["id"]})
+        qr_resp = client.get(qr_url)
+        assert qr_resp.status_code == 200
+        payload = qr_resp.json()
+        assert payload["qr"].startswith("data:image/png;base64,")
+        assert payload["player_id"] == guest_me["id"]
+        assert payload["player_name"] == "GuestBob"
+        assert "/games/impostor/IMPQR001/reconnect/" in payload["url"]
+
+        phone_client = Client()
+        reconnect_path = urlparse(payload["url"]).path
+        rec_resp = phone_client.get(reconnect_path, follow=True)
+        assert rec_resp.status_code == 200
+        assert rec_resp.context["player_name"] == "GuestBob"
+        assert rec_resp.context["admin_token"] == ""

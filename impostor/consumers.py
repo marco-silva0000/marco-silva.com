@@ -148,9 +148,7 @@ class ImpostorConsumer(AsyncJsonWebsocketConsumer):
             await self.broadcast_sync()
         elif action == "blind_redraw":
             if not self._is_admin(state):
-                return await self.send_error("Only the Host can trigger Blind Redraw.")
-            if state.get("phase") != "clue" or len(state.get("clues", [])) > 0:
-                return await self.send_error("Blind Redraw is only available before any clues are given.")
+                return await self.send_error("Only the Host can trigger a New Game / Redraw.")
             ok, msg = start_round(state, is_redraw=True)
             if not ok:
                 return await self.send_error(msg)
@@ -242,8 +240,12 @@ class ImpostorConsumer(AsyncJsonWebsocketConsumer):
         elif action == "play_again":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can restart the match.")
+            last_imp = state.get("impostor_id") or state.get("last_impostor_id")
             for p in state.get("players", {}).values():
                 p["score"] = 0
+            state["last_impostor_id"] = last_imp
+            state["impostor_id"] = None
+            state["poisoned_citizen_id"] = None
             state["round_num"] = 0
             state["phase"] = "lobby"
             state["status"] = "open"

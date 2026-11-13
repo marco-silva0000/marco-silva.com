@@ -21,6 +21,7 @@ from .word_pairs import (
 
 _redis = None
 _fallback_store: dict[str, str] = {}
+_sys_rng = random.SystemRandom()
 
 POISON_MODES = (
     "undercover_blind",
@@ -90,6 +91,7 @@ def create_initial_state(
         "round_director_id": None,
         "round_participants": [],
         "impostor_id": None,
+        "last_impostor_id": None,
         "poisoned_citizen_id": None,
         "poisoned_ids": [],  # players eliminated mid-round by Lethal Taboo word
         "turn_order": [],  # ordered list of pids across clue_loops
@@ -434,14 +436,18 @@ def start_round(state: dict[str, Any], is_redraw: bool = False) -> tuple[bool, s
         director_id = None
         participants = [p["id"] for p in eligible]
 
-    random.shuffle(participants)
-    impostor_id = random.choice(participants)
+    _sys_rng.shuffle(participants)
+    prev_impostor_id = state.get("impostor_id") or state.get("last_impostor_id")
+    impostor_candidates = [pid for pid in participants if pid != prev_impostor_id]
+    if not impostor_candidates:
+        impostor_candidates = list(participants)
+    impostor_id = _sys_rng.choice(impostor_candidates)
     non_impostors = [pid for pid in participants if pid != impostor_id]
 
     poison_mode = s.get("poison_mode", "undercover_blind")
     poisoned_citizen_id = None
     if poison_mode == "poisoned_citizen" and non_impostors:
-        poisoned_citizen_id = random.choice(non_impostors)
+        poisoned_citizen_id = _sys_rng.choice(non_impostors)
 
     if not is_redraw:
         state["round_num"] = state.get("round_num", 0) + 1
@@ -453,6 +459,7 @@ def start_round(state: dict[str, Any], is_redraw: bool = False) -> tuple[bool, s
     state["round_director_id"] = director_id
     state["round_participants"] = participants
     state["impostor_id"] = impostor_id
+    state["last_impostor_id"] = impostor_id
     state["poisoned_citizen_id"] = poisoned_citizen_id
     state["poisoned_ids"] = []
 
@@ -590,7 +597,7 @@ def submit_clue(
 
     cleaned = " ".join(str(clue_text or "").strip().split())[:80]
     if not cleaned:
-        return False, "Enter a clue word/phrase or press 'Spoke Out Loud'."
+        return False, "Please enter a clue word or phrase."
 
     # Block saying the exact citizen or poison word verbatim (anti-spoiler)
     if text_matches_term(cleaned, pair.get("citizen_matches", [])):
@@ -1106,7 +1113,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         "clues_count": len(state.get("clues", [])),
         "clues": list(state.get("clues", [])),
         "custom_deck_count": len(state.get("custom_deck", [])),
-        "can_blind_redraw": bool(phase == "clue" and len(state.get("clues", [])) == 0),
+        "can_blind_redraw": bool(phase != "lobby"),
         "can_vote": can_vote,
         "votes": dict(state.get("votes", {})),
         "eligible_voter_ids": voters,

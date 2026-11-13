@@ -4,6 +4,18 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v157] - 2026-11-14
+
+### Changed & Added
+- **Word Impostor Redraw Distinct Impostor Every Game (`impostor/`, `templates/impostor/game.html`)**:
+  - Updated `start_round()` (`_sys_rng` via `random.SystemRandom`) and `play_again` / `last_impostor_id` tracking so every new game (`start_game`, `next_round`, `blind_redraw`, or starting after `play_again`) selects an `impostor_id` distinct from the previous game's Impostor whenever 2 or more active players are present.
+  - Renamed the Host GM toolbar action to `🎲 New Game / Redraw` (available in every active phase until `gameover`) and updated the reveal controls to `🎲 New Game (Deal Word & Redraw Impostor)` alongside `🔄 Play Again (Lobby)`.
+- **Word Impostor Individual Per-Player QR Codes & Multi-Tab Session Isolation (`impostor/`, `templates/impostor/game.html`)**:
+  - Added `<str:code>/qr/<str:token>/` (`gamerooms:impostor:player-qr`) endpoint returning a per-player QR code image and reconnect URL, matching Lupus.
+  - Added `#modal-player-qr` modal, `showPlayerQR(playerId)`, and `📱 QR` buttons on sidebar player rows (visible to the Host for all players, and to any player for themselves).
+  - Hardened `game()` and `player_reconnect()` in `impostor/views.py` against session/admin leakage when opening player reconnect links.
+  - Removed the redundant `🎙️ Spoke Out Loud` placeholder button from `#clue-input-box` so players and the Moderator enter spoken clues directly (or use Host `⏭️ Skip Turn` / `🗳️ Start Voting Early` controls).
+
 ## [v156] - 2026-11-14
 
 ### Changed

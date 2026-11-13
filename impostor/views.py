@@ -2,7 +2,7 @@
 
 import json
 
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.cache import never_cache
@@ -49,25 +49,30 @@ def game(request, code, name):
     state["password"] = room.password
     state["language"] = getattr(room, "language", "en") or "en"
 
-    token = request.GET.get("token") or request.session.get(f"impostor_player_{code}")
-    is_admin = bool(request.session.get(f"impostor_admin_{code}"))
+    query_token = request.GET.get("token")
+    session_token = request.session.get(f"impostor_player_{code}")
+    token = query_token or session_token
+    session_admin = bool(request.session.get(f"impostor_admin_{code}"))
 
     existing = find_player_by_token(state, token)
     if existing:
         player = existing
-        if is_admin:
+        # Only promote to admin if this browser session owns the room creator (never on another player's QR token)
+        if session_admin and (not state.get("creator_id") or player.get("id") == state.get("creator_id")):
             player["is_admin"] = True
         save_game(code, state)
     else:
+        grant_admin = session_admin and not query_token and not state.get("creator_id")
         state, player, _ = add_player(
             state,
             name=name,
             token=token,
-            is_admin=is_admin,
+            is_admin=grant_admin,
         )
 
-    request.session[f"impostor_player_{code}"] = player["token"]
-    if player.get("is_admin"):
+    if not query_token or not session_token:
+        request.session[f"impostor_player_{code}"] = player["token"]
+    if player.get("is_admin") and (not query_token or player.get("id") == state.get("creator_id")):
         request.session[f"impostor_admin_{code}"] = True
 
     join_path = reverse("gamerooms:room-join", kwargs={"code": code})
@@ -116,9 +121,38 @@ def player_reconnect(request, code, token):
         raise Http404("Invalid player reconnect token.")
 
     request.session[f"room_{code}"] = True
-    request.session[f"impostor_player_{code}"] = token
+    existing_session_token = request.session.get(f"impostor_player_{code}")
+    existing_session_admin = bool(request.session.get(f"impostor_admin_{code}"))
+    if not existing_session_token or (matched.get("is_admin") and not existing_session_admin):
+        request.session[f"impostor_player_{code}"] = token
     if matched.get("is_admin"):
         request.session[f"impostor_admin_{code}"] = True
 
     game_url = reverse("gamerooms:impostor:game", kwargs={"code": code, "name": matched["name"]})
     return redirect(f"{game_url}?token={token}")
+
+
+@never_cache
+def player_qr(request, code, token):
+    """Generate an individual QR code image and URL for a player's private reconnect link."""
+    code = code.upper()
+    get_object_or_404(Room, code=code, is_active=True)
+    state = get_game(code)
+    matched = state.get("players", {}).get(token) or find_player_by_token(state, token)
+    if not matched:
+        raise Http404("Player not found in this room.")
+
+    reconnect_path = reverse(
+        "gamerooms:impostor:reconnect",
+        kwargs={"code": code, "token": matched["token"]},
+    )
+    reconnect_url = build_public_url(request, reconnect_path)
+    qr_data_uri = generate_qr_data_uri(reconnect_url)
+    return JsonResponse(
+        {
+            "qr": qr_data_uri,
+            "url": reconnect_url,
+            "player_id": matched["id"],
+            "player_name": matched["name"],
+        }
+    )
