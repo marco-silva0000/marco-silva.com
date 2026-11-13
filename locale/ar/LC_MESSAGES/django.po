@@ -384,67 +384,67 @@ msgid "Outdoors"
 msgstr "في الهواء الطلق"
 
 msgid "Page Not Found — Marco Silva"
-msgstr "Page Not Found — Marco Silva"
+msgstr "الصفحة غير موجودة — ماركو سيلفا"
 
 msgid "Password"
 msgstr "كلمة المرور"
 
 msgid "Password Protected"
-msgstr "Password Protected"
+msgstr "محمية بكلمة مرور"
 
 msgid "Past & Finished Games"
-msgstr "Past & Finished Games"
+msgstr "الألعاب السابقة والمنتهية"
 
 msgid "Pending"
-msgstr "Pending"
+msgstr "قيد الانتظار"
 
 msgid "Photography"
 msgstr "التصوير الفوتوغرافي"
 
 msgid "Pick the name others at the table know you by."
-msgstr "Pick the name others at the table know you by."
+msgstr "اختر الاسم الذي يعرفك به الآخرون على الطاولة."
 
 msgid "Please enter a player name."
-msgstr "Please enter a player name."
+msgstr "يرجى إدخال اسم اللاعب."
 
 msgid "Please enter a valid room code."
-msgstr "Please enter a valid room code."
+msgstr "يرجى إدخال رمز غرفة صالح."
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "برتغالي · هلسنكي، فنلندا"
 
 msgid "Previous day"
-msgstr "Previous day"
+msgstr "اليوم السابق"
 
 msgid "Price for the RAW file download."
-msgstr "Price for the RAW file download."
+msgstr "سعر تنزيل ملف RAW."
 
 msgid "Privacy Policy"
 msgstr "سياسة الخصوصية"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr "Privacy Policy - Homelab Telegram Bot"
+msgstr "سياسة الخصوصية - بوت تيليجرام Homelab"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr "Privacy Policy - Homelab Telegram Bot - Marco Silva"
+msgstr "سياسة الخصوصية - بوت تيليجرام Homelab - ماركو سيلفا"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr "Privacy shield keeps cards concealed from prying eyes at the table."
+msgstr "درع الخصوصية يُبقي البطاقات مخفية عن أعين المتطفلين على الطاولة."
 
 msgid "Processing"
-msgstr "Processing"
+msgstr "قيد المعالجة"
 
 msgid "Public"
-msgstr "Public"
+msgstr "عامة"
 
 msgid "RAW available for purchase"
 msgstr "ملف RAW متاح للشراء"
 
 msgid "RAW file"
-msgstr "RAW file"
+msgstr "ملف RAW"
 
 msgid "RAW price"
-msgstr "RAW price"
+msgstr "سعر ملف RAW"
 
 msgid "Reading"
 msgstr "القراءة"
@@ -453,55 +453,55 @@ msgid "Real-time multiplayer browser party games. No accounts required — just 
 msgstr "ألعاب جماعية متعددة اللاعبين في الوقت الفعلي عبر المتصفح. لا حاجة لحسابات — فقط انضم والعب مع أصدقائك."
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr "Regenerate 4:5 Instagram crops for selected photos"
+msgstr "إعادة إنشاء اقتصاصات إنستغرام بنسبة 4:5 للصور المحددة"
 
 msgid "Replay"
-msgstr "Replay"
+msgstr "إعادة العرض"
 
 msgid "Return as %(name)s"
-msgstr "Return as %(name)s"
+msgstr "العودة باسم %(name)s"
 
 msgid "Reveal Roles on Death:"
-msgstr "Reveal Roles on Death:"
+msgstr "كشف الأدوار عند الموت:"
 
 msgid "Room Code:"
-msgstr "Room Code:"
+msgstr "رمز الغرفة:"
 
 msgid "Room Password"
-msgstr "Room Password"
+msgstr "كلمة مرور الغرفة"
 
 msgid "Room Password (optional)"
-msgstr "Room Password (optional)"
+msgstr "كلمة مرور الغرفة (اختياري)"
 
 msgid "Room Setup"
-msgstr "Room Setup"
+msgstr "إعداد الغرفة"
 
 msgid "Room Title"
-msgstr "Room Title"
+msgstr "عنوان الغرفة"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr "Room code '%(code)s' was not found or is no longer active."
+msgstr "لم يتم العثور على رمز الغرفة '%(code)s' أو لم يعد نشطاً."
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
+msgstr "يتم إنشاء الغرف عند الطلب وتظل نشطة لمدة 24 ساعة. ابدأ جلسة لعب جديدة وادعُ مجموعتك!"
 
 msgid "Running"
 msgstr "قيد التشغيل"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr "Send Instagram carousel pack to Telegram"
+msgstr "إرسال حزمة كاروسيل إنستغرام إلى تيليجرام"
 
 msgid "Server Error — Marco Silva"
-msgstr "Server Error — Marco Silva"
+msgstr "خطأ في الخادم — ماركو سيلفا"
 
 msgid "Silent Phase"
-msgstr "Silent Phase"
+msgstr "المرحلة الصامتة"
 
 msgid "Skills"
 msgstr "المهارات"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+msgstr "يدخل اللاعبون المقتولون إلى البرزخ لمرة واحدة بدلاً من الموت مباشرة. وإذا خمنوا من هو الملاك، يُبعثون من جديد!"
 
 msgid "Spanish"
 msgstr "الإسبانية"
@@ -510,25 +510,25 @@ msgid "Speaking"
 msgstr "التحدث"
 
 msgid "Staggering Doctor:"
-msgstr "Staggering Doctor:"
+msgstr "الطبيب المتناوب:"
 
 msgid "Starting Role Deck Preset"
-msgstr "Starting Role Deck Preset"
+msgstr "الإعداد المسبق لحزمة الأدوار الابتدائية"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr "Step-by-step night stages, bluffing calls, and voting manager."
+msgstr "مراحل ليلية خطوة بخطوة، ونداءات التمويه، وإدارة التصويت."
 
 msgid "Table-First Lupus Highlights"
-msgstr "Table-First Lupus Highlights"
+msgstr "أبرز مميزات لوبوس للعب حول الطاولة"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
+msgstr "لعبة حفلات بنمط المستذئب والمافيا مخصصة للعب حول الطاولة. لا تتطلب أي حسابات أو تسجيل دخول. يستخدم كل لاعب هاتفه للأدوار السرية والتصويت بينما تدير أنت الغرفة بصفتك مدير اللعبة."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
+msgstr "لعبة حفلات هجينة مخصصة للعب حول الطاولة. لا تتطلب أي حسابات أو تسجيل دخول. ينضم اللاعبون عبر رمز QR، وتدير أنت اللعبة بصفتك مدير اللعبة."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
+msgstr "لعبة حفلات مخصصة للعب حول الطاولة مع أدوار سرية، وتصويت مباشر، وصحيفة القرية، ولوحة تحكم لمدير اللعبة."
 
 msgid "Techy"
 msgstr "تقنيات"
@@ -537,40 +537,40 @@ msgid "Terms of Service"
 msgstr "شروط الخدمة"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr "Terms of Service - Homelab Telegram Bot"
+msgstr "شروط الخدمة - بوت تيليجرام Homelab"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr "Terms of Service - Homelab Telegram Bot - Marco Silva"
+msgstr "شروط الخدمة - بوت تيليجرام Homelab - ماركو سيلفا"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr "The Doctor / Guard cannot protect the same person two consecutive nights."
+msgstr "لا يمكن للطبيب / الحارس حماية نفس الشخص لليلتين متتاليتين."
 
 msgid "Theme & Terms"
-msgstr "Theme & Terms"
+msgstr "السمة والمصطلحات"
 
 msgid "Town Gazette:"
-msgstr "Town Gazette:"
+msgstr "صحيفة القرية:"
 
 msgid "Town Voting"
-msgstr "Town Voting"
+msgstr "تصويت القرية"
 
 msgid "Unlock Room"
-msgstr "Unlock Room"
+msgstr "إلغاء قفل الغرفة"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr "Vertical focal point: 0=top, 50=center, 100=bottom."
+msgstr "نقطة التركيز الرأسية: 0=الأعلى، 50=الوسط، 100=الأسفل."
 
 msgid "Villagers, Wolves, Seer"
-msgstr "Villagers, Wolves, Seer"
+msgstr "القرويون، الذئاب، العرّاف"
 
 msgid "Voting"
 msgstr "التصويت"
 
 msgid "Werewolf / Lupus"
-msgstr "Werewolf / Lupus"
+msgstr "المستذئب / لوبوس"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr "Whether focus coordinates were automatically calculated via edge saliency."
+msgstr "ما إذا تم حساب إحداثيات التركيز تلقائيًا عبر بروز الحواف."
 
 msgid "Work Experience"
 msgstr "الخبرة المهنية"
@@ -579,22 +579,22 @@ msgid "Writing"
 msgstr "الكتابة"
 
 msgid "You need an authorized key to access this page."
-msgstr "You need an authorized key to access this page."
+msgstr "تحتاج إلى مفتاح مصرح به للوصول إلى هذه الصفحة."
 
 msgid "Your Name / Nickname"
-msgstr "Your Name / Nickname"
+msgstr "اسمك / لقبك"
 
 msgid "adjective"
 msgstr "صفة"
 
 msgid "ago"
-msgstr "ago"
+msgstr "منذ"
 
 msgid "alive"
-msgstr "alive"
+msgstr "على قيد الحياة"
 
 msgid "all"
-msgstr "all"
+msgstr "الكل"
 
 msgid "all day"
 msgstr "طوال اليوم"
@@ -603,55 +603,55 @@ msgid "any"
 msgstr "أي نوع"
 
 msgid "aperture"
-msgstr "aperture"
+msgstr "فتحة العدسة"
 
 msgid "auto focus detected"
-msgstr "auto focus detected"
+msgstr "تم رصد التركيز التلقائي"
 
 msgid "available for sale"
-msgstr "available for sale"
+msgstr "متاح للبيع"
 
 msgid "best guess"
-msgstr "best guess"
+msgstr "أفضل تخمين"
 
 msgid "blog"
 msgstr "المدونة"
 
 msgid "camera make"
-msgstr "camera make"
+msgstr "الشركة المصنعة للكاميرا"
 
 msgid "camera model"
-msgstr "camera model"
+msgstr "طراز الكاميرا"
 
 msgid "chat"
 msgstr "المحادثة"
 
 msgid "chat..."
-msgstr "chat..."
+msgstr "دردشة..."
 
 msgid "chat:"
-msgstr "chat:"
+msgstr "الدردشة:"
 
 msgid "clear"
 msgstr "مسح"
 
 msgid "create"
-msgstr "create"
+msgstr "إنشاء"
 
 msgid "create room"
-msgstr "create room"
+msgstr "إنشاء غرفة"
 
 msgid "crop focus X (%)"
-msgstr "crop focus X (%)"
+msgstr "تركيز الاقتصاص X (%)"
 
 msgid "crop focus Y (%)"
-msgstr "crop focus Y (%)"
+msgstr "تركيز الاقتصاص Y (%)"
 
 msgid "cv"
 msgstr "السيرة الذاتية"
 
 msgid "date"
-msgstr "date"
+msgstr "التاريخ"
 
 msgid "description"
 msgstr "الوصف"
@@ -666,16 +666,16 @@ msgid "download .ics"
 msgstr "تنزيل .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr "e.g. 9B3A1C2D"
+msgstr "مثال: 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr "e.g. Marco"
+msgstr "مثال: ماركو"
 
 msgid "easy"
 msgstr "سهل"
 
 msgid "emoji time:"
-msgstr "emoji time:"
+msgstr "وقت الإيموجي:"
 
 msgid "end"
 msgstr "الانتهاء"
@@ -687,19 +687,19 @@ msgid "extract event"
 msgstr "استخراج الحدث"
 
 msgid "focal length"
-msgstr "focal length"
+msgstr "البعد البؤري"
 
 msgid "gallery"
 msgstr "المعرض"
 
 msgid "gallery extension"
-msgstr "gallery extension"
+msgstr "ملحق المعرض"
 
 msgid "gallery extensions"
-msgstr "gallery extensions"
+msgstr "ملحقات المعرض"
 
 msgid "gallery not found."
-msgstr "gallery not found."
+msgstr "لم يُعثر على المعرض."
 
 msgid "games"
 msgstr "الألعاب"
@@ -711,7 +711,7 @@ msgid "guess"
 msgstr "تخمين"
 
 msgid "guess time:"
-msgstr "guess time:"
+msgstr "وقت التخمين:"
 
 msgid "hard"
 msgstr "صعب"
@@ -723,25 +723,25 @@ msgid "ics maker"
 msgstr "منشئ ملفات ics"
 
 msgid "join"
-msgstr "join"
+msgstr "انضمام"
 
 msgid "latest posts"
 msgstr "أحدث المقالات"
 
 msgid "latitude"
-msgstr "latitude"
+msgstr "خط العرض"
 
 msgid "lens"
-msgstr "lens"
+msgstr "العدسة"
 
 msgid "location"
 msgstr "الموقع"
 
 msgid "location name"
-msgstr "location name"
+msgstr "اسم الموقع"
 
 msgid "longitude"
-msgstr "longitude"
+msgstr "خط الطول"
 
 msgid "map view"
 msgstr "عرض الخريطة"
@@ -765,7 +765,7 @@ msgid "next →"
 msgstr "التالي →"
 
 msgid "no active rooms. create one!"
-msgstr "no active rooms. create one!"
+msgstr "لا توجد غرف نشطة. أنشئ واحدة!"
 
 msgid "no galleries yet."
 msgstr "لا توجد معارض بعد."
@@ -786,28 +786,28 @@ msgid "password"
 msgstr "كلمة المرور"
 
 msgid "password (optional)"
-msgstr "password (optional)"
+msgstr "كلمة المرور (اختياري)"
 
 msgid "paste event details here..."
-msgstr "paste event details here..."
+msgstr "الصق تفاصيل الحدث هنا..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr "paste text or a url with event details, and get an .ics file."
+msgstr "الصق نصاً أو رابطاً يتضمن تفاصيل الحدث، واحصل على ملف .ics."
 
 msgid "photo"
-msgstr "photo"
+msgstr "صورة"
 
 msgid "photo extension"
-msgstr "photo extension"
+msgstr "امتداد الصورة"
 
 msgid "photo extensions"
-msgstr "photo extensions"
+msgstr "امتدادات الصور"
 
 msgid "photo map"
 msgstr "خريطة الصور"
 
 msgid "photo not found."
-msgstr "photo not found."
+msgstr "الصورة غير موجودة."
 
 msgid "photos"
 msgstr "الصور"
@@ -834,13 +834,13 @@ msgid "press the button to get a word"
 msgstr "اضغط على الزر للحصول على كلمة"
 
 msgid "private"
-msgstr "private"
+msgstr "خاص"
 
 msgid "processing status"
-msgstr "processing status"
+msgstr "حالة المعالجة"
 
 msgid "public"
-msgstr "public"
+msgstr "عام"
 
 msgid "request"
 msgstr "طلب"
@@ -849,13 +849,13 @@ msgid "reveal"
 msgstr "كشف"
 
 msgid "room password"
-msgstr "room password"
+msgstr "كلمة مرور الغرفة"
 
 msgid "round robin"
-msgstr "round robin"
+msgstr "بالتناوب"
 
 msgid "rounds:"
-msgstr "rounds:"
+msgstr "الجولات:"
 
 msgid "search emoji..."
 msgstr "بحث عن إيموجي..."
@@ -870,7 +870,7 @@ msgid "settings"
 msgstr "الإعدادات"
 
 msgid "shutter speed"
-msgstr "shutter speed"
+msgstr "سرعة الغالق"
 
 msgid "skip"
 msgstr "تخطي"
@@ -882,13 +882,13 @@ msgid "start game"
 msgstr "بدء اللعبة"
 
 msgid "text"
-msgstr "text"
+msgstr "نص"
 
 msgid "title"
 msgstr "العنوان"
 
 msgid "title is required"
-msgstr "title is required"
+msgstr "العنوان مطلوب"
 
 msgid "today"
 msgstr "اليوم"
@@ -906,19 +906,19 @@ msgid "upload photos"
 msgstr "رفع الصور"
 
 msgid "url"
-msgstr "url"
+msgstr "رابط"
 
 msgid "verb"
 msgstr "فعل"
 
 msgid "view full resolution ↗"
-msgstr "view full resolution ↗"
+msgstr "عرض بالدقة الكاملة ↗"
 
 msgid "view on map"
 msgstr "عرض على الخريطة"
 
 msgid "waiting for clue..."
-msgstr "waiting for clue..."
+msgstr "في انتظار التلميح..."
 
 msgid "waiting for players..."
 msgstr "في انتظار اللاعبين..."
@@ -927,19 +927,19 @@ msgid "watermarked"
 msgstr "علامة مائية"
 
 msgid "watermarked image"
-msgstr "watermarked image"
+msgstr "صورة بعلامة مائية"
 
 msgid "web"
 msgstr "ويب"
 
 msgid "web-optimized image"
-msgstr "web-optimized image"
+msgstr "صورة محسّنة للويب"
 
 msgid "week"
 msgstr "أسبوع"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr "what is %(a)s + %(b)s?"
+msgstr "ما ناتج %(a)s + %(b)s؟"
 
 msgid "word"
 msgstr "كلمة"
@@ -948,7 +948,7 @@ msgid "work in progress — check back soon."
 msgstr "العمل قيد التنفيذ — تفضل بزيارتنا قريباً."
 
 msgid "wrong captcha"
-msgstr "wrong captcha"
+msgstr "رمز التحقق غير صحيح"
 
 msgid "wrong password"
 msgstr "كلمة المرور غير صحيحة"
@@ -957,7 +957,7 @@ msgid "your email"
 msgstr "بريدك الإلكتروني"
 
 msgid "your name"
-msgstr "your name"
+msgstr "اسمك"
 
 msgid "— none —"
 msgstr "— لا يوجد —"
@@ -984,7 +984,7 @@ msgid "↓ Download PDF"
 msgstr "↓ تنزيل PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
+msgstr "⚡ فوضى وأدوار خاصة (الذئب الألفا، كاتم الصوت، المحقق، الطبيب، القناص، العمدة، الساحرة...)"
 
 msgid "✏️ pictionary"
 msgstr "✏️ بيكشنري"
@@ -1002,16 +1002,16 @@ msgid "🐺 create lupus"
 msgstr "🐺 إنشاء لعبة لوبوس"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+msgstr "👼 الليمبو والملاك (الذئاب + المحقق + الطبيب + الملاك + القناص + القرويون)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
+msgstr "💡 في ألعاب الليمبو، يحدث كشف الدور حصرياً عند الموت الدائم (\"الموت النهائي\")، ولا يحدث أبداً أثناء التعلق في الليمبو."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
+msgstr "💡 تتكيف مجموعة البطاقات تلقائياً مع عدد اللاعبين المنضمين. يمكنك ضبط كل دور وتوازن الأخيار ضد الأشرار مباشرةً في ردهة ما قبل اللعبة قبل البدء."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
+msgstr "🔍 قياسي (الذئاب + المحقق/العراف + الطبيب/الحارس + القرويون)"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+msgstr "🧑 بسيط / كلاسيكي (دون قدرات خاصة — مجرد ذئاب ضد قرويين)"

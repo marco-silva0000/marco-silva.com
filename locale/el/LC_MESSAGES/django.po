@@ -27,10 +27,10 @@ msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
 msgstr "1 — Μόνο Παράταξη (Ανακοινώνει \"ΚΑΛΟ\" vs \"ΚΑΚΟ\")"
 
 msgid "1. Acceptance of Terms"
-msgstr "1. Acceptance of Terms"
+msgstr "1. Αποδοχή των Όρων"
 
 msgid "1. Overview"
-msgstr "1. Overview"
+msgstr "1. Επισκόπηση"
 
 msgid "10 Minutes"
 msgstr "10 Λεπτά"
@@ -39,10 +39,10 @@ msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Φατρία / Ομάδα (Ανακοινώνει \"Χωριό\", \"Λυκάνθρωποι\", \"Ουδέτερος\")"
 
 msgid "2. Information We Access"
-msgstr "2. Information We Access"
+msgstr "2. Πληροφορίες στις οποίες Έχουμε Πρόσβαση"
 
 msgid "2. Permitted Use"
-msgstr "2. Permitted Use"
+msgstr "2. Επιτρεπόμενη Χρήση"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 Λεπτά (Γρήγορο)"
@@ -54,19 +54,19 @@ msgid "3 — Full Role Card (Announces exact card name and icon)"
 msgstr "3 — Πλήρης Κάρτα Ρόλου (Ανακοινώνει το ακριβές όνομα και εικονίδιο)"
 
 msgid "3. Data Storage & Security"
-msgstr "3. Data Storage & Security"
+msgstr "3. Αποθήκευση & Ασφάλεια Δεδομένων"
 
 msgid "3. Disclaimer of Warranties"
-msgstr "3. Disclaimer of Warranties"
+msgstr "3. Αποποίηση Εγγυήσεων"
 
 msgid "30 Seconds (Standard)"
 msgstr "30 Δευτερόλεπτα (Κανονικό)"
 
 msgid "4. Limitation of Liability"
-msgstr "4. Limitation of Liability"
+msgstr "4. Περιορισμός Ευθύνης"
 
 msgid "4. Third-Party Sharing"
-msgstr "4. Third-Party Sharing"
+msgstr "4. Κοινοποίηση σε Τρίτους"
 
 msgid "404 — page not found"
 msgstr "404 — η σελίδα δεν βρέθηκε"
@@ -75,22 +75,22 @@ msgid "45 Seconds"
 msgstr "45 Δευτερόλεπτα"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr "4:5 vertical crop (1080x1350) for Instagram carousels."
+msgstr "Κάθετη περικοπή 4:5 (1080x1350) για καρουζέλ Instagram."
 
 msgid "5 Minutes (Standard)"
 msgstr "5 Λεπτά (Κανονικό)"
 
 msgid "5. Changes & Termination"
-msgstr "5. Changes & Termination"
+msgstr "5. Τροποποιήσεις & Τερματισμός"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr "5. Revoking Access & Data Deletion"
+msgstr "5. Ανάκληση Πρόσβασης & Διαγραφή Δεδομένων"
 
 msgid "500 — something went wrong"
 msgstr "500 — κάτι πήγε στραβά"
 
 msgid "6. Contact"
-msgstr "6. Contact"
+msgstr "6. Επικοινωνία"
 
 msgid "60 Seconds"
 msgstr "60 Δευτερόλεπτα"
@@ -114,7 +114,7 @@ msgid "All Games"
 msgstr "Όλα τα Παιχνίδια"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
+msgstr "Εφαρμογή άδειας Creative Commons Attribution-NonCommercial-ShareAlike και υδατογραφήματος."
 
 msgid "Back to Active Lupus Rooms"
 msgstr "Πίσω στις Ενεργές Αίθουσες Lupus"
@@ -123,7 +123,7 @@ msgid "Browse Active Lupus Rooms"
 msgstr "Περιήγηση σε Ενεργές Αίθουσες Lupus"
 
 msgid "CC BY-NC-SA license"
-msgstr "CC BY-NC-SA license"
+msgstr "Άδεια CC BY-NC-SA"
 
 msgid "CODE"
 msgstr "ΚΩΔΙΚΟΣ"
@@ -150,19 +150,19 @@ msgid "Create the First Lupus Room"
 msgstr "Δημιουργήστε την Πρώτη Αίθουσα Lupus"
 
 msgid "Curated"
-msgstr "Curated"
+msgstr "Επιλεγμένα"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr "Custom split keyboards (colemak + nvim)"
+msgstr "Προσαρμοσμένα split πληκτρολόγια (colemak + nvim)"
 
 msgid "Date of the trip/shoot."
-msgstr "Date of the trip/shoot."
+msgstr "Ημερομηνία ταξιδιού/φωτογράφισης."
 
 msgid "Day"
 msgstr "Ημέρα"
 
 msgid "Day Trip"
-msgstr "Day Trip"
+msgstr "Ημερήσια εκδρομή"
 
 msgid "Defense Timer"
 msgstr "Χρονόμετρο Απολογίας"
@@ -177,13 +177,13 @@ msgid "Doctor Shields From Sniper:"
 msgstr "Ο Γιατρός Προστατεύει από τον Ελεύθερο Σκοπευτή:"
 
 msgid "Done"
-msgstr "Done"
+msgstr "Ολοκληρώθηκε"
 
 msgid "Education"
 msgstr "Εκπαίδευση"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr "Electronics/embedded (some rust embedded)"
+msgstr "Ηλεκτρονικά/ενσωματωμένα συστήματα (λίγο embedded Rust)"
 
 msgid "English"
 msgstr "Αγγλικά"
@@ -198,7 +198,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Εισαγάγετε Κωδικό Αίθουσας (π.χ. 9B3A1C2D)"
 
 msgid "Failed"
-msgstr "Failed"
+msgstr "Απέτυχε"
 
 msgid "Finished"
 msgstr "Ολοκληρώθηκε"
@@ -207,7 +207,7 @@ msgid "GM"
 msgstr "Αφηγητής"
 
 msgid "GM Cockpit"
-msgstr "GM Cockpit"
+msgstr "Πίνακας ελέγχου GM"
 
 msgid "GM Director Cockpit:"
 msgstr "Κονσόλα Σκηνοθέτη Αφηγητή:"
@@ -231,13 +231,13 @@ msgid "Game room does not exist."
 msgstr "Η αίθουσα παιχνιδιού δεν υπάρχει."
 
 msgid "Ham radio, UK foundation license"
-msgstr "Ham radio, UK foundation license"
+msgstr "Ραδιοερασιτεχνισμός, άδεια UK Foundation"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "Έχετε 8-ψήφιο κωδικό από τον Αφηγητή σας; Εισαγάγετέ τον εδώ για να μπείτε απευθείας:"
 
 msgid "Hiking and climbing"
-msgstr "Hiking and climbing"
+msgstr "Πεζοπορία και αναρρίχηση"
 
 msgid "Hobbies"
 msgstr "Χόμπι"
@@ -246,10 +246,10 @@ msgid "Hold-to-Peek Secret Roles:"
 msgstr "Κρατήστε Πατημένο για Μυστικούς Ρόλους:"
 
 msgid "Home automation and homelab"
-msgstr "Home automation and homelab"
+msgstr "Οικιακός αυτοματισμός και homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr "Horizontal focal point: 0=left, 50=center, 100=right."
+msgstr "Οριζόντιο σημείο εστίασης: 0=αριστερά, 50=κέντρο, 100=δεξιά."
 
 msgid "I code, take pics and many other things"
 msgstr "Προγραμματίζω, βγάζω φωτογραφίες και πολλά άλλα"
@@ -270,10 +270,10 @@ msgid "Incorrect room password."
 msgstr "Εσφαλμένος κωδικός αίθουσας."
 
 msgid "Instagram 4:5 Preview"
-msgstr "Instagram 4:5 Preview"
+msgstr "Προεπισκόπηση Instagram 4:5"
 
 msgid "Instagram 4:5 image"
-msgstr "Instagram 4:5 image"
+msgstr "Εικόνα Instagram 4:5"
 
 msgid "Invalid Game Master secret key."
 msgstr "Μη έγκυρο μυστικό κλειδί Αφηγητή."
@@ -294,13 +294,13 @@ msgid "Join with Room Code"
 msgstr "Σύνδεση με Κωδικό Αίθουσας"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr "Kayak, surf, SUP, windsurf"
+msgstr "Καγιάκ, σερφ, SUP, γουίντσερφ"
 
 msgid "Languages"
 msgstr "Γλώσσες"
 
 msgid "Last updated: October 27, 2026"
-msgstr "Last updated: October 27, 2026"
+msgstr "Τελευταία ενημέρωση: 27 Οκτωβρίου 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
 msgstr "Όσοι αργοπορούν μπαίνουν ως Επιβεβαιωμένοι Ταξιδιώτες, Φαντάσματα ή Διάδοχοι."
@@ -363,7 +363,7 @@ msgid "No Active Lupus Games Right Now"
 msgstr "Δεν Υπάρχουν Ενεργά Παιχνίδια Lupus Αυτή τη Στιγμή"
 
 msgid "No Instagram crop generated yet."
-msgstr "No Instagram crop generated yet."
+msgstr "Δεν έχει δημιουργηθεί ακόμη περικοπή για το Instagram."
 
 msgid "Open"
 msgstr "Ανοιχτή"
@@ -375,7 +375,7 @@ msgid "Open GM Cockpit"
 msgstr "Άνοιγμα Κονσόλας Αφηγητή"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr "Original camera RAW file (CR3, ARW, NEF, etc.)"
+msgstr "Αρχικό αρχείο RAW κάμερας (CR3, ARW, NEF, κ.λπ.)"
 
 msgid "Other"
 msgstr "Άλλα"
@@ -384,7 +384,7 @@ msgid "Outdoors"
 msgstr "Υπαίθριες δραστηριότητες"
 
 msgid "Page Not Found — Marco Silva"
-msgstr "Page Not Found — Marco Silva"
+msgstr "Η σελίδα δεν βρέθηκε — Marco Silva"
 
 msgid "Password"
 msgstr "Κωδικός"
@@ -396,7 +396,7 @@ msgid "Past & Finished Games"
 msgstr "Παλαιότερα & Ολοκληρωμένα Παιχνίδια"
 
 msgid "Pending"
-msgstr "Pending"
+msgstr "Σε εκκρεμότητα"
 
 msgid "Photography"
 msgstr "Φωτογραφία"
@@ -417,22 +417,22 @@ msgid "Previous day"
 msgstr "Προηγούμενη ημέρα"
 
 msgid "Price for the RAW file download."
-msgstr "Price for the RAW file download."
+msgstr "Τιμή για τη λήψη του αρχείου RAW."
 
 msgid "Privacy Policy"
 msgstr "Πολιτική Απορρήτου"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr "Privacy Policy - Homelab Telegram Bot"
+msgstr "Πολιτική απορρήτου - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr "Privacy Policy - Homelab Telegram Bot - Marco Silva"
+msgstr "Πολιτική απορρήτου - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
 msgstr "Η ασπίδα απορρήτου προστατεύει τις κάρτες από περίεργα βλέμματα στο τραπέζι."
 
 msgid "Processing"
-msgstr "Processing"
+msgstr "Σε επεξεργασία"
 
 msgid "Public"
 msgstr "Δημόσια"
@@ -441,10 +441,10 @@ msgid "RAW available for purchase"
 msgstr "RAW διαθέσιμο για αγορά"
 
 msgid "RAW file"
-msgstr "RAW file"
+msgstr "Αρχείο RAW"
 
 msgid "RAW price"
-msgstr "RAW price"
+msgstr "Τιμή RAW"
 
 msgid "Reading"
 msgstr "Ανάγνωση"
@@ -453,7 +453,7 @@ msgid "Real-time multiplayer browser party games. No accounts required — just 
 msgstr "Παιχνίδια παρέας για πολλούς παίκτες σε πραγματικό χρόνο στο πρόγραμμα περιήγησης. Δεν απαιτούνται λογαριασμοί — απλώς μπείτε και παίξτε με φίλους."
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr "Regenerate 4:5 Instagram crops for selected photos"
+msgstr "Επαναδημιουργία περικοπών 4:5 Instagram για τις επιλεγμένες φωτογραφίες"
 
 msgid "Replay"
 msgstr "Επανάληψη"
@@ -489,10 +489,10 @@ msgid "Running"
 msgstr "Σε Εξέλιξη"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr "Send Instagram carousel pack to Telegram"
+msgstr "Αποστολή πακέτου καρουζέλ Instagram στο Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr "Server Error — Marco Silva"
+msgstr "Σφάλμα διακομιστή — Marco Silva"
 
 msgid "Silent Phase"
 msgstr "Σιωπηλή Φάση"
@@ -537,10 +537,10 @@ msgid "Terms of Service"
 msgstr "Όροι Χρήσης"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr "Terms of Service - Homelab Telegram Bot"
+msgstr "Όροι Χρήσης - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr "Terms of Service - Homelab Telegram Bot - Marco Silva"
+msgstr "Όροι Χρήσης - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "Ο Γιατρός / Φύλακας δεν μπορεί να προστατεύσει το ίδιο άτομο δύο συνεχόμενες νύχτες."
@@ -558,7 +558,7 @@ msgid "Unlock Room"
 msgstr "Ξεκλείδωμα Αίθουσας"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr "Vertical focal point: 0=top, 50=center, 100=bottom."
+msgstr "Κάθετο σημείο εστίασης: 0=πάνω, 50=κέντρο, 100=κάτω."
 
 msgid "Villagers, Wolves, Seer"
 msgstr "Χωρικοί, Λύκοι, Μάντης"
@@ -570,7 +570,7 @@ msgid "Werewolf / Lupus"
 msgstr "Λυκάνθρωπος / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr "Whether focus coordinates were automatically calculated via edge saliency."
+msgstr "Εάν οι συντεταγμένες εστίασης υπολογίστηκαν αυτόματα μέσω διακριτότητας ακμών."
 
 msgid "Work Experience"
 msgstr "Επαγγελματική Εμπειρία"
@@ -594,7 +594,7 @@ msgid "alive"
 msgstr "ζωντανοί"
 
 msgid "all"
-msgstr "all"
+msgstr "όλα"
 
 msgid "all day"
 msgstr "όλη μέρα"
@@ -603,13 +603,13 @@ msgid "any"
 msgstr "οποιοδήποτε"
 
 msgid "aperture"
-msgstr "aperture"
+msgstr "διάφραγμα"
 
 msgid "auto focus detected"
-msgstr "auto focus detected"
+msgstr "εντοπίστηκε αυτόματη εστίαση"
 
 msgid "available for sale"
-msgstr "available for sale"
+msgstr "διαθέσιμο προς πώληση"
 
 msgid "best guess"
 msgstr "καλύτερη εκτίμηση"
@@ -618,10 +618,10 @@ msgid "blog"
 msgstr "ιστολόγιο"
 
 msgid "camera make"
-msgstr "camera make"
+msgstr "κατασκευαστής κάμερας"
 
 msgid "camera model"
-msgstr "camera model"
+msgstr "μοντέλο κάμερας"
 
 msgid "chat"
 msgstr "συνομιλία"
@@ -642,16 +642,16 @@ msgid "create room"
 msgstr "δημιουργία αίθουσας"
 
 msgid "crop focus X (%)"
-msgstr "crop focus X (%)"
+msgstr "εστίαση περικοπής X (%)"
 
 msgid "crop focus Y (%)"
-msgstr "crop focus Y (%)"
+msgstr "εστίαση περικοπής Y (%)"
 
 msgid "cv"
 msgstr "βιογραφικό"
 
 msgid "date"
-msgstr "date"
+msgstr "ημερομηνία"
 
 msgid "description"
 msgstr "περιγραφή"
@@ -666,7 +666,7 @@ msgid "download .ics"
 msgstr "λήψη .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr "e.g. 9B3A1C2D"
+msgstr "π.χ. 9B3A1C2D"
 
 msgid "e.g. Marco"
 msgstr "π.χ. Μάρκο"
@@ -687,7 +687,7 @@ msgid "extract event"
 msgstr "εξαγωγή συμβάντος"
 
 msgid "focal length"
-msgstr "focal length"
+msgstr "εστιακή απόσταση"
 
 msgid "gallery"
 msgstr "γκαλερί"

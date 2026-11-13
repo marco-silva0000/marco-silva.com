@@ -12,13 +12,13 @@ env:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/ruff-action@v3
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: lint
     services:
       postgres:
@@ -78,11 +78,29 @@ jobs:
       - run: uv run robot --outputdir /tmp/robot-output tests/robot/planz.robot
 
       # Playwright tests
-      - run: uv run playwright install chromium --with-deps
-      - run: uv run pytest tests/playwright/ -v --browser chromium
+      - name: Install Playwright and dependencies
+        env:
+          PLAYWRIGHT_HOST_PLATFORM_OVERRIDE: ubuntu24.04-x64
+        run: |
+          set -o pipefail
+          uv run playwright install chromium --with-deps 2>&1 | tee /tmp/playwright-install.log || {
+            tail -n 60 /tmp/playwright-install.log | while IFS= read -r line; do
+              echo "::error::$line"
+            done
+            exit 1
+          }
+      - name: Run Playwright tests
+        run: |
+          set -o pipefail
+          uv run pytest tests/playwright/ -v --browser chromium 2>&1 | tee /tmp/playwright-test.log || {
+            tail -n 60 /tmp/playwright-test.log | while IFS= read -r line; do
+              echo "::error::$line"
+            done
+            exit 1
+          }
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: test
     if: github.event_name == 'push'
     permissions:

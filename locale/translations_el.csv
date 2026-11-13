@@ -1,64 +1,64 @@
 ﻿msgid,context,en,el
-1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,
-1. Overview,templates/bot_privacy.html,1. Overview,
-2. Information We Access,templates/bot_privacy.html,2. Information We Access,
-2. Permitted Use,templates/bot_terms.html,2. Permitted Use,
-3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,
-3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,
-4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,
-4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,
-4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,
-5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,
-5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,
-6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,
-Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,
-CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,
-CTFs,templates/cv.html,CTFs,
-Curated,photos/models.py,Curated,
-Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),
-Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,
-Day Trip,photos/models.py,Day Trip,
-Done,photos/models.py,Done,
-Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),
-Failed,photos/models.py,Failed,
-GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,
-"Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license",
-Hiking and climbing,templates/cv.html,Hiking and climbing,
-Home automation and homelab,templates/cv.html,Home automation and homelab,
-"Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.",
-ISO,photos/models.py,ISO,
-Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,
-Instagram 4:5 image,photos/models.py,Instagram 4:5 image,
-"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf",
-"Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",
-No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,
-"Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)",
-Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,
-Pending,photos/models.py,Pending,
-Price for the RAW file download.,photos/models.py,Price for the RAW file download.,
-Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,
-Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,
-Processing,photos/models.py,Processing,
-RAW file,photos/models.py,RAW file,
-RAW price,photos/models.py,RAW price,
-Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,
-Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,
-Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,
-Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,
-Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,
-"Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.",
-Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,
-all,templates/emojinary/game.html,all,
-aperture,photos/models.py,aperture,
-auto focus detected,photos/models.py,auto focus detected,
-available for sale,photos/models.py,available for sale,
-camera make,photos/models.py,camera make,
-camera model,photos/models.py,camera model,
-crop focus X (%),photos/models.py,crop focus X (%),
-crop focus Y (%),photos/models.py,crop focus Y (%),
-date,photos/models.py,date,
-e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,
-focal length,photos/models.py,focal length,
+1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. Αποδοχή των Όρων
+1. Overview,templates/bot_privacy.html,1. Overview,1. Επισκόπηση
+2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. Πληροφορίες στις οποίες Έχουμε Πρόσβαση
+2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. Επιτρεπόμενη Χρήση
+3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,3. Αποθήκευση & Ασφάλεια Δεδομένων
+3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,3. Αποποίηση Εγγυήσεων
+4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,4. Περιορισμός Ευθύνης
+4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,4. Κοινοποίηση σε Τρίτους
+4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,Κάθετη περικοπή 4:5 (1080x1350) για καρουζέλ Instagram.
+5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,5. Τροποποιήσεις & Τερματισμός
+5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,5. Ανάκληση Πρόσβασης & Διαγραφή Δεδομένων
+6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,6. Επικοινωνία
+Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,Εφαρμογή άδειας Creative Commons Attribution-NonCommercial-ShareAlike και υδατογραφήματος.
+CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,Άδεια CC BY-NC-SA
+CTFs,templates/cv.html,CTFs,CTFs
+Curated,photos/models.py,Curated,Επιλεγμένα
+Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),Προσαρμοσμένα split πληκτρολόγια (colemak + nvim)
+Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,Ημερομηνία ταξιδιού/φωτογράφισης.
+Day Trip,photos/models.py,Day Trip,Ημερήσια εκδρομή
+Done,photos/models.py,Done,Ολοκληρώθηκε
+Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),Ηλεκτρονικά/ενσωματωμένα συστήματα (λίγο embedded Rust)
+Failed,photos/models.py,Failed,Απέτυχε
+GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,Πίνακας ελέγχου GM
+"Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license","Ραδιοερασιτεχνισμός, άδεια UK Foundation"
+Hiking and climbing,templates/cv.html,Hiking and climbing,Πεζοπορία και αναρρίχηση
+Home automation and homelab,templates/cv.html,Home automation and homelab,Οικιακός αυτοματισμός και homelab
+"Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.","Οριζόντιο σημείο εστίασης: 0=αριστερά, 50=κέντρο, 100=δεξιά."
+ISO,photos/models.py,ISO,ISO
+Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,Προεπισκόπηση Instagram 4:5
+Instagram 4:5 image,photos/models.py,Instagram 4:5 image,Εικόνα Instagram 4:5
+"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","Καγιάκ, σερφ, SUP, γουίντσερφ"
+"Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",Τελευταία ενημέρωση: 27 Οκτωβρίου 2026
+No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,Δεν έχει δημιουργηθεί ακόμη περικοπή για το Instagram.
+"Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)","Αρχικό αρχείο RAW κάμερας (CR3, ARW, NEF, κ.λπ.)"
+Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,Η σελίδα δεν βρέθηκε — Marco Silva
+Pending,photos/models.py,Pending,Σε εκκρεμότητα
+Price for the RAW file download.,photos/models.py,Price for the RAW file download.,Τιμή για τη λήψη του αρχείου RAW.
+Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,Πολιτική απορρήτου - Homelab Telegram Bot
+Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,Πολιτική απορρήτου - Homelab Telegram Bot - Marco Silva
+Processing,photos/models.py,Processing,Σε επεξεργασία
+RAW file,photos/models.py,RAW file,Αρχείο RAW
+RAW price,photos/models.py,RAW price,Τιμή RAW
+Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,Επαναδημιουργία περικοπών 4:5 Instagram για τις επιλεγμένες φωτογραφίες
+Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,Αποστολή πακέτου καρουζέλ Instagram στο Telegram
+Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,Σφάλμα διακομιστή — Marco Silva
+Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,Όροι Χρήσης - Homelab Telegram Bot
+Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,Όροι Χρήσης - Homelab Telegram Bot - Marco Silva
+"Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.","Κάθετο σημείο εστίασης: 0=πάνω, 50=κέντρο, 100=κάτω."
+Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,Εάν οι συντεταγμένες εστίασης υπολογίστηκαν αυτόματα μέσω διακριτότητας ακμών.
+all,templates/emojinary/game.html,all,όλα
+aperture,photos/models.py,aperture,διάφραγμα
+auto focus detected,photos/models.py,auto focus detected,εντοπίστηκε αυτόματη εστίαση
+available for sale,photos/models.py,available for sale,διαθέσιμο προς πώληση
+camera make,photos/models.py,camera make,κατασκευαστής κάμερας
+camera model,photos/models.py,camera model,μοντέλο κάμερας
+crop focus X (%),photos/models.py,crop focus X (%),εστίαση περικοπής X (%)
+crop focus Y (%),photos/models.py,crop focus Y (%),εστίαση περικοπής Y (%)
+date,photos/models.py,date,ημερομηνία
+e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,π.χ. 9B3A1C2D
+focal length,photos/models.py,focal length,εστιακή απόσταση
 gallery extension,photos/models.py,gallery extension,
 gallery extensions,photos/models.py,gallery extensions,
 latitude,photos/models.py,latitude,
