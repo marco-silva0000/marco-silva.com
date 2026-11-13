@@ -309,6 +309,62 @@ def call_agy(
     raise RuntimeError("Exceeded max retries calling agy")
 
 
+UNIVERSAL_UNCHANGED_TERMS = {
+    "CTFs",
+    "planz",
+    "pictionary",
+    "✏️ pictionary",
+    "🎨 Emojinary",
+    "🐺 Lupus",
+    "Mafia",
+    "Limbo",
+    "blog",
+    "chat",
+    "chat:",
+    "chat...",
+    "Kayak, surf, SUP, windsurf",
+    "colemak + nvim",
+}
+
+DEFAULT_PRIORITY_LANGS = [
+    "pt",
+    "ru",
+    "pl",
+    "it",
+    "fi",
+    "fr",
+    "sv",
+    "sw",
+    "az",
+    "es",
+]
+
+LANG_ALIASES = {
+    "fn": "fi",
+}
+
+
+def normalize_lang_list(langs: list[str] | None) -> list[str] | None:
+    """Normalize language codes (e.g. 'fn' -> 'fi', and 'sw' -> ['sv', 'sw'] so both Swedish & Swahili are covered)."""
+    if not langs:
+        return None
+    result = []
+    for raw in langs:
+        code = LANG_ALIASES.get(raw.lower().strip(), raw.lower().strip())
+        if raw.lower().strip() == "fn":
+            for c in ("fi", "fr"):
+                if c not in result:
+                    result.append(c)
+        elif raw.lower().strip() == "sw":
+            for c in ("sv", "sw"):
+                if c not in result:
+                    result.append(c)
+        else:
+            if code not in result:
+                result.append(code)
+    return result
+
+
 def is_untranslated(val: str, en_val: str, lang_code: str) -> bool:
     """Determine if a string needs translation."""
     v = val.strip()
@@ -317,9 +373,9 @@ def is_untranslated(val: str, en_val: str, lang_code: str) -> bool:
         return True
     if lang_code == "en":
         return False
-    # If it is identical to English fallback, check if it's not a short symbol/emoji
+    # If it is identical to English fallback, check if it's not a short symbol or universal brand term
     if v == en:
-        if len(en) <= 3 or en.startswith("🐺") or en.startswith("✏️") or en.startswith("+"):
+        if len(en) <= 3 or en in UNIVERSAL_UNCHANGED_TERMS:
             return False
         return True
     return False
@@ -328,17 +384,15 @@ def is_untranslated(val: str, en_val: str, lang_code: str) -> bool:
 def process_csv_file(
     csv_path: Path,
     target_langs: list[str] | None = None,
-    chunk_size: int = 20,
+    chunk_size: int = 80,
     model: str | None = None,
     effort: str | None = None,
-    timeout: int = 180,
+    timeout: int = 360,
     dry_run: bool = False,
     sync_po: bool = True,
     max_chunks: int | None = None,
 ) -> int:
     """Process a single CSV file, translating untranslated entries chunk by chunk."""
-    print(f"\n📂 Processing CSV: {csv_path.name}")
-
     with open(csv_path, "r", encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         fieldnames = list(reader.fieldnames or [])
@@ -348,16 +402,19 @@ def process_csv_file(
         print(f"  ❌ Skipping {csv_path.name}: missing 'msgid' column.")
         return 0
 
-    # Determine languages present in this CSV
+    # Determine languages present in this CSV in priority order
     avail_langs = [col for col in fieldnames if col not in ("msgid", "context", "en")]
     if target_langs:
-        langs_to_process = [code for code in avail_langs if code in target_langs]
+        langs_to_process = [code for code in target_langs if code in avail_langs]
     else:
-        langs_to_process = avail_langs
+        priority_first = [code for code in DEFAULT_PRIORITY_LANGS if code in avail_langs]
+        remaining = [code for code in avail_langs if code not in priority_first]
+        langs_to_process = priority_first + remaining
 
     if not langs_to_process:
-        print(f"  ℹ️  No matching target language columns found in {csv_path.name}.")
         return 0
+
+    print(f"\n📂 Processing CSV: {csv_path.name}")
 
     total_translated = 0
 
@@ -445,7 +502,7 @@ def process_csv_file(
 
 
 def sync_csv_to_po(lang: str, rows: list[dict]):
-    """Synchronize rows for a language into its django.po and recompile django.mo."""
+    """Synchronize rows for a language into its django.po, recompile django.mo, and update per-lang CSV if present."""
     try:
         po_path = get_locale_dir(lang) / "LC_MESSAGES" / "django.po"
         catalog = parse_po_file(po_path)
@@ -458,6 +515,22 @@ def sync_csv_to_po(lang: str, rows: list[dict]):
                 updated = True
         if updated:
             write_po_file(lang, catalog, po_path)
+
+        # Also keep per-language translations_<lang>.csv in sync if it exists
+        per_lang_csv = PROJECT_ROOT / "locale" / f"translations_{lang}.csv"
+        if per_lang_csv.exists():
+            with open(per_lang_csv, "w", encoding="utf-8-sig", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=["msgid", "context", "en", lang])
+                writer.writeheader()
+                for r in rows:
+                    writer.writerow(
+                        {
+                            "msgid": r.get("msgid", ""),
+                            "context": r.get("context", ""),
+                            "en": r.get("en", ""),
+                            lang: r.get(lang, ""),
+                        }
+                    )
     except Exception as e:
         print(f"      ⚠️  Warning: could not sync to .po for {lang}: {e}")
 
@@ -565,18 +638,15 @@ def discover_files(
     po_files = []
 
     if file_type in ("auto", "csv", "all"):
-        # Match per-language translations_*.csv in current dir first
-        per_lang = [p for p in target_dir.glob("translations_*.csv") if p.name != "translations_master.csv"]
-        csv_files.extend(sorted(per_lang))
-
-        # Add translations_master.csv last (if present) so it benefits from per-language updates
+        # Prefer translations_master.csv if present (contains all 64 languages in one unified table)
         master_path = target_dir / "translations_master.csv"
         if master_path.exists():
             csv_files.append(master_path)
-
-        # Match other .csv files if no translations_*.csv
-        if not csv_files:
-            csv_files.extend(sorted(target_dir.glob("*.csv")))
+        else:
+            per_lang = [p for p in target_dir.glob("translations_*.csv")]
+            csv_files.extend(sorted(per_lang))
+            if not csv_files:
+                csv_files.extend(sorted(target_dir.glob("*.csv")))
 
     if file_type in ("po", "all") or (file_type == "auto" and not csv_files):
         # Match LC_MESSAGES/django.po across subdirectories
@@ -633,8 +703,8 @@ def main():
     parser.add_argument(
         "--chunk-size",
         type=int,
-        default=20,
-        help="Number of strings to translate per agy call (default: 20).",
+        default=80,
+        help="Number of strings to translate per agy call (default: 80).",
     )
     parser.add_argument(
         "--model",
@@ -650,8 +720,8 @@ def main():
     parser.add_argument(
         "--timeout",
         type=int,
-        default=180,
-        help="Timeout in seconds for each agy call (default: 180s).",
+        default=360,
+        help="Timeout in seconds for each agy call (default: 360s).",
     )
     parser.add_argument(
         "--max-chunks",
@@ -671,6 +741,7 @@ def main():
     )
 
     args = parser.parse_args()
+    args.lang = normalize_lang_list(args.lang)
 
     target_dir = Path(args.dir).resolve()
     print("==================================================================")

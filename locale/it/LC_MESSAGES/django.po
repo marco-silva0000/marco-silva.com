@@ -36,7 +36,7 @@ msgid "10 Minutes"
 msgstr "10 Minuti"
 
 msgid "1st guess ends round"
-msgstr "1st guess ends round"
+msgstr "La 1ª risposta esatta chiude il round"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Fazione / Squadra (Annuncia \"Città\", \"Lupi\", \"Neutrale\")"
@@ -111,7 +111,7 @@ msgid "Active Lupus Rooms"
 msgstr "Stanze Lupus Attive"
 
 msgid "Add Hint"
-msgstr "Add Hint"
+msgstr "Aggiungi indizio"
 
 msgid "All Active Rooms"
 msgstr "Tutte le Stanze Attive"
@@ -120,10 +120,10 @@ msgid "All Games"
 msgstr "Tutti i Giochi"
 
 msgid "All guesses & hints appear here"
-msgstr "All guesses & hints appear here"
+msgstr "Tutti i tentativi e gli indizi appaiono qui"
 
 msgid "Allow custom words"
-msgstr "Allow custom words"
+msgstr "Consenti parole personalizzate"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Applica la licenza Creative Commons Attribuzione-Non commerciale-Condividi allo stesso modo e la filigrana."
@@ -132,13 +132,13 @@ msgid "Back to Active Lupus Rooms"
 msgstr "Torna alle Stanze Lupus Attive"
 
 msgid "Backspace"
-msgstr "Backspace"
+msgstr "Cancella"
 
 msgid "Browse Active Lupus Rooms"
 msgstr "Sfoglia Stanze Lupus Attive"
 
 msgid "Build Your Emoji Clue:"
-msgstr "Build Your Emoji Clue:"
+msgstr "Crea il tuo indizio con le emoji:"
 
 msgid "CC BY-NC-SA license"
 msgstr "Licenza CC BY-NC-SA"
@@ -162,7 +162,7 @@ msgid "Conferences"
 msgstr "Conferenze"
 
 msgid "Copy"
-msgstr "Copy"
+msgstr "Copia"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "Crea Stanza Lupus / Licantropo"
@@ -195,7 +195,7 @@ msgid "Discussion Round Timer"
 msgstr "Timer Discussione"
 
 msgid "Display Name"
-msgstr "Display Name"
+msgstr "Nome visualizzato"
 
 msgid "Doctor Shields From Sniper:"
 msgstr "Il Dottore Protegge dallo Sniper:"
@@ -222,7 +222,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Inserisci Codice Stanza (es. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr "Export JSON"
+msgstr "Esporta JSON"
 
 msgid "Failed"
 msgstr "Fallito"
@@ -279,7 +279,7 @@ msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Punto focale orizzontale: 0=sinistra, 50=centro, 100=destra."
 
 msgid "Host Game Settings"
-msgstr "Host Game Settings"
+msgstr "Impostazioni partita (Host)"
 
 msgid "I code, take pics and many other things"
 msgstr "Sviluppo software, scatto foto e molto altro"
@@ -309,10 +309,10 @@ msgid "Invalid Game Master secret key."
 msgstr "Chiave segreta del Game Master non valida."
 
 msgid "Invite Players to Room"
-msgstr "Invite Players to Room"
+msgstr "Invita giocatori nella stanza"
 
 msgid "Invite QR"
-msgstr "Invite QR"
+msgstr "QR d'invito"
 
 msgid "Join"
 msgstr "Entra"
@@ -360,7 +360,7 @@ msgid "Listening"
 msgstr "Ascolto"
 
 msgid "Live Chat & Guess Stream"
-msgstr "Live Chat & Guess Stream"
+msgstr "Chat dal vivo e flusso tentativi"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "I giocatori vivi ed eliminati inviano pettegolezzi letti ad alta voce all'alba."
@@ -390,7 +390,7 @@ msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr "Match Replay & Attempt Timeline"
+msgstr "Replay partita e cronologia tentativi"
 
 msgid "Midgame Arrivals:"
 msgstr "Arrivi a Partita in Corso:"
@@ -417,7 +417,7 @@ msgid "Open GM Cockpit"
 msgstr "Apri Cabina GM"
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr "Or type your own custom prompt/phrase..."
+msgstr "Oppure scrivi la tua parola o frase personalizzata..."
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "File RAW originale della fotocamera (CR3, ARW, NEF, ecc.)"
@@ -450,7 +450,7 @@ msgid "Pick the name others at the table know you by."
 msgstr "Scegli il nome con cui ti conoscono gli altri al tavolo."
 
 msgid "Player Profile & Personal QR"
-msgstr "Player Profile & Personal QR"
+msgstr "Profilo giocatore e QR personale"
 
 msgid "Please enter a player name."
 msgstr "Inserisci un nome giocatore."
@@ -507,7 +507,7 @@ msgid "Replay"
 msgstr "Replay"
 
 msgid "Reroll"
-msgstr "Reroll"
+msgstr "Cambia"
 
 msgid "Return as %(name)s"
 msgstr "Ritorna come %(name)s"
@@ -516,10 +516,10 @@ msgid "Reveal Roles on Death:"
 msgstr "Rivela Ruoli alla Morte:"
 
 msgid "Room Chat"
-msgstr "Room Chat"
+msgstr "Chat della stanza"
 
 msgid "Room Code"
-msgstr "Room Code"
+msgstr "Codice stanza"
 
 msgid "Room Code:"
 msgstr "Codice Stanza:"
@@ -540,7 +540,7 @@ msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "Il codice stanza '%(code)s' non è stato trovato o non è più attivo."
 
 msgid "Rooms"
-msgstr "Rooms"
+msgstr "Stanze"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Le stanze vengono create su richiesta e restano attive per 24 ore. Avvia una nuova sessione e invita il tuo gruppo!"
@@ -549,22 +549,22 @@ msgid "Round"
 msgstr "Round"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr "Round-by-Round Replay & Attempt Log"
+msgstr "Replay round per round e registro tentativi"
 
 msgid "Running"
 msgstr "In Corso"
 
 msgid "Save Name"
-msgstr "Save Name"
+msgstr "Salva nome"
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr "Scan this QR code with any phone camera to join immediately:"
+msgstr "Scansiona questo codice QR con la fotocamera del telefono per unirti subito:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr "Scan this to move your session and score to another phone or browser:"
+msgstr "Scansiona questo codice per trasferire la sessione e il punteggio su un altro telefono o browser:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
-msgstr "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr "Cerca emoji per nome (es. fire, crown, heart)..."
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "Invia pacchetto carosello Instagram a Telegram"
@@ -591,7 +591,7 @@ msgid "Speaking"
 msgstr "Parlato"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr "Spectator Mode (Skip my turns)"
+msgstr "Modalità spettatore (Salta i miei turni)"
 
 msgid "Staggering Doctor:"
 msgstr "Dottore Alternato:"
@@ -603,7 +603,7 @@ msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Fasi notturne guidate passo dopo passo, chiamate di bluff e gestione voti."
 
 msgid "Submit"
-msgstr "Submit"
+msgstr "Invia"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Punti di Forza del Lupus da Tavolo"
@@ -618,7 +618,7 @@ msgid "Table-first party game with secret roles, live voting, Town Gazette, and 
 msgstr "Party game da tavolo con ruoli segreti, votazioni dal vivo, Gazzetta della Città e cabina di regia per il GM."
 
 msgid "Tap emojis below..."
-msgstr "Tap emojis below..."
+msgstr "Tocca le emoji qui sotto..."
 
 msgid "Techy"
 msgstr "Tecnologia"
@@ -639,7 +639,7 @@ msgid "Theme & Terms"
 msgstr "Tema e Termini"
 
 msgid "Toggle"
-msgstr "Toggle"
+msgstr "Attiva/Disattiva"
 
 msgid "Town Gazette:"
 msgstr "Gazzetta della Città:"
@@ -648,16 +648,16 @@ msgid "Town Voting"
 msgstr "Votazione Cittadina"
 
 msgid "Type a message or guess..."
-msgstr "Type a message or guess..."
+msgstr "Scrivi un messaggio o prova a indovinare..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr "Type your guess (or use the chat box)..."
+msgstr "Scrivi la tua risposta (o usa la chat)..."
 
 msgid "Unlock Room"
 msgstr "Sblocca Stanza"
 
 msgid "Use Prompt"
-msgstr "Use Prompt"
+msgstr "Usa frase"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Punto focale verticale: 0=alto, 50=centro, 100=basso."
@@ -687,10 +687,10 @@ msgid "Your Name / Nickname"
 msgstr "Il Tuo Nome / Nickname"
 
 msgid "Your Personal Reconnect QR"
-msgstr "Your Personal Reconnect QR"
+msgstr "Il tuo QR personale di riconnessione"
 
 msgid "Your Secret Phrase"
-msgstr "Your Secret Phrase"
+msgstr "La tua frase segreta"
 
 msgid "adjective"
 msgstr "aggettivo"
@@ -738,7 +738,7 @@ msgid "clear"
 msgstr "cancella"
 
 msgid "collective prep + hints"
-msgstr "collective prep + hints"
+msgstr "preparazione collettiva + indizi"
 
 msgid "create"
 msgstr "crea"
@@ -939,19 +939,19 @@ msgid "press the button to get a word"
 msgstr "premi il pulsante per ottenere una parola"
 
 msgid "private (hide guesses)"
-msgstr "private (hide guesses)"
+msgstr "privata (nascondi tentativi)"
 
 msgid "processing status"
 msgstr "stato di elaborazione"
 
 msgid "public (show guesses)"
-msgstr "public (show guesses)"
+msgstr "pubblica (mostra tentativi)"
 
 msgid "request"
 msgstr "richiedi"
 
 msgid "rerolls:"
-msgstr "rerolls:"
+msgstr "cambi:"
 
 msgid "reveal"
 msgstr "rivela"

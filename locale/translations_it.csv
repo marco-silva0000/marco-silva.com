@@ -1,94 +1,371 @@
 ﻿msgid,context,en,it
++ Create Room,"scripts/generate_locales.py, templates/lupus/hub.html",+ Create Room,+ Crea Stanza
++ Host New Room,"scripts/generate_locales.py, templates/gamerooms/room_list.html",+ Host New Room,+ Crea Nuova Stanza
++ New Game,"scripts/generate_locales.py, templates/lupus/hub.html",+ New Game,+ Nuova Partita
++ create room,"scripts/generate_locales.py, templates/gamerooms/room_list.html",+ create room,+ crea stanza
+"0 — Secret (Closed graveyard, roles concealed until game over)","scripts/generate_locales.py, templates/lupus/create.html","0 — Secret (Closed graveyard, roles concealed until game over)","0 — Segreto (Cimitero chiuso, ruoli nascosti fino a fine partita)"
+1 day,templates/tools/partials/calendar.html,1 day,1 giorno
+"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")",scripts/generate_locales.py,"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")","1 — Solo Allineamento (Annuncia ""BENE"" vs ""MALE"")"
 1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. Accettazione dei Termini
 1. Overview,templates/bot_privacy.html,1. Overview,1. Panoramica
+10 Minutes,"scripts/generate_locales.py, templates/lupus/create.html",10 Minutes,10 Minuti
+1st guess ends round,templates/emojinary/game.html,1st guess ends round,La 1ª risposta esatta chiude il round
+"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")",scripts/generate_locales.py,"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")","2 — Fazione / Squadra (Annuncia ""Città"", ""Lupi"", ""Neutrale"")"
 2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. Informazioni a cui Accediamo
 2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. Uso Consentito
+3 Minutes (Fast),"scripts/generate_locales.py, templates/lupus/create.html",3 Minutes (Fast),3 Minuti (Veloce)
+3 day,templates/tools/partials/calendar.html,3 day,3 giorni
+3 — Full Role Card (Announces exact card name and icon),"scripts/generate_locales.py, templates/lupus/create.html",3 — Full Role Card (Announces exact card name and icon),3 — Carta Ruolo Completa (Annuncia nome esatto e icona)
 3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,3. Archiviazione e Sicurezza dei Dati
 3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,3. Esclusione di Garanzie
+30 Seconds (Standard),"scripts/generate_locales.py, templates/lupus/create.html",30 Seconds (Standard),30 Secondi (Standard)
 4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,4. Limitazione di Responsabilità
 4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,4. Condivisione con Terze Parti
+404 — page not found,templates/404.html,404 — page not found,404 — pagina non trovata
+45 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",45 Seconds,45 Secondi
 4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,Ritaglio verticale 4:5 (1080x1350) per i caroselli Instagram.
+5 Minutes (Standard),"scripts/generate_locales.py, templates/lupus/create.html",5 Minutes (Standard),5 Minuti (Standard)
 5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,5. Modifiche e Risoluzione
 5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,5. Revoca dell'Accesso e Cancellazione dei Dati
+500 — something went wrong,templates/500.html,500 — something went wrong,500 — qualcosa è andato storto
 6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,6. Contatti
+60 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",60 Seconds,60 Secondi
+7 Minutes (Deliberate),"scripts/generate_locales.py, templates/lupus/create.html",7 Minutes (Deliberate),7 Minuti (Riflessivo)
+Access Denied,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Access Denied,Accesso Negato
+Active,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Active,Attivo
+Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/hub.html",Active Lupus Rooms,Stanze Lupus Attive
+Add Hint,templates/emojinary/game.html,Add Hint,Aggiungi indizio
+All Active Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",All Active Rooms,Tutte le Stanze Attive
+All Games,"scripts/generate_locales.py, templates/lupus/hub.html",All Games,Tutti i Giochi
+All guesses & hints appear here,templates/emojinary/game.html,All guesses & hints appear here,Tutti i tentativi e gli indizi appaiono qui
+Allow custom words,templates/emojinary/game.html,Allow custom words,Consenti parole personalizzate
 Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,Applica la licenza Creative Commons Attribuzione-Non commerciale-Condividi allo stesso modo e la filigrana.
+Back to Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/create.html",Back to Active Lupus Rooms,Torna alle Stanze Lupus Attive
+Backspace,templates/emojinary/game.html,Backspace,Cancella
+Browse Active Lupus Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Browse Active Lupus Rooms,Sfoglia Stanze Lupus Attive
+Build Your Emoji Clue:,templates/emojinary/game.html,Build Your Emoji Clue:,Crea il tuo indizio con le emoji:
 CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,Licenza CC BY-NC-SA
+CODE,"scripts/generate_locales.py, templates/lupus/hub.html",CODE,CODICE
 CTFs,templates/cv.html,CTFs,CTF
+Calendar navigation,templates/tools/partials/calendar.html,Calendar navigation,Navigazione del calendario
+"Civilians, Mobsters, Cop","scripts/generate_locales.py, templates/lupus/create.html","Civilians, Mobsters, Cop","Cittadini, Mafiosi, Poliziotto"
+Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Cockpit,Cabina
+Conferences,templates/cv.html,Conferences,Conferenze
+Copy,templates/emojinary/game.html,Copy,Copia
+Create Lupus / Werewolf Room,"scripts/generate_locales.py, templates/lupus/create.html",Create Lupus / Werewolf Room,Crea Stanza Lupus / Licantropo
+Create the First Lupus Room,"scripts/generate_locales.py, templates/lupus/hub.html",Create the First Lupus Room,Crea la Prima Stanza Lupus
 Curated,photos/models.py,Curated,Curate
 Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),Tastiere split personalizzate (colemak + nvim)
 Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,Data del viaggio o dello shooting.
+Day,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Day,Giorno
 Day Trip,photos/models.py,Day Trip,Gita giornaliera
+Defense Timer,"scripts/generate_locales.py, templates/lupus/create.html",Defense Timer,Timer Difesa
+Discussion,"lupus/views.py, scripts/generate_locales.py",Discussion,Discussione
+Discussion Round Timer,"scripts/generate_locales.py, templates/lupus/create.html",Discussion Round Timer,Timer Discussione
+Display Name,templates/emojinary/game.html,Display Name,Nome visualizzato
+Doctor Shields From Sniper:,"scripts/generate_locales.py, templates/lupus/create.html",Doctor Shields From Sniper:,Il Dottore Protegge dallo Sniper:
 Done,photos/models.py,Done,Completato
+Education,templates/cv.html,Education,Istruzione
 Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),Elettronica/embedded (un po' di Rust embedded)
+English,templates/cv.html,English,Inglese
+Enter Game,"scripts/generate_locales.py, templates/lupus/join.html",Enter Game,Entra nel Gioco
+Enter Room,"scripts/generate_locales.py, templates/lupus/hub.html",Enter Room,Entra nella Stanza
+Enter Room Code (e.g. 9B3A1C2D),"scripts/generate_locales.py, templates/gamerooms/room_list.html",Enter Room Code (e.g. 9B3A1C2D),Inserisci Codice Stanza (es. 9B3A1C2D)
+Export JSON,templates/emojinary/game.html,Export JSON,Esporta JSON
 Failed,photos/models.py,Failed,Fallito
+Finished,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Finished,Concluso
 GM,"scripts/generate_locales.py, templates/lupus/hub.html",GM,GM
 GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,Plancia del Master
+GM Director Cockpit:,"scripts/generate_locales.py, templates/lupus/hub.html",GM Director Cockpit:,Cabina di Regia del Game Master:
+Game Master Display Name,"scripts/generate_locales.py, templates/lupus/create.html",Game Master Display Name,Nome Visualizzato del Game Master
+Game Over,"lupus/views.py, scripts/generate_locales.py",Game Over,Fine Partita
+Game Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Game Rooms,Sale Giochi
+Game Rules & Timers,"scripts/generate_locales.py, templates/lupus/create.html",Game Rules & Timers,Regole di Gioco & Timer
+Game not found.,"lupus/views.py, scripts/generate_locales.py",Game not found.,Partita non trovata.
+Game room does not exist.,"lupus/views.py, scripts/generate_locales.py",Game room does not exist.,La stanza di gioco non esiste.
 "Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license","Radioamatore, licenza UK Foundation"
+Have an 8-character code from your Game Master? Enter it here to jump straight in:,"scripts/generate_locales.py, templates/lupus/hub.html",Have an 8-character code from your Game Master? Enter it here to jump straight in:,Hai un codice di 8 caratteri dal tuo Game Master? Inseriscilo qui per entrare direttamente:
 Hiking and climbing,templates/cv.html,Hiking and climbing,Escursionismo e arrampicata
+Hobbies,templates/cv.html,Hobbies,Hobby
+Hold-to-Peek Secret Roles:,"scripts/generate_locales.py, templates/lupus/hub.html",Hold-to-Peek Secret Roles:,Tieni Premuto per i Ruoli Segreti:
 Home automation and homelab,templates/cv.html,Home automation and homelab,Domotica e homelab
 "Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.","Punto focale orizzontale: 0=sinistra, 50=centro, 100=destra."
+Host Game Settings,templates/emojinary/game.html,Host Game Settings,Impostazioni partita (Host)
+"I code, take pics and many other things",templates/index.html,"I code, take pics and many other things","Sviluppo software, scatto foto e molto altro"
 ISO,photos/models.py,ISO,ISO
+"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",scripts/generate_locales.py,"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).","Se attivo, la guardia del Dottore può salvare un lupo colpito dallo Sniper. (Disattivato = lo sparo penetra la guardia)."
+"If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).","scripts/generate_locales.py, templates/lupus/create.html","If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).","Se impostata, l'accesso tramite QR code autentica i giocatori automaticamente. (💡 Trucco demo: nome GM contenente Marco e password test riempiono 10 giocatori per il test)."
+In Progress,"lupus/views.py, scripts/generate_locales.py",In Progress,In Corso
+Incorrect room password.,"lupus/views.py, scripts/generate_locales.py",Incorrect room password.,Password della stanza non corretta.
 Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,Anteprima Instagram 4:5
 Instagram 4:5 image,photos/models.py,Instagram 4:5 image,Immagine Instagram 4:5
+Invalid Game Master secret key.,"lupus/views.py, scripts/generate_locales.py",Invalid Game Master secret key.,Chiave segreta del Game Master non valida.
+Invite Players to Room,templates/emojinary/game.html,Invite Players to Room,Invita giocatori nella stanza
+Invite QR,templates/emojinary/game.html,Invite QR,QR d'invito
+Join,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Join,Entra
+Join Game,"scripts/generate_locales.py, templates/lupus/hub.html",Join Game,Entra nel Gioco
+Join Lupus Game,"scripts/generate_locales.py, templates/lupus/join.html",Join Lupus Game,Entra nel Gioco Lupus
+Join as Player,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Join as Player,Entra come Giocatore
+Join with Room Code,"scripts/generate_locales.py, templates/lupus/hub.html",Join with Room Code,Entra con Codice Stanza
 "Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","Kayak, surf, SUP, windsurf"
+Languages,templates/cv.html,Languages,Lingue
 "Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",Ultimo aggiornamento: 27 ottobre 2026
+"Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","scripts/generate_locales.py, templates/lupus/hub.html","Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","I ritardatari entrano come Viaggiatori Confermati, Fantasmi o Successori."
+Launch Lupus Room,"scripts/generate_locales.py, templates/lupus/create.html",Launch Lupus Room,Avvia Stanza Lupus
+Leave empty for public join,"scripts/generate_locales.py, templates/lupus/create.html",Leave empty for public join,Lascia vuoto per accesso pubblico
 Limbo,"lupus/views.py, scripts/generate_locales.py",Limbo,Limbo
+Limbo & Angel Mechanic:,"scripts/generate_locales.py, templates/lupus/create.html",Limbo & Angel Mechanic:,Meccanica di Limbo & Angelo:
+Limbo Resolution,"lupus/views.py, scripts/generate_locales.py",Limbo Resolution,Risoluzione del Limbo
+Listening,templates/cv.html,Listening,Ascolto
+Live Chat & Guess Stream,templates/emojinary/game.html,Live Chat & Guess Stream,Chat dal vivo e flusso tentativi
+Living & fallen players submit morning rumors read aloud at dawn.,"scripts/generate_locales.py, templates/lupus/hub.html",Living & fallen players submit morning rumors read aloud at dawn.,I giocatori vivi ed eliminati inviano pettegolezzi letti ad alta voce all'alba.
 Lobby,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Lobby,Lobby
+Lobby (Waiting for Players),"lupus/views.py, scripts/generate_locales.py",Lobby (Waiting for Players),Lobby (In attesa dei giocatori)
+Lupus Active Rooms & Hub,"scripts/generate_locales.py, templates/lupus/join.html",Lupus Active Rooms & Hub,Stanze Lupus Attive & Hub
+Lupus Game,scripts/generate_locales.py,Lupus Game,Partita Lupus
+Lupus Party Game,"scripts/generate_locales.py, templates/lupus/create.html",Lupus Party Game,Party Game Lupus
+Lupus in Tabula - Active Rooms & Game Hub,"scripts/generate_locales.py, templates/lupus/hub.html",Lupus in Tabula - Active Rooms & Game Hub,Lupus in Tabula - Stanze Attive & Hub di Gioco
+Lupus in Tabula / Werewolf,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Lupus in Tabula / Werewolf,Lupus in Tabula / Licantropo
 Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,Mafia
+Match Replay & Attempt Timeline,templates/emojinary/game.html,Match Replay & Attempt Timeline,Replay partita e cronologia tentativi
+Midgame Arrivals:,"scripts/generate_locales.py, templates/lupus/hub.html",Midgame Arrivals:,Arrivi a Partita in Corso:
+Next day,templates/tools/partials/calendar.html,Next day,Giorno successivo
+Night,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Night,Notte
+No Active Lupus Games Right Now,"scripts/generate_locales.py, templates/lupus/hub.html",No Active Lupus Games Right Now,Nessuna Partita Lupus Attiva in Questo Momento
 No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,Nessun ritaglio Instagram ancora generato.
+Open,"lupus/views.py, scripts/generate_locales.py",Open,Aperta
+Open (Lobby),"lupus/views.py, scripts/generate_locales.py",Open (Lobby),Aperta (Lobby)
+Open GM Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Open GM Cockpit,Apri Cabina GM
+Or type your own custom prompt/phrase...,templates/emojinary/game.html,Or type your own custom prompt/phrase...,Oppure scrivi la tua parola o frase personalizzata...
 "Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)","File RAW originale della fotocamera (CR3, ARW, NEF, ecc.)"
+Other,templates/cv.html,Other,Altro
+Outdoors,templates/cv.html,Outdoors,All'aperto
 Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,Pagina non trovata — Marco Silva
 Password,"scripts/generate_locales.py, templates/lupus/hub.html",Password,Password
+Password Protected,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Password Protected,Protetto da Password
+Past & Finished Games,"scripts/generate_locales.py, templates/lupus/hub.html",Past & Finished Games,Partite Passate & Concluse
 Pending,photos/models.py,Pending,In attesa
+Photography,templates/cv.html,Photography,Fotografia
+Pick the name others at the table know you by.,"scripts/generate_locales.py, templates/lupus/join.html",Pick the name others at the table know you by.,Scegli il nome con cui ti conoscono gli altri al tavolo.
+Player Profile & Personal QR,templates/emojinary/game.html,Player Profile & Personal QR,Profilo giocatore e QR personale
+Please enter a player name.,"lupus/views.py, scripts/generate_locales.py",Please enter a player name.,Inserisci un nome giocatore.
+Please enter a valid room code.,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Please enter a valid room code.,Inserisci un codice stanza valido.
+"Portuguese · Helsinki, Finland",templates/cv.html,"Portuguese · Helsinki, Finland","Portoghese · Helsinki, Finlandia"
+Previous day,templates/tools/partials/calendar.html,Previous day,Giorno precedente
 Price for the RAW file download.,photos/models.py,Price for the RAW file download.,Prezzo per il download del file RAW.
+Privacy Policy,templates/bot_privacy.html,Privacy Policy,Informativa sulla Privacy
 Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,Informativa sulla Privacy - Bot Telegram Homelab
 Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,Informativa sulla Privacy - Bot Telegram Homelab - Marco Silva
+Privacy shield keeps cards concealed from prying eyes at the table.,"scripts/generate_locales.py, templates/lupus/hub.html",Privacy shield keeps cards concealed from prying eyes at the table.,La schermata di riservatezza nasconde le carte dagli sguardi indiscreti al tavolo.
 Processing,photos/models.py,Processing,In elaborazione
+Public,"scripts/generate_locales.py, templates/lupus/hub.html",Public,Pubblico
+RAW available for purchase,templates/photos/photo_viewer.html,RAW available for purchase,RAW disponibile per l'acquisto
 RAW file,photos/models.py,RAW file,File RAW
 RAW price,photos/models.py,RAW price,Prezzo RAW
+Reading,templates/cv.html,Reading,Lettura
+Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,Party game multigiocatore in tempo reale nel browser. Nessun account richiesto: unisciti e gioca con gli amici.
 Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,Rigenera i ritagli Instagram 4:5 per le foto selezionate
-Replay,"scripts/generate_locales.py, templates/lupus/hub.html",Replay,Replay
+Replay,"scripts/generate_locales.py, templates/emojinary/game.html, templates/lupus/hub.html",Replay,Replay
+Reroll,templates/emojinary/game.html,Reroll,Cambia
+Return as %(name)s,scripts/generate_locales.py,Return as %(name)s,Ritorna come %(name)s
+Reveal Roles on Death:,"scripts/generate_locales.py, templates/lupus/create.html",Reveal Roles on Death:,Rivela Ruoli alla Morte:
+Room Chat,templates/emojinary/game.html,Room Chat,Chat della stanza
+Room Code,templates/emojinary/game.html,Room Code,Codice stanza
+Room Code:,"scripts/generate_locales.py, templates/lupus/join.html",Room Code:,Codice Stanza:
+Room Password,"scripts/generate_locales.py, templates/lupus/join.html",Room Password,Password Stanza
+Room Password (optional),"scripts/generate_locales.py, templates/lupus/create.html",Room Password (optional),Password Stanza (opzionale)
+Room Setup,"scripts/generate_locales.py, templates/lupus/create.html",Room Setup,Configurazione Stanza
+Room Title,"scripts/generate_locales.py, templates/lupus/create.html",Room Title,Titolo Stanza
+Room code '%(code)s' was not found or is no longer active.,scripts/generate_locales.py,Room code '%(code)s' was not found or is no longer active.,Il codice stanza '%(code)s' non è stato trovato o non è più attivo.
+Rooms,templates/emojinary/game.html,Rooms,Stanze
+Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,"scripts/generate_locales.py, templates/lupus/hub.html",Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,Le stanze vengono create su richiesta e restano attive per 24 ore. Avvia una nuova sessione e invita il tuo gruppo!
+Round,gamerooms/views.py,Round,Round
+Round-by-Round Replay & Attempt Log,templates/emojinary/game.html,Round-by-Round Replay & Attempt Log,Replay round per round e registro tentativi
+Running,"lupus/views.py, scripts/generate_locales.py",Running,In Corso
+Save Name,templates/emojinary/game.html,Save Name,Salva nome
+Scan this QR code with any phone camera to join immediately:,templates/emojinary/game.html,Scan this QR code with any phone camera to join immediately:,Scansiona questo codice QR con la fotocamera del telefono per unirti subito:
+Scan this to move your session and score to another phone or browser:,templates/emojinary/game.html,Scan this to move your session and score to another phone or browser:,Scansiona questo codice per trasferire la sessione e il punteggio su un altro telefono o browser:
+"Search emoji by name (e.g. fire, crown, heart)...",templates/emojinary/game.html,"Search emoji by name (e.g. fire, crown, heart)...","Cerca emoji per nome (es. fire, crown, heart)..."
 Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,Invia pacchetto carosello Instagram a Telegram
 Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,Errore del Server — Marco Silva
+Set,templates/emojinary/game.html,Set,Set
+Silent Phase,"lupus/views.py, scripts/generate_locales.py",Silent Phase,Fase Silenziosa
+Skills,templates/cv.html,Skills,Competenze
+"Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!","scripts/generate_locales.py, templates/lupus/create.html","Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!","I giocatori eliminati entrano nel Limbo invece di morire subito. Se indovinano chi è l'Angelo, risorgono!"
+Spanish,templates/cv.html,Spanish,Spagnolo
+Speaking,templates/cv.html,Speaking,Parlato
+Spectator Mode (Skip my turns),templates/emojinary/game.html,Spectator Mode (Skip my turns),Modalità spettatore (Salta i miei turni)
+Staggering Doctor:,"scripts/generate_locales.py, templates/lupus/create.html",Staggering Doctor:,Dottore Alternato:
+Starting Role Deck Preset,"scripts/generate_locales.py, templates/lupus/create.html",Starting Role Deck Preset,Preset Mazzo Ruoli Iniziale
+"Step-by-step night stages, bluffing calls, and voting manager.","scripts/generate_locales.py, templates/lupus/hub.html","Step-by-step night stages, bluffing calls, and voting manager.","Fasi notturne guidate passo dopo passo, chiamate di bluff e gestione voti."
+Submit,templates/emojinary/game.html,Submit,Invia
+Table-First Lupus Highlights,"scripts/generate_locales.py, templates/lupus/hub.html",Table-First Lupus Highlights,Punti di Forza del Lupus da Tavolo
+Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,"scripts/generate_locales.py, templates/lupus/hub.html",Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,"Party game da tavolo stile Licantropo & Mafia. Nessun account richiesto. Ogni giocatore usa il telefono per i ruoli segreti e i voti, mentre tu gestisci la stanza come Game Master."
+"Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.","scripts/generate_locales.py, templates/lupus/create.html","Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.",Party game ibrido da tavolo. Nessun account richiesto. I giocatori entrano tramite QR code e tu dirigi come Game Master.
+"Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.","scripts/generate_locales.py, templates/gamerooms/room_list.html","Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.","Party game da tavolo con ruoli segreti, votazioni dal vivo, Gazzetta della Città e cabina di regia per il GM."
+Tap emojis below...,templates/emojinary/game.html,Tap emojis below...,Tocca le emoji qui sotto...
+Techy,templates/cv.html,Techy,Tecnologia
+Terms of Service,templates/bot_terms.html,Terms of Service,Termini di Servizio
 Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,Termini di Servizio - Bot Telegram Homelab
 Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,Termini di Servizio - Bot Telegram Homelab - Marco Silva
+The Doctor / Guard cannot protect the same person two consecutive nights.,"scripts/generate_locales.py, templates/lupus/create.html",The Doctor / Guard cannot protect the same person two consecutive nights.,Il Dottore / Guardia non può proteggere la stessa persona per due notti consecutive.
+Theme & Terms,"scripts/generate_locales.py, templates/lupus/create.html",Theme & Terms,Tema e Termini
+Toggle,templates/emojinary/game.html,Toggle,Attiva/Disattiva
+Town Gazette:,"scripts/generate_locales.py, templates/lupus/hub.html",Town Gazette:,Gazzetta della Città:
+Town Voting,"lupus/views.py, scripts/generate_locales.py",Town Voting,Votazione Cittadina
+Type a message or guess...,templates/emojinary/game.html,Type a message or guess...,Scrivi un messaggio o prova a indovinare...
+Type your guess (or use the chat box)...,templates/emojinary/game.html,Type your guess (or use the chat box)...,Scrivi la tua risposta (o usa la chat)...
+Unlock Room,"scripts/generate_locales.py, templates/lupus/join.html",Unlock Room,Sblocca Stanza
+Use Prompt,templates/emojinary/game.html,Use Prompt,Usa frase
 "Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.","Punto focale verticale: 0=alto, 50=centro, 100=basso."
+"Villagers, Wolves, Seer","scripts/generate_locales.py, templates/lupus/create.html","Villagers, Wolves, Seer","Villici, Lupi, Veggente"
+Voting,"lupus/views.py, scripts/generate_locales.py",Voting,Votazione
+Werewolf / Lupus,"scripts/generate_locales.py, templates/lupus/create.html",Werewolf / Lupus,Licantropo / Lupus
 Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,Indica se le coordinate di messa a fuoco sono state calcolate automaticamente tramite rilevamento dei contorni.
+Work Experience,templates/cv.html,Work Experience,Esperienza Lavorativa
+Writing,templates/cv.html,Writing,Scrittura
+You need an authorized key to access this page.,scripts/generate_locales.py,You need an authorized key to access this page.,È necessaria una chiave autorizzata per accedere a questa pagina.
+Your Name / Nickname,"scripts/generate_locales.py, templates/lupus/join.html",Your Name / Nickname,Il Tuo Nome / Nickname
+Your Personal Reconnect QR,templates/emojinary/game.html,Your Personal Reconnect QR,Il tuo QR personale di riconnessione
+Your Secret Phrase,templates/emojinary/game.html,Your Secret Phrase,La tua frase segreta
+adjective,templates/tools/pictionary.html,adjective,aggettivo
+ago,"scripts/generate_locales.py, templates/gamerooms/room_list.html, templates/lupus/hub.html",ago,fa
+alive,"scripts/generate_locales.py, templates/lupus/hub.html",alive,vivi
 all,templates/emojinary/game.html,all,tutti
+all day,templates/tools/partials/calendar.html,all day,tutto il giorno
+any,templates/tools/pictionary.html,any,qualsiasi
 aperture,photos/models.py,aperture,apertura
 auto focus detected,photos/models.py,auto focus detected,messa a fuoco automatica rilevata
 available for sale,photos/models.py,available for sale,disponibile per la vendita
+best guess,templates/emojinary/game.html,best guess,miglior ipotesi
 blog,"scripts/generate_locales.py, templates/base.html, templates/blog/blog_index_page.html, templates/blog/post_list.html, templates/wip.html",blog,blog
 camera make,photos/models.py,camera make,marca della fotocamera
 camera model,photos/models.py,camera model,modello di fotocamera
-chat,templates/emojinary/game.html,chat,chat
-chat...,templates/emojinary/game.html,chat...,chat...
 chat:,templates/emojinary/game.html,chat:,chat:
+clear,templates/emojinary/game.html,clear,cancella
+collective prep + hints,templates/emojinary/game.html,collective prep + hints,preparazione collettiva + indizi
+create,"scripts/generate_locales.py, templates/gamerooms/room_create.html",create,crea
+create room,"scripts/generate_locales.py, templates/gamerooms/room_create.html",create room,crea stanza
 crop focus X (%),photos/models.py,crop focus X (%),fuoco di ritaglio X (%)
 crop focus Y (%),photos/models.py,crop focus Y (%),fuoco di ritaglio Y (%)
 cv,"scripts/generate_locales.py, templates/base.html",cv,cv
 date,photos/models.py,date,data
+description,templates/tools/ics_maker.html,description,descrizione
+difficulty,templates/tools/pictionary.html,difficulty,difficoltà
+difficulty:,templates/emojinary/game.html,difficulty:,difficoltà:
+download .ics,templates/tools/ics_maker.html,download .ics,scarica .ics
 e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,es. 9B3A1C2D
+e.g. Marco,"scripts/generate_locales.py, templates/lupus/join.html",e.g. Marco,es. Marco
+easy,"templates/emojinary/game.html, templates/tools/pictionary.html",easy,facile
+emoji time:,templates/emojinary/game.html,emoji time:,tempo emoji:
+end,templates/tools/ics_maker.html,end,fine
+enter password to view the calendar.,templates/tools/planz.html,enter password to view the calendar.,inserisci la password per visualizzare il calendario.
+extract event,templates/tools/ics_maker.html,extract event,estrai evento
 focal length,photos/models.py,focal length,lunghezza focale
+gallery,"photos/models.py, templates/photos/upload.html",gallery,galleria
 gallery extension,photos/models.py,gallery extension,estensione della galleria
 gallery extensions,photos/models.py,gallery extensions,estensioni della galleria
+gallery not found.,templates/blog/blocks/photo_gallery.html,gallery not found.,galleria non trovata.
+games,"scripts/generate_locales.py, templates/base.html",games,giochi
+go,templates/tools/planz.html,go,vai
+guess,templates/emojinary/game.html,guess,indovina
+guess time:,templates/emojinary/game.html,guess time:,tempo ipotesi:
+hard,"templates/emojinary/game.html, templates/tools/pictionary.html",hard,difficile
 home,"scripts/generate_locales.py, templates/base.html",home,home
+ics maker,templates/tools/ics_maker.html,ics maker,creatore ics
+join,"scripts/generate_locales.py, templates/gamerooms/room_name.html, templates/gamerooms/room_password.html",join,entra
+latest posts,templates/index.html,latest posts,ultimi post
 latitude,photos/models.py,latitude,latitudine
 lens,photos/models.py,lens,obiettivo
+location,templates/tools/ics_maker.html,location,luogo
 location name,photos/models.py,location name,nome della località
 longitude,photos/models.py,longitude,longitudine
+map view,templates/photos/gallery_list.html,map view,vista mappa
+medium,"templates/emojinary/game.html, templates/tools/pictionary.html",medium,medio
+message (optional),templates/photos/photo_viewer.html,message (optional),messaggio (facoltativo)
+mode,templates/tools/pictionary.html,mode,modalità
+mode:,templates/emojinary/game.html,mode:,modalità:
+new word,templates/tools/pictionary.html,new word,nuova parola
+next →,templates/photos/photo_viewer.html,next →,succ →
+no active rooms. create one!,"scripts/generate_locales.py, templates/gamerooms/room_list.html",no active rooms. create one!,nessuna stanza attiva. creane una!
+no galleries yet.,templates/photos/gallery_list.html,no galleries yet.,nessuna galleria ancora.
+no posts yet.,"templates/blog/blog_index_page.html, templates/blog/post_list.html",no posts yet.,nessun post ancora.
+noun,templates/tools/pictionary.html,noun,sostantivo
+older →,templates/blog/post_list.html,older →,meno recenti →
+original,templates/photos/photo_viewer.html,original,originale
 password,templates/tools/planz.html,password,password
+password (optional),"scripts/generate_locales.py, templates/gamerooms/room_create.html",password (optional),password (opzionale)
+paste event details here...,templates/tools/ics_maker.html,paste event details here...,incolla qui i dettagli dell'evento...
+"paste text or a url with event details, and get an .ics file.",templates/tools/ics_maker.html,"paste text or a url with event details, and get an .ics file.",incolla testo o un url con i dettagli dell'evento e ottieni un file .ics.
 photo,photos/models.py,photo,foto
 photo extension,photos/models.py,photo extension,estensione della foto
 photo extensions,photos/models.py,photo extensions,estensioni della foto
+photo map,templates/photos/map.html,photo map,mappa delle foto
+photo not found.,templates/blog/blocks/single_photo.html,photo not found.,foto non trovata.
+photos,"scripts/generate_locales.py, templates/base.html, templates/index.html, templates/photos/gallery_list.html",photos,foto
+photos (select multiple),templates/photos/upload.html,photos (select multiple),foto (seleziona più)
+"pick your options, hit the button, draw!",templates/tools/pictionary.html,"pick your options, hit the button, draw!","scegli le opzioni, premi il pulsante e disegna!"
 pictionary,templates/tools/pictionary.html,pictionary,pictionary
 planz,"templates/tools/planz.html, templates/tools/planz_full.html",planz,planz
+play again,templates/emojinary/game.html,play again,gioca di nuovo
+players,"scripts/generate_locales.py, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/lupus/hub.html",players,giocatori
+press the button to get a word,templates/tools/pictionary.html,press the button to get a word,premi il pulsante per ottenere una parola
+private (hide guesses),templates/emojinary/game.html,private (hide guesses),privata (nascondi tentativi)
 processing status,photos/models.py,processing status,stato di elaborazione
+public (show guesses),templates/emojinary/game.html,public (show guesses),pubblica (mostra tentativi)
+request,templates/photos/photo_viewer.html,request,richiedi
+rerolls:,templates/emojinary/game.html,rerolls:,cambi:
+reveal,templates/emojinary/game.html,reveal,rivela
+room password,"scripts/generate_locales.py, templates/gamerooms/room_password.html",room password,password della stanza
+round robin,templates/emojinary/game.html,round robin,girone all'italiana
+rounds:,templates/emojinary/game.html,rounds:,round:
+send,templates/emojinary/game.html,send,invia
+sentence,templates/tools/pictionary.html,sentence,frase
 shutter speed,photos/models.py,shutter speed,tempo di esposizione
+skip,templates/emojinary/game.html,skip,salta
+start,templates/tools/ics_maker.html,start,inizio
+start game,templates/emojinary/game.html,start game,inizia partita
+text,templates/tools/ics_maker.html,text,testo
+title,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/tools/ics_maker.html",title,titolo
+title is required,"gamerooms/views.py, scripts/generate_locales.py",title is required,il titolo è obbligatorio
+today,templates/tools/partials/calendar.html,today,oggi
+type,"photos/models.py, templates/tools/pictionary.html",type,tipo
+upload,templates/photos/upload.html,upload,carica
+upload photos,templates/photos/upload.html,upload photos,carica foto
 url,templates/tools/ics_maker.html,url,url
+verb,templates/tools/pictionary.html,verb,verbo
+view full resolution ↗,templates/photos/partials/photo_image.html,view full resolution ↗,risoluzione massima ↗
+view on map,templates/photos/photo_viewer.html,view on map,vedi sulla mappa
+waiting for clue...,templates/emojinary/game.html,waiting for clue...,in attesa dell'indizio...
+waiting for players...,templates/emojinary/game.html,waiting for players...,in attesa di giocatori...
+watermarked,templates/photos/photo_viewer.html,watermarked,con filigrana
 watermarked image,photos/models.py,watermarked image,immagine con filigrana
 web,templates/photos/photo_viewer.html,web,web
 web-optimized image,photos/models.py,web-optimized image,immagine ottimizzata per il web
+week,templates/tools/partials/calendar.html,week,settimana
+what is %(a)s + %(b)s?,scripts/generate_locales.py,what is %(a)s + %(b)s?,quanto fa %(a)s + %(b)s?
+word,templates/tools/pictionary.html,word,parola
+work in progress — check back soon.,templates/wip.html,work in progress — check back soon.,lavori in corso — torna presto.
+wrong captcha,"gamerooms/views.py, scripts/generate_locales.py",wrong captcha,captcha errato
+wrong password,"gamerooms/views.py, scripts/generate_locales.py, templates/tools/planz.html",wrong password,password errata
+your email,templates/photos/photo_viewer.html,your email,la tua email
+your name,"scripts/generate_locales.py, templates/gamerooms/room_name.html",your name,il tuo nome
+— none —,templates/photos/upload.html,— none —,— nessuna —
+← all galleries,templates/photos/gallery_detail.html,← all galleries,← tutte le gallerie
+← all posts,"templates/blog/blog_post_page.html, templates/blog/post_detail.html",← all posts,← tutti i post
+← back home,"templates/404.html, templates/500.html",← back home,← torna alla home
+← galleries,templates/photos/map.html,← galleries,← gallerie
+← newer,templates/blog/post_list.html,← newer,← più recenti
+← prev,templates/photos/photo_viewer.html,← prev,← prec
+↓ Download PDF,templates/cv.html,↓ Download PDF,↓ Scarica PDF
+"⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)","scripts/generate_locales.py, templates/lupus/create.html","⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)","⚡ Caos & Speciali (Lupo Alfa, Silenziatore, Detective, Dottore, Cecchino, Sindaco, Strega...)"
 ✏️ pictionary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",✏️ pictionary,✏️ pictionary
 🎨 Emojinary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🎨 Emojinary,🎨 Emojinary
 🐺 Lupus,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 Lupus,🐺 Lupus
+🐺 Lupus Hub & Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 Lupus Hub & Rooms,🐺 Hub & Stanze Lupus
+🐺 create lupus,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 create lupus,🐺 crea lupus
+👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),👼 Limbo & Angelo (Lupi + Detective + Dottore + Angelo + Sniper + Villici)
+"💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.",scripts/generate_locales.py,"💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.","💡 Nelle partite con Limbo, la rivelazione avviene solo con la morte definitiva, mai nel Limbo."
+💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,"scripts/generate_locales.py, templates/lupus/create.html",💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,💡 Il mazzo si adatta automaticamente al numero di giocatori. Puoi perfezionare ogni ruolo e l'equilibrio bene/male nella lobby prima di iniziare.
+🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),🔍 Standard (Lupi + Detective/Veggente + Dottore/Guardia + Villici)
+🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),🧑 Semplice / Classico (Senza poteri speciali — solo Lupi vs Villici)

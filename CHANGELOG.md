@@ -4,6 +4,13 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v147] - 2026-11-13
+
+### Changed
+- **Completed Priority Localization Batch (`pt`, `ru`, `pl`, `it`, `fi`, `fr`, `sv`, `sw`, `az`, `es`) & 4x Chunking Upgrade**:
+  - Upgraded `scripts/translate_chunks_agy.py` (`locale/translate_with_agy.py`) default chunk size from `20` to `80` strings per `agy` invocation (cutting AI call volume by 4x), unified processing through `translations_master.csv` with priority language ordering, and refined symbol filtering so `+` and `🐺`-prefixed UI strings are translated.
+  - Translated and compiled 1,767 strings across 10 priority languages, bringing coverage to 95%–99% for Azerbaijani (`az`, 98.9%), Russian (`ru`, 98.9%), Finnish (`fi`, 97.8%), Swahili (`sw`, 97.8%), Polish (`pl`, 97.6%), Spanish (`es`, 97.3%), Portuguese (`pt`, 97.0%), Swedish (`sv`, 96.5%), Italian (`it`, 96.2%), and French (`fr`, 94.9%).
+
 ## [v146] - 2026-11-13
 
 ### Added

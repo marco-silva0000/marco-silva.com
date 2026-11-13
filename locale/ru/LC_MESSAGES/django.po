@@ -27,25 +27,25 @@ msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
 msgstr "1 — Только сторона (Объявляет \"ДОБРО\" или \"ЗЛО\")"
 
 msgid "1. Acceptance of Terms"
-msgstr "1. Acceptance of Terms"
+msgstr "1. Принятие условий"
 
 msgid "1. Overview"
-msgstr "1. Overview"
+msgstr "1. Общие положения"
 
 msgid "10 Minutes"
 msgstr "10 минут"
 
 msgid "1st guess ends round"
-msgstr "1st guess ends round"
+msgstr "1-й правильный ответ завершает раунд"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Фракция / Команда (Объявляет \"Город\", \"Волки\", \"Нейтрал\")"
 
 msgid "2. Information We Access"
-msgstr "2. Information We Access"
+msgstr "2. Информация, к которой мы получаем доступ"
 
 msgid "2. Permitted Use"
-msgstr "2. Permitted Use"
+msgstr "2. Разрешённое использование"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 минуты (быстро)"
@@ -57,19 +57,19 @@ msgid "3 — Full Role Card (Announces exact card name and icon)"
 msgstr "3 — Полная карта роли (Объявляет точное имя роли и значок)"
 
 msgid "3. Data Storage & Security"
-msgstr "3. Data Storage & Security"
+msgstr "3. Хранение и безопасность данных"
 
 msgid "3. Disclaimer of Warranties"
-msgstr "3. Disclaimer of Warranties"
+msgstr "3. Отказ от гарантий"
 
 msgid "30 Seconds (Standard)"
 msgstr "30 секунд (стандарт)"
 
 msgid "4. Limitation of Liability"
-msgstr "4. Limitation of Liability"
+msgstr "4. Ограничение ответственности"
 
 msgid "4. Third-Party Sharing"
-msgstr "4. Third-Party Sharing"
+msgstr "4. Передача данных третьим лицам"
 
 msgid "404 — page not found"
 msgstr "404 — страница не найдена"
@@ -78,22 +78,22 @@ msgid "45 Seconds"
 msgstr "45 секунд"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr "4:5 vertical crop (1080x1350) for Instagram carousels."
+msgstr "Вертикальное кадрирование 4:5 (1080x1350) для каруселей Instagram."
 
 msgid "5 Minutes (Standard)"
 msgstr "5 минут (стандарт)"
 
 msgid "5. Changes & Termination"
-msgstr "5. Changes & Termination"
+msgstr "5. Изменения и прекращение действия"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr "5. Revoking Access & Data Deletion"
+msgstr "5. Отзыв доступа и удаление данных"
 
 msgid "500 — something went wrong"
 msgstr "500 — что-то пошло не так"
 
 msgid "6. Contact"
-msgstr "6. Contact"
+msgstr "6. Контакты"
 
 msgid "60 Seconds"
 msgstr "60 секунд"
@@ -111,7 +111,7 @@ msgid "Active Lupus Rooms"
 msgstr "Активные комнаты Lupus"
 
 msgid "Add Hint"
-msgstr "Add Hint"
+msgstr "Добавить подсказку"
 
 msgid "All Active Rooms"
 msgstr "Все активные комнаты"
@@ -120,28 +120,28 @@ msgid "All Games"
 msgstr "Все игры"
 
 msgid "All guesses & hints appear here"
-msgstr "All guesses & hints appear here"
+msgstr "Все догадки и подсказки появляются здесь"
 
 msgid "Allow custom words"
-msgstr "Allow custom words"
+msgstr "Разрешить свои слова"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
+msgstr "Применить лицензию Creative Commons Attribution-NonCommercial-ShareAlike и водяной знак."
 
 msgid "Back to Active Lupus Rooms"
 msgstr "Назад к активным комнатам Lupus"
 
 msgid "Backspace"
-msgstr "Backspace"
+msgstr "Стереть"
 
 msgid "Browse Active Lupus Rooms"
 msgstr "Смотреть активные комнаты Lupus"
 
 msgid "Build Your Emoji Clue:"
-msgstr "Build Your Emoji Clue:"
+msgstr "Составьте подсказку из эмодзи:"
 
 msgid "CC BY-NC-SA license"
-msgstr "CC BY-NC-SA license"
+msgstr "Лицензия CC BY-NC-SA"
 
 msgid "CODE"
 msgstr "КОД"
@@ -162,7 +162,7 @@ msgid "Conferences"
 msgstr "Конференции"
 
 msgid "Copy"
-msgstr "Copy"
+msgstr "Копировать"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "Создать комнату Lupus / Оборотни"
@@ -171,19 +171,19 @@ msgid "Create the First Lupus Room"
 msgstr "Создать первую комнату Lupus"
 
 msgid "Curated"
-msgstr "Curated"
+msgstr "Выбрано вручную"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr "Custom split keyboards (colemak + nvim)"
+msgstr "Кастомные сплит-клавиатуры (colemak + nvim)"
 
 msgid "Date of the trip/shoot."
-msgstr "Date of the trip/shoot."
+msgstr "Дата поездки или съёмки."
 
 msgid "Day"
 msgstr "День"
 
 msgid "Day Trip"
-msgstr "Day Trip"
+msgstr "Однодневная поездка"
 
 msgid "Defense Timer"
 msgstr "Время на защиту"
@@ -195,19 +195,19 @@ msgid "Discussion Round Timer"
 msgstr "Время на обсуждение"
 
 msgid "Display Name"
-msgstr "Display Name"
+msgstr "Отображаемое имя"
 
 msgid "Doctor Shields From Sniper:"
 msgstr "Доктор защищает от снайпера:"
 
 msgid "Done"
-msgstr "Done"
+msgstr "Готово"
 
 msgid "Education"
 msgstr "Образование"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr "Electronics/embedded (some rust embedded)"
+msgstr "Электроника и встраиваемые системы (немного embedded Rust)"
 
 msgid "English"
 msgstr "Английский"
@@ -222,10 +222,10 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Введите код комнаты (напр. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr "Export JSON"
+msgstr "Экспорт в JSON"
 
 msgid "Failed"
-msgstr "Failed"
+msgstr "Ошибка"
 
 msgid "Finished"
 msgstr "Завершено"
@@ -234,7 +234,7 @@ msgid "GM"
 msgstr "Ведущий"
 
 msgid "GM Cockpit"
-msgstr "GM Cockpit"
+msgstr "Панель ведущего"
 
 msgid "GM Director Cockpit:"
 msgstr "Пульт управления Ведущего:"
@@ -258,13 +258,13 @@ msgid "Game room does not exist."
 msgstr "Игровая комната не существует."
 
 msgid "Ham radio, UK foundation license"
-msgstr "Ham radio, UK foundation license"
+msgstr "Любительская радиосвязь (британская лицензия Foundation)"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "Есть 8-значный код от Ведущего? Введите его здесь, чтобы сразу присоединиться:"
 
 msgid "Hiking and climbing"
-msgstr "Hiking and climbing"
+msgstr "Хайкинг и скалолазание"
 
 msgid "Hobbies"
 msgstr "Хобби"
@@ -273,13 +273,13 @@ msgid "Hold-to-Peek Secret Roles:"
 msgstr "Удерживайте для просмотра тайных ролей:"
 
 msgid "Home automation and homelab"
-msgstr "Home automation and homelab"
+msgstr "Умный дом и домашняя лаборатория (homelab)"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr "Horizontal focal point: 0=left, 50=center, 100=right."
+msgstr "Горизонтальная точка фокуса: 0=слева, 50=по центру, 100=справа."
 
 msgid "Host Game Settings"
-msgstr "Host Game Settings"
+msgstr "Настройки игры (хост)"
 
 msgid "I code, take pics and many other things"
 msgstr "Я программирую, фотографирую и многое другое"
@@ -300,19 +300,19 @@ msgid "Incorrect room password."
 msgstr "Неверный пароль комнаты."
 
 msgid "Instagram 4:5 Preview"
-msgstr "Instagram 4:5 Preview"
+msgstr "Предпросмотр Instagram 4:5"
 
 msgid "Instagram 4:5 image"
-msgstr "Instagram 4:5 image"
+msgstr "Изображение Instagram 4:5"
 
 msgid "Invalid Game Master secret key."
 msgstr "Неверный секретный ключ Ведущего."
 
 msgid "Invite Players to Room"
-msgstr "Invite Players to Room"
+msgstr "Пригласить игроков в комнату"
 
 msgid "Invite QR"
-msgstr "Invite QR"
+msgstr "QR-код приглашения"
 
 msgid "Join"
 msgstr "Войти"
@@ -336,7 +336,7 @@ msgid "Languages"
 msgstr "Языки"
 
 msgid "Last updated: October 27, 2026"
-msgstr "Last updated: October 27, 2026"
+msgstr "Последнее обновление: 27 октября 2026 г."
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
 msgstr "Опоздавшие входят как Доверенные путешественники, Призраки или Преемники."
@@ -360,7 +360,7 @@ msgid "Listening"
 msgstr "Аудирование"
 
 msgid "Live Chat & Guess Stream"
-msgstr "Live Chat & Guess Stream"
+msgstr "Чат и лента догадок"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "Живые и выбывшие игроки присылают утренние слухи, зачитываемые на рассвете."
@@ -390,7 +390,7 @@ msgid "Mafia"
 msgstr "Мафия"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr "Match Replay & Attempt Timeline"
+msgstr "Повтор матча и хронология попыток"
 
 msgid "Midgame Arrivals:"
 msgstr "Присоединение посреди игры:"
@@ -405,7 +405,7 @@ msgid "No Active Lupus Games Right Now"
 msgstr "Сейчас нет активных игр Lupus"
 
 msgid "No Instagram crop generated yet."
-msgstr "No Instagram crop generated yet."
+msgstr "Кадрирование для Instagram ещё не создано."
 
 msgid "Open"
 msgstr "Открыта"
@@ -417,10 +417,10 @@ msgid "Open GM Cockpit"
 msgstr "Открыть пульт ведущего"
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr "Or type your own custom prompt/phrase..."
+msgstr "Или введите своё слово/фразу..."
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr "Original camera RAW file (CR3, ARW, NEF, etc.)"
+msgstr "Исходный RAW-файл с камеры (CR3, ARW, NEF и т. д.)"
 
 msgid "Other"
 msgstr "Другое"
@@ -429,7 +429,7 @@ msgid "Outdoors"
 msgstr "На природе"
 
 msgid "Page Not Found — Marco Silva"
-msgstr "Page Not Found — Marco Silva"
+msgstr "Страница не найдена — Marco Silva"
 
 msgid "Password"
 msgstr "Пароль"
@@ -441,7 +441,7 @@ msgid "Past & Finished Games"
 msgstr "Прошедшие и завершённые игры"
 
 msgid "Pending"
-msgstr "Pending"
+msgstr "В очереди"
 
 msgid "Photography"
 msgstr "Фотография"
@@ -450,7 +450,7 @@ msgid "Pick the name others at the table know you by."
 msgstr "Выберите имя, под которым вас знают за столом."
 
 msgid "Player Profile & Personal QR"
-msgstr "Player Profile & Personal QR"
+msgstr "Профиль игрока и личный QR-код"
 
 msgid "Please enter a player name."
 msgstr "Пожалуйста, введите имя игрока."
@@ -465,22 +465,22 @@ msgid "Previous day"
 msgstr "Предыдущий день"
 
 msgid "Price for the RAW file download."
-msgstr "Price for the RAW file download."
+msgstr "Цена за скачивание RAW-файла."
 
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr "Privacy Policy - Homelab Telegram Bot"
+msgstr "Политика конфиденциальности - Telegram-бот Homelab"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr "Privacy Policy - Homelab Telegram Bot - Marco Silva"
+msgstr "Политика конфиденциальности - Telegram-бот Homelab - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
 msgstr "Защита конфиденциальности скрывает карты от любопытных глаз за столом."
 
 msgid "Processing"
-msgstr "Processing"
+msgstr "Обработка"
 
 msgid "Public"
 msgstr "Открытая"
@@ -489,10 +489,10 @@ msgid "RAW available for purchase"
 msgstr "RAW доступен для покупки"
 
 msgid "RAW file"
-msgstr "RAW file"
+msgstr "RAW-файл"
 
 msgid "RAW price"
-msgstr "RAW price"
+msgstr "Цена RAW"
 
 msgid "Reading"
 msgstr "Чтение"
@@ -501,13 +501,13 @@ msgid "Real-time multiplayer browser party games. No accounts required — just 
 msgstr "Многопользовательские браузерные игры для вечеринок в реальном времени. Без регистрации — просто заходите и играйте с друзьями."
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr "Regenerate 4:5 Instagram crops for selected photos"
+msgstr "Пересоздать кадрирование 4:5 для Instagram для выбранных фото"
 
 msgid "Replay"
 msgstr "Повтор"
 
 msgid "Reroll"
-msgstr "Reroll"
+msgstr "Другие варианты"
 
 msgid "Return as %(name)s"
 msgstr "Вернуться как %(name)s"
@@ -516,10 +516,10 @@ msgid "Reveal Roles on Death:"
 msgstr "Раскрытие ролей при смерти:"
 
 msgid "Room Chat"
-msgstr "Room Chat"
+msgstr "Чат комнаты"
 
 msgid "Room Code"
-msgstr "Room Code"
+msgstr "Код комнаты"
 
 msgid "Room Code:"
 msgstr "Код комнаты:"
@@ -540,37 +540,37 @@ msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "Код комнаты '%(code)s' не найден или комната неактивна."
 
 msgid "Rooms"
-msgstr "Rooms"
+msgstr "Комнаты"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Комнаты создаются по запросу и активны 24 часа. Создайте новую партию и пригласите компанию!"
 
 msgid "Round"
-msgstr "Round"
+msgstr "Раунд"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr "Round-by-Round Replay & Attempt Log"
+msgstr "Повтор по раундам и журнал попыток"
 
 msgid "Running"
 msgstr "Идёт игра"
 
 msgid "Save Name"
-msgstr "Save Name"
+msgstr "Сохранить имя"
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr "Scan this QR code with any phone camera to join immediately:"
+msgstr "Отсканируйте этот QR-код камерой телефона, чтобы сразу присоединиться:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr "Scan this to move your session and score to another phone or browser:"
+msgstr "Отсканируйте, чтобы перенести сессию и очки на другой телефон или в другой браузер:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
-msgstr "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr "Поиск эмодзи по названию (напр., fire, crown, heart)..."
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr "Send Instagram carousel pack to Telegram"
+msgstr "Отправить набор для карусели Instagram в Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr "Server Error — Marco Silva"
+msgstr "Ошибка сервера — Marco Silva"
 
 msgid "Set"
 msgstr "Set"
@@ -591,7 +591,7 @@ msgid "Speaking"
 msgstr "Говорение"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr "Spectator Mode (Skip my turns)"
+msgstr "Режим зрителя (пропускать мои ходы)"
 
 msgid "Staggering Doctor:"
 msgstr "Доктор без повторов:"
@@ -603,7 +603,7 @@ msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Пошаговые ночные фазы, блеф-вызовы и управление голосованием."
 
 msgid "Submit"
-msgstr "Submit"
+msgstr "Отправить"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Особенности настольного Lupus"
@@ -618,7 +618,7 @@ msgid "Table-first party game with secret roles, live voting, Town Gazette, and 
 msgstr "Настольная игра для компании с тайными ролями, живым голосованием, Городской газетой и пультом ведущего."
 
 msgid "Tap emojis below..."
-msgstr "Tap emojis below..."
+msgstr "Нажимайте на эмодзи ниже..."
 
 msgid "Techy"
 msgstr "Технологии"
@@ -627,10 +627,10 @@ msgid "Terms of Service"
 msgstr "Условия обслуживания"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr "Terms of Service - Homelab Telegram Bot"
+msgstr "Условия использования - Telegram-бот Homelab"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr "Terms of Service - Homelab Telegram Bot - Marco Silva"
+msgstr "Условия использования - Telegram-бот Homelab - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "Доктор / Телохранитель не может защищать одного и того же игрока две ночи подряд."
@@ -639,7 +639,7 @@ msgid "Theme & Terms"
 msgstr "Тема и термины"
 
 msgid "Toggle"
-msgstr "Toggle"
+msgstr "Переключить"
 
 msgid "Town Gazette:"
 msgstr "Городская газета:"
@@ -648,19 +648,19 @@ msgid "Town Voting"
 msgstr "Голосование города"
 
 msgid "Type a message or guess..."
-msgstr "Type a message or guess..."
+msgstr "Введите сообщение или догадку..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr "Type your guess (or use the chat box)..."
+msgstr "Введите свою догадку (или используйте чат)..."
 
 msgid "Unlock Room"
 msgstr "Разблокировать комнату"
 
 msgid "Use Prompt"
-msgstr "Use Prompt"
+msgstr "Использовать задание"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr "Vertical focal point: 0=top, 50=center, 100=bottom."
+msgstr "Вертикальная точка фокуса: 0=сверху, 50=по центру, 100=снизу."
 
 msgid "Villagers, Wolves, Seer"
 msgstr "Мирные, Волки, Провидец"
@@ -672,7 +672,7 @@ msgid "Werewolf / Lupus"
 msgstr "Оборотень / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr "Whether focus coordinates were automatically calculated via edge saliency."
+msgstr "Были ли координаты фокуса рассчитаны автоматически по контурной значимости (edge saliency)."
 
 msgid "Work Experience"
 msgstr "Опыт работы"
@@ -687,10 +687,10 @@ msgid "Your Name / Nickname"
 msgstr "Ваше имя / никнейм"
 
 msgid "Your Personal Reconnect QR"
-msgstr "Your Personal Reconnect QR"
+msgstr "Ваш личный QR-код для переподключения"
 
 msgid "Your Secret Phrase"
-msgstr "Your Secret Phrase"
+msgstr "Ваша секретная фраза"
 
 msgid "adjective"
 msgstr "прилагательное"
@@ -711,13 +711,13 @@ msgid "any"
 msgstr "любой"
 
 msgid "aperture"
-msgstr "aperture"
+msgstr "диафрагма"
 
 msgid "auto focus detected"
-msgstr "auto focus detected"
+msgstr "обнаружен автофокус"
 
 msgid "available for sale"
-msgstr "available for sale"
+msgstr "доступно для продажи"
 
 msgid "best guess"
 msgstr "лучшая догадка"
@@ -726,10 +726,10 @@ msgid "blog"
 msgstr "блог"
 
 msgid "camera make"
-msgstr "camera make"
+msgstr "производитель камеры"
 
 msgid "camera model"
-msgstr "camera model"
+msgstr "модель камеры"
 
 msgid "chat:"
 msgstr "чат:"
@@ -738,7 +738,7 @@ msgid "clear"
 msgstr "очистить"
 
 msgid "collective prep + hints"
-msgstr "collective prep + hints"
+msgstr "совместная подготовка + подсказки"
 
 msgid "create"
 msgstr "создать"
@@ -747,16 +747,16 @@ msgid "create room"
 msgstr "создать комнату"
 
 msgid "crop focus X (%)"
-msgstr "crop focus X (%)"
+msgstr "фокус кадрирования X (%)"
 
 msgid "crop focus Y (%)"
-msgstr "crop focus Y (%)"
+msgstr "фокус кадрирования Y (%)"
 
 msgid "cv"
 msgstr "резюме"
 
 msgid "date"
-msgstr "date"
+msgstr "дата"
 
 msgid "description"
 msgstr "описание"
@@ -771,7 +771,7 @@ msgid "download .ics"
 msgstr "скачать .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr "e.g. 9B3A1C2D"
+msgstr "напр., 9B3A1C2D"
 
 msgid "e.g. Marco"
 msgstr "напр. Марко"
@@ -792,16 +792,16 @@ msgid "extract event"
 msgstr "извлечь событие"
 
 msgid "focal length"
-msgstr "focal length"
+msgstr "фокусное расстояние"
 
 msgid "gallery"
 msgstr "галерея"
 
 msgid "gallery extension"
-msgstr "gallery extension"
+msgstr "расширение галереи"
 
 msgid "gallery extensions"
-msgstr "gallery extensions"
+msgstr "расширения галереи"
 
 msgid "gallery not found."
 msgstr "галерея не найдена."
@@ -834,19 +834,19 @@ msgid "latest posts"
 msgstr "последние записи"
 
 msgid "latitude"
-msgstr "latitude"
+msgstr "широта"
 
 msgid "lens"
-msgstr "lens"
+msgstr "объектив"
 
 msgid "location"
 msgstr "место"
 
 msgid "location name"
-msgstr "location name"
+msgstr "название локации"
 
 msgid "longitude"
-msgstr "longitude"
+msgstr "долгота"
 
 msgid "map view"
 msgstr "на карте"
@@ -900,13 +900,13 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "вставьте текст или ссылку с деталями события и получите файл .ics."
 
 msgid "photo"
-msgstr "photo"
+msgstr "фотография"
 
 msgid "photo extension"
-msgstr "photo extension"
+msgstr "расширение фотографии"
 
 msgid "photo extensions"
-msgstr "photo extensions"
+msgstr "расширения фотографий"
 
 msgid "photo map"
 msgstr "карта фотографий"
@@ -939,19 +939,19 @@ msgid "press the button to get a word"
 msgstr "нажмите кнопку, чтобы получить слово"
 
 msgid "private (hide guesses)"
-msgstr "private (hide guesses)"
+msgstr "приватно (скрыть догадки)"
 
 msgid "processing status"
-msgstr "processing status"
+msgstr "статус обработки"
 
 msgid "public (show guesses)"
-msgstr "public (show guesses)"
+msgstr "публично (показывать догадки)"
 
 msgid "request"
 msgstr "запросить"
 
 msgid "rerolls:"
-msgstr "rerolls:"
+msgstr "перебросы:"
 
 msgid "reveal"
 msgstr "показать"
@@ -972,7 +972,7 @@ msgid "sentence"
 msgstr "предложение"
 
 msgid "shutter speed"
-msgstr "shutter speed"
+msgstr "выдержка"
 
 msgid "skip"
 msgstr "пропустить"
@@ -1026,13 +1026,13 @@ msgid "watermarked"
 msgstr "с водяным знаком"
 
 msgid "watermarked image"
-msgstr "watermarked image"
+msgstr "изображение с водяным знаком"
 
 msgid "web"
 msgstr "веб"
 
 msgid "web-optimized image"
-msgstr "web-optimized image"
+msgstr "оптимизированное для веб изображение"
 
 msgid "week"
 msgstr "неделя"
