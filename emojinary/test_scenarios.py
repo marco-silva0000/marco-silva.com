@@ -600,7 +600,7 @@ class TestClueGiverWordVisibility:
         # Non-host cannot end game
         sim.send_action("Alice", {"action": "end_game"})
         assert sim.state["phase"] == "emoji"
-        assert sim.state["status"] == "playing"
+        assert sim.state["status"] == "running"
 
         # Host ends game early
         sim.send_action("Marco", {"action": "end_game"})
