@@ -27,10 +27,10 @@ msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
 msgstr "1 — ನಿಷ್ಠೆ ಮಾತ್ರ (\"ಒಳ್ಳೆಯದು\" ವಿರುದ್ಧ \"ಕೆಟ್ಟದ್ದು\" ಪ್ರಕಟಿಸುತ್ತದೆ)"
 
 msgid "1. Acceptance of Terms"
-msgstr "1. Acceptance of Terms"
+msgstr "1. ನಿಯಮಗಳ ಅಂಗೀಕಾರ"
 
 msgid "1. Overview"
-msgstr "1. Overview"
+msgstr "1. ಅವಲೋಕನ"
 
 msgid "10 Minutes"
 msgstr "10 ನಿಮಿಷಗಳು"
@@ -39,10 +39,10 @@ msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — ಬಣ / ತಂಡ (\"ನಗರ\", \"ತೋಳಗಳು\", \"ತಟಸ್ಥ\" ಪ್ರಕಟಿಸುತ್ತದೆ)"
 
 msgid "2. Information We Access"
-msgstr "2. Information We Access"
+msgstr "2. ನಾವು ಪ್ರವೇಶಿಸುವ ಮಾಹಿತಿ"
 
 msgid "2. Permitted Use"
-msgstr "2. Permitted Use"
+msgstr "2. ಅನುಮತಿಸಲಾದ ಬಳಕೆ"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 ನಿಮಿಷಗಳು (ವೇಗವಾಗಿ)"
@@ -54,19 +54,19 @@ msgid "3 — Full Role Card (Announces exact card name and icon)"
 msgstr "3 — ಸಂಪೂರ್ಣ ಪಾತ್ರ ಕಾರ್ಡ್ (ನಿಖರವಾದ ಕಾರ್ಡ್ ಹೆಸರು ಮತ್ತು ಐಕಾನ್ ಪ್ರಕಟಿಸುತ್ತದೆ)"
 
 msgid "3. Data Storage & Security"
-msgstr "3. Data Storage & Security"
+msgstr "3. ಡೇಟಾ ಸಂಗ್ರಹಣೆ ಮತ್ತು ಭದ್ರತೆ"
 
 msgid "3. Disclaimer of Warranties"
-msgstr "3. Disclaimer of Warranties"
+msgstr "3. ವಾರಂಟಿಗಳ ಹಕ್ಕು ನಿರಾಕರಣೆ"
 
 msgid "30 Seconds (Standard)"
 msgstr "30 ಸೆಕೆಂಡುಗಳು (ಪ್ರಮಾಣಿತ)"
 
 msgid "4. Limitation of Liability"
-msgstr "4. Limitation of Liability"
+msgstr "4. ಹೊಣೆಗಾರಿಕೆಯ ಮಿತಿ"
 
 msgid "4. Third-Party Sharing"
-msgstr "4. Third-Party Sharing"
+msgstr "4. ಮೂರನೇ ವ್ಯಕ್ತಿಗಳೊಂದಿಗೆ ಹಂಚಿಕೆ"
 
 msgid "404 — page not found"
 msgstr "404 — ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ"
@@ -75,22 +75,22 @@ msgid "45 Seconds"
 msgstr "45 ಸೆಕೆಂಡುಗಳು"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr "4:5 vertical crop (1080x1350) for Instagram carousels."
+msgstr "Instagram ಕ್ಯಾರೊಸೆಲ್‌ಗಳಿಗಾಗಿ 4:5 ಲಂಬ ಕ್ರಾಪ್ (1080x1350)."
 
 msgid "5 Minutes (Standard)"
 msgstr "5 ನಿಮಿಷಗಳು (ಪ್ರಮಾಣಿತ)"
 
 msgid "5. Changes & Termination"
-msgstr "5. Changes & Termination"
+msgstr "5. ಬದಲಾವಣೆಗಳು ಮತ್ತು ಮುಕ್ತಾಯ"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr "5. Revoking Access & Data Deletion"
+msgstr "5. ಪ್ರವೇಶ ಹಿಂಪಡೆಯುವಿಕೆ ಮತ್ತು ಡೇಟಾ ಅಳಿಸುವಿಕೆ"
 
 msgid "500 — something went wrong"
 msgstr "500 — ಏನೋ ತಪ್ಪಾಗಿದೆ"
 
 msgid "6. Contact"
-msgstr "6. Contact"
+msgstr "6. ಸಂಪರ್ಕ"
 
 msgid "60 Seconds"
 msgstr "60 ಸೆಕೆಂಡುಗಳು"
@@ -114,7 +114,7 @@ msgid "All Games"
 msgstr "ಎಲ್ಲಾ ಆಟಗಳು"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
+msgstr "Creative Commons Attribution-NonCommercial-ShareAlike ಪರವಾನಗಿ ಮತ್ತು ವಾಟರ್‌ಮಾರ್ಕ್ ಅನ್ನು ಅನ್ವಯಿಸಿ."
 
 msgid "Back to Active Lupus Rooms"
 msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳಿಗೆ ಹಿಂತಿರುಗಿ"
@@ -123,7 +123,7 @@ msgid "Browse Active Lupus Rooms"
 msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ"
 
 msgid "CC BY-NC-SA license"
-msgstr "CC BY-NC-SA license"
+msgstr "CC BY-NC-SA ಪರವಾನಗಿ"
 
 msgid "CODE"
 msgstr "ಕೋಡ್"
@@ -150,19 +150,19 @@ msgid "Create the First Lupus Room"
 msgstr "ಮೊದಲ ಲೂಪಸ್ ಕೊಠಡಿ ರಚಿಸಿ"
 
 msgid "Curated"
-msgstr "Curated"
+msgstr "ಆಯ್ದ"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr "Custom split keyboards (colemak + nvim)"
+msgstr "ಕಸ್ಟಮ್ ಸ್ಪ್ಲಿಟ್ ಕೀಬೋರ್ಡ್‌ಗಳು (colemak + nvim)"
 
 msgid "Date of the trip/shoot."
-msgstr "Date of the trip/shoot."
+msgstr "ಪ್ರವಾಸ/ಫೋಟೋಶೂಟ್‌ನ ದಿನಾಂಕ."
 
 msgid "Day"
 msgstr "ದಿನ"
 
 msgid "Day Trip"
-msgstr "Day Trip"
+msgstr "ದಿನದ ಪ್ರವಾಸ"
 
 msgid "Defense Timer"
 msgstr "ರಕ್ಷಣಾ ಟೈಮರ್"
@@ -177,13 +177,13 @@ msgid "Doctor Shields From Sniper:"
 msgstr "ವೈದ್ಯ ಸ್ನೈಪರ್‌ನಿಂದ ರಕ್ಷಿಸುತ್ತಾನೆ:"
 
 msgid "Done"
-msgstr "Done"
+msgstr "ಪೂರ್ಣಗೊಂಡಿದೆ"
 
 msgid "Education"
 msgstr "ಶಿಕ್ಷಣ"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr "Electronics/embedded (some rust embedded)"
+msgstr "ಎಲೆಕ್ಟ್ರಾನಿಕ್ಸ್/ಎಂಬೆಡೆಡ್ (ಸ್ವಲ್ಪ Rust ಎಂಬೆಡೆಡ್)"
 
 msgid "English"
 msgstr "ಇಂಗ್ಲಿಷ್"
@@ -198,7 +198,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "ಕೊಠಡಿ ಕೋಡ್ ನಮೂದಿಸಿ (ಉದಾ. 9B3A1C2D)"
 
 msgid "Failed"
-msgstr "Failed"
+msgstr "ವಿಫಲವಾಗಿದೆ"
 
 msgid "Finished"
 msgstr "ಮುಕ್ತಾಯವಾಗಿದೆ"
@@ -207,7 +207,7 @@ msgid "GM"
 msgstr "ಜಿಎಂ"
 
 msgid "GM Cockpit"
-msgstr "GM Cockpit"
+msgstr "GM ಕಾಕ್‌ಪಿಟ್"
 
 msgid "GM Director Cockpit:"
 msgstr "ಜಿಎಂ ನಿರ್ದೇಶಕರ ಕಾಕ್‌ಪಿಟ್:"
@@ -231,13 +231,13 @@ msgid "Game room does not exist."
 msgstr "ಆಟದ ಕೊಠಡಿ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ."
 
 msgid "Ham radio, UK foundation license"
-msgstr "Ham radio, UK foundation license"
+msgstr "ಹ್ಯಾಮ್ ರೇಡಿಯೊ, ಯುಕೆ ಫೌಂಡೇಶನ್ ಲೈಸೆನ್ಸ್"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "ನಿಮ್ಮ ಗೇಮ್ ಮಾಸ್ಟರ್‌ನಿಂದ 8-ಅಕ್ಷರಗಳ ಕೋಡ್ ಹೊಂದಿದ್ದೀರಾ? ನೇರವಾಗಿ ಪ್ರವೇಶಿಸಲು ಇಲ್ಲಿ ನಮೂದಿಸಿ:"
 
 msgid "Hiking and climbing"
-msgstr "Hiking and climbing"
+msgstr "ಹೈಕಿಂಗ್ ಮತ್ತು ಕ್ಲೈಂಬಿಂಗ್"
 
 msgid "Hobbies"
 msgstr "ಹವ್ಯಾಸಗಳು"
@@ -246,10 +246,10 @@ msgid "Hold-to-Peek Secret Roles:"
 msgstr "ರಹಸ್ಯ ಪಾತ್ರಗಳನ್ನು ನೋಡಲು ಒತ್ತಿಹಿಡಿಯಿರಿ:"
 
 msgid "Home automation and homelab"
-msgstr "Home automation and homelab"
+msgstr "ಹೋಮ್ ಆಟೊಮೇಷನ್ ಮತ್ತು ಹೋಮ್‌ಲ್ಯಾಬ್"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr "Horizontal focal point: 0=left, 50=center, 100=right."
+msgstr "ಅಡ್ಡ ಕೇಂದ್ರೀಕೃತ ಬಿಂದು: 0=ಎಡ, 50=ಮಧ್ಯ, 100=ಬಲ."
 
 msgid "I code, take pics and many other things"
 msgstr "ನಾನು ಕೋಡ್ ಮಾಡುತ್ತೇನೆ, ಫೋಟೋಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತೇನೆ ಮತ್ತು ಇನ್ನಷ್ಟು"
@@ -270,10 +270,10 @@ msgid "Incorrect room password."
 msgstr "ತಪ್ಪಾದ ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್."
 
 msgid "Instagram 4:5 Preview"
-msgstr "Instagram 4:5 Preview"
+msgstr "Instagram 4:5 ಮುನ್ನೋಟ"
 
 msgid "Instagram 4:5 image"
-msgstr "Instagram 4:5 image"
+msgstr "Instagram 4:5 ಚಿತ್ರ"
 
 msgid "Invalid Game Master secret key."
 msgstr "ಅಮಾನ್ಯ ಗೇಮ್ ಮಾಸ್ಟರ್ ರಹಸ್ಯ ಕೀಲಿ."
@@ -294,13 +294,13 @@ msgid "Join with Room Code"
 msgstr "ಕೊಠಡಿ ಕೋಡ್‌ನೊಂದಿಗೆ ಸೇರಿ"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr "Kayak, surf, SUP, windsurf"
+msgstr "ಕಯಾಕ್, ಸರ್ಫ್, SUP, ವಿಂಡ್‌ಸರ್ಫ್"
 
 msgid "Languages"
 msgstr "ಭಾಷೆಗಳು"
 
 msgid "Last updated: October 27, 2026"
-msgstr "Last updated: October 27, 2026"
+msgstr "ಕೊನೆಯದಾಗಿ ನವೀಕರಿಸಿದ್ದು: ಅಕ್ಟೋಬರ್ 27, 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
 msgstr "ತಡವಾಗಿ ಬಂದವರು ದೃಢೀಕೃತ ಪ್ರಯಾಣಿಕರು, ಪ್ರೇತಗಳು ಅಥವಾ ಉತ್ತರಾಧಿಕಾರಿಗಳಾಗಿ ಸೇರುತ್ತಾರೆ."
@@ -363,7 +363,7 @@ msgid "No Active Lupus Games Right Now"
 msgstr "ಪ್ರಸ್ತುತ ಯಾವುದೇ ಸಕ್ರಿಯ ಲೂಪಸ್ ಆಟಗಳಿಲ್ಲ"
 
 msgid "No Instagram crop generated yet."
-msgstr "No Instagram crop generated yet."
+msgstr "ಇನ್ನೂ ಯಾವುದೇ Instagram ಕ್ರಾಪ್ ರಚಿಸಲಾಗಿಲ್ಲ."
 
 msgid "Open"
 msgstr "ತೆರೆದಿದೆ"
@@ -375,7 +375,7 @@ msgid "Open GM Cockpit"
 msgstr "ಜಿಎಂ ಕಾಕ್‌ಪಿಟ್ ತೆರೆಯಿರಿ"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr "Original camera RAW file (CR3, ARW, NEF, etc.)"
+msgstr "ಮೂಲ ಕ್ಯಾಮೆರಾ RAW ಫೈಲ್ (CR3, ARW, NEF, ಇತ್ಯಾದಿ)"
 
 msgid "Other"
 msgstr "ಇತರೆ"
@@ -384,7 +384,7 @@ msgid "Outdoors"
 msgstr "ಹೊರಾಂಗಣ"
 
 msgid "Page Not Found — Marco Silva"
-msgstr "Page Not Found — Marco Silva"
+msgstr "ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ — Marco Silva"
 
 msgid "Password"
 msgstr "ಪಾಸ್‌ವರ್ಡ್"
@@ -396,7 +396,7 @@ msgid "Past & Finished Games"
 msgstr "ಹಿಂದಿನ ಮತ್ತು ಪೂರ್ಣಗೊಂಡ ಆಟಗಳು"
 
 msgid "Pending"
-msgstr "Pending"
+msgstr "ಬಾಕಿಯಿದೆ"
 
 msgid "Photography"
 msgstr "ಛಾಯಾಗ್ರಹಣ"
@@ -417,22 +417,22 @@ msgid "Previous day"
 msgstr "ಹಿಂದಿನ ದಿನ"
 
 msgid "Price for the RAW file download."
-msgstr "Price for the RAW file download."
+msgstr "RAW ಫೈಲ್ ಡೌನ್‌ಲೋಡ್‌ನ ಬೆಲೆ."
 
 msgid "Privacy Policy"
 msgstr "ಗೌಪ್ಯತೆ ನೀತಿ"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr "Privacy Policy - Homelab Telegram Bot"
+msgstr "ಗೌಪ್ಯತಾ ನೀತಿ - ಹೋಮ್‌ಲ್ಯಾಬ್ Telegram ಬಾಟ್"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr "Privacy Policy - Homelab Telegram Bot - Marco Silva"
+msgstr "ಗೌಪ್ಯತಾ ನೀತಿ - ಹೋಮ್‌ಲ್ಯಾಬ್ Telegram ಬಾಟ್ - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
 msgstr "ಗೌಪ್ಯತೆ ರಕ್ಷಕವು ಮೇಜಿನ ಮೇಲಿರುವ ಇತರರ ಕಣ್ಣುಗಳಿಂದ ಕಾರ್ಡ್‌ಗಳನ್ನು ರಹಸ್ಯವಾಗಿರಿಸುತ್ತದೆ."
 
 msgid "Processing"
-msgstr "Processing"
+msgstr "ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ"
 
 msgid "Public"
 msgstr "ಸಾರ್ವಜನಿಕ"
@@ -441,10 +441,10 @@ msgid "RAW available for purchase"
 msgstr "RAW ಖರೀದಿಗೆ ಲಭ್ಯವಿದೆ"
 
 msgid "RAW file"
-msgstr "RAW file"
+msgstr "RAW ಫೈಲ್"
 
 msgid "RAW price"
-msgstr "RAW price"
+msgstr "RAW ಬೆಲೆ"
 
 msgid "Reading"
 msgstr "ಓದುವುದು"
@@ -453,7 +453,7 @@ msgid "Real-time multiplayer browser party games. No accounts required — just 
 msgstr "ನೈಜ-ಸಮಯದ ಮಲ್ಟಿಪ್ಲೇಯರ್ ಬ್ರೌಸರ್ ಪಾರ್ಟಿ ಆಟಗಳು. ಯಾವುದೇ ಖಾತೆಯ ಅಗತ್ಯವಿಲ್ಲ — ಕೇವಲ ಸೇರಿ ಮತ್ತು ಸ್ನೇಹಿತರೊಂದಿಗೆ ಆಟವಾಡಿ."
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr "Regenerate 4:5 Instagram crops for selected photos"
+msgstr "ಆಯ್ಕೆಮಾಡಿದ ಫೋಟೋಗಳಿಗಾಗಿ 4:5 Instagram ಕ್ರಾಪ್‌ಗಳನ್ನು ಮರುರಚಿಸಿ"
 
 msgid "Replay"
 msgstr "ಮರುಪಂದ್ಯ"
@@ -489,10 +489,10 @@ msgid "Running"
 msgstr "ನಡೆಯುತ್ತಿದೆ"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr "Send Instagram carousel pack to Telegram"
+msgstr "Instagram ಕರೋಸಲ್ ಪ್ಯಾಕ್ ಅನ್ನು Telegram ಗೆ ಕಳುಹಿಸಿ"
 
 msgid "Server Error — Marco Silva"
-msgstr "Server Error — Marco Silva"
+msgstr "ಸರ್ವರ್ ದೋಷ — Marco Silva"
 
 msgid "Silent Phase"
 msgstr "ಶಾಂತ ಹಂತ"
@@ -537,10 +537,10 @@ msgid "Terms of Service"
 msgstr "ಸೇವಾ ನಿಯಮಗಳು"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr "Terms of Service - Homelab Telegram Bot"
+msgstr "ಸೇವಾ ನಿಯಮಗಳು - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr "Terms of Service - Homelab Telegram Bot - Marco Silva"
+msgstr "ಸೇವಾ ನಿಯಮಗಳು - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "ವೈದ್ಯ / ಅಂಗರಕ್ಷಕ ಸತತ ಎರಡು ರಾತ್ರಿಗಳಲ್ಲಿ ಒಬ್ಬನೇ ವ್ಯಕ್ತಿಯನ್ನು ರಕ್ಷಿಸುವಂತಿಲ್ಲ."
@@ -558,7 +558,7 @@ msgid "Unlock Room"
 msgstr "ಕೊಠಡಿಯನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿ"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr "Vertical focal point: 0=top, 50=center, 100=bottom."
+msgstr "ಲಂಬ ಫೋಕಸ್ ಬಿಂದು: 0=ಮೇಲೆ, 50=ಮಧ್ಯ, 100=ಕೆಳಗೆ."
 
 msgid "Villagers, Wolves, Seer"
 msgstr "ಗ್ರಾಮಸ್ಥರು, ತೋಳಗಳು, ದ್ರಷ್ಟಾರ"
@@ -570,7 +570,7 @@ msgid "Werewolf / Lupus"
 msgstr "ತೋಳಮಾನವ / ಲೂಪಸ್"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr "Whether focus coordinates were automatically calculated via edge saliency."
+msgstr "ಎಡ್ಜ್ ಸೇಲಿಯನ್ಸಿ ಮೂಲಕ ಫೋಕಸ್ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಲೆಕ್ಕಹಾಕಲಾಗಿದೆಯೇ ಎಂದು."
 
 msgid "Work Experience"
 msgstr "ಕೆಲಸದ ಅನುಭವ"
@@ -594,7 +594,7 @@ msgid "alive"
 msgstr "ಜೀವಂತ"
 
 msgid "all"
-msgstr "all"
+msgstr "ಎಲ್ಲವೂ"
 
 msgid "all day"
 msgstr "ದಿನವಿಡೀ"
@@ -603,13 +603,13 @@ msgid "any"
 msgstr "ಯಾವುದಾದರೂ"
 
 msgid "aperture"
-msgstr "aperture"
+msgstr "ಅಪರ್ಚರ್"
 
 msgid "auto focus detected"
-msgstr "auto focus detected"
+msgstr "ಆಟೋ ಫೋಕಸ್ ಪತ್ತೆಯಾಗಿದೆ"
 
 msgid "available for sale"
-msgstr "available for sale"
+msgstr "ಮಾರಾಟಕ್ಕೆ ಲಭ್ಯವಿದೆ"
 
 msgid "best guess"
 msgstr "ಅತ್ಯುತ್ತಮ ಊಹೆ"
@@ -618,10 +618,10 @@ msgid "blog"
 msgstr "ಬ್ಲಾಗ್"
 
 msgid "camera make"
-msgstr "camera make"
+msgstr "ಕ್ಯಾಮೆರಾ ತಯಾರಕರು"
 
 msgid "camera model"
-msgstr "camera model"
+msgstr "ಕ್ಯಾಮೆರಾ ಮಾದರಿ"
 
 msgid "chat"
 msgstr "ಚಾಟ್"
@@ -642,16 +642,16 @@ msgid "create room"
 msgstr "ಕೊಠಡಿ ರಚಿಸಿ"
 
 msgid "crop focus X (%)"
-msgstr "crop focus X (%)"
+msgstr "ಕ್ರಾಪ್ ಫೋಕಸ್ X (%)"
 
 msgid "crop focus Y (%)"
-msgstr "crop focus Y (%)"
+msgstr "ಕ್ರಾಪ್ ಫೋಕಸ್ Y (%)"
 
 msgid "cv"
 msgstr "ಸಿವಿ"
 
 msgid "date"
-msgstr "date"
+msgstr "ದಿನಾಂಕ"
 
 msgid "description"
 msgstr "ವಿವರಣೆ"
@@ -666,7 +666,7 @@ msgid "download .ics"
 msgstr ".ics ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ"
 
 msgid "e.g. 9B3A1C2D"
-msgstr "e.g. 9B3A1C2D"
+msgstr "ಉದಾ. 9B3A1C2D"
 
 msgid "e.g. Marco"
 msgstr "ಉದಾ. ಮಾರ್ಕೊ"
@@ -687,16 +687,16 @@ msgid "extract event"
 msgstr "ಈವೆಂಟ್ ಹೊರತೆಗೆಯಿರಿ"
 
 msgid "focal length"
-msgstr "focal length"
+msgstr "ಫೋಕಲ್ ಲೆಂತ್"
 
 msgid "gallery"
 msgstr "ಗ್ಯಾಲರಿ"
 
 msgid "gallery extension"
-msgstr "gallery extension"
+msgstr "ಗ್ಯಾಲರಿ ವಿಸ್ತರಣೆ"
 
 msgid "gallery extensions"
-msgstr "gallery extensions"
+msgstr "ಗ್ಯಾಲರಿ ವಿಸ್ತರಣೆಗಳು"
 
 msgid "gallery not found."
 msgstr "ಗ್ಯಾಲರಿ ಕಂಡುಬಂದಿಲ್ಲ."
@@ -729,19 +729,19 @@ msgid "latest posts"
 msgstr "ಇತ್ತೀಚಿನ ಪೋಸ್ಟ್‌ಗಳು"
 
 msgid "latitude"
-msgstr "latitude"
+msgstr "ಅಕ್ಷಾಂಶ"
 
 msgid "lens"
-msgstr "lens"
+msgstr "ಲೆನ್ಸ್"
 
 msgid "location"
 msgstr "ಸ್ಥಳ"
 
 msgid "location name"
-msgstr "location name"
+msgstr "ಸ್ಥಳದ ಹೆಸರು"
 
 msgid "longitude"
-msgstr "longitude"
+msgstr "ರೇಖಾಂಶ"
 
 msgid "map view"
 msgstr "ನಕ್ಷೆ ನೋಟ"
@@ -795,13 +795,13 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "ಈವೆಂಟ್ ವಿವರಗಳೊಂದಿಗೆ ಪಠ್ಯ ಅಥವಾ url ಅನ್ನು ಅಂಟಿಸಿ ಮತ್ತು .ics ಫೈಲ್ ಪಡೆಯಿರಿ."
 
 msgid "photo"
-msgstr "photo"
+msgstr "ಫೋಟೋ"
 
 msgid "photo extension"
-msgstr "photo extension"
+msgstr "ಫೋಟೋ ವಿಸ್ತರಣೆ"
 
 msgid "photo extensions"
-msgstr "photo extensions"
+msgstr "ಫೋಟೋ ವಿಸ್ತರಣೆಗಳು"
 
 msgid "photo map"
 msgstr "ಫೋಟೋ ನಕ್ಷೆ"
@@ -837,7 +837,7 @@ msgid "private"
 msgstr "ಖಾಸಗಿ"
 
 msgid "processing status"
-msgstr "processing status"
+msgstr "ಪ್ರಕ್ರಿಯೆಯ ಸ್ಥಿತಿ"
 
 msgid "public"
 msgstr "ಸಾರ್ವಜನಿಕ"
@@ -870,7 +870,7 @@ msgid "settings"
 msgstr "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
 
 msgid "shutter speed"
-msgstr "shutter speed"
+msgstr "ಶಟರ್ ವೇಗ"
 
 msgid "skip"
 msgstr "ಬಿಟ್ಟುಬಿಡಿ"
@@ -927,13 +927,13 @@ msgid "watermarked"
 msgstr "ವಾಟರ್‌ಮಾರ್ಕ್"
 
 msgid "watermarked image"
-msgstr "watermarked image"
+msgstr "ವಾಟರ್‌ಮಾರ್ಕ್ ಮಾಡಿದ ಚಿತ್ರ"
 
 msgid "web"
 msgstr "ವೆಬ್"
 
 msgid "web-optimized image"
-msgstr "web-optimized image"
+msgstr "ವೆಬ್-ಆಪ್ಟಿಮೈಸ್ ಮಾಡಿದ ಚಿತ್ರ"
 
 msgid "week"
 msgstr "ವಾರ"

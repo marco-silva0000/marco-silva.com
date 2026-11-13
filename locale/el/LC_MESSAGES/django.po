@@ -693,10 +693,10 @@ msgid "gallery"
 msgstr "γκαλερί"
 
 msgid "gallery extension"
-msgstr "gallery extension"
+msgstr "επέκταση γκαλερί"
 
 msgid "gallery extensions"
-msgstr "gallery extensions"
+msgstr "επεκτάσεις γκαλερί"
 
 msgid "gallery not found."
 msgstr "η γκαλερί δεν βρέθηκε."
@@ -729,19 +729,19 @@ msgid "latest posts"
 msgstr "τελευταίες αναρτήσεις"
 
 msgid "latitude"
-msgstr "latitude"
+msgstr "γεωγραφικό πλάτος"
 
 msgid "lens"
-msgstr "lens"
+msgstr "φακός"
 
 msgid "location"
 msgstr "τοποθεσία"
 
 msgid "location name"
-msgstr "location name"
+msgstr "όνομα τοποθεσίας"
 
 msgid "longitude"
-msgstr "longitude"
+msgstr "γεωγραφικό μήκος"
 
 msgid "map view"
 msgstr "προβολή χάρτη"
@@ -795,13 +795,13 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "επικολλήστε κείμενο ή σύνδεσμο με λεπτομέρειες συμβάντος και λάβετε αρχείο .ics."
 
 msgid "photo"
-msgstr "photo"
+msgstr "φωτογραφία"
 
 msgid "photo extension"
-msgstr "photo extension"
+msgstr "επέκταση φωτογραφίας"
 
 msgid "photo extensions"
-msgstr "photo extensions"
+msgstr "επεκτάσεις φωτογραφιών"
 
 msgid "photo map"
 msgstr "χάρτης φωτογραφιών"
@@ -837,7 +837,7 @@ msgid "private"
 msgstr "ιδιωτικό"
 
 msgid "processing status"
-msgstr "processing status"
+msgstr "κατάσταση επεξεργασίας"
 
 msgid "public"
 msgstr "δημόσιο"
@@ -870,7 +870,7 @@ msgid "settings"
 msgstr "ρυθμίσεις"
 
 msgid "shutter speed"
-msgstr "shutter speed"
+msgstr "ταχύτητα κλείστρου"
 
 msgid "skip"
 msgstr "παράλειψη"
@@ -927,13 +927,13 @@ msgid "watermarked"
 msgstr "με υδατογράφημα"
 
 msgid "watermarked image"
-msgstr "watermarked image"
+msgstr "εικόνα με υδατογράφημα"
 
 msgid "web"
 msgstr "ιστός"
 
 msgid "web-optimized image"
-msgstr "web-optimized image"
+msgstr "εικόνα βελτιστοποιημένη για τον ιστό"
 
 msgid "week"
 msgstr "εβδομάδα"

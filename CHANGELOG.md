@@ -4,6 +4,15 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v141] - 2026-11-13
+
+### Added
+- **Automated Chunked Localization Engine (`scripts/translate_chunks_agy.py`)**:
+  - Built systematic CLI tool (`locale/translate_with_agy.py`) that scans CSV and PO catalogs, groups untranslated strings into context-aware chunks, spawns `agy --dangerously-skip-permissions`, and persists translations directly to disk and binary `.mo` catalogs after every chunk.
+  - Configured automatic quota fallback rotation (`gemini-4-argon-medium` → `gemini-4-argon-low` → `gemini-4-argon-high` → `gemini-4-hydrogen-medium` → `gemini-4-hydrogen-low` → `gemini-4-hydrogen-high` → `claude-sonnet-5-5-medium` → `claude-sonnet-5-5-low` → `gpt-oss-120b-medium`) and pre-master CSV synchronization.
+- **Expanded Multilingual Catalog Coverage**:
+  - Completed and compiled full translations across Arabic (`ar`, 99.7%), Hindi (`hi`, 99.7%), Kannada (`kn`, 99.7%), Persian (`fa`, 99.4%), Greek (`el`, 98.8%), Azerbaijani (`az`, 97.6%), Basque (`eu`, 97.6%), Spanish (`es`, 96.7%), Afrikaans (`af`, 96.4%), Albanian (`sq`, 96.4%), Italian (`it`, 95.5%), French (`fr`, 93.8%), and Bengali (`bn`).
+
 ## [v140] - 2026-11-13
 
 ### Added

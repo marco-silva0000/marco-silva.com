@@ -222,23 +222,70 @@ Input Items to Translate:
 """
 
 
+DEFAULT_MODEL = "gemini-4-argon-medium"
+FALLBACK_MODELS = [
+    "gemini-4-argon-medium",
+    "gemini-4-argon-low",
+    "gemini-4-argon-high",
+    "gemini-4-hydrogen-medium",
+    "gemini-4-hydrogen-low",
+    "gemini-4-hydrogen-high",
+    "claude-sonnet-5-5-medium",
+    "claude-sonnet-5-5-low",
+    "gpt-oss-120b-medium",
+]
+EXHAUSTED_MODELS: set[str] = set()
+CURRENT_ACTIVE_MODEL: str | None = None
+
+
+def get_next_available_model(preferred: str | None) -> str | None:
+    """Return preferred model if not exhausted, else next available fallback model."""
+    global CURRENT_ACTIVE_MODEL
+    if CURRENT_ACTIVE_MODEL and CURRENT_ACTIVE_MODEL not in EXHAUSTED_MODELS:
+        return CURRENT_ACTIVE_MODEL
+    if preferred and preferred not in EXHAUSTED_MODELS:
+        CURRENT_ACTIVE_MODEL = preferred
+        return CURRENT_ACTIVE_MODEL
+    for candidate in FALLBACK_MODELS:
+        if candidate not in EXHAUSTED_MODELS:
+            CURRENT_ACTIVE_MODEL = candidate
+            return CURRENT_ACTIVE_MODEL
+    return None
+
+
 def call_agy(
-    prompt: str, model: str | None = None, effort: str | None = None, timeout: int = 180, retries: int = 2
+    prompt: str, model: str | None = DEFAULT_MODEL, effort: str | None = None, timeout: int = 180, retries: int = 2
 ) -> dict:
     """Spawn agy --dangerously-skip-permissions with the given prompt and return parsed JSON."""
-    cmd = ["agy", "--dangerously-skip-permissions"]
-    if model:
-        cmd.extend(["--model", model])
-    if effort:
-        cmd.extend(["--effort", effort])
-    cmd.extend(["-p", prompt])
+    attempt = 1
+    while attempt <= retries:
+        active_model = get_next_available_model(model)
+        if active_model is None:
+            print("\n🛑 All configured agy models have reached their quota — aborting run.")
+            print("   Progress so far is saved; re-run later to resume.")
+            sys.exit(3)
 
-    for attempt in range(1, retries + 1):
+        cmd = ["agy", "--dangerously-skip-permissions", "--model", active_model]
+        if effort:
+            cmd.extend(["--effort", effort])
+        cmd.extend(["-p", prompt])
+
         try:
             res = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
             if res.returncode != 0:
+                err = (res.stderr or "") + (res.stdout or "")
+                if "RESOURCE_EXHAUSTED" in err or "quota reached" in err.lower():
+                    EXHAUSTED_MODELS.add(active_model)
+                    nxt = get_next_available_model(model)
+                    if nxt:
+                        print(f"\n      🔄 Model '{active_model}' quota reached — switching to '{nxt}'...")
+                        continue
+                    print(f"\n🛑 agy quota exhausted on all models — aborting run. {res.stderr.strip()[:200]}")
+                    print("   Progress so far is saved; re-run later to resume.")
+                    sys.exit(3)
                 print(f"      ⚠️  agy exited with code {res.returncode}. Stderr: {res.stderr.strip()[:200]}")
                 if attempt < retries:
+                    attempt += 1
                     time.sleep(2)
                     continue
                 raise RuntimeError(f"agy failed with code {res.returncode}: {res.stderr}")
@@ -248,15 +295,18 @@ def call_agy(
         except subprocess.TimeoutExpired:
             print(f"      ⏳ agy timed out after {timeout}s (attempt {attempt}/{retries})")
             if attempt < retries:
+                attempt += 1
                 time.sleep(3)
                 continue
             raise
         except Exception as e:
             if attempt < retries:
                 print(f"      ⚠️  Parse error on attempt {attempt}/{retries}: {e}. Retrying...")
+                attempt += 1
                 time.sleep(2)
                 continue
             raise
+    raise RuntimeError("Exceeded max retries calling agy")
 
 
 def is_untranslated(val: str, en_val: str, lang_code: str) -> bool:
@@ -534,7 +584,7 @@ def discover_files(
         # Direct .po files
         po_files.extend(target_dir.glob("*.po"))
 
-    return sorted(list(set(csv_files))), sorted(list(set(po_files)))
+    return sorted(set(csv_files), key=lambda p: (p.name == "translations_master.csv", p.name)), sorted(set(po_files))
 
 
 def main():
@@ -588,8 +638,8 @@ def main():
     )
     parser.add_argument(
         "--model",
-        default=None,
-        help="Model to pass to agy (e.g. gemini-3.8-flash-high). Defaults to CLI default.",
+        default=DEFAULT_MODEL,
+        help=f"Model to pass to agy (default: {DEFAULT_MODEL}). Automatically falls back on quota exhaustion.",
     )
     parser.add_argument(
         "--effort",
@@ -652,6 +702,19 @@ def main():
 
     # Process CSV files
     for cp in csv_files:
+        if cp.name == "translations_master.csv" and not args.no_sync_po and not args.dry_run:
+            try:
+                from scripts.translations_tool import cmd_export_csv
+
+                class PreExportArgs:
+                    lang = "all"
+                    output = str(cp)
+                    untranslated_only = False
+
+                cmd_export_csv(PreExportArgs())
+            except Exception:
+                pass
+
         grand_total += process_csv_file(
             cp,
             target_langs=args.lang,

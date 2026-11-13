@@ -1,96 +1,96 @@
 ﻿msgid,context,en,fr
-1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,
-1. Overview,templates/bot_privacy.html,1. Overview,
-10 Minutes,"scripts/generate_locales.py, templates/lupus/create.html",10 Minutes,10 Minutes
-2. Information We Access,templates/bot_privacy.html,2. Information We Access,
-2. Permitted Use,templates/bot_terms.html,2. Permitted Use,
-3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,
-3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,
-4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,
-4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,
-4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,
-5 Minutes (Standard),"scripts/generate_locales.py, templates/lupus/create.html",5 Minutes (Standard),5 Minutes (Standard)
-5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,
-5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,
-6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,
-Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,
-CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,
+1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. Acceptation des conditions
+1. Overview,templates/bot_privacy.html,1. Overview,1. Présentation générale
+10 Minutes,"scripts/generate_locales.py, templates/lupus/create.html",10 Minutes,10 minutes
+2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. Informations auxquelles nous accédons
+2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. Utilisation autorisée
+3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,3. Stockage et sécurité des données
+3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,3. Exclusion de garanties
+4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,4. Limitation de responsabilité
+4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,4. Partage avec des tiers
+4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,Recadrage vertical 4:5 (1080x1350) pour les carrousels Instagram.
+5 Minutes (Standard),"scripts/generate_locales.py, templates/lupus/create.html",5 Minutes (Standard),5 minutes (Standard)
+5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,5. Modifications et résiliation
+5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,5. Révocation de l'accès et suppression des données
+6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,6. Contact
+Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,Appliquer la licence Creative Commons Attribution-NonCommercial-ShareAlike et le filigrane.
+CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,Licence CC BY-NC-SA
 CODE,"scripts/generate_locales.py, templates/lupus/hub.html",CODE,CODE
-CTFs,templates/cv.html,CTFs,
+CTFs,templates/cv.html,CTFs,CTFs
 Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Cockpit,Cockpit
-Curated,photos/models.py,Curated,
-Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),
-Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,
-Day Trip,photos/models.py,Day Trip,
+Curated,photos/models.py,Curated,Sélectionné
+Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),Claviers split personnalisés (colemak + nvim)
+Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,Date du voyage / de la séance photo.
+Day Trip,photos/models.py,Day Trip,Excursion à la journée
 Discussion,"lupus/views.py, scripts/generate_locales.py",Discussion,Discussion
-Done,photos/models.py,Done,
-Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),
-Failed,photos/models.py,Failed,
-GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,
-"Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license",
-Hiking and climbing,templates/cv.html,Hiking and climbing,
-Home automation and homelab,templates/cv.html,Home automation and homelab,
-"Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.",
-ISO,photos/models.py,ISO,
-Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,
-Instagram 4:5 image,photos/models.py,Instagram 4:5 image,
-"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf",
-"Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",
+Done,photos/models.py,Done,Terminé
+Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),Électronique / systèmes embarqués (dont Rust embarqué)
+Failed,photos/models.py,Failed,Échec
+GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,Cockpit MJ
+"Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license","Radioamateur, licence Foundation britannique"
+Hiking and climbing,templates/cv.html,Hiking and climbing,Randonnée et escalade
+Home automation and homelab,templates/cv.html,Home automation and homelab,Domotique et homelab
+"Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.","Point focal horizontal : 0=gauche, 50=centre, 100=droite."
+ISO,photos/models.py,ISO,ISO
+Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,Aperçu Instagram 4:5
+Instagram 4:5 image,photos/models.py,Instagram 4:5 image,Image Instagram 4:5
+"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","Kayak, surf, SUP, planche à voile"
+"Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",Dernière mise à jour : 27 octobre 2026
 Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,Mafia
-No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,
-"Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)",
-Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,
-Pending,photos/models.py,Pending,
-Price for the RAW file download.,photos/models.py,Price for the RAW file download.,
-Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,
-Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,
-Processing,photos/models.py,Processing,
+No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,Aucun recadrage Instagram généré pour le moment.
+"Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)","Fichier RAW d'origine de l'appareil photo (CR3, ARW, NEF, etc.)"
+Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,Page introuvable — Marco Silva
+Pending,photos/models.py,Pending,En attente
+Price for the RAW file download.,photos/models.py,Price for the RAW file download.,Prix pour le téléchargement du fichier RAW.
+Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,Politique de confidentialité - Bot Telegram Homelab
+Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,Politique de confidentialité - Bot Telegram Homelab - Marco Silva
+Processing,photos/models.py,Processing,En cours de traitement
 Public,"scripts/generate_locales.py, templates/lupus/hub.html",Public,Public
-RAW file,photos/models.py,RAW file,
-RAW price,photos/models.py,RAW price,
-Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,
-Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,
-Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,
-Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,
-Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,
-"Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.",
-Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,
-all,templates/emojinary/game.html,all,
-aperture,photos/models.py,aperture,
-auto focus detected,photos/models.py,auto focus detected,
-available for sale,photos/models.py,available for sale,
+RAW file,photos/models.py,RAW file,Fichier RAW
+RAW price,photos/models.py,RAW price,Prix RAW
+Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,Régénérer les recadrages Instagram 4:5 pour les photos sélectionnées
+Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,Envoyer le pack carrousel Instagram sur Telegram
+Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,Erreur serveur — Marco Silva
+Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,Conditions d'utilisation - Bot Telegram Homelab
+Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,Conditions d'utilisation - Bot Telegram Homelab - Marco Silva
+"Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.","Point focal vertical : 0=haut, 50=centre, 100=bas."
+Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,Indique si les coordonnées de mise au point ont été calculées automatiquement via la saillance des contours.
+all,templates/emojinary/game.html,all,tous
+aperture,photos/models.py,aperture,ouverture
+auto focus detected,photos/models.py,auto focus detected,mise au point auto détectée
+available for sale,photos/models.py,available for sale,disponible à la vente
 blog,"scripts/generate_locales.py, templates/base.html, templates/blog/blog_index_page.html, templates/blog/post_list.html, templates/wip.html",blog,blog
-camera make,photos/models.py,camera make,
-camera model,photos/models.py,camera model,
-crop focus X (%),photos/models.py,crop focus X (%),
-crop focus Y (%),photos/models.py,crop focus Y (%),
+camera make,photos/models.py,camera make,marque de l'appareil
+camera model,photos/models.py,camera model,modèle de l'appareil
+crop focus X (%),photos/models.py,crop focus X (%),point focal de recadrage X (%)
+crop focus Y (%),photos/models.py,crop focus Y (%),point focal de recadrage Y (%)
 cv,"scripts/generate_locales.py, templates/base.html",cv,cv
-date,photos/models.py,date,
+date,photos/models.py,date,date
 description,templates/tools/ics_maker.html,description,description
-e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,
-focal length,photos/models.py,focal length,
-gallery extension,photos/models.py,gallery extension,
-gallery extensions,photos/models.py,gallery extensions,
-latitude,photos/models.py,latitude,
-lens,photos/models.py,lens,
-location name,photos/models.py,location name,
-longitude,photos/models.py,longitude,
+e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,ex. 9B3A1C2D
+focal length,photos/models.py,focal length,distance focale
+gallery extension,photos/models.py,gallery extension,extension de galerie
+gallery extensions,photos/models.py,gallery extensions,extensions de galerie
+latitude,photos/models.py,latitude,latitude
+lens,photos/models.py,lens,objectif
+location name,photos/models.py,location name,nom du lieu
+longitude,photos/models.py,longitude,longitude
 mode,templates/tools/pictionary.html,mode,mode
 original,templates/photos/photo_viewer.html,original,original
-photo,photos/models.py,photo,
-photo extension,photos/models.py,photo extension,
-photo extensions,photos/models.py,photo extensions,
+photo,photos/models.py,photo,photo
+photo extension,photos/models.py,photo extension,extension photo
+photo extensions,photos/models.py,photo extensions,extensions photo
 photos,"scripts/generate_locales.py, templates/base.html, templates/index.html, templates/photos/gallery_list.html",photos,photos
 pictionary,templates/tools/pictionary.html,pictionary,pictionary
 planz,"templates/tools/planz.html, templates/tools/planz_full.html",planz,planz
-processing status,photos/models.py,processing status,
+processing status,photos/models.py,processing status,statut du traitement
 public,templates/emojinary/game.html,public,public
-shutter speed,photos/models.py,shutter speed,
+shutter speed,photos/models.py,shutter speed,vitesse d'obturation
 type,"photos/models.py, templates/tools/pictionary.html",type,type
 url,templates/tools/ics_maker.html,url,url
-watermarked image,photos/models.py,watermarked image,
+watermarked image,photos/models.py,watermarked image,image avec filigrane
 web,templates/photos/photo_viewer.html,web,web
-web-optimized image,photos/models.py,web-optimized image,
+web-optimized image,photos/models.py,web-optimized image,image optimisée pour le web
 ✏️ pictionary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",✏️ pictionary,✏️ pictionary
 🎨 Emojinary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🎨 Emojinary,🎨 Emojinary
 🐺 Lupus,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 Lupus,🐺 Lupus

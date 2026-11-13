@@ -1,75 +1,75 @@
 ﻿msgid,context,en,kn
-1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,
-1. Overview,templates/bot_privacy.html,1. Overview,
-2. Information We Access,templates/bot_privacy.html,2. Information We Access,
-2. Permitted Use,templates/bot_terms.html,2. Permitted Use,
-3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,
-3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,
-4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,
-4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,
-4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,
-5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,
-5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,
-6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,
-Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,
-CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,
-CTFs,templates/cv.html,CTFs,
-Curated,photos/models.py,Curated,
-Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),
-Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,
-Day Trip,photos/models.py,Day Trip,
-Done,photos/models.py,Done,
-Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),
-Failed,photos/models.py,Failed,
-GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,
-"Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license",
-Hiking and climbing,templates/cv.html,Hiking and climbing,
-Home automation and homelab,templates/cv.html,Home automation and homelab,
-"Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.",
-ISO,photos/models.py,ISO,
-Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,
-Instagram 4:5 image,photos/models.py,Instagram 4:5 image,
-"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf",
-"Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",
-No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,
-"Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)",
-Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,
-Pending,photos/models.py,Pending,
-Price for the RAW file download.,photos/models.py,Price for the RAW file download.,
-Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,
-Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,
-Processing,photos/models.py,Processing,
-RAW file,photos/models.py,RAW file,
-RAW price,photos/models.py,RAW price,
-Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,
-Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,
-Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,
-Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,
-Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,
-"Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.",
-Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,
-all,templates/emojinary/game.html,all,
-aperture,photos/models.py,aperture,
-auto focus detected,photos/models.py,auto focus detected,
-available for sale,photos/models.py,available for sale,
-camera make,photos/models.py,camera make,
-camera model,photos/models.py,camera model,
-crop focus X (%),photos/models.py,crop focus X (%),
-crop focus Y (%),photos/models.py,crop focus Y (%),
-date,photos/models.py,date,
-e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,
-focal length,photos/models.py,focal length,
-gallery extension,photos/models.py,gallery extension,
-gallery extensions,photos/models.py,gallery extensions,
-latitude,photos/models.py,latitude,
-lens,photos/models.py,lens,
-location name,photos/models.py,location name,
-longitude,photos/models.py,longitude,
-photo,photos/models.py,photo,
-photo extension,photos/models.py,photo extension,
-photo extensions,photos/models.py,photo extensions,
-processing status,photos/models.py,processing status,
-shutter speed,photos/models.py,shutter speed,
+1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. ನಿಯಮಗಳ ಅಂಗೀಕಾರ
+1. Overview,templates/bot_privacy.html,1. Overview,1. ಅವಲೋಕನ
+2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. ನಾವು ಪ್ರವೇಶಿಸುವ ಮಾಹಿತಿ
+2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. ಅನುಮತಿಸಲಾದ ಬಳಕೆ
+3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,3. ಡೇಟಾ ಸಂಗ್ರಹಣೆ ಮತ್ತು ಭದ್ರತೆ
+3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,3. ವಾರಂಟಿಗಳ ಹಕ್ಕು ನಿರಾಕರಣೆ
+4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,4. ಹೊಣೆಗಾರಿಕೆಯ ಮಿತಿ
+4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,4. ಮೂರನೇ ವ್ಯಕ್ತಿಗಳೊಂದಿಗೆ ಹಂಚಿಕೆ
+4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,Instagram ಕ್ಯಾರೊಸೆಲ್‌ಗಳಿಗಾಗಿ 4:5 ಲಂಬ ಕ್ರಾಪ್ (1080x1350).
+5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,5. ಬದಲಾವಣೆಗಳು ಮತ್ತು ಮುಕ್ತಾಯ
+5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,5. ಪ್ರವೇಶ ಹಿಂಪಡೆಯುವಿಕೆ ಮತ್ತು ಡೇಟಾ ಅಳಿಸುವಿಕೆ
+6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,6. ಸಂಪರ್ಕ
+Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,Creative Commons Attribution-NonCommercial-ShareAlike ಪರವಾನಗಿ ಮತ್ತು ವಾಟರ್‌ಮಾರ್ಕ್ ಅನ್ನು ಅನ್ವಯಿಸಿ.
+CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,CC BY-NC-SA ಪರವಾನಗಿ
+CTFs,templates/cv.html,CTFs,CTFs
+Curated,photos/models.py,Curated,ಆಯ್ದ
+Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),ಕಸ್ಟಮ್ ಸ್ಪ್ಲಿಟ್ ಕೀಬೋರ್ಡ್‌ಗಳು (colemak + nvim)
+Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,ಪ್ರವಾಸ/ಫೋಟೋಶೂಟ್‌ನ ದಿನಾಂಕ.
+Day Trip,photos/models.py,Day Trip,ದಿನದ ಪ್ರವಾಸ
+Done,photos/models.py,Done,ಪೂರ್ಣಗೊಂಡಿದೆ
+Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),ಎಲೆಕ್ಟ್ರಾನಿಕ್ಸ್/ಎಂಬೆಡೆಡ್ (ಸ್ವಲ್ಪ Rust ಎಂಬೆಡೆಡ್)
+Failed,photos/models.py,Failed,ವಿಫಲವಾಗಿದೆ
+GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,GM ಕಾಕ್‌ಪಿಟ್
+"Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license","ಹ್ಯಾಮ್ ರೇಡಿಯೊ, ಯುಕೆ ಫೌಂಡೇಶನ್ ಲೈಸೆನ್ಸ್"
+Hiking and climbing,templates/cv.html,Hiking and climbing,ಹೈಕಿಂಗ್ ಮತ್ತು ಕ್ಲೈಂಬಿಂಗ್
+Home automation and homelab,templates/cv.html,Home automation and homelab,ಹೋಮ್ ಆಟೊಮೇಷನ್ ಮತ್ತು ಹೋಮ್‌ಲ್ಯಾಬ್
+"Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.","ಅಡ್ಡ ಕೇಂದ್ರೀಕೃತ ಬಿಂದು: 0=ಎಡ, 50=ಮಧ್ಯ, 100=ಬಲ."
+ISO,photos/models.py,ISO,ISO
+Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,Instagram 4:5 ಮುನ್ನೋಟ
+Instagram 4:5 image,photos/models.py,Instagram 4:5 image,Instagram 4:5 ಚಿತ್ರ
+"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","ಕಯಾಕ್, ಸರ್ಫ್, SUP, ವಿಂಡ್‌ಸರ್ಫ್"
+"Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026","ಕೊನೆಯದಾಗಿ ನವೀಕರಿಸಿದ್ದು: ಅಕ್ಟೋಬರ್ 27, 2026"
+No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,ಇನ್ನೂ ಯಾವುದೇ Instagram ಕ್ರಾಪ್ ರಚಿಸಲಾಗಿಲ್ಲ.
+"Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)","ಮೂಲ ಕ್ಯಾಮೆರಾ RAW ಫೈಲ್ (CR3, ARW, NEF, ಇತ್ಯಾದಿ)"
+Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ — Marco Silva
+Pending,photos/models.py,Pending,ಬಾಕಿಯಿದೆ
+Price for the RAW file download.,photos/models.py,Price for the RAW file download.,RAW ಫೈಲ್ ಡೌನ್‌ಲೋಡ್‌ನ ಬೆಲೆ.
+Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,ಗೌಪ್ಯತಾ ನೀತಿ - ಹೋಮ್‌ಲ್ಯಾಬ್ Telegram ಬಾಟ್
+Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,ಗೌಪ್ಯತಾ ನೀತಿ - ಹೋಮ್‌ಲ್ಯಾಬ್ Telegram ಬಾಟ್ - Marco Silva
+Processing,photos/models.py,Processing,ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ
+RAW file,photos/models.py,RAW file,RAW ಫೈಲ್
+RAW price,photos/models.py,RAW price,RAW ಬೆಲೆ
+Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,ಆಯ್ಕೆಮಾಡಿದ ಫೋಟೋಗಳಿಗಾಗಿ 4:5 Instagram ಕ್ರಾಪ್‌ಗಳನ್ನು ಮರುರಚಿಸಿ
+Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,Instagram ಕರೋಸಲ್ ಪ್ಯಾಕ್ ಅನ್ನು Telegram ಗೆ ಕಳುಹಿಸಿ
+Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,ಸರ್ವರ್ ದೋಷ — Marco Silva
+Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,ಸೇವಾ ನಿಯಮಗಳು - Homelab Telegram Bot
+Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,ಸೇವಾ ನಿಯಮಗಳು - Homelab Telegram Bot - Marco Silva
+"Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.","ಲಂಬ ಫೋಕಸ್ ಬಿಂದು: 0=ಮೇಲೆ, 50=ಮಧ್ಯ, 100=ಕೆಳಗೆ."
+Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,ಎಡ್ಜ್ ಸೇಲಿಯನ್ಸಿ ಮೂಲಕ ಫೋಕಸ್ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಲೆಕ್ಕಹಾಕಲಾಗಿದೆಯೇ ಎಂದು.
+all,templates/emojinary/game.html,all,ಎಲ್ಲವೂ
+aperture,photos/models.py,aperture,ಅಪರ್ಚರ್
+auto focus detected,photos/models.py,auto focus detected,ಆಟೋ ಫೋಕಸ್ ಪತ್ತೆಯಾಗಿದೆ
+available for sale,photos/models.py,available for sale,ಮಾರಾಟಕ್ಕೆ ಲಭ್ಯವಿದೆ
+camera make,photos/models.py,camera make,ಕ್ಯಾಮೆರಾ ತಯಾರಕರು
+camera model,photos/models.py,camera model,ಕ್ಯಾಮೆರಾ ಮಾದರಿ
+crop focus X (%),photos/models.py,crop focus X (%),ಕ್ರಾಪ್ ಫೋಕಸ್ X (%)
+crop focus Y (%),photos/models.py,crop focus Y (%),ಕ್ರಾಪ್ ಫೋಕಸ್ Y (%)
+date,photos/models.py,date,ದಿನಾಂಕ
+e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,ಉದಾ. 9B3A1C2D
+focal length,photos/models.py,focal length,ಫೋಕಲ್ ಲೆಂತ್
+gallery extension,photos/models.py,gallery extension,ಗ್ಯಾಲರಿ ವಿಸ್ತರಣೆ
+gallery extensions,photos/models.py,gallery extensions,ಗ್ಯಾಲರಿ ವಿಸ್ತರಣೆಗಳು
+latitude,photos/models.py,latitude,ಅಕ್ಷಾಂಶ
+lens,photos/models.py,lens,ಲೆನ್ಸ್
+location name,photos/models.py,location name,ಸ್ಥಳದ ಹೆಸರು
+longitude,photos/models.py,longitude,ರೇಖಾಂಶ
+photo,photos/models.py,photo,ಫೋಟೋ
+photo extension,photos/models.py,photo extension,ಫೋಟೋ ವಿಸ್ತರಣೆ
+photo extensions,photos/models.py,photo extensions,ಫೋಟೋ ವಿಸ್ತರಣೆಗಳು
+processing status,photos/models.py,processing status,ಪ್ರಕ್ರಿಯೆಯ ಸ್ಥಿತಿ
+shutter speed,photos/models.py,shutter speed,ಶಟರ್ ವೇಗ
 url,templates/tools/ics_maker.html,url,url
-watermarked image,photos/models.py,watermarked image,
-web-optimized image,photos/models.py,web-optimized image,
+watermarked image,photos/models.py,watermarked image,ವಾಟರ್‌ಮಾರ್ಕ್ ಮಾಡಿದ ಚಿತ್ರ
+web-optimized image,photos/models.py,web-optimized image,ವೆಬ್-ಆಪ್ಟಿಮೈಸ್ ಮಾಡಿದ ಚಿತ್ರ

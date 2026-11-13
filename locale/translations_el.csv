@@ -59,22 +59,22 @@ crop focus Y (%),photos/models.py,crop focus Y (%),εστίαση περικοπ
 date,photos/models.py,date,ημερομηνία
 e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,π.χ. 9B3A1C2D
 focal length,photos/models.py,focal length,εστιακή απόσταση
-gallery extension,photos/models.py,gallery extension,
-gallery extensions,photos/models.py,gallery extensions,
-latitude,photos/models.py,latitude,
-lens,photos/models.py,lens,
-location name,photos/models.py,location name,
-longitude,photos/models.py,longitude,
-photo,photos/models.py,photo,
-photo extension,photos/models.py,photo extension,
-photo extensions,photos/models.py,photo extensions,
+gallery extension,photos/models.py,gallery extension,επέκταση γκαλερί
+gallery extensions,photos/models.py,gallery extensions,επεκτάσεις γκαλερί
+latitude,photos/models.py,latitude,γεωγραφικό πλάτος
+lens,photos/models.py,lens,φακός
+location name,photos/models.py,location name,όνομα τοποθεσίας
+longitude,photos/models.py,longitude,γεωγραφικό μήκος
+photo,photos/models.py,photo,φωτογραφία
+photo extension,photos/models.py,photo extension,επέκταση φωτογραφίας
+photo extensions,photos/models.py,photo extensions,επεκτάσεις φωτογραφιών
 pictionary,templates/tools/pictionary.html,pictionary,pictionary
 planz,"templates/tools/planz.html, templates/tools/planz_full.html",planz,planz
-processing status,photos/models.py,processing status,
-shutter speed,photos/models.py,shutter speed,
+processing status,photos/models.py,processing status,κατάσταση επεξεργασίας
+shutter speed,photos/models.py,shutter speed,ταχύτητα κλείστρου
 url,templates/tools/ics_maker.html,url,url
-watermarked image,photos/models.py,watermarked image,
-web-optimized image,photos/models.py,web-optimized image,
+watermarked image,photos/models.py,watermarked image,εικόνα με υδατογράφημα
+web-optimized image,photos/models.py,web-optimized image,εικόνα βελτιστοποιημένη για τον ιστό
 ✏️ pictionary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",✏️ pictionary,✏️ pictionary
 🎨 Emojinary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🎨 Emojinary,🎨 Emojinary
 🐺 Lupus,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 Lupus,🐺 Lupus
