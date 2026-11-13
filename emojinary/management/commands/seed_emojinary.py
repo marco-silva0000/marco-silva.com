@@ -6,6 +6,17 @@ from django.core.management.base import BaseCommand
 from emojinary.models import EmojinaryWord
 
 WORDLIST_DATA_PATH = Path(__file__).resolve().parent.parent.parent / "data" / "wordlists.json"
+WIKTIONARY_LEXICON_PATH = Path(__file__).resolve().parent.parent.parent / "data" / "wiktionary_lexicon.json"
+
+CATEGORY_DEFAULT_POS = {
+    "action": "verb",
+    "phrase": "phrase",
+    "movie": "proper",
+    "tvshow": "proper",
+    "song": "proper",
+    "person": "proper",
+    "place": "proper",
+}
 
 WORDS = [
     # Movies
@@ -98,31 +109,81 @@ WORDS = [
 
 
 class Command(BaseCommand):
-    help = "Seed the emojinary word database from built-in curated words and open-source wordlists"
+    help = "Seed the emojinary word database from built-in curated words, open-source wordlists, and Wiktionary"
 
     def handle(self, *args, **options):
-        combined: list[tuple[str, str, int]] = list(WORDS)
+        lexicon: dict[str, dict] = {}
+        if WIKTIONARY_LEXICON_PATH.exists():
+            with open(WIKTIONARY_LEXICON_PATH, "r", encoding="utf-8") as f:
+                lexicon = json.load(f)
+
+        combined: list[tuple[str, str, int, str]] = [(t, c, d, "curated") for t, c, d in WORDS]
         if WORDLIST_DATA_PATH.exists():
             with open(WORDLIST_DATA_PATH, "r", encoding="utf-8") as f:
                 data = json.load(f)
             for item in data.get("emojinary", []):
                 if isinstance(item, (list, tuple)) and len(item) == 3:
-                    combined.append((str(item[0]), str(item[1]), int(item[2])))
+                    combined.append((str(item[0]), str(item[1]), int(item[2]), "open-wordlists"))
 
         # Deduplicate case-insensitively per category and skip already-seeded entries
-        existing = {(t.lower(), c) for t, c in EmojinaryWord.objects.values_list("text", "category")}
+        existing_qs = EmojinaryWord.objects.all()
+        existing_map: dict[tuple[str, str], EmojinaryWord] = {}
+        for obj in existing_qs.only("id", "text", "category", "definition", "translations", "aliases"):
+            existing_map[(obj.text.lower(), obj.category)] = obj
+
         to_create = []
-        seen = set(existing)
-        for text, category, difficulty in combined:
-            key = (text.strip().lower(), category)
+        seen = set(existing_map.keys())
+        for text, category, difficulty, src in combined:
+            clean_text = text.strip()
+            key = (clean_text.lower(), category)
             if not key[0] or key in seen:
                 continue
             seen.add(key)
-            to_create.append(EmojinaryWord(text=text.strip(), category=category, difficulty=difficulty))
+            lex = lexicon.get(key[0], {})
+            default_pos = CATEGORY_DEFAULT_POS.get(category, "noun")
+            to_create.append(
+                EmojinaryWord(
+                    text=clean_text,
+                    category=category,
+                    pos=lex.get("pos", default_pos),
+                    difficulty=difficulty,
+                    definition=lex.get("definition", ""),
+                    etymology=lex.get("etymology", ""),
+                    aliases=lex.get("aliases", []),
+                    translations=lex.get("translations", {}),
+                    topics=lex.get("topics", []),
+                    source="wiktionary" if lex else src,
+                )
+            )
 
         if to_create:
             EmojinaryWord.objects.bulk_create(to_create, batch_size=1000)
 
+        # Backfill Wiktionary enrichment on existing rows that lack definitions/translations
+        to_update = []
+        for (low_text, category), obj in existing_map.items():
+            lex = lexicon.get(low_text)
+            if not lex:
+                continue
+            if not obj.definition or not obj.translations:
+                obj.pos = lex.get("pos", CATEGORY_DEFAULT_POS.get(category, "noun"))
+                obj.definition = lex.get("definition", obj.definition)
+                obj.etymology = lex.get("etymology", obj.etymology)
+                obj.aliases = lex.get("aliases", obj.aliases)
+                obj.translations = lex.get("translations", obj.translations)
+                obj.topics = lex.get("topics", obj.topics)
+                obj.source = "wiktionary"
+                to_update.append(obj)
+
+        if to_update:
+            EmojinaryWord.objects.bulk_update(
+                to_update,
+                ["pos", "definition", "etymology", "aliases", "translations", "topics", "source"],
+                batch_size=500,
+            )
+
         self.stdout.write(
-            self.style.SUCCESS(f"Seeded {len(to_create)} new words ({EmojinaryWord.objects.count()} total)")
+            self.style.SUCCESS(
+                f"Seeded {len(to_create)} new words, enriched {len(to_update)} existing ({EmojinaryWord.objects.count()} total)"
+            )
         )

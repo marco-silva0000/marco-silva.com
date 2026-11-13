@@ -120,6 +120,8 @@ class EmojinaryConsumer(RoundRobinMixin, BestGuessMixin, AsyncJsonWebsocketConsu
             await self._handle_apply_preset(state, content)
         elif action == "timer_control":
             await self._handle_timer_control(state, content)
+        elif action == "end_game":
+            await self._handle_end_game(state)
         elif action == "play_again":
             await self._handle_play_again(state)
         else:
@@ -302,6 +304,33 @@ class EmojinaryConsumer(RoundRobinMixin, BestGuessMixin, AsyncJsonWebsocketConsu
                 state["timer_duration"] = state.get("timer_duration", 60) + extra
             append_chat_event(state, kind="system", text=f"⏱️ {self.player_name} added +{extra}s to the timer")
         save_game(self.code, state)
+        await self.broadcast_sync()
+
+    async def _handle_end_game(self, state: dict):
+        if not self._is_player_admin(state):
+            return
+        if not state.get("started") or state.get("phase") in ("lobby", "gameover"):
+            return
+
+        last_word = state.get("current_word")
+        state["phase"] = "gameover"
+        state["status"] = "finished"
+        state["timer_ends_at"] = None
+        state["timer_paused_remaining"] = None
+
+        msg = f"🛑 {self.player_name} ended the game!"
+        if last_word:
+            msg += f' (Word was: "{last_word}")'
+        append_chat_event(
+            state,
+            kind="system",
+            text=msg,
+            player_id=self.player_id,
+            player_name=self.player_name,
+        )
+        save_game(self.code, state)
+        await database_sync_to_async(sync_room_db_status)(self.code, "finished")
+        await self._group_send("game.game_over", players=player_list(state))
         await self.broadcast_sync()
 
     async def _handle_play_again(self, state: dict):

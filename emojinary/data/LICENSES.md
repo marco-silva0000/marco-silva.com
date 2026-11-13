@@ -30,3 +30,9 @@ All external wordlists compiled into `emojinary/data/wordlists.json` come from o
 - **Source**: https://query.wikidata.org/
 - **License**: `CC0 1.0 Universal` (Wikidata structured data is dedicated to the public domain)
 - **Content Used**: English labels for Oscar-winning/nominated films, Emmy-winning TV series, award-winning songs, and UNESCO World Heritage landmarks.
+
+## 6. English Wiktionary — Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)
+- **Source**: https://en.wiktionary.org/
+- **Authors**: Wiktionary contributors
+- **License**: `CC BY-SA 4.0` (Creative Commons Attribution-ShareAlike 4.0 International)
+- **Content Used**: Concise English glosses/definitions, idiom etymologies, English synonyms/aliases, semantic topics, and 64-language translations stored in `emojinary/data/wiktionary_lexicon.json`.

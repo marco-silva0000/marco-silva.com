@@ -4,6 +4,16 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v149] - 2026-11-13
+
+### Added
+- **Wiktionary Lexical & 64-Language Enrichment (`scripts/enrich_wiktionary.py`, `emojinary/`, `tools/pictionary.py`)**:
+  - Extended `EmojinaryWord` (`emojinary/models.py`, migration `0003_emojinaryword_aliases_emojinaryword_definition_and_more`) with `pos` (Noun/Verb/Adjective/Phrase/Proper), `definition`, `etymology`, `aliases` (synonyms), `translations` (64-language map), `topics`, and `source`.
+  - Built `scripts/enrich_wiktionary.py` using Wiktionary's MediaWiki Action API batch endpoint (including `/translations` subpages) to harvest **3,671 enriched entries** (`3,618` definitions, `1,788` synonym lists, `3,400` multilingual translation maps, `141` idiom etymologies) into `emojinary/data/wiktionary_lexicon.json` (CC BY-SA 4.0 attributed in `emojinary/data/LICENSES.md`).
+  - Upgraded `seed_emojinary` to populate Wiktionary fields on new entries and bulk-backfill existing database rows.
+  - Upgraded `check_guess()` (`emojinary/game_state.py`) with Unicode-safe diacritic folding (`_strip_combining_marks`) so players can match via English synonyms (e.g., `couch` for `sofa`) or localized translations (e.g., `omena`, `μήλο`, `maçã`, `яблоко`).
+  - Added clue-giver definition tooltips, accepted synonym hints, localized translations, topic hints, and replay etymology notes in `templates/emojinary/game.html` and `tools/pictionary.py`.
+
 ## [v148] - 2026-11-13
 
 ### Added

@@ -58,14 +58,14 @@
 #status { font-size: 0.92rem; font-weight: 700; color: #1e293b; }
 #timer-badge {
   font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.82rem; font-weight: 700;
-  padding: 0.15rem 0.5rem; border-radius: 6px; background: #f1f5f9; color: #334155; display: none;
+  padding: 0.15rem 0.5rem; border-radius: 6px; background: #f1f5f9; color: #334155;
 }
 #timer-bar-wrap { width: 100%; height: 6px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin-bottom: 0.75rem; }
 #timer-bar { height: 100%; background: linear-gradient(90deg, #2563eb, #3b82f6); transition: width 0.5s linear; width: 100%; }
 
 #your-word-box {
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid #93c5fd;
-  border-radius: 10px; padding: 0.75rem 0.9rem; margin-bottom: 0.75rem; display: none;
+  border-radius: 10px; padding: 0.75rem 0.9rem; margin-bottom: 0.75rem;
 }
 #your-word { font-size: 1.1rem; font-weight: 700; color: #1e3a8a; }
 .ej-word-controls { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.5rem; }
@@ -225,11 +225,12 @@
         <div class="ej-status-bar">
           <div id="status">{% trans "waiting for players..." %}</div>
           <div style="display:flex;align-items:center;gap:0.4rem;">
-            <span id="timer-badge">60s</span>
+            <span id="timer-badge" style="display:none;">60s</span>
             <div id="host-timer-controls" style="display:none;gap:0.25rem;">
               <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="timerControl('pause')" id="btn-timer-pause" title="Pause/Resume Timer">⏯️</button>
               <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="timerControl('add_time')" title="Add +15s">+15s</button>
               <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="forceAdvance()" title="Skip / Next Phase">⏭️</button>
+              <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;color:#dc2626;border-color:#fca5a5;" onclick="endGame()" title="End Game Now">🛑 End</button>
             </div>
           </div>
         </div>
@@ -239,11 +240,12 @@
         </div>
 
         <!-- Secret Word Box for Clue-Giver / Judge / Collective Prep -->
-        <div id="your-word-box">
+        <div id="your-word-box" style="display:none;">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
             <div>
               <span style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:#2563eb;" id="your-word-label">{% trans "Your Secret Phrase" %}</span>
               <div id="your-word"></div>
+              <div id="your-word-lexicon" style="font-size:0.78rem;color:#475569;margin-top:0.25rem;line-height:1.35;"></div>
             </div>
             <div class="ej-word-controls">
               <button type="button" class="ej-btn" id="btn-reroll" onclick="rerollWord()" style="font-size:0.78rem;padding:0.3rem 0.6rem;">🎲 {% trans "Reroll" %} <span id="rerolls-left-badge"></span></button>
@@ -614,6 +616,26 @@ function handle(d) {
   }
 }
 
+function renderWordLexicon(s) {
+  const el = $('your-word-lexicon');
+  if (!el) return;
+  const parts = [];
+  const pageLang = (document.documentElement.lang || 'en').split('-')[0].toLowerCase();
+  const fullLang = (document.documentElement.lang || 'en').toLowerCase();
+  const trMap = s.current_translations || {};
+  const trTerms = trMap[fullLang] || trMap[pageLang];
+  if (pageLang !== 'en' && Array.isArray(trTerms) && trTerms.length) {
+    parts.push(`<div>🌍 <strong>${escapeHtml(trTerms.join(', '))}</strong></div>`);
+  }
+  if (s.current_definition) {
+    parts.push(`<div>📖 ${escapeHtml(s.current_definition)}</div>`);
+  }
+  if (Array.isArray(s.current_aliases) && s.current_aliases.length) {
+    parts.push(`<div>💡 Synonyms accepted: ${escapeHtml(s.current_aliases.join(', '))}</div>`);
+  }
+  el.innerHTML = parts.join('');
+}
+
 function renderFromState(s) {
   currentState = s;
   if (s.me && s.me.name) {
@@ -690,8 +712,9 @@ function renderFromState(s) {
     $('status').textContent = `⚡ Collective Prep — Craft your initial emoji clue!`;
     $('word-hint').textContent = '';
     if (s.current_word) {
-      show('your-word-box');
+      show('your-word-box', 'btn-reroll');
       $('your-word').textContent = `Your word: ${s.current_word} (${s.current_category || 'phrase'})`;
+      renderWordLexicon(s);
       $('rerolls-left-badge').textContent = `(${s.rerolls_left ?? 0})`;
       hide('btn-send-prompt');
     }
@@ -709,11 +732,12 @@ function renderFromState(s) {
     $('status').textContent = `Round ${s.round_num}/${s.max_rounds} — ${s.current_player}'s turn (${s.current_category || 'phrase'})`;
     $('emoji-display').textContent = s.emoji_clue || '';
     if (isMyTurn) {
-      show('your-word-box', 'emoji-input-area', 'btn-reveal-emoji', 'btn-skip-word');
-      hide('btn-add-extra-hint', 'btn-submit-bg', 'wait-msg');
+      show('your-word-box', 'btn-reroll', 'emoji-input-area', 'btn-reveal-emoji', 'btn-skip-word');
+      hide('btn-add-extra-hint', 'btn-submit-bg', 'btn-send-prompt', 'wait-msg');
       $('btn-reveal-emoji').textContent = 'reveal';
       $('emoji-composer-label').textContent = '🎨 Build Your Initial Emoji Clue:';
       $('your-word').textContent = `Your word: ${s.current_word || ''}`;
+      renderWordLexicon(s);
       $('rerolls-left-badge').textContent = `(${s.rerolls_left ?? 0})`;
       $('word-hint').textContent = '';
       if (s.settings && s.settings.allow_custom_words) $('custom-word-row').style.display = 'flex';
@@ -722,7 +746,11 @@ function renderFromState(s) {
       hide('your-word-box', 'emoji-input-area');
       show('wait-msg');
       $('wait-msg').textContent = `⏳ ${s.current_player} is picking emojis...`;
-      $('word-hint').textContent = s.word_mask ? `Category: ${s.current_category || 'phrase'}  ·  ${s.word_mask}` : '';
+      const hintParts = [];
+      if (s.current_category) hintParts.push(`Category: ${s.current_category}`);
+      if (s.topic_hint) hintParts.push(`Topic: ${s.topic_hint}`);
+      if (s.word_mask) hintParts.push(s.word_mask);
+      $('word-hint').textContent = s.word_mask ? hintParts.join('  ·  ') : '';
     }
   } else if (phase === 'guess') {
     hide('start-btn', 'settings-area', 'play-again-btn', 'wait-msg');
@@ -733,12 +761,17 @@ function renderFromState(s) {
       show('your-word-box', 'emoji-input-area', 'btn-add-extra-hint', 'btn-skip-word');
       hide('btn-reveal-emoji', 'btn-submit-bg', 'guess-area', 'btn-reroll', 'custom-word-row');
       $('your-word').textContent = `Your word: ${s.current_word || ''}`;
+      renderWordLexicon(s);
       $('emoji-composer-label').textContent = '💡 Drop an Additional Emoji Hint for Guessers:';
       $('word-hint').textContent = '';
     } else {
       hide('your-word-box', 'emoji-input-area');
       show('btn-reroll');
-      $('word-hint').textContent = s.word_mask ? `Category: ${s.current_category || 'phrase'}  ·  ${s.word_mask}` : '';
+      const hintParts = [];
+      if (s.current_category) hintParts.push(`Category: ${s.current_category}`);
+      if (s.topic_hint) hintParts.push(`Topic: ${s.topic_hint}`);
+      if (s.word_mask) hintParts.push(s.word_mask);
+      $('word-hint').textContent = s.word_mask ? hintParts.join('  ·  ') : '';
       if (!hasGuessed) {
         show('guess-area');
       } else {
@@ -753,6 +786,7 @@ function renderFromState(s) {
     if (isMyTurn) {
       show('your-word-box', 'btn-reroll', 'btn-send-prompt');
       $('your-word').textContent = `Your word: ${s.current_word || ''}`;
+      renderWordLexicon(s);
       $('rerolls-left-badge').textContent = `(${s.rerolls_left ?? 0})`;
       $('custom-word-row').style.display = 'flex';
       hide('wait-msg');
@@ -977,6 +1011,11 @@ function renderReplayViewer(rounds) {
       }).join('')
     : `<div style="font-size:0.8rem;color:#64748b;font-style:italic;">No guess attempts recorded in this round.</div>`;
 
+  const lexNotes = [
+    r.definition ? `<div style="font-size:0.78rem;color:#475569;margin-bottom:0.25rem;">📖 ${escapeHtml(r.definition)}</div>` : '',
+    r.etymology ? `<div style="font-size:0.75rem;color:#64748b;font-style:italic;margin-bottom:0.45rem;">🏺 ${escapeHtml(r.etymology)}</div>` : '',
+  ].join('');
+
   const bodyHtml = `<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:0.85rem;">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.5rem;">
       <div>
@@ -987,6 +1026,7 @@ function renderReplayViewer(rounds) {
         ${r.guesser ? '🏆 Winner: ' + escapeHtml(r.guesser) : '⏭️ Skipped / Timeout'}
       </span>
     </div>
+    ${lexNotes}
     <div style="margin-bottom:0.65rem;display:flex;gap:0.35rem;flex-wrap:wrap;">${hintsHtml}</div>
     <div style="font-size:0.78rem;font-weight:700;color:#475569;margin-bottom:0.35rem;">📋 Player Attempts (${attempts.length}):</div>
     <div>${attemptsHtml}</div>
@@ -1016,6 +1056,11 @@ function openReplayModal() {
 function startGame() { ws.send(JSON.stringify({action: 'start'})); }
 function skipWord() { ws.send(JSON.stringify({action: 'skip'})); }
 function forceAdvance() { ws.send(JSON.stringify({action: 'force_advance'})); }
+function endGame() {
+  if (confirm('End the game now and show final scores?')) {
+    ws.send(JSON.stringify({action: 'end_game'}));
+  }
+}
 function playAgain() { ws.send(JSON.stringify({action: 'play_again'})); hide('play-again-btn'); }
 
 function revealEmoji() {

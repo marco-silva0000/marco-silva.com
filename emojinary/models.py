@@ -16,9 +16,25 @@ class EmojinaryWord(models.Model):
         PLACE = "place", "Place & Landmark"
         ACTION = "action", "Action & Charade"
 
-    text = models.CharField(max_length=200)
-    category = models.CharField(max_length=10, choices=Category.choices, default=Category.THING)
+    class PartOfSpeech(models.TextChoices):
+        NOUN = "noun", "Noun"
+        VERB = "verb", "Verb"
+        ADJECTIVE = "adjective", "Adjective"
+        PHRASE = "phrase", "Phrase / Idiom"
+        PROPER = "proper", "Proper Noun"
+
+    text = models.CharField(max_length=200, db_index=True)
+    category = models.CharField(max_length=10, choices=Category.choices, default=Category.THING, db_index=True)
+    pos = models.CharField(max_length=12, choices=PartOfSpeech.choices, default=PartOfSpeech.NOUN, db_index=True)
     difficulty = models.PositiveIntegerField(default=1, help_text="1=easy, 2=medium, 3=hard")
+
+    # Wiktionary Enrichment Fields (CC BY-SA 4.0)
+    definition = models.TextField(blank=True, default="", help_text="Concise 1-line English gloss from Wiktionary")
+    etymology = models.TextField(blank=True, default="", help_text="Short origin note for idioms/phrases")
+    aliases = models.JSONField(default=list, blank=True, help_text="Accepted English synonyms/variants")
+    translations = models.JSONField(default=dict, blank=True, help_text="Map of lang_code -> list of translated terms")
+    topics = models.JSONField(default=list, blank=True, help_text="Semantic topic hints")
+    source = models.CharField(max_length=50, default="curated", blank=True)
 
     class Meta:
         ordering = ["category", "text"]

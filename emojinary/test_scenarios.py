@@ -513,3 +513,98 @@ class TestLifecycleScenarios:
         sim.send_action("Marco", {"action": "start"})
         sim.send_action("Alice", {"action": "timer_control", "op": "pause"})
         assert sim.state["timer_paused_remaining"] is None
+
+
+# =============================================================================
+# Clue-Giver Word Visibility (CSS/HTML + WebSocket State Regression)
+# =============================================================================
+
+
+class TestClueGiverWordVisibility:
+    def test_template_your_word_box_not_hidden_by_css_rule(self):
+        """Regression: show() sets style.display = '', which cannot override a CSS display:none rule."""
+        import re
+        from pathlib import Path
+
+        html = (Path(__file__).resolve().parent.parent / "templates" / "emojinary" / "game.html").read_text()
+        style_match = re.search(r"\{%\s*block\s+extra_css\s*%\}(.*?)\{%\s*endblock\s*%\}", html, re.DOTALL)
+        assert style_match is not None
+        style_block = style_match.group(1)
+
+        for elem_id in ("your-word-box", "timer-badge"):
+            rule_match = re.search(rf"#{elem_id}\s*\{{([^}}]*)\}}", style_block, re.DOTALL)
+            assert rule_match is not None, f"#{elem_id} CSS rule missing"
+            assert not re.search(r"display\s*:\s*none", rule_match.group(1)), (
+                f"#{elem_id} must not have display:none in CSS or show('{elem_id}') will leave it hidden!"
+            )
+            assert re.search(rf'id="{elem_id}"[^>]*style="[^"]*display\s*:\s*none', html), (
+                f"#{elem_id} should start hidden via inline style so show('{elem_id}') can reveal it"
+            )
+
+    def test_clue_giver_receives_word_in_state_and_your_word_across_turns(self):
+        sim = make_sim(mode="round_robin", max_rounds=3)
+        sim.send_action("Marco", {"action": "start"})
+
+        # Round 1: Marco is clue-giver
+        marco_state = gs.get_sanitized_player_view(sim.state, viewer_id=sim.get_pid("Marco"))
+        assert marco_state["phase"] == "emoji"
+        assert marco_state["me"]["is_turn"] is True
+        assert marco_state["current_word"]
+        assert marco_state["current_word"] == sim.state["current_word"]
+        for other in ("Alice", "Bob"):
+            other_state = gs.get_sanitized_player_view(sim.state, viewer_id=sim.get_pid(other))
+            assert other_state["me"]["is_turn"] is False
+            assert other_state["current_word"] is None
+
+        # Finish Round 1 -> Round 2: Alice becomes clue-giver
+        secret_r1 = sim.state["current_word"]
+        sim.send_action("Marco", {"action": "reveal", "emoji": "🦁"})
+        sim.send_action("Alice", {"action": "chat", "msg": secret_r1})
+        sim.send_action("Bob", {"action": "chat", "msg": secret_r1})
+
+        alice_state = gs.get_sanitized_player_view(sim.state, viewer_id=sim.get_pid("Alice"))
+        assert alice_state["phase"] == "emoji"
+        assert alice_state["me"]["is_turn"] is True
+        assert alice_state["current_word"]
+        assert alice_state["current_word"] == sim.state["current_word"]
+        assert gs.get_sanitized_player_view(sim.state, viewer_id=sim.get_pid("Marco"))["current_word"] is None
+        assert gs.get_sanitized_player_view(sim.state, viewer_id=sim.get_pid("Bob"))["current_word"] is None
+
+    def test_export_replay_does_not_leak_active_word_or_private_guesses(self):
+        import json
+
+        sim = make_sim(mode="round_robin", chat_mode="private", max_rounds=3)
+        sim.send_action("Marco", {"action": "start"})
+        pin_word(sim, "Jurassic Park")
+        sim.send_action("Marco", {"action": "reveal", "emoji": "🦖"})
+        sim.send_action("Alice", {"action": "chat", "msg": "Dino Land"})
+
+        dumped = json.dumps(gs.export_game_replay(sim.state))
+        assert "Jurassic Park" not in dumped
+        assert "Dino Land" not in dumped
+
+        # Collective prep phase: queued words must not appear in replay export either
+        csim = make_sim(mode="collective", max_rounds=3)
+        csim.send_action("Marco", {"action": "start"})
+        queued_words = [q["word"] for q in csim.state["collective_queue"].values()]
+        assert queued_words
+        cdumped = json.dumps(gs.export_game_replay(csim.state))
+        for w in queued_words:
+            assert w not in cdumped
+
+    def test_host_can_end_game_early_and_non_host_cannot(self):
+        sim = make_sim(mode="round_robin", max_rounds=5)
+        sim.send_action("Marco", {"action": "start"})
+        assert sim.state["phase"] == "emoji"
+
+        # Non-host cannot end game
+        sim.send_action("Alice", {"action": "end_game"})
+        assert sim.state["phase"] == "emoji"
+        assert sim.state["status"] == "playing"
+
+        # Host ends game early
+        sim.send_action("Marco", {"action": "end_game"})
+        assert sim.state["phase"] == "gameover"
+        assert sim.state["status"] == "finished"
+        assert sim.state["timer_ends_at"] is None
+        assert sim.state["timer_paused_remaining"] is None

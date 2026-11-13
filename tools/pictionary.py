@@ -5,12 +5,14 @@ from pathlib import Path
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils.html import escape
 from wonderwords import RandomSentence, RandomWord
 
 rw = RandomWord()
 rs = RandomSentence()
 
 _WORDLIST_CACHE: dict | None = None
+_LEXICON_CACHE: dict | None = None
 
 
 def _load_wordlists() -> dict:
@@ -23,6 +25,18 @@ def _load_wordlists() -> dict:
         else:
             _WORDLIST_CACHE = {}
     return _WORDLIST_CACHE
+
+
+def _load_lexicon() -> dict:
+    global _LEXICON_CACHE
+    if _LEXICON_CACHE is None:
+        path = Path(settings.BASE_DIR) / "emojinary" / "data" / "wiktionary_lexicon.json"
+        if path.exists():
+            with open(path, "r", encoding="utf-8") as f:
+                _LEXICON_CACHE = json.load(f)
+        else:
+            _LEXICON_CACHE = {}
+    return _LEXICON_CACHE
 
 
 HARD_WORDS = [
@@ -103,5 +117,18 @@ def pictionary_word(request):
                 word = rw.word(include_categories=cats, word_min_length=5, word_max_length=12)
 
     if request.headers.get("HX-Request"):
-        return HttpResponse(f'<span style="font-size: 1.5rem; font-weight: 600;">{word}</span>')
+        lex = _load_lexicon().get(word.lower(), {})
+        lang = (getattr(request, "LANGUAGE_CODE", "en") or "en").lower()
+        tr_list = lex.get("translations", {}).get(lang, []) if lang != "en" else []
+        title_html = escape(word)
+        if tr_list:
+            title_html = (
+                f'{escape(tr_list[0])} <span style="font-size:1rem;color:#666;font-weight:400;">({escape(word)})</span>'
+            )
+        def_html = ""
+        if lex.get("definition"):
+            def_html = (
+                f'<div style="font-size:0.85rem;color:#666;margin-top:0.25rem;">📖 {escape(lex["definition"])}</div>'
+            )
+        return HttpResponse(f'<span style="font-size: 1.5rem; font-weight: 600;">{title_html}</span>{def_html}')
     return HttpResponse(word)

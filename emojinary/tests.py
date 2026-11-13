@@ -469,3 +469,22 @@ def test_seed_emojinary_loads_all_categories():
     present_categories = set(EmojinaryWord.objects.values_list("category", flat=True).distinct())
     expected = {"movie", "tvshow", "song", "phrase", "thing", "animal", "food", "person", "place", "action"}
     assert expected.issubset(present_categories)
+    assert EmojinaryWord.objects.exclude(definition="").count() > 500
+    assert EmojinaryWord.objects.exclude(translations={}).count() > 500
+
+
+@pytest.mark.django_db
+def test_wiktionary_synonym_and_multilingual_guess_matching():
+    from emojinary.game_state import get_word_lexicon
+
+    lex_sofa = get_word_lexicon("sofa")
+    assert lex_sofa.get("definition")
+    assert "couch" in [a.lower() for a in lex_sofa.get("aliases", [])]
+    assert check_guess({"current_word": "sofa"}, "couch") == (True, [])
+
+    lex_apple = get_word_lexicon("apple")
+    assert "fi" in lex_apple.get("translations", {})
+    assert check_guess({"current_word": "apple"}, "omena") == (True, [])
+    assert check_guess({"current_word": "apple"}, "μήλο") == (True, [])
+    assert check_guess({"current_word": "apple"}, "maçã") == (True, [])
+    assert check_guess({"current_word": "apple"}, "яблоко") == (True, [])

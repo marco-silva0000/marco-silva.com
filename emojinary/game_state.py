@@ -7,12 +7,50 @@ import os
 import random
 import re
 import time
+import unicodedata
 import uuid
+from pathlib import Path
 from typing import Any, Optional
 
 import redis
 
 _redis = None
+_LEXICON_CACHE: dict[str, dict[str, Any]] | None = None
+_LEXICON_PATH = Path(__file__).resolve().parent / "data" / "wiktionary_lexicon.json"
+
+DEFAULT_LEXICON_FALLBACK: dict[str, dict[str, Any]] = {
+    "sofa": {
+        "pos": "noun",
+        "definition": "An upholstered seat with a raised back and armrests.",
+        "aliases": ["couch", "settee", "divan"],
+        "translations": {"pt": ["sofá"], "el": ["καναπές"], "fi": ["sohva"], "es": ["sofá"]},
+    },
+    "apple": {
+        "pos": "noun",
+        "definition": "A common, firm, round fruit produced by a tree of the genus Malus.",
+        "aliases": ["malus"],
+        "translations": {"pt": ["maçã"], "el": ["μήλο"], "fi": ["omena"], "es": ["manzana"]},
+    },
+}
+
+
+def get_word_lexicon(word: Optional[str]) -> dict[str, Any]:
+    """Load Wiktionary lexical metadata (definition, aliases, translations, topics) for a word."""
+    global _LEXICON_CACHE
+    if _LEXICON_CACHE is None:
+        if _LEXICON_PATH.exists():
+            try:
+                with open(_LEXICON_PATH, "r", encoding="utf-8") as f:
+                    _LEXICON_CACHE = json.load(f)
+            except Exception:
+                _LEXICON_CACHE = {}
+        else:
+            _LEXICON_CACHE = {}
+    if not word:
+        return {}
+    key = word.strip().lower()
+    return _LEXICON_CACHE.get(key) or DEFAULT_LEXICON_FALLBACK.get(key, {})
+
 
 DEFAULT_SETTINGS = {
     "max_rounds": 10,
@@ -565,14 +603,19 @@ def player_list(state: dict[str, Any]) -> list[dict[str, Any]]:
 # ============================================================================
 
 _ARTICLES_RE = re.compile(r"^(the|a|an)\s+", re.IGNORECASE)
-_PUNCT_RE = re.compile(r"[^a-z0-9\s]")
+
+
+def _strip_combining_marks(text: str) -> str:
+    nfd = unicodedata.normalize("NFD", text)
+    return "".join(ch for ch in nfd if unicodedata.category(ch) != "Mn")
 
 
 def _normalize_phrase(text: str, strip_article: bool = False) -> str:
     s = (text or "").strip().lower()
-    # Replace hyphens/slashes with spaces first, also support collapsed form
+    # Replace hyphens/slashes with spaces first, preserve non-Latin scripts while removing punctuation
     s = s.replace("-", " ").replace("/", " ").replace("&", " and ")
-    s = _PUNCT_RE.sub("", s)
+    s = _strip_combining_marks(s)
+    s = "".join(ch if (ch.isalnum() or ch.isspace()) else " " for ch in s)
     s = re.sub(r"\s+", " ", s).strip()
     if strip_article:
         s = _ARTICLES_RE.sub("", s).strip()
@@ -637,6 +680,27 @@ def check_guess(state: dict[str, Any], guess: str) -> tuple[bool, list[str]]:
         and (stripped_guess == stripped_word or stripped_guess.replace(" ", "") == stripped_word.replace(" ", ""))
     ):
         return True, []
+
+    # 2b. Wiktionary synonym / alias & localized translation matches
+    lex = get_word_lexicon(word)
+    candidate_terms: list[str] = list(state.get("current_aliases") or []) + list(lex.get("aliases") or [])
+    for tr_map in (state.get("current_translations"), lex.get("translations")):
+        if isinstance(tr_map, dict):
+            for lang_terms in tr_map.values():
+                if isinstance(lang_terms, list):
+                    candidate_terms.extend(lang_terms)
+
+    collapsed_guess = norm_guess.replace(" ", "")
+    for alt in candidate_terms:
+        norm_alt = _normalize_phrase(alt, strip_article=True)
+        if not norm_alt or len(norm_alt) < 2:
+            continue
+        if (
+            stripped_guess == norm_alt
+            or norm_guess == norm_alt
+            or (collapsed_guess and collapsed_guess == norm_alt.replace(" ", ""))
+        ):
+            return True, []
 
     # 3. Partial significant word matches
     stop_words = {"the", "and", "for", "with", "from", "into", "out", "under", "over"}
@@ -748,6 +812,7 @@ def record_round_to_history(
         guesser_str = ", ".join(guessed_names) if guessed_names else None
 
     scores_snapshot = {pid: p.get("score", 0) for pid, p in state.get("players", {}).items()}
+    lex = get_word_lexicon(word)
 
     round_entry = {
         "round": state.get("round_num", 1),
@@ -756,6 +821,8 @@ def record_round_to_history(
         "giver_name": giver_name,
         "word": word,
         "category": category,
+        "definition": lex.get("definition", ""),
+        "etymology": lex.get("etymology", ""),
         "emoji": emoji_clue,
         "emoji_clue": emoji_clue,
         "emoji_hints": copy.deepcopy(state.get("emoji_hints", [])),
@@ -876,6 +943,9 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
     max_rerolls = int(s.get("allow_rerolls", 2))
     rerolls_used = my_prep.get("rerolls_used", 0) if my_prep else state.get("rerolls_used", 0)
 
+    visible_lex = get_word_lexicon(my_word) if (can_see_word and my_word) else {}
+    current_lex = get_word_lexicon(state.get("current_word")) if state.get("current_word") else {}
+
     return {
         "type": "state",
         "code": state.get("code"),
@@ -902,6 +972,11 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         "current_player_id": active_pid,
         "current_word": my_word if can_see_word else None,
         "current_category": my_category,
+        "current_definition": visible_lex.get("definition", "") if can_see_word else None,
+        "current_etymology": visible_lex.get("etymology", "") if can_see_word else None,
+        "current_aliases": list(visible_lex.get("aliases", []))[:5] if can_see_word else [],
+        "current_translations": visible_lex.get("translations", {}) if can_see_word else {},
+        "topic_hint": (current_lex.get("topics") or [None])[0],
         "word_length": len(state.get("current_word") or ""),
         "word_mask": build_word_mask(state.get("current_word")),
         "emoji_clue": (
@@ -944,20 +1019,26 @@ def export_game_replay(state: dict[str, Any]) -> dict[str, Any]:
         key=lambda x: x["score"],
         reverse=True,
     )
+    phase = state.get("phase", "lobby")
+    sanitized_chat = []
+    for e in state.get("chat_log", []):
+        item = {k: v for k, v in e.items() if k not in ("private_to", "masked_text")}
+        if e.get("private_to") and phase not in ("gameover", "round_end"):
+            item["text"] = e.get("masked_text") or "guessed ❌"
+        sanitized_chat.append(item)
+
     return {
         "game": "emojinary",
         "code": state.get("code"),
         "title": state.get("title"),
         "mode": state.get("mode", "round_robin"),
         "status": state.get("status", "open"),
-        "phase": state.get("phase", "lobby"),
+        "phase": phase,
         "round_num": state.get("round_num", 0),
         "settings": state.get("settings", {}),
         "players": players_summary,
         "leaderboard": players_summary,
         "rounds_history": state.get("rounds_history", []),
-        "chat_log": [
-            {k: v for k, v in e.items() if k not in ("private_to", "masked_text")} for e in state.get("chat_log", [])
-        ],
+        "chat_log": sanitized_chat,
         "exported_at": round(time.time(), 2),
     }
