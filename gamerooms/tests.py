@@ -31,7 +31,10 @@ class TestRoomList:
 
     def test_shows_create_link(self, client, db):
         resp = client.get(reverse("gamerooms:room-list"))
-        assert "create room" in resp.content.decode()
+        html = resp.content.decode()
+        assert "create room" in html
+        # Guard Playwright strict-mode locator: only one element should match "create room"
+        assert html.lower().count("create room") == 1
 
     def test_shows_pictionary_link(self, client, db):
         resp = client.get(reverse("gamerooms:room-list"))

@@ -4,6 +4,15 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v152] - 2026-11-13
+
+### Fixed & Changed
+- **Playwright CI Strict-Mode Locator Fix & Unified Games Hub / Room UI (`templates/gamerooms/`, `.github/workflows/ci.yml`)**:
+  - Removed the redundant 5-link quick-action bar above the game cards in `templates/gamerooms/room_list.html` (which had created two `"create room"` links and triggered Playwright's strict-mode single-element failure in `tests/playwright/test_gamerooms.py::test_room_list_page`), replacing it with a single `+ create room` button in the header.
+  - Redesigned the games showcase on `/games/` into a balanced 2×2 card grid with uniform player-count/tool badges and consistent `+ Host Room` / `Open Generator →` CTAs across Lupus, Emojinary, Word Impostor, and Pictionary.
+  - Wrapped `templates/gamerooms/room_create.html`, `templates/gamerooms/room_name.html`, and `templates/gamerooms/room_password.html` in matching card shells with consistent form styling and a `← Game Rooms` back navigation link.
+  - Included `impostor/` in the `.github/workflows/ci.yml` CI unit test step.
+
 ## [v151] - 2026-11-13
 
 ### Added
