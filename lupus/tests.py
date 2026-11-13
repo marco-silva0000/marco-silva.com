@@ -1678,7 +1678,6 @@ class TestLupusNotepadTemplate:
         assert state["players"][p4["id"]]["role"] == "sniper"
         assert state["players"][p5["id"]]["role"] == "villager"
 
-
     def test_successor_inherits_on_death(self):
         state = create_initial_state("TEST_SUCC1", "Successor Room")
         state, p_wolf = add_player(state, "Wolf Alpha")
@@ -1771,7 +1770,9 @@ class TestLupusNotepadTemplate:
         set_player_status(state, p_dead["id"], "dead")
 
         # 1. Living player posts news
-        ok, msg = submit_news_bulletin(state, p_alive["id"], "I saw someone suspicious near the fountain!", anonymous=False)
+        ok, msg = submit_news_bulletin(
+            state, p_alive["id"], "I saw someone suspicious near the fountain!", anonymous=False
+        )
         assert ok is True
         assert len(state["news_bulletins"]) == 1
 
@@ -1806,8 +1807,8 @@ class TestLupusNotepadTemplate:
         # 5. Resolve night -> morning report includes Gazette bulletins!
         resolve_night(state)
         report = state["night_report"]
-        assert any("Living Journalist writes: \"I saw someone suspicious near the fountain!\"" in r for r in report)
-        assert any("Anonymous Informant writes: \"Watch out for player #3...\"" in r for r in report)
+        assert any('Living Journalist writes: "I saw someone suspicious near the fountain!"' in r for r in report)
+        assert any('Anonymous Informant writes: "Watch out for player #3..."' in r for r in report)
 
 
 @pytest.mark.django_db
@@ -1899,7 +1900,10 @@ class TestLupusViews:
     def test_lupus_hub_invalid_code_error(self, client):
         res = client.post(reverse("gamerooms:lupus:hub"), {"code": "NOTFOUND"})
         assert res.status_code == 200
-        assert "Room code &#x27;NOTFOUND&#x27; was not found" in res.content.decode() or "not found" in res.content.decode()
+        assert (
+            "Room code &#x27;NOTFOUND&#x27; was not found" in res.content.decode()
+            or "not found" in res.content.decode()
+        )
 
     def test_lupus_root_redirect(self, client):
         res_slash = client.get("/lupus/")
@@ -2891,7 +2895,9 @@ class TestLupusRoomLifecycleAndPortugueseDemo:
         new_code = new_state["code"]
 
         # 1. Player visiting old room play url is redirected to new room play url
-        old_play_url = f"{reverse('gamerooms:lupus:play', kwargs={'code': 'OLDROOM1'})}?token={player['token']}&pid={player['id']}"
+        old_play_url = (
+            f"{reverse('gamerooms:lupus:play', kwargs={'code': 'OLDROOM1'})}?token={player['token']}&pid={player['id']}"
+        )
         res = client.get(old_play_url)
         assert res.status_code == 302
         assert f"/games/lupus/{new_code}/play/" in res.url
@@ -2951,9 +2957,7 @@ class TestLupusRoomLifecycleAndPortugueseDemo:
         assert "Rampage (2 Kills Tonight!)" in wolf_stage["title"]
 
         # Wolves select 2 victims
-        record_gm_night_action(
-            state, "wolves", target_id=p_v1["id"], extra={"target_id_2": p_v2["id"]}
-        )
+        record_gm_night_action(state, "wolves", target_id=p_v1["id"], extra={"target_id_2": p_v2["id"]})
         assert state["night_actions"]["wolf_target"] == p_v1["id"]
         assert state["night_actions"]["wolf_target_2"] == p_v2["id"]
 
@@ -3520,9 +3524,9 @@ class TestLupusInternationalization:
     def test_status_phase_and_faction_translation_lookups(self):
         """Localized helper functions correctly translate statuses, phases, and factions."""
         from lupus.translations import (
-            get_localized_status,
-            get_localized_phase,
             get_localized_faction,
+            get_localized_phase,
+            get_localized_status,
             get_localized_ui_strings,
         )
 
@@ -3593,6 +3597,7 @@ class TestLupusV129HackerDeckAndScan:
     def test_deck_builder_and_manual_modal_contain_all_roles(self):
         """Verify that gm_dashboard.html has toggle chips and widgets for hacker, watson, and saboteur_wolf."""
         import os
+
         from django.conf import settings
 
         tpl_path = os.path.join(settings.BASE_DIR, "templates", "lupus", "gm_dashboard.html")
@@ -3648,7 +3653,6 @@ class TestLupusV129HackerDeckAndScan:
 
         wolf_p = next(p for p in state["players"].values() if p["role"] == "werewolf")
         sk_p = next(p for p in state["players"].values() if p["role"] == "serial_killer")
-        vil_p = next(p for p in state["players"].values() if p["role"] == "villager")
 
         # Scan Wolf and Serial Killer -> Both Evil -> "All Evil"
         record_gm_night_action(state, "hacker", wolf_p["id"])
@@ -4062,7 +4066,6 @@ class TestLupusTunableSettingsAndPresetsV136:
 
     def test_settings_schema_defaults_and_validation(self):
         from lupus.settings_schema import (
-            LUPUS_SETTINGS_SCHEMA,
             get_default_settings,
             validate_and_sanitize_settings,
         )
@@ -4081,9 +4084,9 @@ class TestLupusTunableSettingsAndPresetsV136:
         # Test boundary clamping
         updates = {
             "witch_revive_potions": 99,  # max is 3
-            "witch_kill_potions": -5,   # min is 0
+            "witch_kill_potions": -5,  # min is 0
             "sniper_danger_bullets": 10,  # max is 5
-            "discussion_timer": 5,      # min is 30
+            "discussion_timer": 5,  # min is 30
             "mayor_type": "hidden",
             "reveal_roles_on_death": "3",
             "invalid_key_should_be_ignored": 123,
@@ -4170,7 +4173,6 @@ class TestLupusTunableSettingsAndPresetsV136:
             record_gm_night_action,
             resolve_night,
             set_manual_player_role,
-            set_player_status,
             submit_night_action,
             update_settings,
         )
@@ -4279,25 +4281,12 @@ class TestLupusTunableSettingsAndPresetsV136:
         assert "syncTableSlot" in content
 
         # Verify Round Card and Table live together in the layout grid
-        layout_idx = content.find("class=\"gm-round-table-layout\"")
+        layout_idx = content.find('class="gm-round-table-layout"')
         assert layout_idx != -1
-        active_slot_idx = content.find("id=\"active-table-slot\"")
+        active_slot_idx = content.find('id="active-table-slot"')
         assert active_slot_idx > layout_idx
 
         # Verify table-management-section is next to the round card
-        table_mgmt_idx = content.find("id=\"table-management-section\"")
+        table_mgmt_idx = content.find('id="table-management-section"')
         assert table_mgmt_idx != -1
         assert active_slot_idx < table_mgmt_idx < active_slot_idx + 300
-
-
-
-
-
-
-
-
-
-
-
-
-

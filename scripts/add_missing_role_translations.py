@@ -6,8 +6,6 @@ from pathlib import Path
 # Add project root
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from lupus.roles import ROLE_REGISTRY
-from lupus.translations import ROLE_TRANSLATIONS
 
 ADDITIONAL_ROLES = {
     "silencer": {
@@ -17,7 +15,7 @@ ADDITIONAL_ROLES = {
             "objective": "Evil: Silence vocal leaders to disrupt town communication.",
             "day_tips": "Notice who is silenced and use their forced quiet to steer suspicions.",
             "night_tips": "Select a player to mute. Tomorrow they cannot speak or whisper, but they can still cast their vote. You cannot mute the same player two nights in a row.",
-            "pro_tip": "Silence the Detective or most convincing speaker to keep them from sharing clues."
+            "pro_tip": "Silence the Detective or most convincing speaker to keep them from sharing clues.",
         },
         "pt": {
             "name": "Lobo Silenciador",
@@ -25,7 +23,7 @@ ADDITIONAL_ROLES = {
             "objective": "Mal: Silencie os líderes da cidade para quebrar a comunicação da vila.",
             "day_tips": "Aproveite o silêncio forçado do alvo para direcionar as suspeitas contra ele.",
             "night_tips": "Escolha um jogador para calar. Amanhã ele não falará, mas poderá votar.",
-            "pro_tip": "Silencie o Detetive ou o melhor orador para impedi-los de coordenar a vila."
+            "pro_tip": "Silencie o Detetive ou o melhor orador para impedi-los de coordenar a vila.",
         },
         "it": {
             "name": "Lupo Silenziatore",
@@ -33,7 +31,7 @@ ADDITIONAL_ROLES = {
             "objective": "Male: Silenzia i leader della città per impedire la comunicazione tra i villici.",
             "day_tips": "Sfrutta il silenzio forzato del bersaglio per orientare i sospetti.",
             "night_tips": "Scegli chi zittire. Domani non potrà parlare, ma potrà comunque votare.",
-            "pro_tip": "Silenzia il Detective o chi parla meglio per impedire loro di rivelare indizi."
+            "pro_tip": "Silenzia il Detective o chi parla meglio per impedire loro di rivelare indizi.",
         },
         "es": {
             "name": "Lobo Silenciador",
@@ -41,7 +39,7 @@ ADDITIONAL_ROLES = {
             "objective": "Mal: Silencia a los líderes de la ciudad para entorpecer la comunicación del pueblo.",
             "day_tips": "Aprovecha el silencio forzado para dirigir las sospechas hacia otros.",
             "night_tips": "Selecciona a un jugador para enmudecer. Mañana no hablará pero sí votará.",
-            "pro_tip": "Silencia al Detective o al orador más convincente para evitar que comparta pistas."
+            "pro_tip": "Silencia al Detective o al orador más convincente para evitar que comparta pistas.",
         },
         "fr": {
             "name": "Loup Silencieux",
@@ -49,7 +47,7 @@ ADDITIONAL_ROLES = {
             "objective": "Mal: Réduisez au silence les meneurs pour désorganiser les villageois.",
             "day_tips": "Profitez du silence forcé de votre cible pour orienter les débats.",
             "night_tips": "Choisissez un joueur à museler pour demain.",
-            "pro_tip": "Ciblez le Détective ou l'orateur le plus convaincant pour l'empêcher d'alerter le village."
+            "pro_tip": "Ciblez le Détective ou l'orateur le plus convaincant pour l'empêcher d'alerter le village.",
         },
         "el": {
             "name": "Σιωπηλός Λύκος",
@@ -57,7 +55,7 @@ ADDITIONAL_ROLES = {
             "objective": "Κακό: Φιμώστε τους ηγέτες του χωριού για να σπάσετε την επικοινωνία τους.",
             "day_tips": "Εκμεταλλευτείτε τη σιωπή του στόχου για να κατευθύνετε τις υποψίες.",
             "night_tips": "Επιλέξτε ποιον θα φιμώσετε για την επόμενη μέρα.",
-            "pro_tip": "Φιμώστε τον Ντετέκτιβ ώστε να μην μπορέσει να αποκαλύψει τα ευρήματά του."
+            "pro_tip": "Φιμώστε τον Ντετέκτιβ ώστε να μην μπορέσει να αποκαλύψει τα ευρήματά του.",
         },
         "ru": {
             "name": "Безмолвный волк",
@@ -65,7 +63,7 @@ ADDITIONAL_ROLES = {
             "objective": "Зло: Заставьте замолчать лидеров города, чтобы посеять хаос в обсуждении.",
             "day_tips": "Используйте вынужденное молчание жертвы, чтобы направить подозрения в нужное русло.",
             "night_tips": "Выберите игрока для лишения голоса на завтра.",
-            "pro_tip": "Заткните Детектива или самого убедительного оратора."
+            "pro_tip": "Заткните Детектива или самого убедительного оратора.",
         },
         "hi": {
             "name": "खामोश करने वाला भेड़िया",
@@ -73,7 +71,7 @@ ADDITIONAL_ROLES = {
             "objective": "बुराई: गाँव के नेताओं को चुप कराएं ताकि चर्चा बाधित हो।",
             "day_tips": "खामोश किए गए खिलाड़ी की चुप्पी का फायदा उठाकर दूसरों पर शक पैदा करें।",
             "night_tips": "कल के लिए किसी खिलाड़ी को शांत करने के लिए चुनें।",
-            "pro_tip": "जासूस को शांत करें ताकि वह अपने सुराग साझा न कर सके।"
+            "pro_tip": "जासूस को शांत करें ताकि वह अपने सुराग साझा न कर सके।",
         },
         "kn": {
             "name": "ಮೌನಗೊಳಿಸುವ ತೋಳ",
@@ -81,8 +79,8 @@ ADDITIONAL_ROLES = {
             "objective": "ದುಷ್ಟ: ಗ್ರಾಮದ ಸಂವಹನವನ್ನು ಅಡ್ಡಿಪಡಿಸಲು ಪ್ರಮುಖ ನಾಯಕರನ್ನು ಮೌನಗೊಳಿಸಿ.",
             "day_tips": "ಬಲವಂತದ ಮೌನವನ್ನು ಬಳಸಿಕೊಂಡು ಇತರರ ಮೇಲೆ ಅನುಮಾನ ಮೂಡಿಸಿ.",
             "night_tips": "ನಾಳೆ ಮಾತನಾಡದಂತೆ ಮಾಡಲು ಒಬ್ಬ ಆಟಗಾರನನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
-            "pro_tip": "ಪತ್ತೇದಾರಿಯನ್ನು ಮೌನಗೊಳಿಸಿ ಸುಳಿವುಗಳನ್ನು ಬಹಿರಂಗಪಡಿಸದಂತೆ ತಡೆಯಿರಿ."
-        }
+            "pro_tip": "ಪತ್ತೇದಾರಿಯನ್ನು ಮೌನಗೊಳಿಸಿ ಸುಳಿವುಗಳನ್ನು ಬಹಿರಂಗಪಡಿಸದಂತೆ ತಡೆಯಿರಿ.",
+        },
     },
     "framer": {
         "en": {
@@ -91,7 +89,7 @@ ADDITIONAL_ROLES = {
             "objective": "Evil: Frame innocent town members to trick the Detective into executing townspeople.",
             "day_tips": "Cast doubt on your framed target. If the Detective checks them, they appear evil!",
             "night_tips": "Pick an active townsperson who you think the Detective is curious about.",
-            "pro_tip": "A framed villager who gets investigated leads to an instant town mislynch!"
+            "pro_tip": "A framed villager who gets investigated leads to an instant town mislynch!",
         },
         "pt": {
             "name": "Xamã Maldito (Farsante)",
@@ -99,7 +97,7 @@ ADDITIONAL_ROLES = {
             "objective": "Mal: Incrimine aldeões para enganar o Detetive e fazer a vila executar inocentes.",
             "day_tips": "Lance suspeitas sobre o seu alvo incriminado.",
             "night_tips": "Escolha um cidadão ativo que você ache que o Detetive vai investigar.",
-            "pro_tip": "Um aldeão incriminado investigado pelo Detetive gera um linchamento perfeito de um inocente!"
+            "pro_tip": "Um aldeão incriminado investigado pelo Detetive gera um linchamento perfeito de um inocente!",
         },
         "it": {
             "name": "Sciamano Maledetto (Incastratore)",
@@ -107,7 +105,7 @@ ADDITIONAL_ROLES = {
             "objective": "Male: Incastra i villici innocenti per spingere il Detective a farli giustiziare.",
             "day_tips": "Insinua dubbi sul bersaglio incastrato durante la discussione.",
             "night_tips": "Scegli un cittadino attivo su cui il Detective potrebbe indagare.",
-            "pro_tip": "Un villico incastrato e ispezionato porta a un linciaggio garantito per la città!"
+            "pro_tip": "Un villico incastrato e ispezionato porta a un linciaggio garantito per la città!",
         },
         "es": {
             "name": "Chamán Maldito (Falsificador)",
@@ -115,7 +113,7 @@ ADDITIONAL_ROLES = {
             "objective": "Mal: Tiende trampas a inocentes para engañar al Detective y linchar a los buenos.",
             "day_tips": "Siembra dudas sobre tu objetivo incriminado durante el debate.",
             "night_tips": "Elige a un ciudadano sobre el que el Detective probablemente sospeche.",
-            "pro_tip": "¡Un aldeano inculpado que sea investigado provocará una ejecución por error garantizada!"
+            "pro_tip": "¡Un aldeano inculpado que sea investigado provocará una ejecución por error garantizada!",
         },
         "fr": {
             "name": "Chaman Maudit (Manipulateur)",
@@ -123,7 +121,7 @@ ADDITIONAL_ROLES = {
             "objective": "Mal: Piégez les innocents pour tromper le Détective et faire condamner les villageois.",
             "day_tips": "Instillez le doute sur votre cible piégée pendant les débats.",
             "night_tips": "Choisissez un joueur actif qui risque d'attirer l'attention du Détective.",
-            "pro_tip": "Un villageois piégé et inspecté conduit tout droit à une exécution tragique pour la ville!"
+            "pro_tip": "Un villageois piégé et inspecté conduit tout droit à une exécution tragique pour la ville!",
         },
         "el": {
             "name": "Καταραμένος Σαμάνος",
@@ -131,7 +129,7 @@ ADDITIONAL_ROLES = {
             "objective": "Κακό: Παγιδεύστε αθώους ώστε ο Ντετέκτιβ να παραπλανήσει το χωριό.",
             "day_tips": "Σπείρετε αμφιβολίες για τον παγιδευμένο στόχο σας.",
             "night_tips": "Διαλέξτε έναν ενεργό χωρικό που πιστεύετε ότι θα ερευνήσει ο Ντετέκτιβ.",
-            "pro_tip": "Ένας αθώος που θα βγει 'Κακός' θα εκτελεστεί αμέσως από το χωριό!"
+            "pro_tip": "Ένας αθώος που θα βγει 'Κακός' θα εκτελεστεί αμέσως από το χωριό!",
         },
         "ru": {
             "name": "Проклятый шаман (Подставщик)",
@@ -139,7 +137,7 @@ ADDITIONAL_ROLES = {
             "objective": "Зло: Подставляйте невинных, чтобы Детектив обманом казнил мирных граждан.",
             "day_tips": "Сеять сомнения по поводу подставленной цели во время дневного спора.",
             "night_tips": "Выберите активного игрока, которого с большой вероятностью проверит Детектив.",
-            "pro_tip": "Подставленный житель, проверенный Детективом, гарантирует казнь невиновного!"
+            "pro_tip": "Подставленный житель, проверенный Детективом, гарантирует казнь невиновного!",
         },
         "hi": {
             "name": "शापित ओझा",
@@ -147,7 +145,7 @@ ADDITIONAL_ROLES = {
             "objective": "बुराई: निर्दोषों को फंसाएं ताकि जासूस गाँववालों को फांसी दिलवा दे।",
             "day_tips": "अपने फंसाए गए लक्ष्य पर संदेह व्यक्त करें।",
             "night_tips": "किसी ऐसे सक्रिय नागरिक को चुनें जिस पर जासूस को शक हो सकता है।",
-            "pro_tip": "फंसाया गया गाँववाला जासूस की जांच में दोषी पाए जाने पर तुरंत मारा जाएगा!"
+            "pro_tip": "फंसाया गया गाँववाला जासूस की जांच में दोषी पाए जाने पर तुरंत मारा जाएगा!",
         },
         "kn": {
             "name": "ಶಾಪಗ್ರಸ್ತ ಶಾಮನ್",
@@ -155,8 +153,8 @@ ADDITIONAL_ROLES = {
             "objective": "ದುಷ್ಟ: ಮುಗ್ಧರನ್ನು ಫ್ರೇಮ್ ಮಾಡಿ ಪತ್ತೇದಾರಿಯನ್ನು ದಾರಿತಪ್ಪಿಸಿ.",
             "day_tips": "ನೀವು ಫ್ರೇಮ್ ಮಾಡಿದ ಗುರಿಯ ಬಗ್ಗೆ ಚರ್ಚೆಯಲ್ಲಿ ಅನುಮಾನ ಹುಟ್ಟುಹಾಕಿ.",
             "night_tips": "ಪತ್ತೇದಾರಿ ತನಿಖೆ ನಡೆಸಬಹುದಾದ ಸಕ್ರಿಯ ನಾಗರಿಕನನ್ನು ಆರಿಸಿ.",
-            "pro_tip": "ಫ್ರೇಮ್ ಆದ ಗ್ರಾಮಸ್ಥನನ್ನು ಪತ್ತೇದಾರಿ ಪರೀಕ್ಷಿಸಿದರೆ ಅವನು ಗಲ್ಲಿಗೇರುವುದು ನಿಶ್ಚಿತ!"
-        }
+            "pro_tip": "ಫ್ರೇಮ್ ಆದ ಗ್ರಾಮಸ್ಥನನ್ನು ಪತ್ತೇದಾರಿ ಪರೀಕ್ಷಿಸಿದರೆ ಅವನು ಗಲ್ಲಿಗೇರುವುದು ನಿಶ್ಚಿತ!",
+        },
     },
     "bodyguard": {
         "en": {
@@ -165,7 +163,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town: Protect a key player with your life against any killer.",
             "day_tips": "Identify the Detective or town leader and stay in the shadows.",
             "night_tips": "Choose a player to guard. If wolves or the Serial Killer strike them, you die in their place.",
-            "pro_tip": "Never announce who you are guarding; let killers walk into your shield."
+            "pro_tip": "Never announce who you are guarding; let killers walk into your shield.",
         },
         "pt": {
             "name": "Guarda-Costas",
@@ -173,7 +171,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade: Proteja um jogador essencial com a sua vida contra qualquer assassino.",
             "day_tips": "Identifique o Detetive ou o líder da vila e mantenha-se discreto.",
             "night_tips": "Escolha quem proteger. Se for atacado, você tomba no lugar dele.",
-            "pro_tip": "Nunca anuncie quem você está a proteger; deixe os assassinos caírem no seu escudo."
+            "pro_tip": "Nunca anuncie quem você está a proteger; deixe os assassinos caírem no seu escudo.",
         },
         "it": {
             "name": "Guardaspalle",
@@ -181,7 +179,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio: Proteggi un giocatore chiave a costo della tua vita.",
             "day_tips": "Individua il Detective o la guida del villaggio e rimani nell'ombra.",
             "night_tips": "Scegli un compagno da difendere. Se viene colpito, morirai al posto suo.",
-            "pro_tip": "Non annunciare mai chi proteggi; fai cadere i killer nella tua trappola."
+            "pro_tip": "Non annunciare mai chi proteggi; fai cadere i killer nella tua trappola.",
         },
         "es": {
             "name": "Guardaespaldas",
@@ -189,7 +187,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo: Protege a un jugador clave con tu vida frente a cualquier amenaza.",
             "day_tips": "Identifica al Detective o líder del pueblo y pasa desapercibido.",
             "night_tips": "Elige a quién custodiar. Si los lobos lo atacan, darás la vida por él.",
-            "pro_tip": "Nunca reveles a quién estás protegiendo; sorprende a los atacantes."
+            "pro_tip": "Nunca reveles a quién estás protegiendo; sorprende a los atacantes.",
         },
         "fr": {
             "name": "Garde du Corps",
@@ -197,7 +195,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village: Protégez un rôle clé au péril de votre vie contre les tueurs.",
             "day_tips": "Identifiez le Détective ou le meneur du village tout en restant discret.",
             "night_tips": "Choisissez un joueur à protéger. S'il est visé, vous périrez à sa place.",
-            "pro_tip": "Ne révélez jamais votre cible de protection pour surprendre les loups."
+            "pro_tip": "Ne révélez jamais votre cible de protection pour surprendre les loups.",
         },
         "el": {
             "name": "Σωματοφύλακας",
@@ -205,7 +203,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό: Προστατέψτε έναν κρίσιμο παίκτη με τη ζωή σας.",
             "day_tips": "Εντοπίστε τον Ντετέκτιβ ή τον ηγέτη του χωριού και μείνετε στις σκιές.",
             "night_tips": "Επιλέξτε ποιον θα φυλάξετε. Αν δεχτεί επίθεση, θα θυσιαστείτε για εκείνον.",
-            "pro_tip": "Μην αποκαλύπτετε ποτέ ποιον φυλάτε."
+            "pro_tip": "Μην αποκαλύπτετε ποτέ ποιον φυλάτε.",
         },
         "ru": {
             "name": "Телохранитель",
@@ -213,7 +211,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город: Защитите ключевого игрока ценой собственной жизни.",
             "day_tips": "Вычислите Детектива или лидера города и держитесь в тени.",
             "night_tips": "Выберите цель для охраны. Если на нее нападут, вы погибнете вместо нее.",
-            "pro_tip": "Никогда не объявляйте свою цель заранее; позвольте волкам наткнуться на щит."
+            "pro_tip": "Никогда не объявляйте свою цель заранее; позвольте волкам наткнуться на щит.",
         },
         "hi": {
             "name": "अंगरक्षक",
@@ -221,7 +219,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव: अपनी जान देकर किसी महत्वपूर्ण खिलाड़ी की रक्षा करें।",
             "day_tips": "जासूस या गाँव के नेता की पहचान करें और गुप्त रहें।",
             "night_tips": "सुरक्षा के लिए किसी खिलाड़ी को चुनें। हमला होने पर आप उसकी जगह मरेंगे।",
-            "pro_tip": "कभी न बताएं कि आप किसकी रक्षा कर रहे हैं।"
+            "pro_tip": "कभी न बताएं कि आप किसकी रक्षा कर रहे हैं।",
         },
         "kn": {
             "name": "ಅಂಗರಕ್ಷಕ",
@@ -229,8 +227,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ: ಯಾವುದೇ ಹಂತಕನಿಂದ ಪ್ರಮುಖ ಆಟಗಾರನನ್ನು ನಿಮ್ಮ ಪ್ರಾಣ ನೀಡಿ ರಕ್ಷಿಸಿ.",
             "day_tips": "ಪತ್ತೇದಾರಿ ಅಥವಾ ಗ್ರಾಮದ ನಾಯಕನನ್ನು ಗುರುತಿಸಿ ರಹಸ್ಯವಾಗಿರಿ.",
             "night_tips": "ರಕ್ಷಿಸಲು ಒಬ್ಬ ಆಟಗಾರನನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
-            "pro_tip": "ನೀವು ಯಾರನ್ನು ಕಾಯುತ್ತಿದ್ದೀರಿ ಎಂದು ಎಂದಿಗೂ ಬಹಿರಂಗಪಡಿಸಬೇಡಿ."
-        }
+            "pro_tip": "ನೀವು ಯಾರನ್ನು ಕಾಯುತ್ತಿದ್ದೀರಿ ಎಂದು ಎಂದಿಗೂ ಬಹಿರಂಗಪಡಿಸಬೇಡಿ.",
+        },
     },
     "mayor": {
         "en": {
@@ -239,7 +237,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town: Lead the town and protect innocents. Public Mayor cannot be voted out and has double vote!",
             "day_tips": "As Public Mayor, you cannot be voted out by town execution and your vote counts as 2! As Hidden Mayor, stay secret and use normal 1x voting.",
             "night_tips": "If an executed player was innocent, you can exercise an official veto to pardon them. You can pardon multiple players across the game, but each player only once!",
-            "pro_tip": "Save your veto for a confirmed innocent or critical power role like the Detective."
+            "pro_tip": "Save your veto for a confirmed innocent or critical power role like the Detective.",
         },
         "pt": {
             "name": "Presidente da Câmara / Prefeito",
@@ -247,7 +245,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade: Lidere a vila e proteja inocentes. O Prefeito público tem voto duplo e imunidade de linchamento!",
             "day_tips": "Como Prefeito público, seu voto vale por 2! Como oculto, mantenha-se em segredo.",
             "night_tips": "Se um executado for inocente, você pode vetar oficialmente e perdoá-lo à noite.",
-            "pro_tip": "Guarde o seu veto para inocentes confirmados ou para o Detetive."
+            "pro_tip": "Guarde o seu veto para inocentes confirmados ou para o Detetive.",
         },
         "it": {
             "name": "Sindaco",
@@ -255,7 +253,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio: Guida i cittadini. Il Sindaco pubblico ha doppio voto e non può essere giustiziato!",
             "day_tips": "In pubblico il tuo voto vale 2 e sei immune al rogo! Se nascosto, agisci nell'ombra.",
             "night_tips": "Se un giocatore giustiziato era innocente, puoi esercitare il veto per salvarlo.",
-            "pro_tip": "Conserva il tuo veto per ruoli cruciali come il Detective o il Medico."
+            "pro_tip": "Conserva il tuo veto per ruoli cruciali come il Detective o il Medico.",
         },
         "es": {
             "name": "Alcalde",
@@ -263,7 +261,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo: Lidera la comunidad. ¡El Alcalde público tiene voto doble y no puede ser linchado!",
             "day_tips": "Como Alcalde público tu voto vale doble y eres inmune a la horca.",
             "night_tips": "Si un ejecutado era inocente, puedes aplicar tu veto oficial para salvarlo.",
-            "pro_tip": "Reserva tu veto para inocentes confirmados o roles de gran poder."
+            "pro_tip": "Reserva tu veto para inocentes confirmados o roles de gran poder.",
         },
         "fr": {
             "name": "Maire",
@@ -271,7 +269,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village: Guidez les villageois. Le Maire public a un double vote et une immunité totale au vote!",
             "day_tips": "En public, votre voix compte double! En secret, jouez la discrétion.",
             "night_tips": "Si un exécuté était innocent, vous pouvez utiliser votre veto officiel pour le sauver.",
-            "pro_tip": "Gardez votre droit de veto pour des rôles capitaux comme le Détective."
+            "pro_tip": "Gardez votre droit de veto pour des rôles capitaux comme le Détective.",
         },
         "el": {
             "name": "Δήμαρχος",
@@ -279,7 +277,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό: Οδηγήστε το χωριό στη νίκη με τη διπλή ψήφο και το βέτο σας!",
             "day_tips": "Ως φανερός Δήμαρχος έχετε 2 ψήφους και κανείς δεν μπορεί να σας εκτελέσει τη μέρα.",
             "night_tips": "Αν εκτελέστηκε ένας αθώος, μπορείτε να ασκήσετε βέτο τη νύχτα για να τον σώσετε.",
-            "pro_tip": "Κρατήστε το βέτο για τον Ντετέκτιβ ή άλλο πολύτιμο ρόλο."
+            "pro_tip": "Κρατήστε το βέτο για τον Ντετέκτιβ ή άλλο πολύτιμο ρόλο.",
         },
         "ru": {
             "name": "Мэр",
@@ -287,7 +285,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город: Возглавьте расследование. Публичный мэр имеет 2 голоса и не может быть казнен!",
             "day_tips": "Ваш голос весит вдвое больше! Не бойтесь вести народ за собой.",
             "night_tips": "Если днем казнили невиновного, вы можете применить право вето и спасти его.",
-            "pro_tip": "Берегите вето для подтвержденных мирных ролей, таких как Детектив."
+            "pro_tip": "Берегите вето для подтвержденных мирных ролей, таких как Детектив.",
         },
         "hi": {
             "name": "महापौर (मेयर)",
@@ -295,7 +293,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव: गाँव का नेतृत्व करें और निर्दोषों की रक्षा करें।",
             "day_tips": "सार्वजनिक मेयर के रूप में आपका वोट 2 गिना जाता है और आप फांसी से सुरक्षित हैं!",
             "night_tips": "यदि किसी निर्दोष को फांसी दी गई, तो आप आधिकारिक वीटो से उसे क्षमादान दे सकते हैं।",
-            "pro_tip": "अपना वीटो जासूस या डॉक्टर जैसे महत्वपूर्ण खिलाड़ियों के लिए बचाएं।"
+            "pro_tip": "अपना वीटो जासूस या डॉक्टर जैसे महत्वपूर्ण खिलाड़ियों के लिए बचाएं।",
         },
         "kn": {
             "name": "ಮೇಯರ್",
@@ -303,8 +301,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ: ಗ್ರಾಮವನ್ನು ಮುನ್ನಡೆಸಿ ಮತ್ತು ಮುಗ್ಧರನ್ನು ರಕ್ಷಿಸಿ.",
             "day_tips": "ನಿಮ್ಮ ಮತವು 2 ಕ್ಕೆ ಸಮಾನವಾಗಿರುತ್ತದೆ ಮತ್ತು ನಿಮಗೆ ಸಂಪೂರ್ಣ ವಿನಾಯಿತಿ ಇದೆ!",
             "night_tips": "ಗಲ್ಲಿಗೇರಿದ ವ್ಯಕ್ತಿ ಮುಗ್ಧನಾಗಿದ್ದರೆ, ಅಧಿಕೃತ ವೀಟೋ ಬಳಸಿ ಅವನನ್ನು ಉಳಿಸಿ.",
-            "pro_tip": "ಪತ್ತೇದಾರಿಯಂತಹ ಪ್ರಮುಖ ವ್ಯಕ್ತಿಗಳನ್ನು ಉಳಿಸಲು ವೀಟೋ ಬಳಸಿ."
-        }
+            "pro_tip": "ಪತ್ತೇದಾರಿಯಂತಹ ಪ್ರಮುಖ ವ್ಯಕ್ತಿಗಳನ್ನು ಉಳಿಸಲು ವೀಟೋ ಬಳಸಿ.",
+        },
     },
     "witch": {
         "en": {
@@ -313,7 +311,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town: Use your two powerful potions at crucial turning points.",
             "day_tips": "Keep quiet about your potion inventory.",
             "night_tips": "You have 1 revival potion (restores a soul from Limbo) and 1 poison potion (kills any living player). Even if you are attacked tonight, your potions still take effect at dawn!",
-            "pro_tip": "Use poison when you are confident someone is an evil wolf who avoided day execution."
+            "pro_tip": "Use poison when you are confident someone is an evil wolf who avoided day execution.",
         },
         "pt": {
             "name": "Bruxa",
@@ -321,7 +319,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade: Use as suas poções em momentos decisivos para salvar ou eliminar.",
             "day_tips": "Não revele o seu estoque de poções durante o dia.",
             "night_tips": "Você tem 1 poção de cura e 1 de veneno mortal. Escolha com sabedoria.",
-            "pro_tip": "Use o veneno quando tiver certeza de que alguém é um lobo disfarçado."
+            "pro_tip": "Use o veneno quando tiver certeza de que alguém é um lobo disfarçado.",
         },
         "it": {
             "name": "Strega",
@@ -329,7 +327,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio: Usa le tue pozioni nei momenti decisivi per cambiare le sorti del gioco.",
             "day_tips": "Mantieni il segreto sulle tue pozioni.",
             "night_tips": "Hai 1 pozione curativa e 1 pozione velenosa.",
-            "pro_tip": "Usa il veleno su chi sei certo sia un lupo sfuggito al voto del villaggio."
+            "pro_tip": "Usa il veleno su chi sei certo sia un lupo sfuggito al voto del villaggio.",
         },
         "es": {
             "name": "Bruja",
@@ -337,7 +335,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo: Utiliza tus dos pociones mágicas en giros cruciales de la partida.",
             "day_tips": "No reveles tu inventario de pociones.",
             "night_tips": "Tienes 1 poción curativa y 1 de veneno mortal.",
-            "pro_tip": "Usa el veneno contra quien tengas la certeza de que es un lobo encubierto."
+            "pro_tip": "Usa el veneno contra quien tengas la certeza de que es un lobo encubierto.",
         },
         "fr": {
             "name": "Sorcière",
@@ -345,7 +343,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village: Utilisez vos deux puissantes potions lors des moments charnières.",
             "day_tips": "Gardez le secret sur vos potions restantes.",
             "night_tips": "Vous avez 1 potion de vie et 1 potion de mort.",
-            "pro_tip": "Empoisonnez un loup suspecté qui échappe aux votes du village."
+            "pro_tip": "Empoisonnez un loup suspecté qui échappe aux votes du village.",
         },
         "el": {
             "name": "Μάγισσα",
@@ -353,7 +351,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό: Χρησιμοποιήστε τα μαγικά φίλτρα σας σε κρίσιμες στιγμές.",
             "day_tips": "Μην αποκαλύπτετε τι φίλτρα σας έχουν απομείνει.",
             "night_tips": "Έχετε 1 φίλτρο ζωής και 1 φίλτρο δηλητηρίου.",
-            "pro_tip": "Χρησιμοποιήστε το δηλητήριο σε σίγουρους λύκους."
+            "pro_tip": "Χρησιμοποιήστε το δηλητήριο σε σίγουρους λύκους.",
         },
         "ru": {
             "name": "Ведьма",
@@ -361,7 +359,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город: Примените зелья в переломные моменты игры.",
             "day_tips": "Никому не говорите о наличии оставшихся зелий.",
             "night_tips": "У вас есть 1 зелье спасения и 1 зелье яда.",
-            "pro_tip": "Отравите игрока, если уверены, что он оборотень, избежавший суда."
+            "pro_tip": "Отравите игрока, если уверены, что он оборотень, избежавший суда.",
         },
         "hi": {
             "name": "जादूगरनी / डायन",
@@ -369,7 +367,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव: महत्वपूर्ण मोड़ पर अपनी दोनों शक्तिशाली औषधियों का उपयोग करें।",
             "day_tips": "अपनी औषधियों के बारे में किसी को न बताएं।",
             "night_tips": "आपके पास 1 जीवन रक्षक और 1 विष की औषधि है।",
-            "pro_tip": "जहर का उपयोग तब करें जब आप पक्के हों कि कोई भेड़िया दिन में बच गया है।"
+            "pro_tip": "जहर का उपयोग तब करें जब आप पक्के हों कि कोई भेड़िया दिन में बच गया है।",
         },
         "kn": {
             "name": "ಮಾಟಗಾತಿ",
@@ -377,8 +375,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ: ನಿರ್ಣಾಯಕ ಹಂತದಲ್ಲಿ ನಿಮ್ಮ ಎರಡು ಪ್ರಬಲ ಔಷಧಿಗಳನ್ನು ಬಳಸಿ.",
             "day_tips": "ನಿಮ್ಮ ಬಳಿ ಇರುವ ಔಷಧಿಗಳ ಬಗ್ಗೆ ರಹಸ್ಯವಾಗಿರಿ.",
             "night_tips": "ನಿಮ್ಮ ಬಳಿ 1 ಜೀವ ರಕ್ಷಕ ಮತ್ತು 1 ವಿಷದ ಔಷಧವಿದೆ.",
-            "pro_tip": "ಹಗಲಿನ ಮತದಿಂದ ತಪ್ಪಿಸಿಕೊಂಡ ತೋಳದ ಮೇಲೆ ವಿಷವನ್ನು ಪ್ರಯೋಗಿಸಿ."
-        }
+            "pro_tip": "ಹಗಲಿನ ಮತದಿಂದ ತಪ್ಪಿಸಿಕೊಂಡ ತೋಳದ ಮೇಲೆ ವಿಷವನ್ನು ಪ್ರಯೋಗಿಸಿ.",
+        },
     },
     "lover": {
         "en": {
@@ -387,7 +385,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town: Eliminate all evil! Form a reliable 2-vote block with your lover to sway daytime trials.",
             "day_tips": "Coordinate votes with your lover. Keep your connection discreet so wolves don't get a 2-for-1 kill!",
             "night_tips": "Sleep safely. You have no night powers, but pray you both survive the night.",
-            "pro_tip": "You can 100% trust your lover as a fellow innocent Citizen. Protect each other's secrets!"
+            "pro_tip": "You can 100% trust your lover as a fellow innocent Citizen. Protect each other's secrets!",
         },
         "pt": {
             "name": "Amantes Inocentes",
@@ -395,7 +393,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade: Eliminem todo o mal! Usem o vosso bloco de 2 votos para liderar o julgamento.",
             "day_tips": "Votem em sintonia com o seu par, mas não revelem a relação para não virarem alvo duplo.",
             "night_tips": "Durmam em segurança e torçam para sobreviver à noite.",
-            "pro_tip": "Você pode confiar 100% no seu par inocente. Protejam-se mutuamente!"
+            "pro_tip": "Você pode confiar 100% no seu par inocente. Protejam-se mutuamente!",
         },
         "it": {
             "name": "Amanti Innocenti",
@@ -403,7 +401,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio: Eliminate il male formando un solido blocco di 2 voti.",
             "day_tips": "Coordinatevi nei voti mantenendo la segretezza della vostra unione.",
             "night_tips": "Riposate tranquilli e sperate di superare la notte insieme.",
-            "pro_tip": "Puoi fidarti al 100% del tuo amante. Difendete i vostri segreti!"
+            "pro_tip": "Puoi fidarti al 100% del tuo amante. Difendete i vostri segreti!",
         },
         "es": {
             "name": "Amantes Inocentes",
@@ -411,7 +409,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo: ¡Eliminad el mal! Formad un bloque de 2 votos para inclinar las votaciones.",
             "day_tips": "Coordinad los votos en secreto para no ser un blanco fácil para los lobos.",
             "night_tips": "Dormid a salvo y rezad para amanecer vivos.",
-            "pro_tip": "Puedes confiar al 100% en tu pareja. ¡Protegeos siempre!"
+            "pro_tip": "Puedes confiar al 100% en tu pareja. ¡Protegeos siempre!",
         },
         "fr": {
             "name": "Amoureux Innocents",
@@ -419,7 +417,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village: Éliminez le mal en formant un bloc de 2 voix infaillible.",
             "day_tips": "Coordonnez discrètement vos votes pour ne pas offrir un double festin aux loups.",
             "night_tips": "Dormez en paix en espérant vous réveiller tous les deux.",
-            "pro_tip": "Votre partenaire est 100% innocent. Protégez-vous mutuellement!"
+            "pro_tip": "Votre partenaire est 100% innocent. Protégez-vous mutuellement!",
         },
         "el": {
             "name": "Ερωτευμένοι",
@@ -427,7 +425,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό: Εξοντώστε το κακό με τη δύναμη των δύο ψήφων σας.",
             "day_tips": "Συντονίστε τις ψήφους σας διακριτικά για να μη γίνετε διπλός στόχος.",
             "night_tips": "Κοιμηθείτε ήσυχα ελπίζοντας να επιβιώσετε και οι δύο.",
-            "pro_tip": "Μπορείτε να εμπιστευτείτε 100% το ταίρι σας!"
+            "pro_tip": "Μπορείτε να εμπιστευτείτε 100% το ταίρι σας!",
         },
         "ru": {
             "name": "Влюбленные",
@@ -435,7 +433,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город: Уничтожьте зло, действуя надежным блоком в 2 голоса.",
             "day_tips": "Координируйте голосование, но не выдавайте связь волкам.",
             "night_tips": "Спите спокойно и надейтесь пережить ночь вдвоем.",
-            "pro_tip": "Вы можете доверять возлюбленному на все 100%. Берегите друг друга!"
+            "pro_tip": "Вы можете доверять возлюбленному на все 100%. Берегите друг друга!",
         },
         "hi": {
             "name": "निर्दोष प्रेमी",
@@ -443,7 +441,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव: मिलकर सभी बुराई को खत्म करें और 2 वोटों की ताकत से फैसला बदलें।",
             "day_tips": "अपने साथी के साथ तालमेल बनाकर वोट करें लेकिन रिश्ता गुप्त रखें।",
             "night_tips": "सुरक्षित सोएं और प्रार्थना करें कि आप दोनों सुबह जीवित मिलें।",
-            "pro_tip": "आप अपने प्रेमी पर 100% भरोसा कर सकते हैं!"
+            "pro_tip": "आप अपने प्रेमी पर 100% भरोसा कर सकते हैं!",
         },
         "kn": {
             "name": "ಪ್ರೇಮಿಗಳು",
@@ -451,8 +449,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ: ಎಲ್ಲಾ ದುಷ್ಟರನ್ನು ನಿರ್ಮೂಲನೆ ಮಾಡಲು 2 ಮತಗಳ ಬಲವನ್ನು ಬಳಸಿ.",
             "day_tips": "ತೋಳಗಳ ಕಣ್ಣಿಗೆ ಬೀಳದಂತೆ ರಹಸ್ಯವಾಗಿ ಒಟ್ಟಿಗೆ ಮತ ಚಲಾಯಿಸಿ.",
             "night_tips": "ಇಬ್ಬರೂ ರಾತ್ರಿಯನ್ನು ದಾಟಲು ಪ್ರಾರ್ಥಿಸಿ.",
-            "pro_tip": "ನಿಮ್ಮ ಪ್ರೇಮಿಯನ್ನು 100% ನಂಬಬಹುದು. ಪರಸ್ಪರ ರಕ್ಷಿಸಿಕೊಳ್ಳಿ!"
-        }
+            "pro_tip": "ನಿಮ್ಮ ಪ್ರೇಮಿಯನ್ನು 100% ನಂಬಬಹುದು. ಪರಸ್ಪರ ರಕ್ಷಿಸಿಕೊಳ್ಳಿ!",
+        },
     },
     "cupid": {
         "en": {
@@ -461,7 +459,7 @@ ADDITIONAL_ROLES = {
             "objective": "Neutral: Link two players into Obsessive Lovers whose only win condition is being the last survivors.",
             "day_tips": "Observe how your chosen lovers behave and protect their secret bond.",
             "night_tips": "On Night 0 only, select two players to bind in forbidden obsessive love.",
-            "pro_tip": "Binding rivals or suspicious players creates chaos and unexpected alliances."
+            "pro_tip": "Binding rivals or suspicious players creates chaos and unexpected alliances.",
         },
         "pt": {
             "name": "Cupido",
@@ -469,7 +467,7 @@ ADDITIONAL_ROLES = {
             "objective": "Neutro: Crie um par de amantes obsessivos cuja única condição de vitória é serem os últimos sobreviventes.",
             "day_tips": "Observe o comportamento do casal e tente manter o segredo.",
             "night_tips": "Apenas na Noite 0, selecione dois jogadores para unir em amor obsessivo.",
-            "pro_tip": "Unir rivais cria alianças caóticas e imprevisíveis na vila."
+            "pro_tip": "Unir rivais cria alianças caóticas e imprevisíveis na vila.",
         },
         "it": {
             "name": "Cupido",
@@ -477,7 +475,7 @@ ADDITIONAL_ROLES = {
             "objective": "Neutrale: Unisci due anime il cui unico obiettivo è restare gli ultimi in vita.",
             "day_tips": "Osserva come giocano i due prescelti e proteggi il loro legame.",
             "night_tips": "Solo la Notte 0, scegli due giocatori da legare in amore ossessivo.",
-            "pro_tip": "Legare due avversari genera il caos perfetto tra i villici."
+            "pro_tip": "Legare due avversari genera il caos perfetto tra i villici.",
         },
         "es": {
             "name": "Cupido",
@@ -485,7 +483,7 @@ ADDITIONAL_ROLES = {
             "objective": "Neutral: Une a dos jugadores cuyo único objetivo de victoria es ser los últimos supervivientes.",
             "day_tips": "Observa a tu pareja elegida y apoya su camino hacia la victoria.",
             "night_tips": "Solo en la Noche 0, elige a dos jugadores para unirlos en amor obsesivo.",
-            "pro_tip": "Vincular a rivales genera alianzas insólitas que desconciertan a los lobos."
+            "pro_tip": "Vincular a rivales genera alianzas insólitas que desconciertan a los lobos.",
         },
         "fr": {
             "name": "Cupidon",
@@ -493,7 +491,7 @@ ADDITIONAL_ROLES = {
             "objective": "Neutre: Unissez deux joueurs qui ne gagneront qu'en étant les derniers survivants.",
             "day_tips": "Observez vos tourtereaux et préservez leur secret.",
             "night_tips": "Uniquement la Nuit 0, désignez deux joueurs à lier par passion.",
-            "pro_tip": "Lier deux rivaux sème la zizanie et bouleverse tous les équilibres."
+            "pro_tip": "Lier deux rivaux sème la zizanie et bouleverse tous les équilibres.",
         },
         "el": {
             "name": "Έρωτας",
@@ -501,7 +499,7 @@ ADDITIONAL_ROLES = {
             "objective": "Ουδέτερος: Ενώστε δύο παίκτες που πρέπει να μείνουν οι μοναδικοί επιζώντες.",
             "day_tips": "Παρατηρήστε πώς συμπεριφέρονται οι επιλεγμένοι σας εραστές.",
             "night_tips": "Μόνο τη Νύχτα 0, διαλέξτε δύο παίκτες για να τους ενώσετε.",
-            "pro_tip": "Η ένωση δύο αντιπάλων δημιουργεί απόλυτο χάος στο τραπέζι."
+            "pro_tip": "Η ένωση δύο αντιπάλων δημιουργεί απόλυτο χάος στο τραπέζι.",
         },
         "ru": {
             "name": "Купидон",
@@ -509,7 +507,7 @@ ADDITIONAL_ROLES = {
             "objective": "Нейтрал: Свяжите двух игроков, чья цель — остаться последними выжившими.",
             "day_tips": "Наблюдайте за парой и помогайте им сохранять тайну.",
             "night_tips": "Только в Ночь 0 выберите двух игроков для любовного союза.",
-            "pro_tip": "Связать непримиримых врагов — лучший способ устроить в деревне хаос."
+            "pro_tip": "Связать непримиримых врагов — лучший способ устроить в деревне хаос.",
         },
         "hi": {
             "name": "कामदेव (क्यूपिड)",
@@ -517,7 +515,7 @@ ADDITIONAL_ROLES = {
             "objective": "तटस्थ: दो खिलाड़ियों को ऐसे जोड़े में बांधें जो केवल अंतिम बचे रहने पर जीतेंगे।",
             "day_tips": "अपने चुने हुए प्रेमियों पर नज़र रखें और उनके बंधन को छुपाएं।",
             "night_tips": "केवल रात 0 पर दो खिलाड़ियों को इस बंधन में बांधें।",
-            "pro_tip": "विरोधी खिलाड़ियों को बांधने से खेल में अप्रत्याशित मोड़ आते हैं।"
+            "pro_tip": "विरोधी खिलाड़ियों को बांधने से खेल में अप्रत्याशित मोड़ आते हैं।",
         },
         "kn": {
             "name": "ಕಾಮದೇವ (ಕ್ಯೂಪಿಡ್)",
@@ -525,8 +523,8 @@ ADDITIONAL_ROLES = {
             "objective": "ತಟಸ್ಥ: ಕೊನೆಯದಾಗಿ ಉಳಿಯುವ ಗುರಿ ಹೊಂದಿರುವ ಇಬ್ಬರನ್ನು ಪ್ರೇಮಿಗಳನ್ನಾಗಿ ಜೋಡಿಸಿ.",
             "day_tips": "ನೀವು ಜೋಡಿಸಿದ ಪ್ರೇಮಿಗಳ ನಡವಳಿಕೆಯನ್ನು ಗಮನಿಸಿ.",
             "night_tips": "ರಾತ್ರಿ 0 ರಂದು ಮಾತ್ರ ಇಬ್ಬರು ಆಟಗಾರರನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
-            "pro_tip": "ಎದುರಾಳಿಗಳನ್ನು ಜೋಡಿಸುವುದರಿಂದ ಆಟದಲ್ಲಿ ಭಾರಿ ಗೊಂದಲ ಸೃಷ್ಟಿಯಾಗುತ್ತದೆ."
-        }
+            "pro_tip": "ಎದುರಾಳಿಗಳನ್ನು ಜೋಡಿಸುವುದರಿಂದ ಆಟದಲ್ಲಿ ಭಾರಿ ಗೊಂದಲ ಸೃಷ್ಟಿಯಾಗುತ್ತದೆ.",
+        },
     },
     "obsessive_lover": {
         "en": {
@@ -535,7 +533,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solo / Couple: Kill everyone else! You and your partner must be the last souls standing.",
             "day_tips": "Pretend to be regular citizens. Vote carefully to thin out both Wolves and Town equally.",
             "night_tips": "Sleep safely. Hope you and your obsessive partner make it through alive.",
-            "pro_tip": "You do not win with Town or Wolves. Play both sides against each other!"
+            "pro_tip": "You do not win with Town or Wolves. Play both sides against each other!",
         },
         "pt": {
             "name": "Amante Obsessivo",
@@ -543,7 +541,7 @@ ADDITIONAL_ROLES = {
             "objective": "Casal: Matem todos os outros! Vocês dois devem ser os últimos sobreviventes.",
             "day_tips": "Finjam ser cidadãos comuns. Estimulem confrontos entre lobos e vila.",
             "night_tips": "Durmam em paz torcendo para que ambos sobrevivam.",
-            "pro_tip": "Vocês não vencem com a vila nem com os lobos. Coloquem os dois lados em guerra!"
+            "pro_tip": "Vocês não vencem com a vila nem com os lobos. Coloquem os dois lados em guerra!",
         },
         "it": {
             "name": "Amante Ossessivo",
@@ -551,7 +549,7 @@ ADDITIONAL_ROLES = {
             "objective": "Coppia: Eliminate tutti! Voi due dovete essere gli unici superstiti.",
             "day_tips": "Fingiti un normale villico ed equilibra i voti per eliminare entrambi gli schieramenti.",
             "night_tips": "Spera che entrambi superiate la notte.",
-            "pro_tip": "Non vinci né coi lupi né coi villici: mettili l'uno contro l'altro!"
+            "pro_tip": "Non vinci né coi lupi né coi villici: mettili l'uno contro l'altro!",
         },
         "es": {
             "name": "Amante Obsesivo",
@@ -559,7 +557,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pareja: ¡Eliminad a todos los demás! Debéis ser los últimos supervivientes.",
             "day_tips": "Finge lealtad al pueblo y diezma a ambos bandos poco a poco.",
             "night_tips": "Duerme seguro y confía en superar la noche.",
-            "pro_tip": "No ganas con el pueblo ni con los lobos. ¡Enfréntalos entre sí!"
+            "pro_tip": "No ganas con el pueblo ni con los lobos. ¡Enfréntalos entre sí!",
         },
         "fr": {
             "name": "Amoureux Obsessionnel",
@@ -567,7 +565,7 @@ ADDITIONAL_ROLES = {
             "objective": "Couple: Éliminez tout le monde! Vous devez être les derniers debout.",
             "day_tips": "Jouez les citoyens modèles tout en affaiblissant les deux camps.",
             "night_tips": "Reposez-vous en espérant rester en vie avec votre moitié.",
-            "pro_tip": "Vous ne partagez la victoire avec personne d'autre. Montez les loups contre les villageois!"
+            "pro_tip": "Vous ne partagez la victoire avec personne d'autre. Montez les loups contre les villageois!",
         },
         "el": {
             "name": "Εμμονικός Εραστής",
@@ -575,7 +573,7 @@ ADDITIONAL_ROLES = {
             "objective": "Ζευγάρι: Εξοντώστε τους πάντες! Πρέπει να μείνετε οι μοναδικοί ζωντανοί.",
             "day_tips": "Προσποιηθείτε τους αθώους και αποδυναμώστε εξίσου χωρικούς και λύκους.",
             "night_tips": "Κοιμηθείτε ήσυχα ελπίζοντας να επιβιώσετε.",
-            "pro_tip": "Δεν κερδίζετε ούτε με το χωριό ούτε με τους λύκους. Βάλτε τους να φαγωθούν!"
+            "pro_tip": "Δεν κερδίζετε ούτε με το χωριό ούτε με τους λύκους. Βάλτε τους να φαγωθούν!",
         },
         "ru": {
             "name": "Одержимый влюбленный",
@@ -583,7 +581,7 @@ ADDITIONAL_ROLES = {
             "objective": "Пара: Уничтожьте всех остальных! Вы должны остаться последними живыми.",
             "day_tips": "Притворяйтесь мирными жителями и стравливайте волков с деревней.",
             "night_tips": "Спите спокойно, надеясь дожить до рассвета вместе.",
-            "pro_tip": "Вы не играете за город или волков. Ваша цель — тотальное уничтожение обеих сторон!"
+            "pro_tip": "Вы не играете за город или волков. Ваша цель — тотальное уничтожение обеих сторон!",
         },
         "hi": {
             "name": "जुनूनी प्रेमी",
@@ -591,7 +589,7 @@ ADDITIONAL_ROLES = {
             "objective": "जोड़ी: बाकी सबको खत्म करें! आपको और आपके साथी को अंतिम बचे रहना है।",
             "day_tips": "साधारण ग्रामीण होने का नाटक करें और दोनों पक्षों को आपस में लड़ाएं।",
             "night_tips": "सुरक्षित सोएं और साथी के साथ बचने की आशा रखें।",
-            "pro_tip": "आप गाँव या भेड़ियों के साथ नहीं जीतते। दोनों को एक-दूसरे के खिलाफ भड़काएं!"
+            "pro_tip": "आप गाँव या भेड़ियों के साथ नहीं जीतते। दोनों को एक-दूसरे के खिलाफ भड़काएं!",
         },
         "kn": {
             "name": "ಹುಚ್ಚು ಪ್ರೇಮಿ",
@@ -599,8 +597,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಜೋಡಿ: ಉಳಿದವರೆಲ್ಲರನ್ನು ಕೊಲ್ಲಿರಿ! ನೀವಿಬ್ಬರೇ ಕೊನೆಯದಾಗಿ ಉಳಿಯಬೇಕು.",
             "day_tips": "ಸಾಮಾನ್ಯ ನಾಗರಿಕರಂತೆ ನಟಿಸಿ ಎರಡೂ ಗುಂಪುಗಳನ್ನು ಸಮನಾಗಿ ನಾಶಮಾಡಿ.",
             "night_tips": "ರಾತ್ರಿ ಶಾಂತಿಯಿಂದ ಮಲಗಿ.",
-            "pro_tip": "ನೀವು ಯಾರೊಂದಿಗೂ ಗೆಲ್ಲುವುದಿಲ್ಲ. ಎರಡೂ ಕಡೆಯವರನ್ನು ಪರಸ್ಪರ ಜಗಳವಾಡುವಂತೆ ಮಾಡಿ!"
-        }
+            "pro_tip": "ನೀವು ಯಾರೊಂದಿಗೂ ಗೆಲ್ಲುವುದಿಲ್ಲ. ಎರಡೂ ಕಡೆಯವರನ್ನು ಪರಸ್ಪರ ಜಗಳವಾಡುವಂತೆ ಮಾಡಿ!",
+        },
     },
     "jester": {
         "en": {
@@ -609,7 +607,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solo: Act suspiciously and get the town to vote you out during the day!",
             "day_tips": "Give contradictory clues, act nervous, or defend obvious wolves to attract execution votes.",
             "night_tips": "Sleep peacefully. If wolves kill you at night, you LOSE! You only win if executed by day vote.",
-            "pro_tip": "Don't be too obvious or town will ignore you. Walk the fine line between suspicious and guilty!"
+            "pro_tip": "Don't be too obvious or town will ignore you. Walk the fine line between suspicious and guilty!",
         },
         "pt": {
             "name": "Bobo da Corte (Tolo)",
@@ -617,7 +615,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solitário: Aja de forma suspeita e faça a vila linchá-lo durante o dia!",
             "day_tips": "Dê pistas contraditórias, finja nervosismo ou defenda lobos para atrair votos.",
             "night_tips": "Durma tranquilo. Se os lobos te matarem à noite, você PERDE! Só vence pelo linchamento.",
-            "pro_tip": "Não seja óbvio demais. Equilibre suspeita sutil com culpa fingida!"
+            "pro_tip": "Não seja óbvio demais. Equilibre suspeita sutil com culpa fingida!",
         },
         "it": {
             "name": "Buffone (Folletto)",
@@ -625,7 +623,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solitario: Fatti linciare dalla folla durante il voto diurno!",
             "day_tips": "Sii ambiguo, contraddiciti e difendi i sospetti per attirare voti su di te.",
             "night_tips": "Dormi sereno. Se i lupi ti sbranano di notte, HAI PERSO! Vinci solo al rogo.",
-            "pro_tip": "Non esagerare per non farti smascherare: mantieniti sottilmente colpevole!"
+            "pro_tip": "Non esagerare per non farti smascherare: mantieniti sottilmente colpevole!",
         },
         "es": {
             "name": "Bufón (Loco)",
@@ -633,7 +631,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solitario: ¡Hazte sospechoso y consigue que el pueblo te linche durante el día!",
             "day_tips": "Muestra nerviosismo, contradicciones y defiende a sospechosos para atraer votos.",
             "night_tips": "Duerme tranquilo. Si los lobos te matan de noche, ¡PIERDES! Solo ganas por ejecución.",
-            "pro_tip": "No seas demasiado evidente. ¡Juega con la sospecha justa para que piquen el anzuelo!"
+            "pro_tip": "No seas demasiado evidente. ¡Juega con la sospecha justa para que piquen el anzuelo!",
         },
         "fr": {
             "name": "Bouffon",
@@ -641,7 +639,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solo: Attirez les soupçons pour vous faire condamner au bûcher pendant le jour!",
             "day_tips": "Bafouillez, contredisez-vous ou protégez un suspect pour attirer les votes.",
             "night_tips": "Dormez bien. Si les loups vous dévorent la nuit, vous AVEZ PERDU! Seul le vote compte.",
-            "pro_tip": "Ne soyez pas trop grossier, sinon le village vous ignorera. Soyez subtilement coupable!"
+            "pro_tip": "Ne soyez pas trop grossier, sinon le village vous ignorera. Soyez subtilement coupable!",
         },
         "el": {
             "name": "Γελωτοποιός",
@@ -649,7 +647,7 @@ ADDITIONAL_ROLES = {
             "objective": "Μόνος: Φερθείτε ύποπτα και κάντε το χωριό να σας ψηφίσει για εκτέλεση!",
             "day_tips": "Πείτε ψέματα, φανείτε νευρικός ή υπερασπιστείτε λύκους για να μαζέψετε ψήφους.",
             "night_tips": "Κοιμηθείτε ήσυχα. Αν σας φάνε οι λύκοι τη νύχτα, ΧΑΝΕΤΕ! Κερδίζετε μόνο με απαγχονισμό.",
-            "pro_tip": "Μην είστε υπερβολικά προφανής, αλλιώς θα σας αγνοήσουν."
+            "pro_tip": "Μην είστε υπερβολικά προφανής, αλλιώς θα σας αγνοήσουν.",
         },
         "ru": {
             "name": "Шут (Безумец)",
@@ -657,7 +655,7 @@ ADDITIONAL_ROLES = {
             "objective": "Одиночка: Ведите себя подозрительно и заставьте жителей казнить вас днем!",
             "day_tips": "Путайтесь в показаниях, нервничайте или защищайте волков, чтобы привлечь голоса.",
             "night_tips": "Спите спокойно. Если волки убьют вас ночью, вы ПРОИГРАЛИ! Победа только через суд.",
-            "pro_tip": "Не переигрывайте, иначе деревня вас раскусит. Балансируйте на грани вины!"
+            "pro_tip": "Не переигрывайте, иначе деревня вас раскусит. Балансируйте на грани вины!",
         },
         "hi": {
             "name": "विदूषक (मूर्ख)",
@@ -665,7 +663,7 @@ ADDITIONAL_ROLES = {
             "objective": "अकेले: संदिग्ध आचरण करें और दिन में खुद को फांसी दिलवाएं!",
             "day_tips": "उल्टी-सीधी बातें कहें, घबराएं और भेड़ियों का बचाव करके वोट अपनी ओर खींचें।",
             "night_tips": "आराम से सोएं। अगर भेड़िये रात में मार दें तो आप हार जाएंगे! केवल दिन में फांसी से ही जीतेंगे।",
-            "pro_tip": "इतना भी खुला न खेलें कि लोग समझ जाएं। चालाकी से शक पैदा करें!"
+            "pro_tip": "इतना भी खुला न खेलें कि लोग समझ जाएं। चालाकी से शक पैदा करें!",
         },
         "kn": {
             "name": "ವಿದೂಷಕ (ಕೋಡಂಗಿ)",
@@ -673,8 +671,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಏಕಾಂಗಿ: ಅನುಮಾನಾಸ್ಪದವಾಗಿ ವರ್ತಿಸಿ ಹಗಲಿನಲ್ಲಿ ಮತ ಪಡೆದು ಗಲ್ಲಿಗೇರಿ!",
             "day_tips": "ಗೊಂದಲದ ಮಾತುಗಳನ್ನಾಡಿ ಅಥವಾ ತೋಳಗಳನ್ನು ಬೆಂಬಲಿಸಿ ಮತಗಳನ್ನು ಆಕರ್ಷಿಸಿ.",
             "night_tips": "ನೆಮ್ಮದಿಯಿಂದ ಮಲಗಿ. ತೋಳಗಳು ರಾತ್ರಿ ಕೊಂದರೆ ನೀವು ಸೋಲುತ್ತೀರಿ! ಹಗಲಿನ ಮತದಿಂದ ಮಾತ್ರ ಗೆಲುವು.",
-            "pro_tip": "ತುಂಬಾ ನೇರವಾಗಿರಬೇಡಿ, ಸೂಕ್ಷ್ಮವಾಗಿ ತಪ್ಪಿತಸ್ಥರಂತೆ ನಟಿಸಿ!"
-        }
+            "pro_tip": "ತುಂಬಾ ನೇರವಾಗಿರಬೇಡಿ, ಸೂಕ್ಷ್ಮವಾಗಿ ತಪ್ಪಿತಸ್ಥರಂತೆ ನಟಿಸಿ!",
+        },
     },
     "serial_killer": {
         "en": {
@@ -683,7 +681,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solo: Eliminate everyone! Outlast both the Werewolves and the entire Town.",
             "day_tips": "Act like an earnest, helpful villager. Help eliminate werewolves to keep wolves from overpowering you.",
             "night_tips": "Choose one victim each night to eliminate.",
-            "pro_tip": "You have night immunity against wolves. Use that resilience to play fearlessly!"
+            "pro_tip": "You have night immunity against wolves. Use that resilience to play fearlessly!",
         },
         "pt": {
             "name": "Assassino em Série",
@@ -691,7 +689,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solitário: Elimine todos! Sobreviva tanto aos lobos quanto à vila inteira.",
             "day_tips": "Finja ser um aldeão prestativo. Ajude a linchar lobos para não ser sobrecarregado.",
             "night_tips": "Escolha uma vítima todas as noites para assassinar.",
-            "pro_tip": "Você tem imunidade noturna contra ataques de lobos. Jogue com determinação!"
+            "pro_tip": "Você tem imunidade noturna contra ataques de lobos. Jogue com determinação!",
         },
         "it": {
             "name": "Serial Killer",
@@ -699,7 +697,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solitario: Fai fuori tutti! Elimina sia i Lupi che i Villici.",
             "day_tips": "Comportati da cittadino modello. Aiuta a eliminare i lupi per non farti sopraffare.",
             "night_tips": "Scegli chi assassinare ogni notte.",
-            "pro_tip": "Sei immune ai lupi di notte. Sfrutta questa invulnerabilità a tuo favore!"
+            "pro_tip": "Sei immune ai lupi di notte. Sfrutta questa invulnerabilità a tuo favore!",
         },
         "es": {
             "name": "Asesino en Serie",
@@ -707,7 +705,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solitario: ¡Elimina a todos! Sé el último en pie frente a lobos y aldeanos.",
             "day_tips": "Actúa como un vecino ejemplar. Ayuda a colgar lobos para nivelar la balanza.",
             "night_tips": "Selecciona a una víctima cada noche.",
-            "pro_tip": "Eres inmune a los ataques nocturnos de la manada. ¡Usa esa ventaja!"
+            "pro_tip": "Eres inmune a los ataques nocturnos de la manada. ¡Usa esa ventaja!",
         },
         "fr": {
             "name": "Tueur en Série",
@@ -715,7 +713,7 @@ ADDITIONAL_ROLES = {
             "objective": "Solo: Tuez tout le monde! Soyez le dernier survivant face aux loups et aux villageois.",
             "day_tips": "Faites profil bas en bon villageois. Éliminez les loups le jour pour équilibrer la partie.",
             "night_tips": "Choisissez une victime à poignarder chaque nuit.",
-            "pro_tip": "Vous êtes invulnérable aux attaques de loups la nuit. Profitez-en!"
+            "pro_tip": "Vous êtes invulnérable aux attaques de loups la nuit. Profitez-en!",
         },
         "el": {
             "name": "Κατά συρροήν δολοφόνος",
@@ -723,7 +721,7 @@ ADDITIONAL_ROLES = {
             "objective": "Μόνος: Εξοντώστε τους πάντες! Μείνετε ο μοναδικός επιζών.",
             "day_tips": "Υποκριθείτε τον πρόθυμο χωρικό. Βοηθήστε στο κρέμασμα λύκων.",
             "night_tips": "Επιλέξτε ένα θύμα κάθε νύχτα.",
-            "pro_tip": "Οι λύκοι δεν μπορούν να σας σκοτώσουν τη νύχτα. Παίξτε επιθετικά!"
+            "pro_tip": "Οι λύκοι δεν μπορούν να σας σκοτώσουν τη νύχτα. Παίξτε επιθετικά!",
         },
         "ru": {
             "name": "Маньяк (Серийный убийца)",
@@ -731,7 +729,7 @@ ADDITIONAL_ROLES = {
             "objective": "Одиночка: Уничтожьте всех! Переживите и волков, и всю деревню.",
             "day_tips": "Притворяйтесь полезным жителем. Помогайте вешать волков, чтобы они не задавили числом.",
             "night_tips": "Выбирайте одну жертву каждую ночь.",
-            "pro_tip": "Вы неуязвимы для ночных атак волков. Пользуйтесь этим преимуществом!"
+            "pro_tip": "Вы неуязвимы для ночных атак волков. Пользуйтесь этим преимуществом!",
         },
         "hi": {
             "name": "सीरियल किलर",
@@ -739,7 +737,7 @@ ADDITIONAL_ROLES = {
             "objective": "अकेले: सभी को खत्म करें! भेड़ियों और गाँववालों दोनों से आगे निकलें।",
             "day_tips": "एक मददगार ग्रामीण की तरह व्यवहार करें और भेड़ियों को बाहर करने में मदद करें।",
             "night_tips": "हर रात मारने के लिए एक शिकार चुनें।",
-            "pro_tip": "रात में भेड़ियों के हमले से आपको कोई नुकसान नहीं हो सकता!"
+            "pro_tip": "रात में भेड़ियों के हमले से आपको कोई नुकसान नहीं हो सकता!",
         },
         "kn": {
             "name": "ಸರಣಿ ಹಂತಕ",
@@ -747,8 +745,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಏಕಾಂಗಿ: ಎಲ್ಲರನ್ನೂ ಕೊಲ್ಲಿರಿ! ತೋಳಗಳು ಮತ್ತು ಗ್ರಾಮಸ್ಥರಿಬ್ಬರನ್ನೂ ಮೀರಿಸಿ.",
             "day_tips": "ಉತ್ತಮ ಗ್ರಾಮಸ್ಥನಂತೆ ನಟಿಸಿ. ತೋಳಗಳನ್ನು ಗಲ್ಲಿಗೇರಿಸಲು ಸಹಾಯ ಮಾಡಿ.",
             "night_tips": "ಪ್ರತಿ ರಾತ್ರಿ ಒಬ್ಬ ಬಲಿಪಶುವನ್ನು ಆರಿಸಿ.",
-            "pro_tip": "ರಾತ್ರಿ ತೋಳಗಳು ನಿಮ್ಮನ್ನು ಕೊಲ್ಲಲು ಸಾಧ್ಯವಿಲ್ಲ. ಧೈರ್ಯವಾಗಿ ಆಡಿ!"
-        }
+            "pro_tip": "ರಾತ್ರಿ ತೋಳಗಳು ನಿಮ್ಮನ್ನು ಕೊಲ್ಲಲು ಸಾಧ್ಯವಿಲ್ಲ. ಧೈರ್ಯವಾಗಿ ಆಡಿ!",
+        },
     },
     "death_angel": {
         "en": {
@@ -757,7 +755,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town: Wield your scythe against an evil player to banish them.",
             "day_tips": "Listen carefully to find true evil before unleashing your scythe.",
             "night_tips": "Choose whether to strike tonight. One mistake will cost your own life!",
-            "pro_tip": "Hold your strike until you have solid evidence of evil."
+            "pro_tip": "Hold your strike until you have solid evidence of evil.",
         },
         "pt": {
             "name": "Anjo da Morte",
@@ -765,7 +763,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade: Use a sua foice contra um jogador maligno para eliminá-lo.",
             "day_tips": "Ouça atentamente os debates para identificar os lobos antes de desferir o golpe.",
             "night_tips": "Decida se ataca esta noite. Um erro custará a sua própria vida!",
-            "pro_tip": "Guarde a sua foice até ter provas sólidas contra alguém."
+            "pro_tip": "Guarde a sua foice até ter provas sólidas contra alguém.",
         },
         "it": {
             "name": "Angelo della Morte",
@@ -773,7 +771,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio: Usa la tua falce per giustiziare un nemico.",
             "day_tips": "Ascolta attentamente per scovare i veri malvagi prima di colpire.",
             "night_tips": "Decidi se colpire stanotte. Un errore ti costerà la vita!",
-            "pro_tip": "Conserva il colpo finché non hai certezze assolute."
+            "pro_tip": "Conserva il colpo finché non hai certezze assolute.",
         },
         "es": {
             "name": "Ángel de la Muerte",
@@ -781,7 +779,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo: Blande tu guadaña para purgar a un enemigo de la aldea.",
             "day_tips": "Observa el debate para confirmar quién es malvado antes de actuar.",
             "night_tips": "Elige si deseas atacar esta noche. ¡Un fallo te costará la vida!",
-            "pro_tip": "Espera a tener pruebas claras antes de descargar tu golpe mortal."
+            "pro_tip": "Espera a tener pruebas claras antes de descargar tu golpe mortal.",
         },
         "fr": {
             "name": "Ange de la Mort",
@@ -789,7 +787,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village: Frappez un être maléfique pour purger le village.",
             "day_tips": "Écoutez attentivement pour démasquer le mal avant de frapper.",
             "night_tips": "Décidez si vous frappez cette nuit. La moindre erreur vous sera fatale!",
-            "pro_tip": "Attendez d'avoir des preuves solides avant d'utiliser votre faux."
+            "pro_tip": "Attendez d'avoir des preuves solides avant d'utiliser votre faux.",
         },
         "el": {
             "name": "Άγγελος του Θανάτου",
@@ -797,7 +795,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό: Χρησιμοποιήστε το δρεπάνι σας ενάντια στους κακούς.",
             "day_tips": "Ακούστε προσεκτικά για να βρείτε ποιος είναι αληθινά κακός.",
             "night_tips": "Αποφασίστε αν θα χτυπήσετε απόψε. Ένα λάθος θα σας κοστίσει τη ζωή!",
-            "pro_tip": "Κρατήστε το χτύπημά σας μέχρι να είστε απόλυτα σίγουροι."
+            "pro_tip": "Κρατήστε το χτύπημά σας μέχρι να είστε απόλυτα σίγουροι.",
         },
         "ru": {
             "name": "Ангел Смерти",
@@ -805,7 +803,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город: Сразите злодея косой, чтобы избавить город от зла.",
             "day_tips": "Внимательно слушайте споры, чтобы точно определить врага.",
             "night_tips": "Решите, наносить ли удар этой ночью. Ошибка будет стоить вам жизни!",
-            "pro_tip": "Не спешите с ударом, пока вина цели не станет очевидной."
+            "pro_tip": "Не спешите с ударом, пока вина цели не станет очевидной.",
         },
         "hi": {
             "name": "मौत का फरिश्ता",
@@ -813,7 +811,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव: गाँव को बचाने के लिए दुष्ट पर अपना वार करें।",
             "day_tips": "वार करने से पहले ध्यान से सुनें कि कौन वास्तव में बुरा है।",
             "night_tips": "तय करें कि क्या आज रात हमला करना है। एक गलती जान ले लेगी!",
-            "pro_tip": "पक्के सबूत मिलने तक अपना वार बचाकर रखें।"
+            "pro_tip": "पक्के सबूत मिलने तक अपना वार बचाकर रखें।",
         },
         "kn": {
             "name": "ಮೃತ್ಯು ದೇವತೆ",
@@ -821,8 +819,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ: ದುಷ್ಟ ಆಟಗಾರನನ್ನು ನಾಶಮಾಡಲು ನಿಮ್ಮ ಆಯುಧವನ್ನು ಬಳಸಿ.",
             "day_tips": "ದಾಳಿ ಮಾಡುವ ಮುನ್ನ ನಿಜವಾದ ದುಷ್ಟನನ್ನು ಪತ್ತೆಹಚ್ಚಿ.",
             "night_tips": "ಇಂದು ರಾತ್ರಿ ದಾಳಿ ಮಾಡಬೇಕೆ ಎಂದು ನಿರ್ಧರಿಸಿ. ಒಂದು ತಪ್ಪು ನಿಮ್ಮ ಜೀವವನ್ನೇ ಕಸಿದುಕೊಳ್ಳುತ್ತದೆ!",
-            "pro_tip": "ಸ್ಪಷ್ಟ ಪುರಾವೆ ಸಿಗುವವರೆಗೆ ನಿಮ್ಮ ದಾಳಿಯನ್ನು ಕಾಯ್ದಿರಿಸಿ."
-        }
+            "pro_tip": "ಸ್ಪಷ್ಟ ಪುರಾವೆ ಸಿಗುವವರೆಗೆ ನಿಮ್ಮ ದಾಳಿಯನ್ನು ಕಾಯ್ದಿರಿಸಿ.",
+        },
     },
     "wolf_hunter": {
         "en": {
@@ -831,7 +829,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town: Hunt down and eliminate the Werewolves.",
             "day_tips": "Analyze voting records to identify wolf pack members before taking aim.",
             "night_tips": "Select a suspect to hunt. Hitting an innocent will kill you instead!",
-            "pro_tip": "Only shoot when your suspicion is backed by solid voting evidence."
+            "pro_tip": "Only shoot when your suspicion is backed by solid voting evidence.",
         },
         "pt": {
             "name": "Caçador de Lobos",
@@ -839,7 +837,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade: Cace e elimine os Lobisomens.",
             "day_tips": "Analise os padrões de votação antes de disparar.",
             "night_tips": "Escolha um suspeito para caçar. Acertar num inocente causará a sua própria morte!",
-            "pro_tip": "Só dispare quando a suspeita for confirmada por votos e comportamentos."
+            "pro_tip": "Só dispare quando a suspeita for confirmada por votos e comportamentos.",
         },
         "it": {
             "name": "Cacciatore di Lupi",
@@ -847,7 +845,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio: Scova ed elimina i Lupi Mannari.",
             "day_tips": "Analizza i voti del giorno prima di prendere la mira.",
             "night_tips": "Seleziona un sospetto. Colpire un innocente ti sarà fatale!",
-            "pro_tip": "Spara solo con forti indizi e prove concrete di colpevolezza."
+            "pro_tip": "Spara solo con forti indizi e prove concrete di colpevolezza.",
         },
         "es": {
             "name": "Cazador de Lobos",
@@ -855,7 +853,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo: Da caza y elimina a los Hombres Lobo.",
             "day_tips": "Analiza las votaciones diurnas para identificar a los lobos antes de disparar.",
             "night_tips": "Elige a tu presa. ¡Disparar a un inocente acabará con tu propia vida!",
-            "pro_tip": "Dispara únicamente cuando tengas pruebas contundentes."
+            "pro_tip": "Dispara únicamente cuando tengas pruebas contundentes.",
         },
         "fr": {
             "name": "Chasseur de Loups",
@@ -863,7 +861,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village: Traquez et abattez les Loups-Garous.",
             "day_tips": "Analysez les votes pour démasquer les loups avant de tirer.",
             "night_tips": "Choisissez un suspect à chasser. Viser un innocent vous tuera!",
-            "pro_tip": "Ne tirez que si vos soupçons sont étayés par des preuves solides."
+            "pro_tip": "Ne tirez que si vos soupçons sont étayés par des preuves solides.",
         },
         "el": {
             "name": "Κυνηγός Λύκων",
@@ -871,7 +869,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό: Εντοπίστε και εξοντώστε τους Λυκάνθρωπους.",
             "day_tips": "Αναλύστε τις ψήφους για να εντοπίσετε τους λύκους πριν σημαδέψετε.",
             "night_tips": "Επιλέξτε έναν ύποπτο. Αν χτυπήσετε αθώο, θα πεθάνετε εσείς!",
-            "pro_tip": "Πυροβολήστε μόνο όταν έχετε ισχυρές αποδείξεις."
+            "pro_tip": "Πυροβολήστε μόνο όταν έχετε ισχυρές αποδείξεις.",
         },
         "ru": {
             "name": "Охотник на оборотней",
@@ -879,7 +877,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город: Выследите и уничтожьте Оборотней.",
             "day_tips": "Анализируйте голосование, чтобы вычислить волчью стаю.",
             "night_tips": "Выберите подозреваемого. Попадание в невиновного убьет вас!",
-            "pro_tip": "Стреляйте только тогда, когда подозрения подкреплены фактами."
+            "pro_tip": "Стреляйте только тогда, когда подозрения подкреплены фактами.",
         },
         "hi": {
             "name": "भेड़िया शिकारी",
@@ -887,7 +885,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव: भेड़ियों का शिकार करके उन्हें खत्म करें।",
             "day_tips": "निशाना लगाने से पहले मतदान के पैटर्न का विश्लेषण करें।",
             "night_tips": "शिकार के लिए किसी संदिग्ध को चुनें। निर्दोष को मारने पर आप खुद मरेंगे!",
-            "pro_tip": "तभी गोली चलाएं जब पक्का सबूत हो।"
+            "pro_tip": "तभी गोली चलाएं जब पक्का सबूत हो।",
         },
         "kn": {
             "name": "ತೋಳ ಬೇಟೆಗಾರ",
@@ -895,8 +893,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ: ತೋಳಗಳನ್ನು ಬೇಟೆಯಾಡಿ ನಾಶಮಾಡಿ.",
             "day_tips": "ಗುರಿ ಇಡುವ ಮುನ್ನ ಮತದಾನದ ದಾಖಲೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
             "night_tips": "ಅನುಮಾನಾಸ್ಪದ ವ್ಯಕ್ತಿಯನ್ನು ಆರಿಸಿ. ಮುಗ್ಧನಿಗೆ ಹೊಡೆದರೆ ನೀವೇ ಸಾಯುತ್ತೀರಿ!",
-            "pro_tip": "ಬಲವಾದ ಪುರಾವೆಗಳಿದ್ದಾಗ ಮಾತ್ರ ಗುಂಡು ಹಾರಿಸಿ."
-        }
+            "pro_tip": "ಬಲವಾದ ಪುರಾವೆಗಳಿದ್ದಾಗ ಮಾತ್ರ ಗುಂಡು ಹಾರಿಸಿ.",
+        },
     },
     "traveler": {
         "en": {
@@ -905,7 +903,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town: You are a confirmed innocent traveler! Help the town coordinate trusted discussions.",
             "day_tips": "Lead discussions and help organize town votes. Everyone knows you are 100% good!",
             "night_tips": "Sleep peacefully. Watch the morning report carefully.",
-            "pro_tip": "Since everyone knows you are clean, your voice holds tremendous weight at the table."
+            "pro_tip": "Since everyone knows you are clean, your voice holds tremendous weight at the table.",
         },
         "pt": {
             "name": "Viajante (Inocente Confirmado)",
@@ -913,7 +911,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade: Você é um inocente confirmado! Ajude a vila a coordenar discussões confiáveis.",
             "day_tips": "Lidere os debates e organize os votos. Todos sabem que você é confiável!",
             "night_tips": "Durma em paz. Analise o relatório da aurora.",
-            "pro_tip": "Como todos sabem que é inocente, a sua voz tem enorme autoridade na mesa."
+            "pro_tip": "Como todos sabem que é inocente, a sua voz tem enorme autoridade na mesa.",
         },
         "it": {
             "name": "Viaggiatore (Buono Confermato)",
@@ -921,7 +919,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio: Sei confermato buono! Aiuta il villaggio a organizzare discussioni fidate.",
             "day_tips": "Guida la discussione e i voti. Tutti sanno che sei pulito!",
             "night_tips": "Riposa sereno. Guarda con attenzione il resoconto all'alba.",
-            "pro_tip": "Essendo certificato innocente, la tua opinione ha un peso enorme."
+            "pro_tip": "Essendo certificato innocente, la tua opinione ha un peso enorme.",
         },
         "es": {
             "name": "Viajero (Inocente Confirmado)",
@@ -929,7 +927,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo: ¡Eres un inocente confirmado! Ayuda al pueblo a coordinar los votos.",
             "day_tips": "Lidera los debates y organiza la votación. ¡Todos saben que eres trigo limpio!",
             "night_tips": "Duerme en paz. Revisa con atención el informe matutino.",
-            "pro_tip": "Al ser inocente público, tu palabra tiene un peso decisivo en la asamblea."
+            "pro_tip": "Al ser inocente público, tu palabra tiene un peso decisivo en la asamblea.",
         },
         "fr": {
             "name": "Voyageur (Innocent Confirmé)",
@@ -937,7 +935,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village: Vous êtes prouvé innocent! Aidez le village à organiser les débats.",
             "day_tips": "Prenez la tête des discussions. Tout le monde sait que vous êtes du bon côté!",
             "night_tips": "Dormez paisiblement et étudiez le rapport de l'aube.",
-            "pro_tip": "Votre innocence publique donne un poids colossal à votre voix."
+            "pro_tip": "Votre innocence publique donne un poids colossal à votre voix.",
         },
         "el": {
             "name": "Ταξιδιώτης (Επιβεβαιωμένα Καλός)",
@@ -945,7 +943,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό: Είστε αποδεδειγμένα αθώος! Βοηθήστε το χωριό να συντονιστεί.",
             "day_tips": "Καθοδηγήστε τις συζητήσεις. Όλοι γνωρίζουν ότι είστε αθώος!",
             "night_tips": "Κοιμηθείτε ήσυχα και δείτε τα νέα της αυγής.",
-            "pro_tip": "Η φωνή σας έχει τεράστιο κύρος στο τραπέζι."
+            "pro_tip": "Η φωνή σας έχει τεράστιο κύρος στο τραπέζι.",
         },
         "ru": {
             "name": "Странник (Проверенный мирный)",
@@ -953,7 +951,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город: Вы доказанный мирный житель! Помогите деревне объединить силы.",
             "day_tips": "Ведите обсуждение и организуйте голосование. Все знают, что вы чисты!",
             "night_tips": "Спите спокойно. Внимательно читайте утренний отчет.",
-            "pro_tip": "Поскольку ваша невиновность доказана, к вашему слову прислушиваются все."
+            "pro_tip": "Поскольку ваша невиновность доказана, к вашему слову прислушиваются все.",
         },
         "hi": {
             "name": "यात्री (प्रमाणित अच्छा)",
@@ -961,7 +959,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव: आप प्रमाणित निर्दोष हैं! चर्चाओं का नेतृत्व करने में गाँव की मदद करें।",
             "day_tips": "चर्चा का नेतृत्व करें और मतदान आयोजित करें। सभी जानते हैं कि आप साफ हैं!",
             "night_tips": "शांति से सोएं और सुबह की रिपोर्ट देखें।",
-            "pro_tip": "आपकी बात का सभा में बहुत भारी वजन है।"
+            "pro_tip": "आपकी बात का सभा में बहुत भारी वजन है।",
         },
         "kn": {
             "name": "ಪ್ರಯಾಣಿಕ (ಖಚಿತ ಒಳ್ಳೆಯವನು)",
@@ -969,8 +967,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ: ನೀವು ದೃಢಪಡಿಸಿದ ಮುಗ್ಧ ಪ್ರಯಾಣಿಕ! ಚರ್ಚೆಗಳನ್ನು ಸಂಘಟಿಸಲು ಸಹಾಯ ಮಾಡಿ.",
             "day_tips": "ಚರ್ಚೆಗಳನ್ನು ಮುನ್ನಡೆಸಿ. ನೀವು ಸಂಪೂರ್ಣ ಒಳ್ಳೆಯವರೆಂದು ಎಲ್ಲರಿಗೂ ತಿಳಿದಿದೆ!",
             "night_tips": "ಶಾಂತಿಯಿಂದ ಮಲಗಿ ಮುಂಜಾನೆಯ ವರದಿಯನ್ನು ನೋಡಿ.",
-            "pro_tip": "ನಿಮ್ಮ ಮಾತು ಸಭೆಯಲ್ಲಿ ಅಪಾರ ತೂಕವನ್ನು ಹೊಂದಿರುತ್ತದೆ."
-        }
+            "pro_tip": "ನಿಮ್ಮ ಮಾತು ಸಭೆಯಲ್ಲಿ ಅಪಾರ ತೂಕವನ್ನು ಹೊಂದಿರುತ್ತದೆ.",
+        },
     },
     "ghost": {
         "en": {
@@ -979,7 +977,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town Spirit: Guide the living to victory from beyond the veil!",
             "day_tips": "You cannot vote, but your approved spectral messages appear at dawn to guide discussions.",
             "night_tips": "Choose a player to haunt, and submit a message for the Game Master to broadcast at dawn.",
-            "pro_tip": "Leave cryptic or insightful clues about voting patterns to help the living deduce the wolves."
+            "pro_tip": "Leave cryptic or insightful clues about voting patterns to help the living deduce the wolves.",
         },
         "pt": {
             "name": "Fantasma (Espírito da Vila)",
@@ -987,7 +985,7 @@ ADDITIONAL_ROLES = {
             "objective": "Espírito da Cidade: Guie os vivos até a vitória além do túmulo!",
             "day_tips": "Você não pode votar, mas as suas mensagens espectrais surgem na aurora para guiar a vila.",
             "night_tips": "Escolha quem assombrar e envie uma mensagem para ser transmitida na aurora.",
-            "pro_tip": "Deixe pistas inteligentes sobre padrões de votação para ajudar os vivos."
+            "pro_tip": "Deixe pistas inteligentes sobre padrões de votação para ajudar os vivos.",
         },
         "it": {
             "name": "Fantasma (Spirito del Villaggio)",
@@ -995,7 +993,7 @@ ADDITIONAL_ROLES = {
             "objective": "Spirito del Villaggio: Guida i vivi alla vittoria dall'aldilà!",
             "day_tips": "Non puoi votare, ma i tuoi messaggi spettrali guidano i dibattiti mattutini.",
             "night_tips": "Scegli chi infestare e invia un messaggio spettrale per l'alba.",
-            "pro_tip": "Lascia indizi sagaci sui voti dei sospetti per aiutare i cittadini."
+            "pro_tip": "Lascia indizi sagaci sui voti dei sospetti per aiutare i cittadini.",
         },
         "es": {
             "name": "Fantasma (Espíritu del Pueblo)",
@@ -1003,7 +1001,7 @@ ADDITIONAL_ROLES = {
             "objective": "Espíritu del Pueblo: ¡Guía a los vivos hacia la victoria desde el más allá!",
             "day_tips": "No puedes votar, pero tus mensajes aprobados aparecen al alba para guiar al pueblo.",
             "night_tips": "Elige a quién embrujar y envía un mensaje espectral para el amanecer.",
-            "pro_tip": "Deja pistas sutiles sobre las votaciones para desenmascarar a los lobos."
+            "pro_tip": "Deja pistas sutiles sobre las votaciones para desenmascarar a los lobos.",
         },
         "fr": {
             "name": "Fantôme (Esprit du Village)",
@@ -1011,7 +1009,7 @@ ADDITIONAL_ROLES = {
             "objective": "Esprit du Village: Guidez les vivants vers la victoire depuis l'au-delà!",
             "day_tips": "Vous ne pouvez pas voter, mais vos messages spectraux guident les vivants à l'aube.",
             "night_tips": "Choisissez qui hanter et transmettez un message pour l'aube.",
-            "pro_tip": "Laissez des indices subtils sur les votes suspects pour aider le village."
+            "pro_tip": "Laissez des indices subtils sur les votes suspects pour aider le village.",
         },
         "el": {
             "name": "Φάντασμα (Πνεύμα του Χωριού)",
@@ -1019,7 +1017,7 @@ ADDITIONAL_ROLES = {
             "objective": "Πνεύμα του Χωριού: Οδηγήστε τους ζωντανούς στη νίκη από τον άλλον κόσμο!",
             "day_tips": "Δεν μπορείτε να ψηφίσετε, αλλά τα μηνύματά σας εμφανίζονται στην αυγή.",
             "night_tips": "Επιλέξτε ποιον θα στοιχειώσετε και στείλτε ένα μήνυμα για την αυγή.",
-            "pro_tip": "Αφήστε έξυπνα στοιχεία για τις ψηφοφορίες."
+            "pro_tip": "Αφήστε έξυπνα στοιχεία για τις ψηφοφορίες.",
         },
         "ru": {
             "name": "Призрак (Дух деревни)",
@@ -1027,7 +1025,7 @@ ADDITIONAL_ROLES = {
             "objective": "Дух города: Приведите живых к победе из загробного мира!",
             "day_tips": "Вы не голосуете, но ваши призрачные послания направляют утренние споры.",
             "night_tips": "Выберите, кого преследовать, и отправьте послание на рассвет.",
-            "pro_tip": "Оставляйте подсказки о голосованиях, чтобы помочь мирным вычислить волков."
+            "pro_tip": "Оставляйте подсказки о голосованиях, чтобы помочь мирным вычислить волков.",
         },
         "hi": {
             "name": "भूत (गाँव की आत्मा)",
@@ -1035,7 +1033,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव की आत्मा: परलोक से जीवित लोगों को जीत की ओर ले जाएं!",
             "day_tips": "आप वोट नहीं दे सकते, लेकिन आपके संदेश सुबह चर्चा का मार्गदर्शन करते हैं।",
             "night_tips": "किसी खिलाड़ी को चुनें और सुबह प्रसारित करने के लिए एक संदेश भेजें।",
-            "pro_tip": "भेड़ियों को पहचानने के लिए मतदान पैटर्न के बारे में सुराग छोड़ें।"
+            "pro_tip": "भेड़ियों को पहचानने के लिए मतदान पैटर्न के बारे में सुराग छोड़ें।",
         },
         "kn": {
             "name": "ದೆವ್ವ (ಗ್ರಾಮದ ಆತ್ಮ)",
@@ -1043,8 +1041,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮದ ಆತ್ಮ: ಬದುಕಿರುವವರನ್ನು ವಿಜಯದತ್ತ ಮುನ್ನಡೆಸಿ!",
             "day_tips": "ಮತ ಚಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ, ಆದರೆ ನಿಮ್ಮ ಮುಂಜಾನೆಯ ಸಂದೇಶಗಳು ಚರ್ಚೆಯನ್ನು ಮುನ್ನಡೆಸುತ್ತವೆ.",
             "night_tips": "ಕಾಡಲು ಒಬ್ಬ ಆಟಗಾರನನ್ನು ಆರಿಸಿ ಮತ್ತು ಮುಂಜಾನೆಯ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಿ.",
-            "pro_tip": "ತೋಳಗಳನ್ನು ಪತ್ತೆಹಚ್ಚಲು ಮತದಾನದ ಮಾದರಿಗಳ ಬಗ್ಗೆ ಸುಳಿವುಗಳನ್ನು ನೀಡಿ."
-        }
+            "pro_tip": "ತೋಳಗಳನ್ನು ಪತ್ತೆಹಚ್ಚಲು ಮತದಾನದ ಮಾದರಿಗಳ ಬಗ್ಗೆ ಸುಳಿವುಗಳನ್ನು ನೀಡಿ.",
+        },
     },
     "disgruntled_ghost": {
         "en": {
@@ -1053,7 +1051,7 @@ ADDITIONAL_ROLES = {
             "objective": "Spiteful Spirit: Interfere with players and suppress their abilities before they can act!",
             "day_tips": "Watch how suppressed players react when their night powers fail.",
             "night_tips": "You are called early in the night. Select a player to suppress their powers for the night.",
-            "pro_tip": "Suppress suspected power roles like the Doctor, Detective, or Vigilante to create chaos."
+            "pro_tip": "Suppress suspected power roles like the Doctor, Detective, or Vigilante to create chaos.",
         },
         "pt": {
             "name": "Fantasma Rancoroso",
@@ -1061,7 +1059,7 @@ ADDITIONAL_ROLES = {
             "objective": "Espírito Rancoroso: Atrapalhe os jogadores e anule os poderes deles antes de agirem!",
             "day_tips": "Observe como os jogadores reagem quando os poderes falham.",
             "night_tips": "Você é chamado no início da noite. Escolha quem terá os poderes suprimidos.",
-            "pro_tip": "Suprima papéis fortes como o Médico ou Detetive para gerar caos."
+            "pro_tip": "Suprima papéis fortes como o Médico ou Detetive para gerar caos.",
         },
         "it": {
             "name": "Fantasma Rancoroso",
@@ -1069,7 +1067,7 @@ ADDITIONAL_ROLES = {
             "objective": "Spirito Rancoroso: Interferisci coi vivi e blocca i loro poteri prima che agiscano!",
             "day_tips": "Guarda le reazioni di chi ha visto fallire il proprio potere notturno.",
             "night_tips": "Vieni chiamato a inizio notte. Scegli a chi bloccare i poteri.",
-            "pro_tip": "Blocca ruoli chiave come Medico o Detective per seminare il panico."
+            "pro_tip": "Blocca ruoli chiave come Medico o Detective per seminare il panico.",
         },
         "es": {
             "name": "Fantasma Resentido",
@@ -1077,7 +1075,7 @@ ADDITIONAL_ROLES = {
             "objective": "Espíritu Resentido: ¡Interfiere y anula las habilidades de los jugadores!",
             "day_tips": "Observa las reacciones de los jugadores cuando sus poderes fallen.",
             "night_tips": "Se te llama al principio de la noche. Elige a quién anular sus poderes.",
-            "pro_tip": "Bloquea a roles poderosos como el Médico o Detective para desatar el caos."
+            "pro_tip": "Bloquea a roles poderosos como el Médico o Detective para desatar el caos.",
         },
         "fr": {
             "name": "Fantôme Rancunier",
@@ -1085,7 +1083,7 @@ ADDITIONAL_ROLES = {
             "objective": "Esprit Vengeur: Perturbez les vivants et neutralisez leurs pouvoirs nocturnes!",
             "day_tips": "Observez les réactions des joueurs dont le pouvoir a échoué.",
             "night_tips": "Appelé tôt dans la nuit. Choisissez un joueur à neutraliser.",
-            "pro_tip": "Bloquez des rôles majeurs comme le Médecin ou le Détective pour semer le trouble."
+            "pro_tip": "Bloquez des rôles majeurs comme le Médecin ou le Détective pour semer le trouble.",
         },
         "el": {
             "name": "Δυσαρεστημένο Φάντασμα",
@@ -1093,7 +1091,7 @@ ADDITIONAL_ROLES = {
             "objective": "Εκδικητικό Πνεύμα: Μπλοκάρετε τις δυνάμεις των παικτών πριν προλάβουν να δράσουν!",
             "day_tips": "Παρακολουθήστε τις αντιδράσεις των παικτών των οποίων οι δυνάμεις απέτυχαν.",
             "night_tips": "Ξυπνάτε πρώτος. Επιλέξτε ποιον θα μπλοκάρετε για τη νύχτα.",
-            "pro_tip": "Μπλοκάρετε τον Γιατρό ή τον Ντετέκτιβ για να σπείρετε το χάος."
+            "pro_tip": "Μπλοκάρετε τον Γιατρό ή τον Ντετέκτιβ για να σπείρετε το χάος.",
         },
         "ru": {
             "name": "Озлобленный призрак",
@@ -1101,7 +1099,7 @@ ADDITIONAL_ROLES = {
             "objective": "Мстительный дух: Вмешивайтесь в планы игроков и блокируйте их силы!",
             "day_tips": "Следите за реакцией тех, чьи ночные способности не сработали.",
             "night_tips": "Вас вызывают в начале ночи. Выберите цель для блокировки способностей.",
-            "pro_tip": "Блокируйте Доктора или Детектива, чтобы создать неразбериху."
+            "pro_tip": "Блокируйте Доктора или Детектива, чтобы создать неразбериху.",
         },
         "hi": {
             "name": "नाराज भूत",
@@ -1109,7 +1107,7 @@ ADDITIONAL_ROLES = {
             "objective": "प्रतिशोधी आत्मा: खिलाड़ियों की क्षमताओं को दबाएं!",
             "day_tips": "देखें कि शक्तियां विफल होने पर खिलाड़ी कैसे प्रतिक्रिया देते हैं।",
             "night_tips": "रात में जल्दी बुलाया जाता है। किसी की शक्तियां दबाने के लिए चुनें।",
-            "pro_tip": "डॉक्टर या जासूस जैसे महत्वपूर्ण पात्रों को दबाकर अफरा-तफरी मचाएं।"
+            "pro_tip": "डॉक्टर या जासूस जैसे महत्वपूर्ण पात्रों को दबाकर अफरा-तफरी मचाएं।",
         },
         "kn": {
             "name": "ಕೋಪಗೊಂಡ ದೆವ್ವ",
@@ -1117,8 +1115,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಸೇಡಿನ ಆತ್ಮ: ಆಟಗಾರರ ಶಕ್ತಿಗಳನ್ನು ಅವರು ಬಳಸುವ ಮುನ್ನವೇ ತಡೆಯಿರಿ!",
             "day_tips": "ಶಕ್ತಿಗಳು ವಿಫಲವಾದಾಗ ಆಟಗಾರರ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಗಮನಿಸಿ.",
             "night_tips": "ರಾತ್ರಿಯ ಆರಂಭದಲ್ಲಿ ಒಬ್ಬ ಆಟಗಾರನ ಶಕ್ತಿಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲು ಆರಿಸಿ.",
-            "pro_tip": "ವೈದ್ಯ ಅಥವಾ ಪತ್ತೇದಾರಿಯಂತಹ ಪಾತ್ರಗಳನ್ನು ತಡೆದು ಗೊಂದಲ ಸೃಷ್ಟಿಸಿ."
-        }
+            "pro_tip": "ವೈದ್ಯ ಅಥವಾ ಪತ್ತೇದಾರಿಯಂತಹ ಪಾತ್ರಗಳನ್ನು ತಡೆದು ಗೊಂದಲ ಸೃಷ್ಟಿಸಿ.",
+        },
     },
     "saboteur_wolf": {
         "en": {
@@ -1127,7 +1125,7 @@ ADDITIONAL_ROLES = {
             "objective": "Evil: Coordinate with wolves. Use your 1-time sabotage to neutralize a critical town power role and learn their identity.",
             "day_tips": "Blend in with the pack. Share stolen role intelligence with your teammates.",
             "night_tips": "Trigger your one-time sabotage when you suspect a powerful town role is about to strike.",
-            "pro_tip": "Sabotaging the Detective or Vigilante completely disarms them for the night while exposing their identity to you!"
+            "pro_tip": "Sabotaging the Detective or Vigilante completely disarms them for the night while exposing their identity to you!",
         },
         "pt": {
             "name": "Lobo Sabotador",
@@ -1135,7 +1133,7 @@ ADDITIONAL_ROLES = {
             "objective": "Mal: Use a sua sabotagem única para desarmar um papel forte da cidade e descobrir a sua identidade.",
             "day_tips": "Misture-se com a vila e partilhe a informação roubada com os seus companheiros.",
             "night_tips": "Ative a sabotagem quando achar que um papel crucial da vila vai agir.",
-            "pro_tip": "Sabotar o Detetive ou Atirador desarma-os e revela quem eles são à alcateia!"
+            "pro_tip": "Sabotar o Detetive ou Atirador desarma-os e revela quem eles são à alcateia!",
         },
         "it": {
             "name": "Lupo Sabotatore",
@@ -1143,7 +1141,7 @@ ADDITIONAL_ROLES = {
             "objective": "Male: Neutralizza un ruolo cruciale del villaggio e scoprine l'identità.",
             "day_tips": "Fingiti un normale villico e condividi l'informazione con il branco.",
             "night_tips": "Attiva il sabotaggio quando sospetti l'intervento di un potere forte.",
-            "pro_tip": "Sabotare il Detective lo disarma e ne rivela l'identità a tutti i lupi!"
+            "pro_tip": "Sabotare il Detective lo disarma e ne rivela l'identità a tutti i lupi!",
         },
         "es": {
             "name": "Lobo Saboteador",
@@ -1151,7 +1149,7 @@ ADDITIONAL_ROLES = {
             "objective": "Mal: Neutraliza un rol de poder crucial y averigua su verdadera identidad.",
             "day_tips": "Camúflate y comparte la información robada con tus compañeros de manada.",
             "night_tips": "Usa tu sabotaje cuando creas que un rol importante va a actuar.",
-            "pro_tip": "¡Sabotear al Detective o Vigilante los deja indefensos y expone quiénes son!"
+            "pro_tip": "¡Sabotear al Detective o Vigilante los deja indefensos y expone quiénes son!",
         },
         "fr": {
             "name": "Loup Saboteur",
@@ -1159,7 +1157,7 @@ ADDITIONAL_ROLES = {
             "objective": "Mal: Neutralisez un rôle clé du village et découvrez son identité secrète.",
             "day_tips": "Fondez-vous dans la masse et partagez les informations volées avec la meute.",
             "night_tips": "Déclenchez votre sabotage quand vous pressentez l'action d'un rôle fort.",
-            "pro_tip": "Saboter le Détective le désarme complètement pour la nuit tout en l'exposant aux loups!"
+            "pro_tip": "Saboter le Détective le désarme complètement pour la nuit tout en l'exposant aux loups!",
         },
         "el": {
             "name": "Λύκος Σαμποτέρ",
@@ -1167,7 +1165,7 @@ ADDITIONAL_ROLES = {
             "objective": "Κακό: Εξουδετερώστε έναν σημαντικό ρόλο του χωριού και μάθετε την ταυτότητά του.",
             "day_tips": "Μείνετε απαρατήρητος και μοιραστείτε τα μυστικά με την αγέλη σας.",
             "night_tips": "Ενεργοποιήστε το σαμποτάζ όταν υποψιάζεστε ισχυρή νυχτερινή δράση.",
-            "pro_tip": "Το σαμποτάζ στον Ντετέκτιβ τον αφοπλίζει και αποκαλύπτει ποιος είναι!"
+            "pro_tip": "Το σαμποτάζ στον Ντετέκτιβ τον αφοπλίζει και αποκαλύπτει ποιος είναι!",
         },
         "ru": {
             "name": "Волк-диверсант",
@@ -1175,7 +1173,7 @@ ADDITIONAL_ROLES = {
             "objective": "Зло: Нейтрализуйте ключевую роль города и узнайте, кто за ней стоит.",
             "day_tips": "Не выделяйтесь и делитесь украденными разведданными со стаей.",
             "night_tips": "Примените диверсию, когда ожидаете решающего хода от сильной роли.",
-            "pro_tip": "Диверсия против Детектива лишит его проверки и выдаст его стае!"
+            "pro_tip": "Диверсия против Детектива лишит его проверки и выдаст его стае!",
         },
         "hi": {
             "name": "तोड़फोड़ करने वाला भेड़िया",
@@ -1183,7 +1181,7 @@ ADDITIONAL_ROLES = {
             "objective": "बुराई: गाँव के किसी महत्वपूर्ण पात्र की शक्ति छीनकर उसकी पहचान जानें।",
             "day_tips": "झुंड के साथ घुलमिल जाएं और चुराई गई जानकारी साझा करें।",
             "night_tips": "अपनी एक बार मिलने वाली शक्ति का उपयोग सही समय पर करें।",
-            "pro_tip": "जासूस की शक्ति छीनने से वह रात में बेकार हो जाएगा और उसकी पहचान भी खुल जाएगी!"
+            "pro_tip": "जासूस की शक्ति छीनने से वह रात में बेकार हो जाएगा और उसकी पहचान भी खुल जाएगी!",
         },
         "kn": {
             "name": "ವಿಧ್ವಂಸಕ ತೋಳ",
@@ -1191,8 +1189,8 @@ ADDITIONAL_ROLES = {
             "objective": "ದುಷ್ಟ: ಗ್ರಾಮದ ಪ್ರಮುಖ ಪಾತ್ರವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ ಅವರ ಗುರುತನ್ನು ತಿಳಿಯಿರಿ.",
             "day_tips": "ಹಿಂಡಿನೊಂದಿಗೆ ಸೇರಿ ಕದ್ದ ಮಾಹಿತಿಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ.",
             "night_tips": "ಪ್ರಮುಖ ಪಾತ್ರ ದಾಳಿ ಮಾಡಬಹುದೆಂದು ಅನಿಸಿದಾಗ ಈ ಶಕ್ತಿಯನ್ನು ಬಳಸಿ.",
-            "pro_tip": "ಪತ್ತೇದಾರಿಯನ್ನು ವಿಧ್ವಂಸಗೊಳಿಸುವುದರಿಂದ ಅವನನ್ನು ನಿಶ್ಯಸ್ತ್ರಗೊಳಿಸಿ ಗುರುತನ್ನು ಬಹಿರಂಗಪಡಿಸಬಹುದು!"
-        }
+            "pro_tip": "ಪತ್ತೇದಾರಿಯನ್ನು ವಿಧ್ವಂಸಗೊಳಿಸುವುದರಿಂದ ಅವನನ್ನು ನಿಶ್ಯಸ್ತ್ರಗೊಳಿಸಿ ಗುರುತನ್ನು ಬಹಿರಂಗಪಡಿಸಬಹುದು!",
+        },
     },
     "hacker": {
         "en": {
@@ -1201,7 +1199,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town: Scan a group on Night 1 to establish yourself as confirmed town and jumpstart daytime deduction.",
             "day_tips": "Share the group you scanned and analyze the evil ratio with the town during Day 1 introductions.",
             "night_tips": "On Night 1 only, select a group of players to scan.",
-            "pro_tip": "Scanning suspected leaders or quiet players gives immediate mathematical leverage to the town."
+            "pro_tip": "Scanning suspected leaders or quiet players gives immediate mathematical leverage to the town.",
         },
         "pt": {
             "name": "Hacker (Analista)",
@@ -1209,7 +1207,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade: Analise um grupo na Noite 1 para comprovar sua inocência e guiar a dedução da vila.",
             "day_tips": "Partilhe o grupo analisado e debata as probabilidades com a cidade.",
             "night_tips": "Apenas na Noite 1, escolha um grupo de jogadores para escanear.",
-            "pro_tip": "Escanear líderes ou jogadores silenciosos dá uma enorme vantagem lógica à vila."
+            "pro_tip": "Escanear líderes ou jogadores silenciosos dá uma enorme vantagem lógica à vila.",
         },
         "it": {
             "name": "Hacker (Analista)",
@@ -1217,7 +1215,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio: Scansiona un gruppo nella Notte 1 per fornire dati matematici al villaggio.",
             "day_tips": "Condividi il gruppo scansionato e guida le deduzioni del primo giorno.",
             "night_tips": "Solo nella Notte 1, seleziona un gruppo da analizzare.",
-            "pro_tip": "Scansionare i giocatori più loquaci dà subito un forte vantaggio deduttivo."
+            "pro_tip": "Scansionare i giocatori più loquaci dà subito un forte vantaggio deduttivo.",
         },
         "es": {
             "name": "Hacker (Analista)",
@@ -1225,7 +1223,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo: Escanea un grupo en la Noche 1 para arrancar la deducción matemática en la asamblea.",
             "day_tips": "Comparte los resultados y coordina el análisis del grupo con el pueblo.",
             "night_tips": "Solo en la Noche 1, selecciona un grupo para analizar.",
-            "pro_tip": "Analizar a jugadores vocales proporciona una gran ventaja táctica al pueblo."
+            "pro_tip": "Analizar a jugadores vocales proporciona una gran ventaja táctica al pueblo.",
         },
         "fr": {
             "name": "Hacker (Analyste)",
@@ -1233,7 +1231,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village: Analysez un groupe la Nuit 1 pour lancer les déductions du village.",
             "day_tips": "Partagez la composition du groupe scanné et déduisez les rôles maléfiques.",
             "night_tips": "Uniquement la Nuit 1, choisissez un groupe de joueurs à scanner.",
-            "pro_tip": "Scanner des joueurs influents donne un avantage mathématique immédiat au village."
+            "pro_tip": "Scanner des joueurs influents donne un avantage mathématique immédiat au village.",
         },
         "el": {
             "name": "Χάκερ (Αναλυτής)",
@@ -1241,7 +1239,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό: Σκανάρετε μια ομάδα τη Νύχτα 1 για να προσφέρετε πολύτιμα μαθηματικά στοιχεία.",
             "day_tips": "Μοιραστείτε την ομάδα που ελέγξατε και αναλύστε τα αποτελέσματα με το χωριό.",
             "night_tips": "Μόνο τη Νύχτα 1, επιλέξτε την ομάδα προς έλεγχο.",
-            "pro_tip": "Ο έλεγχος ηγετικών παικτών δίνει άμεσο προβάδισμα στο χωριό."
+            "pro_tip": "Ο έλεγχος ηγετικών παικτών δίνει άμεσο προβάδισμα στο χωριό.",
         },
         "ru": {
             "name": "Хакер (Аналитик)",
@@ -1249,7 +1247,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город: Просканируйте группу в Ночь 1, чтобы дать городу математическое преимущество.",
             "day_tips": "Назовите проверенную группу и анализируйте вероятности вместе с жителями.",
             "night_tips": "Только в Ночь 1 выберите группу игроков для сканирования.",
-            "pro_tip": "Сканирование активных или подозрительных игроков дает городу мощный старт."
+            "pro_tip": "Сканирование активных или подозрительных игроков дает городу мощный старт.",
         },
         "hi": {
             "name": "हैकर (विश्लेषक)",
@@ -1257,7 +1255,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव: रात 1 पर एक समूह को स्कैन करके गाँव को तार्किक बढ़त दिलाएं।",
             "day_tips": "अपने स्कैन किए गए समूह को साझा करें और विश्लेषण करें।",
             "night_tips": "केवल रात 1 पर स्कैन करने के लिए खिलाड़ियों का एक समूह चुनें।",
-            "pro_tip": "सक्रिय खिलाड़ियों को स्कैन करने से गाँव को तुरंत बड़ा फायदा मिलता है।"
+            "pro_tip": "सक्रिय खिलाड़ियों को स्कैन करने से गाँव को तुरंत बड़ा फायदा मिलता है।",
         },
         "kn": {
             "name": "ಹ್ಯಾಕರ್ (ವಿಶ್ಲೇಷಕ)",
@@ -1265,8 +1263,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ: ರಾತ್ರಿ 1 ರಲ್ಲಿ ಗುಂಪನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ ತಾರ್ಕಿಕ ಮುನ್ನಡೆ ಸಾಧಿಸಿ.",
             "day_tips": "ನೀವು ಸ್ಕ್ಯಾನ್ ಮಾಡಿದ ಗುಂಪಿನ ವಿವರಗಳನ್ನು ಗ್ರಾಮದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ.",
             "night_tips": "ರಾತ್ರಿ 1 ರಂದು ಮಾತ್ರ ಆಟಗಾರರ ಗುಂಪನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
-            "pro_tip": "ಪ್ರಮುಖ ಆಟಗಾರರನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡುವುದರಿಂದ ಗ್ರಾಮಕ್ಕೆ ಗಣಿತೀಯ ಅನುಕೂಲ ದೊರೆಯುತ್ತದೆ."
-        }
+            "pro_tip": "ಪ್ರಮುಖ ಆಟಗಾರರನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡುವುದರಿಂದ ಗ್ರಾಮಕ್ಕೆ ಗಣಿತೀಯ ಅನುಕೂಲ ದೊರೆಯುತ್ತದೆ.",
+        },
     },
     "watson": {
         "en": {
@@ -1275,7 +1273,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town: You know the Detective's identity! Protect them during discussion and make sure town doesn't vote them out.",
             "day_tips": "Back up the Detective's claims without making it obvious they are the real Detective. Draw wolf attention to yourself if needed!",
             "night_tips": "Sleep safely. You have no night powers, but your daytime protection keeps the town's greatest mind alive.",
-            "pro_tip": "If the Detective is in danger of being lynched, stand in the line of fire to defend them!"
+            "pro_tip": "If the Detective is in danger of being lynched, stand in the line of fire to defend them!",
         },
         "pt": {
             "name": "Watson (Auxiliar do Detetive)",
@@ -1283,7 +1281,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade: Você sabe quem é o Detetive! Proteja-o durante o debate e evite que a vila o linche.",
             "day_tips": "Apoie as teorias do Detetive sem revelar a identidade dele. Chame a atenção dos lobos para si!",
             "night_tips": "Durma em paz. Não tem poderes noturnos, mas a sua proteção diurna salva a cidade.",
-            "pro_tip": "Se o Detetive estiver em perigo de linchamento, coloque-se na linha de fogo para salvá-lo!"
+            "pro_tip": "Se o Detetive estiver em perigo de linchamento, coloque-se na linha de fogo para salvá-lo!",
         },
         "it": {
             "name": "Watson (Assistente del Detective)",
@@ -1291,7 +1289,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio: Conosci il Detective! Difendilo nei dibattiti ed evita che venga linciato.",
             "day_tips": "Sostieni le deduzioni del Detective senza rivelare chi sia. Attira su di te le attenzioni dei lupi!",
             "night_tips": "Dormi sereno. La tua protezione diurna è vitale per la mente più brillante del villaggio.",
-            "pro_tip": "Se il Detective rischia il rogo, esponiti in prima persona per difenderlo!"
+            "pro_tip": "Se il Detective rischia il rogo, esponiti in prima persona per difenderlo!",
         },
         "es": {
             "name": "Watson (Asistente del Detective)",
@@ -1299,7 +1297,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo: ¡Sabes quién es el Detective! Protégelo en los debates y evita que el pueblo lo linche.",
             "day_tips": "Apoya las acusaciones del Detective con disimulo. ¡Atrae la atención de los lobos si es necesario!",
             "night_tips": "Duerme tranquilo. Tu defensa diurna mantiene viva a la mejor mente del pueblo.",
-            "pro_tip": "Si el Detective corre peligro de ser ahorcado, ¡sal en su defensa sin dudarlo!"
+            "pro_tip": "Si el Detective corre peligro de ser ahorcado, ¡sal en su defensa sin dudarlo!",
         },
         "fr": {
             "name": "Watson (Assistant du Détective)",
@@ -1307,7 +1305,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village: Vous connaissez le Détective! Protégez-le pendant les débats pour éviter qu'il ne soit condamné.",
             "day_tips": "Appuyez les intuitions du Détective sans trahir son rôle. Attirez l'attention des loups sur vous!",
             "night_tips": "Dormez en paix. Votre couverture en journée protège l'atout majeur du village.",
-            "pro_tip": "Si le Détective est menacé de mort, faites rempart de votre corps!"
+            "pro_tip": "Si le Détective est menacé de mort, faites rempart de votre corps!",
         },
         "el": {
             "name": "Γουάτσον (Βοηθός Ντετέκτιβ)",
@@ -1315,7 +1313,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό: Ξέρετε ποιος είναι ο Ντετέκτιβ! Προστατέψτε τον στις συζητήσεις.",
             "day_tips": "Υποστηρίξτε τα λεγόμενα του Ντετέκτιβ χωρίς να τον προδώσετε. Τραβήξτε την προσοχή των λύκων πάνω σας!",
             "night_tips": "Κοιμηθείτε ήσυχα. Η προστασία σας τη μέρα σώζει το μυαλό του χωριού.",
-            "pro_tip": "Αν κινδυνεύει να εκτελεστεί, μπείτε μπροστά για να τον σώσετε!"
+            "pro_tip": "Αν κινδυνεύει να εκτελεστεί, μπείτε μπροστά για να τον σώσετε!",
         },
         "ru": {
             "name": "Ватсон (Помощник детектива)",
@@ -1323,7 +1321,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город: Вы знаете настоящего Детектива! Защищайте его на суде и не дайте жителям казнить его.",
             "day_tips": "Поддерживайте выводы Детектива, не выдавая его роль. Примите подозрения волков на себя!",
             "night_tips": "Спите спокойно. Ваша дневная защита оберегает главный ум деревни.",
-            "pro_tip": "Если Детективу угрожает виселица, примите удар на себя ради спасения города!"
+            "pro_tip": "Если Детективу угрожает виселица, примите удар на себя ради спасения города!",
         },
         "hi": {
             "name": "वाटसन (जासूस का सहायक)",
@@ -1331,7 +1329,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव: आप जासूस की पहचान जानते हैं! चर्चाओं में उसकी रक्षा करें और उसे फांसी से बचाएं।",
             "day_tips": "जासूस की बातों का समर्थन करें बिना यह बताए कि वह जासूस है। भेड़ियों का ध्यान अपनी ओर खींचें!",
             "night_tips": "सुरक्षित सोएं। दिन में आपकी रक्षा गाँव के सबसे बड़े दिमाग को बचाती है।",
-            "pro_tip": "यदि जासूस पर फांसी का खतरा हो, तो उसकी रक्षा के लिए आगे आएं!"
+            "pro_tip": "यदि जासूस पर फांसी का खतरा हो, तो उसकी रक्षा के लिए आगे आएं!",
         },
         "kn": {
             "name": "ವಾಟ್ಸನ್ (ಪತ್ತೇದಾರಿಯ ಸಹಾಯಕ)",
@@ -1339,8 +1337,8 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ: ನಿಮಗೆ ಪತ್ತೇದಾರಿಯ ಗುರುತು ತಿಳಿದಿದೆ! ಚರ್ಚೆಗಳಲ್ಲಿ ಅವನನ್ನು ರಕ್ಷಿಸಿ.",
             "day_tips": "ಪತ್ತೇದಾರಿಯ ವಾದಗಳನ್ನು ಬೆಂಬಲಿಸಿ ಆದರೆ ಅವನ ರಹಸ್ಯವನ್ನು ಬಿಟ್ಟುಕೊಡಬೇಡಿ. ತೋಳಗಳ ಗಮನವನ್ನು ನಿಮ್ಮತ್ತ ಸೆಳೆಯಿರಿ!",
             "night_tips": "ನೆಮ್ಮದಿಯಿಂದ ಮಲಗಿ. ನಿಮ್ಮ ಹಗಲಿನ ರಕ್ಷಣೆ ಪತ್ತೇದಾರಿಯನ್ನು ಜೀವಂತವಾಗಿರಿಸುತ್ತದೆ.",
-            "pro_tip": "ಪತ್ತೇದಾರಿಗೆ ಗಲ್ಲಿಗೇರುವ ಅಪಾಯವಿದ್ದರೆ, ಅವನ ಪರವಾಗಿ ಧೈರ್ಯವಾಗಿ ಮಾತನಾಡಿ!"
-        }
+            "pro_tip": "ಪತ್ತೇದಾರಿಗೆ ಗಲ್ಲಿಗೇರುವ ಅಪಾಯವಿದ್ದರೆ, ಅವನ ಪರವಾಗಿ ಧೈರ್ಯವಾಗಿ ಮಾತನಾಡಿ!",
+        },
     },
     "successor": {
         "en": {
@@ -1349,7 +1347,7 @@ ADDITIONAL_ROLES = {
             "objective": "Town/Neutral: Wait until a player falls to inherit their role and faction, then win with that faction.",
             "day_tips": "Observe players closely while you wait so you understand the game board when you step into action.",
             "night_tips": "Watch the night unfold. You will awaken as the role of the next player to fall.",
-            "pro_tip": "If a lover is eliminated, stepping in as their successor prevents their partner from dying of heartbreak!"
+            "pro_tip": "If a lover is eliminated, stepping in as their successor prevents their partner from dying of heartbreak!",
         },
         "pt": {
             "name": "Sucessor (Herdeiro)",
@@ -1357,7 +1355,7 @@ ADDITIONAL_ROLES = {
             "objective": "Cidade/Neutro: Espere um jogador cair para herdar o seu papel e facção, vencendo com esse lado.",
             "day_tips": "Observe os jogadores com atenção para compreender o jogo quando assumir o papel.",
             "night_tips": "Aguarde a noite. Você herdará o papel do próximo que for eliminado.",
-            "pro_tip": "Se um amante for morto, assumir o lugar dele evita que o parceiro morra de desgosto!"
+            "pro_tip": "Se um amante for morto, assumir o lugar dele evita que o parceiro morra de desgosto!",
         },
         "it": {
             "name": "Successore (Erede)",
@@ -1365,7 +1363,7 @@ ADDITIONAL_ROLES = {
             "objective": "Villaggio/Neutrale: Attendi la morte di un giocatore per ereditarne ruolo e fazione, poi vinci con essi.",
             "day_tips": "Osserva attentamente la partita per essere pronto a subentrare.",
             "night_tips": "Guarda lo svolgersi della notte. Ti risveglierai con il ruolo del prossimo caduto.",
-            "pro_tip": "Se muore un amante, subentrare al suo posto impedisce al partner di morire di dolore!"
+            "pro_tip": "Se muore un amante, subentrare al suo posto impedisce al partner di morire di dolore!",
         },
         "es": {
             "name": "Sucesor (Heredero)",
@@ -1373,7 +1371,7 @@ ADDITIONAL_ROLES = {
             "objective": "Pueblo/Neutral: Espera a que caiga un jugador para heredar su rol y ganar con su bando.",
             "day_tips": "Estudia a los jugadores con atención para entender el tablero antes de entrar en acción.",
             "night_tips": "Permanece atento. Despertarás con el rol del próximo jugador eliminado.",
-            "pro_tip": "¡Si un amante muere, convertirte en su sucesor salva a su pareja del dolor fatal!"
+            "pro_tip": "¡Si un amante muere, convertirte en su sucesor salva a su pareja del dolor fatal!",
         },
         "fr": {
             "name": "Successeur (Héritier)",
@@ -1381,7 +1379,7 @@ ADDITIONAL_ROLES = {
             "objective": "Village/Neutre: Attendez la chute d'un joueur pour hériter de son rôle et triompher avec son camp.",
             "day_tips": "Observez le jeu attentivement pour être immédiatement efficace lors de votre réveil.",
             "night_tips": "Patientez dans la nuit. Vous vous éveillerez avec le rôle du prochain défunt.",
-            "pro_tip": "Remplacer un amoureux défunt empêche son partenaire de mourir de chagrin!"
+            "pro_tip": "Remplacer un amoureux défunt empêche son partenaire de mourir de chagrin!",
         },
         "el": {
             "name": "Διάδοχος (Κληρονόμος)",
@@ -1389,7 +1387,7 @@ ADDITIONAL_ROLES = {
             "objective": "Χωριό/Ουδέτερος: Περιμένετε να πεθάνει ένας παίκτης για να κληρονομήσετε τον ρόλο του και να νικήσετε μαζί του.",
             "day_tips": "Παρατηρήστε προσεκτικά το ταμπλό όσο περιμένετε.",
             "night_tips": "Περιμένετε τη νύχτα. Θα ξυπνήσετε με τον ρόλο του επόμενου νεκρού.",
-            "pro_tip": "Αν πεθάνει ένας ερωτευμένος, σώζετε το ταίρι του από τον θάνατο!"
+            "pro_tip": "Αν πεθάνει ένας ερωτευμένος, σώζετε το ταίρι του από τον θάνατο!",
         },
         "ru": {
             "name": "Преемник (Наследник)",
@@ -1397,7 +1395,7 @@ ADDITIONAL_ROLES = {
             "objective": "Город/Нейтрал: Дождитесь гибели игрока, чтобы унаследовать его роль и победить вместе с его стороной.",
             "day_tips": "Внимательно наблюдайте за полем боя, чтобы быть готовым к вступлению в игру.",
             "night_tips": "Ждите рассвета. Вы проснетесь в роли следующего павшего игрока.",
-            "pro_tip": "Если погибает влюбленный, замена спасет его половинку от смерти от разбитого сердца!"
+            "pro_tip": "Если погибает влюбленный, замена спасет его половинку от смерти от разбитого сердца!",
         },
         "hi": {
             "name": "उत्तराधिकारी",
@@ -1405,7 +1403,7 @@ ADDITIONAL_ROLES = {
             "objective": "गाँव/तटस्थ: किसी खिलाड़ी के गिरने की प्रतीक्षा करें और उसकी भूमिका अपनाकर जीतें।",
             "day_tips": "खेल को ध्यान से देखें ताकि मौका मिलते ही सही कदम उठा सकें।",
             "night_tips": "रात को देखें। आप अगले मरने वाले खिलाड़ी की भूमिका में जागेंगे।",
-            "pro_tip": "प्रेमी की जगह लेने से उसका साथी टूटे दिल से मरने से बच जाता है!"
+            "pro_tip": "प्रेमी की जगह लेने से उसका साथी टूटे दिल से मरने से बच जाता है!",
         },
         "kn": {
             "name": "ಉತ್ತರಾಧಿಕಾರಿ",
@@ -1413,9 +1411,9 @@ ADDITIONAL_ROLES = {
             "objective": "ಗ್ರಾಮ/ತಟಸ್ಥ: ಒಬ್ಬ ಆಟಗಾರ ಸಾಯುವವರೆಗೆ ಕಾಯಿರಿ ಮತ್ತು ಅವರ ಪಾತ್ರವನ್ನು ಪಡೆದು ಗೆಲ್ಲಿರಿ.",
             "day_tips": "ನೀವು ಪ್ರವೇಶಿಸುವ ಮುನ್ನ ಆಟಗಾರರ ತಂತ್ರಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಗಮನಿಸಿ.",
             "night_tips": "ಮುಂದಿನ ಸಾಯುವ ಆಟಗಾರನ ಪಾತ್ರದಲ್ಲಿ ನೀವು ಎಚ್ಚರಗೊಳ್ಳುತ್ತೀರಿ.",
-            "pro_tip": "ಪ್ರೇಮಿ ಸತ್ತಾಗ ಉತ್ತರಾಧಿಕಾರಿಯಾಗುವುದರಿಂದ ಅವರ ಸಂಗಾತಿ ದುಃಖದಿಂದ ಸಾಯುವುದನ್ನು ತಪ್ಪಿಸಬಹುದು!"
-        }
-    }
+            "pro_tip": "ಪ್ರೇಮಿ ಸತ್ತಾಗ ಉತ್ತರಾಧಿಕಾರಿಯಾಗುವುದರಿಂದ ಅವರ ಸಂಗಾತಿ ದುಃಖದಿಂದ ಸಾಯುವುದನ್ನು ತಪ್ಪಿಸಬಹುದು!",
+        },
+    },
 }
 
 
@@ -1424,7 +1422,7 @@ def main():
     content = target_file.read_text(encoding="utf-8")
 
     # Format the additional roles into valid Python dict code
-    import pprint
+
     formatted_roles = []
     for role_id, translations in ADDITIONAL_ROLES.items():
         role_repr = f"    {repr(role_id)}: {{\n"

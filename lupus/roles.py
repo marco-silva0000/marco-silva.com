@@ -526,6 +526,7 @@ def get_role_info(role_id: str, theme: str = "werewolf", lang: Optional[str] = "
     }
     if lang and lang != "en":
         from lupus.translations import get_localized_role
+
         info = get_localized_role(role_id, info, lang=lang)
     return info
 

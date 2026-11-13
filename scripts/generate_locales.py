@@ -26,21 +26,60 @@ LANGUAGES = ["en", "pt", "it", "es", "fr", "el", "ru", "hi", "kn"]
 TRANSLATIONS = {
     # Base site navigation
     "home": {
-        "en": "home", "pt": "início", "it": "home", "es": "inicio", "fr": "accueil", "el": "αρχική", "ru": "главная", "hi": "होम", "kn": "ಮುಖಪುಟ"
+        "en": "home",
+        "pt": "início",
+        "it": "home",
+        "es": "inicio",
+        "fr": "accueil",
+        "el": "αρχική",
+        "ru": "главная",
+        "hi": "होम",
+        "kn": "ಮುಖಪುಟ",
     },
     "photos": {
-        "en": "photos", "pt": "fotos", "it": "foto", "es": "fotos", "fr": "photos", "el": "φωτογραφίες", "ru": "фотографии", "hi": "तस्वीरें", "kn": "ಫೋಟೋಗಳು"
+        "en": "photos",
+        "pt": "fotos",
+        "it": "foto",
+        "es": "fotos",
+        "fr": "photos",
+        "el": "φωτογραφίες",
+        "ru": "фотографии",
+        "hi": "तस्वीरें",
+        "kn": "ಫೋಟೋಗಳು",
     },
     "blog": {
-        "en": "blog", "pt": "blog", "it": "blog", "es": "blog", "fr": "blog", "el": "ιστολόγιο", "ru": "блог", "hi": "ब्लॉग", "kn": "ಬ್ಲಾಗ್"
+        "en": "blog",
+        "pt": "blog",
+        "it": "blog",
+        "es": "blog",
+        "fr": "blog",
+        "el": "ιστολόγιο",
+        "ru": "блог",
+        "hi": "ब्लॉग",
+        "kn": "ಬ್ಲಾಗ್",
     },
     "games": {
-        "en": "games", "pt": "jogos", "it": "giochi", "es": "juegos", "fr": "jeux", "el": "παιχνίδια", "ru": "игры", "hi": "खेल", "kn": "ಆಟಗಳು"
+        "en": "games",
+        "pt": "jogos",
+        "it": "giochi",
+        "es": "juegos",
+        "fr": "jeux",
+        "el": "παιχνίδια",
+        "ru": "игры",
+        "hi": "खेल",
+        "kn": "ಆಟಗಳು",
     },
     "cv": {
-        "en": "cv", "pt": "currículo", "it": "cv", "es": "currículum", "fr": "cv", "el": "βιογραφικό", "ru": "резюме", "hi": "सीवी", "kn": "ಸಿವಿ"
+        "en": "cv",
+        "pt": "currículo",
+        "it": "cv",
+        "es": "currículum",
+        "fr": "cv",
+        "el": "βιογραφικό",
+        "ru": "резюме",
+        "hi": "सीवी",
+        "kn": "ಸಿವಿ",
     },
-
     # Game Rooms Hub (/games/)
     "Game Rooms": {
         "en": "Game Rooms",
@@ -230,12 +269,27 @@ TRANSLATIONS = {
         "kn": "ಯಾವುದೇ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳಿಲ್ಲ. ಒಂದನ್ನು ರಚಿಸಿ!",
     },
     "🐺 Lupus": {
-        "en": "🐺 Lupus", "pt": "🐺 Lupus", "it": "🐺 Lupus", "es": "🐺 Lupus", "fr": "🐺 Lupus", "el": "🐺 Lupus", "ru": "🐺 Lupus", "hi": "🐺 लुपस", "kn": "🐺 ಲೂಪಸ್"
+        "en": "🐺 Lupus",
+        "pt": "🐺 Lupus",
+        "it": "🐺 Lupus",
+        "es": "🐺 Lupus",
+        "fr": "🐺 Lupus",
+        "el": "🐺 Lupus",
+        "ru": "🐺 Lupus",
+        "hi": "🐺 लुपस",
+        "kn": "🐺 ಲೂಪಸ್",
     },
     "🎨 Emojinary": {
-        "en": "🎨 Emojinary", "pt": "🎨 Emojinary", "it": "🎨 Emojinary", "es": "🎨 Emojinary", "fr": "🎨 Emojinary", "el": "🎨 Emojinary", "ru": "🎨 Emojinary", "hi": "🎨 इमोजीनरी", "kn": "🎨 ಇಮೋಜಿ‌ನರಿ"
+        "en": "🎨 Emojinary",
+        "pt": "🎨 Emojinary",
+        "it": "🎨 Emojinary",
+        "es": "🎨 Emojinary",
+        "fr": "🎨 Emojinary",
+        "el": "🎨 Emojinary",
+        "ru": "🎨 Emojinary",
+        "hi": "🎨 इमोजीनरी",
+        "kn": "🎨 ಇಮೋಜಿ‌ನರಿ",
     },
-
     # Lupus Hub (/games/lupus/)
     "Lupus in Tabula - Active Rooms & Game Hub": {
         "en": "Lupus in Tabula - Active Rooms & Game Hub",
@@ -337,19 +391,59 @@ TRANSLATIONS = {
         "kn": "+ ಹೊಸ ಆಟ",
     },
     "CODE": {
-        "en": "CODE", "pt": "CÓDIGO", "it": "CODICE", "es": "CÓDIGO", "fr": "CODE", "el": "ΚΩΔΙΚΟΣ", "ru": "КОД", "hi": "कोड", "kn": "ಕೋಡ್"
+        "en": "CODE",
+        "pt": "CÓDIGO",
+        "it": "CODICE",
+        "es": "CÓDIGO",
+        "fr": "CODE",
+        "el": "ΚΩΔΙΚΟΣ",
+        "ru": "КОД",
+        "hi": "कोड",
+        "kn": "ಕೋಡ್",
     },
     "GM": {
-        "en": "GM", "pt": "Mestre", "it": "GM", "es": "GM", "fr": "MJ", "el": "Αφηγητής", "ru": "Ведущий", "hi": "जीएम", "kn": "ಜಿಎಂ"
+        "en": "GM",
+        "pt": "Mestre",
+        "it": "GM",
+        "es": "GM",
+        "fr": "MJ",
+        "el": "Αφηγητής",
+        "ru": "Ведущий",
+        "hi": "जीएम",
+        "kn": "ಜಿಎಂ",
     },
     "alive": {
-        "en": "alive", "pt": "vivos", "it": "vivi", "es": "vivos", "fr": "vivants", "el": "ζωντανοί", "ru": "в живых", "hi": "जीवित", "kn": "ಜೀವಂತ"
+        "en": "alive",
+        "pt": "vivos",
+        "it": "vivi",
+        "es": "vivos",
+        "fr": "vivants",
+        "el": "ζωντανοί",
+        "ru": "в живых",
+        "hi": "जीवित",
+        "kn": "ಜೀವಂತ",
     },
     "Password": {
-        "en": "Password", "pt": "Palavra-passe", "it": "Password", "es": "Contraseña", "fr": "Mot de passe", "el": "Κωδικός", "ru": "Пароль", "hi": "पासवर्ड", "kn": "ಪಾಸ್‌ವರ್ಡ್"
+        "en": "Password",
+        "pt": "Palavra-passe",
+        "it": "Password",
+        "es": "Contraseña",
+        "fr": "Mot de passe",
+        "el": "Κωδικός",
+        "ru": "Пароль",
+        "hi": "पासवर्ड",
+        "kn": "ಪಾಸ್‌ವರ್ಡ್",
     },
     "Public": {
-        "en": "Public", "pt": "Público", "it": "Pubblico", "es": "Público", "fr": "Public", "el": "Δημόσια", "ru": "Открытая", "hi": "सार्वजनिक", "kn": "ಸಾರ್ವಜನಿಕ"
+        "en": "Public",
+        "pt": "Público",
+        "it": "Pubblico",
+        "es": "Público",
+        "fr": "Public",
+        "el": "Δημόσια",
+        "ru": "Открытая",
+        "hi": "सार्वजनिक",
+        "kn": "ಸಾರ್ವಜನಿಕ",
     },
     "Open GM Cockpit": {
         "en": "Open GM Cockpit",
@@ -429,10 +523,26 @@ TRANSLATIONS = {
         "kn": "ಹಿಂದಿನ ಮತ್ತು ಪೂರ್ಣಗೊಂಡ ಆಟಗಳು",
     },
     "Replay": {
-        "en": "Replay", "pt": "Repetição", "it": "Replay", "es": "Repetición", "fr": "Revoir", "el": "Επανάληψη", "ru": "Повтор", "hi": "रीप्ले", "kn": "ಮರುಪಂದ್ಯ"
+        "en": "Replay",
+        "pt": "Repetição",
+        "it": "Replay",
+        "es": "Repetición",
+        "fr": "Revoir",
+        "el": "Επανάληψη",
+        "ru": "Повтор",
+        "hi": "रीप्ले",
+        "kn": "ಮರುಪಂದ್ಯ",
     },
     "Cockpit": {
-        "en": "Cockpit", "pt": "Cabine", "it": "Cabina", "es": "Cabina", "fr": "Cockpit", "el": "Κονσόλα", "ru": "Пульт", "hi": "कॉकपिट", "kn": "ಕಾಕ್‌ಪಿಟ್"
+        "en": "Cockpit",
+        "pt": "Cabine",
+        "it": "Cabina",
+        "es": "Cabina",
+        "fr": "Cockpit",
+        "el": "Κονσόλα",
+        "ru": "Пульт",
+        "hi": "कॉकपिट",
+        "kn": "ಕಾಕ್‌ಪಿಟ್",
     },
     "Table-First Lupus Highlights": {
         "en": "Table-First Lupus Highlights",
@@ -533,7 +643,6 @@ TRANSLATIONS = {
         "hi": "देर से आने वाले कन्फर्म्ड ट्रेवलर, टाउन घोस्ट या उत्तराधिकारी के रूप में शामिल होते हैं।",
         "kn": "ತಡವಾಗಿ ಬಂದವರು ದೃಢೀಕೃತ ಪ್ರಯಾಣಿಕರು, ಪ್ರೇತಗಳು ಅಥವಾ ಉತ್ತರಾಧಿಕಾರಿಗಳಾಗಿ ಸೇರುತ್ತಾರೆ.",
     },
-
     # Lupus Create Room (/games/lupus/create/)
     "Create Lupus / Werewolf Room": {
         "en": "Create Lupus / Werewolf Room",
@@ -668,7 +777,15 @@ TRANSLATIONS = {
         "kn": "ಗ್ರಾಮಸ್ಥರು, ತೋಳಗಳು, ದ್ರಷ್ಟಾರ",
     },
     "Mafia": {
-        "en": "Mafia", "pt": "Máfia", "it": "Mafia", "es": "Mafia", "fr": "Mafia", "el": "Μαφία", "ru": "Мафия", "hi": "माफिया", "kn": "ಮಾಫಿಯಾ"
+        "en": "Mafia",
+        "pt": "Máfia",
+        "it": "Mafia",
+        "es": "Mafia",
+        "fr": "Mafia",
+        "el": "Μαφία",
+        "ru": "Мафия",
+        "hi": "माफिया",
+        "kn": "ಮಾಫಿಯಾ",
     },
     "Civilians, Mobsters, Cop": {
         "en": "Civilians, Mobsters, Cop",
@@ -879,27 +996,27 @@ TRANSLATIONS = {
         "hi": "0 — गुप्त (बंद कब्रिस्तान, खेल खत्म होने तक भूमिकाएं छिपी रहेंगी)",
         "kn": "0 — ರಹಸ್ಯ (ಮುಚ್ಚಿದ ಸ್ಮಶಾನ, ಆಟ ಮುಗಿಯುವವರೆಗೆ ಪಾತ್ರಗಳು ಗೌಪ್ಯ)",
     },
-    "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")": {
-        "en": "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")",
-        "pt": "1 — Apenas Alinhamento (Anuncia \"BEM\" vs \"MAL\")",
-        "it": "1 — Solo Allineamento (Annuncia \"BENE\" vs \"MALE\")",
-        "es": "1 — Solo Alineación (Anuncia \"BIEN\" vs \"MAL\")",
-        "fr": "1 — Alignement Seul (Annonce \"BIEN\" vs \"MAL\")",
-        "el": "1 — Μόνο Παράταξη (Ανακοινώνει \"ΚΑΛΟ\" vs \"ΚΑΚΟ\")",
-        "ru": "1 — Только сторона (Объявляет \"ДОБРО\" или \"ЗЛО\")",
-        "hi": "1 — केवल संरेखण (\"अच्छा\" बनाम \"बुरा\" घोषित करता है)",
-        "kn": "1 — ನಿಷ್ಠೆ ಮಾತ್ರ (\"ಒಳ್ಳೆಯದು\" ವಿರುದ್ಧ \"ಕೆಟ್ಟದ್ದು\" ಪ್ರಕಟಿಸುತ್ತದೆ)",
+    '1 — Alignment Only (Announces "GOOD" vs "EVIL")': {
+        "en": '1 — Alignment Only (Announces "GOOD" vs "EVIL")',
+        "pt": '1 — Apenas Alinhamento (Anuncia "BEM" vs "MAL")',
+        "it": '1 — Solo Allineamento (Annuncia "BENE" vs "MALE")',
+        "es": '1 — Solo Alineación (Anuncia "BIEN" vs "MAL")',
+        "fr": '1 — Alignement Seul (Annonce "BIEN" vs "MAL")',
+        "el": '1 — Μόνο Παράταξη (Ανακοινώνει "ΚΑΛΟ" vs "ΚΑΚΟ")',
+        "ru": '1 — Только сторона (Объявляет "ДОБРО" или "ЗЛО")',
+        "hi": '1 — केवल संरेखण ("अच्छा" बनाम "बुरा" घोषित करता है)',
+        "kn": '1 — ನಿಷ್ಠೆ ಮಾತ್ರ ("ಒಳ್ಳೆಯದು" ವಿರುದ್ಧ "ಕೆಟ್ಟದ್ದು" ಪ್ರಕಟಿಸುತ್ತದೆ)',
     },
-    "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")": {
-        "en": "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")",
-        "pt": "2 — Fação / Equipa (Anuncia \"Aldeia\", \"Lobisomens\", \"Neutro\")",
-        "it": "2 — Fazione / Squadra (Annuncia \"Città\", \"Lupi\", \"Neutrale\")",
-        "es": "2 — Facción / Equipo (Anuncia \"Pueblo\", \"Hombres Lobo\", \"Neutral\")",
-        "fr": "2 — Faction / Équipe (Annonce \"Village\", \"Loups-Garous\", \"Neutre\")",
-        "el": "2 — Φατρία / Ομάδα (Ανακοινώνει \"Χωριό\", \"Λυκάνθρωποι\", \"Ουδέτερος\")",
-        "ru": "2 — Фракция / Команда (Объявляет \"Город\", \"Волки\", \"Нейтрал\")",
-        "hi": "2 — गुट / टीम (\"शहर\", \"वेयरवोल्फ\", \"तटस्थ\" घोषित करता है)",
-        "kn": "2 — ಬಣ / ತಂಡ (\"ನಗರ\", \"ತೋಳಗಳು\", \"ತಟಸ್ಥ\" ಪ್ರಕಟಿಸುತ್ತದೆ)",
+    '2 — Faction / Team (Announces "Town", "Werewolves", "Neutral")': {
+        "en": '2 — Faction / Team (Announces "Town", "Werewolves", "Neutral")',
+        "pt": '2 — Fação / Equipa (Anuncia "Aldeia", "Lobisomens", "Neutro")',
+        "it": '2 — Fazione / Squadra (Annuncia "Città", "Lupi", "Neutrale")',
+        "es": '2 — Facción / Equipo (Anuncia "Pueblo", "Hombres Lobo", "Neutral")',
+        "fr": '2 — Faction / Équipe (Annonce "Village", "Loups-Garous", "Neutre")',
+        "el": '2 — Φατρία / Ομάδα (Ανακοινώνει "Χωριό", "Λυκάνθρωποι", "Ουδέτερος")',
+        "ru": '2 — Фракция / Команда (Объявляет "Город", "Волки", "Нейтрал")',
+        "hi": '2 — गुट / टीम ("शहर", "वेयरवोल्फ", "तटस्थ" घोषित करता है)',
+        "kn": '2 — ಬಣ / ತಂಡ ("ನಗರ", "ತೋಳಗಳು", "ತಟಸ್ಥ" ಪ್ರಕಟಿಸುತ್ತದೆ)',
     },
     "3 — Full Role Card (Announces exact card name and icon)": {
         "en": "3 — Full Role Card (Announces exact card name and icon)",
@@ -912,8 +1029,8 @@ TRANSLATIONS = {
         "hi": "3 — पूरा रोल कार्ड (सटीक भूमिका नाम और आइकन घोषित करता है)",
         "kn": "3 — ಸಂಪೂರ್ಣ ಪಾತ್ರ ಕಾರ್ಡ್ (ನಿಖರವಾದ ಕಾರ್ಡ್ ಹೆಸರು ಮತ್ತು ಐಕಾನ್ ಪ್ರಕಟಿಸುತ್ತದೆ)",
     },
-    "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo.": {
-        "en": "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo.",
+    '💡 In Limbo games, role revelation strictly occurs on permanent death ("death death"), never while hovering in Limbo.': {
+        "en": '💡 In Limbo games, role revelation strictly occurs on permanent death ("death death"), never while hovering in Limbo.',
         "pt": "💡 Em jogos com Limbo, a revelação de papéis ocorre apenas na morte definitiva, nunca enquanto no Limbo.",
         "it": "💡 Nelle partite con Limbo, la rivelazione avviene solo con la morte definitiva, mai nel Limbo.",
         "es": "💡 En partidas con Limbo, la revelación ocurre solo tras la muerte definitiva, nunca en el Limbo.",
@@ -1011,7 +1128,6 @@ TRANSLATIONS = {
         "hi": "लुपस पार्टी गेम",
         "kn": "ಲೂಪಸ್ ಪಾರ್ಟಿ ಆಟ",
     },
-
     # Lupus Join (/games/lupus/join/)
     "Join Lupus Game": {
         "en": "Join Lupus Game",
@@ -1123,36 +1239,106 @@ TRANSLATIONS = {
         "hi": "लुपस सक्रिय कमरे और हब",
         "kn": "ಲೂಪಸ್ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು ಮತ್ತು ಹಬ್",
     },
-
     # Gamerooms Simple / Legacy
     "create room": {
-        "en": "create room", "pt": "criar sala", "it": "crea stanza", "es": "crear sala", "fr": "créer un salon", "el": "δημιουργία αίθουσας", "ru": "создать комнату", "hi": "कमरा बनाएं", "kn": "ಕೊಠಡಿ ರಚಿಸಿ"
+        "en": "create room",
+        "pt": "criar sala",
+        "it": "crea stanza",
+        "es": "crear sala",
+        "fr": "créer un salon",
+        "el": "δημιουργία αίθουσας",
+        "ru": "создать комнату",
+        "hi": "कमरा बनाएं",
+        "kn": "ಕೊಠಡಿ ರಚಿಸಿ",
     },
     "title": {
-        "en": "title", "pt": "título", "it": "titolo", "es": "título", "fr": "titre", "el": "τίτλος", "ru": "название", "hi": "शीर्षक", "kn": "ಶೀರ್ಷಿಕೆ"
+        "en": "title",
+        "pt": "título",
+        "it": "titolo",
+        "es": "título",
+        "fr": "titre",
+        "el": "τίτλος",
+        "ru": "название",
+        "hi": "शीर्षक",
+        "kn": "ಶೀರ್ಷಿಕೆ",
     },
     "password (optional)": {
-        "en": "password (optional)", "pt": "palavra-passe (opcional)", "it": "password (opzionale)", "es": "contraseña (opcional)", "fr": "mot de passe (optionnel)", "el": "κωδικός (προαιρετικό)", "ru": "пароль (необязательно)", "hi": "पासवर्ड (वैकल्पिक)", "kn": "ಪಾಸ್‌ವರ್ಡ್ (ಐಚ್ಛಿಕ)"
+        "en": "password (optional)",
+        "pt": "palavra-passe (opcional)",
+        "it": "password (opzionale)",
+        "es": "contraseña (opcional)",
+        "fr": "mot de passe (optionnel)",
+        "el": "κωδικός (προαιρετικό)",
+        "ru": "пароль (необязательно)",
+        "hi": "पासवर्ड (वैकल्पिक)",
+        "kn": "ಪಾಸ್‌ವರ್ಡ್ (ಐಚ್ಛಿಕ)",
     },
     "what is %(a)s + %(b)s?": {
-        "en": "what is %(a)s + %(b)s?", "pt": "quanto é %(a)s + %(b)s?", "it": "quanto fa %(a)s + %(b)s?", "es": "¿cuánto es %(a)s + %(b)s?", "fr": "combien font %(a)s + %(b)s ?", "el": "πόσο κάνει %(a)s + %(b)s;", "ru": "сколько будет %(a)s + %(b)s?", "hi": "%(a)s + %(b)s कितना होता है?", "kn": "%(a)s + %(b)s ಎಷ್ಟು?"
+        "en": "what is %(a)s + %(b)s?",
+        "pt": "quanto é %(a)s + %(b)s?",
+        "it": "quanto fa %(a)s + %(b)s?",
+        "es": "¿cuánto es %(a)s + %(b)s?",
+        "fr": "combien font %(a)s + %(b)s ?",
+        "el": "πόσο κάνει %(a)s + %(b)s;",
+        "ru": "сколько будет %(a)s + %(b)s?",
+        "hi": "%(a)s + %(b)s कितना होता है?",
+        "kn": "%(a)s + %(b)s ಎಷ್ಟು?",
     },
     "create": {
-        "en": "create", "pt": "criar", "it": "crea", "es": "crear", "fr": "créer", "el": "δημιουργία", "ru": "создать", "hi": "बनाएं", "kn": "ರಚಿಸಿ"
+        "en": "create",
+        "pt": "criar",
+        "it": "crea",
+        "es": "crear",
+        "fr": "créer",
+        "el": "δημιουργία",
+        "ru": "создать",
+        "hi": "बनाएं",
+        "kn": "ರಚಿಸಿ",
     },
     "join": {
-        "en": "join", "pt": "entrar", "it": "entra", "es": "entrar", "fr": "rejoindre", "el": "σύνδεση", "ru": "войти", "hi": "शामिल हों", "kn": "ಸೇರಿ"
+        "en": "join",
+        "pt": "entrar",
+        "it": "entra",
+        "es": "entrar",
+        "fr": "rejoindre",
+        "el": "σύνδεση",
+        "ru": "войти",
+        "hi": "शामिल हों",
+        "kn": "ಸೇರಿ",
     },
     "your name": {
-        "en": "your name", "pt": "o seu nome", "it": "il tuo nome", "es": "tu nombre", "fr": "votre nom", "el": "το όνομά σας", "ru": "ваше имя", "hi": "आपका नाम", "kn": "ನಿಮ್ಮ ಹೆಸರು"
+        "en": "your name",
+        "pt": "o seu nome",
+        "it": "il tuo nome",
+        "es": "tu nombre",
+        "fr": "votre nom",
+        "el": "το όνομά σας",
+        "ru": "ваше имя",
+        "hi": "आपका नाम",
+        "kn": "ನಿಮ್ಮ ಹೆಸರು",
     },
     "room password": {
-        "en": "room password", "pt": "palavra-passe da sala", "it": "password della stanza", "es": "contraseña de la sala", "fr": "mot de passe du salon", "el": "κωδικός αίθουσας", "ru": "пароль комнаты", "hi": "कमरे का पासवर्ड", "kn": "ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್"
+        "en": "room password",
+        "pt": "palavra-passe da sala",
+        "it": "password della stanza",
+        "es": "contraseña de la sala",
+        "fr": "mot de passe du salon",
+        "el": "κωδικός αίθουσας",
+        "ru": "пароль комнаты",
+        "hi": "कमरे का पासवर्ड",
+        "kn": "ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್",
     },
-
     # Unauthorized
     "Access Denied": {
-        "en": "Access Denied", "pt": "Acesso Negado", "it": "Accesso Negato", "es": "Acceso Denegado", "fr": "Accès Refusé", "el": "Δεν επιτρέπεται η πρόσβαση", "ru": "Доступ запрещён", "hi": "प्रवेश अस्वीकृत", "kn": "ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಗಿದೆ"
+        "en": "Access Denied",
+        "pt": "Acesso Negado",
+        "it": "Accesso Negato",
+        "es": "Acceso Denegado",
+        "fr": "Accès Refusé",
+        "el": "Δεν επιτρέπεται η πρόσβαση",
+        "ru": "Доступ запрещён",
+        "hi": "प्रवेश अस्वीकृत",
+        "kn": "ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಗಿದೆ",
     },
     "You need an authorized key to access this page.": {
         "en": "You need an authorized key to access this page.",
@@ -1176,60 +1362,194 @@ TRANSLATIONS = {
         "hi": "खिलाड़ी के रूप में शामिल हों",
         "kn": "ಆಟಗಾರನಾಗಿ ಸೇರಿ",
     },
-
     # Lifecycle & Phase Badges
     "Lobby": {
-        "en": "Lobby", "pt": "Lobby", "it": "Lobby", "es": "Espera", "fr": "Attente", "el": "Αναμονή", "ru": "Лобби", "hi": "लॉबी", "kn": "ಲಾಬಿ"
+        "en": "Lobby",
+        "pt": "Lobby",
+        "it": "Lobby",
+        "es": "Espera",
+        "fr": "Attente",
+        "el": "Αναμονή",
+        "ru": "Лобби",
+        "hi": "लॉबी",
+        "kn": "ಲಾಬಿ",
     },
     "Lobby (Waiting for Players)": {
-        "en": "Lobby (Waiting for Players)", "pt": "Lobby (A aguardar jogadores)", "it": "Lobby (In attesa dei giocatori)", "es": "Lobby (Esperando jugadores)", "fr": "Attente (En attente des joueurs)", "el": "Αναμονή (Αναμονή παικτών)", "ru": "Лобби (Ожидание игроков)", "hi": "लॉबी (खिलाड़ियों का इंतज़ार)", "kn": "ಲಾಬಿ (ಆಟಗಾರರಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ)"
+        "en": "Lobby (Waiting for Players)",
+        "pt": "Lobby (A aguardar jogadores)",
+        "it": "Lobby (In attesa dei giocatori)",
+        "es": "Lobby (Esperando jugadores)",
+        "fr": "Attente (En attente des joueurs)",
+        "el": "Αναμονή (Αναμονή παικτών)",
+        "ru": "Лобби (Ожидание игроков)",
+        "hi": "लॉबी (खिलाड़ियों का इंतज़ार)",
+        "kn": "ಲಾಬಿ (ಆಟಗಾರರಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ)",
     },
     "Open": {
-        "en": "Open", "pt": "Aberta", "it": "Aperta", "es": "Abierta", "fr": "Ouvert", "el": "Ανοιχτή", "ru": "Открыта", "hi": "खुला", "kn": "ತೆರೆದಿದೆ"
+        "en": "Open",
+        "pt": "Aberta",
+        "it": "Aperta",
+        "es": "Abierta",
+        "fr": "Ouvert",
+        "el": "Ανοιχτή",
+        "ru": "Открыта",
+        "hi": "खुला",
+        "kn": "ತೆರೆದಿದೆ",
     },
     "Open (Lobby)": {
-        "en": "Open (Lobby)", "pt": "Aberta (Lobby)", "it": "Aperta (Lobby)", "es": "Abierta (Lobby)", "fr": "Ouvert (Attente)", "el": "Ανοιχτή (Αναμονή)", "ru": "Открыта (Лобби)", "hi": "खुला (लॉबी)", "kn": "ತೆರೆದಿದೆ (ಲಾಬಿ)"
+        "en": "Open (Lobby)",
+        "pt": "Aberta (Lobby)",
+        "it": "Aperta (Lobby)",
+        "es": "Abierta (Lobby)",
+        "fr": "Ouvert (Attente)",
+        "el": "Ανοιχτή (Αναμονή)",
+        "ru": "Открыта (Лобби)",
+        "hi": "खुला (लॉबी)",
+        "kn": "ತೆರೆದಿದೆ (ಲಾಬಿ)",
     },
     "Running": {
-        "en": "Running", "pt": "Em Curso", "it": "In Corso", "es": "En Curso", "fr": "En Cours", "el": "Σε Εξέλιξη", "ru": "Идёт игра", "hi": "चल रहा है", "kn": "ನಡೆಯುತ್ತಿದೆ"
+        "en": "Running",
+        "pt": "Em Curso",
+        "it": "In Corso",
+        "es": "En Curso",
+        "fr": "En Cours",
+        "el": "Σε Εξέλιξη",
+        "ru": "Идёт игра",
+        "hi": "चल रहा है",
+        "kn": "ನಡೆಯುತ್ತಿದೆ",
     },
     "Finished": {
-        "en": "Finished", "pt": "Terminado", "it": "Concluso", "es": "Terminado", "fr": "Terminé", "el": "Ολοκληρώθηκε", "ru": "Завершено", "hi": "समाप्त", "kn": "ಮುಕ್ತಾಯವಾಗಿದೆ"
+        "en": "Finished",
+        "pt": "Terminado",
+        "it": "Concluso",
+        "es": "Terminado",
+        "fr": "Terminé",
+        "el": "Ολοκληρώθηκε",
+        "ru": "Завершено",
+        "hi": "समाप्त",
+        "kn": "ಮುಕ್ತಾಯವಾಗಿದೆ",
     },
     "Active": {
-        "en": "Active", "pt": "Ativo", "it": "Attivo", "es": "Activo", "fr": "Actif", "el": "Ενεργό", "ru": "Активно", "hi": "सक्रिय", "kn": "ಸಕ್ರಿಯ"
+        "en": "Active",
+        "pt": "Ativo",
+        "it": "Attivo",
+        "es": "Activo",
+        "fr": "Actif",
+        "el": "Ενεργό",
+        "ru": "Активно",
+        "hi": "सक्रिय",
+        "kn": "ಸಕ್ರಿಯ",
     },
     "Day": {
-        "en": "Day", "pt": "Dia", "it": "Giorno", "es": "Día", "fr": "Jour", "el": "Ημέρα", "ru": "День", "hi": "दिन", "kn": "ದಿನ"
+        "en": "Day",
+        "pt": "Dia",
+        "it": "Giorno",
+        "es": "Día",
+        "fr": "Jour",
+        "el": "Ημέρα",
+        "ru": "День",
+        "hi": "दिन",
+        "kn": "ದಿನ",
     },
     "Night": {
-        "en": "Night", "pt": "Noite", "it": "Notte", "es": "Noche", "fr": "Nuit", "el": "Νύχτα", "ru": "Ночь", "hi": "रात", "kn": "ರಾತ್ರಿ"
+        "en": "Night",
+        "pt": "Noite",
+        "it": "Notte",
+        "es": "Noche",
+        "fr": "Nuit",
+        "el": "Νύχτα",
+        "ru": "Ночь",
+        "hi": "रात",
+        "kn": "ರಾತ್ರಿ",
     },
     "Voting": {
-        "en": "Voting", "pt": "Votação", "it": "Votazione", "es": "Votación", "fr": "Vote", "el": "Ψηφοφορία", "ru": "Голосование", "hi": "मतदान", "kn": "ಮತದಾನ"
+        "en": "Voting",
+        "pt": "Votação",
+        "it": "Votazione",
+        "es": "Votación",
+        "fr": "Vote",
+        "el": "Ψηφοφορία",
+        "ru": "Голосование",
+        "hi": "मतदान",
+        "kn": "ಮತದಾನ",
     },
     "Discussion": {
-        "en": "Discussion", "pt": "Discussão", "it": "Discussione", "es": "Discusión", "fr": "Discussion", "el": "Συζήτηση", "ru": "Обсуждение", "hi": "चर्चा", "kn": "ಚರ್ಚೆ"
+        "en": "Discussion",
+        "pt": "Discussão",
+        "it": "Discussione",
+        "es": "Discusión",
+        "fr": "Discussion",
+        "el": "Συζήτηση",
+        "ru": "Обсуждение",
+        "hi": "चर्चा",
+        "kn": "ಚರ್ಚೆ",
     },
     "Town Voting": {
-        "en": "Town Voting", "pt": "Votação da Cidade", "it": "Votazione Cittadina", "es": "Votación del Pueblo", "fr": "Vote du Village", "el": "Ψηφοφορία Χωριού", "ru": "Голосование города", "hi": "नगर मतदान", "kn": "ಪಟ್ಟಣ ಮತದಾನ"
+        "en": "Town Voting",
+        "pt": "Votação da Cidade",
+        "it": "Votazione Cittadina",
+        "es": "Votación del Pueblo",
+        "fr": "Vote du Village",
+        "el": "Ψηφοφορία Χωριού",
+        "ru": "Голосование города",
+        "hi": "नगर मतदान",
+        "kn": "ಪಟ್ಟಣ ಮತದಾನ",
     },
     "Silent Phase": {
-        "en": "Silent Phase", "pt": "Fase Silenciosa", "it": "Fase Silenziosa", "es": "Fase Silenciosa", "fr": "Phase Silencieuse", "el": "Σιωπηλή Φάση", "ru": "Тихая фаза", "hi": "शांत चरण", "kn": "ಶಾಂತ ಹಂತ"
+        "en": "Silent Phase",
+        "pt": "Fase Silenciosa",
+        "it": "Fase Silenziosa",
+        "es": "Fase Silenciosa",
+        "fr": "Phase Silencieuse",
+        "el": "Σιωπηλή Φάση",
+        "ru": "Тихая фаза",
+        "hi": "शांत चरण",
+        "kn": "ಶಾಂತ ಹಂತ",
     },
     "Limbo": {
-        "en": "Limbo", "pt": "Limbo", "it": "Limbo", "es": "Limbo", "fr": "Limbes", "el": "Καθαρτήριο", "ru": "Лимб", "hi": "लिम्बो", "kn": "ಲಿಂಬೋ"
+        "en": "Limbo",
+        "pt": "Limbo",
+        "it": "Limbo",
+        "es": "Limbo",
+        "fr": "Limbes",
+        "el": "Καθαρτήριο",
+        "ru": "Лимб",
+        "hi": "लिम्बो",
+        "kn": "ಲಿಂಬೋ",
     },
     "Limbo Resolution": {
-        "en": "Limbo Resolution", "pt": "Resolução do Limbo", "it": "Risoluzione del Limbo", "es": "Resolución del Limbo", "fr": "Résolution des Limbes", "el": "Επίλυση Καθαρτηρίου", "ru": "Разрешение Лимба", "hi": "लिम्बो समाधान", "kn": "ಲಿಂಬೋ ಪರಿಹಾರ"
+        "en": "Limbo Resolution",
+        "pt": "Resolução do Limbo",
+        "it": "Risoluzione del Limbo",
+        "es": "Resolución del Limbo",
+        "fr": "Résolution des Limbes",
+        "el": "Επίλυση Καθαρτηρίου",
+        "ru": "Разрешение Лимба",
+        "hi": "लिम्बो समाधान",
+        "kn": "ಲಿಂಬೋ ಪರಿಹಾರ",
     },
     "Game Over": {
-        "en": "Game Over", "pt": "Fim de Jogo", "it": "Fine Partita", "es": "Fin de la Partida", "fr": "Fin de Partie", "el": "Τέλος Παιχνιδιού", "ru": "Конец игры", "hi": "खेल समाप्त", "kn": "ಆಟ ಮುಗಿದಿದೆ"
+        "en": "Game Over",
+        "pt": "Fim de Jogo",
+        "it": "Fine Partita",
+        "es": "Fin de la Partida",
+        "fr": "Fin de Partie",
+        "el": "Τέλος Παιχνιδιού",
+        "ru": "Конец игры",
+        "hi": "खेल समाप्त",
+        "kn": "ಆಟ ಮುಗಿದಿದೆ",
     },
     "In Progress": {
-        "en": "In Progress", "pt": "Em Andamento", "it": "In Corso", "es": "En Progreso", "fr": "En Cours", "el": "Σε Εξέλιξη", "ru": "В процессе", "hi": "प्रगति में", "kn": "ಪ್ರಗತಿಯಲ್ಲಿದೆ"
+        "en": "In Progress",
+        "pt": "Em Andamento",
+        "it": "In Corso",
+        "es": "En Progreso",
+        "fr": "En Cours",
+        "el": "Σε Εξέλιξη",
+        "ru": "В процессе",
+        "hi": "प्रगति में",
+        "kn": "ಪ್ರಗತಿಯಲ್ಲಿದೆ",
     },
-
     # Errors & Notifications
     "Please enter a valid room code.": {
         "en": "Please enter a valid room code.",
@@ -1415,7 +1735,9 @@ def generate_all_locales():
             "",
         ]
 
-        mo_dict = {"": f"Content-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nLanguage: {lang}\nMIME-Version: 1.0\n"}
+        mo_dict = {
+            "": f"Content-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nLanguage: {lang}\nMIME-Version: 1.0\n"
+        }
 
         lines = list(header)
         for msgid, trans_dict in TRANSLATIONS.items():

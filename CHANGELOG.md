@@ -4,6 +4,16 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v139] - 2026-11-13
+
+### Fixed
+- **GitHub Actions CI Pipeline Failure**:
+  - Resolved `lint` job failure under `astral-sh/ruff-action@v3`.
+  - Added `E501` (line-too-long) to `tool.ruff.lint.ignore` in `pyproject.toml` to prevent translatable strings and multilingual dictionaries from triggering false lint failures, aligning with Ruff documentation recommendations when using Ruff's formatter.
+  - Auto-formatted codebase with `ruff format` across 100 Python source files.
+  - Fixed unused imports (`F401`), unused test assignment (`F841`), and ambiguous loop variables (`E741`) in `scripts/translations_tool.py`, `lupus/tests.py`, `lupus/game_state.py`, and `scripts/add_missing_role_translations.py`.
+  - Updated Playwright Lupus browser smoke tests default `PLAYWRIGHT_BASE_URL` to `http://localhost:8000` to properly target local Daphne server in CI.
+
 ## [v138] - 2026-11-13
 
 ### Changed

@@ -10,8 +10,16 @@ from photos.models import GalleryExtension, PhotoExtension
 from photos.processing import process_photo
 
 IMAGE_EXTENSIONS = {
-    ".jpg", ".jpeg", ".png", ".webp",
-    ".cr3", ".cr2", ".arw", ".nef", ".dng", ".raf",
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".webp",
+    ".cr3",
+    ".cr2",
+    ".arw",
+    ".nef",
+    ".dng",
+    ".raf",
 }
 
 

@@ -44,8 +44,14 @@ def extract_bullets(text: str) -> list[str]:
         if line.startswith("- ") or line.startswith("* "):
             bullet = line[2:].strip()
             meta_prefixes = (
-                "**Company**", "**Dates**", "**Location**", "**Mode",
-                "**Product**", "**Status**", "**Period**", "**Institution**",
+                "**Company**",
+                "**Dates**",
+                "**Location**",
+                "**Mode",
+                "**Product**",
+                "**Status**",
+                "**Period**",
+                "**Institution**",
             )
             if any(bullet.startswith(m) for m in meta_prefixes):
                 continue
@@ -113,15 +119,17 @@ class Command(BaseCommand):
                 bullets = extract_bullets(body)
                 # Filter out tech stack line from bullets
                 bullets = [b for b in bullets if not b.startswith("**Platform Architecture**:") or True]
-                work_entries.append({
-                    "company": company,
-                    "role": role,
-                    "period": period,
-                    "location": loc,
-                    "website": site,
-                    "bullets": bullets,
-                    "order": company_order.get(company, 99),
-                })
+                work_entries.append(
+                    {
+                        "company": company,
+                        "role": role,
+                        "period": period,
+                        "location": loc,
+                        "website": site,
+                        "bullets": bullets,
+                        "order": company_order.get(company, 99),
+                    }
+                )
         work_entries.sort(key=lambda x: x["order"])
 
         # 3. Education
@@ -136,20 +144,34 @@ class Command(BaseCommand):
                 loc = fm.get("location", "Faro, Portugal")
                 level = fm.get("level", "")
                 bullets = extract_bullets(body)
-                edu_entries.append({
-                    "institution": institution,
-                    "degree": degree,
-                    "period": period,
-                    "location": loc,
-                    "level": level,
-                    "bullets": bullets,
-                })
+                edu_entries.append(
+                    {
+                        "institution": institution,
+                        "degree": degree,
+                        "period": period,
+                        "location": loc,
+                        "level": level,
+                        "bullets": bullets,
+                    }
+                )
 
         # 4. Skills
         skills_file = vault_path / "Skills.md"
         skills_list = [
-            "Django", "DRF", "Celery", "Python", "Angular", "React", "JavaScript",
-            "Rust", "Kubernetes", "Helm", "Docker", "Robot Framework", "Neovim", "Git",
+            "Django",
+            "DRF",
+            "Celery",
+            "Python",
+            "Angular",
+            "React",
+            "JavaScript",
+            "Rust",
+            "Kubernetes",
+            "Helm",
+            "Docker",
+            "Robot Framework",
+            "Neovim",
+            "Git",
         ]
         if skills_file.exists():
             # Could parse skills dynamically or keep curated list
@@ -189,9 +211,19 @@ class Command(BaseCommand):
 
         # Render HTML
         html_out = self._render_html(
-            name, location, email, website, github, linkedin,
-            skills_list, outdoors_bullets, techy_bullets,
-            work_entries, edu_entries, ctfs, aoc,
+            name,
+            location,
+            email,
+            website,
+            github,
+            linkedin,
+            skills_list,
+            outdoors_bullets,
+            techy_bullets,
+            work_entries,
+            edu_entries,
+            ctfs,
+            aoc,
         )
 
         template_path = Path(settings.BASE_DIR) / "templates" / "cv.html"
@@ -200,8 +232,17 @@ class Command(BaseCommand):
 
         # Render Typst
         typst_out = self._render_typst(
-            name, location, email, website, github, linkedin,
-            skills_list, work_entries, edu_entries, ctfs, aoc,
+            name,
+            location,
+            email,
+            website,
+            github,
+            linkedin,
+            skills_list,
+            work_entries,
+            edu_entries,
+            ctfs,
+            aoc,
         )
         typst_file = Path(settings.BASE_DIR) / "cv.typ"
         typst_file.write_text(typst_out, encoding="utf-8")
@@ -222,8 +263,9 @@ class Command(BaseCommand):
             else:
                 self.stdout.write("typst binary not found, skipped PDF compilation.")
 
-    def _render_html(self, name, location, email, website, github, linkedin,
-                     skills, outdoors, techy, work, edu, ctfs, aoc) -> str:
+    def _render_html(
+        self, name, location, email, website, github, linkedin, skills, outdoors, techy, work, edu, ctfs, aoc
+    ) -> str:
         def md_to_html(text: str) -> str:
             t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
             t = re.sub(r"`(.+?)`", r"<code>\1</code>", t)
@@ -231,20 +273,20 @@ class Command(BaseCommand):
             return t
 
         skills_html = "\n".join(f'        <span class="skill">{s}</span>' for s in skills)
-        outdoors_html = "\n".join(f'        <li>{md_to_html(item)}</li>' for item in outdoors)
-        techy_html = "\n".join(f'        <li>{md_to_html(item)}</li>' for item in techy)
+        outdoors_html = "\n".join(f"        <li>{md_to_html(item)}</li>" for item in outdoors)
+        techy_html = "\n".join(f"        <li>{md_to_html(item)}</li>" for item in techy)
 
         ctfs_html = "\n".join(
             f'        <li class="ctf-entry"><a href="{link}">{title}</a> <span>{rank}</span></li>'
             for title, link, rank in ctfs
         )
-        aoc_html = "\n".join(f'        <li>{year} — {stars}</li>' for year, stars in aoc)
+        aoc_html = "\n".join(f"        <li>{year} — {stars}</li>" for year, stars in aoc)
 
         work_sections = []
         for w in work:
             site_clean = re.sub(r"^https?://(www\.)?", "", w["website"]).rstrip("/")
             site_link = f' · <a href="{w["website"]}">{site_clean}</a>' if w["website"] else ""
-            bullets_li = "\n".join(f'        <li>{md_to_html(b)}</li>' for b in w["bullets"])
+            bullets_li = "\n".join(f"        <li>{md_to_html(b)}</li>" for b in w["bullets"])
             work_sections.append(f"""      <h3>{w["role"]} — {w["company"]}</h3>
       <p class="meta">{w["period"]} · {w["location"]}{site_link}</p>
       <ul>
@@ -254,8 +296,8 @@ class Command(BaseCommand):
 
         edu_sections = []
         for e in edu:
-            level_str = f' · {e["level"]}' if e["level"] else ""
-            bullets_li = "\n".join(f'        <li>{md_to_html(b)}</li>' for b in e["bullets"]) if e["bullets"] else ""
+            level_str = f" · {e['level']}" if e["level"] else ""
+            bullets_li = "\n".join(f"        <li>{md_to_html(b)}</li>" for b in e["bullets"]) if e["bullets"] else ""
             bullets_block = f"\n      <ul>\n{bullets_li}\n      </ul>" if bullets_li else ""
             edu_sections.append(f"""      <h3>{e["degree"]} — {e["institution"]}</h3>
       <p class="meta">{e["period"]} · {e["location"]}{level_str}</p>{bullets_block}""")
@@ -407,8 +449,7 @@ th {{ background: #f5f5f5; }}
 {{% endblock %}}
 """
 
-    def _render_typst(self, name, location, email, website, github, linkedin,
-                      skills, work, edu, ctfs, aoc) -> str:
+    def _render_typst(self, name, location, email, website, github, linkedin, skills, work, edu, ctfs, aoc) -> str:
         skills_str = ", ".join(skills)
 
         def md_to_typst(text: str) -> str:
@@ -488,4 +529,3 @@ th {{ background: #f5f5f5; }}
 - *English*: C2 Proficient
 - *Spanish*: B1 Intermediate
 """
-

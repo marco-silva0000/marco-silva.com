@@ -248,6 +248,7 @@ def extract_translatable_strings() -> dict[str, list[str]]:
     try:
         sys.path.insert(0, str(BASE_DIR))
         from scripts.generate_locales import TRANSLATIONS
+
         for s in TRANSLATIONS.keys():
             if s:
                 found.setdefault(s, set()).add("scripts/generate_locales.py")
@@ -278,6 +279,7 @@ def cmd_extract(args):
     try:
         sys.path.insert(0, str(BASE_DIR))
         from scripts.generate_locales import TRANSLATIONS
+
         seed_translations = TRANSLATIONS
     except Exception:
         pass
@@ -336,12 +338,14 @@ def cmd_export_csv(args):
             if untranslated_only and is_translated:
                 continue
 
-            rows.append({
-                "msgid": msgid,
-                "context": context,
-                "en": en_val,
-                target_lang: target_val,
-            })
+            rows.append(
+                {
+                    "msgid": msgid,
+                    "context": context,
+                    "en": en_val,
+                    target_lang: target_val,
+                }
+            )
 
         with open(out_path, "w", encoding="utf-8-sig", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=["msgid", "context", "en", target_lang])
@@ -356,7 +360,7 @@ def cmd_export_csv(args):
         out_path = Path(args.output or (LOCALE_DIR / "translations_master.csv"))
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
-        fieldnames = ["msgid", "context", "en"] + [l for l in LANGUAGES if l != "en"]
+        fieldnames = ["msgid", "context", "en"] + [lang for lang in LANGUAGES if lang != "en"]
         rows = []
 
         for msgid in sorted(extracted.keys()):
@@ -366,8 +370,9 @@ def cmd_export_csv(args):
             if untranslated_only:
                 # check if any language is untranslated
                 has_untranslated = any(
-                    not catalogs[l].get(msgid) or catalogs[l].get(msgid) == en_val
-                    for l in LANGUAGES if l != "en"
+                    not catalogs[lang].get(msgid) or catalogs[lang].get(msgid) == en_val
+                    for lang in LANGUAGES
+                    if lang != "en"
                 )
                 if not has_untranslated:
                     continue
@@ -377,9 +382,9 @@ def cmd_export_csv(args):
                 "context": context,
                 "en": en_val,
             }
-            for l in LANGUAGES:
-                if l != "en":
-                    row[l] = catalogs[l].get(msgid, "")
+            for lang in LANGUAGES:
+                if lang != "en":
+                    row[lang] = catalogs[lang].get(msgid, "")
             rows.append(row)
 
         with open(out_path, "w", encoding="utf-8-sig", newline="") as f:
@@ -412,7 +417,7 @@ def cmd_import_csv(args):
             sys.exit(1)
 
         catalogs = load_all_catalogs()
-        updated_counts = {l: 0 for l in import_langs}
+        updated_counts = {lang: 0 for lang in import_langs}
 
         for row in reader:
             msgid = row.get("msgid", "").strip()
@@ -444,12 +449,12 @@ def cmd_status(args):
     total_strings = len(extracted)
     catalogs = load_all_catalogs()
 
-    print(f"\n========================================================")
-    print(f"  Marco Silva Homelab — Translation Status Report")
-    print(f"========================================================")
+    print("\n========================================================")
+    print("  Marco Silva Homelab — Translation Status Report")
+    print("========================================================")
     print(f"Total Unique Strings Discovered: {total_strings}\n")
     print(f"{'Code':<6} {'Language':<14} {'Translated':<12} {'Missing':<10} {'Coverage':<8}")
-    print(f"{'-'*6} {'-'*14} {'-'*12} {'-'*10} {'-'*8}")
+    print(f"{'-' * 6} {'-' * 14} {'-' * 12} {'-' * 10} {'-' * 8}")
 
     for lang in LANGUAGES:
         if lang == "en":
@@ -468,7 +473,7 @@ def cmd_status(args):
         coverage = (translated_count / total_strings * 100.0) if total_strings else 0.0
         print(f"{lang:<6} {LANGUAGE_NAMES[lang]:<14} {translated_count:<12} {missing_count:<10} {coverage:>5.1f}%")
 
-    print(f"========================================================\n")
+    print("========================================================\n")
 
 
 def cmd_compile(args):

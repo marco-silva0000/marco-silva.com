@@ -269,9 +269,9 @@ class TestSiteWideI18n:
     def test_lupus_rtl_translations(self):
         """Test Lupus translation dictionaries for Arabic, Persian, and Urdu."""
         from lupus.translations import (
-            get_localized_status,
-            get_localized_phase,
             get_localized_faction,
+            get_localized_phase,
+            get_localized_status,
             get_localized_ui_strings,
         )
 
@@ -305,8 +305,9 @@ class TestSiteWideI18n:
         assert "dificuldade" in content
 
     def test_translations_tool_discovery_and_export(self, tmp_path):
-        from scripts.translations_tool import extract_translatable_strings, cmd_export_csv
         import argparse
+
+        from scripts.translations_tool import cmd_export_csv, extract_translatable_strings
 
         extracted = extract_translatable_strings()
         assert len(extracted) >= 300
@@ -320,5 +321,3 @@ class TestSiteWideI18n:
         csv_text = out_csv.read_text(encoding="utf-8-sig")
         assert "msgid,context,en,pt" in csv_text
         assert "Eu programo, tiro fotos e muitas outras coisas" in csv_text
-
-

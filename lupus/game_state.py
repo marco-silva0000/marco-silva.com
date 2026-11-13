@@ -23,14 +23,12 @@ from .roles import (
     get_role_info,
 )
 from .settings_schema import (
-    LUPUS_SETTINGS_SCHEMA,
     SETTINGS_PRESETS,
     get_default_settings,
     get_settings_schema_view,
     validate_and_sanitize_settings,
 )
 from .translations import (
-    get_localized_faction,
     get_localized_phase,
     get_localized_status,
     get_localized_ui_strings,
@@ -495,17 +493,15 @@ def set_preassigned_role(state: dict[str, Any], player_id: str, role_id: Optiona
         player["role"] = role_id
         player["faction"] = role_info["faction"]
         if role_id == "mayor":
-            player["is_public_mayor"] = (
-                state.get("settings", {}).get("mayor_type", "public") == "public"
-                or state.get("settings", {}).get("public_mayor", False)
-            )
+            player["is_public_mayor"] = state.get("settings", {}).get("mayor_type", "public") == "public" or state.get(
+                "settings", {}
+            ).get("public_mayor", False)
         else:
             player["is_public_mayor"] = False
         if role_id == "martyrdom":
-            player["is_public_martyrdom"] = (
-                state.get("settings", {}).get("martyrdom_type", "public") == "public"
-                or state.get("settings", {}).get("public_martyrdom", True)
-            )
+            player["is_public_martyrdom"] = state.get("settings", {}).get(
+                "martyrdom_type", "public"
+            ) == "public" or state.get("settings", {}).get("public_martyrdom", True)
         else:
             player["is_public_martyrdom"] = True
 
@@ -548,7 +544,9 @@ def setup_demo_room(state: dict[str, Any]) -> dict[str, Any]:
             player["faction"] = ROLE_REGISTRY.get(role_id, {}).get("faction", FACTION_TOWN)
 
     state["deck"] = [role_id for _, role_id in DEMO_PLAYERS]
-    log_event(state, f"🎮 Demo mode active: {len(DEMO_PLAYERS)} test players populated with pre-assigned roles in Portuguese.")
+    log_event(
+        state, f"🎮 Demo mode active: {len(DEMO_PLAYERS)} test players populated with pre-assigned roles in Portuguese."
+    )
     save_game(state["code"], state)
     return state
 
@@ -740,9 +738,7 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         assigned_roles[pid] = r_id
 
     # Evil count in dealt deck to calibrate Vigilante bullets
-    evil_count = sum(
-        1 for r in assigned_roles.values() if ROLE_REGISTRY.get(r, {}).get("faction") == FACTION_WOLVES
-    )
+    evil_count = sum(1 for r in assigned_roles.values() if ROLE_REGISTRY.get(r, {}).get("faction") == FACTION_WOLVES)
     evil_bullets = max(1, evil_count)
 
     danger_setting = state.get("settings", {}).get("sniper_danger_bullets")
@@ -771,19 +767,13 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
         state["players"][pid]["is_successor"] = role_id == "successor"
         if role_id == "successor":
             state["players"][pid]["status"] = "waiting"
-        state["players"][pid]["is_public_mayor"] = (
-            role_id == "mayor"
-            and (
-                state.get("settings", {}).get("mayor_type", "public") == "public"
-                or state.get("settings", {}).get("public_mayor", False)
-            )
+        state["players"][pid]["is_public_mayor"] = role_id == "mayor" and (
+            state.get("settings", {}).get("mayor_type", "public") == "public"
+            or state.get("settings", {}).get("public_mayor", False)
         )
-        state["players"][pid]["is_public_martyrdom"] = (
-            role_id == "martyrdom"
-            and (
-                state.get("settings", {}).get("martyrdom_type", "public") == "public"
-                or state.get("settings", {}).get("public_martyrdom", True)
-            )
+        state["players"][pid]["is_public_martyrdom"] = role_id == "martyrdom" and (
+            state.get("settings", {}).get("martyrdom_type", "public") == "public"
+            or state.get("settings", {}).get("public_martyrdom", True)
         )
         state["players"][pid]["pending_hidden_martyrdom"] = False
         state["players"][pid]["used_hidden_martyrdom"] = False
@@ -889,8 +879,8 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     kill_pots = state.get("settings", {}).get("witch_kill_potions", 1)
     state["witch_revive_potions_left"] = revive_pots
     state["witch_kill_potions_left"] = kill_pots
-    state["witch_used_revive"] = (revive_pots <= 0)
-    state["witch_used_kill"] = (kill_pots <= 0)
+    state["witch_used_revive"] = revive_pots <= 0
+    state["witch_used_kill"] = kill_pots <= 0
     state["death_angel_used"] = False
     state["mayor_used_veto"] = False
     state["mayor_vetoed_ids"] = []
@@ -1164,19 +1154,20 @@ def set_manual_player_role(state: dict[str, Any], player_id: str, role_id: str) 
         if role_id == "successor":
             state["players"][player_id]["status"] = "waiting"
             state["players"][player_id]["is_successor"] = True
-            log_event(state, f"⏳ {state['players'][player_id]['name']} joined as the Successor, waiting to inherit the role of the next fallen player!")
+            log_event(
+                state,
+                f"⏳ {state['players'][player_id]['name']} joined as the Successor, waiting to inherit the role of the next fallen player!",
+            )
 
         if role_id == "mayor":
-            state["players"][player_id]["is_public_mayor"] = (
-                state.get("settings", {}).get("mayor_type", "public") == "public"
-                or state.get("settings", {}).get("public_mayor", False)
-            )
+            state["players"][player_id]["is_public_mayor"] = state.get("settings", {}).get(
+                "mayor_type", "public"
+            ) == "public" or state.get("settings", {}).get("public_mayor", False)
 
         if role_id == "martyrdom":
-            state["players"][player_id]["is_public_martyrdom"] = (
-                state.get("settings", {}).get("martyrdom_type", "public") == "public"
-                or state.get("settings", {}).get("public_martyrdom", True)
-            )
+            state["players"][player_id]["is_public_martyrdom"] = state.get("settings", {}).get(
+                "martyrdom_type", "public"
+            ) == "public" or state.get("settings", {}).get("public_martyrdom", True)
             state["players"][player_id]["pending_hidden_martyrdom"] = False
 
         if role_id == "sniper":
@@ -1371,11 +1362,13 @@ def submit_news_bulletin(
 
     # Check for active pending bulletin: only one at a time while waiting for GM review!
     has_pending = any(
-        b.get("player_id") == player_id and b.get("status") == "pending"
-        for b in state.get("news_bulletins", [])
+        b.get("player_id") == player_id and b.get("status") == "pending" for b in state.get("news_bulletins", [])
     )
     if has_pending:
-        return False, "You already have a news bulletin waiting for Game Master review. Wait until it is approved or rejected before submitting another."
+        return (
+            False,
+            "You already have a news bulletin waiting for Game Master review. Wait until it is approved or rejected before submitting another.",
+        )
 
     clean_msg = (message or "").strip()
     if not clean_msg:
@@ -1526,11 +1519,13 @@ def build_round_timeline(state: dict[str, Any]) -> list[dict[str, Any]]:
             target_id = payload.get("target_id")
             target_p = id_to_player.get(target_id)
             target_name = target_p["name"] if target_p else (target_id or "Nobody")
-            rd["night"]["actions"].append({
-                "stage": stage,
-                "target_id": target_id,
-                "target_name": target_name,
-            })
+            rd["night"]["actions"].append(
+                {
+                    "stage": stage,
+                    "target_id": target_id,
+                    "target_name": target_name,
+                }
+            )
 
         elif act == "resolve_night":
             report = payload.get("night_report", [])
@@ -1539,12 +1534,14 @@ def build_round_timeline(state: dict[str, Any]) -> list[dict[str, Any]]:
                 if any(k in line.lower() for k in ("slain", "killed", "died", "slaughtered", "eliminated")):
                     for p in players.values():
                         if p["name"] in line and not any(d["name"] == p["name"] for d in rd["night"]["deaths"]):
-                            rd["night"]["deaths"].append({
-                                "name": p["name"],
-                                "role": p.get("role"),
-                                "faction": p.get("faction"),
-                                "report": line,
-                            })
+                            rd["night"]["deaths"].append(
+                                {
+                                    "name": p["name"],
+                                    "role": p.get("role"),
+                                    "faction": p.get("faction"),
+                                    "report": line,
+                                }
+                            )
 
         elif act == "start_voting":
             sys_name = payload.get("system", "two_stage_50pct")
@@ -1556,12 +1553,16 @@ def build_round_timeline(state: dict[str, Any]) -> list[dict[str, Any]]:
             }
 
         elif act == "start_circular_turn_order":
-            starter_name = payload.get("starter_name") or id_to_player.get(payload.get("starter_id"), {}).get("name", "Someone")
+            starter_name = payload.get("starter_name") or id_to_player.get(payload.get("starter_id"), {}).get(
+                "name", "Someone"
+            )
             dir_str = "Clockwise (Right)" if payload.get("direction") == "clockwise" else "Counter-Clockwise (Left)"
             rd["day"]["events"].append(f"🔄 Turn order started from {starter_name} ({dir_str}).")
 
         elif act == "advance_circular_turn":
-            s_name = payload.get("suspect_name") or id_to_player.get(payload.get("active_suspect_id"), {}).get("name", "Someone")
+            s_name = payload.get("suspect_name") or id_to_player.get(payload.get("active_suspect_id"), {}).get(
+                "name", "Someone"
+            )
             t_idx = payload.get("turn_index", 0)
             rd["day"]["events"].append(f"👉 Inquired #{t_idx + 1}: {s_name}.")
 
@@ -1610,12 +1611,14 @@ def build_round_timeline(state: dict[str, Any]) -> list[dict[str, Any]]:
                 rd["day"]["execution"] = res_str
                 if rd["day"]["voting"]:
                     rd["day"]["voting"]["result"] = res_str
-                rd["day"]["deaths"].append({
-                    "name": victim["name"],
-                    "role": victim.get("role"),
-                    "faction": victim.get("faction"),
-                    "cause": "Executed by Town Vote",
-                })
+                rd["day"]["deaths"].append(
+                    {
+                        "name": victim["name"],
+                        "role": victim.get("role"),
+                        "faction": victim.get("faction"),
+                        "cause": "Executed by Town Vote",
+                    }
+                )
             elif is_tie:
                 res_str = "Voting ended in a tie. No execution occurred."
                 rd["day"]["execution"] = res_str
@@ -1653,18 +1656,18 @@ def build_round_timeline(state: dict[str, Any]) -> list[dict[str, Any]]:
         b_rnd = b.get("round", 1)
         r_item = ensure_round(b_rnd)
         byline = "Anonymous Informant" if b.get("anonymous") else b.get("player_name", "Villager")
-        r_item["day"]["bulletins"].append({
-            "byline": byline,
-            "message": b.get("message", ""),
-        })
+        r_item["day"]["bulletins"].append(
+            {
+                "byline": byline,
+                "message": b.get("message", ""),
+            }
+        )
 
     # Clean up hand_raises sets into sorted lists
     for r_item in rounds_data.values():
         if "hand_raises" in r_item["day"]:
             r_item["day"]["hand_raises"] = {
-                c: sorted(list(voters))
-                for c, voters in r_item["day"]["hand_raises"].items()
-                if voters
+                c: sorted(list(voters)) for c, voters in r_item["day"]["hand_raises"].items() if voters
             }
 
     # Linearize rounds into a smooth chronological sequence: Night 0, Day 0, Night 1, Day 1, ...
@@ -1861,11 +1864,7 @@ def set_player_status(
 
             r_info = get_role_info(role_id, theme)
             if level == 1:
-                align_str = (
-                    "GOOD"
-                    if faction == FACTION_TOWN
-                    else ("EVIL" if faction == FACTION_WOLVES else "NEUTRAL")
-                )
+                align_str = "GOOD" if faction == FACTION_TOWN else ("EVIL" if faction == FACTION_WOLVES else "NEUTRAL")
                 reveal_msg = f"Alignment: {align_str}"
             elif level == 2:
                 reveal_msg = f"Faction: {get_faction_display(faction, theme)}"
@@ -1898,14 +1897,22 @@ def set_player_status(
             )
             if is_pub_martyr:
                 m_target_id = player.get("martyrdom_target_id")
-                if m_target_id and m_target_id in state["players"] and state["players"][m_target_id].get("status") != "dead":
+                if (
+                    m_target_id
+                    and m_target_id in state["players"]
+                    and state["players"][m_target_id].get("status") != "dead"
+                ):
                     target_p = state["players"][m_target_id]
                     player["martyrdom_target_id"] = None
                     log_event(
                         state,
                         f"💣 Martyrdom! As {player['name']} fell, they dropped a live grenade, blowing up {target_p['name']}!",
                     )
-                    if state.get("night_report") is not None and state.get("phase") in ("night", "day_discussion", "day_voting"):
+                    if state.get("night_report") is not None and state.get("phase") in (
+                        "night",
+                        "day_discussion",
+                        "day_voting",
+                    ):
                         state.setdefault("night_report", []).append(
                             f"💣 Martyrdom! As {player['name']} fell, they dropped a live grenade, blowing up {target_p['name']}!"
                         )
@@ -1969,9 +1976,7 @@ def toggle_player_silence(state: dict[str, Any], player_id: str) -> tuple[bool, 
     return True, f"Player {player['name']} {status_str}."
 
 
-def set_martyrdom_target(
-    state: dict[str, Any], player_id: str, target_id: Optional[str]
-) -> tuple[bool, str]:
+def set_martyrdom_target(state: dict[str, Any], player_id: str, target_id: Optional[str]) -> tuple[bool, str]:
     """Prime or clear Martyrdom live grenade revenge target."""
     if player_id not in state.get("players", {}):
         return False, "Player not found."
@@ -2018,9 +2023,7 @@ def set_martyrdom_target(
         return True, "Martyrdom target cleared."
 
 
-def trigger_martyrdom_detonation(
-    state: dict[str, Any], martyr_id: str, victim_id: str
-) -> tuple[bool, str]:
+def trigger_martyrdom_detonation(state: dict[str, Any], martyr_id: str, victim_id: str) -> tuple[bool, str]:
     """Detonate Martyrdom's live grenade manually (e.g. if killed without a primed target)."""
     if martyr_id not in state.get("players", {}):
         return False, "Martyr not found."
@@ -2120,9 +2123,7 @@ def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id
         return False, msg
 
 
-def point_at_player(
-    state: dict[str, Any], source_id: str, target_id: Optional[str]
-) -> dict[str, Any]:
+def point_at_player(state: dict[str, Any], source_id: str, target_id: Optional[str]) -> dict[str, Any]:
     """Record or clear a real-time player pointing gesture."""
     points = state.setdefault("player_points", {})
     if not target_id:
@@ -2140,9 +2141,7 @@ def clear_all_player_points(state: dict[str, Any]) -> dict[str, Any]:
     return state
 
 
-def coroner_leak_to_gazette(
-    state: dict[str, Any], player_id: str, reveal_type: str = "alignment"
-) -> tuple[bool, str]:
+def coroner_leak_to_gazette(state: dict[str, Any], player_id: str, reveal_type: str = "alignment") -> tuple[bool, str]:
     """GM action to officially leak a deceased player's alignment or full role to the Town Gazette."""
     if player_id not in state.get("players", {}):
         return False, "Player not found."
@@ -2158,11 +2157,7 @@ def coroner_leak_to_gazette(
         msg_text = f"Coroner's Report: Autopsy confirms {player['name']} was {r_info['emoji']} {r_info['name']}."
     else:
         faction = player.get("faction", FACTION_TOWN)
-        align_str = (
-            "GOOD"
-            if faction == FACTION_TOWN
-            else ("EVIL" if faction == FACTION_WOLVES else "NEUTRAL")
-        )
+        align_str = "GOOD" if faction == FACTION_TOWN else ("EVIL" if faction == FACTION_WOLVES else "NEUTRAL")
         msg_text = f"Coroner's Report: Autopsy of {player['name']} confirms alignment: {align_str}."
 
     bulletins = state.setdefault("approved_news_bulletins", [])
@@ -2575,9 +2570,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         has_revive = revive_left > 0
         has_kill = kill_left > 0
         w_act = actions.get("witch_action", {})
-        revive_target = w_act.get("revive_target") or (
-            actions.get("wolf_target") if w_act.get("revive") else None
-        )
+        revive_target = w_act.get("revive_target") or (actions.get("wolf_target") if w_act.get("revive") else None)
         kill_target = w_act.get("kill_target")
         revive_name = players[revive_target]["name"] if revive_target in players else None
         kill_name = players[kill_target]["name"] if kill_target in players else None
@@ -2677,7 +2670,9 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
     # 15. Death Angel (can strike from living or Limbo)
     if is_role_in_game("death_angel"):
         death_angels = get_role_actors("death_angel")
-        can_act = any(da["status"] in ("alive", "limbo") for da in death_angels) and not state.get("death_angel_used", False)
+        can_act = any(da["status"] in ("alive", "limbo") for da in death_angels) and not state.get(
+            "death_angel_used", False
+        )
         da_target_id = actions.get("death_angel_target")
         stages.append(
             {
@@ -2712,17 +2707,12 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         )
 
     # 17. Hidden Martyrdom Revenge (Stealth Booby Trap)
-    is_hidden_martyrdom = (
-        state.get("settings", {}).get("martyrdom_type") == "hidden"
-        or not state.get("settings", {}).get("public_martyrdom", True)
-    )
+    is_hidden_martyrdom = state.get("settings", {}).get("martyrdom_type") == "hidden" or not state.get(
+        "settings", {}
+    ).get("public_martyrdom", True)
     if is_role_in_game("martyrdom") and is_hidden_martyrdom:
         martyr_actors = get_role_actors("martyrdom")
-        has_pending = any(
-            p.get("pending_hidden_martyrdom")
-            for p in players.values()
-            if p.get("role") == "martyrdom"
-        )
+        has_pending = any(p.get("pending_hidden_martyrdom") for p in players.values() if p.get("role") == "martyrdom")
         m_target_id = actions.get("martyrdom_target")
         stages.append(
             {
@@ -2746,7 +2736,12 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         vetoed_ids = state.get("mayor_vetoed_ids", [])
         can_cancel_vote = state.get("settings", {}).get("mayor_can_cancel_vote", True)
         was_lynched_yesterday = any(m["id"] == last_lynched_id for m in mayors)
-        has_veto = can_cancel_vote and (last_lynched_id is not None) and (last_lynched_id not in vetoed_ids) and (is_alive or was_lynched_yesterday)
+        has_veto = (
+            can_cancel_vote
+            and (last_lynched_id is not None)
+            and (last_lynched_id not in vetoed_ids)
+            and (is_alive or was_lynched_yesterday)
+        )
         last_lynched_name = players[last_lynched_id]["name"] if last_lynched_id in players else None
         if not can_cancel_vote:
             script = "Mayor, wake up! Look at me so I know who you are... Mayor, close your eyes."
@@ -2785,8 +2780,7 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "actors": limbo_souls,
                 "is_alive": True,
                 "limbo_players": [
-                    {"id": p["id"], "name": p["name"], "seat_number": p.get("seat_number", 0)}
-                    for p in limbo_souls
+                    {"id": p["id"], "name": p["name"], "seat_number": p.get("seat_number", 0)} for p in limbo_souls
                 ],
                 "script": (
                     "Call souls in Limbo one by one in secret. Ask: 'Do you wish to use your 1 guess "
@@ -3300,10 +3294,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             state["hacker_scanned_ids"] = list(scanned_ids)
             total_scanned = len(scanned_ids)
             evil_count = sum(
-                1
-                for pid in scanned_ids
-                if pid in state["players"]
-                and is_evil_faction_or_threat(state["players"][pid])
+                1 for pid in scanned_ids if pid in state["players"] and is_evil_faction_or_threat(state["players"][pid])
             )
             if evil_count == total_scanned and total_scanned > 0:
                 result_str = "All Evil"
@@ -3383,9 +3374,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         state["hacker_scanned_ids"] = list(scanned_ids)
         total_scanned = len(scanned_ids)
         evil_count = sum(
-            1
-            for pid in scanned_ids
-            if pid in state["players"] and is_evil_faction_or_threat(state["players"][pid])
+            1 for pid in scanned_ids if pid in state["players"] and is_evil_faction_or_threat(state["players"][pid])
         )
         if evil_count == total_scanned and total_scanned > 0:
             result_str = "All Evil"
@@ -3405,9 +3394,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         res = state.get("hacker_result", "Clean")
         evil_c = state.get("hacker_evil_count", 0)
         tot_c = state.get("hacker_total_count", len(state["hacker_scanned_ids"]))
-        report.append(
-            f"💻 Hacker Intel: Scanned suspects evaluated as '{res}' ({evil_c} of {tot_c} Evil)!"
-        )
+        report.append(f"💻 Hacker Intel: Scanned suspects evaluated as '{res}' ({evil_c} of {tot_c} Evil)!")
         log_event(state, f"💻 Hacker scan revealed: {res}")
         state["hacker_announced"] = True
         state["day1_no_voting"] = True
@@ -3495,7 +3482,9 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         if wolf_attack_2 == bg_target:
             to_save.add(bg_target)
             to_kill.add(bg_actor["id"])
-            log_event(state, f"🛡️ Bodyguard intercepted werewolf rampage attack on {state['players'][bg_target]['name']}!")
+            log_event(
+                state, f"🛡️ Bodyguard intercepted werewolf rampage attack on {state['players'][bg_target]['name']}!"
+            )
             wolf_attack_2 = None
         if sk_attack == bg_target:
             to_save.add(bg_target)
@@ -3582,12 +3571,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         None,
     )
     wh_target = actions.get("wolf_hunter_target")
-    if (
-        wh_actor
-        and wh_actor["id"] not in suppressed_pids
-        and wh_target
-        and wh_target in state["players"]
-    ):
+    if wh_actor and wh_actor["id"] not in suppressed_pids and wh_target and wh_target in state["players"]:
         t_player = state["players"][wh_target]
         if t_player.get("faction") == FACTION_WOLVES:
             if wh_target not in to_save:
@@ -3603,11 +3587,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
 
     # --- 9. Death Angel Strike (Targets soul in Limbo) ---
     da_actor = next(
-        (
-            p
-            for p in state["players"].values()
-            if p["role"] == "death_angel" and p["status"] in ("alive", "limbo")
-        ),
+        (p for p in state["players"].values() if p["role"] == "death_angel" and p["status"] in ("alive", "limbo")),
         None,
     )
     da_target = actions.get("death_angel_target")
@@ -3644,39 +3624,30 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
         # (She cannot self-heal if attacked tonight).
 
         # 1. Revival Potion: Only souls in Limbo (or saving another wolf attack victim)
-        revive_pid = witch_act.get("revive_target") or (
-            actions.get("wolf_target") if witch_act.get("revive") else None
-        )
+        revive_pid = witch_act.get("revive_target") or (actions.get("wolf_target") if witch_act.get("revive") else None)
         revive_left = state.get("witch_revive_potions_left", 0 if state.get("witch_used_revive", False) else 1)
         if revive_pid and revive_left > 0:
-            if (
-                revive_pid in state["players"]
-                and state["players"][revive_pid]["status"] == "limbo"
-            ):
+            if revive_pid in state["players"] and state["players"][revive_pid]["status"] == "limbo":
                 state["players"][revive_pid]["status"] = "alive"
                 state["players"][revive_pid]["used_limbo"] = False
                 state["witch_revive_potions_left"] = max(0, revive_left - 1)
-                state["witch_used_revive"] = (state["witch_revive_potions_left"] <= 0)
+                state["witch_used_revive"] = state["witch_revive_potions_left"] <= 0
                 p_name = state["players"][revive_pid]["name"]
                 log_event(
                     state,
                     f"🧙‍♀️ Witch used revival potion to restore {p_name} from Limbo back to life!",
                 )
-                report.append(
-                    f"✨ Witch used a mystical elixir to revive {p_name} from Limbo back to life!"
-                )
+                report.append(f"✨ Witch used a mystical elixir to revive {p_name} from Limbo back to life!")
             elif revive_pid in to_kill and revive_pid != witch_actor["id"]:
                 to_kill.remove(revive_pid)
                 state["witch_revive_potions_left"] = max(0, revive_left - 1)
-                state["witch_used_revive"] = (state["witch_revive_potions_left"] <= 0)
+                state["witch_used_revive"] = state["witch_revive_potions_left"] <= 0
                 p_name = state["players"][revive_pid]["name"]
                 log_event(
                     state,
                     f"🧙‍♀️ Witch used revival potion to save {p_name} from death tonight!",
                 )
-                report.append(
-                    f"✨ Witch used a mystical elixir to save {p_name} from death tonight!"
-                )
+                report.append(f"✨ Witch used a mystical elixir to save {p_name} from death tonight!")
 
         # 2. Poison Potion: Only living players
         kill_pid = witch_act.get("kill_target")
@@ -3685,14 +3656,13 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             if kill_pid in state["players"] and state["players"][kill_pid]["status"] == "alive":
                 to_kill.add(kill_pid)
                 state["witch_kill_potions_left"] = max(0, kill_left - 1)
-                state["witch_used_kill"] = (state["witch_kill_potions_left"] <= 0)
+                state["witch_used_kill"] = state["witch_kill_potions_left"] <= 0
                 p_name = state["players"][kill_pid]["name"]
                 log_event(state, f"🧙‍♀️ Witch used poison on {p_name}!")
 
     # --- 10b. Hidden Martyrdom Booby Trap Detonation ---
     has_pending_martyr = any(
-        p.get("role") == "martyrdom" and p.get("pending_hidden_martyrdom")
-        for p in state["players"].values()
+        p.get("role") == "martyrdom" and p.get("pending_hidden_martyrdom") for p in state["players"].values()
     )
     m_target = actions.get("martyrdom_target")
     if has_pending_martyr and m_target and m_target in state["players"]:
@@ -3702,7 +3672,9 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             log_event(state, f"💣 A hidden Martyrdom booby trap detonated on {t_player['name']}!")
             report.append(f"💣 An explosive booby trap detonated in the night! {t_player['name']} was slain.")
         else:
-            log_event(state, f"💣 A hidden Martyrdom booby trap detonated on {t_player['name']}, but they were protected!")
+            log_event(
+                state, f"💣 A hidden Martyrdom booby trap detonated on {t_player['name']}, but they were protected!"
+            )
 
     # --- 11. Silencer (Staggered Rule) ---
     silencer_actor = next(
@@ -3797,9 +3769,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
             (
                 s
                 for s in state["players"].values()
-                if s.get("inherited_from_name") == p["name"]
-                and s.get("status") == "alive"
-                and not s.get("lover_id")
+                if s.get("inherited_from_name") == p["name"] and s.get("status") == "alive" and not s.get("lover_id")
             ),
             None,
         )
@@ -4528,11 +4498,15 @@ def _do_tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
         if lover_id and lover_id in players and players[lover_id]["status"] == "alive":
             lover = players[lover_id]
             if lover.get("pending_heartbreak"):
-                lover_broken_heart_msg = f" (💔 {lover['name']} is stricken with grief and will succumb to heartbreak at dawn unless saved!)"
+                lover_broken_heart_msg = (
+                    f" (💔 {lover['name']} is stricken with grief and will succumb to heartbreak at dawn unless saved!)"
+                )
             elif lover.get("lover_id") != victim_id:
                 succ = players.get(lover.get("lover_id"))
                 succ_name = succ["name"] if succ else "the Successor"
-                lover_broken_heart_msg = f" (⏳ {succ_name} stepped in as Successor, saving {lover['name']} from heartbreak!)"
+                lover_broken_heart_msg = (
+                    f" (⏳ {succ_name} stepped in as Successor, saving {lover['name']} from heartbreak!)"
+                )
 
         msg = f"🪦 {victim['name']} received {max_votes} votes and was executed by town vote!{lover_broken_heart_msg}"
 
@@ -4659,7 +4633,9 @@ def get_voting_view(state: dict[str, Any], is_gm: bool = False, player_id: Optio
     if stage == "nomination":
         active_raised_ids = nom_votes.get(active_suspect_id, []) if active_suspect_id else []
     else:
-        active_raised_ids = [vid for vid, cid in final_votes.items() if cid == active_suspect_id] if active_suspect_id else []
+        active_raised_ids = (
+            [vid for vid, cid in final_votes.items() if cid == active_suspect_id] if active_suspect_id else []
+        )
     is_my_hand_raised = player_id in active_raised_ids if player_id else False
 
     my_vote = final_votes.get(player_id) if player_id else None
@@ -4690,8 +4666,14 @@ def get_voting_view(state: dict[str, Any], is_gm: bool = False, player_id: Optio
             "starter_name": state.get("players", {}).get(to.get("starter_id"), {}).get("name"),
             "direction": to.get("direction", "clockwise"),
             "active_suspect_id": active_suspect_id,
-            "active_suspect_name": state.get("players", {}).get(active_suspect_id, {}).get("name") if active_suspect_id else None,
-            "active_suspect_seat": next((p.get("seat_number", idx + 1) for idx, p in enumerate(ordered) if p["id"] == active_suspect_id), None) if active_suspect_id else None,
+            "active_suspect_name": state.get("players", {}).get(active_suspect_id, {}).get("name")
+            if active_suspect_id
+            else None,
+            "active_suspect_seat": next(
+                (p.get("seat_number", idx + 1) for idx, p in enumerate(ordered) if p["id"] == active_suspect_id), None
+            )
+            if active_suspect_id
+            else None,
             "turn_index": to.get("turn_index", 0),
             "turn_roster_count": len(to.get("turn_roster", [])),
             "hands_raised_ids": active_raised_ids,
@@ -4835,7 +4817,9 @@ def update_settings(state: dict[str, Any], updates: dict[str, Any]) -> dict[str,
 
     # Synchronize player attributes live based on new settings
     is_pub_mayor = state["settings"].get("mayor_type") == "public" or state["settings"].get("public_mayor", False)
-    is_pub_martyr = state["settings"].get("martyrdom_type") == "public" or state["settings"].get("public_martyrdom", True)
+    is_pub_martyr = state["settings"].get("martyrdom_type") == "public" or state["settings"].get(
+        "public_martyrdom", True
+    )
 
     danger_bullets = state["settings"].get("sniper_danger_bullets", 1)
     silver_bullets = state["settings"].get("sniper_silver_bullets", 0)
@@ -4856,11 +4840,11 @@ def update_settings(state: dict[str, Any], updates: dict[str, Any]) -> dict[str,
     if "witch_revive_potions" in updates or state.get("phase") == "lobby":
         revive_pots = state["settings"].get("witch_revive_potions", 1)
         state["witch_revive_potions_left"] = revive_pots
-        state["witch_used_revive"] = (revive_pots <= 0)
+        state["witch_used_revive"] = revive_pots <= 0
     if "witch_kill_potions" in updates or state.get("phase") == "lobby":
         kill_pots = state["settings"].get("witch_kill_potions", 1)
         state["witch_kill_potions_left"] = kill_pots
-        state["witch_used_kill"] = (kill_pots <= 0)
+        state["witch_used_kill"] = kill_pots <= 0
 
     # Sync timers if during lobby
     if state.get("phase") == "lobby" and "timer" in state:
@@ -4900,9 +4884,7 @@ def reset_settings_to_default(state: dict[str, Any]) -> dict[str, Any]:
 # --- Sanitized Views for Clients ---
 
 
-def get_sanitized_player_view(
-    state: dict[str, Any], player_id: str, lang: Optional[str] = "en"
-) -> dict[str, Any]:
+def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optional[str] = "en") -> dict[str, Any]:
     """Client view for a specific player: hides secret GM data and others' secret roles."""
     player = state["players"].get(player_id)
     if not player:
@@ -5043,9 +5025,7 @@ def get_sanitized_player_view(
         for m in raw_dms
         if m.get("sender_id") == player_id or m.get("recipient_id") == player_id
     ]
-    unread_dms_count = sum(
-        1 for m in my_dms if m.get("recipient_id") == player_id and not m.get("read", False)
-    )
+    unread_dms_count = sum(1 for m in my_dms if m.get("recipient_id") == player_id and not m.get("read", False))
 
     return {
         "code": state["code"],
@@ -5093,12 +5073,14 @@ def get_sanitized_player_view(
             "gull_converted": player.get("gull_converted", False),
             "pending_martyrdom": state.get("pending_martyrdom_player_id") == player_id,
             "pending_hidden_martyrdom": player.get("pending_hidden_martyrdom", False),
-            "is_public_martyrdom": player.get("role") == "martyrdom" and (
+            "is_public_martyrdom": player.get("role") == "martyrdom"
+            and (
                 player.get("is_public_martyrdom", False)
                 or state.get("settings", {}).get("martyrdom_type") == "public"
                 or state.get("settings", {}).get("public_martyrdom", True)
             ),
-            "is_public_mayor": player.get("role") == "mayor" and (
+            "is_public_mayor": player.get("role") == "mayor"
+            and (
                 player.get("is_public_mayor", False)
                 or state.get("settings", {}).get("mayor_type") == "public"
                 or state.get("settings", {}).get("public_mayor", False)
@@ -5184,12 +5166,14 @@ def get_gm_view(state: dict[str, Any], lang: Optional[str] = "en") -> dict[str, 
                 "death_angel_strikes": p.get("death_angel_strikes", 0),
                 "martyrdom_target_id": p.get("martyrdom_target_id"),
                 "gull_converted": p.get("gull_converted", False),
-                "is_public_mayor": p.get("role") == "mayor" and (
+                "is_public_mayor": p.get("role") == "mayor"
+                and (
                     p.get("is_public_mayor", False)
                     or state.get("settings", {}).get("mayor_type") == "public"
                     or state.get("settings", {}).get("public_mayor", False)
                 ),
-                "is_public_martyrdom": p.get("role") == "martyrdom" and (
+                "is_public_martyrdom": p.get("role") == "martyrdom"
+                and (
                     p.get("is_public_martyrdom", False)
                     or state.get("settings", {}).get("martyrdom_type") == "public"
                     or state.get("settings", {}).get("public_martyrdom", True)
@@ -5234,8 +5218,7 @@ def get_gm_view(state: dict[str, Any], lang: Optional[str] = "en") -> dict[str, 
         "settings": state.get("settings", {}),
         "settings_schema": get_settings_schema_view(),
         "settings_presets": {
-            k: {"name": p["name"], "description": p["description"]}
-            for k, p in SETTINGS_PRESETS.items()
+            k: {"name": p["name"], "description": p["description"]} for k, p in SETTINGS_PRESETS.items()
         },
         "winner": state.get("winner"),
         "pending_gameover": state.get("pending_gameover"),

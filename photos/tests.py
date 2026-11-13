@@ -191,4 +191,3 @@ class TestInstagramProcessing:
 
         assert bool(ext.instagram_image)
         assert ext.auto_crop_detected is True
-

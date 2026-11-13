@@ -56,9 +56,7 @@ def lupus_hub(request):
             "gm_name": (state.get("gm_name") if state else None) or r.creator or "Game Master",
             "player_count": len(state.get("players", {})) if state else 0,
             "living_count": (
-                sum(1 for p in state.get("players", {}).values() if p.get("status") == "alive")
-                if state
-                else 0
+                sum(1 for p in state.get("players", {}).values() if p.get("status") == "alive") if state else 0
             ),
             "phase": state.get("phase", "lobby") if state else "active",
             "round": state.get("round_number", 0) if state else 0,
@@ -74,7 +72,13 @@ def lupus_hub(request):
             room_info["status_label"] = _("Finished")
             room_info["status_badge"] = f"🏁 {_('Finished')}"
             room_info["status_color"] = "#64748b"
-        elif status == Room.STATUS_RUNNING or room_info["phase"] in ("night", "day_discussion", "day_defense", "day_voting", "limbo"):
+        elif status == Room.STATUS_RUNNING or room_info["phase"] in (
+            "night",
+            "day_discussion",
+            "day_defense",
+            "day_voting",
+            "limbo",
+        ):
             room_info["status_label"] = _("Running")
             room_info["status_badge"] = f"⚡ {_('Running')}"
             room_info["status_color"] = "#2563eb"

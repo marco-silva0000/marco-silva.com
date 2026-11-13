@@ -34,9 +34,7 @@ def _encode_multipart(fields: dict, files: list[tuple[str, str, bytes, str]]) ->
 
     for field_name, filename, file_bytes, content_type in files:
         body.extend(f"--{boundary}\r\n".encode("utf-8"))
-        body.extend(
-            f'Content-Disposition: form-data; name="{field_name}"; filename="{filename}"\r\n'.encode("utf-8")
-        )
+        body.extend(f'Content-Disposition: form-data; name="{field_name}"; filename="{filename}"\r\n'.encode("utf-8"))
         body.extend(f"Content-Type: {content_type}\r\n\r\n".encode("utf-8"))
         body.extend(file_bytes)
         body.extend(b"\r\n")
@@ -70,16 +68,19 @@ def dispatch_gallery_to_telegram(gallery: Gallery) -> tuple[bool, str]:
         ext = getattr(photo, "extension", None)
         if not ext or not ext.instagram_image:
             from .models import PhotoExtension
+
             ext, _ = PhotoExtension.objects.get_or_create(photo=photo)
             generate_instagram_crop(ext)
             ext.save()
 
         attach_key = f"photo_{idx}"
-        media_group.append({
-            "type": "photo",
-            "media": f"attach://{attach_key}",
-            "caption": caption if idx == 0 else "",
-        })
+        media_group.append(
+            {
+                "type": "photo",
+                "media": f"attach://{attach_key}",
+                "caption": caption if idx == 0 else "",
+            }
+        )
 
         ext.instagram_image.open("rb")
         img_bytes = ext.instagram_image.read()
@@ -95,10 +96,12 @@ def dispatch_gallery_to_telegram(gallery: Gallery) -> tuple[bool, str]:
     )
     qr_bytes = qr_buf.getvalue()
     qr_key = f"photo_{len(photos)}"
-    media_group.append({
-        "type": "photo",
-        "media": f"attach://{qr_key}",
-    })
+    media_group.append(
+        {
+            "type": "photo",
+            "media": f"attach://{qr_key}",
+        }
+    )
     files_to_send.append((qr_key, "qr_slide_4x5.jpg", qr_bytes, "image/jpeg"))
 
     # Dispatch to Telegram sendMediaGroup endpoint

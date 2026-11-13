@@ -10,7 +10,7 @@ import re
 
 from playwright.sync_api import Browser, Page, expect
 
-BASE = os.environ.get("PLAYWRIGHT_BASE_URL", "https://marco-silva.com")
+BASE = os.environ.get("PLAYWRIGHT_BASE_URL", "http://localhost:8000")
 
 
 def test_lupus_hub_renders(page: Page):

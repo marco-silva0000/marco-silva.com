@@ -5,7 +5,7 @@ import subprocess
 from pathlib import Path
 
 # Base version counter incremented across homelab deployments
-VERSION_COUNTER = 138
+VERSION_COUNTER = 139
 
 
 def get_git_commit_hash(base_dir: str = None) -> str:
@@ -42,11 +42,15 @@ def get_git_commit_hash(base_dir: str = None) -> str:
 
     # 2. Try git CLI if available
     try:
-        res = subprocess.check_output(
-            ["git", "rev-parse", "--short", "HEAD"],
-            cwd=base_dir,
-            stderr=subprocess.DEVNULL,
-        ).decode().strip()
+        res = (
+            subprocess.check_output(
+                ["git", "rev-parse", "--short", "HEAD"],
+                cwd=base_dir,
+                stderr=subprocess.DEVNULL,
+            )
+            .decode()
+            .strip()
+        )
         if res:
             return res[:7]
     except Exception:
@@ -72,11 +76,15 @@ def get_commit_count(base_dir: str = None) -> int:
         base_dir = str(Path(__file__).resolve().parent.parent)
 
     try:
-        res = subprocess.check_output(
-            ["git", "rev-list", "--count", "HEAD"],
-            cwd=base_dir,
-            stderr=subprocess.DEVNULL,
-        ).decode().strip()
+        res = (
+            subprocess.check_output(
+                ["git", "rev-list", "--count", "HEAD"],
+                cwd=base_dir,
+                stderr=subprocess.DEVNULL,
+            )
+            .decode()
+            .strip()
+        )
         if res and res.isdigit():
             return int(res)
     except Exception:

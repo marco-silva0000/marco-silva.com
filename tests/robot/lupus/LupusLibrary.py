@@ -87,9 +87,7 @@ class LupusLibrary:
     def wolves_attack_with_rampage(self, target_1_name: str, target_2_name: str) -> None:
         """Enraged werewolves attack two victims during cub rampage."""
         t2_id = self.sim.get_pid(target_2_name)
-        success, msg = self.sim.record_night_action(
-            "wolves", target_1_name, extra={"target_id_2": t2_id}
-        )
+        success, msg = self.sim.record_night_action("wolves", target_1_name, extra={"target_id_2": t2_id})
         if not success:
             raise AssertionError(f"Failed to record wolves rampage attack: {msg}")
 
@@ -98,6 +96,7 @@ class LupusLibrary:
         m_id = self.sim.get_pid(martyr_name)
         t_id = self.sim.get_pid(target_name)
         from lupus.game_state import set_martyrdom_target
+
         success, msg = set_martyrdom_target(self.sim.state, m_id, t_id)
         if not success:
             raise AssertionError(f"Failed to prime martyrdom target: {msg}")
@@ -111,6 +110,7 @@ class LupusLibrary:
     def night_stage_should_be_active(self, stage_id: str, expected_active: bool = True) -> None:
         """Assert whether a night stage is alive / active vs dead bluff pause."""
         from lupus.game_state import get_night_stages
+
         stages = get_night_stages(self.sim.state)
         stg = next((s for s in stages if s["id"] == stage_id), None)
         if not stg:
@@ -127,9 +127,7 @@ class LupusLibrary:
         player = self.sim.state["players"].get(pid, {})
         actual = player.get("faction")
         if actual != expected_faction:
-            raise AssertionError(
-                f"Expected {player_name} faction '{expected_faction}', got '{actual}'"
-            )
+            raise AssertionError(f"Expected {player_name} faction '{expected_faction}', got '{actual}'")
 
     def doctor_protects(self, target_name: str) -> None:
         """Doctor protects target player."""
@@ -151,9 +149,7 @@ class LupusLibrary:
 
     def sniper_shoots(self, target_name: str, bullet_type: str = "danger") -> None:
         """Sniper fires at target with specified bullet type ('danger' or 'silver')."""
-        success, msg = self.sim.record_night_action(
-            "sniper", target_name, extra={"bullet_type": bullet_type}
-        )
+        success, msg = self.sim.record_night_action("sniper", target_name, extra={"bullet_type": bullet_type})
         if not success:
             raise AssertionError(f"Failed to record sniper shot: {msg}")
 
@@ -256,35 +252,27 @@ class LupusLibrary:
         """Assert current status ('alive', 'limbo', 'dead') of player."""
         actual = self.sim.get_player_status(player_name)
         if actual != expected_status:
-            raise AssertionError(
-                f"Expected status of '{player_name}' to be '{expected_status}', but got '{actual}'"
-            )
+            raise AssertionError(f"Expected status of '{player_name}' to be '{expected_status}', but got '{actual}'")
 
     def player_role_should_be(self, player_name: str, expected_role: str) -> None:
         """Assert current role of player (e.g. after Successor inheritance)."""
         actual = self.sim.get_player_role(player_name)
         if actual != expected_role:
-            raise AssertionError(
-                f"Expected role of '{player_name}' to be '{expected_role}', but got '{actual}'"
-            )
+            raise AssertionError(f"Expected role of '{player_name}' to be '{expected_role}', but got '{actual}'")
 
     def winner_should_be(self, expected_winner: Optional[str]) -> None:
         """Assert game winner faction or role ('town', 'wolves', 'jester', 'serial_killer', or None)."""
         exp = None if str(expected_winner).lower() in ("none", "${none}", "") else expected_winner
         actual = self.sim.get_winner()
         if actual != exp:
-            raise AssertionError(
-                f"Expected winner to be '{exp}', but got '{actual}'"
-            )
+            raise AssertionError(f"Expected winner to be '{exp}', but got '{actual}'")
 
     def night_report_should_contain(self, substring: str) -> None:
         """Assert that dawn report contains the specified message snippet."""
         report = self.sim.get_night_report()
         found = any(substring.lower() in line.lower() for line in report)
         if not found:
-            raise AssertionError(
-                f"Night report did not contain '{substring}'. Full report:\n" + "\n".join(report)
-            )
+            raise AssertionError(f"Night report did not contain '{substring}'. Full report:\n" + "\n".join(report))
 
     def night_report_should_not_contain(self, substring: str) -> None:
         """Assert that dawn report does NOT contain the specified message snippet."""
@@ -305,30 +293,25 @@ class LupusLibrary:
         found = any(substring.lower() in e.get("message", "").lower() for e in events)
         if not found:
             all_msgs = [e.get("message", "") for e in events]
-            raise AssertionError(
-                f"Event log did not contain '{substring}'. Full events log:\n" + "\n".join(all_msgs)
-            )
+            raise AssertionError(f"Event log did not contain '{substring}'. Full events log:\n" + "\n".join(all_msgs))
 
     def detective_inspection_result_should_be(self, expected_result: str) -> None:
         """Assert Detective query result ('Good' or 'Evil')."""
         actual = self.sim.get_detective_result()
         if actual != expected_result:
-            raise AssertionError(
-                f"Expected Detective query result to be '{expected_result}', but got '{actual}'"
-            )
+            raise AssertionError(f"Expected Detective query result to be '{expected_result}', but got '{actual}'")
 
     def player_should_be_silenced(self, player_name: str, expected_silenced: bool = True) -> None:
         """Assert whether player is currently silenced for day discussions."""
         exp = str(expected_silenced).lower() in ("true", "1", "yes")
         actual = self.sim.is_player_silenced(player_name)
         if actual != exp:
-            raise AssertionError(
-                f"Expected player '{player_name}' silenced state to be '{exp}', but got '{actual}'"
-            )
+            raise AssertionError(f"Expected player '{player_name}' silenced state to be '{exp}', but got '{actual}'")
 
     def return_to_lobby(self) -> None:
         """Return room back to pre-game lobby and archive finished game."""
         import lupus.game_state as gs
+
         self.sim.state = gs.return_to_lobby(self.sim.state)
         self.sim.refresh_state()
 
@@ -336,9 +319,7 @@ class LupusLibrary:
         """Assert number of archived games in room history."""
         actual = len(self.sim.state.get("game_history", []))
         if actual != int(expected_count):
-            raise AssertionError(
-                f"Expected {expected_count} archived games, but got {actual}"
-            )
+            raise AssertionError(f"Expected {expected_count} archived games, but got {actual}")
 
     def assign_midgame_role(self, player_name: str, role_id: str) -> None:
         """Assign role to mid-game joiner or convert player to midgame role."""
@@ -351,21 +332,18 @@ class LupusLibrary:
         exp = None if str(expected_winner).lower() in ("none", "${none}", "") else expected_winner
         actual = self.sim.get_pending_gameover_winner()
         if actual != exp:
-            raise AssertionError(
-                f"Expected pending gameover winner to be '{exp}', but got '{actual}'"
-            )
+            raise AssertionError(f"Expected pending gameover winner to be '{exp}', but got '{actual}'")
 
     def pending_gameover_should_be_none(self) -> None:
         """Assert that pending_gameover is cleared / None."""
         actual = self.sim.get_pending_gameover_winner()
         if actual is not None:
-            raise AssertionError(
-                f"Expected pending gameover to be None, but got '{actual}'"
-            )
+            raise AssertionError(f"Expected pending gameover to be None, but got '{actual}'")
 
     def trigger_game_over(self, winner: Optional[str] = None) -> None:
         """GM explicitly triggers Game Over."""
         import lupus.game_state as gs
+
         w = None if str(winner).lower() in ("none", "${none}", "") else winner
         self.sim.state = gs.trigger_game_over(self.sim.state, winner=w)
         self.sim.refresh_state()
@@ -373,11 +351,10 @@ class LupusLibrary:
     def living_players_count_should_be(self, expected_count: int) -> None:
         """Assert count of currently alive players."""
         import lupus.game_state as gs
+
         actual = len(gs.get_living_players(self.sim.state))
         if actual != int(expected_count):
-            raise AssertionError(
-                f"Expected {expected_count} living players, but got {actual}"
-            )
+            raise AssertionError(f"Expected {expected_count} living players, but got {actual}")
 
     def pair_lovers(
         self,
@@ -387,6 +364,7 @@ class LupusLibrary:
     ) -> None:
         """Pair two players as Lovers (innocent or obsessive)."""
         import lupus.game_state as gs
+
         p1_id = self.sim.get_pid(lover_1_name)
         p2_id = self.sim.get_pid(lover_2_name)
         self.sim.state["players"][p1_id]["lover_id"] = p2_id
@@ -399,16 +377,16 @@ class LupusLibrary:
     def check_win_condition(self) -> Optional[str]:
         """Explicitly evaluate win condition on the current state."""
         import lupus.game_state as gs
+
         winner = gs.check_win_condition(self.sim.state)
         gs.save_game(self.sim.code, self.sim.state)
         self.sim.refresh_state()
         return winner
 
-    def player_view_role_name_should_be(
-        self, player_name: str, expected_name: str, lang: str = "en"
-    ) -> None:
+    def player_view_role_name_should_be(self, player_name: str, expected_name: str, lang: str = "en") -> None:
         """Verify that sanitized player view contains the localized role name."""
         import lupus.game_state as gs
+
         pid = self.sim.get_pid(player_name)
         view = gs.get_sanitized_player_view(self.sim.state, pid, lang=lang)
         actual_name = view.get("me", {}).get("role", {}).get("name")
@@ -422,6 +400,7 @@ class LupusLibrary:
     ) -> None:
         """Verify that sanitized player view contains the localized status display."""
         import lupus.game_state as gs
+
         pid = self.sim.get_pid(player_name)
         view = gs.get_sanitized_player_view(self.sim.state, pid, lang=lang)
         actual_status = view.get("me", {}).get("status_display")
@@ -435,6 +414,7 @@ class LupusLibrary:
     ) -> None:
         """Verify that sanitized player view contains the localized phase display."""
         import lupus.game_state as gs
+
         pid = self.sim.get_pid(player_name)
         view = gs.get_sanitized_player_view(self.sim.state, pid, lang=lang)
         actual_phase = view.get("phase_display")
@@ -448,6 +428,7 @@ class LupusLibrary:
     ) -> None:
         """Verify that sanitized player view contains the localized UI string."""
         import lupus.game_state as gs
+
         pid = self.sim.get_pid(player_name)
         view = gs.get_sanitized_player_view(self.sim.state, pid, lang=lang)
         actual_val = view.get("ui_strings", {}).get(key)
@@ -459,8 +440,10 @@ class LupusLibrary:
     def _ensure_django(self) -> None:
         """Ensure Django apps registry and test host settings are initialized."""
         import os
+
         import django
         from django.conf import settings
+
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings")
         if not django.apps.apps.ready:
             django.setup()
@@ -471,6 +454,7 @@ class LupusLibrary:
         """Verify that /games/ hub template renders expected localized text."""
         self._ensure_django()
         from django.test import Client
+
         c = Client()
         c.cookies["django_language"] = lang
         resp = c.get("/games/")
@@ -482,6 +466,7 @@ class LupusLibrary:
         """Verify that /games/lupus/ template renders expected localized text."""
         self._ensure_django()
         from django.test import Client
+
         c = Client()
         c.cookies["django_language"] = lang
         resp = c.get("/games/lupus/")
@@ -493,6 +478,7 @@ class LupusLibrary:
         """Verify that /games/lupus/create/ template renders expected localized text."""
         self._ensure_django()
         from django.test import Client
+
         c = Client()
         c.cookies["django_language"] = lang
         resp = c.get("/games/lupus/create/")

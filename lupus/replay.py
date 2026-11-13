@@ -65,8 +65,8 @@ def convert_to_robot(data: dict[str, Any], output_path: Optional[str] = None) ->
         "",
         "*** Test Cases ***",
         f"Replay Scenario For Room {code}",
-        f'    [Documentation]    Replayed from export with {len(history)} deterministic actions',
-        f'    Given A New Game    code={code}    theme={theme}',
+        f"    [Documentation]    Replayed from export with {len(history)} deterministic actions",
+        f"    Given A New Game    code={code}    theme={theme}",
     ]
 
     # Preassigned player setup
@@ -75,9 +75,9 @@ def convert_to_robot(data: dict[str, Any], output_path: Optional[str] = None) ->
         prole = p.get("role")
         is_pub_mayor = "${TRUE}" if p.get("is_public_mayor") else "${FALSE}"
         if prole:
-            lines.append(f'    And Player Joins As    {pname}    role={prole}    is_public_mayor={is_pub_mayor}')
+            lines.append(f"    And Player Joins As    {pname}    role={prole}    is_public_mayor={is_pub_mayor}")
         else:
-            lines.append(f'    And Player Joins As    {pname}')
+            lines.append(f"    And Player Joins As    {pname}")
 
     lines.append("    When Game Starts")
 
@@ -92,45 +92,45 @@ def convert_to_robot(data: dict[str, Any], output_path: Optional[str] = None) ->
             extra = payload.get("extra") or {}
 
             if stage == "wolves":
-                lines.append(f'    And Wolves Attack    {target_name}')
+                lines.append(f"    And Wolves Attack    {target_name}")
             elif stage == "doctor":
-                lines.append(f'    And Doctor Protects    {target_name}')
+                lines.append(f"    And Doctor Protects    {target_name}")
             elif stage == "bodyguard":
-                lines.append(f'    And Bodyguard Protects    {target_name}')
+                lines.append(f"    And Bodyguard Protects    {target_name}")
             elif stage == "detective":
-                lines.append(f'    And Detective Inspects    {target_name}')
+                lines.append(f"    And Detective Inspects    {target_name}")
             elif stage == "sniper":
                 bullet = extra.get("bullet", "danger")
-                lines.append(f'    And Sniper Shoots    {target_name}    bullet_type={bullet}')
+                lines.append(f"    And Sniper Shoots    {target_name}    bullet_type={bullet}")
             elif stage == "witch":
                 rev_id = extra.get("revive_id")
                 kill_id = extra.get("kill_id")
                 rev_name = id_to_name.get(rev_id, "${NONE}") if rev_id else "${NONE}"
                 kill_name = id_to_name.get(kill_id, "${NONE}") if kill_id else "${NONE}"
-                lines.append(f'    And Witch Revives And Kills    revive_target={rev_name}    kill_target={kill_name}')
+                lines.append(f"    And Witch Revives And Kills    revive_target={rev_name}    kill_target={kill_name}")
             elif stage == "death_angel":
-                lines.append(f'    And Death Angel Strikes    {target_name}')
+                lines.append(f"    And Death Angel Strikes    {target_name}")
             elif stage == "saboteur_wolf":
-                lines.append(f'    And Saboteur Blocks    {target_name}')
+                lines.append(f"    And Saboteur Blocks    {target_name}")
             elif stage == "disgruntled_ghost":
-                lines.append(f'    And Disgruntled Ghost Haunts    {target_name}')
+                lines.append(f"    And Disgruntled Ghost Haunts    {target_name}")
             elif stage == "mayor":
                 if extra.get("veto"):
-                    lines.append('    And Mayor Vetoes Execution')
+                    lines.append("    And Mayor Vetoes Execution")
 
         elif action == "resolve_night":
             lines.append("    And Night Resolves")
 
         elif action == "start_voting":
             v_sys = payload.get("system", "two_stage_50pct")
-            lines.append(f'    And Day Voting Begins    system={v_sys}')
+            lines.append(f"    And Day Voting Begins    system={v_sys}")
 
         elif action == "nomination_vote":
             voter_id = payload.get("voter_id")
             cand_id = payload.get("candidate_id")
             voter_name = id_to_name.get(voter_id, voter_id)
             cand_name = id_to_name.get(cand_id, cand_id)
-            lines.append(f'    And Player Nominates    {voter_name}    {cand_name}')
+            lines.append(f"    And Player Nominates    {voter_name}    {cand_name}")
 
         elif action == "proceed_to_final_vote":
             nominees = payload.get("nominees", [])
@@ -144,7 +144,7 @@ def convert_to_robot(data: dict[str, Any], output_path: Optional[str] = None) ->
             cand_id = payload.get("candidate_id")
             voter_name = id_to_name.get(voter_id, voter_id)
             cand_name = id_to_name.get(cand_id, cand_id) if cand_id else "${NONE}"
-            lines.append(f'    And Player Votes For    {voter_name}    {cand_name}')
+            lines.append(f"    And Player Votes For    {voter_name}    {cand_name}")
 
         elif action == "resolve_vote":
             lines.append("    And Final Vote Is Tallied")
@@ -157,7 +157,7 @@ def convert_to_robot(data: dict[str, Any], output_path: Optional[str] = None) ->
             target_id = payload.get("guessed_angel_id")
             p_name = id_to_name.get(player_id, player_id)
             t_name = id_to_name.get(target_id, target_id)
-            lines.append(f'    And Limbo Player Guesses Angel    {p_name}    {t_name}')
+            lines.append(f"    And Limbo Player Guesses Angel    {p_name}    {t_name}")
 
     lines.append("")
     lines.append("    # Final Assertions")
@@ -165,10 +165,10 @@ def convert_to_robot(data: dict[str, Any], output_path: Optional[str] = None) ->
         pname = p.get("name")
         status = p.get("status")
         if pname and status:
-            lines.append(f'    Then Player Status Should Be    {pname}    {status}')
+            lines.append(f"    Then Player Status Should Be    {pname}    {status}")
 
     if winner:
-        lines.append(f'    And Winner Should Be    {winner}')
+        lines.append(f"    And Winner Should Be    {winner}")
 
     robot_content = "\n".join(lines) + "\n"
 

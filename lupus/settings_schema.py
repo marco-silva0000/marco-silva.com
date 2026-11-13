@@ -190,7 +190,6 @@ LUPUS_SETTINGS_SCHEMA: dict[str, dict[str, Any]] = {
         ],
         "default": "public",
     },
-
     # ----------------------------------------------------
     # 2. TIMERS & PACING
     # ----------------------------------------------------
@@ -238,7 +237,6 @@ LUPUS_SETTINGS_SCHEMA: dict[str, dict[str, Any]] = {
         "max": 300,
         "step": 5,
     },
-
     # ----------------------------------------------------
     # 3. DAYTIME VOTING & TRIALS
     # ----------------------------------------------------
@@ -296,7 +294,6 @@ LUPUS_SETTINGS_SCHEMA: dict[str, dict[str, Any]] = {
         "type": "bool",
         "default": True,
     },
-
     # ----------------------------------------------------
     # 4. DEATH, LIMBO & REVEALS
     # ----------------------------------------------------
@@ -341,7 +338,6 @@ LUPUS_SETTINGS_SCHEMA: dict[str, dict[str, Any]] = {
         "type": "bool",
         "default": False,
     },
-
     # ----------------------------------------------------
     # 5. GAZETTE, SPIRITS & CHAT
     # ----------------------------------------------------
@@ -533,14 +529,13 @@ def get_settings_schema_view() -> list[dict[str, Any]]:
     grouped = []
     for cat in CATEGORIES:
         cat_id = cat["id"]
-        items = [
-            meta for k, meta in LUPUS_SETTINGS_SCHEMA.items()
-            if meta.get("category") == cat_id
-        ]
-        grouped.append({
-            "id": cat_id,
-            "name": cat["name"],
-            "emoji": cat["emoji"],
-            "items": items,
-        })
+        items = [meta for k, meta in LUPUS_SETTINGS_SCHEMA.items() if meta.get("category") == cat_id]
+        grouped.append(
+            {
+                "id": cat_id,
+                "name": cat["name"],
+                "emoji": cat["emoji"],
+                "items": items,
+            }
+        )
     return grouped
