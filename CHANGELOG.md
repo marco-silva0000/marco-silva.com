@@ -4,6 +4,13 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v142] - 2026-11-13
+
+### Changed
+- **Finalized Bengali & Belarusian Localization Batch and Updated Resume Reference**:
+  - Completed Bengali (`bn`, 97.9% coverage, 330/337 strings) and progressed Belarusian (`be`, 39.8% coverage, 134/337 strings) catalogs, synchronizing all 64 `.po` / `.mo` binary catalogs and alias directories.
+  - Updated `locale/TRANSLATION_RESUME.md` with the exact per-language completion table and resume commands.
+
 ## [v141] - 2026-11-13
 
 ### Added
