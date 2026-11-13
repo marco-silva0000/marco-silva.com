@@ -278,6 +278,35 @@ def add_player(
     return state, player, True
 
 
+def add_table_player(state: dict[str, Any], name: str) -> tuple[bool, str]:
+    """Allow the Host/Moderator to add a local oral/couch player in the lobby."""
+    if state.get("phase") != "lobby":
+        return False, "Oral/table players can only be added while in the lobby."
+    raw = " ".join(str(name or "").strip().split())[:28]
+    if not raw:
+        return False, "Enter a player name to add."
+
+    pid = f"p{state.get('next_player_seq', 1)}"
+    state["next_player_seq"] = state.get("next_player_seq", 1) + 1
+    clean_name = _unique_name(state, raw)
+
+    player = {
+        "id": pid,
+        "name": clean_name,
+        "token": uuid.uuid4().hex[:16],
+        "score": 0,
+        "is_admin": False,
+        "is_spectator": False,
+        "is_table_player": True,
+        "connected": True,
+        "channel_name": "",
+    }
+    state["players"][pid] = player
+    append_event(state, "System", f"🪑 {clean_name} was added as an oral/table player.", kind="join")
+    save_game(state["code"], state)
+    return True, f"Added oral player {clean_name}."
+
+
 def is_player_admin(state: dict[str, Any], player: Optional[dict[str, Any]]) -> bool:
     if not player:
         return False
@@ -369,8 +398,8 @@ def active_eligible_players(state: dict[str, Any]) -> list[dict[str, Any]]:
 def start_round(state: dict[str, Any], is_redraw: bool = False) -> tuple[bool, str]:
     """Deal a word pair and assign roles for a new round (or blind redraw)."""
     eligible = active_eligible_players(state)
-    if len(eligible) < 3:
-        return False, "At least 3 non-spectator players are required to start Word Impostor."
+    if len(eligible) < 2:
+        return False, "At least 2 non-spectator players are required to start Word Impostor."
 
     s = state["settings"]
     lang = state.get("language", "en")
@@ -491,36 +520,65 @@ def submit_clue(
     player_id: str,
     clue_text: str = "",
     spoken: bool = False,
+    target_player_id: Optional[str] = None,
 ) -> tuple[bool, str]:
-    """Record a clue turn (typed or spoken), enforcing citizen spoiler blocks & Lethal Poison checks."""
+    """Record a clue turn (typed or spoken, directly or by the Moderator for an oral speaker)."""
     if state.get("phase") != "clue":
         return False, "Not currently in the clue phase."
-    active_pid = current_turn_player_id(state)
-    if player_id != active_pid:
-        return False, "Wait for your turn to give a clue."
 
-    player = state["players"].get(player_id)
-    if not player:
+    players = state.get("players", {})
+    caller = players.get(player_id)
+    if not caller:
         return False, "Player not found."
+
+    caller_is_admin = is_player_admin(state, caller)
+    active_pid = current_turn_player_id(state)
+    participants = set(state.get("round_participants", []))
+    poisoned = set(state.get("poisoned_ids", []))
+
+    if caller_is_admin:
+        if target_player_id:
+            if target_player_id not in participants:
+                return False, "Selected speaker is not participating in this round."
+            speaker_id = target_player_id
+        else:
+            speaker_id = active_pid
+    else:
+        if player_id not in participants:
+            return False, "Only active round participants can submit clues."
+        speaker_id = player_id
+
+    if not speaker_id or speaker_id not in players or speaker_id not in participants:
+        return False, "Player not found in active round."
+    if speaker_id in poisoned:
+        return False, "Eliminated players cannot submit clues this round."
+
+    player = players[speaker_id]
+    by_mod = bool(caller_is_admin and speaker_id != player_id)
 
     pair = state.get("current_pair") or {}
     s = state["settings"]
-    n_participants = max(1, len(state.get("round_participants", [])))
+    n_participants = max(1, len(participants))
     loop_num = (state.get("turn_index", 0) // n_participants) + 1
 
     if spoken:
         entry = {
-            "player_id": player_id,
+            "player_id": speaker_id,
             "player_name": player["name"],
             "text": "🎙️ Spoke clue out loud",
             "spoken": True,
             "loop": loop_num,
             "is_lethal": False,
+            "by_mod": by_mod,
             "ts": time.time(),
         }
         state.setdefault("clues", []).append(entry)
-        append_event(state, player["name"], "🎙️ Gave clue out loud.", kind="clue", sender_id=player_id)
-        _advance_turn_or_vote(state)
+        mod_note = " (logged by Mod)" if by_mod else ""
+        append_event(state, player["name"], f"🎙️ Gave clue out loud.{mod_note}", kind="clue", sender_id=speaker_id)
+        if speaker_id == active_pid:
+            _advance_turn_or_vote(state)
+        else:
+            save_game(state["code"], state)
         return True, "Spoken clue recorded."
 
     cleaned = " ".join(str(clue_text or "").strip().split())[:80]
@@ -531,7 +589,7 @@ def submit_clue(
     if text_matches_term(cleaned, pair.get("citizen_matches", [])):
         return False, "🚫 That clue contains the secret Citizen word! Try an indirect clue."
     if state.get("settings", {}).get("poison_mode") in ("undercover_blind", "undercover_informed", "poisoned_citizen"):
-        if text_matches_term(cleaned, pair.get("poison_matches", [])) and player_id == state.get("impostor_id"):
+        if text_matches_term(cleaned, pair.get("poison_matches", [])) and speaker_id == state.get("impostor_id"):
             return False, "🚫 Careful — you cannot say your secret word verbatim!"
 
     # Check Lethal Taboo Poison Word trap!
@@ -542,18 +600,19 @@ def submit_clue(
     )
 
     entry = {
-        "player_id": player_id,
+        "player_id": speaker_id,
         "player_name": player["name"],
         "text": cleaned,
         "spoken": False,
         "loop": loop_num,
         "is_lethal": hit_lethal,
+        "by_mod": by_mod,
         "ts": time.time(),
     }
     state.setdefault("clues", []).append(entry)
 
     if hit_lethal:
-        state.setdefault("poisoned_ids", []).append(player_id)
+        state.setdefault("poisoned_ids", []).append(speaker_id)
         lethal_disp = pair.get("lethal_display") or pair.get("lethal_word")
         append_event(
             state,
@@ -562,7 +621,7 @@ def submit_clue(
             kind="poison",
         )
         # Check immediate round-end conditions
-        if player_id == state.get("impostor_id"):
+        if speaker_id == state.get("impostor_id"):
             _finalize_reveal(
                 state,
                 outcome="impostor_poisoned",
@@ -574,7 +633,8 @@ def submit_clue(
             for pid in state.get("round_participants", [])
             if pid != state.get("impostor_id") and pid not in state.get("poisoned_ids", [])
         ]
-        if len(remaining_citizens) < 2:
+        min_citizens = 2 if len(participants) >= 3 else 1
+        if len(remaining_citizens) < min_citizens:
             _finalize_reveal(
                 state,
                 outcome="impostor_win",
@@ -582,9 +642,13 @@ def submit_clue(
             )
             return True, "Lethal poison word triggered!"
     else:
-        append_event(state, player["name"], f'💬 Clue: "{cleaned}"', kind="clue", sender_id=player_id)
+        mod_note = " (logged by Mod)" if by_mod else ""
+        append_event(state, player["name"], f'💬 Clue: "{cleaned}"{mod_note}', kind="clue", sender_id=speaker_id)
 
-    _advance_turn_or_vote(state)
+    if speaker_id == active_pid:
+        _advance_turn_or_vote(state)
+    else:
+        save_game(state["code"], state)
     return True, "Clue submitted."
 
 
@@ -813,6 +877,7 @@ def player_list(state: dict[str, Any]) -> list[dict[str, Any]]:
                 "score": p.get("score", 0),
                 "is_admin": is_player_admin(state, p),
                 "is_spectator": bool(p.get("is_spectator", False)),
+                "is_table_player": bool(p.get("is_table_player", False)),
                 "is_turn": pid == active_pid,
                 "is_poisoned": pid in poisoned,
                 "is_director": pid == director_id,
@@ -977,6 +1042,17 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
 
     can_steal = bool(phase == "last_chance" and viewer_id and viewer_id == state.get("impostor_id"))
     can_vote = bool(phase == "voting" and viewer_id and viewer_id in eligible_voters(state))
+    poisoned_set = set(state.get("poisoned_ids", []))
+    players_map = state.get("players", {})
+    round_participant_list = [
+        {
+            "id": pid,
+            "name": players_map[pid]["name"],
+            "is_poisoned": pid in poisoned_set,
+        }
+        for pid in state.get("round_participants", [])
+        if pid in players_map
+    ]
 
     return {
         "type": "state",
@@ -992,6 +1068,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         "current_category": (state.get("current_pair") or {}).get("category") if phase != "lobby" else None,
         "current_player": state.get("players", {}).get(active_pid, {}).get("name") if active_pid else None,
         "current_player_id": active_pid,
+        "round_participant_list": round_participant_list,
         "clues_count": len(state.get("clues", [])),
         "clues": list(state.get("clues", [])),
         "custom_deck_count": len(state.get("custom_deck", [])),

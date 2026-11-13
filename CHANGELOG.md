@@ -4,6 +4,14 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v153] - 2026-11-14
+
+### Fixed & Added
+- **Word Impostor Always-Visible Clue Input & Moderator Oral Clue Recording (`impostor/`, `templates/impostor/game.html`)**:
+  - Fixed `#clue-input-box` hiding for the Moderator and non-turn players during the Clue phase; placed the box directly below the host toolbar so it remains visible throughout `clue` phase.
+  - Enabled the Moderator/Host (`is_admin`) to type and submit (or mark spoken) oral clues on behalf of any participating speaker via `#clue-speaker-select` (auto-defaulting to `current_player_id` on each turn advance, tagging entries with `"by_mod": True` / `logged by Mod`), while enforcing the Citizen anti-spoiler check and Lethal Taboo Poison Word elimination on that speaker.
+  - Added `add_table_player()` (`action: "add_table_player"`) so the Host can add local oral/couch players directly in the lobby (`🪑` badge) and lowered the minimum active-player threshold to 2+.
+
 ## [v152] - 2026-11-13
 
 ### Fixed & Changed

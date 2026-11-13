@@ -8,6 +8,7 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from .game_state import (
     add_custom_pair,
     add_player,
+    add_table_player,
     append_event,
     cast_vote,
     end_match,
@@ -116,6 +117,13 @@ class ImpostorConsumer(AsyncJsonWebsocketConsumer):
             if not ok:
                 return await self.send_error(msg)
             await self.broadcast_sync()
+        elif action == "add_table_player":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can add oral/table players.")
+            ok, msg = add_table_player(state, content.get("name", ""))
+            if not ok:
+                return await self.send_error(msg)
+            await self.broadcast_sync()
         elif action == "toggle_spectator":
             target_id = content.get("player_id") or self.player_id
             if target_id != self.player_id and not self._is_admin(state):
@@ -153,12 +161,23 @@ class ImpostorConsumer(AsyncJsonWebsocketConsumer):
                 return await self.send_error(msg)
             await self.broadcast_sync()
         elif action == "submit_clue":
-            ok, msg = submit_clue(state, self.player_id, clue_text=content.get("clue", ""), spoken=False)
+            ok, msg = submit_clue(
+                state,
+                self.player_id,
+                clue_text=content.get("clue", ""),
+                spoken=False,
+                target_player_id=content.get("target_player_id"),
+            )
             if not ok:
                 return await self.send_error(msg)
             await self.broadcast_sync()
         elif action == "spoken_clue":
-            ok, msg = submit_clue(state, self.player_id, spoken=True)
+            ok, msg = submit_clue(
+                state,
+                self.player_id,
+                spoken=True,
+                target_player_id=content.get("target_player_id"),
+            )
             if not ok:
                 return await self.send_error(msg)
             await self.broadcast_sync()

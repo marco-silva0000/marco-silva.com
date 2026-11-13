@@ -13,6 +13,7 @@ from impostor.game_state import (
     _fallback_store,
     add_custom_pair,
     add_player,
+    add_table_player,
     cast_vote,
     create_initial_state,
     get_sanitized_player_view,
@@ -327,5 +328,85 @@ class TestImpostorHttpAndWebsocket:
             await c1.disconnect()
             await c2.disconnect()
             await c3.disconnect()
+
+        async_to_sync(_run)()
+
+    def test_moderator_oral_clue_submission_and_table_players(self, db):
+        Room.objects.create(title="Couch Spy Night", code="IMPMOD01", game_type="impostor", language="en")
+
+        state = create_initial_state(code="IMPMOD01", title="Couch Spy Night", language="en")
+        state, gm, _ = add_player(state, "ModHost", is_admin=True)
+        ok, _ = add_table_player(state, "CouchBob")
+        assert ok is True
+        ok, _ = add_table_player(state, "CouchCarol")
+        assert ok is True
+        assert sum(1 for p in state["players"].values() if p.get("is_table_player")) == 2
+
+        add_custom_pair(state, gm, "Espresso", "Matcha", lethal_word="Caffeine", category="drink")
+        # 3 players total -> gm is NOT excluded as director so 3 participants play
+        ok, _ = start_round(state)
+        assert ok is True
+        assert len(state["round_participants"]) == 3
+
+        # Pick an active non-host speaker who is the impostor and make Mod log their lethal oral word
+        imp_id = state["impostor_id"]
+        other_pid = next(pid for pid in state["round_participants"] if pid != gm["id"] and pid != imp_id)
+        # First, Mod logs a normal oral clue for other_pid explicitly via target_player_id
+        ok, _ = submit_clue(state, gm["id"], clue_text="warm", target_player_id=other_pid)
+        assert ok is True
+        assert state["clues"][-1]["player_id"] == other_pid
+        assert state["clues"][-1]["by_mod"] is True
+
+        # Non-admin cannot submit on behalf of another player via target_player_id (always attributed to caller)
+        ok, _ = submit_clue(state, other_pid, clue_text="morning", target_player_id=imp_id)
+        assert ok is True
+        assert state["clues"][-1]["player_id"] == other_pid
+        assert state["clues"][-1]["by_mod"] is False
+
+        # Mod logs lethal word spoken orally by the Impostor -> eliminates the Impostor!
+        ok, msg = submit_clue(state, gm["id"], clue_text="caffeine", target_player_id=imp_id)
+        assert ok is True
+        assert "Impostor eliminated" in msg
+        assert state["phase"] == "reveal"
+        assert state["round_outcome"] == "impostor_poisoned"
+        assert imp_id in state["poisoned_ids"]
+
+    def test_websocket_mod_table_player_and_oral_clue(self, db):
+        Room.objects.create(title="WS Oral Room", code="IMPMODWS", game_type="impostor", language="en")
+
+        async def _run():
+            c1 = WebsocketCommunicator(application, "/ws/impostor/IMPMODWS/")
+            ok, _ = await c1.connect()
+            assert ok is True
+
+            await c1.send_json_to({"action": "join", "name": "GameMod"})
+
+            async def _recv_until(comm, predicate):
+                for _ in range(20):
+                    msg = await comm.receive_json_from(timeout=2)
+                    if predicate(msg):
+                        return msg
+                raise AssertionError("Timed out waiting for expected WebSocket state")
+
+            s = await _recv_until(c1, lambda m: m.get("me", {}).get("is_admin") is True)
+            mod_id = s["me"]["id"]
+
+            await c1.send_json_to({"action": "add_table_player", "name": "OralAlice"})
+            await c1.send_json_to({"action": "add_table_player", "name": "OralBob"})
+            s = await _recv_until(c1, lambda m: len(m.get("players", [])) == 3)
+
+            await c1.send_json_to({"action": "start_game"})
+            s = await _recv_until(c1, lambda m: m.get("phase") == "clue")
+            assert len(s.get("round_participant_list", [])) == 3
+
+            # Mod records oral text clue for current speaker (even when not Mod's turn)
+            non_mod = next(p for p in s["round_participant_list"] if p["id"] != mod_id)
+            await c1.send_json_to({"action": "submit_clue", "clue": "subtle", "target_player_id": non_mod["id"]})
+            s = await _recv_until(c1, lambda m: len(m.get("clues", [])) == 1)
+            assert s["clues"][0]["player_id"] == non_mod["id"]
+            assert s["clues"][0]["by_mod"] is True
+            assert s["clues"][0]["text"] == "subtle"
+
+            await c1.disconnect()
 
         async_to_sync(_run)()
