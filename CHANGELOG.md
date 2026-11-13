@@ -4,6 +4,13 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v156] - 2026-11-14
+
+### Changed
+- **Word Impostor Unified "Rounds (Clue Cycles)" Setting (1–10, Default 2) (`impostor/`, `templates/impostor/game.html`)**:
+  - Replaced the separate `"Clue Loops / Round"` (1–2) and `"Max Rounds"` (5-word cap) settings with a single **`Rounds (Clue Cycles)`** numeric setting (`1`–`10`, default **`2`** cycles around the table before voting), exposing `current_cycle` / `total_cycles` in `get_sanitized_player_view()`.
+  - Updated Reveal `➡️ Next Word` (`start_game` / `next_round` in `impostor/consumers.py`) so groups can keep dealing new words freely until the Host chooses `🛑 End Match`, and updated Clue / Status badges to show `Round X/Y`.
+
 ## [v155] - 2026-11-14
 
 ### Changed & Added

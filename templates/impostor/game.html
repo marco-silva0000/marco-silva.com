@@ -241,15 +241,8 @@
                 </select>
               </div>
               <div>
-                <label style="font-size:0.78rem; font-weight:600;">{% trans "Clue Loops / Round" %}</label>
-                <select id="set-clue-loops" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
-                  <option value="1">1 Clue per Player</option>
-                  <option value="2">2 Clues per Player</option>
-                </select>
-              </div>
-              <div>
-                <label style="font-size:0.78rem; font-weight:600;">{% trans "Max Rounds" %}</label>
-                <input type="number" id="set-max-rounds" min="1" max="20" value="5" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Rounds (Clue Cycles)" %}</label>
+                <input type="number" id="set-clue-loops" min="1" max="10" value="2" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
               </div>
               <div>
                 <label style="font-size:0.78rem; font-weight:600;">{% trans "Time Limit Preset" %}</label>
@@ -536,8 +529,7 @@ function saveSettings() {
     settings: {
       poison_mode: $('set-poison-mode').value,
       category: $('set-category').value,
-      clue_loops: parseInt($('set-clue-loops').value, 10) || 1,
-      max_rounds: parseInt($('set-max-rounds').value, 10) || 5,
+      clue_loops: Math.max(1, Math.min(10, parseInt($('set-clue-loops').value, 10) || 2)),
       turn_timer: parseTimerInput('set-turn-timer', 0),
       vote_timer: parseTimerInput('set-vote-timer', 0),
       steal_timer: parseTimerInput('set-steal-timer', 0),
@@ -639,10 +631,10 @@ function renderState() {
   const isAdmin = Boolean(me.is_admin);
   const phaseNames = {
     lobby: '⏳ Lobby',
-    clue: `🕵️ Clues (${s.round_num}/${s.max_rounds})`,
-    voting: `🗳️ Voting (${s.round_num}/${s.max_rounds})`,
+    clue: `🕵️ Clues (Round ${s.current_cycle || 1}/${s.total_cycles || 2})`,
+    voting: `🗳️ Table Vote (Word #${s.round_num})`,
     last_chance: '⚡ Last-Chance Steal',
-    reveal: `🎭 Reveal (${s.round_num}/${s.max_rounds})`,
+    reveal: `🎭 Reveal (Word #${s.round_num})`,
     gameover: '🏆 Game Over',
   };
   $('phase-badge').textContent = phaseNames[phase] || phase;
@@ -697,8 +689,7 @@ function renderState() {
   if (s.settings) {
     if ($('set-poison-mode')) $('set-poison-mode').value = s.settings.poison_mode || 'undercover_blind';
     if ($('set-category')) $('set-category').value = s.settings.category || 'all';
-    if ($('set-clue-loops')) $('set-clue-loops').value = String(s.settings.clue_loops || 1);
-    if ($('set-max-rounds')) $('set-max-rounds').value = String(s.settings.max_rounds || 5);
+    if ($('set-clue-loops')) $('set-clue-loops').value = String(s.settings.clue_loops || 2);
     const tTurn = Number(s.settings.turn_timer ?? 0);
     const tVote = Number(s.settings.vote_timer ?? 0);
     const tSteal = Number(s.settings.steal_timer ?? 0);
@@ -773,16 +764,17 @@ function renderState() {
   if (phase === 'lobby') {
     $('status-headline').textContent = `⏳ Lobby — ${(s.players || []).length} players ready (need 2+ to start, 3+ recommended)`;
   } else if (phase === 'clue') {
+    const cyc = `Round ${s.current_cycle || 1}/${s.total_cycles || 2}`;
     $('status-headline').textContent = me.is_turn
-      ? '🎙️ Your turn to drop a clue!'
-      : `⏳ Waiting for ${s.current_player || '?'}'s clue...`;
+      ? `🎙️ Your turn to drop a clue! (${cyc})`
+      : `⏳ Waiting for ${s.current_player || '?'}'s clue... (${cyc})`;
   } else if (phase === 'voting') {
     const votedCount = (s.players || []).filter(p => p.has_voted).length;
     $('status-headline').textContent = `🗳️ Discussion & Suspicion Vote (${votedCount} voted)`;
   } else if (phase === 'last_chance') {
     $('status-headline').textContent = '⚡ Caught Impostor attempting Last-Chance Steal!';
   } else if (phase === 'reveal') {
-    $('status-headline').textContent = `🎭 Round ${s.round_num}/${s.max_rounds} Reveal`;
+    $('status-headline').textContent = `🎭 Word #${s.round_num} Reveal`;
   } else {
     $('status-headline').textContent = '🏆 Final Match Standings';
   }
@@ -938,14 +930,14 @@ function renderState() {
     const stealStr = r.steal_guess ? `<div>⚡ <strong>Steal Guess:</strong> "${escapeHtml(r.steal_guess)}" (${r.steal_success ? 'SUCCESS!' : 'FAILED'})</div>` : '';
     $('reveal-votes-list').innerHTML = `${drunkStr}${stealStr}${voteStr ? `<div>🗳️ <strong>Votes:</strong> ${voteStr}</div>` : ''}`;
     $('btn-next-round').style.display = (isAdmin && phase === 'reveal') ? 'inline-flex' : 'none';
-    $('btn-next-round').textContent = (s.round_num >= s.max_rounds) ? '🏆 Finalize Match' : '➡️ Next Round';
+    $('btn-next-round').textContent = '➡️ Next Word';
     $('btn-play-again').style.display = (isAdmin && phase === 'gameover') ? 'inline-flex' : 'none';
   }
 
   // Clues Feed
   $('clues-feed').innerHTML = (s.clues || []).map(c => `
     <div class="imp-clue-row ${c.is_lethal ? 'lethal' : ''}">
-      <span><strong>${escapeHtml(c.player_name)}</strong> <span style="font-size:0.72rem;color:#64748b;">(L${c.loop})${c.by_mod ? ' · logged by Mod' : ''}</span></span>
+      <span><strong>${escapeHtml(c.player_name)}</strong> <span style="font-size:0.72rem;color:#64748b;">(Round ${c.loop})${c.by_mod ? ' · logged by Mod' : ''}</span></span>
       <span>${escapeHtml(c.text)}</span>
     </div>
   `).join('');

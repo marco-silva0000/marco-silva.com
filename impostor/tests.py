@@ -294,10 +294,10 @@ class TestImpostorHttpAndWebsocket:
             s3 = await _recv_until(c3, lambda m: m.get("phase") == "clue")
             assert s1["my_card"] is not None
 
-            # Play all spoken turns
+            # Play all spoken turns across default 2 clue cycles
             comms = {s1["me"]["id"]: c1, s2["me"]["id"]: c2, s3["me"]["id"]: c3}
             latest_map = {s1["me"]["id"]: s1, s2["me"]["id"]: s2, s3["me"]["id"]: s3}
-            for step in range(5):
+            for step in range(10):
                 cur_state = next(iter(latest_map.values()))
                 if cur_state["phase"] != "clue":
                     break
@@ -421,6 +421,7 @@ class TestImpostorHttpAndWebsocket:
         assert DEFAULT_SETTINGS["turn_timer"] == 0
         assert DEFAULT_SETTINGS["vote_timer"] == 0
         assert DEFAULT_SETTINGS["steal_timer"] == 0
+        assert DEFAULT_SETTINGS["clue_loops"] == 2
         assert DEFAULT_SETTINGS["enable_steal"] is True
 
         state = create_initial_state(code="IMPNTM", title="Casual Couch")
@@ -428,7 +429,9 @@ class TestImpostorHttpAndWebsocket:
         add_table_player(state, "TableBob")
         add_table_player(state, "TableCarol")
 
+        update_settings(state, {"clue_loops": 3})
         start_round(state)
+        assert len(state["turn_order"]) == 3 * len(state["round_participants"])
         assert state["timer_duration"] == 0
         assert state["timer_ends_at"] is None
 

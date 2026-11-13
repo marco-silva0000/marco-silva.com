@@ -142,11 +142,6 @@ class ImpostorConsumer(AsyncJsonWebsocketConsumer):
         elif action in ("start_game", "next_round"):
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can start or advance rounds.")
-            max_rounds = int(state["settings"].get("max_rounds", 5))
-            if state.get("phase") == "reveal" and state.get("round_num", 0) >= max_rounds:
-                end_match(state, by_name=self.player_name or "Host")
-                await self.broadcast_sync()
-                return
             ok, msg = start_round(state, is_redraw=False)
             if not ok:
                 return await self.send_error(msg)

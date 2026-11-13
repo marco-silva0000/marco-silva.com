@@ -34,7 +34,7 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "poison_mode": "undercover_blind",
     "enable_lethal_word": True,
     "enable_steal": True,
-    "clue_loops": 1,
+    "clue_loops": 2,
     "turn_timer": 0,
     "vote_timer": 0,
     "steal_timer": 0,
@@ -344,8 +344,9 @@ def update_settings(state: dict[str, Any], patch: dict[str, Any]) -> dict[str, A
         s["enable_lethal_word"] = bool(patch["enable_lethal_word"])
     if "enable_steal" in patch:
         s["enable_steal"] = bool(patch["enable_steal"])
-    if "clue_loops" in patch:
-        s["clue_loops"] = 2 if int(patch["clue_loops"] or 1) >= 2 else 1
+    if "clue_loops" in patch or "rounds" in patch:
+        raw_cycles = patch.get("clue_loops", patch.get("rounds", 2))
+        s["clue_loops"] = max(1, min(10, int(raw_cycles or 2)))
     if "turn_timer" in patch:
         val = patch["turn_timer"]
         s["turn_timer"] = max(0, min(300, int(0 if val is None or val == "" else val)))
@@ -1068,6 +1069,9 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         }
 
     voters = eligible_voters(state)
+    n_part = max(1, len(state.get("round_participants", [])))
+    total_cycles = int(state.get("settings", DEFAULT_SETTINGS).get("clue_loops", 2))
+    current_cycle = min(total_cycles, (state.get("turn_index", 0) // n_part) + 1)
     can_steal = bool(phase == "last_chance" and viewer_id and viewer_id == state.get("impostor_id"))
     can_vote = bool(phase == "voting" and viewer_id and viewer_id in voters)
     poisoned_set = set(state.get("poisoned_ids", []))
@@ -1093,6 +1097,8 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         "started": bool(state.get("started")),
         "round_num": state.get("round_num", 0),
         "max_rounds": state.get("settings", DEFAULT_SETTINGS).get("max_rounds", 5),
+        "current_cycle": current_cycle,
+        "total_cycles": total_cycles,
         "current_category": (state.get("current_pair") or {}).get("category") if phase != "lobby" else None,
         "current_player": state.get("players", {}).get(active_pid, {}).get("name") if active_pid else None,
         "current_player_id": active_pid,
