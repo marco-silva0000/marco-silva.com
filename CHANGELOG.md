@@ -4,6 +4,13 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v144] - 2026-11-13
+
+### Fixed
+- **Playwright `test_room_list_page` Case-Sensitivity Assertion & CI Annotation Filter**:
+  - Updated `test_room_list_page` in `tests/playwright/test_gamerooms.py` to pass `ignore_case=True` when checking `<h1>Game Rooms</h1>` (`expect(page.locator("h1")).to_contain_text("game rooms", ignore_case=True)`).
+  - Updated `.github/workflows/ci.yml` Playwright failure reporter to filter `FAILED|ERROR|AssertionError` lines so GitHub's 10-annotation limit always surfaces exact test assertions rather than pytest header lines.
+
 ## [v143] - 2026-11-13
 
 ### Fixed

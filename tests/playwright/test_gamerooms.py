@@ -9,7 +9,7 @@ BASE = "http://localhost:8000"
 
 def test_room_list_page(page: Page):
     page.goto(f"{BASE}/games/")
-    expect(page.locator("h1")).to_contain_text("game rooms")
+    expect(page.locator("h1")).to_contain_text("game rooms", ignore_case=True)
     expect(page.get_by_text("create room")).to_be_visible()
 
 
