@@ -72,9 +72,8 @@ class EmojinaryConsumer(RoundRobinMixin, BestGuessMixin, AsyncJsonWebsocketConsu
         if not self.player_id or self.player_id not in state.get("players", {}):
             return False
         p = state["players"][self.player_id]
-        return bool(
-            p.get("is_admin") or p.get("name") == state.get("creator") or self.player_id == state.get("creator_id")
-        )
+        # Authorize by persistent identity only (never by display name, which is user-controlled)
+        return bool(p.get("is_admin") or self.player_id == state.get("creator_id"))
 
     async def broadcast_sync(self):
         """Instruct all connected clients in the room to re-render their sanitized perspective."""

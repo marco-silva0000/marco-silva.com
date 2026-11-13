@@ -41,7 +41,7 @@ class RoundRobinMixin:
             await self._rr_add_hint(state, content)
         elif action == "reroll":
             await self._rr_reroll(state)
-        elif action == "custom_word":
+        elif action in ("custom_word", "set_custom_word"):
             await self._rr_set_custom_word(state, content)
         elif action == "guess":
             await self._rr_guess(state, content)
@@ -512,7 +512,7 @@ class RoundRobinMixin:
         if state.get("phase") != "prep":
             return
         q = state.get("collective_queue", {}).get(self.player_id)
-        if not q:
+        if not q or q.get("submitted"):
             return
         if content and content.get("emoji"):
             q["emoji_clue"] = content["emoji"].strip()

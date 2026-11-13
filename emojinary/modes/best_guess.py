@@ -105,8 +105,10 @@ class BestGuessMixin:
         if state.get("phase") != "picking" or (self.player_id != cp and not self._is_player_admin(state)):
             return
         custom = (content.get("prompt") or content.get("word") or "").strip()[:100]
-        # Clean accidental button text if sent by legacy JS
-        for suffix in ("🎲 reroll", "✅ send"):
+        # Clean accidental prefix or button text if sent by legacy JS
+        if custom.lower().startswith("your word:"):
+            custom = custom[len("your word:") :].strip()
+        for suffix in ("🎲 reroll", "✅ send", "✅ Use Prompt"):
             custom = custom.replace(suffix, "").strip()
         if custom:
             state["current_word"] = custom

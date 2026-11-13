@@ -78,6 +78,7 @@ jobs:
 
       # Robot Framework tests
       - run: uv run robot --outputdir /tmp/robot-output tests/robot/planz.robot
+      - run: uv run robot --outputdir /tmp/robot-emojinary tests/robot/emojinary/suites/
 
       # Playwright tests
       - name: Install Playwright and dependencies

@@ -321,10 +321,11 @@ def add_player(
         save_game(state["code"], state)
         return state, existing, False
 
-    # 2. Check if a player with this exact name exists and has no active token mismatch
-    # (supports seamless reconnect from legacy /<code>/<name>/ URLs or browser refreshes)
+    # 2. Legacy reconnect by name ONLY for pre-revamp player records that never had a token.
+    # Token-owning players can only be reclaimed with their secret token; otherwise anyone
+    # typing the same display name could hijack that seat, score, and host rights.
     by_name = find_player_by_name(state, clean_name)
-    if by_name and (not token or by_name.get("token") == token):
+    if by_name and not by_name.get("token"):
         pid = by_name["id"]
         by_name["connected"] = True
         if channel_name:
@@ -953,6 +954,7 @@ def export_game_replay(state: dict[str, Any]) -> dict[str, Any]:
         "round_num": state.get("round_num", 0),
         "settings": state.get("settings", {}),
         "players": players_summary,
+        "leaderboard": players_summary,
         "rounds_history": state.get("rounds_history", []),
         "chat_log": [
             {k: v for k, v in e.items() if k not in ("private_to", "masked_text")} for e in state.get("chat_log", [])
