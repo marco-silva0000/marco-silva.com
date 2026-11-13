@@ -14,8 +14,8 @@ jobs:
   lint:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/ruff-action@v3
+      - uses: actions/checkout@v7
+      - uses: astral-sh/ruff-action@v4.1.0
 
   test:
     runs-on: ubuntu-24.04
@@ -56,8 +56,8 @@ jobs:
       CELERY_BROKER_URL: redis://localhost:6379/0
       CELERY_TASK_ALWAYS_EAGER: "true"
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
         with:
           python-version: "3.13"
           enable-cache: false
@@ -71,8 +71,10 @@ jobs:
       # Start Django for integration tests
       - run: uv run python manage.py migrate --noinput
       - run: uv run python manage.py seed_emojinary
-      - run: uv run daphne -b 0.0.0.0 -p 8000 website.asgi:application &
-      - run: sleep 3
+      - run: |
+          uv run daphne -b 0.0.0.0 -p 8000 website.asgi:application &
+          echo $! > /tmp/daphne.pid
+          sleep 3
 
       # Robot Framework tests
       - run: uv run robot --outputdir /tmp/robot-output tests/robot/planz.robot
@@ -98,6 +100,15 @@ jobs:
             done
             exit 1
           }
+      - name: Stop Daphne background server
+        if: always()
+        run: |
+          pkill -f "daphne" 2>/dev/null || true
+          for i in $(seq 1 10); do
+            pgrep -f "daphne" >/dev/null || break
+            sleep 0.5
+          done
+          pkill -9 -f "daphne" 2>/dev/null || true
 
   build:
     runs-on: ubuntu-24.04
@@ -107,13 +118,13 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: docker/login-action@v3
+      - uses: actions/checkout@v7
+      - uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: docker/build-push-action@v6
+      - uses: docker/build-push-action@v7
         with:
           context: .
           file: Containerfile

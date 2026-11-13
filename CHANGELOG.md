@@ -4,6 +4,15 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v145] - 2026-11-13
+
+### Changed
+- **Django 6.0, Wagtail 8.1 & Full Dependency Stack Upgrade**:
+  - Upgraded project dependencies in `pyproject.toml` and `uv.lock` to latest upstream releases, including `django` (`5.1.7` → `6.0.10`), `wagtail` (`6.4.1` → `8.1`), `wagtail-markdown` (`0.12.1` → `0.15.0`), `celery` (`5.4.0` → `5.7.0`), `channels` (`4.2.0` → `4.3.2`), `channels-redis` (`4.2.1` → `4.3.0`), `daphne` (`4.1.2` → `4.2.3`), `django-celery-beat` (`2.7.0` → `2.9.0`), `django-celery-results` (`2.5.1` → `2.6.0`), `django-htmx` (`1.23.0` → `1.29.0`), `django-photologue` (`3.18` → `3.20`), `pillow` (`11.1.0` → `13.0.0`), `playwright` (`1.51.0` → `1.65.1`), `pytest` (`8.3.5` → `9.2.0`), `ruff` (`0.11.2` → `0.17.5`), `google-genai` (`1.68.0` → `3.3.0`), `pydantic` (`2.12.5` → `2.14.3`), and `redis` (`5.2.1` → `8.1.0`).
+- **GitHub Actions Node 24 Upgrade & Orphan Process Cleanup**:
+  - Upgraded all workflow actions in `.github/workflows/ci.yml` (`actions/checkout@v7`, `astral-sh/ruff-action@v4.1.0`, `astral-sh/setup-uv@v10.3.3`, `docker/login-action@v4`, `docker/build-push-action@v7`) to native Node.js 24 versions, eliminating the Node.js 20 deprecation warnings.
+  - Added a `Stop Daphne background server` cleanup step (`if: always()`) in `.github/workflows/ci.yml` to cleanly terminate the background Daphne process before job teardown and eliminate the `Cleaning up orphan processes` runner warning.
+
 ## [v144] - 2026-11-13
 
 ### Fixed
