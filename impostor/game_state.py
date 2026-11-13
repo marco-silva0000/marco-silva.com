@@ -33,10 +33,11 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "max_rounds": 5,
     "poison_mode": "undercover_blind",
     "enable_lethal_word": True,
+    "enable_steal": True,
     "clue_loops": 1,
-    "turn_timer": 45,
-    "vote_timer": 30,
-    "steal_timer": 15,
+    "turn_timer": 0,
+    "vote_timer": 0,
+    "steal_timer": 0,
     "category": "all",
     "allow_custom_deck": True,
 }
@@ -341,14 +342,19 @@ def update_settings(state: dict[str, Any], patch: dict[str, Any]) -> dict[str, A
         s["poison_mode"] = patch["poison_mode"]
     if "enable_lethal_word" in patch:
         s["enable_lethal_word"] = bool(patch["enable_lethal_word"])
+    if "enable_steal" in patch:
+        s["enable_steal"] = bool(patch["enable_steal"])
     if "clue_loops" in patch:
         s["clue_loops"] = 2 if int(patch["clue_loops"] or 1) >= 2 else 1
     if "turn_timer" in patch:
-        s["turn_timer"] = max(0, min(300, int(patch["turn_timer"] or 45)))
+        val = patch["turn_timer"]
+        s["turn_timer"] = max(0, min(300, int(0 if val is None or val == "" else val)))
     if "vote_timer" in patch:
-        s["vote_timer"] = max(10, min(180, int(patch["vote_timer"] or 30)))
+        val = patch["vote_timer"]
+        s["vote_timer"] = max(0, min(180, int(0 if val is None or val == "" else val)))
     if "steal_timer" in patch:
-        s["steal_timer"] = max(0, min(60, int(patch["steal_timer"] or 15)))
+        val = patch["steal_timer"]
+        s["steal_timer"] = max(0, min(60, int(0 if val is None or val == "" else val)))
     if "max_rounds" in patch:
         s["max_rounds"] = max(1, min(20, int(patch["max_rounds"] or 5)))
     if "category" in patch and str(patch["category"]).lower() in CATEGORIES:
@@ -678,21 +684,40 @@ def eligible_voters(state: dict[str, Any]) -> list[str]:
     return [pid for pid in state.get("round_participants", []) if pid in players and pid not in poisoned]
 
 
-def cast_vote(state: dict[str, Any], voter_id: str, target_id: str) -> tuple[bool, str]:
+def cast_vote(
+    state: dict[str, Any],
+    voter_id: str,
+    target_id: str,
+    on_behalf_of: Optional[str] = None,
+    auto_tally: bool = True,
+) -> tuple[bool, str]:
+    """Record a vote directly from a player or assigned on someone's behalf by the Moderator."""
     if state.get("phase") != "voting":
         return False, "Voting is not open right now."
+
+    players = state.get("players", {})
+    caller = players.get(voter_id)
+    caller_is_admin = is_player_admin(state, caller)
+    effective_voter = str(on_behalf_of) if (caller_is_admin and on_behalf_of) else voter_id
+
     voters = eligible_voters(state)
-    if voter_id not in voters:
+    if effective_voter not in voters:
+        if caller_is_admin and on_behalf_of:
+            return False, "Selected voter is not eligible to vote this round."
         return False, "You are not eligible to vote this round."
     if target_id not in voters:
         return False, "Invalid vote target."
-    if target_id == voter_id:
+    if target_id == effective_voter:
         return False, "You cannot vote for yourself."
 
-    state.setdefault("votes", {})[voter_id] = target_id
+    state.setdefault("votes", {})[effective_voter] = target_id
+    voter_name = players[effective_voter]["name"]
+    target_name = players[target_id]["name"]
+    mod_note = " (set by Mod)" if (caller_is_admin and effective_voter != voter_id) else ""
+    append_event(state, "System", f"🗳️ {voter_name} pointed at {target_name}.{mod_note}", kind="vote")
     save_game(state["code"], state)
 
-    if len(state["votes"]) >= len(voters):
+    if auto_tally and len(state["votes"]) >= len(voters):
         resolve_voting(state)
     return True, "Vote recorded."
 
@@ -734,14 +759,16 @@ def resolve_voting(state: dict[str, Any]) -> None:
     ejected_name = state["players"].get(ejected_id, {}).get("name", "?")
 
     if ejected_id == state.get("impostor_id"):
-        steal_sec = int(state["settings"].get("steal_timer", 15))
-        if steal_sec > 0:
+        steal_enabled = bool(state["settings"].get("enable_steal", True))
+        steal_sec = int(state["settings"].get("steal_timer", 0))
+        if steal_enabled:
             state["phase"] = "last_chance"
             set_phase_timer(state, steal_sec)
+            timer_note = f"{steal_sec}s" if steal_sec > 0 else "untimed"
             append_event(
                 state,
                 "System",
-                f"⚡ {ejected_name} IS the Impostor! Last-Chance Steal: {ejected_name} has {steal_sec}s to guess the Citizen Word!",
+                f"⚡ {ejected_name} IS the Impostor! Last-Chance Steal ({timer_note}): {ejected_name} gets one guess at the Citizen Word!",
             )
             save_game(state["code"], state)
             return
@@ -1040,8 +1067,9 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
             },
         }
 
+    voters = eligible_voters(state)
     can_steal = bool(phase == "last_chance" and viewer_id and viewer_id == state.get("impostor_id"))
-    can_vote = bool(phase == "voting" and viewer_id and viewer_id in eligible_voters(state))
+    can_vote = bool(phase == "voting" and viewer_id and viewer_id in voters)
     poisoned_set = set(state.get("poisoned_ids", []))
     players_map = state.get("players", {})
     round_participant_list = [
@@ -1074,6 +1102,8 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         "custom_deck_count": len(state.get("custom_deck", [])),
         "can_blind_redraw": bool(phase == "clue" and len(state.get("clues", [])) == 0),
         "can_vote": can_vote,
+        "votes": dict(state.get("votes", {})),
+        "eligible_voter_ids": voters,
         "my_vote": state.get("votes", {}).get(viewer_id) if viewer_id else None,
         "can_steal": can_steal,
         "my_card": _build_player_card(state, viewer_id),

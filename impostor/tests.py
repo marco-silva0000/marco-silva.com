@@ -10,6 +10,7 @@ from django.urls import reverse
 
 from gamerooms.models import Room
 from impostor.game_state import (
+    DEFAULT_SETTINGS,
     _fallback_store,
     add_custom_pair,
     add_player,
@@ -18,6 +19,7 @@ from impostor.game_state import (
     create_initial_state,
     get_sanitized_player_view,
     start_round,
+    start_voting_phase,
     submit_clue,
     submit_steal_guess,
     update_settings,
@@ -410,6 +412,89 @@ class TestImpostorHttpAndWebsocket:
             assert s["clues"][0]["player_id"] == non_mod["id"]
             assert s["clues"][0]["by_mod"] is True
             assert s["clues"][0]["text"] == "subtle"
+
+            await c1.disconnect()
+
+        async_to_sync(_run)()
+
+    def test_untimed_default_settings_and_moderator_table_votes(self, db):
+        assert DEFAULT_SETTINGS["turn_timer"] == 0
+        assert DEFAULT_SETTINGS["vote_timer"] == 0
+        assert DEFAULT_SETTINGS["steal_timer"] == 0
+        assert DEFAULT_SETTINGS["enable_steal"] is True
+
+        state = create_initial_state(code="IMPNTM", title="Casual Couch")
+        state, gm, _ = add_player(state, "ModHost", is_admin=True)
+        add_table_player(state, "TableBob")
+        add_table_player(state, "TableCarol")
+
+        start_round(state)
+        assert state["timer_duration"] == 0
+        assert state["timer_ends_at"] is None
+
+        # Open voting manually (untimed)
+        start_voting_phase(state)
+        assert state["phase"] == "voting"
+        assert state["timer_duration"] == 0
+
+        imp_id = state["impostor_id"]
+        non_imps = [pid for pid in state["round_participants"] if pid != imp_id]
+        other_voter = non_imps[0]
+
+        # Non-admin cannot forge another voter's ballot via on_behalf_of
+        ok, _ = cast_vote(state, other_voter, non_imps[1], on_behalf_of=imp_id, auto_tally=False)
+        assert ok is True
+        assert state["votes"].get(other_voter) == non_imps[1]
+        assert imp_id not in state["votes"]
+
+        # Moderator assigns votes on behalf of table players to eject Impostor
+        ok, _ = cast_vote(state, gm["id"], imp_id, on_behalf_of=non_imps[0], auto_tally=False)
+        assert ok is True
+        ok, _ = cast_vote(state, gm["id"], imp_id, on_behalf_of=non_imps[1], auto_tally=False)
+        assert ok is True
+        view = get_sanitized_player_view(state, gm["id"])
+        assert len(view["votes"]) == 2
+        assert len(view["eligible_voter_ids"]) == 3
+
+        # Final vote with auto_tally=True ejects Impostor -> untimed Last-Chance Steal!
+        ok, _ = cast_vote(state, gm["id"], non_imps[0], on_behalf_of=imp_id, auto_tally=True)
+        assert ok is True
+        assert state["phase"] == "last_chance"
+        assert state["timer_duration"] == 0
+        assert state["timer_ends_at"] is None
+
+    def test_websocket_mod_assigns_table_votes(self, db):
+        Room.objects.create(title="WS Table Vote", code="IMPTBVT1", game_type="impostor", language="en")
+
+        async def _run():
+            c1 = WebsocketCommunicator(application, "/ws/impostor/IMPTBVT1/")
+            ok, _ = await c1.connect()
+            assert ok is True
+            await c1.send_json_to({"action": "join", "name": "TableMod"})
+
+            async def _recv_until(comm, predicate):
+                for _ in range(20):
+                    msg = await comm.receive_json_from(timeout=2)
+                    if predicate(msg):
+                        return msg
+                raise AssertionError("Timed out waiting for expected WebSocket state")
+
+            await _recv_until(c1, lambda m: m.get("me", {}).get("is_admin") is True)
+            await c1.send_json_to({"action": "add_table_player", "name": "TableOne"})
+            await c1.send_json_to({"action": "add_table_player", "name": "TableTwo"})
+            await _recv_until(c1, lambda m: len(m.get("players", [])) == 3)
+
+            await c1.send_json_to({"action": "start_game"})
+            s = await _recv_until(c1, lambda m: m.get("phase") == "clue")
+            assert s["timer"]["duration"] == 0
+
+            await c1.send_json_to({"action": "start_voting"})
+            s = await _recv_until(c1, lambda m: m.get("phase") == "voting")
+            p0, p1 = s["eligible_voter_ids"][0], s["eligible_voter_ids"][1]
+
+            await c1.send_json_to({"action": "cast_vote", "voter_id": p0, "target_id": p1, "auto_tally": False})
+            s = await _recv_until(c1, lambda m: m.get("votes", {}).get(p0) == p1)
+            assert s["phase"] == "voting"
 
             await c1.disconnect()
 

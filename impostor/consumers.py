@@ -192,7 +192,13 @@ class ImpostorConsumer(AsyncJsonWebsocketConsumer):
             start_voting_phase(state)
             await self.broadcast_sync()
         elif action == "cast_vote":
-            ok, msg = cast_vote(state, self.player_id, str(content.get("target_id", "")))
+            ok, msg = cast_vote(
+                state,
+                self.player_id,
+                str(content.get("target_id", "")),
+                on_behalf_of=content.get("voter_id"),
+                auto_tally=bool(content.get("auto_tally", True)),
+            )
             if not ok:
                 return await self.send_error(msg)
             await self.broadcast_sync()

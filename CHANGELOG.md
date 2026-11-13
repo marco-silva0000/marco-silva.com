@@ -4,6 +4,14 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v155] - 2026-11-14
+
+### Changed & Added
+- **Word Impostor Untimed Casual Default & Interactive Table View Voting (`impostor/`, `templates/impostor/game.html`)**:
+  - Switched `DEFAULT_SETTINGS` timers (`turn_timer`, `vote_timer`, `steal_timer`) to `0` (`♾️ No Time Limits` casual default), added `enable_steal` (`True` by default so untimed Last-Chance Impostor Steal still triggers cleanly), fixed `0`-timer preservation in `update_settings()` and `saveSettings()`, and added a Lobby **Time Limit Preset** selector (`No Time Limits`, `Timed 45s/30s/15s`, `Custom`).
+  - Upgraded the voting UI in `#voting-panel` to an interactive **Table View (`#impostor-table-view`)** displaying each participant's seat with their clues, pointing votes, and incoming suspicion counts so everyone can tap seats on the table to vote.
+  - Updated `cast_vote(..., on_behalf_of=None, auto_tally=True)` and `ImpostorConsumer` (`voter_id`, `auto_tally`), and added `#mod-vote-bar` voter pills so the Moderator can tap any player pill and click a suspect's seat on the Table View to set or adjust their oral/table vote (with auto-advance and optional auto-tally).
+
 ## [v154] - 2026-11-14
 
 ### Changed

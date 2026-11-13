@@ -74,13 +74,48 @@
 }
 .imp-clue-row.lethal { background: var(--imp-danger-soft); border-color: #fca5a5; color: #991b1b; }
 
-.imp-vote-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 0.55rem; margin-top: 0.6rem; }
+.imp-vote-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 0.6rem; margin-top: 0.65rem; }
 .imp-vote-btn {
   padding: 0.65rem 0.7rem; border-radius: 9px; border: 1.5px solid #cbd5e1; background: #fff;
   cursor: pointer; text-align: left; font-weight: 600; font-size: 0.85rem; color: #0f172a; transition: all 0.15s;
 }
 .imp-vote-btn:hover { border-color: var(--imp-primary); background: #eff6ff; }
 .imp-vote-btn.selected { border-color: var(--imp-danger); background: var(--imp-danger-soft); color: #991b1b; }
+
+/* Interactive Table View Voting */
+.imp-mod-vote-bar {
+  background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 9px;
+  padding: 0.6rem 0.7rem; margin-bottom: 0.7rem;
+}
+.imp-voter-pills { display: flex; flex-wrap: wrap; gap: 0.38rem; margin: 0.4rem 0; }
+.imp-voter-pill {
+  padding: 0.3rem 0.6rem; border-radius: 999px; border: 1.5px solid #cbd5e1;
+  background: #fff; color: #1e293b; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+}
+.imp-voter-pill:hover { border-color: var(--imp-primary); }
+.imp-voter-pill.voted { border-color: #86efac; background: #f0fdf4; color: #166534; }
+.imp-voter-pill.active { border-color: var(--imp-primary); background: #dbeafe; color: #1e3a8a; box-shadow: 0 0 0 2px rgba(37,99,235,0.18); }
+
+.imp-table-arena {
+  background: radial-gradient(circle at center, #0f172a 0%, #1e293b 100%);
+  border: 2px solid #334155; border-radius: 14px; padding: 0.85rem; color: #f8fafc;
+}
+.imp-table-felt {
+  background: linear-gradient(135deg, #065f46, #064e3b); border: 2px solid #10b981;
+  border-radius: 999px; padding: 0.6rem 1rem; text-align: center; margin: 0 auto 0.75rem;
+  max-width: 520px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.35);
+}
+.imp-table-seat {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 0.32rem;
+  padding: 0.68rem 0.72rem; border-radius: 12px; border: 2px solid #475569;
+  background: #1e293b; color: #f8fafc; text-align: left; cursor: pointer;
+  transition: transform 0.12s, border-color 0.15s, background 0.15s;
+}
+.imp-table-seat:hover:not(:disabled) { border-color: #60a5fa; background: #26354d; transform: translateY(-1px); }
+.imp-table-seat.selected { border-color: #f87171; background: rgba(153,27,27,0.55); box-shadow: 0 0 0 2px rgba(248,113,113,0.35); }
+.imp-table-seat.is-active-voter { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56,189,248,0.28); }
+.imp-table-seat.out { opacity: 0.55; cursor: not-allowed; }
+.imp-table-seat:disabled { cursor: default; }
 
 /* Player row */
 .imp-player-row {
@@ -217,17 +252,32 @@
                 <input type="number" id="set-max-rounds" min="1" max="20" value="5" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
               </div>
               <div>
-                <label style="font-size:0.78rem; font-weight:600;">{% trans "Turn Timer (s)" %}</label>
-                <input type="number" id="set-turn-timer" min="0" max="300" value="45" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Time Limit Preset" %}</label>
+                <select id="set-time-mode" onchange="applyTimePreset()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+                  <option value="untimed">♾️ No Time Limits (Casual)</option>
+                  <option value="timed">⏱️ Timed (45s / 30s / 15s)</option>
+                  <option value="custom">🛠️ Custom Timers</option>
+                </select>
               </div>
               <div>
-                <label style="font-size:0.78rem; font-weight:600;">{% trans "Last-Chance Steal (s)" %}</label>
-                <input type="number" id="set-steal-timer" min="0" max="60" value="15" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Turn Timer (s, 0 = ∞)" %}</label>
+                <input type="number" id="set-turn-timer" min="0" max="300" value="0" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+              </div>
+              <div>
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Vote Timer (s, 0 = ∞)" %}</label>
+                <input type="number" id="set-vote-timer" min="0" max="180" value="0" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+              </div>
+              <div>
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Steal Timer (s, 0 = ∞)" %}</label>
+                <input type="number" id="set-steal-timer" min="0" max="60" value="0" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
               </div>
             </div>
             <div style="margin-top:0.6rem; display:flex; gap:1rem; flex-wrap:wrap;">
               <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
                 <input type="checkbox" id="set-lethal" checked onchange="saveSettings()"> ☠️ {% trans "Enable Lethal Taboo Poison Word" %}
+              </label>
+              <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+                <input type="checkbox" id="set-enable-steal" checked onchange="saveSettings()"> ⚡ {% trans "Enable Last-Chance Impostor Steal" %}
               </label>
               <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
                 <input type="checkbox" id="set-custom-deck" checked onchange="saveSettings()"> 🃏 {% trans "Allow Player Custom Pair Deck" %}
@@ -241,10 +291,26 @@
           <button type="button" id="btn-start-game" class="imp-btn imp-btn-green" onclick="sendAction('start_game')" style="display:none; font-size:0.9rem; padding:0.55rem 1.2rem;">🚀 {% trans "Start Match" %}</button>
         </div>
 
-        <!-- Voting Panel -->
+        <!-- Voting Panel (Interactive Table View) -->
         <div id="voting-panel" style="display:none; background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:0.85rem; margin-bottom:0.85rem;">
-          <div style="font-size:0.88rem; font-weight:700; color:#92400e; margin-bottom:0.25rem;">🗳️ {% trans "Vote who you think is the Impostor!" %}</div>
-          <div id="vote-grid" class="imp-vote-grid"></div>
+          <div style="font-size:0.88rem; font-weight:700; color:#92400e; margin-bottom:0.45rem;">🗳️ {% trans "Table View — Tap a suspect's seat to vote!" %}</div>
+          <div id="mod-vote-bar" class="imp-mod-vote-bar" style="display:none;">
+            <div style="font-size:0.78rem; font-weight:700; color:#1e3a8a;">👑 {% trans "Moderator Vote Controls — Pick any player pill, then tap their suspect's seat on the table:" %}</div>
+            <div id="mod-voter-pills" class="imp-voter-pills"></div>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; flex-wrap:wrap; margin-top:0.35rem;">
+              <label style="font-size:0.76rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer; color:#334155;">
+                <input type="checkbox" id="mod-auto-tally" checked> {% trans "Auto-tally once all players have voted" %}
+              </label>
+              <button type="button" class="imp-btn imp-btn-primary" onclick="sendAction('tally_votes')" style="padding:0.3rem 0.65rem; font-size:0.78rem;">🧮 {% trans "Tally Votes Now" %}</button>
+            </div>
+          </div>
+          <div id="impostor-table-view" class="imp-table-arena">
+            <div class="imp-table-felt">
+              <div id="imp-table-instruction" style="font-size:0.84rem; font-weight:700; color:#ecfdf5;">🗳️ Tap a seat around the table to vote</div>
+              <div id="imp-table-progress" style="font-size:0.74rem; color:#a7f3d0; margin-top:0.15rem;">0 voted</div>
+            </div>
+            <div id="vote-grid" class="imp-vote-grid"></div>
+          </div>
         </div>
 
         <!-- Last-Chance Steal Panel -->
@@ -364,6 +430,8 @@ let lastCardDealKey = null;
 let ws = null;
 let countdownTimer = null;
 let lastTurnSyncKey = null;
+let activeModVoterId = null;
+let pendingAdvanceFromVoter = null;
 
 function $(id) { return document.getElementById(id); }
 function escapeHtml(t) {
@@ -441,6 +509,28 @@ function sendAction(action, extra) {
   ws.send(JSON.stringify(Object.assign({action: action}, extra || {})));
 }
 
+function applyTimePreset() {
+  const mode = $('set-time-mode').value;
+  if (mode === 'untimed') {
+    $('set-turn-timer').value = '0';
+    $('set-vote-timer').value = '0';
+    $('set-steal-timer').value = '0';
+    saveSettings();
+  } else if (mode === 'timed') {
+    $('set-turn-timer').value = '45';
+    $('set-vote-timer').value = '30';
+    $('set-steal-timer').value = '15';
+    saveSettings();
+  }
+}
+
+function parseTimerInput(id, fallback) {
+  const el = $(id);
+  if (!el) return fallback;
+  const n = parseInt(el.value, 10);
+  return Number.isNaN(n) ? fallback : Math.max(0, n);
+}
+
 function saveSettings() {
   sendAction('update_settings', {
     settings: {
@@ -448,12 +538,35 @@ function saveSettings() {
       category: $('set-category').value,
       clue_loops: parseInt($('set-clue-loops').value, 10) || 1,
       max_rounds: parseInt($('set-max-rounds').value, 10) || 5,
-      turn_timer: parseInt($('set-turn-timer').value, 10) || 45,
-      steal_timer: parseInt($('set-steal-timer').value, 10) || 0,
+      turn_timer: parseTimerInput('set-turn-timer', 0),
+      vote_timer: parseTimerInput('set-vote-timer', 0),
+      steal_timer: parseTimerInput('set-steal-timer', 0),
       enable_lethal_word: $('set-lethal').checked,
+      enable_steal: $('set-enable-steal') ? $('set-enable-steal').checked : true,
       allow_custom_deck: $('set-custom-deck').checked,
     }
   });
+}
+
+function selectModVoter(pid) {
+  activeModVoterId = pid;
+  pendingAdvanceFromVoter = null;
+  renderState();
+}
+
+function onTableSeatTap(targetId) {
+  const isAdmin = Boolean(state && state.me && state.me.is_admin);
+  if (isAdmin && activeModVoterId) {
+    const autoTally = $('mod-auto-tally') ? Boolean($('mod-auto-tally').checked) : true;
+    pendingAdvanceFromVoter = activeModVoterId;
+    sendAction('cast_vote', {
+      target_id: targetId,
+      voter_id: activeModVoterId,
+      auto_tally: autoTally,
+    });
+  } else {
+    sendAction('cast_vote', {target_id: targetId});
+  }
 }
 
 function addTablePlayer() {
@@ -537,9 +650,19 @@ function renderState() {
 
   // Timer badge
   const tb = $('timer-badge');
-  if (s.timer && s.timer.remaining > 0 && (phase === 'clue' || phase === 'voting' || phase === 'last_chance')) {
+  const activeTimedPhase = (phase === 'clue' || phase === 'voting' || phase === 'last_chance');
+  if (activeTimedPhase && s.timer && s.timer.remaining > 0) {
     tb.style.display = 'inline-block';
+    tb.style.background = '#eff6ff';
+    tb.style.color = '#1d4ed8';
+    tb.style.borderColor = '#bfdbfe';
     tb.textContent = (s.timer.paused ? '⏸️ ' : '⏱️ ') + `${s.timer.remaining}s`;
+  } else if (activeTimedPhase) {
+    tb.style.display = 'inline-block';
+    tb.style.background = '#f1f5f9';
+    tb.style.color = '#475569';
+    tb.style.borderColor = '#cbd5e1';
+    tb.textContent = '♾️ Untimed';
   } else {
     tb.style.display = 'none';
   }
@@ -576,9 +699,19 @@ function renderState() {
     if ($('set-category')) $('set-category').value = s.settings.category || 'all';
     if ($('set-clue-loops')) $('set-clue-loops').value = String(s.settings.clue_loops || 1);
     if ($('set-max-rounds')) $('set-max-rounds').value = String(s.settings.max_rounds || 5);
-    if ($('set-turn-timer')) $('set-turn-timer').value = String(s.settings.turn_timer ?? 45);
-    if ($('set-steal-timer')) $('set-steal-timer').value = String(s.settings.steal_timer ?? 15);
+    const tTurn = Number(s.settings.turn_timer ?? 0);
+    const tVote = Number(s.settings.vote_timer ?? 0);
+    const tSteal = Number(s.settings.steal_timer ?? 0);
+    if ($('set-turn-timer')) $('set-turn-timer').value = String(tTurn);
+    if ($('set-vote-timer')) $('set-vote-timer').value = String(tVote);
+    if ($('set-steal-timer')) $('set-steal-timer').value = String(tSteal);
+    if ($('set-time-mode')) {
+      if (tTurn === 0 && tVote === 0 && tSteal === 0) $('set-time-mode').value = 'untimed';
+      else if (tTurn === 45 && tVote === 30 && tSteal === 15) $('set-time-mode').value = 'timed';
+      else $('set-time-mode').value = 'custom';
+    }
     if ($('set-lethal')) $('set-lethal').checked = Boolean(s.settings.enable_lethal_word);
+    if ($('set-enable-steal')) $('set-enable-steal').checked = Boolean(s.settings.enable_steal ?? true);
     if ($('set-custom-deck')) $('set-custom-deck').checked = Boolean(s.settings.allow_custom_deck);
   }
 
@@ -654,25 +787,127 @@ function renderState() {
     $('status-headline').textContent = '🏆 Final Match Standings';
   }
 
-  // Render Vote Grid
+  // Render Interactive Table View Voting
   if (phase === 'voting') {
-    const candidates = (s.players || []).filter(p => !p.is_spectator && !p.is_poisoned && !p.is_director && p.id !== me.id);
-    if (!s.can_vote) {
-      $('vote-grid').innerHTML = '<div style="font-size:0.82rem;color:#92400e;">Spectating / Poisoned this round.</div>';
+    const eligibleIds = s.eligible_voter_ids || [];
+    const votesMap = s.votes || {};
+    const playerById = {};
+    (s.players || []).forEach(p => { playerById[p.id] = p; });
+
+    if (isAdmin && eligibleIds.length) {
+      if (pendingAdvanceFromVoter && votesMap[pendingAdvanceFromVoter]) {
+        const nextUnvoted = eligibleIds.find(pid => !votesMap[pid]);
+        activeModVoterId = nextUnvoted || eligibleIds[0];
+        pendingAdvanceFromVoter = null;
+      } else if (!activeModVoterId || !eligibleIds.includes(activeModVoterId)) {
+        const nextUnvoted = eligibleIds.find(pid => !votesMap[pid]);
+        activeModVoterId = (eligibleIds.includes(me.id) && !votesMap[me.id]) ? me.id : (nextUnvoted || eligibleIds[0]);
+      }
+      $('mod-vote-bar').style.display = 'block';
+      $('mod-voter-pills').innerHTML = eligibleIds.map(pid => {
+        const vp = playerById[pid] || {name: '?'};
+        const targetId = votesMap[pid];
+        const targetName = targetId && playerById[targetId] ? playerById[targetId].name : null;
+        const isSelected = activeModVoterId === pid;
+        const classes = ['imp-voter-pill'];
+        if (targetName) classes.push('voted');
+        if (isSelected) classes.push('active');
+        const seatIcon = vp.is_table_player ? '🪑 ' : '';
+        const statusTxt = targetName ? `→ ${escapeHtml(targetName)} ✓` : '⏳';
+        return `<button type="button" class="${classes.join(' ')}" onclick="selectModVoter('${escapeHtml(pid)}')">${seatIcon}${escapeHtml(vp.name)} <span style="opacity:0.85;">(${statusTxt})</span></button>`;
+      }).join('');
     } else {
-      $('vote-grid').innerHTML = candidates.map(c => `
-        <button type="button" class="imp-vote-btn ${s.my_vote === c.id ? 'selected' : ''}" onclick="sendAction('cast_vote', {target_id:'${c.id}'})">
-          🎯 ${escapeHtml(c.name)} ${s.my_vote === c.id ? '✓' : ''}
-        </button>
-      `).join('');
+      $('mod-vote-bar').style.display = 'none';
+      activeModVoterId = null;
+      pendingAdvanceFromVoter = null;
     }
+
+    const effectiveVoterId = (isAdmin && activeModVoterId) ? activeModVoterId : (s.can_vote ? me.id : null);
+    const effectiveTargetId = effectiveVoterId ? votesMap[effectiveVoterId] : null;
+    const effectiveVoterName = effectiveVoterId && playerById[effectiveVoterId] ? playerById[effectiveVoterId].name : null;
+
+    if (isAdmin && effectiveVoterName) {
+      $('imp-table-instruction').textContent = `👑 Tap a suspect's seat to set vote for ${effectiveVoterName}`;
+    } else if (s.can_vote) {
+      const curTarget = effectiveTargetId && playerById[effectiveTargetId] ? playerById[effectiveTargetId].name : null;
+      $('imp-table-instruction').textContent = curTarget ? `🎯 You pointed at ${curTarget} (tap another seat to change)` : '🗳️ Tap any other seat on the table to accuse them!';
+    } else {
+      $('imp-table-instruction').textContent = '👀 Spectating / poisoned out — watching the table vote';
+    }
+    const timerTxt = (s.timer && s.timer.remaining > 0) ? `⏱️ ${s.timer.remaining}s` : '♾️ No Time Limit';
+    $('imp-table-progress').textContent = `${Object.keys(votesMap).length} / ${eligibleIds.length} voted · ${timerTxt}`;
+
+    const cluesByPlayer = {};
+    (s.clues || []).forEach(c => {
+      if (!cluesByPlayer[c.player_id]) cluesByPlayer[c.player_id] = [];
+      cluesByPlayer[c.player_id].push(c.spoken ? '🎙️ Spoke' : `"${c.text}"`);
+    });
+
+    const targetedBy = {};
+    Object.entries(votesMap).forEach(([vId, tId]) => {
+      if (!targetedBy[tId]) targetedBy[tId] = [];
+      targetedBy[tId].push(playerById[vId] ? playerById[vId].name : '?');
+    });
+
+    const tableSeats = (s.round_participant_list && s.round_participant_list.length)
+      ? s.round_participant_list.map(rp => playerById[rp.id] || rp)
+      : (s.players || []).filter(p => !p.is_spectator && !p.is_director);
+
+    $('vote-grid').innerHTML = tableSeats.map(c => {
+      const isOut = Boolean(c.is_poisoned || c.is_spectator || c.is_director);
+      const isSelfOfActiveVoter = Boolean(effectiveVoterId && c.id === effectiveVoterId);
+      const canTapSeat = Boolean(!isOut && effectiveVoterId && !isSelfOfActiveVoter);
+      const isChosen = Boolean(effectiveTargetId && effectiveTargetId === c.id);
+      const classes = ['imp-table-seat'];
+      if (isOut) classes.push('out');
+      if (isChosen) classes.push('selected');
+      if (isSelfOfActiveVoter) classes.push('is-active-voter');
+
+      const icons = [];
+      if (c.is_admin) icons.push('👑');
+      if (c.is_table_player) icons.push('🪑');
+      if (c.is_poisoned) icons.push('☠️');
+      if (votesMap[c.id]) icons.push('✓');
+
+      const incomingVoters = targetedBy[c.id] || [];
+      const incomingBadge = incomingVoters.length
+        ? `<span style="font-size:0.72rem;font-weight:700;padding:0.12rem 0.42rem;border-radius:999px;background:#ef4444;color:#fff;">🎯 ${incomingVoters.length}</span>`
+        : '';
+      const cluesStr = (cluesByPlayer[c.id] || []).slice(-2).join(' · ') || 'No clue logged';
+      const votedForName = votesMap[c.id] && playerById[votesMap[c.id]] ? playerById[votesMap[c.id]].name : null;
+      const incomingListStr = incomingVoters.length ? `Accused by: ${incomingVoters.map(escapeHtml).join(', ')}` : '';
+      const subFooter = isOut
+        ? 'Eliminated / Out'
+        : (isSelfOfActiveVoter
+          ? (votedForName ? `Voting → ${votedForName}` : 'Current Voter')
+          : (votedForName ? `Pointed → ${votedForName}` : (isChosen ? 'Selected ✓' : 'Tap to accuse')));
+
+      return `
+        <button type="button" class="${classes.join(' ')}" ${canTapSeat ? `onclick="onTableSeatTap('${escapeHtml(c.id)}')"` : 'disabled'}>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:0.35rem;width:100%;">
+            <span style="font-weight:700;font-size:0.88rem;">${escapeHtml(c.name)} ${icons.join(' ')}</span>
+            ${incomingBadge}
+          </div>
+          <div style="font-size:0.74rem;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;">💬 ${escapeHtml(cluesStr)}</div>
+          <div style="font-size:0.71rem;color:${isChosen ? '#fca5a5' : '#94a3b8'};width:100%;">
+            ${escapeHtml(subFooter)}${incomingListStr ? `<div style="color:#fcd34d;margin-top:0.1rem;">${incomingListStr}</div>` : ''}
+          </div>
+        </button>
+      `;
+    }).join('');
+  } else {
+    activeModVoterId = null;
+    pendingAdvanceFromVoter = null;
   }
 
   // Render Last-Chance Steal
   if (phase === 'last_chance') {
     $('steal-input-row').style.display = s.can_steal ? 'flex' : 'none';
+    const hasTimer = Boolean(s.timer && s.timer.duration > 0);
     $('steal-subtext').textContent = s.can_steal
-      ? 'You were caught! Type the exact Citizen Word before time runs out to steal +3 points!'
+      ? (hasTimer
+        ? 'You were caught! Type the exact Citizen Word before time runs out to steal +3 points!'
+        : 'You were caught! Take your time and guess the exact Citizen Word to steal +3 points!')
       : 'Waiting to see if the caught Impostor can deduce the Citizen Word...';
   }
 
