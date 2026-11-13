@@ -51,9 +51,11 @@ def test_lupus_player_join_flow(page: Page, browser: Browser):
     # Fill name
     player_page.fill("input[name='name']", "DirtyTester")
     player_page.click("button[type='submit']")
-    player_page.wait_for_url(re.compile(rf"/games/lupus/{room_code}/player/"))
+    player_page.wait_for_url(re.compile(rf"/games/lupus/{room_code}/play/"))
 
-    # Verify player view
+    # Verify player view and role card tab
     expect(player_page.locator("body")).to_contain_text("DirtyTester")
-    expect(player_page.locator("#btn-peek-role")).to_be_visible()
+    expect(player_page.locator("#player-lobby-view")).to_be_visible()
+    player_page.click("#b-tab-info")
+    expect(player_page.locator("#role-card")).to_be_visible()
     ctx.close()

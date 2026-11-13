@@ -16,4 +16,5 @@ urlpatterns = [
     path("<str:code>/play/", views.player_view, name="play"),
     path("<str:code>/reconnect/<str:token>/", views.player_reconnect, name="reconnect"),
     path("<str:code>/qr/<str:token>/", views.player_qr, name="player-qr"),
+    path("<str:code>/", views.room_join, name="room-root"),
 ]

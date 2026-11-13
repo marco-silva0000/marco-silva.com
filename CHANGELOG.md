@@ -4,6 +4,13 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v143] - 2026-11-13
+
+### Fixed
+- **Lupus Room Short URL Routing & Playwright Join Flow Smoke Test**:
+  - Added `<str:code>/` root route (`room-root`) in `lupus/urls.py` pointing to `views.room_join` so visiting `/games/lupus/<code>/` directly serves the player join screen instead of returning a 404.
+  - Updated `test_lupus_player_join_flow` in `tests/playwright/test_lupus.py` to match the `/games/lupus/<code>/play/` player URL and verify `#player-lobby-view`, `#b-tab-info`, and `#role-card`.
+
 ## [v142] - 2026-11-13
 
 ### Changed
