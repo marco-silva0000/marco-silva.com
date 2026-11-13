@@ -24,13 +24,6 @@ def test_lupus_room_creation_and_cockpit_elements(page: Page):
     """Verify GM room creation navigates to Cockpit and displays role builder chips."""
     page.goto(f"{BASE}/games/lupus/create/")
     page.fill("input[name='title']", "Smoke Room")
-
-    # Solve arithmetic captcha
-    label_text = page.locator("label", has_text="+").text_content()
-    nums = re.findall(r"\d+", label_text)
-    answer = int(nums[0]) + int(nums[1])
-    page.fill("input[name='captcha_answer']", str(answer))
-
     page.click("button[type='submit']")
     page.wait_for_url(re.compile(r"/games/lupus/\w+/gm/"))
 
@@ -44,9 +37,6 @@ def test_lupus_player_join_flow(page: Page, browser: Browser):
     # 1. Create a room as GM
     page.goto(f"{BASE}/games/lupus/create/")
     page.fill("input[name='title']", "Player Smoke Test")
-    label_text = page.locator("label", has_text="+").text_content()
-    nums = re.findall(r"\d+", label_text)
-    page.fill("input[name='captcha_answer']", str(int(nums[0]) + int(nums[1])))
     page.click("button[type='submit']")
     page.wait_for_url(re.compile(r"/games/lupus/(\w+)/gm/"))
     m = re.search(r"/games/lupus/(\w+)/gm/", page.url)
