@@ -11,23 +11,24 @@ Our existing `marco-silva.com` multiplayer stack (`gamerooms.Room`, Redis JSON s
 | # | Game | Players | Browser / Mobile Fit | Reuse of Current Stack | Data / Lexicon Requirement | Build Effort | Recommendation |
 |---|---|---:|---|---|---|---|---|
 | 1 | **Two of These People Are Lying** | 3–8+ | ⭐⭐⭐⭐⭐ | `gamerooms` + `emojinary` sanitized views | Wikipedia MediaWiki REST/Action API (`/random/summary`, `mobile-html`) | **M** | **Build Next** (Flagship social bluffing game) |
-| 2 | **Just One** | 3–9 | ⭐⭐⭐⭐⭐ | `emojinary` Collective `prep` + `guess` phases | `EmojinaryWord` + `_normalize_phrase()` + Wiktionary `aliases`/stems | **S** | **Phase 1** (Drop-in party mode) |
-| 3 | **Balderdash** | 3–10 | ⭐⭐⭐⭐⭐ | `emojinary` `submitting` + `judging` phases | Obscure Wiktionary headwords + real `definition` / `etymology` | **S** | **Phase 1** (Already have Wiktionary definitions) |
-| 4 | **Taboo** | 4–12 | ⭐⭐⭐⭐⭐ | `emojinary` `guess` chat + timer + spoiler guard | `EmojinaryWord` + `forbidden_words` (Wiktionary + ConceptNet/Datamuse) | **S–M** | **Phase 1** (Needs `forbidden_words` backfill) |
-| 5 | **Trapwords** | 4–10 | ⭐⭐⭐⭐ | `Taboo` engine + opponent `prep` phase | Opponent-entered trap words + curse modifiers (no pre-seeded list needed!) | **M** | **Phase 1–2** (Zero static data bottleneck) |
-| 6 | **Werewords** | 4–10+ | ⭐⭐⭐⭐⭐ | Hybrid of `lupus` roles + `emojinary` secret words | `EmojinaryWord` + role deck (`Mayor`, `Seer`, `Werewolf`, `Villager`) | **M** | **Phase 1–2** (Perfect bridge between our two apps) |
-| 7 | **Medium** | 2–8 | ⭐⭐⭐⭐ | Simultaneous secret submit + reveal loop | `EmojinaryWord` pairs (`noun` / `thing` / `place` / `action`) | **S** | **Phase 2** |
-| 8 | **Apples to Apples** | 4–10 | ⭐⭐⭐⭐ | `emojinary` `best_guess` (Judge's Pick) loop | `noun`/`thing`/`person` hand cards + `adjective` prompt cards (`wordlists.json`) | **S** | **Phase 2** (We already have `adj` + `noun` pools) |
-| 9 | **Codenames** | 4–12 | ⭐⭐⭐⭐⭐ | New game app `codenames` on `gamerooms` + `Channels` | 25-word 5x5 board + Spymaster-only keycard in `get_sanitized_player_view()` | **M–L** | **Phase 2** (Highest demand classic) |
-| 10 | **Decrypto** | 4–8 | ⭐⭐⭐⭐ | New 2-team state schema (`white` / `black` teams) | 4 persistent keyword cards per team + numeric code triplets + interception log | **M–L** | **Phase 2** |
-| 11 | **Tapple** | 2–8+ | ⭐⭐⭐⭐ | Hot-potato turn rotation + 10s countdown timer | Broad category prompts + 26-letter disabled-switch state + Wiktionary headword validation | **S–M** | **Phase 2** |
-| 12 | **Train of Thought** | 3–8 | ⭐⭐⭐ | Turn clue chat + progressive guess log | Pairs of `EmojinaryWord` cards + 3-word clue validator | **S** | **Phase 3** |
-| 13 | **When I Dream** | 4–10 | ⭐⭐⭐ | `lupus` spirit alignments (`Fairy`/`Boogeyman`/`Sandman`) + word stream | 1-word clues + timed dream recall voting | **M** | **Phase 3** |
-| 14 | **Letter Jam** | 2–6 | ⭐⭐⭐ | Complex asymmetric card-visibility matrix | 5-letter hidden word sets + letter token tracker (heavy UI) | **L** | **Phase 3** |
-| 15 | **Knit Wit** | 2–8 | ⭐⭐ | Venn-loop UI is awkward on small phones | Trait adjectives + human or LLM-assisted answer scoring | **L** | **Low Priority** |
-| 16 | **Word on the Street** | 2–8 | ⭐⭐ | Simultaneous consonant tug-of-war board | English dictionary validation (`wordlists.json` + Wiktionary) | **M** | **Low Priority** (Better physical) |
-| 17 | **Bananagrams** | 2–8 | ⭐⭐ | 144-tile drag-and-drop crossword grid per phone | Full Scrabble dictionary check + grid connectivity check | **L** | **Skip / Low Priority** |
-| 18 | **Spell Smashers** | 2–5 | ⭐⭐ | RPG shop + HP + hand-of-letters engine | Custom monster/gear decks + dictionary validation | **L** | **Skip / Low Priority** |
+| 2 | **Advanced Word Impostor (Poison Word + Participating GM)** | 3–12+ | ⭐⭐⭐⭐⭐ | `lupus` voting/deduction + `emojinary` sanitized views | Wiktionary `====Coordinate terms====` + co-topic `(Secret Word, Poison Word)` pairs | **M** | **Build Next** (Flagship #2 social word game) |
+| 3 | **Just One** | 3–9 | ⭐⭐⭐⭐⭐ | `emojinary` Collective `prep` + `guess` phases | `EmojinaryWord` + `_normalize_phrase()` + Wiktionary `aliases`/stems | **S** | **Phase 1** (Drop-in party mode) |
+| 4 | **Balderdash** | 3–10 | ⭐⭐⭐⭐⭐ | `emojinary` `submitting` + `judging` phases | Obscure Wiktionary headwords + real `definition` / `etymology` | **S** | **Phase 1** (Already have Wiktionary definitions) |
+| 5 | **Taboo** | 4–12 | ⭐⭐⭐⭐⭐ | `emojinary` `guess` chat + timer + spoiler guard | `EmojinaryWord` + `forbidden_words` (Wiktionary + ConceptNet/Datamuse) | **S–M** | **Phase 1** (Needs `forbidden_words` backfill) |
+| 6 | **Trapwords** | 4–10 | ⭐⭐⭐⭐ | `Taboo` engine + opponent `prep` phase | Opponent-entered trap words + curse modifiers (no pre-seeded list needed!) | **M** | **Phase 1–2** (Zero static data bottleneck) |
+| 7 | **Werewords** | 4–10+ | ⭐⭐⭐⭐⭐ | Hybrid of `lupus` roles + `emojinary` secret words | `EmojinaryWord` + role deck (`Mayor`, `Seer`, `Werewolf`, `Villager`) | **M** | **Phase 1–2** (Perfect bridge between our two apps) |
+| 8 | **Medium** | 2–8 | ⭐⭐⭐⭐ | Simultaneous secret submit + reveal loop | `EmojinaryWord` pairs (`noun` / `thing` / `place` / `action`) | **S** | **Phase 2** |
+| 9 | **Apples to Apples** | 4–10 | ⭐⭐⭐⭐ | `emojinary` `best_guess` (Judge's Pick) loop | `noun`/`thing`/`person` hand cards + `adjective` prompt cards (`wordlists.json`) | **S** | **Phase 2** (We already have `adj` + `noun` pools) |
+| 10 | **Codenames** | 4–12 | ⭐⭐⭐⭐⭐ | New game app `codenames` on `gamerooms` + `Channels` | 25-word 5x5 board + Spymaster-only keycard in `get_sanitized_player_view()` | **M–L** | **Phase 2** (Highest demand classic) |
+| 11 | **Decrypto** | 4–8 | ⭐⭐⭐⭐ | New 2-team state schema (`white` / `black` teams) | 4 persistent keyword cards per team + numeric code triplets + interception log | **M–L** | **Phase 2** |
+| 12 | **Tapple** | 2–8+ | ⭐⭐⭐⭐ | Hot-potato turn rotation + 10s countdown timer | Broad category prompts + 26-letter disabled-switch state + Wiktionary headword validation | **S–M** | **Phase 2** |
+| 13 | **Train of Thought** | 3–8 | ⭐⭐⭐ | Turn clue chat + progressive guess log | Pairs of `EmojinaryWord` cards + 3-word clue validator | **S** | **Phase 3** |
+| 14 | **When I Dream** | 4–10 | ⭐⭐⭐ | `lupus` spirit alignments (`Fairy`/`Boogeyman`/`Sandman`) + word stream | 1-word clues + timed dream recall voting | **M** | **Phase 3** |
+| 15 | **Letter Jam** | 2–6 | ⭐⭐⭐ | Complex asymmetric card-visibility matrix | 5-letter hidden word sets + letter token tracker (heavy UI) | **L** | **Phase 3** |
+| 16 | **Knit Wit** | 2–8 | ⭐⭐ | Venn-loop UI is awkward on small phones | Trait adjectives + human or LLM-assisted answer scoring | **L** | **Low Priority** |
+| 17 | **Word on the Street** | 2–8 | ⭐⭐ | Simultaneous consonant tug-of-war board | English dictionary validation (`wordlists.json` + Wiktionary) | **M** | **Low Priority** (Better physical) |
+| 18 | **Bananagrams** | 2–8 | ⭐⭐ | 144-tile drag-and-drop crossword grid per phone | Full Scrabble dictionary check + grid connectivity check | **L** | **Skip / Low Priority** |
+| 19 | **Spell Smashers** | 2–5 | ⭐⭐ | RPG shop + HP + hand-of-letters engine | Custom monster/gear decks + dictionary validation | **L** | **Skip / Low Priority** |
 
 ---
 
@@ -215,14 +216,78 @@ marco-silva.com/
 
 ---
 
-## 5. Recommended Execution Roadmap
+## 5. Implementation Blueprint: Advanced Word Impostor (Poison Word + Participating GM)
+
+> Rather than the bare-bones physical pass-the-phone Impostor game, a browser/WebSocket version lets every player participate simultaneously — including the **Game Master** — with automatic **Poison Word** pairings, anti-cheat clue logs, and dramatic last-second stealthed wins.
+
+### 5.1 Core Game Loop & Anti-Griefing Flow
+
+```mermaid
+stateDiagram-v2
+    [*] --> lobby: Host configures roles (Impostors, Poison Mode, Participating GM, Custom Pair Deck)
+    lobby --> clue_round: start_game -> Server deals Citizen Word, Poison Word, & Roles silently
+    clue_round --> discussion: All alive players give a 1-word / short clue in turn order
+    discussion --> voting: Players cast hidden or live votes via WebSocket (GM & Citizens alike)
+    voting --> impostor_last_chance: Ejected player was the Impostor -> 15s to guess Citizen Word!
+    voting --> reveal: Wrong player ejected (Impostor survives or Citizens win on threshold)
+    impostor_last_chance --> reveal: check_guess() evaluates Impostor steal attempt
+```
+
+- **Secret Roles & Cards**:
+  - **Citizens**: See `Secret Word: "Coffee"` (and optionally Category `food`).
+  - **Impostor**: Either sees no word (only Category + optional weak hint), OR receives a **Poison Word** depending on the room setting.
+  - **Special Roles (Optional Toggles — reusing `lupus` role architecture)**:
+    - **Poisoned Citizen ("The Drunk")**: Receives the **Poison Word** (`"Tea"`) *without being told they differ from the Citizens*, thinking they are a normal Citizen! Their subtly off-beat clues create hilarious suspicion and shield the real Impostor.
+    - **Mr. White / Blank**: Gets neither word nor category and must listen intently before their turn to bluff purely off others' clues.
+- **Last-Chance Steal Mechanic**:
+  - If the group successfully votes out the Impostor, the round doesn't end flatly — the caught Impostor gets a dramatic **15-second Last-Chance Shot Clock** to type the Citizens' exact Secret Word (validated with `check_guess()`, including Wiktionary synonyms/accents/64-language tolerance). If they deduce it from the Citizens' clues, the Impostor steals the round!
+
+---
+
+### 5.2 Three Configurable "Poison Word" Modes
+
+| Poison Mode | Who Gets It? | What the Player Sees | Gameplay Twist |
+|---|---|---|---|
+| **1. Undercover Cover Word (Blind or Informed)** | **Impostor** | Citizens see `"Coffee"`; Impostor sees `"Tea"` (either told `"Impostor Cover Word"` or **Blind** so nobody knows who has the majority word!) | Impostor can sound completely authentic early on until subtle clues (*"espresso"*, *"mug"*, *"kettles"*) diverge |
+| **2. Poisoned Citizen ("The Drunk")** | **1 Random Citizen** | Gets sibling `"Cello"` while Citizens have `"Violin"` and Impostor has nothing | An innocent Citizen unintentionally clues like an impostor, sparking intense cross-table paranoia |
+| **3. Lethal Taboo Poison Word** | **Armed Hazard** | Revealed on the Impostor's HUD (or hidden hazard in Wiktionary mode) | A related word (e.g., `"Caffeine"` for `"Coffee"`) — if any Citizen says/types it as their clue, that Citizen is instantly eliminated! |
+
+---
+
+### 5.3 How Wiktionary Generates `(Secret Word, Poison Word)` Pairs Automatically
+
+To make **Undercover / Poison Word** feel razor-sharp across hundreds of rounds without manual curation:
+1. **Wiktionary `====Coordinate terms====` Extraction (`scripts/enrich_wiktionary.py`)**:
+   - Wiktionary explicitly links sibling concepts under the same hypernym via `====Coordinate terms====` and `{{coord|en|...}}` templates (e.g., `violin` <-> `cello` / `viola`, `sofa` <-> `armchair` / `ottoman`, `coffee` <-> `tea`, `lion` <-> `tiger` / `leopard`, `guitar` <-> `bass` / `ukulele`).
+   - Store `coordinate_words = models.JSONField(default=list, blank=True)` on `EmojinaryWord`.
+2. **Co-Category + Co-Topic + Shared-Hypernym Fallback Pairer**:
+   - When an `EmojinaryWord` lacks explicit `coordinate_words`, pair two distinct words from `EmojinaryWord` that share `(category, pos, topics[0])` and have **zero token overlap** (avoiding trivial pairs like `"ice cream"` / `"cream"`): e.g., `("Submarine", "Torpedo")` or `("Volcano", "Geyser")`.
+
+---
+
+### 5.4 Participating Game Master (Zero-Spoiler Design)
+
+In traditional tabletop Impostor, the Game Master either misses out on playing (because they wrote/know the secret word) or has to use an external app:
+1. **Auto-Dealt Zero-Spoiler Participation**:
+   - The server selects and deals `(secret_word, poison_word, roles)` into Redis and exposes only `get_sanitized_player_view(state, viewer_id)`.
+   - The **Host / Game Master** is a normal player in the turn order — able to draw **Citizen**, **Poisoned Citizen**, or **Impostor** cleanly!
+   - Host HUD controls are strictly non-spoiling: `⏯️ Pause Timer`, `+15s`, `🗳️ Force Vote`, `⏭️ Next Clue Turn`, `👋 Kick`, and **`🎲 Blind Redraw Word Pair`** (which re-rolls the round's `(secret_word, poison_word)` on the server without revealing either word to the GM unless their own role card shows it).
+2. **Optional Custom Card Submission ("Moderator-for-a-Round")**:
+   - In lobby/prep settings (*"Allow Player-Authored Pairs"*), every player (or the GM) can optionally pre-submit a custom `(Secret Word, Poison Word)` pair into a shuffled room queue.
+   - When a specific player's authored pair is drawn by the engine, *that* author automatically becomes the non-playing **Round Viper / Referee** for that one card only, and seamlessly re-enters the player pool on the very next round!
+
+---
+
+## 6. Recommended Execution Roadmap
 
 1. **Next Sprint A — *Two of These People Are Lying* (`wikibluff/` MVP)**:
    - Implement `wiki_client.py` (random unusual article curator + HTML sanitizer for safe `<iframe srcdoc>` embedding, supporting room language selection).
    - Build `wikibluff` game state, WebSocket consumer, strict anti-cheat view sanitization, and mobile-first UI.
    - Add automated unit + WebSocket anti-cheat leak tests (`Interrogator` and `Bluffer` payloads must never contain `truth_article` during `interrogation`).
-2. **Next Sprint B — *Wiktionary + ConceptNet Forbidden Words Pipeline* & *Just One / Balderdash / Taboo***:
-   - Run `scripts/enrich_taboo_words.py` to populate `EmojinaryWord.forbidden_words` and `obscurity`.
-   - Ship **Just One**, **Balderdash ("Wiktionary Bluff")**, and **Taboo** as fast modes sharing our `gamerooms` + `emojinary` stack.
-3. **Next Sprint C — *Codenames* & *Werewords***:
+2. **Next Sprint B — *Advanced Word Impostor* (Poison Word + Participating GM)**:
+   - Extend `scripts/enrich_wiktionary.py` + `EmojinaryWord` to harvest `coordinate_words` (siblings for Poison Word pairs) alongside `forbidden_words` (Wiktionary + ConceptNet/Datamuse).
+   - Ship the `impostor` game/mode supporting **Undercover Poison Word**, **Poisoned Citizen**, **Lethal Poison Word**, **Participating GM**, and **15s Last-Chance Impostor Steal**.
+3. **Next Sprint C — *Just One*, *Balderdash ("Wiktionary Bluff")* & *Taboo***:
+   - Ship all three fast modes sharing our `gamerooms` + `emojinary` stack and `EmojinaryWord` enhancements.
+4. **Next Sprint D — *Codenames* & *Werewords***:
    - Combine `lupus` + `emojinary` for **Werewords**, and build the 5x5 Spymaster grid app for **Codenames**.
