@@ -287,7 +287,14 @@
         <div id="voting-panel" style="display:none; background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:0.85rem; margin-bottom:0.85rem;">
           <div style="font-size:0.88rem; font-weight:700; color:#92400e; margin-bottom:0.45rem;">🗳️ {% trans "Table View — Tap a suspect's seat to vote!" %}</div>
           <div id="mod-vote-bar" class="imp-mod-vote-bar" style="display:none;">
-            <div style="font-size:0.78rem; font-weight:700; color:#1e3a8a;">👑 {% trans "Moderator Vote Controls — Pick any player pill, then tap their suspect's seat on the table:" %}</div>
+            <div style="font-size:0.78rem; font-weight:700; color:#1e3a8a;">👑 {% trans "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:" %}</div>
+            <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap; margin:0.45rem 0;">
+              <label for="mod-voter-select" style="font-size:0.78rem; font-weight:700; color:#1e3a8a;">👑 {% trans "Vote for player:" %}</label>
+              <select id="mod-voter-select" onchange="selectModVoter(this.value)" style="padding:0.35rem 0.55rem; border:1.5px solid #93c5fd; border-radius:7px; font-size:0.82rem; background:#fff; color:#0f172a; font-weight:600;"></select>
+              <span style="font-size:0.78rem; font-weight:700; color:#475569;">→ {% trans "Accuse:" %}</span>
+              <select id="mod-target-select" style="padding:0.35rem 0.55rem; border:1.5px solid #fca5a5; border-radius:7px; font-size:0.82rem; background:#fff; color:#0f172a; font-weight:600;"></select>
+              <button type="button" class="imp-btn imp-btn-primary" onclick="submitModVote()" style="padding:0.35rem 0.7rem; font-size:0.8rem;">🗳️ {% trans "Submit Player Vote" %}</button>
+            </div>
             <div id="mod-voter-pills" class="imp-voter-pills"></div>
             <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; flex-wrap:wrap; margin-top:0.35rem;">
               <label style="font-size:0.76rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer; color:#334155;">
@@ -312,6 +319,7 @@
           <div id="steal-input-row" style="display:none; gap:0.5rem; flex-wrap:wrap;">
             <input type="text" id="steal-input" maxlength="80" placeholder="{% trans 'Guess the Citizen Word to steal the win...' %}" onkeydown="if(event.key==='Enter')submitSteal();" style="flex:1; min-width:180px; padding:0.45rem 0.7rem; border:1.5px solid #fca5a5; border-radius:8px; font-size:0.88rem;">
             <button type="button" class="imp-btn imp-btn-danger" onclick="submitSteal()">🎯 {% trans "Steal Win!" %}</button>
+            <button type="button" id="btn-skip-steal" class="imp-btn" onclick="sendAction('steal_timeout')" style="display:none;">⏭️ {% trans "Pass / Wrong" %}</button>
           </div>
         </div>
 
@@ -438,6 +446,7 @@ let countdownTimer = null;
 let lastTurnSyncKey = null;
 let activeModVoterId = null;
 let pendingAdvanceFromVoter = null;
+let clientVersionCounter = state && state.version_counter ? state.version_counter : null;
 
 function $(id) { return document.getElementById(id); }
 function escapeHtml(t) {
@@ -531,6 +540,13 @@ function connectWs() {
     if (d.type === 'error') {
       showError(d.msg);
     } else if (d.type === 'state') {
+      if (clientVersionCounter && d.version_counter && d.version_counter !== clientVersionCounter) {
+        location.reload();
+        return;
+      }
+      if (!clientVersionCounter && d.version_counter) {
+        clientVersionCounter = d.version_counter;
+      }
       state = d;
       renderState();
     }
@@ -604,6 +620,21 @@ function onTableSeatTap(targetId) {
   }
 }
 
+function submitModVote() {
+  const voterSel = $('mod-voter-select');
+  const targetSel = $('mod-target-select');
+  const voterId = (voterSel && voterSel.value) ? voterSel.value : activeModVoterId;
+  const targetId = targetSel ? targetSel.value : '';
+  if (!voterId || !targetId) return;
+  const autoTally = $('mod-auto-tally') ? Boolean($('mod-auto-tally').checked) : true;
+  pendingAdvanceFromVoter = voterId;
+  sendAction('cast_vote', {
+    voter_id: voterId,
+    target_id: targetId,
+    auto_tally: autoTally,
+  });
+}
+
 function addTablePlayer() {
   const inp = $('table-player-name');
   const name = (inp.value || '').trim();
@@ -627,7 +658,8 @@ function submitSteal() {
   const inp = $('steal-input');
   const val = (inp.value || '').trim();
   if (!val) return;
-  sendAction('submit_steal_guess', {guess: val});
+  const byMod = Boolean(!(state && state.can_steal) && state && state.me && state.me.is_admin);
+  sendAction('submit_steal_guess', {guess: val, by_mod: byMod});
   inp.value = '';
 }
 
@@ -832,6 +864,34 @@ function renderState() {
         activeModVoterId = (eligibleIds.includes(me.id) && !votesMap[me.id]) ? me.id : (nextUnvoted || eligibleIds[0]);
       }
       $('mod-vote-bar').style.display = 'block';
+      const voterSel = $('mod-voter-select');
+      if (voterSel) {
+        voterSel.innerHTML = eligibleIds.map(pid => {
+          const vp = playerById[pid] || {name: '?'};
+          const targetId = votesMap[pid];
+          const targetName = targetId && playerById[targetId] ? playerById[targetId].name : null;
+          const label = targetName ? `${vp.name} (→ ${targetName} ✓)` : `${vp.name} (⏳ Needs vote)`;
+          return `<option value="${escapeHtml(pid)}">${escapeHtml(label)}</option>`;
+        }).join('');
+        voterSel.value = activeModVoterId;
+      }
+      const targetSel = $('mod-target-select');
+      if (targetSel) {
+        const validTargets = eligibleIds.filter(pid => pid !== activeModVoterId);
+        const prevTarget = targetSel.value;
+        targetSel.innerHTML = validTargets.map(pid => {
+          const tp = playerById[pid] || {name: '?'};
+          return `<option value="${escapeHtml(pid)}">${escapeHtml(tp.name)}</option>`;
+        }).join('');
+        const currentVoteTarget = votesMap[activeModVoterId];
+        if (currentVoteTarget && validTargets.includes(currentVoteTarget)) {
+          targetSel.value = currentVoteTarget;
+        } else if (prevTarget && validTargets.includes(prevTarget)) {
+          targetSel.value = prevTarget;
+        } else if (validTargets.length) {
+          targetSel.value = validTargets[0];
+        }
+      }
       $('mod-voter-pills').innerHTML = eligibleIds.map(pid => {
         const vp = playerById[pid] || {name: '?'};
         const targetId = votesMap[pid];
@@ -930,13 +990,17 @@ function renderState() {
 
   // Render Last-Chance Steal
   if (phase === 'last_chance') {
-    $('steal-input-row').style.display = s.can_steal ? 'flex' : 'none';
+    const canSubmitSteal = Boolean(s.can_steal || isAdmin);
+    $('steal-input-row').style.display = canSubmitSteal ? 'flex' : 'none';
+    if ($('btn-skip-steal')) $('btn-skip-steal').style.display = canSubmitSteal ? 'inline-flex' : 'none';
     const hasTimer = Boolean(s.timer && s.timer.duration > 0);
     $('steal-subtext').textContent = s.can_steal
       ? (hasTimer
         ? 'You were caught! Type the exact Citizen Word before time runs out to steal +3 points!'
         : 'You were caught! Take your time and guess the exact Citizen Word to steal +3 points!')
-      : 'Waiting to see if the caught Impostor can deduce the Citizen Word...';
+      : (isAdmin
+        ? 'Waiting for the caught Impostor — or type/pass their oral Last-Chance Steal guess below:'
+        : 'Waiting to see if the caught Impostor can deduce the Citizen Word...');
   }
 
   // Render Reveal

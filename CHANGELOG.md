@@ -4,6 +4,14 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v158] - 2026-11-14
+
+### Changed & Added
+- **Word Impostor Explicit Moderator Vote Submission Form, Oral Steal Control & Auto-Reload (`impostor/`, `templates/impostor/game.html`)**:
+  - Added an explicit `👑 Vote for player` (`#mod-voter-select`) → `Accuse` (`#mod-target-select`) + `🗳️ Submit Player Vote` (`submitModVote()`) row inside `#mod-vote-bar` synced with the voter pills and Table View seats so the Moderator can unmistakably submit or change votes for any player.
+  - Added `by_mod` support to `submit_steal_guess()` (`impostor/game_state.py`, `impostor/consumers.py`) and `#btn-skip-steal` (`⏭️ Pass / Wrong`) in `#steal-panel` so the Moderator can enter or pass an oral Last-Chance Steal guess on a caught Impostor's behalf.
+  - Exposed `version_counter` in `get_sanitized_player_view()` and triggered automatic page reload on version mismatch during WebSocket reconnects so open room tabs immediately pick up new UI controls after deployments.
+
 ## [v157] - 2026-11-14
 
 ### Changed & Added

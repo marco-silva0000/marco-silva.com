@@ -492,6 +492,17 @@ class TestImpostorHttpAndWebsocket:
         assert state["timer_duration"] == 0
         assert state["timer_ends_at"] is None
 
+        # Non-admin non-impostor cannot submit steal guess even with by_mod=True
+        non_imp_non_admin = next(pid for pid in non_admins if pid != imp_id)
+        ok, _ = submit_steal_guess(state, non_imp_non_admin, state["current_pair"]["citizen_display"], by_mod=True)
+        assert ok is False
+
+        # Moderator can submit caught Impostor's oral steal guess via by_mod=True
+        ok, _ = submit_steal_guess(state, gm["id"], state["current_pair"]["citizen_display"], by_mod=True)
+        assert ok is True
+        assert state["phase"] == "reveal"
+        assert state["round_outcome"] == "impostor_steal"
+
     def test_websocket_mod_assigns_table_votes(self, db):
         Room.objects.create(title="WS Table Vote", code="IMPTBVT1", game_type="impostor", language="en")
 
@@ -557,6 +568,10 @@ class TestImpostorHttpAndWebsocket:
         html = game_resp.content.decode()
         assert "modal-player-qr" in html
         assert "showPlayerQR" in html
+        assert "mod-voter-select" in html
+        assert "mod-target-select" in html
+        assert "submitModVote" in html
+        assert "version_counter" in html
         assert "Spoke Out Loud" not in html
 
         qr_url = reverse("gamerooms:impostor:player-qr", kwargs={"code": "IMPQR001", "token": guest_me["id"]})

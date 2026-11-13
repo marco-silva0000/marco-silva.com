@@ -11,6 +11,7 @@ from typing import Any, Optional
 import redis
 
 from gamerooms.language_support import get_game_language_support, normalize_language_code
+from website.version import VERSION_COUNTER
 
 from .word_pairs import (
     CATEGORIES,
@@ -795,11 +796,18 @@ def resolve_voting(state: dict[str, Any]) -> None:
     )
 
 
-def submit_steal_guess(state: dict[str, Any], player_id: str, guess_text: str) -> tuple[bool, str]:
-    """Handle the 15-second Last-Chance Impostor Steal attempt."""
+def submit_steal_guess(
+    state: dict[str, Any],
+    player_id: str,
+    guess_text: str,
+    by_mod: bool = False,
+) -> tuple[bool, str]:
+    """Handle the Last-Chance Impostor Steal attempt (by Impostor or Host for an oral player)."""
     if state.get("phase") != "last_chance":
         return False, "Not in Last-Chance Steal phase."
-    if player_id != state.get("impostor_id"):
+    caller = state.get("players", {}).get(player_id)
+    allowed_mod = bool(by_mod and is_player_admin(state, caller))
+    if player_id != state.get("impostor_id") and not allowed_mod:
         return False, "Only the caught Impostor can make the Last-Chance Steal guess."
 
     cleaned = " ".join(str(guess_text or "").strip().split())[:80]
@@ -1095,6 +1103,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
 
     return {
         "type": "state",
+        "version_counter": VERSION_COUNTER,
         "code": state.get("code"),
         "title": state.get("title"),
         "language": state.get("language", "en"),

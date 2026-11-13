@@ -201,7 +201,12 @@ class ImpostorConsumer(AsyncJsonWebsocketConsumer):
             resolve_voting(state)
             await self.broadcast_sync()
         elif action == "submit_steal_guess":
-            ok, msg = submit_steal_guess(state, self.player_id, content.get("guess", ""))
+            ok, msg = submit_steal_guess(
+                state,
+                self.player_id,
+                content.get("guess", ""),
+                by_mod=bool(content.get("by_mod", False)),
+            )
             if not ok:
                 return await self.send_error(msg)
             await self.broadcast_sync()
