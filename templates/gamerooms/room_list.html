@@ -3,7 +3,7 @@
 {% block title %}{% trans "Game Rooms" %} - Marco Silva{% endblock %}
 
 {% block content %}
-<div style="max-width: 600px; margin: 0 auto; padding-bottom: 2rem;">
+<div style="max-width: 780px; margin: 0 auto; padding-bottom: 2rem;">
   <!-- Header -->
   <div style="margin-bottom: 1.5rem;">
     <h1 style="font-size: 1.4rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">{% trans "Game Rooms" %}</h1>
@@ -14,16 +14,16 @@
     <!-- Quick action links -->
     <div style="display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; font-size: 0.85rem;">
       <a href="{% url 'gamerooms:lupus:hub' %}" 
-         style="display: inline-flex; align-items: center; gap: 0.35rem; background: #0f172a; color: #ffffff; padding: 0.45rem 0.85rem; border-radius: 8px; font-weight: 600; text-decoration: none;">
-        {% trans "🐺 Lupus Hub & Rooms" %}
+         style="display: inline-flex; align-items: center; gap: 0.35rem; background: #f8fafc; color: #1e293b; padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; border: 1px solid #cbd5e1;">
+        {% trans "🐺 lupus hub" %}
       </a>
       <a href="{% url 'gamerooms:lupus:create' %}" 
-         style="display: inline-flex; align-items: center; background: #f1f5f9; color: #1e293b; padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; border: 1px solid #cbd5e1;">
+         style="display: inline-flex; align-items: center; background: #f8fafc; color: #475569; padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 500; text-decoration: none; border: 1px solid #e2e8f0;">
         {% trans "🐺 create lupus" %}
       </a>
       <a href="{% url 'gamerooms:room-create' %}" 
          style="display: inline-flex; align-items: center; background: #f8fafc; color: #475569; padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 500; text-decoration: none; border: 1px solid #e2e8f0;">
-        {% trans "+ create room" %}
+        🎨 Emojinary — {% trans "create room" %}
       </a>
       <a href="/games/pictionary/" 
          style="display: inline-flex; align-items: center; background: #f8fafc; color: #475569; padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 500; text-decoration: none; border: 1px solid #e2e8f0;">
@@ -52,27 +52,64 @@
     </form>
   </div>
 
-  <!-- Featured Lupus Card -->
-  <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.75rem; box-shadow: 0 4px 12px rgba(15,23,42,0.15);">
-    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+  <!-- Games Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.85rem; margin-bottom: 1.75rem;">
+    <!-- Lupus Card -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;">
       <div>
-        <div style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.4rem;">
-          <span>🐺</span> {% trans "Lupus in Tabula / Werewolf" %}
+        <div style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.35rem;">
+          <span>🐺</span> {% trans "Lupus / Werewolf" %}
         </div>
-        <p style="font-size: 0.82rem; color: #94a3b8; max-width: 420px; line-height: 1.4; margin-bottom: 0.85rem;">
+        <p style="font-size: 0.8rem; color: #64748b; line-height: 1.45; margin-bottom: 0.9rem;">
           {% trans "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit." %}
         </p>
       </div>
+      <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
+        <a href="{% url 'gamerooms:lupus:create' %}" 
+           style="display: inline-flex; align-items: center; background: #2563eb; color: #ffffff; padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
+          {% trans "+ Host Room" %}
+        </a>
+        <a href="{% url 'gamerooms:lupus:hub' %}" 
+           style="display: inline-flex; align-items: center; background: #f8fafc; color: #334155; padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none; border: 1px solid #cbd5e1;">
+          {% trans "Browse Hub" %} &rarr;
+        </a>
+      </div>
     </div>
-    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-      <a href="{% url 'gamerooms:lupus:hub' %}" 
-         style="display: inline-flex; align-items: center; gap: 0.3rem; background: #ffffff; color: #0f172a; padding: 0.45rem 0.85rem; border-radius: 6px; font-size: 0.82rem; font-weight: 700; text-decoration: none;">
-        {% trans "Browse Active Lupus Rooms" %} &rarr;
-      </a>
-      <a href="{% url 'gamerooms:lupus:create' %}" 
-         style="display: inline-flex; align-items: center; gap: 0.3rem; background: rgba(255,255,255,0.15); color: #ffffff; padding: 0.45rem 0.85rem; border-radius: 6px; font-size: 0.82rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(255,255,255,0.2);">
-        {% trans "+ Host New Room" %}
-      </a>
+
+    <!-- Emojinary Card -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.35rem;">
+          <span>🎨</span> Emojinary
+        </div>
+        <p style="font-size: 0.8rem; color: #64748b; line-height: 1.45; margin-bottom: 0.9rem;">
+          {% trans "Describe movies, songs, and phrases with emojis in Round Robin, Collective Prep, or Judge's Pick." %}
+        </p>
+      </div>
+      <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
+        <a href="{% url 'gamerooms:room-create' %}" 
+           style="display: inline-flex; align-items: center; background: #2563eb; color: #ffffff; padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
+          {% trans "+ Create Emojinary" %}
+        </a>
+      </div>
+    </div>
+
+    <!-- Pictionary Card -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.35rem;">
+          <span>✏️</span> Pictionary
+        </div>
+        <p style="font-size: 0.8rem; color: #64748b; line-height: 1.45; margin-bottom: 0.9rem;">
+          {% trans "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends." %}
+        </p>
+      </div>
+      <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
+        <a href="/games/pictionary/" 
+           style="display: inline-flex; align-items: center; background: #f8fafc; color: #334155; padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none; border: 1px solid #cbd5e1;">
+          {% trans "Open Generator" %} &rarr;
+        </a>
+      </div>
     </div>
   </div>
 
