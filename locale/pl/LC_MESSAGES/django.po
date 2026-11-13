@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Wilkołaki"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Powtórka meczu i oś czasu prób"
 
@@ -704,6 +707,9 @@ msgstr "przy życiu"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "cały dzień"
 
@@ -730,6 +736,9 @@ msgstr "marka aparatu"
 
 msgid "camera model"
 msgstr "model aparatu"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -863,6 +872,9 @@ msgstr "tryb"
 msgid "mode:"
 msgstr "tryb:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "nowe słowo"
 
@@ -919,6 +931,9 @@ msgstr "Zdjęcia"
 
 msgid "photos (select multiple)"
 msgstr "zdjęcia (wybierz wiele)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "wybierz opcje, kliknij przycisk i rysuj!"
@@ -977,6 +992,9 @@ msgstr "czas naświetlania"
 msgid "skip"
 msgstr "pomiń"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "początek"
 
@@ -986,6 +1004,9 @@ msgstr "rozpocznij grę"
 msgid "text"
 msgstr "tekst"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "tytuł"
 
@@ -994,6 +1015,9 @@ msgstr "tytuł jest wymagany"
 
 msgid "today"
 msgstr "dzisiaj"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "typ"

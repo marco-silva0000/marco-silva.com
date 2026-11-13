@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Mbwa Mwitu (Werewolf)"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Marudio ya Mechi na Mfuatano wa Majaribio"
 
@@ -704,6 +707,9 @@ msgstr "hai"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "siku nzima"
 
@@ -730,6 +736,9 @@ msgstr "mtengenezaji wa kamera"
 
 msgid "camera model"
 msgstr "muundo wa kamera"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -863,6 +872,9 @@ msgstr "hali"
 msgid "mode:"
 msgstr "hali:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "neno jipya"
 
@@ -919,6 +931,9 @@ msgstr "Picha"
 
 msgid "photos (select multiple)"
 msgstr "picha (chagua nyingi)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "chagua chaguo zako, bonyeza kitufe, chora!"
@@ -977,6 +992,9 @@ msgstr "kasi ya shata"
 msgid "skip"
 msgstr "ruka"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "anza"
 
@@ -986,6 +1004,9 @@ msgstr "anza mchezo"
 msgid "text"
 msgstr "maandishi"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "kichwa"
 
@@ -994,6 +1015,9 @@ msgstr "kichwa kinahitajika"
 
 msgid "today"
 msgstr "leo"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "aina"

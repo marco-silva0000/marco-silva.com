@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Weerwolf"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "lewendig"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "heeldag"
 
@@ -730,6 +736,9 @@ msgstr "kamerafabrikant"
 
 msgid "camera model"
 msgstr "kameramodel"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "klets:"
@@ -863,6 +872,9 @@ msgstr "modus"
 msgid "mode:"
 msgstr "modus:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "nuwe woord"
 
@@ -919,6 +931,9 @@ msgstr "Foto's"
 
 msgid "photos (select multiple)"
 msgstr "foto's (kies verskeie)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "kies jou opsies, druk die knoppie, teken!"
@@ -977,6 +992,9 @@ msgstr "sluiterspoed"
 msgid "skip"
 msgstr "slaan oor"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "begin"
 
@@ -986,6 +1004,9 @@ msgstr "begin speletjie"
 msgid "text"
 msgstr "teks"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "titel"
 
@@ -994,6 +1015,9 @@ msgstr "titel word vereis"
 
 msgid "today"
 msgstr "vandag"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "tipe"

@@ -26,6 +26,23 @@ def emojinary_index(request):
 
 
 @never_cache
+def room_join_redirect(request, code):
+    """Redirect short /games/emojinary/<code>/ links to the room join page or active player session."""
+    code = code.upper()
+    get_object_or_404(Room, code=code, is_active=True)
+    state = get_game(code)
+    token = request.GET.get("token") or request.session.get(f"emojinary_player_{code}")
+    existing = find_player_by_token(state, token)
+    if existing and not request.GET.get("new"):
+        return redirect("gamerooms:emojinary:game", code=code, name=existing["name"])
+    join_url = reverse("gamerooms:room-join", kwargs={"code": code})
+    pwd = request.GET.get("pwd")
+    if pwd:
+        return redirect(f"{join_url}?pwd={pwd}")
+    return redirect(join_url)
+
+
+@never_cache
 def game(request, code, name):
     code = code.upper()
     room = get_object_or_404(Room, code=code, is_active=True)

@@ -389,6 +389,9 @@ msgstr "لوبوس إن تابولا / المستذئب"
 msgid "Mafia"
 msgstr "مافيا"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "على قيد الحياة"
 msgid "all"
 msgstr "الكل"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "طوال اليوم"
 
@@ -730,6 +736,9 @@ msgstr "الشركة المصنعة للكاميرا"
 
 msgid "camera model"
 msgstr "طراز الكاميرا"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "الدردشة:"
@@ -863,6 +872,9 @@ msgstr "الوضع"
 msgid "mode:"
 msgstr "الوضع:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "كلمة جديدة"
 
@@ -919,6 +931,9 @@ msgstr "الصور"
 
 msgid "photos (select multiple)"
 msgstr "الصور (حدد عدة صور)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "اختر الخيارات، اضغط على الزر، وارسم!"
@@ -977,6 +992,9 @@ msgstr "سرعة الغالق"
 msgid "skip"
 msgstr "تخطي"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "البدء"
 
@@ -986,6 +1004,9 @@ msgstr "بدء اللعبة"
 msgid "text"
 msgstr "نص"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "العنوان"
 
@@ -994,6 +1015,9 @@ msgstr "العنوان مطلوب"
 
 msgid "today"
 msgstr "اليوم"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "النوع"

@@ -389,6 +389,9 @@ msgstr "لوپوس این تابولا / گرگینه"
 msgid "Mafia"
 msgstr "مافیا"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "زنده"
 msgid "all"
 msgstr "همه"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "تمام روز"
 
@@ -730,6 +736,9 @@ msgstr "سازنده دوربین"
 
 msgid "camera model"
 msgstr "مدل دوربین"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "چت:"
@@ -863,6 +872,9 @@ msgstr "حالت"
 msgid "mode:"
 msgstr "حالت:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "کلمه جدید"
 
@@ -919,6 +931,9 @@ msgstr "عکس‌ها"
 
 msgid "photos (select multiple)"
 msgstr "عکس‌ها (انتخاب چندتایی)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "گزینه‌ها را انتخاب کنید، دکمه را بزنید و نقاشی بکشید!"
@@ -977,6 +992,9 @@ msgstr "سرعت شاتر"
 msgid "skip"
 msgstr "رد کردن"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "شروع"
 
@@ -986,6 +1004,9 @@ msgstr "شروع بازی"
 msgid "text"
 msgstr "متن"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -994,6 +1015,9 @@ msgstr "عنوان الزامی است"
 
 msgid "today"
 msgstr "امروز"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "نوع"

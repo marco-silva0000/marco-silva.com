@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Ujk-Njeriu"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "gjallë"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "gjithë ditën"
 
@@ -730,6 +736,9 @@ msgstr "prodhuesi i kamerës"
 
 msgid "camera model"
 msgstr "modeli i kamerës"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "biseda:"
@@ -863,6 +872,9 @@ msgstr "mënyra"
 msgid "mode:"
 msgstr "mënyra:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "fjalë e re"
 
@@ -919,6 +931,9 @@ msgstr "fotot"
 
 msgid "photos (select multiple)"
 msgstr "fotot (zgjidhni disa)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "zgjidhni opsionet tuaja, shtypni butonin, vizatoni!"
@@ -977,6 +992,9 @@ msgstr "shpejtësia e shkrepjes"
 msgid "skip"
 msgstr "kapërce"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "fillimi"
 
@@ -986,6 +1004,9 @@ msgstr "fillo lojën"
 msgid "text"
 msgstr "tekst"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "titulli"
 
@@ -994,6 +1015,9 @@ msgstr "titulli është i detyrueshëm"
 
 msgid "today"
 msgstr "sot"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "lloji"

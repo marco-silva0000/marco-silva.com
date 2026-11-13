@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Werewolf"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "alive"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "پورے دن"
 
@@ -730,6 +736,9 @@ msgstr "camera make"
 
 msgid "camera model"
 msgstr "camera model"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -863,6 +872,9 @@ msgstr "موڈ"
 msgid "mode:"
 msgstr "موڈ:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "نیا لفظ"
 
@@ -919,6 +931,9 @@ msgstr "تصاویر"
 
 msgid "photos (select multiple)"
 msgstr "تصاویر (ایک سے زیادہ منتخب کریں)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "اختیارات منتخب کریں، بٹن دبائیں اور تصویر بنائیں!"
@@ -977,6 +992,9 @@ msgstr "shutter speed"
 msgid "skip"
 msgstr "چھوڑیں"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "شروع"
 
@@ -986,6 +1004,9 @@ msgstr "کھیل شروع کریں"
 msgid "text"
 msgstr "text"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -994,6 +1015,9 @@ msgstr "title is required"
 
 msgid "today"
 msgstr "آج"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "قسم"

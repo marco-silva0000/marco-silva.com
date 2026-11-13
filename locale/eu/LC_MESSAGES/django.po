@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Gizotsoa"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "bizirik"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "egun osoan"
 
@@ -730,6 +736,9 @@ msgstr "kameraren marka"
 
 msgid "camera model"
 msgstr "kameraren modeloa"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "txata:"
@@ -863,6 +872,9 @@ msgstr "modua"
 msgid "mode:"
 msgstr "modua:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "hitz berria"
 
@@ -919,6 +931,9 @@ msgstr "Argazkiak"
 
 msgid "photos (select multiple)"
 msgstr "argazkiak (hautatu hainbat)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "aukeratu zure ezarpenak, sakatu botoia, marraztu!"
@@ -977,6 +992,9 @@ msgstr "obturadore-abiadura"
 msgid "skip"
 msgstr "saltatu"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "hasiera"
 
@@ -986,6 +1004,9 @@ msgstr "hasi jokoa"
 msgid "text"
 msgstr "testua"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "izenburua"
 
@@ -994,6 +1015,9 @@ msgstr "izenburua beharrezkoa da"
 
 msgid "today"
 msgstr "gaur"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "mota"

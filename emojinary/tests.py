@@ -192,6 +192,12 @@ class TestEmojinaryPlayerIdentityAndRoomMechanics:
         assert resp.status_code == 200
         assert 'name="name"' in resp.content.decode()
 
+        # Short /games/emojinary/<code>/?pwd=1234 redirects preserving ?pwd=1234
+        short_url = reverse("gamerooms:emojinary:join", kwargs={"code": locked.code}) + "?pwd=1234"
+        short_resp = client.get(short_url)
+        assert short_resp.status_code == 302
+        assert "pwd=1234" in short_resp.headers["Location"]
+
 
 class TestEmojinarySmartGuessAndSpoilerGuard:
     def test_article_and_punctuation_insensitive_matching(self):

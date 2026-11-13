@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Lobisomem"
 msgid "Mafia"
 msgstr "Máfia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Repetição da Partida e Cronologia de Tentativas"
 
@@ -704,6 +707,9 @@ msgstr "vivos"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "todo o dia"
 
@@ -730,6 +736,9 @@ msgstr "marca da câmara"
 
 msgid "camera model"
 msgstr "modelo da câmara"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "conversa:"
@@ -863,6 +872,9 @@ msgstr "modo"
 msgid "mode:"
 msgstr "modo:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "nova palavra"
 
@@ -919,6 +931,9 @@ msgstr "fotos"
 
 msgid "photos (select multiple)"
 msgstr "fotos (selecionar várias)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "escolha as opções, clique no botão e desenhe!"
@@ -977,6 +992,9 @@ msgstr "velocidade do obturador"
 msgid "skip"
 msgstr "saltar"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "início"
 
@@ -986,6 +1004,9 @@ msgstr "iniciar jogo"
 msgid "text"
 msgstr "texto"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "título"
 
@@ -994,6 +1015,9 @@ msgstr "o título é obrigatório"
 
 msgid "today"
 msgstr "hoje"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "tipo"

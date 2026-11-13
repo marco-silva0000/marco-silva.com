@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Varulv"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Matchrepris och försökstidslinje"
 
@@ -704,6 +707,9 @@ msgstr "vid liv"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "heldag"
 
@@ -730,6 +736,9 @@ msgstr "kameramärke"
 
 msgid "camera model"
 msgstr "kameramodell"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -863,6 +872,9 @@ msgstr "läge"
 msgid "mode:"
 msgstr "läge:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "nytt ord"
 
@@ -919,6 +931,9 @@ msgstr "Foton"
 
 msgid "photos (select multiple)"
 msgstr "foton (välj flera)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "välj dina alternativ, tryck på knappen, rita!"
@@ -977,6 +992,9 @@ msgstr "slutartid"
 msgid "skip"
 msgstr "hoppa över"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "start"
 
@@ -986,6 +1004,9 @@ msgstr "starta spel"
 msgid "text"
 msgstr "text"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "titel"
 
@@ -994,6 +1015,9 @@ msgstr "titel krävs"
 
 msgid "today"
 msgstr "idag"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "typ"

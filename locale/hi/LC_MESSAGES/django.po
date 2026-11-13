@@ -389,6 +389,9 @@ msgstr "लुपस इन तबुला / वेयरवोल्फ"
 msgid "Mafia"
 msgstr "माफिया"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "जीवित"
 msgid "all"
 msgstr "सभी"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "पूरे दिन"
 
@@ -730,6 +736,9 @@ msgstr "कैमरा निर्माता"
 
 msgid "camera model"
 msgstr "कैमरा मॉडल"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "चैट:"
@@ -863,6 +872,9 @@ msgstr "मोड"
 msgid "mode:"
 msgstr "मोड:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "नया शब्द"
 
@@ -919,6 +931,9 @@ msgstr "तस्वीरें"
 
 msgid "photos (select multiple)"
 msgstr "तस्वीरें (एकाधिक चुनें)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "विकल्प चुनें, बटन दबाएं, बनाएं!"
@@ -977,6 +992,9 @@ msgstr "शटर स्पीड"
 msgid "skip"
 msgstr "छोड़ें"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "शुरू"
 
@@ -986,6 +1004,9 @@ msgstr "खेल शुरू करें"
 msgid "text"
 msgstr "टेक्स्ट"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "शीर्षक"
 
@@ -994,6 +1015,9 @@ msgstr "शीर्षक आवश्यक है"
 
 msgid "today"
 msgstr "आज"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "प्रकार"

@@ -389,6 +389,9 @@ msgstr "ಲೂಪಸ್ ಇನ್ ತಬುಲಾ / ತೋಳಮಾನವ"
 msgid "Mafia"
 msgstr "ಮಾಫಿಯಾ"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "ಜೀವಂತ"
 msgid "all"
 msgstr "ಎಲ್ಲವೂ"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "ದಿನವಿಡೀ"
 
@@ -730,6 +736,9 @@ msgstr "ಕ್ಯಾಮೆರಾ ತಯಾರಕರು"
 
 msgid "camera model"
 msgstr "ಕ್ಯಾಮೆರಾ ಮಾದರಿ"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "ಚಾಟ್:"
@@ -863,6 +872,9 @@ msgstr "ಮೋಡ್"
 msgid "mode:"
 msgstr "ಮೋಡ್:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "ಹೊಸ ಪದ"
 
@@ -919,6 +931,9 @@ msgstr "ಫೋಟೋಗಳು"
 
 msgid "photos (select multiple)"
 msgstr "ಫೋಟೋಗಳು (ಹಲವಾರು ಆಯ್ಕೆಮಾಡಿ)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ, ಬಟನ್ ಒತ್ತಿ, ಚಿತ್ರಿಸಿ!"
@@ -977,6 +992,9 @@ msgstr "ಶಟರ್ ವೇಗ"
 msgid "skip"
 msgstr "ಬಿಟ್ಟುಬಿಡಿ"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "ಪ್ರಾರಂಭ"
 
@@ -986,6 +1004,9 @@ msgstr "ಆಟ ಪ್ರಾರಂಭಿಸಿ"
 msgid "text"
 msgstr "ಪಠ್ಯ"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "ಶೀರ್ಷಿಕೆ"
 
@@ -994,6 +1015,9 @@ msgstr "ಶೀರ್ಷಿಕೆ ಅಗತ್ಯವಿದೆ"
 
 msgid "today"
 msgstr "ಇಂದು"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "ವಿಧ"

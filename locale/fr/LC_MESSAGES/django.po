@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Loup-Garou"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Rediffusion de la partie et historique des tentatives"
 
@@ -704,6 +707,9 @@ msgstr "vivants"
 msgid "all"
 msgstr "tous"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "toute la journée"
 
@@ -730,6 +736,9 @@ msgstr "marque de l'appareil"
 
 msgid "camera model"
 msgstr "modèle de l'appareil"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "chat :"
@@ -863,6 +872,9 @@ msgstr "mode"
 msgid "mode:"
 msgstr "mode :"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "nouveau mot"
 
@@ -919,6 +931,9 @@ msgstr "photos"
 
 msgid "photos (select multiple)"
 msgstr "photos (sélectionner plusieurs)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "choisissez vos options, appuyez sur le bouton, dessinez !"
@@ -977,6 +992,9 @@ msgstr "vitesse d'obturation"
 msgid "skip"
 msgstr "passer"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "début"
 
@@ -986,6 +1004,9 @@ msgstr "démarrer le jeu"
 msgid "text"
 msgstr "texte"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "titre"
 
@@ -994,6 +1015,9 @@ msgstr "le titre est obligatoire"
 
 msgid "today"
 msgstr "aujourd'hui"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "type"

@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Canavar Adam"
 msgid "Mafia"
 msgstr "Mafiya"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Matç Təkrarı və Cəhdlər Tarixçəsi"
 
@@ -704,6 +707,9 @@ msgstr "sağ"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "bütün gün"
 
@@ -730,6 +736,9 @@ msgstr "kamera istehsalçısı"
 
 msgid "camera model"
 msgstr "kamera modeli"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "söhbət:"
@@ -863,6 +872,9 @@ msgstr "rejim"
 msgid "mode:"
 msgstr "rejim:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "yeni söz"
 
@@ -919,6 +931,9 @@ msgstr "fotolar"
 
 msgid "photos (select multiple)"
 msgstr "fotolar (bir neçəsini seçin)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "seçimlərinizi edin, düyməyə basın, çəkin!"
@@ -977,6 +992,9 @@ msgstr "çekim sürəti"
 msgid "skip"
 msgstr "keç"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "başlanğıc"
 
@@ -986,6 +1004,9 @@ msgstr "oyuna başla"
 msgid "text"
 msgstr "mətn"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "başlıq"
 
@@ -994,6 +1015,9 @@ msgstr "başlıq tələb olunur"
 
 msgid "today"
 msgstr "bu gün"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "növ"

@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / ওয়্যারউলফ"
 msgid "Mafia"
 msgstr "মাফিয়া"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "জীবিত"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "সারাদিন"
 
@@ -730,6 +736,9 @@ msgstr "ক্যামেরা প্রস্তুতকারক"
 
 msgid "camera model"
 msgstr "ক্যামেরার মডেল"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "চ্যাট:"
@@ -863,6 +872,9 @@ msgstr "মোড"
 msgid "mode:"
 msgstr "মোড:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "নতুন শব্দ"
 
@@ -919,6 +931,9 @@ msgstr "ছবিসমূহ"
 
 msgid "photos (select multiple)"
 msgstr "ছবি (একাধিক নির্বাচন করুন)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "আপনার অপশনগুলো বেছে নিন, বোতামে চাপ দিন, আর আঁকুন!"
@@ -977,6 +992,9 @@ msgstr "শাটার স্পিড"
 msgid "skip"
 msgstr "এড়িয়ে যান"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "শুরু"
 
@@ -986,6 +1004,9 @@ msgstr "খেলা শুরু করুন"
 msgid "text"
 msgstr "টেক্সট"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "শিরোনাম"
 
@@ -994,6 +1015,9 @@ msgstr "শিরোনাম দেওয়া আবশ্যক"
 
 msgid "today"
 msgstr "আজ"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "ধরণ"

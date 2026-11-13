@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Ihmissusi"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Ottelun uusinta ja yritysten aikajana"
 
@@ -704,6 +707,9 @@ msgstr "elossa"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "koko päivän"
 
@@ -730,6 +736,9 @@ msgstr "kameran valmistaja"
 
 msgid "camera model"
 msgstr "kameran malli"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -863,6 +872,9 @@ msgstr "pelimuoto"
 msgid "mode:"
 msgstr "pelimuoto:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "uusi sana"
 
@@ -919,6 +931,9 @@ msgstr "Kuvat"
 
 msgid "photos (select multiple)"
 msgstr "valokuvat (valitse useita)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "valitse asetukset, paina nappia ja piirrä!"
@@ -977,6 +992,9 @@ msgstr "suljinaika"
 msgid "skip"
 msgstr "ohita"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "alkaa"
 
@@ -986,6 +1004,9 @@ msgstr "aloita peli"
 msgid "text"
 msgstr "teksti"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "otsikko"
 
@@ -994,6 +1015,9 @@ msgstr "otsikko vaaditaan"
 
 msgid "today"
 msgstr "tänään"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "tyyppi"

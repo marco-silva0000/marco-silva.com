@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Werewolf"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "alive"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "all day"
 
@@ -730,6 +736,9 @@ msgstr "camera make"
 
 msgid "camera model"
 msgstr "camera model"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -863,6 +872,9 @@ msgstr "mode"
 msgid "mode:"
 msgstr "mode:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "new word"
 
@@ -919,6 +931,9 @@ msgstr "Fotografii"
 
 msgid "photos (select multiple)"
 msgstr "photos (select multiple)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "pick your options, hit the button, draw!"
@@ -977,6 +992,9 @@ msgstr "shutter speed"
 msgid "skip"
 msgstr "skip"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "start"
 
@@ -986,6 +1004,9 @@ msgstr "start game"
 msgid "text"
 msgstr "text"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "title"
 
@@ -994,6 +1015,9 @@ msgstr "title is required"
 
 msgid "today"
 msgstr "today"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "type"

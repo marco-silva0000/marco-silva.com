@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Оборотень"
 msgid "Mafia"
 msgstr "Мафия"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Повтор матча и хронология попыток"
 
@@ -704,6 +707,9 @@ msgstr "в живых"
 msgid "all"
 msgstr "all"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "весь день"
 
@@ -730,6 +736,9 @@ msgstr "производитель камеры"
 
 msgid "camera model"
 msgstr "модель камеры"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "чат:"
@@ -863,6 +872,9 @@ msgstr "режим"
 msgid "mode:"
 msgstr "режим:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "новое слово"
 
@@ -919,6 +931,9 @@ msgstr "фотографии"
 
 msgid "photos (select multiple)"
 msgstr "фотографии (выберите несколько)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "выберите параметры, нажмите кнопку и рисуйте!"
@@ -977,6 +992,9 @@ msgstr "выдержка"
 msgid "skip"
 msgstr "пропустить"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "начало"
 
@@ -986,6 +1004,9 @@ msgstr "начать игру"
 msgid "text"
 msgstr "текст"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "название"
 
@@ -994,6 +1015,9 @@ msgstr "название обязательно"
 
 msgid "today"
 msgstr "сегодня"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "тип"

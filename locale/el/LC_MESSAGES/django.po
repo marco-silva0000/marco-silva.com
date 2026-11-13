@@ -389,6 +389,9 @@ msgstr "Lupus in Tabula / Λυκάνθρωπος"
 msgid "Mafia"
 msgstr "Μαφία"
 
+msgid "Match Podium & Highlights"
+msgstr "Match Podium & Highlights"
+
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
@@ -704,6 +707,9 @@ msgstr "ζωντανοί"
 msgid "all"
 msgstr "όλα"
 
+msgid "all categories"
+msgstr "all categories"
+
 msgid "all day"
 msgstr "όλη μέρα"
 
@@ -730,6 +736,9 @@ msgstr "κατασκευαστής κάμερας"
 
 msgid "camera model"
 msgstr "μοντέλο κάμερας"
+
+msgid "category:"
+msgstr "category:"
 
 msgid "chat:"
 msgstr "συνομιλία:"
@@ -863,6 +872,9 @@ msgstr "λειτουργία"
 msgid "mode:"
 msgstr "λειτουργία:"
 
+msgid "movies"
+msgstr "movies"
+
 msgid "new word"
 msgstr "νέα λέξη"
 
@@ -919,6 +931,9 @@ msgstr "φωτογραφίες"
 
 msgid "photos (select multiple)"
 msgstr "φωτογραφίες (επιλέξτε πολλές)"
+
+msgid "phrases"
+msgstr "phrases"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "επιλέξτε επιλογές, πατήστε το κουμπί, σχεδιάστε!"
@@ -977,6 +992,9 @@ msgstr "ταχύτητα κλείστρου"
 msgid "skip"
 msgstr "παράλειψη"
 
+msgid "songs"
+msgstr "songs"
+
 msgid "start"
 msgstr "έναρξη"
 
@@ -986,6 +1004,9 @@ msgstr "έναρξη παιχνιδιού"
 msgid "text"
 msgstr "κείμενο"
 
+msgid "things"
+msgstr "things"
+
 msgid "title"
 msgstr "τίτλος"
 
@@ -994,6 +1015,9 @@ msgstr "ο τίτλος είναι υποχρεωτικός"
 
 msgid "today"
 msgstr "σήμερα"
+
+msgid "tv shows"
+msgstr "tv shows"
 
 msgid "type"
 msgstr "τύπος"
