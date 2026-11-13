@@ -65,7 +65,15 @@ jobs:
       - run: uv run python scripts/generate_all_64_locales.py
 
       # Unit tests
-      - run: USE_SQLITE=1 uv run pytest gamerooms/ lupus/ photos/ tools/ -v
+      - run: |
+          set -o pipefail
+          USE_SQLITE=1 uv run pytest gamerooms/ lupus/ photos/ tools/ -v 2>&1 | tee /tmp/pytest.log || {
+            echo "### Pytest Failures" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat /tmp/pytest.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            exit 1
+          }
 
       # Start Django for integration tests
       - run: uv run python manage.py migrate --noinput
