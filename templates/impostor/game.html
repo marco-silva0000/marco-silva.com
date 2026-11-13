@@ -63,6 +63,7 @@
   border-radius: 14px; padding: 1.15rem 1.25rem; margin-bottom: 0.9rem; position: relative;
   border: 1px solid #334155; box-shadow: 0 8px 20px -6px rgba(15,23,42,0.35);
 }
+.imp-secret-role.blurred { filter: blur(8px); user-select: none; }
 .imp-secret-word { font-size: 2rem; font-weight: 800; letter-spacing: 0.02em; margin: 0.35rem 0; word-break: break-word; }
 .imp-secret-word.blurred { filter: blur(11px); user-select: none; }
 
@@ -134,13 +135,13 @@
       <!-- Secret Word Card -->
       <div class="imp-secret-card" id="secret-card-box" style="display:none;">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
-          <span id="card-role-label" style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#93c5fd;">🔒 Secret Card</span>
+          <span id="card-role-label" class="imp-secret-role blurred" style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#93c5fd;">🔒 {% trans "Role Hidden" %}</span>
           <div style="display:flex; gap:0.4rem; align-items:center;">
             <span id="card-category-pill" style="font-size:0.74rem; padding:0.15rem 0.5rem; border-radius:999px; background:rgba(255,255,255,0.12); color:#e2e8f0;"></span>
-            <button type="button" id="btn-toggle-peek" onclick="toggleCardBlur()" style="font-size:0.74rem; padding:0.18rem 0.55rem; border-radius:6px; border:1px solid #475569; background:#1e293b; color:#f8fafc; cursor:pointer;">👁️ {% trans "Hide Word" %}</button>
+            <button type="button" id="btn-toggle-peek" onclick="toggleCardBlur()" style="font-size:0.74rem; padding:0.18rem 0.55rem; border-radius:6px; border:1px solid #475569; background:#1e293b; color:#f8fafc; cursor:pointer;">👁️ {% trans "Show Role & Word" %}</button>
           </div>
         </div>
-        <div id="card-word-text" class="imp-secret-word">...</div>
+        <div id="card-word-text" class="imp-secret-word blurred">••••••••</div>
         <div id="card-sub-note" style="font-size:0.8rem; color:#cbd5e1; margin-top:0.2rem;"></div>
       </div>
 
@@ -358,7 +359,8 @@ const MY_NAME = "{{ player_name|escapejs }}";
 const MY_TOKEN = "{{ player_token|escapejs }}";
 const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
 let state = {{ initial_state_json|safe }};
-let cardBlurred = false;
+let cardBlurred = true;
+let lastCardDealKey = null;
 let ws = null;
 let countdownTimer = null;
 let lastTurnSyncKey = null;
@@ -378,12 +380,35 @@ function showError(msg) {
   setTimeout(() => { b.style.display = 'none'; }, 5500);
 }
 
+function applyCardVisibility() {
+  const card = state && state.my_card;
+  const roleEl = $('card-role-label');
+  const wordEl = $('card-word-text');
+  const noteEl = $('card-sub-note');
+  const btn = $('btn-toggle-peek');
+  if (roleEl) roleEl.classList.toggle('blurred', cardBlurred);
+  if (wordEl) wordEl.classList.toggle('blurred', cardBlurred);
+  if (btn) btn.textContent = cardBlurred ? '👁️ Show Role & Word' : '🙈 Hide Role & Word';
+  if (!card) return;
+  if (cardBlurred) {
+    if (roleEl) roleEl.textContent = '🔒 Role Hidden';
+    if (wordEl) wordEl.textContent = '••••••••';
+    const notes = [];
+    if (card.lethal_active) notes.push('☠️ Lethal Taboo Poison Word is active — avoid obvious giveaways!');
+    if (noteEl) noteEl.textContent = notes.join(' · ');
+  } else {
+    if (roleEl) roleEl.textContent = card.role_label || '🔒 Secret Word';
+    if (wordEl) wordEl.textContent = card.word ? card.word : '⬜ NO WORD — BLUFF!';
+    const notes = [];
+    if (card.lethal_active) notes.push('☠️ Lethal Taboo Poison Word is active — avoid obvious giveaways!');
+    if (card.lethal_word_preview) notes.push(`Lethal Word: ${card.lethal_word_preview}`);
+    if (noteEl) noteEl.textContent = notes.join(' · ');
+  }
+}
+
 function toggleCardBlur() {
   cardBlurred = !cardBlurred;
-  const el = $('card-word-text');
-  const btn = $('btn-toggle-peek');
-  if (el) el.classList.toggle('blurred', cardBlurred);
-  if (btn) btn.textContent = cardBlurred ? '👁️ Show Word' : '🙈 Hide Word';
+  applyCardVisibility();
 }
 
 function connectWs() {
@@ -519,17 +544,17 @@ function renderState() {
     tb.style.display = 'none';
   }
 
-  // Secret card
+  // Secret card (hidden by default until player clicks Show Role & Word)
   const cardBox = $('secret-card-box');
+  const cardDealKey = s.my_card ? `${s.round_num}:${s.my_card.role_type}:${s.my_card.word || ''}` : null;
+  if (cardDealKey !== lastCardDealKey) {
+    cardBlurred = true;
+    lastCardDealKey = cardDealKey;
+  }
   if (s.my_card) {
     cardBox.style.display = 'block';
-    $('card-role-label').textContent = s.my_card.role_label || '🔒 Secret Word';
     $('card-category-pill').textContent = `Category: ${(s.my_card.category || s.current_category || 'all').toUpperCase()}`;
-    $('card-word-text').textContent = s.my_card.word ? s.my_card.word : '⬜ NO WORD — BLUFF!';
-    const notes = [];
-    if (s.my_card.lethal_active) notes.push('☠️ Lethal Taboo Poison Word is active — avoid obvious giveaways!');
-    if (s.my_card.lethal_word_preview) notes.push(`Lethal Word: ${s.my_card.lethal_word_preview}`);
-    $('card-sub-note').textContent = notes.join(' · ');
+    applyCardVisibility();
   } else {
     cardBox.style.display = 'none';
   }

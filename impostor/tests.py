@@ -249,6 +249,10 @@ class TestImpostorHttpAndWebsocket:
         assert "Cafe Mystery" in html
         assert "Poison Word Mode" in html
         assert "Portuguese" in html or "🇵🇹" in html
+        assert "let cardBlurred = true;" in html
+        assert "Show Role &amp; Word" in html or "Show Role & Word" in html
+        assert "imp-secret-word blurred" in html
+        assert "imp-secret-role blurred" in html
 
     def test_full_websocket_round_and_failed_steal(self, db):
         Room.objects.create(title="WS Spy Table", code="IMPWS001", game_type="impostor", language="en")

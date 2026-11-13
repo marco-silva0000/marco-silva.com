@@ -4,6 +4,13 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v154] - 2026-11-14
+
+### Changed
+- **Word Impostor Hide Role & Secret Word by Default (`templates/impostor/game.html`, `impostor/tests.py`)**:
+  - Updated `#secret-card-box` so both the player's role (`#card-role-label`) and secret word (`#card-word-text`, as well as Round Director lethal word previews) start blurred and masked (`🔒 Role Hidden` / `••••••••`) with `cardBlurred = true` until the player taps `👁️ Show Role & Word`.
+  - Automatically resets `cardBlurred = true` whenever a new round or Blind Redraw deals a fresh card (`lastCardDealKey`).
+
 ## [v153] - 2026-11-14
 
 ### Fixed & Added
