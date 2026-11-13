@@ -4,6 +4,18 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v146] - 2026-11-13
+
+### Added
+- **Emojinary Party Game Full Revamp & Shared Room Architecture (`emojinary/`, `gamerooms/qr.py`)**:
+  - **Shared Party-Game QR & URL Helper (`gamerooms/qr.py`)**: Extracted QR code data-URI generation and public URL builder into `gamerooms.qr`, shared by both Lupus and Emojinary.
+  - **Persistent Player Identity & Reconnect Flow**: Replaced volatile `channel_name` player keys with persistent `player_id` (`p_1`, `p_2`, ...) and secret `token` identities, preserving scores and turn positions across mobile refreshes and disconnects. Added Room Invite QR modal (with `?pwd=` auto-authentication), Personal Reconnect QR & link (`/games/emojinary/<code>/reconnect/<token>/`), self-service live display name change (`rename_player`), and Playing Host (`is_admin`) controls (presets, settings, pause/resume/+15s timer, force-advance, kick player, transfer host, spectator toggle).
+  - **Unified Chat & Guess Window + Live Progressive Emoji Hints**: Consolidated all guessing and room activity into the unified chat feed (`chat_log`) with automatic spoiler censoring (`censor_spoilers`) and word-length masking (`build_word_mask`). During guessing, the word writer can drop live additional emoji hints (`Hint #2`, `Hint #3`, ...) into the stream.
+  - **Collective Prep Mode (`mode: "collective"`)**: Added a new game mode where all players simultaneously receive secret phrases and lock in their initial emoji clues in parallel (`prep` phase), followed by sequential Round Robin guessing rounds where each word writer can also drop live additional emoji hints.
+  - **Smart Guess Matcher & Non-Repeating Word Pool**: Added article-insensitive (`"The Lion King"` ↔ `"Lion King"`), punctuation/hyphen-insensitive (`"E.T."` ↔ `"et"`, `"WALL-E"` ↔ `"wall e"`), partial-word, and `difflib` close-typo matching, plus `used_words` tracking so words never repeat within a match.
+  - **Attempt-Level Replay Engine & JSON Export**: Recorded every player guess attempt, timestamp offset, and progressive hint in `rounds_history`, with an interactive post-game **Round-by-Round Replay Inspector**, `js-confetti` victory celebration, and `/games/emojinary/<code>/replay.json` export.
+  - **Test Suite (`emojinary/tests.py`)**: Added 13 unit and async WebSocket tests covering persistent reconnects, renaming, host controls, smart matching, Round Robin progressive hints, Collective Prep mode, and Judge's Pick (`best_guess`) mode.
+
 ## [v145] - 2026-11-13
 
 ### Changed

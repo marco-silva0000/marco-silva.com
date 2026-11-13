@@ -1,343 +1,1231 @@
 {% extends 'base.html' %}
-{% load i18n %}
-{% block title %}emojinary — {{ room.title }}{% endblock %}
+{% load i18n static %}
+{% block title %}🎨 Emojinary — {{ room.title }}{% endblock %}
 {% block extra_css %}
-#game-area { display: grid; grid-template-columns: 1fr 250px; gap: 1rem; margin-top: 1rem; }
-#emoji-display { font-size: 2rem; min-height: 3rem; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; word-break: break-all; }
-#chat { border: 1px solid #ddd; border-radius: 4px; height: 300px; overflow-y: auto; padding: 0.5rem; font-size: 0.8rem; }
-#chat .msg { margin-bottom: 0.3rem; }
-#chat .system { color: #888; font-style: italic; }
-#chat .correct { color: green; font-weight: 600; }
-#players .player { padding: 0.2rem 0; border-bottom: 1px solid #eee; font-size: 0.8rem; }
-#players .active { font-weight: 600; color: #4a9eff; }
-.emoji-kb { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; margin-top: 0.5rem; max-height: 200px; overflow-y: auto; }
-.emoji-kb button { font-size: 1.3rem; padding: 0.2rem; border: 1px solid #eee; background: #fafafa; cursor: pointer; border-radius: 3px; }
-.emoji-kb button:hover { background: #eee; }
-.emoji-pages { font-size: 0.8rem; margin-top: 0.3rem; }
-.emoji-pages a { margin-right: 0.5rem; cursor: pointer; }
-.emoji-pages a.active { font-weight: 600; }
-#emoji-search-results { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; margin-top: 0.3rem; }
-#emoji-search-results button { font-size: 1.3rem; padding: 0.2rem; border: 1px solid #eee; background: #fafafa; cursor: pointer; border-radius: 3px; }
-#emoji-search-results button:hover { background: #eee; }
-#word-hint { font-size: 0.85rem; color: #888; margin: 0.5rem 0; }
-#your-word { font-size: 1.1rem; font-weight: 600; color: #4a9eff; margin: 0.5rem 0; }
-#timer-bar { height: 4px; background: #4a9eff; transition: width 1s linear; margin-top: 0.5rem; }
-@media (max-width: 600px) { #game-area { grid-template-columns: 1fr; } .emoji-kb { grid-template-columns: repeat(8, 1fr); } }
-#overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 100; flex-direction: column; }
+:root {
+  --ej-bg: #f8fafc;
+  --ej-card: #ffffff;
+  --ej-border: #e2e8f0;
+  --ej-text: #0f172a;
+  --ej-muted: #64748b;
+  --ej-primary: #2563eb;
+  --ej-primary-soft: #eff6ff;
+  --ej-success: #16a34a;
+  --ej-success-soft: #f0fdf4;
+  --ej-amber: #d97706;
+  --ej-amber-soft: #fffbeb;
+}
+.ej-shell { max-width: 1080px; margin: 0 auto; padding-bottom: 2.5rem; color: var(--ej-text); }
+.ej-topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;
+  background: var(--ej-card); border: 1px solid var(--ej-border); border-radius: 12px;
+  padding: 0.75rem 1rem; box-shadow: 0 1px 3px rgba(15,23,42,0.04); margin-bottom: 0.85rem;
+}
+.ej-title-group { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.ej-title { font-size: 1.15rem; font-weight: 700; margin: 0; color: var(--ej-text); }
+.ej-code-pill {
+  font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.8rem; font-weight: 700;
+  background: #f1f5f9; color: #334155; padding: 0.2rem 0.55rem; border-radius: 6px; border: 1px solid #cbd5e1;
+}
+.ej-mode-pill {
+  font-size: 0.75rem; font-weight: 600; background: var(--ej-primary-soft); color: var(--ej-primary);
+  padding: 0.2rem 0.55rem; border-radius: 999px; border: 1px solid #bfdbfe;
+}
+.ej-actions { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; }
+.ej-btn {
+  display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; font-weight: 600;
+  padding: 0.4rem 0.75rem; border-radius: 8px; border: 1px solid var(--ej-border);
+  background: #ffffff; color: #1e293b; cursor: pointer; text-decoration: none; transition: all 0.15s;
+}
+.ej-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
+.ej-btn-primary { background: var(--ej-primary); color: #ffffff; border-color: var(--ej-primary); }
+.ej-btn-primary:hover { background: #1d4ed8; color: #ffffff; }
+.ej-btn-success { background: var(--ej-success); color: #ffffff; border-color: var(--ej-success); }
+.ej-btn-success:hover { background: #15803d; color: #ffffff; }
+.ej-btn-amber { background: var(--ej-amber); color: #ffffff; border-color: var(--ej-amber); }
+
+#game-area { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1rem; align-items: start; }
+@media (max-width: 820px) { #game-area { grid-template-columns: 1fr; } }
+
+.ej-card {
+  background: var(--ej-card); border: 1px solid var(--ej-border); border-radius: 12px;
+  padding: 1rem; box-shadow: 0 1px 3px rgba(15,23,42,0.04); margin-bottom: 0.85rem;
+}
+.ej-status-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+#status { font-size: 0.92rem; font-weight: 700; color: #1e293b; }
+#timer-badge {
+  font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.82rem; font-weight: 700;
+  padding: 0.15rem 0.5rem; border-radius: 6px; background: #f1f5f9; color: #334155; display: none;
+}
+#timer-bar-wrap { width: 100%; height: 6px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin-bottom: 0.75rem; }
+#timer-bar { height: 100%; background: linear-gradient(90deg, #2563eb, #3b82f6); transition: width 0.5s linear; width: 100%; }
+
+#your-word-box {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid #93c5fd;
+  border-radius: 10px; padding: 0.75rem 0.9rem; margin-bottom: 0.75rem; display: none;
+}
+#your-word { font-size: 1.1rem; font-weight: 700; color: #1e3a8a; }
+.ej-word-controls { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+#word-hint {
+  font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.95rem; font-weight: 600;
+  color: #334155; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;
+  padding: 0.55rem 0.75rem; margin-bottom: 0.75rem; text-align: center; letter-spacing: 0.5px;
+}
+#word-hint:empty { display: none; }
+
+#emoji-display {
+  font-size: 2.6rem; min-height: 4.2rem; padding: 0.85rem; border: 1.5px solid var(--ej-border);
+  border-radius: 10px; background: #f8fafc; text-align: center; word-break: break-word;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem;
+}
+.ej-hints-strip { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; margin-top: 0.35rem; }
+.ej-hint-chip {
+  font-size: 0.78rem; font-weight: 600; background: #ffffff; border: 1px solid #cbd5e1;
+  border-radius: 999px; padding: 0.15rem 0.6rem; color: #334155; display: inline-flex; align-items: center; gap: 0.3rem;
+}
+
+.emoji-kb {
+  display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; margin-top: 0.5rem;
+  max-height: 210px; overflow-y: auto; padding: 0.25rem; background: #f8fafc; border-radius: 8px; border: 1px solid var(--ej-border);
+}
+@media (max-width: 600px) { .emoji-kb { grid-template-columns: repeat(8, 1fr); } }
+.emoji-kb button, #emoji-search-results button {
+  font-size: 1.35rem; padding: 0.25rem; border: 1px solid transparent; background: #ffffff;
+  cursor: pointer; border-radius: 6px; transition: transform 0.1s, background 0.1s;
+}
+.emoji-kb button:hover, #emoji-search-results button:hover { background: #e2e8f0; transform: scale(1.1); }
+.emoji-pages { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.emoji-pages a {
+  font-size: 1.1rem; padding: 0.2rem 0.45rem; border-radius: 6px; cursor: pointer;
+  background: #f1f5f9; border: 1px solid transparent; text-decoration: none;
+}
+.emoji-pages a.active { background: var(--ej-primary-soft); border-color: #93c5fd; font-weight: 700; }
+#emoji-search-results { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; margin-top: 0.35rem; }
+
+/* Unified Chat & Guess Stream */
+#chat {
+  border: 1px solid var(--ej-border); border-radius: 10px; height: 360px; overflow-y: auto;
+  padding: 0.65rem; font-size: 0.84rem; background: #f8fafc; display: flex; flex-direction: column; gap: 0.4rem;
+}
+.msg { padding: 0.35rem 0.6rem; border-radius: 8px; line-height: 1.35; word-break: break-word; }
+.msg.system { color: #475569; background: #f1f5f9; font-size: 0.78rem; border-left: 3px solid #94a3b8; }
+.msg.round_start {
+  background: linear-gradient(90deg, #eff6ff, #f8fafc); border-left: 3px solid var(--ej-primary);
+  color: #1e3a8a; font-weight: 600; font-size: 0.8rem;
+}
+.msg.emoji_hint {
+  background: #ffffff; border: 1px solid #bfdbfe; border-left: 4px solid var(--ej-primary);
+  padding: 0.5rem 0.7rem; font-weight: 600;
+}
+.msg.emoji_hint .hint-emojis { font-size: 1.55rem; display: block; margin-top: 0.2rem; }
+.msg.guess_correct, .msg.correct {
+  background: var(--ej-success-soft); border: 1px solid #bbf7d0; border-left: 4px solid var(--ej-success);
+  color: #14532d; font-weight: 700;
+}
+.msg.guess_close {
+  background: var(--ej-amber-soft); border: 1px solid #fde68a; border-left: 4px solid var(--ej-amber);
+  color: #92400e; font-weight: 600;
+}
+.msg.guess_wrong {
+  background: #ffffff; border: 1px solid #e2e8f0; color: #334155;
+}
+.msg.round_end {
+  background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; font-weight: 600; text-align: center;
+}
+.msg.chat { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; }
+
+.ej-chat-mode-indicator {
+  display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem;
+  font-weight: 700; padding: 0.3rem 0.6rem; border-radius: 8px 8px 0 0; margin-top: 0.5rem;
+  background: #f1f5f9; color: #475569; border: 1px solid var(--ej-border); border-bottom: none;
+}
+.ej-chat-mode-indicator.guess-active {
+  background: var(--ej-primary-soft); color: var(--ej-primary); border-color: #93c5fd;
+}
+.ej-chat-form { display: flex; gap: 0.4rem; }
+.ej-chat-form input {
+  flex: 1; padding: 0.55rem 0.75rem; font-size: 0.88rem; border: 1.5px solid var(--ej-border);
+  border-radius: 0 0 0 8px; outline: none;
+}
+.ej-chat-form input.guess-active { border-color: var(--ej-primary); background: #ffffff; }
+.ej-chat-form button {
+  padding: 0.55rem 1rem; font-size: 0.85rem; font-weight: 700; border-radius: 0 0 8px 0;
+  background: var(--ej-primary); color: #fff; border: none; cursor: pointer;
+}
+
+/* Scoreboard */
+#players .player {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+  padding: 0.4rem 0.55rem; border-bottom: 1px solid #f1f5f9; font-size: 0.83rem; border-radius: 6px;
+}
+#players .player.active { background: var(--ej-primary-soft); font-weight: 700; color: var(--ej-primary); }
+.ej-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.ej-dot.on { background: #22c55e; }
+.ej-dot.off { background: #cbd5e1; }
+
+/* Modals */
+.ej-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(15,23,42,0.65); display: none;
+  justify-content: center; align-items: center; z-index: 200; padding: 1rem;
+}
+.ej-modal-backdrop.show { display: flex; }
+.ej-modal {
+  background: #ffffff; border-radius: 14px; max-width: 560px; width: 100%; max-height: 90vh;
+  overflow-y: auto; padding: 1.25rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+}
+.ej-modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; }
+.ej-modal-header h3 { margin: 0; font-size: 1.05rem; font-weight: 700; }
+
+/* Replay Stepper */
+.ej-replay-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+.ej-replay-tab {
+  padding: 0.3rem 0.65rem; font-size: 0.78rem; font-weight: 600; border-radius: 6px;
+  border: 1px solid var(--ej-border); background: #f8fafc; cursor: pointer;
+}
+.ej-replay-tab.active { background: var(--ej-primary); color: #fff; border-color: var(--ej-primary); }
+.ej-attempt-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+  padding: 0.35rem 0.6rem; border-radius: 6px; font-size: 0.8rem; margin-bottom: 0.3rem;
+  background: #f8fafc; border: 1px solid #e2e8f0;
+}
+
+#overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.75); display: none; justify-content: center; align-items: center; z-index: 150; flex-direction: column; padding: 1rem; }
 #overlay.show { display: flex; }
-#overlay .countdown { font-size: 5rem; color: #fff; font-weight: 700; animation: pop 0.5s ease; }
-#overlay .round-result { background: #fff; border-radius: 8px; padding: 2rem; text-align: center; max-width: 400px; width: 90%; }
-#overlay .round-result h2 { font-size: 1.2rem; margin-bottom: 1rem; }
-#overlay .final-scores { background: #fff; border-radius: 8px; padding: 2rem; text-align: center; max-width: 500px; width: 90%; }
-#overlay .final-scores h2 { font-size: 1.5rem; margin-bottom: 1rem; }
-#overlay .final-scores table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-#overlay .final-scores td, #overlay .final-scores th { padding: 0.5rem; border-bottom: 1px solid #eee; text-align: left; }
-#overlay .final-scores tr:first-child td { font-weight: 600; color: #4a9eff; }
+#overlay .countdown { font-size: 5rem; color: #fff; font-weight: 800; animation: pop 0.5s ease; }
+#overlay .round-result, #overlay .final-scores { background: #fff; border-radius: 12px; padding: 1.5rem; text-align: center; max-width: 560px; width: 95%; max-height: 88vh; overflow-y: auto; }
 @keyframes pop { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 1; } }
 {% endblock %}
 
 {% block content %}
-<h1 style="font-size: 1.1rem; margin-bottom: 0.5rem;">{{ room.title }} <span style="font-size: 0.8rem; color: #888;">{{ room.code }}</span></h1>
-
-<div id="game-area">
-  <div>
-    <div id="status" style="font-size: 0.85rem; margin-bottom: 0.5rem;">{% trans "waiting for players..." %}</div>
-    <div id="timer-bar" style="width: 100%; display: none;"></div>
-    <div id="your-word" style="display:none;"></div>
-    <div id="word-hint"></div>
-    <div id="emoji-display"></div>
-    <div id="wait-msg" style="display:none; font-size: 0.9rem; color: #888; margin-top: 0.5rem;">⏳ {% trans "waiting for clue..." %}</div>
-
-    <div id="emoji-input-area" style="display:none;">
-      <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-        <input type="text" id="emoji-field" readonly style="flex: 1; font-size: 1.5rem; padding: 0.3rem;">
-        <button onclick="revealEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer; background: #4a9eff; color: #fff; border: none; border-radius: 4px;">{% trans "reveal" %}</button>
-        <button onclick="clearEmoji()" style="padding: 0.3rem 0.7rem; cursor: pointer;">{% trans "clear" %}</button>
-        <button onclick="skipWord()" style="padding: 0.3rem 0.7rem; cursor: pointer; color: #888;">{% trans "skip" %}</button>
-      </div>
-      <div style="margin-top: 0.5rem;">
-        <input type="text" id="emoji-search-input" placeholder="{% trans 'search emoji...' %}" oninput="searchEmoji(this.value)" style="width: 100%; padding: 0.3rem; font-size: 0.85rem;">
-        <div id="emoji-search-results"></div>
-      </div>
-      <div class="emoji-pages" id="emoji-pages"></div>
-      <div class="emoji-kb" id="emoji-kb"></div>
+<div class="ej-shell">
+  <!-- Top Header Bar -->
+  <div class="ej-topbar">
+    <div class="ej-title-group">
+      <a href="{% url 'gamerooms:room-list' %}" style="text-decoration:none;font-size:0.85rem;color:var(--ej-muted);font-weight:600;">&larr; {% trans "Rooms" %}</a>
+      <h1 class="ej-title">🎨 {{ room.title }}</h1>
+      <span class="ej-code-pill" title="{% trans 'Room Code' %}">{{ room.code }}</span>
+      <span class="ej-mode-pill" id="mode-badge">Round Robin</span>
     </div>
-
-    <div id="guess-area" style="display:none; margin-top: 0.5rem;">
-      <form onsubmit="sendGuess(event)">
-        <input type="text" id="guess-field" placeholder="{% trans 'type your guess...' %}" style="width: 70%; padding: 0.35rem; font-size: 0.85rem;">
-        <button type="submit" style="padding: 0.35rem 0.7rem; font-size: 0.85rem; cursor: pointer;">{% trans "guess" %}</button>
-      </form>
-      <div id="partial-feedback" style="font-size: 0.8rem; color: #4a9eff; margin-top: 0.3rem;"></div>
-    </div>
-
-    <button id="start-btn" onclick="startGame()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">{% trans "start game" %}</button>
-    <button id="play-again-btn" onclick="playAgain()" style="display:none; margin-top: 1rem; padding: 0.4rem 1rem; cursor: pointer;">{% trans "play again" %}</button>
-
-    <div id="settings-area" style="display:none; margin-top: 1rem; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem;">
-      <strong>{% trans "settings" %}</strong>
-      <div style="margin-top: 0.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-        <label>{% trans "mode:" %} <select id="set-mode" onchange="updateSettings()"><option value="round_robin">{% trans "round robin" %}</option><option value="best_guess">{% trans "best guess" %}</option></select></label>
-        <label>{% trans "rounds:" %} <input type="number" id="set-rounds" value="10" min="1" max="50" style="width: 50px;" onchange="updateSettings()"></label>
-        <label>{% trans "emoji time:" %} <input type="number" id="set-emoji-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
-        <label>{% trans "guess time:" %} <input type="number" id="set-guess-timer" value="60" min="0" max="300" step="10" style="width: 50px;" onchange="updateSettings()">s</label>
-        <label>{% trans "chat:" %} <select id="set-chat" onchange="updateSettings()"><option value="public">{% trans "public" %}</option><option value="private">{% trans "private" %}</option></select></label>
-        <label>{% trans "difficulty:" %} <select id="set-difficulty" onchange="updateSettings()"><option value="0">{% trans "all" %}</option><option value="1">{% trans "easy" %}</option><option value="2">{% trans "medium" %}</option><option value="3">{% trans "hard" %}</option></select></label>
-      </div>
+    <div class="ej-actions">
+      <button type="button" class="ej-btn" id="btn-invite-qr" onclick="openModal('modal-invite-qr')">📲 {% trans "Invite QR" %}</button>
+      <button type="button" class="ej-btn" id="btn-my-profile" onclick="openModal('modal-profile')">🪪 <span id="my-name-pill">{{ player_name }}</span></button>
+      <button type="button" class="ej-btn" id="btn-replay" onclick="openReplayModal()" style="display:none;">🎬 {% trans "Replay" %}</button>
+      <a href="{% url 'gamerooms:emojinary:replay' room.code %}" class="ej-btn" id="btn-export-replay" style="display:none;" download>⬇️ JSON</a>
     </div>
   </div>
 
-  <div>
-    <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem;">{% trans "players" %}</h3>
-    <div id="players"></div>
-    <h3 style="font-size: 0.9rem; margin: 1rem 0 0.5rem;">{% trans "chat" %}</h3>
-    <div id="chat"></div>
-    <form onsubmit="sendChat(event)" style="margin-top: 0.3rem; display: flex; gap: 0.3rem;">
-      <input type="text" id="chat-field" placeholder="{% trans 'chat...' %}" style="flex: 1; padding: 0.3rem; font-size: 0.8rem;">
-      <button type="submit" style="padding: 0.3rem 0.5rem; font-size: 0.8rem; cursor: pointer;">{% trans "send" %}</button>
+  <div id="game-area">
+    <!-- Left Column: Stage, Clue Builder, Settings & Replay -->
+    <div>
+      <div class="ej-card">
+        <div class="ej-status-bar">
+          <div id="status">{% trans "waiting for players..." %}</div>
+          <div style="display:flex;align-items:center;gap:0.4rem;">
+            <span id="timer-badge">60s</span>
+            <div id="host-timer-controls" style="display:none;gap:0.25rem;">
+              <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="timerControl('pause')" id="btn-timer-pause" title="Pause/Resume Timer">⏯️</button>
+              <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="timerControl('add_time')" title="Add +15s">+15s</button>
+              <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="forceAdvance()" title="Skip / Next Phase">⏭️</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="timer-bar-wrap" style="display:none;">
+          <div id="timer-bar"></div>
+        </div>
+
+        <!-- Secret Word Box for Clue-Giver / Judge / Collective Prep -->
+        <div id="your-word-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+            <div>
+              <span style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:#2563eb;" id="your-word-label">{% trans "Your Secret Phrase" %}</span>
+              <div id="your-word"></div>
+            </div>
+            <div class="ej-word-controls">
+              <button type="button" class="ej-btn" id="btn-reroll" onclick="rerollWord()" style="font-size:0.78rem;padding:0.3rem 0.6rem;">🎲 {% trans "Reroll" %} <span id="rerolls-left-badge"></span></button>
+              <button type="button" class="ej-btn ej-btn-primary" id="btn-send-prompt" onclick="sendPrompt()" style="display:none;font-size:0.78rem;padding:0.3rem 0.7rem;">✅ {% trans "Use Prompt" %}</button>
+            </div>
+          </div>
+          <div id="custom-word-row" style="display:none;margin-top:0.5rem;gap:0.4rem;">
+            <input type="text" id="custom-word-input" placeholder="{% trans 'Or type your own custom prompt/phrase...' %}" style="flex:1;padding:0.35rem 0.55rem;font-size:0.8rem;border:1px solid #93c5fd;border-radius:6px;">
+            <button type="button" class="ej-btn" onclick="submitCustomWord()" style="font-size:0.78rem;padding:0.3rem 0.6rem;">✍️ {% trans "Set" %}</button>
+          </div>
+        </div>
+
+        <!-- Masked Word Length Hint for Guessers -->
+        <div id="word-hint"></div>
+
+        <!-- Main Emoji Display Stage -->
+        <div id="emoji-display"></div>
+        <div class="ej-hints-strip" id="emoji-hints-strip"></div>
+
+        <div id="wait-msg" style="display:none;font-size:0.88rem;color:var(--ej-muted);margin-top:0.65rem;text-align:center;">
+          ⏳ {% trans "waiting for clue..." %}
+        </div>
+
+        <!-- Emoji Picker & Clue Composer -->
+        <div id="emoji-input-area" style="display:none;margin-top:0.75rem;">
+          <div style="font-size:0.78rem;font-weight:700;color:#475569;margin-bottom:0.35rem;" id="emoji-composer-label">
+            🎨 {% trans "Build Your Emoji Clue:" %}
+          </div>
+          <div style="display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;">
+            <input type="text" id="emoji-field" readonly placeholder="👈 {% trans 'Tap emojis below...' %}" style="flex:1;min-width:160px;font-size:1.5rem;padding:0.35rem 0.6rem;border:1.5px solid #cbd5e1;border-radius:8px;background:#fff;">
+            <button type="button" class="ej-btn" onclick="backspaceEmoji()" title="{% trans 'Backspace' %}">⌫</button>
+            <button type="button" class="ej-btn" onclick="clearEmoji()">{% trans "clear" %}</button>
+            <button type="button" class="ej-btn ej-btn-primary" id="btn-reveal-emoji" onclick="revealEmoji()">{% trans "reveal" %}</button>
+            <button type="button" class="ej-btn ej-btn-success" id="btn-add-extra-hint" onclick="sendExtraHint()" style="display:none;">💡 {% trans "Add Hint" %}</button>
+            <button type="button" class="ej-btn ej-btn-primary" id="btn-submit-bg" onclick="submitBGEmoji()" style="display:none;">🎨 {% trans "Submit" %}</button>
+            <button type="button" class="ej-btn" id="btn-skip-word" onclick="skipWord()" style="color:var(--ej-muted);">{% trans "skip" %}</button>
+          </div>
+          <div style="margin-top:0.55rem;">
+            <input type="text" id="emoji-search-input" placeholder="🔍 {% trans 'Search emoji by name (e.g. fire, crown, heart)...' %}" oninput="searchEmoji(this.value)" style="width:100%;padding:0.4rem 0.65rem;font-size:0.84rem;border:1px solid var(--ej-border);border-radius:8px;box-sizing:border-box;">
+            <div id="emoji-search-results"></div>
+          </div>
+          <div class="emoji-pages" id="emoji-pages"></div>
+          <div class="emoji-kb" id="emoji-kb"></div>
+        </div>
+
+        <!-- Backwards-compatible hidden guess area (unified into chat input) -->
+        <div id="guess-area" style="display:none;margin-top:0.65rem;">
+          <form onsubmit="sendGuess(event)" style="display:flex;gap:0.4rem;">
+            <input type="text" id="guess-field" placeholder="{% trans 'Type your guess (or use the chat box)...' %}" style="flex:1;padding:0.45rem 0.65rem;font-size:0.86rem;border:1.5px solid #93c5fd;border-radius:8px;">
+            <button type="submit" class="ej-btn ej-btn-primary">{% trans "guess" %}</button>
+          </form>
+          <div id="partial-feedback" style="font-size:0.8rem;color:var(--ej-amber);font-weight:600;margin-top:0.3rem;"></div>
+        </div>
+
+        <!-- Lobby Start & Play Again Buttons -->
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.85rem;">
+          <button type="button" id="start-btn" class="ej-btn ej-btn-primary" onclick="startGame()" style="display:none;padding:0.55rem 1.25rem;font-size:0.92rem;">🚀 {% trans "start game" %}</button>
+          <button type="button" id="play-again-btn" class="ej-btn ej-btn-success" onclick="playAgain()" style="display:none;padding:0.55rem 1.25rem;font-size:0.92rem;">🔄 {% trans "play again" %}</button>
+        </div>
+
+        <!-- Host Room Settings & Presets -->
+        <div id="settings-area" style="display:none;margin-top:1rem;padding:0.9rem;border:1px solid var(--ej-border);border-radius:10px;background:#f8fafc;font-size:0.84rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+            <strong>⚙️ {% trans "Host Game Settings" %}</strong>
+            <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+              <button type="button" class="ej-btn" style="font-size:0.73rem;padding:0.2rem 0.5rem;" onclick="applyPreset('standard')">🎯 Standard</button>
+              <button type="button" class="ej-btn" style="font-size:0.73rem;padding:0.2rem 0.5rem;" onclick="applyPreset('collective_fast')">⚡ Collective Prep</button>
+              <button type="button" class="ej-btn" style="font-size:0.73rem;padding:0.2rem 0.5rem;" onclick="applyPreset('best_guess_party')">🏆 Judge's Pick</button>
+              <button type="button" class="ej-btn" style="font-size:0.73rem;padding:0.2rem 0.5rem;" onclick="applyPreset('speed_blitz')">🔥 Speed Blitz</button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));gap:0.6rem;">
+            <label>{% trans "mode:" %}
+              <select id="set-mode" onchange="updateSettings()" style="padding:0.25rem;border-radius:6px;border:1px solid #cbd5e1;">
+                <option value="round_robin">{% trans "round robin" %}</option>
+                <option value="collective">{% trans "collective prep + hints" %}</option>
+                <option value="best_guess">{% trans "best guess" %}</option>
+              </select>
+            </label>
+            <label>{% trans "rounds:" %}
+              <input type="number" id="set-rounds" value="10" min="1" max="50" style="width:55px;padding:0.2rem;border-radius:6px;border:1px solid #cbd5e1;" onchange="updateSettings()">
+            </label>
+            <label>{% trans "emoji time:" %}
+              <input type="number" id="set-emoji-timer" value="60" min="0" max="300" step="10" style="width:55px;padding:0.2rem;border-radius:6px;border:1px solid #cbd5e1;" onchange="updateSettings()">s
+            </label>
+            <label>{% trans "guess time:" %}
+              <input type="number" id="set-guess-timer" value="60" min="0" max="300" step="10" style="width:55px;padding:0.2rem;border-radius:6px;border:1px solid #cbd5e1;" onchange="updateSettings()">s
+            </label>
+            <label>{% trans "chat:" %}
+              <select id="set-chat" onchange="updateSettings()" style="padding:0.25rem;border-radius:6px;border:1px solid #cbd5e1;">
+                <option value="public">{% trans "public (show guesses)" %}</option>
+                <option value="private">{% trans "private (hide guesses)" %}</option>
+              </select>
+            </label>
+            <label>{% trans "difficulty:" %}
+              <select id="set-difficulty" onchange="updateSettings()" style="padding:0.25rem;border-radius:6px;border:1px solid #cbd5e1;">
+                <option value="0">{% trans "all" %}</option>
+                <option value="1">{% trans "easy" %}</option>
+                <option value="2">{% trans "medium" %}</option>
+                <option value="3">{% trans "hard" %}</option>
+              </select>
+            </label>
+            <label>{% trans "rerolls:" %}
+              <input type="number" id="set-rerolls" value="2" min="0" max="10" style="width:50px;padding:0.2rem;border-radius:6px;border:1px solid #cbd5e1;" onchange="updateSettings()">
+            </label>
+            <label style="display:flex;align-items:center;gap:0.35rem;">
+              <input type="checkbox" id="set-first-guess" onchange="updateSettings()"> {% trans "1st guess ends round" %}
+            </label>
+            <label style="display:flex;align-items:center;gap:0.35rem;">
+              <input type="checkbox" id="set-custom-words" onchange="updateSettings()"> {% trans "Allow custom words" %}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inline Interactive Replay Card (visible when rounds_history has entries) -->
+      <div class="ej-card" id="inline-replay-card" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.65rem;">
+          <h3 style="margin:0;font-size:0.95rem;">🎬 {% trans "Round-by-Round Replay & Attempt Log" %}</h3>
+          <a href="{% url 'gamerooms:emojinary:replay' room.code %}" class="ej-btn" style="font-size:0.75rem;padding:0.25rem 0.55rem;" download>⬇️ {% trans "Export JSON" %}</a>
+        </div>
+        <div class="ej-replay-tabs" id="inline-replay-tabs"></div>
+        <div id="inline-replay-body"></div>
+      </div>
+    </div>
+
+    <!-- Right Column: Unified Guess & Chat Stream + Scoreboard -->
+    <div>
+      <div class="ej-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.45rem;">
+          <h3 style="font-size:0.92rem;margin:0;">💬 {% trans "Live Chat & Guess Stream" %}</h3>
+          <span style="font-size:0.73rem;color:var(--ej-muted);" id="chat-sub-hint">{% trans "All guesses & hints appear here" %}</span>
+        </div>
+        <div id="chat"></div>
+        <div class="ej-chat-mode-indicator" id="chat-mode-banner">
+          <span id="chat-mode-label">💬 {% trans "Room Chat" %}</span>
+          <span id="chat-mode-right"></span>
+        </div>
+        <form onsubmit="sendChat(event)" class="ej-chat-form">
+          <input type="text" id="chat-field" autocomplete="off" placeholder="{% trans 'Type a message or guess...' %}">
+          <button type="submit" id="chat-submit-btn">{% trans "send" %}</button>
+        </form>
+      </div>
+
+      <div class="ej-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+          <h3 style="font-size:0.92rem;margin:0;">🏆 {% trans "players" %}</h3>
+          <span style="font-size:0.75rem;color:var(--ej-muted);" id="player-count-badge"></span>
+        </div>
+        <div id="players"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Invite QR Modal -->
+<div class="ej-modal-backdrop" id="modal-invite-qr" onclick="if(event.target===this)closeModal('modal-invite-qr')">
+  <div class="ej-modal" style="text-align:center;max-width:400px;">
+    <div class="ej-modal-header">
+      <h3>📲 {% trans "Invite Players to Room" %}</h3>
+      <button type="button" class="ej-btn" onclick="closeModal('modal-invite-qr')">✕</button>
+    </div>
+    <p style="font-size:0.83rem;color:var(--ej-muted);margin-bottom:0.75rem;">
+      {% trans "Scan this QR code with any phone camera to join immediately:" %}
+    </p>
+    <img src="{{ join_qr }}" alt="Room Invite QR" style="width:220px;height:220px;border:1px solid var(--ej-border);border-radius:12px;padding:0.5rem;background:#fff;">
+    <div style="margin-top:0.75rem;font-family:ui-monospace,monospace;font-size:1.1rem;font-weight:700;letter-spacing:1px;">
+      {{ room.code }}
+    </div>
+    <div style="margin-top:0.65rem;display:flex;gap:0.4rem;">
+      <input type="text" readonly value="{{ join_url }}" id="join-url-input" style="flex:1;font-size:0.78rem;padding:0.4rem;border:1px solid var(--ej-border);border-radius:6px;">
+      <button type="button" class="ej-btn ej-btn-primary" onclick="copyInput('join-url-input')">{% trans "Copy" %}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Player Profile, Rename & Personal Reconnect QR Modal -->
+<div class="ej-modal-backdrop" id="modal-profile" onclick="if(event.target===this)closeModal('modal-profile')">
+  <div class="ej-modal" style="max-width:420px;">
+    <div class="ej-modal-header">
+      <h3>🪪 {% trans "Player Profile & Personal QR" %}</h3>
+      <button type="button" class="ej-btn" onclick="closeModal('modal-profile')">✕</button>
+    </div>
+    <form onsubmit="submitRename(event)" style="margin-bottom:1rem;">
+      <label style="font-size:0.8rem;font-weight:600;display:block;margin-bottom:0.3rem;">{% trans "Display Name" %}</label>
+      <div style="display:flex;gap:0.4rem;">
+        <input type="text" id="rename-input" value="{{ player_name }}" maxlength="40" required style="flex:1;padding:0.45rem 0.65rem;font-size:0.88rem;border:1px solid var(--ej-border);border-radius:8px;">
+        <button type="submit" class="ej-btn ej-btn-primary">{% trans "Save Name" %}</button>
+      </div>
     </form>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem;background:#f8fafc;border:1px solid var(--ej-border);border-radius:8px;margin-bottom:1rem;">
+      <span style="font-size:0.82rem;font-weight:600;">👁️ {% trans "Spectator Mode (Skip my turns)" %}</span>
+      <button type="button" class="ej-btn" onclick="toggleMySpectator()" id="btn-spectator-toggle">{% trans "Toggle" %}</button>
+    </div>
+    <div style="text-align:center;border-top:1px solid var(--ej-border);padding-top:0.85rem;">
+      <div style="font-size:0.82rem;font-weight:600;margin-bottom:0.3rem;">🔐 {% trans "Your Personal Reconnect QR" %}</div>
+      <p style="font-size:0.75rem;color:var(--ej-muted);margin-bottom:0.5rem;">
+        {% trans "Scan this to move your session and score to another phone or browser:" %}
+      </p>
+      <img src="{{ player_qr }}" alt="Personal Reconnect QR" style="width:180px;height:180px;border:1px solid var(--ej-border);border-radius:10px;padding:0.4rem;background:#fff;">
+      <div style="margin-top:0.5rem;display:flex;gap:0.4rem;">
+        <input type="text" readonly value="{{ reconnect_url }}" id="reconnect-url-input" style="flex:1;font-size:0.75rem;padding:0.35rem;border:1px solid var(--ej-border);border-radius:6px;">
+        <button type="button" class="ej-btn" onclick="copyInput('reconnect-url-input')">{% trans "Copy" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Replay Modal -->
+<div class="ej-modal-backdrop" id="modal-replay" onclick="if(event.target===this)closeModal('modal-replay')">
+  <div class="ej-modal" style="max-width:640px;">
+    <div class="ej-modal-header">
+      <h3>🎬 {% trans "Match Replay & Attempt Timeline" %}</h3>
+      <button type="button" class="ej-btn" onclick="closeModal('modal-replay')">✕</button>
+    </div>
+    <div class="ej-replay-tabs" id="modal-replay-tabs"></div>
+    <div id="modal-replay-body"></div>
   </div>
 </div>
 
 <div id="overlay"></div>
 
+<script src="{% static 'vendor/js-confetti.browser.js' %}"></script>
 <script>
-const CODE = "{{ room.code }}", NAME = "{{ player_name }}";
-const WS_URL = (location.protocol==='https:'?'wss://':'ws://') + location.host + '/ws/emojinary/' + CODE + '/';
-const EMOJIS = {"😀":"😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😚😙😋😛😜🤪😝🤑🤗🤭🤫🤔🤐😐😑😶😏😒🙄😬🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕😟🙁😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖","👋":"👋🤚🖐️✋🖖👌🤌🤏✌️🤞🤟🤘🤙👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🙌👐🤲🤝🙏✍️💅🤳💪🦾🦿🦵🦶👂🦻👃🧠🦷🦴👀👁️👅👄","❤️":"❤️🧡💛💚💙💜🖤🤍🤎💔❤️‍🔥❤️‍🩹❣️💕💞💓💗💖💘💝💟","🐱":"🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🐛🦋🐌🐞🐜🕷️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🐡🐠🐟🐬🐳🐋🦈🐊🐅🐆🦓🦍🦧🐘🦛🦏🐪🐫🦒🦘🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🐈🐓🦃🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🦔🐾🐉🐲","🍎":"🍏🍎🍐🍊🍋🍌🍉🍇🍓🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶️🌽🥕🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🥚🍳🧈🥞🧇🥓🥩🍗🍖🌭🍔🍟🍕🥪🥙🧆🌮🌯🥗🥘🥫🍝🍜🍲🍛🍣🍱🥟🦪🍤🍙🍚🍘🍥🥠🥮🍢🍡🍧🍨🍦🥧🧁🍰🎂🍮🍭🍬🍫🍿🍩🍪🌰🥜🍯🥛🍼☕🍵🧃🥤🧋🍶🍺🍻🥂🍷🥃🍸🍹🧉🍾","🏠":"🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽⛪🕌🛕🕍⛩️🕋⛲⛺🌁🌃🏙️🌄🌅🌆🌇🌉🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🛻🚚🚛🚜🏎️🏍️🛵🦽🦼🛺🚲🛴🛹🛼🚏⛽🚨🚥🚦🛑🚧⚓⛵🛶🚤🛳️⛴️🛥️🚢✈️🛩️🛫🛬💺🚁🚟🚠🚡🛰️🚀🛸","⚽":"⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🏓🏸🏒🏑🥍🏏🥅⛳🏹🎣🤿🥊🥋🎽🛹🛼🛷⛸️🥌🎿⛷️🏂🏋️🤼🤸⛹️🤺🤾🏌️🏇🧘🏄🏊🤽🚣🧗🚵🚴🏆🥇🥈🥉🏅🎖️🏵️🎗️🎫🎟️🎪🤹🎭🩰🎨🎬🎤🎧🎼🎹🥁🎷🎺🎸🪕🎻🎲♟️🎯🎳🎮🎰🧩","💡":"💡🔦🕯️💰💵💴💶💷💸💳🧾💎⚖️🧰🔧🔩⚙️🧲🔫💣🔪🗡️⚔️🛡️🚬⚰️⚱️🏺🔮📿🧿💈⚗️🔭🔬🕳️🩹🩺💊💉🩸🧬🦠🧫🧪🌡️🧹🧺🧻🚰🚿🛁🧼🪥🪒🧽🧴🔑🗝️🚪🪑🛋️🛏️🧸🖼️🛍️🛒🎁🎈🎏🎀🎊🎉🎎🏮🎐✉️📩📨📧💌📥📤📦🏷️📪📫📬📭📮📯📜📃📄📑📊📈📉📆📅🗑️📋📁📂🗞️📰📓📔📒📕📗📘📙📚📖🔖📎📐📏🧮📌📍✂️🖊️🖋️✒️🖌️🖍️📝✏️🔍🔎🔏🔐🔒🔓","🌍":"🌍🌎🌏🌐🗺️🧭🏔️⛰️🌋🗻🏕️🏖️🏜️🏝️🏞️🌅🌄🌠🎇🎆🌇🌆🌃🌌🌉🌁🌀🌈🌂☂️☔⛱️⚡❄️☃️⛄☄️🔥💧🌊💨🌪️🌫️🌬️🌤️⛅🌥️🌦️🌧️⛈️🌩️🌨️☀️🌝🌛🌜🌚🌕🌖🌗🌘🌑🌒🌓🌔🌙⭐🌟💫✨🪐"};
-let ws, isMyTurn=false, currentPage=0, searchTimeout=null, timerInterval=null;
+const CODE = "{{ room.code }}";
+let NAME = "{{ player_name|escapejs }}";
+let MY_ID = "{{ player_id|escapejs }}";
+const MY_TOKEN = "{{ player_token|escapejs }}";
+const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
+const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/emojinary/' + CODE + '/';
+
+const EMOJIS = {
+  "😀":"😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😚😙😋😛😜🤪😝🤑🤗🤭🤫🤔🤐😐😑😶😏😒🙄😬🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕😟🙁😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖",
+  "👋":"👋🤚🖐️✋🖖👌🤌🤏✌️🤞🤟🤘🤙👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🙌👐🤲🤝🙏✍️💅🤳💪🦾🦿🦵🦶👂🦻👃🧠🦷🦴👀👁️👅👄👶🧒👦👧🧑👱👨🧔👩🧓👴👵👮🕵️💂🥷👷🫅🤴👸👳👲🧕🤵👰🤰🤱👼🎅🤶🦸🦹🧙🧚🧛🧜🧝🧞🧟🧌💃🕺",
+  "❤️":"❤️🧡💛💚💙💜🖤🤍🤎💔❤️‍🔥❤️‍🩹❣️💕💞💓💗💖💘💝💟💥💫💦💨🕳️💣💬👁️‍🗨️🗨️🗯️💭💤",
+  "🐱":"🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🐛🦋🐌🐞🐜🕷️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🐡🐠🐟🐬🐳🐋🦈🐊🐅🐆🦓🦍🦧🐘🦛🦏🐪🐫🦒🦘🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🐈🐓🦃🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🦔🐾🐉🐲",
+  "🍎":"🍏🍎🍐🍊🍋🍌🍉🍇🍓🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶️🌽🥕🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🥚🍳🧈🥞🧇🥓🥩🍗🍖🌭🍔🍟🍕🥪🥙🧆🌮🌯🥗🥘🥫🍝🍜🍲🍛🍣🍱🥟🦪🍤🍙🍚🍘🍥🥠🥮🍢🍡🍧🍨🍦🥧🧁🍰🎂🍮🍭🍬🍫🍿🍩🍪🌰🥜🍯🥛🍼☕🍵🧃🥤🧋🍶🍺🍻🥂🍷🥃🍸🍹🧉🍾",
+  "🏠":"🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽⛪🕌🛕🕍⛩️🕋⛲⛺🌁🌃🏙️🌄🌅🌆🌇🌉🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🛻🚚🚛🚜🏎️🏍️🛵🦽🦼🛺🚲🛴🛹🛼🚏⛽🚨🚥🚦🛑🚧⚓⛵🛶🚤🛳️⛴️🛥️🚢✈️🛩️🛫🛬💺🚁🚟🚠🚡🛰️🚀🛸",
+  "⚽":"⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🏓🏸🏒🏑🥍🏏🥅⛳🏹🎣🤿🥊🥋🎽🛹🛼🛷⛸️🥌🎿⛷️🏂🏋️🤼🤸⛹️🤺🤾🏌️🏇🧘🏄🏊🤽🚣🧗🚵🚴🏆🥇🥈🥉🏅🎖️🏵️🎗️🎫🎟️🎪🤹🎭🩰🎨🎬🎤🎧🎼🎹🥁🎷🎺🎸🪕🎻🎲♟️🎯🎳🎮🎰🧩",
+  "💡":"💡🔦🕯️💰💵💴💶💷💸💳🧾💎⚖️🧰🔧🔩⚙️🧲🔫💣🔪🗡️⚔️🛡️🚬⚰️⚱️🏺🔮📿🧿💈⚗️🔭🔬🕳️🩹🩺💊💉🩸🧬🦠🧫🧪🌡️🧹🧺🧻🚰🚿🛁🧼🪥🪒🧽🧴🔑🗝️🚪🪑🛋️🛏️🧸🖼️🛍️🛒🎁🎈🎏🎀🎊🎉🎎🏮🎐✉️📩📨📧💌📥📤📦🏷️📪📫📬📭📮📯📜📃📄📑📊📈📉📆📅🗑️📋📁📂🗞️📰📓📔📒📕📗📘📙📚📖🔖📎📐📏🧮📌📍✂️🖊️🖋️✒️🖌️🖍️📝✏️🔍🔎🔏🔐🔒🔓",
+  "🌍":"🌍🌎🌏🌐🗺️🧭🏔️⛰️🌋🗻🏕️🏖️🏜️🏝️🏞️🌅🌄🌠🎇🎆🌇🌆🌃🌌🌉🌁🌀🌈🌂☂️☔⛱️⚡❄️☃️⛄☄️🔥💧🌊💨🌪️🌫️🌬️🌤️⛅🌥️🌦️🌧️⛈️🌩️🌨️☀️🌝🌛🌜🌚🌕🌖🌗🌘🌑🌒🌓🌔🌙⭐🌟💫✨🪐"
+};
+
+let ws = null;
+let isMyTurn = false;
+let currentPage = 0;
+let searchTimeout = null;
+let timerInterval = null;
+let currentState = {{ initial_state_json|safe }};
+let selectedReplayIdx = 0;
+let lastRenderedChatCount = 0;
+let lastConfettiRound = -1;
+let settingsDirtyUntil = 0;
 const cats = Object.keys(EMOJIS);
+
+function $(id) { return document.getElementById(id); }
+function show(...ids) { ids.forEach(id => { if (id && $(id)) $(id).style.display = ''; }); }
+function hide(...ids) { ids.forEach(id => { if (id && $(id)) $(id).style.display = 'none'; }); }
+function openModal(id) { if ($(id)) $(id).classList.add('show'); }
+function closeModal(id) { if ($(id)) $(id).classList.remove('show'); }
+
+function copyInput(id) {
+  const el = $(id);
+  if (!el) return;
+  el.select();
+  navigator.clipboard?.writeText(el.value);
+}
 
 function connect() {
   ws = new WebSocket(WS_URL);
-  ws.onopen = () => ws.send(JSON.stringify({action:'join',name:NAME}));
+  ws.onopen = () => {
+    ws.send(JSON.stringify({
+      action: 'join',
+      name: NAME,
+      token: MY_TOKEN,
+      admin_token: ADMIN_TOKEN
+    }));
+  };
   ws.onmessage = e => handle(JSON.parse(e.data));
   ws.onclose = () => setTimeout(connect, 2000);
 }
 
 function handle(d) {
-  if (d.type==='message') {
-    chat(d.msg,'system');
+  if (d.type === 'state') {
+    renderFromState(d);
+    return;
+  }
+  if (d.type === 'message') {
+    if (!currentState || !currentState.chat_log) chat(d.msg, 'system');
     if (d.players) { players(d.players); showCreatorUI(d.players); }
-  } else if (d.type==='emoji_phase') {
-    const startPhase = () => {
-      hide('start-btn','settings-area','play-again-btn','guess-area','wait-msg');
-      const cp = d.current_player;
-      isMyTurn = cp===NAME;
-      $('status').textContent = `Round ${d.round}/${d.max_rounds} — ${cp}'s turn (${d.category})`;
+  } else if (d.type === 'emoji_phase') {
+    hide('start-btn', 'settings-area', 'play-again-btn', 'guess-area', 'wait-msg');
+    const cp = d.current_player;
+    isMyTurn = (cp === NAME);
+    $('status').textContent = `Round ${d.round}/${d.max_rounds} — ${cp}'s turn (${d.category || 'phrase'})`;
+    if (d.word_length && !isMyTurn) {
       $('word-hint').textContent = `${'_ '.repeat(d.word_length).trim()} (${d.word_length} chars)`;
-      $('emoji-display').textContent = '';
-      $('your-word').style.display = 'none';
-      $('partial-feedback').textContent = '';
-      $('emoji-field').value = '';
-      show(isMyTurn?'emoji-input-area':null); hide(isMyTurn?null:'emoji-input-area');
-      if (!isMyTurn) show('wait-msg');
-      if (d.players) players(d.players);
-      startTimer(d.emoji_timer);
-    };
-    // Show round result from previous round, then countdown on round 1
-    if (lastRoundResult) {
-      showRoundResult(lastRoundResult.emoji, lastRoundResult.word, lastRoundResult.guesser, 4000);
-      lastRoundResult = null;
-      setTimeout(startPhase, 4500);
-    } else if (d.round === 1) {
-      showCountdown(startPhase);
-    } else {
-      startPhase();
     }
-  } else if (d.type==='your_word') {
-    $('your-word').style.display='block';
-    const mode = $('set-mode') ? $('set-mode').value : 'round_robin';
-    if (mode === 'best_guess') {
-      $('your-word').innerHTML = `Your word: <strong>${d.word}</strong> <button onclick="rerollWord()" style="font-size:0.8rem;cursor:pointer;margin-left:0.5rem;">🎲 reroll</button> <button onclick="sendPrompt()" style="font-size:0.8rem;cursor:pointer;margin-left:0.3rem;">✅ send</button>`;
+    $('emoji-display').textContent = '';
+    $('partial-feedback').textContent = '';
+    $('emoji-field').value = '';
+    if (isMyTurn) {
+      show('emoji-input-area', 'btn-reveal-emoji', 'btn-skip-word');
+      hide('btn-add-extra-hint', 'btn-submit-bg');
     } else {
-      $('your-word').textContent = `Your word: ${d.word}`;
-      show('emoji-input-area');
+      hide('emoji-input-area');
+      show('wait-msg');
     }
-  } else if (d.type==='emoji_preview') {
+    if (d.players) players(d.players);
+    startTimer(d.emoji_timer);
+  } else if (d.type === 'your_word') {
+    show('your-word-box');
+    $('your-word').textContent = `Your word: ${d.word}`;
+  } else if (d.type === 'emoji_preview') {
     $('emoji-display').textContent = d.emoji;
-  } else if (d.type==='guess_phase') {
-    hide('emoji-input-area','wait-msg','your-word');
-    $('your-word').style.display='none';
+  } else if (d.type === 'emoji_update') {
     $('emoji-display').textContent = d.emoji;
-    if (!isMyTurn) show('guess-area');
+    beep(540, 0.12);
+  } else if (d.type === 'guess_phase') {
+    hide('wait-msg');
+    $('emoji-display').textContent = d.emoji;
     $('status').textContent = `Round ${d.round}/${d.max_rounds} — Guess now!`;
+    if (!isMyTurn) {
+      show('guess-area');
+    }
     startTimer(d.guess_timer);
-  } else if (d.type==='correct') {
-    chat(`✅ ${d.guesser} got it! "${d.word}" (+${d.points}pts)`,'correct');
+  } else if (d.type === 'correct') {
+    beep(660, 0.22);
     if (d.players) players(d.players);
-    lastRoundResult = {emoji: $('emoji-display').textContent, word: d.word, guesser: d.guesser};
-    beep(660, 0.2);
-  } else if (d.type==='partial') {
-    $('partial-feedback').textContent = `Close! Got: ${d.matches.join(', ')}`;
-  } else if (d.type==='chat') {
-    chat(`${d.name}: ${d.msg}`);
-  } else if (d.type==='game_over') {
+  } else if (d.type === 'partial') {
+    $('partial-feedback').textContent = `🔥 Close! Matched: ${d.matches.join(', ')}`;
+  } else if (d.type === 'chat') {
+    // Handled via state.chat_log sync; fallback if needed
+  } else if (d.type === 'game_over') {
     clearInterval(timerInterval);
-    hide('emoji-input-area','guess-area','wait-msg');
+    hide('emoji-input-area', 'guess-area', 'wait-msg');
     $('status').textContent = '🏆 Game Over!';
-    $('timer-bar').style.display='none';
+    hide('timer-bar-wrap', 'timer-badge');
     if (d.players) players(d.players);
-    showFinalScores(d.players, d.history);
-  } else if (d.type==='show_start') {
-    show('start-btn','settings-area');
-  } else if (d.type==='state') {
-    if (d.players) { players(d.players); showCreatorUI(d.players); }
-    if (d.started && d.phase!=='lobby') hide('start-btn','settings-area');
-    if (d.emoji_clue) $('emoji-display').textContent = d.emoji_clue;
-    if (d.phase==='gameover') { show('play-again-btn'); $('status').textContent='🏆 Game Over!'; }
-    if (d.history) d.history.forEach(h => chat(`${h.emoji} → ${h.word} ${h.guesser?'('+h.guesser+')':'(skipped)'}`, 'system'));
-    if (d.current_word) { $('your-word').style.display='block'; $('your-word').textContent=`Your word: ${d.current_word}`; show('emoji-input-area'); isMyTurn=true; }
-  } else if (d.type==='error') { chat(d.msg,'system'); }
-  else if (d.type.startsWith('bg_')) { handleBestGuess(d); }
+    triggerVictoryConfetti();
+  } else if (d.type === 'show_start') {
+    show('start-btn', 'settings-area');
+  } else if (d.type === 'error') {
+    chat(`⚠️ ${d.msg}`, 'system');
+  } else if (d.type && d.type.startsWith('bg_')) {
+    handleBestGuessLegacy(d);
+  }
 }
 
-function $(id) { return document.getElementById(id); }
-function show(...ids) { ids.forEach(id => { if(id && $(id)) $(id).style.display=''; }); }
-function hide(...ids) { ids.forEach(id => { if(id && $(id)) $(id).style.display='none'; }); }
-function chat(msg,cls='') { const c=$('chat'),d=document.createElement('div'); d.className='msg '+cls; d.textContent=msg; c.appendChild(d); c.scrollTop=c.scrollHeight; }
-function players(ps) { $('players').innerHTML = ps.map(p=>`<div class="player ${p.is_turn?'active':''}">${p.is_creator?'👑 ':''}${p.name}: ${p.score}pts</div>`).join(''); }
-function showCreatorUI(ps) { const me=ps.find(p=>p.name===NAME); if(me&&me.is_creator) show('start-btn','settings-area'); }
+function renderFromState(s) {
+  currentState = s;
+  if (s.me && s.me.name) {
+    NAME = s.me.name;
+    MY_ID = s.me.id;
+    $('my-name-pill').textContent = NAME;
+    if ($('rename-input') && document.activeElement !== $('rename-input')) {
+      $('rename-input').value = NAME;
+    }
+  }
 
-function startGame() { ws.send(JSON.stringify({action:'start'})); }
-function skipWord() { ws.send(JSON.stringify({action:'skip'})); }
-function playAgain() { ws.send(JSON.stringify({action:'play_again'})); hide('play-again-btn'); }
-function revealEmoji() { ws.send(JSON.stringify({action:'reveal'})); }
-function updateSettings() { ws.send(JSON.stringify({action:'settings',mode:$('set-mode').value,max_rounds:$('set-rounds').value,emoji_timer:$('set-emoji-timer').value,guess_timer:$('set-guess-timer').value,chat_mode:$('set-chat').value,difficulty:$('set-difficulty').value})); }
-function sendChat(e) { e.preventDefault(); const f=$('chat-field'); if(f.value.trim()) { ws.send(JSON.stringify({action:'chat',msg:f.value})); f.value=''; } }
-function sendEmoji() { ws.send(JSON.stringify({action:'emoji',emoji:$('emoji-field').value})); }
-function clearEmoji() { $('emoji-field').value=''; }
-function addEmoji(e) { $('emoji-field').value+=e; sendEmoji(); }
-function sendGuess(e) { e.preventDefault(); const f=$('guess-field'); ws.send(JSON.stringify({action:'guess',guess:f.value})); f.value=''; }
+  const modeLabels = {
+    round_robin: '🎯 Round Robin',
+    collective: '⚡ Collective Prep',
+    best_guess: '🏆 Judge\'s Pick'
+  };
+  $('mode-badge').textContent = modeLabels[s.mode] || s.mode;
 
+  const isAdmin = Boolean(s.me && s.me.is_admin);
+  isMyTurn = Boolean(s.me && s.me.is_turn);
+  const hasGuessed = Boolean(s.me && s.me.has_guessed);
+  const phase = s.phase || 'lobby';
+
+  // Host timer controls visibility
+  if (isAdmin && s.started && phase !== 'lobby' && phase !== 'gameover') {
+    $('host-timer-controls').style.display = 'inline-flex';
+  } else {
+    $('host-timer-controls').style.display = 'none';
+  }
+
+  // Render players & scoreboard
+  if (s.players) {
+    players(s.players, isAdmin);
+    $('player-count-badge').textContent = `${s.players.length} online`;
+  }
+
+  // Sync settings controls (skip overwriting while host is actively editing inputs)
+  if (s.settings && Date.now() > settingsDirtyUntil) {
+    if ($('set-mode') && document.activeElement !== $('set-mode')) $('set-mode').value = s.mode || 'round_robin';
+    if ($('set-rounds') && document.activeElement !== $('set-rounds')) $('set-rounds').value = s.settings.max_rounds ?? 10;
+    if ($('set-emoji-timer') && document.activeElement !== $('set-emoji-timer')) $('set-emoji-timer').value = s.settings.emoji_timer ?? 60;
+    if ($('set-guess-timer') && document.activeElement !== $('set-guess-timer')) $('set-guess-timer').value = s.settings.guess_timer ?? 60;
+    if ($('set-chat') && document.activeElement !== $('set-chat')) $('set-chat').value = s.settings.chat_mode || 'public';
+    if ($('set-difficulty') && document.activeElement !== $('set-difficulty')) $('set-difficulty').value = s.settings.difficulty ?? 0;
+    if ($('set-rerolls') && document.activeElement !== $('set-rerolls')) $('set-rerolls').value = s.settings.allow_rerolls ?? 2;
+    if ($('set-first-guess')) $('set-first-guess').checked = Boolean(s.settings.end_on_first_guess);
+    if ($('set-custom-words')) $('set-custom-words').checked = Boolean(s.settings.allow_custom_words);
+  }
+
+  // Render Hints strip
+  const hintsStrip = $('emoji-hints-strip');
+  if (s.emoji_hints && s.emoji_hints.length > 1) {
+    hintsStrip.innerHTML = s.emoji_hints.map(h =>
+      `<span class="ej-hint-chip">Hint #${h.hint_num}: <span style="font-size:1.15rem;">${escapeHtml(h.emoji)}</span></span>`
+    ).join('');
+  } else {
+    hintsStrip.innerHTML = '';
+  }
+
+  // Phase-specific UI state
+  if (phase === 'lobby') {
+    $('status').textContent = '⏳ Lobby — Waiting to start...';
+    $('word-hint').textContent = '';
+    $('emoji-display').textContent = '🎨';
+    hide('your-word-box', 'emoji-input-area', 'guess-area', 'wait-msg', 'play-again-btn');
+    if (isAdmin) show('start-btn', 'settings-area');
+    else hide('start-btn', 'settings-area');
+  } else if (phase === 'prep' && s.mode === 'collective') {
+    hide('start-btn', 'settings-area', 'play-again-btn', 'guess-area');
+    $('status').textContent = `⚡ Collective Prep — Craft your initial emoji clue!`;
+    $('word-hint').textContent = '';
+    if (s.current_word) {
+      show('your-word-box');
+      $('your-word').textContent = `Your word: ${s.current_word} (${s.current_category || 'phrase'})`;
+      $('rerolls-left-badge').textContent = `(${s.rerolls_left ?? 0})`;
+      hide('btn-send-prompt');
+    }
+    if (!s.prep_submitted) {
+      show('emoji-input-area', 'btn-reveal-emoji');
+      $('btn-reveal-emoji').textContent = '✅ Lock In Clue';
+      hide('btn-add-extra-hint', 'btn-submit-bg', 'wait-msg');
+    } else {
+      hide('emoji-input-area');
+      show('wait-msg');
+      $('wait-msg').textContent = '✅ Your emoji clue is locked in! Waiting for other players...';
+    }
+  } else if (phase === 'emoji') {
+    hide('start-btn', 'settings-area', 'play-again-btn', 'guess-area');
+    $('status').textContent = `Round ${s.round_num}/${s.max_rounds} — ${s.current_player}'s turn (${s.current_category || 'phrase'})`;
+    $('emoji-display').textContent = s.emoji_clue || '';
+    if (isMyTurn) {
+      show('your-word-box', 'emoji-input-area', 'btn-reveal-emoji', 'btn-skip-word');
+      hide('btn-add-extra-hint', 'btn-submit-bg', 'wait-msg');
+      $('btn-reveal-emoji').textContent = 'reveal';
+      $('emoji-composer-label').textContent = '🎨 Build Your Initial Emoji Clue:';
+      $('your-word').textContent = `Your word: ${s.current_word || ''}`;
+      $('rerolls-left-badge').textContent = `(${s.rerolls_left ?? 0})`;
+      $('word-hint').textContent = '';
+      if (s.settings && s.settings.allow_custom_words) $('custom-word-row').style.display = 'flex';
+      else hide('custom-word-row');
+    } else {
+      hide('your-word-box', 'emoji-input-area');
+      show('wait-msg');
+      $('wait-msg').textContent = `⏳ ${s.current_player} is picking emojis...`;
+      $('word-hint').textContent = s.word_mask ? `Category: ${s.current_category || 'phrase'}  ·  ${s.word_mask}` : '';
+    }
+  } else if (phase === 'guess') {
+    hide('start-btn', 'settings-area', 'play-again-btn', 'wait-msg');
+    $('status').textContent = `Round ${s.round_num}/${s.max_rounds} — Guess ${s.current_player}'s ${s.current_category || 'phrase'}!`;
+    $('emoji-display').textContent = s.emoji_clue || '';
+    if (isMyTurn) {
+      // Word writer can submit additional progressive emoji hints while others guess!
+      show('your-word-box', 'emoji-input-area', 'btn-add-extra-hint', 'btn-skip-word');
+      hide('btn-reveal-emoji', 'btn-submit-bg', 'guess-area', 'btn-reroll', 'custom-word-row');
+      $('your-word').textContent = `Your word: ${s.current_word || ''}`;
+      $('emoji-composer-label').textContent = '💡 Drop an Additional Emoji Hint for Guessers:';
+      $('word-hint').textContent = '';
+    } else {
+      hide('your-word-box', 'emoji-input-area');
+      show('btn-reroll');
+      $('word-hint').textContent = s.word_mask ? `Category: ${s.current_category || 'phrase'}  ·  ${s.word_mask}` : '';
+      if (!hasGuessed) {
+        show('guess-area');
+      } else {
+        hide('guess-area');
+      }
+    }
+  } else if (phase === 'picking' && s.mode === 'best_guess') {
+    hide('start-btn', 'settings-area', 'play-again-btn', 'guess-area', 'emoji-input-area');
+    $('status').textContent = `Round ${s.round_num}/${s.max_rounds} — Judge ${s.current_player} is choosing a prompt`;
+    $('word-hint').textContent = '';
+    $('emoji-display').textContent = '🎭';
+    if (isMyTurn) {
+      show('your-word-box', 'btn-reroll', 'btn-send-prompt');
+      $('your-word').textContent = `Your word: ${s.current_word || ''}`;
+      $('rerolls-left-badge').textContent = `(${s.rerolls_left ?? 0})`;
+      $('custom-word-row').style.display = 'flex';
+      hide('wait-msg');
+    } else {
+      hide('your-word-box');
+      show('wait-msg');
+      $('wait-msg').textContent = `⏳ Waiting for Judge ${s.current_player} to set the prompt...`;
+    }
+  } else if (phase === 'submitting' && s.mode === 'best_guess') {
+    hide('start-btn', 'settings-area', 'play-again-btn', 'guess-area', 'your-word-box');
+    $('status').textContent = `Round ${s.round_num}/${s.max_rounds} — Describe: "${s.current_word}" with emojis!`;
+    $('word-hint').textContent = `Prompt: "${s.current_word}"`;
+    if (!isMyTurn) {
+      show('emoji-input-area', 'btn-submit-bg');
+      hide('btn-reveal-emoji', 'btn-add-extra-hint', 'btn-skip-word', 'wait-msg');
+      $('emoji-composer-label').textContent = `🎨 Submit Your Best Emojis for "${s.current_word}":`;
+    } else {
+      hide('emoji-input-area');
+      show('wait-msg');
+      $('wait-msg').textContent = '⏳ Players are crafting their emoji submissions...';
+    }
+  } else if (phase === 'judging' && s.mode === 'best_guess') {
+    hide('start-btn', 'settings-area', 'play-again-btn', 'guess-area', 'emoji-input-area', 'wait-msg', 'your-word-box');
+    $('status').textContent = `⚖️ Judging: "${s.current_word}"`;
+    renderJudgingCards(s.submissions || [], isMyTurn);
+  } else if (phase === 'gameover') {
+    hide('start-btn', 'emoji-input-area', 'guess-area', 'wait-msg', 'your-word-box');
+    $('status').textContent = '🏆 Game Over!';
+    show('play-again-btn');
+    if (isAdmin) show('settings-area');
+    if (lastConfettiRound !== s.round_num) {
+      lastConfettiRound = s.round_num;
+      triggerVictoryConfetti();
+    }
+  }
+
+  // Update Unified Chat / Guess Input Banner
+  updateUnifiedChatInputState(s);
+
+  // Sync Timer from server
+  if (s.timer && s.timer.duration > 0 && phase !== 'lobby' && phase !== 'gameover') {
+    syncServerTimer(s.timer);
+  } else {
+    clearInterval(timerInterval);
+    hide('timer-bar-wrap', 'timer-badge');
+  }
+
+  // Render Chat & Activity Log
+  if (s.chat_log) {
+    renderChatLog(s.chat_log);
+  }
+
+  // Render Replay availability
+  if (s.rounds_history && s.rounds_history.length > 0) {
+    show('btn-replay', 'btn-export-replay', 'inline-replay-card');
+    renderReplayViewer(s.rounds_history);
+  } else {
+    hide('btn-replay', 'btn-export-replay', 'inline-replay-card');
+  }
+}
+
+function updateUnifiedChatInputState(s) {
+  const banner = $('chat-mode-banner');
+  const label = $('chat-mode-label');
+  const right = $('chat-mode-right');
+  const field = $('chat-field');
+  const btn = $('chat-submit-btn');
+
+  const isGuessingNow = (
+    s.phase === 'guess' &&
+    (s.mode === 'round_robin' || s.mode === 'collective') &&
+    s.me && !s.me.is_turn && !s.me.has_guessed && !s.me.is_spectator
+  );
+
+  if (isGuessingNow) {
+    banner.classList.add('guess-active');
+    field.classList.add('guess-active');
+    label.textContent = '🎯 GUESS MODE — Type your guess here!';
+    right.textContent = s.settings?.chat_mode === 'private' ? '🔒 Private guesses' : '📢 Public guesses';
+    field.placeholder = 'Type your guess and press Enter...';
+    btn.textContent = 'Guess';
+  } else if (s.phase === 'guess' && s.me && (s.me.has_guessed || s.me.is_turn)) {
+    banner.classList.remove('guess-active');
+    field.classList.remove('guess-active');
+    label.textContent = '💬 Chat (Spoiler Guard Active 🔒)';
+    right.textContent = s.me.has_guessed ? '✅ You guessed it!' : '🎨 You are the clue-giver';
+    field.placeholder = 'Chat with the room (secret phrase auto-protected)...';
+    btn.textContent = 'Send';
+  } else {
+    banner.classList.remove('guess-active');
+    field.classList.remove('guess-active');
+    label.textContent = '💬 Room Chat & Activity Feed';
+    right.textContent = '';
+    field.placeholder = 'chat...';
+    btn.textContent = 'send';
+  }
+}
+
+function renderChatLog(log) {
+  const c = $('chat');
+  if (!c) return;
+  const wasAtBottom = (c.scrollHeight - c.scrollTop - c.clientHeight) < 60;
+  c.innerHTML = log.map(entry => {
+    const kind = entry.kind || 'chat';
+    if (kind === 'emoji_hint') {
+      return `<div class="msg emoji_hint">
+        <div>${escapeHtml(entry.text)}</div>
+        <span class="hint-emojis">${escapeHtml(entry.emoji || '')}</span>
+      </div>`;
+    } else if (kind === 'guess_correct') {
+      return `<div class="msg guess_correct">${escapeHtml(entry.text)}</div>`;
+    } else if (kind === 'guess_close') {
+      return `<div class="msg guess_close"><strong>${escapeHtml(entry.player_name || '')}:</strong> ${escapeHtml(entry.text)}</div>`;
+    } else if (kind === 'guess_wrong') {
+      return `<div class="msg guess_wrong">💭 <strong>${escapeHtml(entry.player_name || '')}:</strong> ${escapeHtml(entry.text)}</div>`;
+    } else if (kind === 'round_start' || kind === 'round_end' || kind === 'system') {
+      return `<div class="msg ${kind}">${escapeHtml(entry.text)} ${entry.emoji ? `<span style="font-size:1.2rem;">${escapeHtml(entry.emoji)}</span>` : ''}</div>`;
+    } else {
+      return `<div class="msg chat"><strong>${escapeHtml(entry.player_name || 'Player')}:</strong> ${escapeHtml(entry.text)}</div>`;
+    }
+  }).join('');
+  if (wasAtBottom || log.length !== lastRenderedChatCount) {
+    c.scrollTop = c.scrollHeight;
+    lastRenderedChatCount = log.length;
+  }
+}
+
+function chat(msg, cls = '') {
+  const c = $('chat');
+  if (!c) return;
+  const d = document.createElement('div');
+  d.className = 'msg ' + cls;
+  d.textContent = msg;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function players(ps, isAdmin = false) {
+  $('players').innerHTML = ps.map(p => {
+    const badges = [
+      p.is_creator ? '👑' : '',
+      p.is_turn ? '🎨' : '',
+      p.has_guessed ? '✅' : '',
+      p.has_submitted ? '📩' : '',
+      p.is_spectator ? '👁️' : ''
+    ].filter(Boolean).join(' ');
+    const dot = `<span class="ej-dot ${p.connected !== false ? 'on' : 'off'}" title="${p.connected !== false ? 'Online' : 'Offline'}"></span>`;
+    const adminBtns = (isAdmin && p.id && p.id !== MY_ID)
+      ? `<span style="margin-left:auto;display:inline-flex;gap:0.2rem;">
+           ${!p.is_admin ? `<button type="button" class="ej-btn" style="padding:0.1rem 0.35rem;font-size:0.68rem;" onclick="transferAdmin('${p.id}')" title="Make Host">👑</button>` : ''}
+           <button type="button" class="ej-btn" style="padding:0.1rem 0.35rem;font-size:0.68rem;color:#dc2626;" onclick="kickPlayer('${p.id}')" title="Remove Player">✕</button>
+         </span>`
+      : '';
+    return `<div class="player ${p.is_turn ? 'active' : ''}">
+      <span style="display:inline-flex;align-items:center;gap:0.35rem;">${dot} <span>${ badges } ${escapeHtml(p.name)}</span></span>
+      <span style="display:inline-flex;align-items:center;gap:0.4rem;">
+        <strong>${p.score}pts</strong>
+        ${adminBtns}
+      </span>
+    </div>`;
+  }).join('');
+}
+
+function showCreatorUI(ps) {
+  const me = ps.find(p => p.name === NAME);
+  if (me && me.is_creator) show('start-btn', 'settings-area');
+}
+
+function renderJudgingCards(subs, canPick) {
+  let html = '<div style="width:100%;display:grid;gap:0.5rem;margin-top:0.25rem;">';
+  subs.forEach(s => {
+    const ch = s.player_id || s.channel;
+    html += `<div style="padding:0.6rem 0.85rem;background:#fff;border:1px solid #cbd5e1;border-radius:8px;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:1.8rem;">${escapeHtml(s.emoji)}</span>
+      <span style="font-size:0.82rem;color:#64748b;">${escapeHtml(s.name || 'Artist')}</span>
+      ${canPick ? `<button type="button" class="ej-btn ej-btn-primary" onclick="pickBest('${ch}')">🏆 Pick Winner</button>` : ''}
+    </div>`;
+  });
+  html += '</div>';
+  $('emoji-display').innerHTML = html;
+}
+
+function renderReplayViewer(rounds) {
+  if (!rounds || !rounds.length) return;
+  if (selectedReplayIdx >= rounds.length) selectedReplayIdx = rounds.length - 1;
+  const r = rounds[selectedReplayIdx] || rounds[rounds.length - 1];
+
+  const tabsHtml = rounds.map((item, idx) =>
+    `<button type="button" class="ej-replay-tab ${idx === selectedReplayIdx ? 'active' : ''}" onclick="selectReplayRound(${idx})">
+      Round ${item.round}
+    </button>`
+  ).join('');
+
+  const hintsHtml = (r.emoji_hints && r.emoji_hints.length)
+    ? r.emoji_hints.map(h => `<span class="ej-hint-chip">Hint #${h.hint_num} (+${h.elapsed_sec}s): <span style="font-size:1.1rem;">${escapeHtml(h.emoji)}</span></span>`).join(' ')
+    : `<span class="ej-hint-chip">${escapeHtml(r.emoji_clue || r.emoji || '🤷')}</span>`;
+
+  const attempts = r.attempts || [];
+  const attemptsHtml = attempts.length
+    ? attempts.map(a => {
+        const badge = a.outcome === 'correct' || a.outcome === 'winner'
+          ? `<span style="color:#16a34a;font-weight:700;">🎯 +${a.points || 10}pts</span>`
+          : a.outcome === 'close'
+            ? `<span style="color:#d97706;font-weight:600;">🔥 Close (${(a.matches || []).join(', ')})</span>`
+            : a.outcome === 'submission'
+              ? `<span style="color:#2563eb;">🎨 Submitted</span>`
+              : `<span style="color:#94a3b8;">❌ Wrong</span>`;
+        return `<div class="ej-attempt-row">
+          <span><strong>${escapeHtml(a.player_name || 'Player')}</strong>: "${escapeHtml(a.text || a.emoji || '')}"</span>
+          <span style="display:inline-flex;align-items:center;gap:0.5rem;">
+            <span style="color:#64748b;font-size:0.74rem;">+${a.elapsed_sec ?? 0}s</span>
+            ${badge}
+          </span>
+        </div>`;
+      }).join('')
+    : `<div style="font-size:0.8rem;color:#64748b;font-style:italic;">No guess attempts recorded in this round.</div>`;
+
+  const bodyHtml = `<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:0.85rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.5rem;">
+      <div>
+        <strong style="font-size:1rem;">"${escapeHtml(r.word)}"</strong>
+        <span style="font-size:0.76rem;color:#64748b;margin-left:0.4rem;">(${escapeHtml(r.category || 'phrase')} · by ${escapeHtml(r.giver_name || '?')})</span>
+      </div>
+      <span style="font-size:0.78rem;font-weight:600;color:#16a34a;">
+        ${r.guesser ? '🏆 Winner: ' + escapeHtml(r.guesser) : '⏭️ Skipped / Timeout'}
+      </span>
+    </div>
+    <div style="margin-bottom:0.65rem;display:flex;gap:0.35rem;flex-wrap:wrap;">${hintsHtml}</div>
+    <div style="font-size:0.78rem;font-weight:700;color:#475569;margin-bottom:0.35rem;">📋 Player Attempts (${attempts.length}):</div>
+    <div>${attemptsHtml}</div>
+  </div>`;
+
+  if ($('inline-replay-tabs')) $('inline-replay-tabs').innerHTML = tabsHtml;
+  if ($('inline-replay-body')) $('inline-replay-body').innerHTML = bodyHtml;
+  if ($('modal-replay-tabs')) $('modal-replay-tabs').innerHTML = tabsHtml;
+  if ($('modal-replay-body')) $('modal-replay-body').innerHTML = bodyHtml;
+}
+
+function selectReplayRound(idx) {
+  selectedReplayIdx = idx;
+  if (currentState && currentState.rounds_history) {
+    renderReplayViewer(currentState.rounds_history);
+  }
+}
+
+function openReplayModal() {
+  if (currentState && currentState.rounds_history) {
+    renderReplayViewer(currentState.rounds_history);
+  }
+  openModal('modal-replay');
+}
+
+// Game & Host Actions
+function startGame() { ws.send(JSON.stringify({action: 'start'})); }
+function skipWord() { ws.send(JSON.stringify({action: 'skip'})); }
+function forceAdvance() { ws.send(JSON.stringify({action: 'force_advance'})); }
+function playAgain() { ws.send(JSON.stringify({action: 'play_again'})); hide('play-again-btn'); }
+
+function revealEmoji() {
+  const val = $('emoji-field').value.trim();
+  if (currentState && currentState.mode === 'collective' && currentState.phase === 'prep') {
+    ws.send(JSON.stringify({action: 'submit_prep', emoji: val}));
+  } else {
+    ws.send(JSON.stringify({action: 'reveal', emoji: val}));
+  }
+}
+
+function sendExtraHint() {
+  const val = $('emoji-field').value.trim();
+  if (!val) return;
+  ws.send(JSON.stringify({action: 'add_hint', emoji: val}));
+  $('emoji-field').value = '';
+}
+
+function updateSettings() {
+  settingsDirtyUntil = Date.now() + 800;
+  ws.send(JSON.stringify({
+    action: 'settings',
+    mode: $('set-mode').value,
+    max_rounds: $('set-rounds').value,
+    emoji_timer: $('set-emoji-timer').value,
+    guess_timer: $('set-guess-timer').value,
+    chat_mode: $('set-chat').value,
+    difficulty: $('set-difficulty').value,
+    allow_rerolls: $('set-rerolls') ? $('set-rerolls').value : 2,
+    end_on_first_guess: $('set-first-guess') ? $('set-first-guess').checked : false,
+    allow_custom_words: $('set-custom-words') ? $('set-custom-words').checked : false
+  }));
+}
+
+function applyPreset(presetKey) {
+  ws.send(JSON.stringify({action: 'apply_preset', preset: presetKey}));
+}
+
+function timerControl(op) {
+  ws.send(JSON.stringify({action: 'timer_control', op: op, seconds: 15}));
+}
+
+function sendChat(e) {
+  e.preventDefault();
+  const f = $('chat-field');
+  if (f.value.trim()) {
+    ws.send(JSON.stringify({action: 'chat', msg: f.value.trim()}));
+    f.value = '';
+  }
+}
+
+function sendGuess(e) {
+  e.preventDefault();
+  const f = $('guess-field');
+  if (f.value.trim()) {
+    ws.send(JSON.stringify({action: 'guess', guess: f.value.trim()}));
+    f.value = '';
+  }
+}
+
+function sendEmoji() {
+  ws.send(JSON.stringify({action: 'emoji', emoji: $('emoji-field').value}));
+}
+
+function clearEmoji() {
+  $('emoji-field').value = '';
+  sendEmoji();
+}
+
+function backspaceEmoji() {
+  const val = $('emoji-field').value;
+  if (!val) return;
+  if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+    const segs = Array.from(new Intl.Segmenter().segment(val), s => s.segment);
+    segs.pop();
+    $('emoji-field').value = segs.join('');
+  } else {
+    const arr = Array.from(val);
+    arr.pop();
+    $('emoji-field').value = arr.join('');
+  }
+  sendEmoji();
+}
+
+function addEmoji(e) {
+  $('emoji-field').value += e;
+  sendEmoji();
+}
+
+function submitBGEmoji() {
+  const val = $('emoji-field').value.trim();
+  if (!val) return;
+  ws.send(JSON.stringify({action: 'submit_emoji', emoji: val}));
+  hide('emoji-input-area');
+}
+
+function pickBest(ch) { ws.send(JSON.stringify({action: 'pick_best', winner: ch})); }
+function rerollWord() { ws.send(JSON.stringify({action: 'reroll'})); }
+
+function sendPrompt() {
+  const w = (currentState && currentState.current_word)
+    ? currentState.current_word
+    : $('your-word').textContent.replace('Your word: ', '').trim();
+  ws.send(JSON.stringify({action: 'send_prompt', prompt: w}));
+}
+
+function submitCustomWord() {
+  const inp = $('custom-word-input');
+  if (!inp || !inp.value.trim()) return;
+  ws.send(JSON.stringify({action: 'custom_word', word: inp.value.trim()}));
+  inp.value = '';
+}
+
+function submitRename(e) {
+  e.preventDefault();
+  const val = $('rename-input').value.trim();
+  if (!val) return;
+  ws.send(JSON.stringify({action: 'rename', name: val}));
+  closeModal('modal-profile');
+}
+
+function toggleMySpectator() {
+  ws.send(JSON.stringify({action: 'toggle_spectator'}));
+  closeModal('modal-profile');
+}
+
+function kickPlayer(pid) {
+  ws.send(JSON.stringify({action: 'kick_player', player_id: pid}));
+}
+
+function transferAdmin(pid) {
+  ws.send(JSON.stringify({action: 'transfer_admin', player_id: pid}));
+}
+
+// Timers
 function startTimer(secs) {
   clearInterval(timerInterval);
-  if (!secs) { $('timer-bar').style.display='none'; return; }
-  const bar=$('timer-bar'); bar.style.display=''; bar.style.width='100%';
-  let rem=secs;
-  timerInterval = setInterval(()=>{
-    rem--; bar.style.width=(rem/secs*100)+'%';
-    if(rem<=0) { clearInterval(timerInterval); if(isMyTurn) skipWord(); }
-  },1000);
+  if (!secs || secs <= 0) {
+    hide('timer-bar-wrap', 'timer-badge');
+    return;
+  }
+  show('timer-bar-wrap', 'timer-badge');
+  const bar = $('timer-bar');
+  bar.style.width = '100%';
+  let rem = secs;
+  $('timer-badge').textContent = `${rem}s`;
+  timerInterval = setInterval(() => {
+    rem--;
+    $('timer-badge').textContent = `${Math.max(0, rem)}s`;
+    bar.style.width = Math.max(0, (rem / secs * 100)) + '%';
+    if (rem <= 0) {
+      clearInterval(timerInterval);
+      if (isMyTurn || (currentState && currentState.me && currentState.me.is_admin)) {
+        skipWord();
+      }
+    }
+  }, 1000);
+}
+
+function syncServerTimer(t) {
+  clearInterval(timerInterval);
+  if (!t || !t.duration) {
+    hide('timer-bar-wrap', 'timer-badge');
+    return;
+  }
+  show('timer-bar-wrap', 'timer-badge');
+  const bar = $('timer-bar');
+  if (t.paused) {
+    $('timer-badge').textContent = `⏸️ ${t.remaining}s`;
+    bar.style.width = Math.max(0, (t.remaining / t.duration * 100)) + '%';
+    return;
+  }
+  let rem = t.remaining;
+  $('timer-badge').textContent = `${rem}s`;
+  bar.style.width = Math.max(0, (rem / t.duration * 100)) + '%';
+  timerInterval = setInterval(() => {
+    rem--;
+    $('timer-badge').textContent = `${Math.max(0, rem)}s`;
+    bar.style.width = Math.max(0, (rem / t.duration * 100)) + '%';
+    if (rem <= 0) {
+      clearInterval(timerInterval);
+      if (isMyTurn || (currentState && currentState.me && currentState.me.is_admin)) {
+        skipWord();
+      }
+    }
+  }, 1000);
 }
 
 function searchEmoji(q) {
   clearTimeout(searchTimeout);
-  const r=$('emoji-search-results');
-  if(q.length<2){r.innerHTML='';return;}
-  searchTimeout=setTimeout(()=>{
-    fetch(`/games/emojinary/emoji-search/?q=${encodeURIComponent(q)}`).then(r=>r.json()).then(data=>{
-      r.innerHTML=data.map(d=>`<button onclick="addEmoji('${d.emoji}')" title="${d.name}">${d.emoji}</button>`).join('');
+  const r = $('emoji-search-results');
+  if (q.length < 2) { r.innerHTML = ''; return; }
+  searchTimeout = setTimeout(() => {
+    fetch(`/games/emojinary/emoji-search/?q=${encodeURIComponent(q)}`).then(res => res.json()).then(data => {
+      r.innerHTML = data.map(d => `<button type="button" onclick="addEmoji('${d.emoji}')" title="${escapeHtml(d.name)}">${d.emoji}</button>`).join('');
     });
-  },200);
+  }, 180);
 }
 
 function renderPage(i) {
-  currentPage=i; const k=cats[i];
-  const parsed=(EMOJIS[k]||'').match(/\p{Emoji_Presentation}(\u200d\p{Emoji_Presentation})*/gu)||[];
-  $('emoji-kb').innerHTML=parsed.map(e=>`<button onclick="addEmoji('${e}')">${e}</button>`).join('');
-  $('emoji-pages').innerHTML=cats.map((c,j)=>`<a class="${j===i?'active':''}" onclick="renderPage(${j})">${c}</a>`).join(' ');
+  currentPage = i;
+  const k = cats[i];
+  const parsed = (EMOJIS[k] || '').match(/\p{Emoji_Presentation}(\u200d\p{Emoji_Presentation})*/gu) || [];
+  $('emoji-kb').innerHTML = parsed.map(e => `<button type="button" onclick="addEmoji('${e}')">${e}</button>`).join('');
+  $('emoji-pages').innerHTML = cats.map((c, j) => `<a class="${j === i ? 'active' : ''}" onclick="renderPage(${j})">${c}</a>`).join(' ');
 }
 
-// Audio
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function beep(freq=440, dur=0.15) {
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.connect(g); g.connect(audioCtx.destination);
-  o.frequency.value=freq; o.type='sine';
-  g.gain.setValueAtTime(0.3, audioCtx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+dur);
-  o.start(); o.stop(audioCtx.currentTime+dur);
+function beep(freq = 440, dur = 0.15) {
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    const ctx = new AudioContextClass();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.frequency.value = freq; o.type = 'sine';
+    g.gain.setValueAtTime(0.25, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + dur);
+    o.start(); o.stop(ctx.currentTime + dur);
+  } catch (e) {}
 }
 
-// Overlays
-function showCountdown(cb) {
-  const ov=$('overlay'); ov.className='show';
-  let n=3;
-  function tick() {
-    if(n>0) { ov.innerHTML=`<div class="countdown">${n}</div>`; beep(300+n*100); n--; setTimeout(tick,1000); }
-    else { ov.innerHTML=`<div class="countdown">GO!</div>`; beep(880,0.3); setTimeout(()=>{ ov.className=''; ov.innerHTML=''; cb(); },800); }
-  }
-  tick();
-}
-
-function showRoundResult(emoji, word, guesser, duration) {
-  const ov=$('overlay'); ov.className='show';
-  ov.innerHTML=`<div class="round-result">
-    <div style="font-size:2.5rem;margin-bottom:0.5rem;">${emoji||'🤷'}</div>
-    <h2>${word}</h2>
-    <p style="color:#888;font-size:0.85rem;">${guesser?'guessed by '+guesser:'skipped'}</p>
-  </div>`;
-  beep(guesser?660:220, 0.3);
-  setTimeout(()=>{ ov.className=''; ov.innerHTML=''; }, duration||4000);
-}
-
-function showFinalScores(playersList, history) {
-  const ov=$('overlay'); ov.className='show';
-  const sorted=[...playersList].sort((a,b)=>b.score-a.score);
-  const medal=['🥇','🥈','🥉'];
-  const rows=sorted.map((p,i)=>`<tr><td>${medal[i]||''} ${p.name}</td><td>${p.score}pts</td></tr>`).join('');
-  const histRows=(history||[]).map(h=>`<tr><td>${h.emoji||''}</td><td>${h.word}</td><td>${h.guesser||'skipped'}</td></tr>`).join('');
-  ov.innerHTML=`<div class="final-scores">
-    <h2>🏆 Final Scores</h2>
-    <table><tbody>${rows}</tbody></table>
-    ${history&&history.length?`<h3 style="font-size:0.9rem;margin-top:1rem;">Round History</h3><table><tbody>${histRows}</tbody></table>`:''}
-    <button onclick="playAgain();$('overlay').className=''" style="margin-top:1rem;padding:0.5rem 1.5rem;cursor:pointer;font-size:1rem;">play again</button>
-  </div>`;
-  beep(523,0.2); setTimeout(()=>beep(659,0.2),200); setTimeout(()=>beep(784,0.4),400);
-}
-
-// Best Guess handlers
-function handleBestGuess(d) {
-  if (d.type==='bg_picking') {
-    hide('start-btn','settings-area','play-again-btn','guess-area','wait-msg','emoji-input-area');
-    isMyTurn = d.current_player===NAME;
-    $('status').textContent = `Round ${d.round}/${d.max_rounds} — ${d.current_player} is picking a word`;
-    if (!isMyTurn) { show('wait-msg'); $('wait-msg').textContent='⏳ waiting for prompt...'; }
-    if (d.players) players(d.players);
-  } else if (d.type==='bg_submit_phase') {
-    hide('wait-msg');
-    isMyTurn = d.current_player===NAME;
-    $('status').textContent = `Round ${d.round}/${d.max_rounds} — Describe: "${d.prompt}" with emojis!`;
-    $('emoji-display').textContent = '';
-    if (!isMyTurn) {
-      show('emoji-input-area');
-      $('emoji-field').value = '';
-      // Replace reveal button with submit
-      const revBtn = document.querySelector("button[onclick*='revealEmoji']");
-      if (revBtn) { revBtn.textContent='submit'; revBtn.setAttribute('onclick','submitBGEmoji()'); }
+function triggerVictoryConfetti() {
+  try {
+    if (typeof JSConfetti !== 'undefined') {
+      const jc = new JSConfetti();
+      jc.addConfetti({ emojis: ['🏆', '🎨', '🎯', '✨', '🥳', '🎉'] });
     }
-    startTimer(d.emoji_timer);
-  } else if (d.type==='bg_judging') {
-    hide('emoji-input-area');
-    clearInterval(timerInterval);
-    $('status').textContent = `Judging: "${d.prompt}"`;
-    const cp = isMyTurn;
-    let html = '<div style="margin-top:1rem;">';
-    d.submissions.forEach(s => {
-      html += `<div style="margin:0.5rem 0;padding:0.5rem;border:1px solid #ddd;border-radius:4px;display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:1.5rem;">${s.emoji}</span>
-        <span style="font-size:0.85rem;color:#888;">${s.name}</span>
-        ${cp?`<button onclick="pickBest('${s.channel}')" style="padding:0.3rem 0.7rem;cursor:pointer;font-size:0.8rem;">pick</button>`:''}
-      </div>`;
-    });
-    html += '</div>';
-    $('emoji-display').innerHTML = html;
-  } else if (d.type==='bg_winner') {
-    $('status').textContent = `🏆 ${d.winner} wins this round!`;
-    $('emoji-display').innerHTML = `<div style="text-align:center;margin:1rem 0;"><span style="font-size:2rem;">${d.emoji}</span><br><span style="font-size:0.85rem;color:#888;">"${d.prompt}" by ${d.winner}</span></div>`;
-    if (d.players) players(d.players);
-    beep(660,0.3);
+  } catch (e) {}
+}
+
+function handleBestGuessLegacy(d) {
+  if (d.type === 'bg_winner') {
+    beep(660, 0.3);
   }
 }
 
-function submitBGEmoji() { ws.send(JSON.stringify({action:'submit_emoji',emoji:$('emoji-field').value})); hide('emoji-input-area'); chat('submitted!','system'); }
-function pickBest(ch) { ws.send(JSON.stringify({action:'pick_best',winner:ch})); }
-function rerollWord() { ws.send(JSON.stringify({action:'reroll'})); }
-function sendPrompt() { const w=$('your-word').textContent.replace('Your word: ',''); ws.send(JSON.stringify({action:'send_prompt',prompt:w})); }
+function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 
-let lastRoundResult = null;
-
-connect(); renderPage(0);
+renderPage(0);
+if (currentState) renderFromState(currentState);
+connect();
 </script>
 {% endblock %}

@@ -35,6 +35,9 @@ msgstr "1. نظرة عامة"
 msgid "10 Minutes"
 msgstr "10 دقائق"
 
+msgid "1st guess ends round"
+msgstr "1st guess ends round"
+
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — الفصيل / الفريق (يُعلن \"القرية\"، \"المستذئبون\"، \"محايد\")"
 
@@ -107,11 +110,20 @@ msgstr "نشط"
 msgid "Active Lupus Rooms"
 msgstr "غرف لوبوس النشطة"
 
+msgid "Add Hint"
+msgstr "Add Hint"
+
 msgid "All Active Rooms"
 msgstr "جميع الغرف النشطة"
 
 msgid "All Games"
 msgstr "جميع الألعاب"
+
+msgid "All guesses & hints appear here"
+msgstr "All guesses & hints appear here"
+
+msgid "Allow custom words"
+msgstr "Allow custom words"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "تطبيق ترخيص المشاع الإبداعي (نسب المصنف - غير تجاري - الترخيص بالمثل) والعلامة المائية."
@@ -119,8 +131,14 @@ msgstr "تطبيق ترخيص المشاع الإبداعي (نسب المصنف
 msgid "Back to Active Lupus Rooms"
 msgstr "العودة إلى غرف لوبوس النشطة"
 
+msgid "Backspace"
+msgstr "Backspace"
+
 msgid "Browse Active Lupus Rooms"
 msgstr "تصفح غرف لوبوس النشطة"
+
+msgid "Build Your Emoji Clue:"
+msgstr "Build Your Emoji Clue:"
 
 msgid "CC BY-NC-SA license"
 msgstr "ترخيص CC BY-NC-SA"
@@ -142,6 +160,9 @@ msgstr "لوحة التحكم"
 
 msgid "Conferences"
 msgstr "المؤتمرات"
+
+msgid "Copy"
+msgstr "Copy"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "إنشاء غرفة لوبوس / المستذئب"
@@ -173,6 +194,9 @@ msgstr "نقاش"
 msgid "Discussion Round Timer"
 msgstr "مؤقت جولة النقاش"
 
+msgid "Display Name"
+msgstr "Display Name"
+
 msgid "Doctor Shields From Sniper:"
 msgstr "الطبيب يحمي من القناص:"
 
@@ -196,6 +220,9 @@ msgstr "دخول الغرفة"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "أدخل رمز الغرفة (مثال: 9B3A1C2D)"
+
+msgid "Export JSON"
+msgstr "Export JSON"
 
 msgid "Failed"
 msgstr "فشل"
@@ -251,6 +278,9 @@ msgstr "الأتمتة المنزلية والمختبر المنزلي"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "نقطة التركيز الأفقية: 0=يسار، 50=وسط، 100=يمين."
 
+msgid "Host Game Settings"
+msgstr "Host Game Settings"
+
 msgid "I code, take pics and many other things"
 msgstr "أبرمج، ألتقط الصور وأقوم بأشياء أخرى كثيرة"
 
@@ -277,6 +307,12 @@ msgstr "صورة إنستغرام 4:5"
 
 msgid "Invalid Game Master secret key."
 msgstr "المفتاح السري لمدير اللعبة غير صالح."
+
+msgid "Invite Players to Room"
+msgstr "Invite Players to Room"
+
+msgid "Invite QR"
+msgstr "Invite QR"
 
 msgid "Join"
 msgstr "انضمام"
@@ -323,6 +359,9 @@ msgstr "حسم البرزخ"
 msgid "Listening"
 msgstr "الاستماع"
 
+msgid "Live Chat & Guess Stream"
+msgstr "Live Chat & Guess Stream"
+
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "يقدم اللاعبون الأحياء والراحلون شائعات الصباح لتُقرأ بصوت عالٍ عند الفجر."
 
@@ -350,6 +389,9 @@ msgstr "لوبوس إن تابولا / المستذئب"
 msgid "Mafia"
 msgstr "مافيا"
 
+msgid "Match Replay & Attempt Timeline"
+msgstr "Match Replay & Attempt Timeline"
+
 msgid "Midgame Arrivals:"
 msgstr "الوافدون في منتصف اللعبة:"
 
@@ -373,6 +415,9 @@ msgstr "مفتوح (غرفة الانتظار)"
 
 msgid "Open GM Cockpit"
 msgstr "فتح لوحة تحكم مدير اللعبة"
+
+msgid "Or type your own custom prompt/phrase..."
+msgstr "Or type your own custom prompt/phrase..."
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "ملف RAW الأصلي من الكاميرا (CR3، ARW، NEF، إلخ)"
@@ -403,6 +448,9 @@ msgstr "التصوير الفوتوغرافي"
 
 msgid "Pick the name others at the table know you by."
 msgstr "اختر الاسم الذي يعرفك به الآخرون على الطاولة."
+
+msgid "Player Profile & Personal QR"
+msgstr "Player Profile & Personal QR"
 
 msgid "Please enter a player name."
 msgstr "يرجى إدخال اسم اللاعب."
@@ -458,11 +506,20 @@ msgstr "إعادة إنشاء اقتصاصات إنستغرام بنسبة 4:5 �
 msgid "Replay"
 msgstr "إعادة العرض"
 
+msgid "Reroll"
+msgstr "Reroll"
+
 msgid "Return as %(name)s"
 msgstr "العودة باسم %(name)s"
 
 msgid "Reveal Roles on Death:"
 msgstr "كشف الأدوار عند الموت:"
+
+msgid "Room Chat"
+msgstr "Room Chat"
+
+msgid "Room Code"
+msgstr "Room Code"
 
 msgid "Room Code:"
 msgstr "رمز الغرفة:"
@@ -482,17 +539,41 @@ msgstr "عنوان الغرفة"
 msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "لم يتم العثور على رمز الغرفة '%(code)s' أو لم يعد نشطاً."
 
+msgid "Rooms"
+msgstr "Rooms"
+
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "يتم إنشاء الغرف عند الطلب وتظل نشطة لمدة 24 ساعة. ابدأ جلسة لعب جديدة وادعُ مجموعتك!"
 
+msgid "Round"
+msgstr "Round"
+
+msgid "Round-by-Round Replay & Attempt Log"
+msgstr "Round-by-Round Replay & Attempt Log"
+
 msgid "Running"
 msgstr "قيد التشغيل"
+
+msgid "Save Name"
+msgstr "Save Name"
+
+msgid "Scan this QR code with any phone camera to join immediately:"
+msgstr "Scan this QR code with any phone camera to join immediately:"
+
+msgid "Scan this to move your session and score to another phone or browser:"
+msgstr "Scan this to move your session and score to another phone or browser:"
+
+msgid "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr "Search emoji by name (e.g. fire, crown, heart)..."
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "إرسال حزمة كاروسيل إنستغرام إلى تيليجرام"
 
 msgid "Server Error — Marco Silva"
 msgstr "خطأ في الخادم — ماركو سيلفا"
+
+msgid "Set"
+msgstr "Set"
 
 msgid "Silent Phase"
 msgstr "المرحلة الصامتة"
@@ -509,6 +590,9 @@ msgstr "الإسبانية"
 msgid "Speaking"
 msgstr "التحدث"
 
+msgid "Spectator Mode (Skip my turns)"
+msgstr "Spectator Mode (Skip my turns)"
+
 msgid "Staggering Doctor:"
 msgstr "الطبيب المتناوب:"
 
@@ -517,6 +601,9 @@ msgstr "الإعداد المسبق لحزمة الأدوار الابتدائي
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "مراحل ليلية خطوة بخطوة، ونداءات التمويه، وإدارة التصويت."
+
+msgid "Submit"
+msgstr "Submit"
 
 msgid "Table-First Lupus Highlights"
 msgstr "أبرز مميزات لوبوس للعب حول الطاولة"
@@ -529,6 +616,9 @@ msgstr "لعبة حفلات هجينة مخصصة للعب حول الطاولة
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "لعبة حفلات مخصصة للعب حول الطاولة مع أدوار سرية، وتصويت مباشر، وصحيفة القرية، ولوحة تحكم لمدير اللعبة."
+
+msgid "Tap emojis below..."
+msgstr "Tap emojis below..."
 
 msgid "Techy"
 msgstr "تقنيات"
@@ -548,14 +638,26 @@ msgstr "لا يمكن للطبيب / الحارس حماية نفس الشخص �
 msgid "Theme & Terms"
 msgstr "السمة والمصطلحات"
 
+msgid "Toggle"
+msgstr "Toggle"
+
 msgid "Town Gazette:"
 msgstr "صحيفة القرية:"
 
 msgid "Town Voting"
 msgstr "تصويت القرية"
 
+msgid "Type a message or guess..."
+msgstr "Type a message or guess..."
+
+msgid "Type your guess (or use the chat box)..."
+msgstr "Type your guess (or use the chat box)..."
+
 msgid "Unlock Room"
 msgstr "إلغاء قفل الغرفة"
+
+msgid "Use Prompt"
+msgstr "Use Prompt"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "نقطة التركيز الرأسية: 0=الأعلى، 50=الوسط، 100=الأسفل."
@@ -583,6 +685,12 @@ msgstr "تحتاج إلى مفتاح مصرح به للوصول إلى هذه ا
 
 msgid "Your Name / Nickname"
 msgstr "اسمك / لقبك"
+
+msgid "Your Personal Reconnect QR"
+msgstr "Your Personal Reconnect QR"
+
+msgid "Your Secret Phrase"
+msgstr "Your Secret Phrase"
 
 msgid "adjective"
 msgstr "صفة"
@@ -623,17 +731,14 @@ msgstr "الشركة المصنعة للكاميرا"
 msgid "camera model"
 msgstr "طراز الكاميرا"
 
-msgid "chat"
-msgstr "المحادثة"
-
-msgid "chat..."
-msgstr "دردشة..."
-
 msgid "chat:"
 msgstr "الدردشة:"
 
 msgid "clear"
 msgstr "مسح"
+
+msgid "collective prep + hints"
+msgstr "collective prep + hints"
 
 msgid "create"
 msgstr "إنشاء"
@@ -833,17 +938,20 @@ msgstr "اللاعبون"
 msgid "press the button to get a word"
 msgstr "اضغط على الزر للحصول على كلمة"
 
-msgid "private"
-msgstr "خاص"
+msgid "private (hide guesses)"
+msgstr "private (hide guesses)"
 
 msgid "processing status"
 msgstr "حالة المعالجة"
 
-msgid "public"
-msgstr "عام"
+msgid "public (show guesses)"
+msgstr "public (show guesses)"
 
 msgid "request"
 msgstr "طلب"
+
+msgid "rerolls:"
+msgstr "rerolls:"
 
 msgid "reveal"
 msgstr "كشف"
@@ -857,17 +965,11 @@ msgstr "بالتناوب"
 msgid "rounds:"
 msgstr "الجولات:"
 
-msgid "search emoji..."
-msgstr "بحث عن إيموجي..."
-
 msgid "send"
 msgstr "إرسال"
 
 msgid "sentence"
 msgstr "جملة"
-
-msgid "settings"
-msgstr "الإعدادات"
 
 msgid "shutter speed"
 msgstr "سرعة الغالق"
@@ -895,9 +997,6 @@ msgstr "اليوم"
 
 msgid "type"
 msgstr "النوع"
-
-msgid "type your guess..."
-msgstr "اكتب تخمينك..."
 
 msgid "upload"
 msgstr "رفع"

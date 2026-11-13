@@ -35,6 +35,9 @@ msgstr "1. Ümumi Baxış"
 msgid "10 Minutes"
 msgstr "10 Dəqiqə"
 
+msgid "1st guess ends round"
+msgstr "1st guess ends round"
+
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Fraksiya / Komanda (\"Kənd\", \"Canavarlar\", \"Neytral\" elan edilir)"
 
@@ -107,11 +110,20 @@ msgstr "Aktiv"
 msgid "Active Lupus Rooms"
 msgstr "Aktiv Lupus Otaqları"
 
+msgid "Add Hint"
+msgstr "Add Hint"
+
 msgid "All Active Rooms"
 msgstr "Bütün Aktiv Otaqlar"
 
 msgid "All Games"
 msgstr "Bütün Oyunlar"
+
+msgid "All guesses & hints appear here"
+msgstr "All guesses & hints appear here"
+
+msgid "Allow custom words"
+msgstr "Allow custom words"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Creative Commons Attribution-NonCommercial-ShareAlike lisenziyasını və su nişanını tətbiq edin."
@@ -119,8 +131,14 @@ msgstr "Creative Commons Attribution-NonCommercial-ShareAlike lisenziyasını v�
 msgid "Back to Active Lupus Rooms"
 msgstr "Aktiv Lupus Otaqlarına Qayıt"
 
+msgid "Backspace"
+msgstr "Backspace"
+
 msgid "Browse Active Lupus Rooms"
 msgstr "Aktiv Lupus Otaqlarına Bax"
+
+msgid "Build Your Emoji Clue:"
+msgstr "Build Your Emoji Clue:"
 
 msgid "CC BY-NC-SA license"
 msgstr "CC BY-NC-SA lisenziyası"
@@ -142,6 +160,9 @@ msgstr "İdarəetmə Paneli"
 
 msgid "Conferences"
 msgstr "Konfranslar"
+
+msgid "Copy"
+msgstr "Copy"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "Lupus / Canavar Otağı Yarat"
@@ -173,6 +194,9 @@ msgstr "Müzakirə"
 msgid "Discussion Round Timer"
 msgstr "Müzakirə Raundu Taymeri"
 
+msgid "Display Name"
+msgstr "Display Name"
+
 msgid "Doctor Shields From Sniper:"
 msgstr "Həkim Snayperdən Qoruyur:"
 
@@ -196,6 +220,9 @@ msgstr "Otağa Daxil Ol"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Otaq Kodunu Daxil Edin (məs. 9B3A1C2D)"
+
+msgid "Export JSON"
+msgstr "Export JSON"
 
 msgid "Failed"
 msgstr "Uğursuz oldu"
@@ -251,6 +278,9 @@ msgstr "Ev avtomatlaşdırması və homelab"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Üfüqi fokus nöqtəsi: 0=sol, 50=mərkəz, 100=sağ."
 
+msgid "Host Game Settings"
+msgstr "Host Game Settings"
+
 msgid "I code, take pics and many other things"
 msgstr "Kod yazıram, şəkil çəkirəm və bir çox başqa işlərlə məşğul oluram"
 
@@ -277,6 +307,12 @@ msgstr "Instagram 4:5 şəkli"
 
 msgid "Invalid Game Master secret key."
 msgstr "Yanlış Oyun Ustası gizli açarı."
+
+msgid "Invite Players to Room"
+msgstr "Invite Players to Room"
+
+msgid "Invite QR"
+msgstr "Invite QR"
 
 msgid "Join"
 msgstr "Qoşul"
@@ -323,6 +359,9 @@ msgstr "Əraf qərarı"
 msgid "Listening"
 msgstr "Dinləmə"
 
+msgid "Live Chat & Guess Stream"
+msgstr "Live Chat & Guess Stream"
+
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "Sağ və həlak olmuş oyunçular sübh çağı ucadan oxunan səhər şayiələrini göndərirlər."
 
@@ -350,6 +389,9 @@ msgstr "Lupus in Tabula / Canavar Adam"
 msgid "Mafia"
 msgstr "Mafiya"
 
+msgid "Match Replay & Attempt Timeline"
+msgstr "Match Replay & Attempt Timeline"
+
 msgid "Midgame Arrivals:"
 msgstr "Oyuna sonradan qoşulanlar:"
 
@@ -373,6 +415,9 @@ msgstr "Açıq (Lobbi)"
 
 msgid "Open GM Cockpit"
 msgstr "GM İdarəetmə Panelini Aç"
+
+msgid "Or type your own custom prompt/phrase..."
+msgstr "Or type your own custom prompt/phrase..."
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Orijinal kamera RAW faylı (CR3, ARW, NEF və s.)"
@@ -403,6 +448,9 @@ msgstr "Fotoqrafiya"
 
 msgid "Pick the name others at the table know you by."
 msgstr "Masadakı digər oyunçuların sizi tanıdığı adı seçin."
+
+msgid "Player Profile & Personal QR"
+msgstr "Player Profile & Personal QR"
 
 msgid "Please enter a player name."
 msgstr "Zəhmət olmasa, oyunçu adı daxil edin."
@@ -458,11 +506,20 @@ msgstr "Seçilmiş fotolar üçün 4:5 Instagram kəsimlərini yenidən yarat"
 msgid "Replay"
 msgstr "Təkrar izlə"
 
+msgid "Reroll"
+msgstr "Reroll"
+
 msgid "Return as %(name)s"
 msgstr "%(name)s olaraq qayıt"
 
 msgid "Reveal Roles on Death:"
 msgstr "Öldükdə rolları açıqla:"
+
+msgid "Room Chat"
+msgstr "Room Chat"
+
+msgid "Room Code"
+msgstr "Room Code"
 
 msgid "Room Code:"
 msgstr "Otaq kodu:"
@@ -482,17 +539,41 @@ msgstr "Otaq adı"
 msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "'%(code)s' otaq kodu tapılmadı və ya artıq aktiv deyil."
 
+msgid "Rooms"
+msgstr "Rooms"
+
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Otaqlar istəyə uyğun yaradılır və 24 saat ərzində aktiv qalır. Yeni oyun sessiyası başladın və qrupunuzu dəvət edin!"
 
+msgid "Round"
+msgstr "Round"
+
+msgid "Round-by-Round Replay & Attempt Log"
+msgstr "Round-by-Round Replay & Attempt Log"
+
 msgid "Running"
 msgstr "Davam edir"
+
+msgid "Save Name"
+msgstr "Save Name"
+
+msgid "Scan this QR code with any phone camera to join immediately:"
+msgstr "Scan this QR code with any phone camera to join immediately:"
+
+msgid "Scan this to move your session and score to another phone or browser:"
+msgstr "Scan this to move your session and score to another phone or browser:"
+
+msgid "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr "Search emoji by name (e.g. fire, crown, heart)..."
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "Instagram karusel paketini Telegram-a göndər"
 
 msgid "Server Error — Marco Silva"
 msgstr "Server xətası — Marco Silva"
+
+msgid "Set"
+msgstr "Set"
 
 msgid "Silent Phase"
 msgstr "Səssiz mərhələ"
@@ -509,6 +590,9 @@ msgstr "İspan dili"
 msgid "Speaking"
 msgstr "Çıxışlar"
 
+msgid "Spectator Mode (Skip my turns)"
+msgstr "Spectator Mode (Skip my turns)"
+
 msgid "Staggering Doctor:"
 msgstr "Növbəli Həkim:"
 
@@ -517,6 +601,9 @@ msgstr "Başlanğıc Rol Dəsti Şablonu"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Addım-addım gecə mərhələləri, blef çağırışları və səsvermə idarəedici."
+
+msgid "Submit"
+msgstr "Submit"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Masaüstü Üstünlüklü Lupus Xüsusiyyətləri"
@@ -529,6 +616,9 @@ msgstr "Masaüstü üstünlüklü hibrid əyləncə oyunu. Hesab və ya giriş t
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "Gizli rollar, canlı səsvermə, Şəhər Qəzeti və Oyun Aparıcısı idarəetmə paneli olan masaüstü üstünlüklü əyləncə oyunu."
+
+msgid "Tap emojis below..."
+msgstr "Tap emojis below..."
 
 msgid "Techy"
 msgstr "Texniki"
@@ -548,14 +638,26 @@ msgstr "Həkim / Mühafizəçi ardıcıl iki gecə eyni şəxsi qoruya bilməz."
 msgid "Theme & Terms"
 msgstr "Mövzu və Terminlər"
 
+msgid "Toggle"
+msgstr "Toggle"
+
 msgid "Town Gazette:"
 msgstr "Şəhər Qəzeti:"
 
 msgid "Town Voting"
 msgstr "Şəhər Səsverməsi"
 
+msgid "Type a message or guess..."
+msgstr "Type a message or guess..."
+
+msgid "Type your guess (or use the chat box)..."
+msgstr "Type your guess (or use the chat box)..."
+
 msgid "Unlock Room"
 msgstr "Otağın Kilidini Aç"
+
+msgid "Use Prompt"
+msgstr "Use Prompt"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Şaquli fokus nöqtəsi: 0=yuxarı, 50=mərkəz, 100=aşağı."
@@ -583,6 +685,12 @@ msgstr "Bu səhifəyə daxil olmaq üçün icazəli açara ehtiyacınız var."
 
 msgid "Your Name / Nickname"
 msgstr "Adınız / Ləqəbiniz"
+
+msgid "Your Personal Reconnect QR"
+msgstr "Your Personal Reconnect QR"
+
+msgid "Your Secret Phrase"
+msgstr "Your Secret Phrase"
 
 msgid "adjective"
 msgstr "sifət"
@@ -623,17 +731,14 @@ msgstr "kamera istehsalçısı"
 msgid "camera model"
 msgstr "kamera modeli"
 
-msgid "chat"
-msgstr "söhbət"
-
-msgid "chat..."
-msgstr "söhbət..."
-
 msgid "chat:"
 msgstr "söhbət:"
 
 msgid "clear"
 msgstr "təmizlə"
+
+msgid "collective prep + hints"
+msgstr "collective prep + hints"
 
 msgid "create"
 msgstr "yarat"
@@ -833,17 +938,20 @@ msgstr "oyunçular"
 msgid "press the button to get a word"
 msgstr "söz almaq üçün düyməyə basın"
 
-msgid "private"
-msgstr "özəl"
+msgid "private (hide guesses)"
+msgstr "private (hide guesses)"
 
 msgid "processing status"
 msgstr "emal statusu"
 
-msgid "public"
-msgstr "ictimai"
+msgid "public (show guesses)"
+msgstr "public (show guesses)"
 
 msgid "request"
 msgstr "sorğu"
+
+msgid "rerolls:"
+msgstr "rerolls:"
 
 msgid "reveal"
 msgstr "açıqla"
@@ -857,17 +965,11 @@ msgstr "növbəli"
 msgid "rounds:"
 msgstr "raundlar:"
 
-msgid "search emoji..."
-msgstr "emoji axtar..."
-
 msgid "send"
 msgstr "göndər"
 
 msgid "sentence"
 msgstr "cümlə"
-
-msgid "settings"
-msgstr "ayarlar"
 
 msgid "shutter speed"
 msgstr "çekim sürəti"
@@ -895,9 +997,6 @@ msgstr "bu gün"
 
 msgid "type"
 msgstr "növ"
-
-msgid "type your guess..."
-msgstr "təxmininizi yazın..."
 
 msgid "upload"
 msgstr "yüklə"

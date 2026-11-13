@@ -35,6 +35,9 @@ msgstr "1. Përmbledhje"
 msgid "10 Minutes"
 msgstr "10 Minuta"
 
+msgid "1st guess ends round"
+msgstr "1st guess ends round"
+
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Fraksioni / Skuadra (Shpall \"Fshati\", \"Ujqërit\", \"Neutral\")"
 
@@ -107,11 +110,20 @@ msgstr "Aktive"
 msgid "Active Lupus Rooms"
 msgstr "Dhomat Aktive të Lupus"
 
+msgid "Add Hint"
+msgstr "Add Hint"
+
 msgid "All Active Rooms"
 msgstr "Të Gjitha Dhomat Aktive"
 
 msgid "All Games"
 msgstr "Të Gjitha Lojërat"
+
+msgid "All guesses & hints appear here"
+msgstr "All guesses & hints appear here"
+
+msgid "Allow custom words"
+msgstr "Allow custom words"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Apliko licencën Creative Commons Attribution-NonCommercial-ShareAlike dhe filigranin."
@@ -119,8 +131,14 @@ msgstr "Apliko licencën Creative Commons Attribution-NonCommercial-ShareAlike d
 msgid "Back to Active Lupus Rooms"
 msgstr "Kthehu te Dhomat Aktive të Lupus"
 
+msgid "Backspace"
+msgstr "Backspace"
+
 msgid "Browse Active Lupus Rooms"
 msgstr "Shfleto Dhomat Aktive të Lupus"
+
+msgid "Build Your Emoji Clue:"
+msgstr "Build Your Emoji Clue:"
 
 msgid "CC BY-NC-SA license"
 msgstr "Licencë CC BY-NC-SA"
@@ -142,6 +160,9 @@ msgstr "Kabina e kontrollit"
 
 msgid "Conferences"
 msgstr "Konferencat"
+
+msgid "Copy"
+msgstr "Copy"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "Krijo dhomë Lupus / Njeriu-Ujk"
@@ -173,6 +194,9 @@ msgstr "Diskutimi"
 msgid "Discussion Round Timer"
 msgstr "Kohëmatësi i raundit të diskutimit"
 
+msgid "Display Name"
+msgstr "Display Name"
+
 msgid "Doctor Shields From Sniper:"
 msgstr "Mjeku mbron nga Snajperi:"
 
@@ -196,6 +220,9 @@ msgstr "Hyr në dhomë"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Shkruaj kodin e dhomës (p.sh. 9B3A1C2D)"
+
+msgid "Export JSON"
+msgstr "Export JSON"
 
 msgid "Failed"
 msgstr "Dështoi"
@@ -251,6 +278,9 @@ msgstr "Automatizimi i shtëpisë dhe homelab"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Pika fokale horizontale: 0=majtas, 50=qendër, 100=djathtas."
 
+msgid "Host Game Settings"
+msgstr "Host Game Settings"
+
 msgid "I code, take pics and many other things"
 msgstr "Programoj, bëj fotografi dhe shumë gjëra të tjera"
 
@@ -277,6 +307,12 @@ msgstr "Imazh Instagram 4:5"
 
 msgid "Invalid Game Master secret key."
 msgstr "Çelësi sekret i Mjeshtrit të Lojës është i pavlefshëm."
+
+msgid "Invite Players to Room"
+msgstr "Invite Players to Room"
+
+msgid "Invite QR"
+msgstr "Invite QR"
 
 msgid "Join"
 msgstr "Bashkohu"
@@ -323,6 +359,9 @@ msgstr "Zgjidhja e Limbos"
 msgid "Listening"
 msgstr "Dëgjimi"
 
+msgid "Live Chat & Guess Stream"
+msgstr "Live Chat & Guess Stream"
+
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "Lojtarët e gjallë dhe të rënë dërgojnë thashethemet e mëngjesit që lexohen me zë të lartë në agim."
 
@@ -350,6 +389,9 @@ msgstr "Lupus in Tabula / Ujk-Njeriu"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Replay & Attempt Timeline"
+msgstr "Match Replay & Attempt Timeline"
+
 msgid "Midgame Arrivals:"
 msgstr "Hyrjet gjatë lojës:"
 
@@ -373,6 +415,9 @@ msgstr "E hapur (Paradhomë)"
 
 msgid "Open GM Cockpit"
 msgstr "Hap Panelin e GM"
+
+msgid "Or type your own custom prompt/phrase..."
+msgstr "Or type your own custom prompt/phrase..."
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Skedari origjinal RAW i kamerës (CR3, ARW, NEF, etj.)"
@@ -403,6 +448,9 @@ msgstr "Fotografia"
 
 msgid "Pick the name others at the table know you by."
 msgstr "Zgjidhni emrin me të cilin ju njohin të tjerët në tryezë."
+
+msgid "Player Profile & Personal QR"
+msgstr "Player Profile & Personal QR"
 
 msgid "Please enter a player name."
 msgstr "Ju lutemi shkruani një emër lojtari."
@@ -458,11 +506,20 @@ msgstr "Rigjenero prerjet 4:5 të Instagram-it për fotot e përzgjedhura"
 msgid "Replay"
 msgstr "Riluaj"
 
+msgid "Reroll"
+msgstr "Reroll"
+
 msgid "Return as %(name)s"
 msgstr "Kthehu si %(name)s"
 
 msgid "Reveal Roles on Death:"
 msgstr "Zbulo Rolet pas Vdekjes:"
+
+msgid "Room Chat"
+msgstr "Room Chat"
+
+msgid "Room Code"
+msgstr "Room Code"
 
 msgid "Room Code:"
 msgstr "Kodi i Dhomës:"
@@ -482,17 +539,41 @@ msgstr "Titulli i Dhomës"
 msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "Kodi i dhomës '%(code)s' nuk u gjet ose nuk është më aktiv."
 
+msgid "Rooms"
+msgstr "Rooms"
+
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Dhomat krijohen sipas kërkesës dhe qëndrojnë aktive për 24 orë. Nisni një sesion të ri loje dhe ftoni grupin tuaj!"
 
+msgid "Round"
+msgstr "Round"
+
+msgid "Round-by-Round Replay & Attempt Log"
+msgstr "Round-by-Round Replay & Attempt Log"
+
 msgid "Running"
 msgstr "Në zhvillim"
+
+msgid "Save Name"
+msgstr "Save Name"
+
+msgid "Scan this QR code with any phone camera to join immediately:"
+msgstr "Scan this QR code with any phone camera to join immediately:"
+
+msgid "Scan this to move your session and score to another phone or browser:"
+msgstr "Scan this to move your session and score to another phone or browser:"
+
+msgid "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr "Search emoji by name (e.g. fire, crown, heart)..."
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "Dërgo paketën e karuselit të Instagram-it në Telegram"
 
 msgid "Server Error — Marco Silva"
 msgstr "Gabim në Server — Marco Silva"
+
+msgid "Set"
+msgstr "Set"
 
 msgid "Silent Phase"
 msgstr "Faza e Heshtur"
@@ -509,6 +590,9 @@ msgstr "Spanjisht"
 msgid "Speaking"
 msgstr "Fjalime & Konferenca"
 
+msgid "Spectator Mode (Skip my turns)"
+msgstr "Spectator Mode (Skip my turns)"
+
 msgid "Staggering Doctor:"
 msgstr "Doktor me Kufizim:"
 
@@ -517,6 +601,9 @@ msgstr "Paketa Paraprake e Roleve Fillestare"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Faza të natës hap pas hapi, thirrje blofi dhe menaxhues votimi."
+
+msgid "Submit"
+msgstr "Submit"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Karakteristikat Kryesore të Lupus rreth Tryezës"
@@ -529,6 +616,9 @@ msgstr "Lojë hibride feste e menduar për t'u luajtur rreth tryezës. Nuk kërk
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "Lojë feste rreth tryezës me role të fshehta, votim të drejtpërdrejtë, Gazetën e Qytetit dhe panelin drejtues të Mjeshtrit të Lojës."
+
+msgid "Tap emojis below..."
+msgstr "Tap emojis below..."
 
 msgid "Techy"
 msgstr "Teknologji"
@@ -548,14 +638,26 @@ msgstr "Doktori / Truproja nuk mund të mbrojë të njëjtin person dy netë rad
 msgid "Theme & Terms"
 msgstr "Tema & Termat"
 
+msgid "Toggle"
+msgstr "Toggle"
+
 msgid "Town Gazette:"
 msgstr "Gazeta e Qytetit:"
 
 msgid "Town Voting"
 msgstr "Votimi i Qytetit"
 
+msgid "Type a message or guess..."
+msgstr "Type a message or guess..."
+
+msgid "Type your guess (or use the chat box)..."
+msgstr "Type your guess (or use the chat box)..."
+
 msgid "Unlock Room"
 msgstr "Zhblloko Dhomën"
+
+msgid "Use Prompt"
+msgstr "Use Prompt"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Pika e fokusit vertikal: 0=lart, 50=qendër, 100=poshtë."
@@ -583,6 +685,12 @@ msgstr "Ju nevojitet një çelës i autorizuar për të hyrë në këtë faqe."
 
 msgid "Your Name / Nickname"
 msgstr "Emri / Nofka Juaj"
+
+msgid "Your Personal Reconnect QR"
+msgstr "Your Personal Reconnect QR"
+
+msgid "Your Secret Phrase"
+msgstr "Your Secret Phrase"
 
 msgid "adjective"
 msgstr "mbiemër"
@@ -623,17 +731,14 @@ msgstr "prodhuesi i kamerës"
 msgid "camera model"
 msgstr "modeli i kamerës"
 
-msgid "chat"
-msgstr "bisedë"
-
-msgid "chat..."
-msgstr "bisedo..."
-
 msgid "chat:"
 msgstr "biseda:"
 
 msgid "clear"
 msgstr "pastro"
+
+msgid "collective prep + hints"
+msgstr "collective prep + hints"
 
 msgid "create"
 msgstr "krijo"
@@ -833,17 +938,20 @@ msgstr "lojtarë"
 msgid "press the button to get a word"
 msgstr "shtypni butonin për të marrë një fjalë"
 
-msgid "private"
-msgstr "private"
+msgid "private (hide guesses)"
+msgstr "private (hide guesses)"
 
 msgid "processing status"
 msgstr "statusi i përpunimit"
 
-msgid "public"
-msgstr "publike"
+msgid "public (show guesses)"
+msgstr "public (show guesses)"
 
 msgid "request"
 msgstr "kërko"
+
+msgid "rerolls:"
+msgstr "rerolls:"
 
 msgid "reveal"
 msgstr "zbulo"
@@ -857,17 +965,11 @@ msgstr "me radhë"
 msgid "rounds:"
 msgstr "raunde:"
 
-msgid "search emoji..."
-msgstr "kërko emoji..."
-
 msgid "send"
 msgstr "dërgo"
 
 msgid "sentence"
 msgstr "fjali"
-
-msgid "settings"
-msgstr "cilësimet"
 
 msgid "shutter speed"
 msgstr "shpejtësia e shkrepjes"
@@ -895,9 +997,6 @@ msgstr "sot"
 
 msgid "type"
 msgstr "lloji"
-
-msgid "type your guess..."
-msgstr "shkruaj hamendësimin tënd..."
 
 msgid "upload"
 msgstr "ngarko"

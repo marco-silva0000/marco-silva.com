@@ -35,6 +35,9 @@ msgstr "1. نمای کلی"
 msgid "10 Minutes"
 msgstr "10 دقیقه"
 
+msgid "1st guess ends round"
+msgstr "1st guess ends round"
+
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — جناح / تیم (اعلام «شهروندان»، «گرگینه‌ها»، «بی‌طرف»)"
 
@@ -107,11 +110,20 @@ msgstr "فعال"
 msgid "Active Lupus Rooms"
 msgstr "اتاق‌های فعال لوپوس"
 
+msgid "Add Hint"
+msgstr "Add Hint"
+
 msgid "All Active Rooms"
 msgstr "همه اتاق‌های فعال"
 
 msgid "All Games"
 msgstr "همه بازی‌ها"
+
+msgid "All guesses & hints appear here"
+msgstr "All guesses & hints appear here"
+
+msgid "Allow custom words"
+msgstr "Allow custom words"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "اعمال مجوز کریتیو کامنز انتساب-غیرتجاری-اشتراک‌یکسان و واترمارک."
@@ -119,8 +131,14 @@ msgstr "اعمال مجوز کریتیو کامنز انتساب-غیرتجار�
 msgid "Back to Active Lupus Rooms"
 msgstr "بازگشت به اتاق‌های فعال لوپوس"
 
+msgid "Backspace"
+msgstr "Backspace"
+
 msgid "Browse Active Lupus Rooms"
 msgstr "مشاهده اتاق‌های فعال لوپوس"
+
+msgid "Build Your Emoji Clue:"
+msgstr "Build Your Emoji Clue:"
 
 msgid "CC BY-NC-SA license"
 msgstr "مجوز CC BY-NC-SA"
@@ -142,6 +160,9 @@ msgstr "اتاق فرمان"
 
 msgid "Conferences"
 msgstr "کنفرانس‌ها"
+
+msgid "Copy"
+msgstr "Copy"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "ایجاد اتاق لوپوس / گرگینه"
@@ -173,6 +194,9 @@ msgstr "گفتگو"
 msgid "Discussion Round Timer"
 msgstr "تایمر دور گفتگو"
 
+msgid "Display Name"
+msgstr "Display Name"
+
 msgid "Doctor Shields From Sniper:"
 msgstr "محافظت دکتر در برابر تک‌تیرانداز:"
 
@@ -196,6 +220,9 @@ msgstr "ورود به اتاق"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "کد اتاق را وارد کنید (مثلاً 9B3A1C2D)"
+
+msgid "Export JSON"
+msgstr "Export JSON"
 
 msgid "Failed"
 msgstr "ناموفق"
@@ -251,6 +278,9 @@ msgstr "اتوماسیون خانگی و هوم‌لب"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "نقطه کانونی افقی: 0=چپ، 50=مرکز، 100=راست."
 
+msgid "Host Game Settings"
+msgstr "Host Game Settings"
+
 msgid "I code, take pics and many other things"
 msgstr "من کد می‌نویسم، عکس می‌گیرم و کارهای بسیار دیگری انجام می‌دهم"
 
@@ -277,6 +307,12 @@ msgstr "تصویر 4:5 اینستاگرام"
 
 msgid "Invalid Game Master secret key."
 msgstr "کلید مخفی گرداننده بازی نامعتبر است."
+
+msgid "Invite Players to Room"
+msgstr "Invite Players to Room"
+
+msgid "Invite QR"
+msgstr "Invite QR"
 
 msgid "Join"
 msgstr "پیوستن"
@@ -323,6 +359,9 @@ msgstr "تعیین تکلیف برزخ"
 msgid "Listening"
 msgstr "شنیداری"
 
+msgid "Live Chat & Guess Stream"
+msgstr "Live Chat & Guess Stream"
+
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "بازیکنان زنده و کشته‌شده شایعات صبحگاهی را ارسال می‌کنند تا در سپیده‌دم با صدای بلند خوانده شود."
 
@@ -350,6 +389,9 @@ msgstr "لوپوس این تابولا / گرگینه"
 msgid "Mafia"
 msgstr "مافیا"
 
+msgid "Match Replay & Attempt Timeline"
+msgstr "Match Replay & Attempt Timeline"
+
 msgid "Midgame Arrivals:"
 msgstr "ورود در اواسط بازی:"
 
@@ -373,6 +415,9 @@ msgstr "باز (لابی)"
 
 msgid "Open GM Cockpit"
 msgstr "باز کردن پنل گرداننده"
+
+msgid "Or type your own custom prompt/phrase..."
+msgstr "Or type your own custom prompt/phrase..."
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "فایل RAW اصلی دوربین (CR3، ARW، NEF و غیره)"
@@ -403,6 +448,9 @@ msgstr "عکاسی"
 
 msgid "Pick the name others at the table know you by."
 msgstr "نامی را انتخاب کنید که دیگران دور میز شما را با آن می‌شناسند."
+
+msgid "Player Profile & Personal QR"
+msgstr "Player Profile & Personal QR"
 
 msgid "Please enter a player name."
 msgstr "لطفاً نام بازیکن را وارد کنید."
@@ -458,11 +506,20 @@ msgstr "تولید مجدد برش‌های 4:5 اینستاگرام برای ع
 msgid "Replay"
 msgstr "بازپخش"
 
+msgid "Reroll"
+msgstr "Reroll"
+
 msgid "Return as %(name)s"
 msgstr "بازگشت به‌عنوان %(name)s"
 
 msgid "Reveal Roles on Death:"
 msgstr "افشای نقش‌ها پس از مرگ:"
+
+msgid "Room Chat"
+msgstr "Room Chat"
+
+msgid "Room Code"
+msgstr "Room Code"
 
 msgid "Room Code:"
 msgstr "کد اتاق:"
@@ -482,17 +539,41 @@ msgstr "عنوان اتاق"
 msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "اتاق با کد «%(code)s» پیدا نشد یا دیگر فعال نیست."
 
+msgid "Rooms"
+msgstr "Rooms"
+
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "اتاق‌ها در لحظه ساخته می‌شوند و تا ۲۴ ساعت فعال می‌مانند. یک بازی جدید شروع کنید و دوستانتان را دعوت کنید!"
 
+msgid "Round"
+msgstr "Round"
+
+msgid "Round-by-Round Replay & Attempt Log"
+msgstr "Round-by-Round Replay & Attempt Log"
+
 msgid "Running"
 msgstr "در حال اجرا"
+
+msgid "Save Name"
+msgstr "Save Name"
+
+msgid "Scan this QR code with any phone camera to join immediately:"
+msgstr "Scan this QR code with any phone camera to join immediately:"
+
+msgid "Scan this to move your session and score to another phone or browser:"
+msgstr "Scan this to move your session and score to another phone or browser:"
+
+msgid "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr "Search emoji by name (e.g. fire, crown, heart)..."
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "ارسال بسته اسلایدی اینستاگرام به تلگرام"
 
 msgid "Server Error — Marco Silva"
 msgstr "خطای سرور — Marco Silva"
+
+msgid "Set"
+msgstr "Set"
 
 msgid "Silent Phase"
 msgstr "مرحله سکوت"
@@ -509,6 +590,9 @@ msgstr "اسپانیایی"
 msgid "Speaking"
 msgstr "گفتاری"
 
+msgid "Spectator Mode (Skip my turns)"
+msgstr "Spectator Mode (Skip my turns)"
+
 msgid "Staggering Doctor:"
 msgstr "پزشک سرگردان:"
 
@@ -517,6 +601,9 @@ msgstr "چیدمان پیش‌فرض نقش‌های شروع"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "مراحل گام‌به‌گام شب، نوبت‌های فریب‌کاری و مدیریت رأی‌گیری."
+
+msgid "Submit"
+msgstr "Submit"
 
 msgid "Table-First Lupus Highlights"
 msgstr "ویژگی‌های برجسته لوپوس دورهمی"
@@ -529,6 +616,9 @@ msgstr "بازی دورهمی ترکیبی با محوریت تعامل حضور
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "بازی دورهمی حضوری با نقش‌های مخفی، رأی‌گیری زنده، روزنامه شهر و پنل کارگردانی گرداننده (GM)."
+
+msgid "Tap emojis below..."
+msgstr "Tap emojis below..."
 
 msgid "Techy"
 msgstr "تکنولوژی"
@@ -548,14 +638,26 @@ msgstr "پزشک / محافظ نمی‌تواند دو شب متوالی از ی
 msgid "Theme & Terms"
 msgstr "تم و اصطلاحات"
 
+msgid "Toggle"
+msgstr "Toggle"
+
 msgid "Town Gazette:"
 msgstr "روزنامه شهر:"
 
 msgid "Town Voting"
 msgstr "رأی‌گیری شهر"
 
+msgid "Type a message or guess..."
+msgstr "Type a message or guess..."
+
+msgid "Type your guess (or use the chat box)..."
+msgstr "Type your guess (or use the chat box)..."
+
 msgid "Unlock Room"
 msgstr "باز کردن قفل اتاق"
+
+msgid "Use Prompt"
+msgstr "Use Prompt"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "نقطه کانونی عمودی: 0=بالا، 50=مرکز، 100=پایین."
@@ -583,6 +685,12 @@ msgstr "برای دسترسی به این صفحه به یک کلید مجاز �
 
 msgid "Your Name / Nickname"
 msgstr "نام / نام مستعار شما"
+
+msgid "Your Personal Reconnect QR"
+msgstr "Your Personal Reconnect QR"
+
+msgid "Your Secret Phrase"
+msgstr "Your Secret Phrase"
 
 msgid "adjective"
 msgstr "صفت"
@@ -623,17 +731,14 @@ msgstr "سازنده دوربین"
 msgid "camera model"
 msgstr "مدل دوربین"
 
-msgid "chat"
-msgstr "چت"
-
-msgid "chat..."
-msgstr "چت..."
-
 msgid "chat:"
 msgstr "چت:"
 
 msgid "clear"
 msgstr "پاک کردن"
+
+msgid "collective prep + hints"
+msgstr "collective prep + hints"
 
 msgid "create"
 msgstr "ایجاد"
@@ -833,17 +938,20 @@ msgstr "بازیکنان"
 msgid "press the button to get a word"
 msgstr "برای دریافت کلمه دکمه را فشار دهید"
 
-msgid "private"
-msgstr "خصوصی"
+msgid "private (hide guesses)"
+msgstr "private (hide guesses)"
 
 msgid "processing status"
 msgstr "وضعیت پردازش"
 
-msgid "public"
-msgstr "عمومی"
+msgid "public (show guesses)"
+msgstr "public (show guesses)"
 
 msgid "request"
 msgstr "درخواست"
+
+msgid "rerolls:"
+msgstr "rerolls:"
 
 msgid "reveal"
 msgstr "نمایش"
@@ -857,17 +965,11 @@ msgstr "نوبتی"
 msgid "rounds:"
 msgstr "دورها:"
 
-msgid "search emoji..."
-msgstr "جستجوی ایموجی..."
-
 msgid "send"
 msgstr "ارسال"
 
 msgid "sentence"
 msgstr "جمله"
-
-msgid "settings"
-msgstr "تنظیمات"
 
 msgid "shutter speed"
 msgstr "سرعت شاتر"
@@ -895,9 +997,6 @@ msgstr "امروز"
 
 msgid "type"
 msgstr "نوع"
-
-msgid "type your guess..."
-msgstr "حدس خود را بنویسید..."
 
 msgid "upload"
 msgstr "بارگذاری"

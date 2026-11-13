@@ -35,6 +35,9 @@ msgstr "১. সংক্ষিপ্ত বিবরণ"
 msgid "10 Minutes"
 msgstr "১০ মিনিট"
 
+msgid "1st guess ends round"
+msgstr "1st guess ends round"
+
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — দল / টিম (\"গ্রাম\", \"নেকড়ে\", \"নিরপেক্ষ\" ঘোষণা করে)"
 
@@ -107,11 +110,20 @@ msgstr "সক্রিয়"
 msgid "Active Lupus Rooms"
 msgstr "সক্রিয় Lupus রুমসমূহ"
 
+msgid "Add Hint"
+msgstr "Add Hint"
+
 msgid "All Active Rooms"
 msgstr "সকল সক্রিয় রুম"
 
 msgid "All Games"
 msgstr "সকল গেম"
+
+msgid "All guesses & hints appear here"
+msgstr "All guesses & hints appear here"
+
+msgid "Allow custom words"
+msgstr "Allow custom words"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Creative Commons Attribution-NonCommercial-ShareAlike লাইসেন্স এবং ওয়াটারমার্ক প্রয়োগ করুন।"
@@ -119,8 +131,14 @@ msgstr "Creative Commons Attribution-NonCommercial-ShareAlike লাইসেন
 msgid "Back to Active Lupus Rooms"
 msgstr "সক্রিয় Lupus রুমে ফিরে যান"
 
+msgid "Backspace"
+msgstr "Backspace"
+
 msgid "Browse Active Lupus Rooms"
 msgstr "সক্রিয় Lupus রুম ব্রাউজ করুন"
+
+msgid "Build Your Emoji Clue:"
+msgstr "Build Your Emoji Clue:"
 
 msgid "CC BY-NC-SA license"
 msgstr "CC BY-NC-SA লাইসেন্স"
@@ -142,6 +160,9 @@ msgstr "ককপিট"
 
 msgid "Conferences"
 msgstr "সম্মেলনসমূহ"
+
+msgid "Copy"
+msgstr "Copy"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "লুপাস / ওয়ারউলফ রুম তৈরি করুন"
@@ -173,6 +194,9 @@ msgstr "আলোচনা"
 msgid "Discussion Round Timer"
 msgstr "আলোচনা পর্বের টাইমার"
 
+msgid "Display Name"
+msgstr "Display Name"
+
 msgid "Doctor Shields From Sniper:"
 msgstr "ডাক্তার স্নাইপার থেকে রক্ষা করে:"
 
@@ -196,6 +220,9 @@ msgstr "রুমে প্রবেশ করুন"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "রুম কোড লিখুন (যেমন 9B3A1C2D)"
+
+msgid "Export JSON"
+msgstr "Export JSON"
 
 msgid "Failed"
 msgstr "ব্যর্থ"
@@ -251,6 +278,9 @@ msgstr "হোম অটোমেশন এবং হোমল্যাব"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "আনুভূমিক ফোকাল পয়েন্ট: 0=বাম, 50=মাঝখানে, 100=ডান।"
 
+msgid "Host Game Settings"
+msgstr "Host Game Settings"
+
 msgid "I code, take pics and many other things"
 msgstr "আমি কোড লিখি, ছবি তুলি এবং আরও অনেক কিছু করি"
 
@@ -277,6 +307,12 @@ msgstr "Instagram 4:5 ছবি"
 
 msgid "Invalid Game Master secret key."
 msgstr "অবৈধ গেম মাস্টার সিক্রেট কী।"
+
+msgid "Invite Players to Room"
+msgstr "Invite Players to Room"
+
+msgid "Invite QR"
+msgstr "Invite QR"
 
 msgid "Join"
 msgstr "যোগ দিন"
@@ -323,6 +359,9 @@ msgstr "লিম্বো নিষ্পত্তি"
 msgid "Listening"
 msgstr "শুনছি"
 
+msgid "Live Chat & Guess Stream"
+msgstr "Live Chat & Guess Stream"
+
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "জীবিত ও মৃত খেলোয়াড়রা ভোরবেলা জোরে পড়ে শোনানোর জন্য সকালের গুজব জমা দেয়।"
 
@@ -350,6 +389,9 @@ msgstr "Lupus in Tabula / ওয়্যারউলফ"
 msgid "Mafia"
 msgstr "মাফিয়া"
 
+msgid "Match Replay & Attempt Timeline"
+msgstr "Match Replay & Attempt Timeline"
+
 msgid "Midgame Arrivals:"
 msgstr "মাঝপথে যোগদানকারী:"
 
@@ -373,6 +415,9 @@ msgstr "উন্মুক্ত (লবি)"
 
 msgid "Open GM Cockpit"
 msgstr "জিএম ককপিট খুলুন"
+
+msgid "Or type your own custom prompt/phrase..."
+msgstr "Or type your own custom prompt/phrase..."
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "আসল ক্যামেরা RAW ফাইল (CR3, ARW, NEF, ইত্যাদি)"
@@ -403,6 +448,9 @@ msgstr "ফটোগ্রাফি"
 
 msgid "Pick the name others at the table know you by."
 msgstr "টেবিলের অন্যরা আপনাকে যে নামে চেনে, সেই নামটি বেছে নিন।"
+
+msgid "Player Profile & Personal QR"
+msgstr "Player Profile & Personal QR"
 
 msgid "Please enter a player name."
 msgstr "অনুগ্রহ করে একজন খেলোয়াড়ের নাম লিখুন।"
@@ -458,11 +506,20 @@ msgstr "নির্বাচিত ছবিগুলোর জন্য ৪:�
 msgid "Replay"
 msgstr "রিপ্লে"
 
+msgid "Reroll"
+msgstr "Reroll"
+
 msgid "Return as %(name)s"
 msgstr "%(name)s হিসেবে ফিরে আসুন"
 
 msgid "Reveal Roles on Death:"
 msgstr "মৃত্যুর পর ভূমিকা প্রকাশ:"
+
+msgid "Room Chat"
+msgstr "Room Chat"
+
+msgid "Room Code"
+msgstr "Room Code"
 
 msgid "Room Code:"
 msgstr "রুম কোড:"
@@ -482,17 +539,41 @@ msgstr "রুমের নাম"
 msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "রুম কোড '%(code)s' খুঁজে পাওয়া যায়নি অথবা এটি আর সক্রিয় নেই।"
 
+msgid "Rooms"
+msgstr "Rooms"
+
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "রুমগুলো প্রয়োজন অনুযায়ী তৈরি করা হয় এবং ২৪ ঘণ্টা সক্রিয় থাকে। একটি নতুন গেম সেশন শুরু করুন এবং আপনার দলকে আমন্ত্রণ জানান!"
 
+msgid "Round"
+msgstr "Round"
+
+msgid "Round-by-Round Replay & Attempt Log"
+msgstr "Round-by-Round Replay & Attempt Log"
+
 msgid "Running"
 msgstr "চলমান"
+
+msgid "Save Name"
+msgstr "Save Name"
+
+msgid "Scan this QR code with any phone camera to join immediately:"
+msgstr "Scan this QR code with any phone camera to join immediately:"
+
+msgid "Scan this to move your session and score to another phone or browser:"
+msgstr "Scan this to move your session and score to another phone or browser:"
+
+msgid "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr "Search emoji by name (e.g. fire, crown, heart)..."
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "ইনস্টাগ্রাম ক্যারোসেল প্যাক টেলিগ্রামে পাঠান"
 
 msgid "Server Error — Marco Silva"
 msgstr "সার্ভার ত্রুটি — মার্কো সিলভা"
+
+msgid "Set"
+msgstr "Set"
 
 msgid "Silent Phase"
 msgstr "নীরব পর্যায়"
@@ -509,6 +590,9 @@ msgstr "স্প্যানিশ"
 msgid "Speaking"
 msgstr "বক্তব্য"
 
+msgid "Spectator Mode (Skip my turns)"
+msgstr "Spectator Mode (Skip my turns)"
+
 msgid "Staggering Doctor:"
 msgstr "পর্যায়ক্রমিক ডাক্তার:"
 
@@ -517,6 +601,9 @@ msgstr "প্রাথমিক রোল ডেকের প্রিসেট
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "ধাপে ধাপে রাতের পর্ব, ব্লাফিং কল এবং ভোটিং ম্যানেজার।"
+
+msgid "Submit"
+msgstr "Submit"
 
 msgid "Table-First Lupus Highlights"
 msgstr "টেবিল-ভিত্তিক Lupus-এর মূল আকর্ষণ"
@@ -529,6 +616,9 @@ msgstr "টেবিল-ভিত্তিক হাইব্রিড পার
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "গোপন ভূমিকা, লাইভ ভোটিং, টাউন গেজেট এবং জিএম ডিরেক্টর ককপিট সহ টেবিল-ভিত্তিক পার্টি গেম।"
+
+msgid "Tap emojis below..."
+msgstr "Tap emojis below..."
 
 msgid "Techy"
 msgstr "প্রযুক্তিগত"
@@ -548,14 +638,26 @@ msgstr "ডাক্তার / দেহরক্ষী পরপর দুই 
 msgid "Theme & Terms"
 msgstr "থিম ও পরিভাষা"
 
+msgid "Toggle"
+msgstr "Toggle"
+
 msgid "Town Gazette:"
 msgstr "টাউন গেজেট:"
 
 msgid "Town Voting"
 msgstr "শহরের ভোটিং"
 
+msgid "Type a message or guess..."
+msgstr "Type a message or guess..."
+
+msgid "Type your guess (or use the chat box)..."
+msgstr "Type your guess (or use the chat box)..."
+
 msgid "Unlock Room"
 msgstr "রুম আনলক করুন"
+
+msgid "Use Prompt"
+msgstr "Use Prompt"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "উল্লম্ব ফোকাল পয়েন্ট: 0=উপরে, 50=মাঝখানে, 100=নিচে।"
@@ -583,6 +685,12 @@ msgstr "এই পৃষ্ঠায় প্রবেশ করতে আপ�
 
 msgid "Your Name / Nickname"
 msgstr "আপনার নাম / ডাকনাম"
+
+msgid "Your Personal Reconnect QR"
+msgstr "Your Personal Reconnect QR"
+
+msgid "Your Secret Phrase"
+msgstr "Your Secret Phrase"
 
 msgid "adjective"
 msgstr "বিশেষণ"
@@ -623,17 +731,14 @@ msgstr "ক্যামেরা প্রস্তুতকারক"
 msgid "camera model"
 msgstr "ক্যামেরার মডেল"
 
-msgid "chat"
-msgstr "চ্যাট"
-
-msgid "chat..."
-msgstr "চ্যাট..."
-
 msgid "chat:"
 msgstr "চ্যাট:"
 
 msgid "clear"
 msgstr "মুছে ফেলুন"
+
+msgid "collective prep + hints"
+msgstr "collective prep + hints"
 
 msgid "create"
 msgstr "তৈরি করুন"
@@ -833,17 +938,20 @@ msgstr "খেলোয়াড়"
 msgid "press the button to get a word"
 msgstr "একটি শব্দ পেতে বোতামে চাপ দিন"
 
-msgid "private"
-msgstr "ব্যক্তিগত"
+msgid "private (hide guesses)"
+msgstr "private (hide guesses)"
 
 msgid "processing status"
 msgstr "প্রক্রিয়াকরণের অবস্থা"
 
-msgid "public"
-msgstr "পাবলিক"
+msgid "public (show guesses)"
+msgstr "public (show guesses)"
 
 msgid "request"
 msgstr "অনুরোধ"
+
+msgid "rerolls:"
+msgstr "rerolls:"
 
 msgid "reveal"
 msgstr "প্রকাশ করুন"
@@ -857,17 +965,11 @@ msgstr "রাউন্ড রবিন"
 msgid "rounds:"
 msgstr "রাউন্ড:"
 
-msgid "search emoji..."
-msgstr "ইমোজি খুঁজুন..."
-
 msgid "send"
 msgstr "পাঠান"
 
 msgid "sentence"
 msgstr "বাক্য"
-
-msgid "settings"
-msgstr "সেটিংস"
 
 msgid "shutter speed"
 msgstr "শাটার স্পিড"
@@ -895,9 +997,6 @@ msgstr "আজ"
 
 msgid "type"
 msgstr "ধরণ"
-
-msgid "type your guess..."
-msgstr "আপনার অনুমান লিখুন..."
 
 msgid "upload"
 msgstr "আপলোড করুন"

@@ -227,4 +227,13 @@ def test_full_game_flow(page: Page, browser: "Browser"):
     # Guesser should see the emoji
     expect(guesser.locator("#emoji-display")).to_contain_text("🎬🦁👑")
 
+    # Verify Invite QR and Player Profile / Rename modals exist and open cleanly
+    active.click("#btn-invite-qr")
+    expect(active.locator("#modal-invite-qr")).to_be_visible()
+    active.click("#modal-invite-qr button:has-text('✕')")
+
+    active.click("#btn-my-profile")
+    expect(active.locator("#modal-profile")).to_be_visible()
+    active.click("#modal-profile button:has-text('✕')")
+
     ctx2.close()

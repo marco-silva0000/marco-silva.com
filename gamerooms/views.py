@@ -47,6 +47,24 @@ def room_list(request):
                         r.phase_badge = f"🎮 {_('Active')}"
             except Exception:
                 pass
+        elif r.game_type == "emojinary":
+            try:
+                from emojinary.game_state import get_game as get_emojinary_game
+
+                state = get_emojinary_game(r.code)
+                if state and state.get("players"):
+                    r.player_count = len(state.get("players", {}))
+                    phase = state.get("phase", "lobby")
+                    rnd = state.get("round_num", 0)
+                    max_rnd = state.get("settings", {}).get("max_rounds", 10)
+                    if phase == "lobby":
+                        r.phase_badge = f"⏳ {_('Lobby')}"
+                    elif phase == "gameover":
+                        r.phase_badge = f"🏆 {_('Finished')}"
+                    else:
+                        r.phase_badge = f"🎨 {_('Round')} {rnd}/{max_rnd}"
+            except Exception:
+                pass
 
     return render(request, "gamerooms/room_list.html", {"rooms": rooms, "error": error})
 
@@ -68,6 +86,7 @@ def room_create(request):
 
         room = Room.objects.create(title=title, password=password)
         request.session[f"room_{room.code}"] = True
+        request.session[f"emojinary_admin_{room.code}"] = True
         return redirect("gamerooms:room-join", code=room.code)
 
     return _render_create(request)
@@ -79,6 +98,7 @@ def _render_create(request, error=None):
 
 
 def room_join(request, code):
+    code = code.upper()
     room = get_object_or_404(Room, code=code, is_active=True)
     if room.game_type == "lupus":
         target = reverse("gamerooms:lupus:join", kwargs={"code": room.code})
@@ -88,6 +108,11 @@ def room_join(request, code):
         return redirect(target)
 
     session_key = f"room_{room.code}"
+
+    # Support QR code auto-authentication via ?pwd=...
+    param_pwd = request.GET.get("pwd") or request.POST.get("pwd")
+    if param_pwd and room.has_password and param_pwd == room.password:
+        request.session[session_key] = True
 
     # Step 1: password (if needed and not already authed)
     if room.has_password and not request.session.get(session_key):
@@ -103,6 +128,9 @@ def room_join(request, code):
     if request.method == "POST" and "name" in request.POST:
         name = request.POST["name"].strip()
         if name:
+            if not room.creator:
+                room.creator = name
+                room.save(update_fields=["creator"])
             return redirect("gamerooms:emojinary:game", code=room.code, name=name)
 
     return render(request, "gamerooms/room_name.html", {"room": room})
