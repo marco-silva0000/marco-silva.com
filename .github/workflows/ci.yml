@@ -68,10 +68,9 @@ jobs:
       - run: |
           set -o pipefail
           USE_SQLITE=1 uv run pytest gamerooms/ lupus/ photos/ tools/ -v 2>&1 | tee /tmp/pytest.log || {
-            echo "### Pytest Failures" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            cat /tmp/pytest.log >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -n 60 /tmp/pytest.log | while IFS= read -r line; do
+              echo "::error::$line"
+            done
             exit 1
           }
 
