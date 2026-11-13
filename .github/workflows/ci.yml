@@ -50,7 +50,7 @@ jobs:
       POSTGRES_USER: testuser
       POSTGRES_PASSWORD: testpass
       SECRET_KEY: test-secret-key
-      ALLOWED_HOSTS: localhost
+      ALLOWED_HOSTS: localhost,127.0.0.1,testserver
       DEBUG: "true"
       PLANZ_PASSWORD: planz
       CELERY_BROKER_URL: redis://localhost:6379/0
@@ -65,7 +65,7 @@ jobs:
       - run: uv run python scripts/generate_all_64_locales.py
 
       # Unit tests
-      - run: uv run pytest photos/tests.py --no-header -rN || test $? -eq 5
+      - run: USE_SQLITE=1 uv run pytest gamerooms/ lupus/ photos/ tools/ -v
 
       # Start Django for integration tests
       - run: uv run python manage.py migrate --noinput

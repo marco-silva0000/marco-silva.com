@@ -1,0 +1,1 @@
+../scripts/translate_chunks_agy.py

@@ -1,9 +1,9 @@
 ﻿msgid,context,en,es
-1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,
-1. Overview,templates/bot_privacy.html,1. Overview,
-2. Information We Access,templates/bot_privacy.html,2. Information We Access,
-2. Permitted Use,templates/bot_terms.html,2. Permitted Use,
-3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,
+1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. Aceptación de los términos
+1. Overview,templates/bot_privacy.html,1. Overview,1. Información general
+2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. Información a la que accedemos
+2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. Uso permitido
+3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,3. Almacenamiento y seguridad de los datos
 3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,
 4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,
 4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,

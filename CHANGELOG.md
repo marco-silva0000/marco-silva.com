@@ -19,6 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **GitHub Actions CI PostgreSQL Service Health Check & Port Resolution**:
   - Configured PostgreSQL container health check to `--health-cmd "pg_isready -U testuser -d testdb"` to prevent auth failure on default user in GitHub Actions runner.
   - Set `POSTGRES_HOST: 127.0.0.1` and added dynamic `POSTGRES_PORT` configuration to `website/settings.py` to prevent IPv6 `::1` connection refused errors on GitHub runners.
+- **CI Test Suite Coverage & `ALLOWED_HOSTS` Test Client Resolution**:
+  - Configured `ALLOWED_HOSTS` in `website/settings.py` to always include `testserver` and loopback hosts, preventing `400 DisallowedHost` responses during `django.test.Client` requests.
+  - Updated CI unit test step to run `USE_SQLITE=1 uv run pytest gamerooms/ lupus/ photos/ tools/ -v` covering all 242 unit tests.
 
 ## [v139] - 2026-11-13
 
