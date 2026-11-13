@@ -27,10 +27,10 @@ msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
 msgstr "1 — Только сторона (Объявляет \"ДОБРО\" или \"ЗЛО\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Acceptance of Terms"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Overview"
 
 msgid "10 Minutes"
 msgstr "10 минут"
@@ -39,10 +39,10 @@ msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Фракция / Команда (Объявляет \"Город\", \"Волки\", \"Нейтрал\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Information We Access"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Permitted Use"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 минуты (быстро)"
@@ -54,19 +54,19 @@ msgid "3 — Full Role Card (Announces exact card name and icon)"
 msgstr "3 — Полная карта роли (Объявляет точное имя роли и значок)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Data Storage & Security"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Disclaimer of Warranties"
 
 msgid "30 Seconds (Standard)"
 msgstr "30 секунд (стандарт)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Limitation of Liability"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Third-Party Sharing"
 
 msgid "404 — page not found"
 msgstr "404 — страница не найдена"
@@ -75,22 +75,22 @@ msgid "45 Seconds"
 msgstr "45 секунд"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "4:5 vertical crop (1080x1350) for Instagram carousels."
 
 msgid "5 Minutes (Standard)"
 msgstr "5 минут (стандарт)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Changes & Termination"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Revoking Access & Data Deletion"
 
 msgid "500 — something went wrong"
 msgstr "500 — что-то пошло не так"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Contact"
 
 msgid "60 Seconds"
 msgstr "60 секунд"
@@ -114,7 +114,7 @@ msgid "All Games"
 msgstr "Все игры"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 
 msgid "Back to Active Lupus Rooms"
 msgstr "Назад к активным комнатам Lupus"
@@ -123,13 +123,13 @@ msgid "Browse Active Lupus Rooms"
 msgstr "Смотреть активные комнаты Lupus"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA license"
 
 msgid "CODE"
 msgstr "КОД"
 
 msgid "CTFs"
-msgstr ""
+msgstr "CTFs"
 
 msgid "Calendar navigation"
 msgstr "Навигация по календарю"
@@ -150,19 +150,19 @@ msgid "Create the First Lupus Room"
 msgstr "Создать первую комнату Lupus"
 
 msgid "Curated"
-msgstr ""
+msgstr "Curated"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Custom split keyboards (colemak + nvim)"
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Date of the trip/shoot."
 
 msgid "Day"
 msgstr "День"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Day Trip"
 
 msgid "Defense Timer"
 msgstr "Время на защиту"
@@ -177,13 +177,13 @@ msgid "Doctor Shields From Sniper:"
 msgstr "Доктор защищает от снайпера:"
 
 msgid "Done"
-msgstr ""
+msgstr "Done"
 
 msgid "Education"
 msgstr "Образование"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Electronics/embedded (some rust embedded)"
 
 msgid "English"
 msgstr "Английский"
@@ -198,7 +198,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Введите код комнаты (напр. 9B3A1C2D)"
 
 msgid "Failed"
-msgstr ""
+msgstr "Failed"
 
 msgid "Finished"
 msgstr "Завершено"
@@ -207,7 +207,7 @@ msgid "GM"
 msgstr "Ведущий"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM Cockpit"
 
 msgid "GM Director Cockpit:"
 msgstr "Пульт управления Ведущего:"
@@ -231,13 +231,13 @@ msgid "Game room does not exist."
 msgstr "Игровая комната не существует."
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Ham radio, UK foundation license"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "Есть 8-значный код от Ведущего? Введите его здесь, чтобы сразу присоединиться:"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Hiking and climbing"
 
 msgid "Hobbies"
 msgstr "Хобби"
@@ -246,16 +246,16 @@ msgid "Hold-to-Peek Secret Roles:"
 msgstr "Удерживайте для просмотра тайных ролей:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Home automation and homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Horizontal focal point: 0=left, 50=center, 100=right."
 
 msgid "I code, take pics and many other things"
 msgstr "Я программирую, фотографирую и многое другое"
 
 msgid "ISO"
-msgstr ""
+msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
 msgstr "Если включено, защита Доктора может спасти от выстрела Снайпера. (Выключено = выстрел пробивает защиту)."
@@ -270,10 +270,10 @@ msgid "Incorrect room password."
 msgstr "Неверный пароль комнаты."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 Preview"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 image"
 
 msgid "Invalid Game Master secret key."
 msgstr "Неверный секретный ключ Ведущего."
@@ -294,13 +294,13 @@ msgid "Join with Room Code"
 msgstr "Войти по коду комнаты"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr ""
+msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "Languages"
 msgstr "Языки"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Last updated: October 27, 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
 msgstr "Опоздавшие входят как Доверенные путешественники, Призраки или Преемники."
@@ -350,9 +350,6 @@ msgstr "Lupus in Tabula / Оборотень"
 msgid "Mafia"
 msgstr "Мафия"
 
-msgid "Marco Silva's CV"
-msgstr "Резюме Марко Сильвы"
-
 msgid "Midgame Arrivals:"
 msgstr "Присоединение посреди игры:"
 
@@ -366,7 +363,7 @@ msgid "No Active Lupus Games Right Now"
 msgstr "Сейчас нет активных игр Lupus"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "No Instagram crop generated yet."
 
 msgid "Open"
 msgstr "Открыта"
@@ -378,7 +375,7 @@ msgid "Open GM Cockpit"
 msgstr "Открыть пульт ведущего"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Original camera RAW file (CR3, ARW, NEF, etc.)"
 
 msgid "Other"
 msgstr "Другое"
@@ -387,7 +384,7 @@ msgid "Outdoors"
 msgstr "На природе"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Page Not Found — Marco Silva"
 
 msgid "Password"
 msgstr "Пароль"
@@ -399,7 +396,7 @@ msgid "Past & Finished Games"
 msgstr "Прошедшие и завершённые игры"
 
 msgid "Pending"
-msgstr ""
+msgstr "Pending"
 
 msgid "Photography"
 msgstr "Фотография"
@@ -420,22 +417,22 @@ msgid "Previous day"
 msgstr "Предыдущий день"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Price for the RAW file download."
 
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Privacy Policy - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Privacy Policy - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
 msgstr "Защита конфиденциальности скрывает карты от любопытных глаз за столом."
 
 msgid "Processing"
-msgstr ""
+msgstr "Processing"
 
 msgid "Public"
 msgstr "Открытая"
@@ -444,10 +441,10 @@ msgid "RAW available for purchase"
 msgstr "RAW доступен для покупки"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW file"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW price"
 
 msgid "Reading"
 msgstr "Чтение"
@@ -456,7 +453,7 @@ msgid "Real-time multiplayer browser party games. No accounts required — just 
 msgstr "Многопользовательские браузерные игры для вечеринок в реальном времени. Без регистрации — просто заходите и играйте с друзьями."
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Regenerate 4:5 Instagram crops for selected photos"
 
 msgid "Replay"
 msgstr "Повтор"
@@ -492,10 +489,10 @@ msgid "Running"
 msgstr "Идёт игра"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Send Instagram carousel pack to Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Server Error — Marco Silva"
 
 msgid "Silent Phase"
 msgstr "Тихая фаза"
@@ -540,16 +537,13 @@ msgid "Terms of Service"
 msgstr "Условия обслуживания"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Terms of Service - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Terms of Service - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "Доктор / Телохранитель не может защищать одного и того же игрока две ночи подряд."
-
-msgid "The page you're looking for doesn't exist."
-msgstr "Страница, которую вы ищете, не существует."
 
 msgid "Theme & Terms"
 msgstr "Тема и термины"
@@ -564,7 +558,7 @@ msgid "Unlock Room"
 msgstr "Разблокировать комнату"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Vertical focal point: 0=top, 50=center, 100=bottom."
 
 msgid "Villagers, Wolves, Seer"
 msgstr "Мирные, Волки, Провидец"
@@ -572,14 +566,11 @@ msgstr "Мирные, Волки, Провидец"
 msgid "Voting"
 msgstr "Голосование"
 
-msgid "We're working on it. Please try again later."
-msgstr "Мы работаем над этим. Пожалуйста, попробуйте позже."
-
 msgid "Werewolf / Lupus"
 msgstr "Оборотень / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Whether focus coordinates were automatically calculated via edge saliency."
 
 msgid "Work Experience"
 msgstr "Опыт работы"
@@ -603,7 +594,7 @@ msgid "alive"
 msgstr "в живых"
 
 msgid "all"
-msgstr ""
+msgstr "all"
 
 msgid "all day"
 msgstr "весь день"
@@ -612,13 +603,13 @@ msgid "any"
 msgstr "любой"
 
 msgid "aperture"
-msgstr ""
+msgstr "aperture"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "auto focus detected"
 
 msgid "available for sale"
-msgstr ""
+msgstr "available for sale"
 
 msgid "best guess"
 msgstr "лучшая догадка"
@@ -627,10 +618,10 @@ msgid "blog"
 msgstr "блог"
 
 msgid "camera make"
-msgstr ""
+msgstr "camera make"
 
 msgid "camera model"
-msgstr ""
+msgstr "camera model"
 
 msgid "chat"
 msgstr "чат"
@@ -651,16 +642,16 @@ msgid "create room"
 msgstr "создать комнату"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "crop focus X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "crop focus Y (%)"
 
 msgid "cv"
 msgstr "резюме"
 
 msgid "date"
-msgstr ""
+msgstr "date"
 
 msgid "description"
 msgstr "описание"
@@ -675,7 +666,7 @@ msgid "download .ics"
 msgstr "скачать .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "e.g. 9B3A1C2D"
 
 msgid "e.g. Marco"
 msgstr "напр. Марко"
@@ -696,16 +687,16 @@ msgid "extract event"
 msgstr "извлечь событие"
 
 msgid "focal length"
-msgstr ""
+msgstr "focal length"
 
 msgid "gallery"
 msgstr "галерея"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "gallery extension"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "gallery extensions"
 
 msgid "gallery not found."
 msgstr "галерея не найдена."
@@ -738,19 +729,19 @@ msgid "latest posts"
 msgstr "последние записи"
 
 msgid "latitude"
-msgstr ""
+msgstr "latitude"
 
 msgid "lens"
-msgstr ""
+msgstr "lens"
 
 msgid "location"
 msgstr "место"
 
 msgid "location name"
-msgstr ""
+msgstr "location name"
 
 msgid "longitude"
-msgstr ""
+msgstr "longitude"
 
 msgid "map view"
 msgstr "на карте"
@@ -804,13 +795,13 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "вставьте текст или ссылку с деталями события и получите файл .ics."
 
 msgid "photo"
-msgstr ""
+msgstr "photo"
 
 msgid "photo extension"
-msgstr ""
+msgstr "photo extension"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "photo extensions"
 
 msgid "photo map"
 msgstr "карта фотографий"
@@ -846,7 +837,7 @@ msgid "private"
 msgstr "приватный"
 
 msgid "processing status"
-msgstr ""
+msgstr "processing status"
 
 msgid "public"
 msgstr "публичный"
@@ -879,7 +870,7 @@ msgid "settings"
 msgstr "настройки"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "shutter speed"
 
 msgid "skip"
 msgstr "пропустить"
@@ -936,13 +927,13 @@ msgid "watermarked"
 msgstr "с водяным знаком"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "watermarked image"
 
 msgid "web"
 msgstr "веб"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "web-optimized image"
 
 msgid "week"
 msgstr "неделя"

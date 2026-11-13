@@ -970,18 +970,70 @@ html, body {
     </div>
     <div class="app-topbar-right">
       <select id="player-lang-select" onchange="changePlayerLanguage(this.value)" style="background: #1f2937; color: #94a3b8; border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; font-size: 0.72rem; padding: 2px 4px; cursor: pointer; outline: none; margin-inline-end: 0.35rem;" title="Change Language / Idioma">
-        <option value="en">🇬🇧 EN</option>
-        <option value="pt">🇵🇹 PT</option>
-        <option value="it">🇮🇹 IT</option>
-        <option value="es">🇪🇸 ES</option>
-        <option value="fr">🇫🇷 FR</option>
-        <option value="el">🇬🇷 EL</option>
-        <option value="ru">🇷🇺 RU</option>
-        <option value="hi">🇮🇳 HI</option>
-        <option value="kn">🇮🇳 KN</option>
+        <option value="af">🇿🇦 Afrikaans</option>
+        <option value="sq">🇦🇱 Albanian</option>
         <option value="ar">🇸🇦 العربية</option>
+        <option value="az">🇦🇿 Azərbaycan</option>
+        <option value="eu">🏴 Euskara</option>
+        <option value="bn">🇧🇩 বাংলা</option>
+        <option value="be">🇧🇾 Беларуская</option>
+        <option value="bg">🇧🇬 Български</option>
+        <option value="ca">🏴 Català</option>
+        <option value="zh-cn">🇨🇳 简体中文</option>
+        <option value="zh-tw">🇨🇳 繁體中文</option>
+        <option value="hr">🇭🇷 Hrvatski</option>
+        <option value="cs">🇨🇿 Čeština</option>
+        <option value="da">🇩🇰 Dansk</option>
+        <option value="nl">🇳🇱 Nederlands</option>
+        <option value="en" selected>🇬🇧 English</option>
+        <option value="eo">🏴 Esperanto</option>
+        <option value="et">🇪🇪 Eesti</option>
+        <option value="tl">🇵🇭 Filipino</option>
+        <option value="fi">🇫🇮 Suomi</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="gl">🇪🇸 Galego</option>
+        <option value="ka">🇬🇪 ქართული</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="el">🇬🇷 Ελληνικά</option>
+        <option value="gu">🇮🇳 ગુજરાતી</option>
+        <option value="ht">🇭🇹 Kreyòl</option>
+        <option value="iw">🇮🇱 עברית</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+        <option value="hu">🇭🇺 Magyar</option>
+        <option value="is">🇮🇸 Íslenska</option>
+        <option value="id">🇮🇩 Bahasa Indonesia</option>
+        <option value="ga">🇮🇪 Gaeilge</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="kn">🇮🇳 ಕನ್ನಡ</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="la">🏴 Latina</option>
+        <option value="lv">🇱🇻 Latviešu</option>
+        <option value="lt">🇱🇹 Lietuvių</option>
+        <option value="mk">🇲🇰 Македонски</option>
+        <option value="ms">🇲🇾 Bahasa Melayu</option>
+        <option value="mt">🇲🇹 Malti</option>
+        <option value="no">🇳🇴 Norsk</option>
         <option value="fa">🇮🇷 فارسی</option>
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="pt">🇵🇹 Português</option>
+        <option value="ro">🇷🇴 Română</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="sr">🇷🇸 Српски</option>
+        <option value="sk">🇸🇰 Slovenčina</option>
+        <option value="sl">🇸🇮 Slovenščina</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="sw">🏴 Kiswahili</option>
+        <option value="sv">🇸🇪 Svenska</option>
+        <option value="ta">🇮🇳 தமிழ்</option>
+        <option value="te">🇮🇳 తెలుగు</option>
+        <option value="th">🇹🇭 ไทย</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="uk">🇺🇦 Українська</option>
         <option value="ur">🇵🇰 اردو</option>
+        <option value="vi">🇻🇳 Tiếng Việt</option>
+        <option value="cy">🇬🇧 Cymraeg</option>
+        <option value="yi">🇮🇱 ייִדיש</option>
       </select>
       <button id="btn-topbar-gameover" onclick="openPlayerModal('gameover-modal')" class="btn btn-sm" style="display: none; background: #7c3aed; color: #fff; border-color: #6d28d9; font-weight: 700; padding: 0.25rem 0.65rem; font-size: 0.78rem;">
         🏆 Results
@@ -2055,7 +2107,7 @@ html, body {
   }
 
   // --- Language Switching & BiDi Support ---
-  const RTL_LANGUAGES = ["ar", "fa", "ur"];
+  const RTL_LANGUAGES = ["ar", "fa", "ur", "he", "iw", "yi"];
 
   function applyDirectionality(lang) {
     const isRTL = RTL_LANGUAGES.includes(lang);

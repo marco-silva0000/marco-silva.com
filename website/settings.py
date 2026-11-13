@@ -14,6 +14,7 @@ import logging
 import os
 from pathlib import Path
 
+import django.conf.locale
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
 
@@ -146,6 +147,7 @@ else:
         "default": {
             "ENGINE": "django.db.backends.postgresql",
             "HOST": os.environ.get("POSTGRES_HOST", "db"),
+            "PORT": os.environ.get("POSTGRES_PORT", "5432"),
             "USER": os.environ.get("POSTGRES_USER", ""),
             "NAME": os.environ.get("POSTGRES_NAME", ""),
             "PASSWORD": os.environ.get("POSTGRES_PASSWORD", ""),
@@ -175,21 +177,87 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
+EXTRA_LANG_INFO = {
+    "tl": {"bidi": False, "code": "tl", "name": "Filipino", "name_local": "Tagalog"},
+    "gu": {"bidi": False, "code": "gu", "name": "Gujarati", "name_local": "ગુજરાતી"},
+    "ht": {"bidi": False, "code": "ht", "name": "Haitian Creole", "name_local": "Kreyòl ayisyen"},
+    "la": {"bidi": False, "code": "la", "name": "Latin", "name_local": "Latina"},
+    "mt": {"bidi": False, "code": "mt", "name": "Maltese", "name_local": "Malti"},
+    "yi": {"bidi": True, "code": "yi", "name": "Yiddish", "name_local": "ייִדיש"},
+    "iw": {"bidi": True, "code": "iw", "name": "Hebrew", "name_local": "עברית"},
+    "zh-cn": {"bidi": False, "code": "zh-cn", "name": "Chinese Simplified", "name_local": "简体中文"},
+    "zh-tw": {"bidi": False, "code": "zh-tw", "name": "Chinese Traditional", "name_local": "繁體中文"},
+    "no": {"bidi": False, "code": "no", "name": "Norwegian", "name_local": "Norsk"},
+}
+django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
+
 LANGUAGE_CODE = "en"
 
 LANGUAGES = [
-    ("en", "English"),
-    ("pt", "Português"),
-    ("it", "Italiano"),
-    ("es", "Español"),
-    ("fr", "Français"),
-    ("el", "Ελληνικά"),
-    ("ru", "Русский"),
-    ("hi", "हिन्दी"),
-    ("kn", "ಕನ್ನಡ"),
-    ("ar", "العربية"),
-    ("fa", "فارسی"),
-    ("ur", "اردو"),
+    ("af", "🇿🇦 Afrikaans"),
+    ("sq", "🇦🇱 Albanian"),
+    ("ar", "🇸🇦 Arabic"),
+    ("az", "🇦🇿 Azerbaijani"),
+    ("eu", "🏴 Basque"),
+    ("bn", "🇧🇩 Bengali"),
+    ("be", "🇧🇾 Belarusian"),
+    ("bg", "🇧🇬 Bulgarian"),
+    ("ca", "🏴 Catalan"),
+    ("zh-cn", "🇨🇳 Chinese Simplified"),
+    ("zh-tw", "🇨🇳 Chinese Traditional"),
+    ("hr", "🇭🇷 Croatian"),
+    ("cs", "🇨🇿 Czech"),
+    ("da", "🇩🇰 Danish"),
+    ("nl", "🇳🇱 Dutch"),
+    ("en", "🇬🇧 English"),
+    ("eo", "🏴 Esperanto"),
+    ("et", "🇪🇪 Estonian"),
+    ("tl", "🇵🇭 Filipino"),
+    ("fi", "🇫🇮 Finnish"),
+    ("fr", "🇫🇷 French"),
+    ("gl", "🇪🇸 Galician"),
+    ("ka", "🇬🇪 Georgian"),
+    ("de", "🇩🇪 German"),
+    ("el", "🇬🇷 Greek"),
+    ("gu", "🇮🇳 Gujarati"),
+    ("ht", "🇭🇹 Haitian Creole"),
+    ("iw", "🇮🇱 Hebrew"),
+    ("hi", "🇮🇳 Hindi"),
+    ("hu", "🇭🇺 Hungarian"),
+    ("is", "🇮🇸 Icelandic"),
+    ("id", "🇮🇩 Indonesian"),
+    ("ga", "🇮🇪 Irish"),
+    ("it", "🇮🇹 Italian"),
+    ("ja", "🇯🇵 Japanese"),
+    ("kn", "🇮🇳 Kannada"),
+    ("ko", "🇰🇷 Korean"),
+    ("la", "🏴 Latin"),
+    ("lv", "🇱🇻 Latvian"),
+    ("lt", "🇱🇹 Lithuanian"),
+    ("mk", "🇲🇰 Macedonian"),
+    ("ms", "🇲🇾 Malay"),
+    ("mt", "🇲🇹 Maltese"),
+    ("no", "🇳🇴 Norwegian"),
+    ("fa", "🇮🇷 Persian"),
+    ("pl", "🇵🇱 Polish"),
+    ("pt", "🇵🇹 Portuguese"),
+    ("ro", "🇷🇴 Romanian"),
+    ("ru", "🇷🇺 Russian"),
+    ("sr", "🇷🇸 Serbian"),
+    ("sk", "🇸🇰 Slovak"),
+    ("sl", "🇸🇮 Slovenian"),
+    ("es", "🇪🇸 Spanish"),
+    ("sw", "🏴 Swahili"),
+    ("sv", "🇸🇪 Swedish"),
+    ("ta", "🇮🇳 Tamil"),
+    ("te", "🇮🇳 Telugu"),
+    ("th", "🇹🇭 Thai"),
+    ("tr", "🇹🇷 Turkish"),
+    ("uk", "🇺🇦 Ukrainian"),
+    ("ur", "🇵🇰 Urdu"),
+    ("vi", "🇻🇳 Vietnamese"),
+    ("cy", "🇬🇧 Welsh"),
+    ("yi", "🇮🇱 Yiddish"),
 ]
 
 LOCALE_PATHS = [

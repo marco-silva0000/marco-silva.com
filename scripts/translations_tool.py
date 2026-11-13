@@ -36,21 +36,154 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOCALE_DIR = BASE_DIR / "locale"
 
-LANGUAGES = ["en", "pt", "it", "es", "fr", "el", "ru", "hi", "kn", "ar", "fa", "ur"]
+LANGUAGES = [
+    "af",
+    "sq",
+    "ar",
+    "az",
+    "eu",
+    "bn",
+    "be",
+    "bg",
+    "ca",
+    "zh-cn",
+    "zh-tw",
+    "hr",
+    "cs",
+    "da",
+    "nl",
+    "en",
+    "eo",
+    "et",
+    "tl",
+    "fi",
+    "fr",
+    "gl",
+    "ka",
+    "de",
+    "el",
+    "gu",
+    "ht",
+    "iw",
+    "hi",
+    "hu",
+    "is",
+    "id",
+    "ga",
+    "it",
+    "ja",
+    "kn",
+    "ko",
+    "la",
+    "lv",
+    "lt",
+    "mk",
+    "ms",
+    "mt",
+    "no",
+    "fa",
+    "pl",
+    "pt",
+    "ro",
+    "ru",
+    "sr",
+    "sk",
+    "sl",
+    "es",
+    "sw",
+    "sv",
+    "ta",
+    "te",
+    "th",
+    "tr",
+    "uk",
+    "ur",
+    "vi",
+    "cy",
+    "yi",
+]
+
 LANGUAGE_NAMES = {
-    "en": "English",
-    "pt": "Português",
-    "it": "Italiano",
-    "es": "Español",
-    "fr": "Français",
-    "el": "Ελληνικά",
-    "ru": "Русский",
-    "hi": "हिन्दी",
-    "kn": "ಕನ್ನಡ",
-    "ar": "العربية",
-    "fa": "فارسی",
-    "ur": "اردو",
+    "af": "🇿🇦 Afrikaans",
+    "sq": "🇦🇱 Albanian",
+    "ar": "🇸🇦 Arabic",
+    "az": "🇦🇿 Azerbaijani",
+    "eu": "🏴 Basque",
+    "bn": "🇧🇩 Bengali",
+    "be": "🇧🇾 Belarusian",
+    "bg": "🇧🇬 Bulgarian",
+    "ca": "🏴 Catalan",
+    "zh-cn": "🇨🇳 Chinese Simplified",
+    "zh-tw": "🇨🇳 Chinese Traditional",
+    "hr": "🇭🇷 Croatian",
+    "cs": "🇨🇿 Czech",
+    "da": "🇩🇰 Danish",
+    "nl": "🇳🇱 Dutch",
+    "en": "🇬🇧 English",
+    "eo": "🏴 Esperanto",
+    "et": "🇪🇪 Estonian",
+    "tl": "🇵🇭 Filipino",
+    "fi": "🇫🇮 Finnish",
+    "fr": "🇫🇷 French",
+    "gl": "🇪🇸 Galician",
+    "ka": "🇬🇪 Georgian",
+    "de": "🇩🇪 German",
+    "el": "🇬🇷 Greek",
+    "gu": "🇮🇳 Gujarati",
+    "ht": "🇭🇹 Haitian Creole",
+    "iw": "🇮🇱 Hebrew",
+    "hi": "🇮🇳 Hindi",
+    "hu": "🇭🇺 Hungarian",
+    "is": "🇮🇸 Icelandic",
+    "id": "🇮🇩 Indonesian",
+    "ga": "🇮🇪 Irish",
+    "it": "🇮🇹 Italian",
+    "ja": "🇯🇵 Japanese",
+    "kn": "🇮🇳 Kannada",
+    "ko": "🇰🇷 Korean",
+    "la": "🏴 Latin",
+    "lv": "🇱🇻 Latvian",
+    "lt": "🇱🇹 Lithuanian",
+    "mk": "🇲🇰 Macedonian",
+    "ms": "🇲🇾 Malay",
+    "mt": "🇲🇹 Maltese",
+    "no": "🇳🇴 Norwegian",
+    "fa": "🇮🇷 Persian",
+    "pl": "🇵🇱 Polish",
+    "pt": "🇵🇹 Portuguese",
+    "ro": "🇷🇴 Romanian",
+    "ru": "🇷🇺 Russian",
+    "sr": "🇷🇸 Serbian",
+    "sk": "🇸🇰 Slovak",
+    "sl": "🇸🇮 Slovenian",
+    "es": "🇪🇸 Spanish",
+    "sw": "🏴 Swahili",
+    "sv": "🇸🇪 Swedish",
+    "ta": "🇮🇳 Tamil",
+    "te": "🇮🇳 Telugu",
+    "th": "🇹🇭 Thai",
+    "tr": "🇹🇷 Turkish",
+    "uk": "🇺🇦 Ukrainian",
+    "ur": "🇵🇰 Urdu",
+    "vi": "🇻🇳 Vietnamese",
+    "cy": "🇬🇧 Welsh",
+    "yi": "🇮🇱 Yiddish",
 }
+
+
+def get_locale_dir(lang: str) -> Path:
+    """Return primary directory for a given language code."""
+    direct = LOCALE_DIR / lang
+    if direct.exists():
+        return direct
+    aliases = {
+        "zh-cn": LOCALE_DIR / "zh_CN",
+        "zh-tw": LOCALE_DIR / "zh_TW",
+        "he": LOCALE_DIR / "iw",
+        "nb": LOCALE_DIR / "no",
+        "fil": LOCALE_DIR / "tl",
+    }
+    return aliases.get(lang.lower(), direct)
 
 
 def escape_po(s: str) -> str:
@@ -262,7 +395,7 @@ def load_all_catalogs() -> dict[str, dict[str, str]]:
     """Load PO entries for each language."""
     catalogs = {}
     for lang in LANGUAGES:
-        po_path = LOCALE_DIR / lang / "LC_MESSAGES" / "django.po"
+        po_path = get_locale_dir(lang) / "LC_MESSAGES" / "django.po"
         catalogs[lang] = parse_po_file(po_path)
     return catalogs
 
@@ -299,10 +432,10 @@ def cmd_extract(args):
 
     # Write PO files
     for lang in LANGUAGES:
-        po_path = LOCALE_DIR / lang / "LC_MESSAGES" / "django.po"
+        po_path = get_locale_dir(lang) / "LC_MESSAGES" / "django.po"
         write_po_file(lang, catalogs[lang], po_path)
 
-    print(f"Updated .po catalogs for all 9 languages in {LOCALE_DIR}/")
+    print(f"Updated .po catalogs for all {len(LANGUAGES)} languages in {LOCALE_DIR}/")
 
 
 def cmd_export_csv(args):
@@ -480,7 +613,7 @@ def cmd_compile(args):
     """Recompile all .po files into .mo binary catalogs."""
     catalogs = load_all_catalogs()
     for lang in LANGUAGES:
-        po_path = LOCALE_DIR / lang / "LC_MESSAGES" / "django.po"
+        po_path = get_locale_dir(lang) / "LC_MESSAGES" / "django.po"
         write_po_file(lang, catalogs[lang], po_path)
     print(f"Recompiled binary .mo catalogs for all {len(LANGUAGES)} languages in {LOCALE_DIR}/.")
 

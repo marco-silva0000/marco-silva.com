@@ -16,6 +16,7 @@ ENV VIRTUAL_ENV=/venv \
     DJANGO_SETTINGS_MODULE=website.settings \
     PYTHONUNBUFFERED=1
 
+RUN python scripts/generate_all_64_locales.py
 RUN python manage.py collectstatic --noinput || true
 
 EXPOSE 8000

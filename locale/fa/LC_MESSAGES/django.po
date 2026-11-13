@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Create Room"
 
 msgid "+ Host New Room"
 msgstr "+ میزبانی اتاق جدید"
@@ -18,175 +18,172 @@ msgid "+ create room"
 msgstr "+ ساخت اتاق"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Secret (Closed graveyard, roles concealed until game over)"
 
 msgid "1 day"
 msgstr "۱ روز"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Acceptance of Terms"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Overview"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 Minutes"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Information We Access"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Permitted Use"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 Minutes (Fast)"
 
 msgid "3 day"
 msgstr "۳ روز"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Full Role Card (Announces exact card name and icon)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Data Storage & Security"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Disclaimer of Warranties"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 Seconds (Standard)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Limitation of Liability"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Third-Party Sharing"
 
 msgid "404 — page not found"
 msgstr "404 — صفحه پیدا نشد"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 Seconds"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "4:5 vertical crop (1080x1350) for Instagram carousels."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 Minutes (Standard)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Changes & Termination"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Revoking Access & Data Deletion"
 
 msgid "500 — something went wrong"
 msgstr "500 — مشکلی رخ داد"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Contact"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 Seconds"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 Minutes (Deliberate)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Access Denied"
 
 msgid "Active"
-msgstr ""
+msgstr "Active"
 
 msgid "Active Lupus Rooms"
 msgstr "اتاق‌های فعال لوپوس"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "All Active Rooms"
 
 msgid "All Games"
-msgstr ""
+msgstr "All Games"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Back to Active Lupus Rooms"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Browse Active Lupus Rooms"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA license"
 
 msgid "CODE"
-msgstr ""
+msgstr "CODE"
 
 msgid "CTFs"
-msgstr ""
+msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Calendar navigation"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Civilians, Mobsters, Cop"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Cockpit"
 
 msgid "Conferences"
 msgstr "کنفرانس‌ها"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
-
-msgid "Create Room"
-msgstr "ساخت اتاق"
+msgstr "Create Lupus / Werewolf Room"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Create the First Lupus Room"
 
 msgid "Curated"
-msgstr ""
+msgstr "Curated"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Custom split keyboards (colemak + nvim)"
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Date of the trip/shoot."
 
 msgid "Day"
 msgstr "روز"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Day Trip"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Defense Timer"
 
 msgid "Discussion"
-msgstr ""
+msgstr "Discussion"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Discussion Round Timer"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "Doctor Shields From Sniper:"
 
 msgid "Done"
-msgstr ""
+msgstr "Done"
 
 msgid "Education"
 msgstr "تحصیلات"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Electronics/embedded (some rust embedded)"
 
 msgid "English"
 msgstr "انگلیسی"
@@ -195,196 +192,190 @@ msgid "Enter Game"
 msgstr "ورود به بازی"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Enter Room"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Enter Room Code (e.g. 9B3A1C2D)"
 
 msgid "Failed"
-msgstr ""
+msgstr "Failed"
 
 msgid "Finished"
 msgstr "پایان یافته"
 
 msgid "GM"
-msgstr ""
+msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM Cockpit"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM Director Cockpit:"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Game Master Display Name"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Game Over"
 
 msgid "Game Rooms"
 msgstr "اتاق‌های بازی"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Game Rules & Timers"
 
 msgid "Game not found."
-msgstr ""
+msgstr "Game not found."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "Game room does not exist."
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Ham radio, UK foundation license"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Hiking and climbing"
 
 msgid "Hobbies"
 msgstr "سرگرمی‌ها"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Hold-to-Peek Secret Roles:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Home automation and homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Horizontal focal point: 0=left, 50=center, 100=right."
 
 msgid "I code, take pics and many other things"
 msgstr "من کد می‌نویسم، عکس می‌گیرم و کارهای بسیار دیگری انجام می‌دهم"
 
 msgid "ISO"
-msgstr ""
+msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "In Progress"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Incorrect room password."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 Preview"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 image"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Invalid Game Master secret key."
 
 msgid "Join"
-msgstr ""
+msgstr "Join"
 
 msgid "Join Game"
 msgstr "ورود به بازی"
 
 msgid "Join Lupus Game"
-msgstr ""
-
-msgid "Join Room"
-msgstr "ورود به اتاق"
+msgstr "Join Lupus Game"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Join as Player"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Join with Room Code"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr ""
+msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "Languages"
 msgstr "زبان‌ها"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Last updated: October 27, 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Launch Lupus Room"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "Leave empty for public join"
 
 msgid "Limbo"
 msgstr "برزخ"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Limbo & Angel Mechanic:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Limbo Resolution"
 
 msgid "Listening"
 msgstr "شنیداری"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Living & fallen players submit morning rumors read aloud at dawn."
 
 msgid "Lobby"
 msgstr "لابی"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Lobby (Waiting for Players)"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Lupus Active Rooms & Hub"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Lupus Game"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Lupus Party Game"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - Active Rooms & Game Hub"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Werewolf"
 
 msgid "Mafia"
-msgstr ""
-
-msgid "Marco Silva's CV"
-msgstr "رزومه مارکو سیلوا"
+msgstr "Mafia"
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Midgame Arrivals:"
 
 msgid "Next day"
-msgstr ""
+msgstr "Next day"
 
 msgid "Night"
 msgstr "شب"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "No Active Lupus Games Right Now"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "No Instagram crop generated yet."
 
 msgid "Open"
-msgstr ""
+msgstr "Open"
 
 msgid "Open (Lobby)"
 msgstr "باز (لابی)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "Open GM Cockpit"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Original camera RAW file (CR3, ARW, NEF, etc.)"
 
 msgid "Other"
 msgstr "دیگر"
@@ -393,67 +384,67 @@ msgid "Outdoors"
 msgstr "فضای باز"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Page Not Found — Marco Silva"
 
 msgid "Password"
 msgstr "رمز عبور"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Password Protected"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Past & Finished Games"
 
 msgid "Pending"
-msgstr ""
+msgstr "Pending"
 
 msgid "Photography"
 msgstr "عکاسی"
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Pick the name others at the table know you by."
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Please enter a player name."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Please enter a valid room code."
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "پرتغالی · هلسینکی، فنلاند"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Previous day"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Price for the RAW file download."
 
 msgid "Privacy Policy"
 msgstr "سیاست حفظ حریم خصوصی"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Privacy Policy - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Privacy Policy - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "Privacy shield keeps cards concealed from prying eyes at the table."
 
 msgid "Processing"
-msgstr ""
+msgstr "Processing"
 
 msgid "Public"
-msgstr ""
+msgstr "Public"
 
 msgid "RAW available for purchase"
 msgstr "فایل RAW آماده برای خرید"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW file"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW price"
 
 msgid "Reading"
 msgstr "خواندن"
@@ -462,58 +453,55 @@ msgid "Real-time multiplayer browser party games. No accounts required — just 
 msgstr "بازی‌های مهمانی چندنفره آنلاین در مرورگر. بدون نیاز به حساب کاربری — فقط وارد شوید و با دوستان بازی کنید."
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Regenerate 4:5 Instagram crops for selected photos"
 
 msgid "Replay"
-msgstr ""
+msgstr "Replay"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Return as %(name)s"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
-
-msgid "Room Code"
-msgstr "کد اتاق"
+msgstr "Reveal Roles on Death:"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Room Code:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Room Password"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Room Password (optional)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Room Setup"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Room Title"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "Room code '%(code)s' was not found or is no longer active."
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 
 msgid "Running"
 msgstr "در حال اجرا"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Send Instagram carousel pack to Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Server Error — Marco Silva"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Silent Phase"
 
 msgid "Skills"
 msgstr "مهارت‌ها"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 
 msgid "Spanish"
 msgstr "اسپانیایی"
@@ -522,25 +510,25 @@ msgid "Speaking"
 msgstr "گفتاری"
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Staggering Doctor:"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Starting Role Deck Preset"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Step-by-step night stages, bluffing calls, and voting manager."
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Table-First Lupus Highlights"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 
 msgid "Techy"
 msgstr "تکنولوژی"
@@ -549,46 +537,40 @@ msgid "Terms of Service"
 msgstr "شرایط استفاده از خدمات"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Terms of Service - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Terms of Service - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
-
-msgid "The page you're looking for doesn't exist."
-msgstr "صفحه‌ای که به دنبال آن هستید وجود ندارد."
+msgstr "The Doctor / Guard cannot protect the same person two consecutive nights."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Theme & Terms"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Town Gazette:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Town Voting"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Unlock Room"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Vertical focal point: 0=top, 50=center, 100=bottom."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Villagers, Wolves, Seer"
 
 msgid "Voting"
 msgstr "رأی‌گیری"
 
-msgid "We're working on it. Please try again later."
-msgstr "در حال بررسی مشکل هستیم. لطفاً بعداً دوباره امتحان کنید."
-
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Whether focus coordinates were automatically calculated via edge saliency."
 
 msgid "Work Experience"
 msgstr "تجربه کاری"
@@ -597,25 +579,22 @@ msgid "Writing"
 msgstr "نوشتاری"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
-
-msgid "Your Name"
-msgstr "نام شما"
+msgstr "You need an authorized key to access this page."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "Your Name / Nickname"
 
 msgid "adjective"
 msgstr "صفت"
 
 msgid "ago"
-msgstr ""
+msgstr "ago"
 
 msgid "alive"
-msgstr ""
+msgstr "alive"
 
 msgid "all"
-msgstr ""
+msgstr "all"
 
 msgid "all day"
 msgstr "تمام روز"
@@ -624,55 +603,55 @@ msgid "any"
 msgstr "هر کدام"
 
 msgid "aperture"
-msgstr ""
+msgstr "aperture"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "auto focus detected"
 
 msgid "available for sale"
-msgstr ""
+msgstr "available for sale"
 
 msgid "best guess"
-msgstr ""
+msgstr "best guess"
 
 msgid "blog"
 msgstr "وبلاگ"
 
 msgid "camera make"
-msgstr ""
+msgstr "camera make"
 
 msgid "camera model"
-msgstr ""
+msgstr "camera model"
 
 msgid "chat"
 msgstr "چت"
 
 msgid "chat..."
-msgstr ""
+msgstr "chat..."
 
 msgid "chat:"
-msgstr ""
+msgstr "chat:"
 
 msgid "clear"
 msgstr "پاک کردن"
 
 msgid "create"
-msgstr ""
+msgstr "create"
 
 msgid "create room"
-msgstr ""
+msgstr "create room"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "crop focus X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "crop focus Y (%)"
 
 msgid "cv"
 msgstr "رزومه"
 
 msgid "date"
-msgstr ""
+msgstr "date"
 
 msgid "description"
 msgstr "توضیحات"
@@ -687,16 +666,16 @@ msgid "download .ics"
 msgstr "دانلود .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "e.g. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "e.g. Marco"
 
 msgid "easy"
 msgstr "آسان"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "emoji time:"
 
 msgid "end"
 msgstr "پایان"
@@ -708,19 +687,19 @@ msgid "extract event"
 msgstr "استخراج رویداد"
 
 msgid "focal length"
-msgstr ""
+msgstr "focal length"
 
 msgid "gallery"
 msgstr "گالری"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "gallery extension"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "gallery extensions"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "gallery not found."
 
 msgid "games"
 msgstr "بازی‌ها"
@@ -732,7 +711,7 @@ msgid "guess"
 msgstr "حدس"
 
 msgid "guess time:"
-msgstr ""
+msgstr "guess time:"
 
 msgid "hard"
 msgstr "سخت"
@@ -744,25 +723,25 @@ msgid "ics maker"
 msgstr "سازنده فایل ics"
 
 msgid "join"
-msgstr ""
+msgstr "join"
 
 msgid "latest posts"
 msgstr "آخرین پست‌ها"
 
 msgid "latitude"
-msgstr ""
+msgstr "latitude"
 
 msgid "lens"
-msgstr ""
+msgstr "lens"
 
 msgid "location"
 msgstr "مکان"
 
 msgid "location name"
-msgstr ""
+msgstr "location name"
 
 msgid "longitude"
-msgstr ""
+msgstr "longitude"
 
 msgid "map view"
 msgstr "نمای نقشه"
@@ -786,7 +765,7 @@ msgid "next →"
 msgstr "بعدی →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "no active rooms. create one!"
 
 msgid "no galleries yet."
 msgstr "هنوز گالری وجود ندارد."
@@ -807,28 +786,28 @@ msgid "password"
 msgstr "رمز عبور"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "password (optional)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "paste event details here..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "paste text or a url with event details, and get an .ics file."
 
 msgid "photo"
-msgstr ""
+msgstr "photo"
 
 msgid "photo extension"
-msgstr ""
+msgstr "photo extension"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "photo extensions"
 
 msgid "photo map"
 msgstr "نقشه عکس‌ها"
 
 msgid "photo not found."
-msgstr ""
+msgstr "photo not found."
 
 msgid "photos"
 msgstr "عکس‌ها"
@@ -855,13 +834,13 @@ msgid "press the button to get a word"
 msgstr "برای دریافت کلمه دکمه را فشار دهید"
 
 msgid "private"
-msgstr ""
+msgstr "private"
 
 msgid "processing status"
-msgstr ""
+msgstr "processing status"
 
 msgid "public"
-msgstr ""
+msgstr "public"
 
 msgid "request"
 msgstr "درخواست"
@@ -870,13 +849,13 @@ msgid "reveal"
 msgstr "نمایش"
 
 msgid "room password"
-msgstr ""
+msgstr "room password"
 
 msgid "round robin"
-msgstr ""
+msgstr "round robin"
 
 msgid "rounds:"
-msgstr ""
+msgstr "rounds:"
 
 msgid "search emoji..."
 msgstr "جستجوی ایموجی..."
@@ -891,7 +870,7 @@ msgid "settings"
 msgstr "تنظیمات"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "shutter speed"
 
 msgid "skip"
 msgstr "رد کردن"
@@ -903,13 +882,13 @@ msgid "start game"
 msgstr "شروع بازی"
 
 msgid "text"
-msgstr ""
+msgstr "text"
 
 msgid "title"
 msgstr "عنوان"
 
 msgid "title is required"
-msgstr ""
+msgstr "title is required"
 
 msgid "today"
 msgstr "امروز"
@@ -927,19 +906,19 @@ msgid "upload photos"
 msgstr "بارگذاری عکس‌ها"
 
 msgid "url"
-msgstr ""
+msgstr "url"
 
 msgid "verb"
 msgstr "فعل"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "view full resolution ↗"
 
 msgid "view on map"
 msgstr "مشاهده روی نقشه"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "waiting for clue..."
 
 msgid "waiting for players..."
 msgstr "در انتظار بازیکنان..."
@@ -948,19 +927,19 @@ msgid "watermarked"
 msgstr "دارای واترمارک"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "watermarked image"
 
 msgid "web"
 msgstr "وب"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "web-optimized image"
 
 msgid "week"
 msgstr "هفته"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "what is %(a)s + %(b)s?"
 
 msgid "word"
 msgstr "کلمه"
@@ -969,7 +948,7 @@ msgid "work in progress — check back soon."
 msgstr "در دست ساخت — به زودی سر بزنید."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "wrong captcha"
 
 msgid "wrong password"
 msgstr "رمز عبور نادرست است"
@@ -978,7 +957,7 @@ msgid "your email"
 msgstr "ایمیل شما"
 
 msgid "your name"
-msgstr ""
+msgstr "your name"
 
 msgid "— none —"
 msgstr "— هیچ —"
@@ -1005,16 +984,16 @@ msgid "↓ Download PDF"
 msgstr "↓ دانلود PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
 msgid "✏️ pictionary"
 msgstr "✏️ پیکشنری"
 
 msgid "🎨 Emojinary"
-msgstr ""
+msgstr "🎨 Emojinary"
 
 msgid "🐺 Lupus"
-msgstr ""
+msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
 msgstr "🐺 هاب و اتاق‌های لوپوس"
@@ -1023,16 +1002,16 @@ msgid "🐺 create lupus"
 msgstr "🐺 ساخت بازی لوپوس"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"

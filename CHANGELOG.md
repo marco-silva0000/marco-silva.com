@@ -4,6 +4,22 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v140] - 2026-11-13
+
+### Added
+- **Complete 64-Language Internationalization Architecture**:
+  - Generated full PO catalogs and compiled MO binary files for all 64 languages listed in the landing page selector (`af`, `sq`, `ar`, `az`, `eu`, `bn`, `be`, `bg`, `ca`, `zh-cn`, `zh-tw`, `hr`, `cs`, `da`, `nl`, `en`, `eo`, `et`, `tl`, `fi`, `fr`, `gl`, `ka`, `de`, `el`, `gu`, `ht`, `iw`, `hi`, `hu`, `is`, `id`, `ga`, `it`, `ja`, `kn`, `ko`, `la`, `lv`, `lt`, `mk`, `ms`, `mt`, `no`, `fa`, `pl`, `pt`, `ro`, `ru`, `sr`, `sk`, `sl`, `es`, `sw`, `sv`, `ta`, `te`, `th`, `tr`, `uk`, `ur`, `vi`, `cy`, `yi`).
+  - Added locale aliases and BCP-47 variants (`zh_CN`, `zh_Hans`, `zh_TW`, `zh_Hant`, `he`, `iw`, `nb`, `no`, `fil`, `tl`) to guarantee full interoperability between browser headers and Django locale resolution.
+  - Registered `EXTRA_LANG_INFO` in `website/settings.py` for languages missing from Django's built-in table (`tl`, `gu`, `ht`, `la`, `mt`, `yi`, `iw`, `zh-cn`, `zh-tw`, `no`).
+  - Updated Lupus client language switcher (`templates/lupus/player.html`) with all 64 options, country flags, and full RTL bidirectional text isolation support for `ar`, `fa`, `ur`, `he`, `iw`, and `yi`.
+  - Updated `SUPPORTED_LANGUAGES` in `lupus/translations.py` and `scripts/translations_tool.py` to maintain all 64 languages.
+  - Added script `scripts/generate_all_64_locales.py` for automated compilation and synchronization of all 64 catalogs.
+
+### Fixed
+- **GitHub Actions CI PostgreSQL Service Health Check & Port Resolution**:
+  - Configured PostgreSQL container health check to `--health-cmd "pg_isready -U testuser -d testdb"` to prevent auth failure on default user in GitHub Actions runner.
+  - Set `POSTGRES_HOST: 127.0.0.1` and added dynamic `POSTGRES_PORT` configuration to `website/settings.py` to prevent IPv6 `::1` connection refused errors on GitHub runners.
+
 ## [v139] - 2026-11-13
 
 ### Fixed

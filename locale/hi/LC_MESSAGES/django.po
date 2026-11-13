@@ -27,10 +27,10 @@ msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
 msgstr "1 — केवल संरेखण (\"अच्छा\" बनाम \"बुरा\" घोषित करता है)"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Acceptance of Terms"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Overview"
 
 msgid "10 Minutes"
 msgstr "10 मिनट"
@@ -39,10 +39,10 @@ msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — गुट / टीम (\"शहर\", \"वेयरवोल्फ\", \"तटस्थ\" घोषित करता है)"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Information We Access"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Permitted Use"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 मिनट (तेज़)"
@@ -54,19 +54,19 @@ msgid "3 — Full Role Card (Announces exact card name and icon)"
 msgstr "3 — पूरा रोल कार्ड (सटीक भूमिका नाम और आइकन घोषित करता है)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Data Storage & Security"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Disclaimer of Warranties"
 
 msgid "30 Seconds (Standard)"
 msgstr "30 सेकंड (मानक)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Limitation of Liability"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Third-Party Sharing"
 
 msgid "404 — page not found"
 msgstr "404 — पृष्ठ नहीं मिला"
@@ -75,22 +75,22 @@ msgid "45 Seconds"
 msgstr "45 सेकंड"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "4:5 vertical crop (1080x1350) for Instagram carousels."
 
 msgid "5 Minutes (Standard)"
 msgstr "5 मिनट (मानक)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Changes & Termination"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Revoking Access & Data Deletion"
 
 msgid "500 — something went wrong"
 msgstr "500 — कुछ गलत हो गया"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Contact"
 
 msgid "60 Seconds"
 msgstr "60 सेकंड"
@@ -114,7 +114,7 @@ msgid "All Games"
 msgstr "सभी खेल"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 
 msgid "Back to Active Lupus Rooms"
 msgstr "सक्रिय लुपस कमरों पर वापस जाएं"
@@ -123,13 +123,13 @@ msgid "Browse Active Lupus Rooms"
 msgstr "सक्रिय लुपस कमरे देखें"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA license"
 
 msgid "CODE"
 msgstr "कोड"
 
 msgid "CTFs"
-msgstr ""
+msgstr "CTFs"
 
 msgid "Calendar navigation"
 msgstr "कैलेंडर नेविगेशन"
@@ -150,19 +150,19 @@ msgid "Create the First Lupus Room"
 msgstr "पहला लुपस कमरा बनाएं"
 
 msgid "Curated"
-msgstr ""
+msgstr "Curated"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Custom split keyboards (colemak + nvim)"
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Date of the trip/shoot."
 
 msgid "Day"
 msgstr "दिन"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Day Trip"
 
 msgid "Defense Timer"
 msgstr "बचाव का टाइमर"
@@ -177,13 +177,13 @@ msgid "Doctor Shields From Sniper:"
 msgstr "डॉक्टर स्नाइपर से बचाता है:"
 
 msgid "Done"
-msgstr ""
+msgstr "Done"
 
 msgid "Education"
 msgstr "शिक्षा"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Electronics/embedded (some rust embedded)"
 
 msgid "English"
 msgstr "अंग्रेज़ी"
@@ -198,7 +198,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "कमरा कोड दर्ज करें (उदा. 9B3A1C2D)"
 
 msgid "Failed"
-msgstr ""
+msgstr "Failed"
 
 msgid "Finished"
 msgstr "समाप्त"
@@ -207,7 +207,7 @@ msgid "GM"
 msgstr "जीएम"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM Cockpit"
 
 msgid "GM Director Cockpit:"
 msgstr "जीएम डायरेक्टर कॉकपिट:"
@@ -231,13 +231,13 @@ msgid "Game room does not exist."
 msgstr "गेम रूम मौजूद नहीं है।"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Ham radio, UK foundation license"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "क्या आपके गेम मास्टर से 8-अक्षरों का कोड मिला है? सीधे शामिल होने के लिए इसे यहां दर्ज करें:"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Hiking and climbing"
 
 msgid "Hobbies"
 msgstr "शौक"
@@ -246,16 +246,16 @@ msgid "Hold-to-Peek Secret Roles:"
 msgstr "गुप्त भूमिका देखने के लिए दबाकर रखें:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Home automation and homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Horizontal focal point: 0=left, 50=center, 100=right."
 
 msgid "I code, take pics and many other things"
 msgstr "मैं कोड करता हूं, तस्वीरें लेता हूं और कई अन्य चीजें"
 
 msgid "ISO"
-msgstr ""
+msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
 msgstr "यदि सक्षम है, तो डॉक्टर का संरक्षण किसी को स्नाइपर की गोली से बचा सकता है। (अक्षम = स्नाइपर सुरक्षा को भेद देगा)।"
@@ -270,10 +270,10 @@ msgid "Incorrect room password."
 msgstr "कमरे का पासवर्ड गलत है।"
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 Preview"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 image"
 
 msgid "Invalid Game Master secret key."
 msgstr "अमान्य गेम मास्टर गुप्त कुंजी।"
@@ -294,13 +294,13 @@ msgid "Join with Room Code"
 msgstr "कमरा कोड के साथ शामिल हों"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr ""
+msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "Languages"
 msgstr "भाषाएँ"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Last updated: October 27, 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
 msgstr "देर से आने वाले कन्फर्म्ड ट्रेवलर, टाउन घोस्ट या उत्तराधिकारी के रूप में शामिल होते हैं।"
@@ -350,9 +350,6 @@ msgstr "लुपस इन तबुला / वेयरवोल्फ"
 msgid "Mafia"
 msgstr "माफिया"
 
-msgid "Marco Silva's CV"
-msgstr "मार्को सिल्वा का सीवी"
-
 msgid "Midgame Arrivals:"
 msgstr "खेल के बीच में आगमन:"
 
@@ -366,7 +363,7 @@ msgid "No Active Lupus Games Right Now"
 msgstr "अभी कोई सक्रिय लुपस गेम नहीं है"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "No Instagram crop generated yet."
 
 msgid "Open"
 msgstr "खुला"
@@ -378,7 +375,7 @@ msgid "Open GM Cockpit"
 msgstr "जीएम कॉकपिट खोलें"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Original camera RAW file (CR3, ARW, NEF, etc.)"
 
 msgid "Other"
 msgstr "अन्य"
@@ -387,7 +384,7 @@ msgid "Outdoors"
 msgstr "आउटडोर"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Page Not Found — Marco Silva"
 
 msgid "Password"
 msgstr "पासवर्ड"
@@ -399,7 +396,7 @@ msgid "Past & Finished Games"
 msgstr "पिछले और समाप्त हुए खेल"
 
 msgid "Pending"
-msgstr ""
+msgstr "Pending"
 
 msgid "Photography"
 msgstr "फोटोग्राफी"
@@ -420,22 +417,22 @@ msgid "Previous day"
 msgstr "पिछला दिन"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Price for the RAW file download."
 
 msgid "Privacy Policy"
 msgstr "गोपनीयता नीति"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Privacy Policy - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Privacy Policy - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
 msgstr "गोपनीयता शील्ड मेज पर ताक-झांक से पत्तों को छिपाकर रखती है।"
 
 msgid "Processing"
-msgstr ""
+msgstr "Processing"
 
 msgid "Public"
 msgstr "सार्वजनिक"
@@ -444,10 +441,10 @@ msgid "RAW available for purchase"
 msgstr "RAW खरीद के लिए उपलब्ध है"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW file"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW price"
 
 msgid "Reading"
 msgstr "पढ़ना"
@@ -456,7 +453,7 @@ msgid "Real-time multiplayer browser party games. No accounts required — just 
 msgstr "रीयल-टाइम मल्टीप्लेयर ब्राउज़र पार्टी गेम। किसी खाते की आवश्यकता नहीं — बस शामिल हों और दोस्तों के साथ खेलें।"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Regenerate 4:5 Instagram crops for selected photos"
 
 msgid "Replay"
 msgstr "रीप्ले"
@@ -492,10 +489,10 @@ msgid "Running"
 msgstr "चल रहा है"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Send Instagram carousel pack to Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Server Error — Marco Silva"
 
 msgid "Silent Phase"
 msgstr "शांत चरण"
@@ -540,16 +537,13 @@ msgid "Terms of Service"
 msgstr "सेवा की शर्तें"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Terms of Service - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Terms of Service - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "डॉक्टर / गार्ड लगातार दो रातों तक एक ही व्यक्ति की रक्षा नहीं कर सकता।"
-
-msgid "The page you're looking for doesn't exist."
-msgstr "आप जिस पृष्ठ की तलाश कर रहे हैं वह मौजूद नहीं है।"
 
 msgid "Theme & Terms"
 msgstr "थीम और नियम"
@@ -564,7 +558,7 @@ msgid "Unlock Room"
 msgstr "कमरा अनलॉक करें"
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Vertical focal point: 0=top, 50=center, 100=bottom."
 
 msgid "Villagers, Wolves, Seer"
 msgstr "ग्रामीण, भेड़िए, द्रष्टा"
@@ -572,14 +566,11 @@ msgstr "ग्रामीण, भेड़िए, द्रष्टा"
 msgid "Voting"
 msgstr "मतदान"
 
-msgid "We're working on it. Please try again later."
-msgstr "हम इस पर काम कर रहे हैं। कृपया बाद में पुनः प्रयास करें।"
-
 msgid "Werewolf / Lupus"
 msgstr "वेयरवोल्फ / लुपस"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Whether focus coordinates were automatically calculated via edge saliency."
 
 msgid "Work Experience"
 msgstr "कार्य अनुभव"
@@ -603,7 +594,7 @@ msgid "alive"
 msgstr "जीवित"
 
 msgid "all"
-msgstr ""
+msgstr "all"
 
 msgid "all day"
 msgstr "पूरे दिन"
@@ -612,13 +603,13 @@ msgid "any"
 msgstr "कोई भी"
 
 msgid "aperture"
-msgstr ""
+msgstr "aperture"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "auto focus detected"
 
 msgid "available for sale"
-msgstr ""
+msgstr "available for sale"
 
 msgid "best guess"
 msgstr "सर्वश्रेष्ठ अनुमान"
@@ -627,10 +618,10 @@ msgid "blog"
 msgstr "ब्लॉग"
 
 msgid "camera make"
-msgstr ""
+msgstr "camera make"
 
 msgid "camera model"
-msgstr ""
+msgstr "camera model"
 
 msgid "chat"
 msgstr "चैट"
@@ -651,16 +642,16 @@ msgid "create room"
 msgstr "कमरा बनाएं"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "crop focus X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "crop focus Y (%)"
 
 msgid "cv"
 msgstr "सीवी"
 
 msgid "date"
-msgstr ""
+msgstr "date"
 
 msgid "description"
 msgstr "विवरण"
@@ -675,7 +666,7 @@ msgid "download .ics"
 msgstr ".ics डाउनलोड करें"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "e.g. 9B3A1C2D"
 
 msgid "e.g. Marco"
 msgstr "उदा. मार्को"
@@ -696,16 +687,16 @@ msgid "extract event"
 msgstr "इवेंट निकालें"
 
 msgid "focal length"
-msgstr ""
+msgstr "focal length"
 
 msgid "gallery"
 msgstr "गैलरी"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "gallery extension"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "gallery extensions"
 
 msgid "gallery not found."
 msgstr "गैलरी नहीं मिली।"
@@ -738,19 +729,19 @@ msgid "latest posts"
 msgstr "नवीनतम पोस्ट"
 
 msgid "latitude"
-msgstr ""
+msgstr "latitude"
 
 msgid "lens"
-msgstr ""
+msgstr "lens"
 
 msgid "location"
 msgstr "स्थान"
 
 msgid "location name"
-msgstr ""
+msgstr "location name"
 
 msgid "longitude"
-msgstr ""
+msgstr "longitude"
 
 msgid "map view"
 msgstr "मानचित्र देखें"
@@ -804,13 +795,13 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "इवेंट विवरण के साथ टेक्स्ट या यूआरएल पेस्ट करें, और .ics फ़ाइल प्राप्त करें।"
 
 msgid "photo"
-msgstr ""
+msgstr "photo"
 
 msgid "photo extension"
-msgstr ""
+msgstr "photo extension"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "photo extensions"
 
 msgid "photo map"
 msgstr "तस्वीर मानचित्र"
@@ -846,7 +837,7 @@ msgid "private"
 msgstr "निजी"
 
 msgid "processing status"
-msgstr ""
+msgstr "processing status"
 
 msgid "public"
 msgstr "सार्वजनिक"
@@ -879,7 +870,7 @@ msgid "settings"
 msgstr "सेटिंग्स"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "shutter speed"
 
 msgid "skip"
 msgstr "छोड़ें"
@@ -936,13 +927,13 @@ msgid "watermarked"
 msgstr "वॉटरमार्क"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "watermarked image"
 
 msgid "web"
 msgstr "वेब"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "web-optimized image"
 
 msgid "week"
 msgstr "सप्ताह"
