@@ -4,21 +4,74 @@
 {% block content %}
 <h1 style="font-size: 1.3rem; margin-bottom: 1rem;">{% trans "create room" %}</h1>
 {% if error %}<p style="color: red; font-size: 0.85rem; margin-bottom: 0.75rem;">{{ error }}</p>{% endif %}
-<form method="post" style="max-width: 400px;">
+<form method="post" style="max-width: 440px;">
   {% csrf_token %}
+  <div style="margin-bottom: 0.85rem;">
+    <label for="id_game_type" style="font-size: 0.85rem; font-weight: 600;">{% trans "game" %}</label><br>
+    <select id="id_game_type" name="game_type" style="width: 100%; padding: 0.42rem; font-size: 0.88rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 0.2rem;">
+      {% for gcode, glabel in game_types %}
+      <option value="{{ gcode }}" {% if gcode == selected_game %}selected{% endif %}>{{ glabel }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div style="margin-bottom: 0.85rem;">
+    <label for="id_language" style="font-size: 0.85rem; font-weight: 600;">{% trans "room language" %}</label><br>
+    <select id="id_language" name="language" style="width: 100%; padding: 0.42rem; font-size: 0.88rem; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 0.2rem;">
+      {% for lcode, llabel in languages %}
+      <option value="{{ lcode }}" {% if lcode == selected_language %}selected{% endif %}>{{ llabel }}</option>
+      {% endfor %}
+    </select>
+    <div id="lang-support-badge" style="margin-top: 0.45rem; padding: 0.5rem 0.65rem; border-radius: 6px; font-size: 0.78rem; line-height: 1.4; border: 1px solid {% if initial_support.content_supported %}#86efac{% else %}#fde68a{% endif %}; background: {% if initial_support.content_supported %}#f0fdf4{% else %}#fffbeb{% endif %}; color: {% if initial_support.content_supported %}#166534{% else %}#92400e{% endif %};">
+      <strong id="lang-badge-title">{{ initial_support.badge_label }}</strong><br>
+      <span id="lang-badge-detail">{{ initial_support.detail }}</span>
+    </div>
+  </div>
   <div style="margin-bottom: 0.75rem;">
     <label style="font-size: 0.85rem;">{% trans "title" %}</label><br>
-    <input type="text" name="title" required style="width: 100%; padding: 0.35rem; font-size: 0.85rem;">
+    <input type="text" name="title" value="{{ request.POST.title|default:'' }}" required style="width: 100%; padding: 0.35rem; font-size: 0.85rem;">
   </div>
   <div style="margin-bottom: 0.75rem;">
     <label style="font-size: 0.85rem;">{% trans "password (optional)" %}</label><br>
-    <input type="text" name="password" style="width: 100%; padding: 0.35rem; font-size: 0.85rem;">
+    <input type="text" name="password" value="{{ request.POST.password|default:'' }}" style="width: 100%; padding: 0.35rem; font-size: 0.85rem;">
   </div>
   <div style="margin-bottom: 0.75rem;">
     <label style="font-size: 0.85rem;">{% blocktrans with a=a b=b %}what is {{ a }} + {{ b }}?{% endblocktrans %}</label><br>
     <input type="number" name="captcha_answer" required style="width: 100px; padding: 0.35rem; font-size: 0.85rem;">
     <input type="hidden" name="captcha_expected" value="{{ answer }}">
   </div>
-  <button type="submit" style="padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer;">{% trans "create" %}</button>
+  <button type="submit" style="padding: 0.45rem 1.1rem; font-size: 0.88rem; font-weight: 600; cursor: pointer;">{% trans "create" %}</button>
 </form>
+
+<script>
+(function() {
+  const matrix = {{ support_matrix_json|safe }};
+  const gameSelect = document.getElementById("id_game_type");
+  const langSelect = document.getElementById("id_language");
+  const box = document.getElementById("lang-support-badge");
+  const titleEl = document.getElementById("lang-badge-title");
+  const detailEl = document.getElementById("lang-badge-detail");
+
+  function refreshBadge() {
+    if (!gameSelect || !langSelect || !box) return;
+    const g = gameSelect.value || "emojinary";
+    const l = langSelect.value || "en";
+    const info = (matrix[g] && matrix[g][l]) || null;
+    if (!info) return;
+    titleEl.textContent = info.badge_label;
+    detailEl.textContent = info.detail;
+    if (info.content_supported) {
+      box.style.borderColor = "#86efac";
+      box.style.background = "#f0fdf4";
+      box.style.color = "#166534";
+    } else {
+      box.style.borderColor = "#fde68a";
+      box.style.background = "#fffbeb";
+      box.style.color = "#92400e";
+    }
+  }
+
+  if (gameSelect) gameSelect.addEventListener("change", refreshBadge);
+  if (langSelect) langSelect.addEventListener("change", refreshBadge);
+})();
+</script>
 {% endblock %}

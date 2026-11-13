@@ -321,3 +321,61 @@ class TestSiteWideI18n:
         csv_text = out_csv.read_text(encoding="utf-8-sig")
         assert "msgid,context,en,pt" in csv_text
         assert "Eu programo, tiro fotos e muitas outras coisas" in csv_text
+
+
+class TestRoomLanguageAndImpostorRouting:
+    def test_language_support_classification(self):
+        from gamerooms.language_support import get_game_language_support
+
+        # English & Wiktionary-covered languages get Full Content + UI for Impostor/Emojinary
+        pt_imp = get_game_language_support("impostor", "pt")
+        assert pt_imp["content_supported"] is True
+        assert pt_imp["mode"] == "full_content"
+        assert pt_imp["entry_count"] >= 2000
+
+        el_emoji = get_game_language_support("emojinary", "el")
+        assert el_emoji["content_supported"] is True
+        assert el_emoji["mode"] == "full_content"
+
+        # Serbian lacks bulk Wiktionary word entries -> UI Only with English fallback words
+        sr_imp = get_game_language_support("impostor", "sr")
+        assert sr_imp["content_supported"] is False
+        assert sr_imp["mode"] == "ui_only"
+
+        # Lupus full content vs UI-only
+        assert get_game_language_support("lupus", "pt")["mode"] == "full_content"
+        assert get_game_language_support("lupus", "fi")["mode"] == "ui_only"
+
+    def test_create_impostor_room_with_language(self, client, db):
+        resp = client.post(
+            reverse("gamerooms:room-create"),
+            {
+                "title": "Lisbon Secret Agents",
+                "password": "",
+                "game_type": "impostor",
+                "language": "pt",
+                "captcha_answer": "9",
+                "captcha_expected": "9",
+            },
+        )
+        assert resp.status_code == 302
+        room = Room.objects.get(title="Lisbon Secret Agents")
+        assert room.game_type == "impostor"
+        assert room.language == "pt"
+
+        # Joining with player name routes directly into impostor:game
+        join_resp = client.post(
+            reverse("gamerooms:room-join", args=[room.code]),
+            {"name": "Marco"},
+        )
+        assert join_resp.status_code == 302
+        assert f"/games/impostor/{room.code}/Marco/" in join_resp["Location"]
+
+    def test_room_list_shows_impostor_card_and_language_badge(self, client, db):
+        Room.objects.create(title="Athens Undercover", code="ATHENS01", game_type="impostor", language="el")
+        resp = client.get(reverse("gamerooms:room-list"))
+        assert resp.status_code == 200
+        html = resp.content.decode()
+        assert "Word Impostor" in html
+        assert "Athens Undercover" in html
+        assert "Greek" in html or "🇬🇷" in html

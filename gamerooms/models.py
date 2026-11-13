@@ -17,6 +17,7 @@ class Room(models.Model):
     title = models.CharField(max_length=100)
     password = models.CharField(max_length=100, blank=True)
     game_type = models.CharField(max_length=50, default="emojinary")
+    language = models.CharField(max_length=12, default="en", db_index=True)
     creator = models.CharField(max_length=100, blank=True)
     max_players = models.PositiveIntegerField(default=8)
     status = models.CharField(

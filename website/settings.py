@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     "tools",
     "gamerooms",
     "emojinary",
+    "impostor",
     "lupus",
     "photologue",
     "sortedm2m",

@@ -1,9 +1,17 @@
+import json
 import random
 
+from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
+from .language_support import (
+    GAME_TYPES,
+    get_game_language_support,
+    get_language_support_matrix,
+    normalize_language_code,
+)
 from .models import Room
 
 
@@ -26,6 +34,7 @@ def room_list(request):
     for r in rooms:
         r.player_count = None
         r.phase_badge = None
+        r.language_support = get_game_language_support(r.game_type, getattr(r, "language", "en"))
         if r.game_type == "lupus":
             try:
                 from lupus.game_state import get_game
@@ -65,36 +74,89 @@ def room_list(request):
                         r.phase_badge = f"🎨 {_('Round')} {rnd}/{max_rnd}"
             except Exception:
                 pass
+        elif r.game_type == "impostor":
+            try:
+                from impostor.game_state import get_game as get_impostor_game
+
+                state = get_impostor_game(r.code)
+                if state and state.get("players"):
+                    r.player_count = len(state.get("players", {}))
+                    phase = state.get("phase", "lobby")
+                    rnd = state.get("round_num", 0)
+                    max_rnd = state.get("settings", {}).get("max_rounds", 5)
+                    if phase == "lobby":
+                        r.phase_badge = f"⏳ {_('Lobby')}"
+                    elif phase == "clue":
+                        r.phase_badge = f"🕵️ {_('Clues')} {rnd}/{max_rnd}"
+                    elif phase == "voting":
+                        r.phase_badge = f"🗳️ {_('Voting')} {rnd}/{max_rnd}"
+                    elif phase == "last_chance":
+                        r.phase_badge = f"⚡ {_('Steal Guess')}"
+                    elif phase == "reveal":
+                        r.phase_badge = f"🎭 {_('Reveal')} {rnd}/{max_rnd}"
+                    elif phase == "gameover":
+                        r.phase_badge = f"🏆 {_('Finished')}"
+            except Exception:
+                pass
 
     return render(request, "gamerooms/room_list.html", {"rooms": rooms, "error": error})
+
+
+def _resolve_game_type(raw_game_type: str | None) -> str:
+    allowed = {g for g, _ in GAME_TYPES}
+    gt = (raw_game_type or "").strip().lower()
+    return gt if gt in allowed else "emojinary"
 
 
 def room_create(request):
     if request.method == "POST":
         title = request.POST.get("title", "").strip()
         password = request.POST.get("password", "").strip()
+        game_type = _resolve_game_type(request.POST.get("game_type"))
+        language = normalize_language_code(request.POST.get("language") or getattr(request, "LANGUAGE_CODE", "en"))
         captcha_answer = request.POST.get("captcha_answer", "")
         captcha_expected = request.POST.get("captcha_expected", "")
 
         if not title:
-            return _render_create(request, error=_("title is required"))
+            return _render_create(request, error=_("title is required"), game_type=game_type, language=language)
         try:
             if int(captcha_answer) != int(captcha_expected):
-                return _render_create(request, error=_("wrong captcha"))
+                return _render_create(request, error=_("wrong captcha"), game_type=game_type, language=language)
         except (ValueError, TypeError):
-            return _render_create(request, error=_("wrong captcha"))
+            return _render_create(request, error=_("wrong captcha"), game_type=game_type, language=language)
 
-        room = Room.objects.create(title=title, password=password)
+        room = Room.objects.create(title=title, password=password, game_type=game_type, language=language)
         request.session[f"room_{room.code}"] = True
         request.session[f"emojinary_admin_{room.code}"] = True
+        request.session[f"impostor_admin_{room.code}"] = True
         return redirect("gamerooms:room-join", code=room.code)
 
-    return _render_create(request)
+    game_type = _resolve_game_type(request.GET.get("game"))
+    language = normalize_language_code(request.GET.get("lang") or getattr(request, "LANGUAGE_CODE", "en"))
+    return _render_create(request, game_type=game_type, language=language)
 
 
-def _render_create(request, error=None):
+def _render_create(request, error=None, game_type="emojinary", language=None):
     a, b, answer = _make_captcha()
-    return render(request, "gamerooms/room_create.html", {"a": a, "b": b, "answer": answer, "error": error})
+    selected_game = _resolve_game_type(game_type)
+    selected_lang = normalize_language_code(language or getattr(request, "LANGUAGE_CODE", "en"))
+    initial_support = get_game_language_support(selected_game, selected_lang)
+    return render(
+        request,
+        "gamerooms/room_create.html",
+        {
+            "a": a,
+            "b": b,
+            "answer": answer,
+            "error": error,
+            "game_types": GAME_TYPES,
+            "selected_game": selected_game,
+            "selected_language": selected_lang,
+            "languages": settings.LANGUAGES,
+            "initial_support": initial_support,
+            "support_matrix_json": json.dumps(get_language_support_matrix()),
+        },
+    )
 
 
 def room_join(request, code):
@@ -131,6 +193,15 @@ def room_join(request, code):
             if not room.creator:
                 room.creator = name
                 room.save(update_fields=["creator"])
+            if room.game_type == "impostor":
+                return redirect("gamerooms:impostor:game", code=room.code, name=name)
             return redirect("gamerooms:emojinary:game", code=room.code, name=name)
 
-    return render(request, "gamerooms/room_name.html", {"room": room})
+    return render(
+        request,
+        "gamerooms/room_name.html",
+        {
+            "room": room,
+            "language_support": get_game_language_support(room.game_type, getattr(room, "language", "en")),
+        },
+    )

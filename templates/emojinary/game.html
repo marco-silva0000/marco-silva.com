@@ -209,6 +209,11 @@
       <h1 class="ej-title">🎨 {{ room.title }}</h1>
       <span class="ej-code-pill" title="{% trans 'Room Code' %}">{{ room.code }}</span>
       <span class="ej-mode-pill" id="mode-badge">Round Robin</span>
+      {% if language_support %}
+      <span class="ej-code-pill" title="{{ language_support.detail }}" style="background:{% if language_support.content_supported %}#dcfce7;color:#166534;border-color:#86efac{% else %}#fef3c7;color:#92400e;border-color:#fde68a{% endif %};">
+        {{ language_support.language_display }} · {% if language_support.content_supported %}{% trans "Content + UI" %}{% else %}{% trans "UI Only" %}{% endif %}
+      </span>
+      {% endif %}
     </div>
     <div class="ej-actions">
       <button type="button" class="ej-btn" id="btn-invite-qr" onclick="openModal('modal-invite-qr')">📲 {% trans "Invite QR" %}</button>
@@ -620,6 +625,15 @@ function handle(d) {
   }
 }
 
+function formatPromptWord(s) {
+  const canonical = (s && s.current_word) || '';
+  const localized = (s && s.localized_word) || '';
+  if (localized && canonical && localized.toLowerCase() !== canonical.toLowerCase()) {
+    return `${localized} (${canonical})`;
+  }
+  return canonical || localized;
+}
+
 function renderWordLexicon(s) {
   const el = $('your-word-lexicon');
   if (!el) return;
@@ -717,7 +731,7 @@ function renderFromState(s) {
     $('word-hint').textContent = '';
     if (s.current_word) {
       show('your-word-box', 'btn-reroll');
-      $('your-word').textContent = `Your word: ${s.current_word} (${s.current_category || 'phrase'})`;
+      $('your-word').textContent = `Your word: ${formatPromptWord(s)} (${s.current_category || 'phrase'})`;
       renderWordLexicon(s);
       $('rerolls-left-badge').textContent = `(${s.rerolls_left ?? 0})`;
       hide('btn-send-prompt');
@@ -740,7 +754,7 @@ function renderFromState(s) {
       hide('btn-add-extra-hint', 'btn-submit-bg', 'btn-send-prompt', 'wait-msg');
       $('btn-reveal-emoji').textContent = 'reveal';
       $('emoji-composer-label').textContent = '🎨 Build Your Initial Emoji Clue:';
-      $('your-word').textContent = `Your word: ${s.current_word || ''}`;
+      $('your-word').textContent = `Your word: ${formatPromptWord(s)}`;
       renderWordLexicon(s);
       $('rerolls-left-badge').textContent = `(${s.rerolls_left ?? 0})`;
       $('word-hint').textContent = '';
@@ -764,7 +778,7 @@ function renderFromState(s) {
       // Word writer can submit additional progressive emoji hints while others guess!
       show('your-word-box', 'emoji-input-area', 'btn-add-extra-hint', 'btn-skip-word');
       hide('btn-reveal-emoji', 'btn-submit-bg', 'guess-area', 'btn-reroll', 'custom-word-row');
-      $('your-word').textContent = `Your word: ${s.current_word || ''}`;
+      $('your-word').textContent = `Your word: ${formatPromptWord(s)}`;
       renderWordLexicon(s);
       $('emoji-composer-label').textContent = '💡 Drop an Additional Emoji Hint for Guessers:';
       $('word-hint').textContent = '';
@@ -789,7 +803,7 @@ function renderFromState(s) {
     $('emoji-display').textContent = '🎭';
     if (isMyTurn) {
       show('your-word-box', 'btn-reroll', 'btn-send-prompt');
-      $('your-word').textContent = `Your word: ${s.current_word || ''}`;
+      $('your-word').textContent = `Your word: ${formatPromptWord(s)}`;
       renderWordLexicon(s);
       $('rerolls-left-badge').textContent = `(${s.rerolls_left ?? 0})`;
       $('custom-word-row').style.display = 'flex';
@@ -801,12 +815,13 @@ function renderFromState(s) {
     }
   } else if (phase === 'submitting' && s.mode === 'best_guess') {
     hide('start-btn', 'settings-area', 'play-again-btn', 'guess-area', 'your-word-box');
-    $('status').textContent = `Round ${s.round_num}/${s.max_rounds} — Describe: "${s.current_word}" with emojis!`;
-    $('word-hint').textContent = `Prompt: "${s.current_word}"`;
+    const promptDisplay = formatPromptWord(s);
+    $('status').textContent = `Round ${s.round_num}/${s.max_rounds} — Describe: "${promptDisplay}" with emojis!`;
+    $('word-hint').textContent = `Prompt: "${promptDisplay}"`;
     if (!isMyTurn) {
       show('emoji-input-area', 'btn-submit-bg');
       hide('btn-reveal-emoji', 'btn-add-extra-hint', 'btn-skip-word', 'wait-msg');
-      $('emoji-composer-label').textContent = `🎨 Submit Your Best Emojis for "${s.current_word}":`;
+      $('emoji-composer-label').textContent = `🎨 Submit Your Best Emojis for "${promptDisplay}":`;
     } else {
       hide('emoji-input-area');
       show('wait-msg');
@@ -814,7 +829,7 @@ function renderFromState(s) {
     }
   } else if (phase === 'judging' && s.mode === 'best_guess') {
     hide('start-btn', 'settings-area', 'play-again-btn', 'guess-area', 'emoji-input-area', 'wait-msg', 'your-word-box');
-    $('status').textContent = `⚖️ Judging: "${s.current_word}"`;
+    $('status').textContent = `⚖️ Judging: "${formatPromptWord(s)}"`;
     renderJudgingCards(s.submissions || [], isMyTurn);
   } else if (phase === 'gameover') {
     hide('start-btn', 'emoji-input-area', 'guess-area', 'wait-msg', 'your-word-box');

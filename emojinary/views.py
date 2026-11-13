@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.cache import never_cache
 
+from gamerooms.language_support import get_game_language_support
 from gamerooms.models import Room
 from gamerooms.qr import build_public_url, generate_qr_data_uri
 
@@ -49,6 +50,7 @@ def game(request, code, name):
     state = get_game(code)
     state["title"] = room.title
     state["password"] = room.password
+    state["language"] = getattr(room, "language", "en") or "en"
 
     token = request.GET.get("token") or request.session.get(f"emojinary_player_{code}")
     is_admin = bool(request.session.get(f"emojinary_admin_{code}"))
@@ -101,6 +103,7 @@ def game(request, code, name):
             "reconnect_url": reconnect_url,
             "player_qr": player_qr_uri,
             "presets": SETTINGS_PRESETS,
+            "language_support": get_game_language_support("emojinary", state.get("language", "en")),
             "initial_state_json": json.dumps(initial_state),
         },
     )

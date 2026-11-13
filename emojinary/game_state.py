@@ -159,6 +159,7 @@ def create_initial_state(
     creator_name: str = "",
     mode: str = "round_robin",
     settings: Optional[dict] = None,
+    language: str = "en",
 ) -> dict[str, Any]:
     """Create a fresh Emojinary game state dictionary."""
     merged_settings = copy.deepcopy(DEFAULT_SETTINGS)
@@ -169,6 +170,7 @@ def create_initial_state(
         "code": code.upper(),
         "title": title,
         "password": password,
+        "language": language or "en",
         "admin_token": uuid.uuid4().hex[:16],
         "status": "open",  # open, running, finished
         "players": {},  # player_id -> {id, name, token, score, is_admin, is_spectator, connected, channel_name}
@@ -953,11 +955,21 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
 
     visible_lex = get_word_lexicon(my_word) if (can_see_word and my_word) else {}
     current_lex = get_word_lexicon(state.get("current_word")) if state.get("current_word") else {}
+    room_lang = state.get("language") or "en"
+    localized_word = my_word if can_see_word else None
+    if can_see_word and my_word and room_lang != "en":
+        from gamerooms.language_support import get_lexicon_language_key
+
+        lex_key = get_lexicon_language_key(room_lang)
+        lang_trans = (visible_lex.get("translations") or {}).get(lex_key) or []
+        if lang_trans:
+            localized_word = lang_trans[0]
 
     return {
         "type": "state",
         "code": state.get("code"),
         "title": state.get("title"),
+        "language": room_lang,
         "status": state.get("status", "open"),
         "mode": mode,
         "phase": phase,
@@ -979,6 +991,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         "current_player": (state.get("players", {}).get(active_pid, {}).get("name", "?") if active_pid else None),
         "current_player_id": active_pid,
         "current_word": my_word if can_see_word else None,
+        "localized_word": localized_word,
         "current_category": my_category,
         "current_definition": visible_lex.get("definition", "") if can_see_word else None,
         "current_etymology": visible_lex.get("etymology", "") if can_see_word else None,

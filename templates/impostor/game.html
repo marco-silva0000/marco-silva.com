@@ -1,0 +1,671 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}🕵️ {% trans "Word Impostor" %} — {{ room.title }}{% endblock %}
+{% block extra_css %}
+:root {
+  --imp-bg: #f8fafc;
+  --imp-card: #ffffff;
+  --imp-border: #e2e8f0;
+  --imp-text: #0f172a;
+  --imp-muted: #64748b;
+  --imp-primary: #2563eb;
+  --imp-danger: #dc2626;
+  --imp-danger-soft: #fef2f2;
+  --imp-amber: #d97706;
+  --imp-amber-soft: #fffbeb;
+  --imp-green: #16a34a;
+  --imp-green-soft: #f0fdf4;
+  --imp-purple: #7c3aed;
+  --imp-purple-soft: #f5f3ff;
+}
+.imp-shell { max-width: 1080px; margin: 0 auto; padding-bottom: 2.5rem; color: var(--imp-text); }
+.imp-topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;
+  background: var(--imp-card); border: 1px solid var(--imp-border); border-radius: 12px;
+  padding: 0.75rem 1rem; box-shadow: 0 1px 3px rgba(15,23,42,0.04); margin-bottom: 0.85rem;
+}
+.imp-title-group { display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; }
+.imp-title { font-size: 1.15rem; font-weight: 700; margin: 0; color: var(--imp-text); }
+.imp-pill {
+  font-size: 0.75rem; font-weight: 600; padding: 0.18rem 0.55rem; border-radius: 999px;
+  background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;
+}
+.imp-pill-mono { font-family: ui-monospace, SFMono-Regular, monospace; font-weight: 700; border-radius: 6px; }
+.imp-actions { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; }
+.imp-btn {
+  display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; font-weight: 600;
+  padding: 0.42rem 0.78rem; border-radius: 8px; border: 1px solid var(--imp-border);
+  background: #fff; color: #1e293b; cursor: pointer; text-decoration: none; transition: all 0.15s;
+}
+.imp-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
+.imp-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.imp-btn-primary { background: var(--imp-primary); color: #fff; border-color: var(--imp-primary); }
+.imp-btn-primary:hover { background: #1d4ed8; }
+.imp-btn-danger { background: var(--imp-danger); color: #fff; border-color: var(--imp-danger); }
+.imp-btn-danger:hover { background: #b91c1c; }
+.imp-btn-green { background: var(--imp-green); color: #fff; border-color: var(--imp-green); }
+.imp-btn-green:hover { background: #15803d; }
+.imp-btn-amber { background: var(--imp-amber); color: #fff; border-color: var(--imp-amber); }
+.imp-btn-amber:hover { background: #b45309; }
+
+.imp-grid { display: grid; grid-template-columns: 1fr 310px; gap: 1rem; align-items: start; }
+@media (max-width: 860px) { .imp-grid { grid-template-columns: 1fr; } }
+
+.imp-card {
+  background: var(--imp-card); border: 1px solid var(--imp-border); border-radius: 12px;
+  padding: 1rem; box-shadow: 0 1px 3px rgba(15,23,42,0.04); margin-bottom: 0.9rem;
+}
+.imp-section-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; color: var(--imp-muted); margin-bottom: 0.5rem; }
+
+/* Secret Word Card */
+.imp-secret-card {
+  background: linear-gradient(135deg, #0f172a, #1e293b); color: #f8fafc;
+  border-radius: 14px; padding: 1.15rem 1.25rem; margin-bottom: 0.9rem; position: relative;
+  border: 1px solid #334155; box-shadow: 0 8px 20px -6px rgba(15,23,42,0.35);
+}
+.imp-secret-word { font-size: 2rem; font-weight: 800; letter-spacing: 0.02em; margin: 0.35rem 0; word-break: break-word; }
+.imp-secret-word.blurred { filter: blur(11px); user-select: none; }
+
+/* Clues & Voting */
+.imp-clue-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+  padding: 0.5rem 0.7rem; border-radius: 8px; border: 1px solid #e2e8f0; background: #f8fafc; margin-bottom: 0.4rem; font-size: 0.86rem;
+}
+.imp-clue-row.lethal { background: var(--imp-danger-soft); border-color: #fca5a5; color: #991b1b; }
+
+.imp-vote-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 0.55rem; margin-top: 0.6rem; }
+.imp-vote-btn {
+  padding: 0.65rem 0.7rem; border-radius: 9px; border: 1.5px solid #cbd5e1; background: #fff;
+  cursor: pointer; text-align: left; font-weight: 600; font-size: 0.85rem; color: #0f172a; transition: all 0.15s;
+}
+.imp-vote-btn:hover { border-color: var(--imp-primary); background: #eff6ff; }
+.imp-vote-btn.selected { border-color: var(--imp-danger); background: var(--imp-danger-soft); color: #991b1b; }
+
+/* Player row */
+.imp-player-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.45rem;
+  padding: 0.42rem 0.55rem; border-radius: 8px; font-size: 0.83rem; margin-bottom: 0.3rem;
+}
+.imp-player-row.turn { background: #eff6ff; border: 1px solid #bfdbfe; font-weight: 700; }
+.imp-player-row.poisoned { background: #fef2f2; opacity: 0.78; text-decoration: line-through; }
+
+.imp-chat-box { max-height: 220px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.55rem; background: #f8fafc; font-size: 0.8rem; margin-bottom: 0.5rem; }
+.imp-chat-item { margin-bottom: 0.32rem; line-height: 1.38; }
+
+.imp-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(15,23,42,0.65); display: none;
+  justify-content: center; align-items: center; z-index: 200; padding: 1rem;
+}
+.imp-modal-backdrop.show { display: flex; }
+.imp-modal {
+  background: #fff; border-radius: 14px; max-width: 480px; width: 100%; padding: 1.25rem;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto;
+}
+{% endblock %}
+
+{% block content %}
+<div class="imp-shell">
+  <!-- Top Header Bar -->
+  <div class="imp-topbar">
+    <div class="imp-title-group">
+      <a href="{% url 'gamerooms:room-list' %}" style="text-decoration:none;font-size:0.85rem;color:var(--imp-muted);font-weight:600;">&larr; {% trans "Rooms" %}</a>
+      <h1 class="imp-title">🕵️ {{ room.title }}</h1>
+      <span class="imp-pill imp-pill-mono">{{ room.code }}</span>
+      <span class="imp-pill" id="phase-badge">Lobby</span>
+      {% if language_support %}
+      <span class="imp-pill" title="{{ language_support.detail }}" style="background:{% if language_support.content_supported %}#dcfce7;color:#166534;border-color:#86efac{% else %}#fef3c7;color:#92400e;border-color:#fde68a{% endif %};">
+        {{ language_support.language_display }} · {% if language_support.content_supported %}{% trans "Content + UI" %}{% else %}{% trans "UI Only" %}{% endif %}
+      </span>
+      {% endif %}
+    </div>
+    <div class="imp-actions">
+      <button type="button" class="imp-btn" onclick="openModal('modal-custom-card')">🃏 {% trans "Custom Deck" %} (<span id="deck-count">0</span>)</button>
+      <button type="button" class="imp-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Invite QR" %}</button>
+      <button type="button" class="imp-btn" onclick="openModal('modal-profile')">🪪 {{ player_name }}</button>
+    </div>
+  </div>
+
+  <!-- Error / Notice Toast Banner -->
+  <div id="error-banner" style="display:none; background:#fef2f2; border:1px solid #fca5a5; color:#991b1b; padding:0.6rem 0.85rem; border-radius:8px; font-size:0.84rem; font-weight:600; margin-bottom:0.85rem;"></div>
+
+  <div class="imp-grid">
+    <!-- Main Column -->
+    <div>
+      <!-- Secret Word Card -->
+      <div class="imp-secret-card" id="secret-card-box" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <span id="card-role-label" style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#93c5fd;">🔒 Secret Card</span>
+          <div style="display:flex; gap:0.4rem; align-items:center;">
+            <span id="card-category-pill" style="font-size:0.74rem; padding:0.15rem 0.5rem; border-radius:999px; background:rgba(255,255,255,0.12); color:#e2e8f0;"></span>
+            <button type="button" id="btn-toggle-peek" onclick="toggleCardBlur()" style="font-size:0.74rem; padding:0.18rem 0.55rem; border-radius:6px; border:1px solid #475569; background:#1e293b; color:#f8fafc; cursor:pointer;">👁️ {% trans "Hide Word" %}</button>
+          </div>
+        </div>
+        <div id="card-word-text" class="imp-secret-word">...</div>
+        <div id="card-sub-note" style="font-size:0.8rem; color:#cbd5e1; margin-top:0.2rem;"></div>
+      </div>
+
+      <!-- Status & Timer Card -->
+      <div class="imp-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.6rem;">
+          <div id="status-headline" style="font-size:1rem; font-weight:700;">⏳ {% trans "Waiting in Lobby..." %}</div>
+          <span id="timer-badge" style="display:none; font-family:ui-monospace,monospace; font-size:0.9rem; font-weight:700; padding:0.2rem 0.55rem; border-radius:6px; background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe;">⏱️ 45s</span>
+        </div>
+
+        <!-- Participating GM Non-Spoiling Controls -->
+        <div id="gm-toolbar" style="display:none; padding:0.55rem 0.7rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; margin-bottom:0.75rem;">
+          <div class="imp-section-label" style="margin-bottom:0.35rem;">👑 {% trans "Participating Host Controls (Zero-Spoiler)" %}</div>
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <button type="button" id="btn-blind-redraw" class="imp-btn" onclick="sendAction('blind_redraw')" style="display:none;">🎲 {% trans "Blind Redraw Pair" %}</button>
+            <button type="button" id="btn-skip-turn" class="imp-btn" onclick="sendAction('skip_turn')" style="display:none;">⏭️ {% trans "Skip Turn" %}</button>
+            <button type="button" id="btn-open-vote" class="imp-btn imp-btn-amber" onclick="sendAction('start_voting')" style="display:none;">🗳️ {% trans "Start Voting Early" %}</button>
+            <button type="button" id="btn-tally-votes" class="imp-btn imp-btn-primary" onclick="sendAction('tally_votes')" style="display:none;">🧮 {% trans "Tally Votes Now" %}</button>
+            <button type="button" id="btn-timer-pause" class="imp-btn" onclick="toggleTimerPause()" style="display:none;">⏸️ {% trans "Pause Timer" %}</button>
+            <button type="button" id="btn-timer-add" class="imp-btn" onclick="sendAction('timer_control', {command:'add', seconds:15})" style="display:none;">+15s</button>
+            <button type="button" id="btn-end-game" class="imp-btn imp-btn-danger" onclick="sendAction('end_game')" style="display:none;">🛑 {% trans "End Match" %}</button>
+          </div>
+        </div>
+
+        <!-- Lobby Settings -->
+        <div id="lobby-panel" style="display:none;">
+          <div style="font-size:0.84rem; color:#475569; margin-bottom:0.85rem; line-height:1.5;">
+            {% trans "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!" %}
+          </div>
+          <div id="host-settings-box" style="display:none; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:0.85rem; margin-bottom:0.85rem;">
+            <div class="imp-section-label">⚙️ {% trans "Match Rules" %}</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(175px, 1fr)); gap:0.65rem;">
+              <div>
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Poison Word Mode" %}</label>
+                <select id="set-poison-mode" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+                  <option value="undercover_blind">🕵️ Undercover Blind (Impostor thinks they are Citizen)</option>
+                  <option value="undercover_informed">🎭 Undercover Informed (Impostor knows Poison Word)</option>
+                  <option value="poisoned_citizen">🍷 Poisoned Citizen ("The Drunk" + Blank Impostor)</option>
+                  <option value="classic_blank">⬜ Classic Blank (Impostor has no word)</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Category" %}</label>
+                <select id="set-category" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+                  {% for cat in categories %}
+                  <option value="{{ cat }}">{{ cat|title }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div>
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Clue Loops / Round" %}</label>
+                <select id="set-clue-loops" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+                  <option value="1">1 Clue per Player</option>
+                  <option value="2">2 Clues per Player</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Max Rounds" %}</label>
+                <input type="number" id="set-max-rounds" min="1" max="20" value="5" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+              </div>
+              <div>
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Turn Timer (s)" %}</label>
+                <input type="number" id="set-turn-timer" min="0" max="300" value="45" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+              </div>
+              <div>
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Last-Chance Steal (s)" %}</label>
+                <input type="number" id="set-steal-timer" min="0" max="60" value="15" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+              </div>
+            </div>
+            <div style="margin-top:0.6rem; display:flex; gap:1rem; flex-wrap:wrap;">
+              <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+                <input type="checkbox" id="set-lethal" checked onchange="saveSettings()"> ☠️ {% trans "Enable Lethal Taboo Poison Word" %}
+              </label>
+              <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+                <input type="checkbox" id="set-custom-deck" checked onchange="saveSettings()"> 🃏 {% trans "Allow Player Custom Pair Deck" %}
+              </label>
+            </div>
+          </div>
+          <button type="button" id="btn-start-game" class="imp-btn imp-btn-green" onclick="sendAction('start_game')" style="display:none; font-size:0.9rem; padding:0.55rem 1.2rem;">🚀 {% trans "Start Match" %}</button>
+        </div>
+
+        <!-- Clue Input Box -->
+        <div id="clue-input-box" style="display:none; background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:0.85rem; margin-bottom:0.85rem;">
+          <div style="font-size:0.84rem; font-weight:700; color:#1e40af; margin-bottom:0.45rem;">🎙️ {% trans "It's your turn! Give a subtle clue:" %}</div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <input type="text" id="clue-input" maxlength="80" placeholder="{% trans 'Type a 1-2 word clue...' %}" onkeydown="if(event.key==='Enter')submitClue();" style="flex:1; min-width:170px; padding:0.45rem 0.7rem; border:1.5px solid #93c5fd; border-radius:8px; font-size:0.88rem;">
+            <button type="button" class="imp-btn imp-btn-primary" onclick="submitClue()">{% trans "Submit Clue" %}</button>
+            <button type="button" class="imp-btn" onclick="sendAction('spoken_clue')">🎙️ {% trans "Spoke Out Loud" %}</button>
+          </div>
+        </div>
+
+        <!-- Voting Panel -->
+        <div id="voting-panel" style="display:none; background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:0.85rem; margin-bottom:0.85rem;">
+          <div style="font-size:0.88rem; font-weight:700; color:#92400e; margin-bottom:0.25rem;">🗳️ {% trans "Vote who you think is the Impostor!" %}</div>
+          <div id="vote-grid" class="imp-vote-grid"></div>
+        </div>
+
+        <!-- Last-Chance Steal Panel -->
+        <div id="steal-panel" style="display:none; background:#fef2f2; border:1.5px solid #f87171; border-radius:10px; padding:0.9rem; margin-bottom:0.85rem;">
+          <div style="font-size:0.92rem; font-weight:700; color:#991b1b; margin-bottom:0.3rem;">⚡ {% trans "LAST-CHANCE IMPOSTOR STEAL!" %}</div>
+          <div id="steal-subtext" style="font-size:0.82rem; color:#7f1d1d; margin-bottom:0.55rem;"></div>
+          <div id="steal-input-row" style="display:none; gap:0.5rem; flex-wrap:wrap;">
+            <input type="text" id="steal-input" maxlength="80" placeholder="{% trans 'Guess the Citizen Word to steal the win...' %}" onkeydown="if(event.key==='Enter')submitSteal();" style="flex:1; min-width:180px; padding:0.45rem 0.7rem; border:1.5px solid #fca5a5; border-radius:8px; font-size:0.88rem;">
+            <button type="button" class="imp-btn imp-btn-danger" onclick="submitSteal()">🎯 {% trans "Steal Win!" %}</button>
+          </div>
+        </div>
+
+        <!-- Reveal Truth Panel -->
+        <div id="reveal-panel" style="display:none; background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:0.95rem; margin-bottom:0.85rem;">
+          <div id="reveal-outcome" style="font-size:1rem; font-weight:800; color:#14532d; margin-bottom:0.65rem;"></div>
+          <div id="reveal-words-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:0.55rem; margin-bottom:0.75rem;"></div>
+          <div id="reveal-votes-list" style="font-size:0.8rem; color:#334155; margin-bottom:0.75rem;"></div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button type="button" id="btn-next-round" class="imp-btn imp-btn-primary" onclick="sendAction('next_round')" style="display:none;">➡️ {% trans "Next Round" %}</button>
+            <button type="button" id="btn-play-again" class="imp-btn imp-btn-green" onclick="sendAction('play_again')" style="display:none;">🔄 {% trans "Back to Lobby / Play Again" %}</button>
+          </div>
+        </div>
+
+        <!-- Clues Feed -->
+        <div id="clues-feed-wrap" style="display:none;">
+          <div class="imp-section-label">💬 {% trans "Round Clues" %}</div>
+          <div id="clues-feed"></div>
+        </div>
+      </div>
+
+      <!-- Room Chat Card -->
+      <div class="imp-card">
+        <div class="imp-section-label">📢 {% trans "Table Discussion & Event Log" %}</div>
+        <div id="chat-box" class="imp-chat-box"></div>
+        <div style="display:flex; gap:0.45rem;">
+          <input type="text" id="chat-input" maxlength="200" placeholder="{% trans 'Discuss clues or accuse suspects...' %}" onkeydown="if(event.key==='Enter')sendChat();" style="flex:1; padding:0.4rem 0.65rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.83rem;">
+          <button type="button" class="imp-btn" onclick="sendChat()">{% trans "Send" %}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div>
+      <div class="imp-card">
+        <div class="imp-section-label">👥 {% trans "Players & Scores" %}</div>
+        <div id="players-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Custom Pair Deck Modal -->
+<div class="imp-modal-backdrop" id="modal-custom-card">
+  <div class="imp-modal">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 style="margin:0; font-size:1.05rem;">🃏 {% trans "Add Secret Custom Pair" %}</h3>
+      <button type="button" class="imp-btn" onclick="closeModal('modal-custom-card')">✕</button>
+    </div>
+    <p style="font-size:0.8rem; color:#475569; margin-bottom:0.85rem;">
+      {% trans "Add a custom Citizens vs Poison Word card to the deck. When your card is drawn, you become the immune Round Director for that single round so you don't spoil it!" %}
+    </p>
+    <div style="margin-bottom:0.65rem;">
+      <label style="font-size:0.8rem; font-weight:600;">🟢 {% trans "Citizen Word (Majority)" %}</label>
+      <input type="text" id="custom-citizen" maxlength="60" placeholder="e.g. Espresso" style="width:100%; padding:0.4rem; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+    </div>
+    <div style="margin-bottom:0.65rem;">
+      <label style="font-size:0.8rem; font-weight:600;">☠️ {% trans "Poison Word (Impostor / Drunk)" %}</label>
+      <input type="text" id="custom-poison" maxlength="60" placeholder="e.g. Matcha" style="width:100%; padding:0.4rem; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+    </div>
+    <div style="margin-bottom:0.65rem;">
+      <label style="font-size:0.8rem; font-weight:600;">🧨 {% trans "Lethal Taboo Word (Optional instant elimination trap)" %}</label>
+      <input type="text" id="custom-lethal" maxlength="60" placeholder="e.g. Caffeine" style="width:100%; padding:0.4rem; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+    </div>
+    <div style="margin-bottom:0.85rem;">
+      <label style="font-size:0.8rem; font-weight:600;">{% trans "Category" %}</label>
+      <input type="text" id="custom-cat" maxlength="24" value="custom" style="width:100%; padding:0.4rem; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box;">
+    </div>
+    <button type="button" class="imp-btn imp-btn-primary" onclick="submitCustomPair()">➕ {% trans "Add to Deck" %}</button>
+  </div>
+</div>
+
+<!-- Invite QR Modal -->
+<div class="imp-modal-backdrop" id="modal-invite-qr">
+  <div class="imp-modal" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 style="margin:0; font-size:1.05rem;">📲 {% trans "Invite Players" %}</h3>
+      <button type="button" class="imp-btn" onclick="closeModal('modal-invite-qr')">✕</button>
+    </div>
+    {% if join_qr %}<img src="{{ join_qr }}" alt="Room QR" style="max-width:210px; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:0.65rem;">{% endif %}
+    <div style="font-size:0.8rem; word-break:break-all; background:#f8fafc; padding:0.5rem; border-radius:6px; border:1px solid #e2e8f0;">{{ join_url }}</div>
+  </div>
+</div>
+
+<!-- Player Profile / Reconnect QR Modal -->
+<div class="imp-modal-backdrop" id="modal-profile">
+  <div class="imp-modal" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 style="margin:0; font-size:1.05rem;">🪪 {{ player_name }}</h3>
+      <button type="button" class="imp-btn" onclick="closeModal('modal-profile')">✕</button>
+    </div>
+    <p style="font-size:0.8rem; color:#475569;">{% trans "Scan this personal QR code to switch devices without losing your secret card:" %}</p>
+    {% if player_qr %}<img src="{{ player_qr }}" alt="Reconnect QR" style="max-width:190px; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:0.65rem;">{% endif %}
+    <div style="margin-top:0.5rem;">
+      <button type="button" class="imp-btn" onclick="sendAction('toggle_spectator'); closeModal('modal-profile');">👀 {% trans "Toggle Spectator Mode" %}</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CODE = "{{ room.code|escapejs }}";
+const MY_NAME = "{{ player_name|escapejs }}";
+const MY_TOKEN = "{{ player_token|escapejs }}";
+const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
+let state = {{ initial_state_json|safe }};
+let cardBlurred = false;
+let ws = null;
+let countdownTimer = null;
+
+function $(id) { return document.getElementById(id); }
+function escapeHtml(t) {
+  return String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function openModal(id) { const el = $(id); if (el) el.classList.add('show'); }
+function closeModal(id) { const el = $(id); if (el) el.classList.remove('show'); }
+
+function showError(msg) {
+  const b = $('error-banner');
+  if (!b) return;
+  b.textContent = msg;
+  b.style.display = 'block';
+  setTimeout(() => { b.style.display = 'none'; }, 5500);
+}
+
+function toggleCardBlur() {
+  cardBlurred = !cardBlurred;
+  const el = $('card-word-text');
+  const btn = $('btn-toggle-peek');
+  if (el) el.classList.toggle('blurred', cardBlurred);
+  if (btn) btn.textContent = cardBlurred ? '👁️ Show Word' : '🙈 Hide Word';
+}
+
+function connectWs() {
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  ws = new WebSocket(`${proto}//${location.host}/ws/impostor/${CODE}/`);
+  ws.onopen = () => {
+    ws.send(JSON.stringify({
+      action: 'join',
+      name: MY_NAME,
+      token: MY_TOKEN,
+      admin_token: ADMIN_TOKEN
+    }));
+  };
+  ws.onmessage = (ev) => {
+    const d = JSON.parse(ev.data);
+    if (d.type === 'error') {
+      showError(d.msg);
+    } else if (d.type === 'state') {
+      state = d;
+      renderState();
+    }
+  };
+  ws.onclose = () => {
+    setTimeout(connectWs, 1800);
+  };
+}
+
+function sendAction(action, extra) {
+  if (!ws || ws.readyState !== WebSocket.OPEN) return;
+  ws.send(JSON.stringify(Object.assign({action: action}, extra || {})));
+}
+
+function saveSettings() {
+  sendAction('update_settings', {
+    settings: {
+      poison_mode: $('set-poison-mode').value,
+      category: $('set-category').value,
+      clue_loops: parseInt($('set-clue-loops').value, 10) || 1,
+      max_rounds: parseInt($('set-max-rounds').value, 10) || 5,
+      turn_timer: parseInt($('set-turn-timer').value, 10) || 45,
+      steal_timer: parseInt($('set-steal-timer').value, 10) || 0,
+      enable_lethal_word: $('set-lethal').checked,
+      allow_custom_deck: $('set-custom-deck').checked,
+    }
+  });
+}
+
+function submitClue() {
+  const inp = $('clue-input');
+  const val = (inp.value || '').trim();
+  if (!val) return;
+  sendAction('submit_clue', {clue: val});
+  inp.value = '';
+}
+
+function submitSteal() {
+  const inp = $('steal-input');
+  const val = (inp.value || '').trim();
+  if (!val) return;
+  sendAction('submit_steal_guess', {guess: val});
+  inp.value = '';
+}
+
+function submitCustomPair() {
+  const c = ($('custom-citizen').value || '').trim();
+  const p = ($('custom-poison').value || '').trim();
+  const l = ($('custom-lethal').value || '').trim();
+  const cat = ($('custom-cat').value || 'custom').trim();
+  if (!c || !p) {
+    showError('Enter both Citizen Word and Poison Word.');
+    return;
+  }
+  sendAction('add_custom_pair', {citizen_word: c, poison_word: p, lethal_word: l, category: cat});
+  $('custom-citizen').value = '';
+  $('custom-poison').value = '';
+  $('custom-lethal').value = '';
+  closeModal('modal-custom-card');
+}
+
+function sendChat() {
+  const inp = $('chat-input');
+  const val = (inp.value || '').trim();
+  if (!val) return;
+  sendAction('chat', {msg: val});
+  inp.value = '';
+}
+
+function toggleTimerPause() {
+  const paused = Boolean(state && state.timer && state.timer.paused);
+  sendAction('timer_control', {command: paused ? 'resume' : 'pause'});
+}
+
+function renderState() {
+  const s = state;
+  const phase = s.phase || 'lobby';
+  const me = s.me || {};
+  const isAdmin = Boolean(me.is_admin);
+  const phaseNames = {
+    lobby: '⏳ Lobby',
+    clue: `🕵️ Clues (${s.round_num}/${s.max_rounds})`,
+    voting: `🗳️ Voting (${s.round_num}/${s.max_rounds})`,
+    last_chance: '⚡ Last-Chance Steal',
+    reveal: `🎭 Reveal (${s.round_num}/${s.max_rounds})`,
+    gameover: '🏆 Game Over',
+  };
+  $('phase-badge').textContent = phaseNames[phase] || phase;
+  $('deck-count').textContent = s.custom_deck_count || 0;
+
+  // Timer badge
+  const tb = $('timer-badge');
+  if (s.timer && s.timer.remaining > 0 && (phase === 'clue' || phase === 'voting' || phase === 'last_chance')) {
+    tb.style.display = 'inline-block';
+    tb.textContent = (s.timer.paused ? '⏸️ ' : '⏱️ ') + `${s.timer.remaining}s`;
+  } else {
+    tb.style.display = 'none';
+  }
+
+  // Secret card
+  const cardBox = $('secret-card-box');
+  if (s.my_card) {
+    cardBox.style.display = 'block';
+    $('card-role-label').textContent = s.my_card.role_label || '🔒 Secret Word';
+    $('card-category-pill').textContent = `Category: ${(s.my_card.category || s.current_category || 'all').toUpperCase()}`;
+    $('card-word-text').textContent = s.my_card.word ? s.my_card.word : '⬜ NO WORD — BLUFF!';
+    const notes = [];
+    if (s.my_card.lethal_active) notes.push('☠️ Lethal Taboo Poison Word is active — avoid obvious giveaways!');
+    if (s.my_card.lethal_word_preview) notes.push(`Lethal Word: ${s.my_card.lethal_word_preview}`);
+    $('card-sub-note').textContent = notes.join(' · ');
+  } else {
+    cardBox.style.display = 'none';
+  }
+
+  // Host controls (Zero-Spoiler!)
+  $('gm-toolbar').style.display = (isAdmin && phase !== 'lobby') ? 'block' : 'none';
+  $('btn-blind-redraw').style.display = (isAdmin && s.can_blind_redraw) ? 'inline-flex' : 'none';
+  $('btn-skip-turn').style.display = (isAdmin && phase === 'clue') ? 'inline-flex' : 'none';
+  $('btn-open-vote').style.display = (isAdmin && phase === 'clue') ? 'inline-flex' : 'none';
+  $('btn-tally-votes').style.display = (isAdmin && phase === 'voting') ? 'inline-flex' : 'none';
+  $('btn-timer-pause').style.display = (isAdmin && (phase === 'clue' || phase === 'voting' || phase === 'last_chance')) ? 'inline-flex' : 'none';
+  $('btn-timer-pause').textContent = (s.timer && s.timer.paused) ? '▶️ Resume' : '⏸️ Pause';
+  $('btn-timer-add').style.display = $('btn-timer-pause').style.display;
+  $('btn-end-game').style.display = (isAdmin && phase !== 'lobby' && phase !== 'gameover') ? 'inline-flex' : 'none';
+
+  // Sync lobby settings controls
+  if (s.settings) {
+    if ($('set-poison-mode')) $('set-poison-mode').value = s.settings.poison_mode || 'undercover_blind';
+    if ($('set-category')) $('set-category').value = s.settings.category || 'all';
+    if ($('set-clue-loops')) $('set-clue-loops').value = String(s.settings.clue_loops || 1);
+    if ($('set-max-rounds')) $('set-max-rounds').value = String(s.settings.max_rounds || 5);
+    if ($('set-turn-timer')) $('set-turn-timer').value = String(s.settings.turn_timer ?? 45);
+    if ($('set-steal-timer')) $('set-steal-timer').value = String(s.settings.steal_timer ?? 15);
+    if ($('set-lethal')) $('set-lethal').checked = Boolean(s.settings.enable_lethal_word);
+    if ($('set-custom-deck')) $('set-custom-deck').checked = Boolean(s.settings.allow_custom_deck);
+  }
+
+  // Phase panels visibility
+  $('lobby-panel').style.display = phase === 'lobby' ? 'block' : 'none';
+  $('host-settings-box').style.display = (phase === 'lobby' && isAdmin) ? 'block' : 'none';
+  $('btn-start-game').style.display = (phase === 'lobby' && isAdmin) ? 'inline-flex' : 'none';
+
+  $('clue-input-box').style.display = (phase === 'clue' && me.is_turn && !me.is_poisoned) ? 'block' : 'none';
+  $('voting-panel').style.display = (phase === 'voting') ? 'block' : 'none';
+  $('steal-panel').style.display = (phase === 'last_chance') ? 'block' : 'none';
+  $('reveal-panel').style.display = (phase === 'reveal' || phase === 'gameover') ? 'block' : 'none';
+  $('clues-feed-wrap').style.display = (s.clues && s.clues.length) ? 'block' : 'none';
+
+  // Status headline
+  if (phase === 'lobby') {
+    $('status-headline').textContent = `⏳ Lobby — ${(s.players || []).length} players ready (need 3+)`;
+  } else if (phase === 'clue') {
+    $('status-headline').textContent = me.is_turn
+      ? '🎙️ Your turn to drop a clue!'
+      : `⏳ Waiting for ${s.current_player || '?'}'s clue...`;
+  } else if (phase === 'voting') {
+    const votedCount = (s.players || []).filter(p => p.has_voted).length;
+    $('status-headline').textContent = `🗳️ Discussion & Suspicion Vote (${votedCount} voted)`;
+  } else if (phase === 'last_chance') {
+    $('status-headline').textContent = '⚡ Caught Impostor attempting Last-Chance Steal!';
+  } else if (phase === 'reveal') {
+    $('status-headline').textContent = `🎭 Round ${s.round_num}/${s.max_rounds} Reveal`;
+  } else {
+    $('status-headline').textContent = '🏆 Final Match Standings';
+  }
+
+  // Render Vote Grid
+  if (phase === 'voting') {
+    const candidates = (s.players || []).filter(p => !p.is_spectator && !p.is_poisoned && !p.is_director && p.id !== me.id);
+    if (!s.can_vote) {
+      $('vote-grid').innerHTML = '<div style="font-size:0.82rem;color:#92400e;">Spectating / Poisoned this round.</div>';
+    } else {
+      $('vote-grid').innerHTML = candidates.map(c => `
+        <button type="button" class="imp-vote-btn ${s.my_vote === c.id ? 'selected' : ''}" onclick="sendAction('cast_vote', {target_id:'${c.id}'})">
+          🎯 ${escapeHtml(c.name)} ${s.my_vote === c.id ? '✓' : ''}
+        </button>
+      `).join('');
+    }
+  }
+
+  // Render Last-Chance Steal
+  if (phase === 'last_chance') {
+    $('steal-input-row').style.display = s.can_steal ? 'flex' : 'none';
+    $('steal-subtext').textContent = s.can_steal
+      ? 'You were caught! Type the exact Citizen Word before time runs out to steal +3 points!'
+      : 'Waiting to see if the caught Impostor can deduce the Citizen Word...';
+  }
+
+  // Render Reveal
+  if ((phase === 'reveal' || phase === 'gameover') && s.reveal) {
+    const r = s.reveal;
+    $('reveal-outcome').textContent = r.summary || 'Round Complete';
+    $('reveal-words-grid').innerHTML = `
+      <div style="background:#fff;padding:0.55rem;border-radius:8px;border:1px solid #bbf7d0;">
+        <div style="font-size:0.72rem;color:#64748b;font-weight:700;">🟢 CITIZEN WORD</div>
+        <div style="font-size:1rem;font-weight:800;">${escapeHtml(r.citizen_word || '')}</div>
+      </div>
+      <div style="background:#fff;padding:0.55rem;border-radius:8px;border:1px solid #fde68a;">
+        <div style="font-size:0.72rem;color:#64748b;font-weight:700;">☠️ POISON WORD</div>
+        <div style="font-size:1rem;font-weight:800;">${escapeHtml(r.poison_word || '—')}</div>
+      </div>
+      <div style="background:#fff;padding:0.55rem;border-radius:8px;border:1px solid #fca5a5;">
+        <div style="font-size:0.72rem;color:#64748b;font-weight:700;">🧨 LETHAL TABOO</div>
+        <div style="font-size:1rem;font-weight:800;">${escapeHtml(r.lethal_word || 'Off')}</div>
+      </div>
+      <div style="background:#fff;padding:0.55rem;border-radius:8px;border:1px solid #c7d2fe;">
+        <div style="font-size:0.72rem;color:#64748b;font-weight:700;">🕵️ IMPOSTOR</div>
+        <div style="font-size:1rem;font-weight:800;">${escapeHtml(r.impostor_name || '?')}</div>
+      </div>
+    `;
+    const voteStr = (r.votes || []).map(v => `${escapeHtml(v.voter)} → ${escapeHtml(v.target)}`).join(' · ');
+    const drunkStr = r.poisoned_citizen_name ? `<div>🍷 <strong>Poisoned Citizen ("The Drunk"):</strong> ${escapeHtml(r.poisoned_citizen_name)}</div>` : '';
+    const stealStr = r.steal_guess ? `<div>⚡ <strong>Steal Guess:</strong> "${escapeHtml(r.steal_guess)}" (${r.steal_success ? 'SUCCESS!' : 'FAILED'})</div>` : '';
+    $('reveal-votes-list').innerHTML = `${drunkStr}${stealStr}${voteStr ? `<div>🗳️ <strong>Votes:</strong> ${voteStr}</div>` : ''}`;
+    $('btn-next-round').style.display = (isAdmin && phase === 'reveal') ? 'inline-flex' : 'none';
+    $('btn-next-round').textContent = (s.round_num >= s.max_rounds) ? '🏆 Finalize Match' : '➡️ Next Round';
+    $('btn-play-again').style.display = (isAdmin && phase === 'gameover') ? 'inline-flex' : 'none';
+  }
+
+  // Clues Feed
+  $('clues-feed').innerHTML = (s.clues || []).map(c => `
+    <div class="imp-clue-row ${c.is_lethal ? 'lethal' : ''}">
+      <span><strong>${escapeHtml(c.player_name)}</strong> <span style="font-size:0.72rem;color:#64748b;">(L${c.loop})</span></span>
+      <span>${escapeHtml(c.text)}</span>
+    </div>
+  `).join('');
+
+  // Players Sidebar
+  $('players-list').innerHTML = (s.players || []).map(p => {
+    const badges = [];
+    if (p.is_admin) badges.push('👑');
+    if (p.is_director) badges.push('🎬');
+    if (p.is_spectator) badges.push('👀');
+    if (p.is_poisoned) badges.push('☠️');
+    if (p.has_voted && phase === 'voting') badges.push('✓');
+    const kickBtn = (isAdmin && p.id !== me.id)
+      ? `<button type="button" onclick="sendAction('kick_player',{player_id:'${p.id}'})" title="Remove" style="border:none;background:none;color:#94a3b8;cursor:pointer;font-size:0.75rem;">✕</button>`
+      : '';
+    return `
+      <div class="imp-player-row ${p.is_turn ? 'turn' : ''} ${p.is_poisoned ? 'poisoned' : ''}">
+        <span style="display:flex;align-items:center;gap:0.35rem;min-width:0;">
+          <span style="width:8px;height:8px;border-radius:50%;background:${p.connected ? '#22c55e' : '#cbd5e1'};display:inline-block;"></span>
+          <span>${escapeHtml(p.name)}</span>
+          <span>${badges.join(' ')}</span>
+        </span>
+        <span style="display:flex;align-items:center;gap:0.35rem;">
+          <strong>${p.score}pt</strong>${kickBtn}
+        </span>
+      </div>
+    `;
+  }).join('');
+
+  // Chat log
+  const cb = $('chat-box');
+  cb.innerHTML = (s.chat_log || []).map(c =>
+    `<div class="imp-chat-item"><strong>${escapeHtml(c.sender)}:</strong> ${escapeHtml(c.text)}</div>`
+  ).join('');
+  cb.scrollTop = cb.scrollHeight;
+}
+
+renderState();
+connectWs();
+if (!countdownTimer) {
+  countdownTimer = setInterval(() => {
+    if (!state || !state.timer || state.timer.paused || state.timer.remaining <= 0) return;
+    if (!['clue', 'voting', 'last_chance'].includes(state.phase)) return;
+    state.timer.remaining -= 1;
+    const tb = $('timer-badge');
+    if (tb) tb.textContent = `⏱️ ${state.timer.remaining}s`;
+    if (state.timer.remaining === 0 && state.phase === 'last_chance' && state.can_steal) {
+      sendAction('steal_timeout');
+    }
+  }, 1000);
+}
+</script>
+{% endblock %}

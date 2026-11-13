@@ -4,6 +4,18 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v151] - 2026-11-13
+
+### Added
+- **Room Language Option & Content Capability Badges (`gamerooms/models.py`, `gamerooms/language_support.py`, `gamerooms/views.py`, `templates/gamerooms/`)**:
+  - Added `Room.language` (`CharField`, migration `gamerooms/migrations/0004_room_language.py`) plus `get_game_language_support()` classifying `(game_type, language)` pairs into **Full Content + UI** (English + 62 Wiktionary-covered languages for Emojinary & Word Impostor; 9 localized role packs for Lupus) vs **UI Only (English Game Words)**.
+  - Added `game_type` (`emojinary`, `impostor`) and `language` selectors with live capability badge updates (`#lang-support-badge`) in `templates/gamerooms/room_create.html`, language capability badges on `/games/` (`room_list.html`) and join pages (`room_name.html`), and localized word propagation (`localized_word`) into `emojinary/game_state.py`.
+- **Advanced Word Impostor Party Game (`impostor/`, `templates/impostor/game.html`)**:
+  - Built real-time Channels multiplayer engine (`impostor/game_state.py`, `impostor/consumers.py`, `/ws/impostor/<code>/`) supporting **86 curated + Wiktionary-localized `(citizen_word, poison_word, lethal_word, category)` pairs** (`impostor/word_pairs.py`).
+  - Added 4 configurable **Poison Word modes**: **Undercover Blind** (Impostor sees related Poison Word without knowing their role), **Undercover Informed**, **Poisoned Citizen ("The Drunk")** (one innocent Citizen sees the Poison Word identically to a normal Citizen card while the Impostor gets a blank card), and **Classic Blank**.
+  - Added **Lethal Taboo Poison Word Hazard** (`enable_lethal_word`) eliminating anyone whose clue names the forbidden word, direct Citizen-word anti-spoiler blocking, and a **15-second Last-Chance Impostor Steal** guess (`submit_steal_guess`) when the Impostor is voted out.
+  - Added zero-spoiler **Participating Game Master** support (Host plays in turn rotation with strictly stripped server state + non-spoiling `Blind Redraw Pair`, `Skip Turn`, `Start Voting Early`, and timer controls) plus **Custom Pair Deck ("Author-for-a-Round")** making card authors immune `🎬 Round Director` for their single round.
+
 ## [v150] - 2026-11-13
 
 ### Added
