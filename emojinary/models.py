@@ -10,6 +10,11 @@ class EmojinaryWord(models.Model):
         SONG = "song", "Song"
         TVSHOW = "tvshow", "TV Show"
         THING = "thing", "Thing"
+        ANIMAL = "animal", "Animal"
+        FOOD = "food", "Food & Drink"
+        PERSON = "person", "Person & Character"
+        PLACE = "place", "Place & Landmark"
+        ACTION = "action", "Action & Charade"
 
     text = models.CharField(max_length=200)
     category = models.CharField(max_length=10, choices=Category.choices, default=Category.THING)

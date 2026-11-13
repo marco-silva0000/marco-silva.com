@@ -4,6 +4,19 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v148] - 2026-11-13
+
+### Added
+- **Open-Source & Public-Domain Wordlists Integration for Emojinary & Pictionary (`6,949` Emojinary entries + `4,782` Pictionary entries)**:
+  - Audited and integrated 5 MIT / CC0-1.0 datasets via `scripts/build_wordlists.py` into `emojinary/data/wordlists.json` (with full attribution in `emojinary/data/LICENSES.md`):
+    - `dariusk/corpora` (CC0)
+    - `nick-aschenbach/game-words` (MIT)
+    - `imsky/wordlists` (MIT)
+    - `engichang1467/word-pictionary-list` (MIT)
+    - Wikidata Query Service (CC0) — Oscar-winning movies, Emmy-winning TV shows, Grammy-winning songs, and UNESCO World Heritage landmarks.
+  - Expanded `EmojinaryWord.Category` (`emojinary/models.py`, migration `0002_alter_emojinaryword_category`) and room settings selector (`templates/emojinary/game.html`) to 10 categories: `movie`, `tvshow`, `song`, `phrase`, `thing`, `animal`, `food`, `person`, `place`, and `action`.
+  - Upgraded `seed_emojinary` (`emojinary/management/commands/seed_emojinary.py`) to bulk-seed all curated + external entries idempotently, and upgraded `tools/pictionary.py` to draw from the curated open-source `noun`, `verb`, `adjective`, and `sentence` pools (with `wonderwords` fallback).
+
 ## [v147] - 2026-11-13
 
 ### Changed

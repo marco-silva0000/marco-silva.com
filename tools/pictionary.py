@@ -1,11 +1,29 @@
+import json
 import random
+from pathlib import Path
 
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 from wonderwords import RandomSentence, RandomWord
 
 rw = RandomWord()
 rs = RandomSentence()
+
+_WORDLIST_CACHE: dict | None = None
+
+
+def _load_wordlists() -> dict:
+    global _WORDLIST_CACHE
+    if _WORDLIST_CACHE is None:
+        path = Path(settings.BASE_DIR) / "emojinary" / "data" / "wordlists.json"
+        if path.exists():
+            with open(path, "r", encoding="utf-8") as f:
+                _WORDLIST_CACHE = json.load(f).get("pictionary", {})
+        else:
+            _WORDLIST_CACHE = {}
+    return _WORDLIST_CACHE
+
 
 HARD_WORDS = [
     "democracy",
@@ -56,20 +74,33 @@ def pictionary_word(request):
     category = request.GET.get("cat", "noun")
     mode = request.GET.get("mode", "word")
 
+    pools = _load_wordlists()
+    word = None
+
     if mode == "sentence":
-        word = rs.sentence()
-    elif difficulty == "hard":
-        cats = CATEGORY_MAP.get(category, ["noun"])
-        try:
-            word = rw.word(include_categories=cats, word_min_length=8, word_max_length=20)
-        except Exception:
-            word = random.choice(HARD_WORDS)
+        sentences = pools.get("sentence") or []
+        word = random.choice(sentences) if sentences and random.random() < 0.7 else rs.sentence()
     else:
-        cats = CATEGORY_MAP.get(category, ["noun"])
-        if difficulty == "easy":
-            word = rw.word(include_categories=cats, word_min_length=3, word_max_length=6)
+        pos = random.choice(["noun", "verb", "adjective"]) if category == "any" else category
+        if pos not in ("noun", "verb", "adjective"):
+            pos = "noun"
+        diff_pool = pools.get(pos, {}).get(difficulty, [])
+        if diff_pool:
+            word = random.choice(diff_pool)
+
+    if not word:
+        if difficulty == "hard":
+            cats = CATEGORY_MAP.get(category, ["noun"])
+            try:
+                word = rw.word(include_categories=cats, word_min_length=8, word_max_length=20)
+            except Exception:
+                word = random.choice(HARD_WORDS)
         else:
-            word = rw.word(include_categories=cats, word_min_length=5, word_max_length=12)
+            cats = CATEGORY_MAP.get(category, ["noun"])
+            if difficulty == "easy":
+                word = rw.word(include_categories=cats, word_min_length=3, word_max_length=6)
+            else:
+                word = rw.word(include_categories=cats, word_min_length=5, word_max_length=12)
 
     if request.headers.get("HX-Request"):
         return HttpResponse(f'<span style="font-size: 1.5rem; font-weight: 600;">{word}</span>')

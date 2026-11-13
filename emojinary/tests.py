@@ -456,3 +456,16 @@ class TestEmojinaryWebSocketModesAndReplay:
             await c2.disconnect()
 
         _run()
+
+
+@pytest.mark.django_db
+def test_seed_emojinary_loads_all_categories():
+    from django.core.management import call_command
+
+    from emojinary.models import EmojinaryWord
+
+    call_command("seed_emojinary")
+    assert EmojinaryWord.objects.count() > 3000
+    present_categories = set(EmojinaryWord.objects.values_list("category", flat=True).distinct())
+    expected = {"movie", "tvshow", "song", "phrase", "thing", "animal", "food", "person", "place", "action"}
+    assert expected.issubset(present_categories)

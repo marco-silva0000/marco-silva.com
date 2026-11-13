@@ -1,6 +1,11 @@
+import json
+from pathlib import Path
+
 from django.core.management.base import BaseCommand
 
 from emojinary.models import EmojinaryWord
+
+WORDLIST_DATA_PATH = Path(__file__).resolve().parent.parent.parent / "data" / "wordlists.json"
 
 WORDS = [
     # Movies
@@ -93,14 +98,31 @@ WORDS = [
 
 
 class Command(BaseCommand):
-    help = "Seed the emojinary word database"
+    help = "Seed the emojinary word database from built-in curated words and open-source wordlists"
 
     def handle(self, *args, **options):
-        created = 0
-        for text, category, difficulty in WORDS:
-            _, was_created = EmojinaryWord.objects.get_or_create(
-                text=text, defaults={"category": category, "difficulty": difficulty}
-            )
-            if was_created:
-                created += 1
-        self.stdout.write(self.style.SUCCESS(f"Seeded {created} words ({EmojinaryWord.objects.count()} total)"))
+        combined: list[tuple[str, str, int]] = list(WORDS)
+        if WORDLIST_DATA_PATH.exists():
+            with open(WORDLIST_DATA_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for item in data.get("emojinary", []):
+                if isinstance(item, (list, tuple)) and len(item) == 3:
+                    combined.append((str(item[0]), str(item[1]), int(item[2])))
+
+        # Deduplicate case-insensitively per category and skip already-seeded entries
+        existing = {(t.lower(), c) for t, c in EmojinaryWord.objects.values_list("text", "category")}
+        to_create = []
+        seen = set(existing)
+        for text, category, difficulty in combined:
+            key = (text.strip().lower(), category)
+            if not key[0] or key in seen:
+                continue
+            seen.add(key)
+            to_create.append(EmojinaryWord(text=text.strip(), category=category, difficulty=difficulty))
+
+        if to_create:
+            EmojinaryWord.objects.bulk_create(to_create, batch_size=1000)
+
+        self.stdout.write(
+            self.style.SUCCESS(f"Seeded {len(to_create)} new words ({EmojinaryWord.objects.count()} total)")
+        )
