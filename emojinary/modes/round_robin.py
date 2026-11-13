@@ -14,6 +14,7 @@ from ..game_state import (
     pick_unused_word,
     player_list,
     record_round_to_history,
+    sanitize_emoji_only,
     save_game,
     set_phase_timer,
     sync_room_db_status,
@@ -94,7 +95,7 @@ class RoundRobinMixin:
         await self.broadcast_sync()
 
     async def _rr_emoji(self, state: dict, content: dict):
-        emoji_str = (content.get("emoji") or "").strip()
+        emoji_str = sanitize_emoji_only(content.get("emoji"))
         if state.get("mode") == "collective" and state.get("phase") == "prep":
             q = state.setdefault("collective_queue", {}).get(self.player_id)
             if q and not q.get("submitted"):
@@ -171,9 +172,18 @@ class RoundRobinMixin:
         cp = current_player_id(state)
         if state.get("phase") != "emoji" or (self.player_id != cp and not self._is_player_admin(state)):
             return
-        if content and content.get("emoji"):
-            state["emoji_clue"] = content["emoji"].strip()
-        if not state.get("emoji_clue", "").strip():
+        if content and content.get("emoji") is not None:
+            raw_emoji = (content.get("emoji") or "").strip()
+            clean_emoji = sanitize_emoji_only(raw_emoji)
+            if raw_emoji and not clean_emoji:
+                await self.send_json(
+                    {"type": "error", "msg": "Only emojis are allowed! Pick at least one emoji before revealing!"}
+                )
+                return
+            if clean_emoji:
+                state["emoji_clue"] = clean_emoji
+        state["emoji_clue"] = sanitize_emoji_only(state.get("emoji_clue", ""))
+        if not state["emoji_clue"]:
             await self.send_json({"type": "error", "msg": "Pick at least one emoji before revealing!"})
             return
 
@@ -207,8 +217,11 @@ class RoundRobinMixin:
         cp = current_player_id(state)
         if state.get("phase") != "guess" or self.player_id != cp:
             return
-        extra_emoji = (content.get("emoji") or "").strip()
+        raw_extra = (content.get("emoji") or "").strip()
+        extra_emoji = sanitize_emoji_only(raw_extra)
         if not extra_emoji:
+            if raw_extra:
+                await self.send_json({"type": "error", "msg": "Only emojis are allowed in hints!"})
             return
 
         hints = state.setdefault("emoji_hints", [])
@@ -514,9 +527,18 @@ class RoundRobinMixin:
         q = state.get("collective_queue", {}).get(self.player_id)
         if not q or q.get("submitted"):
             return
-        if content and content.get("emoji"):
-            q["emoji_clue"] = content["emoji"].strip()
-        if not q.get("emoji_clue", "").strip():
+        if content and content.get("emoji") is not None:
+            raw_emoji = (content.get("emoji") or "").strip()
+            clean_emoji = sanitize_emoji_only(raw_emoji)
+            if raw_emoji and not clean_emoji:
+                await self.send_json(
+                    {"type": "error", "msg": "Only emojis are allowed! Pick at least one emoji before locking in!"}
+                )
+                return
+            if clean_emoji:
+                q["emoji_clue"] = clean_emoji
+        q["emoji_clue"] = sanitize_emoji_only(q.get("emoji_clue", ""))
+        if not q["emoji_clue"]:
             await self.send_json({"type": "error", "msg": "Pick at least one emoji before locking in!"})
             return
 

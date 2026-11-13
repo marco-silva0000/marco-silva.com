@@ -12,6 +12,7 @@ import uuid
 from pathlib import Path
 from typing import Any, Optional
 
+import emoji
 import redis
 
 _redis = None
@@ -50,6 +51,13 @@ def get_word_lexicon(word: Optional[str]) -> dict[str, Any]:
         return {}
     key = word.strip().lower()
     return _LEXICON_CACHE.get(key) or DEFAULT_LEXICON_FALLBACK.get(key, {})
+
+
+def sanitize_emoji_only(text: Optional[str]) -> str:
+    """Extract only valid Unicode emoji grapheme clusters, stripping all regular text/letters/numbers."""
+    if not text:
+        return ""
+    return "".join(item["emoji"] for item in emoji.emoji_list(str(text)))
 
 
 DEFAULT_SETTINGS = {

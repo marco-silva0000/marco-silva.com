@@ -4,6 +4,14 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v150] - 2026-11-13
+
+### Added
+- **Mobile-Friendly Emoji Input Macro, Complete 12-Category Emoji Keyboard & Multilingual/Synonym/Typo Search (`emojinary/`, `templates/emojinary/game.html`)**:
+  - Removed `readonly` from `#emoji-field` so players can type directly with native iOS/Android/desktop emoji keyboards while a client-side grapheme input macro (`handleEmojiFieldInput`) and server-side `sanitize_emoji_only()` enforcement strip any regular text, letters, numbers, or punctuation (displaying inline macro feedback `#emoji-macro-feedback` and returning WebSocket errors for text-only submissions).
+  - Expanded `EMOJIS` in `templates/emojinary/game.html` to 12 categories (`1,190` emojis) adding **Crown & Clothing (`👑`)**, **Symbols/Keycaps/Arrows/Shapes (`🔣`)**, and **Country & Pride Flags (`🏳️`)**, and fixed `renderPage()` grapheme extraction via `Intl.Segmenter` so variation-selector symbols (`❤️`, `⚠️`, `♻️`, `✈️`), keycaps (`0️⃣`–`9️⃣`, `#️⃣`, `*️⃣`), ZWJ families, and regional-indicator flags render intact.
+  - Integrated `muan/emojilib` (`emojinary/data/emoji_keywords.json`, MIT License attributed in `emojinary/data/LICENSES.md`), `emoji`'s 14 built-in CLDR languages, Wiktionary's 64-language lexicon (`emojinary/data/wiktionary_lexicon.json`), curated concept synonyms, ISO country codes (`pt`, `gr`, etc.), and `difflib` misspelling tolerance into `emojinary/emoji_search.py`.
+
 ## [v149] - 2026-11-13
 
 ### Added

@@ -275,7 +275,7 @@
             🎨 {% trans "Build Your Emoji Clue:" %}
           </div>
           <div style="display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;">
-            <input type="text" id="emoji-field" readonly placeholder="👈 {% trans 'Tap emojis below...' %}" style="flex:1;min-width:160px;font-size:1.5rem;padding:0.35rem 0.6rem;border:1.5px solid #cbd5e1;border-radius:8px;background:#fff;">
+            <input type="text" id="emoji-field" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="text" oninput="handleEmojiFieldInput(event)" oncompositionend="handleEmojiFieldInput()" onkeydown="if(event.key==='Enter'){event.preventDefault();triggerPrimaryEmojiSubmit();}" placeholder="⌨️ {% trans 'Use your emoji keyboard or tap emojis below...' %}" style="flex:1;min-width:160px;font-size:1.5rem;padding:0.35rem 0.6rem;border:1.5px solid #cbd5e1;border-radius:8px;background:#fff;">
             <button type="button" class="ej-btn" onclick="backspaceEmoji()" title="{% trans 'Backspace' %}">⌫</button>
             <button type="button" class="ej-btn" onclick="clearEmoji()">{% trans "clear" %}</button>
             <button type="button" class="ej-btn ej-btn-primary" id="btn-reveal-emoji" onclick="revealEmoji()">{% trans "reveal" %}</button>
@@ -283,8 +283,9 @@
             <button type="button" class="ej-btn ej-btn-primary" id="btn-submit-bg" onclick="submitBGEmoji()" style="display:none;">🎨 {% trans "Submit" %}</button>
             <button type="button" class="ej-btn" id="btn-skip-word" onclick="skipWord()" style="color:var(--ej-muted);">{% trans "skip" %}</button>
           </div>
+          <div id="emoji-macro-feedback" style="display:none;font-size:0.75rem;color:#dc2626;font-weight:600;margin-top:0.25rem;">🚫 {% trans "Only emojis allowed — text characters were ignored." %}</div>
           <div style="margin-top:0.55rem;">
-            <input type="text" id="emoji-search-input" placeholder="🔍 {% trans 'Search emoji by name (e.g. fire, crown, heart)...' %}" oninput="searchEmoji(this.value)" style="width:100%;padding:0.4rem 0.65rem;font-size:0.84rem;border:1px solid var(--ej-border);border-radius:8px;box-sizing:border-box;">
+            <input type="text" id="emoji-search-input" placeholder="🔍 {% trans 'Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)...' %}" oninput="searchEmoji(this.value)" style="width:100%;padding:0.4rem 0.65rem;font-size:0.84rem;border:1px solid var(--ej-border);border-radius:8px;box-sizing:border-box;">
             <div id="emoji-search-results"></div>
           </div>
           <div class="emoji-pages" id="emoji-pages"></div>
@@ -499,15 +500,18 @@ const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
 const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/emojinary/' + CODE + '/';
 
 const EMOJIS = {
-  "😀":"😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😚😙😋😛😜🤪😝🤑🤗🤭🤫🤔🤐😐😑😶😏😒🙄😬🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕😟🙁😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖",
+  "😀":"😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😚😙😋😛😜🤪😝🤑🤗🤭🤫🤔🤐😐😑😶😏😒🙄😬🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕😟🙁☹️😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖",
   "👋":"👋🤚🖐️✋🖖👌🤌🤏✌️🤞🤟🤘🤙👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🙌👐🤲🤝🙏✍️💅🤳💪🦾🦿🦵🦶👂🦻👃🧠🦷🦴👀👁️👅👄👶🧒👦👧🧑👱👨🧔👩🧓👴👵👮🕵️💂🥷👷🫅🤴👸👳👲🧕🤵👰🤰🤱👼🎅🤶🦸🦹🧙🧚🧛🧜🧝🧞🧟🧌💃🕺",
+  "👑":"👑🎩🎓🧢⛑️💄💍💎👓🕶️🥽🥼🦺👔👕👖🧣🧤🧥🧦👗👘🥻🩱🩲🩳👙👚👛👜👝🎒🩴👞👟🥾🥿👠👡🩰👢",
   "❤️":"❤️🧡💛💚💙💜🖤🤍🤎💔❤️‍🔥❤️‍🩹❣️💕💞💓💗💖💘💝💟💥💫💦💨🕳️💣💬👁️‍🗨️🗨️🗯️💭💤",
-  "🐱":"🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🐛🦋🐌🐞🐜🕷️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🐡🐠🐟🐬🐳🐋🦈🐊🐅🐆🦓🦍🦧🐘🦛🦏🐪🐫🦒🦘🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🐈🐓🦃🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🦔🐾🐉🐲",
-  "🍎":"🍏🍎🍐🍊🍋🍌🍉🍇🍓🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶️🌽🥕🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🥚🍳🧈🥞🧇🥓🥩🍗🍖🌭🍔🍟🍕🥪🥙🧆🌮🌯🥗🥘🥫🍝🍜🍲🍛🍣🍱🥟🦪🍤🍙🍚🍘🍥🥠🥮🍢🍡🍧🍨🍦🥧🧁🍰🎂🍮🍭🍬🍫🍿🍩🍪🌰🥜🍯🥛🍼☕🍵🧃🥤🧋🍶🍺🍻🥂🍷🥃🍸🍹🧉🍾",
+  "🐱":"🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🐛🦋🐌🐞🐜🕷️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🐡🐠🐟🐬🐳🐋🦈🐊🐅🐆🦓🦍🦧🐘🦛🦏🐪🐫🦒🦘🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🐈🐓🦃🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🦔🐾🐉🐲💐🌸💮🪷🏵️🌹🥀🌺🌻🌼🌷🪻🌱🪴🌲🌳🌴🌵🌾🌿☘️🍀🍁🍂🍃🍄🪹🪺",
+  "🍎":"🍏🍎🍐🍊🍋🍌🍉🍇🍓🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶️🌽🥕🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🥚🍳🧈🥞🧇🥓🥩🍗🍖🌭🍔🍟🍕🥪🥙🧆🌮🌯🥗🥘🥫🍝🍜🍲🍛🍣🍱🥟🦪🍤🍙🍚🍘🍥🥠🥮🍢🍡🍧🍨🍦🥧🧁🍰🎂🍮🍭🍬🍫🍿🍩🍪🌰🥜🍯🥛🍼☕🍵🧃🥤🧋🍶🍺🍻🥂🍷🥃🍸🍹🧉🍾🍴🥄🔪🫙🏺",
   "🏠":"🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽⛪🕌🛕🕍⛩️🕋⛲⛺🌁🌃🏙️🌄🌅🌆🌇🌉🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🛻🚚🚛🚜🏎️🏍️🛵🦽🦼🛺🚲🛴🛹🛼🚏⛽🚨🚥🚦🛑🚧⚓⛵🛶🚤🛳️⛴️🛥️🚢✈️🛩️🛫🛬💺🚁🚟🚠🚡🛰️🚀🛸",
-  "⚽":"⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🏓🏸🏒🏑🥍🏏🥅⛳🏹🎣🤿🥊🥋🎽🛹🛼🛷⛸️🥌🎿⛷️🏂🏋️🤼🤸⛹️🤺🤾🏌️🏇🧘🏄🏊🤽🚣🧗🚵🚴🏆🥇🥈🥉🏅🎖️🏵️🎗️🎫🎟️🎪🤹🎭🩰🎨🎬🎤🎧🎼🎹🥁🎷🎺🎸🪕🎻🎲♟️🎯🎳🎮🎰🧩",
-  "💡":"💡🔦🕯️💰💵💴💶💷💸💳🧾💎⚖️🧰🔧🔩⚙️🧲🔫💣🔪🗡️⚔️🛡️🚬⚰️⚱️🏺🔮📿🧿💈⚗️🔭🔬🕳️🩹🩺💊💉🩸🧬🦠🧫🧪🌡️🧹🧺🧻🚰🚿🛁🧼🪥🪒🧽🧴🔑🗝️🚪🪑🛋️🛏️🧸🖼️🛍️🛒🎁🎈🎏🎀🎊🎉🎎🏮🎐✉️📩📨📧💌📥📤📦🏷️📪📫📬📭📮📯📜📃📄📑📊📈📉📆📅🗑️📋📁📂🗞️📰📓📔📒📕📗📘📙📚📖🔖📎📐📏🧮📌📍✂️🖊️🖋️✒️🖌️🖍️📝✏️🔍🔎🔏🔐🔒🔓",
-  "🌍":"🌍🌎🌏🌐🗺️🧭🏔️⛰️🌋🗻🏕️🏖️🏜️🏝️🏞️🌅🌄🌠🎇🎆🌇🌆🌃🌌🌉🌁🌀🌈🌂☂️☔⛱️⚡❄️☃️⛄☄️🔥💧🌊💨🌪️🌫️🌬️🌤️⛅🌥️🌦️🌧️⛈️🌩️🌨️☀️🌝🌛🌜🌚🌕🌖🌗🌘🌑🌒🌓🌔🌙⭐🌟💫✨🪐"
+  "⚽":"⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🏓🏸🏒🏑🥍🏏🥅⛳🏹🎣🤿🥊🥋🎽🛹🛼🛷⛸️🥌🎿⛷️🏂🏋️🤼🤸⛹️🤺🤾🏌️🏇🧘🏄🏊🤽🚣🧗🚵🚴🏆🥇🥈🥉🏅🎖️🏵️🎗️🎫🎟️🎪🤹🎭🩰🎨🎬🎤🎧🎼🎹🥁🎷🎺🪗🎸🪕🎻🎲♟️🎯🎳🎮🕹️🎰🧩",
+  "💡":"💡🔦🕯️⌚⏰⏱️⏲️🕰️⏳⌛📱💻⌨️🖥️🖨️🖱️📷📸📹🎥📽️🎞️📞☎️📟📠📺📻🧭💰💵💴💶💷💸💳🧾💎⚖️🧰🔧🔩⚙️🧲🔫💣🔪🗡️⚔️🛡️🚬⚰️⚱️🏺🔮📿🧿💈⚗️🔭🔬🕳️🩹🩺💊💉🩸🧬🦠🧫🧪🌡️🧹🧺🧻🚰🚿🛁🧼🪥🪒🧽🧴🔑🗝️🚪🪑🛋️🛏️🧸🖼️🛍️🛒🎁🎈🎏🎀🎊🎉🎎🏮🎐✉️📩📨📧💌📥📤📦🏷️📪📫📬📭📮📯📜📃📄📑📊📈📉📆📅🗑️📋📁📂🗞️📰📓📔📒📕📗📘📙📚📖🔖📎📐📏🧮📌📍✂️🖊️🖋️✒️🖌️🖍️📝✏️🔍🔎🔏🔐🔒🔓",
+  "🌍":"🌍🌎🌏🌐🗺️🧭🏔️⛰️🌋🗻🏕️🏖️🏜️🏝️🏞️🌅🌄🌠🎇🎆🌇🌆🌃🌌🌉🌁🌀🌈🌂☂️☔⛱️⚡❄️☃️⛄☄️🔥💧🌊💨🌪️🌫️🌬️🌤️⛅🌥️🌦️🌧️⛈️🌩️🌨️☀️🌝🌛🌜🌚🌕🌖🌗🌘🌑🌒🌓🌔🌙⭐🌟💫✨🪐",
+  "🔣":"0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟#️⃣*️⃣➕➖✖️➗🟰♾️❓❔❕❗‼️⁉️⬆️↗️➡️↘️⬇️↙️⬅️↖️↕️↔️↩️↪️⤴️⤵️🔃🔄🔙🔚🔛🔜🔝✅☑️✔️❌❎🚫⭕🛑⛔📛🚷🚯🚳🚱🔞📵🚭⚠️☢️☣️♻️⚜️🔱🔰▶️⏸️⏯️⏹️⏺️⏭️⏮️⏩⏪🔀🔁🔂🔊🔉🔈🔇🔔🔕🎵🎶💲💱©️®️™️🔴🟠🟡🟢🔵🟣🟤⚫⚪🟥🟧🟨🟩🟦🟪🟫⬛⬜🔶🔷🔺🔻💠🔘🔲🔳☮️✝️☪️🕉️☸️✡️🔯🕎☯️♈♉♊♋♌♍♎♏♐♑♒♓⛎♀️♂️⚧️⚕️",
+  "🏳️":"🏁🚩🎌🏴🏳️🏳️‍🌈🏳️‍⚧️🏴‍☠️🇺🇳🇪🇺🇵🇹🇧🇷🇪🇸🇫🇷🇬🇧🇺🇸🇨🇦🇲🇽🇦🇷🇨🇴🇨🇱🇵🇪🇻🇪🇺🇾🇪🇨🇧🇴🇵🇾🇨🇷🇵🇦🇨🇺🇯🇲🇩🇴🇵🇷🇩🇪🇮🇹🇳🇱🇧🇪🇱🇺🇨🇭🇦🇹🇮🇪🇸🇪🇳🇴🇩🇰🇫🇮🇮🇸🇵🇱🇨🇿🇸🇰🇭🇺🇷🇴🇧🇬🇬🇷🇹🇷🇨🇾🇲🇹🇺🇦🇷🇺🇧🇾🇲🇩🇬🇪🇦🇲🇦🇿🇰🇿🇺🇿🇮🇱🇵🇸🇱🇧🇯🇴🇸🇾🇮🇶🇰🇼🇸🇦🇦🇪🇶🇦🇧🇭🇴🇲🇾🇪🇪🇬🇲🇦🇩🇿🇹🇳🇱🇾🇿🇦🇳🇬🇰🇪🇬🇭🇸🇳🇪🇹🇹🇿🇺🇬🇮🇳🇵🇰🇧🇩🇱🇰🇳🇵🇨🇳🇯🇵🇰🇷🇰🇵🇹🇼🇭🇰🇲🇴🇲🇳🇹🇭🇻🇳🇵🇭🇮🇩🇲🇾🇸🇬🇰🇭🇱🇦🇲🇲🇦🇺🇳🇿🇫🇯"
 };
 
 let ws = null;
@@ -1193,6 +1197,54 @@ function backspaceEmoji() {
   sendEmoji();
 }
 
+let macroFeedbackTimer = null;
+
+function isEmojiSegment(seg) {
+  if (!seg) return false;
+  if (/^[0-9#*]\uFE0F?\u20E3$/u.test(seg)) return true;
+  if (/^\p{Regional_Indicator}{1,2}$/u.test(seg)) return true;
+  if (/^[0-9#*]/.test(seg)) return false;
+  if (!/(\p{Extended_Pictographic}|\p{Emoji_Presentation}|\p{Regional_Indicator}|\p{Emoji})/u.test(seg)) return false;
+  return /^[\p{Extended_Pictographic}\p{Emoji}\p{Emoji_Presentation}\p{Emoji_Modifier}\p{Emoji_Component}\p{Regional_Indicator}\u200d\ufe0e\ufe0f\u20e3\u{E0020}-\u{E007F}]+$/u.test(seg);
+}
+
+function extractEmojiGraphemes(str) {
+  if (!str) return [];
+  if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+    const segs = Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(str), s => s.segment);
+    return segs.filter(isEmojiSegment);
+  }
+  return Array.from(str).filter(isEmojiSegment);
+}
+
+function handleEmojiFieldInput(e) {
+  if (e && e.isComposing) return;
+  const field = $('emoji-field');
+  if (!field) return;
+  const raw = field.value;
+  const cleaned = extractEmojiGraphemes(raw).join('');
+  if (cleaned !== raw) {
+    field.value = cleaned;
+    const fb = $('emoji-macro-feedback');
+    if (fb) {
+      fb.style.display = 'block';
+      clearTimeout(macroFeedbackTimer);
+      macroFeedbackTimer = setTimeout(() => { fb.style.display = 'none'; }, 2000);
+    }
+  }
+  sendEmoji();
+}
+
+function triggerPrimaryEmojiSubmit() {
+  if ($('btn-add-extra-hint') && $('btn-add-extra-hint').style.display !== 'none') {
+    sendExtraHint();
+  } else if ($('btn-submit-bg') && $('btn-submit-bg').style.display !== 'none') {
+    submitBGEmoji();
+  } else {
+    revealEmoji();
+  }
+}
+
 function addEmoji(e) {
   $('emoji-field').value += e;
   sendEmoji();
@@ -1300,9 +1352,11 @@ function syncServerTimer(t) {
 function searchEmoji(q) {
   clearTimeout(searchTimeout);
   const r = $('emoji-search-results');
-  if (q.length < 2) { r.innerHTML = ''; return; }
+  const cleanQ = (q || '').trim();
+  const minLen = /[^\x00-\x7F]/.test(cleanQ) ? 1 : 2;
+  if (cleanQ.length < minLen) { r.innerHTML = ''; return; }
   searchTimeout = setTimeout(() => {
-    fetch(`/games/emojinary/emoji-search/?q=${encodeURIComponent(q)}`).then(res => res.json()).then(data => {
+    fetch(`/games/emojinary/emoji-search/?q=${encodeURIComponent(cleanQ)}`).then(res => res.json()).then(data => {
       r.innerHTML = data.map(d => `<button type="button" onclick="addEmoji('${d.emoji}')" title="${escapeHtml(d.name)}">${d.emoji}</button>`).join('');
     });
   }, 180);
@@ -1311,7 +1365,7 @@ function searchEmoji(q) {
 function renderPage(i) {
   currentPage = i;
   const k = cats[i];
-  const parsed = (EMOJIS[k] || '').match(/\p{Emoji_Presentation}(\u200d\p{Emoji_Presentation})*/gu) || [];
+  const parsed = extractEmojiGraphemes(EMOJIS[k] || '');
   $('emoji-kb').innerHTML = parsed.map(e => `<button type="button" onclick="addEmoji('${e}')">${e}</button>`).join('');
   $('emoji-pages').innerHTML = cats.map((c, j) => `<a class="${j === i ? 'active' : ''}" onclick="renderPage(${j})">${c}</a>`).join(' ');
 }

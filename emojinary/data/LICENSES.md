@@ -36,3 +36,8 @@ All external wordlists compiled into `emojinary/data/wordlists.json` come from o
 - **Authors**: Wiktionary contributors
 - **License**: `CC BY-SA 4.0` (Creative Commons Attribution-ShareAlike 4.0 International)
 - **Content Used**: Concise English glosses/definitions, idiom etymologies, English synonyms/aliases, semantic topics, and 64-language translations stored in `emojinary/data/wiktionary_lexicon.json`.
+
+## 7. `muan/emojilib` — MIT License
+- **Repository**: https://github.com/muan/emojilib
+- **License**: MIT License (`Copyright (c) 2014 Mu-An Chiou`)
+- **Usage**: Curated English emoji keyword synonyms, emotions, and colloquial search terms in `emojinary/data/emoji_keywords.json`.

@@ -19,6 +19,7 @@ from emojinary.game_state import (
     kick_player,
     pick_unused_word,
     rename_player,
+    sanitize_emoji_only,
     save_game,
     toggle_spectator,
     transfer_admin,
@@ -457,6 +458,47 @@ class TestEmojinaryWebSocketModesAndReplay:
 
         _run()
 
+    def test_non_emoji_text_rejected_and_stripped_in_ws(self, clean_room):
+        @async_to_sync
+        async def _run():
+            code = clean_room.code
+            c1, _ = await self._connect_player(code, "Alice")
+            c2, _ = await self._connect_player(code, "Bob")
+            await self._drain_until_state(c1)
+
+            await c1.send_json_to({"action": "settings", "max_rounds": 1, "mode": "round_robin"})
+            await self._drain_until_state(c1)
+            await c1.send_json_to({"action": "start"})
+            await self._drain_until_state(c1)
+            await self._drain_until_state(c2)
+
+            # Pure text clue must be rejected with an error and keep phase == "emoji"
+            await c1.send_json_to({"action": "reveal", "emoji": "hello world 123"})
+            err = await c1.receive_json_from(timeout=2)
+            assert err["type"] == "error"
+            assert "emoji" in err["msg"].lower()
+            assert get_game(code)["phase"] == "emoji"
+
+            # Mixed text + emoji must strip text and reveal only emojis
+            await c1.send_json_to({"action": "reveal", "emoji": "abc 🦁123👑!"})
+            s1 = await self._drain_until_state(c1)
+            await self._drain_until_state(c2)
+            assert s1["phase"] == "guess"
+            assert s1["emoji_clue"] == "🦁👑"
+
+            # Hint with pure text is ignored; mixed hint strips non-emojis
+            await c1.send_json_to({"action": "add_hint", "emoji": "plain text hint"})
+            err_hint = await c1.receive_json_from(timeout=2)
+            assert err_hint["type"] == "error"
+            await c1.send_json_to({"action": "add_hint", "emoji": "x🇵🇹y⚠️z"})
+            s1 = await self._drain_until_state(c1)
+            assert "🇵🇹⚠️" in s1["emoji_clue"]
+
+            await c1.disconnect()
+            await c2.disconnect()
+
+        _run()
+
 
 @pytest.mark.django_db
 def test_seed_emojinary_loads_all_categories():
@@ -488,3 +530,63 @@ def test_wiktionary_synonym_and_multilingual_guess_matching():
     assert check_guess({"current_word": "apple"}, "μήλο") == (True, [])
     assert check_guess({"current_word": "apple"}, "maçã") == (True, [])
     assert check_guess({"current_word": "apple"}, "яблоко") == (True, [])
+
+
+def test_sanitize_emoji_only():
+    assert sanitize_emoji_only("Hello 🦁👑 123 abc !?") == "🦁👑"
+    assert sanitize_emoji_only("Flags 🇵🇹🇬🇷 symbols ⚠️♻️❤️") == "🇵🇹🇬🇷⚠️♻️❤️"
+    assert sanitize_emoji_only("Numbers 1️⃣#️⃣ and family 👨‍👩‍👧‍👦 🦸‍♀️") == "1️⃣#️⃣👨‍👩‍👧‍👦🦸‍♀️"
+    assert sanitize_emoji_only("Only plain text 12345 # *") == ""
+    assert sanitize_emoji_only("") == ""
+
+
+@pytest.mark.django_db
+def test_emoji_search_synonyms_typos_multilingual_and_flags():
+    client = Client()
+    url = reverse("gamerooms:emojinary:emoji-search")
+
+    def top_emojis(q: str) -> list[str]:
+        resp = client.get(url, {"q": q})
+        assert resp.status_code == 200
+        return [item["emoji"] for item in resp.json()]
+
+    # Synonyms
+    assert "🔥" in top_emojis("flame")[:5]
+    assert "👑" in top_emojis("royalty")[:5]
+    assert "🚗" in top_emojis("vehicle")[:5]
+    assert "🚗" in top_emojis("car")[:5]
+    assert "⚡" in top_emojis("zap")[:5]
+    assert "🐶" in top_emojis("puppy")[:5]
+    assert "😂" in top_emojis("lol")[:5]
+
+    # Misspellings / typos
+    assert "👑" in top_emojis("krown")[:5]
+    assert "🔥" in top_emojis("firee")[:5]
+    assert "❤️" in top_emojis("haert")[:5]
+    assert "⚡" in top_emojis("lightening")[:5]
+    assert "🍌" in top_emojis("bannana")[:5]
+
+    # Multilingual queries
+    for q_fire in ("fogo", "огонь", "φωτιά", "tuli", "ogień", "fuoco", "fuego", "火"):
+        assert "🔥" in top_emojis(q_fire)[:5], f"Expected 🔥 for query {q_fire!r}"
+    assert "❤️" in top_emojis("coração")[:5]
+
+    # Flags & symbols
+    assert "🇵🇹" in top_emojis("portugal")[:3]
+    assert "🇵🇹" in top_emojis("pt")[:3]
+    assert "🇬🇷" in top_emojis("greece")[:3]
+    assert "🇬🇷" in top_emojis("gr")[:3]
+    assert "⚠️" in top_emojis("warning")[:5]
+    assert "♻️" in top_emojis("recycle")[:5]
+
+
+def test_game_template_editable_emoji_field_and_complete_categories(clean_room):
+    client = Client()
+    url = reverse("gamerooms:emojinary:game", kwargs={"code": clean_room.code, "name": "Marco"})
+    html = client.get(url).content.decode()
+    assert 'id="emoji-field"' in html
+    assert 'id="emoji-field" readonly' not in html
+    assert "handleEmojiFieldInput" in html
+    assert "emoji-macro-feedback" in html
+    for cat in ('"👑":', '"🔣":', '"🏳️":'):
+        assert cat in html

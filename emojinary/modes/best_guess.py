@@ -11,6 +11,7 @@ from ..game_state import (
     pick_unused_word,
     player_list,
     record_round_to_history,
+    sanitize_emoji_only,
     save_game,
     set_phase_timer,
     sync_room_db_status,
@@ -31,7 +32,7 @@ class BestGuessMixin:
         elif action in ("submit_emoji", "emoji"):
             if action == "emoji" and state.get("phase") == "submitting" and not content.get("submit"):
                 # Live preview only
-                await self.send_json({"type": "emoji_preview", "emoji": content.get("emoji", "")})
+                await self.send_json({"type": "emoji_preview", "emoji": sanitize_emoji_only(content.get("emoji", ""))})
                 return
             await self._bg_submit_emoji(state, content)
         elif action == "pick_best":
@@ -145,8 +146,11 @@ class BestGuessMixin:
         cp = current_player_id(state)
         if not self.player_id or self.player_id == cp:
             return
-        emoji = (content.get("emoji") or "").strip()
+        raw_emoji = (content.get("emoji") or "").strip()
+        emoji = sanitize_emoji_only(raw_emoji)
         if not emoji:
+            if raw_emoji:
+                await self.send_json({"type": "error", "msg": "Only emojis are allowed!"})
             return
 
         elapsed = round(time.time() - (state.get("turn_start_time") or time.time()), 1)
