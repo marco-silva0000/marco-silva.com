@@ -98,6 +98,23 @@ def room_list(request):
                         r.phase_badge = f"🏆 {_('Finished')}"
             except Exception:
                 pass
+        elif r.game_type == "codenames":
+            try:
+                from codenames.game_state import get_game as get_codenames_game
+
+                state = get_codenames_game(r.code)
+                if state and state.get("players"):
+                    r.player_count = len(state.get("players", {}))
+                    phase = state.get("phase", "lobby")
+                    rnd = state.get("round_num", 0)
+                    if phase == "lobby":
+                        r.phase_badge = f"⏳ {_('Lobby')}"
+                    elif phase == "playing":
+                        r.phase_badge = f"🧩 {_('Board')} #{rnd}"
+                    elif phase == "gameover":
+                        r.phase_badge = f"🏆 {_('Finished')}"
+            except Exception:
+                pass
 
     return render(request, "gamerooms/room_list.html", {"rooms": rooms, "error": error})
 
@@ -129,6 +146,7 @@ def room_create(request):
         request.session[f"room_{room.code}"] = True
         request.session[f"emojinary_admin_{room.code}"] = True
         request.session[f"impostor_admin_{room.code}"] = True
+        request.session[f"codenames_admin_{room.code}"] = True
         return redirect("gamerooms:room-join", code=room.code)
 
     game_type = _resolve_game_type(request.GET.get("game"))
@@ -195,6 +213,8 @@ def room_join(request, code):
                 room.save(update_fields=["creator"])
             if room.game_type == "impostor":
                 return redirect("gamerooms:impostor:game", code=room.code, name=name)
+            if room.game_type == "codenames":
+                return redirect("gamerooms:codenames:game", code=room.code, name=name)
             return redirect("gamerooms:emojinary:game", code=room.code, name=name)
 
     return render(

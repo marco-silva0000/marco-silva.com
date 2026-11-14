@@ -41,3 +41,8 @@ All external wordlists compiled into `emojinary/data/wordlists.json` come from o
 - **Repository**: https://github.com/muan/emojilib
 - **License**: MIT License (`Copyright (c) 2014 Mu-An Chiou`)
 - **Usage**: Curated English emoji keyword synonyms, emotions, and colloquial search terms in `emojinary/data/emoji_keywords.json`.
+
+## 8. `Gullesnuffs/Codenames` — MIT License & Wikisaurus Semantic Graph
+- **Repository**: https://github.com/Gullesnuffs/Codenames
+- **License**: MIT License (and derived Wikisaurus / Wiktionary Thesaurus graph under CC BY-SA 4.0)
+- **Usage**: Official 400-word Codenames vocabulary (`wordlist-eng.txt`), filtered Wikisaurus semantic edges (`generated_data/wikisaurus_edges.txt`), and inappropriateness filter (`inappropriate.txt`) integrated into `emojinary/data/wordlists.json`, `EmojinaryWord`, `emojinary/data/wiktionary_lexicon.json`, and the `codenames/` multiplayer game engine.

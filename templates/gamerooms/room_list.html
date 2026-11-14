@@ -113,6 +113,29 @@
       </div>
     </div>
 
+    <!-- Codenames Card -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
+          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
+            <span>🧩</span> {% trans "Codenames" %}
+          </div>
+          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
+            4–12 {% trans "players" %}
+          </span>
+        </div>
+        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
+          {% trans "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play." %}
+        </p>
+      </div>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <a href="{% url 'gamerooms:room-create' %}?game=codenames"
+           style="display: inline-flex; align-items: center; background: #2563eb; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
+          + {% trans "Host Room" %}
+        </a>
+      </div>
+    </div>
+
     <!-- Pictionary Card -->
     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
       <div>
@@ -164,7 +187,7 @@
         </div>
         <div style="font-size: 0.78rem; color: #64748b; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           <span style="font-weight: 500; color: #334155;">
-            {% if room.game_type == "lupus" %}{% trans "🐺 Lupus" %}{% elif room.game_type == "impostor" %}{% trans "🕵️ Word Impostor" %}{% elif room.game_type == "emojinary" %}{% trans "🎨 Emojinary" %}{% else %}{{ room.game_type }}{% endif %}
+            {% if room.game_type == "lupus" %}{% trans "🐺 Lupus" %}{% elif room.game_type == "impostor" %}{% trans "🕵️ Word Impostor" %}{% elif room.game_type == "codenames" %}{% trans "🧩 Codenames" %}{% elif room.game_type == "emojinary" %}{% trans "🎨 Emojinary" %}{% else %}{{ room.game_type }}{% endif %}
           </span>
           {% if room.language_support %}
           <span>·</span>

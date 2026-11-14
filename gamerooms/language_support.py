@@ -26,6 +26,7 @@ LUPUS_CONTENT_LANGUAGES = frozenset({"en", "pt", "it", "es", "fr", "el", "ru", "
 GAME_TYPES = (
     ("emojinary", "🎨 Emojinary"),
     ("impostor", "🕵️ Word Impostor (Poison Word)"),
+    ("codenames", "🧩 Codenames"),
 )
 
 
@@ -98,7 +99,7 @@ def get_game_language_support(game_type: str, lang_code: str | None) -> dict[str
 
     if game == "lupus":
         content_supported = norm in LUPUS_CONTENT_LANGUAGES
-    elif game in ("emojinary", "impostor"):
+    elif game in ("emojinary", "impostor", "codenames"):
         # Full content if English OR substantial Wiktionary translations exist (>= 100 entries)
         content_supported = norm == "en" or entry_count >= 100
     else:
@@ -109,7 +110,7 @@ def get_game_language_support(game_type: str, lang_code: str | None) -> dict[str
         badge_label = _("✅ Full Content + UI")
         detail = (
             _("Game words, clues, and interface are supported in %(lang)s.") % {"lang": get_language_display(norm)}
-            if game in ("emojinary", "impostor")
+            if game in ("emojinary", "impostor", "codenames")
             else _("Roles, phases, and interface are localized in %(lang)s.") % {"lang": get_language_display(norm)}
         )
     else:
@@ -136,7 +137,7 @@ def get_language_support_matrix() -> dict[str, dict[str, dict[str, Any]]]:
     """Return full capability map keyed by game_type -> lang_code for client-side room creation hints."""
     langs = [code for code, _ in getattr(settings, "LANGUAGES", [("en", "English")])]
     matrix: dict[str, dict[str, dict[str, Any]]] = {}
-    for gtype in ("emojinary", "impostor", "lupus"):
+    for gtype in ("emojinary", "impostor", "codenames", "lupus"):
         matrix[gtype] = {}
         for code in langs:
             info = get_game_language_support(gtype, code)

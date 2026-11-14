@@ -4,6 +4,19 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v159] - 2026-11-14
+
+### Added & Changed
+- **Official 400-Word Codenames Dataset & Wikisaurus Semantic Graph (`emojinary/`, `scripts/enrich_wiktionary.py`, `emojinary/management/commands/seed_emojinary.py`)**:
+  - Integrated the official 400 Codenames words (`wordlist-eng.txt`) and inappropriate-filtered Wikisaurus semantic graph (`wikisaurus_edges.txt`, `inappropriate.txt`) from `Gullesnuffs/Codenames` into `emojinary/data/wordlists.json` (`codenames` and `codenames_wikisaurus`) and documented MIT licensing in `emojinary/data/LICENSES.md`.
+  - Extended `EmojinaryWord` (`emojinary/models.py`, migration `0004_emojinaryword_is_codenames_and_more.py`) with `is_codenames` and `related_words` fields, and updated `seed_emojinary` to seed/backfill all 400 Codenames words and Wikisaurus neighbor lists.
+  - Extended `scripts/enrich_wiktionary.py` (`--extend-codenames`) to parse `{{place|en|...}}` templates and populate `emojinary/data/wiktionary_lexicon.json` with definitions and translations for all 400 Codenames words plus Wikisaurus edges.
+- **Codenames Real-Time Multiplayer App (`codenames/`, `templates/codenames/game.html`, `gamerooms/`, `website/`)**:
+  - Built a full real-time Django Channels + Redis Codenames room engine with 5×5 boards (`9`/`8`/`7`/`1` affiliation split), `classic` vs `extended` packs + custom words, localized Wiktionary word display & inline definitions, and automatic Spymaster rotation.
+  - Implemented zero-spoiler server sanitization for Operatives (`can_see_keycard`, unrevealed `affiliation` hidden until revealed or `gameover`), default-hidden client-side `👁️ Show Spymaster Keycard` overlay (`keycardVisible = false`), and `💡 Wikisaurus AI Clue Suggestions` for active Spymasters.
+  - Added full Moderator/oral couch play support (`add_table_player`, `by_mod` Spymaster clues and Operative card taps/turn passes), untimed default (`0`) + optional turn timers, individual per-player QR reconnect links (`player-qr`, `reconnect` with multi-tab admin isolation), interactive replay viewer + JSON export (`replay.json`), and `version_counter` auto-reload.
+  - Integrated Codenames into `gamerooms` hub/room creation/joining, `language_support` matrix, ASGI WebSocket routing, and `INSTALLED_APPS`.
+
 ## [v158] - 2026-11-14
 
 ### Changed & Added

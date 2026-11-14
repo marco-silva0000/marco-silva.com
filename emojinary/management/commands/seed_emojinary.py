@@ -118,28 +118,66 @@ class Command(BaseCommand):
                 lexicon = json.load(f)
 
         combined: list[tuple[str, str, int, str]] = [(t, c, d, "curated") for t, c, d in WORDS]
+        codenames_set: set[str] = set()
+        wikisaurus: dict[str, list[str]] = {}
         if WORDLIST_DATA_PATH.exists():
             with open(WORDLIST_DATA_PATH, "r", encoding="utf-8") as f:
                 data = json.load(f)
+            wikisaurus = data.get("codenames_wikisaurus", {})
             for item in data.get("emojinary", []):
                 if isinstance(item, (list, tuple)) and len(item) == 3:
                     combined.append((str(item[0]), str(item[1]), int(item[2]), "open-wordlists"))
+            for cw in data.get("codenames", []):
+                cw_clean = str(cw).strip()
+                if cw_clean:
+                    codenames_set.add(cw_clean.lower())
+                    combined.append((cw_clean, "thing", 1, "codenames"))
 
         # Deduplicate case-insensitively per category and skip already-seeded entries
         existing_qs = EmojinaryWord.objects.all()
         existing_map: dict[tuple[str, str], EmojinaryWord] = {}
-        for obj in existing_qs.only("id", "text", "category", "definition", "translations", "aliases"):
-            existing_map[(obj.text.lower(), obj.category)] = obj
+        existing_by_text: dict[str, EmojinaryWord] = {}
+        for obj in existing_qs.only(
+            "id", "text", "category", "definition", "translations", "aliases", "is_codenames", "related_words"
+        ):
+            low = obj.text.lower()
+            existing_map[(low, obj.category)] = obj
+            existing_by_text.setdefault(low, obj)
+
+        codenames_assigned: set[str] = set()
+        to_update_map: dict[int, EmojinaryWord] = {}
+        for low_text in sorted(codenames_set):
+            existing_obj = existing_by_text.get(low_text)
+            if existing_obj:
+                codenames_assigned.add(low_text)
+                lex = lexicon.get(low_text, {})
+                rel = lex.get("related") or wikisaurus.get(low_text, [])
+                if not existing_obj.is_codenames or (rel and not existing_obj.related_words):
+                    existing_obj.is_codenames = True
+                    if rel and not existing_obj.related_words:
+                        existing_obj.related_words = rel
+                    to_update_map[existing_obj.id] = existing_obj
 
         to_create = []
         seen = set(existing_map.keys())
         for text, category, difficulty, src in combined:
             clean_text = text.strip()
-            key = (clean_text.lower(), category)
-            if not key[0] or key in seen:
+            low_text = clean_text.lower()
+            key = (low_text, category)
+            if not low_text:
+                continue
+            # Avoid duplicating a Codenames word into 'thing' when it already exists under another category
+            if src == "codenames" and (low_text in codenames_assigned or low_text in existing_by_text):
+                continue
+            if key in seen:
                 continue
             seen.add(key)
-            lex = lexicon.get(key[0], {})
+            lex = lexicon.get(low_text, {})
+            rel = lex.get("related") or wikisaurus.get(low_text, [])
+            is_cn = False
+            if low_text in codenames_set and low_text not in codenames_assigned:
+                is_cn = True
+                codenames_assigned.add(low_text)
             default_pos = CATEGORY_DEFAULT_POS.get(category, "noun")
             to_create.append(
                 EmojinaryWord(
@@ -152,6 +190,8 @@ class Command(BaseCommand):
                     aliases=lex.get("aliases", []),
                     translations=lex.get("translations", {}),
                     topics=lex.get("topics", []),
+                    is_codenames=is_cn,
+                    related_words=rel,
                     source="wiktionary" if lex else src,
                 )
             )
@@ -159,13 +199,14 @@ class Command(BaseCommand):
         if to_create:
             EmojinaryWord.objects.bulk_create(to_create, batch_size=1000)
 
-        # Backfill Wiktionary enrichment on existing rows that lack definitions/translations
-        to_update = []
+        # Backfill Wiktionary & Wikisaurus enrichment on existing rows that lack definitions/translations/related
         for (low_text, category), obj in existing_map.items():
-            lex = lexicon.get(low_text)
-            if not lex:
+            lex = lexicon.get(low_text, {})
+            rel = lex.get("related") or wikisaurus.get(low_text, [])
+            if not lex and not rel:
                 continue
-            if not obj.definition or not obj.translations:
+            changed = False
+            if lex and (not obj.definition or not obj.translations):
                 obj.pos = lex.get("pos", CATEGORY_DEFAULT_POS.get(category, "noun"))
                 obj.definition = lex.get("definition", obj.definition)
                 obj.etymology = lex.get("etymology", obj.etymology)
@@ -173,17 +214,34 @@ class Command(BaseCommand):
                 obj.translations = lex.get("translations", obj.translations)
                 obj.topics = lex.get("topics", obj.topics)
                 obj.source = "wiktionary"
-                to_update.append(obj)
+                changed = True
+            if rel and not obj.related_words:
+                obj.related_words = rel
+                changed = True
+            if changed:
+                to_update_map[obj.id] = obj
 
+        to_update = list(to_update_map.values())
         if to_update:
             EmojinaryWord.objects.bulk_update(
                 to_update,
-                ["pos", "definition", "etymology", "aliases", "translations", "topics", "source"],
+                [
+                    "pos",
+                    "definition",
+                    "etymology",
+                    "aliases",
+                    "translations",
+                    "topics",
+                    "is_codenames",
+                    "related_words",
+                    "source",
+                ],
                 batch_size=500,
             )
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"Seeded {len(to_create)} new words, enriched {len(to_update)} existing ({EmojinaryWord.objects.count()} total)"
+                f"Seeded {len(to_create)} new words, enriched {len(to_update)} existing "
+                f"({EmojinaryWord.objects.count()} total, {EmojinaryWord.objects.filter(is_codenames=True).count()} codenames)"
             )
         )

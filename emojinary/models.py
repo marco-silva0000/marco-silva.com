@@ -34,6 +34,16 @@ class EmojinaryWord(models.Model):
     aliases = models.JSONField(default=list, blank=True, help_text="Accepted English synonyms/variants")
     translations = models.JSONField(default=dict, blank=True, help_text="Map of lang_code -> list of translated terms")
     topics = models.JSONField(default=list, blank=True, help_text="Semantic topic hints")
+    is_codenames = models.BooleanField(
+        default=False,
+        db_index=True,
+        help_text="Included in official 400-word Codenames deck",
+    )
+    related_words = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="Wikisaurus / Wiktionary semantic neighbors",
+    )
     source = models.CharField(max_length=50, default="curated", blank=True)
 
     class Meta:

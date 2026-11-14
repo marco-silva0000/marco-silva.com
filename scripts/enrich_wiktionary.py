@@ -245,6 +245,27 @@ def strip_wikitext(raw: str) -> str:
             return parts[-1] if "=" not in parts[-1] else parts[1]
         if name == "taxfmt" and len(parts) >= 2:
             return parts[1]
+        if name == "place" and len(parts) >= 3:
+            place_chunks: list[str] = []
+            for p in parts[2:]:
+                if "=" in p:
+                    continue
+                cleaned_p = re.sub(r"<<(?:[a-zA-Z_]+/)?([^>]+)>>", r"\1", p)
+                cleaned_p = re.sub(r"^[a-zA-Z_]+/", "", cleaned_p).strip()
+                if cleaned_p == "caplc":
+                    cleaned_p = "capital and largest city"
+                elif cleaned_p == "capc":
+                    cleaned_p = "capital city"
+                elif "/" in cleaned_p and not cleaned_p.startswith("http"):
+                    cleaned_p = " / ".join(seg.strip() for seg in cleaned_p.split("/") if seg.strip())
+                if cleaned_p:
+                    place_chunks.append(cleaned_p)
+            if place_chunks:
+                if place_chunks[0].startswith("capital") and len(place_chunks) >= 2:
+                    return f"{place_chunks[0]} of {', '.join(place_chunks[1:])}"
+                if len(place_chunks) >= 2 and not place_chunks[0].startswith(("A ", "a ", "The ", "the ")):
+                    return f"{place_chunks[0]} in {', '.join(place_chunks[1:])}"
+                return ", ".join(place_chunks)
         return ""
 
     # Apply nested template cleanup up to 2 passes
@@ -426,6 +447,19 @@ def collect_candidate_words(max_words: int) -> list[str]:
     except Exception:
         pass
 
+    # 0b. Codenames 400-word deck & Impostor pairs
+    for w in data.get("codenames", []):
+        _add(str(w))
+    try:
+        from impostor.word_pairs import CURATED_IMPOSTOR_PAIRS
+
+        for citizen, poison, lethal, _ in CURATED_IMPOSTOR_PAIRS:
+            _add(citizen)
+            _add(poison)
+            _add(lethal)
+    except Exception:
+        pass
+
     # 1. All phrases/idioms (high value for tooltip & etymology) + animals + foods + actions
     priority_cats = ("phrase", "animal", "food", "action", "thing", "place")
     for diff_target in (1, 2, 3):
@@ -446,11 +480,190 @@ def collect_candidate_words(max_words: int) -> list[str]:
     return priority_order[:max_words]
 
 
+def _fetch_subpages(subpage_needed: list[tuple[str, str]], lexicon: dict[str, dict], workers: int) -> None:
+    if not subpage_needed:
+        return
+    print(f"Fetching {len(subpage_needed)} Wiktionary /translations subpages...")
+    sub_titles = [sp for _, sp in subpage_needed]
+    sub_to_key = {sp: key for key, sp in subpage_needed}
+    sub_batches = [sub_titles[i : i + 50] for i in range(0, len(sub_titles), 50)]
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = {pool.submit(fetch_batch, b): b for b in sub_batches}
+        for fut in as_completed(futures):
+            pages = fut.result()
+            for sp_title, wikitext in pages.items():
+                key = sub_to_key.get(sp_title)
+                if not key or key not in lexicon:
+                    continue
+                extra_tr = extract_translations(wikitext)
+                existing_tr = lexicon[key].setdefault("translations", {})
+                for lang, terms in extra_tr.items():
+                    bucket = existing_tr.setdefault(lang, [])
+                    for t in terms:
+                        if t not in bucket and len(bucket) < 3:
+                            bucket.append(t)
+
+
+def _merge_wikisaurus_related(lexicon: dict[str, dict]) -> int:
+    """Attach filtered Wikisaurus semantic neighbors from wordlists.json to lexicon entries."""
+    if not WORDLISTS_PATH.exists():
+        return 0
+    with open(WORDLISTS_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    wikisaurus: dict[str, list[str]] = data.get("codenames_wikisaurus", {})
+    updated = 0
+    for key, neighbors in wikisaurus.items():
+        clean_neighbors = [str(n).strip() for n in neighbors if str(n).strip()]
+        if not clean_neighbors:
+            continue
+        entry = lexicon.setdefault(
+            key.lower(),
+            {
+                "pos": "noun",
+                "definition": "",
+                "etymology": "",
+                "aliases": [],
+                "topics": [],
+                "translations": {},
+            },
+        )
+        existing_rel = list(entry.get("related", []))
+        for nb in clean_neighbors:
+            if nb not in existing_rel:
+                existing_rel.append(nb)
+        if existing_rel != entry.get("related"):
+            entry["related"] = existing_rel[:30]
+            updated += 1
+    return updated
+
+
+def extend_codenames_and_impostor(workers: int) -> None:
+    """Incrementally enrich Codenames (400 words) + Impostor pairs without dropping existing entries."""
+    lexicon: dict[str, dict] = {}
+    if OUT_PATH.exists():
+        with open(OUT_PATH, "r", encoding="utf-8") as f:
+            lexicon = json.load(f)
+
+    with open(WORDLISTS_PATH, "r", encoding="utf-8") as f:
+        wl_data = json.load(f)
+
+    targets: list[str] = []
+    seen_targets: set[str] = set()
+
+    def _add_target(w: str) -> None:
+        cw = str(w or "").strip()
+        if not cw or cw.lower() in seen_targets:
+            return
+        seen_targets.add(cw.lower())
+        targets.append(cw)
+
+    for w in wl_data.get("codenames", []):
+        _add_target(w)
+
+    try:
+        from impostor.word_pairs import CURATED_IMPOSTOR_PAIRS
+
+        for citizen, poison, lethal, _ in CURATED_IMPOSTOR_PAIRS:
+            _add_target(citizen)
+            _add_target(poison)
+            _add_target(lethal)
+    except Exception:
+        pass
+
+    to_fetch: list[str] = []
+    for w in targets:
+        k = w.lower()
+        existing = lexicon.get(k)
+        if not existing or not existing.get("definition") or len(existing.get("translations", {})) < 5:
+            to_fetch.append(w)
+
+    print(f"Extending lexicon ({len(lexicon)} existing): fetching {len(to_fetch)} Codenames/Impostor words...")
+    fetch_titles: list[str] = []
+    seen_fetch: set[str] = set()
+    for w in to_fetch:
+        for cand in (w.lower(), w.title()):
+            if cand not in seen_fetch:
+                seen_fetch.add(cand)
+                fetch_titles.append(cand)
+
+    raw_pages: dict[str, str] = {}
+    batches = [fetch_titles[i : i + 50] for i in range(0, len(fetch_titles), 50)]
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for fut in as_completed([pool.submit(fetch_batch, b) for b in batches]):
+            raw_pages.update(fut.result())
+
+    subpage_needed: list[tuple[str, str]] = []
+    for w in to_fetch:
+        k = w.lower()
+        low_wt = raw_pages.get(w.lower(), "")
+        title_wt = raw_pages.get(w.title(), "")
+        low_parsed, low_sub = parse_english_page(w.lower(), low_wt) if low_wt else (None, False)
+        title_parsed, title_sub = parse_english_page(w.title(), title_wt) if title_wt else (None, False)
+
+        chosen = low_parsed
+        chosen_title = w.lower()
+        chosen_sub = low_sub
+        if title_parsed and (
+            not low_parsed or len(title_parsed.get("translations", {})) > len(low_parsed.get("translations", {})) + 2
+        ):
+            chosen = title_parsed
+            chosen_title = w.title()
+            chosen_sub = title_sub
+        elif low_parsed and title_parsed and title_parsed.get("definition") and not low_parsed.get("definition"):
+            chosen["definition"] = title_parsed["definition"]
+
+        if chosen:
+            prev = lexicon.get(k, {})
+            # Preserve any existing richer translations/related fields
+            for lang, vals in (prev.get("translations") or {}).items():
+                bucket = chosen["translations"].setdefault(lang, [])
+                for v in vals:
+                    if v not in bucket and len(bucket) < 3:
+                        bucket.append(v)
+            if prev.get("related"):
+                chosen["related"] = prev["related"]
+            if not chosen.get("definition") and prev.get("definition"):
+                chosen["definition"] = prev["definition"]
+            lexicon[k] = chosen
+            if chosen_sub and len(chosen["translations"]) < 5:
+                subpage_needed.append((k, f"{chosen_title}/translations"))
+            elif title_sub and title_parsed and len(chosen["translations"]) < 5:
+                subpage_needed.append((k, f"{w.title()}/translations"))
+
+    _fetch_subpages(subpage_needed, lexicon, workers)
+    rel_count = _merge_wikisaurus_related(lexicon)
+
+    cleaned_lexicon = {
+        k: v
+        for k, v in sorted(lexicon.items())
+        if v.get("definition") or v.get("translations") or v.get("aliases") or v.get("related")
+    }
+    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUT_PATH, "w", encoding="utf-8") as f:
+        json.dump(cleaned_lexicon, f, ensure_ascii=False, separators=(",", ":"))
+
+    cn_covered = sum(1 for w in wl_data.get("codenames", []) if w.lower() in cleaned_lexicon)
+    cn_trans = sum(1 for w in wl_data.get("codenames", []) if cleaned_lexicon.get(w.lower(), {}).get("translations"))
+    print(f"✅ Extended lexicon to {len(cleaned_lexicon)} entries ({rel_count} with Wikisaurus edges).")
+    print(
+        f"   - Codenames words in lexicon: {cn_covered}/{len(wl_data.get('codenames', []))} (with translations: {cn_trans})"
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Enrich game wordlists using Wiktionary API")
     parser.add_argument("--max-words", type=int, default=6000, help="Maximum words to look up (default: 6000)")
     parser.add_argument("--workers", type=int, default=8, help="Concurrent HTTP batch workers (default: 8)")
+    parser.add_argument(
+        "--extend-codenames",
+        action="store_true",
+        help="Incrementally enrich Codenames (400) & Impostor words + merge Wikisaurus neighbors",
+    )
     args = parser.parse_args()
+
+    if args.extend_codenames:
+        extend_codenames_and_impostor(args.workers)
+        return
 
     candidates = collect_candidate_words(args.max_words)
     print(f"Querying Wiktionary in batches of 50 for {len(candidates)} candidate words...")
@@ -475,30 +688,14 @@ def main() -> None:
             if done % 15 == 0 or done == len(batches):
                 print(f"  Pass 1: {done}/{len(batches)} batches processed ({len(lexicon)} enriched)")
 
-    if subpage_needed:
-        print(f"Fetching {len(subpage_needed)} Wiktionary /translations subpages...")
-        sub_titles = [sp for _, sp in subpage_needed]
-        sub_to_key = {sp: key for key, sp in subpage_needed}
-        sub_batches = [sub_titles[i : i + 50] for i in range(0, len(sub_titles), 50)]
-        with ThreadPoolExecutor(max_workers=args.workers) as pool:
-            futures = {pool.submit(fetch_batch, b): b for b in sub_batches}
-            for fut in as_completed(futures):
-                pages = fut.result()
-                for sp_title, wikitext in pages.items():
-                    key = sub_to_key.get(sp_title)
-                    if not key or key not in lexicon:
-                        continue
-                    extra_tr = extract_translations(wikitext)
-                    existing_tr = lexicon[key]["translations"]
-                    for lang, terms in extra_tr.items():
-                        bucket = existing_tr.setdefault(lang, [])
-                        for t in terms:
-                            if t not in bucket and len(bucket) < 3:
-                                bucket.append(t)
+    _fetch_subpages(subpage_needed, lexicon, args.workers)
+    _merge_wikisaurus_related(lexicon)
 
     # Prune entries that still ended up with neither definition nor translations
     cleaned_lexicon = {
-        k: v for k, v in sorted(lexicon.items()) if v.get("definition") or v.get("translations") or v.get("aliases")
+        k: v
+        for k, v in sorted(lexicon.items())
+        if v.get("definition") or v.get("translations") or v.get("aliases") or v.get("related")
     }
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)

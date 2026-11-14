@@ -1,0 +1,1019 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}🕵️ {% trans "Codenames" %} — {{ room.title }}{% endblock %}
+{% block extra_css %}
+:root {
+  --cn-bg: #f8fafc;
+  --cn-card: #ffffff;
+  --cn-border: #e2e8f0;
+  --cn-text: #0f172a;
+  --cn-muted: #64748b;
+  --cn-red: #dc2626;
+  --cn-red-soft: #fef2f2;
+  --cn-red-border: #fca5a5;
+  --cn-blue: #2563eb;
+  --cn-blue-soft: #eff6ff;
+  --cn-blue-border: #93c5fd;
+  --cn-bystander: #d6d3d1;
+  --cn-bystander-soft: #f5f5f4;
+  --cn-assassin: #111827;
+  --cn-green: #16a34a;
+  --cn-amber: #d97706;
+}
+.cn-shell { max-width: 1180px; margin: 0 auto; padding-bottom: 2.5rem; color: var(--cn-text); }
+.cn-topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;
+  background: var(--cn-card); border: 1px solid var(--cn-border); border-radius: 12px;
+  padding: 0.75rem 1rem; box-shadow: 0 1px 3px rgba(15,23,42,0.04); margin-bottom: 0.85rem;
+}
+.cn-title-group { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.cn-title { font-size: 1.15rem; font-weight: 700; margin: 0; color: var(--cn-text); }
+.cn-pill {
+  font-size: 0.74rem; font-weight: 600; padding: 0.18rem 0.55rem; border-radius: 999px;
+  background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;
+}
+.cn-pill-mono { font-family: ui-monospace, SFMono-Regular, monospace; font-weight: 700; border-radius: 6px; }
+.cn-actions { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+.cn-btn {
+  display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; font-weight: 600;
+  padding: 0.42rem 0.75rem; border-radius: 8px; border: 1px solid var(--cn-border);
+  background: #fff; color: #1e293b; cursor: pointer; text-decoration: none; transition: all 0.14s;
+}
+.cn-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
+.cn-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.cn-btn-sm { padding: 0.25rem 0.5rem; font-size: 0.72rem; border-radius: 6px; }
+.cn-btn-primary { background: #2563eb; color: #fff; border-color: #2563eb; }
+.cn-btn-primary:hover { background: #1d4ed8; }
+.cn-btn-red { background: var(--cn-red); color: #fff; border-color: var(--cn-red); }
+.cn-btn-red:hover { background: #b91c1c; }
+.cn-btn-blue { background: var(--cn-blue); color: #fff; border-color: var(--cn-blue); }
+.cn-btn-blue:hover { background: #1d4ed8; }
+.cn-btn-green { background: var(--cn-green); color: #fff; border-color: var(--cn-green); }
+.cn-btn-green:hover { background: #15803d; }
+.cn-btn-amber { background: var(--cn-amber); color: #fff; border-color: var(--cn-amber); }
+.cn-btn-amber:hover { background: #b45309; }
+.cn-btn-dark { background: #0f172a; color: #f8fafc; border-color: #0f172a; }
+.cn-btn-dark:hover { background: #1e293b; }
+
+.cn-layout { display: grid; grid-template-columns: 1fr 315px; gap: 1rem; align-items: start; }
+@media (max-width: 960px) { .cn-layout { grid-template-columns: 1fr; } }
+
+.cn-card {
+  background: var(--cn-card); border: 1px solid var(--cn-border); border-radius: 12px;
+  padding: 0.95rem 1rem; box-shadow: 0 1px 3px rgba(15,23,42,0.04); margin-bottom: 0.85rem;
+}
+.cn-section-label {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 700; color: var(--cn-muted); margin-bottom: 0.45rem;
+}
+
+/* Scoreboard */
+.cn-scoreboard {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 0.75rem; align-items: center;
+  background: linear-gradient(135deg, #0f172a, #1e293b); color: #f8fafc;
+  border-radius: 14px; padding: 0.85rem 1rem; margin-bottom: 0.85rem; border: 1px solid #334155;
+}
+@media (max-width: 640px) {
+  .cn-scoreboard { grid-template-columns: 1fr 1fr; }
+  .cn-score-center { grid-column: 1 / -1; order: -1; }
+}
+.cn-team-score {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-width: 92px; padding: 0.45rem 0.75rem; border-radius: 10px; font-weight: 800;
+}
+.cn-team-score.red { background: rgba(220,38,38,0.22); border: 1.5px solid #ef4444; }
+.cn-team-score.blue { background: rgba(37,99,235,0.22); border: 1.5px solid #3b82f6; }
+.cn-team-score.active-turn { box-shadow: 0 0 0 3px rgba(250,204,21,0.55); }
+.cn-score-num { font-size: 1.55rem; line-height: 1.1; }
+.cn-score-sub { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
+.cn-score-center { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.38rem; }
+.cn-turn-banner { font-size: 0.96rem; font-weight: 700; }
+
+/* GM Toolbar */
+.cn-gm-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;
+  background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
+  padding: 0.55rem 0.75rem; margin-bottom: 0.85rem;
+}
+
+/* Clue / Guessing Bars */
+.cn-clue-panel {
+  border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.85rem;
+  border: 1.5px solid #cbd5e1; background: #fff;
+}
+.cn-clue-panel.turn-red { border-color: #fca5a5; background: #fff5f5; }
+.cn-clue-panel.turn-blue { border-color: #93c5fd; background: #f0f7ff; }
+.cn-suggestion-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.55rem; }
+.cn-chip {
+  font-size: 0.76rem; font-weight: 700; padding: 0.28rem 0.6rem; border-radius: 999px;
+  border: 1px solid #cbd5e1; background: #fff; color: #0f172a; cursor: pointer;
+}
+.cn-chip:hover { border-color: #2563eb; background: #eff6ff; color: #1d4ed8; }
+
+/* 5x5 Board */
+.cn-board {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.55rem;
+  margin-bottom: 0.75rem;
+}
+@media (max-width: 680px) {
+  .cn-board { gap: 0.35rem; }
+}
+.cn-tile {
+  position: relative; min-height: 82px; border-radius: 11px; border: 2px solid #cbd5e1;
+  background: #f8f5ec; color: #0f172a; padding: 0.45rem 0.4rem;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  cursor: default; transition: transform 0.12s, box-shadow 0.14s, border-color 0.14s;
+  user-select: none;
+}
+@media (max-width: 680px) {
+  .cn-tile { min-height: 66px; padding: 0.3rem 0.22rem; border-radius: 8px; }
+}
+.cn-tile.clickable { cursor: pointer; }
+.cn-tile.clickable:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(15,23,42,0.12); border-color: #0f172a; }
+.cn-tile-word { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em; word-break: break-word; line-height: 1.15; }
+@media (max-width: 680px) {
+  .cn-tile-word { font-size: 0.73rem; }
+}
+.cn-tile-en { font-size: 0.65rem; color: #475569; margin-top: 0.12rem; line-height: 1.1; }
+.cn-tile-meta { font-size: 0.62rem; margin-top: 0.22rem; opacity: 0.85; font-weight: 600; }
+.cn-def-btn {
+  position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 999px;
+  border: 1px solid rgba(100,116,139,0.35); background: rgba(255,255,255,0.85); color: #334155;
+  font-size: 0.65rem; display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; padding: 0; line-height: 1;
+}
+.cn-def-btn:hover { background: #fff; border-color: #2563eb; }
+
+/* Spymaster Unrevealed Keycard Preview (explicit dashed border + badge so clearly unrevealed) */
+.cn-tile.key-red:not(.revealed) { background: #fef2f2; border: 2px dashed #dc2626; }
+.cn-tile.key-blue:not(.revealed) { background: #eff6ff; border: 2px dashed #2563eb; }
+.cn-tile.key-civilian:not(.revealed) { background: #fafaf9; border: 2px dashed #a8a29e; }
+.cn-tile.key-assassin:not(.revealed) { background: #e2e8f0; border: 2.5px dashed #0f172a; }
+.cn-key-tag {
+  font-size: 0.6rem; font-weight: 800; padding: 0.08rem 0.35rem; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 0.04em; margin-top: 0.22rem;
+}
+.cn-key-tag.red { background: #dc2626; color: #fff; }
+.cn-key-tag.blue { background: #2563eb; color: #fff; }
+.cn-key-tag.civilian { background: #78716c; color: #fff; }
+.cn-key-tag.assassin { background: #0f172a; color: #facc15; }
+
+/* Revealed Cards */
+.cn-tile.revealed.aff-red { background: linear-gradient(135deg, #dc2626, #b91c1c); border-color: #991b1b; color: #fff; }
+.cn-tile.revealed.aff-blue { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: #1e40af; color: #fff; }
+.cn-tile.revealed.aff-civilian { background: #d6d3d1; border-color: #a8a29e; color: #292524; }
+.cn-tile.revealed.aff-assassin { background: linear-gradient(135deg, #111827, #020617); border-color: #facc15; color: #f8fafc; }
+.cn-tile.revealed .cn-tile-en { color: rgba(255,255,255,0.8); }
+.cn-tile.revealed.aff-civilian .cn-tile-en { color: #57534e; }
+
+.cn-def-banner {
+  background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 0.55rem 0.8rem;
+  font-size: 0.82rem; margin-bottom: 0.85rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+}
+
+/* Sidebar Player Rows & Logs */
+.cn-player-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.35rem; flex-wrap: wrap;
+  padding: 0.4rem 0.5rem; border-radius: 8px; font-size: 0.8rem; margin-bottom: 0.3rem;
+  border: 1px solid #e2e8f0; background: #fff;
+}
+.cn-player-row.team-red { border-left: 4px solid #dc2626; background: #fffafa; }
+.cn-player-row.team-blue { border-left: 4px solid #2563eb; background: #f8fbff; }
+.cn-log-box {
+  max-height: 195px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px;
+  padding: 0.5rem; background: #f8fafc; font-size: 0.78rem; margin-bottom: 0.5rem;
+}
+.cn-log-item { margin-bottom: 0.32rem; line-height: 1.35; }
+
+/* Modals */
+.cn-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(15,23,42,0.65); display: none;
+  justify-content: center; align-items: center; z-index: 220; padding: 1rem;
+}
+.cn-modal-backdrop.show { display: flex; }
+.cn-modal {
+  background: #fff; border-radius: 14px; max-width: 560px; width: 100%; padding: 1.2rem;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.22); max-height: 90vh; overflow-y: auto;
+}
+.cn-modal.wide { max-width: 780px; }
+.cn-mini-board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.3rem; margin-top: 0.65rem; }
+.cn-mini-cell {
+  border-radius: 6px; padding: 0.35rem 0.25rem; font-size: 0.68rem; font-weight: 700;
+  text-align: center; border: 1px solid #cbd5e1;
+}
+.cn-mini-cell.red { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+.cn-mini-cell.blue { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+.cn-mini-cell.civilian { background: #f5f5f4; color: #44403c; border-color: #d6d3d1; }
+.cn-mini-cell.assassin { background: #111827; color: #facc15; border-color: #020617; }
+{% endblock %}
+
+{% block content %}
+<script id="initial-state" type="application/json">{{ initial_state_json|safe }}</script>
+<div class="cn-shell">
+  <!-- Top Bar -->
+  <div class="cn-topbar">
+    <div class="cn-title-group">
+      <a href="{% url 'gamerooms:room-list' %}" style="text-decoration:none;font-size:0.85rem;color:var(--cn-muted);font-weight:600;">&larr; {% trans "Rooms" %}</a>
+      <h1 class="cn-title">🧩 {{ room.title }}</h1>
+      <span class="cn-pill cn-pill-mono">{{ room.code }}</span>
+      <span class="cn-pill" id="phase-badge">Lobby</span>
+      {% if language_support %}
+      <span class="cn-pill" title="{{ language_support.detail }}" style="background:{% if language_support.content_supported %}#dcfce7;color:#166534;border-color:#86efac{% else %}#fef3c7;color:#92400e;border-color:#fde68a{% endif %};">
+        {{ language_support.language_display }} · {% if language_support.content_supported %}{% trans "Content + UI" %}{% else %}{% trans "UI Only" %}{% endif %}
+      </span>
+      {% endif %}
+    </div>
+    <div class="cn-actions">
+      <button type="button" class="cn-btn" onclick="openReplayModal()">🎬 {% trans "Replay" %}</button>
+      <a href="{% url 'gamerooms:codenames:replay' room.code %}" class="cn-btn" target="_blank" rel="noopener">⬇️ JSON</a>
+      <button type="button" class="cn-btn" onclick="openModal('modal-custom-card')">🃏 {% trans "Custom Deck" %} (<span id="deck-count">0</span>)</button>
+      <button type="button" class="cn-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Invite QR" %}</button>
+      <button type="button" class="cn-btn" onclick="openModal('modal-profile')">🪪 {{ player_name }}</button>
+    </div>
+  </div>
+
+  <!-- Error Banner -->
+  <div id="error-banner" style="display:none;background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;padding:0.55rem 0.85rem;border-radius:8px;font-size:0.84rem;font-weight:600;margin-bottom:0.85rem;"></div>
+
+  <!-- Team Scoreboard & Keycard Privacy Bar -->
+  <div id="scoreboard-card" class="cn-scoreboard">
+    <div id="score-red-box" class="cn-team-score red">
+      <span class="cn-score-sub">🔴 {% trans "Red Left" %}</span>
+      <span class="cn-score-num" id="red-left">0</span>
+      <span class="cn-score-sub">{% trans "Wins" %}: <span id="red-wins">0</span></span>
+    </div>
+    <div class="cn-score-center">
+      <div class="cn-turn-banner" id="turn-banner">{% trans "Setting up teams..." %}</div>
+      <div style="display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap;justify-content:center;">
+        <span class="cn-pill" id="timer-badge" style="background:#334155;color:#f8fafc;border-color:#475569;">∞ {% trans "Untimed" %}</span>
+        <button type="button" id="keycard-toggle-btn" class="cn-btn cn-btn-sm cn-btn-amber" style="display:none;" onclick="toggleKeycardVisibility()">
+          👁️ {% trans "Show Spymaster Keycard" %}
+        </button>
+      </div>
+    </div>
+    <div id="score-blue-box" class="cn-team-score blue">
+      <span class="cn-score-sub">🔵 {% trans "Blue Left" %}</span>
+      <span class="cn-score-num" id="blue-left">0</span>
+      <span class="cn-score-sub">{% trans "Wins" %}: <span id="blue-wins">0</span></span>
+    </div>
+  </div>
+
+  <!-- Host Zero-Spoiler Toolbar -->
+  <div id="gm-toolbar" class="cn-gm-bar" style="display:none;">
+    <span style="font-size:0.78rem;font-weight:700;color:#92400e;">👑 {% trans "Host Controls" %}</span>
+    <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+      <button type="button" class="cn-btn cn-btn-sm" id="gm-redraw-btn" onclick="sendAction('blind_redraw')">🎲 {% trans "Redraw Board" %}</button>
+      <button type="button" class="cn-btn cn-btn-sm" onclick="sendAction('auto_balance_teams')">⚖️ {% trans "Auto-Balance" %}</button>
+      <button type="button" class="cn-btn cn-btn-sm" id="gm-pass-btn" style="display:none;" onclick="sendAction('end_turn', { by_mod: true })">⏭️ {% trans "Pass Turn" %}</button>
+      <button type="button" class="cn-btn cn-btn-sm" id="gm-pause-btn" style="display:none;" onclick="togglePauseTimer()">⏸️ {% trans "Pause" %}</button>
+      <button type="button" class="cn-btn cn-btn-sm" id="gm-add15-btn" style="display:none;" onclick="sendAction('timer_control', { command: 'add', seconds: 15 })">+15s</button>
+      <button type="button" class="cn-btn cn-btn-sm cn-btn-red" id="gm-end-btn" style="display:none;" onclick="sendAction('end_game')">🛑 {% trans "End Board" %}</button>
+    </div>
+  </div>
+
+  <div class="cn-layout">
+    <!-- Main Board Column -->
+    <div>
+      <!-- Spymaster Clue Input + Wikisaurus AI Suggestions -->
+      <div id="spymaster-clue-box" class="cn-clue-panel" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.45rem;">
+          <strong style="font-size:0.9rem;" id="clue-box-heading">🕶️ {% trans "Give a One-Word Clue" %}</strong>
+          <span class="cn-pill" id="clue-mod-badge" style="display:none;background:#fef3c7;color:#92400e;border-color:#fde68a;">
+            👑 {% trans "Oral Spymaster Mode (Mod Logging)" %}
+          </span>
+        </div>
+        <form onsubmit="submitClueForm(event)" style="display:flex;gap:0.45rem;flex-wrap:wrap;align-items:center;">
+          <input type="text" id="clue-word-input" placeholder="{% trans 'One-word clue...' %}" maxlength="32"
+                 style="flex:1;min-width:160px;padding:0.48rem 0.65rem;border:1px solid #cbd5e1;border-radius:8px;font-weight:700;text-transform:uppercase;">
+          <select id="clue-count-select" style="padding:0.48rem 0.55rem;border:1px solid #cbd5e1;border-radius:8px;font-weight:700;">
+            <option value="1">1</option>
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="0">0</option>
+            <option value="99">∞ ({% trans "Unlimited" %})</option>
+          </select>
+          <button type="submit" class="cn-btn cn-btn-dark">📢 {% trans "Publish Clue" %}</button>
+        </form>
+        <div id="suggestions-wrap" style="display:none;margin-top:0.65rem;padding-top:0.55rem;border-top:1px dashed #cbd5e1;">
+          <div class="cn-section-label">💡 {% trans "Wikisaurus AI Clue Suggestions (tap to pre-fill)" %}</div>
+          <div class="cn-suggestion-chips" id="suggestions-list"></div>
+        </div>
+      </div>
+
+      <!-- Operative Guessing Action Bar -->
+      <div id="operative-action-bar" class="cn-clue-panel" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+          <div>
+            <span class="cn-section-label" style="margin-bottom:0.1rem;">{% trans "Active Clue" %}</span>
+            <div style="font-size:1.15rem;font-weight:800;" id="active-clue-display">—</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+            <span class="cn-pill" id="guesses-left-badge">{% trans "Guesses left" %}: 0</span>
+            <label id="mod-tap-wrap" style="display:none;font-size:0.78rem;font-weight:600;align-items:center;gap:0.3rem;cursor:pointer;background:#fef3c7;padding:0.28rem 0.55rem;border-radius:8px;border:1px solid #fde68a;">
+              <input type="checkbox" id="mod-tap-checkbox" checked> 👑 {% trans "Mod Log Oral Card Tap" %}
+            </label>
+            <button type="button" id="end-turn-btn" class="cn-btn cn-btn-amber" style="display:none;" onclick="handleEndTurn()">
+              ⏭️ {% trans "End Guessing Turn" %}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5x5 Codenames Grid -->
+      <div id="board-wrap" style="display:none;">
+        <div id="codenames-grid" class="cn-board"></div>
+        <div id="definition-bar" class="cn-def-banner" style="display:none;">
+          <div>
+            <strong id="def-word">Word</strong>
+            <span id="def-pos" class="cn-pill" style="margin-left:0.3rem;">noun</span>
+            <span id="def-text" style="color:#334155;margin-left:0.4rem;"></span>
+          </div>
+          <button type="button" class="cn-btn cn-btn-sm" onclick="document.getElementById('definition-bar').style.display='none'">&times;</button>
+        </div>
+      </div>
+
+      <!-- Lobby Panel -->
+      <div id="lobby-panel" class="cn-card">
+        <div class="cn-section-label">{% trans "1. Choose Your Team & Role" %}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.5rem;margin-bottom:0.9rem;">
+          <button type="button" class="cn-btn cn-btn-red" onclick="sendAction('join_team',{team:'red',role:'spymaster'})">🔴 {% trans "Red Spymaster" %}</button>
+          <button type="button" class="cn-btn" style="border-color:#fca5a5;color:#991b1b;" onclick="sendAction('join_team',{team:'red',role:'operative'})">🔴 {% trans "Red Operative" %}</button>
+          <button type="button" class="cn-btn cn-btn-blue" onclick="sendAction('join_team',{team:'blue',role:'spymaster'})">🔵 {% trans "Blue Spymaster" %}</button>
+          <button type="button" class="cn-btn" style="border-color:#93c5fd;color:#1e40af;" onclick="sendAction('join_team',{team:'blue',role:'operative'})">🔵 {% trans "Blue Operative" %}</button>
+        </div>
+
+        <div id="host-lobby-settings" style="display:none;border-top:1px solid #e2e8f0;padding-top:0.85rem;">
+          <div class="cn-section-label">👑 {% trans "2. Room & Table Settings (Host)" %}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.7rem;margin-bottom:0.8rem;">
+            <label style="font-size:0.8rem;font-weight:600;display:flex;flex-direction:column;gap:0.25rem;">
+              {% trans "Word Pack" %}
+              <select id="setting-word-pack" onchange="saveLobbySettings()" style="padding:0.4rem;border:1px solid #cbd5e1;border-radius:7px;">
+                <option value="classic">🏛️ {% trans "Official Classic 400 Words" %}</option>
+                <option value="extended">🌍 {% trans "Classic + Extended Party Pack" %}</option>
+              </select>
+            </label>
+            <label style="font-size:0.8rem;font-weight:600;display:flex;flex-direction:column;gap:0.25rem;">
+              {% trans "Turn Timers" %}
+              <select id="setting-time-mode" onchange="onTimeModeChange()" style="padding:0.4rem;border:1px solid #cbd5e1;border-radius:7px;">
+                <option value="untimed">∞ {% trans "Untimed (Relaxed Couch Mode)" %}</option>
+                <option value="timed">⏱️ {% trans "Standard Timed (90s / 90s)" %}</option>
+                <option value="custom">⚙️ {% trans "Custom Seconds" %}</option>
+              </select>
+            </label>
+          </div>
+          <div id="custom-timer-row" style="display:none;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:0.75rem;">
+            <label style="font-size:0.78rem;font-weight:600;">
+              {% trans "Spymaster Seconds (0=∞)" %}
+              <input type="number" id="spymaster-timer-input" min="0" max="600" onchange="saveLobbySettings()" style="width:100%;padding:0.35rem;border:1px solid #cbd5e1;border-radius:7px;">
+            </label>
+            <label style="font-size:0.78rem;font-weight:600;">
+              {% trans "Operative Seconds (0=∞)" %}
+              <input type="number" id="operative-timer-input" min="0" max="600" onchange="saveLobbySettings()" style="width:100%;padding:0.35rem;border:1px solid #cbd5e1;border-radius:7px;">
+            </label>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:0.85rem;font-size:0.82rem;">
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;cursor:pointer;">
+              <input type="checkbox" id="setting-rotate-spy" onchange="saveLobbySettings()"> {% trans "Rotate Spymasters each new board" %}
+            </label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;cursor:pointer;">
+              <input type="checkbox" id="setting-custom-deck" onchange="saveLobbySettings()"> {% trans "Allow players to add custom words" %}
+            </label>
+          </div>
+
+          <div class="cn-section-label">🪑 {% trans "Add Oral / Table Player (no phone needed)" %}</div>
+          <form onsubmit="addTablePlayerForm(event)" style="display:flex;gap:0.45rem;margin-bottom:0.9rem;">
+            <input type="text" id="table-player-name" placeholder="{% trans 'Player name at the table...' %}" maxlength="24"
+                   style="flex:1;padding:0.42rem 0.65rem;border:1px solid #cbd5e1;border-radius:8px;font-size:0.84rem;">
+            <button type="submit" class="cn-btn">➕ {% trans "Add Player" %}</button>
+          </form>
+
+          <div style="display:flex;gap:0.55rem;flex-wrap:wrap;">
+            <button type="button" class="cn-btn" onclick="sendAction('auto_balance_teams')">⚖️ {% trans "Auto-Balance Teams" %}</button>
+            <button type="button" class="cn-btn cn-btn-green" onclick="sendAction('start_game')">🚀 {% trans "Start Codenames" %}</button>
+          </div>
+        </div>
+        <div id="guest-lobby-wait" style="display:none;font-size:0.84rem;color:var(--cn-muted);padding-top:0.5rem;border-top:1px solid #e2e8f0;">
+          ⏳ {% trans "Waiting for Host to configure teams and start the board..." %}
+        </div>
+      </div>
+
+      <!-- Game Over Banner -->
+      <div id="gameover-panel" class="cn-card" style="display:none;text-align:center;background:linear-gradient(135deg,#0f172a,#1e293b);color:#f8fafc;">
+        <h2 id="gameover-title" style="margin:0 0 0.35rem;">🏆 {% trans "Board Complete" %}</h2>
+        <p id="gameover-reason" style="margin:0 0 0.9rem;color:#cbd5e1;font-size:0.92rem;"></p>
+        <div id="gameover-host-actions" style="display:none;justify-content:center;gap:0.55rem;flex-wrap:wrap;">
+          <button type="button" class="cn-btn cn-btn-green" onclick="sendAction('next_round')">🚀 {% trans "Deal Next Board" %}</button>
+          <button type="button" class="cn-btn" onclick="sendAction('play_again')">🔄 {% trans "Back to Lobby" %}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div>
+      <!-- Roster with Per-Player QR & Mod Team Assign -->
+      <div class="cn-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.45rem;">
+          <span class="cn-section-label" style="margin:0;">👥 {% trans "Agents & Spymasters" %}</span>
+          <span class="cn-pill" id="player-count-pill">0</span>
+        </div>
+        <div id="players-list"></div>
+      </div>
+
+      <!-- Turns / Clues History -->
+      <div class="cn-card">
+        <div class="cn-section-label">📝 {% trans "Clues & Taps Log" %}</div>
+        <div id="turns-log-box" class="cn-log-box"></div>
+      </div>
+
+      <!-- Room Chat -->
+      <div class="cn-card">
+        <div class="cn-section-label">💬 {% trans "Room Chat & Events" %}</div>
+        <div id="chat-log-box" class="cn-log-box"></div>
+        <form onsubmit="sendChatForm(event)" style="display:flex;gap:0.4rem;">
+          <input type="text" id="chat-input" placeholder="{% trans 'Message...' %}" maxlength="200"
+                 style="flex:1;padding:0.38rem 0.6rem;border:1px solid #cbd5e1;border-radius:7px;font-size:0.8rem;">
+          <button type="submit" class="cn-btn cn-btn-sm cn-btn-primary">{% trans "Send" %}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Custom Deck -->
+<div id="modal-custom-card" class="cn-modal-backdrop" onclick="if(event.target===this)closeModal('modal-custom-card')">
+  <div class="cn-modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+      <h3 style="margin:0;">🃏 {% trans "Custom Codenames Word" %}</h3>
+      <button type="button" class="cn-btn cn-btn-sm" onclick="closeModal('modal-custom-card')">&times;</button>
+    </div>
+    <p style="font-size:0.83rem;color:var(--cn-muted);margin-top:0;">{% trans "Add custom inside-joke words to be mixed into future boards dealt in this room." %}</p>
+    <form onsubmit="submitCustomWord(event)" style="display:flex;gap:0.45rem;">
+      <input type="text" id="custom-word-input" placeholder="{% trans 'Custom word...' %}" maxlength="28" required
+             style="flex:1;padding:0.45rem 0.65rem;border:1px solid #cbd5e1;border-radius:8px;">
+      <button type="submit" class="cn-btn cn-btn-primary">➕ {% trans "Add" %}</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Room Invite QR -->
+<div id="modal-invite-qr" class="cn-modal-backdrop" onclick="if(event.target===this)closeModal('modal-invite-qr')">
+  <div class="cn-modal" style="text-align:center;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+      <h3 style="margin:0;">📲 {% trans "Invite Players" %}</h3>
+      <button type="button" class="cn-btn cn-btn-sm" onclick="closeModal('modal-invite-qr')">&times;</button>
+    </div>
+    <img src="{{ join_qr }}" alt="Join QR" style="width:210px;height:210px;border-radius:10px;border:1px solid #e2e8f0;margin-bottom:0.7rem;">
+    <div style="display:flex;gap:0.4rem;">
+      <input type="text" readonly value="{{ join_url }}" id="invite-url-input" style="flex:1;padding:0.4rem;border:1px solid #cbd5e1;border-radius:7px;font-size:0.75rem;">
+      <button type="button" class="cn-btn cn-btn-primary" onclick="copyText('invite-url-input')">{% trans "Copy" %}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Personal Profile QR -->
+<div id="modal-profile" class="cn-modal-backdrop" onclick="if(event.target===this)closeModal('modal-profile')">
+  <div class="cn-modal" style="text-align:center;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+      <h3 style="margin:0;">🪪 {{ player_name }}</h3>
+      <button type="button" class="cn-btn cn-btn-sm" onclick="closeModal('modal-profile')">&times;</button>
+    </div>
+    <p style="font-size:0.82rem;color:var(--cn-muted);margin-top:0;">{% trans "Scan on another device to reclaim your Spymaster/Operative seat cleanly." %}</p>
+    <img src="{{ player_qr }}" alt="Player QR" style="width:200px;height:200px;border-radius:10px;border:1px solid #e2e8f0;margin-bottom:0.7rem;">
+    <div style="display:flex;gap:0.4rem;">
+      <input type="text" readonly value="{{ reconnect_url }}" id="profile-url-input" style="flex:1;padding:0.4rem;border:1px solid #cbd5e1;border-radius:7px;font-size:0.75rem;">
+      <button type="button" class="cn-btn cn-btn-primary" onclick="copyText('profile-url-input')">{% trans "Copy" %}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Individual Per-Player QR -->
+<div id="modal-player-qr" class="cn-modal-backdrop" onclick="if(event.target===this)closeModal('modal-player-qr')">
+  <div class="cn-modal" style="text-align:center;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+      <h3 style="margin:0;" id="player-qr-title">📱 {% trans "Player Reconnect QR" %}</h3>
+      <button type="button" class="cn-btn cn-btn-sm" onclick="closeModal('modal-player-qr')">&times;</button>
+    </div>
+    <p style="font-size:0.82rem;color:var(--cn-muted);margin-top:0;">{% trans "Let this player scan on their phone to take over their personal Spymaster/Operative view." %}</p>
+    <img id="player-qr-img" src="" alt="Individual Player QR" style="width:210px;height:210px;border-radius:10px;border:1px solid #e2e8f0;margin-bottom:0.7rem;">
+    <div style="display:flex;gap:0.4rem;">
+      <input type="text" readonly value="" id="player-qr-url" style="flex:1;padding:0.4rem;border:1px solid #cbd5e1;border-radius:7px;font-size:0.75rem;">
+      <button type="button" class="cn-btn cn-btn-primary" onclick="copyText('player-qr-url')">{% trans "Copy" %}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Interactive Match Replay -->
+<div id="modal-replay" class="cn-modal-backdrop" onclick="if(event.target===this)closeModal('modal-replay')">
+  <div class="cn-modal wide">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+      <h3 style="margin:0;">🎬 {% trans "Match Replay & Board Archive" %}</h3>
+      <div style="display:flex;gap:0.4rem;align-items:center;">
+        <a href="{% url 'gamerooms:codenames:replay' room.code %}" class="cn-btn cn-btn-sm" target="_blank" rel="noopener">⬇️ JSON</a>
+        <button type="button" class="cn-btn cn-btn-sm" onclick="closeModal('modal-replay')">&times;</button>
+      </div>
+    </div>
+    <div id="replay-tabs" style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-bottom:0.75rem;"></div>
+    <div id="replay-viewer"></div>
+  </div>
+</div>
+
+<script>
+const CODE = "{{ room.code|escapejs }}";
+const PLAYER_NAME = "{{ player_name|escapejs }}";
+const PLAYER_TOKEN = "{{ player_token|escapejs }}";
+const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
+const INITIAL_STATE = JSON.parse(document.getElementById('initial-state').textContent);
+const CLIENT_BUILD_VERSION = INITIAL_STATE.version_counter || 0;
+
+let latestState = INITIAL_STATE;
+let keycardVisible = false;
+let lastRoundNum = INITIAL_STATE.round_num || 0;
+let activeReplayIdx = 0;
+let ws = null;
+let countdownTimer = null;
+
+function esc(str) {
+  return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+function copyText(inputId) {
+  const el = document.getElementById(inputId);
+  if (!el) return;
+  el.select();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(el.value).catch(() => document.execCommand('copy'));
+  } else {
+    document.execCommand('copy');
+  }
+}
+
+function showError(msg) {
+  const el = document.getElementById('error-banner');
+  el.textContent = msg;
+  el.style.display = 'block';
+  clearTimeout(el._hideTimer);
+  el._hideTimer = setTimeout(() => { el.style.display = 'none'; }, 5500);
+}
+
+function connectWS() {
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  ws = new WebSocket(`${proto}://${location.host}/ws/codenames/${encodeURIComponent(CODE)}/`);
+  ws.onopen = () => {
+    ws.send(JSON.stringify({ action: 'join', name: PLAYER_NAME, token: PLAYER_TOKEN, admin_token: ADMIN_TOKEN }));
+  };
+  ws.onmessage = (ev) => {
+    const data = JSON.parse(ev.data);
+    if (data.type === 'error') {
+      showError(data.msg || 'Error');
+      return;
+    }
+    if (data.type === 'state') {
+      if (CLIENT_BUILD_VERSION && data.version_counter && data.version_counter > CLIENT_BUILD_VERSION) {
+        window.location.reload();
+        return;
+      }
+      renderState(data);
+    }
+  };
+  ws.onclose = () => {
+    setTimeout(connectWS, 2000);
+  };
+}
+
+function sendAction(action, payload) {
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    showError('Connecting to game room...');
+    return;
+  }
+  ws.send(JSON.stringify(Object.assign({ action: action }, payload || {})));
+}
+
+function toggleKeycardVisibility() {
+  keycardVisible = !keycardVisible;
+  renderState(latestState);
+}
+
+function shouldUseModTap() {
+  if (!latestState || !latestState.me) return false;
+  const isActiveOperative = (
+    latestState.me.team === latestState.turn_team &&
+    latestState.me.role === 'operative' &&
+    !latestState.me.is_spectator
+  );
+  if (isActiveOperative) return false;
+  const cb = document.getElementById('mod-tap-checkbox');
+  return Boolean(latestState.me.is_admin && (!cb || cb.checked));
+}
+
+function guessCard(idx) {
+  if (!latestState || !latestState.can_guess) return;
+  const card = (latestState.board || [])[idx];
+  if (!card || card.revealed) return;
+  sendAction('guess_card', { index: idx, by_mod: shouldUseModTap() });
+}
+
+function handleEndTurn() {
+  sendAction('end_turn', { by_mod: shouldUseModTap() });
+}
+
+function submitClueForm(ev) {
+  ev.preventDefault();
+  const clue = (document.getElementById('clue-word-input').value || '').trim();
+  const count = parseInt(document.getElementById('clue-count-select').value, 10);
+  if (!clue) return;
+  const isActiveSpy = (
+    latestState.me.team === latestState.turn_team &&
+    latestState.me.role === 'spymaster' &&
+    !latestState.me.is_spectator
+  );
+  sendAction('submit_clue', { clue: clue, count: isNaN(count) ? 1 : count, by_mod: !isActiveSpy });
+  document.getElementById('clue-word-input').value = '';
+}
+
+function applySuggestion(word, count) {
+  document.getElementById('clue-word-input').value = word;
+  document.getElementById('clue-count-select').value = String(count);
+  document.getElementById('clue-word-input').focus();
+}
+
+function showCardDefinition(idx, ev) {
+  if (ev) ev.stopPropagation();
+  const card = (latestState.board || [])[idx];
+  if (!card) return;
+  document.getElementById('def-word').textContent = card.word + (card.word_en && card.word_en.toLowerCase() !== card.word.toLowerCase() ? ` (${card.word_en})` : '');
+  document.getElementById('def-pos').textContent = card.pos || 'noun';
+  document.getElementById('def-text').textContent = card.definition || '{% trans "No dictionary definition available." %}';
+  document.getElementById('definition-bar').style.display = 'flex';
+}
+
+function onTimeModeChange() {
+  const mode = document.getElementById('setting-time-mode').value;
+  document.getElementById('custom-timer-row').style.display = mode === 'custom' ? 'grid' : 'none';
+  if (mode === 'untimed') {
+    document.getElementById('spymaster-timer-input').value = 0;
+    document.getElementById('operative-timer-input').value = 0;
+  } else if (mode === 'timed') {
+    document.getElementById('spymaster-timer-input').value = 90;
+    document.getElementById('operative-timer-input').value = 90;
+  }
+  saveLobbySettings();
+}
+
+function saveLobbySettings() {
+  sendAction('update_settings', {
+    settings: {
+      word_pack: document.getElementById('setting-word-pack').value,
+      spymaster_timer: parseInt(document.getElementById('spymaster-timer-input').value || '0', 10),
+      operative_timer: parseInt(document.getElementById('operative-timer-input').value || '0', 10),
+      rotate_spymasters: document.getElementById('setting-rotate-spy').checked,
+      allow_custom_deck: document.getElementById('setting-custom-deck').checked,
+    }
+  });
+}
+
+function addTablePlayerForm(ev) {
+  ev.preventDefault();
+  const inp = document.getElementById('table-player-name');
+  const name = (inp.value || '').trim();
+  if (!name) return;
+  sendAction('add_table_player', { name: name });
+  inp.value = '';
+}
+
+function submitCustomWord(ev) {
+  ev.preventDefault();
+  const inp = document.getElementById('custom-word-input');
+  const word = (inp.value || '').trim();
+  if (!word) return;
+  sendAction('add_custom_word', { word: word });
+  inp.value = '';
+  closeModal('modal-custom-card');
+}
+
+function sendChatForm(ev) {
+  ev.preventDefault();
+  const inp = document.getElementById('chat-input');
+  const msg = (inp.value || '').trim();
+  if (!msg) return;
+  sendAction('chat', { msg: msg });
+  inp.value = '';
+}
+
+function togglePauseTimer() {
+  const paused = latestState && latestState.timer && latestState.timer.paused;
+  sendAction('timer_control', { command: paused ? 'resume' : 'pause' });
+}
+
+function assignPlayerTeam(playerId, selectEl) {
+  const val = selectEl.value;
+  if (!val) return;
+  if (val === 'spectator') {
+    sendAction('toggle_spectator', { player_id: playerId });
+    return;
+  }
+  const [team, role] = val.split(':');
+  sendAction('join_team', { target_player_id: playerId, team: team, role: role });
+}
+
+function showPlayerQR(playerId) {
+  fetch(`/games/codenames/${encodeURIComponent(CODE)}/qr/${encodeURIComponent(playerId)}/`)
+    .then((r) => {
+      if (!r.ok) throw new Error('QR fetch failed');
+      return r.json();
+    })
+    .then((data) => {
+      document.getElementById('player-qr-title').textContent = `📱 ${data.player_name} — {% trans "Personal QR" %}`;
+      document.getElementById('player-qr-img').src = data.qr;
+      document.getElementById('player-qr-url').value = data.url;
+      openModal('modal-player-qr');
+    })
+    .catch(() => showError('{% trans "Unable to load player QR code." %}'));
+}
+
+function openReplayModal() {
+  renderReplayViewer(latestState.rounds_history || []);
+  openModal('modal-replay');
+}
+
+function renderReplayViewer(rounds) {
+  const tabsEl = document.getElementById('replay-tabs');
+  const viewEl = document.getElementById('replay-viewer');
+  if (!rounds || rounds.length === 0) {
+    tabsEl.innerHTML = '';
+    viewEl.innerHTML = '<p style="color:#64748b;font-size:0.86rem;">{% trans "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here." %}</p>';
+    return;
+  }
+  if (activeReplayIdx >= rounds.length) activeReplayIdx = rounds.length - 1;
+  tabsEl.innerHTML = rounds.map((r, i) => `
+    <button type="button" class="cn-btn cn-btn-sm ${i === activeReplayIdx ? 'cn-btn-primary' : ''}" onclick="activeReplayIdx=${i};renderReplayViewer(latestState.rounds_history)">
+      {% trans "Board" %} #${r.round || i + 1} (${r.winner === 'red' ? '🔴' : (r.winner === 'blue' ? '🔵' : '🏁')})
+    </button>
+  `).join('');
+
+  const r = rounds[activeReplayIdx];
+  const boardHtml = (r.board || []).map((c) => `
+    <div class="cn-mini-cell ${esc(c.affiliation)}">
+      <div>${esc(c.word_display || c.word_en)}</div>
+      <div style="font-size:0.58rem;opacity:0.8;">${c.revealed ? '✓' : '•'}</div>
+    </div>
+  `).join('');
+  const turnsHtml = (r.turns || []).map((t) => {
+    const guesses = (t.guesses || []).map((g) => `<span class="cn-pill">${esc(g.word)} → ${esc(g.affiliation)}</span>`).join(' ');
+    return `<div class="cn-log-item"><strong>${t.team === 'red' ? '🔴' : '🔵'} ${esc(t.clue_word)} (${esc(t.display_count)})</strong> by ${esc(t.spymaster_name)}<br>${guesses || '<em style="color:#64748b">No taps</em>'}</div>`;
+  }).join('');
+
+  viewEl.innerHTML = `
+    <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:0.75rem;margin-bottom:0.75rem;">
+      <strong>${esc(r.win_reason || '')}</strong>
+    </div>
+    <div class="cn-mini-board">${boardHtml}</div>
+    <div class="cn-section-label" style="margin-top:0.85rem;">{% trans "Turn Sequence" %}</div>
+    <div class="cn-log-box">${turnsHtml || '{% trans "No turns logged." %}'}</div>
+  `;
+}
+
+function updateTimerDisplay(timer) {
+  const badge = document.getElementById('timer-badge');
+  clearInterval(countdownTimer);
+  if (!timer || !timer.duration) {
+    badge.textContent = '∞ {% trans "Untimed" %}';
+    return;
+  }
+  let rem = timer.remaining || 0;
+  const renderTick = () => {
+    badge.textContent = timer.paused ? `⏸️ ${rem}s` : `⏱️ ${rem}s`;
+  };
+  renderTick();
+  if (!timer.paused && rem > 0) {
+    countdownTimer = setInterval(() => {
+      if (rem > 0) rem -= 1;
+      renderTick();
+    }, 1000);
+  }
+}
+
+function renderState(s) {
+  latestState = s;
+  if ((s.round_num || 0) !== lastRoundNum) {
+    // Always default Spymaster Keycard overlay to hidden when a new board starts
+    keycardVisible = false;
+    lastRoundNum = s.round_num || 0;
+  }
+
+  document.getElementById('phase-badge').textContent =
+    s.phase === 'lobby' ? '{% trans "Lobby" %}' : (s.phase === 'playing' ? `{% trans "Board" %} #${s.round_num || 1}` : '{% trans "Game Over" %}');
+  document.getElementById('deck-count').textContent = s.custom_deck_count || 0;
+  document.getElementById('red-left').textContent = s.red_remaining || 0;
+  document.getElementById('blue-left').textContent = s.blue_remaining || 0;
+  document.getElementById('red-wins').textContent = s.red_wins || 0;
+  document.getElementById('blue-wins').textContent = s.blue_wins || 0;
+
+  document.getElementById('score-red-box').classList.toggle('active-turn', s.phase === 'playing' && s.turn_team === 'red');
+  document.getElementById('score-blue-box').classList.toggle('active-turn', s.phase === 'playing' && s.turn_team === 'blue');
+
+  const banner = document.getElementById('turn-banner');
+  if (s.phase === 'lobby') {
+    banner.textContent = '{% trans "Join Red or Blue Team to begin" %}';
+  } else if (s.phase === 'gameover') {
+    banner.textContent = s.win_reason || '{% trans "Match Complete" %}';
+  } else {
+    const teamText = s.turn_team === 'red' ? '🔴 {% trans "Red" %}' : '🔵 {% trans "Blue" %}';
+    banner.textContent = s.turn_phase === 'spymaster_clue'
+      ? `${teamText} {% trans "Spymaster is thinking of a clue..." %}`
+      : `${teamText} {% trans "Operatives are guessing!" %}`;
+  }
+
+  updateTimerDisplay(s.timer);
+
+  // Spymaster Keycard toggle button
+  const keyBtn = document.getElementById('keycard-toggle-btn');
+  if (s.can_see_keycard && s.phase === 'playing') {
+    keyBtn.style.display = 'inline-flex';
+    keyBtn.textContent = keycardVisible ? '🙈 {% trans "Hide Keycard Overlay" %}' : '👁️ {% trans "Show Spymaster Keycard" %}';
+  } else {
+    keyBtn.style.display = 'none';
+  }
+
+  // GM Toolbar
+  const isAdmin = Boolean(s.me && s.me.is_admin);
+  document.getElementById('gm-toolbar').style.display = isAdmin ? 'flex' : 'none';
+  document.getElementById('gm-redraw-btn').style.display = s.phase === 'playing' ? 'inline-flex' : 'none';
+  document.getElementById('gm-pass-btn').style.display = (s.phase === 'playing' && s.turn_phase === 'operative_guess') ? 'inline-flex' : 'none';
+  document.getElementById('gm-end-btn').style.display = s.phase === 'playing' ? 'inline-flex' : 'none';
+  const hasTimer = Boolean(s.timer && (s.timer.duration > 0 || s.timer.paused));
+  document.getElementById('gm-pause-btn').style.display = (s.phase === 'playing' && hasTimer) ? 'inline-flex' : 'none';
+  document.getElementById('gm-pause-btn').textContent = (s.timer && s.timer.paused) ? '▶️ {% trans "Resume" %}' : '⏸️ {% trans "Pause" %}';
+  document.getElementById('gm-add15-btn').style.display = (s.phase === 'playing' && hasTimer) ? 'inline-flex' : 'none';
+
+  // Spymaster Clue Box
+  const clueBox = document.getElementById('spymaster-clue-box');
+  clueBox.style.display = s.can_give_clue ? 'block' : 'none';
+  clueBox.className = `cn-clue-panel ${s.turn_team === 'red' ? 'turn-red' : 'turn-blue'}`;
+  const isActiveSpy = Boolean(s.me && s.me.team === s.turn_team && s.me.role === 'spymaster' && !s.me.is_spectator);
+  document.getElementById('clue-mod-badge').style.display = (s.can_give_clue && !isActiveSpy && isAdmin) ? 'inline-flex' : 'none';
+  const suggWrap = document.getElementById('suggestions-wrap');
+  const suggList = document.getElementById('suggestions-list');
+  if (s.spymaster_suggestions && s.spymaster_suggestions.length > 0 && isActiveSpy) {
+    suggWrap.style.display = 'block';
+    suggList.innerHTML = s.spymaster_suggestions.map((sg) => `
+      <button type="button" class="cn-chip" title="{% trans 'Targets' %}: ${esc((sg.targets || []).join(', '))}"
+              onclick="applySuggestion('${esc(sg.clue)}', ${Number(sg.count) || 1})">
+        ${esc(sg.clue)} (${Number(sg.count) || 1}) · ${esc((sg.targets || []).join(', '))}
+      </button>
+    `).join('');
+  } else {
+    suggWrap.style.display = 'none';
+  }
+
+  // Operative Action Bar
+  const opBar = document.getElementById('operative-action-bar');
+  if (s.phase === 'playing' && s.turn_phase === 'operative_guess') {
+    opBar.style.display = 'block';
+    opBar.className = `cn-clue-panel ${s.turn_team === 'red' ? 'turn-red' : 'turn-blue'}`;
+    const clue = s.current_clue || {};
+    document.getElementById('active-clue-display').textContent = `${clue.word || '—'} (${clue.display_count || '?'})`;
+    const gLeft = s.guesses_remaining >= 99 ? '∞' : String(s.guesses_remaining || 0);
+    document.getElementById('guesses-left-badge').textContent = `{% trans "Guesses left" %}: ${gLeft}`;
+    const isActiveOp = Boolean(s.me && s.me.team === s.turn_team && s.me.role === 'operative' && !s.me.is_spectator);
+    document.getElementById('mod-tap-wrap').style.display = (isAdmin && !isActiveOp) ? 'inline-flex' : 'none';
+    document.getElementById('end-turn-btn').style.display = s.can_guess ? 'inline-flex' : 'none';
+  } else {
+    opBar.style.display = 'none';
+  }
+
+  // 5x5 Board
+  const boardWrap = document.getElementById('board-wrap');
+  const grid = document.getElementById('codenames-grid');
+  if (s.board && s.board.length > 0 && (s.phase === 'playing' || s.phase === 'gameover')) {
+    boardWrap.style.display = 'block';
+    const revealKeyOverlay = Boolean(s.can_see_keycard && (keycardVisible || s.phase === 'gameover'));
+    grid.innerHTML = s.board.map((c) => {
+      const aff = c.affiliation;
+      const showAff = Boolean(aff && (c.revealed || revealKeyOverlay));
+      const classes = ['cn-tile'];
+      if (c.revealed) {
+        classes.push('revealed', `aff-${aff}`);
+      } else if (showAff) {
+        classes.push(`key-${aff}`);
+      }
+      if (s.can_guess && !c.revealed) classes.push('clickable');
+      const enSub = (c.word_en && c.word_en.toLowerCase() !== c.word.toLowerCase())
+        ? `<div class="cn-tile-en">${esc(c.word_en)}</div>` : '';
+      const keyTag = (!c.revealed && showAff)
+        ? `<span class="cn-key-tag ${esc(aff)}">${esc(aff)}</span>` : '';
+      const revMeta = c.revealed && c.revealed_by
+        ? `<div class="cn-tile-meta">✓ ${esc(c.revealed_by)}</div>` : '';
+      return `
+        <div class="${classes.join(' ')}" onclick="guessCard(${c.index})">
+          <button type="button" class="cn-def-btn" title="{% trans 'Definition' %}" onclick="showCardDefinition(${c.index}, event)">📖</button>
+          <div class="cn-tile-word">${esc(c.word)}</div>
+          ${enSub}
+          ${keyTag}
+          ${revMeta}
+        </div>
+      `;
+    }).join('');
+  } else {
+    boardWrap.style.display = 'none';
+  }
+
+  // Lobby Panel
+  const lobbyPanel = document.getElementById('lobby-panel');
+  if (s.phase === 'lobby') {
+    lobbyPanel.style.display = 'block';
+    document.getElementById('host-lobby-settings').style.display = isAdmin ? 'block' : 'none';
+    document.getElementById('guest-lobby-wait').style.display = isAdmin ? 'none' : 'block';
+    const st = s.settings || {};
+    document.getElementById('setting-word-pack').value = st.word_pack || 'classic';
+    const spT = st.spymaster_timer || 0;
+    const opT = st.operative_timer || 0;
+    document.getElementById('spymaster-timer-input').value = spT;
+    document.getElementById('operative-timer-input').value = opT;
+    const modeEl = document.getElementById('setting-time-mode');
+    if (spT === 0 && opT === 0) modeEl.value = 'untimed';
+    else if (spT === 90 && opT === 90) modeEl.value = 'timed';
+    else modeEl.value = 'custom';
+    document.getElementById('custom-timer-row').style.display = modeEl.value === 'custom' ? 'grid' : 'none';
+    document.getElementById('setting-rotate-spy').checked = Boolean(st.rotate_spymasters !== false);
+    document.getElementById('setting-custom-deck').checked = Boolean(st.allow_custom_deck !== false);
+  } else {
+    lobbyPanel.style.display = 'none';
+  }
+
+  // Game Over Panel
+  const goPanel = document.getElementById('gameover-panel');
+  if (s.phase === 'gameover') {
+    goPanel.style.display = 'block';
+    const winLabel = s.winner === 'red' ? '🔴 {% trans "Red Team Wins!" %}' : (s.winner === 'blue' ? '🔵 {% trans "Blue Team Wins!" %}' : '🏁 {% trans "Board Ended" %}');
+    document.getElementById('gameover-title').textContent = winLabel;
+    document.getElementById('gameover-reason').textContent = s.win_reason || '';
+    document.getElementById('gameover-host-actions').style.display = isAdmin ? 'flex' : 'none';
+  } else {
+    goPanel.style.display = 'none';
+  }
+
+  // Players Sidebar (with Per-Player QR + Mod assignment)
+  const players = s.players || [];
+  document.getElementById('player-count-pill').textContent = players.length;
+  document.getElementById('players-list').innerHTML = players.map((p) => {
+    const teamCls = p.team === 'red' ? 'team-red' : (p.team === 'blue' ? 'team-blue' : '');
+    const roleBadge = p.is_spectator
+      ? '👁️ {% trans "Spectator" %}'
+      : (p.role === 'spymaster' ? '🕶️ {% trans "Spymaster" %}' : '🔍 {% trans "Operative" %}');
+    const modAssign = isAdmin ? `
+      <select onchange="assignPlayerTeam('${esc(p.id)}', this)" style="font-size:0.7rem;padding:0.15rem;border:1px solid #cbd5e1;border-radius:5px;">
+        <option value="">{% trans "Move..." %}</option>
+        <option value="red:spymaster">🔴 Spymaster</option>
+        <option value="red:operative">🔴 Operative</option>
+        <option value="blue:spymaster">🔵 Spymaster</option>
+        <option value="blue:operative">🔵 Operative</option>
+        <option value="spectator">👁️ Spectator</option>
+      </select>
+    ` : '';
+    const kickBtn = (isAdmin && s.me && p.id !== s.me.id)
+      ? `<button type="button" class="cn-btn cn-btn-sm" onclick="sendAction('kick_player',{player_id:'${esc(p.id)}'})" title="Kick">&times;</button>` : '';
+    return `
+      <div class="cn-player-row ${teamCls}">
+        <div>
+          <strong>${esc(p.name)}</strong>
+          ${p.is_admin ? '👑' : ''}
+          ${p.is_table_player ? '<span class="cn-pill">🪑 Table</span>' : (p.connected ? '' : '<span style="color:#94a3b8">(offline)</span>')}
+          <div style="font-size:0.7rem;color:#475569;">${p.team ? (p.team === 'red' ? '🔴 Red' : '🔵 Blue') : '⚪ Unassigned'} · ${roleBadge}</div>
+        </div>
+        <div style="display:flex;gap:0.25rem;align-items:center;">
+          <button type="button" class="cn-btn cn-btn-sm" onclick="showPlayerQR('${esc(p.id)}')" title="{% trans 'Personal Player QR' %}">📱 QR</button>
+          ${modAssign}
+          ${kickBtn}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Turns Log
+  const turnsEl = document.getElementById('turns-log-box');
+  turnsEl.innerHTML = (s.turns_log || []).slice().reverse().map((t) => {
+    const guesses = (t.guesses || []).map((g) => `<span class="cn-pill">${esc(g.word)} → ${esc(g.affiliation)}</span>`).join(' ');
+    return `<div class="cn-log-item"><strong>${t.team === 'red' ? '🔴' : '🔵'} ${esc(t.clue_word)} (${esc(t.display_count)})</strong><br>${guesses || '<span style="color:#64748b">—</span>'}</div>`;
+  }).join('') || '<div style="color:#64748b">{% trans "No clues published yet." %}</div>';
+
+  // Chat Log
+  const chatEl = document.getElementById('chat-log-box');
+  chatEl.innerHTML = (s.chat_log || []).map((c) => `
+    <div class="cn-log-item"><strong>${esc(c.sender)}:</strong> ${esc(c.msg)}</div>
+  `).join('');
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+renderState(INITIAL_STATE);
+connectWS();
+</script>
+{% endblock %}

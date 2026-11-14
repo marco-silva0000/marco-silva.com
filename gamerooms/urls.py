@@ -9,6 +9,7 @@ urlpatterns = [
     path("create/", views.room_create, name="room-create"),
     path("emojinary/", include(("emojinary.urls", "emojinary"))),
     path("impostor/", include(("impostor.urls", "impostor"))),
+    path("codenames/", include(("codenames.urls", "codenames"))),
     path("lupus/", include(("lupus.urls", "lupus"))),
     path("pictionary/", include("tools.pictionary_urls")),
     path("<str:code>/", views.room_join, name="room-join"),
