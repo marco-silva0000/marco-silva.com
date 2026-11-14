@@ -270,7 +270,12 @@ def add_player(
     return state, player, True
 
 
-def add_table_player(state: dict[str, Any], name: str) -> tuple[bool, str]:
+def add_table_player(
+    state: dict[str, Any],
+    name: str,
+    team: Optional[str] = None,
+    role: str = "operative",
+) -> tuple[bool, str]:
     """Allow the Host/Moderator to add an oral / couch player without a phone."""
     raw = " ".join(str(name or "").strip().split())[:28]
     if not raw:
@@ -280,6 +285,20 @@ def add_table_player(state: dict[str, Any], name: str) -> tuple[bool, str]:
     state["next_player_seq"] = state.get("next_player_seq", 1) + 1
     clean_name = _unique_name(state, raw)
 
+    clean_team = str(team or "").lower().strip() if team else None
+    if clean_team not in TEAMS:
+        clean_team = None
+
+    clean_role = str(role or "operative").lower().strip()
+    if clean_role not in ROLES:
+        clean_role = "operative"
+
+    # Enforce strictly 1 Spymaster per team: demote any other existing Spymaster on this team to operative
+    if clean_role == "spymaster" and clean_team:
+        for p in state.get("players", {}).values():
+            if p.get("team") == clean_team and p.get("role") == "spymaster":
+                p["role"] = "operative"
+
     player = {
         "id": pid,
         "name": clean_name,
@@ -287,15 +306,16 @@ def add_table_player(state: dict[str, Any], name: str) -> tuple[bool, str]:
         "is_admin": False,
         "is_spectator": False,
         "is_table_player": True,
-        "team": None,
-        "role": "operative",
+        "team": clean_team,
+        "role": clean_role,
         "connected": True,
         "channel_name": "",
     }
     state["players"][pid] = player
-    append_event(state, "System", f"🪑 {clean_name} was added as an oral/table player.", kind="join")
+    team_msg = f" to {clean_team.title()} ({clean_role.title()})" if clean_team else ""
+    append_event(state, "System", f"🪑 {clean_name} was added as an oral/table player{team_msg}.", kind="join")
     save_game(state["code"], state)
-    return True, f"Added table player {clean_name}."
+    return True, f"Added table player {clean_name}{team_msg}."
 
 
 def kick_player(state: dict[str, Any], target_id: str, by_name: str = "Host") -> Optional[str]:
@@ -340,14 +360,30 @@ def join_team(
     if not subject:
         return False, "Target player not found."
 
-    if team not in TEAMS or role not in ROLES:
-        return False, "Invalid team or role."
+    clean_team = str(team or "").lower().strip()
+    clean_role = str(role or "operative").lower().strip()
+
+    if clean_team == "spectator" or clean_role == "spectator":
+        subject["is_spectator"] = True
+        subject["team"] = None
+        subject["role"] = "operative"
+        save_game(state["code"], state)
+        return True, f"{subject['name']} is now Spectating."
+
+    if clean_team not in TEAMS or clean_role not in ROLES:
+        return False, f"Invalid team ('{clean_team}') or role ('{clean_role}')."
+
+    # Enforce strictly 1 Spymaster per team: demote any other existing Spymaster on this team to operative
+    if clean_role == "spymaster":
+        for p in state.get("players", {}).values():
+            if p["id"] != subject["id"] and p.get("team") == clean_team and p.get("role") == "spymaster":
+                p["role"] = "operative"
 
     subject["is_spectator"] = False
-    subject["team"] = team
-    subject["role"] = role
+    subject["team"] = clean_team
+    subject["role"] = clean_role
     save_game(state["code"], state)
-    return True, f"{subject['name']} joined {team.title()} ({role.title()})."
+    return True, f"{subject['name']} joined {clean_team.title()} ({clean_role.title()})."
 
 
 def auto_balance_teams(state: dict[str, Any]) -> tuple[bool, str]:
@@ -376,10 +412,13 @@ def auto_balance_teams(state: dict[str, Any]) -> tuple[bool, str]:
 def _ensure_teams_ready(state: dict[str, Any]) -> None:
     """Assign any unassigned active players and ensure both teams have a Spymaster."""
     active = [p for p in state.get("players", {}).values() if not p.get("is_spectator")]
+    red_members = [p for p in active if p.get("team") == "red"]
+    blue_members = [p for p in active if p.get("team") == "blue"]
     unassigned = [p for p in active if p.get("team") not in TEAMS]
-    red_count = sum(1 for p in active if p.get("team") == "red")
-    blue_count = sum(1 for p in active if p.get("team") == "blue")
 
+    # Distribute unassigned players to the team with fewer players
+    red_count = len(red_members)
+    blue_count = len(blue_members)
     for p in unassigned:
         if red_count <= blue_count:
             p["team"] = "red"
@@ -388,15 +427,25 @@ def _ensure_teams_ready(state: dict[str, Any]) -> None:
             p["team"] = "blue"
             blue_count += 1
 
-    # Handle case where everyone stacked onto one team
+    # Re-evaluate team members after distributing unassigned
+    active = [p for p in state.get("players", {}).values() if not p.get("is_spectator")]
+    red_count = sum(1 for p in active if p.get("team") == "red")
+    blue_count = sum(1 for p in active if p.get("team") == "blue")
+
+    # Only auto-balance if one team is completely empty
     if red_count == 0 or blue_count == 0:
         auto_balance_teams(state)
         return
 
+    # Ensure each team has exactly one Spymaster
     for team in TEAMS:
         members = [p for p in active if p.get("team") == team]
-        if members and not any(m.get("role") == "spymaster" for m in members):
+        spies = [m for m in members if m.get("role") == "spymaster"]
+        if not spies and members:
             members[0]["role"] = "spymaster"
+        elif len(spies) > 1:
+            for s in spies[1:]:
+                s["role"] = "operative"
 
 
 def rotate_spymasters(state: dict[str, Any]) -> None:
@@ -893,6 +942,14 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str]) -
 
     turn_team = state.get("turn_team")
     turn_phase = state.get("turn_phase")
+
+    active_spymaster_name = "Spymaster"
+    if turn_team:
+        for p in state.get("players", {}).values():
+            if p.get("team") == turn_team and p.get("role") == "spymaster" and not p.get("is_spectator"):
+                active_spymaster_name = p["name"]
+                break
+
     is_active_spy = bool(
         phase == "playing"
         and turn_phase == "spymaster_clue"
@@ -900,12 +957,15 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str]) -
         and viewer_team == turn_team
         and not is_spectator
     )
-    can_give_clue = bool(phase == "playing" and turn_phase == "spymaster_clue" and (is_active_spy or is_admin))
-    can_guess = bool(
+    is_active_op = bool(
         phase == "playing"
         and turn_phase == "operative_guess"
-        and ((viewer_team == turn_team and viewer_role == "operative" and not is_spectator) or is_admin)
+        and viewer_role == "operative"
+        and viewer_team == turn_team
+        and not is_spectator
     )
+    can_give_clue = bool(phase == "playing" and turn_phase == "spymaster_clue" and (is_active_spy or is_admin))
+    can_guess = bool(phase == "playing" and turn_phase == "operative_guess" and (is_active_op or is_admin))
 
     suggestions: list[dict[str, Any]] = []
     if is_active_spy and board:
@@ -944,6 +1004,10 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str]) -
         "can_see_keycard": can_see_keycard,
         "can_give_clue": can_give_clue,
         "can_guess": can_guess,
+        "is_active_spymaster": is_active_spy,
+        "is_active_operative": is_active_op,
+        "active_spymaster_name": active_spymaster_name,
+        "active_team_name": "Red Team" if turn_team == "red" else ("Blue Team" if turn_team == "blue" else ""),
         "spymaster_suggestions": suggestions,
         "custom_deck_count": len(state.get("custom_deck", [])),
         "turns_log": state.get("turns_log", []),

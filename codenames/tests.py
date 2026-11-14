@@ -11,6 +11,7 @@ from django.test import Client
 from django.urls import reverse
 
 from codenames.game_state import (
+    _ensure_teams_ready,
     _fallback_store,
     add_player,
     add_table_player,
@@ -260,6 +261,105 @@ class TestCodenamesGameEngine:
         assert state["round_num"] == 2
         assert state["last_spymasters"]["red"] != first_spymasters["red"]
         assert state["last_spymasters"]["blue"] != first_spymasters["blue"]
+
+    def test_table_player_assignment_single_spymaster_demotion_and_round_permissions(self):
+        state = create_initial_state("CNROST", "Roster Test", language="en")
+        state, host, _ = add_player(state, "HostUser", is_admin=True)
+        state, guest, _ = add_player(state, "GuestUser", is_admin=False)
+
+        # 1. Add table players with team and role
+        ok_p1, _ = add_table_player(state, "Alice", team="red", role="spymaster")
+        assert ok_p1 is True
+        alice = next(p for p in state["players"].values() if p["name"] == "Alice")
+        assert alice["team"] == "red"
+        assert alice["role"] == "spymaster"
+        assert alice["is_table_player"] is True
+
+        # Adding a second Spymaster to Red demotes Alice to operative (strictly 1 Spymaster per team)
+        ok_p2, _ = add_table_player(state, "Bob", team="red", role="spymaster")
+        assert ok_p2 is True
+        bob = next(p for p in state["players"].values() if p["name"] == "Bob")
+        assert bob["team"] == "red"
+        assert bob["role"] == "spymaster"
+        assert state["players"][alice["id"]]["role"] == "operative"
+
+        # 2. join_team also enforces strictly 1 Spymaster per team
+        join_team(state, guest["id"], team="red", role="spymaster")
+        assert state["players"][guest["id"]]["team"] == "red"
+        assert state["players"][guest["id"]]["role"] == "spymaster"
+        assert state["players"][bob["id"]]["role"] == "operative"
+
+        # Spectator role handling
+        join_team(state, guest["id"], team="spectator", role="spectator")
+        assert state["players"][guest["id"]]["is_spectator"] is True
+        assert state["players"][guest["id"]]["team"] is None
+
+        # 3. _ensure_teams_ready preserves manual team allocations
+        # Make host spectator so only table players are distributed
+        join_team(state, host["id"], team="spectator", role="spectator")
+        # Give Blue a Spymaster
+        add_table_player(state, "Charlie", team="blue", role="spymaster")
+        # Add unassigned table player Dave
+        add_table_player(state, "Dave")
+        dave = next(p for p in state["players"].values() if p["name"] == "Dave")
+        assert dave["team"] is None
+
+        _ensure_teams_ready(state)
+        # Alice & Bob remain on Red, Charlie remains on Blue
+        assert state["players"][alice["id"]]["team"] == "red"
+        assert state["players"][bob["id"]]["team"] == "red"
+        charlie = next(p for p in state["players"].values() if p["name"] == "Charlie")
+        assert charlie["team"] == "blue"
+        # Dave should be assigned to Blue to balance Red's 2 active players
+        assert state["players"][dave["id"]]["team"] == "blue"
+
+        # 4. View sanitization & round-by-round permissions
+        start_round(state)
+        starter = state["starting_team"]
+        other = "blue" if starter == "red" else "red"
+        starter_spy = next(
+            p for p in state["players"].values() if p.get("team") == starter and p.get("role") == "spymaster"
+        )
+        starter_op = next(
+            p for p in state["players"].values() if p.get("team") == starter and p.get("role") == "operative"
+        )
+        other_spy = next(
+            p for p in state["players"].values() if p.get("team") == other and p.get("role") == "spymaster"
+        )
+
+        # In spymaster_clue phase:
+        assert state["turn_phase"] == "spymaster_clue"
+        spy_v = get_sanitized_player_view(state, starter_spy["id"])
+        op_v = get_sanitized_player_view(state, starter_op["id"])
+        other_spy_v = get_sanitized_player_view(state, other_spy["id"])
+
+        assert spy_v["is_active_spymaster"] is True
+        assert spy_v["is_active_operative"] is False
+        assert spy_v["can_give_clue"] is True
+        assert spy_v["can_guess"] is False
+
+        assert op_v["is_active_spymaster"] is False
+        assert op_v["is_active_operative"] is False
+        assert op_v["can_give_clue"] is False
+        assert op_v["can_guess"] is False
+
+        assert other_spy_v["is_active_spymaster"] is False
+        assert other_spy_v["can_give_clue"] is False
+
+        # In operative_guess phase:
+        submit_clue(state, starter_spy["id"], "QXCLUETEST", 1)
+        assert state["turn_phase"] == "operative_guess"
+        spy_v2 = get_sanitized_player_view(state, starter_spy["id"])
+        op_v2 = get_sanitized_player_view(state, starter_op["id"])
+        other_spy_v2 = get_sanitized_player_view(state, other_spy["id"])
+
+        assert op_v2["is_active_operative"] is True
+        assert op_v2["can_guess"] is True
+        assert op_v2["can_give_clue"] is False
+
+        assert spy_v2["is_active_operative"] is False
+        assert spy_v2["can_guess"] is False
+        assert other_spy_v2["can_guess"] is False
 
 
 @pytest.mark.django_db

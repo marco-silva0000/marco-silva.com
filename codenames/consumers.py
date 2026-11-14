@@ -111,7 +111,12 @@ class CodenamesConsumer(AsyncJsonWebsocketConsumer):
         elif action == "add_table_player":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can add oral/table players.")
-            ok, msg = add_table_player(state, content.get("name", ""))
+            ok, msg = add_table_player(
+                state,
+                name=content.get("name", ""),
+                team=content.get("team"),
+                role=content.get("role", "operative"),
+            )
             if not ok:
                 return await self.send_error(msg)
             await self.broadcast_sync()

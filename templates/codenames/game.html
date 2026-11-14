@@ -205,6 +205,58 @@
 .cn-mini-cell.blue { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
 .cn-mini-cell.civilian { background: #f5f5f4; color: #44403c; border-color: #d6d3d1; }
 .cn-mini-cell.assassin { background: #111827; color: #facc15; border-color: #020617; }
+
+/* Teams Grid in Lobby */
+.cn-teams-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.95rem;
+}
+@media (max-width: 640px) {
+  .cn-teams-grid { grid-template-columns: 1fr; }
+}
+.cn-team-box {
+  border-radius: 12px; padding: 0.85rem; border: 2px solid; background: #fff;
+}
+.cn-team-box.red { border-color: var(--cn-red-border); background: var(--cn-red-soft); }
+.cn-team-box.blue { border-color: var(--cn-blue-border); background: var(--cn-blue-soft); }
+.cn-team-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem;
+  padding-bottom: 0.45rem; border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.cn-team-title { font-weight: 800; font-size: 1rem; }
+.cn-team-box.red .cn-team-title { color: var(--cn-red); }
+.cn-team-box.blue .cn-team-title { color: var(--cn-blue); }
+.cn-role-slot {
+  background: #fff; border-radius: 9px; padding: 0.55rem 0.65rem; margin-bottom: 0.55rem;
+  border: 1px solid #e2e8f0;
+}
+.cn-role-label {
+  display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--cn-muted); margin-bottom: 0.35rem;
+}
+.cn-slot-content { min-height: 28px; margin-bottom: 0.35rem; }
+.cn-member-chip {
+  display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.78rem; font-weight: 700;
+  padding: 0.22rem 0.55rem; border-radius: 999px; background: #f8fafc; border: 1px solid #cbd5e1;
+  margin: 0.15rem 0.2rem 0.15rem 0;
+}
+.cn-member-chip.is-me { background: #fef08a; border-color: #facc15; color: #854d0e; }
+
+/* Round Status Banner */
+.cn-round-banner {
+  border-radius: 12px; padding: 0.75rem 1rem; margin-bottom: 0.85rem;
+  border: 2px solid #cbd5e1; background: #ffffff;
+  transition: all 0.15s ease-in-out;
+}
+.cn-round-banner.round-red { border-color: #ef4444; background: #fff5f5; }
+.cn-round-banner.round-blue { border-color: #3b82f6; background: #f0f7ff; }
+
+/* GM Mod Lock Toggle */
+.cn-mod-lock-toggle {
+  display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer;
+  background: #fef3c7; padding: 0.25rem 0.6rem; border-radius: 8px;
+  border: 1px solid #fde68a; font-size: 0.78rem; font-weight: 700; color: #92400e;
+  user-select: none;
+}
 {% endblock %}
 
 {% block content %}
@@ -258,13 +310,17 @@
     </div>
   </div>
 
-  <!-- Host Zero-Spoiler Toolbar -->
+  <!-- Host Controls Toolbar -->
   <div id="gm-toolbar" class="cn-gm-bar" style="display:none;">
     <span style="font-size:0.78rem;font-weight:700;color:#92400e;">👑 {% trans "Host Controls" %}</span>
-    <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+    <div style="display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;">
+      <label id="gm-mod-lock-wrap" class="cn-mod-lock-toggle" title="{% trans 'Allow Host to log oral clues and tap cards for players at the table' %}">
+        <input type="checkbox" id="gm-mod-lock-cb" onchange="toggleGmModLock(this.checked)">
+        <span id="gm-mod-lock-text">👑 {% trans "GM Oral Mode: ON" %}</span>
+      </label>
       <button type="button" class="cn-btn cn-btn-sm" id="gm-redraw-btn" onclick="sendAction('blind_redraw')">🎲 {% trans "Redraw Board" %}</button>
       <button type="button" class="cn-btn cn-btn-sm" onclick="sendAction('auto_balance_teams')">⚖️ {% trans "Auto-Balance" %}</button>
-      <button type="button" class="cn-btn cn-btn-sm" id="gm-pass-btn" style="display:none;" onclick="sendAction('end_turn', { by_mod: true })">⏭️ {% trans "Pass Turn" %}</button>
+      <button type="button" class="cn-btn cn-btn-sm" id="gm-pass-btn" style="display:none;" onclick="handleEndTurn(true)">⏭️ {% trans "Pass Turn (Mod)" %}</button>
       <button type="button" class="cn-btn cn-btn-sm" id="gm-pause-btn" style="display:none;" onclick="togglePauseTimer()">⏸️ {% trans "Pause" %}</button>
       <button type="button" class="cn-btn cn-btn-sm" id="gm-add15-btn" style="display:none;" onclick="sendAction('timer_control', { command: 'add', seconds: 15 })">+15s</button>
       <button type="button" class="cn-btn cn-btn-sm cn-btn-red" id="gm-end-btn" style="display:none;" onclick="sendAction('end_game')">🛑 {% trans "End Board" %}</button>
@@ -274,6 +330,18 @@
   <div class="cn-layout">
     <!-- Main Board Column -->
     <div>
+      <!-- Round Status Banner (Clear Phase & Turn Guidance) -->
+      <div id="round-status-banner" class="cn-round-banner" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+            <span class="cn-pill" id="round-num-pill">Round 1</span>
+            <span class="cn-pill" id="turn-phase-pill">Clue Phase</span>
+            <strong id="round-heading" style="font-size:0.92rem;"></strong>
+          </div>
+        </div>
+        <div id="round-subtext" style="font-size:0.82rem;margin-top:0.25rem;color:#334155;"></div>
+      </div>
+
       <!-- Spymaster Clue Input + Wikisaurus AI Suggestions -->
       <div id="spymaster-clue-box" class="cn-clue-panel" style="display:none;">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.45rem;">
@@ -298,7 +366,7 @@
             <option value="0">0</option>
             <option value="99">∞ ({% trans "Unlimited" %})</option>
           </select>
-          <button type="submit" class="cn-btn cn-btn-dark">📢 {% trans "Publish Clue" %}</button>
+          <button type="submit" id="clue-submit-btn" class="cn-btn cn-btn-dark">📢 {% trans "Publish Clue" %}</button>
         </form>
         <div id="suggestions-wrap" style="display:none;margin-top:0.65rem;padding-top:0.55rem;border-top:1px dashed #cbd5e1;">
           <div class="cn-section-label">💡 {% trans "Wikisaurus AI Clue Suggestions (tap to pre-fill)" %}</div>
@@ -315,9 +383,6 @@
           </div>
           <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
             <span class="cn-pill" id="guesses-left-badge">{% trans "Guesses left" %}: 0</span>
-            <label id="mod-tap-wrap" style="display:none;font-size:0.78rem;font-weight:600;align-items:center;gap:0.3rem;cursor:pointer;background:#fef3c7;padding:0.28rem 0.55rem;border-radius:8px;border:1px solid #fde68a;">
-              <input type="checkbox" id="mod-tap-checkbox" checked> 👑 {% trans "Mod Log Oral Card Tap" %}
-            </label>
             <button type="button" id="end-turn-btn" class="cn-btn cn-btn-amber" style="display:none;" onclick="handleEndTurn()">
               ⏭️ {% trans "End Guessing Turn" %}
             </button>
@@ -340,12 +405,59 @@
 
       <!-- Lobby Panel -->
       <div id="lobby-panel" class="cn-card">
-        <div class="cn-section-label">{% trans "1. Choose Your Team & Role" %}</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.5rem;margin-bottom:0.9rem;">
-          <button type="button" class="cn-btn cn-btn-red" onclick="sendAction('join_team',{team:'red',role:'spymaster'})">🔴 {% trans "Red Spymaster" %}</button>
-          <button type="button" class="cn-btn" style="border-color:#fca5a5;color:#991b1b;" onclick="sendAction('join_team',{team:'red',role:'operative'})">🔴 {% trans "Red Operative" %}</button>
-          <button type="button" class="cn-btn cn-btn-blue" onclick="sendAction('join_team',{team:'blue',role:'spymaster'})">🔵 {% trans "Blue Spymaster" %}</button>
-          <button type="button" class="cn-btn" style="border-color:#93c5fd;color:#1e40af;" onclick="sendAction('join_team',{team:'blue',role:'operative'})">🔵 {% trans "Blue Operative" %}</button>
+        <div class="cn-section-label">{% trans "1. Teams & Roles Setup" %}</div>
+        
+        <!-- Two-Team Visual Board in Lobby -->
+        <div class="cn-teams-grid">
+          <!-- Red Team Box -->
+          <div class="cn-team-box red">
+            <div class="cn-team-header">
+              <span class="cn-team-title">🔴 {% trans "Red Team" %}</span>
+              <span class="cn-pill" id="red-team-pill">0</span>
+            </div>
+            <div class="cn-role-slot">
+              <span class="cn-role-label">🕶️ {% trans "Spymaster" %} (1 max)</span>
+              <div id="red-spy-slot" class="cn-slot-content"></div>
+              <button type="button" class="cn-btn cn-btn-sm cn-btn-red" onclick="sendAction('join_team',{team:'red',role:'spymaster'})">
+                🔴 {% trans "Join as Spymaster" %}
+              </button>
+            </div>
+            <div class="cn-role-slot">
+              <span class="cn-role-label">🔍 {% trans "Operatives" %}</span>
+              <div id="red-ops-slot" class="cn-slot-content"></div>
+              <button type="button" class="cn-btn cn-btn-sm" style="border-color:#fca5a5;color:#991b1b;" onclick="sendAction('join_team',{team:'red',role:'operative'})">
+                🔴 {% trans "Join as Operative" %}
+              </button>
+            </div>
+          </div>
+
+          <!-- Blue Team Box -->
+          <div class="cn-team-box blue">
+            <div class="cn-team-header">
+              <span class="cn-team-title">🔵 {% trans "Blue Team" %}</span>
+              <span class="cn-pill" id="blue-team-pill">0</span>
+            </div>
+            <div class="cn-role-slot">
+              <span class="cn-role-label">🕶️ {% trans "Spymaster" %} (1 max)</span>
+              <div id="blue-spy-slot" class="cn-slot-content"></div>
+              <button type="button" class="cn-btn cn-btn-sm cn-btn-blue" onclick="sendAction('join_team',{team:'blue',role:'spymaster'})">
+                🔵 {% trans "Join as Spymaster" %}
+              </button>
+            </div>
+            <div class="cn-role-slot">
+              <span class="cn-role-label">🔍 {% trans "Operatives" %}</span>
+              <div id="blue-ops-slot" class="cn-slot-content"></div>
+              <button type="button" class="cn-btn cn-btn-sm" style="border-color:#93c5fd;color:#1e40af;" onclick="sendAction('join_team',{team:'blue',role:'operative'})">
+                🔵 {% trans "Join as Operative" %}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;margin-bottom:0.85rem;">
+          <button type="button" class="cn-btn cn-btn-sm" onclick="sendAction('toggle_spectator')">
+            👁️ {% trans "Spectator / Non-Player" %}
+          </button>
         </div>
 
         <div id="host-lobby-settings" style="display:none;border-top:1px solid #e2e8f0;padding-top:0.85rem;">
@@ -386,11 +498,20 @@
             </label>
           </div>
 
-          <div class="cn-section-label">🪑 {% trans "Add Oral / Table Player (no phone needed)" %}</div>
-          <form onsubmit="addTablePlayerForm(event)" style="display:flex;gap:0.45rem;margin-bottom:0.9rem;">
-            <input type="text" id="table-player-name" placeholder="{% trans 'Player name at the table...' %}" maxlength="24"
-                   style="flex:1;padding:0.42rem 0.65rem;border:1px solid #cbd5e1;border-radius:8px;font-size:0.84rem;">
-            <button type="submit" class="cn-btn">➕ {% trans "Add Player" %}</button>
+          <div class="cn-section-label">🪑 {% trans "Add Oral / Table Player (directly to a team)" %}</div>
+          <form onsubmit="addTablePlayerForm(event)" style="display:flex;gap:0.45rem;flex-wrap:wrap;align-items:center;margin-bottom:0.9rem;">
+            <input type="text" id="table-player-name" placeholder="{% trans 'Player name...' %}" maxlength="24"
+                   style="flex:1;min-width:140px;padding:0.42rem 0.65rem;border:1px solid #cbd5e1;border-radius:8px;font-size:0.84rem;">
+            <select id="table-player-team" style="padding:0.42rem 0.55rem;border:1px solid #cbd5e1;border-radius:8px;font-size:0.84rem;">
+              <option value="red">🔴 {% trans "Red Team" %}</option>
+              <option value="blue">🔵 {% trans "Blue Team" %}</option>
+              <option value="">⚪ {% trans "Unassigned" %}</option>
+            </select>
+            <select id="table-player-role" style="padding:0.42rem 0.55rem;border:1px solid #cbd5e1;border-radius:8px;font-size:0.84rem;">
+              <option value="operative">🔍 {% trans "Operative" %}</option>
+              <option value="spymaster">🕶️ {% trans "Spymaster" %}</option>
+            </select>
+            <button type="submit" class="cn-btn cn-btn-primary">➕ {% trans "Add Player" %}</button>
           </form>
 
           <div style="display:flex;gap:0.55rem;flex-wrap:wrap;">
@@ -602,41 +723,109 @@ function toggleKeycardVisibility() {
   renderState(latestState);
 }
 
-function shouldUseModTap() {
-  if (!latestState || !latestState.me) return false;
-  const isActiveOperative = (
-    latestState.me.team === latestState.turn_team &&
-    latestState.me.role === 'operative' &&
-    !latestState.me.is_spectator
+function isGmModUnlocked() {
+  if (!latestState || !latestState.me || !latestState.me.is_admin) return false;
+  const stored = localStorage.getItem('cn_mod_unlocked_' + CODE);
+  return stored !== '0';
+}
+
+function toggleGmModLock(unlocked) {
+  localStorage.setItem('cn_mod_unlocked_' + CODE, unlocked ? '1' : '0');
+  renderState(latestState);
+}
+
+function getPlayerPermissions(s) {
+  if (!s || !s.me) {
+    return {
+      isAdmin: false,
+      isSpectator: true,
+      myTeam: null,
+      myRole: null,
+      isActiveSpymaster: false,
+      isActiveOperative: false,
+      canGiveClue: false,
+      canTapCards: false,
+      canEndTurn: false,
+      isModUnlocked: false,
+    };
+  }
+
+  const isAdmin = Boolean(s.me.is_admin);
+  const isSpectator = Boolean(s.me.is_spectator);
+  const myTeam = s.me.team || null;
+  const myRole = s.me.role || 'operative';
+  const modUnlocked = isAdmin && isGmModUnlocked();
+
+  const isCurrentTeamTurn = Boolean(s.phase === 'playing' && s.turn_team && myTeam === s.turn_team && !isSpectator);
+  const isActiveSpymaster = Boolean(isCurrentTeamTurn && s.turn_phase === 'spymaster_clue' && myRole === 'spymaster');
+  const isActiveOperative = Boolean(isCurrentTeamTurn && s.turn_phase === 'operative_guess' && myRole === 'operative');
+
+  const canGiveClue = Boolean(
+    s.phase === 'playing' &&
+    s.turn_phase === 'spymaster_clue' &&
+    (isActiveSpymaster || modUnlocked)
   );
-  if (isActiveOperative) return false;
-  const cb = document.getElementById('mod-tap-checkbox');
-  return Boolean(latestState.me.is_admin && (!cb || cb.checked));
+
+  const canTapCards = Boolean(
+    s.phase === 'playing' &&
+    s.turn_phase === 'operative_guess' &&
+    (isActiveOperative || modUnlocked)
+  );
+
+  const canEndTurn = Boolean(
+    s.phase === 'playing' &&
+    s.turn_phase === 'operative_guess' &&
+    (isActiveOperative || modUnlocked)
+  );
+
+  return {
+    isAdmin,
+    isSpectator,
+    myTeam,
+    myRole,
+    isActiveSpymaster,
+    isActiveOperative,
+    canGiveClue,
+    canTapCards,
+    canEndTurn,
+    isModUnlocked: modUnlocked,
+  };
 }
 
 function guessCard(idx) {
-  if (!latestState || !latestState.can_guess) return;
+  if (!latestState) return;
+  const perms = getPlayerPermissions(latestState);
+  if (!perms.canTapCards) return;
   const card = (latestState.board || [])[idx];
   if (!card || card.revealed) return;
-  sendAction('guess_card', { index: idx, by_mod: shouldUseModTap() });
+  const byMod = perms.isAdmin && !perms.isActiveOperative;
+  sendAction('guess_card', { index: idx, by_mod: byMod });
 }
 
-function handleEndTurn() {
-  sendAction('end_turn', { by_mod: shouldUseModTap() });
+function handleEndTurn(forceMod) {
+  if (!latestState) return;
+  const perms = getPlayerPermissions(latestState);
+  if (!forceMod && !perms.canEndTurn) return;
+  const byMod = Boolean(forceMod || (perms.isAdmin && !perms.isActiveOperative));
+  sendAction('end_turn', { by_mod: byMod });
 }
 
 function submitClueForm(ev) {
   ev.preventDefault();
-  const clue = (document.getElementById('clue-word-input').value || '').trim();
-  const count = parseInt(document.getElementById('clue-count-select').value, 10);
+  if (!latestState) return;
+  const perms = getPlayerPermissions(latestState);
+  if (!perms.canGiveClue) {
+    showError('{% trans "It is not your turn to submit a clue." %}');
+    return;
+  }
+  const clueInput = document.getElementById('clue-word-input');
+  const countSelect = document.getElementById('clue-count-select');
+  const clue = (clueInput.value || '').trim();
+  const count = parseInt(countSelect.value, 10);
   if (!clue) return;
-  const isActiveSpy = (
-    latestState.me.team === latestState.turn_team &&
-    latestState.me.role === 'spymaster' &&
-    !latestState.me.is_spectator
-  );
-  sendAction('submit_clue', { clue: clue, count: isNaN(count) ? 1 : count, by_mod: !isActiveSpy });
-  document.getElementById('clue-word-input').value = '';
+  const byMod = perms.isAdmin && !perms.isActiveSpymaster;
+  sendAction('submit_clue', { clue: clue, count: isNaN(count) ? 1 : count, by_mod: byMod });
+  clueInput.value = '';
 }
 
 function applySuggestion(word, count) {
@@ -683,9 +872,13 @@ function saveLobbySettings() {
 function addTablePlayerForm(ev) {
   ev.preventDefault();
   const inp = document.getElementById('table-player-name');
+  const teamSelect = document.getElementById('table-player-team');
+  const roleSelect = document.getElementById('table-player-role');
   const name = (inp.value || '').trim();
   if (!name) return;
-  sendAction('add_table_player', { name: name });
+  const team = teamSelect ? teamSelect.value : '';
+  const role = roleSelect ? roleSelect.value : 'operative';
+  sendAction('add_table_player', { name: name, team: team, role: role });
   inp.value = '';
 }
 
@@ -801,6 +994,99 @@ function updateTimerDisplay(timer) {
   }
 }
 
+function renderLobbyTeams(s) {
+  const redSpyEl = document.getElementById('red-spy-slot');
+  const redOpsEl = document.getElementById('red-ops-slot');
+  const blueSpyEl = document.getElementById('blue-spy-slot');
+  const blueOpsEl = document.getElementById('blue-ops-slot');
+  if (!redSpyEl || !blueSpyEl) return;
+
+  const myId = s.me ? s.me.id : null;
+  const players = s.players || [];
+  const redMembers = players.filter((p) => !p.is_spectator && p.team === 'red');
+  const blueMembers = players.filter((p) => !p.is_spectator && p.team === 'blue');
+
+  const redPill = document.getElementById('red-team-pill');
+  const bluePill = document.getElementById('blue-team-pill');
+  if (redPill) redPill.textContent = redMembers.length;
+  if (bluePill) bluePill.textContent = blueMembers.length;
+
+  const redSpy = redMembers.filter((p) => p.role === 'spymaster');
+  const redOps = redMembers.filter((p) => p.role !== 'spymaster');
+  const blueSpy = blueMembers.filter((p) => p.role === 'spymaster');
+  const blueOps = blueMembers.filter((p) => p.role !== 'spymaster');
+
+  const chip = (p) => `
+    <span class="cn-member-chip ${p.id === myId ? 'is-me' : ''}">
+      ${p.is_admin ? '👑 ' : ''}${p.is_table_player ? '🪑 ' : ''}${esc(p.name)}
+    </span>
+  `;
+  const empty = `<span style="font-size:0.75rem;color:#94a3b8;font-style:italic;">{% trans "Open slot" %}</span>`;
+
+  redSpyEl.innerHTML = redSpy.length ? redSpy.map(chip).join('') : empty;
+  redOpsEl.innerHTML = redOps.length ? redOps.map(chip).join('') : empty;
+  blueSpyEl.innerHTML = blueSpy.length ? blueSpy.map(chip).join('') : empty;
+  blueOpsEl.innerHTML = blueOps.length ? blueOps.map(chip).join('') : empty;
+}
+
+function renderRoundBanner(s, perms) {
+  const banner = document.getElementById('round-status-banner');
+  if (!banner) return;
+  if (s.phase !== 'playing') {
+    banner.style.display = 'none';
+    return;
+  }
+  banner.style.display = 'block';
+  banner.className = `cn-round-banner ${s.turn_team === 'red' ? 'round-red' : 'round-blue'}`;
+
+  const numEl = document.getElementById('round-num-pill');
+  const phaseEl = document.getElementById('turn-phase-pill');
+  const headEl = document.getElementById('round-heading');
+  const subEl = document.getElementById('round-subtext');
+
+  if (numEl) numEl.textContent = `{% trans "Board" %} #${s.round_num || 1}`;
+  const teamLabel = s.turn_team === 'red' ? '🔴 {% trans "Red Team" %}' : '🔵 {% trans "Blue Team" %}';
+
+  if (s.turn_phase === 'spymaster_clue') {
+    if (phaseEl) phaseEl.textContent = '🕶️ {% trans "Clue Phase" %}';
+    if (perms.isActiveSpymaster) {
+      if (headEl) headEl.innerHTML = `${teamLabel} — {% trans "Your Turn, Spymaster!" %}`;
+      if (subEl) subEl.textContent = '{% trans "Pick 1 word and a number of cards. Your Operatives must guess based on your clue." %}';
+    } else if (perms.isModUnlocked) {
+      if (headEl) headEl.innerHTML = `👑 {% trans "GM Oral Spymaster Mode" %}`;
+      if (subEl) subEl.textContent = `{% trans "Listen to" %} ${esc(s.active_spymaster_name || 'Spymaster')} {% trans "and publish their clue below." %}`;
+    } else if (perms.myTeam === s.turn_team && !perms.isSpectator) {
+      if (headEl) headEl.innerHTML = `${teamLabel} — {% trans "Waiting for Clue..." %}`;
+      if (subEl) subEl.textContent = `{% trans "Your Spymaster" %} (${esc(s.active_spymaster_name || 'Spymaster')}) {% trans "is formulating a clue. Stand by!" %}`;
+    } else {
+      if (headEl) headEl.innerHTML = `${teamLabel} — {% trans "Clue Phase" %}`;
+      if (subEl) subEl.textContent = `${esc(s.active_spymaster_name || 'Spymaster')} {% trans "is formulating a clue for their team." %}`;
+    }
+  } else {
+    if (phaseEl) phaseEl.textContent = '🔍 {% trans "Guessing Phase" %}';
+    const clueWord = (s.current_clue && s.current_clue.word) ? s.current_clue.word.toUpperCase() : '—';
+    const clueCount = (s.current_clue && s.current_clue.display_count) || '?';
+    const clueDisplay = `"${esc(clueWord)}" (${esc(clueCount)})`;
+
+    if (perms.isActiveOperative) {
+      if (headEl) headEl.innerHTML = `${teamLabel} — {% trans "Your Turn to Guess!" %} ${clueDisplay}`;
+      if (subEl) subEl.textContent = '{% trans "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn." %}';
+    } else if (perms.isModUnlocked) {
+      if (headEl) headEl.innerHTML = `👑 {% trans "GM Oral Guessing Mode" %} ${clueDisplay}`;
+      if (subEl) subEl.textContent = '{% trans "Tap cards on the board as players make their guesses out loud." %}';
+    } else if (perms.myTeam === s.turn_team && perms.myRole === 'spymaster' && !perms.isSpectator) {
+      if (headEl) headEl.innerHTML = `🤫 {% trans "Operatives are Guessing" %} ${clueDisplay}`;
+      if (subEl) subEl.textContent = '{% trans "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!" %}';
+    } else if (perms.myTeam && perms.myTeam !== s.turn_team && !perms.isSpectator) {
+      if (headEl) headEl.innerHTML = `⏳ ${teamLabel} {% trans "is Guessing" %} ${clueDisplay}`;
+      if (subEl) subEl.textContent = '{% trans "Opponent team is guessing. Wait for them to pass or make an incorrect tap." %}';
+    } else {
+      if (headEl) headEl.innerHTML = `👀 ${teamLabel} {% trans "is Guessing" %} ${clueDisplay}`;
+      if (subEl) subEl.textContent = '{% trans "Operatives are choosing cards for this round." %}';
+    }
+  }
+}
+
 function renderState(s) {
   latestState = s;
   if ((s.round_num || 0) !== lastRoundNum) {
@@ -808,6 +1094,8 @@ function renderState(s) {
     keycardVisible = false;
     lastRoundNum = s.round_num || 0;
   }
+
+  const perms = getPlayerPermissions(s);
 
   document.getElementById('phase-badge').textContent =
     s.phase === 'lobby' ? '{% trans "Lobby" %}' : (s.phase === 'playing' ? `{% trans "Board" %} #${s.round_num || 1}` : '{% trans "Game Over" %}');
@@ -844,34 +1132,57 @@ function renderState(s) {
   }
 
   // GM Toolbar
-  const isAdmin = Boolean(s.me && s.me.is_admin);
-  document.getElementById('gm-toolbar').style.display = isAdmin ? 'flex' : 'none';
-  document.getElementById('gm-redraw-btn').style.display = s.phase === 'playing' ? 'inline-flex' : 'none';
-  document.getElementById('gm-pass-btn').style.display = (s.phase === 'playing' && s.turn_phase === 'operative_guess') ? 'inline-flex' : 'none';
-  document.getElementById('gm-end-btn').style.display = s.phase === 'playing' ? 'inline-flex' : 'none';
-  const hasTimer = Boolean(s.timer && (s.timer.duration > 0 || s.timer.paused));
-  document.getElementById('gm-pause-btn').style.display = (s.phase === 'playing' && hasTimer) ? 'inline-flex' : 'none';
-  document.getElementById('gm-pause-btn').textContent = (s.timer && s.timer.paused) ? '▶️ {% trans "Resume" %}' : '⏸️ {% trans "Pause" %}';
-  document.getElementById('gm-add15-btn').style.display = (s.phase === 'playing' && hasTimer) ? 'inline-flex' : 'none';
+  document.getElementById('gm-toolbar').style.display = perms.isAdmin ? 'flex' : 'none';
+  if (perms.isAdmin) {
+    const gmCb = document.getElementById('gm-mod-lock-cb');
+    const gmText = document.getElementById('gm-mod-lock-text');
+    if (gmCb) gmCb.checked = perms.isModUnlocked;
+    if (gmText) {
+      gmText.textContent = perms.isModUnlocked
+        ? '👑 {% trans "GM Oral Mode: ON" %}'
+        : '🔒 {% trans "GM Mode: Locked" %}';
+    }
+    document.getElementById('gm-redraw-btn').style.display = s.phase === 'playing' ? 'inline-flex' : 'none';
+    document.getElementById('gm-pass-btn').style.display = (s.phase === 'playing' && s.turn_phase === 'operative_guess' && perms.isModUnlocked) ? 'inline-flex' : 'none';
+    document.getElementById('gm-end-btn').style.display = s.phase === 'playing' ? 'inline-flex' : 'none';
+    const hasTimer = Boolean(s.timer && (s.timer.duration > 0 || s.timer.paused));
+    document.getElementById('gm-pause-btn').style.display = (s.phase === 'playing' && hasTimer) ? 'inline-flex' : 'none';
+    document.getElementById('gm-pause-btn').textContent = (s.timer && s.timer.paused) ? '▶️ {% trans "Resume" %}' : '⏸️ {% trans "Pause" %}';
+    document.getElementById('gm-add15-btn').style.display = (s.phase === 'playing' && hasTimer) ? 'inline-flex' : 'none';
+  }
+
+  // Round Status Guidance Banner
+  renderRoundBanner(s, perms);
 
   // Spymaster Clue Box
   const clueBox = document.getElementById('spymaster-clue-box');
-  clueBox.style.display = s.can_give_clue ? 'block' : 'none';
-  clueBox.className = `cn-clue-panel ${s.turn_team === 'red' ? 'turn-red' : 'turn-blue'}`;
-  const isActiveSpy = Boolean(s.me && s.me.team === s.turn_team && s.me.role === 'spymaster' && !s.me.is_spectator);
-  document.getElementById('clue-mod-badge').style.display = (s.can_give_clue && !isActiveSpy && isAdmin) ? 'inline-flex' : 'none';
-  const suggWrap = document.getElementById('suggestions-wrap');
-  const suggList = document.getElementById('suggestions-list');
-  if (s.spymaster_suggestions && s.spymaster_suggestions.length > 0 && isActiveSpy) {
-    suggWrap.style.display = 'block';
-    suggList.innerHTML = s.spymaster_suggestions.map((sg) => `
-      <button type="button" class="cn-chip" title="{% trans 'Targets' %}: ${esc((sg.targets || []).join(', '))}"
-              onclick="applySuggestion('${esc(sg.clue)}', ${Number(sg.count) || 1})">
-        ${esc(sg.clue)} (${Number(sg.count) || 1}) · ${esc((sg.targets || []).join(', '))}
-      </button>
-    `).join('');
+  if (perms.canGiveClue) {
+    clueBox.style.display = 'block';
+    clueBox.className = `cn-clue-panel ${s.turn_team === 'red' ? 'turn-red' : 'turn-blue'}`;
+    const clueHeading = document.getElementById('clue-box-heading');
+    const clueModBadge = document.getElementById('clue-mod-badge');
+    if (perms.isActiveSpymaster) {
+      if (clueHeading) clueHeading.textContent = '🕶️ {% trans "Give a One-Word Clue" %}';
+      if (clueModBadge) clueModBadge.style.display = 'none';
+    } else {
+      if (clueHeading) clueHeading.textContent = '👑 {% trans "Log Clue for Table Spymaster" %}';
+      if (clueModBadge) clueModBadge.style.display = 'inline-flex';
+    }
+    const suggWrap = document.getElementById('suggestions-wrap');
+    const suggList = document.getElementById('suggestions-list');
+    if (s.spymaster_suggestions && s.spymaster_suggestions.length > 0 && perms.isActiveSpymaster) {
+      suggWrap.style.display = 'block';
+      suggList.innerHTML = s.spymaster_suggestions.map((sg) => `
+        <button type="button" class="cn-chip" title="{% trans 'Targets' %}: ${esc((sg.targets || []).join(', '))}"
+                onclick="applySuggestion('${esc(sg.clue)}', ${Number(sg.count) || 1})">
+          ${esc(sg.clue)} (${Number(sg.count) || 1}) · ${esc((sg.targets || []).join(', '))}
+        </button>
+      `).join('');
+    } else {
+      suggWrap.style.display = 'none';
+    }
   } else {
-    suggWrap.style.display = 'none';
+    clueBox.style.display = 'none';
   }
 
   // Operative Action Bar
@@ -883,9 +1194,7 @@ function renderState(s) {
     document.getElementById('active-clue-display').textContent = `${clue.word || '—'} (${clue.display_count || '?'})`;
     const gLeft = s.guesses_remaining >= 99 ? '∞' : String(s.guesses_remaining || 0);
     document.getElementById('guesses-left-badge').textContent = `{% trans "Guesses left" %}: ${gLeft}`;
-    const isActiveOp = Boolean(s.me && s.me.team === s.turn_team && s.me.role === 'operative' && !s.me.is_spectator);
-    document.getElementById('mod-tap-wrap').style.display = (isAdmin && !isActiveOp) ? 'inline-flex' : 'none';
-    document.getElementById('end-turn-btn').style.display = s.can_guess ? 'inline-flex' : 'none';
+    document.getElementById('end-turn-btn').style.display = perms.canEndTurn ? 'inline-flex' : 'none';
   } else {
     opBar.style.display = 'none';
   }
@@ -905,7 +1214,7 @@ function renderState(s) {
       } else if (showAff) {
         classes.push(`key-${aff}`);
       }
-      if (s.can_guess && !c.revealed) classes.push('clickable');
+      if (perms.canTapCards && !c.revealed) classes.push('clickable');
       const enSub = (c.word_en && c.word_en.toLowerCase() !== c.word.toLowerCase())
         ? `<div class="cn-tile-en">${esc(c.word_en)}</div>` : '';
       const keyTag = (!c.revealed && showAff)
@@ -930,8 +1239,9 @@ function renderState(s) {
   const lobbyPanel = document.getElementById('lobby-panel');
   if (s.phase === 'lobby') {
     lobbyPanel.style.display = 'block';
-    document.getElementById('host-lobby-settings').style.display = isAdmin ? 'block' : 'none';
-    document.getElementById('guest-lobby-wait').style.display = isAdmin ? 'none' : 'block';
+    renderLobbyTeams(s);
+    document.getElementById('host-lobby-settings').style.display = perms.isAdmin ? 'block' : 'none';
+    document.getElementById('guest-lobby-wait').style.display = perms.isAdmin ? 'none' : 'block';
     const st = s.settings || {};
     document.getElementById('setting-word-pack').value = st.word_pack || 'classic';
     const spT = st.spymaster_timer || 0;
@@ -956,7 +1266,7 @@ function renderState(s) {
     const winLabel = s.winner === 'red' ? '🔴 {% trans "Red Team Wins!" %}' : (s.winner === 'blue' ? '🔵 {% trans "Blue Team Wins!" %}' : '🏁 {% trans "Board Ended" %}');
     document.getElementById('gameover-title').textContent = winLabel;
     document.getElementById('gameover-reason').textContent = s.win_reason || '';
-    document.getElementById('gameover-host-actions').style.display = isAdmin ? 'flex' : 'none';
+    document.getElementById('gameover-host-actions').style.display = perms.isAdmin ? 'flex' : 'none';
   } else {
     goPanel.style.display = 'none';
   }
@@ -969,7 +1279,7 @@ function renderState(s) {
     const roleBadge = p.is_spectator
       ? '👁️ {% trans "Spectator" %}'
       : (p.role === 'spymaster' ? '🕶️ {% trans "Spymaster" %}' : '🔍 {% trans "Operative" %}');
-    const modAssign = isAdmin ? `
+    const modAssign = perms.isAdmin ? `
       <select onchange="assignPlayerTeam('${esc(p.id)}', this)" style="font-size:0.7rem;padding:0.15rem;border:1px solid #cbd5e1;border-radius:5px;">
         <option value="">{% trans "Move..." %}</option>
         <option value="red:spymaster">🔴 Spymaster</option>
@@ -979,7 +1289,7 @@ function renderState(s) {
         <option value="spectator">👁️ Spectator</option>
       </select>
     ` : '';
-    const kickBtn = (isAdmin && s.me && p.id !== s.me.id)
+    const kickBtn = (perms.isAdmin && s.me && p.id !== s.me.id)
       ? `<button type="button" class="cn-btn cn-btn-sm" onclick="sendAction('kick_player',{player_id:'${esc(p.id)}'})" title="Kick">&times;</button>` : '';
     return `
       <div class="cn-player-row ${teamCls}">

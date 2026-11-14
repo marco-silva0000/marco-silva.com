@@ -4,6 +4,20 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v160] - 2026-11-14
+
+### Added & Changed
+- **Codenames Team Roster Board & Direct Table Player Assignment (`codenames/game_state.py`, `codenames/consumers.py`, `templates/codenames/game.html`)**:
+  - Replaced ambiguous lobby buttons with a visual Two-Team Roster Grid displaying Red and Blue team boxes, dedicated Spymaster (1 max) and Operative slots, and live member chips.
+  - Added explicit Team (`Red` / `Blue` / `Unassigned`) and Role (`Operative` / `Spymaster`) dropdowns to the "Add Oral / Table Player" form so Hosts can add couch players directly to a team and role.
+  - Enforced strictly 1 Spymaster per team across `add_table_player()` and `join_team()`, demoting previous Spymasters to Operative automatically upon new Spymaster assignment.
+  - Enhanced `_ensure_teams_ready()` to preserve manual team allocations without overwriting existing assignments.
+- **Codenames Game Master Mod Lock & Round-by-Round Input Visibility (`codenames/game_state.py`, `templates/codenames/game.html`)**:
+  - Added the Game Master Mod Lock toggle (`👑 GM Oral Mode`) to the Host toolbar, with persisted local state (`localStorage`) and automatic capability gating.
+  - Implemented round-by-round input visibility: during Spymaster clue phase, clue inputs are strictly restricted to the active Spymaster (or unlocked GM Mod); Operatives, opposing teams, and spectators see a clear guidance status banner instead of input fields.
+  - During the Operative guessing phase, board card clicking and the `⏭️ End Guessing Turn` button are restricted to active team Operatives (or unlocked GM Mod); Spymasters and opposing teams cannot tap cards or pass turns.
+  - Added `#round-status-banner` above the board providing phase and role guidance across all round states.
+
 ## [v159] - 2026-11-14
 
 ### Added & Changed
