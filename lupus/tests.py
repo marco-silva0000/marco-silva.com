@@ -15,6 +15,7 @@ from lupus.game_state import (
     assign_midgame_role,
     auto_assign_roles_from_names,
     build_round_timeline,
+    cancel_day_vote_veto,
     cast_final_vote,
     check_win_condition,
     clear_gm_night_action,
@@ -39,6 +40,7 @@ from lupus.game_state import (
     remove_player,
     rename_player,
     reorder_players,
+    reset_voting,
     resolve_night,
     return_to_lobby,
     return_to_nominations,
@@ -47,6 +49,7 @@ from lupus.game_state import (
     set_manual_player_role,
     set_martyrdom_target,
     set_night_stage_index,
+    set_nomination_tally_direct,
     set_player_status,
     set_preassigned_role,
     set_turn_order_direction,
@@ -4290,3 +4293,518 @@ class TestLupusTunableSettingsAndPresetsV136:
         table_mgmt_idx = content.find('id="table-management-section"')
         assert table_mgmt_idx != -1
         assert active_slot_idx < table_mgmt_idx < active_slot_idx + 300
+
+
+class TestLupusDawnOverviewControls:
+    def test_cancel_recorded_night_actions_in_dawn_overview(self):
+        from lupus.game_state import (
+            add_player,
+            clear_gm_night_action,
+            create_initial_state,
+            record_gm_night_action,
+            resolve_night,
+            set_deck,
+            start_game,
+        )
+
+        state = create_initial_state("DAWN1", "Dawn Cancel Room")
+        state["settings"]["limbo_enabled"] = False
+        _, p_wolf = add_player(state, "Wolf", is_offline=True)
+        _, p_witch = add_player(state, "Witch", is_offline=True)
+        _, p_v1 = add_player(state, "Victim1", is_offline=True)
+        _, p_v2 = add_player(state, "Victim2", is_offline=True)
+
+        set_deck(state, ["werewolf", "witch", "villager", "villager"])
+        start_game(state)
+        state["players"][p_wolf["id"]]["role"] = "werewolf"
+        state["players"][p_wolf["id"]]["faction"] = "evil"
+        state["players"][p_witch["id"]]["role"] = "witch"
+        state["players"][p_witch["id"]]["faction"] = "town"
+        state["players"][p_v1["id"]]["role"] = "villager"
+        state["players"][p_v2["id"]]["role"] = "villager"
+        state["wolf_cub_rampage"] = True
+        state["phase"] = "night"
+
+        record_gm_night_action(state, "wolves", p_v1["id"], extra={"target_id_2": p_v2["id"]})
+        record_gm_night_action(
+            state, "witch", None, extra={"revive": True, "revive_target": p_v1["id"], "kill_target": p_v2["id"]}
+        )
+
+        # Cancel Victim 2 wolf kill and Witch poison, leaving Victim 1 wolf kill + Witch revive
+        clear_gm_night_action(state, "wolves_2")
+        clear_gm_night_action(state, "witch_kill")
+        assert "wolf_target_2" not in state["night_actions"]
+        assert state["night_actions"]["witch_action"]["revive_target"] == p_v1["id"]
+        assert "kill_target" not in state["night_actions"]["witch_action"]
+
+        # Also test cancelling wolf kill completely
+        clear_gm_night_action(state, "wolves")
+        clear_gm_night_action(state, "witch_revive")
+        assert "wolf_target" not in state["night_actions"]
+        assert "witch_action" not in state["night_actions"]
+
+        resolve_night(state)
+        assert state["players"][p_v1["id"]]["status"] == "alive"
+        assert state["players"][p_v2["id"]]["status"] == "alive"
+
+    def test_add_and_cancel_dawn_overrides_guess_angel_and_status(self):
+        from lupus.game_state import (
+            add_dawn_override,
+            add_player,
+            create_initial_state,
+            remove_dawn_override,
+            resolve_night,
+            set_deck,
+            set_player_status,
+            start_game,
+        )
+
+        state = create_initial_state("DAWN2", "Dawn Override Room")
+        state["settings"]["limbo_enabled"] = True
+        _, p_angel = add_player(state, "Gabriel", is_offline=True)
+        _, p_soul1 = add_player(state, "SoulRight", is_offline=True)
+        _, p_soul2 = add_player(state, "SoulWrong", is_offline=True)
+        _, p_soul3 = add_player(state, "SoulCancel", is_offline=True)
+        _, p_vill = add_player(state, "Villager", is_offline=True)
+
+        set_deck(state, ["angel", "villager", "villager", "villager", "villager"])
+        start_game(state)
+        state["players"][p_angel["id"]]["role"] = "angel"
+        state["players"][p_angel["id"]]["faction"] = "town"
+        for p in (p_soul1, p_soul2, p_soul3, p_vill):
+            state["players"][p["id"]]["role"] = "villager"
+            state["players"][p["id"]]["faction"] = "town"
+
+        set_player_status(state, p_soul1["id"], "limbo")
+        set_player_status(state, p_soul2["id"], "limbo")
+        set_player_status(state, p_soul3["id"], "limbo")
+        state["phase"] = "night"
+        state["is_night_zero"] = False
+
+        ok1, _ = add_dawn_override(state, "guess_angel", player_id=p_soul1["id"], target_id=p_angel["id"])
+        ok2, _ = add_dawn_override(state, "guess_angel", player_id=p_soul2["id"], target_id=p_vill["id"])
+        ok3, _ = add_dawn_override(state, "set_status", player_id=p_soul3["id"], status="dead")
+        ok4, _ = add_dawn_override(state, "gazette_mute", player_id=p_vill["id"], muted=True)
+        assert all([ok1, ok2, ok3, ok4])
+        assert len(state["night_actions"]["gm_overrides"]) == 4
+
+        # Cancel the 3rd override (p_soul3 -> dead) before resolving dawn
+        cancel_id = state["night_actions"]["gm_overrides"][2]["id"]
+        assert remove_dawn_override(state, cancel_id) is True
+        assert len(state["night_actions"]["gm_overrides"]) == 3
+
+        resolve_night(state)
+        # SoulRight guessed Angel -> revived!
+        assert state["players"][p_soul1["id"]]["status"] == "alive"
+        # SoulWrong guessed wrong -> dead!
+        assert state["players"][p_soul2["id"]]["status"] == "dead"
+        # SoulCancel override was cancelled -> still in limbo!
+        assert state["players"][p_soul3["id"]]["status"] == "limbo"
+        # Gazette mute persisted past dawn reset_gazette_mutes!
+        assert state["players"][p_vill["id"]].get("is_gazette_muted") is True
+
+    def test_gm_dashboard_contains_dawn_overview_controls(self):
+        with open("templates/lupus/gm_dashboard.html", "r", encoding="utf-8") as f:
+            content = f.read()
+
+        assert "cancelDawnNightAction" in content
+        assert "removeDawnOverride" in content
+        assert "submitDawnOverride" in content
+        assert "dawn-add-type" in content
+        assert "dawn-add-player" in content
+        assert "dawn-add-target" in content
+
+
+class TestLupusLimboStageGating:
+    """Limbo players can only guess the Angel during the night limbo_angel_guess stage."""
+
+    def test_guess_angel_rejected_outside_limbo_night_stage(self):
+        state = create_initial_state("LMB1", "Limbo Test")
+        for i in range(6):
+            add_player(state, f"P{i + 1}")
+        start_game(state)
+        ordered = get_ordered_players(state)
+        for idx, p in enumerate(ordered):
+            role = "angel" if idx == 0 else ("werewolf" if idx == 5 else "villager")
+            set_manual_player_role(state, p["id"], role)
+
+        soul = ordered[1]
+        angel = ordered[0]
+        set_player_status(state, soul["id"], "limbo")
+
+        # Day phase -> rejected even if in limbo
+        state["phase"] = "day"
+        state["is_day_zero"] = False
+        state["is_night_zero"] = False
+        view_day = get_sanitized_player_view(state, soul["id"])
+        assert view_day["can_guess_angel"] is False
+        ok, msg = guess_angel_in_limbo(state, soul["id"], angel["id"], require_limbo_stage=True)
+        assert ok is False
+        assert "limbo guessing round" in msg.lower()
+        assert state["players"][soul["id"]]["status"] == "limbo"
+
+        # Night phase, stage 0 (wolves, not limbo_angel_guess) -> rejected
+        state["phase"] = "night"
+        set_night_stage_index(state, 0)
+        view_night_early = get_sanitized_player_view(state, soul["id"])
+        assert view_night_early["can_guess_angel"] is False
+        ok, _ = guess_angel_in_limbo(state, soul["id"], angel["id"], require_limbo_stage=True)
+        assert ok is False
+
+        # Night phase, active stage == limbo_angel_guess -> allowed!
+        stages = get_night_stages(state)
+        limbo_idx = next(i for i, s in enumerate(stages) if s["id"] == "limbo_angel_guess")
+        set_night_stage_index(state, limbo_idx)
+        view_limbo = get_sanitized_player_view(state, soul["id"])
+        assert view_limbo["can_guess_angel"] is True
+        ok, _ = guess_angel_in_limbo(state, soul["id"], angel["id"], require_limbo_stage=True)
+        assert ok is True
+        assert state["players"][soul["id"]]["status"] == "alive"
+
+    def test_player_html_has_limbo_stage_gating_controls(self):
+        with open("templates/lupus/player.html", "r", encoding="utf-8") as f:
+            content = f.read()
+
+        assert "limbo-guess-controls" in content
+        assert "limbo-wait-notice" in content
+        assert "can_guess_angel" in content
+
+
+class TestLupusConfigurableActiveCards:
+    """Players see active cards with counts when show_active_cards is enabled."""
+
+    def test_show_active_cards_setting_controls_player_view(self):
+        state = create_initial_state("CRD1", "Card Test")
+        for i in range(6):
+            add_player(state, f"P{i + 1}")
+        set_deck(
+            state,
+            ["werewolf", "detective", "villager", "villager", "villager", "villager"],
+        )
+        start_game(state)
+        ordered = get_ordered_players(state)
+
+        # Default: show_active_cards is True
+        view_on = get_sanitized_player_view(state, ordered[2]["id"])
+        assert view_on["settings"]["show_active_cards"] is True
+        assert len(view_on["roles_in_play"]) >= 3
+        vill_entry = next(r for r in view_on["roles_in_play"] if r["id"] == "villager")
+        assert vill_entry["count"] == 4
+
+        # Disabled: roles_in_play hidden from players
+        state["settings"]["show_active_cards"] = False
+        view_off = get_sanitized_player_view(state, ordered[2]["id"])
+        assert view_off["settings"]["show_active_cards"] is False
+        assert view_off["roles_in_play"] == []
+
+    def test_player_html_has_active_cards_box(self):
+        with open("templates/lupus/player.html", "r", encoding="utf-8") as f:
+            content = f.read()
+
+        assert "active-cards-box" in content
+        assert "renderActiveCards" in content
+
+
+class TestLupusMobileGazetteLayout:
+    """Gazette published messages are positioned above the submit form and safe on iOS."""
+
+    def test_player_html_gazette_mobile_layout_and_table_banner(self):
+        with open("templates/lupus/player.html", "r", encoding="utf-8") as f:
+            content = f.read()
+
+        assert "table-gazette-banner" in content
+        assert "overflow-wrap: anywhere" in content or "overflow-wrap:anywhere" in content
+        feed_pos = content.index('id="gazette-published-feed"')
+        form_pos = content.index('id="gazette-submit-form"')
+        assert feed_pos < form_pos
+
+
+class TestLupusVotingComprehensive:
+    """Comprehensive tests locking in Lupus voting rules, tie-breakers, and edge cases."""
+
+    @staticmethod
+    def _make_voting_game(num_players=6, settings_overrides=None, roles=None, round_number=2):
+        state = create_initial_state("VOTE", "Vote Test")
+        if settings_overrides:
+            state["settings"].update(settings_overrides)
+        players = []
+        for i in range(num_players):
+            _, p = add_player(state, f"P{i + 1}")
+            players.append(p)
+        start_game(state)
+        state["phase"] = "day"
+        state["is_day_zero"] = False
+        state["is_night_zero"] = False
+        state["round_number"] = round_number
+
+        default_roles = ["werewolf"] + ["villager"] * (num_players - 1)
+        chosen_roles = roles or default_roles
+        for p, role_id in zip(players, chosen_roles):
+            set_manual_player_role(state, p["id"], role_id)
+        return state, players
+
+    def test_start_voting_blocked_on_day_zero_and_hacker_day1(self):
+        state, _ = self._make_voting_game(round_number=1)
+        state["is_day_zero"] = True
+        start_voting_session(state)
+        assert state["phase"] == "day"
+
+        state["is_day_zero"] = False
+        state["day1_no_voting"] = True
+        start_voting_session(state)
+        assert state["phase"] == "day"
+
+        # Round 2 is allowed even with day1_no_voting flag
+        state["round_number"] = 2
+        start_voting_session(state)
+        assert state["phase"] == "day_voting"
+        assert state["voting"]["stage"] == "nomination"
+
+    def test_two_stage_50pct_nomination_threshold_and_limbo_then_dead(self):
+        state, players = self._make_voting_game(
+            num_players=6,
+            roles=["werewolf", "villager", "angel", "villager", "villager", "villager"],
+            settings_overrides={"voting_system": "two_stage_50pct", "limbo_enabled": True},
+        )
+        # 6 living -> threshold = ceil(6 * 0.5) = 3
+        assert get_nomination_threshold(state) == 3
+        start_voting_session(state)
+        assert state["voting"]["stage"] == "nomination"
+
+        target = players[1]
+        for voter in players[:2]:
+            toggle_nomination_vote(state, voter["id"], target["id"])
+        assert target["id"] not in state["voting"]["nominated_player_ids"]
+
+        # 3rd vote meets threshold -> automatically nominated
+        toggle_nomination_vote(state, players[2]["id"], target["id"])
+        assert target["id"] in state["voting"]["nominated_player_ids"]
+
+        # Un-toggling 3rd vote removes nomination
+        toggle_nomination_vote(state, players[2]["id"], target["id"])
+        assert target["id"] not in state["voting"]["nominated_player_ids"]
+
+        # Re-toggle -> proceed to final vote -> eliminate -> goes to limbo first
+        toggle_nomination_vote(state, players[2]["id"], target["id"])
+        ok, _ = proceed_to_final_vote(state)
+        assert ok is True
+        assert state["voting"]["stage"] == "final_vote"
+
+        for voter in players[:4]:
+            ok, _ = cast_final_vote(state, voter["id"], target["id"])
+            assert ok is True
+
+        res, _ = tally_and_resolve_vote(state)
+        assert res == "eliminated"
+        assert state["players"][target["id"]]["status"] == "limbo"
+
+        # If revived and voted out a second time -> permanent death
+        set_player_status(state, target["id"], "alive")
+        start_voting_session(state, system="simple_plurality")
+        for voter in players[:4]:
+            cast_final_vote(state, voter["id"], target["id"])
+        res2, _ = tally_and_resolve_vote(state)
+        assert res2 == "eliminated"
+        assert state["players"][target["id"]]["status"] == "dead"
+
+    def test_two_stage_top_n_nominates_top_candidates(self):
+        state, players = self._make_voting_game(
+            num_players=6,
+            settings_overrides={
+                "voting_system": "two_stage_top_n",
+                "voting_top_n": 2,
+            },
+        )
+        start_voting_session(state)
+        # P1 gets 3, P2 gets 2, P3 gets 1
+        toggle_nomination_vote(state, players[3]["id"], players[0]["id"])
+        toggle_nomination_vote(state, players[4]["id"], players[0]["id"])
+        toggle_nomination_vote(state, players[5]["id"], players[0]["id"])
+
+        toggle_nomination_vote(state, players[0]["id"], players[1]["id"])
+        toggle_nomination_vote(state, players[1]["id"], players[1]["id"])
+
+        toggle_nomination_vote(state, players[2]["id"], players[2]["id"])
+
+        noms = state["voting"]["nominated_player_ids"]
+        assert set(noms) == {players[0]["id"], players[1]["id"]}
+
+    def test_simple_plurality_skips_nominations(self):
+        state, players = self._make_voting_game(num_players=5, settings_overrides={"voting_system": "simple_plurality"})
+        start_voting_session(state)
+        assert state["voting"]["stage"] == "final_vote"
+        assert len(state["voting"]["nominated_player_ids"]) == 5
+
+        cast_final_vote(state, players[0]["id"], players[4]["id"])
+        cast_final_vote(state, players[1]["id"], players[4]["id"])
+        cast_final_vote(state, players[2]["id"], players[3]["id"])
+        res, _ = tally_and_resolve_vote(state)
+        assert res == "eliminated"
+        assert state["voting"]["eliminated_player_id"] == players[4]["id"]
+
+    def test_dead_and_limbo_voters_blocked_but_silenced_voter_allowed(self):
+        state, players = self._make_voting_game(num_players=5, settings_overrides={"voting_system": "two_stage_50pct"})
+        start_voting_session(state)
+        set_player_status(state, players[0]["id"], "dead")
+        set_player_status(state, players[1]["id"], "limbo")
+        state["players"][players[2]["id"]]["silenced"] = True
+
+        ok_dead, _ = toggle_nomination_vote(state, players[0]["id"], players[4]["id"])
+        ok_limbo, _ = toggle_nomination_vote(state, players[1]["id"], players[4]["id"])
+        ok_silenced, _ = toggle_nomination_vote(state, players[2]["id"], players[4]["id"])
+        assert ok_dead is False
+        assert ok_limbo is False
+        assert ok_silenced is True
+
+        toggle_official_nomination(state, players[4]["id"])
+        proceed_to_final_vote(state)
+        ok_f_dead, _ = cast_final_vote(state, players[0]["id"], players[4]["id"])
+        ok_f_limbo, _ = cast_final_vote(state, players[1]["id"], players[4]["id"])
+        ok_f_silenced, _ = cast_final_vote(state, players[2]["id"], players[4]["id"])
+        assert ok_f_dead is False
+        assert ok_f_limbo is False
+        assert ok_f_silenced is True
+
+    def test_proceed_to_final_vote_requires_nominee(self):
+        state, _ = self._make_voting_game(num_players=5)
+        start_voting_session(state)
+        ok, _ = proceed_to_final_vote(state)
+        assert ok is False
+        assert state["voting"]["stage"] == "nomination"
+
+    def test_vote_change_abstention_and_no_votes(self):
+        state, players = self._make_voting_game(num_players=5, settings_overrides={"voting_system": "simple_plurality"})
+        start_voting_session(state)
+        # Vote then change target then abstain
+        cast_final_vote(state, players[0]["id"], players[1]["id"])
+        cast_final_vote(state, players[0]["id"], players[2]["id"])
+        assert state["voting"]["final_votes"][players[0]["id"]] == players[2]["id"]
+
+        ok_abstain, _ = cast_final_vote(state, players[0]["id"], None)
+        assert ok_abstain is True
+        assert state["voting"]["final_votes"].get(players[0]["id"]) is None
+
+        res, _ = tally_and_resolve_vote(state)
+        assert res == "no_votes"
+        assert state["voting"]["stage"] == "completed"
+
+    def test_tie_triggers_revote_restricts_candidates_and_second_tie_spares(self):
+        state, players = self._make_voting_game(num_players=6, settings_overrides={"voting_system": "simple_plurality"})
+        start_voting_session(state)
+
+        # Tie between P1 and P2 (2 votes each), P3 gets 1 vote
+        cast_final_vote(state, players[3]["id"], players[0]["id"])
+        cast_final_vote(state, players[4]["id"], players[0]["id"])
+        cast_final_vote(state, players[0]["id"], players[1]["id"])
+        cast_final_vote(state, players[1]["id"], players[1]["id"])
+        cast_final_vote(state, players[2]["id"], players[2]["id"])
+
+        res1, _ = tally_and_resolve_vote(state)
+        assert res1 == "revote"
+        assert state["voting"]["stage"] == "revote"
+        assert state["voting"]["tie_count"] == 1
+        assert set(state["voting"]["revote_candidates"]) == {
+            players[0]["id"],
+            players[1]["id"],
+        }
+
+        # Non-tied candidate P3 cannot be voted for during revote
+        ok_bad, _ = cast_final_vote(state, players[5]["id"], players[2]["id"])
+        assert ok_bad is False
+
+        # Second tie -> spared_on_tie
+        cast_final_vote(state, players[3]["id"], players[0]["id"])
+        cast_final_vote(state, players[4]["id"], players[1]["id"])
+        res2, _ = tally_and_resolve_vote(state)
+        assert res2 == "spared_on_tie"
+        assert state["voting"]["stage"] == "completed"
+        assert state["players"][players[0]["id"]]["status"] == "alive"
+        assert state["players"][players[1]["id"]]["status"] == "alive"
+
+    def test_public_mayor_double_vote_and_immunity(self):
+        roles = ["werewolf", "mayor", "villager", "villager", "villager"]
+        state, players = self._make_voting_game(
+            num_players=5,
+            roles=roles,
+            settings_overrides={"voting_system": "simple_plurality"},
+        )
+        mayor = players[1]
+        state["players"][mayor["id"]]["mayor_revealed"] = True
+
+        # Mayor's single vote counts as 2, breaking a 1-vs-1 tie!
+        start_voting_session(state)
+        cast_final_vote(state, mayor["id"], players[2]["id"])  # +2 on P3
+        cast_final_vote(state, players[3]["id"], players[4]["id"])  # +1 on P5
+        cast_final_vote(state, players[4]["id"], players[4]["id"])  # +1 -> wait 2 vs 2!
+        # Let's make P3 win 2 vs 1 via Mayor 2x weight alone:
+        cast_final_vote(state, players[4]["id"], None)
+        res, _ = tally_and_resolve_vote(state)
+        assert res == "eliminated"
+        assert state["voting"]["eliminated_player_id"] == players[2]["id"]
+
+        # Public Mayor wins vote -> mayor_immune!
+        set_player_status(state, players[2]["id"], "alive")
+        start_voting_session(state, system="simple_plurality")
+        cast_final_vote(state, players[0]["id"], mayor["id"])
+        cast_final_vote(state, players[2]["id"], mayor["id"])
+        cast_final_vote(state, players[3]["id"], mayor["id"])
+        res_m, _ = tally_and_resolve_vote(state)
+        assert res_m == "mayor_immune"
+        assert state["players"][mayor["id"]]["status"] == "alive"
+
+    def test_jester_elimination_triggers_solo_win(self):
+        roles = ["werewolf", "jester", "villager", "villager", "villager"]
+        state, players = self._make_voting_game(
+            num_players=5,
+            roles=roles,
+            settings_overrides={"voting_system": "simple_plurality"},
+        )
+        jester = players[1]
+        start_voting_session(state)
+        cast_final_vote(state, players[0]["id"], jester["id"])
+        cast_final_vote(state, players[2]["id"], jester["id"])
+        res, _ = tally_and_resolve_vote(state)
+        assert res == "jester_win"
+        assert state["winner"] == "jester"
+
+    def test_gm_direct_tallies_defense_return_and_veto(self):
+        state, players = self._make_voting_game(
+            num_players=6,
+            roles=["werewolf", "angel", "villager", "villager", "villager", "villager"],
+            settings_overrides={"limbo_enabled": True},
+        )
+        start_voting_session(state)
+
+        # GM direct tally reaches threshold (3) -> nominates P1
+        assert set_nomination_tally_direct(state, players[0]["id"], 3) is True
+        assert players[0]["id"] in state["voting"]["nominated_player_ids"]
+
+        # Defense -> Return to nominations -> Final vote
+        proceed_to_defense(state, players[0]["id"])
+        assert state["voting"]["stage"] == "defense"
+        assert state["voting"]["defense_player_id"] == players[0]["id"]
+
+        return_to_nominations(state)
+        assert state["voting"]["stage"] == "nomination"
+
+        proceed_to_final_vote(state)
+        assert record_gm_final_vote_tally(state, players[0]["id"], 3) is True
+        res, _ = tally_and_resolve_vote(state)
+        assert res == "eliminated"
+        assert state["players"][players[0]["id"]]["status"] == "limbo"
+
+        # Mayor/GM veto pardons P1
+        ok_veto, _ = cancel_day_vote_veto(state)
+        assert ok_veto is True
+        assert state["players"][players[0]["id"]]["status"] == "alive"
+        assert state["voting"]["elimination_result"] == "mayor_vetoed"
+
+        # Second veto on the same player is rejected
+        start_voting_session(state, system="simple_plurality")
+        record_gm_final_vote_tally(state, players[0]["id"], 3)
+        tally_and_resolve_vote(state)
+        ok_veto2, _ = cancel_day_vote_veto(state)
+        assert ok_veto2 is False
+
+        reset_voting(state)
+        assert state["voting"]["stage"] == "none"

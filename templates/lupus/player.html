@@ -1058,6 +1058,10 @@ html, body {
     <!-- TAB 1: 👥 TABLE SEATING STAGE & ROSTER     -->
     <!-- ========================================== -->
     <section class="tab-screen" id="tab-content-table">
+      <div id="table-gazette-banner" style="display: none; background: #1e293b; border: 1px solid #d97706; border-radius: 12px; padding: 0.7rem 0.9rem; margin-bottom: 0.65rem; color: #f8fafc;">
+        <div style="font-size: 0.76rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; margin-bottom: 0.35rem;">📢 Published Gazette</div>
+        <div id="table-gazette-banner-list" style="display: block;"></div>
+      </div>
       <div class="player-panel">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.35rem;">
           <div style="display: flex; align-items: center; gap: 0.45rem;">
@@ -1144,13 +1148,16 @@ html, body {
           <p style="font-size: 0.88rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.45;">
             You have one chance to return to the living. Can you guess who the <strong>Angel</strong> is?
           </p>
-          <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+          <div id="limbo-guess-controls" style="display: {% if state.can_guess_angel %}flex{% else %}none{% endif %}; gap: 0.5rem; justify-content: center; align-items: center; flex-wrap: wrap;">
             <select id="angel-guess-select" style="padding: 0.55rem; font-size: 0.95rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; min-width: 180px;">
               <!-- Filled dynamically -->
             </select>
             <button onclick="submitAngelGuess()" class="btn btn-primary" style="background: #e65100; border-color: #e65100; min-height: 44px; font-weight: 700;">
               Guess Angel
             </button>
+          </div>
+          <div id="limbo-wait-notice" style="display: {% if state.can_guess_angel %}none{% else %}block{% endif %}; font-size: 0.84rem; color: #fde68a; background: rgba(15,23,42,0.7); border: 1px solid #92400e; border-radius: 8px; padding: 0.55rem 0.75rem;">
+            ⏳ Wait for the Game Master to call your Limbo guessing stage during the night.
           </div>
           <div id="angel-guess-result" style="font-size: 0.9rem; margin-top: 0.65rem; font-weight: 700;"></div>
         </div>
@@ -1296,12 +1303,20 @@ html, body {
             <span id="gazette-quota-badge" style="font-size: 0.72rem; color: #cbd5e1; background: #334155; padding: 0.15rem 0.45rem; border-radius: 999px;">1 post per day</span>
           </div>
 
+          <!-- Published Gazette Feed for Today (Shown Above Form for Mobile Visibility) -->
+          <div id="gazette-published-feed" style="display: none; margin-top: 0.35rem; margin-bottom: 0.65rem; border-bottom: 1px solid #334155; padding-bottom: 0.55rem;">
+            <div id="gazette-feed-title" style="font-size: 0.78rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; margin-bottom: 0.35rem;">
+              📢 Today's Published Gazette:
+            </div>
+            <div id="gazette-feed-list" style="display: block;"></div>
+          </div>
+
           <!-- Submission Form -->
           <div id="gazette-submit-form" style="margin-top: 0.4rem;">
             <div id="gazette-desc-text" style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.35rem;">
               Submit a headline, tip, or suspicion. The Game Master will review and publish it at the start of the day:
             </div>
-            <textarea id="gazette-message-input" maxlength="200" rows="2" placeholder="e.g. 'I do not trust Player #3, watch them carefully tonight!'" style="width: 100%; box-sizing: border-box; padding: 0.45rem 0.65rem; border-radius: 8px; background: #0f172a; border: 1px solid #475569; color: #fff; font-size: 0.85rem; resize: none; margin-bottom: 0.4rem;"></textarea>
+            <textarea id="gazette-message-input" maxlength="200" rows="2" placeholder="e.g. 'I do not trust Player #3, watch them carefully tonight!'" style="width: 100%; box-sizing: border-box; padding: 0.45rem 0.65rem; border-radius: 8px; background: #0f172a; border: 1px solid #475569; color: #fff; font-size: 16px; resize: none; margin-bottom: 0.4rem;"></textarea>
             
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem;">
               <label style="font-size: 0.8rem; color: #cbd5e1; display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer;">
@@ -1319,14 +1334,15 @@ html, body {
           <div id="gazette-submitted-notice" style="display: none; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.82rem; color: #a7f3d0; margin-top: 0.4rem;">
             ✓ Your bulletin was submitted to the Gazette desk. Awaiting morning publication.
           </div>
+        </div>
 
-          <!-- Published Gazette Feed for Today -->
-          <div id="gazette-published-feed" style="display: none; margin-top: 0.65rem; border-top: 1px solid #334155; padding-top: 0.5rem;">
-            <div id="gazette-feed-title" style="font-size: 0.78rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; margin-bottom: 0.35rem;">
-              📢 Today's Published Gazette:
-            </div>
-            <div id="gazette-feed-list" style="display: flex; flex-direction: column; gap: 0.35rem;"></div>
+        <!-- Active Cards in Play (Configurable by GM) -->
+        <div id="active-cards-box" style="display: none; background: #111827; border: 1px solid #334155; border-radius: 12px; padding: 0.75rem 0.95rem; margin-bottom: 0.65rem;">
+          <div style="font-size: 0.82rem; font-weight: 800; color: #93c5fd; margin-bottom: 0.45rem; display: flex; align-items: center; justify-content: space-between;">
+            <span>🃏 Active Cards in Play</span>
+            <span id="active-cards-total" style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;"></span>
           </div>
+          <div id="active-cards-list" style="display: flex; flex-wrap: wrap; gap: 0.4rem;"></div>
         </div>
 
         <!-- Morning Dawn Report -->
@@ -2481,9 +2497,18 @@ html, body {
 
     // Limbo Box
     const limboBox = document.getElementById("limbo-box");
+    const limboControls = document.getElementById("limbo-guess-controls");
+    const limboWait = document.getElementById("limbo-wait-notice");
     if (me.status === "limbo") {
       limboBox.style.display = "block";
-      populateLivingPlayers("angel-guess-select", state.players, false);
+      if (state.can_guess_angel) {
+        if (limboControls) limboControls.style.display = "flex";
+        if (limboWait) limboWait.style.display = "none";
+        populateLivingPlayers("angel-guess-select", state.players, false);
+      } else {
+        if (limboControls) limboControls.style.display = "none";
+        if (limboWait) limboWait.style.display = "block";
+      }
     } else {
       limboBox.style.display = "none";
     }
@@ -2666,6 +2691,9 @@ html, body {
 
     // Town Gazette
     renderPlayerGazette(state);
+
+    // Active Cards in Play
+    renderActiveCards(state);
 
     // Direct Messages
     renderPlayerDirectMessages(state);
@@ -3409,25 +3437,55 @@ html, body {
     }
 
     const bulletins = state.news_bulletins || [];
+    const renderBulletinHtml = (b) => `
+      <div style="background:#0f172a; border:1px solid #334155; border-radius:8px; padding:0.55rem 0.75rem; margin-bottom:0.35rem; word-break:break-word; overflow-wrap:anywhere;">
+        <div style="font-size:0.75rem; color:#f59e0b; font-weight:700; margin-bottom:0.15rem;">
+          📢 ${escapeHtml(b.byline || 'Villager')}:
+        </div>
+        <div style="font-size:0.85rem; color:#e2e8f0; font-style:italic;">
+          "${escapeHtml(b.message || '')}"
+        </div>
+      </div>
+    `;
     if (feedSec && feedList) {
       if (bulletins.length > 0) {
         feedSec.style.display = "block";
-        feedList.innerHTML = bulletins.map(b => {
-          return `
-            <div style="background:#0f172a; border:1px solid #334155; border-radius:8px; padding:0.55rem 0.75rem;">
-              <div style="font-size:0.75rem; color:#f59e0b; font-weight:700; margin-bottom:0.15rem;">
-                📢 ${escapeHtml(b.byline)}:
-              </div>
-              <div style="font-size:0.85rem; color:#e2e8f0; font-style:italic;">
-                "${escapeHtml(b.message)}"
-              </div>
-            </div>
-          `;
-        }).join("");
+        feedList.innerHTML = bulletins.map(renderBulletinHtml).join("");
       } else {
         feedSec.style.display = "none";
       }
     }
+    const tableBanner = document.getElementById("table-gazette-banner");
+    const tableBannerList = document.getElementById("table-gazette-banner-list");
+    if (tableBanner && tableBannerList) {
+      if (state.phase !== "lobby" && bulletins.length > 0) {
+        tableBanner.style.display = "block";
+        tableBannerList.innerHTML = bulletins.map(renderBulletinHtml).join("");
+      } else {
+        tableBanner.style.display = "none";
+      }
+    }
+  }
+
+  function renderActiveCards(state) {
+    const box = document.getElementById("active-cards-box");
+    const list = document.getElementById("active-cards-list");
+    const totalEl = document.getElementById("active-cards-total");
+    if (!box || !list) return;
+    const showCards = !state.settings || state.settings.show_active_cards !== false;
+    const roles = state.roles_in_play || [];
+    if (!showCards || state.phase === "lobby" || roles.length === 0) {
+      box.style.display = "none";
+      return;
+    }
+    box.style.display = "block";
+    const totalCount = roles.reduce((acc, r) => acc + (r.count || 1), 0);
+    if (totalEl) totalEl.innerText = `${totalCount} cards`;
+    list.innerHTML = roles.map(r => {
+      const borderColor = r.faction === "wolves" ? "#ef4444" : (r.faction === "town" ? "#22c55e" : "#a855f7");
+      const countBadge = (r.count && r.count > 1) ? `<span style="color:#94a3b8;font-weight:700;">×${r.count}</span>` : "";
+      return `<span style="display:inline-flex;align-items:center;gap:0.3rem;background:#0f172a;border:1px solid #334155;border-left:3px solid ${borderColor};border-radius:8px;padding:0.25rem 0.55rem;font-size:0.78rem;color:#e2e8f0;"><span>${r.emoji || '🎴'}</span><span>${escapeHtml(r.name)}</span>${countBadge}</span>`;
+    }).join("");
   }
 
   function quickFillPlayerChat(text) {

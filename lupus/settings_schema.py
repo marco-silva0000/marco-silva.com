@@ -44,6 +44,14 @@ LUPUS_SETTINGS_SCHEMA: dict[str, dict[str, Any]] = {
         "type": "bool",
         "default": True,
     },
+    "show_active_cards": {
+        "key": "show_active_cards",
+        "category": "roles",
+        "label": "Show Active Cards to Players",
+        "description": "Allow players to see which role cards and counts are currently in play.",
+        "type": "bool",
+        "default": True,
+    },
     "sniper_danger_bullets": {
         "key": "sniper_danger_bullets",
         "category": "roles",

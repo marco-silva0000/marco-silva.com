@@ -1668,10 +1668,45 @@ html, body {
         <!-- Dawn Review Stage Summary -->
         <div id="review-widget" style="display: none; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem;">
           <div style="font-size: 0.85rem; font-weight: 700; color: #facc15; margin-bottom: 0.4rem;">
-            🌅 Night Casualties &amp; Actions Recorded:
+            🌅 Night Casualties &amp; Status Changes (Click ✕ to Cancel):
           </div>
           <div id="review-summary-list" style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.5;">
             <!-- Summary filled dynamically -->
+          </div>
+          <div style="margin-top: 0.65rem; padding-top: 0.6rem; border-top: 1px solid #1e293b;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: #93c5fd; margin-bottom: 0.35rem;">
+              ➕ Add Status Change / Night Override:
+            </div>
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center;">
+              <select id="dawn-add-type" onchange="updateDawnAddInputs()" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #475569; background: #1e293b; color: #f8fafc; font-size: 0.8rem;">
+                <option value="guess_angel">🌫️ Guess Angel (Player X → Player Y)</option>
+                <option value="set_status:alive">❤️ Set Status: Alive / Revive</option>
+                <option value="set_status:limbo">🌫️ Set Status: Limbo</option>
+                <option value="set_status:dead">🪦 Set Status: Dead</option>
+                <option value="detonate_martyrdom">💣 Martyrdom Detonate (Martyr X → Victim Y)</option>
+                <option value="gazette_mute:true">📰 Mute Gazette Submissions</option>
+                <option value="gazette_mute:false">📰 Unmute Gazette Submissions</option>
+                <option value="night:wolves">🐺 Wolves Kill</option>
+                <option value="night:doctor">🩺 Doctor Protect</option>
+                <option value="night:bodyguard">🛡️ Bodyguard Shield</option>
+                <option value="night:witch_revive">🧙‍♀️ Witch Revive</option>
+                <option value="night:witch_kill">🧙‍♀️☠️ Witch Poison</option>
+                <option value="night:sniper">🎯 Sniper Danger Shot</option>
+                <option value="night:serial_killer">🔪 Serial Killer Kill</option>
+                <option value="night:silencer">🤐 Silencer Mute</option>
+                <option value="night:framer">🎭 Framer Frame Evil</option>
+                <option value="night:mayor">👨‍⚖️ Mayor Veto (Pardon Executed)</option>
+              </select>
+              <select id="dawn-add-player" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #475569; background: #1e293b; color: #f8fafc; font-size: 0.8rem;">
+                <option value="">-- Player X --</option>
+              </select>
+              <select id="dawn-add-target" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #475569; background: #1e293b; color: #f8fafc; font-size: 0.8rem;">
+                <option value="">-- Target / Angel Y --</option>
+              </select>
+              <button type="button" onclick="submitDawnOverride()" class="btn btn-sm btn-primary" style="background: #2563eb; border-color: #2563eb; font-weight: 700; padding: 0.35rem 0.75rem; font-size: 0.8rem;">
+                + Add
+              </button>
+            </div>
           </div>
           <div style="margin-top: 0.75rem; text-align: center;">
             <button onclick="resolveNight()" class="btn btn-primary" style="background: #16a34a; border-color: #16a34a; font-size: 0.95rem; font-weight: 700; padding: 0.55rem 1.25rem;">
@@ -4190,88 +4225,135 @@ html, body {
 
       // Build summary of night
       const actions = state.night_actions || {};
-      let summaryHtml = "<ul style='margin:0; padding-left:1.2rem;'>";
+      const cancelBtn = (stageKey) => ` <button type="button" onclick="cancelDawnNightAction('${stageKey}')" class="btn btn-sm" style="margin-left:0.4rem;padding:0.05rem 0.4rem;font-size:0.7rem;background:#7f1d1d;color:#fecaca;border:1px solid #dc2626;border-radius:4px;">✕ Cancel</button>`;
+      const cancelOvBtn = (ovId) => ` <button type="button" onclick="removeDawnOverride('${escapeHtml(ovId)}')" class="btn btn-sm" style="margin-left:0.4rem;padding:0.05rem 0.4rem;font-size:0.7rem;background:#7f1d1d;color:#fecaca;border:1px solid #dc2626;border-radius:4px;">✕ Cancel</button>`;
+      let itemsHtml = "";
       const wTarget = state.players.find(p => p.id === actions.wolf_target);
-      if (actions.wolf_target_2) {
+      if (actions.wolf_target && actions.wolf_target_2) {
         const wTarget2 = state.players.find(p => p.id === actions.wolf_target_2);
-        summaryHtml += `<li>🐺🐾 <strong>Wolves Rampage (2 Kills):</strong> ${wTarget ? escapeHtml(wTarget.name) : 'None'} &amp; ${wTarget2 ? escapeHtml(wTarget2.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🐺🐾 <strong>Wolves Victim 1:</strong> ${wTarget ? escapeHtml(wTarget.name) : 'None'}${cancelBtn('wolves')}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🐺🐾 <strong>Wolves Victim 2:</strong> ${wTarget2 ? escapeHtml(wTarget2.name) : 'None'}${cancelBtn('wolves_2')}</li>`;
+      } else if (actions.wolf_target) {
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🐺 <strong>Wolves Victim:</strong> ${wTarget ? escapeHtml(wTarget.name) : 'None'}${cancelBtn('wolves')}</li>`;
       } else {
-        summaryHtml += `<li>🐺 <strong>Wolves Victim:</strong> ${wTarget ? escapeHtml(wTarget.name) : '<em style="color:#f87171;">None</em>'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🐺 <strong>Wolves Victim:</strong> <em style="color:#f87171;">None</em></li>`;
       }
 
       if (actions.disgruntled_ghost_target) {
         const dgTarget = state.players.find(p => p.id === actions.disgruntled_ghost_target);
-        summaryHtml += `<li>👿 <strong>Disgruntled Ghost:</strong> Suppressing ${dgTarget ? escapeHtml(dgTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">👿 <strong>Disgruntled Ghost:</strong> Suppressing ${dgTarget ? escapeHtml(dgTarget.name) : 'None'}${cancelBtn('disgruntled_ghost')}</li>`;
       }
       if (actions.hacker_targets && actions.hacker_targets.length > 0) {
         const hNames = actions.hacker_targets.map(id => {
           const hp = state.players.find(p => p.id === id);
           return hp ? escapeHtml(hp.name) : 'Unknown';
         }).join(", ");
-        summaryHtml += `<li>💻 <strong>Hacker Scan:</strong> Group [${hNames}]</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">💻 <strong>Hacker Scan:</strong> Group [${hNames}]${cancelBtn('hacker')}</li>`;
       }
       if (actions.saboteur_target) {
         const sabTarget = state.players.find(p => p.id === actions.saboteur_target);
-        summaryHtml += `<li>🐺⚡ <strong>Saboteur Wolf:</strong> Suppressing & stealing role of ${sabTarget ? escapeHtml(sabTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🐺⚡ <strong>Saboteur Wolf:</strong> Suppressing &amp; stealing role of ${sabTarget ? escapeHtml(sabTarget.name) : 'None'}${cancelBtn('saboteur_wolf')}</li>`;
+      }
+      if (actions.cupid_lovers && actions.cupid_lovers.length > 0) {
+        const cNames = actions.cupid_lovers.map(id => {
+          const cp = state.players.find(p => p.id === id);
+          return cp ? escapeHtml(cp.name) : 'Unknown';
+        }).join(" &amp; ");
+        itemsHtml += `<li style="margin-bottom:0.3rem;">💘 <strong>Cupid Lovers:</strong> ${cNames}${cancelBtn('cupid')}</li>`;
       }
       if (actions.ghost_haunt) {
         const ghTarget = state.players.find(p => p.id === actions.ghost_haunt);
-        summaryHtml += `<li>👻 <strong>Town Ghost:</strong> Haunting ${ghTarget ? escapeHtml(ghTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">👻 <strong>Town Ghost:</strong> Haunting ${ghTarget ? escapeHtml(ghTarget.name) : 'None'}${cancelBtn('ghost')}</li>`;
       }
       if (actions.silencer_target) {
         const sTarget = state.players.find(p => p.id === actions.silencer_target);
-        summaryHtml += `<li>🤐 <strong>Silenced tomorrow:</strong> ${sTarget ? escapeHtml(sTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🤐 <strong>Silenced tomorrow:</strong> ${sTarget ? escapeHtml(sTarget.name) : 'None'}${cancelBtn('silencer')}</li>`;
       }
       if (actions.framer_target) {
         const fTarget = state.players.find(p => p.id === actions.framer_target);
-        summaryHtml += `<li>🎭 <strong>Framed as Evil:</strong> ${fTarget ? escapeHtml(fTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🎭 <strong>Framed as Evil:</strong> ${fTarget ? escapeHtml(fTarget.name) : 'None'}${cancelBtn('framer')}</li>`;
       }
       if (actions.detective_query) {
-        summaryHtml += `<li>🔍 <strong>Detective checked:</strong> ${escapeHtml(actions.detective_query.target_name || '')} &rarr; <em>${actions.detective_query.result}</em></li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🔍 <strong>Detective checked:</strong> ${escapeHtml(actions.detective_query.target_name || '')} &rarr; <em>${actions.detective_query.result}</em>${cancelBtn('detective')}</li>`;
       }
       if (actions.doctor_protect) {
         const dTarget = state.players.find(p => p.id === actions.doctor_protect);
-        summaryHtml += `<li>🩺 <strong>Doctor Protects:</strong> ${dTarget ? escapeHtml(dTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🩺 <strong>Doctor Protects:</strong> ${dTarget ? escapeHtml(dTarget.name) : 'None'}${cancelBtn('doctor')}</li>`;
       }
       if (actions.bodyguard_protect) {
         const bTarget = state.players.find(p => p.id === actions.bodyguard_protect);
-        summaryHtml += `<li>🛡️ <strong>Bodyguard Shields:</strong> ${bTarget ? escapeHtml(bTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🛡️ <strong>Bodyguard Shields:</strong> ${bTarget ? escapeHtml(bTarget.name) : 'None'}${cancelBtn('bodyguard')}</li>`;
       }
       if (actions.witch_action) {
         const rId = actions.witch_action.revive_target;
         const kId = actions.witch_action.kill_target;
-        const rPlayer = rId ? state.players.find(p => p.id === rId) : null;
-        const kPlayer = kId ? state.players.find(p => p.id === kId) : null;
-        const rText = rPlayer ? escapeHtml(rPlayer.name) : (actions.witch_action.revive ? 'Wolf Victim' : 'None');
-        const kText = kPlayer ? escapeHtml(kPlayer.name) : 'None';
-        summaryHtml += `<li>🧙‍♀️ <strong>Witch Potions:</strong> Revive=${rText}, Poison=${kText}</li>`;
+        if (rId || actions.witch_action.revive) {
+          const rPlayer = rId ? state.players.find(p => p.id === rId) : null;
+          const rText = rPlayer ? escapeHtml(rPlayer.name) : 'Wolf Victim';
+          itemsHtml += `<li style="margin-bottom:0.3rem;">🧙‍♀️ <strong>Witch Revive:</strong> ${rText}${cancelBtn('witch_revive')}</li>`;
+        }
+        if (kId) {
+          const kPlayer = state.players.find(p => p.id === kId);
+          itemsHtml += `<li style="margin-bottom:0.3rem;">🧙‍♀️☠️ <strong>Witch Poison:</strong> ${kPlayer ? escapeHtml(kPlayer.name) : 'None'}${cancelBtn('witch_kill')}</li>`;
+        }
       }
       if (actions.sniper_shot) {
         const snTarget = state.players.find(p => p.id === actions.sniper_shot.target_id);
-        summaryHtml += `<li>🎯 <strong>Sniper Shot:</strong> ${snTarget ? escapeHtml(snTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🎯 <strong>Sniper Shot:</strong> ${snTarget ? escapeHtml(snTarget.name) : 'None'}${cancelBtn('sniper')}</li>`;
       }
       if (actions.sk_target) {
         const skTarget = state.players.find(p => p.id === actions.sk_target);
-        summaryHtml += `<li>🔪 <strong>Serial Killer Solo:</strong> ${skTarget ? escapeHtml(skTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🔪 <strong>Serial Killer Solo:</strong> ${skTarget ? escapeHtml(skTarget.name) : 'None'}${cancelBtn('serial_killer')}</li>`;
       }
       if (actions.wolf_hunter_target) {
         const whTarget = state.players.find(p => p.id === actions.wolf_hunter_target);
-        summaryHtml += `<li>🏹🐺 <strong>Wolf Hunter Strike:</strong> ${whTarget ? escapeHtml(whTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">🏹🐺 <strong>Wolf Hunter Strike:</strong> ${whTarget ? escapeHtml(whTarget.name) : 'None'}${cancelBtn('wolf_hunter')}</li>`;
       }
       if (actions.death_angel_target) {
         const daTarget = state.players.find(p => p.id === actions.death_angel_target);
-        summaryHtml += `<li>💀 <strong>Death Angel Strike:</strong> ${daTarget ? escapeHtml(daTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">💀 <strong>Death Angel Strike:</strong> ${daTarget ? escapeHtml(daTarget.name) : 'None'}${cancelBtn('death_angel')}</li>`;
       }
       if (actions.martyrdom_target) {
         const mTarget = state.players.find(p => p.id === actions.martyrdom_target);
-        summaryHtml += `<li>💣 <strong>Martyrdom Booby Trap:</strong> ${mTarget ? escapeHtml(mTarget.name) : 'None'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">💣 <strong>Martyrdom Booby Trap:</strong> ${mTarget ? escapeHtml(mTarget.name) : 'None'}${cancelBtn('martyrdom')}</li>`;
       }
       if (actions.mayor_veto) {
         const lTarget = state.players.find(p => p.id === state.last_lynched_id);
-        summaryHtml += `<li>👨‍⚖️ <strong>Mayor Veto:</strong> Pardoning ${lTarget ? escapeHtml(lTarget.name) : 'yesterday\'s execution'}</li>`;
+        itemsHtml += `<li style="margin-bottom:0.3rem;">👨‍⚖️ <strong>Mayor Veto:</strong> Pardoning ${lTarget ? escapeHtml(lTarget.name) : 'yesterday\'s execution'}${cancelBtn('mayor')}</li>`;
       }
-      summaryHtml += "</ul>";
-      document.getElementById("review-summary-list").innerHTML = summaryHtml;
+      if (actions.gm_overrides && actions.gm_overrides.length > 0) {
+        actions.gm_overrides.forEach(ov => {
+          const pObj = state.players.find(p => p.id === ov.player_id);
+          const tObj = ov.target_id ? state.players.find(p => p.id === ov.target_id) : null;
+          const pName = pObj ? escapeHtml(pObj.name) : 'Unknown';
+          const tName = tObj ? escapeHtml(tObj.name) : 'Unknown';
+          let desc = "";
+          if (ov.type === "guess_angel") {
+            desc = `🌫️ <strong>Angel Guess (GM):</strong> ${pName} guesses ${tName}`;
+          } else if (ov.type === "set_status") {
+            desc = `🔄 <strong>Set Status (GM):</strong> ${pName} &rarr; <strong>${escapeHtml((ov.status || '').toUpperCase())}</strong>`;
+          } else if (ov.type === "detonate_martyrdom") {
+            desc = `💣 <strong>Martyrdom Detonation (GM):</strong> ${pName} &rarr; ${tName}`;
+          } else if (ov.type === "gazette_mute") {
+            desc = `📰 <strong>Gazette ${ov.muted ? 'Mute' : 'Unmute'} (GM):</strong> ${pName}`;
+          }
+          itemsHtml += `<li style="margin-bottom:0.3rem;">${desc}${cancelOvBtn(ov.id)}</li>`;
+        });
+      }
+      document.getElementById("review-summary-list").innerHTML = `<ul style="margin:0;padding-left:1.2rem;">${itemsHtml}</ul>`;
+
+      const pOpts = [{ value: "", text: "-- Player X --" }];
+      const tOpts = [{ value: "", text: "-- Target / Angel Y --" }];
+      state.players.forEach(p => {
+        const label = `#${p.seat_number} ${p.name} (${p.status})`;
+        pOpts.push({ value: p.id, text: label });
+        tOpts.push({ value: p.id, text: label });
+      });
+      const dpSel = document.getElementById("dawn-add-player");
+      const dtSel = document.getElementById("dawn-add-target");
+      if (dpSel) syncSelectOptions(dpSel, pOpts, dpSel.value || "");
+      if (dtSel) syncSelectOptions(dtSel, tOpts, dtSel.value || "");
+      updateDawnAddInputs();
     } else if (stage.no_target) {
       pickerWrap.style.display = "none";
       clearBtn.style.display = "none";
@@ -4586,6 +4668,63 @@ html, body {
 
   function jumpToNightStage(idx) {
     sendAction("set_night_stage", { stage_index: idx });
+  }
+
+  function cancelDawnNightAction(stageKey) {
+    sendAction("clear_night_action", { stage_id: stageKey });
+  }
+
+  function removeDawnOverride(overrideId) {
+    sendAction("remove_dawn_override", { override_id: overrideId });
+  }
+
+  function updateDawnAddInputs() {
+    const typeEl = document.getElementById("dawn-add-type");
+    const pEl = document.getElementById("dawn-add-player");
+    const tEl = document.getElementById("dawn-add-target");
+    if (!typeEl || !pEl || !tEl) return;
+    const val = typeEl.value;
+    pEl.style.display = (val === "night:mayor") ? "none" : "inline-block";
+    tEl.style.display = (val === "guess_angel" || val === "detonate_martyrdom") ? "inline-block" : "none";
+  }
+
+  function submitDawnOverride() {
+    const typeEl = document.getElementById("dawn-add-type");
+    const pEl = document.getElementById("dawn-add-player");
+    const tEl = document.getElementById("dawn-add-target");
+    if (!typeEl) return;
+    const val = typeEl.value;
+    const pid = pEl ? pEl.value : "";
+    const tid = tEl ? tEl.value : "";
+
+    if (val === "guess_angel" || val === "detonate_martyrdom") {
+      if (!pid || !tid) { alert("Please select both Player X and Target Y."); return; }
+      sendAction("add_dawn_override", { override_type: val, player_id: pid, target_id: tid });
+    } else if (val.startsWith("set_status:")) {
+      if (!pid) { alert("Please select a player."); return; }
+      sendAction("add_dawn_override", { override_type: "set_status", player_id: pid, status: val.split(":")[1] });
+    } else if (val.startsWith("gazette_mute:")) {
+      if (!pid) { alert("Please select a player."); return; }
+      sendAction("add_dawn_override", { override_type: "gazette_mute", player_id: pid, muted: val.split(":")[1] === "true" });
+    } else if (val === "night:mayor") {
+      sendAction("night_action", { stage_id: "mayor", extra: { veto: true } });
+    } else if (val === "night:witch_revive") {
+      if (!pid) { alert("Please select a player to revive."); return; }
+      const existingKill = (currentGameState && currentGameState.night_actions && currentGameState.night_actions.witch_action)
+        ? currentGameState.night_actions.witch_action.kill_target : null;
+      sendAction("night_action", { stage_id: "witch", extra: { revive: true, revive_target: pid, kill_target: existingKill } });
+    } else if (val === "night:witch_kill") {
+      if (!pid) { alert("Please select a player to poison."); return; }
+      const existingRev = (currentGameState && currentGameState.night_actions && currentGameState.night_actions.witch_action)
+        ? currentGameState.night_actions.witch_action : {};
+      sendAction("night_action", { stage_id: "witch", extra: { revive: Boolean(existingRev.revive || existingRev.revive_target), revive_target: existingRev.revive_target || null, kill_target: pid } });
+    } else if (val === "night:sniper") {
+      if (!pid) { alert("Please select a target."); return; }
+      sendAction("night_action", { stage_id: "sniper", target_id: pid, extra: { bullet_type: "danger" } });
+    } else if (val.startsWith("night:")) {
+      if (!pid) { alert("Please select a player."); return; }
+      sendAction("night_action", { stage_id: val.split(":")[1], target_id: pid });
+    }
   }
 
   function recordStageTarget(targetId) {

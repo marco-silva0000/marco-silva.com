@@ -7,6 +7,7 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from website.version import get_version_info
 
 from .game_state import (
+    add_dawn_override,
     add_player,
     adjust_timer,
     advance_circular_turn,
@@ -34,6 +35,7 @@ from .game_state import (
     proceed_to_final_vote,
     record_gm_final_vote_tally,
     record_gm_night_action,
+    remove_dawn_override,
     remove_player,
     rename_player,
     reorder_players,
@@ -389,6 +391,24 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 clear_gm_night_action(state, stage_id)
                 await self.broadcast_sync()
 
+            elif action == "add_dawn_override":
+                success, msg = add_dawn_override(
+                    state,
+                    override_type=content.get("override_type", ""),
+                    player_id=content.get("player_id"),
+                    target_id=content.get("target_id"),
+                    status=content.get("status"),
+                    muted=content.get("muted"),
+                )
+                await self.send_json({"type": "dawn_override_result", "success": success, "message": msg})
+                if success:
+                    await self.broadcast_sync()
+
+            elif action == "remove_dawn_override":
+                ov_id = content.get("override_id")
+                if ov_id and remove_dawn_override(state, ov_id):
+                    await self.broadcast_sync()
+
             elif action == "reveal_detective":
                 reveal_detective_to_player(state)
                 await self.broadcast_sync()
@@ -657,7 +677,12 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
 
             elif action == "guess_angel":
                 target_id = content.get("target_id")
-                success, msg = guess_angel_in_limbo(state, self.player_id, target_id)
+                success, msg = guess_angel_in_limbo(
+                    state,
+                    self.player_id,
+                    target_id,
+                    require_limbo_stage=True,
+                )
                 await self.send_json({"type": "angel_guess_result", "success": success, "message": msg})
                 await self.broadcast_sync()
 

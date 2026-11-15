@@ -2077,10 +2077,16 @@ def rename_player(state: dict[str, Any], player_id: str, new_name: str) -> tuple
     return True, f"Renamed to {new_name}."
 
 
-def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id: str) -> tuple[bool, str]:
+def guess_angel_in_limbo(
+    state: dict[str, Any],
+    player_id: str,
+    guessed_angel_id: str,
+    require_limbo_stage: bool = False,
+) -> tuple[bool, str]:
     """Limbo mechanic: Player gets 1 guess total to identify the Angel.
     If correct AND Angel is alive: revived!
     If incorrect (or Angel is dead): permanently dies.
+    When require_limbo_stage=True (player self-guess), only permitted during the night's limbo_angel_guess stage.
     """
     if player_id not in state["players"]:
         return False, "Player not found."
@@ -2088,6 +2094,15 @@ def guess_angel_in_limbo(state: dict[str, Any], player_id: str, guessed_angel_id
 
     if player["status"] != "limbo":
         return False, "You are not currently in Limbo."
+
+    if require_limbo_stage:
+        if state.get("phase") != "night":
+            return False, "You can only guess the Angel during your Limbo guessing round at night."
+        stages = get_night_stages(state)
+        idx = state.get("night_stage_index", 0)
+        cur_stage = stages[idx] if 0 <= idx < len(stages) else None
+        if not cur_stage or cur_stage.get("id") != "limbo_angel_guess":
+            return False, "Wait for the Game Master to reach the Limbo guessing stage."
 
     if guessed_angel_id not in state["players"]:
         return False, "Invalid target selected."
@@ -3067,6 +3082,32 @@ def record_gm_night_action(
 
 def clear_gm_night_action(state: dict[str, Any], stage_id: str) -> None:
     actions = state.setdefault("night_actions", {})
+    if stage_id == "wolves_2":
+        if "wolf_target_2" in actions:
+            actions.pop("wolf_target_2", None)
+            record_action(state, "clear_night_action", {"stage_id": stage_id})
+            save_game(state["code"], state)
+        return
+    if stage_id in ("witch_revive", "witch_kill"):
+        w_act = actions.get("witch_action")
+        if isinstance(w_act, dict):
+            if stage_id == "witch_revive":
+                w_act.pop("revive", None)
+                w_act.pop("revive_target", None)
+            else:
+                w_act.pop("kill_target", None)
+            if not w_act.get("revive") and not w_act.get("revive_target") and not w_act.get("kill_target"):
+                del actions["witch_action"]
+            record_action(state, "clear_night_action", {"stage_id": stage_id})
+            save_game(state["code"], state)
+        return
+    if stage_id == "gm_overrides":
+        if "gm_overrides" in actions:
+            del actions["gm_overrides"]
+            record_action(state, "clear_night_action", {"stage_id": stage_id})
+            save_game(state["code"], state)
+        return
+
     mapping = {
         "disgruntled_ghost": "disgruntled_ghost_target",
         "hacker": "hacker_targets",
@@ -3094,6 +3135,63 @@ def clear_gm_night_action(state: dict[str, Any], stage_id: str) -> None:
             actions.pop("wolf_target_2", None)
         record_action(state, "clear_night_action", {"stage_id": stage_id})
         save_game(state["code"], state)
+
+
+def add_dawn_override(
+    state: dict[str, Any],
+    override_type: str,
+    player_id: Optional[str] = None,
+    target_id: Optional[str] = None,
+    status: Optional[str] = None,
+    muted: Optional[bool] = None,
+) -> tuple[bool, str]:
+    """Queue a custom GM status change / override to be reviewed in Dawn Overview and applied at dawn."""
+    players = state.get("players", {})
+    if not player_id or player_id not in players:
+        return False, "Select a valid player."
+
+    valid_types = ("set_status", "guess_angel", "detonate_martyrdom", "gazette_mute")
+    if override_type not in valid_types:
+        return False, "Invalid status change type."
+
+    entry: dict[str, Any] = {
+        "id": uuid.uuid4().hex[:8],
+        "type": override_type,
+        "player_id": player_id,
+    }
+
+    if override_type == "set_status":
+        if status not in ("alive", "limbo", "dead"):
+            return False, "Invalid target status."
+        entry["status"] = status
+    elif override_type in ("guess_angel", "detonate_martyrdom"):
+        if not target_id or target_id not in players:
+            return False, "Select a valid target player."
+        entry["target_id"] = target_id
+    elif override_type == "gazette_mute":
+        entry["muted"] = True if muted is None else bool(muted)
+
+    actions = state.setdefault("night_actions", {})
+    overrides = actions.setdefault("gm_overrides", [])
+    overrides.append(entry)
+    record_action(state, "add_dawn_override", entry)
+    save_game(state["code"], state)
+    return True, "Added status change to dawn overview."
+
+
+def remove_dawn_override(state: dict[str, Any], override_id: str) -> bool:
+    """Cancel/remove a queued GM dawn status change by its ID."""
+    actions = state.setdefault("night_actions", {})
+    overrides = actions.get("gm_overrides", [])
+    if not isinstance(overrides, list) or not overrides:
+        return False
+    new_overrides = [ov for ov in overrides if ov.get("id") != override_id]
+    if len(new_overrides) == len(overrides):
+        return False
+    actions["gm_overrides"] = new_overrides
+    record_action(state, "remove_dawn_override", {"override_id": override_id})
+    save_game(state["code"], state)
+    return True
 
 
 def set_night_stage_index(state: dict[str, Any], index: int) -> None:
@@ -3829,13 +3927,49 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
                 else:
                     report.append(f"🪦 {p['name']} was found dead at dawn.")
 
+    # Custom GM Dawn Overrides queued in Dawn Overview
+    pending_gazette_mutes: list[tuple[str, bool]] = []
+    for ov in actions.get("gm_overrides", []):
+        ov_type = ov.get("type")
+        pid = ov.get("player_id")
+        tid = ov.get("target_id")
+        if pid not in state["players"]:
+            continue
+        p_name = state["players"][pid]["name"]
+        if ov_type == "set_status":
+            new_st = ov.get("status")
+            if new_st in ("alive", "limbo", "dead"):
+                set_player_status(state, pid, new_st)
+                if new_st == "alive":
+                    report.append(f"✨ {p_name} was restored to life at dawn.")
+                elif new_st == "limbo":
+                    report.append(f"🌫️ {p_name} entered Limbo at dawn.")
+                else:
+                    reveal_suffix = (
+                        f" [{state['players'][pid].get('death_reveal')}]"
+                        if state["players"][pid].get("death_reveal")
+                        else ""
+                    )
+                    report.append(f"🪦 {p_name} was marked dead at dawn.{reveal_suffix}")
+        elif ov_type == "guess_angel" and tid in state["players"]:
+            ok, msg = guess_angel_in_limbo(state, pid, tid)
+            if ok or "guessed wrong" in msg:
+                report.append(msg)
+            else:
+                report.append(f"⚠️ Angel guess skipped for {p_name}: {msg}")
+        elif ov_type == "detonate_martyrdom" and tid in state["players"]:
+            ok, msg = trigger_martyrdom_detonation(state, pid, tid)
+            report.append(msg)
+        elif ov_type == "gazette_mute":
+            pending_gazette_mutes.append((pid, bool(ov.get("muted", True))))
+
     # Gazette / News Bulletins
     appr_bulletins = state.get("approved_news_bulletins", [])
     for b in appr_bulletins:
         byline = "Anonymous Informant" if b.get("anonymous") else b.get("player_name", "Villager")
         report.append(f'🗞️ Gazette: {byline} writes: "{b["message"]}"')
 
-    if not to_kill:
+    if not to_kill and not actions.get("gm_overrides"):
         report.append("☀️ Dawn breaks over a peaceful night. No one died!")
 
     state["night_report"] = report
@@ -3848,6 +3982,13 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     state["voting"] = _reset_voting_state(state)
     state["phase"] = "day_discussion"
     reset_gazette_mutes(state)
+    for m_pid, m_flag in pending_gazette_mutes:
+        toggle_player_gazette_mute(state, m_pid, muted=m_flag)
+        if m_pid in state["players"]:
+            m_name = state["players"][m_pid]["name"]
+            report.append(
+                f"📰 {m_name} was {'muted from' if m_flag else 'restored to'} Town Gazette submissions today."
+            )
 
     if state.get("wolf_cub_rampage"):
         state["wolf_cub_rampage"] = False
@@ -4964,20 +5105,34 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optio
             if p.get("role"):
                 deck_role_ids.append(p["role"])
 
+    show_active_cards = bool(state.get("settings", {}).get("show_active_cards", True))
     roles_in_play = []
-    seen_roles = set()
-    for rid in deck_role_ids:
-        if rid not in seen_roles and rid in ROLE_REGISTRY and ROLE_REGISTRY[rid].get("enabled", True):
-            seen_roles.add(rid)
-            r_info = get_role_info(rid, theme, lang=lang)
-            roles_in_play.append(
-                {
-                    "id": rid,
-                    "name": r_info["name"],
-                    "emoji": r_info["emoji"],
-                    "faction": r_info["faction"],
-                }
-            )
+    if show_active_cards:
+        role_counts: dict[str, int] = {}
+        for rid in deck_role_ids:
+            if rid in ROLE_REGISTRY and ROLE_REGISTRY[rid].get("enabled", True):
+                role_counts[rid] = role_counts.get(rid, 0) + 1
+        seen_roles = set()
+        for rid in deck_role_ids:
+            if rid not in seen_roles and rid in role_counts:
+                seen_roles.add(rid)
+                r_info = get_role_info(rid, theme, lang=lang)
+                roles_in_play.append(
+                    {
+                        "id": rid,
+                        "name": r_info["name"],
+                        "emoji": r_info["emoji"],
+                        "faction": r_info["faction"],
+                        "count": role_counts[rid],
+                    }
+                )
+
+    can_guess_angel = False
+    if player.get("status") == "limbo" and state.get("phase") == "night":
+        stages = get_night_stages(state)
+        idx = state.get("night_stage_index", 0)
+        if 0 <= idx < len(stages) and stages[idx].get("id") == "limbo_angel_guess":
+            can_guess_angel = True
 
     cur_rnd = state.get("round_number", 1)
     is_muted = player.get("is_gazette_muted", False)
@@ -5094,6 +5249,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optio
         "wolf_cub_rampage": state.get("wolf_cub_rampage", False),
         "pending_martyrdom_player_id": state.get("pending_martyrdom_player_id"),
         "night_stage_title": night_stage_title,
+        "can_guess_angel": can_guess_angel,
         "revealed_inspect": revealed_inspect,
         "saboteur_stolen_role": stolen_role_info,
         "hacker_result": state.get("hacker_result"),
@@ -5119,6 +5275,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optio
             "sniper_silver_bullets": state["settings"].get("sniper_silver_bullets", 0),
             "public_heartbreak_cause": state["settings"].get("public_heartbreak_cause", False),
             "reveal_roles_on_death": state["settings"].get("reveal_roles_on_death", 0),
+            "show_active_cards": show_active_cards,
         },
         "my_dms": my_dms,
         "unread_dms_count": unread_dms_count,
