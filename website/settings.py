@@ -194,6 +194,7 @@ EXTRA_LANG_INFO = {
     "zh-cn": {"bidi": False, "code": "zh-cn", "name": "Chinese Simplified", "name_local": "简体中文"},
     "zh-tw": {"bidi": False, "code": "zh-tw", "name": "Chinese Traditional", "name_local": "繁體中文"},
     "no": {"bidi": False, "code": "no", "name": "Norwegian", "name_local": "Norsk"},
+    "it-or": {"bidi": False, "code": "it-or", "name": "Oritano", "name_local": "Oritanu"},
 }
 django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
 
@@ -234,6 +235,7 @@ LANGUAGES = [
     ("id", "🇮🇩 Indonesian"),
     ("ga", "🇮🇪 Irish"),
     ("it", "🇮🇹 Italian"),
+    ("it-or", "🇮🇹 Oritano"),
     ("ja", "🇯🇵 Japanese"),
     ("kn", "🇮🇳 Kannada"),
     ("ko", "🇰🇷 Korean"),

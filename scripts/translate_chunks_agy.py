@@ -101,6 +101,7 @@ FALLBACK_MODELS = [
 ]
 
 TIER_CORE_LANGS = [
+    "it-or",
     "pt",
     "es",
     "it",
@@ -128,7 +129,7 @@ TIER_PRIORITY_LANGS = TIER_CORE_LANGS + [
 ]
 
 DEFAULT_PRIORITY_LANGS = TIER_PRIORITY_LANGS
-LANG_ALIASES = {"fn": "fi"}
+LANG_ALIASES = {"fn": "fi", "oritano": "it-or", "it_or": "it-or", "or": "it-or"}
 
 EXHAUSTED_MODELS: set[str] = set()
 CURRENT_ACTIVE_MODEL: str | None = None
@@ -136,6 +137,8 @@ CURRENT_ACTIVE_MODEL: str | None = None
 
 def get_clean_language_name(code: str) -> str:
     """Return clean human-readable language name without flag emoji."""
+    if code == "it-or":
+        return "Oritano (Northern Salentino dialect of Oria, Brindisi, Puglia, Southern Italy)"
     raw = LANGUAGE_NAMES.get(code, code.upper())
     parts = raw.split(" ", 1)
     return parts[1] if len(parts) > 1 else raw

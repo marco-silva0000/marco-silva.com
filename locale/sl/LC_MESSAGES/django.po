@@ -6,1387 +6,1387 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Ustvari sobo"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Bodi gostitelj nove sobe"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Nova igra"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ ustvari sobo"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Skrivnost (Zaprto pokopališče, vloge skrite do konca igre)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 dan"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Samo poravnava (Razglasi »DOBRO« proti »ZLO«)"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Sprejem pogojev"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Pregled"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Nastavitev ekip in vlog"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 minut"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "1. ugibanje konča krog"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Frakcija / Ekipa (Razglasi »Mesto«, »Volkodlaki«, »Nevtralno«)"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Podatki, do katerih dostopamo"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Dovoljena uporaba"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Nastavitve sobe in mize (Gostitelj)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 minute (hitro)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 dni"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Celotna kartica vloge (Razglasi natančno ime kartice in ikono)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Hramba in varnost podatkov"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Zavrnitev jamstev"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 sekund (standardno)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Omejitev odgovornosti"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Deljenje s tretjimi osebami"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — stran ni najdena"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 sekund"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "Navpični izrez 4:5 (1080x1350) za vrtiljake na Instagramu."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 minut (standardno)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Spremembe in prekinitev"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Preklic dostopa in izbris podatkov"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — nekaj je šlo narobe"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Stik"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 sekund"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 minut (premišljeno)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Dostop zavrnjen"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Obtoži:"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktivno"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Aktivni namig"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "Aktivne sobe Lupus"
 
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Dodaj namig"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Dodaj ustnega / namiznega igralca"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Dodaj ustnega / namiznega igralca (neposredno v ekipo)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Dodaj igralca"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Dodaj skrivni par po meri"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Dodajte besede internih šal po meri, ki bodo zamešane v prihodnje plošče, razdeljene v tej sobi."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Dodaj ime ustnega / namiznega igralca..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Dodaj v kupček"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Agenti in vodje vohunov"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "Vse aktivne sobe"
 
 msgid "All Games"
-msgstr ""
+msgstr "Vse igre"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Tu se prikažejo vsa ugibanja in namigi"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Dovoli gostitelju beleženje ustnih namigov in izbiro kartic za igralce pri mizi"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Dovoli kupček igralčevih parov po meri"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Dovoli besede po meri"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Dovoli igralcem dodajanje besed po meri"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Uveljavi licenco Creative Commons Priznanje avtorstva-Nekomercialno-Deljenje pod enakimi pogoji in vodni žig."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Samodejno uravnoteži"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Samodejno uravnoteži ekipi"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Samodejno preštej glasove, ko vsi igralci glasujejo"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Nazaj na aktivne sobe Lupus"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Nazaj v preddverje"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Nazaj v preddverje / Igraj znova"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Vračalka"
 
 msgid "Blue"
 msgstr "Moder"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Preostalo modrih"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Modra ekipa"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Modra ekipa zmaguje!"
 
 msgid "Board"
-msgstr ""
+msgstr "Plošča"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Plošča zaključena"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Plošča končana"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Prebrskaj aktivne sobe Lupus"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Prebrskaj središče"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Sestavite svoj namig z emodžiji:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "Licenca CC BY-NC-SA"
 
 msgid "CODE"
-msgstr ""
+msgstr "KODA"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Krmarjenje po koledarju"
 
 msgid "Category"
-msgstr ""
+msgstr "Kategorija"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Beseda meščanov (večina)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Mestni prebivalci, mafijci, policaj"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Klasični + razširjeni paket za zabave"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Faza namigov"
 
 msgid "Clues"
-msgstr ""
+msgstr "Namigi"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Dnevnik namigov in dotikov"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Nadzorna plošča"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "Konference"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Vsebina + Uporabniški vmesnik"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopiraj"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Ustvari sobo za Lupus / Volkodlaka"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Ustvari prvo Lupus sobo"
 
 msgid "Curated"
-msgstr ""
+msgstr "Izbrano"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Prilagojena beseda za Codenames"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Prilagojen kupček"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Prilagojene sekunde"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Prilagojene deljene tipkovnice (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Prilagojena beseda..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Datum potovanja/fotografiranja."
 
 msgid "Day"
 msgstr "Dán"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Enodnevni izlet"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Razdeli naslednjo ploščo"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Časovnik za obrambo"
 
 msgid "Definition"
-msgstr ""
+msgstr "Definicija"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Razpravljajte o namigih ali obtožite osumljence..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "Razprava"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Časovnik razpravljalnega kroga"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Prikazno ime"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "Zdravnik ščiti pred ostrostrelcem:"
 
 msgid "Done"
-msgstr ""
+msgstr "Končano"
 
 msgid "Education"
-msgstr ""
+msgstr "Izobraževanje"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Elektronika/vgrajeni sistemi (nekaj rust embedded)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Omogoči prevarantu krajo v zadnji priložnosti"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Omogoči smrtonosno tabujsko strupeno besedo"
 
 msgid "End Board"
-msgstr ""
+msgstr "Končaj ploščo"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Končaj potezo ugibanja"
 
 msgid "End Match"
-msgstr ""
+msgstr "Končaj tekmo"
 
 msgid "English"
-msgstr ""
+msgstr "Angleščina"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "Vstopi v igro"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Vstopi v sobo"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Vnesite kodo sobe (npr. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Izvozi JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "Neuspešno"
 
 msgid "Finished"
-msgstr ""
+msgstr "Dokončano"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM Nadzorna plošča"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM režijska nadzorna plošča:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM način: Zaklenjeno"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM način ustnega ugibanja"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM ustni način: VKLOPLJENO"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM način ustnega vodje vohunov"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Prikazno ime vodje igre (GM)"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Konec igre"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "Igralne sobe"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Pravila igre in časovniki"
 
 msgid "Game not found."
-msgstr ""
+msgstr "Igra ni bila najdena."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "Igralna soba ne obstaja."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Besede igre, namigi in vmesnik so podprti v %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Podaj namig z eno besedo"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Podajte posredne namige z eno besedo, ne da bi razkrili besedo ali stopili na skrito Smrtonosno tabujsko strupeno besedo. Celo gostitelj igra na slepo brez razkritij!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Ugani meščansko besedo in izmakni zmago..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Preostala ugibanja"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Faza ugibanja"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Radioamaterstvo, licenca UK foundation"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Imate 8-mestno kodo svojega vodje igre? Vnesite jo sem, da takoj vstopite:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Skrij prekrivno kartico s ključi"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Pohodništvo in plezanje"
 
 msgid "Hobbies"
-msgstr ""
+msgstr "Hobiji"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Pridrži za ogled skrivnih vlog:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Domača avtomatizacija in domači laboratorij"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Vodoravna goriščna točka: 0=levo, 50=sredina, 100=desno."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Kontrole gostitelja"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Nastavitve igre za gostitelja"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Soba gostitelja"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "Programiram, fotografiram in počnem še marsikaj drugega"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "Če je omogočeno, lahko zdravnikova zaščita reši volka pred strelom ostrostrelca. (Onemogočeno = ostrostrelec predre zdravnikovo zaščito)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "Če je nastavljeno, bo pridružitev prek QR kode igralce samodejno avtenticirala. (💡 Demo trik: ime GM, ki vsebuje Marco, in geslo test samodejno izpolnita 10 testnih igralcev za demo v živo)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "V teku"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Napačno geslo sobe."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Predogled Instagram 4:5"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Slika Instagram 4:5"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Neveljaven skrivni ključ vodje igre."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Povabi igralce"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Povabi igralce v sobo"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "QR koda za povabilo"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Niste na vrsti za oddajo namiga."
 
 msgid "Join"
-msgstr ""
+msgstr "Pridruži se"
 
 msgid "Join Game"
-msgstr ""
+msgstr "Pridruži se igri"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Pridruži se igri Lupus"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Pridružite se rdeči ali modri ekipi za začetek"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Pridruži se kot operativec"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Pridruži se kot igralec"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Pridruži se kot vodja vohunov"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Pridruži se s kodo sobe"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "KRAJA PREVARANTA V ZADNJEM TRENUTKU!"
 
 msgid "Languages"
-msgstr ""
+msgstr "Jeziki"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Zadnja posodobitev: 27. oktober 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "Zamudniki se pridružijo kot potrjeni popotniki, mestni duhovi ali nasledniki."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Zaženi sobo za Lupus"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "Pustite prazno za javno pridružitev"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Naj ta igralec s telefonom skenira kodo, da prevzame svoj osebni pogled vodje vohunov / operativca."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Smrtonosna tabu beseda (neobvezna past za takojšnjo izločitev)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Mehanika predpeklja in angela:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Razrešitev predpeklja"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Poslušaj"
 
 msgid "Listening"
-msgstr ""
+msgstr "Poslušanje"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Klepet v živo in tok ugibanj"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Živi in padli igralci pošiljajo jutranje govorice, ki se ob zori preberejo na glas."
 
 msgid "Lobby"
-msgstr ""
+msgstr "Čakalnica"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Čakalnica (Čakanje na igralce)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Zabeleži namig za namiznega vodjo vohunov"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Volkodlak"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Aktivne sobe in središče za Lupus"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Igra Lupus"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Družabna igra Lupus"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - Aktivne sobe in središče igre"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Volkodlak"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Dvoboj končan"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Podij tekme in vrhunci"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Ponovitev tekme in časovnica poskusov"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Ponovitev tekme in arhiv plošče"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Pravila dvoboja"
 
 msgid "Message..."
-msgstr ""
+msgstr "Sporočilo..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Prihodi med igro:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Nadzor glasovanja za moderatorja — spodaj izberite igralca in osumljenca ali tapnite oznako in sedež za mizo:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Premakni..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Nova igra / Ponovno deljenje"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Naslednji krog"
 
 msgid "Next day"
-msgstr ""
+msgstr "Naslednji dan"
 
 msgid "Night"
 msgstr "Noč"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "Trenutno ni aktivnih iger Lupus"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Izrez za Instagram še ni bil ustvarjen."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Noben namig še ni bil objavljen."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Ni še dokončanih plošč Codenames. Dokončajte ploščo ali jo predčasno zaključite, da si tukaj ogledate celoten posnetek ključne kartice."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Slovarska definicija ni na voljo."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Nobena poteza ni zabeležena."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Uradna 5×5 ekipna dedukcijska plošča s 400 besedami z namigi umetne inteligence Wikisaurus Spymaster, zasebnim preklopom ključne kartice ter ustnim/namiznim igranjem."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Uradnih klasičnih 400 besed"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Namig iz ene besede..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Dovoljeni so samo emodžiji — besedilni znaki so bili prezrti."
 
 msgid "Open"
-msgstr ""
+msgstr "Odprto"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "Odprto (Čakalnica)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "Odpri nadzorno ploščo vodje igre"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Odpri generator"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Odpri povezavo igralca"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Prosto mesto"
 
 msgid "Operative"
-msgstr ""
+msgstr "Operativec"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Sekunde operativca (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Operativci"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Operativci ugibajo"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Operativci izbirajo karte za ta krog."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Operativci ugibajo!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Nasprotna ekipa ugiba. Počakajte, da predajo krog ali napačno izberejo."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Ali vpišite lasten poziv/stavek..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Ustni način vodje vohunov (beleženje moderatorja)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Izvirna datoteka fotoaparata RAW (CR3, ARW, NEF itd.)"
 
 msgid "Other"
-msgstr ""
+msgstr "Drugo"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "Na prostem"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Stran ni bila najdena — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Nadzor sodelujočega gostitelja (brez razkritij)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Izpusti / Napačno"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Predaj potezo (Mod)"
 
 msgid "Password"
 msgstr "Geslo"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Zaščiteno z geslom"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Pretekle in zaključene igre"
 
 msgid "Pause"
-msgstr ""
+msgstr "Premor"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Zaustavi časovnik"
 
 msgid "Pending"
-msgstr ""
+msgstr "Na čakanju"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Osebna koda QR igralca"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Osebni QR"
 
 msgid "Photography"
-msgstr ""
+msgstr "Fotografija"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Izberite 1 besedo in število kartic. Vaši operativci morajo ugibati na podlagi vašega namiga."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Izberite ime, po katerem vas poznajo drugi za mizo."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Izberite igro, jezik in nastavitve sobe — delite povezavo ali kodo QR, ko ste pripravljeni."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Profil igralca in osebni QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "QR igralca"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR za ponovno povezavo igralca"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Ime igralca..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Igralci in rezultati"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Vnesite ime igralca."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Vnesite veljavno kodo sobe."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Strupena beseda (Pvarant / Pijanec)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Način strupene besede"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "Portugalec · Helsinki, Finska"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Prejšnji dan"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Cena za prenos datoteke RAW."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Pravilnik o zasebnosti"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Pravilnik o zasebnosti - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Pravilnik o zasebnosti - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "Zaslon za zasebnost skriva kartice pred radovednimi pogledi za mizo."
 
 msgid "Processing"
-msgstr ""
+msgstr "Obdelava"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Orodje za pozive"
 
 msgid "Public"
-msgstr ""
+msgstr "Javno"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Objavi namig"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW na voljo za nakup"
 
 msgid "RAW file"
-msgstr ""
+msgstr "Datoteka RAW"
 
 msgid "RAW price"
-msgstr ""
+msgstr "Cena RAW"
 
 msgid "Reading"
-msgstr ""
+msgstr "Branje"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "Družabne igre za več igralcev v realnem času v brskalniku. Računi niso potrebni — preprosto se pridružite in igrajte s prijatelji."
 
 msgid "Red"
 msgstr "Rdeča"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Še rdečih"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Rdeča ekipa"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Rdeča ekipa zmaga!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Znova premešaj ploščo"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Znova ustvari izreze 4:5 za Instagram za izbrane fotografije"
 
 msgid "Replay"
-msgstr ""
+msgstr "Ponovitev"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Ponovno vrzi"
 
 msgid "Resume"
-msgstr ""
+msgstr "Nadaljuj"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Vrni se kot %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "Razkrij"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "Razkrij vloge ob smrti:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Vloga skrita"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Vloge, faze in vmesnik so prevedeni v jezik %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Klepet v sobi"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Klepet in dogodki v sobi"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Koda sobe"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Koda sobe:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Geslo sobe"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Geslo sobe (neobvezno)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Nastavitev sobe"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Naslov sobe"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "Koda sobe '%(code)s' ni bila najdena ali pa ni več aktivna."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Sobe"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "Sobe se ustvarijo na zahtevo in ostanejo aktivne 24 ur. Začnite novo igralno sejo in povabite svojo skupino!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Zamenjaj vodje vohunov na vsaki novi plošči"
 
 msgid "Round"
-msgstr ""
+msgstr "Runda"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Namigi runde"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Ponovitev rundo za rundo in dnevnik poskusov"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Runde (cikli namigov)"
 
 msgid "Running"
-msgstr ""
+msgstr "V teku"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Shrani ime"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Skenirajte z drugo napravo, da nemoteno prevzamete svoje mesto vodje vohunov/operativca."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Skenirajte to kodo QR s kamero kateregakoli telefona, da se takoj pridružite:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Skenirajte to osebno kodo QR za zamenjavo naprave, ne da bi izgubili svojo skrivno kartico:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Skenirajte to, da prenesete svojo sejo in rezultat na drug telefon ali brskalnik:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Iščite emojije po imenu, sopomenki, tipkarski napaki ali jeziku (npr. fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "Pošlji"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Pošlji paket vrtiljaka za Instagram v Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Napaka strežnika — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Nastavi"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Nastavljanje ekip..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Prikaži vlogo in besedo"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Prikaži ključno kartico vodje vohunov"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Tiha faza"
 
 msgid "Skills"
-msgstr ""
+msgstr "Veščine"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Preskoči potezo"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "Ubiti igralci gredo enkrat v Vico namesto neposredne smrti. Če uganejo, kdo je Angel, vstanejo od mrtvih!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Družabna dedukcija s strupenimi besedami, smrtonosnimi tabu pastmi, krajo v zadnjem hipu in sodelujočim vodjo igre."
 
 msgid "Spanish"
-msgstr ""
+msgstr "Španščina"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Govorec (ustni namig):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "Govori"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Gledalec"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Gledalec / Neigralec"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Način za gledalce (preskoči moje poteze)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Vodja vohunov"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Sekunde vodje vohunov (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Vodja vohunov razmišlja o namigu..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Kolebljivi zdravnik:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Standardno časovno omejeno (90s / 90s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Začni Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Začni tekmo"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Začni glasovanje predčasno"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Privzeta prednastavitev svežnja vlog"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Kraja ugibanja"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Časovnik za krajo (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Zmaga s krajo!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Nočne faze korak za korakom, preverjanje blefiranja in upravitelj glasovanja."
 
 msgid "Submit"
-msgstr ""
+msgstr "Oddaj"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Oddaj namig"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Oddaj glas za igralca"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Razprava za mizo in dnevnik dogodkov"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Poudarki igre Lupus za mizo"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Družabna igra Werewolf & Mafia, osredotočena na mizo. Prijava z računom ni potrebna. Vsak igralec uporablja svoj telefon za skrivne vloge in glasovanje, medtem ko vi vodite sobo kot Game Master."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Hibridna družabna igra, osredotočena na mizo. Brez računov ali prijav. Igralci se pridružijo prek kode QR, vi pa vodite igro kot Game Master."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Družabna igra za mizo s skrivnimi vlogami, glasovanjem v živo, Mestnim časopisom in nadzorno ploščo za vodjo igre."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Preštej glasove zdaj"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Dotaknite se kart na plošči, ko igralci na glas ugibajo."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Dotaknite se kart na plošči, ki se ujemajo z namigom. Ko končate ali ste negotovi, se dotaknite Končaj krog ugibanja."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Tarče"
 
 msgid "Techy"
-msgstr ""
+msgstr "Tehnično"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "Pogoji storitve"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Pogoji storitve - Telegram bot za Homelab"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Pogoji storitve - Telegram bot za Homelab - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "Zdravnik / Stražar ne more zaščititi iste osebe dve zaporedni noči."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Vmesnik uporablja %(lang)s, medtem ko se vsebina igre povrne v angleščino, ker celotni besedni zaklad ni na voljo."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Tema in izrazi"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Prednastavitev časovne omejitve"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Preklopi"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Preklopi način za gledalce"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Mestni časopis:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Mestno glasovanje"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Vrstni red potez"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Časovnik poteze (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Časovniki potez"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Vpišite sporočilo ali ugibanje..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Vpišite namig ali to, kar je bilo povedano ustno..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Vpišite svoje ugibanje (ali uporabite polje za klepet)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Samo uporabniški vmesnik"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "QR-kode igralca ni mogoče naložiti."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Nedodeljeno"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Neomejeno"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Odkleni sobo"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Brez časovne omejitve"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Brez časovne omejitve (Sproščeni kavč način)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Uporabi poziv"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Uporabite tipkovnico z emodžiji ali se dotaknite spodnjih emodžijev..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Navpična goriščna točka: 0=zgoraj, 50=sredina, 100=spodaj."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Vaščani, Volkovi, Jasnovidec"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Časovnik za glasovanje (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Glasuj za igralca:"
 
 msgid "Voting"
-msgstr ""
+msgstr "Glasovanje"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "Čakanje na namig..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Čakanje, da gostitelj nastavi ekipe in zažene ploščo..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Čakanje v preddverju..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Ali so bile koordinate fokusa samodejno izračunane prek izstopajočih robov."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Predlogi namigov Wikisaurus AI (dotaknite se za predizpolnjevanje)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Zmage"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Generator besednih in stavčnih pozivov za klasične kroge risanja s peresom in papirjem s prijatelji."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Paket besed"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "Delovne izkušnje"
 
 msgid "Writing"
-msgstr ""
+msgstr "Pisanje"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "Za dostop do te strani potrebujete pooblaščeni ključ."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "Vaše ime / vzdevek"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Vaši operativci se posvetujejo. Ohranite popoln poker face — brez reakcij ali namigov!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Vaša osebna koda QR za ponovno povezavo"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Vaša skrivna fraza"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Vaš vohunski mojster"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Na vrsti ste za ugibanje!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Na vrsti ste, vohunski mojster!"
 
 msgid "actions"
-msgstr ""
+msgstr "dejanja"
 
 msgid "adjective"
-msgstr ""
+msgstr "pridevnik"
 
 msgid "ago"
-msgstr ""
+msgstr "pred"
 
 msgid "alive"
-msgstr ""
+msgstr "živ"
 
 msgid "all"
-msgstr ""
+msgstr "vse"
 
 msgid "all categories"
-msgstr ""
+msgstr "vse kategorije"
 
 msgid "all day"
-msgstr ""
+msgstr "ves dan"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "in spodaj objavite njihov namig."
 
 msgid "animals"
-msgstr ""
+msgstr "živali"
 
 msgid "any"
-msgstr ""
+msgstr "katerikoli"
 
 msgid "aperture"
-msgstr ""
+msgstr "zaslonka"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "zaznano samodejno ostrenje"
 
 msgid "available for sale"
-msgstr ""
+msgstr "na voljo za nakup"
 
 msgid "best guess"
-msgstr ""
+msgstr "najboljši ugib"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "znamka fotoaparata"
 
 msgid "camera model"
-msgstr ""
+msgstr "model fotoaparata"
 
 msgid "category:"
-msgstr ""
+msgstr "kategorija:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "počisti"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "skupna priprava + namigi"
 
 msgid "create"
 msgstr "ustvarjati"
 
 msgid "create room"
-msgstr ""
+msgstr "ustvari sobo"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "fokus obrezovanja X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "fokus obrezovanja Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "datum"
 
 msgid "description"
-msgstr ""
+msgstr "opis"
 
 msgid "difficulty"
-msgstr ""
+msgstr "težavnost"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "težavnost:"
 
 msgid "download .ics"
-msgstr ""
+msgstr "prenesi .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "npr. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "npr. Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "lahko"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "čas za emojije:"
 
 msgid "end"
 msgstr "konec"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "vnesite geslo za ogled koledarja."
 
 msgid "extract event"
-msgstr ""
+msgstr "izvozi dogodek"
 
 msgid "focal length"
-msgstr ""
+msgstr "goriščna razdalja"
 
 msgid "food & drink"
-msgstr ""
+msgstr "hrana in pijača"
 
 msgid "gallery"
 msgstr "galerija"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "razširitev galerije"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "razširitve galerije"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "galerija ni bila najdena."
 
 msgid "game"
 msgstr "igra"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "ugibaj"
 
 msgid "guess time:"
-msgstr ""
+msgstr "čas za ugibanje:"
 
 msgid "hard"
-msgstr ""
+msgstr "težko"
 
 msgid "home"
 msgstr "Domov"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ustvarjalnik ics"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "ugiba"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "pripravlja namig za svojo ekipo."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "pripravlja namig. Počakajte!"
 
 msgid "join"
-msgstr ""
+msgstr "pridruži se"
 
 msgid "latest posts"
-msgstr ""
+msgstr "najnovejše objave"
 
 msgid "latitude"
-msgstr ""
+msgstr "zemljepisna širina"
 
 msgid "lens"
 msgstr "leča"
 
 msgid "location"
-msgstr ""
+msgstr "lokacija"
 
 msgid "location name"
-msgstr ""
+msgstr "ime lokacije"
 
 msgid "longitude"
-msgstr ""
+msgstr "zemljepisna dolžina"
 
 msgid "map view"
-msgstr ""
+msgstr "pogled zemljevida"
 
 msgid "medium"
-msgstr ""
+msgstr "srednje"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "sporočilo (neobvezno)"
 
 msgid "mode"
-msgstr ""
+msgstr "način"
 
 msgid "mode:"
-msgstr ""
+msgstr "način:"
 
 msgid "movies"
-msgstr ""
+msgstr "filmi"
 
 msgid "new word"
-msgstr ""
+msgstr "nova beseda"
 
 msgid "next →"
-msgstr ""
+msgstr "naslednje →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "ni aktivnih sob. ustvarite jo!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "ni še galerij."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "ni še objav."
 
 msgid "noun"
-msgstr ""
+msgstr "samostalnik"
 
 msgid "older →"
-msgstr ""
+msgstr "starejše →"
 
 msgid "original"
-msgstr ""
+msgstr "izvirno"
 
 msgid "password"
 msgstr "geslo"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "geslo (neobvezno)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "tukaj prilepite podrobnosti o dogodku..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "prilepite besedilo ali spletni naslov s podrobnostmi o dogodku in pridobite datoteko .ics."
 
 msgid "people & characters"
-msgstr ""
+msgstr "ljudje in liki"
 
 msgid "photo"
-msgstr ""
+msgstr "fotografija"
 
 msgid "photo extension"
-msgstr ""
+msgstr "razširitev fotografije"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "razširitve fotografije"
 
 msgid "photo map"
-msgstr ""
+msgstr "zemljevid fotografij"
 
 msgid "photo not found."
-msgstr ""
+msgstr "fotografija ni bila najdena."
 
 msgid "photos"
 msgstr "Fotografije"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "fotografije (izberite več)"
 
 msgid "phrases"
-msgstr ""
+msgstr "fraze"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "izberite svoje možnosti, pritisnite gumb, rišite!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "kraji in potovanja"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "igraj znova"
 
 msgid "players"
-msgstr ""
+msgstr "igralci"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "pritisnite gumb, da dobite besedo"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "zasebno (skrij ugibanja)"
 
 msgid "processing status"
-msgstr ""
+msgstr "stanje obdelave"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "javno (pokaži ugibanja)"
 
 msgid "request"
-msgstr ""
+msgstr "zahteva"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "ponovni meti:"
 
 msgid "reveal"
-msgstr ""
+msgstr "razkrij"
 
 msgid "room language"
-msgstr ""
+msgstr "jezik sobe"
 
 msgid "room password"
-msgstr ""
+msgstr "geslo sobe"
 
 msgid "round robin"
-msgstr ""
+msgstr "vsak z vsakim"
 
 msgid "rounds:"
-msgstr ""
+msgstr "runde:"
 
 msgid "send"
-msgstr ""
+msgstr "pošlji"
 
 msgid "sentence"
-msgstr ""
+msgstr "stavek"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "hitrost zaklopa"
 
 msgid "skip"
-msgstr ""
+msgstr "preskoči"
 
 msgid "songs"
-msgstr ""
+msgstr "pesmi"
 
 msgid "start"
 msgstr "začetek"
 
 msgid "start game"
-msgstr ""
+msgstr "začni igro"
 
 msgid "text"
 msgstr "besedilo"
 
 msgid "things"
-msgstr ""
+msgstr "stvari"
 
 msgid "title"
-msgstr ""
+msgstr "naslov"
 
 msgid "title is required"
-msgstr ""
+msgstr "naslov je obvezen"
 
 msgid "today"
-msgstr ""
+msgstr "danes"
 
 msgid "tv shows"
-msgstr ""
+msgstr "tv-oddaje"
 
 msgid "type"
-msgstr ""
+msgstr "vrsta"
 
 msgid "upload"
-msgstr ""
+msgstr "naloži"
 
 msgid "upload photos"
-msgstr ""
+msgstr "naloži fotografije"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "glagol"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "ogled v polni ločljivosti ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "ogled na zemljevidu"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "čakanje na namig..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "čakanje na igralce..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "z vodnim žigom"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "slika z vodnim žigom"
 
 msgid "web"
-msgstr ""
+msgstr "splet"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "spletno optimizirana slika"
 
 msgid "week"
-msgstr ""
+msgstr "teden"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "koliko je %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "beseda"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "v izdelavi — preverite kmalu znova."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "napačna captcha"
 
 msgid "wrong password"
-msgstr ""
+msgstr "napačno geslo"
 
 msgid "your email"
-msgstr ""
+msgstr "vaša e-pošta"
 
 msgid "your name"
-msgstr ""
+msgstr "vaše ime"
 
 msgid "— none —"
-msgstr ""
+msgstr "— brez —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← vse galerije"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← vse objave"
 
 msgid "← back home"
-msgstr ""
+msgstr "← nazaj domov"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← galerije"
 
 msgid "← newer"
-msgstr ""
+msgstr "← novejše"
 
 msgid "← prev"
-msgstr ""
+msgstr "← prejšnje"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ Prenesi PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Kaos in specialci (Alfa volk, Utiševalec, Detektiv, Zdravnik, Ostrostrelec, Župan, Čarovnica...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Celotna vsebina + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Samo UI (angleške besede)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Središče in sobe Lupus"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 ustvari lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Predpekel in Angel (Volkovi + Detektiv + Zdravnik + Angel + Ostrostrelec + Vaščani)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 V igrah s Predpeklom se vloga razkrije izključno ob trajni smrti (»prava smrt«), nikoli med lebdenjem v Predpeklu."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 Kupček se samodejno prilagodi številu igralcev, ki se pridružijo. V čakalnici pred igro lahko v živo natančno prilagodite vsako vlogo ter ravnovesje med dobrim in zlim pred začetkom."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Standardno (Volkovi + Detektiv/Jasnovidec + Zdravnik/Stražar + Vaščani)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Preprosto / Klasično (Brez posebnih moči — čisti Volkovi proti Vaščanom)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

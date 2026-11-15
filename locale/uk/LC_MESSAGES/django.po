@@ -1539,178 +1539,178 @@ msgid "play again"
 msgstr "грати знову"
 
 msgid "players"
-msgstr ""
+msgstr "гравці"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "натисніть кнопку, щоб отримати слово"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "приватно (приховати здогадки)"
 
 msgid "processing status"
-msgstr ""
+msgstr "статус обробки"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "публічно (показати здогадки)"
 
 msgid "request"
-msgstr ""
+msgstr "запит"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "перекидання:"
 
 msgid "reveal"
-msgstr ""
+msgstr "розкрити"
 
 msgid "room language"
-msgstr ""
+msgstr "мова кімнати"
 
 msgid "room password"
-msgstr ""
+msgstr "пароль кімнати"
 
 msgid "round robin"
-msgstr ""
+msgstr "круговий раунд"
 
 msgid "rounds:"
-msgstr ""
+msgstr "раунди:"
 
 msgid "send"
-msgstr ""
+msgstr "надіслати"
 
 msgid "sentence"
-msgstr ""
+msgstr "речення"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "витримка"
 
 msgid "skip"
-msgstr ""
+msgstr "пропустити"
 
 msgid "songs"
-msgstr ""
+msgstr "пісні"
 
 msgid "start"
 msgstr "початок"
 
 msgid "start game"
-msgstr ""
+msgstr "почати гру"
 
 msgid "text"
 msgstr "текст"
 
 msgid "things"
-msgstr ""
+msgstr "речі"
 
 msgid "title"
-msgstr ""
+msgstr "заголовок"
 
 msgid "title is required"
-msgstr ""
+msgstr "заголовок обов'язковий"
 
 msgid "today"
-msgstr ""
+msgstr "сьогодні"
 
 msgid "tv shows"
-msgstr ""
+msgstr "телепередачі"
 
 msgid "type"
-msgstr ""
+msgstr "тип"
 
 msgid "upload"
-msgstr ""
+msgstr "завантажити"
 
 msgid "upload photos"
-msgstr ""
+msgstr "завантажити фото"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "дієслово"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "переглянути в повній роздільній здатності ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "показати на карті"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "очікування підказки..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "очікування гравців..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "з водяним знаком"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "зображення з водяним знаком"
 
 msgid "web"
-msgstr ""
+msgstr "веб"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "зображення, оптимізоване для вебу"
 
 msgid "week"
-msgstr ""
+msgstr "тиждень"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "скільки буде %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "слово"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "робота триває — завітайте незабаром."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "неправильна captcha"
 
 msgid "wrong password"
-msgstr ""
+msgstr "неправильний пароль"
 
 msgid "your email"
-msgstr ""
+msgstr "ваша електронна пошта"
 
 msgid "your name"
-msgstr ""
+msgstr "ваше ім'я"
 
 msgid "— none —"
-msgstr ""
+msgstr "— немає —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← усі галереї"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← усі дописи"
 
 msgid "← back home"
-msgstr ""
+msgstr "← назад на головну"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← галереї"
 
 msgid "← newer"
-msgstr ""
+msgstr "← новіші"
 
 msgid "← prev"
-msgstr ""
+msgstr "← назад"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ Завантажити PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Хаос та особливі (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Повний вміст + інтерфейс"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Лише інтерфейс (англійські слова)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Хаб і кімнати Lupus"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 створити гру lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Лімбо та Ангел (Вовки + Detective + Doctor + Angel + Sniper + Villagers)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 В іграх із Лімбо розкриття ролі відбувається виключно при остаточній смерті («death death»), і ніколи під час перебування в Лімбо."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 Колода автоматично підлаштовується під кількість гравців, які приєдналися. Ви можете точно налаштувати кожну роль та баланс добра і зла наживо в передпокої перед початком."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Стандартна (Вовки + Detective/Seer + Doctor/Guard + Villagers)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Проста / Класична (Без особливих здібностей — суто Вовки проти Villagers)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

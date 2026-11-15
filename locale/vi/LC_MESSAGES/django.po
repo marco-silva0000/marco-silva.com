@@ -6,1387 +6,1387 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Tạo phòng"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Tạo phòng mới"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Trò chơi mới"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ tạo phòng"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Bí mật (Nghĩa địa đóng, vai trò được giấu kín cho đến khi kết thúc trò chơi)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 ngày"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Chỉ phe thiện ác (Thông báo \"THIỆN\" vs \"ÁC\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Chấp nhận các điều khoản"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Tổng quan"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Thiết lập Đội & Vai trò"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 phút"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "Lần đoán đầu tiên kết thúc vòng"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Phe / Đội (Thông báo \"Dân làng\", \"Ma sói\", \"Trung lập\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Thông tin chúng tôi truy cập"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Sử dụng được phép"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Cài đặt Phòng & Bàn (Chủ phòng)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 phút (Nhanh)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 ngày"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Toàn bộ thẻ vai trò (Thông báo chính xác tên thẻ và biểu tượng)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Lưu trữ & Bảo mật Dữ liệu"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Tuyên bố từ chối bảo đảm"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 giây (Tiêu chuẩn)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Giới hạn trách nhiệm pháp lý"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Chia sẻ với bên thứ ba"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — không tìm thấy trang"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 giây"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "Cắt dọc 4:5 (1080x1350) cho bài đăng nhiều ảnh trên Instagram."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 phút (Tiêu chuẩn)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Thay đổi & Chấm dứt"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Thu hồi quyền truy cập & Xóa dữ liệu"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — đã xảy ra sự cố"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Liên hệ"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 giây"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 phút (Cân nhắc kỹ)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Truy cập bị từ chối"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Buộc tội:"
 
 msgid "Active"
-msgstr ""
+msgstr "Đang hoạt động"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Gợi ý hiện tại"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "Phòng Lupus đang hoạt động"
 
 msgid "Add"
-msgstr ""
+msgstr "Thêm"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Thêm manh mối"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Thêm người chơi bàn / ngoài đời"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Thêm người chơi bàn / ngoài đời (trực tiếp vào một đội)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Thêm người chơi"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Thêm cặp từ tùy chỉnh bí mật"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Thêm các từ đùa nội bộ tùy chỉnh để trộn vào các bảng trong tương lai tại phòng này."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Thêm tên người chơi bàn / ngoài đời..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Thêm vào bộ bài"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Điệp viên & Đội trưởng mật vụ"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "Tất cả phòng đang hoạt động"
 
 msgid "All Games"
-msgstr ""
+msgstr "Tất cả trò chơi"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Tất cả phỏng đoán & gợi ý xuất hiện tại đây"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Cho phép Chủ phòng ghi lại manh mối bằng lời và chọn thẻ thay cho người chơi tại bàn"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Cho phép bộ thẻ cặp từ tùy chỉnh của người chơi"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Cho phép từ tùy chỉnh"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Cho phép người chơi thêm từ tùy chỉnh"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Áp dụng giấy phép Creative Commons Ghi nhận công của tác giả-Phi thương mại-Chia sẻ tương tự và hình mờ."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Tự động cân bằng"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Tự động cân bằng đội"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Tự động tổng kết khi tất cả người chơi đã bỏ phiếu"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Quay lại Danh sách phòng Lupus đang hoạt động"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Quay lại Sảnh chờ"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Quay lại Sảnh chờ / Chơi lại"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "Xanh lam"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Xanh còn lại"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Đội Xanh"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Đội Xanh Thắng!"
 
 msgid "Board"
-msgstr ""
+msgstr "Bảng"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Hoàn thành bảng"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Bảng đã kết thúc"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Xem các phòng Lupus đang hoạt động"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Duyệt Hub"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Tạo gợi ý biểu tượng cảm xúc của bạn:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "Giấy phép CC BY-NC-SA"
 
 msgid "CODE"
-msgstr ""
+msgstr "MÃ"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Điều hướng lịch"
 
 msgid "Category"
-msgstr ""
+msgstr "Danh mục"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Từ của Dân thường (Đa số)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Dân thường, Xã hội đen, Cảnh sát"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Bộ mở rộng Cổ điển + Tiệc tùng"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Giai đoạn gợi ý"
 
 msgid "Clues"
-msgstr ""
+msgstr "Gợi ý"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Nhật ký gợi ý & chạm"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Buồng lái"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "Hội nghị"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Nội dung + Giao diện"
 
 msgid "Copy"
-msgstr ""
+msgstr "Sao chép"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Tạo phòng Ma Sói (Lupus / Werewolf)"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Tạo phòng Lupus đầu tiên"
 
 msgid "Curated"
-msgstr ""
+msgstr "Tuyển chọn"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Từ Codenames tùy chỉnh"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Bộ bài tùy chỉnh"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Số giây tùy chỉnh"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Bàn phím công thái học tùy chỉnh (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Từ tùy chỉnh..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Ngày của chuyến đi/buổi chụp hình."
 
 msgid "Day"
 msgstr "Ban ngày"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Chuyến đi trong ngày"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Chia bàn tiếp theo"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Hẹn giờ phòng thủ"
 
 msgid "Definition"
-msgstr ""
+msgstr "Định nghĩa"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Thảo luận manh mối hoặc buộc tội nghi phạm..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "Thảo luận"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Hẹn giờ vòng thảo luận"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Tên hiển thị"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "Bác sĩ bảo vệ khỏi Xạ thủ:"
 
 msgid "Done"
-msgstr ""
+msgstr "Xong"
 
 msgid "Education"
-msgstr ""
+msgstr "Học vấn"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Điện tử/nhúng (một ít rust nhúng)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Bật cướp điểm cơ hội cuối cho Kẻ giả mạo"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Bật Từ Độc Taboo Chết Người"
 
 msgid "End Board"
-msgstr ""
+msgstr "Kết thúc ván bài"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Kết thúc lượt đoán"
 
 msgid "End Match"
-msgstr ""
+msgstr "Kết thúc trận đấu"
 
 msgid "English"
-msgstr ""
+msgstr "Tiếng Anh"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "Vào trò chơi"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Vào phòng"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Nhập mã phòng (vd: 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Xuất JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "Thất bại"
 
 msgid "Finished"
-msgstr ""
+msgstr "Hoàn thành"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "Buồng lái Quản trò"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "Buồng lái Điều hành Quản trò:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "Chế độ GM: Đã khóa"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "Chế độ GM đoán bằng lời"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "Chế độ GM bằng lời: BẬT"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "Chế độ GM Đội trưởng ngầm bằng lời"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Tên hiển thị của Quản trò"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Trò chơi kết thúc"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "Phòng chơi"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Quy tắc & Hẹn giờ trò chơi"
 
 msgid "Game not found."
-msgstr ""
+msgstr "Không tìm thấy trò chơi."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "Phòng chơi không tồn tại."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Từ vựng trò chơi, gợi ý và giao diện được hỗ trợ bằng %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Đưa ra gợi ý một từ"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Đưa ra gợi ý gián tiếp bằng một từ duy nhất mà không làm lộ từ hoặc dẫm phải Từ Độc Taboo Chết Người ẩn giấu. Ngay cả Chủ phòng cũng chơi một cách ẩn danh mà không bị lộ trước!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Đoán Từ Dân làng để cướp chiến thắng..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Lượt đoán còn lại"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Giai đoạn đoán"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Vô tuyến nghiệp dư, giấy phép cơ bản Vương quốc Anh"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Bạn có mã 8 ký tự từ Quản trò không? Nhập vào đây để tham gia ngay:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Ẩn bảng thẻ từ ghi đè"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Đi bộ đường dài và leo núi"
 
 msgid "Hobbies"
 msgstr "Sở thích"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Nhấn giữ để xem lén vai trò bí mật:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Tự động hóa nhà cửa và homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Tiêu điểm ngang: 0=trái, 50=giữa, 100=phải."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Bảng điều khiển của Chủ phòng"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Cài đặt trò chơi của Chủ phòng"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Phòng của Chủ phòng"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "Tôi lập trình, chụp ảnh và nhiều thứ khác"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "Nếu được bật, sự bảo vệ của Bác sĩ có thể cứu một con sói khỏi bị Xạ thủ bắn hạ. (Tắt = phát bắn của xạ thủ xuyên thủng bảo vệ của bác sĩ)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "Nếu được đặt, việc tham gia qua mã QR sẽ tự động xác thực người chơi. (💡 Mẹo demo: tên GM chứa Marco và mật khẩu test sẽ tự động điền 10 người chơi thử nghiệm cho bản demo trực tiếp)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "Đang diễn ra"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Mật khẩu phòng không đúng."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Xem trước Instagram 4:5"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Ảnh Instagram 4:5"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Khóa bí mật của Quản trò không hợp lệ."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Mời người chơi"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Mời người chơi vào phòng"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "Mã QR mời"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Chưa đến lượt bạn gửi gợi ý."
 
 msgid "Join"
-msgstr ""
+msgstr "Tham gia"
 
 msgid "Join Game"
-msgstr ""
+msgstr "Tham gia trò chơi"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Tham gia trò chơi Lupus"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Tham gia Đội Đỏ hoặc Xanh để bắt đầu"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Tham gia với tư cách Điệp viên"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Tham gia với tư cách Người chơi"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Tham gia với tư cách Đội trưởng"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Tham gia bằng mã phòng"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "CƠ HỘI CUỐI ĐỂ KẺ GIẢ MẠO CƯỚP ĐIỂM!"
 
 msgid "Languages"
-msgstr ""
+msgstr "Ngôn ngữ"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Cập nhật lần cuối: 27 tháng 10, 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "Người đến muộn sẽ tham gia với tư cách Du khách được xác nhận, Hồn ma thị trấn hoặc Người kế vị."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Tạo phòng Lupus"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "Để trống để ai cũng có thể vào"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Cho phép người chơi này quét bằng điện thoại để xem giao diện Đội trưởng/Điệp viên cá nhân."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Từ cấm chết người (Bẫy loại trực tiếp tùy chọn)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Cơ chế Limbo & Thiên thần:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Giải quyết Limbo"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Nghe"
 
 msgid "Listening"
-msgstr ""
+msgstr "Đang nghe"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Trò chuyện trực tiếp & Luồng đoán"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Người chơi còn sống và đã ngã xuống gửi những tin đồn buổi sáng được đọc to vào lúc bình minh."
 
 msgid "Lobby"
-msgstr ""
+msgstr "Sảnh chờ"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Sảnh chờ (Đang đợi người chơi)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Ghi nhận gợi ý cho Đội trưởng bàn chơi"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Ma Sói"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Các phòng Lupus đang hoạt động & Trung tâm"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Trò chơi Lupus"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Trò chơi tiệc tùng Lupus"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - Phòng đang hoạt động & Trung tâm trò chơi"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Ma Sói"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Trận đấu hoàn tất"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Bục vinh danh & Khoảnh khắc nổi bật"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Xem lại trận đấu & Mốc thời gian thử sức"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Xem lại trận đấu & Lưu trữ bàn chơi"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Luật thi đấu"
 
 msgid "Message..."
-msgstr ""
+msgstr "Tin nhắn..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Tham gia giữa chừng:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Bảng điều khiển bình chọn của Quản trò — Chọn một người chơi và kẻ tình nghi bên dưới, hoặc chạm vào viên thuốc & ghế tại bàn:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Di chuyển..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Ván mới / Rút lại"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Vòng tiếp theo"
 
 msgid "Next day"
-msgstr ""
+msgstr "Ngày tiếp theo"
 
 msgid "Night"
 msgstr "Đêm"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "Hiện không có trò chơi Lupus nào đang hoạt động"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Chưa tạo khung hình Instagram nào."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Chưa có gợi ý nào được công bố."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Chưa có bảng Codenames nào hoàn thành. Hoàn thành một bảng hoặc kết thúc sớm để xem toàn bộ bảng chìa khóa tại đây."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Không có định nghĩa từ điển."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Không có lượt nào được ghi nhận."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Bàn chơi suy luận đồng đội 5×5 gồm 400 từ chính thức với gợi ý AI Wikisaurus Spymaster, bật tắt thẻ chìa khóa riêng tư và chơi bằng lời nói/tại bàn."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "400 từ cổ điển chính thức"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Gợi ý một từ..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Chỉ cho phép biểu tượng cảm xúc — các ký tự văn bản đã bị bỏ qua."
 
 msgid "Open"
-msgstr ""
+msgstr "Mở"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "Mở (Sảnh chờ)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "Mở bảng điều khiển GM"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Mở trình tạo"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Mở liên kết người chơi"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Chỗ trống"
 
 msgid "Operative"
-msgstr ""
+msgstr "Điệp viên"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Số giây của Điệp viên (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Điệp viên"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Các Điệp viên đang đoán"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Các Điệp viên đang chọn bài cho vòng này."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Các Điệp viên đang đoán!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Đội đối phương đang đoán. Hãy chờ họ bỏ lượt hoặc chọn sai."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Hoặc nhập lời nhắc/cụm từ tùy chỉnh của riêng bạn..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Chế độ Đội trưởng bằng lời (Quản trò ghi nhận)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Tệp ảnh RAW gốc từ máy ảnh (CR3, ARW, NEF, v.v.)"
 
 msgid "Other"
-msgstr ""
+msgstr "Khác"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "Ngoài trời"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Không tìm thấy trang — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Bảng điều khiển cho Chủ phòng tham gia chơi (Không lộ bí mật)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Bỏ qua / Sai"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Bỏ qua lượt (Quản trò)"
 
 msgid "Password"
 msgstr "Mật khẩu"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Được bảo vệ bằng mật khẩu"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Các trò chơi trước đây & đã kết thúc"
 
 msgid "Pause"
-msgstr ""
+msgstr "Tạm dừng"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Tạm dừng hẹn giờ"
 
 msgid "Pending"
-msgstr ""
+msgstr "Đang chờ xử lý"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Mã QR người chơi cá nhân"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Mã QR cá nhân"
 
 msgid "Photography"
-msgstr ""
+msgstr "Nhiếp ảnh"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Chọn 1 từ và một số lượng thẻ. Điệp viên tác chiến của bạn phải đoán dựa trên manh mối của bạn."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Chọn tên mà người khác ở bàn biết về bạn."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Chọn trò chơi, ngôn ngữ và cài đặt phòng — chia sẻ liên kết hoặc mã QR khi sẵn sàng."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Hồ sơ người chơi & Mã QR cá nhân"
 
 msgid "Player QR"
-msgstr ""
+msgstr "Mã QR người chơi"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "Mã QR kết nối lại của người chơi"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Tên người chơi..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Người chơi & Điểm số"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Vui lòng nhập tên người chơi."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Vui lòng nhập mã phòng hợp lệ."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Từ độc hại (Kẻ mạo danh / Say xỉn)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Chế độ từ độc hại"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "Tiếng Bồ Đào Nha · Helsinki, Phần Lan"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Ngày hôm trước"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Giá tải xuống tệp RAW."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Chính sách quyền riêng tư"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Chính sách quyền riêng tư - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Chính sách quyền riêng tư - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "Màn chắn riêng tư giữ cho các lá bài được ẩn khỏi những ánh nhìn tò mò trên bàn."
 
 msgid "Processing"
-msgstr ""
+msgstr "Đang xử lý"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Công cụ lời nhắc"
 
 msgid "Public"
-msgstr ""
+msgstr "Công khai"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Đăng manh mối"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "File RAW có sẵn để mua"
 
 msgid "RAW file"
-msgstr ""
+msgstr "Tệp RAW"
 
 msgid "RAW price"
-msgstr ""
+msgstr "Giá RAW"
 
 msgid "Reading"
-msgstr ""
+msgstr "Đang đọc"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "Trò chơi tiệc tùng nhiều người chơi trên trình duyệt theo thời gian thực. Không cần tài khoản — chỉ cần tham gia và chơi cùng bạn bè."
 
 msgid "Red"
 msgstr "Đỏ"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Đội đỏ còn lại"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Đội Đỏ"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Đội Đỏ chiến thắng!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Vẽ lại bảng"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Tạo lại ảnh cắt tỉ lệ 4:5 cho Instagram cho các ảnh đã chọn"
 
 msgid "Replay"
-msgstr ""
+msgstr "Xem lại"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Tung lại"
 
 msgid "Resume"
-msgstr ""
+msgstr "Tiếp tục"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Quay lại với tư cách %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "Tiết lộ"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "Tiết lộ vai trò khi chết:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Vai trò ẩn"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Các vai trò, giai đoạn và giao diện được bản địa hóa bằng %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Trò chuyện phòng"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Trò chuyện phòng & Sự kiện"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Mã phòng"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Mã phòng:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Mật khẩu phòng"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Mật khẩu phòng (tùy chọn)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Thiết lập phòng"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Tiêu đề phòng"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "Mã phòng '%(code)s' không tồn tại hoặc không còn hoạt động."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Phòng"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "Phòng được tạo theo yêu cầu và duy trì hoạt động trong 24 giờ. Bắt đầu một phiên trò chơi mới và mời nhóm của bạn!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Đổi Spymaster sau mỗi bảng mới"
 
 msgid "Round"
-msgstr ""
+msgstr "Vòng"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Manh mối vòng này"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Xem lại từng vòng & Nhật ký thử đoán"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Vòng (Chu kỳ manh mối)"
 
 msgid "Running"
-msgstr ""
+msgstr "Đang chạy"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Lưu tên"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Quét trên thiết bị khác để lấy lại chỗ ngồi Spymaster/Điệp viên của bạn một cách dễ dàng."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Quét mã QR này bằng máy ảnh điện thoại bất kỳ để tham gia ngay lập tức:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Quét mã QR cá nhân này để đổi thiết bị mà không làm mất lá bài bí mật của bạn:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Quét mã này để chuyển phiên chơi và điểm số của bạn sang điện thoại hoặc trình duyệt khác:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Tìm kiếm biểu tượng cảm xúc theo tên, từ đồng nghĩa, lỗi chính tả hoặc ngôn ngữ (ví dụ: fire, crown, lửa, φωτιά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "Gửi"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Gửi gói băng chuyền ảnh Instagram tới Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Lỗi máy chủ — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Bộ"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Đang thiết lập đội..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Hiện vai trò & từ"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Hiển thị thẻ khóa Spymaster"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Giai đoạn im lặng"
 
 msgid "Skills"
-msgstr ""
+msgstr "Kỹ năng"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Bỏ lượt"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "Người chơi bị giết sẽ vào Lấp lửng (Limbo) một lần thay vì chết trực tiếp. Nếu đoán trúng ai là Thiên thần, họ sẽ được hồi sinh!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Trò chơi suy luận xã hội với Từ độc hại, bẫy Taboo chết người, Cướp cơ hội cuối và Quản trò cùng tham gia."
 
 msgid "Spanish"
-msgstr ""
+msgstr "Tiếng Tây Ban Nha"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Người nói (gợi ý bằng lời):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "Đang nói"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Khán giả"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Khán giả / Không tham gia chơi"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Chế độ khán giả (Bỏ qua lượt của tôi)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Chỉ huy điệp viên"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Số giây của chỉ huy điệp viên (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Chỉ huy điệp viên đang nghĩ gợi ý..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Bác sĩ chao đảo:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Tính giờ tiêu chuẩn (90 giây / 90 giây)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Bắt đầu Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Bắt đầu trận đấu"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Bắt đầu bỏ phiếu sớm"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Cài đặt sẵn bộ bài vai trò ban đầu"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Đoán cướp điểm"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Hẹn giờ cướp điểm (giây, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Cướp điểm chiến thắng!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Các giai đoạn ban đêm từng bước, bắt bài nói dối và trình quản lý bỏ phiếu."
 
 msgid "Submit"
-msgstr ""
+msgstr "Gửi"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Gửi gợi ý"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Gửi phiếu bầu của người chơi"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Thảo luận tại bàn & Nhật ký sự kiện"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Điểm nổi bật của Lupus chơi tại bàn"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Trò chơi tiệc tùng Ma Sói & Mafia ưu tiên tương tác tại bàn. Không cần tài khoản hay đăng nhập. Mỗi người chơi dùng điện thoại để xem vai trò bí mật và bỏ phiếu trong khi bạn quản lý phòng chơi với vai trò Quản Trò."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Trò chơi tiệc tùng kết hợp ưu tiên tương tác tại bàn. Không cần tài khoản hoặc đăng nhập. Người chơi tham gia qua mã QR và bạn điều hành trò chơi với vai trò Quản Trò."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Trò chơi tiệc tùng tại bàn với các vai trò bí mật, bỏ phiếu trực tiếp, Báo Thị Trấn và bảng điều khiển cho Quản Trò."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Kiểm phiếu ngay"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Nhấn vào các lá bài trên bảng khi người chơi đoán to thành tiếng."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Nhấn vào các lá bài trên bảng khớp với gợi ý. Khi hoàn thành hoặc không chắc chắn, nhấn Kết thúc lượt đoán."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Mục tiêu"
 
 msgid "Techy"
-msgstr ""
+msgstr "Công nghệ"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "Điều khoản dịch vụ"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Điều khoản dịch vụ - Bot Telegram Homelab"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Điều khoản dịch vụ - Bot Telegram Homelab - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "Bác sĩ / Bảo vệ không thể bảo vệ cùng một người trong hai đêm liên tiếp."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Giao diện dùng %(lang)s, trong khi nội dung trò chơi chuyển về tiếng Anh do thiếu dữ liệu từ vựng đầy đủ."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Chủ đề & Thuật ngữ"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Cài đặt sẵn giới hạn thời gian"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Chuyển đổi"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Bật/Tắt chế độ khán giả"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Báo Thị Trấn:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Dân làng bỏ phiếu"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Trình tự lượt chơi"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Hẹn giờ lượt (giây, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Hẹn giờ lượt"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Nhập tin nhắn hoặc dự đoán..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Nhập gợi ý hoặc những gì đã nói thành lời..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Nhập dự đoán của bạn (hoặc dùng khung trò chuyện)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Chỉ giao diện"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Không thể tải mã QR của người chơi."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Chưa chỉ định"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Không giới hạn"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Mở khóa phòng"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Không tính giờ"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Không tính giờ (Chế độ sofa thư giãn)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Dùng đề bài"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Dùng bàn phím biểu tượng cảm xúc hoặc nhấn vào biểu tượng bên dưới..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Tiêu điểm dọc: 0=trên cùng, 50=giữa, 100=dưới cùng."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Dân làng, Sói, Tiên tri"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Hẹn giờ bỏ phiếu (giây, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Bỏ phiếu cho người chơi:"
 
 msgid "Voting"
-msgstr ""
+msgstr "Bỏ phiếu"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "Đang chờ gợi ý..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Đang đợi chủ phòng cấu hình đội và mở bảng..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Đang chờ trong sảnh..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Ma Sói / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Cho biết tọa độ tiêu điểm có được tính toán tự động qua độ nổi bật của cạnh hay không."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Gợi ý manh mối Wikisaurus AI (nhấn để điền trước)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Thắng"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Trình tạo từ & câu gợi ý cho các vòng chơi vẽ tranh trên giấy bút cổ điển cùng bạn bè."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Gói từ ngữ"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "Kinh nghiệm làm việc"
 
 msgid "Writing"
-msgstr ""
+msgstr "Đang viết"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "Bạn cần khóa được ủy quyền để truy cập trang này."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "Tên / Biệt danh của bạn"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Các điệp viên của bạn đang thảo luận. Hãy giữ vẻ mặt lạnh như tiền — không biểu lộ cảm xúc hay gợi ý gì!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Mã QR kết nối lại cá nhân của bạn"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Cụm từ bí mật của bạn"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Chỉ huy điệp viên của bạn"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Đến lượt bạn đoán!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Đến lượt bạn, Chỉ huy điệp viên!"
 
 msgid "actions"
-msgstr ""
+msgstr "hành động"
 
 msgid "adjective"
-msgstr ""
+msgstr "tính từ"
 
 msgid "ago"
-msgstr ""
+msgstr "trước"
 
 msgid "alive"
-msgstr ""
+msgstr "sống"
 
 msgid "all"
-msgstr ""
+msgstr "tất cả"
 
 msgid "all categories"
-msgstr ""
+msgstr "tất cả danh mục"
 
 msgid "all day"
-msgstr ""
+msgstr "cả ngày"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "và công bố gợi ý của họ bên dưới."
 
 msgid "animals"
-msgstr ""
+msgstr "động vật"
 
 msgid "any"
-msgstr ""
+msgstr "bất kỳ"
 
 msgid "aperture"
-msgstr ""
+msgstr "khẩu độ"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "đã phát hiện lấy nét tự động"
 
 msgid "available for sale"
-msgstr ""
+msgstr "có sẵn để bán"
 
 msgid "best guess"
-msgstr ""
+msgstr "dự đoán tốt nhất"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "hãng máy ảnh"
 
 msgid "camera model"
-msgstr ""
+msgstr "mẫu máy ảnh"
 
 msgid "category:"
-msgstr ""
+msgstr "danh mục:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "xóa"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "chuẩn bị tập thể + gợi ý"
 
 msgid "create"
 msgstr "tạo"
 
 msgid "create room"
-msgstr ""
+msgstr "tạo phòng"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "tiêu điểm cắt X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "tiêu điểm cắt Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "ngày"
 
 msgid "description"
-msgstr ""
+msgstr "mô tả"
 
 msgid "difficulty"
-msgstr ""
+msgstr "độ khó"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "độ khó:"
 
 msgid "download .ics"
-msgstr ""
+msgstr "tải xuống .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "vd: 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "vd: Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "dễ"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "thời gian biểu cảm:"
 
 msgid "end"
 msgstr "chóp"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "nhập mật khẩu để xem lịch."
 
 msgid "extract event"
-msgstr ""
+msgstr "trích xuất sự kiện"
 
 msgid "focal length"
-msgstr ""
+msgstr "tiêu cự"
 
 msgid "food & drink"
-msgstr ""
+msgstr "ẩm thực & đồ uống"
 
 msgid "gallery"
-msgstr ""
+msgstr "bộ sưu tập"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "phần mở rộng bộ sưu tập"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "các phần mở rộng bộ sưu tập"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "không tìm thấy bộ sưu tập."
 
 msgid "game"
 msgstr "trò chơi"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "đoán"
 
 msgid "guess time:"
-msgstr ""
+msgstr "thời gian đoán:"
 
 msgid "hard"
-msgstr ""
+msgstr "khó"
 
 msgid "home"
 msgstr "Trang chủ"
 
 msgid "ics maker"
-msgstr ""
+msgstr "công cụ tạo ics"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "đang Đoán"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "đang chuẩn bị một gợi ý cho đội của mình."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "đang chuẩn bị một gợi ý. Chờ nhé!"
 
 msgid "join"
-msgstr ""
+msgstr "tham gia"
 
 msgid "latest posts"
 msgstr "Bài viết mới nhất"
 
 msgid "latitude"
-msgstr ""
+msgstr "vĩ độ"
 
 msgid "lens"
 msgstr "thấu kính"
 
 msgid "location"
-msgstr ""
+msgstr "vị trí"
 
 msgid "location name"
-msgstr ""
+msgstr "tên vị trí"
 
 msgid "longitude"
-msgstr ""
+msgstr "kinh độ"
 
 msgid "map view"
-msgstr ""
+msgstr "xem bản đồ"
 
 msgid "medium"
-msgstr ""
+msgstr "trung bình"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "tin nhắn (tùy chọn)"
 
 msgid "mode"
-msgstr ""
+msgstr "chế độ"
 
 msgid "mode:"
-msgstr ""
+msgstr "chế độ:"
 
 msgid "movies"
-msgstr ""
+msgstr "phim"
 
 msgid "new word"
-msgstr ""
+msgstr "từ mới"
 
 msgid "next →"
-msgstr ""
+msgstr "tiếp →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "không có phòng hoạt động. Hãy tạo một phòng!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "chưa có bộ sưu tập nào."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "chưa có bài viết nào."
 
 msgid "noun"
-msgstr ""
+msgstr "danh từ"
 
 msgid "older →"
-msgstr ""
+msgstr "cũ hơn →"
 
 msgid "original"
-msgstr ""
+msgstr "gốc"
 
 msgid "password"
 msgstr "mật khẩu"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "mật khẩu (tùy chọn)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "dán chi tiết sự kiện vào đây..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "dán văn bản hoặc url có chi tiết sự kiện và nhận tệp .ics."
 
 msgid "people & characters"
-msgstr ""
+msgstr "con người & nhân vật"
 
 msgid "photo"
-msgstr ""
+msgstr "ảnh"
 
 msgid "photo extension"
-msgstr ""
+msgstr "phần mở rộng ảnh"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "các phần mở rộng ảnh"
 
 msgid "photo map"
-msgstr ""
+msgstr "bản đồ ảnh"
 
 msgid "photo not found."
-msgstr ""
+msgstr "không tìm thấy ảnh."
 
 msgid "photos"
 msgstr "Hình ảnh"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "ảnh (chọn nhiều)"
 
 msgid "phrases"
-msgstr ""
+msgstr "cụm từ"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "chọn các tùy chọn, nhấn nút, vẽ!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "địa điểm & du lịch"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "chơi lại"
 
 msgid "players"
-msgstr ""
+msgstr "người chơi"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "nhấn nút để nhận một từ"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "riêng tư (ẩn phỏng đoán)"
 
 msgid "processing status"
-msgstr ""
+msgstr "trạng thái xử lý"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "công khai (hiện phỏng đoán)"
 
 msgid "request"
-msgstr ""
+msgstr "yêu cầu"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "lần cuộn lại:"
 
 msgid "reveal"
-msgstr ""
+msgstr "tiết lộ"
 
 msgid "room language"
-msgstr ""
+msgstr "ngôn ngữ phòng"
 
 msgid "room password"
-msgstr ""
+msgstr "mật khẩu phòng"
 
 msgid "round robin"
-msgstr ""
+msgstr "xoay vòng"
 
 msgid "rounds:"
-msgstr ""
+msgstr "vòng:"
 
 msgid "send"
-msgstr ""
+msgstr "gửi"
 
 msgid "sentence"
-msgstr ""
+msgstr "câu"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "tốc độ màn trập"
 
 msgid "skip"
-msgstr ""
+msgstr "bỏ qua"
 
 msgid "songs"
-msgstr ""
+msgstr "bài hát"
 
 msgid "start"
 msgstr "bắt đầu"
 
 msgid "start game"
-msgstr ""
+msgstr "bắt đầu trò chơi"
 
 msgid "text"
 msgstr "văn bản"
 
 msgid "things"
-msgstr ""
+msgstr "đồ vật"
 
 msgid "title"
-msgstr ""
+msgstr "tiêu đề"
 
 msgid "title is required"
-msgstr ""
+msgstr "tiêu đề là bắt buộc"
 
 msgid "today"
-msgstr ""
+msgstr "hôm nay"
 
 msgid "tv shows"
-msgstr ""
+msgstr "chương trình truyền hình"
 
 msgid "type"
-msgstr ""
+msgstr "loại"
 
 msgid "upload"
-msgstr ""
+msgstr "tải lên"
 
 msgid "upload photos"
-msgstr ""
+msgstr "tải ảnh lên"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "động từ"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "xem độ phân giải đầy đủ ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "xem trên bản đồ"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "đang đợi manh mối..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "đang đợi người chơi..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "có hình mờ"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "hình ảnh có hình mờ"
 
 msgid "web"
-msgstr ""
+msgstr "web"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "hình ảnh tối ưu cho web"
 
 msgid "week"
-msgstr ""
+msgstr "tuần"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "%(a)s + %(b)s bằng bao nhiêu?"
 
 msgid "word"
-msgstr ""
+msgstr "từ"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "đang thực hiện — vui lòng quay lại sau."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "captcha không đúng"
 
 msgid "wrong password"
-msgstr ""
+msgstr "sai mật khẩu"
 
 msgid "your email"
-msgstr ""
+msgstr "email của bạn"
 
 msgid "your name"
-msgstr ""
+msgstr "tên của bạn"
 
 msgid "— none —"
-msgstr ""
+msgstr "— không có —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← tất cả thư viện ảnh"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← tất cả bài viết"
 
 msgid "← back home"
-msgstr ""
+msgstr "← quay về trang chủ"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← thư viện ảnh"
 
 msgid "← newer"
-msgstr ""
+msgstr "← mới hơn"
 
 msgid "← prev"
-msgstr ""
+msgstr "← trước"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ Tải xuống PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Hỗn loạn & Đặc biệt (Sói đầu đàn, Kẻ câm lặng, Thám tử, Bác sĩ, Xạ thủ, Thị trưởng, Phù thủy...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Toàn bộ nội dung + Giao diện"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Chỉ giao diện (Từ tiếng Anh)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus Hub & Phòng"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 tạo lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo & Thiên thần (Sói + Thám tử + Bác sĩ + Thiên thần + Xạ thủ + Dân làng)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 Trong các ván chơi Limbo, việc tiết lộ vai trò chỉ diễn ra khi chết vĩnh viễn (\"chết hẳn\"), không bao giờ xuất hiện khi đang lơ lửng trong Limbo."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 Bộ bài tự động điều chỉnh theo số lượng người chơi tham gia. Bạn có thể tinh chỉnh từng vai trò cũng như cân bằng phe thiện vs. phe ác trực tiếp tại Phòng chờ trước khi bắt đầu."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Tiêu chuẩn (Sói + Thám tử/Tiên tri + Bác sĩ/Bảo vệ + Dân làng)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Đơn giản / Cổ điển (Không có sức mạnh đặc biệt — thuần Sói vs Dân làng)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

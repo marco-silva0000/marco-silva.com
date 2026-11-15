@@ -6,1387 +6,1387 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Búa til herbergi"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Hýsa nýtt herbergi"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Nýr leikur"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ búa til herbergi"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Leyndarmál (Lokaður grafreitur, hlutverk falin þar til leik lýkur)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 dagur"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Aðeins fylking (Tilkynnir „GÓÐUR“ á móti „VONDUR“)"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Samþykki skilmála"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Yfirlit"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Uppsetning liða og hlutverka"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 mínútur"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "1. gisk lýkur umferð"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Fylking / Lið (Tilkynnir „Bær“, „V形rulfar“, „Hlutlausir“)"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Upplýsingar sem við sækjum"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Leyfileg notkun"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Herbergis- og borðstillingar (Gestgjafi)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 mínútur (hratt)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 dagar"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Fullt hlutverksspjald (Tilkynnir nákvæmt nafn spjalds og tákn)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Gagnageymsla og öryggi"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Fyrirvari um ábyrgðir"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 sekúndur (staðlað)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Takmörkun ábyrgðar"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Deiling með þriðju aðilum"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — síða fannst ekki"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 sekúndur"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "4:5 lóðrétt klipping (1080x1350) fyrir Instagram myndaraðir."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 mínútur (staðlað)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Breytingar og uppsögn"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Afturköllun aðgangs og eyðing gagna"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — eitthvað fór úrskeiðis"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Tengiliður"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 sekúndur"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 mínútur (yfirvegað)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Aðgangi hafnað"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Ákæra:"
 
 msgid "Active"
-msgstr ""
+msgstr "Virkt"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Virk vísbending"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "Virk Lupus-herbergi"
 
 msgid "Add"
-msgstr ""
+msgstr "Bæta við"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Bæta við vísbendingu"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Bæta við munnlegum / borðspilara"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Bæta við munnlegum / borðspilara (beint í lið)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Bæta við spilara"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Bæta við leynilegu sérsniðnu pari"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Bættu við persónulegum brandaraorðum sem verða blönduð inn á komandi borð í þessu herbergi."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Bæta við nafni munnlegs / borðspilara..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Bæta í stokk"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Njósnarar og njósnarameistarar"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "Öll virk herbergi"
 
 msgid "All Games"
-msgstr ""
+msgstr "Allir leikir"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Öll gisk og allar vísbendingar birtast hér"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Leyfa gestgjafa að skrá munnlegar vísbendingar og smella á spjöld fyrir leikmenn við borðið"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Leyfa sérsniðinn parastokk leikmanna"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Leyfa sérsniðin orð"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Leyfa leikmönnum að bæta við sérsniðnum orðum"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Beita Creative Commons Attribution-NonCommercial-ShareAlike leyfi og vatnsmerki."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Jafna sjálfkrafa"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Jafna lið sjálfkrafa"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Telja sjálfkrafa þegar allir leikmenn hafa kosið"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Aftur í virk Lupus-herbergi"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Aftur í biðsal"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Aftur í biðsal / Spila aftur"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Bakklykill"
 
 msgid "Blue"
 msgstr "Blár"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Blátt eftir"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Bláa liðið"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Bláa liðið vinnur!"
 
 msgid "Board"
-msgstr ""
+msgstr "Borð"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Borði lokið"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Borð endaði"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Skoða virk Lupus-herbergi"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Skoða miðstöð"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Búðu til vísbendingu með tjátáknum:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA leyfi"
 
 msgid "CODE"
-msgstr ""
+msgstr "KÓÐI"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Dagatalssigling"
 
 msgid "Category"
-msgstr ""
+msgstr "Flokkur"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Orð borgara (meirihluti)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Óbreyttir borgarar, glæpamenn, lögga"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Klassískur + Útvíkkaður partípakki"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Vísbendingafasi"
 
 msgid "Clues"
-msgstr ""
+msgstr "Vísbendingar"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Vísbendinga- og ýtingaskrá"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Stjórnklefi"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "Ráðstefnur"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Efni + Viðmót"
 
 msgid "Copy"
-msgstr ""
+msgstr "Afrita"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Búa til Lupus / Varúlfsherbergi"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Búa til fyrsta Lupus herbergið"
 
 msgid "Curated"
-msgstr ""
+msgstr "Valið"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Sérsniðið Codenames-orð"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Sérsniðinn stokkur"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Sérsniðnar sekúndur"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Sérsniðin klofin lyklaborð (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Sérsniðið orð..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Dagsetning ferðar/myndatöku."
 
 msgid "Day"
 msgstr "Dagur"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Dagsferð"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Gefa næsta borð"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Varnartími"
 
 msgid "Definition"
-msgstr ""
+msgstr "Skilgreining"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Ræða vísbendingar eða saka grunaða..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "Umræða"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Umræðutími"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Birtingarnafn"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "Læknir ver gegn leyniskyttu:"
 
 msgid "Done"
-msgstr ""
+msgstr "Lokið"
 
 msgid "Education"
-msgstr ""
+msgstr "Menntun"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Rafeindatækni/innbyggð kerfi (nokkuð af rust embedded)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Virkja síðasta séns svikara til að stela"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Virkja banvænt bannorð (eiturorð)"
 
 msgid "End Board"
-msgstr ""
+msgstr "Ljúka borði"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Ljúka ágiskunarlotu"
 
 msgid "End Match"
-msgstr ""
+msgstr "Ljúka leik"
 
 msgid "English"
-msgstr ""
+msgstr "Enska"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "Fara í leik"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Fara í herbergi"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Sláðu inn herbergiskóða (t.d. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Flytja út JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "Mislókst"
 
 msgid "Finished"
-msgstr ""
+msgstr "Lokið"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM Stjórnborð"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM Stjórnklefi leikstjórnanda:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM-hamur: Læstur"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM Hamur munnlegrar ágiskunar"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM Munnlegur hamur: KVEIKT"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM Munnlegur njósnaforingjahamur"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Birtingarnafn Leikstjórnanda"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Leik lokið"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "Leikjaherbergi"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Leikreglur og tímamælar"
 
 msgid "Game not found."
-msgstr ""
+msgstr "Leikur fannst ekki."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "Leikjaherbergi er ekki til."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Leikjaorð, vísbendingar og viðmót eru studd á %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Gefa vísbendingu í einu orði"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Gefðu óbeinar vísbendingar í einu orði án þess að afhjúpa orðið eða stíga á falið banvænt bannorð (eiturorð). Jafnvel stjórnandinn spilar blindur án spillinga!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Giskaðu á orð borgarans til að stela sigrinum..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Ágiskanir eftir"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Ágiskunarfasi"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Áhugaútvarp, UK grunnleyfi"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Ertu með 8 stafa kóða frá leikstjórnanda? Sláðu hann inn hér til að hoppa beint inn:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Fela lykilkortsþekju"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Gönguferðir og klifur"
 
 msgid "Hobbies"
-msgstr ""
+msgstr "Áhugamál"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Haltu inni til að kíkja á leynileg hlutverk:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Sjálfvirkni heimilisins og heimatilraunastofa"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Láréttur brennipunktur: 0=vinstri, 50=miðja, 100=hægri."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Stjórntæki gestgjafa"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Leikjastillingar gestgjafa"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Herbergi gestgjafa"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "Ég forrita, tek myndir og margt fleira"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "Ef virkt, getur vernd læknisins bjargað úlfi frá því að vera skotinn af leyniskyttunni. (Óvirkt = leyniskytta smýgur í gegnum vernd læknis)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "Ef stillt, mun innganga með QR-kóða auðkenna leikmenn sjálfkrafa. (💡 Kynningartrix: GM-nafn sem inniheldur Marco og lykilorðið test fyllir sjálfkrafa inn 10 prófunarleikmenn fyrir kynningu í beinni)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "Í vinnslu"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Rangt herbergislykilorð."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 forskoðun"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 mynd"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Ógildur leynilykill leikstjórnanda."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Bjóða leikmönnum"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Bjóða leikmönnum í herbergi"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "Boðs-QR"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Það er ekki þín röð að gefa vísbendingu."
 
 msgid "Join"
-msgstr ""
+msgstr "Gera sig aðila"
 
 msgid "Join Game"
-msgstr ""
+msgstr "Taka þátt í leik"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Taka þátt í Lupus-leik"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Gakktu í rauða eða bláa liðið til að byrja"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Gera sig aðila sem leyniþjónustumaður"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Taka þátt sem leikmaður"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Taka þátt sem njósnaforingi"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Skrá sig inn með herbergiskóða"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "SÍÐASTA SJÁNS TIL AÐ STELA FYRIR SVIKARA!"
 
 msgid "Languages"
-msgstr ""
+msgstr "Tungumál"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Síðast uppfært: 27. október 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "Seinbúnir taka þátt sem staðfestir ferðalangar, bæjarvakir eða arftakar."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Hefja Lupus-herbergi"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "Skiljið eftir tómt fyrir opinn aðgang"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Leyfðu þessum leikmanni að skanna með símanum til að taka við persónulegu yfirliti njósnaforingja/leyniþjónustumanns."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Banvænt forboðið orð (Valfrjáls gildra sem fellir leikmenn samstundis)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Vistarveru- og englavélfræði:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Úrlausn vistarveru"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Hlusta á"
 
 msgid "Listening"
-msgstr ""
+msgstr "Hlustar"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Beint spjall og ágiskanaflæði"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Lifandi og fallnir leikmenn senda inn morgunorðróma sem lesnir eru upp við dögun."
 
 msgid "Lobby"
-msgstr ""
+msgstr "Biðstofa"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Biðstofa (Bíður eftir leikmönnum)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Skrá vísbendingu fyrir njósnaforingja borðsins"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Vargúlfur"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Virk Lupus-herbergi og miðstöð"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Lupus-leikur"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Lupus-samkvæmisleikur"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - Virk herbergi og leikjamiðstöð"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Vargúlfur"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Leik lokið"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Verðlaunapallur og helstu augnablik leiksins"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Endursýning leiks og tímalína tilrauna"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Endursýning leiks og leikborðasafn"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Leikreglur"
 
 msgid "Message..."
-msgstr ""
+msgstr "Skilaboð..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Komur í miðjum leik:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Kosningastýringar stjórnanda — Veldu leikmann og grunaðan hér að neðan, eða ýttu á hnapp og sæti á borðinu:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Færa..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Nýr leikur / Endurúthlutun"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Næsta umferð"
 
 msgid "Next day"
-msgstr ""
+msgstr "Næsti dagur"
 
 msgid "Night"
 msgstr "Nótt"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "Engir virkir Lupus-leikir í gangi núna"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Ekkert Instagram-snið hefur verið búið til ennþá."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Engar vísbendingar hafa verið birtar enn."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Engin kláruð Codenames-borð ennþá. Kláraðu borð eða ljúktu því snemma til að sjá heildarendursýningu lykilorðaspjalds hér."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Engin orðabókarskilgreining tiltæk."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Engar umferðir skráðar."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Opinbert 400-orða 5×5 rökhugsunarborð fyrir lið með Wikisaurus Spymaster gervigreindarvísbendingum, einkalyklaspjaldsvali og munnlegu/borðspili."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Opinber hefðbundin 400 orð"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Einorða vísbending..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Aðeins tjátákn leyfð — textatáknum var sleppt."
 
 msgid "Open"
-msgstr ""
+msgstr "Opið"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "Opið (Biðstofa)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "Opna stjórnborð leikstjórnanda"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Opna rafal"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Opna hlekk leikmanns"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Laust pláss"
 
 msgid "Operative"
-msgstr ""
+msgstr "Leyniþjónustumaður"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Sekúndur leyniþjónustumanns (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Leyniþjónustumenn"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Leyniþjónustumenn giska á"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Leyniþjónustumenn velja spjöld fyrir þessa umferð."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Leyniþjónustumenn giska!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Mótherjaliðið er að giska. Bíddu eftir að þeir passi eða geri ranga ágiskun."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Eða skrifaðu þitt eigið sérsniðna leiðarljós/frasa..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Munnlegur njósnaforingjahamur (Skráning stjórnanda)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Upprunaleg RAW myndavélaskrá (CR3, ARW, NEF, o.s.frv.)"
 
 msgid "Other"
-msgstr ""
+msgstr "Annað"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "Utandyra"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Síða fannst ekki — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Stjórntæki þátttakandi gestgjafa (engar spillur)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Passa / Rangt"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Passa umferð (Stjórnandi)"
 
 msgid "Password"
 msgstr "Lykilorð"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Varið með lykilorði"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Fyrri og loknir leikir"
 
 msgid "Pause"
-msgstr ""
+msgstr "Gera hlé"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Gera hlé á tímamæli"
 
 msgid "Pending"
-msgstr ""
+msgstr "Í bið"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Persónulegur QR-kóði leikmanns"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Persónulegur QR"
 
 msgid "Photography"
-msgstr ""
+msgstr "Ljósmyndun"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Veldu 1 orð og fjölda spjalda. Liðsmenn þínir verða að giska út frá vísbendingunni þinni."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Veldu nafnið sem aðrir við borðið þekkja þig undir."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Veldu leik, tungumál og stillingar herbergis — deildu hlekknum eða QR-kóðanum þegar þú ert tilbúin(n)."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Leikmannssnið og persónulegur QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "QR leikmanns"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR til að endurtengja leikmann"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Nafn leikmanns..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Leikmenn og stig"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Vinsamlegast sláðu inn nafn leikmanns."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Vinsamlegast sláðu inn gilt herbergiskóða."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Eiturorð (Svikari / Drukkinn)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Eiturorðshamur"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "Portúgali · Helsinki, Finnlandi"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Fyrri dagur"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Verð fyrir niðurhal á RAW-skrá."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Persónuverndarstefna"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Persónuverndarstefna - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Persónuverndarstefna - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "Persónuverndarhlíf felur spjöldin fyrir forvitnum augum við borðið."
 
 msgid "Processing"
-msgstr ""
+msgstr "Í vinnslu"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Fyrirmælatól"
 
 msgid "Public"
-msgstr ""
+msgstr "Opinbert"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Gefa vísbendingu"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW fáanlegt til kaups"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW skrá"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW verð"
 
 msgid "Reading"
-msgstr ""
+msgstr "Lestur"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "Fjölspilunarleikir í rauntíma beint í vafranum. Enginn aðgangur nauðsynlegur — bara byrjaðu og spilaðu með vinum."
 
 msgid "Red"
 msgstr "Rauður"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Rautt eftir"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Rauða liðið"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Rauða liðið vinnur!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Endurúthluta borði"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Endurgenera 4:5 Instagram-skurði fyrir valdar myndir"
 
 msgid "Replay"
-msgstr ""
+msgstr "Endursýning"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Kasta aftur"
 
 msgid "Resume"
-msgstr ""
+msgstr "Halda áfram"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Snúa aftur sem %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "Afhjúpa"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "Afhjúpa hlutverk við dauða:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Hlutverk falið"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Hlutverk, stig og viðmót eru staðfærð á %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Spjall herbergis"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Herbergisspjall og viðburðir"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Kóði herbergis"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Kóði herbergis:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Lykilorð herbergis"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Lykilorð herbergis (valfrjálst)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Uppsetning herbergis"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Titill herbergis"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "Herbergiskóðinn '%(code)s' fannst ekki eða er ekki lengur virkur."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Herbergi"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "Herbergi eru búin til eftir þörfum og eru virk í 24 klukkustundir. Byrjaðu nýja leikjalotu og bjóddu hópnum þínum!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Skipta um njósnastjóra á hverju nýju borði"
 
 msgid "Round"
-msgstr ""
+msgstr "Umferð"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Vísbendingar umferðar"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Endursýning umferð fyrir umferð og tilraunaskrá"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Umferðir (vísbendingalotur)"
 
 msgid "Running"
-msgstr ""
+msgstr "Í gangi"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Vista nafn"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Skannaðu á öðru tæki til að endurheimta sæti þitt sem njósnastjóri/liðsmaður á hreinan hátt."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Skannaðu þennan QR-kóða með hvaða símatökuvél sem er til að taka þátt strax:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Skannaðu þennan persónulega QR-kóða til að skipta um tæki án þess að missa leynispjaldið þitt:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Skannaðu þetta til að færa setuna og stigið yfir á annan síma eða vafra:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Leitaðu að tjáningartáknum eftir nafni, samheiti, innsláttarvillu eða tungumáli (t.d. fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "Senda"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Senda Instagram-karúsellpakka á Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Netþjónsvilla — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Stilla"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Stilli upp liðum..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Sýna hlutverk og orð"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Sýna lykilspjald njósnastjóra"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Þagnarfasi"
 
 msgid "Skills"
-msgstr ""
+msgstr "Færni"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Sleppa umferð"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "Fallnir leikmenn fara einu sinni í Forgarð í stað þess að deyja strax. Ef þeir giska á hver Engillinn er rísa þeir upp aftur!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Félagsleg rökleiðsla með Eiturorðum, banvænum Taboo-gildrum, síðasta-séns stuldi og þátttakandi leikstjórnanda."
 
 msgid "Spanish"
-msgstr ""
+msgstr "Spænska"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Frummælandi (munnleg vísbending):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "Talar"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Áhorfandi"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Áhorfandi / Ekki leikmaður"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Áhorfendahamur (sleppa mínum umferðum)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Njósnastjóri"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Sekúndur njósnastjóra (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Njósnastjóri hugsar upp vísbendingu..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Hikandi læknir:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Hefðbundinn tími (90s / 90s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Hefja Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Hefja leik"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Byrja að kjósa fyrr"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Upphaflegt forstillt hlutverkaspilastokk"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Stela giski"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Stelskeiðklukka (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Stelsigur!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Skref-fyrir-skref næturstig, blekkjaleikir og kosningastjórnun."
 
 msgid "Submit"
-msgstr ""
+msgstr "Senda"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Senda vísbendingu"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Greiða atkvæði um leikmann"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Borðumræður og atburðaskrá"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Helstu einkenni Lupus fyrir spilaborð"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Samkvæmisleikurinn Werewolf & Mafia hannaður fyrir spilaborðið. Engin innskráning nauðsynleg. Hver leikmaður notar símann sinn fyrir leynileg hlutverk og atkvæðagreiðslu á meðan þú stýrir leiknum sem leikstjórnandi (Game Master)."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Hendingar-samkvæmisleikur hannaður fyrir spilaborðið. Engra reikninga eða innskráningar krafist. Leikmenn tengjast með QR-kóða og þú stjórnar leiknum sem leikstjórnandi (Game Master)."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Borðleikur með leynilegum hlutverkum, lifandi kosningu, bæjarblaði og stjórnborði fyrir leikstjórnanda."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Telja atkvæði núna"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Ýttu á spjöld á borðinu um leið og leikmenn giska upphátt."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Ýttu á spjöld á borðinu sem passa við vísbendinguna. Þegar því er lokið eða ef vafi ríkir skaltu ýta á Ljúka giskuumferð."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Skotmörk"
 
 msgid "Techy"
-msgstr ""
+msgstr "Tæknilegt"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "Skilmálar þjónustu"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Skilmálar þjónustu - Homelab Telegram-róbóti"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Skilmálar þjónustu - Homelab Telegram-róbóti - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "Læknirinn / Vörðurinn getur ekki varið sama einstakling tvær nætur í röð."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Viðmótið notar %(lang)s, en leikjaefni fellur aftur á ensku þar sem heildarorðaforði er ekki tiltækur."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Þema og hugtök"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Forstilling tímamarka"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Víxla"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Víxla áhorfendahami"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Bæjarblaðið:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Bæjarkosning"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Röð umferða"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Skeiðklukka umferðar (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Skeiðklukkur umferða"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Sláðu inn skilaboð eða gisk..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Sláðu inn vísbendingu eða það sem sagt var munnlega..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Sláðu inn giskið þitt (eða notaðu spjallgluggann)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Aðeins viðmót"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Ekki tókst að hlaða QR-kóða leikmanns."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Óúthlutað"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Ótakmarkað"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Aflæsa herbergi"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Án tímamarka"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Án tímamarka (Þægilegur sófahættur)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Nota textakveikju"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Notaðu tjáningartáknaborðið þitt eða ýttu á tjáningartákn hér að neðan..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Lóðréttur brennipunktur: 0=efst, 50=miðja, 100=neðst."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Þorpsbúar, Úlfar, Spámaður"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Kosningaskeiðklukka (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Kjósa leikmann:"
 
 msgid "Voting"
-msgstr ""
+msgstr "Kosning"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "Bíður eftir vísbendingu..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Bíður eftir því að stjórnandi stilli lið og ræsi borðið..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Bíður í anddyri..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Hvort brennipunkthnit voru sjálfkrafa reiknuð út með áberandi brúnum."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI vísbendingatillögur (ýttu til að fylla út fyrirfram)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Sigrar"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Hugmyndasmiður fyrir orð og setningar fyrir hefðbundnar teiknilotur á blaði með vinum."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Orðapakki"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "Starfsreynsla"
 
 msgid "Writing"
-msgstr ""
+msgstr "Skrifar"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "Þú þarft leyfðan lykil til að fá aðgang að þessari síðu."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "Nafn þitt / gælunafn"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Leynifulltrúar þínir ráða ráðum sínum. Haltu algjörum pókersvip — engin viðbrögð eða vísbendingar!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Þinn persónulegi QR-kóði fyrir endurtengingu"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Þitt leynilega frasi"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Njósnaforingi þinn"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Þín röð að giska!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Þín röð, njósnaforingi!"
 
 msgid "actions"
-msgstr ""
+msgstr "aðgerðir"
 
 msgid "adjective"
-msgstr ""
+msgstr "lýsingarorð"
 
 msgid "ago"
-msgstr ""
+msgstr "fyrir ... síðan"
 
 msgid "alive"
-msgstr ""
+msgstr "á lífi"
 
 msgid "all"
-msgstr ""
+msgstr "allt"
 
 msgid "all categories"
-msgstr ""
+msgstr "allir flokkar"
 
 msgid "all day"
-msgstr ""
+msgstr "allan daginn"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "og birta vísbendingu þeirra fyrir neðan."
 
 msgid "animals"
-msgstr ""
+msgstr "dýr"
 
 msgid "any"
-msgstr ""
+msgstr "hvaða sem er"
 
 msgid "aperture"
-msgstr ""
+msgstr "ljósop"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "sjálfvirkur fókus fannst"
 
 msgid "available for sale"
-msgstr ""
+msgstr "fáanlegt til sölu"
 
 msgid "best guess"
-msgstr ""
+msgstr "besta gisk"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "framleiðandi myndavélar"
 
 msgid "camera model"
-msgstr ""
+msgstr "gerð myndavélar"
 
 msgid "category:"
-msgstr ""
+msgstr "flokkur:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "hreinsa"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "sameiginlegur undirbúningur + vísbendingar"
 
 msgid "create"
 msgstr "skapa"
 
 msgid "create room"
-msgstr ""
+msgstr "búa til herbergi"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "fókus skurðar X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "fókus skurðar Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "dagsetning"
 
 msgid "description"
-msgstr ""
+msgstr "lýsing"
 
 msgid "difficulty"
-msgstr ""
+msgstr "erfiðleikastig"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "erfiðleikastig:"
 
 msgid "download .ics"
-msgstr ""
+msgstr "hlaða niður .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "t.d. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "t.d. Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "auðvelt"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "emoji-tími:"
 
 msgid "end"
 msgstr "endir"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "sláðu inn lykilorð til að skoða dagatalið."
 
 msgid "extract event"
-msgstr ""
+msgstr "draga út viðburð"
 
 msgid "focal length"
-msgstr ""
+msgstr "brennivídd"
 
 msgid "food & drink"
-msgstr ""
+msgstr "matur og drykkur"
 
 msgid "gallery"
 msgstr "gallerí"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "viðbót gallerís"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "viðbætur gallerís"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "gallerí fannst ekki."
 
 msgid "game"
 msgstr "leikur"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "giska"
 
 msgid "guess time:"
-msgstr ""
+msgstr "giskitími:"
 
 msgid "hard"
-msgstr ""
+msgstr "erfitt"
 
 msgid "home"
 msgstr "Heim"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ics-smiður"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "er að giska"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "er að búa til vísbendingu fyrir liðið sitt."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "er að búa til vísbendingu. Bíðið!"
 
 msgid "join"
-msgstr ""
+msgstr "tengjast"
 
 msgid "latest posts"
-msgstr ""
+msgstr "nýjustu færslur"
 
 msgid "latitude"
-msgstr ""
+msgstr "breiddargráða"
 
 msgid "lens"
 msgstr "linsa"
 
 msgid "location"
-msgstr ""
+msgstr "staðsetning"
 
 msgid "location name"
-msgstr ""
+msgstr "nafn staðsetningar"
 
 msgid "longitude"
-msgstr ""
+msgstr "lengdargráða"
 
 msgid "map view"
-msgstr ""
+msgstr "kortasýn"
 
 msgid "medium"
-msgstr ""
+msgstr "miðlungs"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "skilaboð (valfrjálst)"
 
 msgid "mode"
-msgstr ""
+msgstr "hamur"
 
 msgid "mode:"
-msgstr ""
+msgstr "hamur:"
 
 msgid "movies"
-msgstr ""
+msgstr "kvikmyndir"
 
 msgid "new word"
-msgstr ""
+msgstr "nýtt orð"
 
 msgid "next →"
-msgstr ""
+msgstr "næsta →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "engin virk herbergi. búðu til eitt!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "engin gallerí ennþá."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "engar færslur ennþá."
 
 msgid "noun"
-msgstr ""
+msgstr "nafnorð"
 
 msgid "older →"
-msgstr ""
+msgstr "eldra →"
 
 msgid "original"
-msgstr ""
+msgstr "upprunalegt"
 
 msgid "password"
 msgstr "lykilorð"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "lykilorð (valfrjálst)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "límdu upplýsingar um viðburð hér..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "límdu texta eða vefslóð með upplýsingum um viðburð og fáðu .ics skrá."
 
 msgid "people & characters"
-msgstr ""
+msgstr "fólk og persónur"
 
 msgid "photo"
-msgstr ""
+msgstr "ljósmynd"
 
 msgid "photo extension"
-msgstr ""
+msgstr "viðbót ljósmyndar"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "viðbætur ljósmyndar"
 
 msgid "photo map"
-msgstr ""
+msgstr "ljósmyndakort"
 
 msgid "photo not found."
-msgstr ""
+msgstr "ljósmynd fannst ekki."
 
 msgid "photos"
 msgstr "Myndir"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "ljósmyndir (velja margar)"
 
 msgid "phrases"
-msgstr ""
+msgstr "frasar"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "veldu valkosti, ýttu á hnappinn, teiknaðu!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "staðir og ferðalög"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "spila aftur"
 
 msgid "players"
-msgstr ""
+msgstr "leikmenn"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "ýttu á hnappinn til að fá orð"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "einka (fela ágiskanir)"
 
 msgid "processing status"
-msgstr ""
+msgstr "vinnslustaða"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "opinbert (sýna ágiskanir)"
 
 msgid "request"
-msgstr ""
+msgstr "beiðni"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "endurköst:"
 
 msgid "reveal"
-msgstr ""
+msgstr "afhjúpa"
 
 msgid "room language"
-msgstr ""
+msgstr "tungumál herbergis"
 
 msgid "room password"
-msgstr ""
+msgstr "lykilorð herbergis"
 
 msgid "round robin"
-msgstr ""
+msgstr "allir við alla"
 
 msgid "rounds:"
-msgstr ""
+msgstr "lotur:"
 
 msgid "send"
-msgstr ""
+msgstr "senda"
 
 msgid "sentence"
-msgstr ""
+msgstr "setning"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "lokahraði"
 
 msgid "skip"
-msgstr ""
+msgstr "sleppa"
 
 msgid "songs"
-msgstr ""
+msgstr "lög"
 
 msgid "start"
 msgstr "byrjun"
 
 msgid "start game"
-msgstr ""
+msgstr "byrja leik"
 
 msgid "text"
 msgstr "texti"
 
 msgid "things"
-msgstr ""
+msgstr "hlutir"
 
 msgid "title"
-msgstr ""
+msgstr "titill"
 
 msgid "title is required"
-msgstr ""
+msgstr "titill er nauðsynlegur"
 
 msgid "today"
-msgstr ""
+msgstr "í dag"
 
 msgid "tv shows"
-msgstr ""
+msgstr "sjónvarpsþættir"
 
 msgid "type"
-msgstr ""
+msgstr "gerð"
 
 msgid "upload"
-msgstr ""
+msgstr "hlaða upp"
 
 msgid "upload photos"
-msgstr ""
+msgstr "hlaða upp myndum"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "sögn"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "skoða í fullri upplausn ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "skoða á korti"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "bíður eftir vísbendingu..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "bíður eftir leikmönnum..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "vatnsmerkt"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "vatnsmerkt mynd"
 
 msgid "web"
-msgstr ""
+msgstr "vefur"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "vefbætt mynd"
 
 msgid "week"
-msgstr ""
+msgstr "vika"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "hvað er %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "orð"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "í vinnslu — athugaðu aftur fljótlega."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "rangt captcha"
 
 msgid "wrong password"
-msgstr ""
+msgstr "rangt lykilorð"
 
 msgid "your email"
-msgstr ""
+msgstr "netfangið þitt"
 
 msgid "your name"
-msgstr ""
+msgstr "nafnið þitt"
 
 msgid "— none —"
-msgstr ""
+msgstr "— ekkert —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← öll myndasöfn"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← allar færslur"
 
 msgid "← back home"
-msgstr ""
+msgstr "← aftur heim"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← myndasöfn"
 
 msgid "← newer"
-msgstr ""
+msgstr "← nýrra"
 
 msgid "← prev"
-msgstr ""
+msgstr "← fyrri"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ Sækja PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Glundroði og sérstakir (Alfaúlfur, Þaggarinn, Rannsóknarlögreglumaður, Læknir, Leyniskytta, Bæjarstjóri, Norn...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Fullt innihald + notendaviðmót"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Aðeins notendaviðmót (Ensk orð)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus-miðstöð og herbergi"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 búa til lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Forgarður og engill (Úlfar + Rannsóknarlögreglumaður + Læknir + Engill + Leyniskytta + Þorpsbúar)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 Í forgarðsleikjum kemur hlutverk aðeins í ljós við varanlegan dauða („dauða dauði“), aldrei á meðan dvalið er í forgarði."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 Spilastokkurinn aðlagast sjálfkrafa fjölda leikmanna sem taka þátt. Þú getur fínstillt hvert hlutverk og jafnvægi milli góðs og ills í leikanddyrinu áður en byrjað er."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Staðlað (Úlfar + Rannsóknarlögreglumaður/Skyggn + Læknir/Vörður + Þorpsbúar)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Einfalt / Klassískt (Engir sérstakir kraftar — hreinir Úlfar gegn Þorpsbúum)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

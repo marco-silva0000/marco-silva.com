@@ -17,6 +17,10 @@
     "Werewolf / Lupus",
     "Word Impostor"
   ],
+  "bg": [
+    "Backspace",
+    "Word Impostor"
+  ],
   "bn": [
     "Backspace",
     "Word Impostor"
@@ -27,12 +31,21 @@
     "mode",
     "mode:",
     "original",
-    "text"
+    "text",
+    "verb",
+    "web"
   ],
   "cs": [
     "Backspace",
     "Lobby",
-    "text"
+    "text",
+    "web"
+  ],
+  "cy": [
+    "Set",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "lens"
   ],
   "da": [
     "Cockpit",
@@ -66,11 +79,20 @@
     "Backspace",
     "Word Impostor"
   ],
+  "eo": [
+    "Werewolf / Lupus",
+    "Word Impostor"
+  ],
   "es": [
     "Spymaster",
     "Word Impostor",
     "original",
     "web"
+  ],
+  "et": [
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "round robin"
   ],
   "eu": [
     "Word Impostor",
@@ -103,7 +125,54 @@
     "type",
     "web"
   ],
+  "ga": [
+    "Werewolf / Lupus",
+    "Word Impostor"
+  ],
+  "gl": [
+    "Cockpit",
+    "Word Impostor",
+    "latitude",
+    "round robin",
+    "web"
+  ],
+  "gu": [
+    "Backspace"
+  ],
   "hi": [
+    "Word Impostor"
+  ],
+  "hr": [
+    "Backspace",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "web"
+  ],
+  "ht": [
+    "Backspace",
+    "Spymaster",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "round robin"
+  ],
+  "hu": [
+    "Backspace",
+    "Techy",
+    "Word Impostor",
+    "web"
+  ],
+  "id": [
+    "Backspace",
+    "Spymaster",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "mode",
+    "mode:",
+    "round robin",
+    "web"
+  ],
+  "is": [
+    "Werewolf / Lupus",
     "Word Impostor"
   ],
   "it": [
@@ -117,6 +186,13 @@
     "password",
     "web"
   ],
+  "it-or": [
+    "Backspace",
+    "Lobby",
+    "Password",
+    "password",
+    "web"
+  ],
   "iw": [
     "Backspace"
   ],
@@ -127,6 +203,15 @@
     "Werewolf / Lupus",
     "Word Impostor"
   ],
+  "ka": [
+    "Backspace",
+    "Prompt Tool",
+    "Spymaster",
+    "Town Gazette:",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+  ],
   "kn": [
     "Word Impostor"
   ],
@@ -136,6 +221,65 @@
     "Prompt Tool",
     "Werewolf / Lupus",
     "Word Impostor"
+  ],
+  "la": [
+    "Backspace",
+    "Move...",
+    "Prompt Tool",
+    "Spectator",
+    "Spymaster",
+    "Town Gazette:",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "e.g. 9B3A1C2D",
+    "lens",
+    "medium",
+    "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+  ],
+  "lt": [
+    "Werewolf / Lupus",
+    "Word Impostor"
+  ],
+  "lv": [
+    "Werewolf / Lupus",
+    "Word Impostor"
+  ],
+  "mk": [
+    "Backspace",
+    "Lupus / Werewolf",
+    "Lupus in Tabula / Werewolf",
+    "Prompt Tool",
+    "Spymaster",
+    "Town Gazette:",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+  ],
+  "ms": [
+    "Backspace",
+    "Lupus / Werewolf",
+    "Lupus in Tabula / Werewolf",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "round robin",
+    "web"
+  ],
+  "mt": [
+    "Backspace",
+    "Lobby",
+    "Lupus / Werewolf",
+    "Lupus in Tabula / Werewolf",
+    "Password",
+    "Spymaster",
+    "Town Gazette:",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "password",
+    "rerolls:",
+    "round robin",
+    "verb",
+    "web",
+    "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
   ],
   "nl": [
     "6. Contact",
@@ -160,7 +304,10 @@
     "Start Codenames",
     "Werewolf / Lupus",
     "Word Impostor",
-    "original"
+    "original",
+    "send",
+    "type",
+    "verb"
   ],
   "pl": [
     "Backspace",
@@ -177,17 +324,46 @@
     "web"
   ],
   "ro": [
-    "text"
+    "6. Contact",
+    "Backspace",
+    "Cockpit",
+    "Lobby",
+    "Public",
+    "Set",
+    "Spectator",
+    "Spymaster",
+    "Techy",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "original",
+    "round robin",
+    "text",
+    "verb",
+    "web"
   ],
   "ru": [
     "Spymaster",
     "Word Impostor"
   ],
   "sk": [
-    "text"
+    "Backspace",
+    "Lobby",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "text",
+    "web"
+  ],
+  "sl": [
+    "Werewolf / Lupus",
+    "Word Impostor"
   ],
   "sq": [
     "Backspace",
+    "Word Impostor"
+  ],
+  "sr": [
+    "Backspace",
+    "Spymaster",
     "Word Impostor"
   ],
   "sv": [
@@ -205,12 +381,63 @@
     "Spymaster",
     "Word Impostor"
   ],
+  "ta": [
+    "Backspace",
+    "Lupus / Werewolf",
+    "Lupus in Tabula / Werewolf",
+    "Prompt Tool",
+    "Spymaster",
+    "Town Gazette:",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
+  ],
+  "te": [
+    "Backspace"
+  ],
+  "th": [
+    "Lupus / Werewolf",
+    "Lupus in Tabula / Werewolf",
+    "Werewolf / Lupus",
+    "Word Impostor"
+  ],
   "tl": [
+    "Backspace",
+    "Board",
+    "Cockpit",
+    "Day Trip",
+    "GM Cockpit",
+    "GM Director Cockpit:",
+    "Lobby",
+    "Lupus / Werewolf",
+    "Lupus in Tabula / Werewolf",
     "Password",
-    "password"
+    "Prompt Tool",
+    "RAW file",
+    "Round",
+    "Spymaster",
+    "Techy",
+    "Town Gazette:",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "aperture",
+    "crop focus X (%)",
+    "crop focus Y (%)",
+    "focal length",
+    "latitude",
+    "longitude",
+    "mode",
+    "mode:",
+    "password",
+    "round robin",
+    "web",
+    "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)",
+    "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)",
+    "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
   ],
   "tr": [
-    "Werewolf / Lupus"
+    "Werewolf / Lupus",
+    "web"
   ],
   "uk": [
     "Backspace"
@@ -218,6 +445,20 @@
   "ur": [
     "Werewolf / Lupus",
     "Word Impostor"
+  ],
+  "vi": [
+    "Backspace",
+    "Word Impostor",
+    "web"
+  ],
+  "yi": [
+    "Backspace",
+    "Prompt Tool",
+    "Spymaster",
+    "Town Gazette:",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
   ],
   "zh-cn": [
     "Backspace",

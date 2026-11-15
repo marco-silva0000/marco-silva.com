@@ -50,6 +50,7 @@ SUPPORTED_LANGUAGES = [
     "id",
     "ga",
     "it",
+    "it-or",
     "ja",
     "kn",
     "ko",
@@ -2914,12 +2915,21 @@ UI_STRINGS: dict[str, dict[str, str]] = {
 }
 
 
+def _resolve_lang_key(lang: Optional[str], mapping: dict[str, Any]) -> str:
+    """Resolve active language key with dialect fallback (e.g. Oritano -> Italian)."""
+    lang_key = lang if (lang and lang in SUPPORTED_LANGUAGES) else "en"
+    if lang_key == "it-or" and "it-or" not in mapping:
+        return "it"
+    return lang_key
+
+
 def get_localized_role(role_id: str, default_info: dict[str, Any], lang: Optional[str] = "en") -> dict[str, Any]:
     """Return localized role metadata while preserving base properties (id, faction, emoji)."""
     if not lang or lang not in SUPPORTED_LANGUAGES or lang == "en":
         return default_info
 
-    lang_data = ROLE_TRANSLATIONS.get(role_id, {}).get(lang)
+    role_map = ROLE_TRANSLATIONS.get(role_id, {})
+    lang_data = role_map.get(_resolve_lang_key(lang, role_map))
     if not lang_data:
         return default_info
 
@@ -2943,23 +2953,22 @@ def get_localized_role(role_id: str, default_info: dict[str, Any], lang: Optiona
 
 def get_localized_status(status: str, lang: Optional[str] = "en") -> str:
     """Return localized player status string."""
-    lang_key = lang if (lang and lang in SUPPORTED_LANGUAGES) else "en"
-    return STATUS_TRANSLATIONS.get(status, {}).get(lang_key, status.title())
+    mapping = STATUS_TRANSLATIONS.get(status, {})
+    return mapping.get(_resolve_lang_key(lang, mapping), status.title())
 
 
 def get_localized_faction(faction: str, lang: Optional[str] = "en") -> str:
     """Return localized faction string."""
-    lang_key = lang if (lang and lang in SUPPORTED_LANGUAGES) else "en"
-    return FACTION_TRANSLATIONS.get(faction, {}).get(lang_key, faction.title())
+    mapping = FACTION_TRANSLATIONS.get(faction, {})
+    return mapping.get(_resolve_lang_key(lang, mapping), faction.title())
 
 
 def get_localized_phase(phase: str, lang: Optional[str] = "en") -> str:
     """Return localized phase string."""
-    lang_key = lang if (lang and lang in SUPPORTED_LANGUAGES) else "en"
-    return PHASE_TRANSLATIONS.get(phase, {}).get(lang_key, phase.title())
+    mapping = PHASE_TRANSLATIONS.get(phase, {})
+    return mapping.get(_resolve_lang_key(lang, mapping), phase.title())
 
 
 def get_localized_ui_strings(lang: Optional[str] = "en") -> dict[str, str]:
     """Return localized dictionary of common player screen UI strings."""
-    lang_key = lang if (lang and lang in SUPPORTED_LANGUAGES) else "en"
-    return {k: v.get(lang_key, v.get("en", k)) for k, v in UI_STRINGS.items()}
+    return {k: v.get(_resolve_lang_key(lang, v), v.get("en", k)) for k, v in UI_STRINGS.items()}

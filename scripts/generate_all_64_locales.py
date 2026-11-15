@@ -405,6 +405,8 @@ def main():
             aliases = ["nb"]
         elif code == "tl":
             aliases = ["fil"]
+        elif code == "it-or":
+            aliases = ["it_OR", "it-OR"]
 
         for alias in aliases:
             alias_dir = LOCALE_DIR / alias / "LC_MESSAGES"

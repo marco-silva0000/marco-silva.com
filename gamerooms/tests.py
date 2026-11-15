@@ -325,6 +325,25 @@ class TestSiteWideI18n:
         assert "msgid,context,en,pt" in csv_text
         assert "Eu programo, tiro fotos e muitas outras coisas" in csv_text
 
+    def test_oritano_locale_activation(self, client, db):
+        from django.utils import translation
+
+        info = translation.get_language_info("it-or")
+        assert info["name"] == "Oritano"
+        assert info["name_local"] == "Oritanu"
+        try:
+            translation.activate("it-or")
+            assert translation.get_language() == "it-or"
+        finally:
+            translation.deactivate()
+
+        client.cookies["django_language"] = "it-or"
+        resp = client.get("/")
+        assert resp.status_code == 200
+        html = resp.content.decode("utf-8")
+        assert "it-or" in html
+        assert "Oritano" in html
+
 
 class TestRoomLanguageAndImpostorRouting:
     def test_language_support_classification(self):
@@ -348,6 +367,17 @@ class TestRoomLanguageAndImpostorRouting:
         # Lupus full content vs UI-only
         assert get_game_language_support("lupus", "pt")["mode"] == "full_content"
         assert get_game_language_support("lupus", "fi")["mode"] == "ui_only"
+
+        # Oritano (Northern Salentino dialect) normalization & full content support
+        from gamerooms.language_support import normalize_language_code
+
+        assert normalize_language_code("oritano") == "it-or"
+        assert normalize_language_code("it_OR") == "it-or"
+        for gtype in ("lupus", "impostor", "emojinary", "codenames"):
+            sup = get_game_language_support(gtype, "it-or")
+            assert sup["content_supported"] is True
+            assert sup["mode"] == "full_content"
+            assert sup["ui_supported"] is True
 
     def test_create_impostor_room_with_language(self, client, db):
         resp = client.post(
@@ -388,14 +418,18 @@ class TestRoomLanguageAndImpostorRouting:
             DEFAULT_EFFORT,
             DEFAULT_MODEL,
             FALLBACK_MODELS,
+            TIER_CORE_LANGS,
             build_multi_lang_prompt,
             build_translation_prompt,
+            get_clean_language_name,
             is_untranslated,
         )
         from scripts.translations_tool import prefill_catalogs_locally
 
         assert DEFAULT_MODEL == "gemini-3.8-flash-low"
         assert DEFAULT_EFFORT == "low"
+        assert TIER_CORE_LANGS[0] == "it-or"
+        assert "Oria" in get_clean_language_name("it-or")
         assert not any(
             bad in model for model in FALLBACK_MODELS for bad in ("claude-", "gpt-oss", "gemini-4-argon-high")
         )

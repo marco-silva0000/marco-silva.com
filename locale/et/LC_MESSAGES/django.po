@@ -6,1387 +6,1387 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Loo tuba"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Halda uut tuba"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Uus mäng"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ loo tuba"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Salajane (suletud kalmistu, rollid on peidus mängu lõpuni)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 päev"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Ainult suunitlus (kuulutab \"HEA\" vs \"KURI\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Tingimustega nõustumine"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Ülevaade"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Meeskondade ja rollide seadistamine"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 minutit"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "1. arvamine lõpetab raundi"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Fraktsioon / Meeskond (kuulutab \"Külaelanikud\", \"Libahundid\", \"Neutraalne\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Teave, millele meil on juurdepääs"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Lubatud kasutamine"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Toa ja laua seaded (Host)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 minutit (kiire)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 päeva"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Täielik rollikaart (kuulutab täpse kaardi nime ja ikooni)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Andmete säilitamine ja turvalisus"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Garantiidest lahtiütlemine"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 sekundit (tavaline)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Vastutuse piiramine"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Jagamine kolmandate osapooltega"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — lehte ei leitud"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 sekundit"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "4:5 vertikaalne kärbe (1080x1350) Instagrami karussellide jaoks."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 minutit (tavaline)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Muudatused ja lõpetamine"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Juurdepääsu tühistamine ja andmete kustutamine"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — midagi läks valesti"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Kontakt"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 sekundit"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 minutit (kaalutletud)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Juurdepääs keelatud"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Süüdista:"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktiivne"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Aktiivne vihje"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "Aktiivsed Lupus ruumid"
 
 msgid "Add"
-msgstr ""
+msgstr "Lisa"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Lisa vihje"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Lisa suuline / laua mängija"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Lisa suuline / laua mängija (otse meeskonda)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Lisa mängija"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Lisa salajane kohandatud paar"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Lisa kohandatud sisehuumori sõnu, mida segatakse selle toa tulevastele laudadele."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Lisa suulise / laua mängija nimi..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Lisa pakki"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Agendid ja spioonijuhid"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "Kõik aktiivsed toad"
 
 msgid "All Games"
-msgstr ""
+msgstr "Kõik mängud"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Kõik arvamised ja vihjed ilmuvad siia"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Luba hostil logida suulisi vihjeid ja puudutada kaarte lauas olevate mängijate eest"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Luba mängija kohandatud paaride pakk"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Luba kohandatud sõnad"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Luba mängijatel lisada kohandatud sõnu"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Rakenda Creative Commons Attribution-NonCommercial-ShareAlike litsents ja vesimärk."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Automaatne tasakaalustamine"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Tasakaalusta meeskonnad automaatselt"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Loenda hääled automaatselt, kui kõik mängijad on hääletanud"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Tagasi aktiivsete Lupus ruumide juurde"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Tagasi ooteruumi"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Tagasi ooteruumi / Mängi uuesti"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Tagasilükkeklahv (Backspace)"
 
 msgid "Blue"
 msgstr "Sinine"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Siniseid alles"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Sinine meeskond"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Sinine meeskond võidab!"
 
 msgid "Board"
-msgstr ""
+msgstr "Laud"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Laud lõpetatud"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Laud lõppes"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Sirvi aktiivseid Lupus ruume"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Sirvi keskust"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Loo oma emoji-vihje:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA litsents"
 
 msgid "CODE"
-msgstr ""
+msgstr "KOOD"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Kalendri navigeerimine"
 
 msgid "Category"
-msgstr ""
+msgstr "Kategooria"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Kodaniku sõna (enamus)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Tsiviilisikud, mafioosod, politseinik"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Klassikaline + laiendatud peopakett"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Vihjete voor"
 
 msgid "Clues"
-msgstr ""
+msgstr "Vihjed"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Vihjete ja puudutuste logi"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Kokpit"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "Konverentsid"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Sisu + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopeeri"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Loo Lupus / Werewolf tuba"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Loo esimene Lupus tuba"
 
 msgid "Curated"
-msgstr ""
+msgstr "Kureeritud"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Kohandatud Codenames sõna"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Kohandatud kaardipakk"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Kohandatud sekundid"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Kohandatud poolitatud klaviatuurid (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Kohandatud sõna..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Reisi/pildistamise kuupäev."
 
 msgid "Day"
 msgstr "Päev"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Ühepäevane reis"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Jaga järgmine laud"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Kaitsetaimer"
 
 msgid "Definition"
-msgstr ""
+msgstr "Definitsioon"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Arutage vihjeid või süüdistage kahtlusaluseid..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "Arutelu"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Aruteluvooru taimer"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Kuvatav nimi"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "Arst kaitseb snaiperi eest:"
 
 msgid "Done"
-msgstr ""
+msgstr "Valmis"
 
 msgid "Education"
-msgstr ""
+msgstr "Haridus"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Elektroonika/manustatud süsteemid (mõningane rust embedded)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Luba petturi viimase võimaluse võiduvargus"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Luba surmav tabu mürgisõna"
 
 msgid "End Board"
-msgstr ""
+msgstr "Lõpeta laud"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Lõpeta arvamisvoor"
 
 msgid "End Match"
-msgstr ""
+msgstr "Lõpeta matš"
 
 msgid "English"
-msgstr ""
+msgstr "Inglise"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "Sisene mängu"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Sisene tuppa"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Sisesta toakood (nt 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Ekspordi JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "Ebaõnnestus"
 
 msgid "Finished"
-msgstr ""
+msgstr "Lõpetatud"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM kokpit"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM lavastaja kokpit:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM režiim: lukustatud"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM suulise arvamise režiim"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM suuline režiim: SEES"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM suuline Spymasteri režiim"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Game Masteri kuvatav nimi"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Mäng läbi"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "Mängutoad"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Mängureeglid ja taimerid"
 
 msgid "Game not found."
-msgstr ""
+msgstr "Mängu ei leitud."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "Mängutuba pole olemas."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Mängu sõnad, vihjed ja liides on toetatud keeles %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Anna ühesõnaline vihje"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Anna kaudseid ühesõnalisi vihjeid ilma sõna paljastamata või peidetud surmava tabu mürgisõna otsa astumata. Isegi võõrustaja mängib pimesi ilma spoileriteta!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Arva ära kodaniku sõna, et võit varastada..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Arvamisi jäänud"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Arvamisetapp"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Amatöörraadio, Ühendkuningriigi alglitsents"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Kas sul on Game Masterilt saadud 8-kohaline kood? Sisesta see siia, et otse liituda:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Peida võtmekaardi kiht"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Matkamine ja ronimine"
 
 msgid "Hobbies"
-msgstr ""
+msgstr "Hobid"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Hoia all salarollide piilumiseks:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Koduautomaatika ja kodulabor"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Horisontaalne fookuspunkt: 0=vasak, 50=keskel, 100=parem."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Võõrustaja juhtelemendid"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Võõrustaja mänguseaded"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Võõrustaja tuba"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "Koodin, pildistan ja teen palju muud"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "Kui lubatud, saab arsti kaitse päästa hundi snaiperi lasu eest. (Keelatud = snaiper läbistab arsti kaitse)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "Kui see on määratud, autentib QR-koodi kaudu liitumine mängijad automaatselt. (💡 Demonipp: GM nimi, mis sisaldab nime Marco ja parool test täidab reaalajas demo jaoks automaatselt 10 testmängijat)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "Pooleli"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Vale toaparool."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagrami 4:5 eelvaade"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagrami 4:5 pilt"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Vigane Game Masteri salavõti."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Kutsu mängijaid"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Kutsu mängijaid tuppa"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "Kutse QR"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Pole sinu kord vihjet esitada."
 
 msgid "Join"
-msgstr ""
+msgstr "Liitu"
 
 msgid "Join Game"
-msgstr ""
+msgstr "Liitu mänguga"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Liitu Lupuse mänguga"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Alustamiseks liitu punase või sinise meeskonnaga"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Liitu operatiivtöötajana"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Liitu mängijana"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Liitu spioonijuhina"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Liitu toakoodiga"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "PETISE VIIMASE VÕIMALUSE RÖÖV!"
 
 msgid "Languages"
-msgstr ""
+msgstr "Keeled"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Viimati uuendatud: 27. oktoobril 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "Hilinejad liituvad kinnitatud rändurite, linna kummituste või järeltulijatena."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Käivita Lupuse tuba"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "Jäta avalikuks liitumiseks tühjaks"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Laske sellel mängijal telefoniga skannida, et võtta üle oma isiklik spioonijuhi/operatiivtöötaja vaade."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Surmav tabusõna (valikuline kohese väljalangemise lõks)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Puhastustule ja ingli mehaanika:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Puhastustule lahendus"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Kuula"
 
 msgid "Listening"
-msgstr ""
+msgstr "Kuulab"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Otsevestlus ja arvamiste voog"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Elavad ja langenud mängijad esitavad hommikusi kuulujutte, mida loetakse koidikul ette."
 
 msgid "Lobby"
-msgstr ""
+msgstr "Ooteruum"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Ooteruum (mängijate ootel)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Logi vihje laua spioonijuhile"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Libahunt"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Lupuse aktiivsed toad ja keskus"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Lupuse mäng"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Lupuse seltskonnamäng"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula – aktiivsed toad ja mängukeskus"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Libahunt"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Matš on lõppenud"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Matši poodium ja tipphetked"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Matši kordus ja katsete ajajoon"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Matši kordus ja laudade arhiiv"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Matši reeglid"
 
 msgid "Message..."
-msgstr ""
+msgstr "Sõnum..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Mängu ajal liitujad:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Moderaatori hääletusnupud — valige alt mängija ja kahtlusalune või puudutage laual märgist ja kohta:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Liiguta..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Uus mäng / Jaga uuesti"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Järgmine voor"
 
 msgid "Next day"
-msgstr ""
+msgstr "Järgmine päev"
 
 msgid "Night"
 msgstr "Öö"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "Praegu pole ühtegi aktiivset Lupuse mängu"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Instagrami kärbet pole veel loodud."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Vihjeid pole veel avaldatud."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Lõpetatud Codenamesi laudu veel pole. Lõpetage laud või katkestage see ennetähtaegselt, et näha siin võtmekaardi täielikku kordust."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Sõnastiku definitsioon puudub."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Käike pole logitud."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Ametlik 400 sõnaga 5×5 meeskondlik deduktsioonilaud Wikisauruse spioonijuhi tehisintellekti vihjetega, privaatse võtmekaardi lülitiga ja suulise/lauamänguga."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Ametlikud klassikalised 400 sõna"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Ühesõnaline vihje..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Lubatud on ainult emotikonid — tekstisümboleid ignoreeriti."
 
 msgid "Open"
-msgstr ""
+msgstr "Avatud"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "Avatud (ooteruum)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "Ava mängujuhi juhtpaneel"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Ava generaator"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Ava mängija link"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Vaba koht"
 
 msgid "Operative"
-msgstr ""
+msgstr "Operatiivtöötaja"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Operatiivtöötaja sekundid (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Operatiivtöötajad"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Operatiivtöötajad arvavad"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Operatiivtöötajad valivad selleks vooruks kaarte."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Operatiivtöötajad arvavad!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Vastaste meeskond arvab. Oodake, kuni nad annavad korra üle või teevad vale puudutuse."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Või sisestage oma kohandatud viip/fraas..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Suulise spioonijuhi režiim (moderaatori logimine)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Algne kaamera RAW-fail (CR3, ARW, NEF jne)"
 
 msgid "Other"
-msgstr ""
+msgstr "Muu"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "Väljas"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Lehte ei leitud — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Osaleva võõrustaja juhtnupud (ilma spoileriteta)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Pass / Vale"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Jäta käik vahele (Mod)"
 
 msgid "Password"
 msgstr "Salasõna"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Parooliga kaitstud"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Varasemad ja lõppenud mängud"
 
 msgid "Pause"
-msgstr ""
+msgstr "Paus"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Peata taimer"
 
 msgid "Pending"
-msgstr ""
+msgstr "Ootel"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Mängija isiklik QR"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Isiklik QR"
 
 msgid "Photography"
-msgstr ""
+msgstr "Fotograafia"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Vali 1 sõna ja kaartide arv. Sinu operatiivtöötajad peavad arvama sinu vihje põhjal."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Vali nimi, mille järgi teised lauas olijad sind teavad."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Vali oma mäng, keel ja toa seaded — jaga linki või QR-koodi, kui oled valmis."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Mängija profiil ja isiklik QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "Mängija QR"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "Mängija taasyhendamise QR"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Mängija nimi..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Mängijad ja punktid"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Palun sisesta mängija nimi."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Palun sisesta kehtiv toakood."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Mürgisõna (Impostor / Joodik)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Mürgisõna režiim"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "Portugali · Helsingi, Soome"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Eelmine päev"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "RAW-faili allalaadimise hind."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Privaatsuspoliitika"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Privaatsuspoliitika - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Privaatsuspoliitika - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "Privaatsuskaitse hoiab kaardid lauas teiste uudishimulike pilkude eest varjul."
 
 msgid "Processing"
-msgstr ""
+msgstr "Töötlemine"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Viibetööriist"
 
 msgid "Public"
-msgstr ""
+msgstr "Avalik"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Avalda vihje"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW on ostmiseks saadaval"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW-fail"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW hind"
 
 msgid "Reading"
-msgstr ""
+msgstr "Lugemine"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "Reaalajas mitme mängijaga brauseripõhised peomängud. Kontosid pole vaja — hüppa lihtsalt sisse ja mängi sõpradega."
 
 msgid "Red"
 msgstr "Punane"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Punane jäänud"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Punane tiim"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Punane tiim võidab!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Jaga laud uuesti"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Genereeri valitud fotodele uuesti Instagrami 4:5 väljalõiked"
 
 msgid "Replay"
-msgstr ""
+msgstr "Kordus"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Veereta uuesti"
 
 msgid "Resume"
-msgstr ""
+msgstr "Jätka"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Naase kui %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "Paljasta"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "Paljasta rollid surma korral:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Roll peidetud"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Rollid, faasid ja kasutajaliides on tõlgitud keelde %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Toavestlus"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Toavestlus ja sündmused"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Toakood"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Toakood:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Toa parool"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Toa parool (valikuline)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Toa seadistus"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Toa pealkiri"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "Toakoodi '%(code)s' ei leitud või see pole enam aktiivne."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Toad"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "Toad luuakse vastavalt vajadusele ja need püsivad aktiivsena 24 tundi. Alusta uut mängusessiooni ja kutsu oma seltskond!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Vaheta Spymastereid igal uuel laual"
 
 msgid "Round"
-msgstr ""
+msgstr "Voor"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Vooru vihjed"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Vooru-kaupa kordus ja katsete logi"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Voorud (vihjetsüklid)"
 
 msgid "Running"
-msgstr ""
+msgstr "Töös"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Salvesta nimi"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Skanni teises seadmes, et võtta sujuvalt tagasi oma Spymasteri/Operatiivtöötaja koht."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Liitumiseks skanni see QR-kood mis tahes telefoni kaameraga:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Skanni see isiklik QR-kood seadme vahetamiseks ilma oma salakaarti kaotamata:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Skanni see, et viia oma seanss ja tulemus teise telefoni või brauserisse:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Otsi emotikoni nime, sünonüümi, kirjavea või keele järgi (nt fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "Saada"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Saada Instagrami karussellipakett Telegrami"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Serveri viga — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Komplekt"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Tiimide seadistamine..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Näita rolli ja sõna"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Näita Spymasteri võtmekaarti"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Vaikne faas"
 
 msgid "Skills"
-msgstr ""
+msgstr "Oskused"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Jäta käik vahele"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "Hukatud mängijad sisenevad üks kord Limbosse selle asemel, et otse surra. Kui nad arvavad ära, kes on Ingel, ärkavad nad ellu!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Sotsiaalne deduktsioon mürgisõnade, surmavate tabulõksude, viimase võimaluse varguse ja kaasatud mängujuhiga."
 
 msgid "Spanish"
-msgstr ""
+msgstr "Hispaania"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Rääkija (suuline vihje):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "Räägib"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Pealtvaataja"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Pealtvaataja / mitte-mängija"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Pealtvaataja režiim (jäta minu kord vahele)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Spioonijuht"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Spioonijuhi sekundid (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Spioonijuht mõtleb vihjet..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Kõikuv arst:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Standardne ajastatud (90 s / 90 s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Alusta Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Alusta matši"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Alusta hääletamist varem"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Algsete rollide paki eelseadistus"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Varguse arvamine"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Varguse taimer (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Varguse võit!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Samm-sammulised ööetapid, bluffimise väljakutsed ja hääletuse haldur."
 
 msgid "Submit"
-msgstr ""
+msgstr "Esita"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Esita vihje"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Esita mängija hääl"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Lauaarutelu ja sündmuste logi"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Table-First Lupus esiletõstmised"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Lauapõhine Werewolf & Mafia peomäng. Kontosid pole vaja luua. Iga mängija kasutab oma telefoni salajaste rollide ja hääletamise jaoks, samal ajal kui sina juhid ruumi mängujuhina."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Lauapõhine hübriidpeomäng. Kontosid ega sisselogimist pole vaja. Mängijad liituvad QR-koodi kaudu ja sina juhid mängu mängujuhina."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Lauapõhine peomäng salajaste rollide, reaalajas hääletamise, Linnalehe ja GM juhtpaneeliga."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Loenda hääled kohe"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Puuduta laual kaarte, kui mängijad ütlevad oma arvamused kõvasti välja."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Puuduta laual kaarte, mis vastavad vihjele. Kui oled lõpetanud või ebakindel, puuduta Lõpeta arvamise kord."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Sihtmärgid"
 
 msgid "Techy"
-msgstr ""
+msgstr "Tehniline"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "Teenusetingimused"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Teenusetingimused - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Teenusetingimused - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "Arst / Kaitsja ei saa kaitsta sama isikut kahel järjestikusel ööl."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Liides kasutab keelt %(lang)s, samal ajal kui mängu sisu kuvatakse inglise keeles, kuna täielikud sõnavaraandmed pole saadaval."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Teema ja terminid"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Ajalimiidi eelseadistus"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Lülita sisse/välja"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Lülita pealtvaataja režiimi"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Linnaleht:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Linna hääletus"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Korra järjekord"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Korra taimer (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Kordade taimerid"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Kirjuta sõnum või arva..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Sisesta vihje või suuliselt öeldu..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Sisesta oma arvamus (või kasuta vestluskasti)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Ainult liides"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Mängija QR-koodi laadimine ebaõnnestus."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Määramata"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Piiramatu"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Ava ruum"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Ilma ajata"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Ilma ajata (lõõgastav diivanirežiim)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Kasuta viipa"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Kasuta oma emotikonide klaviatuuri või puuduta emotikone allpool..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Vertikaalne fookuspunkt: 0=ülal, 50=keskel, 100=all."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Külainimesed, Hundid, Selgeltnägija"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Hääletuse taimer (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Hääleta mängija poolt:"
 
 msgid "Voting"
-msgstr ""
+msgstr "Hääletamine"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "Vihje ootel..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Oodatakse, kuni võõrustaja seadistab tiimid ja käivitab laua..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Ootel fuajees..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Kas fookuse koordinaadid arvutati automaatselt servade silmapaistvuse kaudu."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI vihjesoovitused (puuduta eeltäitmiseks)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Võidud"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Sõnade ja lausete viipade generaator klassikalisteks paberil joonistamise mängudeks sõpradega."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Sõnapakk"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "Töökogemus"
 
 msgid "Writing"
-msgstr ""
+msgstr "Kirjutamine"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "Sellele lehele pääsemiseks vajate volitatud võtit."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "Sinu nimi / hüüdnimi"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Sinu agendid arutavad. Säilita range pokkerinägu — ei mingeid reaktsioone ega vihjeid!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Sinu isiklik taasühendamise QR"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Sinu salafraas"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Sinu spioonijuht"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Sinu kord arvata!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Sinu kord, spioonijuht!"
 
 msgid "actions"
-msgstr ""
+msgstr "tegevused"
 
 msgid "adjective"
-msgstr ""
+msgstr "omadussõna"
 
 msgid "ago"
-msgstr ""
+msgstr "tagasi"
 
 msgid "alive"
-msgstr ""
+msgstr "elus"
 
 msgid "all"
-msgstr ""
+msgstr "kõik"
 
 msgid "all categories"
-msgstr ""
+msgstr "kõik kategooriad"
 
 msgid "all day"
-msgstr ""
+msgstr "kogu päev"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "ja avaldage nende vihje allpool."
 
 msgid "animals"
-msgstr ""
+msgstr "loomad"
 
 msgid "any"
-msgstr ""
+msgstr "ükskõik milline"
 
 msgid "aperture"
-msgstr ""
+msgstr "ava"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "tuvastati autofookus"
 
 msgid "available for sale"
-msgstr ""
+msgstr "müügiks saadaval"
 
 msgid "best guess"
-msgstr ""
+msgstr "parim oletus"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "kaamera tootja"
 
 msgid "camera model"
-msgstr ""
+msgstr "kaamera mudel"
 
 msgid "category:"
-msgstr ""
+msgstr "kategooria:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "tühjenda"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "ühine ettevalmistus + vihjed"
 
 msgid "create"
 msgstr "looma"
 
 msgid "create room"
-msgstr ""
+msgstr "loo tuba"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "kärpimise fookus X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "kärpimise fookus Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "kuupäev"
 
 msgid "description"
-msgstr ""
+msgstr "kirjeldus"
 
 msgid "difficulty"
-msgstr ""
+msgstr "raskusaste"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "raskusaste:"
 
 msgid "download .ics"
-msgstr ""
+msgstr "laadi alla .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "nt 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "nt Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "lihtne"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "emoji aeg:"
 
 msgid "end"
 msgstr "lõpp"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "kalendri vaatamiseks sisesta parool."
 
 msgid "extract event"
-msgstr ""
+msgstr "ekstraheeri sündmus"
 
 msgid "focal length"
-msgstr ""
+msgstr "fookuskaugus"
 
 msgid "food & drink"
-msgstr ""
+msgstr "toit ja jook"
 
 msgid "gallery"
 msgstr "galerii"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "galerii laiendus"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "galerii laiendused"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "galeriid ei leitud."
 
 msgid "game"
 msgstr "mäng"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "arva"
 
 msgid "guess time:"
-msgstr ""
+msgstr "arvamise aeg:"
 
 msgid "hard"
-msgstr ""
+msgstr "raske"
 
 msgid "home"
 msgstr "Avaleht"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ics-i looja"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "arvab"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "sõnastab oma meeskonnale vihjet."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "sõnastab vihjet. Oodake!"
 
 msgid "join"
-msgstr ""
+msgstr "liitu"
 
 msgid "latest posts"
-msgstr ""
+msgstr "viimased postitused"
 
 msgid "latitude"
-msgstr ""
+msgstr "laiuskraad"
 
 msgid "lens"
 msgstr "lääts"
 
 msgid "location"
-msgstr ""
+msgstr "asukoht"
 
 msgid "location name"
-msgstr ""
+msgstr "asukoha nimi"
 
 msgid "longitude"
-msgstr ""
+msgstr "pikkuskraad"
 
 msgid "map view"
-msgstr ""
+msgstr "kaardivaade"
 
 msgid "medium"
-msgstr ""
+msgstr "keskmine"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "sõnum (valikuline)"
 
 msgid "mode"
-msgstr ""
+msgstr "režiim"
 
 msgid "mode:"
-msgstr ""
+msgstr "režiim:"
 
 msgid "movies"
-msgstr ""
+msgstr "filmid"
 
 msgid "new word"
-msgstr ""
+msgstr "uus sõna"
 
 msgid "next →"
-msgstr ""
+msgstr "järgmine →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "aktiivseid tube pole. Loo üks!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "galeriisid veel pole."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "postitusi veel pole."
 
 msgid "noun"
-msgstr ""
+msgstr "nimisõna"
 
 msgid "older →"
-msgstr ""
+msgstr "vanemad →"
 
 msgid "original"
-msgstr ""
+msgstr "originaal"
 
 msgid "password"
 msgstr "salasõna"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "parool (valikuline)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "kleebi sündmuse üksikasjad siia..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "kleebi sündmuse üksikasjadega tekst või URL ja saa .ics-fail."
 
 msgid "people & characters"
-msgstr ""
+msgstr "inimesed ja tegelased"
 
 msgid "photo"
-msgstr ""
+msgstr "foto"
 
 msgid "photo extension"
-msgstr ""
+msgstr "foto laiend"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "foto laiendid"
 
 msgid "photo map"
-msgstr ""
+msgstr "fotokaart"
 
 msgid "photo not found."
-msgstr ""
+msgstr "fotot ei leitud."
 
 msgid "photos"
 msgstr "Fotod"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "fotod (vali mitu)"
 
 msgid "phrases"
-msgstr ""
+msgstr "fraasid"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "vali oma valikud, vajuta nuppu, joonista!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "kohad ja reisimine"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "mängi uuesti"
 
 msgid "players"
-msgstr ""
+msgstr "mängijad"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "vajuta nuppu, et saada sõna"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "privaatne (peida arvamised)"
 
 msgid "processing status"
-msgstr ""
+msgstr "töötlemise olek"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "avalik (näita arvamisi)"
 
 msgid "request"
-msgstr ""
+msgstr "taotlus"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "uuesti veeretamised:"
 
 msgid "reveal"
-msgstr ""
+msgstr "paljasta"
 
 msgid "room language"
-msgstr ""
+msgstr "toa keel"
 
 msgid "room password"
-msgstr ""
+msgstr "toa parool"
 
 msgid "round robin"
-msgstr ""
+msgstr "round robin"
 
 msgid "rounds:"
-msgstr ""
+msgstr "voorud:"
 
 msgid "send"
-msgstr ""
+msgstr "saada"
 
 msgid "sentence"
-msgstr ""
+msgstr "lause"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "säriaeg"
 
 msgid "skip"
-msgstr ""
+msgstr "jäta vahele"
 
 msgid "songs"
-msgstr ""
+msgstr "laulud"
 
 msgid "start"
-msgstr ""
+msgstr "alusta"
 
 msgid "start game"
-msgstr ""
+msgstr "alusta mängu"
 
 msgid "text"
 msgstr "tekst"
 
 msgid "things"
-msgstr ""
+msgstr "asjad"
 
 msgid "title"
-msgstr ""
+msgstr "pealkiri"
 
 msgid "title is required"
-msgstr ""
+msgstr "pealkiri on nõutav"
 
 msgid "today"
-msgstr ""
+msgstr "täna"
 
 msgid "tv shows"
-msgstr ""
+msgstr "telesaated"
 
 msgid "type"
-msgstr ""
+msgstr "tüüp"
 
 msgid "upload"
-msgstr ""
+msgstr "laadi üles"
 
 msgid "upload photos"
-msgstr ""
+msgstr "laadi fotod üles"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "tegusõna"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "vaata täiseraldusvõimes ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "vaata kaardil"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "vihje ootel..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "mängijate ootel..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "vesimärgiga"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "vesimärgiga pilt"
 
 msgid "web"
-msgstr ""
+msgstr "veeb"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "veebile optimeeritud pilt"
 
 msgid "week"
-msgstr ""
+msgstr "nädal"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "mis on %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "sõna"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "töö on pooleli — vaadake peagi uuesti."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "vale captcha"
 
 msgid "wrong password"
-msgstr ""
+msgstr "vale parool"
 
 msgid "your email"
-msgstr ""
+msgstr "sinu e-post"
 
 msgid "your name"
-msgstr ""
+msgstr "sinu nimi"
 
 msgid "— none —"
-msgstr ""
+msgstr "— puudub —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← kõik galeriid"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← kõik postitused"
 
 msgid "← back home"
-msgstr ""
+msgstr "← tagasi koju"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← galeriid"
 
 msgid "← newer"
-msgstr ""
+msgstr "← uuemad"
 
 msgid "← prev"
-msgstr ""
+msgstr "← eelmine"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ Laadi alla PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Kaos ja erilised (Alfahunt, Vaigistaja, Detektiiv, Arst, Snaiper, Linnapea, Nõid...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Täielik sisu + kasutajaliides"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Ainult kasutajaliides (ingliskeelsed sõnad)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus Hub ja toad"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 loo lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo ja Ingel (Hundid + Detektiiv + Arst + Ingel + Snaiper + Külaelanikud)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 Limbo mängudes toimub rolli paljastamine rangelt alles lõpliku surma korral (\"päriselt surnud\"), mitte kunagi Limbos hõljudes."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 Kaardipakk kohandub automaatselt liitunud mängijate arvuga. Enne alustamist saate eelmängu ooteruumis reaalajas peenhäälestada iga rolli ning heade ja halbade tasakaalu."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Tavaline (Hundid + Detektiiv/Selgeltnägija + Arst/Kaitseja + Külaelanikud)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Lihtne / Klassikaline (eriülesanneteta — puhtalt Hundid vs Külaelanikud)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

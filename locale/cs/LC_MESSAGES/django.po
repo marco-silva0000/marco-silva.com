@@ -1539,178 +1539,178 @@ msgid "play again"
 msgstr "hrát znovu"
 
 msgid "players"
-msgstr ""
+msgstr "hráči"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "stiskněte tlačítko pro získání slova"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "soukromé (skrýt tipy)"
 
 msgid "processing status"
-msgstr ""
+msgstr "stav zpracování"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "veřejné (zobrazit tipy)"
 
 msgid "request"
-msgstr ""
+msgstr "požadavek"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "znovulosování:"
 
 msgid "reveal"
-msgstr ""
+msgstr "odhalit"
 
 msgid "room language"
-msgstr ""
+msgstr "jazyk místnosti"
 
 msgid "room password"
-msgstr ""
+msgstr "heslo místnosti"
 
 msgid "round robin"
-msgstr ""
+msgstr "každý s каждым"
 
 msgid "rounds:"
-msgstr ""
+msgstr "kola:"
 
 msgid "send"
-msgstr ""
+msgstr "odeslat"
 
 msgid "sentence"
-msgstr ""
+msgstr "věta"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "rychlost závěrky"
 
 msgid "skip"
-msgstr ""
+msgstr "přeskočit"
 
 msgid "songs"
-msgstr ""
+msgstr "písně"
 
 msgid "start"
 msgstr "začátek"
 
 msgid "start game"
-msgstr ""
+msgstr "zahájit hru"
 
 msgid "text"
 msgstr "text"
 
 msgid "things"
-msgstr ""
+msgstr "věci"
 
 msgid "title"
-msgstr ""
+msgstr "název"
 
 msgid "title is required"
-msgstr ""
+msgstr "název je povinný"
 
 msgid "today"
-msgstr ""
+msgstr "dnes"
 
 msgid "tv shows"
-msgstr ""
+msgstr "televizní pořady"
 
 msgid "type"
-msgstr ""
+msgstr "typ"
 
 msgid "upload"
-msgstr ""
+msgstr "nahrát"
 
 msgid "upload photos"
-msgstr ""
+msgstr "nahrát fotky"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "sloveso"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "zobrazit v plném rozlišení ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "zobrazit na mapě"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "čeká se na nápovědu..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "čeká se na hráče..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "s vodoznakem"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "obrázek s vodoznakem"
 
 msgid "web"
-msgstr ""
+msgstr "web"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "obrázek optimalizovaný pro web"
 
 msgid "week"
-msgstr ""
+msgstr "týden"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "kolik je %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "slovo"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "probíhají práce — vraťte se brzy."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "nesprávná captcha"
 
 msgid "wrong password"
-msgstr ""
+msgstr "nesprávné heslo"
 
 msgid "your email"
-msgstr ""
+msgstr "váš e-mail"
 
 msgid "your name"
-msgstr ""
+msgstr "vaše jméno"
 
 msgid "— none —"
-msgstr ""
+msgstr "— žádný —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← všechny galerie"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← všechny příspěvky"
 
 msgid "← back home"
-msgstr ""
+msgstr "← zpět domů"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← galerie"
 
 msgid "← newer"
-msgstr ""
+msgstr "← novější"
 
 msgid "← prev"
-msgstr ""
+msgstr "← předchozí"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ Stáhnout PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Chaos a speciální role (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Kompletní obsah + rozhraní"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Pouze rozhraní (anglická slova)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Centrum a místnosti Lupus"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 vytvořit hru lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo a Anděl (Vlci + Detective + Doctor + Angel + Sniper + Villagers)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 Ve hrách s Limbem k odhalení role dochází výhradně při trvalé smrti („death death“), nikdy během setrvávání v Limbu."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 Balíček se automaticky přizpůsobuje počtu připojených hráčů. Před zahájením hry můžete v lobby živě doladit každou roli i vyvážení dobra a zla."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Standardní (Vlci + Detective/Seer + Doctor/Guard + Villagers)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Jednoduchá / Klasická (Bez speciálních schopností — čistě Vlci vs Villagers)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

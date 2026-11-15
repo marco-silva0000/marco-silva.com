@@ -115,6 +115,7 @@ LANGUAGES = [
     "id",
     "ga",
     "it",
+    "it-or",
     "ja",
     "kn",
     "ko",
@@ -182,6 +183,7 @@ LANGUAGE_NAMES = {
     "id": "🇮🇩 Indonesian",
     "ga": "🇮🇪 Irish",
     "it": "🇮🇹 Italian",
+    "it-or": "🇮🇹 Oritano",
     "ja": "🇯🇵 Japanese",
     "kn": "🇮🇳 Kannada",
     "ko": "🇰🇷 Korean",
@@ -226,6 +228,7 @@ def get_locale_dir(lang: str) -> Path:
         "he": LOCALE_DIR / "iw",
         "nb": LOCALE_DIR / "no",
         "fil": LOCALE_DIR / "tl",
+        "it_or": LOCALE_DIR / "it-or",
     }
     return aliases.get(lang.lower(), direct)
 
@@ -393,6 +396,16 @@ def write_po_file(lang: str, entries: dict[str, str], po_path: Path):
             )
         except Exception:
             pass
+
+    if lang == "it-or":
+        for alias_dir in (LOCALE_DIR / "it_OR" / "LC_MESSAGES", LOCALE_DIR / "it-or" / "LC_MESSAGES"):
+            alias_dir.mkdir(parents=True, exist_ok=True)
+            dst_po = alias_dir / "django.po"
+            dst_mo = alias_dir / "django.mo"
+            if dst_po.resolve() != po_path.resolve():
+                shutil.copy2(po_path, dst_po)
+            if mo_path.exists() and dst_mo.resolve() != mo_path.resolve():
+                shutil.copy2(mo_path, dst_mo)
 
 
 def extract_translatable_strings() -> dict[str, list[str]]:

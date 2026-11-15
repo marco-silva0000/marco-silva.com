@@ -4,6 +4,15 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v163] - 2026-11-16
+
+### Added & Updated
+- **Completed Remaining 35 Site Locales & Added High-Priority Oritano Dialect (`it-or`, `🇮🇹 Oritano`)**:
+  - Finished all remaining `--tier all` translation batches (`16,171` cells across `ca`, `cs`, `iw`, `no`, `tr`, `uk`, `gl`, `hu`, `id`, `ro`, `vi`, `bg`, `hr`, `eo`, `is`, `ms`, `sk`, `sl`, `th`, `et`, `ga`, `lv`, `lt`, `cy`, `tl`, `ka`, `mk`, `yi`, `la`, `ta`, `ht`, `te`, `mt`, `gu`, `sr`), reaching `100.0%` (`578/578`) across all 64 prior locales.
+  - Registered **Oritano (`it-or`, `🇮🇹 Oritano`, *Oritanu* — Northern Salentino dialect of Oria, Brindisi, Puglia, Italy)** in `website/settings.py` (`EXTRA_LANG_INFO`, `LANGUAGES`), prioritized it first in `TIER_CORE_LANGS` (`scripts/translate_chunks_agy.py`), added `locale/it-or` ↔ `locale/it_OR` sync in `scripts/translations_tool.py` & `scripts/generate_all_64_locales.py`, and mapped Oritano to Italian lexicon/role packs in `gamerooms/language_support.py` & `lupus/translations.py`.
+  - Translated all `578` UI/game strings into authentic Oritano (`559` newly translated via `gemini-3.8-flash-low` + `19` invariants pre-filled), bringing all `65` site languages (`64` non-English + `en`) to `100.0%` coverage (`578/578`).
+  - Added automated test coverage in `gamerooms/tests.py` verifying Oritano locale activation, dialect normalization, full-content game support, and `TIER_CORE_LANGS` priority.
+
 ## [v162] - 2026-11-15
 
 ### Updated

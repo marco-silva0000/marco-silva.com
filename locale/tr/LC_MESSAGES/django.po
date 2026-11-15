@@ -1539,178 +1539,178 @@ msgid "play again"
 msgstr "tekrar oyna"
 
 msgid "players"
-msgstr ""
+msgstr "oyuncular"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "bir kelime almak için butona basın"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "özel (tahminleri gizle)"
 
 msgid "processing status"
-msgstr ""
+msgstr "işlem durumu"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "herkese açık (tahminleri göster)"
 
 msgid "request"
-msgstr ""
+msgstr "istek"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "yeniden atmalar:"
 
 msgid "reveal"
-msgstr ""
+msgstr "ortaya çıkar"
 
 msgid "room language"
-msgstr ""
+msgstr "oda dili"
 
 msgid "room password"
-msgstr ""
+msgstr "oda şifresi"
 
 msgid "round robin"
-msgstr ""
+msgstr "dönüşümlü"
 
 msgid "rounds:"
-msgstr ""
+msgstr "turlar:"
 
 msgid "send"
-msgstr ""
+msgstr "gönder"
 
 msgid "sentence"
-msgstr ""
+msgstr "cümle"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "enstantane hızı"
 
 msgid "skip"
-msgstr ""
+msgstr "atla"
 
 msgid "songs"
-msgstr ""
+msgstr "şarkılar"
 
 msgid "start"
 msgstr "başlangıç"
 
 msgid "start game"
-msgstr ""
+msgstr "oyunu başlat"
 
 msgid "text"
 msgstr "metin"
 
 msgid "things"
-msgstr ""
+msgstr "şeyler"
 
 msgid "title"
-msgstr ""
+msgstr "başlık"
 
 msgid "title is required"
-msgstr ""
+msgstr "başlık gereklidir"
 
 msgid "today"
-msgstr ""
+msgstr "bugün"
 
 msgid "tv shows"
-msgstr ""
+msgstr "TV dizileri"
 
 msgid "type"
-msgstr ""
+msgstr "tür"
 
 msgid "upload"
-msgstr ""
+msgstr "yükle"
 
 msgid "upload photos"
-msgstr ""
+msgstr "fotoğraf yükle"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "fiil"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "tam çözünürlükte görüntüle ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "haritada görüntüle"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "ipucu bekleniyor..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "oyuncular bekleniyor..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "filigranlı"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "filigranlı görsel"
 
 msgid "web"
-msgstr ""
+msgstr "web"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "web için optimize edilmiş görsel"
 
 msgid "week"
-msgstr ""
+msgstr "hafta"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "%(a)s + %(b)s kaç eder?"
 
 msgid "word"
-msgstr ""
+msgstr "kelime"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "çalışma devam ediyor — yakında tekrar kontrol edin."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "yanlış captcha"
 
 msgid "wrong password"
-msgstr ""
+msgstr "yanlış şifre"
 
 msgid "your email"
-msgstr ""
+msgstr "e-postanız"
 
 msgid "your name"
-msgstr ""
+msgstr "adınız"
 
 msgid "— none —"
-msgstr ""
+msgstr "— hiçbiri —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← tüm galeriler"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← tüm gönderiler"
 
 msgid "← back home"
-msgstr ""
+msgstr "← ana sayfaya dön"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← galeriler"
 
 msgid "← newer"
-msgstr ""
+msgstr "← daha yeni"
 
 msgid "← prev"
-msgstr ""
+msgstr "← önceki"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ PDF İndir"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Kaos ve Özel Roller (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Tam İçerik + Arayüz"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Yalnızca Arayüz (İngilizce Kelimeler)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus Merkezi ve Odaları"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 lupus oluştur"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo ve Melek (Kurtlar + Detective + Doctor + Angel + Sniper + Villagers)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 Limbo oyunlarında rolün açığa çıkması kesinlikle kalıcı ölüm anında (\"death death\") gerçekleşir, asla Limbo'dayken gerçekleşmez."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 Deste, katılan oyuncu sayısına göre otomatik olarak ayarlanır. Başlamadan önce Oyun Öncesi Lobisinde her rolü ve iyi-kötü dengesini canlı olarak ayarlayabilirsiniz."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Standart (Kurtlar + Detective/Seer + Doctor/Guard + Villagers)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Basit / Klasik (Özel güç yok — sadece Kurtlar ve Villagers)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

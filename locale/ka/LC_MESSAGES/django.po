@@ -6,1711 +6,1711 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ ოთახის შექმნა"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ ახალი ოთახის მასპინძლობა"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ ახალი თამაში"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ ოთახის შექმნა"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — საიდუმლო (დახურული სასაფლაო, როლები დაფარულია თამაშის დასრულებამდე)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 დღე"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — მხოლოდ ალიანსი (აცხადებს \"კეთილი\" vs \"ბოროტი\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. პირობებზე დათანხმება"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. მიმოხილვა"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. გუნდებისა და როლების გამართვა"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 წუთი"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "1-ლი გამოცნობა ასრულებს რაუნდს"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — ფრაქცია / გუნდი (აცხადებს \"ქალაქი\", \"მაქციები\", \"ნეიტრალური\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. ინფორმაცია, რომელზეც წვდომა გვაქვს"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. ნებადართული გამოყენება"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. ოთახისა და მაგიდის პარამეტრები (მასპინძელი)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 წუთი (სწრაფი)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 დღე"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — სრული როლის ბარათი (აცხადებს ბარათის ზუსტ სახელს და ხატულას)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. მონაცემთა შენახვა და უსაფრთხოება"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. გარანტიებზე უარის თქმა"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 წამი (სტანდარტული)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. პასუხისმგებლობის შეზღუდვა"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. მესამე მხარესთან გაზიარება"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — გვერდი ვერ მოიძებნა"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 წამი"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "4:5 ვერტიკალური ჭრა (1080x1350) Instagram-ის კარუსელებისთვის."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 წუთი (სტანდარტული)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. ცვლილებები და შეწყვეტა"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. წვდომის გაუქმება და მონაცემთა წაშლა"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — რაღაც შეცდომა მოხდა"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. კონტაქტი"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 წამი"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 წუთი (გააზრებული)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "წვდომა უარყოფილია"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "დადანაშაულება:"
 
 msgid "Active"
-msgstr ""
+msgstr "აქტიური"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "აქტიური მინიშნება"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "აქტიური Lupus-ის ოთახები"
 
 msgid "Add"
-msgstr ""
+msgstr "დამატება"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "მინიშნების დამატება"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "ზეპირი / მაგიდის მოთამაშის დამატება"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "ზეპირი / მაგიდის მოთამაშის დამატება (პირდაპირ გუნდში)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "მოთამაშის დამატება"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "საიდუმლო მორგებული წყვილის დამატება"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "დაამატეთ მორგებული შიდა ხუმრობის სიტყვები მომავალ დაფებში ასარევად, რომლებიც ამ ოთახში დარიგდება."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "შეიყვანეთ ზეპირი / მაგიდის მოთამაშის სახელი..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "დასტაში დამატება"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "აგენტები და Spymaster-ები"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "ყველა აქტიური ოთახი"
 
 msgid "All Games"
-msgstr ""
+msgstr "ყველა თამაში"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "ყველა გამოცნობა და მინიშნება აქ გამოჩნდება"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "მიეცით უფლება მასპინძელს ჩაიწეროს ზეპირი მინიშნებები და შეეხოს ბარათებს მაგიდასთან მყოფი მოთამაშეებისთვის"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "მოთამაშის მორგებული წყვილების დასტის დაშვება"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "მორგებული სიტყვების დაშვება"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "მიეცით მოთამაშეებს მორგებული სიტყვების დამატების უფლება"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Creative Commons Attribution-NonCommercial-ShareAlike ლიცენზიის და წყლის ნიშნის გამოყენება."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "ავტო-ბალანსი"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "გუნდების ავტო-ბალანსირება"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "ავტომატური დათვლა მას შემდეგ, რაც ყველა მოთამაშე მისცემს ხმას"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "დაბრუნება აქტიურ Lupus-ის ოთახებში"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "ლობიში დაბრუნება"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "ლობიში დაბრუნება / ხელახლა თამაში"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "Ლურჯი"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "დარჩენილი ლურჯი"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "ლურჯი გუნდი"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "ლურჯმა გუნდმა გაიმარჯვა!"
 
 msgid "Board"
-msgstr ""
+msgstr "დაფა"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "დაფა დასრულდა"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "დაფა დასრულებულია"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "აქტიური Lupus-ის ოთახების დათვალიერება"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "ჰაბის დათვალიერება"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "შექმენით თქვენი Emoji მინიშნება:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA ლიცენზია"
 
 msgid "CODE"
-msgstr ""
+msgstr "კოდი"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "კალენდრის ნავიგაცია"
 
 msgid "Category"
-msgstr ""
+msgstr "კატეგორია"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "მოქალაქის სიტყვა (უმრავლესობა)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "მშვიდობიანი მოქალაქეები, მაფიოზები, პოლიციელი"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "კლასიკური + გაფართოებული Party Pack"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "მინიშნებების ფაზა"
 
 msgid "Clues"
-msgstr ""
+msgstr "მინიშნებები"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "მინიშნებებისა და შეხებების ჟურნალი"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "მართვის პანელი"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "კონფერენციები"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "შინაარსი + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "კოპირება"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Lupus / Werewolf ოთახის შექმნა"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "პირველი Lupus ოთახის შექმნა"
 
 msgid "Curated"
-msgstr ""
+msgstr "შერჩეული"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Codenames-ის მორგებული სიტყვა"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "მორგებული დასტა"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "მორგებული წამები"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "მორგებული გაყოფილი კლავიატურები (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "მორგებული სიტყვა..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "მოგზაურობის/გადაღების თარიღი."
 
 msgid "Day"
 msgstr "Დღე"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "ერთდღიანი მოგზაურობა"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "შემდეგი დაფის დარიგება"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "თავდაცვის ტაიმერი"
 
 msgid "Definition"
-msgstr ""
+msgstr "განმარტება"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "განიხილეთ მინიშნებები ან დაადანაშაულეთ ეჭვმიტანილები..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "დისკუსია"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "დისკუსიის რაუნდის ტაიმერი"
 
 msgid "Display Name"
-msgstr ""
+msgstr "საჩვენებელი სახელი"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "ექიმი იცავს სნაიპერისგან:"
 
 msgid "Done"
-msgstr ""
+msgstr "დასრულდა"
 
 msgid "Education"
-msgstr ""
+msgstr "განათლება"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "ელექტრონიკა/ჩაშენებული სისტემები (ნაწილობრივ rust embedded)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "თაღლითის ბოლო შანსის მოპარვის ჩართვა"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "სასიკვდილო ტაბუირებული საწამლავი სიტყვის ჩართვა"
 
 msgid "End Board"
-msgstr ""
+msgstr "დაფის დასრულება"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "გამოცნობის რიგის დასრულება"
 
 msgid "End Match"
-msgstr ""
+msgstr "მატჩის დასრულება"
 
 msgid "English"
-msgstr ""
+msgstr "ინგლისური"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "თამაშში შესვლა"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "ოთახში შესვლა"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "შეიყვანეთ ოთახის კოდი (მაგ. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "JSON-ის ექსპორტი"
 
 msgid "Failed"
-msgstr ""
+msgstr "ვერ მოხერხდა"
 
 msgid "Finished"
-msgstr ""
+msgstr "დასრულებული"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM მართვის პანელი"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM რეჟისორის მართვის პანელი:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM რეჟიმი: დაბლოკილია"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM ზეპირი გამოცნობის რეჟიმი"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM ზეპირი რეჟიმი: ჩართულია"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM ზეპირი Spymaster-ის რეჟიმი"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "თამაშის მასტერის საჩვენებელი სახელი"
 
 msgid "Game Over"
-msgstr ""
+msgstr "თამაში დასრულდა"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "თამაშის ოთახები"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "თამაშის წესები და ტაიმერები"
 
 msgid "Game not found."
-msgstr ""
+msgstr "თამაში ვერ მოიძებნა."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "თამაშის ოთახი არ არსებობს."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "თამაშის სიტყვები, მინიშნებები და ინტერფეისი მხარდაჭერილია %(lang)s ენაზე."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "მიეცით ერთსიტყვიანი მინიშნება"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "მიეცით ირიბი ერთსიტყვიანი მინიშნებები სიტყვის გამჟღავნების ან დამალულ სასიკვდილო ტაბუირებულ საწამლავ სიტყვაზე დაბიჯების გარეშე. მასპინძელიც კი ბრმად თამაშობს სპოილერების გარეშე!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "გამოიცანით მოქალაქის სიტყვა გამარჯვების მოსაპარად..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "დარჩენილი გამოცნობები"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "გამოცნობის ფაზა"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "სამოყვარულო რადიო (Ham radio), დიდი ბრიტანეთის საბაზისო ლიცენზია"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "გაქვთ 8-სიმბოლოიანი კოდი თქვენი თამაშის მასტერისგან? შეიყვანეთ აქ პირდაპირ შესასვლელად:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Keycard-ის გადაფარვის დამალვა"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "ლაშქრობა და მთამსვლელობა"
 
 msgid "Hobbies"
-msgstr ""
+msgstr "ჰობი"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "დააჭირეთ და გეჭიროთ საიდუმლო როლების სანახავად:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "სახლის ავტომატიზაცია და homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "ჰორიზონტალური ფოკუსური წერტილი: 0=მარცხენა, 50=ცენტრი, 100=მარჯვენა."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "მასპინძლის მართვის საშუალებები"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "მასპინძლის თამაშის პარამეტრები"
 
 msgid "Host Room"
-msgstr ""
+msgstr "მასპინძლის ოთახი"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "ვწერ კოდს, ვიღებ ფოტოებს და კიდევ ბევრ რამეს ვაკეთებ"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "თუ ჩართულია, ექიმის დაცვას შეუძლია გადაარჩინოს მგელი სნაიპერის გასროლისგან. (გამორთულია = სნაიპერი არღვევს ექიმის დაცვას)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "თუ მითითებულია, QR კოდით შეერთება ავტომატურად გაატარებს მოთამაშეების ავთენტიფიკაციას. (💡 დემო ხრიკი: GM სახელი, რომელიც შეიცავს Marco-ს და პაროლი test ავტომატურად შეავსებს 10 სატესტო მოთამაშეს ცოცხალი დემოსთვის)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "მიმდინარეობს"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "ოთახის პაროლი არასწორია."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 წინასწარი გადახედვა"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 სურათი"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "თამაშის მასტერის საიდუმლო გასაღები არასწორია."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "მოთამაშეების მოწვევა"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "მოთამაშეების მოწვევა ოთახში"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "მოწვევის QR"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "თქვენი რიგი არ არის მინიშნების გასაგზავნად."
 
 msgid "Join"
-msgstr ""
+msgstr "შემოერთება"
 
 msgid "Join Game"
-msgstr ""
+msgstr "თამაშში შემოერთება"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Lupus-ის თამაშში შემოერთება"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "დაწყებისთვის შემოუერთდით წითელ ან ლურჯ გუნდს"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "შემოერთება როგორც ოპერატიული თანამშრომელი"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "შემოერთება როგორც მოთამაშე"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "შემოერთება როგორც Spymaster"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "ოთახის კოდით შემოერთება"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "თაღლითის მოპარვის ბოლო შანსი!"
 
 msgid "Languages"
-msgstr ""
+msgstr "ენები"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "ბოლოს განახლდა: 27 ოქტომბერი, 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "დაგვიანებულები უერთდებიან როგორც დადასტურებული მოგზაურები, ქალაქის მოჩვენებები ან მემკვიდრეები."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Lupus-ის ოთახის გაშვება"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "დატოვეთ ცარიელი საჯარო შემოერთებისთვის"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "მიეცით მოთამაშეს საშუალება დაასკანიროს თავის ტელეფონზე, რათა გახსნას თავისი პირადი Spymaster/Operative ხედი."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "სასიკვდილო ტაბუ სიტყვა (არასავალდებულო მყისიერი გამოთიშვის ხაფანგი)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "ლიმბოს და ანგელოზის მექანიკა:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "ლიმბოს გადაწყვეტა"
 
 msgid "Listen to"
-msgstr ""
+msgstr "მოსმენა:"
 
 msgid "Listening"
-msgstr ""
+msgstr "მოსმენა"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "პირდაპირი ჩატი და გამოცნობების ნაკადი"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "ცოცხალი და დაცემული მოთამაშეები აგზავნიან დილის ჭორებს, რომლებიც ხმამაღლა იკითხება განთიადისას."
 
 msgid "Lobby"
-msgstr ""
+msgstr "ლობი"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "ლობი (მოთამაშეების მოლოდინში)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "მინიშნების აღრიცხვა მაგიდის Spymaster-ისთვის"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / მაქცია"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Lupus-ის აქტიური ოთახები და ცენტრი"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Lupus-ის თამაში"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Lupus წვეულების თამაში"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - აქტიური ოთახები და თამაშის ცენტრი"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / მაქცია"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "მატჩი დასრულდა"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "მატჩის პოდიუმი და მთავარი მომენტები"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "მატჩის გამეორება და მცდელობების ქრონოლოგია"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "მატჩის გამეორება და დაფის არქივი"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "მატჩის წესები"
 
 msgid "Message..."
-msgstr ""
+msgstr "შეტყობინება..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "შუა თამაშში შემოსულები:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "მოდერატორის კენჭისყრის კონტროლი — აირჩიეთ მოთამაშე და ეჭვმიტანილი ქვემოთ, ან შეეხეთ აბს და ადგილს მაგიდაზე:"
 
 msgid "Move..."
-msgstr ""
+msgstr "გადაადგილება..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "ახალი თამაში / თავიდან დარიგება"
 
 msgid "Next Round"
-msgstr ""
+msgstr "შემდეგი რაუნდი"
 
 msgid "Next day"
-msgstr ""
+msgstr "შემდეგი დღე"
 
 msgid "Night"
 msgstr "Ღამე"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "ამჟამად აქტიური Lupus თამაშები არ არის"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Instagram-ის ჩამოჭრა ჯერ არ შექმნილა."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "მინიშნებები ჯერ არ გამოქვეყნებულა."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Codenames-ის დაფა ჯერ არ დასრულებულა. დაასრულეთ დაფა ან შეწყვიტეთ ვადაზე ადრე, რათა ნახოთ keycard-ის სრული გამეორება აქ."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "ლექსიკონის განმარტება მიუწვდომელია."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "სვლები არ არის აღრიცხული."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "ოფიციალური 400-სიტყვიანი 5×5 გუნდური დედუქციის დაფა Wikisaurus Spymaster AI მინიშნებებით, პირადი Keycard-ის გადამრთველით და ზეპირი/სამაგიდო თამაშით."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "ოფიციალური კლასიკური 400 სიტყვა"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "ერთსიტყვიანი მინიშნება..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "დაშვებულია მხოლოდ ემოჯები — ტექსტური სიმბოლოები იგნორირებულია."
 
 msgid "Open"
-msgstr ""
+msgstr "ღია"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "ღია (ლობი)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "GM Cockpit-ის გახსნა"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "გენერატორის გახსნა"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "მოთამაშის ბმულის გახსნა"
 
 msgid "Open slot"
-msgstr ""
+msgstr "თავისუფალი ადგილი"
 
 msgid "Operative"
-msgstr ""
+msgstr "ოპერატიული თანამშრომელი"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "ოპერატიულის წამები (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "ოპერატიული თანამშრომლები"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "ოპერატიულები იცნობენ"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "ოპერატიულები ირჩევენ ბარათებს ამ რაუნდისთვის."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "ოპერატიულები იცნობენ!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "მოწინააღმდეგე გუნდი იცნობს. დაელოდეთ მათ გადაცემას ან არასწორ შეხებას."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "ან ჩაწერეთ თქვენი საკუთარი მინიშნება/ფრაზა..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "ზეპირი Spymaster რეჟიმი (მოდერატორის აღრიცხვა)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "კამერის ორიგინალი RAW ფაილი (CR3, ARW, NEF, ა.შ.)"
 
 msgid "Other"
-msgstr ""
+msgstr "სხვა"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "გარეთ"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "გვერდი ვერ მოიძებნა — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "მონაწილე მასპინძლის კონტროლი (სპოილერის გარეშე)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "გადაცემა / არასწორი"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "სვლის გადაცემა (მოდერატორი)"
 
 msgid "Password"
 msgstr "Პაროლი"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "პაროლით დაცული"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "წარსული და დასრულებული თამაშები"
 
 msgid "Pause"
-msgstr ""
+msgstr "პაუზა"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "ტაიმერის დაპაუზება"
 
 msgid "Pending"
-msgstr ""
+msgstr "მოლოდინშია"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "მოთამაშის პერსონალური QR"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "პერსონალური QR"
 
 msgid "Photography"
-msgstr ""
+msgstr "ფოტოგრაფია"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "აირჩიეთ 1 სიტყვა და ბარათების რაოდენობა. თქვენმა ოპერატივებმა უნდა გამოიცნონ მინიშნების მიხედვით."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "აირჩიეთ სახელი, რომლითაც სხვები გიცნობენ მაგიდასთან."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "აირჩიეთ თამაში, ენა და ოთახის პარამეტრები — გააზიარეთ ბმული ან QR კოდი, როცა მზად იქნებით."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "მოთამაშის პროფილი და პერსონალური QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "მოთამაშის QR"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "მოთამაშის ხელახალი დაკავშირების QR"
 
 msgid "Player name..."
-msgstr ""
+msgstr "მოთამაშის სახელი..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "მოთამაშეები და ქულები"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "გთხოვთ შეიყვანოთ მოთამაშის სახელი."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "გთხოვთ შეიყვანოთ ოთახის სწორი კოდი."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "შხამიანი სიტყვა (თაღლითი / მთვრალი)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "შხამიანი სიტყვის რეჟიმი"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "პორტუგალიური · ჰელსინკი, ფინეთი"
 
 msgid "Previous day"
-msgstr ""
+msgstr "წინა დღე"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "RAW ფაილის ჩამოტვირთვის ფასი."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "კონფიდენციალურობის პოლიტიკა"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "კონფიდენციალურობის პოლიტიკა - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "კონფიდენციალურობის პოლიტიკა - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "კონფიდენციალურობის ფარი იცავს ბარათებს მაგიდასთან ცნობისმოყვარე თვალებისგან."
 
 msgid "Processing"
-msgstr ""
+msgstr "მუშავდება"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Prompt Tool"
 
 msgid "Public"
-msgstr ""
+msgstr "საჯარო"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "მინიშნების გამოქვეყნება"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW ხელმისაწვდომია შესაძენად"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW ფაილი"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW ფასი"
 
 msgid "Reading"
-msgstr ""
+msgstr "კითხვა"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "რეალურ დროში მრავალმოთამაშიანი ბრაუზერის წვეულების თამაშები. ანგარიში არ არის საჭირო — უბრალოდ შემოუერთდით და ითამაშეთ მეგობრებთან ერთად."
 
 msgid "Red"
 msgstr "Წითელი ფერი"
 
 msgid "Red Left"
-msgstr ""
+msgstr "დარჩენილი წითელი"
 
 msgid "Red Team"
-msgstr ""
+msgstr "წითელი გუნდი"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "წითელმა გუნდმა გაიმარჯვა!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "დაფის თავიდან დაგენერირება"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "არჩეული ფოტოებისთვის Instagram-ის 4:5 კადრირების თავიდან შექმნა"
 
 msgid "Replay"
-msgstr ""
+msgstr "განმეორება"
 
 msgid "Reroll"
-msgstr ""
+msgstr "თავიდან გაგორება"
 
 msgid "Resume"
-msgstr ""
+msgstr "გაგრძელება"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "დაბრუნება როგორც %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "გამოაშკარავება"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "როლების გამოაშკარავება სიკვდილისას:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "როლი დამალულია"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "როლები, ფაზები და ინტერფეისი ლოკალიზებულია %(lang)s-ზე."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "ოთახის ჩატი"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "ოთახის ჩატი და მოვლენები"
 
 msgid "Room Code"
-msgstr ""
+msgstr "ოთახის კოდი"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "ოთახის კოდი:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "ოთახის პაროლი"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "ოთახის პაროლი (არასავალდებულო)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "ოთახის გამართვა"
 
 msgid "Room Title"
-msgstr ""
+msgstr "ოთახის სათაური"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "ოთახის კოდი '%(code)s' ვერ მოიძებნა ან აღარ არის აქტიური."
 
 msgid "Rooms"
-msgstr ""
+msgstr "ოთახები"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "ოთახები იქმნება მოთხოვნისთანავე და აქტიური რჩება 24 საათის განმავლობაში. დაიწყეთ ახალი სათამაშო სესია და მოიწვიეთ თქვენი ჯგუფი!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Spymaster-ების როტაცია ყოველ ახალ დაფაზე"
 
 msgid "Round"
-msgstr ""
+msgstr "რაუნდი"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "რაუნდის მინიშნებები"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "რაუნდების მიხედვით გამეორება და მცდელობების ჟურნალი"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "რაუნდები (მინიშნებების ციკლები)"
 
 msgid "Running"
-msgstr ""
+msgstr "მიმდინარეობს"
 
 msgid "Save Name"
-msgstr ""
+msgstr "სახელის შენახვა"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "დაასკანერეთ სხვა მოწყობილობაზე, რათა შეუფერხებლად დაიბრუნოთ თქვენი Spymaster/ოპერატივის ადგილი."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "დაასკანერეთ ეს QR კოდი ნებისმიერი ტელეფონის კამერით დაუყოვნებლივ შემოსაერთებლად:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "დაასკანერეთ ეს პერსონალური QR კოდი მოწყობილობის შესაცვლელად თქვენი საიდუმლო ბარათის დაუკარგავად:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "დაასკანერეთ ეს თქვენი სესიისა და ქულის სხვა ტელეფონზე ან ბრაუზერში გადასატანად:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "მოძებნეთ emoji სახელით, სინონიმით, შეცდომით ან ენით (მაგ. fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "გაგზავნა"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Instagram-ის კარუსელის პაკეტის გაგზავნა Telegram-ში"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "სერვერის შეცდომა — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "დაყენება"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "გუნდების ფორმირება..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "როლისა და სიტყვის ჩვენება"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Spymaster-ის საკვანძო ბარათის ჩვენება"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "ჩუმი ფაზა"
 
 msgid "Skills"
-msgstr ""
+msgstr "უნარები"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "სვლის გამოტოვება"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "მოკლული მოთამაშეები პირდაპირ სიკვდილის ნაცვლად ერთხელ ხვდებიან ლიმბოში. თუ ისინი გამოიცნობენ ვინ არის ანგელოზი, ისინი გაცოცხლდებიან!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "სოციალური დედუქცია შხამიანი სიტყვებით, სასიკვდილო Taboo-ს ხაფანგებით, ბოლო შანსის მოპარვითა და მონაწილე თამაშის ოსტატით (Game Master)."
 
 msgid "Spanish"
-msgstr ""
+msgstr "ესპანური"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "მთქმელი (ზეპირი მინიშნება):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "საუბარი"
 
 msgid "Spectator"
-msgstr ""
+msgstr "მაყურებელი"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "მაყურებელი / არათამაშორი"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "მაყურებლის რეჟიმი (გამოტოვე ჩემი სვლები)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Spymaster"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Spymaster-ის წამები (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Spymaster ფიქრობს მინიშნებაზე..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "მერყევი ექიმი:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "სტანდარტული დროით (90წმ / 90წმ)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Codenames-ის დაწყება"
 
 msgid "Start Match"
-msgstr ""
+msgstr "მატჩის დაწყება"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "ხმის მიცემის ნაადრევად დაწყება"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "საწყისი როლების დასტის პრესეტი"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "მოპარვის გამოცნობა"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "მოპარვის ტაიმერი (წმ, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "მოპარვით მოგება!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "ეტაპობრივი ღამის ფაზები, ბლეფის გამოაშკარავება და ხმის მიცემის მენეჯერი."
 
 msgid "Submit"
-msgstr ""
+msgstr "გაგზავნა"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "მინიშნების გაგზავნა"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "მოთამაშის ხმის გაგზავნა"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "მაგიდის დისკუსია და მოვლენების ჟურნალი"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Table-First Lupus-ის მთავარი მომენტები"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "მაგიდის Werewolf და Mafia წვეულების თამაში. არ საჭიროებს ანგარიშით შესვლას. თითოეული მოთამაშე იყენებს ტელეფონს საიდუმლო როლებისთვის და ხმის მისაცემად, სანამ თქვენ მართავთ ოთახს, როგორც Game Master."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "მაგიდის ჰიბრიდული წვეულების თამაში. არანაირი ანგარიში ან შესვლა არ არის საჭირო. მოთამაშეები უერთდებიან QR კოდით, თქვენ კი თამაშს მართავთ, როგორც Game Master."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "მაგიდის წვეულების თამაში საიდუმლო როლებით, ცოცხალი ხმის მიცემით, Town Gazette-ითა და GM-ის მართვის პანელით."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "ხმების დათვლა ახლა"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "შეეხეთ დაფაზე არსებულ ბარათებს, როდესაც მოთამაშეები ხმამაღლა გამოთქვამენ ვარაუდებს."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "შეეხეთ დაფაზე არსებულ ბარათებს, რომლებიც ემთხვევა მინიშნებას. დასრულებისას ან გაურკვევლობის შემთხვევაში, შეეხეთ გამოცნობის სვლის დასრულებას."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "სამიზნეები"
 
 msgid "Techy"
-msgstr ""
+msgstr "ტექნიკური"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "მომსახურების პირობები"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "მომსახურების პირობები - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "მომსახურების პირობები - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "ექიმს / მცველს არ შეუძლია ერთი და იგივე პირის დაცვა ორ ზედიზედ ღამეს."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "ინტერფეისი იყენებს %(lang)s-ს, ხოლო თამაშის შინაარსი ბრუნდება ინგლისურზე, რადგან ლექსიკონის სრული მონაცემები მიუწვდომელია."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "თემა და ტერმინები"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "დროის ლიმიტის პრესეტი"
 
 msgid "Toggle"
-msgstr ""
+msgstr "გადართვა"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "მაყურებლის რეჟიმის გადართვა"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Town Gazette:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "ქალაქის ხმის მიცემა"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "სვლების თანმიმდევრობა"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "სვლის ტაიმერი (წმ, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "სვლის ტაიმერები"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "ჩაწერეთ შეტყობინება ან ვარაუდი..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "ჩაწერეთ მინიშნება ან რაც ზეპირად ითქვა..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "ჩაწერეთ თქვენი ვარაუდი (ან გამოიყენეთ ჩატის ველი)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "მხოლოდ UI"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "მოთამაშის QR კოდის ჩატვირთვა ვერ მოხერხდა."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "განუაწილებელი"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "შეუზღუდავი"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "ოთახის განბლოკვა"
 
 msgid "Untimed"
-msgstr ""
+msgstr "დროის გარეშე"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "დროის გარეშე (მშვიდი დივნის რეჟიმი)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "მინიშნების (Prompt) გამოყენება"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "გამოიყენეთ თქვენი emoji კლავიატურა ან შეეხეთ emoji-ებს ქვემოთ..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "ვერტიკალური ფოკუსური წერტილი: 0=ზემოთ, 50=ცენტრი, 100=ქვემოთ."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "სოფლელები, მგლები, მჭვრეტელი"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "ხმის მიცემის ტაიმერი (წმ, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "მიეცით ხმა მოთამაშეს:"
 
 msgid "Voting"
-msgstr ""
+msgstr "ხმის მიცემა"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "მინიშნების მოლოდინში..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "მოლოდინი მასპინძლისგან გუნდების კონფიგურაციისა და დაფის დაწყებისთვის..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "ლობიში მოლოდინი..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "გამოითვალა თუ არა ფოკუსის კოორდინატები ავტომატურად კიდეების გამოკვეთის (edge saliency) მეშვეობით."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI-ს მინიშნებების შემოთავაზებები (შეეხეთ წინასწარ შესავსებად)"
 
 msgid "Wins"
-msgstr ""
+msgstr "მოგებები"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "სიტყვებისა და წინადადებების მინიშნებების გენერატორი მეგობრებთან ერთად კალმითა და ქაღალდით ხატვის კლასიკური რაუნდებისთვის."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "სიტყვების პაკეტი"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "სამუშაო გამოცდილება"
 
 msgid "Writing"
-msgstr ""
+msgstr "წერა"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "ამ გვერდზე წვდომისთვის გჭირდებათ ავტორიზებული გასაღები."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "თქვენი სახელი / მეტსახელი"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "თქვენი ოპერატიულები მსჯელობენ. შეინარჩუნეთ მკაცრი poker face — არავითარი რეაქცია ან მინიშნება!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "თქვენი პირადი ხელახალი დაკავშირების QR"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "თქვენი საიდუმლო ფრაზა"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "თქვენი სპაიმასტერი"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "თქვენი ჯერია გამოიცნოთ!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "თქვენი ჯერია, სპაიმასტერ!"
 
 msgid "actions"
-msgstr ""
+msgstr "მოქმედებები"
 
 msgid "adjective"
-msgstr ""
+msgstr "ზედსართავი სახელი"
 
 msgid "ago"
-msgstr ""
+msgstr "წინათ"
 
 msgid "alive"
-msgstr ""
+msgstr "ცოცხალი"
 
 msgid "all"
-msgstr ""
+msgstr "ყველა"
 
 msgid "all categories"
-msgstr ""
+msgstr "ყველა კატეგორია"
 
 msgid "all day"
-msgstr ""
+msgstr "მთელი დღე"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "და გამოაქვეყნეთ მათი მინიშნება ქვემოთ."
 
 msgid "animals"
-msgstr ""
+msgstr "ცხოველები"
 
 msgid "any"
-msgstr ""
+msgstr "ნებისმიერი"
 
 msgid "aperture"
-msgstr ""
+msgstr "დიაფრაგმა"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "ავტოფოკუსი ამოცნობილია"
 
 msgid "available for sale"
-msgstr ""
+msgstr "ხელმისაწვდომია გასაყიდად"
 
 msgid "best guess"
-msgstr ""
+msgstr "საუკეთესო ვარაუდი"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "კამერის მწარმოებელი"
 
 msgid "camera model"
-msgstr ""
+msgstr "კამერის მოდელი"
 
 msgid "category:"
-msgstr ""
+msgstr "კატეგორია:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "გასუფთავება"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "კოლექტიური მომზადება + მინიშნებები"
 
 msgid "create"
 msgstr "შექმნა"
 
 msgid "create room"
-msgstr ""
+msgstr "ოთახის შექმნა"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "ფოკუსის ჭრა X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "ფოკუსის ჭრა Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "თარიღი"
 
 msgid "description"
-msgstr ""
+msgstr "აღწერა"
 
 msgid "difficulty"
-msgstr ""
+msgstr "სირთულე"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "სირთულე:"
 
 msgid "download .ics"
-msgstr ""
+msgstr ".ics-ის ჩამოტვირთვა"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "მაგ. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "მაგ. Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "მარტივი"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "ემოჯის დრო:"
 
 msgid "end"
 msgstr "დასასრული"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "შეიყვანეთ პაროლი კალენდრის სანახავად."
 
 msgid "extract event"
-msgstr ""
+msgstr "ღონისძიების ამოღება"
 
 msgid "focal length"
-msgstr ""
+msgstr "ფოკუსური მანძილი"
 
 msgid "food & drink"
-msgstr ""
+msgstr "საჭმელი და სასმელი"
 
 msgid "gallery"
 msgstr "გალერეა"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "გალერეის გაფართოება"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "გალერეის გაფართოებები"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "გალერეა ვერ მოიძებნა."
 
 msgid "game"
 msgstr "თამაში"
 
 msgid "games"
-msgstr ""
+msgstr "თამაშები"
 
 msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "გამოცნობა"
 
 msgid "guess time:"
-msgstr ""
+msgstr "გამოცნობის დრო:"
 
 msgid "hard"
-msgstr ""
+msgstr "რთული"
 
 msgid "home"
 msgstr "სახლი"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ics-ის შემქმნელი"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "იცნობს"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "ქმნის მინიშნებას თავისი გუნდისთვის."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "ქმნის მინიშნებას. მოემზადეთ!"
 
 msgid "join"
-msgstr ""
+msgstr "შემოერთება"
 
 msgid "latest posts"
-msgstr ""
+msgstr "ბოლო პოსტები"
 
 msgid "latitude"
-msgstr ""
+msgstr "განედი"
 
 msgid "lens"
 msgstr "ლინზა"
 
 msgid "location"
-msgstr ""
+msgstr "მდებარეობა"
 
 msgid "location name"
-msgstr ""
+msgstr "მდებარეობის სახელი"
 
 msgid "longitude"
-msgstr ""
+msgstr "გრძედი"
 
 msgid "map view"
-msgstr ""
+msgstr "რუკის ხედი"
 
 msgid "medium"
-msgstr ""
+msgstr "საშუალო"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "შეტყობინება (არასავალდებულო)"
 
 msgid "mode"
-msgstr ""
+msgstr "რეჟიმი"
 
 msgid "mode:"
-msgstr ""
+msgstr "რეჟიმი:"
 
 msgid "movies"
-msgstr ""
+msgstr "ფილმები"
 
 msgid "new word"
-msgstr ""
+msgstr "ახალი სიტყვა"
 
 msgid "next →"
-msgstr ""
+msgstr "შემდეგი →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "აქტიური ოთახები არ არის. შექმენით!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "გალერეები ჯერ არ არის."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "პოსტები ჯერ არ არის."
 
 msgid "noun"
-msgstr ""
+msgstr "არსებითი სახელი"
 
 msgid "older →"
-msgstr ""
+msgstr "უფრო ძველი →"
 
 msgid "original"
-msgstr ""
+msgstr "ორიგინალი"
 
 msgid "password"
 msgstr "პაროლი"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "პაროლი (არასავალდებულო)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "ჩასვით ღონისძიების დეტალები აქ..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "ჩასვით ტექსტი ან url ღონისძიების დეტალებით და მიიღეთ .ics ფაილი."
 
 msgid "people & characters"
-msgstr ""
+msgstr "ადამიანები და პერსონაჟები"
 
 msgid "photo"
-msgstr ""
+msgstr "ფოტო"
 
 msgid "photo extension"
-msgstr ""
+msgstr "ფოტოს გაფართოება"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "ფოტოს გაფართოებები"
 
 msgid "photo map"
-msgstr ""
+msgstr "ფოტო რუკა"
 
 msgid "photo not found."
-msgstr ""
+msgstr "ფოტო ვერ მოიძებნა."
 
 msgid "photos"
-msgstr ""
+msgstr "ფოტოები"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "ფოტოები (მონიშნეთ რამდენიმე)"
 
 msgid "phrases"
-msgstr ""
+msgstr "ფრაზები"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "აირჩიეთ პარამეტრები, დააჭირეთ ღილაკს, დახატეთ!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "ადგილები და მოგზაურობა"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "კვლავ თამაში"
 
 msgid "players"
-msgstr ""
+msgstr "მოთამაშეები"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "დააჭირეთ ღილაკს სიტყვის მისაღებად"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "პირადი (ვარაუდების დამალვა)"
 
 msgid "processing status"
-msgstr ""
+msgstr "დამუშავების სტატუსი"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "საჯარო (ვარაუდების ჩვენება)"
 
 msgid "request"
-msgstr ""
+msgstr "მოთხოვნა"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "ხელახალი დატრიალებები:"
 
 msgid "reveal"
-msgstr ""
+msgstr "გამოჩენა"
 
 msgid "room language"
-msgstr ""
+msgstr "ოთახის ენა"
 
 msgid "room password"
-msgstr ""
+msgstr "ოთახის პაროლი"
 
 msgid "round robin"
-msgstr ""
+msgstr "წრიული სისტემა (round robin)"
 
 msgid "rounds:"
-msgstr ""
+msgstr "რაუნდები:"
 
 msgid "send"
-msgstr ""
+msgstr "გაგზავნა"
 
 msgid "sentence"
-msgstr ""
+msgstr "წინადადება"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "დაყოვნების სიჩქარე"
 
 msgid "skip"
-msgstr ""
+msgstr "გამოტოვება"
 
 msgid "songs"
-msgstr ""
+msgstr "სიმღერები"
 
 msgid "start"
 msgstr "დასაწყისი"
 
 msgid "start game"
-msgstr ""
+msgstr "თამაშის დაწყება"
 
 msgid "text"
 msgstr "ტექსტი"
 
 msgid "things"
-msgstr ""
+msgstr "ნივთები"
 
 msgid "title"
-msgstr ""
+msgstr "სათაური"
 
 msgid "title is required"
-msgstr ""
+msgstr "სათაური სავალდებულოა"
 
 msgid "today"
-msgstr ""
+msgstr "დღეს"
 
 msgid "tv shows"
-msgstr ""
+msgstr "ტელეგადაცემები"
 
 msgid "type"
-msgstr ""
+msgstr "ტიპი"
 
 msgid "upload"
-msgstr ""
+msgstr "ატვირთვა"
 
 msgid "upload photos"
-msgstr ""
+msgstr "ფოტოების ატვირთვა"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "ზმნა"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "სრული გარჩევადობით ნახვა ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "რუკაზე ნახვა"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "მინიშნების მოლოდინში..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "მოთამაშეების მოლოდინში..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "ჭვირნიშნიანი"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "ჭვირნიშნიანი გამოსახულება"
 
 msgid "web"
-msgstr ""
+msgstr "ვები"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "ვებისთვის ოპტიმიზებული გამოსახულება"
 
 msgid "week"
-msgstr ""
+msgstr "კვირა"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "რას უდრის %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "სიტყვა"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "მიმდინარეობს მუშაობა — შეამოწმეთ მალე."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "არასწორი captcha"
 
 msgid "wrong password"
-msgstr ""
+msgstr "არასწორი პაროლი"
 
 msgid "your email"
-msgstr ""
+msgstr "თქვენი ელფოსტა"
 
 msgid "your name"
-msgstr ""
+msgstr "თქვენი სახელი"
 
 msgid "— none —"
-msgstr ""
+msgstr "— არცერთი —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← ყველა გალერეა"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← ყველა პოსტი"
 
 msgid "← back home"
-msgstr ""
+msgstr "← მთავარზე დაბრუნება"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← გალერეები"
 
 msgid "← newer"
-msgstr ""
+msgstr "← უფრო ახალი"
 
 msgid "← prev"
-msgstr ""
+msgstr "← წინა"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ PDF-ის ჩამოტვირთვა"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ ქაოსი და განსაკუთრებულები (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ სრული შინაარსი + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 მხოლოდ UI (ინგლისური სიტყვები)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus Hub & ოთახები"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 შექმენით lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 Limbo-ს თამაშებში როლის გამჟღავნება ხდება მკაცრად მხოლოდ მუდმივი სიკვდილისას (\"death death\"), და არასდროს Limbo-ში ყოფნის დროს."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 დასტა ავტომატურად ერგება შემოერთებული მოთამაშეების რაოდენობას. თქვენ შეგიძლიათ ზუსტად დააკონფიგურიროთ თითოეული როლი და სიკეთისა და ბოროტების ბალანსი პირდაპირ Pre-Game Lobby-ში დაწყებამდე."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 სტანდარტული (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 მარტივი / კლასიკური (სპეციალური ძალების გარეშე — სუფთა Wolves Villagers-ის წინააღმდეგ)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

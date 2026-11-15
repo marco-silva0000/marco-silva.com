@@ -1539,178 +1539,178 @@ msgid "play again"
 msgstr "juga de nou"
 
 msgid "players"
-msgstr ""
+msgstr "jugadors"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "prem el botó per obtenir una paraula"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "privat (amaga les suposicions)"
 
 msgid "processing status"
-msgstr ""
+msgstr "estat del processament"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "públic (mostra les suposicions)"
 
 msgid "request"
-msgstr ""
+msgstr "petició"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "retirades:"
 
 msgid "reveal"
-msgstr ""
+msgstr "revela"
 
 msgid "room language"
-msgstr ""
+msgstr "idioma de la sala"
 
 msgid "room password"
-msgstr ""
+msgstr "contrasenya de la sala"
 
 msgid "round robin"
-msgstr ""
+msgstr "tothom contra tothom"
 
 msgid "rounds:"
-msgstr ""
+msgstr "rondes:"
 
 msgid "send"
-msgstr ""
+msgstr "envia"
 
 msgid "sentence"
-msgstr ""
+msgstr "frase"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "velocitat d'obturació"
 
 msgid "skip"
-msgstr ""
+msgstr "omet"
 
 msgid "songs"
-msgstr ""
+msgstr "cançons"
 
 msgid "start"
 msgstr "començar"
 
 msgid "start game"
-msgstr ""
+msgstr "comença la partida"
 
 msgid "text"
 msgstr "text"
 
 msgid "things"
-msgstr ""
+msgstr "coses"
 
 msgid "title"
-msgstr ""
+msgstr "títol"
 
 msgid "title is required"
-msgstr ""
+msgstr "el títol és obligatori"
 
 msgid "today"
-msgstr ""
+msgstr "avui"
 
 msgid "tv shows"
-msgstr ""
+msgstr "programes de televisió"
 
 msgid "type"
-msgstr ""
+msgstr "tipus"
 
 msgid "upload"
-msgstr ""
+msgstr "penja"
 
 msgid "upload photos"
-msgstr ""
+msgstr "penja fotos"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "verb"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "mostra la resolució completa ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "mostra al mapa"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "s'està esperant una pista..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "s'estan esperant jugadors..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "amb marca d'aigua"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "imatge amb marca d'aigua"
 
 msgid "web"
-msgstr ""
+msgstr "web"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "imatge optimitzada per a la web"
 
 msgid "week"
-msgstr ""
+msgstr "setmana"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "quant és %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "paraula"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "treball en curs — torneu aviat."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "captcha incorrecte"
 
 msgid "wrong password"
-msgstr ""
+msgstr "contrasenya incorrecta"
 
 msgid "your email"
-msgstr ""
+msgstr "el teu correu electrònic"
 
 msgid "your name"
-msgstr ""
+msgstr "el teu nom"
 
 msgid "— none —"
-msgstr ""
+msgstr "— cap —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← totes les galeries"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← totes les publicacions"
 
 msgid "← back home"
-msgstr ""
+msgstr "← torna a l'inici"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← galeries"
 
 msgid "← newer"
-msgstr ""
+msgstr "← més recents"
 
 msgid "← prev"
-msgstr ""
+msgstr "← anterior"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ Baixa el PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Caos i especials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Contingut complet + interfície"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Només interfície (paraules en anglès)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Hub i sales de Lupus"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 crea una partida de lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo i Àngel (Lleons/Lops + Detective + Doctor + Angel + Sniper + Villagers)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 En les partides amb Limbo, la revelació del rol es produeix estrictament en morir de manera permanent (\"death death\"), mai mentre s'està en suspensió al Limbo."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 La baralla s'adapta automàticament al nombre de jugadors que s'uneixen. Podeu ajustar amb precisió cada rol i l'equilibri entre bons i dolents en directe a la sala prèvia abans de començar."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Estàndard (Lleons/Lops + Detective/Seer + Doctor/Guard + Villagers)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Simple / Clàssic (Sense poders especials: només Lleons/Lops contra Villagers)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

@@ -6,1387 +6,1387 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ สร้างห้อง"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ โฮสต์ห้องใหม่"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ เกมใหม่"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ สร้างห้อง"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — ความลับ (ปิดสุสาน ไม่เปิดเผยบทบาทจนกว่าเกมจะจบ)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 วัน"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — ฝ่ายเท่านั้น (ประกาศ \"คนดี\" เทียบกับ \"คนชั่ว\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. การยอมรับข้อกำหนด"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. ภาพรวม"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. การตั้งค่าทีมและบทบาท"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 นาที"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "การเดาครั้งแรกจะจบรอบทันที"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — ฝ่าย / ทีม (ประกาศ \"ชาวบ้าน\", \"มนุษย์หมาป่า\", \"เป็นกลาง\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. ข้อมูลที่เราเข้าถึง"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. การใช้งานที่ได้รับอนุญาต"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. การตั้งค่าห้องและโต๊ะ (โฮสต์)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 นาที (เร็ว)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 วัน"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — การ์ดบทบาทแบบเต็ม (ประกาศชื่อการ์ดและไอคอนอย่างถูกต้อง)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. การจัดเก็บและความปลอดภัยของข้อมูล"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. ข้อจำกัดความรับผิดชอบในการรับประกัน"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 วินาที (มาตรฐาน)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. ข้อจำกัดความรับผิดชอบ"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. การแบ่งปันข้อมูลกับบุคคลที่สาม"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — ไม่พบหน้านี้"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 วินาที"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "ครอบตัดแนวตั้ง 4:5 (1080x1350) สำหรับ Instagram carousel"
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 นาที (มาตรฐาน)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. การเปลี่ยนแปลงและการยกเลิก"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. การเพิกถอนสิทธิ์และการลบข้อมูล"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — มีบางอย่างผิดปกติ"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. ติดต่อ"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 วินาที"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 นาที (รอบคอบ)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "การเข้าถึงถูกปฏิเสธ"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "กล่าวหา:"
 
 msgid "Active"
-msgstr ""
+msgstr "ใช้งานอยู่"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "คำใบ้ที่ใช้งานอยู่"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "ห้อง Lupus ที่เปิดอยู่"
 
 msgid "Add"
-msgstr ""
+msgstr "เพิ่ม"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "เพิ่มคำใบ้"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "เพิ่มผู้เล่นแบบพูดด้วยวาจา / หน้าโต๊ะ"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "เพิ่มผู้เล่นแบบพูดด้วยวาจา / หน้าโต๊ะ (เข้าทีมโดยตรง)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "เพิ่มผู้เล่น"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "เพิ่มคู่คำลับที่กำหนดเอง"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "เพิ่มมุกตลกภายในกลุ่มแบบกำหนดเอง เพื่อนำไปผสมในการแจกคำลงกระดานในห้องนี้ครั้งต่อ ๆ ไป"
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "เพิ่มชื่อผู้เล่นแบบพูดด้วยวาจา / หน้าโต๊ะ..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "เพิ่มลงในสำรับ"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "สายลับ & หัวหน้าสายลับ"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "ห้องที่เปิดอยู่ทั้งหมด"
 
 msgid "All Games"
-msgstr ""
+msgstr "เกมทั้งหมด"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "การเดาและคำใบ้ทั้งหมดจะปรากฏที่นี่"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "อนุญาตให้โฮสต์บันทึกคำใบ้ด้วยวาจาและแตะการ์ดแทนผู้เล่นที่โต๊ะได้"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "อนุญาตสำรับคู่คำที่ผู้เล่นกำหนดเอง"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "อนุญาตคำที่กำหนดเอง"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "อนุญาตให้ผู้เล่นเพิ่มคำที่กำหนดเองได้"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "ใช้สัญญาอนุญาต Creative Commons Attribution-NonCommercial-ShareAlike และใส่ลายน้ำ"
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "ปรับสมดุลอัตโนมัติ"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "ปรับสมดุลทีมอัตโนมัติ"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "นับคะแนนอัตโนมัติเมื่อผู้เล่นทุกคนลงคะแนนเรียบร้อยแล้ว"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "กลับไปยังห้อง Lupus ที่เปิดอยู่"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "กลับสู่ล็อบบี้"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "กลับสู่ล็อบบี้ / เล่นอีกครั้ง"
 
 msgid "Backspace"
-msgstr ""
+msgstr "ลบตัวอักษร"
 
 msgid "Blue"
 msgstr "น้ำเงิน"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "ฝั่งสีน้ำเงินเหลือ"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "ทีมสีน้ำเงิน"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "ทีมสีน้ำเงินชนะ!"
 
 msgid "Board"
-msgstr ""
+msgstr "กระดาน"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "กระดานเสร็จสมบูรณ์"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "กระดานสิ้นสุดลงแล้ว"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "เลือกดูห้อง Lupus ที่เปิดอยู่"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "เลือกดูหน้าศูนย์รวม"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "สร้างคำใบ้อีโมจิของคุณ:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "สัญญาอนุญาต CC BY-NC-SA"
 
 msgid "CODE"
-msgstr ""
+msgstr "รหัส"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "การนำทางปฏิทิน"
 
 msgid "Category"
-msgstr ""
+msgstr "หมวดหมู่"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "คำของพลเมือง (เสียงส่วนใหญ่)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "พลเรือน, มาเฟีย, ตำรวจ"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "คลาสสิก + ชุดปาร์ตี้ส่วนขยาย"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "ระยะคำใบ้"
 
 msgid "Clues"
-msgstr ""
+msgstr "คำใบ้"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "บันทึกคำใบ้และการแตะ"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "ค็อกพิท"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "การประชุม"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "เนื้อหา + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "คัดลอก"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "สร้างห้อง Lupus / Werewolf"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "สร้างห้อง Lupus แรก"
 
 msgid "Curated"
-msgstr ""
+msgstr "คัดสรรแล้ว"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "คำ Codenames กำหนดเอง"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "สำรับที่กำหนดเอง"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "กำหนดวินาทีเอง"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "คีย์บอร์ดแยกแบบปรับแต่ง (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "คำที่กำหนดเอง..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "วันที่ของการเดินทาง/ถ่ายภาพ"
 
 msgid "Day"
 msgstr "กลางวัน"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "ทริปไปเช้าเย็นกลับ"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "แจกกระดานถัดไป"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "ตัวจับเวลาป้องกันตัว"
 
 msgid "Definition"
-msgstr ""
+msgstr "คำจำกัดความ"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "พูดคุยเรื่องคำใบ้หรือกล่าวหาผู้ต้องสงสัย..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "การอภิปราย"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "ตัวจับเวลาการสนทนาต่อรอบ"
 
 msgid "Display Name"
-msgstr ""
+msgstr "ชื่อที่แสดง"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "หมอป้องกันจากสไนเปอร์:"
 
 msgid "Done"
-msgstr ""
+msgstr "เสร็จสิ้น"
 
 msgid "Education"
-msgstr ""
+msgstr "การศึกษา"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "อิเล็กทรอนิกส์/สมองกลฝังตัว (rust embedded บางส่วน)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "เปิดใช้งานการขโมยชนะของผู้แอบอ้างในโอกาสสุดท้าย"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "เปิดใช้งานคำพิษต้องห้ามอันตรายถึงตาย"
 
 msgid "End Board"
-msgstr ""
+msgstr "จบบอร์ด"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "จบเทิร์นทาย"
 
 msgid "End Match"
-msgstr ""
+msgstr "จบแมตช์"
 
 msgid "English"
-msgstr ""
+msgstr "อังกฤษ"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "เข้าสู่เกม"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "เข้าห้อง"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "ใส่รหัสห้อง (เช่น 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "ส่งออก JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "ล้มเหลว"
 
 msgid "Finished"
-msgstr ""
+msgstr "เสร็จสิ้น"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "ค็อกพิท GM"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "ค็อกพิทผู้กำกับ GM:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "โหมด GM: ล็อกอยู่"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "โหมดทายด้วยคำพูด GM"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "โหมดคำพูด GM: เปิด"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "โหมด GM Oral Spymaster"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "ชื่อที่แสดงของ Game Master"
 
 msgid "Game Over"
-msgstr ""
+msgstr "จบเกม"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "ห้องเกม"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "กฎเกมและตัวจับเวลา"
 
 msgid "Game not found."
-msgstr ""
+msgstr "ไม่พบเกม"
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "ไม่มีห้องเกมนี้อยู่"
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "รองรับคำศัพท์ คำใบ้ และอินเทอร์เฟซของเกมใน %(lang)s"
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "ให้คำใบ้หนึ่งคำ"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "ให้คำใบ้หนึ่งคำโดยอ้อมโดยไม่เปิดเผยคำหรือเหยียบคำพิษต้องห้ามที่ซ่อนอยู่ แม้แต่โฮสต์ก็เล่นแบบไม่รู้ล่วงหน้าโดยไม่มีสปอยเลอร์!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "ทายคำของพลเมืองเพื่อขโมยชัยชนะ..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "เหลือการทายอีก"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "ระยะการทาย"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "วิทยุสมัครเล่น, ใบอนุญาต UK foundation"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "มีรหัส 8 หลักจาก Game Master ของคุณหรือไม่? ใส่ที่นี่เพื่อเข้าร่วมได้ทันที:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "ซ่อนโอเวอร์เลย์คีย์การ์ด"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "เดินป่าและปีนเขา"
 
 msgid "Hobbies"
-msgstr ""
+msgstr "งานอดิเรก"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "แตะค้างเพื่อแอบดูบทบาทลับ:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "ระบบอัตโนมัติในบ้านและโฮมแล็บ"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "จุดโฟกัสแนวนอน: 0=ซ้าย, 50=กึ่งกลาง, 100=ขวา"
 
 msgid "Host Controls"
-msgstr ""
+msgstr "การควบคุมของโฮสต์"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "การตั้งค่าเกมของโฮสต์"
 
 msgid "Host Room"
-msgstr ""
+msgstr "ห้องของโฮสต์"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "ฉันเขียนโค้ด ถ่ายรูป และสิ่งอื่นๆ อีกมากมาย"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "หากเปิดใช้งาน การป้องกันของหมอสามารถช่วยหมาป่าจากการถูกสไนเปอร์ยิงได้ (หากปิด = สไนเปอร์จะทะลุการป้องกันของหมอ)"
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "หากตั้งค่าไว้ การเข้าร่วมผ่านคิวอาร์โค้ดจะยืนยันตัวตนผู้เล่นโดยอัตโนมัติ (💡 ทริคสาธิต: ชื่อ GM ที่มี Marco และรหัสผ่าน test จะเติมผู้เล่นทดสอบ 10 คนโดยอัตโนมัติสำหรับการสาธิตสด)"
 
 msgid "In Progress"
-msgstr ""
+msgstr "กำลังดำเนินการ"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "รหัสผ่านห้องไม่ถูกต้อง"
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "ตัวอย่าง Instagram 4:5"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "รูปภาพ Instagram 4:5"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "คีย์ลับของ Game Master ไม่ถูกต้อง"
 
 msgid "Invite Players"
-msgstr ""
+msgstr "เชิญผู้เล่น"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "เชิญผู้เล่นเข้าห้อง"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "คิวอาร์คำเชิญ"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "ยังไม่ถึงตาคุณในการส่งคำใบ้"
 
 msgid "Join"
-msgstr ""
+msgstr "เข้าร่วม"
 
 msgid "Join Game"
-msgstr ""
+msgstr "เข้าร่วมเกม"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "เข้าร่วมเกม Lupus"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "เข้าร่วมทีมสีแดงหรือทีมสีน้ำเงินเพื่อเริ่มต้น"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "เข้าร่วมในฐานะสายลับปฏิบัติการ"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "เข้าร่วมในฐานะผู้เล่น"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "เข้าร่วมในฐานะสปายมาสเตอร์"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "เข้าร่วมด้วยรหัสห้อง"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "โอกาสสุดท้ายของผู้แอบอ้างในการขโมยชัยชนะ!"
 
 msgid "Languages"
-msgstr ""
+msgstr "ภาษา"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "อัปเดตล่าสุด: 27 ตุลาคม 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "ผู้ที่มาสายจะเข้าร่วมในฐานะนักเดินทางที่ได้รับการยืนยัน, ผีประจำเมือง หรือผู้สืบทอด"
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "เปิดห้อง Lupus"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "เว้นว่างไว้สำหรับการเข้าร่วมแบบสาธารณะ"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "ให้ผู้เล่นคนนี้สแกนบนโทรศัพท์เพื่อเข้าสู่มุมมองสปายมาสเตอร์/สายลับปฏิบัติการส่วนตัว"
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "คำต้องห้ามอันตรายถึงชีวิต (กับดักคัดออกทันทีแบบเลือกได้)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "กลไกแดนชำระและนางฟ้า:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "การตัดสินสถานะแดนชำระ"
 
 msgid "Listen to"
-msgstr ""
+msgstr "ฟัง"
 
 msgid "Listening"
-msgstr ""
+msgstr "กำลังฟัง"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "แชทสดและสตรีมการทายคำ"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "ผู้เล่นที่มีชีวิตและผู้ที่ล้มลงส่งข่าวลือยามเช้าที่จะถูกอ่านออกเสียงในยามรุ่งอรุณ"
 
 msgid "Lobby"
-msgstr ""
+msgstr "ล็อบบี้"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "ล็อบบี้ (กำลังรอผู้เล่น)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "บันทึกคำใบ้สำหรับสปายมาสเตอร์ประจำโต๊ะ"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Werewolf"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "ห้องที่ใช้งานอยู่และศูนย์กลาง Lupus"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "เกม Lupus"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "เกมปาร์ตี้ Lupus"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - ห้องที่ใช้งานอยู่และศูนย์กลางเกม"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Werewolf"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "จบการแข่งขัน"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "โพเดียมและไฮไลต์ของการแข่งขัน"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "รีเพลย์การแข่งขันและไทม์ไลน์ความพยายาม"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "รีเพลย์การแข่งขันและคลังกระดาน"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "กฎการแข่งขัน"
 
 msgid "Message..."
-msgstr ""
+msgstr "ข้อความ..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "ผู้ที่มาถึงระหว่างเกม:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "การควบคุมการโหวตของผู้ดำเนินเกม — เลือกผู้เล่นและผู้ต้องสงสัยด้านล่าง หรือแตะแท็บและที่นั่งบนโต๊ะ:"
 
 msgid "Move..."
-msgstr ""
+msgstr "ย้าย..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "เกมใหม่ / จั่วใหม่"
 
 msgid "Next Round"
-msgstr ""
+msgstr "รอบถัดไป"
 
 msgid "Next day"
-msgstr ""
+msgstr "วันถัดไป"
 
 msgid "Night"
 msgstr "กลางคืน"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "ขณะนี้ไม่มีเกม Lupus ที่กำลังเล่นอยู่"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "ยังไม่มีการสร้างรูปครอบตัดสำหรับ Instagram"
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "ยังไม่มีคำใบ้ที่เผยแพร่"
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "ยังไม่มีกระดาน Codenames ที่เล่นเสร็จสิ้น เล่นกระดานให้จบหรือยุติก่อนเวลาเพื่อดูรีเพลย์คีย์การ์ดฉบับเต็มที่นี่"
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "ไม่มีคำจำกัดความในพจนานุกรม"
 
 msgid "No turns logged."
-msgstr ""
+msgstr "ไม่มีการบันทึกเทิร์น"
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "กระดานหักมุมเหตุผลแบบทีมขนาด 5×5 ทางการ 400 คำ พร้อมคำใบ้ AI สปายมาสเตอร์จาก Wikisaurus, ปุ่มสลับคีย์การ์ดส่วนตัว และการเล่นสดบนโต๊ะ"
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "400 คำคลาสสิกอย่างเป็นทางการ"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "คำใบ้คำเดียว..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "อนุญาตเฉพาะอีโมจิเท่านั้น — อักขระข้อความจะถูกละเว้น"
 
 msgid "Open"
-msgstr ""
+msgstr "เปิด"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "เปิด (ล็อบบี้)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "เปิดค็อกพิท GM"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "เปิดตัวสร้าง"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "เปิดลิงก์ผู้เล่น"
 
 msgid "Open slot"
-msgstr ""
+msgstr "ช่องว่าง"
 
 msgid "Operative"
-msgstr ""
+msgstr "สายลับปฏิบัติการ"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "วินาทีของสายลับปฏิบัติการ (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "สายลับปฏิบัติการ"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "สายลับปฏิบัติการกำลังทาย"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "สายลับปฏิบัติการกำลังเลือกการ์ดสำหรับรอบนี้"
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "สายลับปฏิบัติการกำลังทายอยู่!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "ทีมตรงข้ามกำลังทาย รอให้พวกเขากดผ่านหรือแตะเลือกผิด"
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "หรือพิมพ์ข้อความแจ้ง/วลีของคุณเอง..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "โหมดสปายมาสเตอร์แบบปากเปล่า (การบันทึกโดย Mod)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "ไฟล์ RAW ดั้งเดิมจากกล้อง (CR3, ARW, NEF ฯลฯ)"
 
 msgid "Other"
-msgstr ""
+msgstr "อื่นๆ"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "กลางแจ้ง"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "ไม่พบหน้า — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "การควบคุมของโฮสต์ที่เข้าร่วมเล่น (ปลอดสปอยล์)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "ผ่าน / ผิด"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "ข้ามเทิร์น (Mod)"
 
 msgid "Password"
 msgstr "รหัสผ่าน"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "ได้รับการปกป้องด้วยรหัสผ่าน"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "เกมในอดีตและเกมที่จบแล้ว"
 
 msgid "Pause"
-msgstr ""
+msgstr "หยุดชั่วคราว"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "หยุดตัวจับเวลาชั่วคราว"
 
 msgid "Pending"
-msgstr ""
+msgstr "รอดำเนินการ"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "QR ส่วนตัวของผู้เล่น"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "QR ส่วนตัว"
 
 msgid "Photography"
-msgstr ""
+msgstr "การถ่ายภาพ"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "เลือก 1 คำและจำนวนการ์ด สายลับของคุณต้องทายตามคำใบ้ของคุณ"
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "เลือกชื่อที่คนอื่นในโต๊ะรู้จักคุณ"
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "เลือกเกม ภาษา และการตั้งค่าห้องของคุณ — แชร์ลิงก์หรือรหัส QR เมื่อพร้อม"
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "โปรไฟล์ผู้เล่นและ QR ส่วนตัว"
 
 msgid "Player QR"
-msgstr ""
+msgstr "QR ผู้เล่น"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR เชื่อมต่อใหม่ของผู้เล่น"
 
 msgid "Player name..."
-msgstr ""
+msgstr "ชื่อผู้เล่น..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "ผู้เล่นและคะแนน"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "กรุณากรอกชื่อผู้เล่น"
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "กรุณากรอกรหัสห้องที่ถูกต้อง"
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "คำพิษ (ผู้แอบอ้าง / คนเมา)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "โหมดคำพิษ"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "โปรตุเกส · เฮลซิงกิ ฟินแลนด์"
 
 msgid "Previous day"
-msgstr ""
+msgstr "วันก่อนหน้า"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "ราคาสำหรับการดาวน์โหลดไฟล์ RAW"
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "นโยบายความเป็นส่วนตัว"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "นโยบายความเป็นส่วนตัว - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "นโยบายความเป็นส่วนตัว - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "ม่านบังสายตาช่วยซ่อนการ์ดจากการสอดแนมที่โต๊ะ"
 
 msgid "Processing"
-msgstr ""
+msgstr "กำลังประมวลผล"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "เครื่องมือพรอมต์"
 
 msgid "Public"
-msgstr ""
+msgstr "สาธารณะ"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "เผยแพร่คำใบ้"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "มี RAW พร้อมจำหน่าย"
 
 msgid "RAW file"
-msgstr ""
+msgstr "ไฟล์ RAW"
 
 msgid "RAW price"
-msgstr ""
+msgstr "ราคา RAW"
 
 msgid "Reading"
-msgstr ""
+msgstr "การอ่าน"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "เกมปาร์ตี้บนเบราว์เซอร์แบบผู้เล่นหลายคนแบบเรียลไทม์ ไม่ต้องสร้างบัญชี — แค่เข้ามาร่วมเล่นกับเพื่อนๆ ได้เลย"
 
 msgid "Red"
 msgstr "สีแดง"
 
 msgid "Red Left"
-msgstr ""
+msgstr "ทีมสีแดงเหลือ"
 
 msgid "Red Team"
-msgstr ""
+msgstr "ทีมสีแดง"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "ทีมสีแดงชนะ!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "แจกกระดานใหม่"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "สร้างการครอบตัด 4:5 สำหรับ Instagram ใหม่สำหรับรูปภาพที่เลือก"
 
 msgid "Replay"
-msgstr ""
+msgstr "เล่นซ้ำ"
 
 msgid "Reroll"
-msgstr ""
+msgstr "ทอยใหม่"
 
 msgid "Resume"
-msgstr ""
+msgstr "เล่นต่อ"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "กลับมาเป็น %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "เปิดเผย"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "เปิดเผยบทบาทเมื่อตาย:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "บทบาทถูกซ่อน"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "บทบาท ช่วงเวลา และอินเทอร์เฟซได้รับการแปลเป็นภาษา %(lang)s แล้ว"
 
 msgid "Room Chat"
-msgstr ""
+msgstr "แชทในห้อง"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "แชทและกิจกรรมในห้อง"
 
 msgid "Room Code"
-msgstr ""
+msgstr "รหัสห้อง"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "รหัสห้อง:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "รหัสผ่านห้อง"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "รหัสผ่านห้อง (ไม่บังคับ)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "ตั้งค่าห้อง"
 
 msgid "Room Title"
-msgstr ""
+msgstr "ชื่อห้อง"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "ไม่พบรหัสห้อง '%(code)s' หรือไม่ได้ใช้งานแล้ว"
 
 msgid "Rooms"
-msgstr ""
+msgstr "ห้อง"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "ห้องจะถูกสร้างขึ้นตามความต้องการและเปิดใช้งานเป็นเวลา 24 ชั่วโมง เริ่มเซสชันเกมใหม่และเชิญกลุ่มของคุณเลย!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "สลับหัวหน้าสายลับทุกกระดานใหม่"
 
 msgid "Round"
-msgstr ""
+msgstr "รอบ"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "คำใบ้ประจำรอบ"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "รีเพลย์ทีละรอบและบันทึกการทาย"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "รอบ (รอบคำใบ้)"
 
 msgid "Running"
-msgstr ""
+msgstr "กำลังทำงาน"
 
 msgid "Save Name"
-msgstr ""
+msgstr "บันทึกชื่อ"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "สแกนบนอุปกรณ์อื่นเพื่อกลับมารับตำแหน่ง Spymaster/Operative ของคุณได้อย่างราบรื่น"
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "สแกนรหัส QR นี้ด้วยกล้องโทรศัพท์เครื่องใดก็ได้เพื่อเข้าร่วมทันที:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "สแกนรหัส QR ส่วนตัวนี้เพื่อเปลี่ยนอุปกรณ์โดยไม่สูญเสียการ์ดลับของคุณ:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "สแกนสิ่งนี้เพื่อย้ายเซสชันและคะแนนของคุณไปยังโทรศัพท์หรือเบราว์เซอร์อื่น:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "ค้นหาอิโมจิตามชื่อ คำพ้องความหมาย คำพิมพ์ผิด หรือภาษา (เช่น fire, crown, fogo, φωติά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "ส่ง"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "ส่งชุดภาพสไลด์ Instagram ไปยัง Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "ข้อผิดพลาดของเซิร์ฟเวอร์ — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "ชุด"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "กำลังจัดทีม..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "แสดงบทบาทและคำ"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "แสดงคีย์การ์ด Spymaster"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "ช่วงเวลาเงียบ"
 
 msgid "Skills"
-msgstr ""
+msgstr "ทักษะ"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "ข้ามตา"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "ผู้เล่นที่ถูกสังหารจะเข้าสู่ Limbo หนึ่งครั้งแทนที่จะตายทันที หากพวกเขาทายถูกว่าใครคือนางฟ้า พวกเขาจะได้รับการฟื้นคืนชีพ!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "เกมบลัฟแนวสืบสวนด้วยคำพิษ กับดักข้อห้ามถึงตาย การขโมยโอกาสสุดท้าย และมาสเตอร์ของเกมที่ร่วมเล่นด้วย"
 
 msgid "Spanish"
-msgstr ""
+msgstr "สเปน"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "ผู้พูด (คำใบ้ด้วยวาจา):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "กำลังพูด"
 
 msgid "Spectator"
-msgstr ""
+msgstr "ผู้ชม"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "ผู้ชม / ผู้ไม่ได้เล่น"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "โหมดผู้ชม (ข้ามตาของฉัน)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "หัวหน้าสายลับ"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "วินาทีของหัวหน้าสายลับ (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "หัวหน้าสายลับกำลังคิดคำใบ้..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "หมอเซ (Staggering Doctor):"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "จับเวลามาตรฐาน (90 วิ / 90 วิ)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "เริ่มเกม Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "เริ่มการแข่งขัน"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "เริ่มโหวตก่อนเวลา"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "ชุดบทบาทเริ่มต้นที่ตั้งไว้"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "ทายขโมยคะแนน"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "เวลาขโมย (วิ, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "ขโมยชนะ!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "ขั้นตอนกลางคืนแบบทีละขั้น, การขานบลัฟ และตัวจัดการการลงคะแนน"
 
 msgid "Submit"
-msgstr ""
+msgstr "ส่ง"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "ส่งคำใบ้"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "ส่งคะแนนโหวตผู้เล่น"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "การสนทนาในโต๊ะและบันทึกเหตุการณ์"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "ไฮไลต์ Lupus แบบรอบโต๊ะ"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "เกมปาร์ตี้ Werewolf & Mafia สไตล์เล่นรอบโต๊ะเป็นหลัก ไม่จำเป็นต้องสร้างบัญชี ผู้เล่นแต่ละคนใช้มือถือเพื่อดูบทบาทลับและลงคะแนน ขณะที่คุณคุมห้องในฐานะ Game Master"
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "เกมปาร์ตี้แบบไฮบริดที่เน้นเล่นรอบโต๊ะ ไม่ต้องใช้บัญชีหรือเข้าสู่ระบบ ผู้เล่นเข้าร่วมผ่านคิวอาร์โค้ด และคุณเป็นผู้ดำเนินเกมในฐานะ Game Master"
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "เกมปาร์ตี้สไตล์รอบโต๊ะพร้อมบทบาทลับ ระบบลงคะแนนสด หนังสือพิมพ์ประจำเมือง และแผงควบคุมสำหรับ Game Master"
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "นับคะแนนโหวตเดี๋ยวนี้"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "แตะการ์ดบนกระดานเมื่อผู้เล่นพูดคำทายออกมาดังๆ"
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "แตะการ์ดบนกระดานที่ตรงกับคำใบ้ เมื่อเสร็จแล้วหรือไม่แน่ใจ ให้แตะ จบตาการทาย"
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "เป้าหมาย"
 
 msgid "Techy"
-msgstr ""
+msgstr "ไอที/เทคโนโลยี"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "ข้อกำหนดการให้บริการ"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "ข้อกำหนดการให้บริการ - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "ข้อกำหนดการให้บริการ - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "หมอ / การ์ด ไม่สามารถปกป้องบุคคลเดิมสองคืนติดต่อกันได้"
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "อินเทอร์เฟซใช้ %(lang)s ในขณะที่เนื้อหาเกมจะเปลี่ยนเป็นภาษาอังกฤษเนื่องจากไม่มีข้อมูลคำศัพท์ครบถ้วน"
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "ธีมและคำศัพท์"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "การจำกัดเวลาที่ตั้งไว้"
 
 msgid "Toggle"
-msgstr ""
+msgstr "สลับ"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "สลับโหมดผู้ชม"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "หนังสือพิมพ์ประจำเมือง:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "การลงคะแนนของเมือง"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "ลำดับเทิร์น"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "เวลาต่อเทิร์น (วิ, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "ตัวจับเวลาแต่ละเทิร์น"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "พิมพ์ข้อความหรือคำทาย..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "พิมพ์คำใบ้หรือสิ่งที่พูดออกมา..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "พิมพ์คำทายของคุณ (หรือใช้ช่องแชท)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "เฉพาะ UI"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "ไม่สามารถโหลดคิวอาร์โค้ดของผู้เล่นได้"
 
 msgid "Unassigned"
-msgstr ""
+msgstr "ยังไม่ได้กำหนด"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "ไม่จำกัด"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "ปลดล็อกห้อง"
 
 msgid "Untimed"
-msgstr ""
+msgstr "ไม่จับเวลา"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "ไม่จับเวลา (โหมดโซฟาสบายๆ)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "ใช้หัวข้อคำใบ้"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "ใช้แป้นพิมพ์อิโมจิของคุณหรือแตะอิโมจิด้านล่าง..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "จุดโฟกัสแนวตั้ง: 0=บนสุด, 50=ตรงกลาง, 100=ล่างสุด"
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "ชาวบ้าน, หมาป่า, ผู้หยั่งรู้"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "เวลาลงคะแนน (วิ, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "โหวตผู้เล่น:"
 
 msgid "Voting"
-msgstr ""
+msgstr "กำลังลงคะแนน"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "กำลังรอคำใบ้..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "กำลังรอโฮสต์ตั้งค่าทีมและเริ่มกระดาน..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "กำลังรอในล็อบบี้..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "ระบบคำนวณพิกัดโฟกัสอัตโนมัติผ่านความเด่นของขอบภาพหรือไม่"
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "คำแนะนำคำใบ้จาก Wikisaurus AI (แตะเพื่อกรอกล่วงหน้า)"
 
 msgid "Wins"
-msgstr ""
+msgstr "ชนะ"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "เครื่องสร้างหัวข้อคำและประโยคสำหรับการเล่นวาดภาพบนกระดาษกับเพื่อนๆ"
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "ชุดคำศัพท์"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "ประสบการณ์การทำงาน"
 
 msgid "Writing"
-msgstr ""
+msgstr "การเขียน"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "คุณต้องใช้คีย์ที่ได้รับอนุญาตเพื่อเข้าถึงหน้านี้"
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "ชื่อ / ชื่อเล่นของคุณ"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "เจ้าหน้าที่ของคุณกำลังปรึกษากันอยู่ โปรดทำหน้านิ่งแบบโป๊กเกอร์เฟซ — ห้ามแสดงท่าทางหรือบอกใบ้เด็ดขาด!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "คิวอาร์สำหรับการเชื่อมต่อใหม่ของคุณ"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "วลีลับของคุณ"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "สปายมาสเตอร์ของคุณ"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "ถึงตาคุณทายแล้ว!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "ถึงตาคุณแล้ว สปายมาสเตอร์!"
 
 msgid "actions"
-msgstr ""
+msgstr "การกระทำ"
 
 msgid "adjective"
-msgstr ""
+msgstr "คำคุณศัพท์"
 
 msgid "ago"
-msgstr ""
+msgstr "ที่แล้ว"
 
 msgid "alive"
-msgstr ""
+msgstr "มีชีวิตอยู่"
 
 msgid "all"
-msgstr ""
+msgstr "ทั้งหมด"
 
 msgid "all categories"
-msgstr ""
+msgstr "ทุกหมวดหมู่"
 
 msgid "all day"
-msgstr ""
+msgstr "ตลอดวัน"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "และเผยแพร่คำใบ้ของพวกเขาด้านล่าง"
 
 msgid "animals"
-msgstr ""
+msgstr "สัตว์"
 
 msgid "any"
-msgstr ""
+msgstr "ใดก็ได้"
 
 msgid "aperture"
-msgstr ""
+msgstr "รูรับแสง"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "ตรวจพบโฟกัสอัตโนมัติ"
 
 msgid "available for sale"
-msgstr ""
+msgstr "พร้อมจำหน่าย"
 
 msgid "best guess"
-msgstr ""
+msgstr "การคาดเดาที่ดีที่สุด"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "ยี่ห้อกล้อง"
 
 msgid "camera model"
-msgstr ""
+msgstr "รุ่นกล้อง"
 
 msgid "category:"
-msgstr ""
+msgstr "หมวดหมู่:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "ล้าง"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "เตรียมความพร้อมร่วมกัน + คำใบ้"
 
 msgid "create"
 msgstr "สร้างสรรค์"
 
 msgid "create room"
-msgstr ""
+msgstr "สร้างห้อง"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "จุดโฟกัสการครอบตัด X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "จุดโฟกัสการครอบตัด Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "วันที่"
 
 msgid "description"
-msgstr ""
+msgstr "คำอธิบาย"
 
 msgid "difficulty"
-msgstr ""
+msgstr "ระดับความยาก"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "ระดับความยาก:"
 
 msgid "download .ics"
-msgstr ""
+msgstr "ดาวน์โหลด .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "เช่น 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "เช่น Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "ง่าย"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "เวลาอิโมจิ:"
 
 msgid "end"
 msgstr "จบ"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "ป้อนรหัสผ่านเพื่อดูปฏิทิน"
 
 msgid "extract event"
-msgstr ""
+msgstr "ดึงข้อมูลกิจกรรม"
 
 msgid "focal length"
-msgstr ""
+msgstr "ความยาวโฟกัส"
 
 msgid "food & drink"
-msgstr ""
+msgstr "อาหารและเครื่องดื่ม"
 
 msgid "gallery"
 msgstr "หอศิลป์"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "ส่วนขยายแกลเลอรี"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "ส่วนขยายแกลเลอรี"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "ไม่พบแกลเลอรี"
 
 msgid "game"
 msgstr "กีฬา"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "ทาย"
 
 msgid "guess time:"
-msgstr ""
+msgstr "เวลาทาย:"
 
 msgid "hard"
-msgstr ""
+msgstr "ยาก"
 
 msgid "home"
 msgstr "หน้าแรก"
 
 msgid "ics maker"
-msgstr ""
+msgstr "เครื่องมือสร้าง ics"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "กำลังทาย"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "กำลังคิดคำใบ้ให้กับทีมของพวกเขา"
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "กำลังคิดคำใบ้ โปรดรอสักครู่!"
 
 msgid "join"
-msgstr ""
+msgstr "เข้าร่วม"
 
 msgid "latest posts"
-msgstr ""
+msgstr "โพสต์ล่าสุด"
 
 msgid "latitude"
-msgstr ""
+msgstr "ละติจูด"
 
 msgid "lens"
 msgstr "เลนส์"
 
 msgid "location"
-msgstr ""
+msgstr "ตำแหน่ง"
 
 msgid "location name"
-msgstr ""
+msgstr "ชื่อสถานที่"
 
 msgid "longitude"
-msgstr ""
+msgstr "ลองจิจูด"
 
 msgid "map view"
-msgstr ""
+msgstr "มุมมองแผนที่"
 
 msgid "medium"
-msgstr ""
+msgstr "ปานกลาง"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "ข้อความ (ไม่บังคับ)"
 
 msgid "mode"
-msgstr ""
+msgstr "โหมด"
 
 msgid "mode:"
-msgstr ""
+msgstr "โหมด:"
 
 msgid "movies"
-msgstr ""
+msgstr "ภาพยนตร์"
 
 msgid "new word"
-msgstr ""
+msgstr "คำใหม่"
 
 msgid "next →"
-msgstr ""
+msgstr "ถัดไป →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "ไม่มีห้องที่ใช้งานอยู่ สร้างเลย!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "ยังไม่มีแกลเลอรี"
 
 msgid "no posts yet."
-msgstr ""
+msgstr "ยังไม่มีโพสต์"
 
 msgid "noun"
-msgstr ""
+msgstr "คำนาม"
 
 msgid "older →"
-msgstr ""
+msgstr "เก่ากว่า →"
 
 msgid "original"
-msgstr ""
+msgstr "ต้นฉบับ"
 
 msgid "password"
 msgstr "รหัสผ่าน"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "รหัสผ่าน (ไม่บังคับ)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "วางรายละเอียดกิจกรรมที่นี่..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "วางข้อความหรือ URL ที่มีรายละเอียดกิจกรรมเพื่อรับไฟล์ .ics"
 
 msgid "people & characters"
-msgstr ""
+msgstr "บุคคลและตัวละคร"
 
 msgid "photo"
-msgstr ""
+msgstr "รูปภาพ"
 
 msgid "photo extension"
-msgstr ""
+msgstr "ส่วนขยายรูปภาพ"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "ส่วนขยายรูปภาพ"
 
 msgid "photo map"
-msgstr ""
+msgstr "แผนที่รูปภาพ"
 
 msgid "photo not found."
-msgstr ""
+msgstr "ไม่พบรูปภาพ"
 
 msgid "photos"
 msgstr "รูปภาพ"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "รูปภาพ (เลือกได้หลายรูป)"
 
 msgid "phrases"
-msgstr ""
+msgstr "วลี"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "เลือกตัวเลือกของคุณ กดปุ่ม แล้ววาดเลย!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "สถานที่ & การเดินทาง"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "เล่นอีกครั้ง"
 
 msgid "players"
-msgstr ""
+msgstr "ผู้เล่น"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "กดปุ่มเพื่อรับคำ"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "ส่วนตัว (ซ่อนการทาย)"
 
 msgid "processing status"
-msgstr ""
+msgstr "สถานะการประมวลผล"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "สาธารณะ (แสดงการทาย)"
 
 msgid "request"
-msgstr ""
+msgstr "คำขอ"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "ทอยใหม่:"
 
 msgid "reveal"
-msgstr ""
+msgstr "เปิดเผย"
 
 msgid "room language"
-msgstr ""
+msgstr "ภาษาของห้อง"
 
 msgid "room password"
-msgstr ""
+msgstr "รหัสผ่านห้อง"
 
 msgid "round robin"
-msgstr ""
+msgstr "พบกันหมด"
 
 msgid "rounds:"
-msgstr ""
+msgstr "รอบ:"
 
 msgid "send"
-msgstr ""
+msgstr "ส่ง"
 
 msgid "sentence"
-msgstr ""
+msgstr "ประโยค"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "ความเร็วชัตเตอร์"
 
 msgid "skip"
-msgstr ""
+msgstr "ข้าม"
 
 msgid "songs"
-msgstr ""
+msgstr "เพลง"
 
 msgid "start"
 msgstr "เริ่ม"
 
 msgid "start game"
-msgstr ""
+msgstr "เริ่มเกม"
 
 msgid "text"
 msgstr "ข้อความ"
 
 msgid "things"
-msgstr ""
+msgstr "สิ่งของ"
 
 msgid "title"
-msgstr ""
+msgstr "หัวข้อ"
 
 msgid "title is required"
-msgstr ""
+msgstr "จำเป็นต้องระบุหัวข้อ"
 
 msgid "today"
-msgstr ""
+msgstr "วันนี้"
 
 msgid "tv shows"
-msgstr ""
+msgstr "รายการทีวี"
 
 msgid "type"
-msgstr ""
+msgstr "ประเภท"
 
 msgid "upload"
-msgstr ""
+msgstr "อัปโหลด"
 
 msgid "upload photos"
-msgstr ""
+msgstr "อัปโหลดรูปภาพ"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "คำกริยา"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "ดูความละเอียดเต็ม ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "ดูบนแผนที่"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "กำลังรอคำใบ้..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "กำลังรอผู้เล่น..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "ติดลายน้ำ"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "รูปภาพมีลายน้ำ"
 
 msgid "web"
-msgstr ""
+msgstr "เว็บ"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "รูปภาพที่ปรับให้เหมาะกับเว็บ"
 
 msgid "week"
-msgstr ""
+msgstr "สัปดาห์"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "%(a)s + %(b)s ได้เท่าไร?"
 
 msgid "word"
-msgstr ""
+msgstr "คำ"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "กำลังดำเนินการ — โปรดกลับมาตรวจสอบใหม่เร็วๆ นี้"
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "แคปช่าไม่ถูกต้อง"
 
 msgid "wrong password"
-msgstr ""
+msgstr "รหัสผ่านไม่ถูกต้อง"
 
 msgid "your email"
-msgstr ""
+msgstr "อีเมลของคุณ"
 
 msgid "your name"
-msgstr ""
+msgstr "ชื่อของคุณ"
 
 msgid "— none —"
-msgstr ""
+msgstr "— ไม่มี —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← แกลเลอรีทั้งหมด"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← โพสต์ทั้งหมด"
 
 msgid "← back home"
-msgstr ""
+msgstr "← กลับหน้าหลัก"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← แกลเลอรี"
 
 msgid "← newer"
-msgstr ""
+msgstr "← ใหม่กว่า"
 
 msgid "← prev"
-msgstr ""
+msgstr "← ก่อนหน้า"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ ดาวน์โหลด PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ เคออส & ตัวพิเศษ (หมาป่าอัลฟ่า, ตัวปิดเสียง, นักสืบ, คุณหมอ, พลซุ่มยิง, นายกเทศมนตรี, แม่มด...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ เนื้อหาครบถ้วน + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 เฉพาะ UI (คำภาษาอังกฤษ)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 ศูนย์รวม Lupus & ห้องเล่น"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 สร้าง lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 ลิมโบ & เทวทูต (หมาป่า + นักสืบ + คุณหมอ + เทวทูต + พลซุ่มยิง + ชาวบ้าน)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 ในเกม Limbo การเปิดเผยบทบาทจะเกิดขึ้นเฉพาะเมื่อตายถาวร (\"ตายสนิท\") เท่านั้น จะไม่เปิดเผยขณะที่ล่องลอยอยู่ใน Limbo"
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 สำรับจะปรับเปลี่ยนโดยอัตโนมัติตามจำนวนผู้เล่นที่เข้าร่วม คุณสามารถปรับแต่งทุกบทบาทและความสมดุลระหว่างฝ่ายดีกับฝ่ายร้ายได้แบบสดๆ ในล็อบบี้ก่อนเริ่มเกม"
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 มาตรฐาน (หมาป่า + นักสืบ/ผู้หยั่งรู้ + คุณหมอ/ผู้คุ้มกัน + ชาวบ้าน)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 แบบเรียบง่าย / คลาสสิก (ไม่มีพลังพิเศษ — หมาป่า ปะทะ ชาวบ้าน ล้วนๆ)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

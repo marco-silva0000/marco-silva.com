@@ -6,1387 +6,1387 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Creează camera"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Găzduiește o cameră nouă"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Joc nou"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ creează camera"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Secret (Cimitir închis, roluri ascunse până la sfârșitul jocului)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 zi"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Doar aliniere (Anunță \"BUN\" vs \"RĂU\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Acceptarea termenilor"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Prezentare generală"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Configurarea echipelor și rolurilor"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 minute"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "Prima ghicire încheie runda"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Facțiune / Echipă (Anunță \"Oraș\", \"Vârcolaci\", \"Neutru\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Informații pe care le accesăm"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Utilizare permisă"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Setările camerei și mesei (Gazdă)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 minute (Rapid)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 zile"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Carte completă de rol (Anunță numele exact al cărții și pictograma)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Stocarea și securitatea datelor"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Declinarea garanțiilor"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 de secunde (Standard)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Limitarea răspunderii"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Partajarea cu terți"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — pagina nu a fost găsită"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 de secunde"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "Decupare verticală 4:5 (1080x1350) pentru caruseluri Instagram."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 minute (Standard)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Modificări și reziliere"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Revocarea accesului și ștergerea datelor"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — a apărut o eroare"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Contact"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 de secunde"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 minute (Deliberat)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Acces interzis"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Acuză:"
 
 msgid "Active"
-msgstr ""
+msgstr "Activ"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Indiciu activ"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "Camere Lupus active"
 
 msgid "Add"
-msgstr ""
+msgstr "Adaugă"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Adaugă indiciu"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Adaugă jucător oral / de masă"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Adaugă jucător oral / de masă (direct într-o echipă)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Adaugă jucător"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Adaugă o pereche secretă personalizată"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Adaugă cuvinte personalizate din glume interne pentru a fi amestecate pe viitoarele table împărțite în această cameră."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Adaugă numele jucătorului oral / de masă..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Adaugă la pachet"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Agenți și Maeștri ai Spionilor"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "Toate camerele active"
 
 msgid "All Games"
-msgstr ""
+msgstr "Toate jocurile"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Toate presupunerile și indiciile apar aici"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Permite gazdei să înregistreze indiciile orale și să apese cărțile pentru jucătorii de la masă"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Permite pachetul de perechi personalizate al jucătorilor"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Permite cuvinte personalizate"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Permite jucătorilor să adauge cuvinte personalizate"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Aplică licența Creative Commons Atribuire-NeComercial-PartajareÎnCondițiiIdentice și filigranul."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Auto-echilibrare"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Echilibrează automat echipele"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Contorizare automată odată ce toți jucătorii au votat"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Înapoi la Camerele Lupus active"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Înapoi la lobby"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Înapoi la lobby / Joacă din nou"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "Albastru"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Rămase Albastre"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Echipa albastră"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Echipa albastră a câștigat!"
 
 msgid "Board"
-msgstr ""
+msgstr "Tablă"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Tablă completată"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Tablă încheiată"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Explorează camerele Lupus active"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Explorează Hub-ul"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Construiește-ți indiciul din emoji-uri:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "Licență CC BY-NC-SA"
 
 msgid "CODE"
-msgstr ""
+msgstr "COD"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Navigare în calendar"
 
 msgid "Category"
-msgstr ""
+msgstr "Categorie"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Cuvântul cetățeanului (Majoritate)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Civili, Mafioți, Polițist"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Pachet clasic + petrecere extins"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Faza indiciilor"
 
 msgid "Clues"
-msgstr ""
+msgstr "Indicii"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Jurnal indicii și atingeri"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Cockpit"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "Conferințe"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Conținut + Interfață"
 
 msgid "Copy"
-msgstr ""
+msgstr "Copiază"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Creează cameră Lupus / Werewolf"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Creează prima cameră Lupus"
 
 msgid "Curated"
-msgstr ""
+msgstr "Selectat"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Cuvânt personalizat Codenames"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Pachet personalizat"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Secunde personalizate"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Tastaturi ergonomice personalizate (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Cuvânt personalizat..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Data călătoriei/ședinței foto."
 
 msgid "Day"
 msgstr "Zi"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Excursie de o zi"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Împarte următoarea tablă"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Temporizator apărare"
 
 msgid "Definition"
-msgstr ""
+msgstr "Definiție"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Discută indiciile sau acuză suspecții..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "Discuție"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Temporizator rundă de discuții"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Nume afișat"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "Doctorul protejează împotriva lunetistului:"
 
 msgid "Done"
-msgstr ""
+msgstr "Gata"
 
 msgid "Education"
-msgstr ""
+msgstr "Educație"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Electronică/embedded (niște rust embedded)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Activează furtul de ultimă șansă al impostorului"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Activează cuvântul otravă tabu letal"
 
 msgid "End Board"
-msgstr ""
+msgstr "Încheie tabla"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Încheie rândul la ghicit"
 
 msgid "End Match"
-msgstr ""
+msgstr "Încheie meciul"
 
 msgid "English"
-msgstr ""
+msgstr "Engleză"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "Intră în joc"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Intră în cameră"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Introdu codul camerei (ex. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Exportă JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "Eșuat"
 
 msgid "Finished"
-msgstr ""
+msgstr "Finalizat"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "Cockpit GM"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "Cockpit regizor GM:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "Mod GM: Blocat"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "Mod GM ghicire orală"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "Mod GM oral: PORNIT"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "Mod GM Spymaster oral"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Nume afișat Game Master"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Joc terminat"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "Camere de joc"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Reguli de joc și temporizatoare"
 
 msgid "Game not found."
-msgstr ""
+msgstr "Jocul nu a fost găsit."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "Camera de joc nu există."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Cuvintele jocului, indiciile și interfața sunt acceptate în %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Dă un indiciu dintr-un singur cuvânt"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Dă indicii indirecte dintr-un singur cuvânt fără a dezvălui cuvântul și fără a călca pe Cuvântul Otravă Tabu Letal ascuns. Chiar și Gazda joacă la orb, fără spoilere!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Ghicește cuvântul cetățeanului pentru a fura victoria..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Încercări rămase"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Faza de ghicire"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Radioamatorism, licență de bază din Regatul Unit"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Ai un cod de 8 caractere de la Game Master-ul tău? Introdu-l aici pentru a intra direct:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Ascunde suprapunerea cartelei cheie"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Drumeții și alpinism"
 
 msgid "Hobbies"
 msgstr "Hobby-uri"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Ține apăsat pentru a vedea rolurile secrete:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Automatizarea locuinței și homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Punct focal orizontal: 0=stânga, 50=centru, 100=dreapta."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Comenzi gazdă"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Setări de joc ale gazdei"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Cameră gazdă"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "Scriu cod, fac fotografii și multe alte lucruri"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "Dacă este activată, protecția Doctorului poate salva un lup de la împușcătura Lunetistului. (Dezactivat = lunetistul penetrează protecția doctorului)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "Dacă este setat, alăturarea prin cod QR va autentifica automat jucătorii. (💡 Truc demo: numele de GM care conține Marco și parola test completează automat 10 jucători de test pentru demo live)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "În desfășurare"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Parolă incorectă a camerei."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Previzualizare Instagram 4:5"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Imagine Instagram 4:5"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Cheie secretă Game Master nevalidă."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Invită jucători"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Invită jucători în cameră"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "QR de invitație"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Nu este rândul tău să trimiți un indiciu."
 
 msgid "Join"
-msgstr ""
+msgstr "Alătură-te"
 
 msgid "Join Game"
-msgstr ""
+msgstr "Alătură-te jocului"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Alătură-te jocului Lupus"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Alătură-te echipei Roșii sau Albastre pentru a începe"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Alătură-te ca agent"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Alătură-te ca jucător"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Alătură-te ca Maestru de spioni"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Alătură-te cu codul camerei"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "FURTUL IMPOSTORULUI — ULTIMA ȘANSĂ!"
 
 msgid "Languages"
-msgstr ""
+msgstr "Limbi"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Ultima actualizare: 27 octombrie 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "Cei sosiți mai târziu se alătură ca Călători Confirmați, Fantome ale Satului sau Succesori."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Lansează camera Lupus"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "Lăsați gol pentru acces public"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Permite acestui jucător să scaneze cu telefonul pentru a prelua vizualizarea personală de Maestru de spioni/Agent."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Cuvânt tabu letal (Capcană opțională de eliminare instantanee)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Mecanica Limbo și Înger:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Rezolvare Limbo"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Ascultă"
 
 msgid "Listening"
-msgstr ""
+msgstr "Se ascultă"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Chat live și flux de încercări"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Jucătorii în viață și cei căzuți trimit zvonuri de dimineață citite cu voce tare în zori."
 
 msgid "Lobby"
-msgstr ""
+msgstr "Lobby"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Lobby (Se așteaptă jucători)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Înregistrează indiciul pentru Maestrul de spioni de la masă"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Vârcolac"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Camere active și Centru Lupus"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Joc Lupus"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Joc de petrecere Lupus"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - Camere active și Centru de jocuri"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Vârcolac"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Meci finalizat"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Podiumul meciului și momente importante"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Revederea meciului și cronologia încercărilor"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Revederea meciului și arhiva tablei"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Regulile meciului"
 
 msgid "Message..."
-msgstr ""
+msgstr "Mesaj..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Sosiri în timpul jocului:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Comenzi de vot pentru moderator — Alege un jucător și un suspect mai jos, sau atinge o pastilă și un loc de la masă:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Mută..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Joc nou / Reîmpărțire"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Runda următoare"
 
 msgid "Next day"
-msgstr ""
+msgstr "Ziua următoare"
 
 msgid "Night"
 msgstr "Noapte"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "Nu există jocuri active de Lupus în acest moment"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Nu a fost generată nicio decupare pentru Instagram încă."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Nu a fost publicat niciun indiciu încă."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Nu există table de Codenames finalizate încă. Finalizează o tablă sau închei-o mai devreme pentru a vedea aici reluarea completă a grilei-cheie."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Nu este disponibilă nicio definiție de dicționar."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Nicio tură înregistrată."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Tablă oficială de deducție pe echipe 5×5 cu 400 de cuvinte, indicii de la AI Wikisaurus Spymaster, comutare privată a grilei-cheie și joc oral/la masă."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "400 de cuvinte clasice oficiale"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Indiciu dintr-un singur cuvânt..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Doar emoji-urile sunt permise — caracterele text au fost ignorate."
 
 msgid "Open"
-msgstr ""
+msgstr "Deschis"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "Deschis (Lobby)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "Deschide panoul de control GM"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Deschide generatorul"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Deschide linkul jucătorului"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Loc disponibil"
 
 msgid "Operative"
-msgstr ""
+msgstr "Agent"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Secunde pentru agent (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Agenți"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Agenții ghicesc"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Agenții aleg cărți pentru această rundă."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Agenții ghicesc!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Echipa adversă ghicește. Așteaptă să paseze sau să facă o atingere greșită."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Sau introduceți propria temă/frază personalizată..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Mod Maestru de spioni oral (Înregistrare Mod)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Fișier RAW original din cameră (CR3, ARW, NEF etc.)"
 
 msgid "Other"
-msgstr ""
+msgstr "Altele"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "În aer liber"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Pagina nu a fost găsită — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Comenzi pentru gazda participantă (Fără spoilere)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Pas / Greșit"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Pasează tura (Mod)"
 
 msgid "Password"
 msgstr "Parolă"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Protejat cu parolă"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Jocuri trecute și finalizate"
 
 msgid "Pause"
-msgstr ""
+msgstr "Pauză"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Pauză cronometru"
 
 msgid "Pending"
-msgstr ""
+msgstr "În așteptare"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "QR personal al jucătorului"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "QR personal"
 
 msgid "Photography"
-msgstr ""
+msgstr "Fotografie"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Alege 1 cuvânt și un număr de cărți. Operativii tăi trebuie să ghicească pe baza indiciului tău."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Alege numele după care te cunosc ceilalți de la masă."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Alege jocul, limba și setările camerei — trimite linkul sau codul QR când ești gata."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Profil jucător și QR personal"
 
 msgid "Player QR"
-msgstr ""
+msgstr "QR jucător"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR reconectare jucător"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Nume jucător..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Jucători și scoruri"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Te rugăm să introduci un nume de jucător."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Te rugăm să introduci un cod de cameră valid."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Cuvânt otrăvit (Impostor / Bețiv)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Mod Cuvânt otrăvit"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "Portugheză · Helsinki, Finlanda"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Ziua precedentă"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Prețul pentru descărcarea fișierului RAW."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Politica de confidențialitate"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Politica de confidențialitate - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Politica de confidențialitate - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "Scutul de confidențialitate ține cărțile ascunse de privirile curioase de la masă."
 
 msgid "Processing"
-msgstr ""
+msgstr "Se procesează"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Instrument de prompturi"
 
 msgid "Public"
-msgstr ""
+msgstr "Public"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Publică indiciul"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW disponibil pentru achiziție"
 
 msgid "RAW file"
-msgstr ""
+msgstr "Fișier RAW"
 
 msgid "RAW price"
-msgstr ""
+msgstr "Preț RAW"
 
 msgid "Reading"
-msgstr ""
+msgstr "Citind"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "Jocuri de societate multiplayer în browser în timp real. Fără conturi necesare — doar intră și joacă cu prietenii."
 
 msgid "Red"
 msgstr "Roșu"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Roșu rămas"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Echipa Roșie"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Echipa Roșie câștigă!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Redesenează tabla"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Regenerează decupajele 4:5 de Instagram pentru fotografiile selectate"
 
 msgid "Replay"
-msgstr ""
+msgstr "Reluare"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Rerotește"
 
 msgid "Resume"
-msgstr ""
+msgstr "Reia"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Revin-o ca %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "Dezvăluie"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "Dezvăluie rolurile la moarte:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Rol ascuns"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Rolurile, fazele și interfața sunt localizate în %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Chatul camerei"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Chatul camerei și evenimente"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Codul camerei"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Codul camerei:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Parola camerei"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Parola camerei (opțional)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Configurare cameră"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Titlul camerei"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "Codul camerei '%(code)s' nu a fost găsit sau nu mai este activ."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Camere"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "Camerele sunt create la cerere și rămân active timp de 24 de ore. Începe o nouă sesiune de joc și invită-ți grupul!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Rotește Spymasterii la fiecare tablă nouă"
 
 msgid "Round"
-msgstr ""
+msgstr "Rundă"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Indiciile rundei"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Reluare rundă cu rundă și jurnalul încercărilor"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Runde (Cicluri de indicii)"
 
 msgid "Running"
-msgstr ""
+msgstr "În desfășurare"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Salvează numele"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Scanează pe un alt dispozitiv pentru a-ți recupera fără probleme locul de Spymaster/Operativ."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Scanează acest cod QR cu camera oricărui telefon pentru a te alătura imediat:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Scanează acest cod QR personal pentru a schimba dispozitivul fără a pierde cartea secretă:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Scanează aici pentru a-ți muta sesiunea și scorul pe un alt telefon sau browser:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Caută emoji după nume, sinonim, greșeală de tipar sau limbă (de ex. fire, crown, foc, φωτιά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "Trimite"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Trimite pachetul tip carusel pentru Instagram pe Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Eroare de server — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Set"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Se configurează echipele..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Arată rolul și cuvântul"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Arată cartonașul-cheie al Spymasterului"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Faza tăcută"
 
 msgid "Skills"
-msgstr ""
+msgstr "Abilități"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Sari peste rând"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "Jucătorii uciși ajung în Limbo o dată în loc să moară direct. Dacă ghicesc cine este Îngerul, sunt înviați!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Deducție socială cu Cuvinte otrăvite, capcane Tabu letale, Furt de ultimă șansă și Maestru de joc participant."
 
 msgid "Spanish"
-msgstr ""
+msgstr "Spaniolă"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Vorbitor (indiciu oral):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "Vorbire"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Spectator"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Spectator / Non-jucător"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Mod spectator (Omite turele mele)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Spymaster"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Secunde Spymaster (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Spymaster se gândește la un indiciu..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Doctor șovăitor:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Standard cronometrat (90s / 90s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Începe Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Începe meciul"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Începe votarea mai devreme"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Presetare pachet de roluri de pornire"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Ghicire de furt"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Temporizator de furt (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Victorie prin furt!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Etape de noapte pas cu pas, apeluri de cacealma și manager de votare."
 
 msgid "Submit"
-msgstr ""
+msgstr "Trimite"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Trimite indiciul"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Trimite votul jucătorului"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Discuție la masă și jurnal de evenimente"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Evidențieri Lupus la masă"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Joc de petrecere Werewolf și Mafia axat pe jocul la masă. Nu necesită cont sau autentificare. Fiecare jucător își folosește telefonul pentru roluri secrete și votare, în timp ce tu conduci camera ca Game Master."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Joc hibrid de petrecere axat pe jocul la masă. Nu necesită conturi sau autentificări. Jucătorii se alătură prin cod QR, iar tu conduci jocul ca Game Master."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Joc de petrecere la masă cu roluri secrete, votare în direct, Gazeta Orașului și panou de control pentru GM."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Numără voturile acum"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Atinge cărțile de pe tablă pe măsură ce jucătorii își spun ghicirile cu voce tare."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Atinge cărțile de pe tablă care se potrivesc cu indiciul. Când ai terminat sau ești nesigur, atinge Încheie tura de ghicire."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Ținte"
 
 msgid "Techy"
-msgstr ""
+msgstr "Techy"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "Termeni și condiții"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Termeni și condiții - Bot Telegram Homelab"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Termeni și condiții - Bot Telegram Homelab - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "Doctorul / Gardianul nu poate proteja aceeași persoană două nopți la rând."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Interfața folosește %(lang)s, în timp ce conținutul jocului revine la engleză deoarece datele complete de vocabular nu sunt disponibile."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Temă și termeni"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Presetare limită de timp"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Comutare"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Comută modul spectator"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Gazeta Orașului:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Votul orașului"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Secvența rundelor"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Temporizator de tură (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Temporizatoare de tură"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Scrie un mesaj sau o ghicire..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Scrie indiciul sau ce s-a spus oral..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Scrie ghicirea ta (sau folosește căsuța de chat)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Doar interfață"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Nu s-a putut încărca codul QR al jucătorului."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Neatribuit"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Nelimitat"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Deblochează camera"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Necronometrat"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Necronometrat (Mod canapea relaxat)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Folosește sugestia"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Folosește tastatura emoji sau atinge emoji-urile de mai jos..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Punct focal vertical: 0=sus, 50=centru, 100=jos."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Săteni, Lupi, Văzător"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Temporizator de vot (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Votează jucătorul:"
 
 msgid "Voting"
-msgstr ""
+msgstr "Votare"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "Se așteaptă indiciul..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Se așteaptă ca gazda să configureze echipele și să înceapă tabla..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "În așteptare în lobby..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Dacă coordonatele de focalizare au fost calculate automat prin proeminența marginilor."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Sugestii de indicii AI Wikisaurus (atingeți pentru a precompleta)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Victorii"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Generator de cuvinte și fraze pentru runde clasice de desen cu creionul pe hârtie alături de prieteni."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Pachet de cuvinte"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "Experiență profesională"
 
 msgid "Writing"
-msgstr ""
+msgstr "Scriere"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "Aveți nevoie de o cheie autorizată pentru a accesa această pagină."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "Numele / Pseudonimul tău"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Operativii tăi deliberează. Păstrează o expresie impasibilă — fără reacții sau indicii!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Codul tău QR personal de reconectare"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Fraza ta secretă"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Spymasterul tău"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "E rândul tău să ghicești!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Rândul tău, Spymaster!"
 
 msgid "actions"
-msgstr ""
+msgstr "acțiuni"
 
 msgid "adjective"
-msgstr ""
+msgstr "adjectiv"
 
 msgid "ago"
-msgstr ""
+msgstr "în urmă"
 
 msgid "alive"
-msgstr ""
+msgstr "în viață"
 
 msgid "all"
-msgstr ""
+msgstr "toate"
 
 msgid "all categories"
-msgstr ""
+msgstr "toate categoriile"
 
 msgid "all day"
-msgstr ""
+msgstr "toată ziua"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "și publică indiciul mai jos."
 
 msgid "animals"
-msgstr ""
+msgstr "animale"
 
 msgid "any"
-msgstr ""
+msgstr "oricare"
 
 msgid "aperture"
-msgstr ""
+msgstr "diafragmă"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "focalizare automată detectată"
 
 msgid "available for sale"
-msgstr ""
+msgstr "disponibil pentru vânzare"
 
 msgid "best guess"
-msgstr ""
+msgstr "cea mai bună presupunere"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "marca camerei"
 
 msgid "camera model"
-msgstr ""
+msgstr "modelul camerei"
 
 msgid "category:"
-msgstr ""
+msgstr "categorie:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "șterge"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "pregătire colectivă + indicii"
 
 msgid "create"
 msgstr "crea"
 
 msgid "create room"
-msgstr ""
+msgstr "creează cameră"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "decupare focalizare X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "decupare focalizare Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "dată"
 
 msgid "description"
-msgstr ""
+msgstr "descriere"
 
 msgid "difficulty"
-msgstr ""
+msgstr "dificultate"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "dificultate:"
 
 msgid "download .ics"
-msgstr ""
+msgstr "descarcă .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "de ex. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "de ex. Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "ușor"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "timp emoji:"
 
 msgid "end"
 msgstr "sfârșit"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "introdu parola pentru a vizualiza calendarul."
 
 msgid "extract event"
-msgstr ""
+msgstr "extrage eveniment"
 
 msgid "focal length"
-msgstr ""
+msgstr "distanță focală"
 
 msgid "food & drink"
-msgstr ""
+msgstr "mâncare și băuturi"
 
 msgid "gallery"
 msgstr "galerie"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "extensie galerie"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "extensii galerie"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "galeria nu a fost găsită."
 
 msgid "game"
 msgstr "joc"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "ghicește"
 
 msgid "guess time:"
-msgstr ""
+msgstr "timp de ghicire:"
 
 msgid "hard"
-msgstr ""
+msgstr "greu"
 
 msgid "home"
 msgstr "Acasă"
 
 msgid "ics maker"
-msgstr ""
+msgstr "generator ics"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "ghicește"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "formulează un indiciu pentru echipa sa."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "formulează un indiciu. Rămâi pe poziție!"
 
 msgid "join"
-msgstr ""
+msgstr "alătură-te"
 
 msgid "latest posts"
 msgstr "Ultimele articole"
 
 msgid "latitude"
-msgstr ""
+msgstr "latitudine"
 
 msgid "lens"
 msgstr "lentilă"
 
 msgid "location"
-msgstr ""
+msgstr "locație"
 
 msgid "location name"
-msgstr ""
+msgstr "numele locației"
 
 msgid "longitude"
-msgstr ""
+msgstr "longitudine"
 
 msgid "map view"
-msgstr ""
+msgstr "vizualizare hartă"
 
 msgid "medium"
-msgstr ""
+msgstr "mediu"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "mesaj (opțional)"
 
 msgid "mode"
-msgstr ""
+msgstr "mod"
 
 msgid "mode:"
-msgstr ""
+msgstr "mod:"
 
 msgid "movies"
-msgstr ""
+msgstr "filme"
 
 msgid "new word"
-msgstr ""
+msgstr "cuvânt nou"
 
 msgid "next →"
-msgstr ""
+msgstr "următorul →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "nu există camere active. Creează una!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "nu există încă galerii."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "nu există încă postări."
 
 msgid "noun"
-msgstr ""
+msgstr "substantiv"
 
 msgid "older →"
-msgstr ""
+msgstr "mai vechi →"
 
 msgid "original"
-msgstr ""
+msgstr "original"
 
 msgid "password"
 msgstr "parolă"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "parolă (opțional)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "lipește detaliile evenimentului aici..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "lipește text sau un url cu detaliile evenimentului și obține un fișier .ics."
 
 msgid "people & characters"
-msgstr ""
+msgstr "oameni și personaje"
 
 msgid "photo"
-msgstr ""
+msgstr "fotografie"
 
 msgid "photo extension"
-msgstr ""
+msgstr "extensie fotografie"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "extensii fotografii"
 
 msgid "photo map"
-msgstr ""
+msgstr "hartă foto"
 
 msgid "photo not found."
-msgstr ""
+msgstr "fotografia nu a fost găsită."
 
 msgid "photos"
 msgstr "Fotografii"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "fotografii (selectează mai multe)"
 
 msgid "phrases"
-msgstr ""
+msgstr "expresii"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "alege opțiunile, apasă butonul, desenează!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "locuri și călătorii"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "joacă din nou"
 
 msgid "players"
-msgstr ""
+msgstr "jucători"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "apasă butonul pentru a primi un cuvânt"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "privat (ascunde încercările)"
 
 msgid "processing status"
-msgstr ""
+msgstr "stare procesare"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "public (arată încercările)"
 
 msgid "request"
-msgstr ""
+msgstr "solicitare"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "re-aruncări:"
 
 msgid "reveal"
-msgstr ""
+msgstr "dezvăluie"
 
 msgid "room language"
-msgstr ""
+msgstr "limba camerei"
 
 msgid "room password"
-msgstr ""
+msgstr "parola camerei"
 
 msgid "round robin"
-msgstr ""
+msgstr "round robin"
 
 msgid "rounds:"
-msgstr ""
+msgstr "runde:"
 
 msgid "send"
-msgstr ""
+msgstr "trimite"
 
 msgid "sentence"
-msgstr ""
+msgstr "propoziție"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "timp de expunere"
 
 msgid "skip"
-msgstr ""
+msgstr "omite"
 
 msgid "songs"
-msgstr ""
+msgstr "melodii"
 
 msgid "start"
 msgstr "început"
 
 msgid "start game"
-msgstr ""
+msgstr "începe jocul"
 
 msgid "text"
 msgstr "text"
 
 msgid "things"
-msgstr ""
+msgstr "lucruri"
 
 msgid "title"
-msgstr ""
+msgstr "titlu"
 
 msgid "title is required"
-msgstr ""
+msgstr "titlul este obligatoriu"
 
 msgid "today"
-msgstr ""
+msgstr "astăzi"
 
 msgid "tv shows"
-msgstr ""
+msgstr "emisiuni TV"
 
 msgid "type"
-msgstr ""
+msgstr "tip"
 
 msgid "upload"
-msgstr ""
+msgstr "încarcă"
 
 msgid "upload photos"
-msgstr ""
+msgstr "încarcă fotografii"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "verb"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "vezi la rezoluție maximă ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "vezi pe hartă"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "se așteaptă indiciul..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "se așteaptă jucătorii..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "cu filigran"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "imagine cu filigran"
 
 msgid "web"
-msgstr ""
+msgstr "web"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "imagine optimizată pentru web"
 
 msgid "week"
-msgstr ""
+msgstr "săptămână"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "cât este %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "cuvânt"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "lucru în desfășurare — revino în curând."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "captcha greșit"
 
 msgid "wrong password"
-msgstr ""
+msgstr "parolă incorectă"
 
 msgid "your email"
-msgstr ""
+msgstr "emailul tău"
 
 msgid "your name"
-msgstr ""
+msgstr "numele tău"
 
 msgid "— none —"
-msgstr ""
+msgstr "— niciunul —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← toate galeriile"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← toate articolele"
 
 msgid "← back home"
-msgstr ""
+msgstr "← înapoi acasă"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← galerii"
 
 msgid "← newer"
-msgstr ""
+msgstr "← mai noi"
 
 msgid "← prev"
-msgstr ""
+msgstr "← prec"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ Descarcă PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Haos și speciale (Lup alfa, Tăcutor, Detectiv, Doctor, Sniper, Primar, Vrăjitoare...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Conținut complet + interfață"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Doar interfață (cuvinte în engleză)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Hub Lupus și camere"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 creează lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo și Înger (Lupi + Detectiv + Doctor + Înger + Sniper + Săteni)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 În jocurile cu Limbo, dezvăluirea rolului are loc strict la moartea permanentă („moarte moarte”), niciodată în timp ce se plutește în Limbo."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 Pachetul se adaptează automat la numărul de jucători care se alătură. Poți regla fin fiecare rol și echilibrul dintre bine și rău în direct în Lobby-ul dinaintea jocului înainte de a începe."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Standard (Lupi + Detectiv/Văzător + Doctor/Gardian + Săteni)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Simplu / Clasic (Fără puteri speciale — pur Lupi vs Săteni)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

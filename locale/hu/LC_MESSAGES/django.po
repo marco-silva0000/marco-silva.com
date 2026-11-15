@@ -6,1387 +6,1387 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Szoba létrehozása"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Új szoba indítása"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Új játék"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ szoba létrehozása"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Titkos (Zárt temető, a szerepek a játék végéig rejtve maradnak)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 nap"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Csak hovatartozás (Bejelenti: \"JÓ\" vagy \"GONOSZ\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. A feltételek elfogadása"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Áttekintés"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Csapatok és szerepek beállítása"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 perc"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "Az 1. tipp befejezi a kört"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Frakció / Csapat (Bejelenti: \"Falu\", \"Vérfarkasok\", \"Semleges\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Az általunk elért információk"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Megengedett használat"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Szoba- és asztalbeállítások (Házigazda)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 perc (Gyors)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 nap"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Teljes szerepkártya (Bejelenti a kártya pontos nevét és ikonját)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Adattárolás és biztonság"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Jótállási nyilatkozat"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 másodperc (Normál)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. A felelősség korlátozása"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Harmadik felekkel való megosztás"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — az oldal nem található"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 másodperc"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "4:5 függőleges vágás (1080x1350) Instagram-galériákhoz."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 perc (Normál)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Módosítások és megszüntetés"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Hozzáférés visszavonása és adattörlés"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — hiba történt"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Kapcsolat"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 másodperc"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 perc (Megfontolt)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Hozzáférés megtagadva"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Vádolás:"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktív"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Aktív nyomravezető szó"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "Aktív Lupus szobák"
 
 msgid "Add"
-msgstr ""
+msgstr "Hozzáadás"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Tipp hozzáadása"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Szóbeli / asztali játékos hozzáadása"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Szóbeli / asztali játékos hozzáadása (közvetlenül egy csapathoz)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Játékos hozzáadása"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Titkos egyéni pár hozzáadása"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Adj hozzá egyedi, belsős poénnak számító szavakat, hogy belekeveredjenek a szobában kiosztott jövőbeli táblákba."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Szóbeli / asztali játékos nevének megadása..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Hozzáadás a paklihoz"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Ügynökök és kémmesterek"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "Minden aktív szoba"
 
 msgid "All Games"
-msgstr ""
+msgstr "Minden játék"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Minden tipp és nyomravezető itt jelenik meg"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Engedélyezze a házigazdának a szóbeli nyomok rögzítését és a kártyák megérintését az asztalnál ülő játékosok helyett"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Játékosok egyéni párjainak paklijának engedélyezése"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Egyéni szavak engedélyezése"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Engedélyezze a játékosoknak egyéni szavak hozzáadását"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Creative Commons Nevezd meg! – Ne add el! – Így add tovább! licenc és vízjel alkalmazása."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Automatikus egyensúlyozás"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Csapatok automatikus kiegyensúlyozása"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Automatikus számlálás, amint minden játékos szavazott"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Vissza az aktív Lupus szobákhoz"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Vissza az előszobába"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Vissza az előszobába / Újrajátszás"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "Kék"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Kékből hátravan"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Kék csapat"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "A kék csapat nyert!"
 
 msgid "Board"
-msgstr ""
+msgstr "Tábla"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Tábla befejezve"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Tábla véget ért"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Aktív Lupus szobák böngészése"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Központ böngészése"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Állítsd össze az emoji-nyomodat:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA licenc"
 
 msgid "CODE"
-msgstr ""
+msgstr "KÓD"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Naptárnavigáció"
 
 msgid "Category"
-msgstr ""
+msgstr "Kategória"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Polgár szava (Többség)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Civilek, gengszterek, rendőr"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Klasszikus + kibővített particsomag"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Nyomravezető szakasz"
 
 msgid "Clues"
-msgstr ""
+msgstr "Nyomok"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Nyomok és érintések naplója"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Irányítópult"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "Konferenciák"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Tartalom + Felület"
 
 msgid "Copy"
-msgstr ""
+msgstr "Másolás"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Lupus / Vérfarkas szoba létrehozása"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Az első Lupus szoba létrehozása"
 
 msgid "Curated"
-msgstr ""
+msgstr "Válogatott"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Egyéni Codenames szó"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Egyéni pakli"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Egyéni másodpercek"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Egyedi osztott billentyűzetek (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Egyéni szó..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Az utazás/fotózás dátuma."
 
 msgid "Day"
 msgstr "Nappal"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Egynapos kirándulás"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Következő tábla osztása"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Védekezési időzítő"
 
 msgid "Definition"
-msgstr ""
+msgstr "Meghatározás"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Nyomok megbeszélése vagy gyanúsítottak vádolása..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "Megbeszélés"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Megbeszélési kör időzítője"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Megjelenített név"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "Az orvos véd a mesterlövésztől:"
 
 msgid "Done"
-msgstr ""
+msgstr "Kész"
 
 msgid "Education"
-msgstr ""
+msgstr "Tanulmányok"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Elektronika/beágyazott rendszerek (némi beágyazott Rust)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Utolsó esélyes imposztorlopás engedélyezése"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Halálos tabu méregszó engedélyezése"
 
 msgid "End Board"
-msgstr ""
+msgstr "Tábla befejezése"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Tippelési kör befejezése"
 
 msgid "End Match"
-msgstr ""
+msgstr "Mérkőzés befejezése"
 
 msgid "English"
-msgstr ""
+msgstr "Angol"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "Belépés a játékba"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Belépés a szobába"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Add meg a szobakódot (pl. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "JSON exportálása"
 
 msgid "Failed"
-msgstr ""
+msgstr "Sikertelen"
 
 msgid "Finished"
-msgstr ""
+msgstr "Befejezve"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "Játékmesteri irányítópult"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM vezetői irányítópult:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM mód: Zárolva"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "Szóbeli tippelési GM mód"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "Szóbeli GM mód: BE"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "Szóbeli kémmester GM mód"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Játékmester megjelenített neve"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Játék vége"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "Játékszobák"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Játékszabályok és időzítők"
 
 msgid "Game not found."
-msgstr ""
+msgstr "A játék nem található."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "A játékszoba nem létezik."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "A játékszavak, nyomok és a felület elérhető ezen a nyelven: %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Adj egyetlen szóból álló nyomot"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Adj közvetett, egyszavas nyomokat anélkül, hogy felfednéd a szót, vagy rálépnél a rejtett Halálos Tabu Méregszóra. Még a Házigazda is vakon játszik, spoilerek nélkül!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Találd ki a polgárszót a győzelem ellopásához..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Hátralévő tippek"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Tippelési szakasz"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Amatőr rádiózás, brit alapszintű engedély"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Kaptál egy 8 karakteres kódot a Játékmestertől? Írd be ide a közvetlen belépéshez:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Kulcskártya réteg elrejtése"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Túrázás és hegymászás"
 
 msgid "Hobbies"
 msgstr "Hobbik"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Tartsd nyomva a titkos szerepek megtekintéséhez:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Otthonautomatizálás és homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Vízszintes fókuszpont: 0=bal, 50=közép, 100=jobb."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Házigazda vezérlői"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Házigazda játékbeállításai"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Házigazda szobája"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "Kódot írok, fotózok és még sok minden mást csinálok"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "Ha engedélyezve van, az Orvos védelme megmenthet egy farkast a Mesterlövész lövésétől. (Letiltva = a mesterlövész áthatol az orvos védelmén)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "Ha be van állítva, a QR-kóddal történő csatlakozás automatikusan hitelesíti a játékosokat. (💡 Demó trükk: a Marco nevet tartalmazó GM név és a test jelszó automatikusan kitölt 10 tesztjátékost az élő bemutatóhoz)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "Folyamatban"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Helytelen szobajelszó."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 előnézet"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 kép"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Érvénytelen Játékmester titkos kulcs."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Játékosok meghívása"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Játékosok meghívása a szobába"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "Meghívó QR-kód"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Nem te következel a nyom megadásával."
 
 msgid "Join"
-msgstr ""
+msgstr "Csatlakozás"
 
 msgid "Join Game"
-msgstr ""
+msgstr "Csatlakozás a játékhoz"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Csatlakozás a Lupus játékhoz"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Csatlakozz a piros vagy kék csapathoz a kezdéshez"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Csatlakozás ügynökként"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Csatlakozás játékosként"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Csatlakozás kémmesterként"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Csatlakozás szobakóddal"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "UTOLSÓ ESÉLYES CSALÓ RABLÁS!"
 
 msgid "Languages"
-msgstr ""
+msgstr "Nyelvek"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Utoljára frissítve: 2026. október 27."
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "A későn érkezők megerősített utazóként, falusi szellemként vagy utódként csatlakoznak."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Lupus szoba indítása"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "Hagyd üresen a nyilvános csatlakozáshoz"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Engedd, hogy a játékos beolvassa a telefonjával, és átvegye a személyes Kémmester/Ügynök nézetét."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Halálos tabuszó (Opcionális azonnali kiesési csapda)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Kóma és Angyal mechanika:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Kóma feloldása"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Hallgatás"
 
 msgid "Listening"
-msgstr ""
+msgstr "Hallgatás folyamatban"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Élő csevegés és tippelési folyamat"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Az élő és elesett játékosok reggeli pletykákat küldenek be, amelyeket hajnalban hangosan felolvasnak."
 
 msgid "Lobby"
-msgstr ""
+msgstr "Előszoba"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Előszoba (Várakozás a játékosokra)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Nyom rögzítése az asztali kémmesternek"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Vérfarkas"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Aktív Lupus szobák és központ"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Lupus játék"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Lupus partijáték"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - Aktív szobák és játékközpont"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Vérfarkas"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Mérkőzés befejeződött"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Dobogó és kiemelt pillanatok"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Mérkőzés visszajátszása és kísérletek idővonala"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Mérkőzés visszajátszása és táblaarchívum"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Mérkőzés szabályai"
 
 msgid "Message..."
-msgstr ""
+msgstr "Üzenet..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Játék közben érkezők:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Moderátori szavazásvezérlők — Válassz egy játékost és gyanúsítottat lent, vagy koppints egy jelölőre és ülésre az asztalon:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Mozgatás..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Új játék / Újraosztás"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Következő forduló"
 
 msgid "Next day"
-msgstr ""
+msgstr "Következő nap"
 
 msgid "Night"
 msgstr "Éjszaka"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "Jelenleg nincsenek aktív Lupus játékok"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Még nem készült Instagram-kivágás."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Még nincsenek közzétett nyomok."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Még nincsenek befejezett Codenames táblák. Fejezz be egy táblát, vagy zárd le korábban, hogy itt lásd a teljes kulcskártya visszajátszást."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Nem áll rendelkezésre szótári meghatározás."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Nincsenek rögzített körök."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Hivatalos 400 szavas 5×5-ös csapatos dedukciós tábla Wikisaurus Spymaster MI-nyomokkal, privát kulcskártya-váltóval és szóbeli/asztali játékkal."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Hivatalos klasszikus 400 szó"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Egyszavas nyom..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Csak emojik engedélyezettek — a szöveges karakterek figyelmen kívül lettek hagyva."
 
 msgid "Open"
-msgstr ""
+msgstr "Nyitott"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "Nyitott (Előszoba)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "GM irányítópult megnyitása"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Generátor megnyitása"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Játékos link megnyitása"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Szabad hely"
 
 msgid "Operative"
-msgstr ""
+msgstr "Ügynök"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Ügynök másodpercei (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Ügynökök"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Az ügynökök tippelnek"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Az ügynökök kártyákat választanak ehhez a fordulóhoz."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Az ügynökök tippelnek!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Az ellenfél csapata tippel. Várd meg, amíg passzolnak, vagy rossz kártyára koppintanak."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Vagy írd be a saját egyéni témádat/kifejezésedet..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Szóbeli kémmester mód (Mod rögzítés)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Eredeti fényképezőgép RAW fájl (CR3, ARW, NEF stb.)"
 
 msgid "Other"
-msgstr ""
+msgstr "Egyéb"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "Szabadtér"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Az oldal nem található — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Résztvevő házigazda vezérlői (Spoilermentes)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Passz / Helytelen"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Kör átadása (Mod)"
 
 msgid "Password"
 msgstr "Jelszó"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Jelszóval védett"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Múltbeli és befejezett játékok"
 
 msgid "Pause"
-msgstr ""
+msgstr "Szünet"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Időzítő szüneteltetése"
 
 msgid "Pending"
-msgstr ""
+msgstr "Függőben"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Személyes játékos QR"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Személyes QR"
 
 msgid "Photography"
-msgstr ""
+msgstr "Fotózás"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Válassz 1 szót és a kártyák számát. Az ügynökeidnek a nyomravezetőd alapján kell tippelniük."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Válaszd azt a nevet, amin az asztalnál lévők ismernek."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Válaszd ki a játékot, a nyelvet és a szobabeállításokat — oszd meg a linket vagy a QR-kódot, ha készen állsz."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Játékosprofil és személyes QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "Játékos QR"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "Játékos újracsatlakozási QR"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Játékosnév..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Játékosok és pontszámok"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Kérlek, adj meg egy játékosnevet."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Kérlek, adj meg egy érvényes szobakódot."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Méregszó (Imposztor / Részeg)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Méregszó mód"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "Portugál · Helsinki, Finnország"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Előző nap"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "A RAW fájl letöltésének ára."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Adatvédelmi irányelvek"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Adatvédelmi irányelvek - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Adatvédelmi irányelvek - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "Az adatvédelmi pajzs elrejti a lapokat a kíváncsi szemek elől az asztalnál."
 
 msgid "Processing"
-msgstr ""
+msgstr "Feldolgozás"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Prompt eszköz"
 
 msgid "Public"
-msgstr ""
+msgstr "Nyilvános"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Nyom közzététele"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW megvásárolható"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW fájl"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW ára"
 
 msgid "Reading"
-msgstr ""
+msgstr "Olvasás"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "Valós idejű többjátékos böngészős partijátékok. Nincs szükség regisztrációra — csak ugorj be és játssz a barátaiddal."
 
 msgid "Red"
 msgstr "Piros"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Piros maradt"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Piros csapat"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "A piros csapat győzött!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Tábla újrasorsolása"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "4:5 képarányú Instagram-kivágások újragenerálása a kiválasztott fényképekhez"
 
 msgid "Replay"
-msgstr ""
+msgstr "Visszajátszás"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Újradobás"
 
 msgid "Resume"
-msgstr ""
+msgstr "Folytatás"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Visszatérés mint %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "Felfedés"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "Szerepek felfedése halálkor:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Rejtett szerep"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "A szerepek, fázisok és a felület %(lang)s nyelven érhetők el."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Szobacsevegés"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Szobacsevegés és események"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Szobakód"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Szobakód:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Szobajelszó"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Szobajelszó (opcionális)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Szoba beállítása"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Szoba címe"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "A(z) '%(code)s' szobakód nem található, vagy már nem aktív."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Szobák"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "A szobák igény szerint jönnek létre, és 24 órán át aktívak maradnak. Indíts új játékmenetet, és hívd meg a csapatodat!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Kémfőnökök forgatása minden új táblánál"
 
 msgid "Round"
-msgstr ""
+msgstr "Kör"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Kör nyomai"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Körönkénti visszajátszás és kísérletnapló"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Körök (Nyomciklusok)"
 
 msgid "Running"
-msgstr ""
+msgstr "Fut"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Név mentése"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Szkenneld be egy másik eszközön, hogy zökkenőmentesen visszavedd a Kémfőnök/Ügynök helyedet."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Szkenneld be ezt a QR-kódot bármely telefon kamerájával az azonnali csatlakozáshoz:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Szkenneld be ezt a személyes QR-kódot az eszközváltáshoz anélkül, hogy elveszítenéd a titkos kártyádat:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Szkenneld be ezt, hogy átvidd a munkamenetedet és a pontszámodat egy másik telefonra vagy böngészőbe:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Emoji keresése név, szinonima, elírás vagy nyelv alapján (pl. fire, crown, tűz, φωτιά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "Küldés"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Instagram caroussel csomag küldése a Telegramra"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Kiszolgálóhiba — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Szett"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Csapatok összeállítása..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Szerep és szó megjelenítése"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Kémfőnök kulcskártyájának megjelenítése"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Csendes fázis"
 
 msgid "Skills"
-msgstr ""
+msgstr "Készségek"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Kör kihagyása"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "A megölt játékosok egyszer a Limbóba kerülnek ahelyett, hogy közvetlenül meghalnának. Ha kitalálják, ki az Angyal, feltámadnak!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Társasági dedukciós játék Méregszavakkal, halálos Tabu csapdákkal, Utolsó esélyes lopással és résztvevő Játékmesterrel."
 
 msgid "Spanish"
-msgstr ""
+msgstr "Spanyol"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Beszélő (szóbeli nyom):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "Beszél"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Néző"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Néző / Nem játékos"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Nézői mód (Köreim kihagyása)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Kémfőnök"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Kémfőnök másodpercei (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "A kémfőnök egy nyomon gondolkodik..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Tétova orvos:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Normál időzített (90 mp / 90 mp)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Codenames indítása"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Meccs indítása"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Szavazás korai indítása"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Kezdő szerepkártya-pakli előbeállítás"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Lopási tipp"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Lopási időzítő (mp, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Győzelem lopással!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Lépésről lépésre zajló éjszakai szakaszok, blöffhívások és szavazáskezelő."
 
 msgid "Submit"
-msgstr ""
+msgstr "Küldés"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Nyom elküldése"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Játékosszavazat elküldése"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Asztali vita és eseménynapló"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Kiemelt asztali Lupus funkciók"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Társasági Vérfarkas és Maffia partijáték közvetlen asztali élményre tervezve. Fiók vagy bejelentkezés nélkül. Minden játékos a saját telefonját használja a titkos szerepekhez és szavazáshoz, miközben te Játékmesterként vezeted a szobát."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Hibrid partijáték közvetlen asztali élményre tervezve. Fiók vagy bejelentkezés nélkül. A játékosok QR-kóddal csatlakoznak, te pedig Játékmesterként irányítod a játékot."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Asztalközpontú partijáték titkos szerepekkel, élő szavazással, Városi Közlönnyel és játékmesteri vezérlőpulttal."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Szavazatok megszámlálása most"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Koppints a táblán lévő kártyákra, miközben a játékosok hangosan mondják a tippjeiket."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Koppints a táblán azokra a kártyákra, amelyek illenek a nyomhoz. Ha végeztél vagy bizonytalan vagy, koppints a Tippelési kör befejezése gombra."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Célpontok"
 
 msgid "Techy"
-msgstr ""
+msgstr "Techy"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "Szolgáltatási feltételek"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Szolgáltatási feltételek - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Szolgáltatási feltételek - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "Az Orvos / Őr nem védheti meg ugyanazt a személyt két egymást követő éjszakán."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "A felület a(z) %(lang)s nyelvet használja, míg a játéktartalom angolra vált, mert a teljes szókincsadat nem érhető el."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Téma és kifejezések"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Időkorlát előbeállítás"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Átváltás"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Nézői mód be/ki"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Városi Közlöny:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Városi szavazás"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Körsorrend"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Köridőzítő (mp, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Köridőzítők"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Írj be egy üzenetet vagy tippet..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Írd be a nyomot vagy amit szóban mondtak..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Írd be a tipped (vagy használd a chatdobozt)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Csak felület"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Nem sikerült betölteni a játékos QR-kódját."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Nincs hozzárendelve"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Korlátlan"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Szoba feloldása"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Időkorlát nélküli"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Időkorlát nélkül (Kényelmes kanapé mód)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Téma használata"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Használd az emoji-billentyűzeted vagy koppints az alábbi emojikra..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Függőleges fókuszpont: 0=fent, 50=közép, 100=lent."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Falusiak, Farkasok, Látó"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Szavazási időzítő (mp, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Szavazás játékosra:"
 
 msgid "Voting"
-msgstr ""
+msgstr "Szavazás"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "Várakozás a nyomra..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Várakozás a házigazdára a csapatok beállításához és a tábla elindításához..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Várakozás a váróban..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Vérfarkas / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Azt jelzi, hogy a fókuszkoordináták automatikusan lettek-e kiszámítva élkiemelés alapján."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI nyomjavaslatok (koppints az előtöltéshez)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Győzelmek"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Szó- és mondatgenerátor klasszikus toll-papír rajzos játékokhoz a barátokkal."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Szócsomag"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "Szakmai tapasztalat"
 
 msgid "Writing"
-msgstr ""
+msgstr "Írás"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "A lap eléréséhez engedélyezett kulcs szükséges."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "Neved / Beceneved"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Az ügynökeid tanakodnak. Tarts szigorú pókerarcot — semmi reakció vagy célzás!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Személyes újracsatlakozási QR-kódod"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "A titkos kifejezésed"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "A kémfőnököd"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Te következel a tippelésben!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Te következel, Kémfőnök!"
 
 msgid "actions"
-msgstr ""
+msgstr "akciók"
 
 msgid "adjective"
-msgstr ""
+msgstr "melléknév"
 
 msgid "ago"
-msgstr ""
+msgstr "ezelőtt"
 
 msgid "alive"
-msgstr ""
+msgstr "élő"
 
 msgid "all"
-msgstr ""
+msgstr "mind"
 
 msgid "all categories"
-msgstr ""
+msgstr "minden kategória"
 
 msgid "all day"
-msgstr ""
+msgstr "egész nap"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "és tedd közzé a nyomravezető utalásukat alább."
 
 msgid "animals"
-msgstr ""
+msgstr "állatok"
 
 msgid "any"
-msgstr ""
+msgstr "bármely"
 
 msgid "aperture"
-msgstr ""
+msgstr "rekeszérték"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "automatikus fókusz észlelve"
 
 msgid "available for sale"
-msgstr ""
+msgstr "eladó"
 
 msgid "best guess"
-msgstr ""
+msgstr "legjobb tipp"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "fényképezőgép márkája"
 
 msgid "camera model"
-msgstr ""
+msgstr "fényképezőgép modellje"
 
 msgid "category:"
-msgstr ""
+msgstr "kategória:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "törlés"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "közös felkészülés + tippek"
 
 msgid "create"
 msgstr "teremt"
 
 msgid "create room"
-msgstr ""
+msgstr "szoba létrehozása"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "kivágás fókusz X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "kivágás fókusz Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "dátum"
 
 msgid "description"
-msgstr ""
+msgstr "leírás"
 
 msgid "difficulty"
-msgstr ""
+msgstr "nehézség"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "nehézség:"
 
 msgid "download .ics"
-msgstr ""
+msgstr ".ics letöltése"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "pl. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "pl. Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "könnyű"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "emoji idő:"
 
 msgid "end"
 msgstr "vég"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "add meg a jelszót a naptár megtekintéséhez."
 
 msgid "extract event"
-msgstr ""
+msgstr "esemény kibontása"
 
 msgid "focal length"
-msgstr ""
+msgstr "gyújtótávolság"
 
 msgid "food & drink"
-msgstr ""
+msgstr "étel és ital"
 
 msgid "gallery"
 msgstr "képtár"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "galériabővítmény"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "galériabővítmények"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "a galéria nem található."
 
 msgid "game"
 msgstr "játék"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "tippelés"
 
 msgid "guess time:"
-msgstr ""
+msgstr "tippelési idő:"
 
 msgid "hard"
-msgstr ""
+msgstr "nehéz"
 
 msgid "home"
 msgstr "Kezdőlap"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ics készítő"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "tippel"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "épp nyomravezető utalást fogalmaz meg a csapatának."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "épp nyomravezető utalást fogalmaz meg. Készülj fel!"
 
 msgid "join"
-msgstr ""
+msgstr "csatlakozás"
 
 msgid "latest posts"
 msgstr "Legújabb bejegyzések"
 
 msgid "latitude"
-msgstr ""
+msgstr "szélességi fok"
 
 msgid "lens"
 msgstr "lencse"
 
 msgid "location"
-msgstr ""
+msgstr "helyszín"
 
 msgid "location name"
-msgstr ""
+msgstr "helyszín neve"
 
 msgid "longitude"
-msgstr ""
+msgstr "hosszúsági fok"
 
 msgid "map view"
-msgstr ""
+msgstr "térkép nézet"
 
 msgid "medium"
-msgstr ""
+msgstr "közepes"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "üzenet (opcionális)"
 
 msgid "mode"
-msgstr ""
+msgstr "mód"
 
 msgid "mode:"
-msgstr ""
+msgstr "mód:"
 
 msgid "movies"
-msgstr ""
+msgstr "filmek"
 
 msgid "new word"
-msgstr ""
+msgstr "új szó"
 
 msgid "next →"
-msgstr ""
+msgstr "következő →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "nincsenek aktív szobák. Hozz létre egyet!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "még nincsenek galériák."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "még nincsenek bejegyzések."
 
 msgid "noun"
-msgstr ""
+msgstr "főnév"
 
 msgid "older →"
-msgstr ""
+msgstr "régebbi →"
 
 msgid "original"
-msgstr ""
+msgstr "eredeti"
 
 msgid "password"
 msgstr "jelszó"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "jelszó (opcionális)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "illessze be az esemény részleteit ide..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "illesszen be szöveget vagy URL-t az esemény részleteivel, és töltsön le egy .ics fájlt."
 
 msgid "people & characters"
-msgstr ""
+msgstr "emberek és karakterek"
 
 msgid "photo"
-msgstr ""
+msgstr "fénykép"
 
 msgid "photo extension"
-msgstr ""
+msgstr "fényképkiterjesztés"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "fényképkiterjesztések"
 
 msgid "photo map"
-msgstr ""
+msgstr "fotótérkép"
 
 msgid "photo not found."
-msgstr ""
+msgstr "a fénykép nem található."
 
 msgid "photos"
 msgstr "Fotók"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "fényképek (több kiválasztása)"
 
 msgid "phrases"
-msgstr ""
+msgstr "kifejezések"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "válaszd ki a beállításokat, nyomd meg a gombot, rajzolj!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "helyek és utazás"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "játék újra"
 
 msgid "players"
-msgstr ""
+msgstr "játékosok"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "nyomd meg a gombot egy szóért"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "privát (tippek elrejtése)"
 
 msgid "processing status"
-msgstr ""
+msgstr "feldolgozási állapot"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "nyilvános (tippek megjelenítése)"
 
 msgid "request"
-msgstr ""
+msgstr "kérelem"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "újradobások:"
 
 msgid "reveal"
-msgstr ""
+msgstr "felfedés"
 
 msgid "room language"
-msgstr ""
+msgstr "szoba nyelve"
 
 msgid "room password"
-msgstr ""
+msgstr "szoba jelszava"
 
 msgid "round robin"
-msgstr ""
+msgstr "körmérkőzés"
 
 msgid "rounds:"
-msgstr ""
+msgstr "körök:"
 
 msgid "send"
-msgstr ""
+msgstr "küldés"
 
 msgid "sentence"
-msgstr ""
+msgstr "mondat"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "záridő"
 
 msgid "skip"
-msgstr ""
+msgstr "kihagyás"
 
 msgid "songs"
-msgstr ""
+msgstr "dalok"
 
 msgid "start"
 msgstr "kezdet"
 
 msgid "start game"
-msgstr ""
+msgstr "játék indítása"
 
 msgid "text"
 msgstr "szöveg"
 
 msgid "things"
-msgstr ""
+msgstr "tárgyak"
 
 msgid "title"
-msgstr ""
+msgstr "cím"
 
 msgid "title is required"
-msgstr ""
+msgstr "a cím kötelező"
 
 msgid "today"
-msgstr ""
+msgstr "ma"
 
 msgid "tv shows"
-msgstr ""
+msgstr "tévéműsorok"
 
 msgid "type"
-msgstr ""
+msgstr "típus"
 
 msgid "upload"
-msgstr ""
+msgstr "feltöltés"
 
 msgid "upload photos"
-msgstr ""
+msgstr "fotók feltöltése"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "ige"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "teljes felbontás megtekintése ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "megtekintés a térképen"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "várakozás a nyomra..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "várakozás a játékosokra..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "vízjellel ellátott"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "vízjeles kép"
 
 msgid "web"
-msgstr ""
+msgstr "web"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "webre optimalizált kép"
 
 msgid "week"
-msgstr ""
+msgstr "hét"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "mennyi %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "szó"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "folyamatban lévő munka — nézz vissza hamarosan."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "hibás captcha"
 
 msgid "wrong password"
-msgstr ""
+msgstr "hibás jelszó"
 
 msgid "your email"
-msgstr ""
+msgstr "e-mail címed"
 
 msgid "your name"
-msgstr ""
+msgstr "neved"
 
 msgid "— none —"
-msgstr ""
+msgstr "— nincs —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← összes galéria"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← összes bejegyzés"
 
 msgid "← back home"
-msgstr ""
+msgstr "← vissza a kezdőlapra"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← galériák"
 
 msgid "← newer"
-msgstr ""
+msgstr "← újabbak"
 
 msgid "← prev"
-msgstr ""
+msgstr "← előző"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ PDF letöltése"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Káosz és különlegesek (Alfa farkas, Némító, Detektív, Orvos, Mesterlövész, Polgármester, Boszorkány...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Teljes tartalom + felület"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Csak felület (angol szavak)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus központ és szobák"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 lupus létrehozása"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo és Angyal (Farkasok + Detektív + Orvos + Angyal + Mesterlövész + Falusiak)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 A Limbo játékokban a szerepek felfedése szigorúan a végleges halálkor (\"halál halál\") történik meg, soha nem a Limbóban lebegés közben."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 A pakli automatikusan igazodik a csatlakozó játékosok számához. Közvetlenül az indítás előtt, az Előcsarnokban finomhangolhatsz minden szerepet és a jó-rossz egyensúlyt."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Normál (Farkasok + Detektív/Látnok + Orvos/Őr + Falusiak)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Egyszerű / Klasszikus (Nincsenek különleges képességek — tisztán Farkasok a Falusiak ellen)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

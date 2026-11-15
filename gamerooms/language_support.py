@@ -17,11 +17,14 @@ _LANG_ALIAS_TO_LEXICON = {
     "fil": "tl",
     "zh-hans": "zh-cn",
     "zh-hant": "zh-tw",
+    "it-or": "it",
+    "it_or": "it",
+    "oritano": "it",
 }
 
 # Lupus has handcrafted multi-paragraph role descriptions & phase cards in these locales,
 # plus broader interface translations across site locales.
-LUPUS_CONTENT_LANGUAGES = frozenset({"en", "pt", "it", "es", "fr", "el", "ru", "hi", "kn"})
+LUPUS_CONTENT_LANGUAGES = frozenset({"en", "pt", "it", "it-or", "es", "fr", "el", "ru", "hi", "kn"})
 
 GAME_TYPES = (
     ("emojinary", "🎨 Emojinary"),
@@ -61,6 +64,8 @@ def normalize_language_code(lang_code: str | None) -> str:
     valid_codes = {code.lower(): code for code, _ in getattr(settings, "LANGUAGES", [("en", "English")])}
     if raw in valid_codes:
         return valid_codes[raw]
+    if raw == "oritano" and "it-or" in valid_codes:
+        return valid_codes["it-or"]
     # Map common aliases (he -> iw, nb -> no, fil -> tl)
     aliased = _LANG_ALIAS_TO_LEXICON.get(raw)
     if aliased and aliased in valid_codes:

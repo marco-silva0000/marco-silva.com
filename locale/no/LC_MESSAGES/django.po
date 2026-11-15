@@ -1539,178 +1539,178 @@ msgid "play again"
 msgstr "spill igjen"
 
 msgid "players"
-msgstr ""
+msgstr "spillere"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "trykk på knappen for å få et ord"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "privat (skjul gjetninger)"
 
 msgid "processing status"
-msgstr ""
+msgstr "behandlingsstatus"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "offentlig (vis gjetninger)"
 
 msgid "request"
-msgstr ""
+msgstr "forespørsel"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "omrullinger:"
 
 msgid "reveal"
-msgstr ""
+msgstr "avslør"
 
 msgid "room language"
-msgstr ""
+msgstr "romspråk"
 
 msgid "room password"
-msgstr ""
+msgstr "rompassord"
 
 msgid "round robin"
-msgstr ""
+msgstr "alle-mot-alle"
 
 msgid "rounds:"
-msgstr ""
+msgstr "runder:"
 
 msgid "send"
-msgstr ""
+msgstr "send"
 
 msgid "sentence"
-msgstr ""
+msgstr "setning"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "lukkerhastighet"
 
 msgid "skip"
-msgstr ""
+msgstr "hopp over"
 
 msgid "songs"
-msgstr ""
+msgstr "sanger"
 
 msgid "start"
 msgstr "rykk"
 
 msgid "start game"
-msgstr ""
+msgstr "start spill"
 
 msgid "text"
 msgstr "tekst"
 
 msgid "things"
-msgstr ""
+msgstr "ting"
 
 msgid "title"
-msgstr ""
+msgstr "tittel"
 
 msgid "title is required"
-msgstr ""
+msgstr "tittel er påkrevd"
 
 msgid "today"
-msgstr ""
+msgstr "i dag"
 
 msgid "tv shows"
-msgstr ""
+msgstr "TV-programmer"
 
 msgid "type"
-msgstr ""
+msgstr "type"
 
 msgid "upload"
-msgstr ""
+msgstr "last opp"
 
 msgid "upload photos"
-msgstr ""
+msgstr "last opp bilder"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "verb"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "vis i full oppløsning ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "vis på kart"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "venter på ledetråd..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "venter på spillere..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "med vannmerke"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "vannmerket bilde"
 
 msgid "web"
-msgstr ""
+msgstr "nett"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "nettoptimalisert bilde"
 
 msgid "week"
-msgstr ""
+msgstr "uke"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "hva er %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "ord"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "arbeid pågår — kom tilbake snart."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "feil captcha"
 
 msgid "wrong password"
-msgstr ""
+msgstr "feil passord"
 
 msgid "your email"
-msgstr ""
+msgstr "din e-post"
 
 msgid "your name"
-msgstr ""
+msgstr "ditt navn"
 
 msgid "— none —"
-msgstr ""
+msgstr "— ingen —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← alle gallerier"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← alle innlegg"
 
 msgid "← back home"
-msgstr ""
+msgstr "← tilbake til forsiden"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← gallerier"
 
 msgid "← newer"
-msgstr ""
+msgstr "← nyere"
 
 msgid "← prev"
-msgstr ""
+msgstr "← forrige"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ Last ned PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ Kaos og spesialroller (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Fullt innhold + brukergrensesnitt"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Kun grensesnitt (engelske ord)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus-hub og -rom"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 opprett lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo og Engel (Ulver + Detective + Doctor + Angel + Sniper + Villagers)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 I Limbo-spill skjer rollavsløring utelukkende ved permanent død («death death»), aldri mens man svever i Limbo."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 Kortstokken tilpasser seg automatisk antall spillere som blir med. Du kan finjustere hver rolle og balansen mellom gode og onde direkte i venterommet før du starter."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 Standard (Ulver + Detective/Seer + Doctor/Guard + Villagers)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 Enkel / Klassisk (Ingen spesialkrefter — rene Ulver mot Villagers)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

@@ -6,1711 +6,1711 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ గదిని సృష్టించండి"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ కొత్త గదిని హోస్ట్ చేయండి"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ కొత్త ఆట"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ గదిని సృష్టించండి"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — రహస్యం (మూసివేసిన శ్మశానం, ఆట ముగిసే వరకు పాత్రలు దాచబడతాయి)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 రోజు"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — అనుకూలత మాత్రమే (\"మంచి\" వర్సెస్ \"చెడు\" ప్రకటిస్తుంది)"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. నిబంధనల అంగీకారం"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. అవలోకనం"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. జట్లు & పాత్రల సెటప్"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 నిమిషాలు"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "మొదటి అంచనాతో రౌండ్ ముగుస్తుంది"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — వర్గం / జట్టు (\"పట్టణం\", \"తోడేళ్ళు\", \"తటస్థ\" అని ప్రకటిస్తుంది)"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. మేము యాక్సెస్ చేసే సమాచారం"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. అనుమతించబడిన ఉపయోగం"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. గది & టేబుల్ సెట్టింగ్‌లు (హోస్ట్)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 నిమిషాలు (వేగవంతమైనది)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 రోజులు"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — పూర్తి పాత్ర కార్డ్ (ఖచ్చితమైన కార్డ్ పేరు మరియు చిహ్నాన్ని ప్రకటిస్తుంది)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. డేటా నిల్వ & భద్రత"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. వారెంటీల నిరాకరణ"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 సెకన్లు (ప్రామాణికం)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. బాధ్యత పరిమితి"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. మూడవ పక్షంతో భాగస్వామ్యం"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — పేజీ కనుగొనబడలేదు"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 సెకన్లు"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "Instagram రంగులరాట్నం కోసం 4:5 నిలువు క్రాప్ (1080x1350)."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 నిమిషాలు (ప్రామాణికం)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. మార్పులు & రద్దు"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. యాక్సెస్ రద్దు చేయడం & డేటా తొలగింపు"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — ఏదో తప్పు జరిగింది"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. సంప్రదించండి"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 సెకన్లు"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 నిమిషాలు (నిదానంగా)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "ప్రాప్యత నిరాకరించబడింది"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "నిందించు:"
 
 msgid "Active"
-msgstr ""
+msgstr "యాక్టివ్"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "యాక్టివ్ క్లూ"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "యాక్టివ్ Lupus గదులు"
 
 msgid "Add"
-msgstr ""
+msgstr "జోడించు"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "సూచనను జోడించండి"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "మౌఖిక / టేబుల్ ప్లేయర్‌ను జోడించండి"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "మౌఖిక / టేబుల్ ప్లేయర్‌ను జోడించండి (నేరుగా ఒక జట్టుకు)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "ఆటగాడిని జోడించండి"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "రహస్య అనుకూల జతను జోడించండి"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "ఈ గదిలో భవిష్యత్తు బోర్డులలో కలపడానికి అనుకూల జోక్ పదాలను జోడించండి."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "మౌఖిక / టేబుల్ ప్లేయర్ పేరును జోడించండి..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "డెక్‌కి జోడించండి"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "ఏజెంట్లు & స్పైమాస్టర్లు"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "అన్ని యాక్టివ్ గదులు"
 
 msgid "All Games"
-msgstr ""
+msgstr "అన్ని ఆటలు"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "అన్ని అంచనాలు & సూచనలు ఇక్కడ కనిపిస్తాయి"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "హోస్ట్‌ను మౌఖిక ఆధారాలను లాగ్ చేయడానికి మరియు టేబుల్ వద్ద ఉన్న ఆటగాళ్ల కోసం కార్డ్‌లను నొక్కడానికి అనుమతించండి"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "ప్లేయర్ కస్టమ్ పెయిర్ డెక్‌ను అనుమతించండి"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "అనుకూల పదాలను అనుమతించండి"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "ఆటగాళ్లను అనుకూల పదాలను జోడించడానికి అనుమతించండి"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Creative Commons Attribution-NonCommercial-ShareAlike లైసెన్స్ మరియు వాటర్‌మార్క్‌ను వర్తింపజేయండి."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "ఆటో-బ్యాలెన్స్"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "జట్లను ఆటో-బ్యాలెన్స్ చేయండి"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "ఆటగాళ్లందరూ ఓటు వేసిన తర్వాత స్వయంచాలకంగా లెక్కించండి"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "తిరిగి యాక్టివ్ Lupus గదులకు"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "లాబీకి తిరిగి వెళ్ళండి"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "లాబీకి తిరిగి వెళ్లండి / మళ్లీ ఆడండి"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "నీలము"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "మిగిలిన నీలం"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "నీలం జట్టు"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "నీలం జట్టు గెలిచింది!"
 
 msgid "Board"
-msgstr ""
+msgstr "బోర్డు"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "బోర్డు పూర్తయింది"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "బోర్డు ముగిసింది"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "యాక్టివ్ Lupus గదులను బ్రౌజ్ చేయండి"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "హబ్‌ని బ్రౌజ్ చేయండి"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "మీ ఎమోజి క్లూని రూపొందించండి:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA లైసెన్స్"
 
 msgid "CODE"
-msgstr ""
+msgstr "కోడ్"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "క్యాలెండర్ నావిగేషన్"
 
 msgid "Category"
-msgstr ""
+msgstr "వర్గం"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "పౌరుల పదం (మెజారిటీ)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "పౌరులు, మాబ్‌స్టర్లు, కాప్"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "క్లాసిక్ + ఎక్స్‌టెండెడ్ పార్టీ ప్యాక్"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "క్లూ దశ"
 
 msgid "Clues"
-msgstr ""
+msgstr "క్లూలు"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "క్లూలు & ట్యాప్‌ల లాగ్"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "కాక్‌పిట్"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "సదస్సులు"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "కంటెంట్ + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "కాపీ చేయి"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "లూపస్ / వేర్‌వుల్ఫ్ రూమ్‌ని సృష్టించండి"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "మొదటి లూపస్ రూమ్‌ని సృష్టించండి"
 
 msgid "Curated"
-msgstr ""
+msgstr "క్యూరేట్ చేయబడినవి"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "అనుకూల Codenames పదం"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "అనుకూల డెక్"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "అనుకూల సెకన్లు"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "అనుకూల స్ప్లిట్ కీబోర్డులు (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "అనుకూల పదం..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "ట్రిప్/షూట్ తేదీ."
 
 msgid "Day"
 msgstr "రోజు"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "డే ట్రిప్"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "తదుపరి బోర్డును డీల్ చేయండి"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "రక్షణ టైమర్"
 
 msgid "Definition"
-msgstr ""
+msgstr "నిర్వచనం"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "క్లూల గురించి చర్చించండి లేదా అనుమానితులను నిందించండి..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "చర్చ"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "చర్చా రౌండ్ టైమర్"
 
 msgid "Display Name"
-msgstr ""
+msgstr "ప్రదర్శన పేరు"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "డాక్టర్ స్నైపర్ నుండి రక్షిస్తారు:"
 
 msgid "Done"
-msgstr ""
+msgstr "పూర్తయింది"
 
 msgid "Education"
-msgstr ""
+msgstr "విద్య"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "ఎలక్ట్రానిక్స్/ఎంబెడెడ్ (కొంత రస్ట్ ఎంబెడెడ్)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "చివరి అవకాశం ఇంపోస్టర్ దొంగతనాన్ని ప్రారంభించండి"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "ప్రాణాంతక నిషేధిత విషపూరిత పదాన్ని ప్రారంభించండి"
 
 msgid "End Board"
-msgstr ""
+msgstr "బోర్డును ముగించు"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "ఊహించే వంతును ముగించు"
 
 msgid "End Match"
-msgstr ""
+msgstr "మ్యాచ్‌ను ముగించు"
 
 msgid "English"
-msgstr ""
+msgstr "ఆంగ్లం"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "ఆటలోకి ప్రవేశించండి"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "గదిలోకి ప్రవేశించండి"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "రూమ్ కోడ్‌ను నమోదు చేయండి (ఉదా. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "JSON ఎగుమతి చేయి"
 
 msgid "Failed"
-msgstr ""
+msgstr "విఫలమైంది"
 
 msgid "Finished"
-msgstr ""
+msgstr "ముగిసింది"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM కాక్‌పిట్"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM డైరెక్టర్ కాక్‌పిట్:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM మోడ్: లాక్ చేయబడింది"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM ఓరల్ గెస్సింగ్ మోడ్"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM ఓరల్ మోడ్: ఆన్"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM ఓరల్ స్పైమాస్టర్ మోడ్"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "గేమ్ మాస్టర్ ప్రదర్శన పేరు"
 
 msgid "Game Over"
-msgstr ""
+msgstr "గేమ్ ముగిసింది"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "గేమ్ రూమ్‌లు"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "గేమ్ నియమాలు & టైమర్లు"
 
 msgid "Game not found."
-msgstr ""
+msgstr "ఆట కనుగొనబడలేదు."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "గేమ్ రూమ్ ఉనికిలో లేదు."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "గేమ్ పదాలు, క్లూలు మరియు ఇంటర్‌ఫేస్ %(lang)sలో అందుబాటులో ఉన్నాయి."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "ఒకే పదంలో క్లూ ఇవ్వండి"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "పదాన్ని బహిర్గతం చేయకుండా లేదా దాచిన లెథల్ టాబూ పాయిజన్ వర్డ్‌పై అడుగు పెట్టకుండా పరోక్షంగా ఒకే పదంతో క్లూలను ఇవ్వండి. హోస్ట్ కూడా స్పాయిలర్స్ లేకుండా గుడ్డిగానే ఆడతారు!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "విజయాన్ని దొంగిలించడానికి సిటిజన్ పదాన్ని ఊహించండి..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "మిగిలి ఉన్న ఊహలు"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "ఊహించే దశ"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "హామ్ రేడియో, UK ఫౌండేషన్ లైసెన్స్"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "మీ గేమ్ మాస్టర్ నుండి 8 అక్షరాల కోడ్ ఉందా? నేరుగా చేరడానికి ఇక్కడ నమోదు చేయండి:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "కీకార్డ్ ఓవర్‌లేను దాచండి"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "హైకింగ్ మరియు క్లైంబింగ్"
 
 msgid "Hobbies"
-msgstr ""
+msgstr "హాబీలు"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "రహస్య పాత్రలను చూడటానికి పట్టుకోండి:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "హోమ్ ఆటోమేషన్ మరియు హోమ్‌ల్యాబ్"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "క్షితిజ సమాంతర కేంద్ర బిందువు: 0=ఎడమ, 50=మధ్య, 100=కుడి."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "హోస్ట్ నియంత్రణలు"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "హోస్ట్ గేమ్ సెట్టింగ్‌లు"
 
 msgid "Host Room"
-msgstr ""
+msgstr "హోస్ట్ రూమ్"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "నేను కోడ్ చేస్తాను, ఫోటోలు తీస్తాను మరియు ఇంకా చాలా పనులు చేస్తాను"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "ప్రారంభించబడితే, డాక్టర్ రక్షణ తోడేలును స్నైపర్ కాల్చకుండా కాపాడుతుంది. (డిసేబుల్ చేయబడితే = స్నైపర్ డాక్టర్ రక్షణను ఛేదిస్తుంది)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "సెట్ చేయబడితే, QR కోడ్ ద్వారా చేరినప్పుడు ఆటగాళ్ళు స్వయంచالితంగా ప్రామాణీకరించబడతారు. (💡 డెమో ట్రిక్: Marco ఉన్న GM పేరు మరియు టెస్ట్ పాస్‌వర్డ్ లైవ్ డెమో కోసం 10 టెస్ట్ ప్లేయర్‌లను ఆటోఫిల్ చేస్తుంది)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "పురోగతిలో ఉంది"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "తప్పు రూమ్ పాస్‌వర్డ్."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 ప్రివ్యూ"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 చిత్రం"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "చెల్లని గేమ్ మాస్టర్ రహస్య కీ."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "ఆటగాళ్లను ఆహ్వానించండి"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "గదిలోకి ఆటగాళ్లను ఆహ్వానించండి"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "ఆహ్వాన QR"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "క్లూను సమర్పించడానికి ఇది మీ వంతు కాదు."
 
 msgid "Join"
-msgstr ""
+msgstr "చేరండి"
 
 msgid "Join Game"
-msgstr ""
+msgstr "ఆటలో చేరండి"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Lupus ఆటలో చేరండి"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "ప్రారంభించడానికి ఎరుపు లేదా నీలం జట్టులో చేరండి"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "ఆపరేటివ్‌గా చేరండి"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "ఆటగాడిగా చేరండి"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "స్పైమాస్టర్‌గా చేరండి"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "గది కోడ్‌తో చేరండి"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "చివరి అవకాశం ఇంపొస్టర్ దొంగతనం!"
 
 msgid "Languages"
-msgstr ""
+msgstr "భాషలు"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "చివరిగా అప్‌డేట్ చేయబడింది: అక్టోబర్ 27, 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "ఆలస్యంగా వచ్చినవారు ధృవీకరించబడిన ప్రయాణికులు, పట్టణ దయ్యాలు లేదా వారసులుగా చేరతారు."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Lupus గదిని ప్రారంభించండి"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "పబ్లిక్‌గా చేరడానికి ఖాళీగా ఉంచండి"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "ఈ ఆటగాడు వారి వ్యక్తిగత స్పైమాస్టర్/ఆపరేటివ్ వీక్షణను స్వీకరించడానికి వారి ఫోన్‌లో స్కాన్ చేయనివ్వండి."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "ప్రాణాంతక నిషేధిత పదం (ఐచ్ఛిక తక్షణ తొలగింపు ఉచ్చు)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "లింబో & ఏంజెల్ మెకానిక్:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "లింబో పరిష్కారం"
 
 msgid "Listen to"
-msgstr ""
+msgstr "వినండి"
 
 msgid "Listening"
-msgstr ""
+msgstr "వింటున్నారు"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "లైవ్ చాట్ & గెస్ స్ట్రీమ్"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "సజీవంగా మరియు పడిపోయిన ఆటగాళ్ళు తెల్లవారుజామున బిగ్గరగా చదివే ఉదయం పుకార్లను సమర్పిస్తారు."
 
 msgid "Lobby"
-msgstr ""
+msgstr "లాబీ"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "లాబీ (ఆటగాళ్ల కోసం వేచి ఉంది)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "టేబుల్ స్పైమాస్టర్ కోసం క్లూను లాగ్ చేయండి"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / వేర్‌వోల్ఫ్"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Lupus యాక్టివ్ గదులు & హబ్"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Lupus ఆట"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Lupus పార్టీ గేమ్"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - యాక్టివ్ గదులు & గేమ్ హబ్"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / వేర్‌వోల్ఫ్"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "మ్యాచ్ పూర్తయింది"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "మ్యాచ్ పోడియం & ముఖ్యాంశాలు"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "మ్యాచ్ రీప్లే & ప్రయత్నాల కాలక్రమం"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "మ్యాచ్ రీప్లే & బోర్డ్ ఆర్కైవ్"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "మ్యాచ్ నియమాలు"
 
 msgid "Message..."
-msgstr ""
+msgstr "సందేశం..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "ఆట మధ్యలో వచ్చినవారు:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "మోడరేటర్ ఓట్ నియంత్రణలు — క్రింద ఒక ఆటగాడిని మరియు అనుమానితుడిని ఎంచుకోండి, లేదా టేబుల్ పై ఒక పిల్ మరియు సీటును తాకండి:"
 
 msgid "Move..."
-msgstr ""
+msgstr "తరలించు..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "కొత్త ఆట / మళ్లీ డ్రా చేయండి"
 
 msgid "Next Round"
-msgstr ""
+msgstr "తదుపరి రౌండ్"
 
 msgid "Next day"
-msgstr ""
+msgstr "మరుసటి రోజు"
 
 msgid "Night"
 msgstr "రాత్రి"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "ప్రస్తుతం యాక్టివ్ Lupus ఆటలు లేవు"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "ఇంకా Instagram క్రాప్ రూపొందించబడలేదు."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "ఇంకా ఎలాంటి క్లూలు ప్రచురించబడలేదు."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "ఇంకా పూర్తయిన Codenames బోర్డులు లేవు. పూర్తి కీకార్డ్ రీప్లేను ఇక్కడ చూడటానికి బోర్డును పూర్తి చేయండి లేదా త్వరగా ముగించండి."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "నిఘంటువు నిర్వచనం అందుబాటులో లేదు."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "ఎలాంటి టర్న్‌లు లాగ్ చేయబడలేదు."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Wikisaurus Spymaster AI క్లూలు, ప్రైవేట్ Keycard టోగుల్ మరియు నోటితో/టేబుల్ ప్లేతో కూడిన అధికారిక 400-పదాల 5×5 టీమ్ తగ్గింపు బోర్డు."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "అధికారిక క్లాసిక్ 400 పదాలు"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "ఒకే పదపు క్లూ..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "ఎమోజీలు మాత్రమే అనుమతించబడతాయి — టెక్స్ట్ అక్షరాలు విస్మరించబడ్డాయి."
 
 msgid "Open"
-msgstr ""
+msgstr "తెరువు"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "ఓపెన్ (లాబీ)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "GM కాక్‌పిట్‌ను తెరవండి"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "జనరేటర్‌ను తెరవండి"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "ఆటగాడి లింక్‌ను తెరవండి"
 
 msgid "Open slot"
-msgstr ""
+msgstr "ఓపెన్ స్లాట్"
 
 msgid "Operative"
-msgstr ""
+msgstr "ఆపరేటివ్"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "ఆపరేటివ్ సెకన్లు (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "ఆపరేటివ్‌లు"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "ఆపరేటివ్‌లు ఊహిస్తున్నారు"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "ఆపరేటివ్‌లు ఈ రౌండ్ కోసం కార్డులను ఎంచుకుంటున్నారు."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "ఆపరేటివ్‌లు ఊహిస్తున్నారు!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "ప్రత్యర్థి జట్టు ఊహిస్తోంది. వారు పాస్ చేయడానికి లేదా తప్పు ఎంపిక చేయడానికి వేచి ఉండండి."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "లేదా మీ స్వంత అనుకూల ప్రాంప్ట్/పదాన్ని టైప్ చేయండి..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "మౌఖిక స్పైమాస్టర్ మోడ్ (మోడ్ లాగింగ్)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "అసలు కెమెరా RAW ఫైల్ (CR3, ARW, NEF, మొదలైనవి)"
 
 msgid "Other"
-msgstr ""
+msgstr "ఇతర"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "బయట"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "పేజీ కనుగొనబడలేదు — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "పాల్గొనే హోస్ట్ నియంత్రణలు (జీరో-స్పాయిలర్)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "పాస్ / తప్పు"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "టర్న్ పాస్ చేయండి (మోడ్)"
 
 msgid "Password"
-msgstr ""
+msgstr "పాస్‌వర్డ్"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "పాస్‌వర్డ్ రక్షితం"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "గత & పూర్తయిన ఆటలు"
 
 msgid "Pause"
-msgstr ""
+msgstr "విరామం"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "టైమర్‌ను పాజ్ చేయి"
 
 msgid "Pending"
-msgstr ""
+msgstr "పెండింగ్‌లో ఉంది"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "వ్యక్తిగత ఆటగాడి QR"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "వ్యక్తిగత QR"
 
 msgid "Photography"
-msgstr ""
+msgstr "ఫోటోగ్రఫీ"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "1 పదం మరియు కార్డుల సంఖ్యను ఎంచుకోండి. మీ క్లూ ఆధారంగా మీ ఆపరేటివ్‌లు ఊహించాలి."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "టేబుల్ వద్ద ఇతరులకు తెలిసిన మీ పేరును ఎంచుకోండి."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "మీ గేమ్, భాష మరియు రూమ్ సెట్టింగ్‌లను ఎంచుకోండి — సిద్ధంగా ఉన్నప్పుడు లింక్ లేదా QR కోడ్‌ను షేర్ చేయండి."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "ఆటగాడి ప్రొఫైల్ & వ్యక్తిగత QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "ఆటగాడి QR"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "ఆటగాడు మళ్లీ కనెక్ట్ అవ్వడానికి QR"
 
 msgid "Player name..."
-msgstr ""
+msgstr "ఆటగాడి పేరు..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "ఆటగాళ్లు & స్కోర్‌లు"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "దయచేసి ఆటగాడి పేరును నమోదు చేయండి."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "దయచేసి చెల్లుబాటు అయ్యే రూమ్ కోడ్‌ను నమోదు చేయండి."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "విషపు పదం (ఇంపోస్టర్ / తాగుబోతు)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "పాయిజన్ వర్డ్ మోడ్"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "పోర్చుగీస్ · హెల్సింకి, ఫిన్లాండ్"
 
 msgid "Previous day"
-msgstr ""
+msgstr "మునుపటి రోజు"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "RAW ఫైల్ డౌన్‌లోడ్ కోసం ధర."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "గోప్యతా విధానం"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "గోప్యతా విధానం - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "గోప్యతా విధానం - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "ప్రైవసీ షీల్డ్ టేబుల్ వద్ద ఇతరులు కార్డులను చూడకుండా దాచి ఉంచుతుంది."
 
 msgid "Processing"
-msgstr ""
+msgstr "ప్రాసెస్ అవుతోంది"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "ప్రాంప్ట్ టూల్"
 
 msgid "Public"
-msgstr ""
+msgstr "పబ్లిక్"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "క్లూ ప్రచురించండి"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW కొనుగోలుకు అందుబాటులో ఉంది"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW ఫైల్"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW ధర"
 
 msgid "Reading"
-msgstr ""
+msgstr "చదవడం"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "రియల్-టైమ్ మల్టీప్లేయర్ బ్రౌజర్ పార్టీ గేమ్‌లు. ఖాతాలు అవసరం లేదు — నేరుగా వచ్చి స్నేహితులతో ఆడుకోండి."
 
 msgid "Red"
 msgstr "ఎరుపు"
 
 msgid "Red Left"
-msgstr ""
+msgstr "మిగిలిన ఎరుపు"
 
 msgid "Red Team"
-msgstr ""
+msgstr "రెడ్ టీమ్"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "రెడ్ టీమ్ గెలిచింది!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "బోర్డును మళ్లీ గీయండి"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "ఎంచుకున్న ఫోటోల కోసం 4:5 Instagram క్రాప్‌లను మళ్లీ రూపొందించండి"
 
 msgid "Replay"
-msgstr ""
+msgstr "మళ్లీ ప్లే చేయి"
 
 msgid "Reroll"
-msgstr ""
+msgstr "మళ్లీ రోల్ చేయి"
 
 msgid "Resume"
-msgstr ""
+msgstr "పునఃప్రారంభించు"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "%(name)s వలె తిరిగి రండి"
 
 msgid "Reveal"
-msgstr ""
+msgstr "బహిర్గతం చేయి"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "మరణం తర్వాత పాత్రలను బహిర్గతం చేయండి:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "దాచిన పాత్ర"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "పాత్రలు, దశలు మరియు ఇంటర్‌ఫేస్ %(lang)s లో అందుబాటులో ఉన్నాయి."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "రూమ్ చాట్"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "రూమ్ చాట్ & ఈవెంట్‌లు"
 
 msgid "Room Code"
-msgstr ""
+msgstr "రూమ్ కోడ్"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "రూమ్ కోడ్:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "రూమ్ పాస్‌వర్డ్"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "రూమ్ పాస్‌వర్డ్ (ఐచ్ఛికం)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "రూమ్ సెటప్"
 
 msgid "Room Title"
-msgstr ""
+msgstr "రూమ్ శీర్షిక"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "రూమ్ కోడ్ '%(code)s' కనుగొనబడలేదు లేదా ప్రస్తుతం సక్రియంగా లేదు."
 
 msgid "Rooms"
-msgstr ""
+msgstr "గదులు"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "గదులు అవసరమైనప్పుడు సృష్టించబడతాయి మరియు 24 గంటల పాటు సక్రియంగా ఉంటాయి. కొత్త గేమ్ సెషన్‌ను ప్రారంభించి, మీ బృందాన్ని ఆహ్వానించండి!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "ప్రతి కొత్త బోర్డులో స్పైమాస్టర్‌లను మార్చండి"
 
 msgid "Round"
-msgstr ""
+msgstr "రౌండ్"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "రౌండ్ క్లూలు"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "రౌండ్ వారీగా రీప్లే & ప్రయత్నాల లాగ్"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "రౌండ్‌లు (క్లూ చక్రాలు)"
 
 msgid "Running"
-msgstr ""
+msgstr "నడుస్తోంది"
 
 msgid "Save Name"
-msgstr ""
+msgstr "పేరును సేవ్ చేయి"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "మీ స్పైమాస్టర్/ఆపరేటివ్ స్థానాన్ని తిరిగి పొందడానికి మరొక పరికరంలో స్కాన్ చేయండి."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "వెంటనే చేరడానికి ఏదైనా ఫోన్ కెమెరాతో ఈ QR కోడ్‌ని స్కాన్ చేయండి:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "మీ రహస్య కార్డును కోల్పోకుండా పరికరాలను మార్చడానికి ఈ వ్యక్తిగత QR కోడ్‌ని స్కాన్ చేయండి:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "మీ సెషన్ మరియు స్కోర్‌ను మరొక ఫోన్ లేదా బ్రౌజర్‌కి తరలించడానికి దీన్ని స్కాన్ చేయండి:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "పేరు, పర్యాయపదం, అక్షరదోషం లేదా భాష ద్వారా ఎమోజీని శోధించండి (ఉదా. fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "పంపించు"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Instagram రంగులరాట్నం ప్యాక్‌ని టెలిగ్రామ్‌కి పంపండి"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "సర్వర్ లోపం — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "సెట్ చేయి"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "జట్లను ఏర్పాటు చేస్తోంది..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "పాత్ర & పదాన్ని చూపించు"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "స్పైమాస్టర్ కీకార్డ్‌ను చూపించు"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "నిశ్శబ్ద దశ"
 
 msgid "Skills"
-msgstr ""
+msgstr "నైపుణ్యాలు"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "టర్న్ దాటవేయి"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "హతమైన ఆటగాళ్ళు నేరుగా చనిపోవడానికి బదులుగా ఒకసారి లింబోలోకి ప్రవేశిస్తారు. దేవదూత (ఏంజెల్) ఎవరో వారు ఊహిస్తే, వారు పునర్జీవితులవుతారు!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "విషపూరిత పదాలు, ప్రాణాంతకమైన నిషిద్ధ ఉచ్చులు, చివరి అవకాశం దొంగిలించడం మరియు పాల్గొనే గేమ్ మాస్టర్‌తో సామాజిక అనుమాన శోధన."
 
 msgid "Spanish"
-msgstr ""
+msgstr "స్పానిష్"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "స్పీకర్ (మౌఖిక ఆధారాలు):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "మాట్లాడుతున్నారు"
 
 msgid "Spectator"
-msgstr ""
+msgstr "వీక్షకుడు"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "వీక్షకుడు / ఆడని వ్యక్తి"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "వీక్షక మోడ్ (నా టర్న్‌లను దాటవేయి)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "స్పైమాస్టర్"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "స్పైమాస్టర్ సెకన్లు (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "స్పైమాస్టర్ ఒక ఆధారం గురించి ఆలోచిస్తున్నారు..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "స్టాగరింగ్ డాక్టర్:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "ప్రామాణిక సమయం (90సె / 90సె)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Codenames ప్రారంభించండి"
 
 msgid "Start Match"
-msgstr ""
+msgstr "మ్యాచ్ ప్రారంభించండి"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "ముందే ఓటింగ్ ప్రారంభించండి"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "ప్రారంభ పాత్ర డెక్ ప్రీసెట్"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "ఊహను దొంగిలించండి"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "దొంగిలించే టైమర్ (సెకన్లు, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "దొంగిలించి గెలిచారు!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "దశలవారీగా రాత్రి దశలు, బ్లఫ్ కాల్స్ మరియు ఓటింగ్ మేనేజర్."
 
 msgid "Submit"
-msgstr ""
+msgstr "సమర్పించు"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "ఆధారాన్ని సమర్పించండి"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "ఆటగాడి ఓటును సమర్పించండి"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "టేబుల్ చర్చ & ఈవెంట్ లాగ్"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "టేబుల్-ఫస్ట్ లూపస్ ముఖ్యాంశాలు"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "టేబుల్-ఫస్ట్ వేర్‌వోల్ఫ్ & మాఫియా పార్టీ గేమ్. ఖాతా లాగిన్‌లు అవసరం లేదు. మీరు గేమ్ మాస్టర్‌గా గదిని నడుపుతున్నప్పుడు ప్రతి క్రీడాకారుడు రహస్య పాత్రలు మరియు ఓటింగ్ కోసం వారి ఫోన్‌ను ఉపయోగిస్తారు."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "టేబుల్-ఫస్ట్ హైబ్రిడ్ పార్టీ గేమ్. ఖాతాలు లేదా లాగిన్‌లు అవసరం లేదు. ఆటగాళ్ళు QR కోడ్ ద్వారా చేరతారు, మరియు మీరు గేమ్ మాస్టర్‌గా ఆటను నడుపుతారు."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "రహస్య పాత్రలు, ప్రత్యక్ష ఓటింగ్, టౌన్ గెజిట్ మరియు GM డైరెక్టర్ కాక్‌పిట్‌తో టేబుల్-ఫస్ట్ పార్టీ గేమ్."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "ఇప్పుడే ఓట్లను లెక్కించండి"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "ఆటగాళ్ళు వారి ఊహలను బిగ్గరగా చెబుతున్నప్పుడు బోర్డుపై ఉన్న కార్డులను నొక్కండి."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "ఆధారంతో సరిపోలే కార్డులను బోర్డుపై నొక్కండి. పూర్తయినప్పుడు లేదా సందేహం ఉన్నప్పుడు, 'ఊహించే టర్న్ ముగించు' నొక్కండి."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "లక్ష్యాలు"
 
 msgid "Techy"
-msgstr ""
+msgstr "టెక్నాలజీ సంబంధిత"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "సేవా నిబంధనలు"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "సేవా నిబంధనలు - హోమ్‌ల్యాబ్ టెలిగ్రామ్ బాట్"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "సేవా నిబంధనలు - హోమ్‌ల్యాబ్ టెలిగ్రామ్ బాట్ - మార్కో సిల్వా"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "డాక్టర్ / గార్డ్ ఒకే వ్యక్తిని వరుసగా రెండు రాత్రులు రక్షించలేరు."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "ఇంటర్‌ఫేస్ %(lang)s ని ఉపయోగిస్తుంది, అయితే పూర్తి పదజాలం డేటా అందుబాటులో లేనందున ఆట కంటెంట్ ఆంగ్లంలోకి మారుతుంది."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "థీమ్ & నిబంధనలు"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "సమయ పరిమితి ప్రీసెట్"
 
 msgid "Toggle"
-msgstr ""
+msgstr "టోగుల్ చేయండి"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "వీక్షక మోడ్‌ను మార్చండి"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "టౌన్ గెజిట్:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "టౌన్ ఓటింగ్"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "టర్న్ సీక్వెన్స్"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "టర్న్ టైమర్ (సెకన్లు, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "టర్న్ టైమర్లు"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "సందేశం లేదా ఊహను టైప్ చేయండి..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "ఆధారం లేదా మౌఖికంగా చెప్పినదాన్ని టైప్ చేయండి..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "మీ ఊహను టైప్ చేయండి (లేదా చాట్ బాక్స్‌ను ఉపయోగించండి)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "UI మాత్రమే"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "ప్లేయర్ QR కోడ్‌ని లోడ్ చేయడం సాధ్యపడలేదు."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "కేటాయించబడలేదు"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "అపరిమితం"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "గదిని అన్‌లాక్ చేయండి"
 
 msgid "Untimed"
-msgstr ""
+msgstr "సమయపరిమితి లేదు"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "సమయపరిమితి లేదు (రిలాక్స్డ్ సోఫా మోడ్)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "ప్రాంప్ట్ ఉపయోగించండి"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "మీ ఎమోజి కీబోర్డ్‌ను ఉపయోగించండి లేదా క్రింది ఎమోజీలను నొక్కండి..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "నిలువు కేంద్ర బిందువు: 0=ఎగువ, 50=మధ్య, 100=దిగువ."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "గ్రామస్తులు, తోడేళ్ళు, దర్శకుడు (సీయర్)"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "ఓటు టైమర్ (సెకన్లు, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "ఆటగాడికి ఓటు వేయండి:"
 
 msgid "Voting"
-msgstr ""
+msgstr "ఓటింగ్"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "ఆధారం కోసం వేచి చూస్తున్నారు..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "హోస్ట్ జట్లను కాన్ఫిగర్ చేసి బోర్డును ప్రారంభించే వరకు వేచి చూస్తున్నారు..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "లాబీలో వేచి చూస్తున్నారు..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "వేర్‌వోల్ఫ్ / లూపస్"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "ఎడ్జ్ సేలియన్సీ ద్వారా ఫోకస్ కోఆర్డినేట్‌లు స్వయంచాలకంగా లెక్కించబడ్డాయా లేదా."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI ఆధారాల సూచనలు (ముందే పూరించడానికి నొక్కండి)"
 
 msgid "Wins"
-msgstr ""
+msgstr "విజయాలు"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "స్నేహితులతో క్లాసిక్ పెన్-అండ్-పేపర్ డ్రాయింగ్ రౌండ్‌ల కోసం పదం & వాక్య ప్రాంప్ట్ జనరేటర్."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "వర్డ్ ఇంపోస్టర్"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "పదాల ప్యాక్"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "పని అనుభవం"
 
 msgid "Writing"
-msgstr ""
+msgstr "రాయడం"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "ఈ పేజీని యాక్సెస్ చేయడానికి మీకు అధీకృత కీ అవసరం."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "మీ పేరు / మారుపేరు"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "మీ ఆపరేటివ్‌లు చర్చిస్తున్నారు. ముఖ కవళికలు మారకుండా ఉంచండి — ఎలాంటి ప్రతిస్పందనలు లేదా సూచనలు ఇవ్వకండి!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "మీ వ్యక్తిగత రీకనెక్ట్ QR"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "మీ రహస్య పదబంధం"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "మీ స్పైమాస్టర్"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "ఊహించాల్సిన మీ వంతు!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "మీ వంతు, స్పైమాస్టర్!"
 
 msgid "actions"
-msgstr ""
+msgstr "చర్యలు"
 
 msgid "adjective"
-msgstr ""
+msgstr "విశేషణం"
 
 msgid "ago"
-msgstr ""
+msgstr "క్రితం"
 
 msgid "alive"
-msgstr ""
+msgstr "సజీవంగా"
 
 msgid "all"
-msgstr ""
+msgstr "అన్నీ"
 
 msgid "all categories"
-msgstr ""
+msgstr "అన్ని వర్గాలు"
 
 msgid "all day"
-msgstr ""
+msgstr "రోజంతా"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "మరియు వారి క్లూను క్రింద ప్రచురించండి."
 
 msgid "animals"
-msgstr ""
+msgstr "జంతువులు"
 
 msgid "any"
-msgstr ""
+msgstr "ఏదైనా"
 
 msgid "aperture"
-msgstr ""
+msgstr "ఎపర్చరు"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "ఆటో ఫోకస్ కనుగొనబడింది"
 
 msgid "available for sale"
-msgstr ""
+msgstr "అమ్మకానికి అందుబాటులో ఉంది"
 
 msgid "best guess"
-msgstr ""
+msgstr "ఉత్తమ అంచనా"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "కెమెరా తయారీదారు"
 
 msgid "camera model"
-msgstr ""
+msgstr "కెమెరా మోడల్"
 
 msgid "category:"
-msgstr ""
+msgstr "వర్గం:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "క్లియర్"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "సామూహిక సన్నాహాలు + సూచనలు"
 
 msgid "create"
 msgstr "సృష్టించు"
 
 msgid "create room"
-msgstr ""
+msgstr "గదిని సృష్టించండి"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "క్రాప్ ఫోకస్ X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "క్రాప్ ఫోకస్ Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "తేదీ"
 
 msgid "description"
-msgstr ""
+msgstr "వివరణ"
 
 msgid "difficulty"
-msgstr ""
+msgstr "కఠినత"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "కఠినత:"
 
 msgid "download .ics"
-msgstr ""
+msgstr ".ics డౌన్‌లోడ్ చేయండి"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "ఉదా. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "ఉదా. Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "సులభం"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "ఎమోజి సమయం:"
 
 msgid "end"
-msgstr ""
+msgstr "ముగింపు"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "క్యాలెండర్‌ను చూడటానికి పాస్‌వర్డ్‌ను నమోదు చేయండి."
 
 msgid "extract event"
-msgstr ""
+msgstr "ఈవెంట్‌ను సంగ్రహించండి"
 
 msgid "focal length"
-msgstr ""
+msgstr "ఫోకల్ పొడవు"
 
 msgid "food & drink"
-msgstr ""
+msgstr "ఆహారం & పానీయాలు"
 
 msgid "gallery"
-msgstr ""
+msgstr "గ్యాలరీ"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "గ్యాలరీ పొడిగింపు"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "గ్యాలరీ పొడిగింపులు"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "గ్యాలరీ కనుగొనబడలేదు."
 
 msgid "game"
 msgstr "ఆట"
 
 msgid "games"
-msgstr ""
+msgstr "ఆటలు"
 
 msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "ఊహించండి"
 
 msgid "guess time:"
-msgstr ""
+msgstr "ఊహించే సమయం:"
 
 msgid "hard"
-msgstr ""
+msgstr "కఠినం"
 
 msgid "home"
 msgstr "ఇల్లు"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ics మేకర్"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "ఊహిస్తున్నారు"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "వారి బృందం కోసం ఒక క్లూను రూపొందిస్తున్నారు."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "ఒక క్లూను రూపొందిస్తున్నారు. వేచి ఉండండి!"
 
 msgid "join"
-msgstr ""
+msgstr "చేరండి"
 
 msgid "latest posts"
-msgstr ""
+msgstr "తాజా పోస్ట్‌లు"
 
 msgid "latitude"
-msgstr ""
+msgstr "అక్షాంశం"
 
 msgid "lens"
-msgstr ""
+msgstr "లెన్స్"
 
 msgid "location"
-msgstr ""
+msgstr "స్థానం"
 
 msgid "location name"
-msgstr ""
+msgstr "స్థానం పేరు"
 
 msgid "longitude"
-msgstr ""
+msgstr "రేఖాంశం"
 
 msgid "map view"
-msgstr ""
+msgstr "మ్యాప్ వీక్షణ"
 
 msgid "medium"
-msgstr ""
+msgstr "మధ్యస్థం"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "సందేశం (ఐచ్ఛికం)"
 
 msgid "mode"
-msgstr ""
+msgstr "మోడ్"
 
 msgid "mode:"
-msgstr ""
+msgstr "మోడ్:"
 
 msgid "movies"
-msgstr ""
+msgstr "సినిమాలు"
 
 msgid "new word"
-msgstr ""
+msgstr "కొత్త పదం"
 
 msgid "next →"
-msgstr ""
+msgstr "తదుపరి →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "క్రియాశీల గదులు లేవు. ఒకదాన్ని సృష్టించండి!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "ఇంకా గ్యాలరీలు లేవు."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "ఇంకా పోస్ట్‌లు లేవు."
 
 msgid "noun"
-msgstr ""
+msgstr "నామవాచకం"
 
 msgid "older →"
-msgstr ""
+msgstr "పాతవి →"
 
 msgid "original"
-msgstr ""
+msgstr "అసలైనది"
 
 msgid "password"
-msgstr ""
+msgstr "పాస్‌వర్డ్"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "పాస్‌వర్డ్ (ఐచ్ఛికం)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "ఈవెంట్ వివరాలను ఇక్కడ పేస్ట్ చేయండి..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "ఈవెంట్ వివరాలతో ఉన్న టెక్స్ట్ లేదా urlను పేస్ట్ చేయండి మరియు .ics ఫైల్‌ను పొందండి."
 
 msgid "people & characters"
-msgstr ""
+msgstr "వ్యక్తులు & పాత్రలు"
 
 msgid "photo"
-msgstr ""
+msgstr "ఫోటో"
 
 msgid "photo extension"
-msgstr ""
+msgstr "ఫోటో ఎక్స్‌టెన్షన్"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "ఫోటో ఎక్స్‌టెన్షన్‌లు"
 
 msgid "photo map"
-msgstr ""
+msgstr "ఫోటో మ్యాప్"
 
 msgid "photo not found."
-msgstr ""
+msgstr "ఫోటో కనుగొనబడలేదు."
 
 msgid "photos"
-msgstr ""
+msgstr "ఫోటోలు"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "ఫోటోలు (బహుళ ఎంపిక చేయండి)"
 
 msgid "phrases"
-msgstr ""
+msgstr "పదబంధాలు"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "మీ ఎంపికలను ఎంచుకోండి, బటన్‌ను నొక్కండి, గీయండి!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "ప్రదేశాలు & ప్రయాణం"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "మళ్ళీ ఆడు"
 
 msgid "players"
-msgstr ""
+msgstr "ఆటగాళ్ళు"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "పదాన్ని పొందడానికి బటన్‌ను నొక్కండి"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "ప్రైవేట్ (అంచనాలను దాచు)"
 
 msgid "processing status"
-msgstr ""
+msgstr "ప్రాసెసింగ్ స్థితి"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "పబ్లిక్ (అంచనాలను చూపించు)"
 
 msgid "request"
-msgstr ""
+msgstr "అభ్యర్థన"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "రీరోల్స్:"
 
 msgid "reveal"
-msgstr ""
+msgstr "బహిర్గతం చేయి"
 
 msgid "room language"
-msgstr ""
+msgstr "గది భాష"
 
 msgid "room password"
-msgstr ""
+msgstr "గది పాస్‌వర్డ్"
 
 msgid "round robin"
-msgstr ""
+msgstr "రౌండ్ రాబిన్"
 
 msgid "rounds:"
-msgstr ""
+msgstr "రౌండ్లు:"
 
 msgid "send"
-msgstr ""
+msgstr "పంపు"
 
 msgid "sentence"
-msgstr ""
+msgstr "వాక్యం"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "షట్టర్ వేగం"
 
 msgid "skip"
-msgstr ""
+msgstr "దాటవేయి"
 
 msgid "songs"
-msgstr ""
+msgstr "పాటలు"
 
 msgid "start"
 msgstr "ఆరంభము"
 
 msgid "start game"
-msgstr ""
+msgstr "ఆటను ప్రారంభించండి"
 
 msgid "text"
 msgstr "పాఠము"
 
 msgid "things"
-msgstr ""
+msgstr "వస్తువులు"
 
 msgid "title"
-msgstr ""
+msgstr "శీర్షిక"
 
 msgid "title is required"
-msgstr ""
+msgstr "శీర్షిక అవసరం"
 
 msgid "today"
-msgstr ""
+msgstr "ఈరోజు"
 
 msgid "tv shows"
-msgstr ""
+msgstr "టీవీ కార్యక్రమాలు"
 
 msgid "type"
-msgstr ""
+msgstr "రకం"
 
 msgid "upload"
-msgstr ""
+msgstr "అప్‌లోడ్ చేయండి"
 
 msgid "upload photos"
-msgstr ""
+msgstr "ఫోటోలను అప్‌లోడ్ చేయండి"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "క్రియ"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "పూర్తి రిజల్యూషన్‌ను వీక్షించండి ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "మ్యాప్‌లో వీక్షించండి"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "క్లూ కోసం వేచి చూస్తోంది..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "ఆటగాళ్ల కోసం వేచి చూస్తోంది..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "వాటర్‌మార్క్ చేయబడింది"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "వాటర్‌మార్క్ చేసిన చిత్రం"
 
 msgid "web"
-msgstr ""
+msgstr "వెబ్"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "వెబ్-ఆప్టిమైజ్ చేసిన చిత్రం"
 
 msgid "week"
-msgstr ""
+msgstr "వారం"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "%(a)s + %(b)s ఎంత?"
 
 msgid "word"
-msgstr ""
+msgstr "పదం"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "పని పురోగతిలో ఉంది — త్వరలో మళ్లీ తనిఖీ చేయండి."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "తప్పు క్యాప్చా"
 
 msgid "wrong password"
-msgstr ""
+msgstr "తప్పు పాస్‌వర్డ్"
 
 msgid "your email"
-msgstr ""
+msgstr "మీ ఇమెయిల్"
 
 msgid "your name"
-msgstr ""
+msgstr "మీ పేరు"
 
 msgid "— none —"
-msgstr ""
+msgstr "— ఏదీ లేదు —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← అన్ని గ్యాలరీలు"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← అన్ని పోస్ట్‌లు"
 
 msgid "← back home"
-msgstr ""
+msgstr "← తిరిగి హోమ్‌కు"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← గ్యాలరీలు"
 
 msgid "← newer"
-msgstr ""
+msgstr "← కొత్తవి"
 
 msgid "← prev"
-msgstr ""
+msgstr "← మునుపటిది"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ PDF డౌన్‌లోడ్ చేయండి"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ ఖోస్ & స్పెషల్స్ (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ పూర్తి కంటెంట్ + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 UI మాత్రమే (ఆంగ్ల పదాలు)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus హబ్ & గదులు"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 lupus సృష్టించండి"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 Limbo & ఏంజెల్ (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 Limbo ఆటలలో, పాత్ర బహిర్గతం కేవలం శాశ్వత మరణం (\"death death\") సంభవించినప్పుడు మాత్రమే జరుగుతుంది, Limboలో ఉన్నప్పుడు ఎప్పుడూ జరగదు."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 చేరే ఆటగాళ్ల సంఖ్యకు అనుగుణంగా డెక్ స్వయంచాలకంగా సర్దుబాటు అవుతుంది. ప్రారంభించడానికి ముందు Pre-Game Lobbyలో ప్రత్యక్షంగా ప్రతి పాత్రను మరియు మంచి vs. చెడు సమతుల్యతను చక్కగా సర్దుబాటు చేయవచ్చు."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 ప్రామాణికం (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 సాధారణ / క్లాసిక్ (ఎలాంటి ప్రత్యేక శక్తులు లేవు — కేవలం Wolves vs Villagers)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

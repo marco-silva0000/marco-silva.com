@@ -1539,178 +1539,178 @@ msgid "play again"
 msgstr "שחק שוב"
 
 msgid "players"
-msgstr ""
+msgstr "שחקנים"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "לחץ על הכפתור כדי לקבל מילה"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "פרטי (הסתר ניחושים)"
 
 msgid "processing status"
-msgstr ""
+msgstr "סטטוס עיבוד"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "ציבורי (הצג ניחושים)"
 
 msgid "request"
-msgstr ""
+msgstr "בקשה"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "הגרלות מחדש:"
 
 msgid "reveal"
-msgstr ""
+msgstr "חשוף"
 
 msgid "room language"
-msgstr ""
+msgstr "שפת החדר"
 
 msgid "room password"
-msgstr ""
+msgstr "סיסמת החדר"
 
 msgid "round robin"
-msgstr ""
+msgstr "סבב מחזורי"
 
 msgid "rounds:"
-msgstr ""
+msgstr "סיבובים:"
 
 msgid "send"
-msgstr ""
+msgstr "שלח"
 
 msgid "sentence"
-msgstr ""
+msgstr "משפט"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "מהירות תריס"
 
 msgid "skip"
-msgstr ""
+msgstr "דלג"
 
 msgid "songs"
-msgstr ""
+msgstr "שירים"
 
 msgid "start"
 msgstr "התחלה"
 
 msgid "start game"
-msgstr ""
+msgstr "התחל משחק"
 
 msgid "text"
 msgstr "טֶקְסְט"
 
 msgid "things"
-msgstr ""
+msgstr "דברים"
 
 msgid "title"
-msgstr ""
+msgstr "כותרת"
 
 msgid "title is required"
-msgstr ""
+msgstr "נדרשת כותרת"
 
 msgid "today"
-msgstr ""
+msgstr "היום"
 
 msgid "tv shows"
-msgstr ""
+msgstr "תוכניות טלוויזיה"
 
 msgid "type"
-msgstr ""
+msgstr "סוג"
 
 msgid "upload"
-msgstr ""
+msgstr "העלאה"
 
 msgid "upload photos"
-msgstr ""
+msgstr "העלה תמונות"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "פועל"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "הצג ברזולוציה מלאה ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "הצג במפה"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "ממתין לרמז..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "ממתין לשחקנים..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "עם סימן מים"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "תמונה עם סימן מים"
 
 msgid "web"
-msgstr ""
+msgstr "אינטרנט"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "תמונה מותאמת לרשת"
 
 msgid "week"
-msgstr ""
+msgstr "שבוע"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "כמה זה %(a)s + %(b)s?"
 
 msgid "word"
-msgstr ""
+msgstr "מילה"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "העבודה בעיצומה — בדקו שוב בקרוב."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "קוד captcha שגוי"
 
 msgid "wrong password"
-msgstr ""
+msgstr "סיסמה שגויה"
 
 msgid "your email"
-msgstr ""
+msgstr "האימייל שלך"
 
 msgid "your name"
-msgstr ""
+msgstr "השם שלך"
 
 msgid "— none —"
-msgstr ""
+msgstr "— ללא —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← כל הגלריות"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← כל הפוסטים"
 
 msgid "← back home"
-msgstr ""
+msgstr "← חזרה לדף הבית"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← גלריות"
 
 msgid "← newer"
-msgstr ""
+msgstr "← חדשים יותר"
 
 msgid "← prev"
-msgstr ""
+msgstr "← הקודם"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ הורד PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ כאוס ומיוחדים (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ תוכן מלא + ממשק"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 ממשק בלבד (מילים באנגלית)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 לובי וחדרי Lupus"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 צור משחק lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 לימבו ומלאך (זאבים + Detective + Doctor + Angel + Sniper + Villagers)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 במשחקי Limbo, חשיפת התפקיד מתרחשת אך ורק במוות סופי (\"death death\"), לעולם לא בעת שהייה ב-Limbo."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 החפיסה מתאימה את עצמה אוטומטית למספר השחקנים שמצטרפים. ניתן לכוונן כל תפקיד ואת האיזון בין הטובים לרעים ישירות בלובי שלפני המשחק."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 רגיל (זאבים + Detective/Seer + Doctor/Guard + Villagers)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 פשוט / קלאסי (ללא כוחות מיוחדים — רק זאבים נגד Villagers)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"
