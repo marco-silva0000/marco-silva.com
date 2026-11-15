@@ -32,6 +32,9 @@ msgstr "1. Kukubali Masharti"
 msgid "1. Overview"
 msgstr "1. Muhtasari"
 
+msgid "1. Teams & Roles Setup"
+msgstr ""
+
 msgid "10 Minutes"
 msgstr "Dakika 10"
 
@@ -46,6 +49,9 @@ msgstr "2. Taarifa Tunazofikia"
 
 msgid "2. Permitted Use"
 msgstr "2. Matumizi Yanayoruhusiwa"
+
+msgid "2. Room & Table Settings (Host)"
+msgstr ""
 
 msgid "3 Minutes (Fast)"
 msgstr "Dakika 3 (Haraka)"
@@ -104,14 +110,47 @@ msgstr "Dakika 7 (Taratibu)"
 msgid "Access Denied"
 msgstr "Ufikiaji Umekataliwa"
 
+msgid "Accuse:"
+msgstr ""
+
 msgid "Active"
 msgstr "Inaendelea"
+
+msgid "Active Clue"
+msgstr ""
 
 msgid "Active Lupus Rooms"
 msgstr "Vyumba Vinavyoendelea vya Lupus"
 
+msgid "Add"
+msgstr ""
+
 msgid "Add Hint"
 msgstr "Ongeza Dokezo"
+
+msgid "Add Oral / Table Player"
+msgstr ""
+
+msgid "Add Oral / Table Player (directly to a team)"
+msgstr ""
+
+msgid "Add Player"
+msgstr ""
+
+msgid "Add Secret Custom Pair"
+msgstr ""
+
+msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
+msgstr ""
+
+msgid "Add oral / table player name..."
+msgstr ""
+
+msgid "Add to Deck"
+msgstr ""
+
+msgid "Agents & Spymasters"
+msgstr ""
 
 msgid "All Active Rooms"
 msgstr "Vyumba Vyote Vinavyoendelea"
@@ -122,20 +161,68 @@ msgstr "Michezo Yote"
 msgid "All guesses & hints appear here"
 msgstr "Kubahatisha na madokezo yote yanaonekana hapa"
 
+msgid "Allow Host to log oral clues and tap cards for players at the table"
+msgstr ""
+
+msgid "Allow Player Custom Pair Deck"
+msgstr ""
+
 msgid "Allow custom words"
 msgstr "Ruhusu maneno maalum"
+
+msgid "Allow players to add custom words"
+msgstr ""
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Weka leseni ya Creative Commons Attribution-NonCommercial-ShareAlike na alama ya maji."
 
+msgid "Auto-Balance"
+msgstr ""
+
+msgid "Auto-Balance Teams"
+msgstr ""
+
+msgid "Auto-tally once all players have voted"
+msgstr ""
+
 msgid "Back to Active Lupus Rooms"
 msgstr "Rudi kwenye Vyumba Vinavyoendelea vya Lupus"
+
+msgid "Back to Lobby"
+msgstr ""
+
+msgid "Back to Lobby / Play Again"
+msgstr ""
 
 msgid "Backspace"
 msgstr "Futa"
 
+msgid "Blue"
+msgstr "Buluu"
+
+msgid "Blue Left"
+msgstr ""
+
+msgid "Blue Team"
+msgstr ""
+
+msgid "Blue Team Wins!"
+msgstr ""
+
+msgid "Board"
+msgstr ""
+
+msgid "Board Complete"
+msgstr ""
+
+msgid "Board Ended"
+msgstr ""
+
 msgid "Browse Active Lupus Rooms"
 msgstr "Vinjari Vyumba Vinavyoendelea vya Lupus"
+
+msgid "Browse Hub"
+msgstr ""
 
 msgid "Build Your Emoji Clue:"
 msgstr "Tengeneza Dokezo Lako la Emoji:"
@@ -152,14 +239,38 @@ msgstr "CTFs"
 msgid "Calendar navigation"
 msgstr "Urambazaji wa kalenda"
 
+msgid "Category"
+msgstr ""
+
+msgid "Citizen Word (Majority)"
+msgstr ""
+
 msgid "Civilians, Mobsters, Cop"
 msgstr "Raia, Wahalifu, Polisi"
+
+msgid "Classic + Extended Party Pack"
+msgstr ""
+
+msgid "Clue Phase"
+msgstr ""
+
+msgid "Clues"
+msgstr ""
+
+msgid "Clues & Taps Log"
+msgstr ""
 
 msgid "Cockpit"
 msgstr "Chumba cha Udhibiti"
 
+msgid "Codenames"
+msgstr "Codenames"
+
 msgid "Conferences"
 msgstr "Mikutano"
+
+msgid "Content + UI"
+msgstr ""
 
 msgid "Copy"
 msgstr "Nakili"
@@ -173,20 +284,41 @@ msgstr "Unda Chumba cha Kwanza cha Lupus"
 msgid "Curated"
 msgstr "Iliyochaguliwa"
 
+msgid "Custom Codenames Word"
+msgstr ""
+
+msgid "Custom Deck"
+msgstr ""
+
+msgid "Custom Seconds"
+msgstr ""
+
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "Kibodi maalum zilizogawanywa (colemak + nvim)"
+
+msgid "Custom word..."
+msgstr ""
 
 msgid "Date of the trip/shoot."
 msgstr "Tarehe ya safari/upigaji picha."
 
 msgid "Day"
-msgstr "Day"
+msgstr "Mchana"
 
 msgid "Day Trip"
 msgstr "Safari ya Siku Moja"
 
+msgid "Deal Next Board"
+msgstr ""
+
 msgid "Defense Timer"
 msgstr "Kipima Muda cha Utetezi"
+
+msgid "Definition"
+msgstr ""
+
+msgid "Discuss clues or accuse suspects..."
+msgstr ""
 
 msgid "Discussion"
 msgstr "Mjadala"
@@ -208,6 +340,21 @@ msgstr "Elimu"
 
 msgid "Electronics/embedded (some rust embedded)"
 msgstr "Elektroniki/mifumo iliyopachikwa (baadhi ya rust iliyopachikwa)"
+
+msgid "Enable Last-Chance Impostor Steal"
+msgstr ""
+
+msgid "Enable Lethal Taboo Poison Word"
+msgstr ""
+
+msgid "End Board"
+msgstr ""
+
+msgid "End Guessing Turn"
+msgstr ""
+
+msgid "End Match"
+msgstr ""
 
 msgid "English"
 msgstr "Kiingereza"
@@ -239,6 +386,18 @@ msgstr "Chumba cha Udhibiti cha GM"
 msgid "GM Director Cockpit:"
 msgstr "Chumba cha Udhibiti cha Mkurugenzi wa GM:"
 
+msgid "GM Mode: Locked"
+msgstr ""
+
+msgid "GM Oral Guessing Mode"
+msgstr ""
+
+msgid "GM Oral Mode: ON"
+msgstr ""
+
+msgid "GM Oral Spymaster Mode"
+msgstr ""
+
 msgid "Game Master Display Name"
 msgstr "Jina la Kuonyesha la Kiongozi wa Mchezo (GM)"
 
@@ -257,11 +416,32 @@ msgstr "Mchezo haujapatikana."
 msgid "Game room does not exist."
 msgstr "Chumba cha mchezo hakipo."
 
+msgid "Game words, clues, and interface are supported in %(lang)s."
+msgstr ""
+
+msgid "Give a One-Word Clue"
+msgstr ""
+
+msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
+msgstr ""
+
+msgid "Guess the Citizen Word to steal the win..."
+msgstr ""
+
+msgid "Guesses left"
+msgstr ""
+
+msgid "Guessing Phase"
+msgstr ""
+
 msgid "Ham radio, UK foundation license"
 msgstr "Redio ya ridhaa (Ham radio), leseni ya msingi ya Uingereza"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "Je, una msimbo wa herufi 8 kutoka kwa Kiongozi wako wa Mchezo (GM)? Uingize hapa ili uingie moja kwa moja:"
+
+msgid "Hide Keycard Overlay"
+msgstr ""
 
 msgid "Hiking and climbing"
 msgstr "Matembezi ya milimani na kukwea miamba"
@@ -278,8 +458,14 @@ msgstr "Uendeshaji otomatiki wa nyumbani na maabara ya nyumbani (homelab)"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Kituo cha umakini cha mlalo: 0=kushoto, 50=katikati, 100=kulia."
 
+msgid "Host Controls"
+msgstr ""
+
 msgid "Host Game Settings"
 msgstr "Mipangilio ya Mwenyeji wa Mchezo"
+
+msgid "Host Room"
+msgstr ""
 
 msgid "I code, take pics and many other things"
 msgstr "Ninaandika programu, ninapiga picha na kufanya mambo mengine mengi"
@@ -308,11 +494,17 @@ msgstr "Picha ya Instagram 4:5"
 msgid "Invalid Game Master secret key."
 msgstr "Ufunguo wa siri wa Kiongozi wa Mchezo (GM) si sahihi."
 
+msgid "Invite Players"
+msgstr ""
+
 msgid "Invite Players to Room"
 msgstr "Alika Wachezaji Chumbani"
 
 msgid "Invite QR"
 msgstr "QR ya Mwaliko"
+
+msgid "It is not your turn to submit a clue."
+msgstr ""
 
 msgid "Join"
 msgstr "Jiunge"
@@ -323,14 +515,26 @@ msgstr "Jiunge na Mchezo"
 msgid "Join Lupus Game"
 msgstr "Jiunge na Mchezo wa Lupus"
 
+msgid "Join Red or Blue Team to begin"
+msgstr ""
+
+msgid "Join as Operative"
+msgstr ""
+
 msgid "Join as Player"
 msgstr "Jiunge kama Mchezaji"
+
+msgid "Join as Spymaster"
+msgstr ""
 
 msgid "Join with Room Code"
 msgstr "Jiunge kwa Msimbo wa Chumba"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
+
+msgid "LAST-CHANCE IMPOSTOR STEAL!"
+msgstr ""
 
 msgid "Languages"
 msgstr "Lugha"
@@ -347,6 +551,12 @@ msgstr "Anzisha Chumba cha Lupus"
 msgid "Leave empty for public join"
 msgstr "Acha wazi ili watu wajiunge hadharani"
 
+msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
+msgstr ""
+
+msgid "Lethal Taboo Word (Optional instant elimination trap)"
+msgstr ""
+
 msgid "Limbo"
 msgstr "Limbo"
 
@@ -355,6 +565,9 @@ msgstr "Mfumo wa Limbo na Malaika:"
 
 msgid "Limbo Resolution"
 msgstr "Uamuzi wa Limbo"
+
+msgid "Listen to"
+msgstr ""
 
 msgid "Listening"
 msgstr "Kusikiliza"
@@ -370,6 +583,12 @@ msgstr "Ukumbi wa Kusubiri"
 
 msgid "Lobby (Waiting for Players)"
 msgstr "Ukumbi wa Kusubiri (Inasubiri Wachezaji)"
+
+msgid "Log Clue for Table Spymaster"
+msgstr ""
+
+msgid "Lupus / Werewolf"
+msgstr ""
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "Vyumba Vinavyoendelea na Kituo cha Lupus"
@@ -389,14 +608,38 @@ msgstr "Lupus in Tabula / Mbwa Mwitu (Werewolf)"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Complete"
+msgstr ""
+
 msgid "Match Podium & Highlights"
-msgstr "Match Podium & Highlights"
+msgstr ""
 
 msgid "Match Replay & Attempt Timeline"
 msgstr "Marudio ya Mechi na Mfuatano wa Majaribio"
 
+msgid "Match Replay & Board Archive"
+msgstr ""
+
+msgid "Match Rules"
+msgstr ""
+
+msgid "Message..."
+msgstr ""
+
 msgid "Midgame Arrivals:"
 msgstr "Wanaoingia Mchezo Ukiwa Unaendelea:"
+
+msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
+msgstr ""
+
+msgid "Move..."
+msgstr ""
+
+msgid "New Game / Redraw"
+msgstr ""
+
+msgid "Next Round"
+msgstr ""
 
 msgid "Next day"
 msgstr "Siku inayofuata"
@@ -410,6 +653,30 @@ msgstr "Hakuna Michezo ya Lupus Inayoendelea Kwa Sasa"
 msgid "No Instagram crop generated yet."
 msgstr "Hakuna picha iliyopunguzwa ya Instagram iliyoundwa bado."
 
+msgid "No clues published yet."
+msgstr ""
+
+msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
+msgstr ""
+
+msgid "No dictionary definition available."
+msgstr ""
+
+msgid "No turns logged."
+msgstr ""
+
+msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
+msgstr ""
+
+msgid "Official Classic 400 Words"
+msgstr ""
+
+msgid "One-word clue..."
+msgstr ""
+
+msgid "Only emojis allowed — text characters were ignored."
+msgstr ""
+
 msgid "Open"
 msgstr "Wazi"
 
@@ -419,8 +686,41 @@ msgstr "Wazi (Ukumbi wa Kusubiri)"
 msgid "Open GM Cockpit"
 msgstr "Fungua Dashibodi ya GM"
 
+msgid "Open Generator"
+msgstr ""
+
+msgid "Open Player Link"
+msgstr ""
+
+msgid "Open slot"
+msgstr ""
+
+msgid "Operative"
+msgstr ""
+
+msgid "Operative Seconds (0=∞)"
+msgstr ""
+
+msgid "Operatives"
+msgstr ""
+
+msgid "Operatives are Guessing"
+msgstr ""
+
+msgid "Operatives are choosing cards for this round."
+msgstr ""
+
+msgid "Operatives are guessing!"
+msgstr ""
+
+msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
+msgstr ""
+
 msgid "Or type your own custom prompt/phrase..."
 msgstr "Au andika kidokezo/kifungu chako cha maneno..."
+
+msgid "Oral Spymaster Mode (Mod Logging)"
+msgstr ""
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Faili halisi ya RAW ya kamera (CR3, ARW, NEF, n.k.)"
@@ -434,6 +734,15 @@ msgstr "Shughuli za nje"
 msgid "Page Not Found — Marco Silva"
 msgstr "Ukurasa Haujapatikana — Marco Silva"
 
+msgid "Participating Host Controls (Zero-Spoiler)"
+msgstr ""
+
+msgid "Pass / Wrong"
+msgstr ""
+
+msgid "Pass Turn (Mod)"
+msgstr ""
+
 msgid "Password"
 msgstr "Nenosiri"
 
@@ -443,23 +752,59 @@ msgstr "Imelindwa kwa Nenosiri"
 msgid "Past & Finished Games"
 msgstr "Michezo Iliyopita na Iliyomalizika"
 
+msgid "Pause"
+msgstr ""
+
+msgid "Pause Timer"
+msgstr ""
+
 msgid "Pending"
 msgstr "Inasubiri"
+
+msgid "Personal Player QR"
+msgstr ""
+
+msgid "Personal QR"
+msgstr ""
 
 msgid "Photography"
 msgstr "Upigaji picha"
 
+msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
+msgstr ""
+
 msgid "Pick the name others at the table know you by."
 msgstr "Chagua jina ambalo wengine mezani wanakufahamu kwalo."
 
+msgid "Pick your game, language, and room settings — share the link or QR code when ready."
+msgstr ""
+
 msgid "Player Profile & Personal QR"
 msgstr "Wasifu wa Mchezaji na QR Binafsi"
+
+msgid "Player QR"
+msgstr ""
+
+msgid "Player Reconnect QR"
+msgstr ""
+
+msgid "Player name..."
+msgstr ""
+
+msgid "Players & Scores"
+msgstr ""
 
 msgid "Please enter a player name."
 msgstr "Tafadhali weka jina la mchezaji."
 
 msgid "Please enter a valid room code."
 msgstr "Tafadhali weka msimbo halali wa chumba."
+
+msgid "Poison Word (Impostor / Drunk)"
+msgstr ""
+
+msgid "Poison Word Mode"
+msgstr ""
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "Mreno · Helsinki, Ufini"
@@ -485,8 +830,14 @@ msgstr "Ngao ya faragha huweka kadi zikiwa zimefichwa dhidi ya macho ya wadadisi
 msgid "Processing"
 msgstr "Inachakata"
 
+msgid "Prompt Tool"
+msgstr ""
+
 msgid "Public"
 msgstr "Hadharani"
+
+msgid "Publish Clue"
+msgstr ""
 
 msgid "RAW available for purchase"
 msgstr "RAW inapatikana kwa kununuliwa"
@@ -503,6 +854,21 @@ msgstr "Kusoma"
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
 msgstr "Michezo ya sherehe ya wachezaji wengi ya wakati halisi kwenye kivinjari. Hakuna akaunti inayohitajika — ingia tu na ucheze na marafiki."
 
+msgid "Red"
+msgstr "Ekundu"
+
+msgid "Red Left"
+msgstr ""
+
+msgid "Red Team"
+msgstr ""
+
+msgid "Red Team Wins!"
+msgstr ""
+
+msgid "Redraw Board"
+msgstr ""
+
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "Tengeneza upya vipimo vya Instagram vya 4:5 kwa picha zilizochaguliwa"
 
@@ -512,14 +878,29 @@ msgstr "Cheza tena"
 msgid "Reroll"
 msgstr "Chagua Tena"
 
+msgid "Resume"
+msgstr ""
+
 msgid "Return as %(name)s"
 msgstr "Rudi kama %(name)s"
+
+msgid "Reveal"
+msgstr "Fichua"
 
 msgid "Reveal Roles on Death:"
 msgstr "Fichua Majukumu Wakati wa Kifo:"
 
+msgid "Role Hidden"
+msgstr ""
+
+msgid "Roles, phases, and interface are localized in %(lang)s."
+msgstr ""
+
 msgid "Room Chat"
 msgstr "Gumzo la Chumba"
+
+msgid "Room Chat & Events"
+msgstr ""
 
 msgid "Room Code"
 msgstr "Msimbo wa Chumba"
@@ -548,11 +929,20 @@ msgstr "Vyumba"
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Vyumba huundwa papo hapo na hudumu kwa saa 24. Anzisha kipindi kipya cha mchezo na ualike kikundi chako!"
 
+msgid "Rotate Spymasters each new board"
+msgstr ""
+
 msgid "Round"
 msgstr "Raundi"
 
+msgid "Round Clues"
+msgstr ""
+
 msgid "Round-by-Round Replay & Attempt Log"
 msgstr "Marudio ya Raundi kwa Raundi na Kumbukumbu ya Majaribio"
+
+msgid "Rounds (Clue Cycles)"
+msgstr ""
 
 msgid "Running"
 msgstr "Inaendelea"
@@ -560,14 +950,26 @@ msgstr "Inaendelea"
 msgid "Save Name"
 msgstr "Hifadhi Jina"
 
+msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
+msgstr ""
+
 msgid "Scan this QR code with any phone camera to join immediately:"
 msgstr "Changanua msimbo huu wa QR kwa kamera ya simu yoyote ili ujiunge mara moja:"
+
+msgid "Scan this personal QR code to switch devices without losing your secret card:"
+msgstr ""
 
 msgid "Scan this to move your session and score to another phone or browser:"
 msgstr "Changanua hii ili kuhamishia kipindi na alama zako kwenye simu au kivinjari kingine:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr "Tafuta emoji kwa jina (mfano: moto, taji, moyo)..."
+
+msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
+msgstr ""
+
+msgid "Send"
+msgstr "Tuma"
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "Tuma kifurushi cha picha mfuatano za Instagram kwenye Telegram"
@@ -576,7 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "Hitilafu ya Seva — Marco Silva"
 
 msgid "Set"
-msgstr "Set"
+msgstr ""
+
+msgid "Setting up teams..."
+msgstr ""
+
+msgid "Show Role & Word"
+msgstr ""
+
+msgid "Show Spymaster Keycard"
+msgstr ""
 
 msgid "Silent Phase"
 msgstr "Awamu ya Kimya"
@@ -584,29 +995,83 @@ msgstr "Awamu ya Kimya"
 msgid "Skills"
 msgstr "Ujuzi"
 
+msgid "Skip Turn"
+msgstr ""
+
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "Wachezaji waliouawa huingia Limbo mara moja badala ya kufa moja kwa moja. Wakikisia Malaika ni nani, wanafufuliwa!"
+
+msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
+msgstr ""
 
 msgid "Spanish"
 msgstr "Kihispania"
 
+msgid "Speaker (oral clue):"
+msgstr ""
+
 msgid "Speaking"
 msgstr "Uzungumzaji"
+
+msgid "Spectator"
+msgstr ""
+
+msgid "Spectator / Non-Player"
+msgstr ""
 
 msgid "Spectator Mode (Skip my turns)"
 msgstr "Hali ya Mtazamaji (Ruka zamu zangu)"
 
+msgid "Spymaster"
+msgstr ""
+
+msgid "Spymaster Seconds (0=∞)"
+msgstr ""
+
+msgid "Spymaster is thinking of a clue..."
+msgstr ""
+
 msgid "Staggering Doctor:"
 msgstr "Daktari Asiyerudia:"
 
+msgid "Standard Timed (90s / 90s)"
+msgstr ""
+
+msgid "Start Codenames"
+msgstr ""
+
+msgid "Start Match"
+msgstr ""
+
+msgid "Start Voting Early"
+msgstr ""
+
 msgid "Starting Role Deck Preset"
 msgstr "Mpangilio wa Awali wa Kadi za Majukumu"
+
+msgid "Steal Guess"
+msgstr ""
+
+msgid "Steal Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Steal Win!"
+msgstr ""
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Hatua za usiku za hatua kwa hatua, miito ya udanganyifu, na kidhibiti cha upigaji kura."
 
 msgid "Submit"
 msgstr "Wasilisha"
+
+msgid "Submit Clue"
+msgstr ""
+
+msgid "Submit Player Vote"
+msgstr ""
+
+msgid "Table Discussion & Event Log"
+msgstr ""
 
 msgid "Table-First Lupus Highlights"
 msgstr "Vivutio vya Lupus vya Mezani"
@@ -620,8 +1085,20 @@ msgstr "Mchezo mseto wa karamu wa mezani. Hakuna akaunti wala kuingia kunakohita
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "Mchezo wa karamu wa mezani wenye majukumu ya siri, upigaji kura wa moja kwa moja, Gazeti la Mji, na chumba cha udhibiti cha GM."
 
+msgid "Tally Votes Now"
+msgstr ""
+
+msgid "Tap cards on the board as players make their guesses out loud."
+msgstr ""
+
+msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
+msgstr ""
+
 msgid "Tap emojis below..."
 msgstr "Gusa emoji hapa chini..."
+
+msgid "Targets"
+msgstr ""
 
 msgid "Techy"
 msgstr "Kiteknolojia"
@@ -638,11 +1115,20 @@ msgstr "Masharti ya Huduma - Boti ya Telegram ya Homelab - Marco Silva"
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "Daktari / Mlinzi hawezi kumlinda mtu yuleyule kwa usiku mbili mfululizo."
 
+msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
+msgstr ""
+
 msgid "Theme & Terms"
 msgstr "Mandhari na Istilahi"
 
+msgid "Time Limit Preset"
+msgstr ""
+
 msgid "Toggle"
 msgstr "Badilisha"
+
+msgid "Toggle Spectator Mode"
+msgstr ""
 
 msgid "Town Gazette:"
 msgstr "Gazeti la Mji:"
@@ -650,17 +1136,50 @@ msgstr "Gazeti la Mji:"
 msgid "Town Voting"
 msgstr "Upigaji Kura wa Mji"
 
+msgid "Turn Sequence"
+msgstr ""
+
+msgid "Turn Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Turn Timers"
+msgstr ""
+
 msgid "Type a message or guess..."
 msgstr "Andika ujumbe au ubashiri..."
+
+msgid "Type clue or what was said orally..."
+msgstr ""
 
 msgid "Type your guess (or use the chat box)..."
 msgstr "Andika ubashiri wako (au tumia kisanduku cha gumzo)..."
 
+msgid "UI Only"
+msgstr ""
+
+msgid "Unable to load player QR code."
+msgstr ""
+
+msgid "Unassigned"
+msgstr ""
+
+msgid "Unlimited"
+msgstr ""
+
 msgid "Unlock Room"
 msgstr "Fungua Chumba"
 
+msgid "Untimed"
+msgstr ""
+
+msgid "Untimed (Relaxed Couch Mode)"
+msgstr ""
+
 msgid "Use Prompt"
 msgstr "Tumia Kidokezo"
+
+msgid "Use your emoji keyboard or tap emojis below..."
+msgstr ""
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Kituo cha umakini cha wima: 0=juu, 50=katikati, 100=chini."
@@ -668,14 +1187,44 @@ msgstr "Kituo cha umakini cha wima: 0=juu, 50=katikati, 100=chini."
 msgid "Villagers, Wolves, Seer"
 msgstr "Wanakijiji, Mbwa Mwitu, Mwonaji"
 
+msgid "Vote Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Vote for player:"
+msgstr ""
+
 msgid "Voting"
 msgstr "Upigaji Kura"
+
+msgid "Waiting for Clue..."
+msgstr "Inasubiri kidokezo..."
+
+msgid "Waiting for Host to configure teams and start the board..."
+msgstr ""
+
+msgid "Waiting in Lobby..."
+msgstr ""
 
 msgid "Werewolf / Lupus"
 msgstr "Mbwa Mwitu / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
 msgstr "Ikiwa viwianishi vya umakini vilikokotolewa kiotomatiki kupitia utambuzi wa kingo."
+
+msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
+msgstr ""
+
+msgid "Wins"
+msgstr ""
+
+msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
+msgstr ""
+
+msgid "Word Impostor"
+msgstr ""
+
+msgid "Word Pack"
+msgstr ""
 
 msgid "Work Experience"
 msgstr "Uzoefu wa Kazi"
@@ -689,32 +1238,53 @@ msgstr "Unahitaji ufunguo ulioidhinishwa ili kufikia ukurasa huu."
 msgid "Your Name / Nickname"
 msgstr "Jina Lako / Jina la Utani"
 
+msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
+msgstr ""
+
 msgid "Your Personal Reconnect QR"
 msgstr "QR Yako Binafsi ya Kuunganisha Tena"
 
 msgid "Your Secret Phrase"
 msgstr "Kifungu Chako cha Siri"
 
+msgid "Your Spymaster"
+msgstr ""
+
+msgid "Your Turn to Guess!"
+msgstr ""
+
+msgid "Your Turn, Spymaster!"
+msgstr ""
+
+msgid "actions"
+msgstr ""
+
 msgid "adjective"
 msgstr "kivumishi"
 
 msgid "ago"
-msgstr "ago"
+msgstr ""
 
 msgid "alive"
 msgstr "hai"
 
 msgid "all"
-msgstr "all"
+msgstr ""
 
 msgid "all categories"
-msgstr "all categories"
+msgstr ""
 
 msgid "all day"
 msgstr "siku nzima"
 
+msgid "and publish their clue below."
+msgstr ""
+
+msgid "animals"
+msgstr ""
+
 msgid "any"
-msgstr "any"
+msgstr ""
 
 msgid "aperture"
 msgstr "kipenyo cha lenzi"
@@ -729,7 +1299,7 @@ msgid "best guess"
 msgstr "ubashiri bora"
 
 msgid "blog"
-msgstr "Blogu"
+msgstr "blog"
 
 msgid "camera make"
 msgstr "mtengenezaji wa kamera"
@@ -738,7 +1308,7 @@ msgid "camera model"
 msgstr "muundo wa kamera"
 
 msgid "category:"
-msgstr "category:"
+msgstr ""
 
 msgid "chat:"
 msgstr "chat:"
@@ -762,7 +1332,7 @@ msgid "crop focus Y (%)"
 msgstr "umakini wa kupunguza Y (%)"
 
 msgid "cv"
-msgstr "Wasifu"
+msgstr "cv"
 
 msgid "date"
 msgstr "tarehe"
@@ -792,7 +1362,7 @@ msgid "emoji time:"
 msgstr "muda wa emoji:"
 
 msgid "end"
-msgstr "end"
+msgstr "mwisho"
 
 msgid "enter password to view the calendar."
 msgstr "weka nenosiri ili kuona kalenda."
@@ -802,6 +1372,9 @@ msgstr "chomoa tukio"
 
 msgid "focal length"
 msgstr "urefu wa fokasi"
+
+msgid "food & drink"
+msgstr ""
 
 msgid "gallery"
 msgstr "matunzio"
@@ -814,6 +1387,9 @@ msgstr "viendelezi vya matunzio"
 
 msgid "gallery not found."
 msgstr "matunzio hayajapatikana."
+
+msgid "game"
+msgstr "mchezo"
 
 msgid "games"
 msgstr "Michezo"
@@ -835,6 +1411,15 @@ msgstr "Mwanzo"
 
 msgid "ics maker"
 msgstr "kitengeneza ics"
+
+msgid "is Guessing"
+msgstr ""
+
+msgid "is formulating a clue for their team."
+msgstr ""
+
+msgid "is formulating a clue. Stand by!"
+msgstr ""
 
 msgid "join"
 msgstr "jiunge"
@@ -873,7 +1458,7 @@ msgid "mode:"
 msgstr "hali:"
 
 msgid "movies"
-msgstr "movies"
+msgstr ""
 
 msgid "new word"
 msgstr "neno jipya"
@@ -911,6 +1496,9 @@ msgstr "bandika maelezo ya tukio hapa..."
 msgid "paste text or a url with event details, and get an .ics file."
 msgstr "bandika maandishi au url yenye maelezo ya tukio, upate faili la .ics."
 
+msgid "people & characters"
+msgstr ""
+
 msgid "photo"
 msgstr "picha"
 
@@ -933,13 +1521,16 @@ msgid "photos (select multiple)"
 msgstr "picha (chagua nyingi)"
 
 msgid "phrases"
-msgstr "phrases"
+msgstr ""
 
 msgid "pick your options, hit the button, draw!"
 msgstr "chagua chaguo zako, bonyeza kitufe, chora!"
 
 msgid "pictionary"
 msgstr "pictionary"
+
+msgid "places & travel"
+msgstr ""
 
 msgid "planz"
 msgstr "planz"
@@ -971,6 +1562,9 @@ msgstr "kubadilisha neno:"
 msgid "reveal"
 msgstr "fichua"
 
+msgid "room language"
+msgstr ""
+
 msgid "room password"
 msgstr "nenosiri la chumba"
 
@@ -993,7 +1587,7 @@ msgid "skip"
 msgstr "ruka"
 
 msgid "songs"
-msgstr "songs"
+msgstr ""
 
 msgid "start"
 msgstr "anza"
@@ -1005,7 +1599,7 @@ msgid "text"
 msgstr "maandishi"
 
 msgid "things"
-msgstr "things"
+msgstr ""
 
 msgid "title"
 msgstr "kichwa"
@@ -1017,7 +1611,7 @@ msgid "today"
 msgstr "leo"
 
 msgid "tv shows"
-msgstr "tv shows"
+msgstr ""
 
 msgid "type"
 msgstr "aina"
@@ -1053,7 +1647,7 @@ msgid "watermarked image"
 msgstr "picha yenye alama ya maji"
 
 msgid "web"
-msgstr "web"
+msgstr ""
 
 msgid "web-optimized image"
 msgstr "picha iliyoboreshwa kwa wavuti"
@@ -1109,8 +1703,14 @@ msgstr "↓ Pakua PDF"
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 msgstr "⚡ Machafuko na Maalum (Mbwa Mwitu Mkuu, Mnyamazishaji, Mpelelezi, Daktari, Mdunguaji, Meya, Mchawi...)"
 
+msgid "✅ Full Content + UI"
+msgstr ""
+
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
+
+msgid "🌐 UI Only (English Words)"
+msgstr ""
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1136,5 +1736,11 @@ msgstr "💡 Seti ya kadi hujirekebisha kiotomatiki kulingana na idadi ya wachez
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 msgstr "🔍 Kawaida (Mbwa Mwitu + Mpelelezi/Mwonaji + Daktari/Mlinzi + Wanakijiji)"
 
+msgid "🕵️ Word Impostor"
+msgstr "🕵️ Word Impostor"
+
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
 msgstr "🧑 Rahisi / Asili (Hakuna nguvu maalum — Mbwa Mwitu dhidi ya Wanakijiji pekee)"
+
+msgid "🧩 Codenames"
+msgstr "🧩 Codenames"

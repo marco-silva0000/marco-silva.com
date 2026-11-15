@@ -20,6 +20,7 @@ from scripts.translations_tool import (  # noqa: E402
     extract_translatable_strings,
     get_locale_dir,
     parse_po_file,
+    prefill_catalogs_locally,
     write_po_file,
 )
 
@@ -352,7 +353,8 @@ def main():
     print(f"Generating and compiling catalogs for all {len(LANGUAGES)} languages...")
 
     # Load master extracted strings
-    all_strings = sorted(extract_translatable_strings().keys())
+    all_extracted = extract_translatable_strings()
+    all_strings = sorted(all_extracted.keys())
     print(f"Extracted {len(all_strings)} translatable strings from codebase.")
 
     # Also import generate_locales TRANSLATIONS if available
@@ -361,15 +363,10 @@ def main():
     except Exception:
         GL_TRANSLATIONS = {}
 
+    catalogs: dict[str, dict[str, str]] = {}
     for code in LANGUAGES:
-        target_dir = get_locale_dir(code) / "LC_MESSAGES"
-        target_dir.mkdir(parents=True, exist_ok=True)
-        po_path = target_dir / "django.po"
-
-        # Load existing entries if any (preserves all existing human work!)
+        po_path = get_locale_dir(code) / "LC_MESSAGES" / "django.po"
         existing = parse_po_file(po_path)
-
-        # Build catalog
         catalog = {}
         for s in all_strings:
             if code == "en":
@@ -381,8 +378,17 @@ def main():
             elif s in GL_TRANSLATIONS and code in GL_TRANSLATIONS[s]:
                 catalog[s] = GL_TRANSLATIONS[s][code]
             else:
-                # Default to English string so translation functions never return blank
-                catalog[s] = s
+                # Keep .po clean (write_po_file still falls back to English in .mo)
+                catalog[s] = ""
+        catalogs[code] = catalog
+
+    prefill_catalogs_locally(catalogs, all_extracted, cleanup_placeholders=True)
+
+    for code in LANGUAGES:
+        target_dir = get_locale_dir(code) / "LC_MESSAGES"
+        target_dir.mkdir(parents=True, exist_ok=True)
+        po_path = target_dir / "django.po"
+        catalog = catalogs[code]
 
         # Write PO & MO via standard translations_tool compiler
         write_po_file(code, catalog, po_path)

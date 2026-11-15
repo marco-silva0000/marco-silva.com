@@ -382,3 +382,61 @@ class TestRoomLanguageAndImpostorRouting:
         assert "Word Impostor" in html
         assert "Athens Undercover" in html
         assert "Greek" in html or "🇬🇷" in html
+
+    def test_translation_optimizer_prefill_and_compact_batching(self, tmp_path):
+        from scripts.translate_chunks_agy import (
+            DEFAULT_EFFORT,
+            DEFAULT_MODEL,
+            FALLBACK_MODELS,
+            build_multi_lang_prompt,
+            build_translation_prompt,
+            is_untranslated,
+        )
+        from scripts.translations_tool import prefill_catalogs_locally
+
+        assert DEFAULT_MODEL == "gemini-3.8-flash-low"
+        assert DEFAULT_EFFORT == "low"
+        assert not any(
+            bad in model for model in FALLBACK_MODELS for bad in ("claude-", "gpt-oss", "gemini-4-argon-high")
+        )
+
+        items = [
+            {"id": 1, "en": "Create Room", "context": "templates/gamerooms/room_list.html"},
+            {"id": 2, "en": "Join Game", "context": "templates/gamerooms/room_list.html"},
+        ]
+        single_prompt = build_translation_prompt(items, "fr", "French")
+        multi_prompt = build_multi_lang_prompt(items, [("fr", "French"), ("de", "German")])
+        assert "templates/gamerooms/room_list.html" not in single_prompt
+        assert "templates/gamerooms/room_list.html" not in multi_prompt
+        assert '{"1":"Create Room","2":"Join Game"}' in single_prompt
+        assert '{"1":"Create Room","2":"Join Game"}' in multi_prompt
+
+        assert is_untranslated("🧩 Codenames", "🧩 Codenames", "de") is False
+        assert is_untranslated("Lobby", "Lobby", "it", cognates={"it": {"Lobby"}}) is False
+        assert is_untranslated("Lobby", "Lobby", "it", cognates={}) is True
+
+        catalogs = {
+            "fr": {
+                "Lobby": "Salon",
+                "Custom Lobby": "Salon personnalisé",
+                "+ Custom Lobby": "",
+                "+ Create Room": "",
+                "password": "",
+                "🧩 Codenames": "",
+                "⏳ Lobby": "",
+            }
+        }
+        extracted = {msgid: ["templates/gamerooms/room_list.html"] for msgid in catalogs["fr"]}
+        stats = prefill_catalogs_locally(
+            catalogs,
+            extracted,
+            cleanup_placeholders=True,
+            master_csv_path=tmp_path / "missing_master.csv",
+            cognates_path=tmp_path / "cognates.json",
+        )
+        assert isinstance(stats, dict)
+        assert catalogs["fr"]["+ Custom Lobby"] == "+ Salon personnalisé"
+        assert catalogs["fr"]["+ Create Room"].startswith("+ ")
+        assert catalogs["fr"]["password"] != ""
+        assert catalogs["fr"]["🧩 Codenames"] == "🧩 Codenames"
+        assert catalogs["fr"]["⏳ Lobby"] == "⏳ Salon"

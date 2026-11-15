@@ -32,11 +32,14 @@ msgstr "1. پذیرش شرایط"
 msgid "1. Overview"
 msgstr "1. نمای کلی"
 
+msgid "1. Teams & Roles Setup"
+msgstr ""
+
 msgid "10 Minutes"
 msgstr "10 دقیقه"
 
 msgid "1st guess ends round"
-msgstr "1st guess ends round"
+msgstr ""
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — جناح / تیم (اعلام «شهروندان»، «گرگینه‌ها»، «بی‌طرف»)"
@@ -46,6 +49,9 @@ msgstr "2. اطلاعاتی که به آن‌ها دسترسی داریم"
 
 msgid "2. Permitted Use"
 msgstr "2. استفاده مجاز"
+
+msgid "2. Room & Table Settings (Host)"
+msgstr ""
 
 msgid "3 Minutes (Fast)"
 msgstr "3 دقیقه (سریع)"
@@ -104,14 +110,47 @@ msgstr "7 دقیقه (سنجیده)"
 msgid "Access Denied"
 msgstr "دسترسی رد شد"
 
+msgid "Accuse:"
+msgstr ""
+
 msgid "Active"
 msgstr "فعال"
+
+msgid "Active Clue"
+msgstr ""
 
 msgid "Active Lupus Rooms"
 msgstr "اتاق‌های فعال لوپوس"
 
+msgid "Add"
+msgstr ""
+
 msgid "Add Hint"
-msgstr "Add Hint"
+msgstr ""
+
+msgid "Add Oral / Table Player"
+msgstr ""
+
+msgid "Add Oral / Table Player (directly to a team)"
+msgstr ""
+
+msgid "Add Player"
+msgstr ""
+
+msgid "Add Secret Custom Pair"
+msgstr ""
+
+msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
+msgstr ""
+
+msgid "Add oral / table player name..."
+msgstr ""
+
+msgid "Add to Deck"
+msgstr ""
+
+msgid "Agents & Spymasters"
+msgstr ""
 
 msgid "All Active Rooms"
 msgstr "همه اتاق‌های فعال"
@@ -120,25 +159,73 @@ msgid "All Games"
 msgstr "همه بازی‌ها"
 
 msgid "All guesses & hints appear here"
-msgstr "All guesses & hints appear here"
+msgstr ""
+
+msgid "Allow Host to log oral clues and tap cards for players at the table"
+msgstr ""
+
+msgid "Allow Player Custom Pair Deck"
+msgstr ""
 
 msgid "Allow custom words"
-msgstr "Allow custom words"
+msgstr ""
+
+msgid "Allow players to add custom words"
+msgstr ""
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "اعمال مجوز کریتیو کامنز انتساب-غیرتجاری-اشتراک‌یکسان و واترمارک."
 
+msgid "Auto-Balance"
+msgstr ""
+
+msgid "Auto-Balance Teams"
+msgstr ""
+
+msgid "Auto-tally once all players have voted"
+msgstr ""
+
 msgid "Back to Active Lupus Rooms"
 msgstr "بازگشت به اتاق‌های فعال لوپوس"
 
+msgid "Back to Lobby"
+msgstr ""
+
+msgid "Back to Lobby / Play Again"
+msgstr ""
+
 msgid "Backspace"
-msgstr "Backspace"
+msgstr ""
+
+msgid "Blue"
+msgstr "آبی"
+
+msgid "Blue Left"
+msgstr ""
+
+msgid "Blue Team"
+msgstr ""
+
+msgid "Blue Team Wins!"
+msgstr ""
+
+msgid "Board"
+msgstr ""
+
+msgid "Board Complete"
+msgstr ""
+
+msgid "Board Ended"
+msgstr ""
 
 msgid "Browse Active Lupus Rooms"
 msgstr "مشاهده اتاق‌های فعال لوپوس"
 
+msgid "Browse Hub"
+msgstr ""
+
 msgid "Build Your Emoji Clue:"
-msgstr "Build Your Emoji Clue:"
+msgstr ""
 
 msgid "CC BY-NC-SA license"
 msgstr "مجوز CC BY-NC-SA"
@@ -152,17 +239,41 @@ msgstr "CTFs"
 msgid "Calendar navigation"
 msgstr "پیمایش تقویم"
 
+msgid "Category"
+msgstr ""
+
+msgid "Citizen Word (Majority)"
+msgstr ""
+
 msgid "Civilians, Mobsters, Cop"
 msgstr "شهروندان، مافیا، کارآگاه"
+
+msgid "Classic + Extended Party Pack"
+msgstr ""
+
+msgid "Clue Phase"
+msgstr ""
+
+msgid "Clues"
+msgstr ""
+
+msgid "Clues & Taps Log"
+msgstr ""
 
 msgid "Cockpit"
 msgstr "اتاق فرمان"
 
+msgid "Codenames"
+msgstr "Codenames"
+
 msgid "Conferences"
 msgstr "کنفرانس‌ها"
 
+msgid "Content + UI"
+msgstr ""
+
 msgid "Copy"
-msgstr "Copy"
+msgstr ""
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "ایجاد اتاق لوپوس / گرگینه"
@@ -173,8 +284,20 @@ msgstr "ایجاد اولین اتاق لوپوس"
 msgid "Curated"
 msgstr "منتخب"
 
+msgid "Custom Codenames Word"
+msgstr ""
+
+msgid "Custom Deck"
+msgstr ""
+
+msgid "Custom Seconds"
+msgstr ""
+
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "کیبوردهای دوتکه سفارشی (colemak + nvim)"
+
+msgid "Custom word..."
+msgstr ""
 
 msgid "Date of the trip/shoot."
 msgstr "تاریخ سفر/عکاسی."
@@ -185,8 +308,17 @@ msgstr "روز"
 msgid "Day Trip"
 msgstr "سفر یک‌روزه"
 
+msgid "Deal Next Board"
+msgstr ""
+
 msgid "Defense Timer"
 msgstr "تایمر دفاع"
+
+msgid "Definition"
+msgstr ""
+
+msgid "Discuss clues or accuse suspects..."
+msgstr ""
 
 msgid "Discussion"
 msgstr "گفتگو"
@@ -195,7 +327,7 @@ msgid "Discussion Round Timer"
 msgstr "تایمر دور گفتگو"
 
 msgid "Display Name"
-msgstr "Display Name"
+msgstr ""
 
 msgid "Doctor Shields From Sniper:"
 msgstr "محافظت دکتر در برابر تک‌تیرانداز:"
@@ -208,6 +340,21 @@ msgstr "تحصیلات"
 
 msgid "Electronics/embedded (some rust embedded)"
 msgstr "الکترونیک/سیستم‌های نهفته (کمی rust embedded)"
+
+msgid "Enable Last-Chance Impostor Steal"
+msgstr ""
+
+msgid "Enable Lethal Taboo Poison Word"
+msgstr ""
+
+msgid "End Board"
+msgstr ""
+
+msgid "End Guessing Turn"
+msgstr ""
+
+msgid "End Match"
+msgstr ""
 
 msgid "English"
 msgstr "انگلیسی"
@@ -222,7 +369,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "کد اتاق را وارد کنید (مثلاً 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr "Export JSON"
+msgstr ""
 
 msgid "Failed"
 msgstr "ناموفق"
@@ -231,13 +378,25 @@ msgid "Finished"
 msgstr "پایان یافته"
 
 msgid "GM"
-msgstr "گرداننده"
+msgstr "GM"
 
 msgid "GM Cockpit"
 msgstr "کابین گرداننده"
 
 msgid "GM Director Cockpit:"
 msgstr "کابین کارگردانی گرداننده:"
+
+msgid "GM Mode: Locked"
+msgstr ""
+
+msgid "GM Oral Guessing Mode"
+msgstr ""
+
+msgid "GM Oral Mode: ON"
+msgstr ""
+
+msgid "GM Oral Spymaster Mode"
+msgstr ""
 
 msgid "Game Master Display Name"
 msgstr "نام نمایشی گرداننده بازی"
@@ -257,11 +416,32 @@ msgstr "بازی پیدا نشد."
 msgid "Game room does not exist."
 msgstr "اتاق بازی وجود ندارد."
 
+msgid "Game words, clues, and interface are supported in %(lang)s."
+msgstr ""
+
+msgid "Give a One-Word Clue"
+msgstr ""
+
+msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
+msgstr ""
+
+msgid "Guess the Citizen Word to steal the win..."
+msgstr ""
+
+msgid "Guesses left"
+msgstr ""
+
+msgid "Guessing Phase"
+msgstr ""
+
 msgid "Ham radio, UK foundation license"
 msgstr "رادیو آماتوری، گواهینامه پایه بریتانیا"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "یک کد ۸ نویسه‌ای از گرداننده بازی دارید؟ آن را اینجا وارد کنید تا مستقیماً وارد شوید:"
+
+msgid "Hide Keycard Overlay"
+msgstr ""
 
 msgid "Hiking and climbing"
 msgstr "کوه‌پیمایی و کوهنوردی"
@@ -278,8 +458,14 @@ msgstr "اتوماسیون خانگی و هوم‌لب"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "نقطه کانونی افقی: 0=چپ، 50=مرکز، 100=راست."
 
+msgid "Host Controls"
+msgstr ""
+
 msgid "Host Game Settings"
-msgstr "Host Game Settings"
+msgstr ""
+
+msgid "Host Room"
+msgstr ""
 
 msgid "I code, take pics and many other things"
 msgstr "من کد می‌نویسم، عکس می‌گیرم و کارهای بسیار دیگری انجام می‌دهم"
@@ -308,11 +494,17 @@ msgstr "تصویر 4:5 اینستاگرام"
 msgid "Invalid Game Master secret key."
 msgstr "کلید مخفی گرداننده بازی نامعتبر است."
 
+msgid "Invite Players"
+msgstr ""
+
 msgid "Invite Players to Room"
-msgstr "Invite Players to Room"
+msgstr ""
 
 msgid "Invite QR"
-msgstr "Invite QR"
+msgstr ""
+
+msgid "It is not your turn to submit a clue."
+msgstr ""
 
 msgid "Join"
 msgstr "پیوستن"
@@ -323,14 +515,26 @@ msgstr "ورود به بازی"
 msgid "Join Lupus Game"
 msgstr "پیوستن به بازی لوپوس"
 
+msgid "Join Red or Blue Team to begin"
+msgstr ""
+
+msgid "Join as Operative"
+msgstr ""
+
 msgid "Join as Player"
 msgstr "پیوستن به عنوان بازیکن"
+
+msgid "Join as Spymaster"
+msgstr ""
 
 msgid "Join with Room Code"
 msgstr "پیوستن با کد اتاق"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr "کایاک، موج‌سواری، پدل‌بورد (SUP)، ویندسرف"
+msgstr "Kayak, surf, SUP, windsurf"
+
+msgid "LAST-CHANCE IMPOSTOR STEAL!"
+msgstr ""
 
 msgid "Languages"
 msgstr "زبان‌ها"
@@ -347,8 +551,14 @@ msgstr "راه‌اندازی اتاق لوپوس"
 msgid "Leave empty for public join"
 msgstr "برای ورود عمومی خالی بگذارید"
 
+msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
+msgstr ""
+
+msgid "Lethal Taboo Word (Optional instant elimination trap)"
+msgstr ""
+
 msgid "Limbo"
-msgstr "برزخ"
+msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
 msgstr "مکانیک برزخ و فرشته:"
@@ -356,11 +566,14 @@ msgstr "مکانیک برزخ و فرشته:"
 msgid "Limbo Resolution"
 msgstr "تعیین تکلیف برزخ"
 
+msgid "Listen to"
+msgstr ""
+
 msgid "Listening"
 msgstr "شنیداری"
 
 msgid "Live Chat & Guess Stream"
-msgstr "Live Chat & Guess Stream"
+msgstr ""
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "بازیکنان زنده و کشته‌شده شایعات صبحگاهی را ارسال می‌کنند تا در سپیده‌دم با صدای بلند خوانده شود."
@@ -370,6 +583,12 @@ msgstr "لابی"
 
 msgid "Lobby (Waiting for Players)"
 msgstr "لابی (در انتظار بازیکنان)"
+
+msgid "Log Clue for Table Spymaster"
+msgstr ""
+
+msgid "Lupus / Werewolf"
+msgstr ""
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "اتاق‌های فعال و مرکز بازی لوپوس"
@@ -387,16 +606,40 @@ msgid "Lupus in Tabula / Werewolf"
 msgstr "لوپوس این تابولا / گرگینه"
 
 msgid "Mafia"
-msgstr "مافیا"
+msgstr "Mafia"
+
+msgid "Match Complete"
+msgstr ""
 
 msgid "Match Podium & Highlights"
-msgstr "Match Podium & Highlights"
+msgstr ""
 
 msgid "Match Replay & Attempt Timeline"
-msgstr "Match Replay & Attempt Timeline"
+msgstr ""
+
+msgid "Match Replay & Board Archive"
+msgstr ""
+
+msgid "Match Rules"
+msgstr ""
+
+msgid "Message..."
+msgstr ""
 
 msgid "Midgame Arrivals:"
 msgstr "ورود در اواسط بازی:"
+
+msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
+msgstr ""
+
+msgid "Move..."
+msgstr ""
+
+msgid "New Game / Redraw"
+msgstr ""
+
+msgid "Next Round"
+msgstr ""
 
 msgid "Next day"
 msgstr "روز بعد"
@@ -410,6 +653,30 @@ msgstr "در حال حاضر هیچ بازی فعال لوپوسی وجود ند
 msgid "No Instagram crop generated yet."
 msgstr "هنوز برش اینستاگرام ایجاد نشده است."
 
+msgid "No clues published yet."
+msgstr ""
+
+msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
+msgstr ""
+
+msgid "No dictionary definition available."
+msgstr ""
+
+msgid "No turns logged."
+msgstr ""
+
+msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
+msgstr ""
+
+msgid "Official Classic 400 Words"
+msgstr ""
+
+msgid "One-word clue..."
+msgstr ""
+
+msgid "Only emojis allowed — text characters were ignored."
+msgstr ""
+
 msgid "Open"
 msgstr "باز"
 
@@ -419,8 +686,41 @@ msgstr "باز (لابی)"
 msgid "Open GM Cockpit"
 msgstr "باز کردن پنل گرداننده"
 
+msgid "Open Generator"
+msgstr ""
+
+msgid "Open Player Link"
+msgstr ""
+
+msgid "Open slot"
+msgstr ""
+
+msgid "Operative"
+msgstr ""
+
+msgid "Operative Seconds (0=∞)"
+msgstr ""
+
+msgid "Operatives"
+msgstr ""
+
+msgid "Operatives are Guessing"
+msgstr ""
+
+msgid "Operatives are choosing cards for this round."
+msgstr ""
+
+msgid "Operatives are guessing!"
+msgstr ""
+
+msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
+msgstr ""
+
 msgid "Or type your own custom prompt/phrase..."
-msgstr "Or type your own custom prompt/phrase..."
+msgstr ""
+
+msgid "Oral Spymaster Mode (Mod Logging)"
+msgstr ""
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "فایل RAW اصلی دوربین (CR3، ARW، NEF و غیره)"
@@ -434,6 +734,15 @@ msgstr "فضای باز"
 msgid "Page Not Found — Marco Silva"
 msgstr "صفحه یافت نشد — مارکو سیلوا"
 
+msgid "Participating Host Controls (Zero-Spoiler)"
+msgstr ""
+
+msgid "Pass / Wrong"
+msgstr ""
+
+msgid "Pass Turn (Mod)"
+msgstr ""
+
 msgid "Password"
 msgstr "رمز عبور"
 
@@ -443,23 +752,59 @@ msgstr "محافظت‌شده با رمز عبور"
 msgid "Past & Finished Games"
 msgstr "بازی‌های گذشته و پایان‌یافته"
 
+msgid "Pause"
+msgstr ""
+
+msgid "Pause Timer"
+msgstr ""
+
 msgid "Pending"
 msgstr "در انتظار"
+
+msgid "Personal Player QR"
+msgstr ""
+
+msgid "Personal QR"
+msgstr ""
 
 msgid "Photography"
 msgstr "عکاسی"
 
+msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
+msgstr ""
+
 msgid "Pick the name others at the table know you by."
 msgstr "نامی را انتخاب کنید که دیگران دور میز شما را با آن می‌شناسند."
 
+msgid "Pick your game, language, and room settings — share the link or QR code when ready."
+msgstr ""
+
 msgid "Player Profile & Personal QR"
-msgstr "Player Profile & Personal QR"
+msgstr ""
+
+msgid "Player QR"
+msgstr ""
+
+msgid "Player Reconnect QR"
+msgstr ""
+
+msgid "Player name..."
+msgstr ""
+
+msgid "Players & Scores"
+msgstr ""
 
 msgid "Please enter a player name."
 msgstr "لطفاً نام بازیکن را وارد کنید."
 
 msgid "Please enter a valid room code."
 msgstr "لطفاً یک کد اتاق معتبر وارد کنید."
+
+msgid "Poison Word (Impostor / Drunk)"
+msgstr ""
+
+msgid "Poison Word Mode"
+msgstr ""
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "پرتغالی · هلسینکی، فنلاند"
@@ -485,8 +830,14 @@ msgstr "سپر حریم خصوصی کارت‌ها را از چشمان کنجک
 msgid "Processing"
 msgstr "در حال پردازش"
 
+msgid "Prompt Tool"
+msgstr ""
+
 msgid "Public"
 msgstr "عمومی"
+
+msgid "Publish Clue"
+msgstr ""
 
 msgid "RAW available for purchase"
 msgstr "فایل RAW آماده برای خرید"
@@ -503,6 +854,21 @@ msgstr "خواندن"
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
 msgstr "بازی‌های مهمانی چندنفره آنلاین در مرورگر. بدون نیاز به حساب کاربری — فقط وارد شوید و با دوستان بازی کنید."
 
+msgid "Red"
+msgstr "قرمز"
+
+msgid "Red Left"
+msgstr ""
+
+msgid "Red Team"
+msgstr ""
+
+msgid "Red Team Wins!"
+msgstr ""
+
+msgid "Redraw Board"
+msgstr ""
+
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "تولید مجدد برش‌های 4:5 اینستاگرام برای عکس‌های انتخاب‌شده"
 
@@ -510,19 +876,34 @@ msgid "Replay"
 msgstr "بازپخش"
 
 msgid "Reroll"
-msgstr "Reroll"
+msgstr ""
+
+msgid "Resume"
+msgstr ""
 
 msgid "Return as %(name)s"
 msgstr "بازگشت به‌عنوان %(name)s"
 
+msgid "Reveal"
+msgstr "نمایش"
+
 msgid "Reveal Roles on Death:"
 msgstr "افشای نقش‌ها پس از مرگ:"
 
+msgid "Role Hidden"
+msgstr ""
+
+msgid "Roles, phases, and interface are localized in %(lang)s."
+msgstr ""
+
 msgid "Room Chat"
-msgstr "Room Chat"
+msgstr ""
+
+msgid "Room Chat & Events"
+msgstr ""
 
 msgid "Room Code"
-msgstr "Room Code"
+msgstr ""
 
 msgid "Room Code:"
 msgstr "کد اتاق:"
@@ -543,31 +924,52 @@ msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "اتاق با کد «%(code)s» پیدا نشد یا دیگر فعال نیست."
 
 msgid "Rooms"
-msgstr "Rooms"
+msgstr ""
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "اتاق‌ها در لحظه ساخته می‌شوند و تا ۲۴ ساعت فعال می‌مانند. یک بازی جدید شروع کنید و دوستانتان را دعوت کنید!"
 
+msgid "Rotate Spymasters each new board"
+msgstr ""
+
 msgid "Round"
-msgstr "Round"
+msgstr ""
+
+msgid "Round Clues"
+msgstr ""
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr "Round-by-Round Replay & Attempt Log"
+msgstr ""
+
+msgid "Rounds (Clue Cycles)"
+msgstr ""
 
 msgid "Running"
 msgstr "در حال اجرا"
 
 msgid "Save Name"
-msgstr "Save Name"
+msgstr ""
+
+msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
+msgstr ""
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr "Scan this QR code with any phone camera to join immediately:"
+msgstr ""
+
+msgid "Scan this personal QR code to switch devices without losing your secret card:"
+msgstr ""
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr "Scan this to move your session and score to another phone or browser:"
+msgstr ""
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
-msgstr "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr ""
+
+msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
+msgstr ""
+
+msgid "Send"
+msgstr "ارسال"
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "ارسال بسته اسلایدی اینستاگرام به تلگرام"
@@ -576,7 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "خطای سرور — Marco Silva"
 
 msgid "Set"
-msgstr "Set"
+msgstr ""
+
+msgid "Setting up teams..."
+msgstr ""
+
+msgid "Show Role & Word"
+msgstr ""
+
+msgid "Show Spymaster Keycard"
+msgstr ""
 
 msgid "Silent Phase"
 msgstr "مرحله سکوت"
@@ -584,29 +995,83 @@ msgstr "مرحله سکوت"
 msgid "Skills"
 msgstr "مهارت‌ها"
 
+msgid "Skip Turn"
+msgstr ""
+
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "بازیکنان کشته‌شده به‌جای مرگ مستقیم، یک بار وارد برزخ می‌شوند. اگر بتوانند حدس بزنند فرشته چه کسی است، دوباره به زندگی برمی‌گردند!"
+
+msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
+msgstr ""
 
 msgid "Spanish"
 msgstr "اسپانیایی"
 
+msgid "Speaker (oral clue):"
+msgstr ""
+
 msgid "Speaking"
 msgstr "گفتاری"
 
+msgid "Spectator"
+msgstr "تماشاگر"
+
+msgid "Spectator / Non-Player"
+msgstr ""
+
 msgid "Spectator Mode (Skip my turns)"
-msgstr "Spectator Mode (Skip my turns)"
+msgstr ""
+
+msgid "Spymaster"
+msgstr ""
+
+msgid "Spymaster Seconds (0=∞)"
+msgstr ""
+
+msgid "Spymaster is thinking of a clue..."
+msgstr ""
 
 msgid "Staggering Doctor:"
 msgstr "پزشک سرگردان:"
 
+msgid "Standard Timed (90s / 90s)"
+msgstr ""
+
+msgid "Start Codenames"
+msgstr ""
+
+msgid "Start Match"
+msgstr ""
+
+msgid "Start Voting Early"
+msgstr ""
+
 msgid "Starting Role Deck Preset"
 msgstr "چیدمان پیش‌فرض نقش‌های شروع"
+
+msgid "Steal Guess"
+msgstr ""
+
+msgid "Steal Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Steal Win!"
+msgstr ""
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "مراحل گام‌به‌گام شب، نوبت‌های فریب‌کاری و مدیریت رأی‌گیری."
 
 msgid "Submit"
-msgstr "Submit"
+msgstr ""
+
+msgid "Submit Clue"
+msgstr ""
+
+msgid "Submit Player Vote"
+msgstr ""
+
+msgid "Table Discussion & Event Log"
+msgstr ""
 
 msgid "Table-First Lupus Highlights"
 msgstr "ویژگی‌های برجسته لوپوس دورهمی"
@@ -620,8 +1085,20 @@ msgstr "بازی دورهمی ترکیبی با محوریت تعامل حضور
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "بازی دورهمی حضوری با نقش‌های مخفی، رأی‌گیری زنده، روزنامه شهر و پنل کارگردانی گرداننده (GM)."
 
+msgid "Tally Votes Now"
+msgstr ""
+
+msgid "Tap cards on the board as players make their guesses out loud."
+msgstr ""
+
+msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
+msgstr ""
+
 msgid "Tap emojis below..."
-msgstr "Tap emojis below..."
+msgstr ""
+
+msgid "Targets"
+msgstr ""
 
 msgid "Techy"
 msgstr "تکنولوژی"
@@ -638,11 +1115,20 @@ msgstr "شرایط استفاده از خدمات - ربات تلگرام هوم
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "پزشک / محافظ نمی‌تواند دو شب متوالی از یک نفر محافظت کند."
 
+msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
+msgstr ""
+
 msgid "Theme & Terms"
 msgstr "تم و اصطلاحات"
 
+msgid "Time Limit Preset"
+msgstr ""
+
 msgid "Toggle"
-msgstr "Toggle"
+msgstr ""
+
+msgid "Toggle Spectator Mode"
+msgstr ""
 
 msgid "Town Gazette:"
 msgstr "روزنامه شهر:"
@@ -650,17 +1136,50 @@ msgstr "روزنامه شهر:"
 msgid "Town Voting"
 msgstr "رأی‌گیری شهر"
 
+msgid "Turn Sequence"
+msgstr ""
+
+msgid "Turn Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Turn Timers"
+msgstr ""
+
 msgid "Type a message or guess..."
-msgstr "Type a message or guess..."
+msgstr ""
+
+msgid "Type clue or what was said orally..."
+msgstr ""
 
 msgid "Type your guess (or use the chat box)..."
-msgstr "Type your guess (or use the chat box)..."
+msgstr ""
+
+msgid "UI Only"
+msgstr ""
+
+msgid "Unable to load player QR code."
+msgstr ""
+
+msgid "Unassigned"
+msgstr ""
+
+msgid "Unlimited"
+msgstr ""
 
 msgid "Unlock Room"
 msgstr "باز کردن قفل اتاق"
 
+msgid "Untimed"
+msgstr ""
+
+msgid "Untimed (Relaxed Couch Mode)"
+msgstr ""
+
 msgid "Use Prompt"
-msgstr "Use Prompt"
+msgstr ""
+
+msgid "Use your emoji keyboard or tap emojis below..."
+msgstr ""
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "نقطه کانونی عمودی: 0=بالا، 50=مرکز، 100=پایین."
@@ -668,14 +1187,44 @@ msgstr "نقطه کانونی عمودی: 0=بالا، 50=مرکز، 100=پای�
 msgid "Villagers, Wolves, Seer"
 msgstr "روستایی‌ها، گرگ‌ها، پیشگو"
 
+msgid "Vote Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Vote for player:"
+msgstr ""
+
 msgid "Voting"
 msgstr "رأی‌گیری"
+
+msgid "Waiting for Clue..."
+msgstr "در انتظار سرنخ..."
+
+msgid "Waiting for Host to configure teams and start the board..."
+msgstr ""
+
+msgid "Waiting in Lobby..."
+msgstr ""
 
 msgid "Werewolf / Lupus"
 msgstr "گرگینه / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
 msgstr "اینکه آیا مختصات فوکوس به‌طور خودکار از طریق برجستگی لبه‌ها محاسبه شده‌اند یا خیر."
+
+msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
+msgstr ""
+
+msgid "Wins"
+msgstr ""
+
+msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
+msgstr ""
+
+msgid "Word Impostor"
+msgstr ""
+
+msgid "Word Pack"
+msgstr ""
 
 msgid "Work Experience"
 msgstr "تجربه کاری"
@@ -689,11 +1238,26 @@ msgstr "برای دسترسی به این صفحه به یک کلید مجاز �
 msgid "Your Name / Nickname"
 msgstr "نام / نام مستعار شما"
 
+msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
+msgstr ""
+
 msgid "Your Personal Reconnect QR"
-msgstr "Your Personal Reconnect QR"
+msgstr ""
 
 msgid "Your Secret Phrase"
-msgstr "Your Secret Phrase"
+msgstr ""
+
+msgid "Your Spymaster"
+msgstr ""
+
+msgid "Your Turn to Guess!"
+msgstr ""
+
+msgid "Your Turn, Spymaster!"
+msgstr ""
+
+msgid "actions"
+msgstr ""
 
 msgid "adjective"
 msgstr "صفت"
@@ -708,10 +1272,16 @@ msgid "all"
 msgstr "همه"
 
 msgid "all categories"
-msgstr "all categories"
+msgstr ""
 
 msgid "all day"
 msgstr "تمام روز"
+
+msgid "and publish their clue below."
+msgstr ""
+
+msgid "animals"
+msgstr ""
 
 msgid "any"
 msgstr "هر کدام"
@@ -729,7 +1299,7 @@ msgid "best guess"
 msgstr "بهترین حدس"
 
 msgid "blog"
-msgstr "وبلاگ"
+msgstr "blog"
 
 msgid "camera make"
 msgstr "سازنده دوربین"
@@ -738,16 +1308,16 @@ msgid "camera model"
 msgstr "مدل دوربین"
 
 msgid "category:"
-msgstr "category:"
+msgstr ""
 
 msgid "chat:"
-msgstr "چت:"
+msgstr "chat:"
 
 msgid "clear"
 msgstr "پاک کردن"
 
 msgid "collective prep + hints"
-msgstr "collective prep + hints"
+msgstr ""
 
 msgid "create"
 msgstr "ایجاد"
@@ -762,7 +1332,7 @@ msgid "crop focus Y (%)"
 msgstr "تمرکز برش Y (%)"
 
 msgid "cv"
-msgstr "رزومه"
+msgstr "cv"
 
 msgid "date"
 msgstr "تاریخ"
@@ -803,6 +1373,9 @@ msgstr "استخراج رویداد"
 msgid "focal length"
 msgstr "فاصله کانونی"
 
+msgid "food & drink"
+msgstr ""
+
 msgid "gallery"
 msgstr "گالری"
 
@@ -815,11 +1388,14 @@ msgstr "افزونه‌های گالری"
 msgid "gallery not found."
 msgstr "گالری یافت نشد."
 
+msgid "game"
+msgstr ""
+
 msgid "games"
 msgstr "بازی‌ها"
 
 msgid "go"
-msgstr "ورود"
+msgstr "go"
 
 msgid "guess"
 msgstr "حدس"
@@ -835,6 +1411,15 @@ msgstr "صفحه اصلی"
 
 msgid "ics maker"
 msgstr "سازنده فایل ics"
+
+msgid "is Guessing"
+msgstr ""
+
+msgid "is formulating a clue for their team."
+msgstr ""
+
+msgid "is formulating a clue. Stand by!"
+msgstr ""
 
 msgid "join"
 msgstr "پیوستن"
@@ -873,7 +1458,7 @@ msgid "mode:"
 msgstr "حالت:"
 
 msgid "movies"
-msgstr "movies"
+msgstr ""
 
 msgid "new word"
 msgstr "کلمه جدید"
@@ -911,6 +1496,9 @@ msgstr "جزئیات رویداد را اینجا جای‌گذاری کنید..
 msgid "paste text or a url with event details, and get an .ics file."
 msgstr "متن یا پیوند حاوی جزئیات رویداد را جای‌گذاری کنید و یک فایل .ics دریافت کنید."
 
+msgid "people & characters"
+msgstr ""
+
 msgid "photo"
 msgstr "عکس"
 
@@ -933,16 +1521,19 @@ msgid "photos (select multiple)"
 msgstr "عکس‌ها (انتخاب چندتایی)"
 
 msgid "phrases"
-msgstr "phrases"
+msgstr ""
 
 msgid "pick your options, hit the button, draw!"
 msgstr "گزینه‌ها را انتخاب کنید، دکمه را بزنید و نقاشی بکشید!"
 
 msgid "pictionary"
-msgstr "پیکشنری"
+msgstr "pictionary"
+
+msgid "places & travel"
+msgstr ""
 
 msgid "planz"
-msgstr "پلانز"
+msgstr "planz"
 
 msgid "play again"
 msgstr "بازی دوباره"
@@ -954,22 +1545,25 @@ msgid "press the button to get a word"
 msgstr "برای دریافت کلمه دکمه را فشار دهید"
 
 msgid "private (hide guesses)"
-msgstr "private (hide guesses)"
+msgstr ""
 
 msgid "processing status"
 msgstr "وضعیت پردازش"
 
 msgid "public (show guesses)"
-msgstr "public (show guesses)"
+msgstr ""
 
 msgid "request"
 msgstr "درخواست"
 
 msgid "rerolls:"
-msgstr "rerolls:"
+msgstr ""
 
 msgid "reveal"
 msgstr "نمایش"
+
+msgid "room language"
+msgstr ""
 
 msgid "room password"
 msgstr "رمز عبور اتاق"
@@ -993,7 +1587,7 @@ msgid "skip"
 msgstr "رد کردن"
 
 msgid "songs"
-msgstr "songs"
+msgstr ""
 
 msgid "start"
 msgstr "شروع"
@@ -1005,7 +1599,7 @@ msgid "text"
 msgstr "متن"
 
 msgid "things"
-msgstr "things"
+msgstr ""
 
 msgid "title"
 msgstr "عنوان"
@@ -1017,7 +1611,7 @@ msgid "today"
 msgstr "امروز"
 
 msgid "tv shows"
-msgstr "tv shows"
+msgstr ""
 
 msgid "type"
 msgstr "نوع"
@@ -1029,7 +1623,7 @@ msgid "upload photos"
 msgstr "بارگذاری عکس‌ها"
 
 msgid "url"
-msgstr "نشانی اینترنتی"
+msgstr "url"
 
 msgid "verb"
 msgstr "فعل"
@@ -1109,8 +1703,14 @@ msgstr "↓ دانلود PDF"
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 msgstr "⚡ آشوب و نقش‌های ویژه (گرگ آلفا، سایلنسر، کارآگاه، پزشک، تک‌تیرانداز، شهردار، جادوگر...)"
 
+msgid "✅ Full Content + UI"
+msgstr ""
+
 msgid "✏️ pictionary"
-msgstr "✏️ پیکشنری"
+msgstr "✏️ pictionary"
+
+msgid "🌐 UI Only (English Words)"
+msgstr ""
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1136,5 +1736,11 @@ msgstr "💡 دستِ کارت‌ها به‌طور خودکار با تعداد
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 msgstr "🔍 استاندارد (گرگ‌ها + کارآگاه/پیشگو + پزشک/محافظ + روستایی‌ها)"
 
+msgid "🕵️ Word Impostor"
+msgstr "🕵️ Word Impostor"
+
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
 msgstr "🧑 ساده / کلاسیک (بدون قدرت‌های ویژه — تقابل خالص گرگ‌ها و روستایی‌ها)"
+
+msgid "🧩 Codenames"
+msgstr "🧩 Codenames"

@@ -32,11 +32,14 @@ msgstr "1. ನಿಯಮಗಳ ಅಂಗೀಕಾರ"
 msgid "1. Overview"
 msgstr "1. ಅವಲೋಕನ"
 
+msgid "1. Teams & Roles Setup"
+msgstr ""
+
 msgid "10 Minutes"
 msgstr "10 ನಿಮಿಷಗಳು"
 
 msgid "1st guess ends round"
-msgstr "1st guess ends round"
+msgstr ""
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — ಬಣ / ತಂಡ (\"ನಗರ\", \"ತೋಳಗಳು\", \"ತಟಸ್ಥ\" ಪ್ರಕಟಿಸುತ್ತದೆ)"
@@ -46,6 +49,9 @@ msgstr "2. ನಾವು ಪ್ರವೇಶಿಸುವ ಮಾಹಿತಿ"
 
 msgid "2. Permitted Use"
 msgstr "2. ಅನುಮತಿಸಲಾದ ಬಳಕೆ"
+
+msgid "2. Room & Table Settings (Host)"
+msgstr ""
 
 msgid "3 Minutes (Fast)"
 msgstr "3 ನಿಮಿಷಗಳು (ವೇಗವಾಗಿ)"
@@ -104,14 +110,47 @@ msgstr "7 ನಿಮಿಷಗಳು (ವಿವರವಾಗಿ)"
 msgid "Access Denied"
 msgstr "ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಗಿದೆ"
 
+msgid "Accuse:"
+msgstr ""
+
 msgid "Active"
 msgstr "ಸಕ್ರಿಯ"
+
+msgid "Active Clue"
+msgstr ""
 
 msgid "Active Lupus Rooms"
 msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳು"
 
+msgid "Add"
+msgstr ""
+
 msgid "Add Hint"
-msgstr "Add Hint"
+msgstr ""
+
+msgid "Add Oral / Table Player"
+msgstr ""
+
+msgid "Add Oral / Table Player (directly to a team)"
+msgstr ""
+
+msgid "Add Player"
+msgstr ""
+
+msgid "Add Secret Custom Pair"
+msgstr ""
+
+msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
+msgstr ""
+
+msgid "Add oral / table player name..."
+msgstr ""
+
+msgid "Add to Deck"
+msgstr ""
+
+msgid "Agents & Spymasters"
+msgstr ""
 
 msgid "All Active Rooms"
 msgstr "ಎಲ್ಲಾ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು"
@@ -120,25 +159,73 @@ msgid "All Games"
 msgstr "ಎಲ್ಲಾ ಆಟಗಳು"
 
 msgid "All guesses & hints appear here"
-msgstr "All guesses & hints appear here"
+msgstr ""
+
+msgid "Allow Host to log oral clues and tap cards for players at the table"
+msgstr ""
+
+msgid "Allow Player Custom Pair Deck"
+msgstr ""
 
 msgid "Allow custom words"
-msgstr "Allow custom words"
+msgstr ""
+
+msgid "Allow players to add custom words"
+msgstr ""
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Creative Commons Attribution-NonCommercial-ShareAlike ಪರವಾನಗಿ ಮತ್ತು ವಾಟರ್‌ಮಾರ್ಕ್ ಅನ್ನು ಅನ್ವಯಿಸಿ."
 
+msgid "Auto-Balance"
+msgstr ""
+
+msgid "Auto-Balance Teams"
+msgstr ""
+
+msgid "Auto-tally once all players have voted"
+msgstr ""
+
 msgid "Back to Active Lupus Rooms"
 msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳಿಗೆ ಹಿಂತಿರುಗಿ"
 
+msgid "Back to Lobby"
+msgstr ""
+
+msgid "Back to Lobby / Play Again"
+msgstr ""
+
 msgid "Backspace"
-msgstr "Backspace"
+msgstr ""
+
+msgid "Blue"
+msgstr "ನೀಲಿ"
+
+msgid "Blue Left"
+msgstr ""
+
+msgid "Blue Team"
+msgstr ""
+
+msgid "Blue Team Wins!"
+msgstr ""
+
+msgid "Board"
+msgstr ""
+
+msgid "Board Complete"
+msgstr ""
+
+msgid "Board Ended"
+msgstr ""
 
 msgid "Browse Active Lupus Rooms"
 msgstr "ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ"
 
+msgid "Browse Hub"
+msgstr ""
+
 msgid "Build Your Emoji Clue:"
-msgstr "Build Your Emoji Clue:"
+msgstr ""
 
 msgid "CC BY-NC-SA license"
 msgstr "CC BY-NC-SA ಪರವಾನಗಿ"
@@ -152,17 +239,41 @@ msgstr "CTFs"
 msgid "Calendar navigation"
 msgstr "ಕ್ಯಾಲೆಂಡರ್ ನ್ಯಾವಿಗೇಷನ್"
 
+msgid "Category"
+msgstr ""
+
+msgid "Citizen Word (Majority)"
+msgstr ""
+
 msgid "Civilians, Mobsters, Cop"
 msgstr "ನಾಗರಿಕರು, ದರೋಡೆಕೋರರು, ಪೊಲೀಸ್"
+
+msgid "Classic + Extended Party Pack"
+msgstr ""
+
+msgid "Clue Phase"
+msgstr ""
+
+msgid "Clues"
+msgstr ""
+
+msgid "Clues & Taps Log"
+msgstr ""
 
 msgid "Cockpit"
 msgstr "ಕಾಕ್‌ಪಿಟ್"
 
+msgid "Codenames"
+msgstr "Codenames"
+
 msgid "Conferences"
 msgstr "ಸಮ್ಮೇಳನಗಳು"
 
+msgid "Content + UI"
+msgstr ""
+
 msgid "Copy"
-msgstr "Copy"
+msgstr ""
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "ಲೂಪಸ್ / ತೋಳಮಾನವ ಕೊಠಡಿ ರಚಿಸಿ"
@@ -173,8 +284,20 @@ msgstr "ಮೊದಲ ಲೂಪಸ್ ಕೊಠಡಿ ರಚಿಸಿ"
 msgid "Curated"
 msgstr "ಆಯ್ದ"
 
+msgid "Custom Codenames Word"
+msgstr ""
+
+msgid "Custom Deck"
+msgstr ""
+
+msgid "Custom Seconds"
+msgstr ""
+
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "ಕಸ್ಟಮ್ ಸ್ಪ್ಲಿಟ್ ಕೀಬೋರ್ಡ್‌ಗಳು (colemak + nvim)"
+
+msgid "Custom word..."
+msgstr ""
 
 msgid "Date of the trip/shoot."
 msgstr "ಪ್ರವಾಸ/ಫೋಟೋಶೂಟ್‌ನ ದಿನಾಂಕ."
@@ -185,8 +308,17 @@ msgstr "ದಿನ"
 msgid "Day Trip"
 msgstr "ದಿನದ ಪ್ರವಾಸ"
 
+msgid "Deal Next Board"
+msgstr ""
+
 msgid "Defense Timer"
 msgstr "ರಕ್ಷಣಾ ಟೈಮರ್"
+
+msgid "Definition"
+msgstr ""
+
+msgid "Discuss clues or accuse suspects..."
+msgstr ""
 
 msgid "Discussion"
 msgstr "ಚರ್ಚೆ"
@@ -195,7 +327,7 @@ msgid "Discussion Round Timer"
 msgstr "ಚರ್ಚಾ ಸುತ್ತಿನ ಟೈಮರ್"
 
 msgid "Display Name"
-msgstr "Display Name"
+msgstr ""
 
 msgid "Doctor Shields From Sniper:"
 msgstr "ವೈದ್ಯ ಸ್ನೈಪರ್‌ನಿಂದ ರಕ್ಷಿಸುತ್ತಾನೆ:"
@@ -208,6 +340,21 @@ msgstr "ಶಿಕ್ಷಣ"
 
 msgid "Electronics/embedded (some rust embedded)"
 msgstr "ಎಲೆಕ್ಟ್ರಾನಿಕ್ಸ್/ಎಂಬೆಡೆಡ್ (ಸ್ವಲ್ಪ Rust ಎಂಬೆಡೆಡ್)"
+
+msgid "Enable Last-Chance Impostor Steal"
+msgstr ""
+
+msgid "Enable Lethal Taboo Poison Word"
+msgstr ""
+
+msgid "End Board"
+msgstr ""
+
+msgid "End Guessing Turn"
+msgstr ""
+
+msgid "End Match"
+msgstr ""
 
 msgid "English"
 msgstr "ಇಂಗ್ಲಿಷ್"
@@ -222,7 +369,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "ಕೊಠಡಿ ಕೋಡ್ ನಮೂದಿಸಿ (ಉದಾ. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr "Export JSON"
+msgstr ""
 
 msgid "Failed"
 msgstr "ವಿಫಲವಾಗಿದೆ"
@@ -231,13 +378,25 @@ msgid "Finished"
 msgstr "ಮುಕ್ತಾಯವಾಗಿದೆ"
 
 msgid "GM"
-msgstr "ಜಿಎಂ"
+msgstr "GM"
 
 msgid "GM Cockpit"
 msgstr "GM ಕಾಕ್‌ಪಿಟ್"
 
 msgid "GM Director Cockpit:"
 msgstr "ಜಿಎಂ ನಿರ್ದೇಶಕರ ಕಾಕ್‌ಪಿಟ್:"
+
+msgid "GM Mode: Locked"
+msgstr ""
+
+msgid "GM Oral Guessing Mode"
+msgstr ""
+
+msgid "GM Oral Mode: ON"
+msgstr ""
+
+msgid "GM Oral Spymaster Mode"
+msgstr ""
 
 msgid "Game Master Display Name"
 msgstr "ಗೇಮ್ ಮಾಸ್ಟರ್ ಪ್ರದರ್ಶನ ಹೆಸರು"
@@ -257,11 +416,32 @@ msgstr "ಆಟ ಕಂಡುಬಂದಿಲ್ಲ."
 msgid "Game room does not exist."
 msgstr "ಆಟದ ಕೊಠಡಿ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ."
 
+msgid "Game words, clues, and interface are supported in %(lang)s."
+msgstr ""
+
+msgid "Give a One-Word Clue"
+msgstr ""
+
+msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
+msgstr ""
+
+msgid "Guess the Citizen Word to steal the win..."
+msgstr ""
+
+msgid "Guesses left"
+msgstr ""
+
+msgid "Guessing Phase"
+msgstr ""
+
 msgid "Ham radio, UK foundation license"
 msgstr "ಹ್ಯಾಮ್ ರೇಡಿಯೊ, ಯುಕೆ ಫೌಂಡೇಶನ್ ಲೈಸೆನ್ಸ್"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "ನಿಮ್ಮ ಗೇಮ್ ಮಾಸ್ಟರ್‌ನಿಂದ 8-ಅಕ್ಷರಗಳ ಕೋಡ್ ಹೊಂದಿದ್ದೀರಾ? ನೇರವಾಗಿ ಪ್ರವೇಶಿಸಲು ಇಲ್ಲಿ ನಮೂದಿಸಿ:"
+
+msgid "Hide Keycard Overlay"
+msgstr ""
 
 msgid "Hiking and climbing"
 msgstr "ಹೈಕಿಂಗ್ ಮತ್ತು ಕ್ಲೈಂಬಿಂಗ್"
@@ -278,8 +458,14 @@ msgstr "ಹೋಮ್ ಆಟೊಮೇಷನ್ ಮತ್ತು ಹೋಮ್‌ಲ
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "ಅಡ್ಡ ಕೇಂದ್ರೀಕೃತ ಬಿಂದು: 0=ಎಡ, 50=ಮಧ್ಯ, 100=ಬಲ."
 
+msgid "Host Controls"
+msgstr ""
+
 msgid "Host Game Settings"
-msgstr "Host Game Settings"
+msgstr ""
+
+msgid "Host Room"
+msgstr ""
 
 msgid "I code, take pics and many other things"
 msgstr "ನಾನು ಕೋಡ್ ಮಾಡುತ್ತೇನೆ, ಫೋಟೋಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತೇನೆ ಮತ್ತು ಇನ್ನಷ್ಟು"
@@ -308,11 +494,17 @@ msgstr "Instagram 4:5 ಚಿತ್ರ"
 msgid "Invalid Game Master secret key."
 msgstr "ಅಮಾನ್ಯ ಗೇಮ್ ಮಾಸ್ಟರ್ ರಹಸ್ಯ ಕೀಲಿ."
 
+msgid "Invite Players"
+msgstr ""
+
 msgid "Invite Players to Room"
-msgstr "Invite Players to Room"
+msgstr ""
 
 msgid "Invite QR"
-msgstr "Invite QR"
+msgstr ""
+
+msgid "It is not your turn to submit a clue."
+msgstr ""
 
 msgid "Join"
 msgstr "ಸೇರಿ"
@@ -323,14 +515,26 @@ msgstr "ಆಟಕ್ಕೆ ಸೇರಿ"
 msgid "Join Lupus Game"
 msgstr "ಲೂಪಸ್ ಆಟಕ್ಕೆ ಸೇರಿ"
 
+msgid "Join Red or Blue Team to begin"
+msgstr ""
+
+msgid "Join as Operative"
+msgstr ""
+
 msgid "Join as Player"
 msgstr "ಆಟಗಾರನಾಗಿ ಸೇರಿ"
+
+msgid "Join as Spymaster"
+msgstr ""
 
 msgid "Join with Room Code"
 msgstr "ಕೊಠಡಿ ಕೋಡ್‌ನೊಂದಿಗೆ ಸೇರಿ"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr "ಕಯಾಕ್, ಸರ್ಫ್, SUP, ವಿಂಡ್‌ಸರ್ಫ್"
+msgstr "Kayak, surf, SUP, windsurf"
+
+msgid "LAST-CHANCE IMPOSTOR STEAL!"
+msgstr ""
 
 msgid "Languages"
 msgstr "ಭಾಷೆಗಳು"
@@ -347,8 +551,14 @@ msgstr "ಲೂಪಸ್ ಕೊಠಡಿಯನ್ನು ಪ್ರಾರಂಭಿ�
 msgid "Leave empty for public join"
 msgstr "ಸಾರ್ವಜನಿಕ ಪ್ರವೇಶಕ್ಕಾಗಿ ಖಾಲಿ ಬಿಡಿ"
 
+msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
+msgstr ""
+
+msgid "Lethal Taboo Word (Optional instant elimination trap)"
+msgstr ""
+
 msgid "Limbo"
-msgstr "ಲಿಂಬೋ"
+msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
 msgstr "ಲಿಂಬೋ ಮತ್ತು ದೇವದೂತ ತಂತ್ರ:"
@@ -356,11 +566,14 @@ msgstr "ಲಿಂಬೋ ಮತ್ತು ದೇವದೂತ ತಂತ್ರ:"
 msgid "Limbo Resolution"
 msgstr "ಲಿಂಬೋ ಪರಿಹಾರ"
 
+msgid "Listen to"
+msgstr ""
+
 msgid "Listening"
 msgstr "ಕೇಳುವುದು"
 
 msgid "Live Chat & Guess Stream"
-msgstr "Live Chat & Guess Stream"
+msgstr ""
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "ಜೀವಂತ ಮತ್ತು ಮೃತ ಆಟಗಾರರು ಮುಂಜಾನೆ ಗಟ್ಟಿಯಾಗಿ ಓದಲಾಗುವ ವದಂತಿಗಳನ್ನು ಕಳುಹಿಸುತ್ತಾರೆ."
@@ -370,6 +583,12 @@ msgstr "ಲಾಬಿ"
 
 msgid "Lobby (Waiting for Players)"
 msgstr "ಲಾಬಿ (ಆಟಗಾರರಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ)"
+
+msgid "Log Clue for Table Spymaster"
+msgstr ""
+
+msgid "Lupus / Werewolf"
+msgstr ""
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "ಲೂಪಸ್ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು ಮತ್ತು ಹಬ್"
@@ -387,16 +606,40 @@ msgid "Lupus in Tabula / Werewolf"
 msgstr "ಲೂಪಸ್ ಇನ್ ತಬುಲಾ / ತೋಳಮಾನವ"
 
 msgid "Mafia"
-msgstr "ಮಾಫಿಯಾ"
+msgstr "Mafia"
+
+msgid "Match Complete"
+msgstr ""
 
 msgid "Match Podium & Highlights"
-msgstr "Match Podium & Highlights"
+msgstr ""
 
 msgid "Match Replay & Attempt Timeline"
-msgstr "Match Replay & Attempt Timeline"
+msgstr ""
+
+msgid "Match Replay & Board Archive"
+msgstr ""
+
+msgid "Match Rules"
+msgstr ""
+
+msgid "Message..."
+msgstr ""
 
 msgid "Midgame Arrivals:"
 msgstr "ಆಟದ ಮಧ್ಯೆ ಬರುವವರು:"
+
+msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
+msgstr ""
+
+msgid "Move..."
+msgstr ""
+
+msgid "New Game / Redraw"
+msgstr ""
+
+msgid "Next Round"
+msgstr ""
 
 msgid "Next day"
 msgstr "ಮುಂದಿನ ದಿನ"
@@ -410,6 +653,30 @@ msgstr "ಪ್ರಸ್ತುತ ಯಾವುದೇ ಸಕ್ರಿಯ ಲೂಪ
 msgid "No Instagram crop generated yet."
 msgstr "ಇನ್ನೂ ಯಾವುದೇ Instagram ಕ್ರಾಪ್ ರಚಿಸಲಾಗಿಲ್ಲ."
 
+msgid "No clues published yet."
+msgstr ""
+
+msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
+msgstr ""
+
+msgid "No dictionary definition available."
+msgstr ""
+
+msgid "No turns logged."
+msgstr ""
+
+msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
+msgstr ""
+
+msgid "Official Classic 400 Words"
+msgstr ""
+
+msgid "One-word clue..."
+msgstr ""
+
+msgid "Only emojis allowed — text characters were ignored."
+msgstr ""
+
 msgid "Open"
 msgstr "ತೆರೆದಿದೆ"
 
@@ -419,8 +686,41 @@ msgstr "ತೆರೆದಿದೆ (ಲಾಬಿ)"
 msgid "Open GM Cockpit"
 msgstr "ಜಿಎಂ ಕಾಕ್‌ಪಿಟ್ ತೆರೆಯಿರಿ"
 
+msgid "Open Generator"
+msgstr ""
+
+msgid "Open Player Link"
+msgstr ""
+
+msgid "Open slot"
+msgstr ""
+
+msgid "Operative"
+msgstr ""
+
+msgid "Operative Seconds (0=∞)"
+msgstr ""
+
+msgid "Operatives"
+msgstr ""
+
+msgid "Operatives are Guessing"
+msgstr ""
+
+msgid "Operatives are choosing cards for this round."
+msgstr ""
+
+msgid "Operatives are guessing!"
+msgstr ""
+
+msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
+msgstr ""
+
 msgid "Or type your own custom prompt/phrase..."
-msgstr "Or type your own custom prompt/phrase..."
+msgstr ""
+
+msgid "Oral Spymaster Mode (Mod Logging)"
+msgstr ""
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "ಮೂಲ ಕ್ಯಾಮೆರಾ RAW ಫೈಲ್ (CR3, ARW, NEF, ಇತ್ಯಾದಿ)"
@@ -434,6 +734,15 @@ msgstr "ಹೊರಾಂಗಣ"
 msgid "Page Not Found — Marco Silva"
 msgstr "ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ — Marco Silva"
 
+msgid "Participating Host Controls (Zero-Spoiler)"
+msgstr ""
+
+msgid "Pass / Wrong"
+msgstr ""
+
+msgid "Pass Turn (Mod)"
+msgstr ""
+
 msgid "Password"
 msgstr "ಪಾಸ್‌ವರ್ಡ್"
 
@@ -443,23 +752,59 @@ msgstr "ಪಾಸ್‌ವರ್ಡ್‌ನಿಂದ ಸಂರಕ್ಷಿಸ�
 msgid "Past & Finished Games"
 msgstr "ಹಿಂದಿನ ಮತ್ತು ಪೂರ್ಣಗೊಂಡ ಆಟಗಳು"
 
+msgid "Pause"
+msgstr ""
+
+msgid "Pause Timer"
+msgstr ""
+
 msgid "Pending"
 msgstr "ಬಾಕಿಯಿದೆ"
+
+msgid "Personal Player QR"
+msgstr ""
+
+msgid "Personal QR"
+msgstr ""
 
 msgid "Photography"
 msgstr "ಛಾಯಾಗ್ರಹಣ"
 
+msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
+msgstr ""
+
 msgid "Pick the name others at the table know you by."
 msgstr "ಮೇಜಿನ ಮೇಲಿರುವ ಇತರರು ನಿಮ್ಮನ್ನು ಗುರುತಿಸುವ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ."
 
+msgid "Pick your game, language, and room settings — share the link or QR code when ready."
+msgstr ""
+
 msgid "Player Profile & Personal QR"
-msgstr "Player Profile & Personal QR"
+msgstr ""
+
+msgid "Player QR"
+msgstr ""
+
+msgid "Player Reconnect QR"
+msgstr ""
+
+msgid "Player name..."
+msgstr ""
+
+msgid "Players & Scores"
+msgstr ""
 
 msgid "Please enter a player name."
 msgstr "ದಯವಿಟ್ಟು ಆಟಗಾರನ ಹೆಸರನ್ನು ನಮೂದಿಸಿ."
 
 msgid "Please enter a valid room code."
 msgstr "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಕೊಠಡಿ ಕೋಡ್ ನಮೂದಿಸಿ."
+
+msgid "Poison Word (Impostor / Drunk)"
+msgstr ""
+
+msgid "Poison Word Mode"
+msgstr ""
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "ಪೋರ್ಚುಗೀಸ್ · ಹೆಲ್ಸಿಂಕಿ, ಫಿನ್ಲ್ಯಾಂಡ್"
@@ -485,8 +830,14 @@ msgstr "ಗೌಪ್ಯತೆ ರಕ್ಷಕವು ಮೇಜಿನ ಮೇಲಿ
 msgid "Processing"
 msgstr "ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ"
 
+msgid "Prompt Tool"
+msgstr ""
+
 msgid "Public"
 msgstr "ಸಾರ್ವಜನಿಕ"
+
+msgid "Publish Clue"
+msgstr ""
 
 msgid "RAW available for purchase"
 msgstr "RAW ಖರೀದಿಗೆ ಲಭ್ಯವಿದೆ"
@@ -503,6 +854,21 @@ msgstr "ಓದುವುದು"
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
 msgstr "ನೈಜ-ಸಮಯದ ಮಲ್ಟಿಪ್ಲೇಯರ್ ಬ್ರೌಸರ್ ಪಾರ್ಟಿ ಆಟಗಳು. ಯಾವುದೇ ಖಾತೆಯ ಅಗತ್ಯವಿಲ್ಲ — ಕೇವಲ ಸೇರಿ ಮತ್ತು ಸ್ನೇಹಿತರೊಂದಿಗೆ ಆಟವಾಡಿ."
 
+msgid "Red"
+msgstr "ಕೆಂಪು"
+
+msgid "Red Left"
+msgstr ""
+
+msgid "Red Team"
+msgstr ""
+
+msgid "Red Team Wins!"
+msgstr ""
+
+msgid "Redraw Board"
+msgstr ""
+
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "ಆಯ್ಕೆಮಾಡಿದ ಫೋಟೋಗಳಿಗಾಗಿ 4:5 Instagram ಕ್ರಾಪ್‌ಗಳನ್ನು ಮರುರಚಿಸಿ"
 
@@ -510,19 +876,34 @@ msgid "Replay"
 msgstr "ಮರುಪಂದ್ಯ"
 
 msgid "Reroll"
-msgstr "Reroll"
+msgstr ""
+
+msgid "Resume"
+msgstr ""
 
 msgid "Return as %(name)s"
 msgstr "%(name)s ಆಗಿ ಹಿಂತಿರುಗಿ"
 
+msgid "Reveal"
+msgstr "ತೋರಿಸಿ"
+
 msgid "Reveal Roles on Death:"
 msgstr "ಮರಣದ ಸಮಯದಲ್ಲಿ ಪಾತ್ರಗಳನ್ನು ಬಹಿರಂಗಪಡಿಸಿ:"
 
+msgid "Role Hidden"
+msgstr ""
+
+msgid "Roles, phases, and interface are localized in %(lang)s."
+msgstr ""
+
 msgid "Room Chat"
-msgstr "Room Chat"
+msgstr ""
+
+msgid "Room Chat & Events"
+msgstr ""
 
 msgid "Room Code"
-msgstr "Room Code"
+msgstr ""
 
 msgid "Room Code:"
 msgstr "ಕೊಠಡಿ ಕೋಡ್:"
@@ -543,31 +924,52 @@ msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "ಕೊಠಡಿ ಕೋಡ್ '%(code)s' ಕಂಡುಬಂದಿಲ್ಲ ಅಥವಾ ಇನ್ನು ಮುಂದೆ ಸಕ್ರಿಯವಾಗಿಲ್ಲ."
 
 msgid "Rooms"
-msgstr "Rooms"
+msgstr ""
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "ಕೊಠಡಿಗಳನ್ನು ಅಗತ್ಯವಿದ್ದಾಗ ರಚಿಸಲಾಗುತ್ತದೆ ಮತ್ತು 24 ಗಂಟೆಗಳ ಕಾಲ ಸಕ್ರಿಯವಾಗಿರುತ್ತವೆ. ಹೊಸ ಆಟದ ಸೆಷನ್ ಪ್ರಾರಂಭಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಗುಂಪನ್ನು ಆಹ್ವಾನಿಸಿ!"
 
+msgid "Rotate Spymasters each new board"
+msgstr ""
+
 msgid "Round"
-msgstr "Round"
+msgstr "ಸುತ್ತು"
+
+msgid "Round Clues"
+msgstr ""
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr "Round-by-Round Replay & Attempt Log"
+msgstr ""
+
+msgid "Rounds (Clue Cycles)"
+msgstr ""
 
 msgid "Running"
 msgstr "ನಡೆಯುತ್ತಿದೆ"
 
 msgid "Save Name"
-msgstr "Save Name"
+msgstr ""
+
+msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
+msgstr ""
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr "Scan this QR code with any phone camera to join immediately:"
+msgstr ""
+
+msgid "Scan this personal QR code to switch devices without losing your secret card:"
+msgstr ""
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr "Scan this to move your session and score to another phone or browser:"
+msgstr ""
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
-msgstr "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr ""
+
+msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
+msgstr ""
+
+msgid "Send"
+msgstr "ಕಳುಹಿಸಿ"
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "Instagram ಕರೋಸಲ್ ಪ್ಯಾಕ್ ಅನ್ನು Telegram ಗೆ ಕಳುಹಿಸಿ"
@@ -576,7 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "ಸರ್ವರ್ ದೋಷ — Marco Silva"
 
 msgid "Set"
-msgstr "Set"
+msgstr ""
+
+msgid "Setting up teams..."
+msgstr ""
+
+msgid "Show Role & Word"
+msgstr ""
+
+msgid "Show Spymaster Keycard"
+msgstr ""
 
 msgid "Silent Phase"
 msgstr "ಶಾಂತ ಹಂತ"
@@ -584,29 +995,83 @@ msgstr "ಶಾಂತ ಹಂತ"
 msgid "Skills"
 msgstr "ಕೌಶಲ್ಯಗಳು"
 
+msgid "Skip Turn"
+msgstr ""
+
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "ಕೊಲ್ಲಲ್ಪಟ್ಟ ಆಟಗಾರರು ನೇರವಾಗಿ ಸಾಯುವ ಬದಲು ಒಮ್ಮೆ ಲಿಂಬೋಗೆ ಪ್ರವೇಶಿಸುತ್ತಾರೆ. ಅವರು ದೇವದೂತ ಯಾರೆಂದು ಊಹಿಸಿದರೆ ಪುನರುತ್ಥಾನಗೊಳ್ಳುತ್ತಾರೆ!"
+
+msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
+msgstr ""
 
 msgid "Spanish"
 msgstr "ಸ್ಪ್ಯಾನಿಷ್"
 
+msgid "Speaker (oral clue):"
+msgstr ""
+
 msgid "Speaking"
 msgstr "ಮಾತನಾಡುವುದು"
 
+msgid "Spectator"
+msgstr "ವೀಕ್ಷಕ"
+
+msgid "Spectator / Non-Player"
+msgstr ""
+
 msgid "Spectator Mode (Skip my turns)"
-msgstr "Spectator Mode (Skip my turns)"
+msgstr ""
+
+msgid "Spymaster"
+msgstr ""
+
+msgid "Spymaster Seconds (0=∞)"
+msgstr ""
+
+msgid "Spymaster is thinking of a clue..."
+msgstr ""
 
 msgid "Staggering Doctor:"
 msgstr "ಬದಲಾಗುವ ವೈದ್ಯ:"
 
+msgid "Standard Timed (90s / 90s)"
+msgstr ""
+
+msgid "Start Codenames"
+msgstr ""
+
+msgid "Start Match"
+msgstr ""
+
+msgid "Start Voting Early"
+msgstr ""
+
 msgid "Starting Role Deck Preset"
 msgstr "ಆರಂಭಿಕ ರೋಲ್ ಡೆಕ್ ಪ್ರಿಸೆಟ್"
+
+msgid "Steal Guess"
+msgstr ""
+
+msgid "Steal Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Steal Win!"
+msgstr ""
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "ಹಂತ-ಹಂತದ ರಾತ್ರಿ ಹಂತಗಳು, ಬ್ಲಫ್ ಕರೆಗಳು ಮತ್ತು ಮತದಾನ ವ್ಯವಸ್ಥಾಪಕ."
 
 msgid "Submit"
-msgstr "Submit"
+msgstr ""
+
+msgid "Submit Clue"
+msgstr ""
+
+msgid "Submit Player Vote"
+msgstr ""
+
+msgid "Table Discussion & Event Log"
+msgstr ""
 
 msgid "Table-First Lupus Highlights"
 msgstr "ಟೇಬಲ್-ಆಧಾರಿತ ಲೂಪಸ್ ಮುಖ್ಯಾಂಶಗಳು"
@@ -620,8 +1085,20 @@ msgstr "ಟೇಬಲ್-ಆಧಾರಿತ ಹೈಬ್ರಿಡ್ ಪಾರ್
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "ರಹಸ್ಯ ಪಾತ್ರಗಳು, ನೇರ ಮತದಾನ, ಟೌನ್ ಗೆಜೆಟ್ ಮತ್ತು ಜಿಎಂ ನಿರ್ದೇಶಕರ ಕಾಕ್‌ಪಿಟ್ ಹೊಂದಿರುವ ಟೇಬಲ್-ಆಧಾರಿತ ಪಾರ್ಟಿ ಆಟ."
 
+msgid "Tally Votes Now"
+msgstr ""
+
+msgid "Tap cards on the board as players make their guesses out loud."
+msgstr ""
+
+msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
+msgstr ""
+
 msgid "Tap emojis below..."
-msgstr "Tap emojis below..."
+msgstr ""
+
+msgid "Targets"
+msgstr ""
 
 msgid "Techy"
 msgstr "ತಂತ್ರಜ್ಞಾನ"
@@ -638,11 +1115,20 @@ msgstr "ಸೇವಾ ನಿಯಮಗಳು - Homelab Telegram Bot - Marco Silva"
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "ವೈದ್ಯ / ಅಂಗರಕ್ಷಕ ಸತತ ಎರಡು ರಾತ್ರಿಗಳಲ್ಲಿ ಒಬ್ಬನೇ ವ್ಯಕ್ತಿಯನ್ನು ರಕ್ಷಿಸುವಂತಿಲ್ಲ."
 
+msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
+msgstr ""
+
 msgid "Theme & Terms"
 msgstr "ಥೀಮ್ ಮತ್ತು ನಿಯಮಗಳು"
 
+msgid "Time Limit Preset"
+msgstr ""
+
 msgid "Toggle"
-msgstr "Toggle"
+msgstr ""
+
+msgid "Toggle Spectator Mode"
+msgstr ""
 
 msgid "Town Gazette:"
 msgstr "ಟೌನ್ ಗೆಜೆಟ್:"
@@ -650,17 +1136,50 @@ msgstr "ಟೌನ್ ಗೆಜೆಟ್:"
 msgid "Town Voting"
 msgstr "ಪಟ್ಟಣ ಮತದಾನ"
 
+msgid "Turn Sequence"
+msgstr ""
+
+msgid "Turn Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Turn Timers"
+msgstr ""
+
 msgid "Type a message or guess..."
-msgstr "Type a message or guess..."
+msgstr ""
+
+msgid "Type clue or what was said orally..."
+msgstr ""
 
 msgid "Type your guess (or use the chat box)..."
-msgstr "Type your guess (or use the chat box)..."
+msgstr ""
+
+msgid "UI Only"
+msgstr ""
+
+msgid "Unable to load player QR code."
+msgstr ""
+
+msgid "Unassigned"
+msgstr ""
+
+msgid "Unlimited"
+msgstr ""
 
 msgid "Unlock Room"
 msgstr "ಕೊಠಡಿಯನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿ"
 
+msgid "Untimed"
+msgstr ""
+
+msgid "Untimed (Relaxed Couch Mode)"
+msgstr ""
+
 msgid "Use Prompt"
-msgstr "Use Prompt"
+msgstr ""
+
+msgid "Use your emoji keyboard or tap emojis below..."
+msgstr ""
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "ಲಂಬ ಫೋಕಸ್ ಬಿಂದು: 0=ಮೇಲೆ, 50=ಮಧ್ಯ, 100=ಕೆಳಗೆ."
@@ -668,14 +1187,44 @@ msgstr "ಲಂಬ ಫೋಕಸ್ ಬಿಂದು: 0=ಮೇಲೆ, 50=ಮಧ್�
 msgid "Villagers, Wolves, Seer"
 msgstr "ಗ್ರಾಮಸ್ಥರು, ತೋಳಗಳು, ದ್ರಷ್ಟಾರ"
 
+msgid "Vote Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Vote for player:"
+msgstr ""
+
 msgid "Voting"
 msgstr "ಮತದಾನ"
+
+msgid "Waiting for Clue..."
+msgstr "ಸುಳಿವಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ..."
+
+msgid "Waiting for Host to configure teams and start the board..."
+msgstr ""
+
+msgid "Waiting in Lobby..."
+msgstr ""
 
 msgid "Werewolf / Lupus"
 msgstr "ತೋಳಮಾನವ / ಲೂಪಸ್"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
 msgstr "ಎಡ್ಜ್ ಸೇಲಿಯನ್ಸಿ ಮೂಲಕ ಫೋಕಸ್ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಲೆಕ್ಕಹಾಕಲಾಗಿದೆಯೇ ಎಂದು."
+
+msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
+msgstr ""
+
+msgid "Wins"
+msgstr ""
+
+msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
+msgstr ""
+
+msgid "Word Impostor"
+msgstr ""
+
+msgid "Word Pack"
+msgstr ""
 
 msgid "Work Experience"
 msgstr "ಕೆಲಸದ ಅನುಭವ"
@@ -689,11 +1238,26 @@ msgstr "ಈ ಪುಟವನ್ನು ಪ್ರವೇಶಿಸಲು ನಿಮಗ
 msgid "Your Name / Nickname"
 msgstr "ನಿಮ್ಮ ಹೆಸರು / ಅಡ್ಡಹೆಸರು"
 
+msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
+msgstr ""
+
 msgid "Your Personal Reconnect QR"
-msgstr "Your Personal Reconnect QR"
+msgstr ""
 
 msgid "Your Secret Phrase"
-msgstr "Your Secret Phrase"
+msgstr ""
+
+msgid "Your Spymaster"
+msgstr ""
+
+msgid "Your Turn to Guess!"
+msgstr ""
+
+msgid "Your Turn, Spymaster!"
+msgstr ""
+
+msgid "actions"
+msgstr ""
 
 msgid "adjective"
 msgstr "ವಿಶೇಷಣ"
@@ -708,10 +1272,16 @@ msgid "all"
 msgstr "ಎಲ್ಲವೂ"
 
 msgid "all categories"
-msgstr "all categories"
+msgstr ""
 
 msgid "all day"
 msgstr "ದಿನವಿಡೀ"
+
+msgid "and publish their clue below."
+msgstr ""
+
+msgid "animals"
+msgstr ""
 
 msgid "any"
 msgstr "ಯಾವುದಾದರೂ"
@@ -729,7 +1299,7 @@ msgid "best guess"
 msgstr "ಅತ್ಯುತ್ತಮ ಊಹೆ"
 
 msgid "blog"
-msgstr "ಬ್ಲಾಗ್"
+msgstr "blog"
 
 msgid "camera make"
 msgstr "ಕ್ಯಾಮೆರಾ ತಯಾರಕರು"
@@ -738,16 +1308,16 @@ msgid "camera model"
 msgstr "ಕ್ಯಾಮೆರಾ ಮಾದರಿ"
 
 msgid "category:"
-msgstr "category:"
+msgstr ""
 
 msgid "chat:"
-msgstr "ಚಾಟ್:"
+msgstr "chat:"
 
 msgid "clear"
 msgstr "ಅಳಿಸಿ"
 
 msgid "collective prep + hints"
-msgstr "collective prep + hints"
+msgstr ""
 
 msgid "create"
 msgstr "ರಚಿಸಿ"
@@ -762,7 +1332,7 @@ msgid "crop focus Y (%)"
 msgstr "ಕ್ರಾಪ್ ಫೋಕಸ್ Y (%)"
 
 msgid "cv"
-msgstr "ಸಿವಿ"
+msgstr "cv"
 
 msgid "date"
 msgstr "ದಿನಾಂಕ"
@@ -803,6 +1373,9 @@ msgstr "ಈವೆಂಟ್ ಹೊರತೆಗೆಯಿರಿ"
 msgid "focal length"
 msgstr "ಫೋಕಲ್ ಲೆಂತ್"
 
+msgid "food & drink"
+msgstr ""
+
 msgid "gallery"
 msgstr "ಗ್ಯಾಲರಿ"
 
@@ -815,11 +1388,14 @@ msgstr "ಗ್ಯಾಲರಿ ವಿಸ್ತರಣೆಗಳು"
 msgid "gallery not found."
 msgstr "ಗ್ಯಾಲರಿ ಕಂಡುಬಂದಿಲ್ಲ."
 
+msgid "game"
+msgstr "ಆಟ"
+
 msgid "games"
 msgstr "ಆಟಗಳು"
 
 msgid "go"
-msgstr "ಹೋಗಿ"
+msgstr "go"
 
 msgid "guess"
 msgstr "ಊಹಿಸಿ"
@@ -835,6 +1411,15 @@ msgstr "ಮುಖಪುಟ"
 
 msgid "ics maker"
 msgstr "ಐಸಿಎಸ್ ಮೇಕರ್"
+
+msgid "is Guessing"
+msgstr ""
+
+msgid "is formulating a clue for their team."
+msgstr ""
+
+msgid "is formulating a clue. Stand by!"
+msgstr ""
 
 msgid "join"
 msgstr "ಸೇರಿ"
@@ -873,7 +1458,7 @@ msgid "mode:"
 msgstr "ಮೋಡ್:"
 
 msgid "movies"
-msgstr "movies"
+msgstr ""
 
 msgid "new word"
 msgstr "ಹೊಸ ಪದ"
@@ -911,6 +1496,9 @@ msgstr "ಈವೆಂಟ್ ವಿವರಗಳನ್ನು ಇಲ್ಲಿ ಅಂ
 msgid "paste text or a url with event details, and get an .ics file."
 msgstr "ಈವೆಂಟ್ ವಿವರಗಳೊಂದಿಗೆ ಪಠ್ಯ ಅಥವಾ url ಅನ್ನು ಅಂಟಿಸಿ ಮತ್ತು .ics ಫೈಲ್ ಪಡೆಯಿರಿ."
 
+msgid "people & characters"
+msgstr ""
+
 msgid "photo"
 msgstr "ಫೋಟೋ"
 
@@ -933,16 +1521,19 @@ msgid "photos (select multiple)"
 msgstr "ಫೋಟೋಗಳು (ಹಲವಾರು ಆಯ್ಕೆಮಾಡಿ)"
 
 msgid "phrases"
-msgstr "phrases"
+msgstr ""
 
 msgid "pick your options, hit the button, draw!"
 msgstr "ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ, ಬಟನ್ ಒತ್ತಿ, ಚಿತ್ರಿಸಿ!"
 
 msgid "pictionary"
-msgstr "ಪಿಕ್ಷನರಿ"
+msgstr "pictionary"
+
+msgid "places & travel"
+msgstr ""
 
 msgid "planz"
-msgstr "ಪ್ಲಾನ್ಜ್"
+msgstr "planz"
 
 msgid "play again"
 msgstr "ಮತ್ತೆ ಆಟವಾಡಿ"
@@ -954,22 +1545,25 @@ msgid "press the button to get a word"
 msgstr "ಪದವನ್ನು ಪಡೆಯಲು ಬಟನ್ ಒತ್ತಿರಿ"
 
 msgid "private (hide guesses)"
-msgstr "private (hide guesses)"
+msgstr ""
 
 msgid "processing status"
 msgstr "ಪ್ರಕ್ರಿಯೆಯ ಸ್ಥಿತಿ"
 
 msgid "public (show guesses)"
-msgstr "public (show guesses)"
+msgstr ""
 
 msgid "request"
 msgstr "ವಿನಂತಿ"
 
 msgid "rerolls:"
-msgstr "rerolls:"
+msgstr ""
 
 msgid "reveal"
 msgstr "ತೋರಿಸಿ"
+
+msgid "room language"
+msgstr ""
 
 msgid "room password"
 msgstr "ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್"
@@ -993,7 +1587,7 @@ msgid "skip"
 msgstr "ಬಿಟ್ಟುಬಿಡಿ"
 
 msgid "songs"
-msgstr "songs"
+msgstr ""
 
 msgid "start"
 msgstr "ಪ್ರಾರಂಭ"
@@ -1005,7 +1599,7 @@ msgid "text"
 msgstr "ಪಠ್ಯ"
 
 msgid "things"
-msgstr "things"
+msgstr ""
 
 msgid "title"
 msgstr "ಶೀರ್ಷಿಕೆ"
@@ -1017,7 +1611,7 @@ msgid "today"
 msgstr "ಇಂದು"
 
 msgid "tv shows"
-msgstr "tv shows"
+msgstr ""
 
 msgid "type"
 msgstr "ವಿಧ"
@@ -1109,14 +1703,20 @@ msgstr "↓ ಪಿಡಿಎಫ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ"
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 msgstr "⚡ ಅವ್ಯವಸ್ಥೆ ಮತ್ತು ವಿಶೇಷತೆಗಳು (ಆಲ್ಫಾ ತೋಳ, ಸೈಲೆನ್ಸರ್, ಪತ್ತೇದಾರಿ, ವೈದ್ಯ, ಸ್ನೈಪರ್, ಮೇಯರ್, ಮಾಟಗಾತಿ...)"
 
+msgid "✅ Full Content + UI"
+msgstr ""
+
 msgid "✏️ pictionary"
-msgstr "✏️ ಪಿಕ್ಶನರಿ"
+msgstr "✏️ pictionary"
+
+msgid "🌐 UI Only (English Words)"
+msgstr ""
 
 msgid "🎨 Emojinary"
-msgstr "🎨 ಇಮೋಜಿ‌ನರಿ"
+msgstr "🎨 Emojinary"
 
 msgid "🐺 Lupus"
-msgstr "🐺 ಲೂಪಸ್"
+msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
 msgstr "🐺 ಲೂಪಸ್ ಹಬ್ ಮತ್ತು ಕೊಠಡಿಗಳು"
@@ -1136,5 +1736,11 @@ msgstr "💡 ಸೇರಿದ ಆಟಗಾರರ ಸಂಖ್ಯೆಗೆ ಡೆ�
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 msgstr "🔍 ಪ್ರಮಾಣಿತ (ತೋಳಗಳು + ಪತ್ತೇದಾರಿ/ದ್ರಷ್ಟಾರ + ವೈದ್ಯ/ಅಂಗರಕ್ಷಕ + ಗ್ರಾಮಸ್ಥರು)"
 
+msgid "🕵️ Word Impostor"
+msgstr "🕵️ Word Impostor"
+
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
 msgstr "🧑 ಸರಳ / ಕ್ಲಾಸಿಕ್ (ಯಾವುದೇ ವಿಶೇಷ ಶಕ್ತಿಗಳಿಲ್ಲ — ಕೇವಲ ತೋಳಗಳು ವಿರುದ್ಧ ಗ್ರಾಮಸ್ಥರು)"
+
+msgid "🧩 Codenames"
+msgstr "🧩 Codenames"

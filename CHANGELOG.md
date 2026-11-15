@@ -4,6 +4,15 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v161] - 2026-11-15
+
+### Changed
+- **Translation Pipeline Credit & Token Optimization (`scripts/translate_chunks_agy.py`, `scripts/translations_tool.py`, `scripts/generate_all_64_locales.py`)**:
+  - Updated `scripts/translate_chunks_agy.py` to default to `gemini-3.8-flash-low` (`--effort low`), prioritizing the short-window rolling quota pool (`gemini-3.8-flash-*`, `gemini-4-hydrogen-*`) and capping fallbacks at `gemini-4-argon-low` (excluding `claude-*`, `gpt-oss-120b-medium`, and `gemini-4-argon-high`).
+  - Stripped verbose template file-path `"context"` bloat from prompts, switched payload serialization to compact JSON, invoked `agy` with `--disable-slash-commands` from `/tmp` without unneeded tool permissions, and added multi-language batching (`--langs-per-call`, default `6`) with `--tier priority` filtering.
+  - Added `scripts/translations_tool.py prefill` and cognate tracking (`locale/.translated_cognates.json`) to deterministically fill invariants, emoji/punctuation variants, and curated Wiktionary/repo dictionary terms before any LLM call, and stopped `scripts/generate_all_64_locales.py` from writing English placeholder strings into `.po` files.
+  - Added unit coverage in `gamerooms/tests.py` verifying model defaults, compact prompt serialization, cognate detection, and local catalog prefill.
+
 ## [v160] - 2026-11-14
 
 ### Added & Changed

@@ -32,6 +32,9 @@ msgstr "1. Şərtlərin Qəbulu"
 msgid "1. Overview"
 msgstr "1. Ümumi Baxış"
 
+msgid "1. Teams & Roles Setup"
+msgstr ""
+
 msgid "10 Minutes"
 msgstr "10 Dəqiqə"
 
@@ -46,6 +49,9 @@ msgstr "2. Əldə Etdiyimiz Məlumatlar"
 
 msgid "2. Permitted Use"
 msgstr "2. İcazə Verilən İstifadə"
+
+msgid "2. Room & Table Settings (Host)"
+msgstr ""
 
 msgid "3 Minutes (Fast)"
 msgstr "3 Dəqiqə (Sürətli)"
@@ -104,14 +110,47 @@ msgstr "7 Dəqiqə (Ətraflı)"
 msgid "Access Denied"
 msgstr "Giriş Qadağandır"
 
+msgid "Accuse:"
+msgstr ""
+
 msgid "Active"
 msgstr "Aktiv"
+
+msgid "Active Clue"
+msgstr ""
 
 msgid "Active Lupus Rooms"
 msgstr "Aktiv Lupus Otaqları"
 
+msgid "Add"
+msgstr ""
+
 msgid "Add Hint"
 msgstr "İpucu Əlavə Et"
+
+msgid "Add Oral / Table Player"
+msgstr ""
+
+msgid "Add Oral / Table Player (directly to a team)"
+msgstr ""
+
+msgid "Add Player"
+msgstr ""
+
+msgid "Add Secret Custom Pair"
+msgstr ""
+
+msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
+msgstr ""
+
+msgid "Add oral / table player name..."
+msgstr ""
+
+msgid "Add to Deck"
+msgstr ""
+
+msgid "Agents & Spymasters"
+msgstr ""
 
 msgid "All Active Rooms"
 msgstr "Bütün Aktiv Otaqlar"
@@ -122,20 +161,68 @@ msgstr "Bütün Oyunlar"
 msgid "All guesses & hints appear here"
 msgstr "Bütün təxminlər və ipucular burada görünür"
 
+msgid "Allow Host to log oral clues and tap cards for players at the table"
+msgstr ""
+
+msgid "Allow Player Custom Pair Deck"
+msgstr ""
+
 msgid "Allow custom words"
 msgstr "Fərdi sözlərə icazə ver"
+
+msgid "Allow players to add custom words"
+msgstr ""
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Creative Commons Attribution-NonCommercial-ShareAlike lisenziyasını və su nişanını tətbiq edin."
 
+msgid "Auto-Balance"
+msgstr ""
+
+msgid "Auto-Balance Teams"
+msgstr ""
+
+msgid "Auto-tally once all players have voted"
+msgstr ""
+
 msgid "Back to Active Lupus Rooms"
 msgstr "Aktiv Lupus Otaqlarına Qayıt"
+
+msgid "Back to Lobby"
+msgstr ""
+
+msgid "Back to Lobby / Play Again"
+msgstr ""
 
 msgid "Backspace"
 msgstr "Sil"
 
+msgid "Blue"
+msgstr "Göy"
+
+msgid "Blue Left"
+msgstr ""
+
+msgid "Blue Team"
+msgstr ""
+
+msgid "Blue Team Wins!"
+msgstr ""
+
+msgid "Board"
+msgstr ""
+
+msgid "Board Complete"
+msgstr ""
+
+msgid "Board Ended"
+msgstr ""
+
 msgid "Browse Active Lupus Rooms"
 msgstr "Aktiv Lupus Otaqlarına Bax"
+
+msgid "Browse Hub"
+msgstr ""
 
 msgid "Build Your Emoji Clue:"
 msgstr "Emoji İpucunu Qur:"
@@ -152,14 +239,38 @@ msgstr "CTFs"
 msgid "Calendar navigation"
 msgstr "Təqvim naviqasiyası"
 
+msgid "Category"
+msgstr ""
+
+msgid "Citizen Word (Majority)"
+msgstr ""
+
 msgid "Civilians, Mobsters, Cop"
 msgstr "Dinc sakinlər, Mafiya, Polis"
+
+msgid "Classic + Extended Party Pack"
+msgstr ""
+
+msgid "Clue Phase"
+msgstr ""
+
+msgid "Clues"
+msgstr ""
+
+msgid "Clues & Taps Log"
+msgstr ""
 
 msgid "Cockpit"
 msgstr "İdarəetmə Paneli"
 
+msgid "Codenames"
+msgstr "Codenames"
+
 msgid "Conferences"
 msgstr "Konfranslar"
+
+msgid "Content + UI"
+msgstr ""
 
 msgid "Copy"
 msgstr "Kopyala"
@@ -173,20 +284,41 @@ msgstr "İlk Lupus Otağını Yarat"
 msgid "Curated"
 msgstr "Seçilmiş"
 
+msgid "Custom Codenames Word"
+msgstr ""
+
+msgid "Custom Deck"
+msgstr ""
+
+msgid "Custom Seconds"
+msgstr ""
+
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "Fərdi bölünmüş klaviaturalar (colemak + nvim)"
+
+msgid "Custom word..."
+msgstr ""
 
 msgid "Date of the trip/shoot."
 msgstr "Səyahət/çəkiliş tarixi."
 
 msgid "Day"
-msgstr "Day"
+msgstr "Gün"
 
 msgid "Day Trip"
 msgstr "Günübirlik səyahət"
 
+msgid "Deal Next Board"
+msgstr ""
+
 msgid "Defense Timer"
 msgstr "Müdafiə Taymeri"
+
+msgid "Definition"
+msgstr ""
+
+msgid "Discuss clues or accuse suspects..."
+msgstr ""
 
 msgid "Discussion"
 msgstr "Müzakirə"
@@ -208,6 +340,21 @@ msgstr "Təhsil"
 
 msgid "Electronics/embedded (some rust embedded)"
 msgstr "Elektronika/quraşdırılmış sistemlər (bir qədər embedded rust)"
+
+msgid "Enable Last-Chance Impostor Steal"
+msgstr ""
+
+msgid "Enable Lethal Taboo Poison Word"
+msgstr ""
+
+msgid "End Board"
+msgstr ""
+
+msgid "End Guessing Turn"
+msgstr ""
+
+msgid "End Match"
+msgstr ""
 
 msgid "English"
 msgstr "İngilis dili"
@@ -239,6 +386,18 @@ msgstr "Oyun Aparıcısı Paneli"
 msgid "GM Director Cockpit:"
 msgstr "Oyun Aparıcısı İdarəetmə Paneli:"
 
+msgid "GM Mode: Locked"
+msgstr ""
+
+msgid "GM Oral Guessing Mode"
+msgstr ""
+
+msgid "GM Oral Mode: ON"
+msgstr ""
+
+msgid "GM Oral Spymaster Mode"
+msgstr ""
+
 msgid "Game Master Display Name"
 msgstr "Oyun Aparıcısının Görüntülənən Adı"
 
@@ -257,11 +416,32 @@ msgstr "Oyun tapılmadı."
 msgid "Game room does not exist."
 msgstr "Oyun otağı mövcud deyil."
 
+msgid "Game words, clues, and interface are supported in %(lang)s."
+msgstr ""
+
+msgid "Give a One-Word Clue"
+msgstr ""
+
+msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
+msgstr ""
+
+msgid "Guess the Citizen Word to steal the win..."
+msgstr ""
+
+msgid "Guesses left"
+msgstr ""
+
+msgid "Guessing Phase"
+msgstr ""
+
 msgid "Ham radio, UK foundation license"
 msgstr "Həvəskar radio, Birləşmiş Krallıq baza lisenziyası"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "Oyun Aparıcınızdan 8 simvollu kodunuz var? Birbaşa qoşulmaq üçün onu bura daxil edin:"
+
+msgid "Hide Keycard Overlay"
+msgstr ""
 
 msgid "Hiking and climbing"
 msgstr "Piyada yürüş və qayayadırmanma"
@@ -278,8 +458,14 @@ msgstr "Ev avtomatlaşdırması və homelab"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Üfüqi fokus nöqtəsi: 0=sol, 50=mərkəz, 100=sağ."
 
+msgid "Host Controls"
+msgstr ""
+
 msgid "Host Game Settings"
 msgstr "Oyun Sahibi Parametrləri"
+
+msgid "Host Room"
+msgstr ""
 
 msgid "I code, take pics and many other things"
 msgstr "Kod yazıram, şəkil çəkirəm və bir çox başqa işlərlə məşğul oluram"
@@ -308,11 +494,17 @@ msgstr "Instagram 4:5 şəkli"
 msgid "Invalid Game Master secret key."
 msgstr "Yanlış Oyun Ustası gizli açarı."
 
+msgid "Invite Players"
+msgstr ""
+
 msgid "Invite Players to Room"
 msgstr "Otağa Oyunçu Dəvət Et"
 
 msgid "Invite QR"
 msgstr "Dəvət QR"
+
+msgid "It is not your turn to submit a clue."
+msgstr ""
 
 msgid "Join"
 msgstr "Qoşul"
@@ -323,14 +515,26 @@ msgstr "Oyuna qoşul"
 msgid "Join Lupus Game"
 msgstr "Lupus oyununa qoşul"
 
+msgid "Join Red or Blue Team to begin"
+msgstr ""
+
+msgid "Join as Operative"
+msgstr ""
+
 msgid "Join as Player"
 msgstr "Oyunçu kimi qoşul"
+
+msgid "Join as Spymaster"
+msgstr ""
 
 msgid "Join with Room Code"
 msgstr "Otaq kodu ilə qoşul"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr "Kayak, sörf, SUP, vindsörfinq"
+msgstr "Kayak, surf, SUP, windsurf"
+
+msgid "LAST-CHANCE IMPOSTOR STEAL!"
+msgstr ""
 
 msgid "Languages"
 msgstr "Dillər"
@@ -347,14 +551,23 @@ msgstr "Lupus otağını başlat"
 msgid "Leave empty for public join"
 msgstr "Açıq giriş üçün boş buraxın"
 
+msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
+msgstr ""
+
+msgid "Lethal Taboo Word (Optional instant elimination trap)"
+msgstr ""
+
 msgid "Limbo"
-msgstr "Əraf"
+msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
 msgstr "Əraf və Mələk mexanikası:"
 
 msgid "Limbo Resolution"
 msgstr "Əraf qərarı"
+
+msgid "Listen to"
+msgstr ""
 
 msgid "Listening"
 msgstr "Dinləmə"
@@ -370,6 +583,12 @@ msgstr "Lobbi"
 
 msgid "Lobby (Waiting for Players)"
 msgstr "Lobbi (Oyunçular gözlənilir)"
+
+msgid "Log Clue for Table Spymaster"
+msgstr ""
+
+msgid "Lupus / Werewolf"
+msgstr ""
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "Lupus Aktiv Otaqlar və Mərkəz"
@@ -387,16 +606,40 @@ msgid "Lupus in Tabula / Werewolf"
 msgstr "Lupus in Tabula / Canavar Adam"
 
 msgid "Mafia"
-msgstr "Mafiya"
+msgstr "Mafia"
+
+msgid "Match Complete"
+msgstr ""
 
 msgid "Match Podium & Highlights"
-msgstr "Match Podium & Highlights"
+msgstr ""
 
 msgid "Match Replay & Attempt Timeline"
 msgstr "Matç Təkrarı və Cəhdlər Tarixçəsi"
 
+msgid "Match Replay & Board Archive"
+msgstr ""
+
+msgid "Match Rules"
+msgstr ""
+
+msgid "Message..."
+msgstr ""
+
 msgid "Midgame Arrivals:"
 msgstr "Oyuna sonradan qoşulanlar:"
+
+msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
+msgstr ""
+
+msgid "Move..."
+msgstr ""
+
+msgid "New Game / Redraw"
+msgstr ""
+
+msgid "Next Round"
+msgstr ""
 
 msgid "Next day"
 msgstr "Növbəti gün"
@@ -410,6 +653,30 @@ msgstr "Hazırda aktiv Lupus oyunu yoxdur"
 msgid "No Instagram crop generated yet."
 msgstr "Hələ Instagram kəsimi yaradılmayıb."
 
+msgid "No clues published yet."
+msgstr ""
+
+msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
+msgstr ""
+
+msgid "No dictionary definition available."
+msgstr ""
+
+msgid "No turns logged."
+msgstr ""
+
+msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
+msgstr ""
+
+msgid "Official Classic 400 Words"
+msgstr ""
+
+msgid "One-word clue..."
+msgstr ""
+
+msgid "Only emojis allowed — text characters were ignored."
+msgstr ""
+
 msgid "Open"
 msgstr "Açıq"
 
@@ -419,8 +686,41 @@ msgstr "Açıq (Lobbi)"
 msgid "Open GM Cockpit"
 msgstr "GM İdarəetmə Panelini Aç"
 
+msgid "Open Generator"
+msgstr ""
+
+msgid "Open Player Link"
+msgstr ""
+
+msgid "Open slot"
+msgstr ""
+
+msgid "Operative"
+msgstr ""
+
+msgid "Operative Seconds (0=∞)"
+msgstr ""
+
+msgid "Operatives"
+msgstr ""
+
+msgid "Operatives are Guessing"
+msgstr ""
+
+msgid "Operatives are choosing cards for this round."
+msgstr ""
+
+msgid "Operatives are guessing!"
+msgstr ""
+
+msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
+msgstr ""
+
 msgid "Or type your own custom prompt/phrase..."
 msgstr "Və ya öz fərdi söz/ifadəni yaz..."
+
+msgid "Oral Spymaster Mode (Mod Logging)"
+msgstr ""
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Orijinal kamera RAW faylı (CR3, ARW, NEF və s.)"
@@ -434,6 +734,15 @@ msgstr "Açıq hava"
 msgid "Page Not Found — Marco Silva"
 msgstr "Səhifə Tapılmadı — Marco Silva"
 
+msgid "Participating Host Controls (Zero-Spoiler)"
+msgstr ""
+
+msgid "Pass / Wrong"
+msgstr ""
+
+msgid "Pass Turn (Mod)"
+msgstr ""
+
 msgid "Password"
 msgstr "Şifrə"
 
@@ -443,23 +752,59 @@ msgstr "Şifrə ilə qorunur"
 msgid "Past & Finished Games"
 msgstr "Keçmiş və bitmiş oyunlar"
 
+msgid "Pause"
+msgstr ""
+
+msgid "Pause Timer"
+msgstr ""
+
 msgid "Pending"
 msgstr "Gözləmədə"
+
+msgid "Personal Player QR"
+msgstr ""
+
+msgid "Personal QR"
+msgstr ""
 
 msgid "Photography"
 msgstr "Fotoqrafiya"
 
+msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
+msgstr ""
+
 msgid "Pick the name others at the table know you by."
 msgstr "Masadakı digər oyunçuların sizi tanıdığı adı seçin."
 
+msgid "Pick your game, language, and room settings — share the link or QR code when ready."
+msgstr ""
+
 msgid "Player Profile & Personal QR"
 msgstr "Oyunçu Profili və Şəxsi QR"
+
+msgid "Player QR"
+msgstr ""
+
+msgid "Player Reconnect QR"
+msgstr ""
+
+msgid "Player name..."
+msgstr ""
+
+msgid "Players & Scores"
+msgstr ""
 
 msgid "Please enter a player name."
 msgstr "Zəhmət olmasa, oyunçu adı daxil edin."
 
 msgid "Please enter a valid room code."
 msgstr "Zəhmət olmasa, düzgün otaq kodu daxil edin."
+
+msgid "Poison Word (Impostor / Drunk)"
+msgstr ""
+
+msgid "Poison Word Mode"
+msgstr ""
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "Portuqal · Helsinki, Finlandiya"
@@ -485,8 +830,14 @@ msgstr "Məxfilik qalxanı kartları masadakı kənar baxışlardan gizli saxlay
 msgid "Processing"
 msgstr "Emal edilir"
 
+msgid "Prompt Tool"
+msgstr ""
+
 msgid "Public"
 msgstr "Açıq"
+
+msgid "Publish Clue"
+msgstr ""
 
 msgid "RAW available for purchase"
 msgstr "RAW faylı satın alına bilər"
@@ -503,6 +854,21 @@ msgstr "Mütaliə"
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
 msgstr "Real vaxt rejimində çoxoyunçulu brauzer məclis oyunları. Hesab tələb olunmur — sadəcə qoşulun və dostlarınızla oynayın."
 
+msgid "Red"
+msgstr "Qırmızı"
+
+msgid "Red Left"
+msgstr ""
+
+msgid "Red Team"
+msgstr ""
+
+msgid "Red Team Wins!"
+msgstr ""
+
+msgid "Redraw Board"
+msgstr ""
+
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "Seçilmiş fotolar üçün 4:5 Instagram kəsimlərini yenidən yarat"
 
@@ -512,14 +878,29 @@ msgstr "Təkrar izlə"
 msgid "Reroll"
 msgstr "Yenilə"
 
+msgid "Resume"
+msgstr ""
+
 msgid "Return as %(name)s"
 msgstr "%(name)s olaraq qayıt"
+
+msgid "Reveal"
+msgstr "Açıqla"
 
 msgid "Reveal Roles on Death:"
 msgstr "Öldükdə rolları açıqla:"
 
+msgid "Role Hidden"
+msgstr ""
+
+msgid "Roles, phases, and interface are localized in %(lang)s."
+msgstr ""
+
 msgid "Room Chat"
 msgstr "Otaq Çatı"
+
+msgid "Room Chat & Events"
+msgstr ""
 
 msgid "Room Code"
 msgstr "Otaq Kodu"
@@ -548,11 +929,20 @@ msgstr "Otaqlar"
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Otaqlar istəyə uyğun yaradılır və 24 saat ərzində aktiv qalır. Yeni oyun sessiyası başladın və qrupunuzu dəvət edin!"
 
+msgid "Rotate Spymasters each new board"
+msgstr ""
+
 msgid "Round"
 msgstr "Raund"
 
+msgid "Round Clues"
+msgstr ""
+
 msgid "Round-by-Round Replay & Attempt Log"
 msgstr "Raund-raund Təkrar və Cəhd Jurnalı"
+
+msgid "Rounds (Clue Cycles)"
+msgstr ""
 
 msgid "Running"
 msgstr "Davam edir"
@@ -560,14 +950,26 @@ msgstr "Davam edir"
 msgid "Save Name"
 msgstr "Adı Yadda Saxla"
 
+msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
+msgstr ""
+
 msgid "Scan this QR code with any phone camera to join immediately:"
 msgstr "Dərhal qoşulmaq üçün bu QR kodu istənilən telefon kamerası ilə oxut:"
+
+msgid "Scan this personal QR code to switch devices without losing your secret card:"
+msgstr ""
 
 msgid "Scan this to move your session and score to another phone or browser:"
 msgstr "Sessiyanı və xalını başqa telefona və ya brauzerə köçürmək üçün bunu oxut:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr "Emojiləri adına görə axtar (məs. fire, crown, heart)..."
+
+msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
+msgstr ""
+
+msgid "Send"
+msgstr "Göndər"
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "Instagram karusel paketini Telegram-a göndər"
@@ -576,7 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "Server xətası — Marco Silva"
 
 msgid "Set"
-msgstr "Set"
+msgstr ""
+
+msgid "Setting up teams..."
+msgstr ""
+
+msgid "Show Role & Word"
+msgstr ""
+
+msgid "Show Spymaster Keycard"
+msgstr ""
 
 msgid "Silent Phase"
 msgstr "Səssiz mərhələ"
@@ -584,29 +995,83 @@ msgstr "Səssiz mərhələ"
 msgid "Skills"
 msgstr "Bacarıqlar"
 
+msgid "Skip Turn"
+msgstr ""
+
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "Öldürülən oyunçular birbaşa ölmək əvəzinə bir dəfə Bərzəxə düşürlər. Mələyin kim olduğunu tapsalar, yenidən dirilirlər!"
+
+msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
+msgstr ""
 
 msgid "Spanish"
 msgstr "İspan dili"
 
+msgid "Speaker (oral clue):"
+msgstr ""
+
 msgid "Speaking"
 msgstr "Çıxışlar"
+
+msgid "Spectator"
+msgstr ""
+
+msgid "Spectator / Non-Player"
+msgstr ""
 
 msgid "Spectator Mode (Skip my turns)"
 msgstr "İzləyici Rejimi (Növbəmi ötür)"
 
+msgid "Spymaster"
+msgstr ""
+
+msgid "Spymaster Seconds (0=∞)"
+msgstr ""
+
+msgid "Spymaster is thinking of a clue..."
+msgstr ""
+
 msgid "Staggering Doctor:"
 msgstr "Növbəli Həkim:"
 
+msgid "Standard Timed (90s / 90s)"
+msgstr ""
+
+msgid "Start Codenames"
+msgstr ""
+
+msgid "Start Match"
+msgstr ""
+
+msgid "Start Voting Early"
+msgstr ""
+
 msgid "Starting Role Deck Preset"
 msgstr "Başlanğıc Rol Dəsti Şablonu"
+
+msgid "Steal Guess"
+msgstr ""
+
+msgid "Steal Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Steal Win!"
+msgstr ""
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Addım-addım gecə mərhələləri, blef çağırışları və səsvermə idarəedici."
 
 msgid "Submit"
 msgstr "Göndər"
+
+msgid "Submit Clue"
+msgstr ""
+
+msgid "Submit Player Vote"
+msgstr ""
+
+msgid "Table Discussion & Event Log"
+msgstr ""
 
 msgid "Table-First Lupus Highlights"
 msgstr "Masaüstü Üstünlüklü Lupus Xüsusiyyətləri"
@@ -620,8 +1085,20 @@ msgstr "Masaüstü üstünlüklü hibrid əyləncə oyunu. Hesab və ya giriş t
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "Gizli rollar, canlı səsvermə, Şəhər Qəzeti və Oyun Aparıcısı idarəetmə paneli olan masaüstü üstünlüklü əyləncə oyunu."
 
+msgid "Tally Votes Now"
+msgstr ""
+
+msgid "Tap cards on the board as players make their guesses out loud."
+msgstr ""
+
+msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
+msgstr ""
+
 msgid "Tap emojis below..."
 msgstr "Aşağıdakı emojilərə toxun..."
+
+msgid "Targets"
+msgstr ""
 
 msgid "Techy"
 msgstr "Texniki"
@@ -638,11 +1115,20 @@ msgstr "Xidmət Şərtləri - Homelab Telegram Botu - Marco Silva"
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "Həkim / Mühafizəçi ardıcıl iki gecə eyni şəxsi qoruya bilməz."
 
+msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
+msgstr ""
+
 msgid "Theme & Terms"
 msgstr "Mövzu və Terminlər"
 
+msgid "Time Limit Preset"
+msgstr ""
+
 msgid "Toggle"
 msgstr "Dəyişdir"
+
+msgid "Toggle Spectator Mode"
+msgstr ""
 
 msgid "Town Gazette:"
 msgstr "Şəhər Qəzeti:"
@@ -650,17 +1136,50 @@ msgstr "Şəhər Qəzeti:"
 msgid "Town Voting"
 msgstr "Şəhər Səsverməsi"
 
+msgid "Turn Sequence"
+msgstr ""
+
+msgid "Turn Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Turn Timers"
+msgstr ""
+
 msgid "Type a message or guess..."
 msgstr "Mesaj və ya təxmin yaz..."
+
+msgid "Type clue or what was said orally..."
+msgstr ""
 
 msgid "Type your guess (or use the chat box)..."
 msgstr "Təxminini yaz (və ya çat qutusundan istifadə et)..."
 
+msgid "UI Only"
+msgstr ""
+
+msgid "Unable to load player QR code."
+msgstr ""
+
+msgid "Unassigned"
+msgstr ""
+
+msgid "Unlimited"
+msgstr ""
+
 msgid "Unlock Room"
 msgstr "Otağın Kilidini Aç"
 
+msgid "Untimed"
+msgstr ""
+
+msgid "Untimed (Relaxed Couch Mode)"
+msgstr ""
+
 msgid "Use Prompt"
 msgstr "İfadəni İstifadə Et"
+
+msgid "Use your emoji keyboard or tap emojis below..."
+msgstr ""
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Şaquli fokus nöqtəsi: 0=yuxarı, 50=mərkəz, 100=aşağı."
@@ -668,14 +1187,44 @@ msgstr "Şaquli fokus nöqtəsi: 0=yuxarı, 50=mərkəz, 100=aşağı."
 msgid "Villagers, Wolves, Seer"
 msgstr "Kəndlilər, Canavarlar, Görücü"
 
+msgid "Vote Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Vote for player:"
+msgstr ""
+
 msgid "Voting"
 msgstr "Səsvermə"
+
+msgid "Waiting for Clue..."
+msgstr "Ipucu gözlənilir..."
+
+msgid "Waiting for Host to configure teams and start the board..."
+msgstr ""
+
+msgid "Waiting in Lobby..."
+msgstr ""
 
 msgid "Werewolf / Lupus"
 msgstr "Canavar Adam / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
 msgstr "Fokus koordinatlarının kənar qabarıqlığı vasitəsilə avtomatik hesablanıb-hesablanmadığı."
+
+msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
+msgstr ""
+
+msgid "Wins"
+msgstr ""
+
+msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
+msgstr ""
+
+msgid "Word Impostor"
+msgstr ""
+
+msgid "Word Pack"
+msgstr ""
 
 msgid "Work Experience"
 msgstr "İş Təcrübəsi"
@@ -689,32 +1238,53 @@ msgstr "Bu səhifəyə daxil olmaq üçün icazəli açara ehtiyacınız var."
 msgid "Your Name / Nickname"
 msgstr "Adınız / Ləqəbiniz"
 
+msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
+msgstr ""
+
 msgid "Your Personal Reconnect QR"
 msgstr "Şəxsi Yenidən Qoşulma QR Kodun"
 
 msgid "Your Secret Phrase"
 msgstr "Gizli İfadən"
 
+msgid "Your Spymaster"
+msgstr ""
+
+msgid "Your Turn to Guess!"
+msgstr ""
+
+msgid "Your Turn, Spymaster!"
+msgstr ""
+
+msgid "actions"
+msgstr ""
+
 msgid "adjective"
 msgstr "sifət"
 
 msgid "ago"
-msgstr "ago"
+msgstr ""
 
 msgid "alive"
 msgstr "sağ"
 
 msgid "all"
-msgstr "all"
+msgstr ""
 
 msgid "all categories"
-msgstr "all categories"
+msgstr ""
 
 msgid "all day"
 msgstr "bütün gün"
 
+msgid "and publish their clue below."
+msgstr ""
+
+msgid "animals"
+msgstr ""
+
 msgid "any"
-msgstr "any"
+msgstr ""
 
 msgid "aperture"
 msgstr "diafraqma"
@@ -729,7 +1299,7 @@ msgid "best guess"
 msgstr "ən yaxşı təxmin"
 
 msgid "blog"
-msgstr "bloq"
+msgstr "blog"
 
 msgid "camera make"
 msgstr "kamera istehsalçısı"
@@ -738,10 +1308,10 @@ msgid "camera model"
 msgstr "kamera modeli"
 
 msgid "category:"
-msgstr "category:"
+msgstr ""
 
 msgid "chat:"
-msgstr "söhbət:"
+msgstr "chat:"
 
 msgid "clear"
 msgstr "təmizlə"
@@ -792,7 +1362,7 @@ msgid "emoji time:"
 msgstr "emoji vaxtı:"
 
 msgid "end"
-msgstr "end"
+msgstr "son"
 
 msgid "enter password to view the calendar."
 msgstr "təqvimə baxmaq üçün şifrəni daxil edin."
@@ -802,6 +1372,9 @@ msgstr "tədbiri çıxar"
 
 msgid "focal length"
 msgstr "fokus məsafəsi"
+
+msgid "food & drink"
+msgstr ""
 
 msgid "gallery"
 msgstr "qalereya"
@@ -814,6 +1387,9 @@ msgstr "qalereya genişlənmələri"
 
 msgid "gallery not found."
 msgstr "qalereya tapılmadı."
+
+msgid "game"
+msgstr "oyun"
 
 msgid "games"
 msgstr "oyunlar"
@@ -835,6 +1411,15 @@ msgstr "ana səhifə"
 
 msgid "ics maker"
 msgstr "ics yaradıcı"
+
+msgid "is Guessing"
+msgstr ""
+
+msgid "is formulating a clue for their team."
+msgstr ""
+
+msgid "is formulating a clue. Stand by!"
+msgstr ""
 
 msgid "join"
 msgstr "qoşul"
@@ -873,7 +1458,7 @@ msgid "mode:"
 msgstr "rejim:"
 
 msgid "movies"
-msgstr "movies"
+msgstr ""
 
 msgid "new word"
 msgstr "yeni söz"
@@ -911,6 +1496,9 @@ msgstr "tədbir təfərrüatlarını bura yapışdırın..."
 msgid "paste text or a url with event details, and get an .ics file."
 msgstr "tədbir təfərrüatları olan mətni və ya url-i yapışdırın və .ics faylı əldə edin."
 
+msgid "people & characters"
+msgstr ""
+
 msgid "photo"
 msgstr "foto"
 
@@ -933,13 +1521,16 @@ msgid "photos (select multiple)"
 msgstr "fotolar (bir neçəsini seçin)"
 
 msgid "phrases"
-msgstr "phrases"
+msgstr ""
 
 msgid "pick your options, hit the button, draw!"
 msgstr "seçimlərinizi edin, düyməyə basın, çəkin!"
 
 msgid "pictionary"
 msgstr "pictionary"
+
+msgid "places & travel"
+msgstr ""
 
 msgid "planz"
 msgstr "planz"
@@ -971,6 +1562,9 @@ msgstr "yeniləmə haqqı:"
 msgid "reveal"
 msgstr "açıqla"
 
+msgid "room language"
+msgstr ""
+
 msgid "room password"
 msgstr "otaq şifrəsi"
 
@@ -993,7 +1587,7 @@ msgid "skip"
 msgstr "keç"
 
 msgid "songs"
-msgstr "songs"
+msgstr ""
 
 msgid "start"
 msgstr "başlanğıc"
@@ -1005,7 +1599,7 @@ msgid "text"
 msgstr "mətn"
 
 msgid "things"
-msgstr "things"
+msgstr ""
 
 msgid "title"
 msgstr "başlıq"
@@ -1017,7 +1611,7 @@ msgid "today"
 msgstr "bu gün"
 
 msgid "tv shows"
-msgstr "tv shows"
+msgstr ""
 
 msgid "type"
 msgstr "növ"
@@ -1053,7 +1647,7 @@ msgid "watermarked image"
 msgstr "su nişanlı şəkil"
 
 msgid "web"
-msgstr "web"
+msgstr ""
 
 msgid "web-optimized image"
 msgstr "veb üçün optimallaşdırılmış şəkil"
@@ -1109,8 +1703,14 @@ msgstr "↓ PDF yüklə"
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 msgstr "⚡ Xaos və Xüsusi Rollar (Alfa Canavar, Susdurucu, Detektiv, Həkim, Snayper, Mer, Cadugər...)"
 
+msgid "✅ Full Content + UI"
+msgstr ""
+
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
+
+msgid "🌐 UI Only (English Words)"
+msgstr ""
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1136,5 +1736,11 @@ msgstr "💡 Dəstə qoşulan oyunçuların sayına uyğun olaraq avtomatik tən
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 msgstr "🔍 Standart (Canavarlar + Detektiv/Görücü + Həkim/Mühafizəçi + Kəndlilər)"
 
+msgid "🕵️ Word Impostor"
+msgstr "🕵️ Word Impostor"
+
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
 msgstr "🧑 Sadə / Klassik (Xüsusi güclər yoxdur — sadəcə Canavarlar Kəndlilərə qarşı)"
+
+msgid "🧩 Codenames"
+msgstr "🧩 Codenames"

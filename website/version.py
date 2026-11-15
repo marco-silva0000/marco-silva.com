@@ -5,7 +5,7 @@ import subprocess
 from pathlib import Path
 
 # Base version counter incremented across homelab deployments
-VERSION_COUNTER = 160
+VERSION_COUNTER = 161
 
 
 def get_git_commit_hash(base_dir: str = None) -> str:

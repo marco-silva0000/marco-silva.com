@@ -1,0 +1,66 @@
+{
+  "ca": [
+    "text"
+  ],
+  "cs": [
+    "text"
+  ],
+  "de": [
+    "text"
+  ],
+  "es": [
+    "original"
+  ],
+  "fr": [
+    "6. Contact",
+    "CODE",
+    "Discussion",
+    "Public",
+    "date",
+    "description",
+    "latitude",
+    "longitude",
+    "mode",
+    "original",
+    "photo",
+    "photos",
+    "type"
+  ],
+  "it": [
+    "Lobby",
+    "Password",
+    "Replay",
+    "Round",
+    "home",
+    "password"
+  ],
+  "nl": [
+    "lens"
+  ],
+  "pl": [
+    "Backspace"
+  ],
+  "pt": [
+    "Lobby",
+    "latitude",
+    "longitude",
+    "original"
+  ],
+  "ro": [
+    "text"
+  ],
+  "sk": [
+    "text"
+  ],
+  "sv": [
+    "Lobby",
+    "original",
+    "start",
+    "text",
+    "verb"
+  ],
+  "tl": [
+    "Password",
+    "password"
+  ]
+}

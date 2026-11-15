@@ -32,6 +32,9 @@ msgstr "1. Acceptance of Terms"
 msgid "1. Overview"
 msgstr "1. Overview"
 
+msgid "1. Teams & Roles Setup"
+msgstr "1. Teams & Roles Setup"
+
 msgid "10 Minutes"
 msgstr "10 Minutes"
 
@@ -46,6 +49,9 @@ msgstr "2. Information We Access"
 
 msgid "2. Permitted Use"
 msgstr "2. Permitted Use"
+
+msgid "2. Room & Table Settings (Host)"
+msgstr "2. Room & Table Settings (Host)"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 Minutes (Fast)"
@@ -104,14 +110,47 @@ msgstr "7 Minutes (Deliberate)"
 msgid "Access Denied"
 msgstr "Access Denied"
 
+msgid "Accuse:"
+msgstr "Accuse:"
+
 msgid "Active"
 msgstr "Active"
+
+msgid "Active Clue"
+msgstr "Active Clue"
 
 msgid "Active Lupus Rooms"
 msgstr "Active Lupus Rooms"
 
+msgid "Add"
+msgstr "Add"
+
 msgid "Add Hint"
 msgstr "Add Hint"
+
+msgid "Add Oral / Table Player"
+msgstr "Add Oral / Table Player"
+
+msgid "Add Oral / Table Player (directly to a team)"
+msgstr "Add Oral / Table Player (directly to a team)"
+
+msgid "Add Player"
+msgstr "Add Player"
+
+msgid "Add Secret Custom Pair"
+msgstr "Add Secret Custom Pair"
+
+msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
+msgstr "Add custom inside-joke words to be mixed into future boards dealt in this room."
+
+msgid "Add oral / table player name..."
+msgstr "Add oral / table player name..."
+
+msgid "Add to Deck"
+msgstr "Add to Deck"
+
+msgid "Agents & Spymasters"
+msgstr "Agents & Spymasters"
 
 msgid "All Active Rooms"
 msgstr "All Active Rooms"
@@ -122,20 +161,68 @@ msgstr "All Games"
 msgid "All guesses & hints appear here"
 msgstr "All guesses & hints appear here"
 
+msgid "Allow Host to log oral clues and tap cards for players at the table"
+msgstr "Allow Host to log oral clues and tap cards for players at the table"
+
+msgid "Allow Player Custom Pair Deck"
+msgstr "Allow Player Custom Pair Deck"
+
 msgid "Allow custom words"
 msgstr "Allow custom words"
+
+msgid "Allow players to add custom words"
+msgstr "Allow players to add custom words"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 
+msgid "Auto-Balance"
+msgstr "Auto-Balance"
+
+msgid "Auto-Balance Teams"
+msgstr "Auto-Balance Teams"
+
+msgid "Auto-tally once all players have voted"
+msgstr "Auto-tally once all players have voted"
+
 msgid "Back to Active Lupus Rooms"
 msgstr "Back to Active Lupus Rooms"
+
+msgid "Back to Lobby"
+msgstr "Back to Lobby"
+
+msgid "Back to Lobby / Play Again"
+msgstr "Back to Lobby / Play Again"
 
 msgid "Backspace"
 msgstr "Backspace"
 
+msgid "Blue"
+msgstr "Blue"
+
+msgid "Blue Left"
+msgstr "Blue Left"
+
+msgid "Blue Team"
+msgstr "Blue Team"
+
+msgid "Blue Team Wins!"
+msgstr "Blue Team Wins!"
+
+msgid "Board"
+msgstr "Board"
+
+msgid "Board Complete"
+msgstr "Board Complete"
+
+msgid "Board Ended"
+msgstr "Board Ended"
+
 msgid "Browse Active Lupus Rooms"
 msgstr "Browse Active Lupus Rooms"
+
+msgid "Browse Hub"
+msgstr "Browse Hub"
 
 msgid "Build Your Emoji Clue:"
 msgstr "Build Your Emoji Clue:"
@@ -152,14 +239,38 @@ msgstr "CTFs"
 msgid "Calendar navigation"
 msgstr "Calendar navigation"
 
+msgid "Category"
+msgstr "Category"
+
+msgid "Citizen Word (Majority)"
+msgstr "Citizen Word (Majority)"
+
 msgid "Civilians, Mobsters, Cop"
 msgstr "Civilians, Mobsters, Cop"
+
+msgid "Classic + Extended Party Pack"
+msgstr "Classic + Extended Party Pack"
+
+msgid "Clue Phase"
+msgstr "Clue Phase"
+
+msgid "Clues"
+msgstr "Clues"
+
+msgid "Clues & Taps Log"
+msgstr "Clues & Taps Log"
 
 msgid "Cockpit"
 msgstr "Cockpit"
 
+msgid "Codenames"
+msgstr "Codenames"
+
 msgid "Conferences"
 msgstr "Conferences"
+
+msgid "Content + UI"
+msgstr "Content + UI"
 
 msgid "Copy"
 msgstr "Copy"
@@ -173,8 +284,20 @@ msgstr "Create the First Lupus Room"
 msgid "Curated"
 msgstr "Curated"
 
+msgid "Custom Codenames Word"
+msgstr "Custom Codenames Word"
+
+msgid "Custom Deck"
+msgstr "Custom Deck"
+
+msgid "Custom Seconds"
+msgstr "Custom Seconds"
+
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "Custom split keyboards (colemak + nvim)"
+
+msgid "Custom word..."
+msgstr "Custom word..."
 
 msgid "Date of the trip/shoot."
 msgstr "Date of the trip/shoot."
@@ -185,8 +308,17 @@ msgstr "Day"
 msgid "Day Trip"
 msgstr "Day Trip"
 
+msgid "Deal Next Board"
+msgstr "Deal Next Board"
+
 msgid "Defense Timer"
 msgstr "Defense Timer"
+
+msgid "Definition"
+msgstr "Definition"
+
+msgid "Discuss clues or accuse suspects..."
+msgstr "Discuss clues or accuse suspects..."
 
 msgid "Discussion"
 msgstr "Discussion"
@@ -208,6 +340,21 @@ msgstr "Education"
 
 msgid "Electronics/embedded (some rust embedded)"
 msgstr "Electronics/embedded (some rust embedded)"
+
+msgid "Enable Last-Chance Impostor Steal"
+msgstr "Enable Last-Chance Impostor Steal"
+
+msgid "Enable Lethal Taboo Poison Word"
+msgstr "Enable Lethal Taboo Poison Word"
+
+msgid "End Board"
+msgstr "End Board"
+
+msgid "End Guessing Turn"
+msgstr "End Guessing Turn"
+
+msgid "End Match"
+msgstr "End Match"
 
 msgid "English"
 msgstr "English"
@@ -239,6 +386,18 @@ msgstr "GM Cockpit"
 msgid "GM Director Cockpit:"
 msgstr "GM Director Cockpit:"
 
+msgid "GM Mode: Locked"
+msgstr "GM Mode: Locked"
+
+msgid "GM Oral Guessing Mode"
+msgstr "GM Oral Guessing Mode"
+
+msgid "GM Oral Mode: ON"
+msgstr "GM Oral Mode: ON"
+
+msgid "GM Oral Spymaster Mode"
+msgstr "GM Oral Spymaster Mode"
+
 msgid "Game Master Display Name"
 msgstr "Game Master Display Name"
 
@@ -257,11 +416,32 @@ msgstr "Game not found."
 msgid "Game room does not exist."
 msgstr "Game room does not exist."
 
+msgid "Game words, clues, and interface are supported in %(lang)s."
+msgstr "Game words, clues, and interface are supported in %(lang)s."
+
+msgid "Give a One-Word Clue"
+msgstr "Give a One-Word Clue"
+
+msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
+msgstr "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
+
+msgid "Guess the Citizen Word to steal the win..."
+msgstr "Guess the Citizen Word to steal the win..."
+
+msgid "Guesses left"
+msgstr "Guesses left"
+
+msgid "Guessing Phase"
+msgstr "Guessing Phase"
+
 msgid "Ham radio, UK foundation license"
 msgstr "Ham radio, UK foundation license"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
+
+msgid "Hide Keycard Overlay"
+msgstr "Hide Keycard Overlay"
 
 msgid "Hiking and climbing"
 msgstr "Hiking and climbing"
@@ -278,8 +458,14 @@ msgstr "Home automation and homelab"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Horizontal focal point: 0=left, 50=center, 100=right."
 
+msgid "Host Controls"
+msgstr "Host Controls"
+
 msgid "Host Game Settings"
 msgstr "Host Game Settings"
+
+msgid "Host Room"
+msgstr "Host Room"
 
 msgid "I code, take pics and many other things"
 msgstr "I code, take pics and many other things"
@@ -308,11 +494,17 @@ msgstr "Instagram 4:5 image"
 msgid "Invalid Game Master secret key."
 msgstr "Invalid Game Master secret key."
 
+msgid "Invite Players"
+msgstr "Invite Players"
+
 msgid "Invite Players to Room"
 msgstr "Invite Players to Room"
 
 msgid "Invite QR"
 msgstr "Invite QR"
+
+msgid "It is not your turn to submit a clue."
+msgstr "It is not your turn to submit a clue."
 
 msgid "Join"
 msgstr "Join"
@@ -323,14 +515,26 @@ msgstr "Join Game"
 msgid "Join Lupus Game"
 msgstr "Join Lupus Game"
 
+msgid "Join Red or Blue Team to begin"
+msgstr "Join Red or Blue Team to begin"
+
+msgid "Join as Operative"
+msgstr "Join as Operative"
+
 msgid "Join as Player"
 msgstr "Join as Player"
+
+msgid "Join as Spymaster"
+msgstr "Join as Spymaster"
 
 msgid "Join with Room Code"
 msgstr "Join with Room Code"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
+
+msgid "LAST-CHANCE IMPOSTOR STEAL!"
+msgstr "LAST-CHANCE IMPOSTOR STEAL!"
 
 msgid "Languages"
 msgstr "Languages"
@@ -347,6 +551,12 @@ msgstr "Launch Lupus Room"
 msgid "Leave empty for public join"
 msgstr "Leave empty for public join"
 
+msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
+msgstr "Let this player scan on their phone to take over their personal Spymaster/Operative view."
+
+msgid "Lethal Taboo Word (Optional instant elimination trap)"
+msgstr "Lethal Taboo Word (Optional instant elimination trap)"
+
 msgid "Limbo"
 msgstr "Limbo"
 
@@ -355,6 +565,9 @@ msgstr "Limbo & Angel Mechanic:"
 
 msgid "Limbo Resolution"
 msgstr "Limbo Resolution"
+
+msgid "Listen to"
+msgstr "Listen to"
 
 msgid "Listening"
 msgstr "Listening"
@@ -370,6 +583,12 @@ msgstr "Lobby"
 
 msgid "Lobby (Waiting for Players)"
 msgstr "Lobby (Waiting for Players)"
+
+msgid "Log Clue for Table Spymaster"
+msgstr "Log Clue for Table Spymaster"
+
+msgid "Lupus / Werewolf"
+msgstr "Lupus / Werewolf"
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "Lupus Active Rooms & Hub"
@@ -389,14 +608,38 @@ msgstr "Lupus in Tabula / Werewolf"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Complete"
+msgstr "Match Complete"
+
 msgid "Match Podium & Highlights"
 msgstr "Match Podium & Highlights"
 
 msgid "Match Replay & Attempt Timeline"
 msgstr "Match Replay & Attempt Timeline"
 
+msgid "Match Replay & Board Archive"
+msgstr "Match Replay & Board Archive"
+
+msgid "Match Rules"
+msgstr "Match Rules"
+
+msgid "Message..."
+msgstr "Message..."
+
 msgid "Midgame Arrivals:"
 msgstr "Midgame Arrivals:"
+
+msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
+msgstr "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
+
+msgid "Move..."
+msgstr "Move..."
+
+msgid "New Game / Redraw"
+msgstr "New Game / Redraw"
+
+msgid "Next Round"
+msgstr "Next Round"
 
 msgid "Next day"
 msgstr "Next day"
@@ -410,6 +653,30 @@ msgstr "No Active Lupus Games Right Now"
 msgid "No Instagram crop generated yet."
 msgstr "No Instagram crop generated yet."
 
+msgid "No clues published yet."
+msgstr "No clues published yet."
+
+msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
+msgstr "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
+
+msgid "No dictionary definition available."
+msgstr "No dictionary definition available."
+
+msgid "No turns logged."
+msgstr "No turns logged."
+
+msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
+msgstr "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
+
+msgid "Official Classic 400 Words"
+msgstr "Official Classic 400 Words"
+
+msgid "One-word clue..."
+msgstr "One-word clue..."
+
+msgid "Only emojis allowed — text characters were ignored."
+msgstr "Only emojis allowed — text characters were ignored."
+
 msgid "Open"
 msgstr "Open"
 
@@ -419,8 +686,41 @@ msgstr "Open (Lobby)"
 msgid "Open GM Cockpit"
 msgstr "Open GM Cockpit"
 
+msgid "Open Generator"
+msgstr "Open Generator"
+
+msgid "Open Player Link"
+msgstr "Open Player Link"
+
+msgid "Open slot"
+msgstr "Open slot"
+
+msgid "Operative"
+msgstr "Operative"
+
+msgid "Operative Seconds (0=∞)"
+msgstr "Operative Seconds (0=∞)"
+
+msgid "Operatives"
+msgstr "Operatives"
+
+msgid "Operatives are Guessing"
+msgstr "Operatives are Guessing"
+
+msgid "Operatives are choosing cards for this round."
+msgstr "Operatives are choosing cards for this round."
+
+msgid "Operatives are guessing!"
+msgstr "Operatives are guessing!"
+
+msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
+msgstr "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
+
 msgid "Or type your own custom prompt/phrase..."
 msgstr "Or type your own custom prompt/phrase..."
+
+msgid "Oral Spymaster Mode (Mod Logging)"
+msgstr "Oral Spymaster Mode (Mod Logging)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Original camera RAW file (CR3, ARW, NEF, etc.)"
@@ -434,6 +734,15 @@ msgstr "Outdoors"
 msgid "Page Not Found — Marco Silva"
 msgstr "Page Not Found — Marco Silva"
 
+msgid "Participating Host Controls (Zero-Spoiler)"
+msgstr "Participating Host Controls (Zero-Spoiler)"
+
+msgid "Pass / Wrong"
+msgstr "Pass / Wrong"
+
+msgid "Pass Turn (Mod)"
+msgstr "Pass Turn (Mod)"
+
 msgid "Password"
 msgstr "Password"
 
@@ -443,23 +752,59 @@ msgstr "Password Protected"
 msgid "Past & Finished Games"
 msgstr "Past & Finished Games"
 
+msgid "Pause"
+msgstr "Pause"
+
+msgid "Pause Timer"
+msgstr "Pause Timer"
+
 msgid "Pending"
 msgstr "Pending"
+
+msgid "Personal Player QR"
+msgstr "Personal Player QR"
+
+msgid "Personal QR"
+msgstr "Personal QR"
 
 msgid "Photography"
 msgstr "Photography"
 
+msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
+msgstr "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
+
 msgid "Pick the name others at the table know you by."
 msgstr "Pick the name others at the table know you by."
 
+msgid "Pick your game, language, and room settings — share the link or QR code when ready."
+msgstr "Pick your game, language, and room settings — share the link or QR code when ready."
+
 msgid "Player Profile & Personal QR"
 msgstr "Player Profile & Personal QR"
+
+msgid "Player QR"
+msgstr "Player QR"
+
+msgid "Player Reconnect QR"
+msgstr "Player Reconnect QR"
+
+msgid "Player name..."
+msgstr "Player name..."
+
+msgid "Players & Scores"
+msgstr "Players & Scores"
 
 msgid "Please enter a player name."
 msgstr "Please enter a player name."
 
 msgid "Please enter a valid room code."
 msgstr "Please enter a valid room code."
+
+msgid "Poison Word (Impostor / Drunk)"
+msgstr "Poison Word (Impostor / Drunk)"
+
+msgid "Poison Word Mode"
+msgstr "Poison Word Mode"
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "Portuguese · Helsinki, Finland"
@@ -485,8 +830,14 @@ msgstr "Privacy shield keeps cards concealed from prying eyes at the table."
 msgid "Processing"
 msgstr "Processing"
 
+msgid "Prompt Tool"
+msgstr "Prompt Tool"
+
 msgid "Public"
 msgstr "Public"
+
+msgid "Publish Clue"
+msgstr "Publish Clue"
 
 msgid "RAW available for purchase"
 msgstr "RAW available for purchase"
@@ -503,6 +854,21 @@ msgstr "Reading"
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
 msgstr "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
 
+msgid "Red"
+msgstr "Red"
+
+msgid "Red Left"
+msgstr "Red Left"
+
+msgid "Red Team"
+msgstr "Red Team"
+
+msgid "Red Team Wins!"
+msgstr "Red Team Wins!"
+
+msgid "Redraw Board"
+msgstr "Redraw Board"
+
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "Regenerate 4:5 Instagram crops for selected photos"
 
@@ -512,14 +878,29 @@ msgstr "Replay"
 msgid "Reroll"
 msgstr "Reroll"
 
+msgid "Resume"
+msgstr "Resume"
+
 msgid "Return as %(name)s"
 msgstr "Return as %(name)s"
+
+msgid "Reveal"
+msgstr "Reveal"
 
 msgid "Reveal Roles on Death:"
 msgstr "Reveal Roles on Death:"
 
+msgid "Role Hidden"
+msgstr "Role Hidden"
+
+msgid "Roles, phases, and interface are localized in %(lang)s."
+msgstr "Roles, phases, and interface are localized in %(lang)s."
+
 msgid "Room Chat"
 msgstr "Room Chat"
+
+msgid "Room Chat & Events"
+msgstr "Room Chat & Events"
 
 msgid "Room Code"
 msgstr "Room Code"
@@ -548,11 +929,20 @@ msgstr "Rooms"
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 
+msgid "Rotate Spymasters each new board"
+msgstr "Rotate Spymasters each new board"
+
 msgid "Round"
 msgstr "Round"
 
+msgid "Round Clues"
+msgstr "Round Clues"
+
 msgid "Round-by-Round Replay & Attempt Log"
 msgstr "Round-by-Round Replay & Attempt Log"
+
+msgid "Rounds (Clue Cycles)"
+msgstr "Rounds (Clue Cycles)"
 
 msgid "Running"
 msgstr "Running"
@@ -560,14 +950,23 @@ msgstr "Running"
 msgid "Save Name"
 msgstr "Save Name"
 
+msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
+msgstr "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
+
 msgid "Scan this QR code with any phone camera to join immediately:"
 msgstr "Scan this QR code with any phone camera to join immediately:"
+
+msgid "Scan this personal QR code to switch devices without losing your secret card:"
+msgstr "Scan this personal QR code to switch devices without losing your secret card:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
 msgstr "Scan this to move your session and score to another phone or browser:"
 
-msgid "Search emoji by name (e.g. fire, crown, heart)..."
-msgstr "Search emoji by name (e.g. fire, crown, heart)..."
+msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
+msgstr "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
+
+msgid "Send"
+msgstr "Send"
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "Send Instagram carousel pack to Telegram"
@@ -578,35 +977,98 @@ msgstr "Server Error — Marco Silva"
 msgid "Set"
 msgstr "Set"
 
+msgid "Setting up teams..."
+msgstr "Setting up teams..."
+
+msgid "Show Role & Word"
+msgstr "Show Role & Word"
+
+msgid "Show Spymaster Keycard"
+msgstr "Show Spymaster Keycard"
+
 msgid "Silent Phase"
 msgstr "Silent Phase"
 
 msgid "Skills"
 msgstr "Skills"
 
+msgid "Skip Turn"
+msgstr "Skip Turn"
+
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
+
+msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
+msgstr "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
 
 msgid "Spanish"
 msgstr "Spanish"
 
+msgid "Speaker (oral clue):"
+msgstr "Speaker (oral clue):"
+
 msgid "Speaking"
 msgstr "Speaking"
+
+msgid "Spectator"
+msgstr "Spectator"
+
+msgid "Spectator / Non-Player"
+msgstr "Spectator / Non-Player"
 
 msgid "Spectator Mode (Skip my turns)"
 msgstr "Spectator Mode (Skip my turns)"
 
+msgid "Spymaster"
+msgstr "Spymaster"
+
+msgid "Spymaster Seconds (0=∞)"
+msgstr "Spymaster Seconds (0=∞)"
+
+msgid "Spymaster is thinking of a clue..."
+msgstr "Spymaster is thinking of a clue..."
+
 msgid "Staggering Doctor:"
 msgstr "Staggering Doctor:"
 
+msgid "Standard Timed (90s / 90s)"
+msgstr "Standard Timed (90s / 90s)"
+
+msgid "Start Codenames"
+msgstr "Start Codenames"
+
+msgid "Start Match"
+msgstr "Start Match"
+
+msgid "Start Voting Early"
+msgstr "Start Voting Early"
+
 msgid "Starting Role Deck Preset"
 msgstr "Starting Role Deck Preset"
+
+msgid "Steal Guess"
+msgstr "Steal Guess"
+
+msgid "Steal Timer (s, 0 = ∞)"
+msgstr "Steal Timer (s, 0 = ∞)"
+
+msgid "Steal Win!"
+msgstr "Steal Win!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Step-by-step night stages, bluffing calls, and voting manager."
 
 msgid "Submit"
 msgstr "Submit"
+
+msgid "Submit Clue"
+msgstr "Submit Clue"
+
+msgid "Submit Player Vote"
+msgstr "Submit Player Vote"
+
+msgid "Table Discussion & Event Log"
+msgstr "Table Discussion & Event Log"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Table-First Lupus Highlights"
@@ -620,8 +1082,17 @@ msgstr "Table-first hybrid party game. Zero accounts or logins required. Players
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 
-msgid "Tap emojis below..."
-msgstr "Tap emojis below..."
+msgid "Tally Votes Now"
+msgstr "Tally Votes Now"
+
+msgid "Tap cards on the board as players make their guesses out loud."
+msgstr "Tap cards on the board as players make their guesses out loud."
+
+msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
+msgstr "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
+
+msgid "Targets"
+msgstr "Targets"
 
 msgid "Techy"
 msgstr "Techy"
@@ -638,11 +1109,20 @@ msgstr "Terms of Service - Homelab Telegram Bot - Marco Silva"
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "The Doctor / Guard cannot protect the same person two consecutive nights."
 
+msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
+msgstr "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
+
 msgid "Theme & Terms"
 msgstr "Theme & Terms"
 
+msgid "Time Limit Preset"
+msgstr "Time Limit Preset"
+
 msgid "Toggle"
 msgstr "Toggle"
+
+msgid "Toggle Spectator Mode"
+msgstr "Toggle Spectator Mode"
 
 msgid "Town Gazette:"
 msgstr "Town Gazette:"
@@ -650,17 +1130,50 @@ msgstr "Town Gazette:"
 msgid "Town Voting"
 msgstr "Town Voting"
 
+msgid "Turn Sequence"
+msgstr "Turn Sequence"
+
+msgid "Turn Timer (s, 0 = ∞)"
+msgstr "Turn Timer (s, 0 = ∞)"
+
+msgid "Turn Timers"
+msgstr "Turn Timers"
+
 msgid "Type a message or guess..."
 msgstr "Type a message or guess..."
+
+msgid "Type clue or what was said orally..."
+msgstr "Type clue or what was said orally..."
 
 msgid "Type your guess (or use the chat box)..."
 msgstr "Type your guess (or use the chat box)..."
 
+msgid "UI Only"
+msgstr "UI Only"
+
+msgid "Unable to load player QR code."
+msgstr "Unable to load player QR code."
+
+msgid "Unassigned"
+msgstr "Unassigned"
+
+msgid "Unlimited"
+msgstr "Unlimited"
+
 msgid "Unlock Room"
 msgstr "Unlock Room"
 
+msgid "Untimed"
+msgstr "Untimed"
+
+msgid "Untimed (Relaxed Couch Mode)"
+msgstr "Untimed (Relaxed Couch Mode)"
+
 msgid "Use Prompt"
 msgstr "Use Prompt"
+
+msgid "Use your emoji keyboard or tap emojis below..."
+msgstr "Use your emoji keyboard or tap emojis below..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Vertical focal point: 0=top, 50=center, 100=bottom."
@@ -668,14 +1181,44 @@ msgstr "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgid "Villagers, Wolves, Seer"
 msgstr "Villagers, Wolves, Seer"
 
+msgid "Vote Timer (s, 0 = ∞)"
+msgstr "Vote Timer (s, 0 = ∞)"
+
+msgid "Vote for player:"
+msgstr "Vote for player:"
+
 msgid "Voting"
 msgstr "Voting"
+
+msgid "Waiting for Clue..."
+msgstr "Waiting for Clue..."
+
+msgid "Waiting for Host to configure teams and start the board..."
+msgstr "Waiting for Host to configure teams and start the board..."
+
+msgid "Waiting in Lobby..."
+msgstr "Waiting in Lobby..."
 
 msgid "Werewolf / Lupus"
 msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
 msgstr "Whether focus coordinates were automatically calculated via edge saliency."
+
+msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
+msgstr "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
+
+msgid "Wins"
+msgstr "Wins"
+
+msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
+msgstr "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
+
+msgid "Word Impostor"
+msgstr "Word Impostor"
+
+msgid "Word Pack"
+msgstr "Word Pack"
 
 msgid "Work Experience"
 msgstr "Work Experience"
@@ -689,11 +1232,26 @@ msgstr "You need an authorized key to access this page."
 msgid "Your Name / Nickname"
 msgstr "Your Name / Nickname"
 
+msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
+msgstr "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
+
 msgid "Your Personal Reconnect QR"
 msgstr "Your Personal Reconnect QR"
 
 msgid "Your Secret Phrase"
 msgstr "Your Secret Phrase"
+
+msgid "Your Spymaster"
+msgstr "Your Spymaster"
+
+msgid "Your Turn to Guess!"
+msgstr "Your Turn to Guess!"
+
+msgid "Your Turn, Spymaster!"
+msgstr "Your Turn, Spymaster!"
+
+msgid "actions"
+msgstr "actions"
 
 msgid "adjective"
 msgstr "adjective"
@@ -712,6 +1270,12 @@ msgstr "all categories"
 
 msgid "all day"
 msgstr "all day"
+
+msgid "and publish their clue below."
+msgstr "and publish their clue below."
+
+msgid "animals"
+msgstr "animals"
 
 msgid "any"
 msgstr "any"
@@ -803,6 +1367,9 @@ msgstr "extract event"
 msgid "focal length"
 msgstr "focal length"
 
+msgid "food & drink"
+msgstr "food & drink"
+
 msgid "gallery"
 msgstr "gallery"
 
@@ -814,6 +1381,9 @@ msgstr "gallery extensions"
 
 msgid "gallery not found."
 msgstr "gallery not found."
+
+msgid "game"
+msgstr "game"
 
 msgid "games"
 msgstr "games"
@@ -835,6 +1405,15 @@ msgstr "home"
 
 msgid "ics maker"
 msgstr "ics maker"
+
+msgid "is Guessing"
+msgstr "is Guessing"
+
+msgid "is formulating a clue for their team."
+msgstr "is formulating a clue for their team."
+
+msgid "is formulating a clue. Stand by!"
+msgstr "is formulating a clue. Stand by!"
 
 msgid "join"
 msgstr "join"
@@ -911,6 +1490,9 @@ msgstr "paste event details here..."
 msgid "paste text or a url with event details, and get an .ics file."
 msgstr "paste text or a url with event details, and get an .ics file."
 
+msgid "people & characters"
+msgstr "people & characters"
+
 msgid "photo"
 msgstr "photo"
 
@@ -941,6 +1523,9 @@ msgstr "pick your options, hit the button, draw!"
 msgid "pictionary"
 msgstr "pictionary"
 
+msgid "places & travel"
+msgstr "places & travel"
+
 msgid "planz"
 msgstr "planz"
 
@@ -970,6 +1555,9 @@ msgstr "rerolls:"
 
 msgid "reveal"
 msgstr "reveal"
+
+msgid "room language"
+msgstr "room language"
 
 msgid "room password"
 msgstr "room password"
@@ -1109,8 +1697,14 @@ msgstr "↓ Download PDF"
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 msgstr "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 
+msgid "✅ Full Content + UI"
+msgstr "✅ Full Content + UI"
+
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
+
+msgid "🌐 UI Only (English Words)"
+msgstr "🌐 UI Only (English Words)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1136,5 +1730,11 @@ msgstr "💡 The deck adapts automatically to the number of players who join. Yo
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 msgstr "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 
+msgid "🕵️ Word Impostor"
+msgstr "🕵️ Word Impostor"
+
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
 msgstr "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
+
+msgid "🧩 Codenames"
+msgstr "🧩 Codenames"

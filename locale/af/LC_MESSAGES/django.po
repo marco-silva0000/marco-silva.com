@@ -6,16 +6,16 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr "+ Create Room"
+msgstr "+ Skep kamer"
 
 msgid "+ Host New Room"
-msgstr "+ Host New Room"
+msgstr ""
 
 msgid "+ New Game"
-msgstr "+ New Game"
+msgstr ""
 
 msgid "+ create room"
-msgstr "+ create room"
+msgstr "+ Skep kamer"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
 msgstr "0 — Geheim (Geslote begraafplaas, rolle versteek tot die einde van die spel)"
@@ -32,11 +32,14 @@ msgstr "1. Aanvaarding van Bepalings"
 msgid "1. Overview"
 msgstr "1. Oorsig"
 
+msgid "1. Teams & Roles Setup"
+msgstr ""
+
 msgid "10 Minutes"
 msgstr "10 Minute"
 
 msgid "1st guess ends round"
-msgstr "1st guess ends round"
+msgstr ""
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Faksie / Span (Kondig \"Dorp\", \"Weerwolwe\", \"Neutraal\" aan)"
@@ -46,6 +49,9 @@ msgstr "2. Inligting Waartoe Ons Toegang Het"
 
 msgid "2. Permitted Use"
 msgstr "2. Toegelate Gebruik"
+
+msgid "2. Room & Table Settings (Host)"
+msgstr ""
 
 msgid "3 Minutes (Fast)"
 msgstr "3 Minute (Vinnig)"
@@ -104,14 +110,47 @@ msgstr "7 Minute (Deeglik)"
 msgid "Access Denied"
 msgstr "Toegang Geweier"
 
+msgid "Accuse:"
+msgstr ""
+
 msgid "Active"
 msgstr "Aktief"
+
+msgid "Active Clue"
+msgstr ""
 
 msgid "Active Lupus Rooms"
 msgstr "Aktiewe Lupus-kamers"
 
+msgid "Add"
+msgstr ""
+
 msgid "Add Hint"
-msgstr "Add Hint"
+msgstr ""
+
+msgid "Add Oral / Table Player"
+msgstr ""
+
+msgid "Add Oral / Table Player (directly to a team)"
+msgstr ""
+
+msgid "Add Player"
+msgstr ""
+
+msgid "Add Secret Custom Pair"
+msgstr ""
+
+msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
+msgstr ""
+
+msgid "Add oral / table player name..."
+msgstr ""
+
+msgid "Add to Deck"
+msgstr ""
+
+msgid "Agents & Spymasters"
+msgstr ""
 
 msgid "All Active Rooms"
 msgstr "Alle Aktiewe Kamers"
@@ -120,25 +159,73 @@ msgid "All Games"
 msgstr "Alle Speletjies"
 
 msgid "All guesses & hints appear here"
-msgstr "All guesses & hints appear here"
+msgstr ""
+
+msgid "Allow Host to log oral clues and tap cards for players at the table"
+msgstr ""
+
+msgid "Allow Player Custom Pair Deck"
+msgstr ""
 
 msgid "Allow custom words"
-msgstr "Allow custom words"
+msgstr ""
+
+msgid "Allow players to add custom words"
+msgstr ""
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Pas Creative Commons Erkenning-NieKommersieel-DeelInDieselfdeVorm-lisensie en watermerk toe."
 
+msgid "Auto-Balance"
+msgstr ""
+
+msgid "Auto-Balance Teams"
+msgstr ""
+
+msgid "Auto-tally once all players have voted"
+msgstr ""
+
 msgid "Back to Active Lupus Rooms"
 msgstr "Terug na Aktiewe Lupus-kamers"
 
+msgid "Back to Lobby"
+msgstr ""
+
+msgid "Back to Lobby / Play Again"
+msgstr ""
+
 msgid "Backspace"
-msgstr "Backspace"
+msgstr ""
+
+msgid "Blue"
+msgstr "Blou"
+
+msgid "Blue Left"
+msgstr ""
+
+msgid "Blue Team"
+msgstr ""
+
+msgid "Blue Team Wins!"
+msgstr ""
+
+msgid "Board"
+msgstr ""
+
+msgid "Board Complete"
+msgstr ""
+
+msgid "Board Ended"
+msgstr ""
 
 msgid "Browse Active Lupus Rooms"
 msgstr "Blaai deur Aktiewe Lupus-kamers"
 
+msgid "Browse Hub"
+msgstr ""
+
 msgid "Build Your Emoji Clue:"
-msgstr "Build Your Emoji Clue:"
+msgstr ""
 
 msgid "CC BY-NC-SA license"
 msgstr "CC BY-NC-SA-lisensie"
@@ -152,17 +239,41 @@ msgstr "CTFs"
 msgid "Calendar navigation"
 msgstr "Kalendernavigasie"
 
+msgid "Category"
+msgstr ""
+
+msgid "Citizen Word (Majority)"
+msgstr ""
+
 msgid "Civilians, Mobsters, Cop"
 msgstr "Burgers,Bendelede, Polisiebeampte"
+
+msgid "Classic + Extended Party Pack"
+msgstr ""
+
+msgid "Clue Phase"
+msgstr ""
+
+msgid "Clues"
+msgstr ""
+
+msgid "Clues & Taps Log"
+msgstr ""
 
 msgid "Cockpit"
 msgstr "Stuurkajuit"
 
+msgid "Codenames"
+msgstr "Codenames"
+
 msgid "Conferences"
 msgstr "Konferensies"
 
+msgid "Content + UI"
+msgstr ""
+
 msgid "Copy"
-msgstr "Copy"
+msgstr ""
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "Skep Lupus / Weerwolf-kamer"
@@ -173,20 +284,41 @@ msgstr "Skep die eerste Lupus-kamer"
 msgid "Curated"
 msgstr "Saamgestel"
 
+msgid "Custom Codenames Word"
+msgstr ""
+
+msgid "Custom Deck"
+msgstr ""
+
+msgid "Custom Seconds"
+msgstr ""
+
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "Pasgemaakte gesplete sleutelborde (colemak + nvim)"
+
+msgid "Custom word..."
+msgstr ""
 
 msgid "Date of the trip/shoot."
 msgstr "Datum van die reis/fotosessie."
 
 msgid "Day"
-msgstr "Day"
+msgstr "Dag"
 
 msgid "Day Trip"
 msgstr "Daguitstappie"
 
+msgid "Deal Next Board"
+msgstr ""
+
 msgid "Defense Timer"
 msgstr "Verdedigingstydhouer"
+
+msgid "Definition"
+msgstr ""
+
+msgid "Discuss clues or accuse suspects..."
+msgstr ""
 
 msgid "Discussion"
 msgstr "Bespreking"
@@ -195,7 +327,7 @@ msgid "Discussion Round Timer"
 msgstr "Besprekingsrondte-tydhouer"
 
 msgid "Display Name"
-msgstr "Display Name"
+msgstr ""
 
 msgid "Doctor Shields From Sniper:"
 msgstr "Dokter beskerm teen Sluipskutter:"
@@ -208,6 +340,21 @@ msgstr "Opleiding"
 
 msgid "Electronics/embedded (some rust embedded)"
 msgstr "Elektronika/ingebedde stelsels (bietjie ingebedde rust)"
+
+msgid "Enable Last-Chance Impostor Steal"
+msgstr ""
+
+msgid "Enable Lethal Taboo Poison Word"
+msgstr ""
+
+msgid "End Board"
+msgstr ""
+
+msgid "End Guessing Turn"
+msgstr ""
+
+msgid "End Match"
+msgstr ""
 
 msgid "English"
 msgstr "Engels"
@@ -222,7 +369,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Voer Kamerkode in (bv. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr "Export JSON"
+msgstr ""
 
 msgid "Failed"
 msgstr "Misluk"
@@ -238,6 +385,18 @@ msgstr "GM-stuurkajuit"
 
 msgid "GM Director Cockpit:"
 msgstr "GM-direkteur-stuurkajuit:"
+
+msgid "GM Mode: Locked"
+msgstr ""
+
+msgid "GM Oral Guessing Mode"
+msgstr ""
+
+msgid "GM Oral Mode: ON"
+msgstr ""
+
+msgid "GM Oral Spymaster Mode"
+msgstr ""
 
 msgid "Game Master Display Name"
 msgstr "Spelleier se vertoonnaam"
@@ -257,11 +416,32 @@ msgstr "Spel nie gevind nie."
 msgid "Game room does not exist."
 msgstr "Spelkamer bestaan nie."
 
+msgid "Game words, clues, and interface are supported in %(lang)s."
+msgstr ""
+
+msgid "Give a One-Word Clue"
+msgstr ""
+
+msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
+msgstr ""
+
+msgid "Guess the Citizen Word to steal the win..."
+msgstr ""
+
+msgid "Guesses left"
+msgstr ""
+
+msgid "Guessing Phase"
+msgstr ""
+
 msgid "Ham radio, UK foundation license"
 msgstr "Amateurradio, VK-fondasielisensie"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
 msgstr "Het jy 'n 8-karakterkode van jou Spelleier? Voer dit hier in om dadelik in te spring:"
+
+msgid "Hide Keycard Overlay"
+msgstr ""
 
 msgid "Hiking and climbing"
 msgstr "Staptoere en bergklim"
@@ -278,8 +458,14 @@ msgstr "Tuisoutomatisering en tuislaboratorium"
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Horisontale fokuspunt: 0=links, 50=middel, 100=regs."
 
+msgid "Host Controls"
+msgstr ""
+
 msgid "Host Game Settings"
-msgstr "Host Game Settings"
+msgstr ""
+
+msgid "Host Room"
+msgstr ""
 
 msgid "I code, take pics and many other things"
 msgstr "Ek skryf kode, neem foto's en doen baie ander dinge"
@@ -308,11 +494,17 @@ msgstr "Instagram 4:5-beeld"
 msgid "Invalid Game Master secret key."
 msgstr "Ongeldige Spelmeester-geheimesleutel."
 
+msgid "Invite Players"
+msgstr ""
+
 msgid "Invite Players to Room"
-msgstr "Invite Players to Room"
+msgstr ""
 
 msgid "Invite QR"
-msgstr "Invite QR"
+msgstr ""
+
+msgid "It is not your turn to submit a clue."
+msgstr ""
 
 msgid "Join"
 msgstr "Sluit aan"
@@ -323,14 +515,26 @@ msgstr "Sluit aan by spel"
 msgid "Join Lupus Game"
 msgstr "Sluit aan by Lupus-spel"
 
+msgid "Join Red or Blue Team to begin"
+msgstr ""
+
+msgid "Join as Operative"
+msgstr ""
+
 msgid "Join as Player"
 msgstr "Sluit aan as speler"
+
+msgid "Join as Spymaster"
+msgstr ""
 
 msgid "Join with Room Code"
 msgstr "Sluit aan met kamerkode"
 
 msgid "Kayak, surf, SUP, windsurf"
-msgstr "Kajak, branderplankry, SUP, seilplankry"
+msgstr "Kayak, surf, SUP, windsurf"
+
+msgid "LAST-CHANCE IMPOSTOR STEAL!"
+msgstr ""
 
 msgid "Languages"
 msgstr "Tale"
@@ -347,8 +551,14 @@ msgstr "Begin Lupus-kamer"
 msgid "Leave empty for public join"
 msgstr "Los leeg vir openbare aansluiting"
 
+msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
+msgstr ""
+
+msgid "Lethal Taboo Word (Optional instant elimination trap)"
+msgstr ""
+
 msgid "Limbo"
-msgstr "Voorgeborchte"
+msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
 msgstr "Voorgeborchte & Engel-meganisme:"
@@ -356,11 +566,14 @@ msgstr "Voorgeborchte & Engel-meganisme:"
 msgid "Limbo Resolution"
 msgstr "Voorgeborchte-uitkoms"
 
+msgid "Listen to"
+msgstr ""
+
 msgid "Listening"
 msgstr "Luister"
 
 msgid "Live Chat & Guess Stream"
-msgstr "Live Chat & Guess Stream"
+msgstr ""
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "Lewende & gevalle spelers dien oggendgerugte in wat teen dagbreek hardop gelees word."
@@ -370,6 +583,12 @@ msgstr "Voorportaal"
 
 msgid "Lobby (Waiting for Players)"
 msgstr "Voorportaal (Wag vir Spelers)"
+
+msgid "Log Clue for Table Spymaster"
+msgstr ""
+
+msgid "Lupus / Werewolf"
+msgstr ""
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "Lupus Aktiewe Kamers & Spelsentrum"
@@ -389,14 +608,38 @@ msgstr "Lupus in Tabula / Weerwolf"
 msgid "Mafia"
 msgstr "Mafia"
 
+msgid "Match Complete"
+msgstr ""
+
 msgid "Match Podium & Highlights"
-msgstr "Match Podium & Highlights"
+msgstr ""
 
 msgid "Match Replay & Attempt Timeline"
-msgstr "Match Replay & Attempt Timeline"
+msgstr ""
+
+msgid "Match Replay & Board Archive"
+msgstr ""
+
+msgid "Match Rules"
+msgstr ""
+
+msgid "Message..."
+msgstr ""
 
 msgid "Midgame Arrivals:"
 msgstr "Tussentydse Aankomelinge:"
+
+msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
+msgstr ""
+
+msgid "Move..."
+msgstr ""
+
+msgid "New Game / Redraw"
+msgstr ""
+
+msgid "Next Round"
+msgstr ""
 
 msgid "Next day"
 msgstr "Volgende dag"
@@ -410,6 +653,30 @@ msgstr "Geen Aktiewe Lupus-speletjies op die Oomblik Nie"
 msgid "No Instagram crop generated yet."
 msgstr "Nog geen Instagram-uitsnit gegenereer nie."
 
+msgid "No clues published yet."
+msgstr ""
+
+msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
+msgstr ""
+
+msgid "No dictionary definition available."
+msgstr ""
+
+msgid "No turns logged."
+msgstr ""
+
+msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
+msgstr ""
+
+msgid "Official Classic 400 Words"
+msgstr ""
+
+msgid "One-word clue..."
+msgstr ""
+
+msgid "Only emojis allowed — text characters were ignored."
+msgstr ""
+
 msgid "Open"
 msgstr "Oop"
 
@@ -419,8 +686,41 @@ msgstr "Oop (Voorportaal)"
 msgid "Open GM Cockpit"
 msgstr "Maak GM-kajuit Oop"
 
+msgid "Open Generator"
+msgstr ""
+
+msgid "Open Player Link"
+msgstr ""
+
+msgid "Open slot"
+msgstr ""
+
+msgid "Operative"
+msgstr ""
+
+msgid "Operative Seconds (0=∞)"
+msgstr ""
+
+msgid "Operatives"
+msgstr ""
+
+msgid "Operatives are Guessing"
+msgstr ""
+
+msgid "Operatives are choosing cards for this round."
+msgstr ""
+
+msgid "Operatives are guessing!"
+msgstr ""
+
+msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
+msgstr ""
+
 msgid "Or type your own custom prompt/phrase..."
-msgstr "Or type your own custom prompt/phrase..."
+msgstr ""
+
+msgid "Oral Spymaster Mode (Mod Logging)"
+msgstr ""
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Oorspronklike kamera RAW-lêer (CR3, ARW, NEF, ens.)"
@@ -434,6 +734,15 @@ msgstr "Buitelewe"
 msgid "Page Not Found — Marco Silva"
 msgstr "Bladsy Nie Gevind Nie — Marco Silva"
 
+msgid "Participating Host Controls (Zero-Spoiler)"
+msgstr ""
+
+msgid "Pass / Wrong"
+msgstr ""
+
+msgid "Pass Turn (Mod)"
+msgstr ""
+
 msgid "Password"
 msgstr "Wagwoord"
 
@@ -443,23 +752,59 @@ msgstr "Met wagwoord beskerm"
 msgid "Past & Finished Games"
 msgstr "Vorige en voltooide speletjies"
 
+msgid "Pause"
+msgstr ""
+
+msgid "Pause Timer"
+msgstr ""
+
 msgid "Pending"
 msgstr "Hangende"
+
+msgid "Personal Player QR"
+msgstr ""
+
+msgid "Personal QR"
+msgstr ""
 
 msgid "Photography"
 msgstr "Fotografie"
 
+msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
+msgstr ""
+
 msgid "Pick the name others at the table know you by."
 msgstr "Kies die naam waaraan ander om die tafel jou ken."
 
+msgid "Pick your game, language, and room settings — share the link or QR code when ready."
+msgstr ""
+
 msgid "Player Profile & Personal QR"
-msgstr "Player Profile & Personal QR"
+msgstr ""
+
+msgid "Player QR"
+msgstr ""
+
+msgid "Player Reconnect QR"
+msgstr ""
+
+msgid "Player name..."
+msgstr ""
+
+msgid "Players & Scores"
+msgstr ""
 
 msgid "Please enter a player name."
 msgstr "Voer asseblief 'n spelernaam in."
 
 msgid "Please enter a valid room code."
 msgstr "Voer asseblief 'n geldige kamerkode in."
+
+msgid "Poison Word (Impostor / Drunk)"
+msgstr ""
+
+msgid "Poison Word Mode"
+msgstr ""
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "Portugees · Helsinki, Finland"
@@ -485,8 +830,14 @@ msgstr "Privaatheidskild hou kaarte versteek vir nuuskierige oë om die tafel."
 msgid "Processing"
 msgstr "Besig om te verwerk"
 
+msgid "Prompt Tool"
+msgstr ""
+
 msgid "Public"
 msgstr "Openbaar"
+
+msgid "Publish Clue"
+msgstr ""
 
 msgid "RAW available for purchase"
 msgstr "RAW beskikbaar om te koop"
@@ -503,6 +854,21 @@ msgstr "Lees"
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
 msgstr "Intydse multispeler-partytjiespeletjies in jou blaaier. Geen rekeninge nodig nie — spring net in en speel saam met vriende."
 
+msgid "Red"
+msgstr "Rooi"
+
+msgid "Red Left"
+msgstr ""
+
+msgid "Red Team"
+msgstr ""
+
+msgid "Red Team Wins!"
+msgstr ""
+
+msgid "Redraw Board"
+msgstr ""
+
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "Hergenereer 4:5 Instagram-snitte vir geselekteerde foto's"
 
@@ -510,19 +876,34 @@ msgid "Replay"
 msgstr "Speel weer"
 
 msgid "Reroll"
-msgstr "Reroll"
+msgstr ""
+
+msgid "Resume"
+msgstr ""
 
 msgid "Return as %(name)s"
 msgstr "Keer terug as %(name)s"
 
+msgid "Reveal"
+msgstr "Onthul"
+
 msgid "Reveal Roles on Death:"
 msgstr "Onthul rolle by dood:"
 
+msgid "Role Hidden"
+msgstr ""
+
+msgid "Roles, phases, and interface are localized in %(lang)s."
+msgstr ""
+
 msgid "Room Chat"
-msgstr "Room Chat"
+msgstr ""
+
+msgid "Room Chat & Events"
+msgstr ""
 
 msgid "Room Code"
-msgstr "Room Code"
+msgstr ""
 
 msgid "Room Code:"
 msgstr "Kamerkode:"
@@ -543,31 +924,52 @@ msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "Kamerkode '%(code)s' is nie gevind nie of is nie meer aktief nie."
 
 msgid "Rooms"
-msgstr "Rooms"
+msgstr ""
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Kamers word op aanvraag geskep en bly vir 24 uur aktief. Begin 'n nuwe speletjiesessie en nooi jou groep!"
 
+msgid "Rotate Spymasters each new board"
+msgstr ""
+
 msgid "Round"
-msgstr "Round"
+msgstr ""
+
+msgid "Round Clues"
+msgstr ""
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr "Round-by-Round Replay & Attempt Log"
+msgstr ""
+
+msgid "Rounds (Clue Cycles)"
+msgstr ""
 
 msgid "Running"
 msgstr "Aan die gang"
 
 msgid "Save Name"
-msgstr "Save Name"
+msgstr ""
+
+msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
+msgstr ""
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr "Scan this QR code with any phone camera to join immediately:"
+msgstr ""
+
+msgid "Scan this personal QR code to switch devices without losing your secret card:"
+msgstr ""
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr "Scan this to move your session and score to another phone or browser:"
+msgstr ""
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
-msgstr "Search emoji by name (e.g. fire, crown, heart)..."
+msgstr ""
+
+msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
+msgstr ""
+
+msgid "Send"
+msgstr "Stuur"
 
 msgid "Send Instagram carousel pack to Telegram"
 msgstr "Stuur Instagram-karrouselpakket na Telegram"
@@ -576,7 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "Bedienerfout — Marco Silva"
 
 msgid "Set"
-msgstr "Set"
+msgstr ""
+
+msgid "Setting up teams..."
+msgstr ""
+
+msgid "Show Role & Word"
+msgstr ""
+
+msgid "Show Spymaster Keycard"
+msgstr ""
 
 msgid "Silent Phase"
 msgstr "Stil Fase"
@@ -584,29 +995,83 @@ msgstr "Stil Fase"
 msgid "Skills"
 msgstr "Vaardighede"
 
+msgid "Skip Turn"
+msgstr ""
+
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "Verslane spelers betree Limbo een keer in plaas daarvan om dadelik te sterf. As hulle raai wie die Engel is, word hulle opgewek!"
+
+msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
+msgstr ""
 
 msgid "Spanish"
 msgstr "Spaans"
 
+msgid "Speaker (oral clue):"
+msgstr ""
+
 msgid "Speaking"
 msgstr "Spreker"
 
+msgid "Spectator"
+msgstr ""
+
+msgid "Spectator / Non-Player"
+msgstr ""
+
 msgid "Spectator Mode (Skip my turns)"
-msgstr "Spectator Mode (Skip my turns)"
+msgstr ""
+
+msgid "Spymaster"
+msgstr ""
+
+msgid "Spymaster Seconds (0=∞)"
+msgstr ""
+
+msgid "Spymaster is thinking of a clue..."
+msgstr ""
 
 msgid "Staggering Doctor:"
 msgstr "Afwisselende Dokter:"
 
+msgid "Standard Timed (90s / 90s)"
+msgstr ""
+
+msgid "Start Codenames"
+msgstr ""
+
+msgid "Start Match"
+msgstr ""
+
+msgid "Start Voting Early"
+msgstr ""
+
 msgid "Starting Role Deck Preset"
 msgstr "Voorafinstelling vir Beginrolpak"
+
+msgid "Steal Guess"
+msgstr ""
+
+msgid "Steal Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Steal Win!"
+msgstr ""
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Stap-vir-stap nagfases, bluf-oproepe en stemmingsbestuurder."
 
 msgid "Submit"
-msgstr "Submit"
+msgstr ""
+
+msgid "Submit Clue"
+msgstr ""
+
+msgid "Submit Player Vote"
+msgstr ""
+
+msgid "Table Discussion & Event Log"
+msgstr ""
 
 msgid "Table-First Lupus Highlights"
 msgstr "Tafel-eerste Lupus-hoogtepunte"
@@ -620,8 +1085,20 @@ msgstr "Tafel-eerste hibriede partytjiespeletjie. Geen rekeninge of aanmeldings 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
 msgstr "Tafel-eerste partytjiespeletjie met geheime rolle, regstreekse stemming, Dorpskoerant en Spelmeester-beheerpaneel."
 
+msgid "Tally Votes Now"
+msgstr ""
+
+msgid "Tap cards on the board as players make their guesses out loud."
+msgstr ""
+
+msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
+msgstr ""
+
 msgid "Tap emojis below..."
-msgstr "Tap emojis below..."
+msgstr ""
+
+msgid "Targets"
+msgstr ""
 
 msgid "Techy"
 msgstr "Tegnologie-entoesias"
@@ -638,11 +1115,20 @@ msgstr "Diensbepalings - Homelab Telegram-bot - Marco Silva"
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
 msgstr "Die Dokter /Lyfwag kan nie dieselfde persoon twee agtereenvolgende nagte beskerm nie."
 
+msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
+msgstr ""
+
 msgid "Theme & Terms"
 msgstr "Tema & Terme"
 
+msgid "Time Limit Preset"
+msgstr ""
+
 msgid "Toggle"
-msgstr "Toggle"
+msgstr ""
+
+msgid "Toggle Spectator Mode"
+msgstr ""
 
 msgid "Town Gazette:"
 msgstr "Dorpskoerant:"
@@ -650,17 +1136,50 @@ msgstr "Dorpskoerant:"
 msgid "Town Voting"
 msgstr "Dorpsstemming"
 
+msgid "Turn Sequence"
+msgstr ""
+
+msgid "Turn Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Turn Timers"
+msgstr ""
+
 msgid "Type a message or guess..."
-msgstr "Type a message or guess..."
+msgstr ""
+
+msgid "Type clue or what was said orally..."
+msgstr ""
 
 msgid "Type your guess (or use the chat box)..."
-msgstr "Type your guess (or use the chat box)..."
+msgstr ""
+
+msgid "UI Only"
+msgstr ""
+
+msgid "Unable to load player QR code."
+msgstr ""
+
+msgid "Unassigned"
+msgstr ""
+
+msgid "Unlimited"
+msgstr ""
 
 msgid "Unlock Room"
 msgstr "Ontsluit Kamer"
 
+msgid "Untimed"
+msgstr ""
+
+msgid "Untimed (Relaxed Couch Mode)"
+msgstr ""
+
 msgid "Use Prompt"
-msgstr "Use Prompt"
+msgstr ""
+
+msgid "Use your emoji keyboard or tap emojis below..."
+msgstr ""
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Vertikale fokuspunt: 0=bo, 50=middel, 100=onder."
@@ -668,14 +1187,44 @@ msgstr "Vertikale fokuspunt: 0=bo, 50=middel, 100=onder."
 msgid "Villagers, Wolves, Seer"
 msgstr "Dorpenaars, Wolwe, Siener"
 
+msgid "Vote Timer (s, 0 = ∞)"
+msgstr ""
+
+msgid "Vote for player:"
+msgstr ""
+
 msgid "Voting"
 msgstr "Stemming"
+
+msgid "Waiting for Clue..."
+msgstr "Wag vir leidraad..."
+
+msgid "Waiting for Host to configure teams and start the board..."
+msgstr ""
+
+msgid "Waiting in Lobby..."
+msgstr ""
 
 msgid "Werewolf / Lupus"
 msgstr "Weerwolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
 msgstr "Of fokuskoördinate outomaties via randopvallendheid bereken is."
+
+msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
+msgstr ""
+
+msgid "Wins"
+msgstr ""
+
+msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
+msgstr ""
+
+msgid "Word Impostor"
+msgstr ""
+
+msgid "Word Pack"
+msgstr ""
 
 msgid "Work Experience"
 msgstr "Werkservaring"
@@ -689,32 +1238,53 @@ msgstr "Jy benodig 'n gemagtigde sleutel om toegang tot hierdie bladsy te kry."
 msgid "Your Name / Nickname"
 msgstr "Jou Naam / Bynaam"
 
+msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
+msgstr ""
+
 msgid "Your Personal Reconnect QR"
-msgstr "Your Personal Reconnect QR"
+msgstr ""
 
 msgid "Your Secret Phrase"
-msgstr "Your Secret Phrase"
+msgstr ""
+
+msgid "Your Spymaster"
+msgstr ""
+
+msgid "Your Turn to Guess!"
+msgstr ""
+
+msgid "Your Turn, Spymaster!"
+msgstr ""
+
+msgid "actions"
+msgstr ""
 
 msgid "adjective"
 msgstr "byvoeglike naamwoord"
 
 msgid "ago"
-msgstr "ago"
+msgstr ""
 
 msgid "alive"
 msgstr "lewendig"
 
 msgid "all"
-msgstr "all"
+msgstr ""
 
 msgid "all categories"
-msgstr "all categories"
+msgstr ""
 
 msgid "all day"
 msgstr "heeldag"
 
+msgid "and publish their clue below."
+msgstr ""
+
+msgid "animals"
+msgstr ""
+
 msgid "any"
-msgstr "any"
+msgstr ""
 
 msgid "aperture"
 msgstr "diafragma"
@@ -729,7 +1299,7 @@ msgid "best guess"
 msgstr "beste raaiskoot"
 
 msgid "blog"
-msgstr "Blog"
+msgstr "blog"
 
 msgid "camera make"
 msgstr "kamerafabrikant"
@@ -738,16 +1308,16 @@ msgid "camera model"
 msgstr "kameramodel"
 
 msgid "category:"
-msgstr "category:"
+msgstr ""
 
 msgid "chat:"
-msgstr "klets:"
+msgstr "chat:"
 
 msgid "clear"
 msgstr "vee uit"
 
 msgid "collective prep + hints"
-msgstr "collective prep + hints"
+msgstr ""
 
 msgid "create"
 msgstr "skep"
@@ -762,7 +1332,7 @@ msgid "crop focus Y (%)"
 msgstr "snypuntfokus Y (%)"
 
 msgid "cv"
-msgstr "CV"
+msgstr "cv"
 
 msgid "date"
 msgstr "datum"
@@ -792,7 +1362,7 @@ msgid "emoji time:"
 msgstr "emoji-tyd:"
 
 msgid "end"
-msgstr "end"
+msgstr ""
 
 msgid "enter password to view the calendar."
 msgstr "voer wagwoord in om die kalender te bekyk."
@@ -802,6 +1372,9 @@ msgstr "onttrek gebeurtenis"
 
 msgid "focal length"
 msgstr "brandpuntsafstand"
+
+msgid "food & drink"
+msgstr ""
 
 msgid "gallery"
 msgstr "galery"
@@ -814,6 +1387,9 @@ msgstr "galery-uitbreidings"
 
 msgid "gallery not found."
 msgstr "galery nie gevind nie."
+
+msgid "game"
+msgstr "spel"
 
 msgid "games"
 msgstr "Speletjies"
@@ -836,6 +1412,15 @@ msgstr "Tuisblad"
 msgid "ics maker"
 msgstr "ics-skepper"
 
+msgid "is Guessing"
+msgstr ""
+
+msgid "is formulating a clue for their team."
+msgstr ""
+
+msgid "is formulating a clue. Stand by!"
+msgstr ""
+
 msgid "join"
 msgstr "sluit aan"
 
@@ -846,7 +1431,7 @@ msgid "latitude"
 msgstr "breedtegraad"
 
 msgid "lens"
-msgstr "lens"
+msgstr ""
 
 msgid "location"
 msgstr "ligging"
@@ -861,7 +1446,7 @@ msgid "map view"
 msgstr "kaartaansig"
 
 msgid "medium"
-msgstr "medium"
+msgstr ""
 
 msgid "message (optional)"
 msgstr "boodskap (opsioneel)"
@@ -873,7 +1458,7 @@ msgid "mode:"
 msgstr "modus:"
 
 msgid "movies"
-msgstr "movies"
+msgstr ""
 
 msgid "new word"
 msgstr "nuwe woord"
@@ -911,6 +1496,9 @@ msgstr "plak geleentheidsbesonderhede hier..."
 msgid "paste text or a url with event details, and get an .ics file."
 msgstr "plak teks of 'n url met geleentheidsbesonderhede, en kry 'n .ics-lêer."
 
+msgid "people & characters"
+msgstr ""
+
 msgid "photo"
 msgstr "foto"
 
@@ -933,13 +1521,16 @@ msgid "photos (select multiple)"
 msgstr "foto's (kies verskeie)"
 
 msgid "phrases"
-msgstr "phrases"
+msgstr ""
 
 msgid "pick your options, hit the button, draw!"
 msgstr "kies jou opsies, druk die knoppie, teken!"
 
 msgid "pictionary"
 msgstr "pictionary"
+
+msgid "places & travel"
+msgstr ""
 
 msgid "planz"
 msgstr "planz"
@@ -954,22 +1545,25 @@ msgid "press the button to get a word"
 msgstr "druk die knoppie om 'n woord te kry"
 
 msgid "private (hide guesses)"
-msgstr "private (hide guesses)"
+msgstr ""
 
 msgid "processing status"
 msgstr "verwerkingstatus"
 
 msgid "public (show guesses)"
-msgstr "public (show guesses)"
+msgstr ""
 
 msgid "request"
 msgstr "versoek"
 
 msgid "rerolls:"
-msgstr "rerolls:"
+msgstr ""
 
 msgid "reveal"
 msgstr "onthul"
+
+msgid "room language"
+msgstr ""
 
 msgid "room password"
 msgstr "kamerwagwoord"
@@ -993,7 +1587,7 @@ msgid "skip"
 msgstr "slaan oor"
 
 msgid "songs"
-msgstr "songs"
+msgstr ""
 
 msgid "start"
 msgstr "begin"
@@ -1005,7 +1599,7 @@ msgid "text"
 msgstr "teks"
 
 msgid "things"
-msgstr "things"
+msgstr ""
 
 msgid "title"
 msgstr "titel"
@@ -1017,7 +1611,7 @@ msgid "today"
 msgstr "vandag"
 
 msgid "tv shows"
-msgstr "tv shows"
+msgstr ""
 
 msgid "type"
 msgstr "tipe"
@@ -1053,13 +1647,13 @@ msgid "watermarked image"
 msgstr "gewatermerkte beeld"
 
 msgid "web"
-msgstr "web"
+msgstr ""
 
 msgid "web-optimized image"
 msgstr "web-geoptimaliseerde beeld"
 
 msgid "week"
-msgstr "week"
+msgstr ""
 
 msgid "what is %(a)s + %(b)s?"
 msgstr "wat is %(a)s + %(b)s?"
@@ -1109,8 +1703,14 @@ msgstr "↓ Laai PDF af"
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
 msgstr "⚡ Chaos & Spesiale Rolle (Alfawolf, Stilmaker, Speurder, Dokter, Sluipskutter, Burgemeester, Heks...)"
 
+msgid "✅ Full Content + UI"
+msgstr ""
+
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
+
+msgid "🌐 UI Only (English Words)"
+msgstr ""
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1119,10 +1719,10 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr "🐺 Lupus Hub & Rooms"
+msgstr ""
 
 msgid "🐺 create lupus"
-msgstr "🐺 create lupus"
+msgstr ""
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
 msgstr "👼 Limbo & Engel (Wolwe + Speurder + Dokter + Engel + Sluipskutter + Dorpelinge)"
@@ -1136,5 +1736,11 @@ msgstr "💡 Die pak pas outomaties aan by die aantal spelers wat aansluit. Jy k
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
 msgstr "🔍 Standaard (Wolwe + Speurder/Siener + Dokter/Lyfwag + Dorpelinge)"
 
+msgid "🕵️ Word Impostor"
+msgstr "🕵️ Word Impostor"
+
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
 msgstr "🧑 Eenvoudig / Klassiek (Geen spesiale magte nie — suiwer Wolwe teen Dorpelinge)"
+
+msgid "🧩 Codenames"
+msgstr "🧩 Codenames"

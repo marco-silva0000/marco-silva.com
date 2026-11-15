@@ -25,6 +25,7 @@ Supported Languages:
 import argparse
 import csv
 import glob
+import json
 import os
 import re
 import shutil
@@ -35,6 +36,49 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOCALE_DIR = BASE_DIR / "locale"
+COGNATES_FILE = LOCALE_DIR / ".translated_cognates.json"
+
+UNIVERSAL_UNCHANGED_TERMS = {
+    "CTFs",
+    "ISO",
+    "url",
+    "URL",
+    "planz",
+    "pictionary",
+    "✏️ pictionary",
+    "🎨 Emojinary",
+    "🐺 Lupus",
+    "🕵️ Word Impostor",
+    "🧩 Codenames",
+    "Codenames",
+    "Mafia",
+    "Limbo",
+    "blog",
+    "chat",
+    "chat:",
+    "chat...",
+    "Kayak, surf, SUP, windsurf",
+    "colemak + nvim",
+    "⬇️ JSON",
+    "📱 QR",
+    "+15s",
+}
+
+WIKTIONARY_SAFE_UI_KEYS = {
+    "blue",
+    "create",
+    "day",
+    "end",
+    "gallery",
+    "game",
+    "home",
+    "lens",
+    "night",
+    "password",
+    "red",
+    "start",
+    "text",
+}
 
 LANGUAGES = [
     "af",
@@ -443,6 +487,7 @@ def cmd_export_csv(args):
     # Ensure strings are extracted
     extracted = extract_translatable_strings()
     catalogs = load_all_catalogs()
+    cognates = load_cognates()
 
     # Sync any newly discovered strings into catalogs
     for msgid in extracted:
@@ -467,8 +512,7 @@ def cmd_export_csv(args):
             en_val = catalogs["en"].get(msgid, msgid)
             target_val = catalogs[target_lang].get(msgid, "")
 
-            is_translated = bool(target_val) and target_val != en_val
-            if untranslated_only and is_translated:
+            if untranslated_only and not is_entry_untranslated(target_val, en_val, target_lang, cognates):
                 continue
 
             rows.append(
@@ -503,7 +547,7 @@ def cmd_export_csv(args):
             if untranslated_only:
                 # check if any language is untranslated
                 has_untranslated = any(
-                    not catalogs[lang].get(msgid) or catalogs[lang].get(msgid) == en_val
+                    is_entry_untranslated(catalogs[lang].get(msgid, ""), en_val, lang, cognates)
                     for lang in LANGUAGES
                     if lang != "en"
                 )
@@ -576,11 +620,310 @@ def cmd_import_csv(args):
     print("All .po catalogs updated and .mo files compiled successfully.")
 
 
+def load_cognates(path: Path | None = None) -> dict[str, set[str]]:
+    """Load per-language sets of verified cognates where native translation equals English."""
+    target = path or COGNATES_FILE
+    if not target.exists():
+        return {}
+    try:
+        raw = json.loads(target.read_text(encoding="utf-8"))
+        return {str(k): {str(item) for item in (v or [])} for k, v in raw.items()}
+    except Exception:
+        return {}
+
+
+def save_cognates(cognates: dict[str, set[str]], path: Path | None = None) -> None:
+    """Persist sorted verified cognates map to disk."""
+    target = path or COGNATES_FILE
+    target.parent.mkdir(parents=True, exist_ok=True)
+    serializable = {k: sorted(v) for k, v in sorted(cognates.items()) if v}
+    target.write_text(json.dumps(serializable, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def is_universal_invariant(text: str) -> bool:
+    """Return True if a string is a brand title, acronym, emoji tag, or short symbol not needing translation."""
+    s = (text or "").strip()
+    if not s or s in UNIVERSAL_UNCHANGED_TERMS:
+        return True
+    if len(s) <= 2 or not any(ch.isalpha() for ch in s):
+        return True
+    return False
+
+
+def is_entry_untranslated(
+    val: str,
+    en_val: str,
+    lang_code: str,
+    cognates: dict[str, set[str]] | None = None,
+) -> bool:
+    """Determine if a translation entry still requires localization."""
+    if lang_code == "en":
+        return False
+    en = (en_val or "").strip()
+    if is_universal_invariant(en):
+        return False
+    v = (val or "").strip()
+    if not v:
+        return True
+    if v == en:
+        if cognates and en in cognates.get(lang_code, ()):
+            return False
+        return True
+    return False
+
+
+def _load_local_dictionary_sources() -> tuple[dict, dict, dict, dict]:
+    """Load curated in-repo translation dictionaries without invoking any LLM."""
+    sys.path.insert(0, str(BASE_DIR))
+    seed_tr = {}
+    gl_tr = {}
+    lupus_tr: dict[str, dict[str, str]] = {}
+    wikt_lex = {}
+
+    try:
+        from scripts.generate_all_64_locales import SEED_TRANSLATIONS
+
+        seed_tr = SEED_TRANSLATIONS
+    except Exception:
+        pass
+
+    try:
+        from scripts.generate_locales import TRANSLATIONS
+
+        gl_tr = TRANSLATIONS
+    except Exception:
+        pass
+
+    try:
+        from lupus.translations import FACTION_TRANSLATIONS, PHASE_TRANSLATIONS, STATUS_TRANSLATIONS, UI_STRINGS
+
+        for mapping in (UI_STRINGS, PHASE_TRANSLATIONS, STATUS_TRANSLATIONS, FACTION_TRANSLATIONS):
+            for lang_dict in mapping.values():
+                en = (lang_dict.get("en") or "").strip()
+                if en:
+                    for code, translated in lang_dict.items():
+                        if code != "en" and translated and translated.strip():
+                            lupus_tr.setdefault(en, {})[code] = translated.strip()
+                            lupus_tr.setdefault(en.lower(), {})[code] = translated.strip()
+    except Exception:
+        pass
+
+    wikt_path = BASE_DIR / "emojinary" / "data" / "wiktionary_lexicon.json"
+    if wikt_path.exists():
+        try:
+            raw_lex = json.loads(wikt_path.read_text(encoding="utf-8"))
+            for k in WIKTIONARY_SAFE_UI_KEYS:
+                if k in raw_lex:
+                    wikt_lex[k] = raw_lex[k]
+        except Exception:
+            pass
+
+    return seed_tr, gl_tr, lupus_tr, wikt_lex
+
+
+def _match_case(translated: str, source: str) -> str:
+    """Match simple leading lowercase/uppercase style between source msgid and candidate translation."""
+    t = translated.strip()
+    if not t or not source:
+        return t
+    if source[0].islower():
+        return t[0].lower() + t[1:]
+    if source[0].isupper() and source.lower() != source:
+        return t[0].upper() + t[1:]
+    return t
+
+
+def _derive_variant_translation(
+    msgid: str,
+    lang: str,
+    catalog: dict[str, str],
+    cognates: dict[str, set[str]],
+) -> str | None:
+    """Derive translation for case/punctuation/+prefix/emoji variants from an already translated base string."""
+    # Exact lowercase / uppercase sibling in the same catalog
+    for cand_key, cand_val in catalog.items():
+        if not cand_key or not cand_val or cand_val == cand_key:
+            continue
+        if cand_key.lower() == msgid.lower():
+            return _match_case(cand_val, msgid)
+
+    # Trailing punctuation (':' or '!') where base exists
+    if msgid.endswith((":", "!")):
+        suffix = msgid[-1]
+        core = msgid[:-1].strip()
+        base_val = catalog.get(core) or next(
+            (v for k, v in catalog.items() if k.lower() == core.lower() and v and v != k),
+            None,
+        )
+        if base_val:
+            return f"{_match_case(base_val, core)}{suffix}"
+
+    # Leading '+ ' prefix (e.g., '+ Create Room' from 'Create Room')
+    if msgid.startswith("+ "):
+        core = msgid[2:]
+        base_val = catalog.get(core) or next(
+            (v for k, v in catalog.items() if k.lower() == core.lower() and v and v != k),
+            None,
+        )
+        if base_val:
+            return f"+ {_match_case(base_val, core)}"
+
+    # Leading emoji + space prefix (e.g., '⏳ Lobby', '🗳️ Voting')
+    emoji_match = re.match(r"^([^\w\s]{1,4}\ufe0f?\s+)(.+)$", msgid)
+    if emoji_match:
+        prefix, core = emoji_match.group(1), emoji_match.group(2)
+        if core in cognates.get(lang, ()) or is_universal_invariant(core):
+            return f"{prefix}{core}"
+        base_val = catalog.get(core) or next(
+            (v for k, v in catalog.items() if k.lower() == core.lower() and v and v != k),
+            None,
+        )
+        if base_val:
+            return f"{prefix}{_match_case(base_val, core)}"
+
+    return None
+
+
+def prefill_catalogs_locally(
+    catalogs: dict[str, dict[str, str]],
+    extracted: dict[str, list[str]],
+    cleanup_placeholders: bool = True,
+    master_csv_path: Path | None = None,
+    cognates_path: Path | None = None,
+) -> dict[str, int]:
+    """Fill missing translations using local dictionaries, Wiktionary UI basics, and variant propagation (0 LLM credits)."""
+    cognates = load_cognates(cognates_path)
+    cognates_updated = False
+
+    # Seed genuine cognates from existing master CSV for completed languages (>=340 non-English rows)
+    csv_src = master_csv_path or (LOCALE_DIR / "translations_master.csv")
+    if csv_src.exists():
+        try:
+            with open(csv_src, "r", encoding="utf-8-sig", newline="") as f:
+                rows = list(csv.DictReader(f))
+            for lang in LANGUAGES:
+                if lang == "en" or not rows or lang not in rows[0]:
+                    continue
+                diff_count = sum(
+                    1 for r in rows if r.get(lang, "").strip() and r[lang].strip() != r.get("en", "").strip()
+                )
+                if diff_count >= 340:
+                    lang_set = cognates.setdefault(lang, set())
+                    for r in rows:
+                        en_v = (r.get("en") or r.get("msgid") or "").strip()
+                        lv = (r.get(lang) or "").strip()
+                        if (
+                            lv
+                            and lv == en_v
+                            and len(en_v) > 3
+                            and not is_universal_invariant(en_v)
+                            and en_v not in lang_set
+                        ):
+                            lang_set.add(en_v)
+                            cognates_updated = True
+        except Exception:
+            pass
+
+    seed_tr, gl_tr, lupus_tr, wikt_lex = _load_local_dictionary_sources()
+    stats = {"filled": 0, "placeholders_cleared": 0, "cognates_saved": 0, "langs_updated": 0}
+
+    for lang in LANGUAGES:
+        if lang == "en":
+            continue
+        cat = catalogs.setdefault(lang, {})
+        lang_changed = False
+
+        # Ensure every extracted msgid exists in catalog
+        for msgid in extracted:
+            if msgid not in cat:
+                cat[msgid] = ""
+                lang_changed = True
+
+        # Clear un-translated English fallback copies left by bulk scaffolders
+        if cleanup_placeholders:
+            lang_cognates = cognates.get(lang, ())
+            for msgid, val in list(cat.items()):
+                if not msgid:
+                    continue
+                if is_universal_invariant(msgid):
+                    if val != msgid:
+                        cat[msgid] = msgid
+                        lang_changed = True
+                elif val.strip() == msgid.strip() and msgid.strip() not in lang_cognates:
+                    # Preserve only if explicitly listed in local curated dicts as that translation
+                    in_local = (
+                        seed_tr.get(msgid, {}).get(lang) == msgid
+                        or gl_tr.get(msgid, {}).get(lang) == msgid
+                        or lupus_tr.get(msgid, {}).get(lang) == msgid
+                    )
+                    if not in_local:
+                        cat[msgid] = ""
+                        stats["placeholders_cleared"] += 1
+                        lang_changed = True
+
+        # Pass 1: Curated local dictionaries + safe single-word Wiktionary UI terms
+        for msgid in extracted:
+            cur_val = cat.get(msgid, "")
+            if is_universal_invariant(msgid):
+                if cur_val != msgid:
+                    cat[msgid] = msgid
+                    lang_changed = True
+                continue
+            if not is_entry_untranslated(cur_val, msgid, lang, cognates):
+                continue
+
+            candidate = (
+                seed_tr.get(msgid, {}).get(lang)
+                or gl_tr.get(msgid, {}).get(lang)
+                or lupus_tr.get(msgid, {}).get(lang)
+                or lupus_tr.get(msgid.lower(), {}).get(lang)
+            )
+            if not candidate and msgid.lower() in WIKTIONARY_SAFE_UI_KEYS:
+                tr_list = wikt_lex.get(msgid.lower(), {}).get("translations", {}).get(lang, [])
+                for item in tr_list:
+                    clean_item = str(item).strip()
+                    if clean_item and len(clean_item) <= 28 and not any(ch in clean_item for ch in "[]()/^;"):
+                        candidate = _match_case(clean_item, msgid)
+                        break
+
+            if candidate and candidate.strip():
+                clean_cand = candidate.strip()
+                cat[msgid] = clean_cand
+                if clean_cand == msgid.strip():
+                    cognates.setdefault(lang, set()).add(msgid.strip())
+                    cognates_updated = True
+                stats["filled"] += 1
+                lang_changed = True
+
+        # Pass 2 (2 iterations): Variant & emoji derivation within the same locale
+        for _pass in range(2):
+            for msgid in extracted:
+                if not is_entry_untranslated(cat.get(msgid, ""), msgid, lang, cognates):
+                    continue
+                derived = _derive_variant_translation(msgid, lang, cat, cognates)
+                if derived and derived.strip():
+                    cat[msgid] = derived.strip()
+                    if derived.strip() == msgid.strip():
+                        cognates.setdefault(lang, set()).add(msgid.strip())
+                        cognates_updated = True
+                    stats["filled"] += 1
+                    lang_changed = True
+
+        if lang_changed:
+            stats["langs_updated"] += 1
+
+    if cognates_updated:
+        save_cognates(cognates, cognates_path)
+    stats["cognates_saved"] = sum(len(v) for v in cognates.values())
+    return stats
+
+
 def cmd_status(args):
     """Print the translation status and coverage percentage across all languages."""
     extracted = extract_translatable_strings()
     total_strings = len(extracted)
     catalogs = load_all_catalogs()
+    cognates = load_cognates()
 
     print("\n========================================================")
     print("  Marco Silva Homelab — Translation Status Report")
@@ -595,18 +938,32 @@ def cmd_status(args):
             continue
 
         cat = catalogs.get(lang, {})
-        translated_count = 0
-        for s in extracted.keys():
-            val = cat.get(s, "").strip()
-            # If non-empty and not just identical to english key (unless short symbol or brand)
-            if val and (val != s or len(s) <= 3 or s.startswith("🐺") or s.startswith("✏️")):
-                translated_count += 1
+        translated_count = sum(
+            1 for s in extracted.keys() if not is_entry_untranslated(cat.get(s, ""), s, lang, cognates)
+        )
 
         missing_count = total_strings - translated_count
         coverage = (translated_count / total_strings * 100.0) if total_strings else 0.0
         print(f"{lang:<6} {LANGUAGE_NAMES[lang]:<14} {translated_count:<12} {missing_count:<10} {coverage:>5.1f}%")
 
     print("========================================================\n")
+
+
+def cmd_prefill(args):
+    """Pre-fill missing translations using local dictionaries, cognates, and variants (0 LLM credits)."""
+    extracted = extract_translatable_strings()
+    catalogs = load_all_catalogs()
+    stats = prefill_catalogs_locally(catalogs, extracted, cleanup_placeholders=not args.keep_placeholders)
+    for lang in LANGUAGES:
+        if lang == "en":
+            catalogs["en"] = {s: s for s in extracted}
+        po_path = get_locale_dir(lang) / "LC_MESSAGES" / "django.po"
+        write_po_file(lang, catalogs[lang], po_path)
+    print(
+        f"Local prefill complete: {stats['filled']} strings pre-filled, "
+        f"{stats['placeholders_cleared']} fake English placeholders cleared, "
+        f"{stats['cognates_saved']} verified cognates tracked across {stats['langs_updated']} updated catalog(s)."
+    )
 
 
 def cmd_compile(args):
@@ -641,6 +998,17 @@ def main():
     # compile
     subparsers.add_parser("compile", help="Recompile all .po files to binary .mo")
 
+    # prefill
+    p_prefill = subparsers.add_parser(
+        "prefill",
+        help="Fill missing strings from local dictionaries, cognates, and variants (0 LLM credits)",
+    )
+    p_prefill.add_argument(
+        "--keep-placeholders",
+        action="store_true",
+        help="Keep legacy untranslated msgstr==msgid placeholders instead of clearing them to empty string.",
+    )
+
     args = parser.parse_args()
 
     if args.command == "extract":
@@ -653,6 +1021,8 @@ def main():
         cmd_status(args)
     elif args.command == "compile":
         cmd_compile(args)
+    elif args.command == "prefill":
+        cmd_prefill(args)
 
 
 if __name__ == "__main__":
