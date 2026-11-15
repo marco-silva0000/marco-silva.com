@@ -724,3 +724,10 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 updated = mark_dms_read(state, self.player_id)
                 if updated:
                     await self.broadcast_sync()
+
+            elif action == "rename_player":
+                new_name = (content.get("name") or "").strip()
+                if new_name:
+                    ok, _ = rename_player(state, self.player_id, new_name)
+                    if ok:
+                        await self.broadcast_sync()

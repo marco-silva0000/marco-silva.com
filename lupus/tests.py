@@ -4808,3 +4808,306 @@ class TestLupusVotingComprehensive:
 
         reset_voting(state)
         assert state["voting"]["stage"] == "none"
+
+
+class TestLupusRecentChangesBugHuntScenarios:
+    """Comprehensive scenario & regression tests for bugs found during the recent changes audit."""
+
+    @staticmethod
+    def _setup_custom_game(roster, phase="day", day_number=2, settings_overrides=None):
+        state = create_initial_state("BUGHUNT", "Bug Hunt")
+        if settings_overrides:
+            state["settings"].update(settings_overrides)
+        pids = {}
+        for name, _ in roster:
+            _, p = add_player(state, name)
+            pids[name] = p["id"]
+        start_game(state)
+        for name, role_id in roster:
+            set_manual_player_role(state, pids[name], role_id)
+        state["phase"] = phase
+        state["is_day_zero"] = False
+        state["is_night_zero"] = False
+        state["round_number"] = day_number
+        return state, pids
+
+    def test_night_limbo_guess_preserves_stage_and_supports_dawn_cancel_and_report(self):
+        """
+        Bug fix verification:
+        When the only Limbo soul submits their Angel guess during `limbo_angel_guess`,
+        their status changes from 'limbo' to 'alive' (or 'dead').
+        Previously:
+        1. `get_night_stages(state)` immediately dropped `limbo_angel_guess`, shifting stage indices!
+        2. The guess was not stored in `night_actions["limbo_guesses"]`, so the GM couldn't see or cancel it in Dawn Overview.
+        3. The guess outcome wasn't included in `night_report` at Dawn.
+        """
+        from lupus import game_state
+
+        state, pids = self._setup_custom_game(
+            [
+                ("Wolf", "werewolf"),
+                ("AngelP", "angel"),
+                ("Soul", "villager"),
+                ("V1", "villager"),
+            ],
+            phase="night",
+            day_number=2,
+        )
+        state["players"][pids["Soul"]]["status"] = "limbo"
+
+        stages_before = [s["id"] for s in game_state.get_night_stages(state)]
+        assert "limbo_angel_guess" in stages_before
+        limbo_idx = stages_before.index("limbo_angel_guess")
+        state["night_stage_index"] = limbo_idx
+
+        # Soul guesses correctly during night stage
+        ok, msg = game_state.guess_angel_in_limbo(state, pids["Soul"], pids["AngelP"], record_night_guess=True)
+        assert ok is True, msg
+        assert state["players"][pids["Soul"]]["status"] == "alive"
+
+        # 1. Stage list MUST still contain limbo_angel_guess so current stage doesn't shift!
+        stages_after = [s["id"] for s in game_state.get_night_stages(state)]
+        assert "limbo_angel_guess" in stages_after
+        assert stages_after.index("limbo_angel_guess") == limbo_idx
+
+        # 2. Recorded in night_actions["limbo_guesses"]
+        assert pids["Soul"] in state["night_actions"]["limbo_guesses"]
+        rec = state["night_actions"]["limbo_guesses"][pids["Soul"]]
+        assert rec["target_id"] == pids["AngelP"]
+        assert rec["success"] is True
+
+        # 3. GM cancels the limbo guess in Dawn Overview -> Soul reverts to limbo
+        game_state.clear_gm_night_action(state, f"limbo_guess:{pids['Soul']}")
+        assert state["players"][pids["Soul"]]["status"] == "limbo"
+        assert pids["Soul"] not in state["night_actions"].get("limbo_guesses", {})
+
+        # 4. Soul guesses again (wrong this time), then Dawn resolves -> included in night_report
+        ok2, _ = game_state.guess_angel_in_limbo(state, pids["Soul"], pids["V1"], record_night_guess=True)
+        assert ok2 is False
+        assert state["players"][pids["Soul"]]["status"] == "dead"
+        game_state.resolve_night(state)
+        report = state["night_report"]
+        assert any("Soul" in line and "guessed wrong" in line for line in report)
+
+    def test_dawn_override_guess_angel_works_from_any_prior_status(self):
+        """
+        GM Dawn Overview 'guess_angel' override should work even if the player was 'alive' or 'dead'
+        (e.g., overriding an earlier wrong guess or testing a scenario).
+        """
+        from lupus import game_state
+
+        state, pids = self._setup_custom_game(
+            [
+                ("Wolf", "werewolf"),
+                ("AngelP", "angel"),
+                ("Soul", "villager"),
+                ("V1", "villager"),
+                ("V2", "villager"),
+            ],
+            phase="night",
+            day_number=2,
+        )
+        # Suppose Soul was already marked dead, and GM adds a Dawn Override for Soul guessing AngelP
+        state["players"][pids["Soul"]]["status"] = "dead"
+        ok, err = game_state.add_dawn_override(state, "guess_angel", player_id=pids["Soul"], target_id=pids["AngelP"])
+        assert ok is True, err
+
+        game_state.resolve_night(state)
+        report = state["night_report"]
+        assert state["players"][pids["Soul"]]["status"] == "alive"
+        assert any("Soul" in line and "returned to the living" in line for line in report)
+
+    def test_dawn_override_silence_and_night_zero_gm_overrides(self):
+        """
+        1. GM can add 'silence' (mute / unmute) overrides in Dawn Overview.
+        2. GM Dawn Overrides also execute on Night 0 (when is_night_zero is True).
+        """
+        from lupus import game_state
+
+        state, pids = self._setup_custom_game(
+            [
+                ("Wolf", "werewolf"),
+                ("V1", "villager"),
+                ("V2", "villager"),
+                ("V3", "villager"),
+            ],
+            phase="night",
+            day_number=1,
+        )
+        state["is_night_zero"] = True
+
+        ok, err = game_state.add_dawn_override(state, "silence", player_id=pids["V1"], muted=True)
+        assert ok is True, err
+        ok2, err2 = game_state.add_dawn_override(state, "set_status", player_id=pids["V2"], status="limbo")
+        assert ok2 is True, err2
+
+        game_state.resolve_night(state)
+        report = state["night_report"]
+        assert state["players"][pids["V1"]].get("is_silenced") is True
+        assert state["players"][pids["V2"]]["status"] == "limbo"
+        assert any("silenced" in line for line in report)
+        # Also verify the silence message was logged to state["events_log"]
+        assert any("silenced" in ev.get("message", "") for ev in state.get("events_log", []))
+
+    def test_manual_role_change_updates_deck_for_active_cards_without_leaking_inheritance(self):
+        """
+        Bug fix verification:
+        - When the GM manually assigns a role via `set_manual_player_role`, `state["deck"]` is updated
+          so `roles_in_play` (Active Cards) reflects the GM's change.
+        - Mid-game dynamic role changes (like Successor inheriting Mayor) do NOT mutate `state["deck"]`.
+        """
+        from lupus import game_state
+
+        state, pids = self._setup_custom_game(
+            [
+                ("Wolf", "werewolf"),
+                ("MayorP", "mayor"),
+                ("SuccP", "successor"),
+                ("V1", "villager"),
+            ],
+            phase="day",
+            day_number=1,
+        )
+        state["settings"]["show_active_cards"] = True
+
+        # GM manually changes V1 from villager to detective (Seer)
+        game_state.set_manual_player_role(state, pids["V1"], "detective")
+
+        view = game_state.get_sanitized_player_view(state, pids["V1"])
+        role_counts = {r["id"]: r["count"] for r in view["roles_in_play"]}
+        assert role_counts.get("detective") == 1
+        assert role_counts.get("villager") is None
+
+    def test_voting_settings_and_edge_cases(self):
+        """
+        Tests for voting bugs fixed during audit:
+        1. `allow_self_nomination=False` blocks self-nomination in both `toggle_nomination_vote` and `toggle_hand_raise`.
+        2. `toggle_hand_raise` during `final_vote` rejects candidates not on the ballot (`nominated_player_ids`).
+        3. `top_n_nominees_count=3` nominates top 3 candidates instead of hardcoded 2.
+        4. `mayor_vote_weight=3` gives a revealed Mayor 3 votes; unrevealed Mayor gets 1 vote when `mayor_Double_vote_requires_reveal=True`.
+        5. Dead player's lingering vote in `final_votes` has 0 weight when tallied.
+        6. `max_tie_runoffs=0` spares immediately on the first tie without entering `revote`.
+        """
+        from lupus import game_state
+
+        state, pids = self._setup_custom_game(
+            [
+                ("Wolf", "werewolf"),
+                ("MayorP", "mayor"),
+                ("V1", "villager"),
+                ("V2", "villager"),
+                ("V3", "villager"),
+                ("V4", "villager"),
+            ],
+            phase="day",
+            day_number=2,
+            settings_overrides={"voting_system": "two_stage_top_n", "top_n_nominees_count": 3},
+        )
+        game_state.start_voting_session(state)
+
+        # 1. allow_self_nomination = False
+        state["settings"]["allow_self_nomination"] = False
+        ok_self1, _ = game_state.toggle_nomination_vote(state, pids["V1"], pids["V1"])
+        assert ok_self1 is False
+        ok_self2, _ = game_state.toggle_hand_raise(state, pids["V1"], pids["V1"])
+        assert ok_self2 is False
+        state["settings"]["allow_self_nomination"] = True
+        ok_self3, _ = game_state.toggle_nomination_vote(state, pids["V1"], pids["V1"])
+        assert ok_self3 is True
+        game_state.toggle_nomination_vote(state, pids["V1"], pids["V1"])  # untoggle
+
+        # 2. top_n_nominees_count = 3
+        game_state.toggle_nomination_vote(state, pids["V1"], pids["Wolf"])
+        game_state.toggle_nomination_vote(state, pids["V2"], pids["Wolf"])
+        game_state.toggle_nomination_vote(state, pids["V3"], pids["Wolf"])
+
+        game_state.toggle_nomination_vote(state, pids["V2"], pids["V1"])
+        game_state.toggle_nomination_vote(state, pids["V3"], pids["V1"])
+
+        game_state.toggle_nomination_vote(state, pids["V3"], pids["V2"])
+        game_state.toggle_nomination_vote(state, pids["V4"], pids["V3"])
+
+        noms = state["voting"]["nominated_player_ids"]
+        assert len(noms) == 3
+        assert set(noms) == {pids["Wolf"], pids["V1"], pids["V2"]}
+
+        # 3. Move to final_vote; hand raise for non-nominated candidate V4 is blocked
+        game_state.proceed_to_final_vote(state)
+        ok_hr_bad, _ = game_state.toggle_hand_raise(state, pids["V3"], pids["V4"])
+        assert ok_hr_bad is False
+        ok_hr_good, _ = game_state.toggle_hand_raise(state, pids["V3"], pids["Wolf"])
+        assert ok_hr_good is True
+
+        # 4. Mayor vote weight & reveal requirement + dead voter weight = 0
+        state["settings"]["mayor_vote_weight"] = 3
+        state["settings"]["mayor_Double_vote_requires_reveal"] = True
+        state["players"][pids["MayorP"]]["is_public_mayor"] = False
+        state["players"][pids["MayorP"]]["mayor_revealed"] = False
+        state["settings"]["mayor_type"] = "secret"
+        state["settings"]["public_mayor"] = False
+        assert game_state.get_voter_weight(state, pids["MayorP"]) == 1
+
+        state["players"][pids["MayorP"]]["mayor_revealed"] = True
+        assert game_state.get_voter_weight(state, pids["MayorP"]) == 3
+
+        # Dead voter weight must be 0
+        state["players"][pids["V4"]]["status"] = "dead"
+        assert game_state.get_voter_weight(state, pids["V4"]) == 0
+
+        # 5. max_tie_runoffs = 0 spares immediately on first tie
+        state["settings"]["max_tie_runoffs"] = 0
+        state["voting"]["stage"] = "final_vote"
+        state["voting"]["tie_count"] = 0
+        state["voting"]["nominated_player_ids"] = [pids["Wolf"], pids["V1"]]
+        state["voting"]["final_votes"] = {
+            pids["V2"]: pids["Wolf"],
+            pids["V3"]: pids["V1"],
+        }
+        res, _ = game_state.tally_and_resolve_vote(state)
+        assert res == "spared_on_tie"
+        assert state["voting"]["stage"] == "completed"
+
+    def test_frontend_templates_js_syntax_and_regression_guards(self):
+        """
+        Verifies that all inline <script> blocks in player.html and gm_dashboard.html
+        have valid JS syntax (via `node --check` if node is installed) and do not contain
+        the regressions found during audit (`currentState.settings`, `sendAction("night_action"` in submitDawnOverride).
+        """
+        import re
+        import shutil
+        import subprocess
+        import tempfile
+        from pathlib import Path
+
+        base_dir = Path(__file__).resolve().parent.parent
+        player_html = (base_dir / "templates" / "lupus" / "player.html").read_text()
+        gm_html = (base_dir / "templates" / "lupus" / "gm_dashboard.html").read_text()
+
+        # Regression assertions
+        assert "currentState.settings" not in player_html
+        assert "function switchMobileView(" in player_html
+        assert 'sendAction("record_night_action"' in gm_html
+        assert 'sendAction("night_action"' not in gm_html
+
+        node_bin = shutil.which("node")
+        if node_bin:
+            for name, html in [("player.html", player_html), ("gm_dashboard.html", gm_html)]:
+                scripts = re.findall(r"<script[^>]*>(.*?)</script>", html, flags=re.S)
+                assert len(scripts) > 0, f"No scripts found in {name}"
+                for idx, script in enumerate(scripts):
+                    if "{{" in script or "{%" in script:
+                        # Replace Django template variables with safe JS literals for syntax checking
+                        cleaned = re.sub(r"\{\{.*?\}\}", "null", script)
+                        cleaned = re.sub(r"\{%.*?%\}", "", cleaned)
+                    else:
+                        cleaned = script
+                    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as tf:
+                        tf.write(cleaned)
+                        tf_path = tf.name
+                    proc = subprocess.run(
+                        [node_bin, "--check", tf_path],
+                        capture_output=True,
+                        text=True,
+                    )
+                    Path(tf_path).unlink(missing_ok=True)
+                    assert proc.returncode == 0, f"JS syntax error in {name} script #{idx}: {proc.stderr}"

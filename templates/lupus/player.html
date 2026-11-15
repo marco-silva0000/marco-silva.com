@@ -1898,7 +1898,7 @@ html, body {
       <button onclick="closePlayerModal('gameover-modal')" class="btn btn-primary" style="flex: 1; min-height: 44px; font-weight: 700;">
         👀 Inspect Table &amp; Seating
       </button>
-      <button onclick="closePlayerModal('gameover-modal'); switchMobileView('chat');" class="btn btn-secondary" style="flex: 1; min-height: 44px; font-weight: 700; background: #334155; border-color: #475569; color: #f8fafc;">
+      <button onclick="closePlayerModal('gameover-modal'); setAppTab('chat');" class="btn btn-secondary" style="flex: 1; min-height: 44px; font-weight: 700; background: #334155; border-color: #475569; color: #f8fafc;">
         💬 Discuss in Host Chat
       </button>
     </div>
@@ -2097,6 +2097,9 @@ html, body {
     if (view === "all") view = "play";
     setAppTab(view);
   }
+  function switchMobileView(view) {
+    setMobileView(view);
+  }
 
   function copyReconnectLink(btn) {
     const url = `${window.location.origin}/games/lupus/${ROOM_CODE}/reconnect/${MY_TOKEN}/`;
@@ -2203,8 +2206,10 @@ html, body {
         return;
       } else if (msg.type === "action_result") {
         const fb = document.getElementById("night-action-feedback");
-        fb.innerText = msg.message;
-        fb.style.color = msg.success ? "#a5d6a7" : "#ef9a9a";
+        if (fb) {
+          fb.innerText = msg.message;
+          fb.style.color = msg.success ? "#a5d6a7" : "#ef9a9a";
+        }
       } else if (msg.type === "angel_guess_result") {
         const res = document.getElementById("angel-guess-result");
         res.innerText = msg.message;
@@ -2314,7 +2319,7 @@ html, body {
     if (!sel) return;
     const opts = [{ value: "", text: "-- Select a living player --" }];
     (players || []).forEach(p => {
-      if (p.status === "alive") {
+      if (p.status === "alive" && (includeSelf !== false || !p.is_me)) {
         opts.push({ value: p.id, text: `#${p.seat_number || ''} ${p.name}` });
       }
     });
@@ -2537,7 +2542,7 @@ html, body {
         secretNotes.push(`🎯 <strong>Ammunition:</strong> ${me.sniper_danger_bullets || 0} Danger Bullet(s), ${me.sniper_silver_bullets || 0} Silver Bullet(s) <span style="font-size:0.75rem; color:#94a3b8;">(Silver bullets safe; hold fire 2 rounds to earn silver!)</span>`);
       }
       if (me.role.id === "mayor") {
-        const canCancel = (currentState.settings && currentState.settings.mayor_can_cancel_vote !== false);
+        const canCancel = (state.settings && state.settings.mayor_can_cancel_vote !== false);
         const cancelNote = canCancel
           ? "You possess the executive veto power to cancel an execution vote at night (limit: once per person)."
           : "You do not have vote-canceling powers in this game.";
@@ -3384,10 +3389,13 @@ html, body {
 
   function renderPlayerGazette(state) {
     const card = document.getElementById("player-gazette-card");
+    const tableBanner = document.getElementById("table-gazette-banner");
+    const tableBannerList = document.getElementById("table-gazette-banner-list");
     if (!card) return;
 
     if (state.phase === "lobby") {
       card.style.display = "none";
+      if (tableBanner) tableBanner.style.display = "none";
       return;
     }
     card.style.display = "block";
@@ -3455,8 +3463,6 @@ html, body {
         feedSec.style.display = "none";
       }
     }
-    const tableBanner = document.getElementById("table-gazette-banner");
-    const tableBannerList = document.getElementById("table-gazette-banner-list");
     if (tableBanner && tableBannerList) {
       if (state.phase !== "lobby" && bulletins.length > 0) {
         tableBanner.style.display = "block";

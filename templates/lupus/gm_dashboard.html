@@ -1686,6 +1686,8 @@ html, body {
                 <option value="detonate_martyrdom">💣 Martyrdom Detonate (Martyr X → Victim Y)</option>
                 <option value="gazette_mute:true">📰 Mute Gazette Submissions</option>
                 <option value="gazette_mute:false">📰 Unmute Gazette Submissions</option>
+                <option value="silence:true">🤐 Silence Player for Day</option>
+                <option value="silence:false">🗣️ Unsilence Player for Day</option>
                 <option value="night:wolves">🐺 Wolves Kill</option>
                 <option value="night:doctor">🩺 Doctor Protect</option>
                 <option value="night:bodyguard">🛡️ Bodyguard Shield</option>
@@ -4321,6 +4323,16 @@ html, body {
         const lTarget = state.players.find(p => p.id === state.last_lynched_id);
         itemsHtml += `<li style="margin-bottom:0.3rem;">👨‍⚖️ <strong>Mayor Veto:</strong> Pardoning ${lTarget ? escapeHtml(lTarget.name) : 'yesterday\'s execution'}${cancelBtn('mayor')}</li>`;
       }
+      if (actions.limbo_guesses && typeof actions.limbo_guesses === "object") {
+        Object.values(actions.limbo_guesses).forEach(lg => {
+          const sObj = state.players.find(p => p.id === lg.player_id);
+          const tObj = state.players.find(p => p.id === lg.target_id);
+          const sName = sObj ? escapeHtml(sObj.name) : "Unknown";
+          const tName = tObj ? escapeHtml(tObj.name) : "Unknown";
+          const outcome = lg.success ? '<strong style="color:#4ade80;">✨ Revived</strong>' : '<strong style="color:#f87171;">💀 Died</strong>';
+          itemsHtml += `<li style="margin-bottom:0.3rem;">🌫️ <strong>Limbo Angel Guess:</strong> ${sName} guessed ${tName} &rarr; ${outcome}${cancelBtn('limbo_guess:' + lg.player_id)}</li>`;
+        });
+      }
       if (actions.gm_overrides && actions.gm_overrides.length > 0) {
         actions.gm_overrides.forEach(ov => {
           const pObj = state.players.find(p => p.id === ov.player_id);
@@ -4336,6 +4348,8 @@ html, body {
             desc = `💣 <strong>Martyrdom Detonation (GM):</strong> ${pName} &rarr; ${tName}`;
           } else if (ov.type === "gazette_mute") {
             desc = `📰 <strong>Gazette ${ov.muted ? 'Mute' : 'Unmute'} (GM):</strong> ${pName}`;
+          } else if (ov.type === "silence") {
+            desc = `🤐 <strong>${ov.muted ? 'Silence' : 'Unsilence'} Player (GM):</strong> ${pName}`;
           }
           itemsHtml += `<li style="margin-bottom:0.3rem;">${desc}${cancelOvBtn(ov.id)}</li>`;
         });
@@ -4706,24 +4720,27 @@ html, body {
     } else if (val.startsWith("gazette_mute:")) {
       if (!pid) { alert("Please select a player."); return; }
       sendAction("add_dawn_override", { override_type: "gazette_mute", player_id: pid, muted: val.split(":")[1] === "true" });
+    } else if (val.startsWith("silence:")) {
+      if (!pid) { alert("Please select a player."); return; }
+      sendAction("add_dawn_override", { override_type: "silence", player_id: pid, muted: val.split(":")[1] === "true" });
     } else if (val === "night:mayor") {
-      sendAction("night_action", { stage_id: "mayor", extra: { veto: true } });
+      sendAction("record_night_action", { stage_id: "mayor", extra: { veto: true } });
     } else if (val === "night:witch_revive") {
       if (!pid) { alert("Please select a player to revive."); return; }
       const existingKill = (currentGameState && currentGameState.night_actions && currentGameState.night_actions.witch_action)
         ? currentGameState.night_actions.witch_action.kill_target : null;
-      sendAction("night_action", { stage_id: "witch", extra: { revive: true, revive_target: pid, kill_target: existingKill } });
+      sendAction("record_night_action", { stage_id: "witch", extra: { revive: true, revive_target: pid, kill_target: existingKill } });
     } else if (val === "night:witch_kill") {
       if (!pid) { alert("Please select a player to poison."); return; }
       const existingRev = (currentGameState && currentGameState.night_actions && currentGameState.night_actions.witch_action)
         ? currentGameState.night_actions.witch_action : {};
-      sendAction("night_action", { stage_id: "witch", extra: { revive: Boolean(existingRev.revive || existingRev.revive_target), revive_target: existingRev.revive_target || null, kill_target: pid } });
+      sendAction("record_night_action", { stage_id: "witch", extra: { revive: Boolean(existingRev.revive || existingRev.revive_target), revive_target: existingRev.revive_target || null, kill_target: pid } });
     } else if (val === "night:sniper") {
       if (!pid) { alert("Please select a target."); return; }
-      sendAction("night_action", { stage_id: "sniper", target_id: pid, extra: { bullet_type: "danger" } });
+      sendAction("record_night_action", { stage_id: "sniper", target_id: pid, extra: { bullet_type: "danger" } });
     } else if (val.startsWith("night:")) {
       if (!pid) { alert("Please select a player."); return; }
-      sendAction("night_action", { stage_id: val.split(":")[1], target_id: pid });
+      sendAction("record_night_action", { stage_id: val.split(":")[1], target_id: pid });
     }
   }
 
