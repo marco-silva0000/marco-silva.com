@@ -1,75 +1,579 @@
 ﻿msgid,context,en,kn
++ Create Room,"scripts/generate_locales.py, templates/lupus/hub.html",+ Create Room,+ ಕೊಠಡಿ ರಚಿಸಿ
++ Host New Room,scripts/generate_locales.py,+ Host New Room,+ ಹೊಸ ಕೊಠಡಿ ರಚಿಸಿ
++ New Game,"scripts/generate_locales.py, templates/lupus/hub.html",+ New Game,+ ಹೊಸ ಆಟ
++ create room,scripts/generate_locales.py,+ create room,+ ಕೊಠಡಿ ರಚಿಸಿ
+"0 — Secret (Closed graveyard, roles concealed until game over)","scripts/generate_locales.py, templates/lupus/create.html","0 — Secret (Closed graveyard, roles concealed until game over)","0 — ರಹಸ್ಯ (ಮುಚ್ಚಿದ ಸ್ಮಶಾನ, ಆಟ ಮುಗಿಯುವವರೆಗೆ ಪಾತ್ರಗಳು ಗೌಪ್ಯ)"
+1 day,templates/tools/partials/calendar.html,1 day,1 ದಿನ
+"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")",scripts/generate_locales.py,"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")","1 — ನಿಷ್ಠೆ ಮಾತ್ರ (""ಒಳ್ಳೆಯದು"" ವಿರುದ್ಧ ""ಕೆಟ್ಟದ್ದು"" ಪ್ರಕಟಿಸುತ್ತದೆ)"
 1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. ನಿಯಮಗಳ ಅಂಗೀಕಾರ
 1. Overview,templates/bot_privacy.html,1. Overview,1. ಅವಲೋಕನ
+1. Teams & Roles Setup,templates/codenames/game.html,1. Teams & Roles Setup,1. ತಂಡಗಳು ಮತ್ತು ಪಾತ್ರಗಳ ಸಂಯೋಜನೆ
+10 Minutes,"scripts/generate_locales.py, templates/lupus/create.html",10 Minutes,10 ನಿಮಿಷಗಳು
+1st guess ends round,templates/emojinary/game.html,1st guess ends round,1 ನೇ ಊಹೆ ಸುತ್ತನ್ನು ಕೊನೆಗೊಳಿಸುತ್ತದೆ
+"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")",scripts/generate_locales.py,"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")","2 — ಬಣ / ತಂಡ (""ನಗರ"", ""ತೋಳಗಳು"", ""ತಟಸ್ಥ"" ಪ್ರಕಟಿಸುತ್ತದೆ)"
 2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. ನಾವು ಪ್ರವೇಶಿಸುವ ಮಾಹಿತಿ
 2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. ಅನುಮತಿಸಲಾದ ಬಳಕೆ
+2. Room & Table Settings (Host),templates/codenames/game.html,2. Room & Table Settings (Host),2. ಕೊಠಡಿ ಮತ್ತು ಟೇಬಲ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು (ಹೋಸ್ಟ್)
+3 Minutes (Fast),"scripts/generate_locales.py, templates/lupus/create.html",3 Minutes (Fast),3 ನಿಮಿಷಗಳು (ವೇಗವಾಗಿ)
+3 day,templates/tools/partials/calendar.html,3 day,3 ದಿನಗಳು
+3 — Full Role Card (Announces exact card name and icon),"scripts/generate_locales.py, templates/lupus/create.html",3 — Full Role Card (Announces exact card name and icon),3 — ಸಂಪೂರ್ಣ ಪಾತ್ರ ಕಾರ್ಡ್ (ನಿಖರವಾದ ಕಾರ್ಡ್ ಹೆಸರು ಮತ್ತು ಐಕಾನ್ ಪ್ರಕಟಿಸುತ್ತದೆ)
 3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,3. ಡೇಟಾ ಸಂಗ್ರಹಣೆ ಮತ್ತು ಭದ್ರತೆ
 3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,3. ವಾರಂಟಿಗಳ ಹಕ್ಕು ನಿರಾಕರಣೆ
+30 Seconds (Standard),"scripts/generate_locales.py, templates/lupus/create.html",30 Seconds (Standard),30 ಸೆಕೆಂಡುಗಳು (ಪ್ರಮಾಣಿತ)
 4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,4. ಹೊಣೆಗಾರಿಕೆಯ ಮಿತಿ
 4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,4. ಮೂರನೇ ವ್ಯಕ್ತಿಗಳೊಂದಿಗೆ ಹಂಚಿಕೆ
+404 — page not found,templates/404.html,404 — page not found,404 — ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ
+45 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",45 Seconds,45 ಸೆಕೆಂಡುಗಳು
 4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,Instagram ಕ್ಯಾರೊಸೆಲ್‌ಗಳಿಗಾಗಿ 4:5 ಲಂಬ ಕ್ರಾಪ್ (1080x1350).
+5 Minutes (Standard),"scripts/generate_locales.py, templates/lupus/create.html",5 Minutes (Standard),5 ನಿಮಿಷಗಳು (ಪ್ರಮಾಣಿತ)
 5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,5. ಬದಲಾವಣೆಗಳು ಮತ್ತು ಮುಕ್ತಾಯ
 5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,5. ಪ್ರವೇಶ ಹಿಂಪಡೆಯುವಿಕೆ ಮತ್ತು ಡೇಟಾ ಅಳಿಸುವಿಕೆ
+500 — something went wrong,templates/500.html,500 — something went wrong,500 — ಏನೋ ತಪ್ಪಾಗಿದೆ
 6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,6. ಸಂಪರ್ಕ
+60 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",60 Seconds,60 ಸೆಕೆಂಡುಗಳು
+7 Minutes (Deliberate),"scripts/generate_locales.py, templates/lupus/create.html",7 Minutes (Deliberate),7 ನಿಮಿಷಗಳು (ವಿವರವಾಗಿ)
+Access Denied,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Access Denied,ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಗಿದೆ
+Accuse:,templates/impostor/game.html,Accuse:,ಆರೋಪಿಸಿ:
+Active,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Active,ಸಕ್ರಿಯ
+Active Clue,templates/codenames/game.html,Active Clue,ಸಕ್ರಿಯ ಸುಳಿವು
+Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/hub.html",Active Lupus Rooms,ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳು
+Add,templates/codenames/game.html,Add,ಸೇರಿಸಿ
+Add Hint,templates/emojinary/game.html,Add Hint,ಸುಳಿವನ್ನು ಸೇರಿಸಿ
+Add Oral / Table Player,templates/impostor/game.html,Add Oral / Table Player,ಮೌಖಿಕ / ಟೇಬಲ್ ಆಟಗಾರನನ್ನು ಸೇರಿಸಿ
+Add Oral / Table Player (directly to a team),templates/codenames/game.html,Add Oral / Table Player (directly to a team),ಮೌಖಿಕ / ಟೇಬಲ್ ಆಟಗಾರನನ್ನು ಸೇರಿಸಿ (ನೇರವಾಗಿ ತಂಡಕ್ಕೆ)
+Add Player,templates/codenames/game.html,Add Player,ಆಟಗಾರನನ್ನು ಸೇರಿಸಿ
+Add Secret Custom Pair,templates/impostor/game.html,Add Secret Custom Pair,ರಹಸ್ಯ ಕಸ್ಟಮ್ ಜೋಡಿಯನ್ನು ಸೇರಿಸಿ
+Add custom inside-joke words to be mixed into future boards dealt in this room.,templates/codenames/game.html,Add custom inside-joke words to be mixed into future boards dealt in this room.,ಈ ಕೊಠಡಿಯಲ್ಲಿ ಭವಿಷ್ಯದ ಬೋರ್ಡ್‌ಗಳಲ್ಲಿ ಬೆರೆಸಲು ಕಸ್ಟಮ್ ಒಳ-ಹಾಸ್ಯದ ಪದಗಳನ್ನು ಸೇರಿಸಿ.
+Add oral / table player name...,templates/impostor/game.html,Add oral / table player name...,ಮೌಖಿಕ / ಟೇಬಲ್ ಆಟಗಾರನ ಹೆಸರನ್ನು ಸೇರಿಸಿ...
+Add to Deck,templates/impostor/game.html,Add to Deck,ಡೆಕ್‌ಗೆ ಸೇರಿಸಿ
+Agents & Spymasters,templates/codenames/game.html,Agents & Spymasters,ಏಜೆಂಟರು ಮತ್ತು ಸ್ಪೈಮಾಸ್ಟರ್‌ಗಳು
+All Active Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",All Active Rooms,ಎಲ್ಲಾ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು
+All Games,"scripts/generate_locales.py, templates/lupus/hub.html",All Games,ಎಲ್ಲಾ ಆಟಗಳು
+All guesses & hints appear here,templates/emojinary/game.html,All guesses & hints appear here,ಎಲ್ಲಾ ಊಹೆಗಳು ಮತ್ತು ಸುಳಿವುಗಳು ಇಲ್ಲಿ ಗೋಚರಿಸುತ್ತವೆ
+Allow Host to log oral clues and tap cards for players at the table,templates/codenames/game.html,Allow Host to log oral clues and tap cards for players at the table,ಟೇಬಲ್‌ನಲ್ಲಿರುವ ಆಟಗಾರರಿಗಾಗಿ ಮೌಖಿಕ ಸುಳಿವುಗಳನ್ನು ಲಾಗ್ ಮಾಡಲು ಮತ್ತು ಕಾರ್ಡ್‌ಗಳನ್ನು ಟ್ಯಾಪ್ ಮಾಡಲು ಹೋಸ್ಟ್‌ಗೆ ಅನುಮತಿಸಿ
+Allow Player Custom Pair Deck,templates/impostor/game.html,Allow Player Custom Pair Deck,ಆಟಗಾರರ ಕಸ್ಟಮ್ ಜೋಡಿ ಡೆಕ್ ಅನ್ನು ಅನುಮತಿಸಿ
+Allow custom words,templates/emojinary/game.html,Allow custom words,ಕಸ್ಟಮ್ ಪದಗಳನ್ನು ಅನುಮತಿಸಿ
+Allow players to add custom words,templates/codenames/game.html,Allow players to add custom words,ಆಟಗಾರರಿಗೆ ಕಸ್ಟಮ್ ಪದಗಳನ್ನು ಸೇರಿಸಲು ಅನುಮತಿಸಿ
 Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,Creative Commons Attribution-NonCommercial-ShareAlike ಪರವಾನಗಿ ಮತ್ತು ವಾಟರ್‌ಮಾರ್ಕ್ ಅನ್ನು ಅನ್ವಯಿಸಿ.
+Auto-Balance,templates/codenames/game.html,Auto-Balance,ಸ್ವಯಂ-ಸಮತೋಲನ
+Auto-Balance Teams,templates/codenames/game.html,Auto-Balance Teams,ತಂಡಗಳನ್ನು ಸ್ವಯಂ-ಸಮತೋಲನಗೊಳಿಸಿ
+Auto-tally once all players have voted,templates/impostor/game.html,Auto-tally once all players have voted,ಎಲ್ಲಾ ಆಟಗಾರರು ಮತ ಚಲಾಯಿಸಿದ ನಂತರ ಸ್ವಯಂ-ಲೆಕ್ಕಾಚಾರ ಮಾಡಿ
+Back to Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/create.html",Back to Active Lupus Rooms,ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳಿಗೆ ಹಿಂತಿರುಗಿ
+Back to Lobby,templates/codenames/game.html,Back to Lobby,ಲಾಬಿಗೆ ಹಿಂತಿರುಗಿ
+Back to Lobby / Play Again,templates/impostor/game.html,Back to Lobby / Play Again,ಲಾಬಿಗೆ ಹಿಂತಿರುಗಿ / ಮತ್ತೆ ಆಡಿ
+Backspace,templates/emojinary/game.html,Backspace,ಬ್ಯಾಕ್‌ಸ್ಪೇಸ್
+Blue,templates/codenames/game.html,Blue,ನೀಲಿ
+Blue Left,templates/codenames/game.html,Blue Left,ನೀಲಿ ಬಾಕಿ
+Blue Team,templates/codenames/game.html,Blue Team,ನೀಲಿ ತಂಡ
+Blue Team Wins!,templates/codenames/game.html,Blue Team Wins!,ನೀಲಿ ತಂಡ ಜಯಗಳಿಸಿದೆ!
+Board,"gamerooms/views.py, templates/codenames/game.html",Board,ಬೋರ್ಡ್
+Board Complete,templates/codenames/game.html,Board Complete,ಬೋರ್ಡ್ ಪೂರ್ಣಗೊಂಡಿದೆ
+Board Ended,templates/codenames/game.html,Board Ended,ಬೋರ್ಡ್ ಮುಕ್ತಾಯಗೊಂಡಿದೆ
+Browse Active Lupus Rooms,scripts/generate_locales.py,Browse Active Lupus Rooms,ಸಕ್ರಿಯ ಲೂಪಸ್ ಕೊಠಡಿಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ
+Browse Hub,templates/gamerooms/room_list.html,Browse Hub,ಹಬ್ ಬ್ರೌಸ್ ಮಾಡಿ
+Build Your Emoji Clue:,templates/emojinary/game.html,Build Your Emoji Clue:,ನಿಮ್ಮ ಎಮೋಜಿ ಸುಳಿವನ್ನು ನಿರ್ಮಿಸಿ:
 CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,CC BY-NC-SA ಪರವಾನಗಿ
+CODE,"scripts/generate_locales.py, templates/lupus/hub.html",CODE,ಕೋಡ್
 CTFs,templates/cv.html,CTFs,CTFs
+Calendar navigation,templates/tools/partials/calendar.html,Calendar navigation,ಕ್ಯಾಲೆಂಡರ್ ನ್ಯಾವಿಗೇಷನ್
+Category,templates/impostor/game.html,Category,ವರ್ಗ
+Citizen Word (Majority),templates/impostor/game.html,Citizen Word (Majority),ನಾಗರಿಕ ಪದ (ಬಹುಮತ)
+"Civilians, Mobsters, Cop","scripts/generate_locales.py, templates/lupus/create.html","Civilians, Mobsters, Cop","ನಾಗರಿಕರು, ದರೋಡೆಕೋರರು, ಪೊಲೀಸ್"
+Classic + Extended Party Pack,templates/codenames/game.html,Classic + Extended Party Pack,ಕ್ಲಾಸಿಕ್ + ವಿಸ್ತೃತ ಪಾರ್ಟಿ ಪ್ಯಾಕ್
+Clue Phase,templates/codenames/game.html,Clue Phase,ಸುಳಿವು ಹಂತ
+Clues,gamerooms/views.py,Clues,ಸುಳಿವುಗಳು
+Clues & Taps Log,templates/codenames/game.html,Clues & Taps Log,ಸುಳಿವುಗಳು ಮತ್ತು ಟ್ಯಾಪ್‌ಗಳ ದಾಖಲೆ
+Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Cockpit,ಕಾಕ್‌ಪಿಟ್
+Codenames,"templates/codenames/game.html, templates/gamerooms/room_list.html",Codenames,Codenames
+Conferences,templates/cv.html,Conferences,ಸಮ್ಮೇಳನಗಳು
+Content + UI,"templates/codenames/game.html, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/impostor/game.html",Content + UI,ವಿಷಯ + UI
+Copy,"templates/codenames/game.html, templates/emojinary/game.html",Copy,ನಕಲಿಸಿ
+Create Lupus / Werewolf Room,"scripts/generate_locales.py, templates/lupus/create.html",Create Lupus / Werewolf Room,ಲೂಪಸ್ / ತೋಳಮಾನವ ಕೊಠಡಿ ರಚಿಸಿ
+Create the First Lupus Room,"scripts/generate_locales.py, templates/lupus/hub.html",Create the First Lupus Room,ಮೊದಲ ಲೂಪಸ್ ಕೊಠಡಿ ರಚಿಸಿ
 Curated,photos/models.py,Curated,ಆಯ್ದ
+Custom Codenames Word,templates/codenames/game.html,Custom Codenames Word,ಕಸ್ಟಮ್ ಕೋಡ್‌ನೇಮ್ಸ್ ಪದ
+Custom Deck,"templates/codenames/game.html, templates/impostor/game.html",Custom Deck,ಕಸ್ಟಮ್ ಡೆಕ್
+Custom Seconds,templates/codenames/game.html,Custom Seconds,ಕಸ್ಟಮ್ ಸೆಕೆಂಡುಗಳು
 Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),ಕಸ್ಟಮ್ ಸ್ಪ್ಲಿಟ್ ಕೀಬೋರ್ಡ್‌ಗಳು (colemak + nvim)
+Custom word...,templates/codenames/game.html,Custom word...,ಕಸ್ಟಮ್ ಪದ...
 Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,ಪ್ರವಾಸ/ಫೋಟೋಶೂಟ್‌ನ ದಿನಾಂಕ.
+Day,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Day,ದಿನ
 Day Trip,photos/models.py,Day Trip,ದಿನದ ಪ್ರವಾಸ
+Deal Next Board,templates/codenames/game.html,Deal Next Board,ಮುಂದಿನ ಬೋರ್ಡ್ ಹಂಚಿ
+Defense Timer,"scripts/generate_locales.py, templates/lupus/create.html",Defense Timer,ರಕ್ಷಣಾ ಟೈಮರ್
+Definition,templates/codenames/game.html,Definition,ವ್ಯಾಖ್ಯಾನ
+Discuss clues or accuse suspects...,templates/impostor/game.html,Discuss clues or accuse suspects...,ಸುಳಿವುಗಳನ್ನು ಚರ್ಚಿಸಿ ಅಥವಾ ಶಂಕಿತರನ್ನು ದೂಷಿಸಿ...
+Discussion,"lupus/views.py, scripts/generate_locales.py",Discussion,ಚರ್ಚೆ
+Discussion Round Timer,"scripts/generate_locales.py, templates/lupus/create.html",Discussion Round Timer,ಚರ್ಚಾ ಸುತ್ತಿನ ಟೈಮರ್
+Display Name,templates/emojinary/game.html,Display Name,ಪ್ರದರ್ಶನ ಹೆಸರು
+Doctor Shields From Sniper:,"scripts/generate_locales.py, templates/lupus/create.html",Doctor Shields From Sniper:,ವೈದ್ಯ ಸ್ನೈಪರ್‌ನಿಂದ ರಕ್ಷಿಸುತ್ತಾನೆ:
 Done,photos/models.py,Done,ಪೂರ್ಣಗೊಂಡಿದೆ
+Education,templates/cv.html,Education,ಶಿಕ್ಷಣ
 Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),ಎಲೆಕ್ಟ್ರಾನಿಕ್ಸ್/ಎಂಬೆಡೆಡ್ (ಸ್ವಲ್ಪ Rust ಎಂಬೆಡೆಡ್)
+Enable Last-Chance Impostor Steal,templates/impostor/game.html,Enable Last-Chance Impostor Steal,ಕೊನೆಯ ಕ್ಷಣದ ಇಂಪೋಸ್ಟರ್ ಕಳ್ಳತನವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ
+Enable Lethal Taboo Poison Word,templates/impostor/game.html,Enable Lethal Taboo Poison Word,ಮಾರಕ ನಿಷೇಧಿತ ವಿಷದ ಪದವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ
+End Board,templates/codenames/game.html,End Board,ಬೋರ್ಡ್ ಅಂತ್ಯಗೊಳಿಸಿ
+End Guessing Turn,templates/codenames/game.html,End Guessing Turn,ಊಹಿಸುವ ಸರದಿಯನ್ನು ಅಂತ್ಯಗೊಳಿಸಿ
+End Match,templates/impostor/game.html,End Match,ಪಂದ್ಯವನ್ನು ಅಂತ್ಯಗೊಳಿಸಿ
+English,templates/cv.html,English,ಇಂಗ್ಲಿಷ್
+Enter Game,"scripts/generate_locales.py, templates/lupus/join.html",Enter Game,ಆಟಕ್ಕೆ ಪ್ರವೇಶಿಸಿ
+Enter Room,"scripts/generate_locales.py, templates/lupus/hub.html",Enter Room,ಕೊಠಡಿಗೆ ಪ್ರವೇಶಿಸಿ
+Enter Room Code (e.g. 9B3A1C2D),"scripts/generate_locales.py, templates/gamerooms/room_list.html",Enter Room Code (e.g. 9B3A1C2D),ಕೊಠಡಿ ಕೋಡ್ ನಮೂದಿಸಿ (ಉದಾ. 9B3A1C2D)
+Export JSON,templates/emojinary/game.html,Export JSON,JSON ರಫ್ತು ಮಾಡಿ
 Failed,photos/models.py,Failed,ವಿಫಲವಾಗಿದೆ
+Finished,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Finished,ಮುಕ್ತಾಯವಾಗಿದೆ
+GM,"scripts/generate_locales.py, templates/lupus/hub.html",GM,GM
 GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,GM ಕಾಕ್‌ಪಿಟ್
+GM Director Cockpit:,"scripts/generate_locales.py, templates/lupus/hub.html",GM Director Cockpit:,ಜಿಎಂ ನಿರ್ದೇಶಕರ ಕಾಕ್‌ಪಿಟ್:
+GM Mode: Locked,templates/codenames/game.html,GM Mode: Locked,GM ಮೋಡ್: ಲಾಕ್ ಮಾಡಲಾಗಿದೆ
+GM Oral Guessing Mode,templates/codenames/game.html,GM Oral Guessing Mode,GM ಮೌಖಿಕ ಊಹೆಯ ಮೋಡ್
+GM Oral Mode: ON,templates/codenames/game.html,GM Oral Mode: ON,GM ಮೌಖಿಕ ಮೋಡ್: ಆನ್ ಆಗಿದೆ
+GM Oral Spymaster Mode,templates/codenames/game.html,GM Oral Spymaster Mode,GM ಮೌಖಿಕ ಸ್ಪೈಮಾಸ್ಟರ್ ಮೋಡ್
+Game Master Display Name,"scripts/generate_locales.py, templates/lupus/create.html",Game Master Display Name,ಗೇಮ್ ಮಾಸ್ಟರ್ ಪ್ರದರ್ಶನ ಹೆಸರು
+Game Over,"lupus/views.py, scripts/generate_locales.py, templates/codenames/game.html",Game Over,ಆಟ ಮುಗಿದಿದೆ
+Game Rooms,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/gamerooms/room_list.html, templates/gamerooms/room_name.html, templates/gamerooms/room_password.html",Game Rooms,ಆಟದ ಕೊಠಡಿಗಳು
+Game Rules & Timers,"scripts/generate_locales.py, templates/lupus/create.html",Game Rules & Timers,ಆಟದ ನಿಯಮಗಳು ಮತ್ತು ಟೈಮರ್‌ಗಳು
+Game not found.,"lupus/views.py, scripts/generate_locales.py",Game not found.,ಆಟ ಕಂಡುಬಂದಿಲ್ಲ.
+Game room does not exist.,"lupus/views.py, scripts/generate_locales.py",Game room does not exist.,ಆಟದ ಕೊಠಡಿ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ.
+"Game words, clues, and interface are supported in %(lang)s.",gamerooms/language_support.py,"Game words, clues, and interface are supported in %(lang)s.","ಆಟದ ಪದಗಳು, ಸುಳಿವುಗಳು ಮತ್ತು ಇಂಟರ್ಫೇಸ್ %(lang)s ನಲ್ಲಿ ಬೆಂಬಲಿತವಾಗಿದೆ."
+Give a One-Word Clue,templates/codenames/game.html,Give a One-Word Clue,ಒಂದು ಪದದ ಸುಳಿವನ್ನು ನೀಡಿ
+Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!,templates/impostor/game.html,Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!,ಪದವನ್ನು ಬಹಿರಂಗಪಡಿಸದೆ ಅಥವಾ ಗುಪ್ತ ಮಾರಕ ನಿಷೇಧಿತ ವಿಷದ ಪದವನ್ನು ಮುಟ್ಟದೆ ಪರೋಕ್ಷ ಒಂದು ಪದದ ಸುಳಿವುಗಳನ್ನು ನೀಡಿ. ಹೋಸ್ಟ್ ಕೂಡ ಯಾವುದೇ ಸ್ಪಾಯ್ಲರ್ ಇಲ್ಲದೆ ಕುರುಡಾಗಿ ಆಡುತ್ತಾರೆ!
+Guess the Citizen Word to steal the win...,templates/impostor/game.html,Guess the Citizen Word to steal the win...,ಗೆಲುವನ್ನು ಕದಿಯಲು ನಾಗರಿಕ ಪದವನ್ನು ಊಹಿಸಿ...
+Guesses left,templates/codenames/game.html,Guesses left,ಉಳಿದಿರುವ ಊಹೆಗಳು
+Guessing Phase,templates/codenames/game.html,Guessing Phase,ಊಹಿಸುವ ಹಂತ
 "Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license","ಹ್ಯಾಮ್ ರೇಡಿಯೊ, ಯುಕೆ ಫೌಂಡೇಶನ್ ಲೈಸೆನ್ಸ್"
+Have an 8-character code from your Game Master? Enter it here to jump straight in:,"scripts/generate_locales.py, templates/lupus/hub.html",Have an 8-character code from your Game Master? Enter it here to jump straight in:,ನಿಮ್ಮ ಗೇಮ್ ಮಾಸ್ಟರ್‌ನಿಂದ 8-ಅಕ್ಷರಗಳ ಕೋಡ್ ಹೊಂದಿದ್ದೀರಾ? ನೇರವಾಗಿ ಪ್ರವೇಶಿಸಲು ಇಲ್ಲಿ ನಮೂದಿಸಿ:
+Hide Keycard Overlay,templates/codenames/game.html,Hide Keycard Overlay,ಕೀಕಾರ್ಡ್ ಓವರ್‌ಲೇ ಮರೆಮಾಡಿ
 Hiking and climbing,templates/cv.html,Hiking and climbing,ಹೈಕಿಂಗ್ ಮತ್ತು ಕ್ಲೈಂಬಿಂಗ್
+Hobbies,templates/cv.html,Hobbies,ಹವ್ಯಾಸಗಳು
+Hold-to-Peek Secret Roles:,"scripts/generate_locales.py, templates/lupus/hub.html",Hold-to-Peek Secret Roles:,ರಹಸ್ಯ ಪಾತ್ರಗಳನ್ನು ನೋಡಲು ಒತ್ತಿಹಿಡಿಯಿರಿ:
 Home automation and homelab,templates/cv.html,Home automation and homelab,ಹೋಮ್ ಆಟೊಮೇಷನ್ ಮತ್ತು ಹೋಮ್‌ಲ್ಯಾಬ್
 "Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.","ಅಡ್ಡ ಕೇಂದ್ರೀಕೃತ ಬಿಂದು: 0=ಎಡ, 50=ಮಧ್ಯ, 100=ಬಲ."
+Host Controls,templates/codenames/game.html,Host Controls,ಹೋಸ್ಟ್ ನಿಯಂತ್ರಣಗಳು
+Host Game Settings,templates/emojinary/game.html,Host Game Settings,ಹೋಸ್ಟ್ ಆಟದ ಸೆಟ್ಟಿಂಗ್‌ಗಳು
+Host Room,templates/gamerooms/room_list.html,Host Room,ಹೋಸ್ಟ್ ಕೊಠಡಿ
+"I code, take pics and many other things",templates/index.html,"I code, take pics and many other things","ನಾನು ಕೋಡ್ ಮಾಡುತ್ತೇನೆ, ಫೋಟೋಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತೇನೆ ಮತ್ತು ಇನ್ನಷ್ಟು"
 ISO,photos/models.py,ISO,ISO
+"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",scripts/generate_locales.py,"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).","ಸಕ್ರಿಯಗೊಳಿಸಿದರೆ, ವೈದ್ಯರ ರಕ್ಷಣೆಯು ಸ್ನೈಪರ್ ಗುಂಡಿನಿಂದ ಗುರಿಯನ್ನು ಉಳಿಸಬಹುದು. (ನಿಷ್ಕ್ರಿಯ = ಸ್ನೈಪರ್ ರಕ್ಷಣೆಯನ್ನು ಭೇದಿಸುತ್ತಾನೆ)."
+"If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).","scripts/generate_locales.py, templates/lupus/create.html","If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).","ಸೆಟ್ ಮಾಡಿದ್ದರೆ, QR ಕೋಡ್ ಮೂಲಕ ಸೇರಿದಾಗ ಆಟಗಾರರು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ದೃಢೀಕರಿಸಲ್ಪಡುತ್ತಾರೆ. (💡 ಡೆಮೊ ಟ್ರಿಕ್: Marco ಹೊಂದಿರುವ ಜಿಎಂ ಹೆಸರು ಮತ್ತು test ಪಾಸ್‌ವರ್ಡ್ 10 ಟೆಸ್ಟ್ ಆಟಗಾರರನ್ನು ಸೇರಿಸುತ್ತದೆ)."
+In Progress,"lupus/views.py, scripts/generate_locales.py",In Progress,ಪ್ರಗತಿಯಲ್ಲಿದೆ
+Incorrect room password.,"lupus/views.py, scripts/generate_locales.py",Incorrect room password.,ತಪ್ಪಾದ ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್.
 Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,Instagram 4:5 ಮುನ್ನೋಟ
 Instagram 4:5 image,photos/models.py,Instagram 4:5 image,Instagram 4:5 ಚಿತ್ರ
-"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","ಕಯಾಕ್, ಸರ್ಫ್, SUP, ವಿಂಡ್‌ಸರ್ಫ್"
+Invalid Game Master secret key.,"lupus/views.py, scripts/generate_locales.py",Invalid Game Master secret key.,ಅಮಾನ್ಯ ಗೇಮ್ ಮಾಸ್ಟರ್ ರಹಸ್ಯ ಕೀಲಿ.
+Invite Players,"templates/codenames/game.html, templates/impostor/game.html",Invite Players,ಆಟಗಾರರನ್ನು ಆಹ್ವಾನಿಸಿ
+Invite Players to Room,templates/emojinary/game.html,Invite Players to Room,ಕೋಣೆಗೆ ಆಟಗಾರರನ್ನು ಆಹ್ವಾನಿಸಿ
+Invite QR,"templates/codenames/game.html, templates/emojinary/game.html, templates/impostor/game.html",Invite QR,ಆಹ್ವಾನ QR
+It is not your turn to submit a clue.,templates/codenames/game.html,It is not your turn to submit a clue.,ಸುಳಿವನ್ನು ಸಲ್ಲಿಸಲು ಇದು ನಿಮ್ಮ ಸರದಿಯಲ್ಲ.
+Join,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Join,ಸೇರಿ
+Join Game,"scripts/generate_locales.py, templates/lupus/hub.html",Join Game,ಆಟಕ್ಕೆ ಸೇರಿ
+Join Lupus Game,"scripts/generate_locales.py, templates/lupus/join.html",Join Lupus Game,ಲೂಪಸ್ ಆಟಕ್ಕೆ ಸೇರಿ
+Join Red or Blue Team to begin,templates/codenames/game.html,Join Red or Blue Team to begin,ಪ್ರಾರಂಭಿಸಲು ಕೆಂಪು ಅಥವಾ ನೀಲಿ ತಂಡಕ್ಕೆ ಸೇರಿ
+Join as Operative,templates/codenames/game.html,Join as Operative,ಆಪರೇಟಿವ್ ಆಗಿ ಸೇರಿ
+Join as Player,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Join as Player,ಆಟಗಾರನಾಗಿ ಸೇರಿ
+Join as Spymaster,templates/codenames/game.html,Join as Spymaster,ಸ್ಪೈಮಾಸ್ಟರ್ ಆಗಿ ಸೇರಿ
+Join with Room Code,"scripts/generate_locales.py, templates/lupus/hub.html",Join with Room Code,ಕೊಠಡಿ ಕೋಡ್‌ನೊಂದಿಗೆ ಸೇರಿ
+"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","Kayak, surf, SUP, windsurf"
+LAST-CHANCE IMPOSTOR STEAL!,templates/impostor/game.html,LAST-CHANCE IMPOSTOR STEAL!,ಇಂಪೋಸ್ಟರ್ ಕದಿಯಲು ಕೊನೆಯ ಅವಕಾಶ!
+Languages,templates/cv.html,Languages,ಭಾಷೆಗಳು
 "Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026","ಕೊನೆಯದಾಗಿ ನವೀಕರಿಸಿದ್ದು: ಅಕ್ಟೋಬರ್ 27, 2026"
+"Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","scripts/generate_locales.py, templates/lupus/hub.html","Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","ತಡವಾಗಿ ಬಂದವರು ದೃಢೀಕೃತ ಪ್ರಯಾಣಿಕರು, ಪ್ರೇತಗಳು ಅಥವಾ ಉತ್ತರಾಧಿಕಾರಿಗಳಾಗಿ ಸೇರುತ್ತಾರೆ."
+Launch Lupus Room,"scripts/generate_locales.py, templates/lupus/create.html",Launch Lupus Room,ಲೂಪಸ್ ಕೊಠಡಿಯನ್ನು ಪ್ರಾರಂಭಿಸಿ
+Leave empty for public join,"scripts/generate_locales.py, templates/lupus/create.html",Leave empty for public join,ಸಾರ್ವಜನಿಕ ಪ್ರವೇಶಕ್ಕಾಗಿ ಖಾಲಿ ಬಿಡಿ
+Let this player scan on their phone to take over their personal Spymaster/Operative view.,templates/codenames/game.html,Let this player scan on their phone to take over their personal Spymaster/Operative view.,ಈ ಆಟಗಾರನು ತಮ್ಮ ವೈಯಕ್ತಿಕ ಸ್ಪೈಮಾಸ್ಟರ್/ಆಪರೇಟಿವ್ ವೀಕ್ಷಣೆಯನ್ನು ಪಡೆಯಲು ತಮ್ಮ ಫೋನ್‌ನಲ್ಲಿ ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಬಿಡಿ.
+Lethal Taboo Word (Optional instant elimination trap),templates/impostor/game.html,Lethal Taboo Word (Optional instant elimination trap),ಮಾರಕ ನಿಷೇಧಿತ ಪದ (ಐಚ್ಛಿಕ ತ್ವರಿತ ಎಲಿಮಿನೇಷನ್ ಬಲೆ)
+Limbo,"lupus/views.py, scripts/generate_locales.py",Limbo,Limbo
+Limbo & Angel Mechanic:,"scripts/generate_locales.py, templates/lupus/create.html",Limbo & Angel Mechanic:,ಲಿಂಬೋ ಮತ್ತು ದೇವದೂತ ತಂತ್ರ:
+Limbo Resolution,"lupus/views.py, scripts/generate_locales.py",Limbo Resolution,ಲಿಂಬೋ ಪರಿಹಾರ
+Listen to,templates/codenames/game.html,Listen to,ಆಲಿಸಿ
+Listening,templates/cv.html,Listening,ಕೇಳುವುದು
+Live Chat & Guess Stream,templates/emojinary/game.html,Live Chat & Guess Stream,ಲೈವ್ ಚಾಟ್ ಮತ್ತು ಊಹೆಗಳ ಸ್ಟ್ರೀಮ್
+Living & fallen players submit morning rumors read aloud at dawn.,"scripts/generate_locales.py, templates/lupus/hub.html",Living & fallen players submit morning rumors read aloud at dawn.,ಜೀವಂತ ಮತ್ತು ಮೃತ ಆಟಗಾರರು ಮುಂಜಾನೆ ಗಟ್ಟಿಯಾಗಿ ಓದಲಾಗುವ ವದಂತಿಗಳನ್ನು ಕಳುಹಿಸುತ್ತಾರೆ.
+Lobby,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py, templates/codenames/game.html",Lobby,ಲಾಬಿ
+Lobby (Waiting for Players),"lupus/views.py, scripts/generate_locales.py",Lobby (Waiting for Players),ಲಾಬಿ (ಆಟಗಾರರಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ)
+Log Clue for Table Spymaster,templates/codenames/game.html,Log Clue for Table Spymaster,ಟೇಬಲ್ ಸ್ಪೈಮಾಸ್ಟರ್‌ಗಾಗಿ ಸುಳಿವನ್ನು ದಾಖಲಿಸಿ
+Lupus / Werewolf,templates/gamerooms/room_list.html,Lupus / Werewolf,ಲ್ಯೂಪಸ್ / ವೇರ್‌ವೂಲ್ಫ್
+Lupus Active Rooms & Hub,"scripts/generate_locales.py, templates/lupus/join.html",Lupus Active Rooms & Hub,ಲೂಪಸ್ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು ಮತ್ತು ಹಬ್
+Lupus Game,scripts/generate_locales.py,Lupus Game,ಲೂಪಸ್ ಆಟ
+Lupus Party Game,"scripts/generate_locales.py, templates/lupus/create.html",Lupus Party Game,ಲೂಪಸ್ ಪಾರ್ಟಿ ಆಟ
+Lupus in Tabula - Active Rooms & Game Hub,"scripts/generate_locales.py, templates/lupus/hub.html",Lupus in Tabula - Active Rooms & Game Hub,ಲೂಪಸ್ ಇನ್ ತಬುಲಾ - ಸಕ್ರಿಯ ಕೊಠಡಿಗಳು ಮತ್ತು ಆಟದ ಹಬ್
+Lupus in Tabula / Werewolf,scripts/generate_locales.py,Lupus in Tabula / Werewolf,ಲೂಪಸ್ ಇನ್ ತಬುಲಾ / ತೋಳಮಾನವ
+Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,Mafia
+Match Complete,templates/codenames/game.html,Match Complete,ಪಂದ್ಯ ಮುಕ್ತಾಯಗೊಂಡಿದೆ
+Match Podium & Highlights,templates/emojinary/game.html,Match Podium & Highlights,ಪಂದ್ಯದ ಪೀಠ ಮತ್ತು ಮುಖ್ಯಾಂಶಗಳು
+Match Replay & Attempt Timeline,templates/emojinary/game.html,Match Replay & Attempt Timeline,ಪಂದ್ಯದ ಮರುಪಂದ್ಯ ಮತ್ತು ಪ್ರಯತ್ನದ ಟೈಮ್‌ಲೈನ್
+Match Replay & Board Archive,templates/codenames/game.html,Match Replay & Board Archive,ಪಂದ್ಯದ ಮರುಪಂದ್ಯ ಮತ್ತು ಬೋರ್ಡ್ ಆರ್ಕೈವ್
+Match Rules,templates/impostor/game.html,Match Rules,ಪಂದ್ಯದ ನಿಯಮಗಳು
+Message...,templates/codenames/game.html,Message...,ಸಂದೇಶ...
+Midgame Arrivals:,"scripts/generate_locales.py, templates/lupus/hub.html",Midgame Arrivals:,ಆಟದ ಮಧ್ಯೆ ಬರುವವರು:
+"Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:",templates/impostor/game.html,"Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:","ಮಾಡರೇಟರ್ ಮತ ನಿಯಂತ್ರಣಗಳು — ಕೆಳಗೆ ಆಟಗಾರ ಮತ್ತು ಶಂಕಿತರನ್ನು ಆಯ್ಕೆಮಾಡಿ, ಅಥವಾ ಟೇಬಲ್‌ನಲ್ಲಿ ಪಿಲ್ ಮತ್ತು ಆಸನವನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ:"
+Move...,templates/codenames/game.html,Move...,ಸ್ಥಳಾಂತರಿಸಿ...
+New Game / Redraw,templates/impostor/game.html,New Game / Redraw,ಹೊಸ ಆಟ / ಮರುಹಂಚಿಕೆ
+Next Round,templates/impostor/game.html,Next Round,ಮುಂದಿನ ಸುತ್ತು
+Next day,templates/tools/partials/calendar.html,Next day,ಮುಂದಿನ ದಿನ
+Night,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Night,ರಾತ್ರಿ
+No Active Lupus Games Right Now,"scripts/generate_locales.py, templates/lupus/hub.html",No Active Lupus Games Right Now,ಪ್ರಸ್ತುತ ಯಾವುದೇ ಸಕ್ರಿಯ ಲೂಪಸ್ ಆಟಗಳಿಲ್ಲ
 No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,ಇನ್ನೂ ಯಾವುದೇ Instagram ಕ್ರಾಪ್ ರಚಿಸಲಾಗಿಲ್ಲ.
+No clues published yet.,templates/codenames/game.html,No clues published yet.,ಇನ್ನೂ ಯಾವುದೇ ಸುಳಿವುಗಳನ್ನು ಪ್ರಕಟಿಸಲಾಗಿಲ್ಲ.
+No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here.,templates/codenames/game.html,No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here.,ಇನ್ನೂ ಯಾವುದೇ ಪೂರ್ಣಗೊಂಡ Codenames ಬೋರ್ಡ್‌ಗಳಿಲ್ಲ. ಪೂರ್ಣ ಕೀಕಾರ್ಡ್ ಮರುಪಂದ್ಯವನ್ನು ಇಲ್ಲಿ ವೀಕ್ಷಿಸಲು ಬೋರ್ಡ್ ಪೂರ್ಣಗೊಳಿಸಿ ಅಥವಾ ಮೊದಲೇ ಕೊನೆಗೊಳಿಸಿ.
+No dictionary definition available.,templates/codenames/game.html,No dictionary definition available.,ಯಾವುದೇ ನಿಘಂಟು ವ್ಯಾಖ್ಯಾನ ಲಭ್ಯವಿಲ್ಲ.
+No turns logged.,templates/codenames/game.html,No turns logged.,ಯಾವುದೇ ಸರದಿಗಳನ್ನು ದಾಖಲಿಸಲಾಗಿಲ್ಲ.
+"Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play.",templates/gamerooms/room_list.html,"Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play.","ವಿಕಿಸಾರಸ್ ಸ್ಪೈಮಾಸ್ಟರ್ AI ಸುಳಿವುಗಳು, ಖಾಸಗಿ ಕೀಕಾರ್ಡ್ ಟಾಗಲ್ ಮತ್ತು ಮೌಖಿಕ/ಟೇಬಲ್ ಆಟದೊಂದಿಗೆ ಅಧಿಕೃತ 400-ಪದಗಳ 5×5 ತಂಡದ ನಿರ್ಣಯ ಬೋರ್ಡ್."
+Official Classic 400 Words,templates/codenames/game.html,Official Classic 400 Words,ಅಧಿಕೃತ ಕ್ಲಾಸಿಕ್ 400 ಪದಗಳು
+One-word clue...,templates/codenames/game.html,One-word clue...,ಒಂದು ಪದದ ಸುಳಿವು...
+Only emojis allowed — text characters were ignored.,templates/emojinary/game.html,Only emojis allowed — text characters were ignored.,ಎಮೋಜಿಗಳಿಗೆ ಮಾತ್ರ ಅನುಮತಿಯಿದೆ — ಪಠ್ಯ ಅಕ್ಷರಗಳನ್ನು ನಿರ್ಲಕ್ಷಿಸಲಾಗಿದೆ.
+Open,"lupus/views.py, scripts/generate_locales.py",Open,ತೆರೆದಿದೆ
+Open (Lobby),"lupus/views.py, scripts/generate_locales.py",Open (Lobby),ತೆರೆದಿದೆ (ಲಾಬಿ)
+Open GM Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Open GM Cockpit,ಜಿಎಂ ಕಾಕ್‌ಪಿಟ್ ತೆರೆಯಿರಿ
+Open Generator,templates/gamerooms/room_list.html,Open Generator,ಜನರೇಟರ್ ತೆರೆಯಿರಿ
+Open Player Link,templates/impostor/game.html,Open Player Link,ಆಟಗಾರನ ಲಿಂಕ್ ತೆರೆಯಿರಿ
+Open slot,templates/codenames/game.html,Open slot,ಖಾಲಿ ಜಾಗ
+Operative,templates/codenames/game.html,Operative,ಆಪರೇಟಿವ್
+Operative Seconds (0=∞),templates/codenames/game.html,Operative Seconds (0=∞),ಆಪರೇಟಿವ್ ಸೆಕೆಂಡುಗಳು (0=∞)
+Operatives,templates/codenames/game.html,Operatives,ಆಪರೇಟಿವ್‌ಗಳು
+Operatives are Guessing,templates/codenames/game.html,Operatives are Guessing,ಆಪರೇಟಿವ್‌ಗಳು ಊಹಿಸುತ್ತಿದ್ದಾರೆ
+Operatives are choosing cards for this round.,templates/codenames/game.html,Operatives are choosing cards for this round.,ಆಪರೇಟಿವ್‌ಗಳು ಈ ಸುತ್ತಿಗಾಗಿ ಕಾರ್ಡ್‌ಗಳನ್ನು ಆಯ್ಕೆಮಾಡುತ್ತಿದ್ದಾರೆ.
+Operatives are guessing!,templates/codenames/game.html,Operatives are guessing!,ಆಪರೇಟಿವ್‌ಗಳು ಊಹಿಸುತ್ತಿದ್ದಾರೆ!
+Opponent team is guessing. Wait for them to pass or make an incorrect tap.,templates/codenames/game.html,Opponent team is guessing. Wait for them to pass or make an incorrect tap.,ವಿರುದ್ಧ ತಂಡವು ಊಹಿಸುತ್ತಿದೆ. ಅವರು ಪಾಸ್ ಮಾಡಲು ಅಥವಾ ತಪ್ಪಾಗಿ ಟ್ಯಾಪ್ ಮಾಡಲು ಕಾಯಿರಿ.
+Or type your own custom prompt/phrase...,templates/emojinary/game.html,Or type your own custom prompt/phrase...,ಅಥವಾ ನಿಮ್ಮ ಸ್ವಂತ ಕಸ್ಟಮ್ ಪ್ರಾಂಪ್ಟ್/ವಾಕ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ...
+Oral Spymaster Mode (Mod Logging),templates/codenames/game.html,Oral Spymaster Mode (Mod Logging),ಮೌಖಿಕ ಸ್ಪೈಮಾಸ್ಟರ್ ಮೋಡ್ (ಮಾಡ್ ಲಾಗಿಂಗ್)
 "Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)","ಮೂಲ ಕ್ಯಾಮೆರಾ RAW ಫೈಲ್ (CR3, ARW, NEF, ಇತ್ಯಾದಿ)"
+Other,templates/cv.html,Other,ಇತರೆ
+Outdoors,templates/cv.html,Outdoors,ಹೊರಾಂಗಣ
 Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ — Marco Silva
+Participating Host Controls (Zero-Spoiler),templates/impostor/game.html,Participating Host Controls (Zero-Spoiler),ಭಾಗವಹಿಸುವ ಹೋಸ್ಟ್ ನಿಯಂತ್ರಣಗಳು (ಶೂನ್ಯ-ಸ್ಪಾಯ್ಲರ್)
+Pass / Wrong,templates/impostor/game.html,Pass / Wrong,ಪಾಸ್ / ತಪ್ಪು
+Pass Turn (Mod),templates/codenames/game.html,Pass Turn (Mod),ಸರದಿ ಪಾಸ್ ಮಾಡಿ (ಮಾಡ್)
+Password,"scripts/generate_locales.py, templates/lupus/hub.html",Password,ಪಾಸ್‌ವರ್ಡ್
+Password Protected,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Password Protected,ಪಾಸ್‌ವರ್ಡ್‌ನಿಂದ ಸಂರಕ್ಷಿಸಲಾಗಿದೆ
+Past & Finished Games,"scripts/generate_locales.py, templates/lupus/hub.html",Past & Finished Games,ಹಿಂದಿನ ಮತ್ತು ಪೂರ್ಣಗೊಂಡ ಆಟಗಳು
+Pause,templates/codenames/game.html,Pause,ವಿರಾಮಗೊಳಿಸಿ
+Pause Timer,templates/impostor/game.html,Pause Timer,ಟೈಮರ್ ವಿರಾಮಗೊಳಿಸಿ
 Pending,photos/models.py,Pending,ಬಾಕಿಯಿದೆ
+Personal Player QR,templates/codenames/game.html,Personal Player QR,ವೈಯಕ್ತಿಕ ಆಟಗಾರನ QR
+Personal QR,templates/codenames/game.html,Personal QR,ವೈಯಕ್ತಿಕ QR
+Photography,templates/cv.html,Photography,ಛಾಯಾಗ್ರಹಣ
+Pick 1 word and a number of cards. Your Operatives must guess based on your clue.,templates/codenames/game.html,Pick 1 word and a number of cards. Your Operatives must guess based on your clue.,1 ಪದ ಮತ್ತು ಕಾರ್ಡ್‌ಗಳ ಸಂಖ್ಯೆಯನ್ನು ಆರಿಸಿ. ನಿಮ್ಮ ಸುಳಿವಿನ ಆಧಾರದ ಮೇಲೆ ನಿಮ್ಮ ಆಪರೇಟಿವ್‌ಗಳು ಊಹಿಸಬೇಕು.
+Pick the name others at the table know you by.,"scripts/generate_locales.py, templates/lupus/join.html",Pick the name others at the table know you by.,ಮೇಜಿನ ಮೇಲಿರುವ ಇತರರು ನಿಮ್ಮನ್ನು ಗುರುತಿಸುವ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ.
+"Pick your game, language, and room settings — share the link or QR code when ready.",templates/gamerooms/room_create.html,"Pick your game, language, and room settings — share the link or QR code when ready.","ನಿಮ್ಮ ಆಟ, ಭಾಷೆ ಮತ್ತು ಕೋಣೆಯ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಆರಿಸಿ — ಸಿದ್ಧವಾದಾಗ ಲಿಂಕ್ ಅಥವಾ QR ಕೋಡ್ ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಿ."
+Player Profile & Personal QR,templates/emojinary/game.html,Player Profile & Personal QR,ಆಟಗಾರನ ಪ್ರೊಫೈಲ್ ಮತ್ತು ವೈಯಕ್ತಿಕ QR
+Player QR,templates/impostor/game.html,Player QR,ಆಟಗಾರನ QR
+Player Reconnect QR,templates/codenames/game.html,Player Reconnect QR,ಆಟಗಾರನ ಮರುಸಂಪರ್ಕ QR
+Player name...,templates/codenames/game.html,Player name...,ಆಟಗಾರನ ಹೆಸರು...
+Players & Scores,templates/impostor/game.html,Players & Scores,ಆಟಗಾರರು ಮತ್ತು ಅಂಕಗಳು
+Please enter a player name.,"lupus/views.py, scripts/generate_locales.py",Please enter a player name.,ದಯವಿಟ್ಟು ಆಟಗಾರನ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.
+Please enter a valid room code.,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Please enter a valid room code.,ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಕೊಠಡಿ ಕೋಡ್ ನಮೂದಿಸಿ.
+Poison Word (Impostor / Drunk),templates/impostor/game.html,Poison Word (Impostor / Drunk),ವಿಷದ ಪದ (ವಂಚಕ / ಕುಡುಕ)
+Poison Word Mode,templates/impostor/game.html,Poison Word Mode,ವಿಷದ ಪದ ಮೋಡ್
+"Portuguese · Helsinki, Finland",templates/cv.html,"Portuguese · Helsinki, Finland","ಪೋರ್ಚುಗೀಸ್ · ಹೆಲ್ಸಿಂಕಿ, ಫಿನ್ಲ್ಯಾಂಡ್"
+Previous day,templates/tools/partials/calendar.html,Previous day,ಹಿಂದಿನ ದಿನ
 Price for the RAW file download.,photos/models.py,Price for the RAW file download.,RAW ಫೈಲ್ ಡೌನ್‌ಲೋಡ್‌ನ ಬೆಲೆ.
+Privacy Policy,templates/bot_privacy.html,Privacy Policy,ಗೌಪ್ಯತೆ ನೀತಿ
 Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,ಗೌಪ್ಯತಾ ನೀತಿ - ಹೋಮ್‌ಲ್ಯಾಬ್ Telegram ಬಾಟ್
 Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,ಗೌಪ್ಯತಾ ನೀತಿ - ಹೋಮ್‌ಲ್ಯಾಬ್ Telegram ಬಾಟ್ - Marco Silva
+Privacy shield keeps cards concealed from prying eyes at the table.,"scripts/generate_locales.py, templates/lupus/hub.html",Privacy shield keeps cards concealed from prying eyes at the table.,ಗೌಪ್ಯತೆ ರಕ್ಷಕವು ಮೇಜಿನ ಮೇಲಿರುವ ಇತರರ ಕಣ್ಣುಗಳಿಂದ ಕಾರ್ಡ್‌ಗಳನ್ನು ರಹಸ್ಯವಾಗಿರಿಸುತ್ತದೆ.
 Processing,photos/models.py,Processing,ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ
+Prompt Tool,templates/gamerooms/room_list.html,Prompt Tool,ಪ್ರಾಮ್ಟ್ ಪರಿಕರ
+Public,"scripts/generate_locales.py, templates/lupus/hub.html",Public,ಸಾರ್ವಜನಿಕ
+Publish Clue,templates/codenames/game.html,Publish Clue,ಸುಳಿವನ್ನು ಪ್ರಕಟಿಸಿ
+RAW available for purchase,templates/photos/photo_viewer.html,RAW available for purchase,RAW ಖರೀದಿಗೆ ಲಭ್ಯವಿದೆ
 RAW file,photos/models.py,RAW file,RAW ಫೈಲ್
 RAW price,photos/models.py,RAW price,RAW ಬೆಲೆ
+Reading,templates/cv.html,Reading,ಓದುವುದು
+Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,ನೈಜ-ಸಮಯದ ಮಲ್ಟಿಪ್ಲೇಯರ್ ಬ್ರೌಸರ್ ಪಾರ್ಟಿ ಆಟಗಳು. ಯಾವುದೇ ಖಾತೆಯ ಅಗತ್ಯವಿಲ್ಲ — ಕೇವಲ ಸೇರಿ ಮತ್ತು ಸ್ನೇಹಿತರೊಂದಿಗೆ ಆಟವಾಡಿ.
+Red,templates/codenames/game.html,Red,ಕೆಂಪು
+Red Left,templates/codenames/game.html,Red Left,ಕೆಂಪು ಉಳಿದಿದೆ
+Red Team,templates/codenames/game.html,Red Team,ಕೆಂಪು ತಂಡ
+Red Team Wins!,templates/codenames/game.html,Red Team Wins!,ಕೆಂಪು ತಂಡ ಗೆದ್ದಿದೆ!
+Redraw Board,templates/codenames/game.html,Redraw Board,ಮಂಡಳಿಯನ್ನು ಮರುಹೊಂದಿಸಿ
 Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,ಆಯ್ಕೆಮಾಡಿದ ಫೋಟೋಗಳಿಗಾಗಿ 4:5 Instagram ಕ್ರಾಪ್‌ಗಳನ್ನು ಮರುರಚಿಸಿ
+Replay,"scripts/generate_locales.py, templates/codenames/game.html, templates/emojinary/game.html, templates/lupus/hub.html",Replay,ಮರುಪಂದ್ಯ
+Reroll,templates/emojinary/game.html,Reroll,ಮರುಉರುಳಿಸಿ
+Resume,templates/codenames/game.html,Resume,ಮುಂದುವರಿಸಿ
+Return as %(name)s,scripts/generate_locales.py,Return as %(name)s,%(name)s ಆಗಿ ಹಿಂತಿರುಗಿ
+Reveal,gamerooms/views.py,Reveal,ತೋರಿಸಿ
+Reveal Roles on Death:,"scripts/generate_locales.py, templates/lupus/create.html",Reveal Roles on Death:,ಮರಣದ ಸಮಯದಲ್ಲಿ ಪಾತ್ರಗಳನ್ನು ಬಹಿರಂಗಪಡಿಸಿ:
+Role Hidden,templates/impostor/game.html,Role Hidden,ಪಾತ್ರವನ್ನು ಮರೆಮಾಡಲಾಗಿದೆ
+"Roles, phases, and interface are localized in %(lang)s.",gamerooms/language_support.py,"Roles, phases, and interface are localized in %(lang)s.","ಪಾತ್ರಗಳು, ಹಂತಗಳು ಮತ್ತು ಇಂಟರ್ಫೇಸ್ ಅನ್ನು %(lang)s ನಲ್ಲಿ ಸ್ಥಳೀಕರಿಸಲಾಗಿದೆ."
+Room Chat,templates/emojinary/game.html,Room Chat,ಕೋಣೆಯ ಚಾಟ್
+Room Chat & Events,templates/codenames/game.html,Room Chat & Events,ಕೋಣೆಯ ಚಾಟ್ ಮತ್ತು ಘಟನೆಗಳು
+Room Code,templates/emojinary/game.html,Room Code,ಕೋಣೆಯ ಕೋಡ್
+Room Code:,"scripts/generate_locales.py, templates/lupus/join.html",Room Code:,ಕೊಠಡಿ ಕೋಡ್:
+Room Password,"scripts/generate_locales.py, templates/lupus/join.html",Room Password,ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್
+Room Password (optional),"scripts/generate_locales.py, templates/lupus/create.html",Room Password (optional),ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್ (ಐಚ್ಛಿಕ)
+Room Setup,"scripts/generate_locales.py, templates/lupus/create.html",Room Setup,ಕೊಠಡಿ ಸೆಟಪ್
+Room Title,"scripts/generate_locales.py, templates/lupus/create.html",Room Title,ಕೊಠಡಿಯ ಶೀರ್ಷಿಕೆ
+Room code '%(code)s' was not found or is no longer active.,scripts/generate_locales.py,Room code '%(code)s' was not found or is no longer active.,ಕೊಠಡಿ ಕೋಡ್ '%(code)s' ಕಂಡುಬಂದಿಲ್ಲ ಅಥವಾ ಇನ್ನು ಮುಂದೆ ಸಕ್ರಿಯವಾಗಿಲ್ಲ.
+Rooms,"templates/codenames/game.html, templates/emojinary/game.html, templates/impostor/game.html",Rooms,ಕೋಣೆಗಳು
+Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,"scripts/generate_locales.py, templates/lupus/hub.html",Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,ಕೊಠಡಿಗಳನ್ನು ಅಗತ್ಯವಿದ್ದಾಗ ರಚಿಸಲಾಗುತ್ತದೆ ಮತ್ತು 24 ಗಂಟೆಗಳ ಕಾಲ ಸಕ್ರಿಯವಾಗಿರುತ್ತವೆ. ಹೊಸ ಆಟದ ಸೆಷನ್ ಪ್ರಾರಂಭಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಗುಂಪನ್ನು ಆಹ್ವಾನಿಸಿ!
+Rotate Spymasters each new board,templates/codenames/game.html,Rotate Spymasters each new board,ಪ್ರತಿ ಹೊಸ ಮಂಡಳಿಗೆ ಸ್ಪೈಮಾಸ್ಟರ್‌ಗಳನ್ನು ಬದಲಿಸಿ
+Round,gamerooms/views.py,Round,ಸುತ್ತು
+Round Clues,templates/impostor/game.html,Round Clues,ಸುತ್ತಿನ ಸುಳಿವುಗಳು
+Round-by-Round Replay & Attempt Log,templates/emojinary/game.html,Round-by-Round Replay & Attempt Log,ಸುತ್ತು-ಸುತ್ತಿನ ಮರುಪಂದ್ಯ ಮತ್ತು ಪ್ರಯತ್ನದ ಲಾಗ್
+Rounds (Clue Cycles),templates/impostor/game.html,Rounds (Clue Cycles),ಸುತ್ತುಗಳು (ಸುಳಿವು ಚಕ್ರಗಳು)
+Running,"lupus/views.py, scripts/generate_locales.py",Running,ನಡೆಯುತ್ತಿದೆ
+Save Name,templates/emojinary/game.html,Save Name,ಹೆಸರನ್ನು ಉಳಿಸಿ
+Scan on another device to reclaim your Spymaster/Operative seat cleanly.,templates/codenames/game.html,Scan on another device to reclaim your Spymaster/Operative seat cleanly.,ನಿಮ್ಮ ಸ್ಪೈಮಾಸ್ಟರ್/ಆಪರೇಟಿವ್ ಸ್ಥಾನವನ್ನು ಸ್ವಚ್ಛವಾಗಿ ಮರಳಿ ಪಡೆಯಲು ಮತ್ತೊಂದು ಸಾಧನದಲ್ಲಿ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.
+Scan this QR code with any phone camera to join immediately:,templates/emojinary/game.html,Scan this QR code with any phone camera to join immediately:,ತಕ್ಷಣ ಸೇರಲು ಯಾವುದೇ ಫೋನ್ ಕ್ಯಾಮೆರಾದೊಂದಿಗೆ ಈ QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ:
+Scan this personal QR code to switch devices without losing your secret card:,templates/impostor/game.html,Scan this personal QR code to switch devices without losing your secret card:,ನಿಮ್ಮ ರಹಸ್ಯ ಕಾರ್ಡ್ ಅನ್ನು ಕಳೆದುಕೊಳ್ಳದೆ ಸಾಧನಗಳನ್ನು ಬದಲಾಯಿಸಲು ಈ ವೈಯಕ್ತಿಕ QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ:
+Scan this to move your session and score to another phone or browser:,templates/emojinary/game.html,Scan this to move your session and score to another phone or browser:,ನಿಮ್ಮ ಸೆಷನ್ ಮತ್ತು ಸ್ಕೋರ್ ಅನ್ನು ಮತ್ತೊಂದು ಫೋನ್ ಅಥವಾ ಬ್ರೌಸರ್‌ಗೆ ಸ್ಥಳಾಂತರಿಸಲು ಇದನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ:
+"Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)...",templates/emojinary/game.html,"Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)...","ಹೆಸರು, ಸಮಾನಾರ್ಥಕ ಪದ, ಟೈಪೊ ಅಥವಾ ಭಾಷೆಯ ಮೂಲಕ ಎಮೋಜಿಯನ್ನು ಹುಡುಕಿ (ಉದಾ. fire, crown, fogo, φωτιά)..."
+Send,"templates/codenames/game.html, templates/impostor/game.html",Send,ಕಳುಹಿಸಿ
 Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,Instagram ಕರೋಸಲ್ ಪ್ಯಾಕ್ ಅನ್ನು Telegram ಗೆ ಕಳುಹಿಸಿ
 Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,ಸರ್ವರ್ ದೋಷ — Marco Silva
+Set,templates/emojinary/game.html,Set,ಸೆಟ್
+Setting up teams...,templates/codenames/game.html,Setting up teams...,ತಂಡಗಳನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ...
+Show Role & Word,templates/impostor/game.html,Show Role & Word,ಪಾತ್ರ ಮತ್ತು ಪದವನ್ನು ತೋರಿಸಿ
+Show Spymaster Keycard,templates/codenames/game.html,Show Spymaster Keycard,ಸ್ಪೈಮಾಸ್ಟರ್ ಕೀಕಾರ್ಡ್ ತೋರಿಸಿ
+Silent Phase,"lupus/views.py, scripts/generate_locales.py",Silent Phase,ಶಾಂತ ಹಂತ
+Skills,templates/cv.html,Skills,ಕೌಶಲ್ಯಗಳು
+Skip Turn,templates/impostor/game.html,Skip Turn,ಸರದಿ ಬಿಟ್ಟುಬಿಡಿ
+"Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!","scripts/generate_locales.py, templates/lupus/create.html","Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!",ಕೊಲ್ಲಲ್ಪಟ್ಟ ಆಟಗಾರರು ನೇರವಾಗಿ ಸಾಯುವ ಬದಲು ಒಮ್ಮೆ ಲಿಂಬೋಗೆ ಪ್ರವೇಶಿಸುತ್ತಾರೆ. ಅವರು ದೇವದೂತ ಯಾರೆಂದು ಊಹಿಸಿದರೆ ಪುನರುತ್ಥಾನಗೊಳ್ಳುತ್ತಾರೆ!
+"Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master.",templates/gamerooms/room_list.html,"Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master.","ವಿಷದ ಪದಗಳು, ಮಾರಕ ನಿಷೇಧಿತ ಬಲೆಗಳು, ಕೊನೆಯ ಅವಕಾಶದ ಕಳ್ಳತನ ಮತ್ತು ಭಾಗವಹಿಸುವ ಗೇಮ್ ಮಾಸ್ಟರ್ ಜೊತೆಗೆ ಸಾಮಾಜಿಕ ಕಡಿತ."
+Spanish,templates/cv.html,Spanish,ಸ್ಪ್ಯಾನಿಷ್
+Speaker (oral clue):,templates/impostor/game.html,Speaker (oral clue):,ಸ್ಪೀಕರ್ (ಮೌಖಿಕ ಸುಳಿವು):
+Speaking,templates/cv.html,Speaking,ಮಾತನಾಡುವುದು
+Spectator,templates/codenames/game.html,Spectator,ವೀಕ್ಷಕ
+Spectator / Non-Player,templates/codenames/game.html,Spectator / Non-Player,ವೀಕ್ಷಕ / ಆಟಗಾರನಲ್ಲದವರು
+Spectator Mode (Skip my turns),templates/emojinary/game.html,Spectator Mode (Skip my turns),ವೀಕ್ಷಕ ಮೋಡ್ (ನನ್ನ ಸರದಿಗಳನ್ನು ಬಿಟ್ಟುಬಿಡಿ)
+Spymaster,templates/codenames/game.html,Spymaster,ಸ್ಪೈಮಾಸ್ಟರ್
+Spymaster Seconds (0=∞),templates/codenames/game.html,Spymaster Seconds (0=∞),ಸ್ಪೈಮಾಸ್ಟರ್ ಸೆಕೆಂಡುಗಳು (0=∞)
+Spymaster is thinking of a clue...,templates/codenames/game.html,Spymaster is thinking of a clue...,ಸ್ಪೈಮಾಸ್ಟರ್ ಸುಳಿವನ್ನು ಯೋಚಿಸುತ್ತಿದ್ದಾರೆ...
+Staggering Doctor:,"scripts/generate_locales.py, templates/lupus/create.html",Staggering Doctor:,ಬದಲಾಗುವ ವೈದ್ಯ:
+Standard Timed (90s / 90s),templates/codenames/game.html,Standard Timed (90s / 90s),ಪ್ರಮಾಣಿತ ಸಮಯ ಮಿತಿ (90ಸೆ / 90ಸೆ)
+Start Codenames,templates/codenames/game.html,Start Codenames,Codenames ಪ್ರಾರಂಭಿಸಿ
+Start Match,templates/impostor/game.html,Start Match,ಪಂದ್ಯ ಪ್ರಾರಂಭಿಸಿ
+Start Voting Early,templates/impostor/game.html,Start Voting Early,ಬೇಗನೆ ಮತದಾನ ಪ್ರಾರಂಭಿಸಿ
+Starting Role Deck Preset,"scripts/generate_locales.py, templates/lupus/create.html",Starting Role Deck Preset,ಆರಂಭಿಕ ರೋಲ್ ಡೆಕ್ ಪ್ರಿಸೆಟ್
+Steal Guess,gamerooms/views.py,Steal Guess,ಕದಿಯುವ ಊಹೆ
+"Steal Timer (s, 0 = ∞)",templates/impostor/game.html,"Steal Timer (s, 0 = ∞)","ಕದಿಯುವ ಟೈಮರ್ (ಸೆ, 0 = ∞)"
+Steal Win!,templates/impostor/game.html,Steal Win!,ಕದ್ದು ಗೆಲುವು!
+"Step-by-step night stages, bluffing calls, and voting manager.","scripts/generate_locales.py, templates/lupus/hub.html","Step-by-step night stages, bluffing calls, and voting manager.","ಹಂತ-ಹಂತದ ರಾತ್ರಿ ಹಂತಗಳು, ಬ್ಲಫ್ ಕರೆಗಳು ಮತ್ತು ಮತದಾನ ವ್ಯವಸ್ಥಾಪಕ."
+Submit,templates/emojinary/game.html,Submit,ಸಲ್ಲಿಸಿ
+Submit Clue,templates/impostor/game.html,Submit Clue,ಸುಳಿವನ್ನು ಸಲ್ಲಿಸಿ
+Submit Player Vote,templates/impostor/game.html,Submit Player Vote,ಆಟಗಾರನ ಮತವನ್ನು ಸಲ್ಲಿಸಿ
+Table Discussion & Event Log,templates/impostor/game.html,Table Discussion & Event Log,ಟೇಬಲ್ ಚರ್ಚೆ ಮತ್ತು ಈವೆಂಟ್ ಲಾಗ್
+Table-First Lupus Highlights,"scripts/generate_locales.py, templates/lupus/hub.html",Table-First Lupus Highlights,ಟೇಬಲ್-ಆಧಾರಿತ ಲೂಪಸ್ ಮುಖ್ಯಾಂಶಗಳು
+Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,"scripts/generate_locales.py, templates/lupus/hub.html",Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,ಟೇಬಲ್-ಆಧಾರಿತ ತೋಳಮಾನವ ಮತ್ತು ಮಾಫಿಯಾ ಪಾರ್ಟಿ ಆಟ. ಯಾವುದೇ ಲಾಗಿನ್ ಅಗತ್ಯವಿಲ್ಲ. ಪ್ರತಿಯೊಬ್ಬ ಆಟಗಾರನು ರಹಸ್ಯ ಪಾತ್ರಗಳು ಮತ್ತು ಮತದಾನಕ್ಕಾಗಿ ತಮ್ಮ ಫೋನ್ ಬಳಸುತ್ತಾರೆ ಮತ್ತು ನೀವು ಗೇಮ್ ಮಾಸ್ಟರ್ ಆಗಿ ನಡೆಸುತ್ತೀರಿ.
+"Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.","scripts/generate_locales.py, templates/lupus/create.html","Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.",ಟೇಬಲ್-ಆಧಾರಿತ ಹೈಬ್ರಿಡ್ ಪಾರ್ಟಿ ಆಟ. ಯಾವುದೇ ಖಾತೆ ಅಥವಾ ಲಾಗಿನ್ ಅಗತ್ಯವಿಲ್ಲ. ಆಟಗಾರರು QR ಕೋಡ್ ಮೂಲಕ ಸೇರುತ್ತಾರೆ ಮತ್ತು ನೀವು ಗೇಮ್ ಮಾಸ್ಟರ್ ಆಗಿ ನಡೆಸುತ್ತೀರಿ.
+"Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.","scripts/generate_locales.py, templates/gamerooms/room_list.html","Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.","ರಹಸ್ಯ ಪಾತ್ರಗಳು, ನೇರ ಮತದಾನ, ಟೌನ್ ಗೆಜೆಟ್ ಮತ್ತು ಜಿಎಂ ನಿರ್ದೇಶಕರ ಕಾಕ್‌ಪಿಟ್ ಹೊಂದಿರುವ ಟೇಬಲ್-ಆಧಾರಿತ ಪಾರ್ಟಿ ಆಟ."
+Tally Votes Now,templates/impostor/game.html,Tally Votes Now,ಈಗಲೇ ಮತಗಳನ್ನು ಎಣಿಕೆ ಮಾಡಿ
+Tap cards on the board as players make their guesses out loud.,templates/codenames/game.html,Tap cards on the board as players make their guesses out loud.,ಆಟಗಾರರು ಗಟ್ಟಿಯಾಗಿ ಊಹಿಸಿದಂತೆ ಬೋರ್ಡ್‌ನಲ್ಲಿರುವ ಕಾರ್ಡ್‌ಗಳನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.
+"Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn.",templates/codenames/game.html,"Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn.","ಸುಳಿವುಗೆ ಹೊಂದಿಕೆಯಾಗುವ ಬೋರ್ಡ್‌ನಲ್ಲಿರುವ ಕಾರ್ಡ್‌ಗಳನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ಮುಗಿದ ನಂತರ ಅಥವಾ ಅನುಮಾನವಿದ್ದಾಗ, 'ಊಹಿಸುವ ಸರದಿ ಮುಗಿಸಿ' ಟ್ಯಾಪ್ ಮಾಡಿ."
+Targets,templates/codenames/game.html,Targets,ಗುರಿಗಳು
+Techy,templates/cv.html,Techy,ತಂತ್ರಜ್ಞಾನ
+Terms of Service,templates/bot_terms.html,Terms of Service,ಸೇವಾ ನಿಯಮಗಳು
 Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,ಸೇವಾ ನಿಯಮಗಳು - Homelab Telegram Bot
 Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,ಸೇವಾ ನಿಯಮಗಳು - Homelab Telegram Bot - Marco Silva
+The Doctor / Guard cannot protect the same person two consecutive nights.,"scripts/generate_locales.py, templates/lupus/create.html",The Doctor / Guard cannot protect the same person two consecutive nights.,ವೈದ್ಯ / ಅಂಗರಕ್ಷಕ ಸತತ ಎರಡು ರಾತ್ರಿಗಳಲ್ಲಿ ಒಬ್ಬನೇ ವ್ಯಕ್ತಿಯನ್ನು ರಕ್ಷಿಸುವಂತಿಲ್ಲ.
+"The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable.",gamerooms/language_support.py,"The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable.","ಇಂಟರ್ಫೇಸ್ %(lang)s ಅನ್ನು ಬಳಸುತ್ತದೆ, ಆದರೆ ಸಂಪೂರ್ಣ ಶಬ್ದಕೋಶದ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲದ ಕಾರಣ ಆಟದ ವಿಷಯವು ಇಂಗ್ಲಿಷ್‌ಗೆ ಬದಲಾಗುತ್ತದೆ."
+Theme & Terms,"scripts/generate_locales.py, templates/lupus/create.html",Theme & Terms,ಥೀಮ್ ಮತ್ತು ನಿಯಮಗಳು
+Time Limit Preset,templates/impostor/game.html,Time Limit Preset,ಸಮಯ ಮಿತಿ ಪೂರ್ವನಿಗದಿ
+Toggle,templates/emojinary/game.html,Toggle,ಟಾಗಲ್ ಮಾಡಿ
+Toggle Spectator Mode,templates/impostor/game.html,Toggle Spectator Mode,ವೀಕ್ಷಕ ಮೋಡ್ ಟಾಗಲ್ ಮಾಡಿ
+Town Gazette:,"scripts/generate_locales.py, templates/lupus/hub.html",Town Gazette:,ಟೌನ್ ಗೆಜೆಟ್:
+Town Voting,"lupus/views.py, scripts/generate_locales.py",Town Voting,ಪಟ್ಟಣ ಮತದಾನ
+Turn Sequence,templates/codenames/game.html,Turn Sequence,ಸರದಿ ಅನುಕ್ರಮ
+"Turn Timer (s, 0 = ∞)",templates/impostor/game.html,"Turn Timer (s, 0 = ∞)","ಸರದಿ ಟೈಮರ್ (ಸೆ, 0 = ∞)"
+Turn Timers,templates/codenames/game.html,Turn Timers,ಸರದಿ ಟೈಮರ್‌ಗಳು
+Type a message or guess...,templates/emojinary/game.html,Type a message or guess...,ಸಂದೇಶ ಅಥವಾ ಊಹೆಯನ್ನು ಟೈಪ್ ಮಾಡಿ...
+Type clue or what was said orally...,templates/impostor/game.html,Type clue or what was said orally...,ಸುಳಿವು ಅಥವಾ ಬಾಯಲ್ಲಿ ಹೇಳಿದ್ದನ್ನು ಟೈಪ್ ಮಾಡಿ...
+Type your guess (or use the chat box)...,templates/emojinary/game.html,Type your guess (or use the chat box)...,ನಿಮ್ಮ ಊಹೆಯನ್ನು ಟೈಪ್ ಮಾಡಿ (ಅಥವಾ ಚಾಟ್ ಬಾಕ್ಸ್ ಬಳಸಿ)...
+UI Only,"templates/codenames/game.html, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/impostor/game.html",UI Only,UI ಮಾತ್ರ
+Unable to load player QR code.,templates/codenames/game.html,Unable to load player QR code.,ಆಟಗಾರನ QR ಕೋಡ್ ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ.
+Unassigned,templates/codenames/game.html,Unassigned,ನಿಯೋಜಿಸಲಾಗಿಲ್ಲ
+Unlimited,templates/codenames/game.html,Unlimited,ಅನಿಯಮಿತ
+Unlock Room,"scripts/generate_locales.py, templates/lupus/join.html",Unlock Room,ಕೊಠಡಿಯನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿ
+Untimed,templates/codenames/game.html,Untimed,ಸಮಯ ಮಿತಿ ಇಲ್ಲ
+Untimed (Relaxed Couch Mode),templates/codenames/game.html,Untimed (Relaxed Couch Mode),ಸಮಯ ಮಿತಿ ಇಲ್ಲ (ಆರಾಮದಾಯಕ ಕೌಚ್ ಮೋಡ್)
+Use Prompt,templates/emojinary/game.html,Use Prompt,ಪ್ರಾಮ್ಟ್ ಬಳಸಿ
+Use your emoji keyboard or tap emojis below...,templates/emojinary/game.html,Use your emoji keyboard or tap emojis below...,ನಿಮ್ಮ ಎಮೋಜಿ ಕೀಬೋರ್ಡ್ ಬಳಸಿ ಅಥವಾ ಕೆಳಗಿನ ಎಮೋಜಿಗಳನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ...
 "Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.","ಲಂಬ ಫೋಕಸ್ ಬಿಂದು: 0=ಮೇಲೆ, 50=ಮಧ್ಯ, 100=ಕೆಳಗೆ."
+"Villagers, Wolves, Seer","scripts/generate_locales.py, templates/lupus/create.html","Villagers, Wolves, Seer","ಗ್ರಾಮಸ್ಥರು, ತೋಳಗಳು, ದ್ರಷ್ಟಾರ"
+"Vote Timer (s, 0 = ∞)",templates/impostor/game.html,"Vote Timer (s, 0 = ∞)","ಮತದಾನದ ಟೈಮರ್ (ಸೆ, 0 = ∞)"
+Vote for player:,templates/impostor/game.html,Vote for player:,ಆಟಗಾರನಿಗೆ ಮತ ಚಲಾಯಿಸಿ:
+Voting,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Voting,ಮತದಾನ
+Waiting for Clue...,templates/codenames/game.html,Waiting for Clue...,ಸುಳಿವಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ...
+Waiting for Host to configure teams and start the board...,templates/codenames/game.html,Waiting for Host to configure teams and start the board...,ಹೋಸ್ಟ್ ತಂಡಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಲು ಮತ್ತು ಬೋರ್ಡ್ ಪ್ರಾರಂಭಿಸಲು ಕಾಯಲಾಗುತ್ತಿದೆ...
+Waiting in Lobby...,templates/impostor/game.html,Waiting in Lobby...,ಲಾಬಿಯಲ್ಲಿ ಕಾಯಲಾಗುತ್ತಿದೆ...
+Werewolf / Lupus,"scripts/generate_locales.py, templates/lupus/create.html",Werewolf / Lupus,ತೋಳಮಾನವ / ಲೂಪಸ್
 Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,ಎಡ್ಜ್ ಸೇಲಿಯನ್ಸಿ ಮೂಲಕ ಫೋಕಸ್ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಲೆಕ್ಕಹಾಕಲಾಗಿದೆಯೇ ಎಂದು.
+Wikisaurus AI Clue Suggestions (tap to pre-fill),templates/codenames/game.html,Wikisaurus AI Clue Suggestions (tap to pre-fill),Wikisaurus AI ಸುಳಿವು ಸಲಹೆಗಳು (ಪೂರ್ವಭಾವಿಯಾಗಿ ಭರ್ತಿ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ)
+Wins,templates/codenames/game.html,Wins,ಗೆಲುವುಗಳು
+Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends.,templates/gamerooms/room_list.html,Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends.,ಸ್ನೇಹಿತರೊಂದಿಗೆ ಸಾಂಪ್ರದಾಯಿಕ ಪೆನ್-ಮತ್ತು-ಪೇಪರ್ ಡ್ರಾಯಿಂಗ್ ಸುತ್ತುಗಳಿಗಾಗಿ ಪದ ಮತ್ತು ವಾಕ್ಯ ಪ್ರಾಂಪ್ಟ್ ಜನರೇಟರ್.
+Word Impostor,"templates/gamerooms/room_list.html, templates/impostor/game.html",Word Impostor,Word Impostor
+Word Pack,templates/codenames/game.html,Word Pack,ಪದಗಳ ಪ್ಯಾಕ್
+Work Experience,templates/cv.html,Work Experience,ಕೆಲಸದ ಅನುಭವ
+Writing,templates/cv.html,Writing,ಬರೆಯುವುದು
+You need an authorized key to access this page.,scripts/generate_locales.py,You need an authorized key to access this page.,ಈ ಪುಟವನ್ನು ಪ್ರವೇಶಿಸಲು ನಿಮಗೆ ಅಧಿಕೃತ ಕೀ ಅಗತ್ಯವಿದೆ.
+Your Name / Nickname,"scripts/generate_locales.py, templates/lupus/join.html",Your Name / Nickname,ನಿಮ್ಮ ಹೆಸರು / ಅಡ್ಡಹೆಸರು
+Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!,templates/codenames/game.html,Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!,ನಿಮ್ಮ ಏಜೆಂಟರು ಸಮಾಲೋಚನೆ ನಡೆಸುತ್ತಿದ್ದಾರೆ. ಕಟ್ಟುನಿಟ್ಟಾದ ಪೋಕರ್ ಮುಖವನ್ನು ಇಟ್ಟುಕೊಳ್ಳಿ — ಯಾವುದೇ ಪ್ರತಿಕ್ರಿಯೆಗಳು ಅಥವಾ ಸುಳಿವುಗಳನ್ನು ನೀಡಬೇಡಿ!
+Your Personal Reconnect QR,templates/emojinary/game.html,Your Personal Reconnect QR,ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಮರುಸಂಪರ್ಕ QR
+Your Secret Phrase,templates/emojinary/game.html,Your Secret Phrase,ನಿಮ್ಮ ರಹಸ್ಯ ನುಡಿಗಟ್ಟು
+Your Spymaster,templates/codenames/game.html,Your Spymaster,ನಿಮ್ಮ ಸ್ಪೈಮಾಸ್ಟರ್
+Your Turn to Guess!,templates/codenames/game.html,Your Turn to Guess!,ಊಹಿಸಲು ನಿಮ್ಮ ಸರದಿ!
+"Your Turn, Spymaster!",templates/codenames/game.html,"Your Turn, Spymaster!","ನಿಮ್ಮ ಸರದಿ, ಸ್ಪೈಮಾಸ್ಟರ್!"
+actions,templates/emojinary/game.html,actions,ಕ್ರಮಗಳು
+adjective,templates/tools/pictionary.html,adjective,ವಿಶೇಷಣ
+ago,"scripts/generate_locales.py, templates/gamerooms/room_list.html, templates/lupus/hub.html",ago,ಹಿಂದೆ
+alive,"scripts/generate_locales.py, templates/lupus/hub.html",alive,ಜೀವಂತ
 all,templates/emojinary/game.html,all,ಎಲ್ಲವೂ
+all categories,templates/emojinary/game.html,all categories,ಎಲ್ಲಾ ವರ್ಗಗಳು
+all day,templates/tools/partials/calendar.html,all day,ದಿನವಿಡೀ
+and publish their clue below.,templates/codenames/game.html,and publish their clue below.,ಮತ್ತು ಅವರ ಸುಳಿವನ್ನು ಕೆಳಗೆ ಪ್ರಕಟಿಸಿ.
+animals,templates/emojinary/game.html,animals,ಪ್ರಾಣಿಗಳು
+any,templates/tools/pictionary.html,any,ಯಾವುದಾದರೂ
 aperture,photos/models.py,aperture,ಅಪರ್ಚರ್
 auto focus detected,photos/models.py,auto focus detected,ಆಟೋ ಫೋಕಸ್ ಪತ್ತೆಯಾಗಿದೆ
 available for sale,photos/models.py,available for sale,ಮಾರಾಟಕ್ಕೆ ಲಭ್ಯವಿದೆ
+best guess,templates/emojinary/game.html,best guess,ಅತ್ಯುತ್ತಮ ಊಹೆ
+blog,"scripts/generate_locales.py, templates/base.html, templates/blog/blog_index_page.html, templates/blog/post_list.html, templates/wip.html",blog,blog
 camera make,photos/models.py,camera make,ಕ್ಯಾಮೆರಾ ತಯಾರಕರು
 camera model,photos/models.py,camera model,ಕ್ಯಾಮೆರಾ ಮಾದರಿ
+category:,templates/emojinary/game.html,category:,ವರ್ಗ:
+chat:,templates/emojinary/game.html,chat:,chat:
+clear,templates/emojinary/game.html,clear,ಅಳಿಸಿ
+collective prep + hints,templates/emojinary/game.html,collective prep + hints,ಸಾಮೂಹಿಕ ತಯಾರಿ + ಸುಳಿವುಗಳು
+create,"scripts/generate_locales.py, templates/gamerooms/room_create.html",create,ರಚಿಸಿ
+create room,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/gamerooms/room_list.html",create room,ಕೊಠಡಿ ರಚಿಸಿ
 crop focus X (%),photos/models.py,crop focus X (%),ಕ್ರಾಪ್ ಫೋಕಸ್ X (%)
 crop focus Y (%),photos/models.py,crop focus Y (%),ಕ್ರಾಪ್ ಫೋಕಸ್ Y (%)
+cv,"scripts/generate_locales.py, templates/base.html",cv,cv
 date,photos/models.py,date,ದಿನಾಂಕ
+description,templates/tools/ics_maker.html,description,ವಿವರಣೆ
+difficulty,templates/tools/pictionary.html,difficulty,ಕಷ್ಟದ ಮಟ್ಟ
+difficulty:,templates/emojinary/game.html,difficulty:,ಕಷ್ಟದ ಮಟ್ಟ:
+download .ics,templates/tools/ics_maker.html,download .ics,.ics ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ
 e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,ಉದಾ. 9B3A1C2D
+e.g. Marco,"scripts/generate_locales.py, templates/lupus/join.html",e.g. Marco,ಉದಾ. ಮಾರ್ಕೊ
+easy,"templates/emojinary/game.html, templates/tools/pictionary.html",easy,ಸುಲಭ
+emoji time:,templates/emojinary/game.html,emoji time:,ಎಮೋಜಿ ಸಮಯ:
+end,templates/tools/ics_maker.html,end,ಅಂತ್ಯ
+enter password to view the calendar.,templates/tools/planz.html,enter password to view the calendar.,ಕ್ಯಾಲೆಂಡರ್ ವೀಕ್ಷಿಸಲು ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ.
+extract event,templates/tools/ics_maker.html,extract event,ಈವೆಂಟ್ ಹೊರತೆಗೆಯಿರಿ
 focal length,photos/models.py,focal length,ಫೋಕಲ್ ಲೆಂತ್
+food & drink,templates/emojinary/game.html,food & drink,ಆಹಾರ ಮತ್ತು ಪಾನೀಯ
+gallery,"photos/models.py, templates/photos/upload.html",gallery,ಗ್ಯಾಲರಿ
 gallery extension,photos/models.py,gallery extension,ಗ್ಯಾಲರಿ ವಿಸ್ತರಣೆ
 gallery extensions,photos/models.py,gallery extensions,ಗ್ಯಾಲರಿ ವಿಸ್ತರಣೆಗಳು
+gallery not found.,templates/blog/blocks/photo_gallery.html,gallery not found.,ಗ್ಯಾಲರಿ ಕಂಡುಬಂದಿಲ್ಲ.
+game,templates/gamerooms/room_create.html,game,ಆಟ
+games,"scripts/generate_locales.py, templates/base.html",games,ಆಟಗಳು
+go,templates/tools/planz.html,go,go
+guess,templates/emojinary/game.html,guess,ಊಹಿಸಿ
+guess time:,templates/emojinary/game.html,guess time:,ಊಹೆ ಸಮಯ:
+hard,"templates/emojinary/game.html, templates/tools/pictionary.html",hard,ಕಷ್ಟ
+home,"scripts/generate_locales.py, templates/base.html",home,ಮುಖಪುಟ
+ics maker,templates/tools/ics_maker.html,ics maker,ಐಸಿಎಸ್ ಮೇಕರ್
+is Guessing,templates/codenames/game.html,is Guessing,ಊಹಿಸುತ್ತಿದ್ದಾರೆ
+is formulating a clue for their team.,templates/codenames/game.html,is formulating a clue for their team.,ತಮ್ಮ ತಂಡಕ್ಕಾಗಿ ಸುಳಿವನ್ನು ರೂಪಿಸುತ್ತಿದ್ದಾರೆ.
+is formulating a clue. Stand by!,templates/codenames/game.html,is formulating a clue. Stand by!,ಸುಳಿವನ್ನು ರೂಪಿಸುತ್ತಿದ್ದಾರೆ. ನಿರೀಕ್ಷಿಸಿ!
+join,"scripts/generate_locales.py, templates/gamerooms/room_name.html, templates/gamerooms/room_password.html",join,ಸೇರಿ
+latest posts,templates/index.html,latest posts,ಇತ್ತೀಚಿನ ಪೋಸ್ಟ್‌ಗಳು
 latitude,photos/models.py,latitude,ಅಕ್ಷಾಂಶ
 lens,photos/models.py,lens,ಲೆನ್ಸ್
+location,templates/tools/ics_maker.html,location,ಸ್ಥಳ
 location name,photos/models.py,location name,ಸ್ಥಳದ ಹೆಸರು
 longitude,photos/models.py,longitude,ರೇಖಾಂಶ
+map view,templates/photos/gallery_list.html,map view,ನಕ್ಷೆ ನೋಟ
+medium,"templates/emojinary/game.html, templates/tools/pictionary.html",medium,ಮಧ್ಯಮ
+message (optional),templates/photos/photo_viewer.html,message (optional),ಸಂದೇಶ (ಐಚ್ಛಿಕ)
+mode,templates/tools/pictionary.html,mode,ಮೋಡ್
+mode:,templates/emojinary/game.html,mode:,ಮೋಡ್:
+movies,templates/emojinary/game.html,movies,ಚಲನಚಿತ್ರಗಳು
+new word,templates/tools/pictionary.html,new word,ಹೊಸ ಪದ
+next →,templates/photos/photo_viewer.html,next →,ಮುಂದಿನ →
+no active rooms. create one!,"scripts/generate_locales.py, templates/gamerooms/room_list.html",no active rooms. create one!,ಯಾವುದೇ ಸಕ್ರಿಯ ಕೊಠಡಿಗಳಿಲ್ಲ. ಒಂದನ್ನು ರಚಿಸಿ!
+no galleries yet.,templates/photos/gallery_list.html,no galleries yet.,ಇನ್ನೂ ಗ್ಯಾಲರಿಗಳಿಲ್ಲ.
+no posts yet.,"templates/blog/blog_index_page.html, templates/blog/post_list.html",no posts yet.,ಇನ್ನೂ ಯಾವುದೇ ಪೋಸ್ಟ್‌ಗಳಿಲ್ಲ.
+noun,templates/tools/pictionary.html,noun,ನಾಮಪದ
+older →,templates/blog/post_list.html,older →,ಹಳೆಯದು →
+original,templates/photos/photo_viewer.html,original,ಮೂಲ
+password,templates/tools/planz.html,password,ಪಾಸ್‌ವರ್ಡ್
+password (optional),"scripts/generate_locales.py, templates/gamerooms/room_create.html",password (optional),ಪಾಸ್‌ವರ್ಡ್ (ಐಚ್ಛಿಕ)
+paste event details here...,templates/tools/ics_maker.html,paste event details here...,ಈವೆಂಟ್ ವಿವರಗಳನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ...
+"paste text or a url with event details, and get an .ics file.",templates/tools/ics_maker.html,"paste text or a url with event details, and get an .ics file.",ಈವೆಂಟ್ ವಿವರಗಳೊಂದಿಗೆ ಪಠ್ಯ ಅಥವಾ url ಅನ್ನು ಅಂಟಿಸಿ ಮತ್ತು .ics ಫೈಲ್ ಪಡೆಯಿರಿ.
+people & characters,templates/emojinary/game.html,people & characters,ಜನರು ಮತ್ತು ಪಾತ್ರಗಳು
 photo,photos/models.py,photo,ಫೋಟೋ
 photo extension,photos/models.py,photo extension,ಫೋಟೋ ವಿಸ್ತರಣೆ
 photo extensions,photos/models.py,photo extensions,ಫೋಟೋ ವಿಸ್ತರಣೆಗಳು
+photo map,templates/photos/map.html,photo map,ಫೋಟೋ ನಕ್ಷೆ
+photo not found.,templates/blog/blocks/single_photo.html,photo not found.,ಫೋಟೋ ಕಂಡುಬಂದಿಲ್ಲ.
+photos,"scripts/generate_locales.py, templates/base.html, templates/index.html, templates/photos/gallery_list.html",photos,ಫೋಟೋಗಳು
+photos (select multiple),templates/photos/upload.html,photos (select multiple),ಫೋಟೋಗಳು (ಹಲವಾರು ಆಯ್ಕೆಮಾಡಿ)
+phrases,templates/emojinary/game.html,phrases,ನುಡಿಗಟ್ಟುಗಳು
+"pick your options, hit the button, draw!",templates/tools/pictionary.html,"pick your options, hit the button, draw!","ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ, ಬಟನ್ ಒತ್ತಿ, ಚಿತ್ರಿಸಿ!"
+pictionary,templates/tools/pictionary.html,pictionary,pictionary
+places & travel,templates/emojinary/game.html,places & travel,ಸ್ಥಳಗಳು ಮತ್ತು ಪ್ರಯಾಣ
+planz,"templates/tools/planz.html, templates/tools/planz_full.html",planz,planz
+play again,templates/emojinary/game.html,play again,ಮತ್ತೆ ಆಟವಾಡಿ
+players,"scripts/generate_locales.py, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/lupus/hub.html",players,ಆಟಗಾರರು
+press the button to get a word,templates/tools/pictionary.html,press the button to get a word,ಪದವನ್ನು ಪಡೆಯಲು ಬಟನ್ ಒತ್ತಿರಿ
+private (hide guesses),templates/emojinary/game.html,private (hide guesses),ಖಾಸಗಿ (ಊಹೆಗಳನ್ನು ಮರೆಮಾಡಿ)
 processing status,photos/models.py,processing status,ಪ್ರಕ್ರಿಯೆಯ ಸ್ಥಿತಿ
+public (show guesses),templates/emojinary/game.html,public (show guesses),ಸಾರ್ವಜನಿಕ (ಊಹೆಗಳನ್ನು ತೋರಿಸಿ)
+request,templates/photos/photo_viewer.html,request,ವಿನಂತಿ
+rerolls:,templates/emojinary/game.html,rerolls:,ಮರುಉರುಳಿಸುವಿಕೆಗಳು:
+reveal,templates/emojinary/game.html,reveal,ತೋರಿಸಿ
+room language,templates/gamerooms/room_create.html,room language,ಕೋಣೆಯ ಭಾಷೆ
+room password,"scripts/generate_locales.py, templates/gamerooms/room_password.html",room password,ಕೊಠಡಿ ಪಾಸ್‌ವರ್ಡ್
+round robin,templates/emojinary/game.html,round robin,ರೌಂಡ್ ರಾಬಿನ್
+rounds:,templates/emojinary/game.html,rounds:,ಸುತ್ತುಗಳು:
+send,templates/emojinary/game.html,send,ಕಳುಹಿಸಿ
+sentence,templates/tools/pictionary.html,sentence,ವಾಕ್ಯ
 shutter speed,photos/models.py,shutter speed,ಶಟರ್ ವೇಗ
+skip,templates/emojinary/game.html,skip,ಬಿಟ್ಟುಬಿಡಿ
+songs,templates/emojinary/game.html,songs,ಹಾಡುಗಳು
+start,templates/tools/ics_maker.html,start,ಪ್ರಾರಂಭ
+start game,templates/emojinary/game.html,start game,ಆಟ ಪ್ರಾರಂಭಿಸಿ
+text,templates/tools/ics_maker.html,text,ಪಠ್ಯ
+things,templates/emojinary/game.html,things,ವಸ್ತುಗಳು
+title,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/tools/ics_maker.html",title,ಶೀರ್ಷಿಕೆ
+title is required,"gamerooms/views.py, scripts/generate_locales.py",title is required,ಶೀರ್ಷಿಕೆ ಅಗತ್ಯವಿದೆ
+today,templates/tools/partials/calendar.html,today,ಇಂದು
+tv shows,templates/emojinary/game.html,tv shows,ಟಿವಿ ಕಾರ್ಯಕ್ರಮಗಳು
+type,"photos/models.py, templates/tools/pictionary.html",type,ವಿಧ
+upload,templates/photos/upload.html,upload,ಅಪ್‌ಲೋಡ್
+upload photos,templates/photos/upload.html,upload photos,ಫೋಟೋಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
 url,templates/tools/ics_maker.html,url,url
+verb,templates/tools/pictionary.html,verb,ಕ್ರಿಯಾಪದ
+view full resolution ↗,templates/photos/partials/photo_image.html,view full resolution ↗,ಪೂರ್ಣ ರೆಸಲ್ಯೂಶನ್ ನೋಡಿ ↗
+view on map,templates/photos/photo_viewer.html,view on map,ನಕ್ಷೆಯಲ್ಲಿ ನೋಡಿ
+waiting for clue...,templates/emojinary/game.html,waiting for clue...,ಸುಳಿವಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ...
+waiting for players...,templates/emojinary/game.html,waiting for players...,ಆಟಗಾರರಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ...
+watermarked,templates/photos/photo_viewer.html,watermarked,ವಾಟರ್‌ಮಾರ್ಕ್
 watermarked image,photos/models.py,watermarked image,ವಾಟರ್‌ಮಾರ್ಕ್ ಮಾಡಿದ ಚಿತ್ರ
+web,templates/photos/photo_viewer.html,web,ವೆಬ್
 web-optimized image,photos/models.py,web-optimized image,ವೆಬ್-ಆಪ್ಟಿಮೈಸ್ ಮಾಡಿದ ಚಿತ್ರ
+week,templates/tools/partials/calendar.html,week,ವಾರ
+what is %(a)s + %(b)s?,scripts/generate_locales.py,what is %(a)s + %(b)s?,%(a)s + %(b)s ಎಷ್ಟು?
+word,templates/tools/pictionary.html,word,ಪದ
+work in progress — check back soon.,templates/wip.html,work in progress — check back soon.,ಕೆಲಸ ಪ್ರಗತಿಯಲ್ಲಿದೆ — ಶೀಘ್ರದಲ್ಲೇ ಪರಿಶೀಲಿಸಿ.
+wrong captcha,"gamerooms/views.py, scripts/generate_locales.py",wrong captcha,ತಪ್ಪು ಕ್ಯಾಪ್ಚಾ
+wrong password,"gamerooms/views.py, scripts/generate_locales.py, templates/tools/planz.html",wrong password,ತಪ್ಪು ಪಾಸ್‌ವರ್ಡ್
+your email,templates/photos/photo_viewer.html,your email,ನಿಮ್ಮ ಇಮೇಲ್
+your name,"scripts/generate_locales.py, templates/gamerooms/room_name.html",your name,ನಿಮ್ಮ ಹೆಸರು
+— none —,templates/photos/upload.html,— none —,— ಯಾವುದೂ ಇಲ್ಲ —
+← all galleries,templates/photos/gallery_detail.html,← all galleries,← ಎಲ್ಲಾ ಗ್ಯಾಲರಿಗಳು
+← all posts,"templates/blog/blog_post_page.html, templates/blog/post_detail.html",← all posts,← ಎಲ್ಲಾ ಪೋಸ್ಟ್‌ಗಳು
+← back home,"templates/404.html, templates/500.html",← back home,← ಮುಖಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ
+← galleries,templates/photos/map.html,← galleries,← ಗ್ಯಾಲರಿಗಳು
+← newer,templates/blog/post_list.html,← newer,← ಹೊಸತು
+← prev,templates/photos/photo_viewer.html,← prev,← ಹಿಂದಿನ
+↓ Download PDF,templates/cv.html,↓ Download PDF,↓ ಪಿಡಿಎಫ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ
+"⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)","scripts/generate_locales.py, templates/lupus/create.html","⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)","⚡ ಅವ್ಯವಸ್ಥೆ ಮತ್ತು ವಿಶೇಷತೆಗಳು (ಆಲ್ಫಾ ತೋಳ, ಸೈಲೆನ್ಸರ್, ಪತ್ತೇದಾರಿ, ವೈದ್ಯ, ಸ್ನೈಪರ್, ಮೇಯರ್, ಮಾಟಗಾತಿ...)"
+✅ Full Content + UI,gamerooms/language_support.py,✅ Full Content + UI,✅ ಪೂರ್ಣ ವಿಷಯ + UI
+✏️ pictionary,scripts/generate_locales.py,✏️ pictionary,✏️ pictionary
+🌐 UI Only (English Words),gamerooms/language_support.py,🌐 UI Only (English Words),🌐 UI ಮಾತ್ರ (ಇಂಗ್ಲಿಷ್ ಪದಗಳು)
+🎨 Emojinary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🎨 Emojinary,🎨 Emojinary
+🐺 Lupus,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 Lupus,🐺 Lupus
+🐺 Lupus Hub & Rooms,scripts/generate_locales.py,🐺 Lupus Hub & Rooms,🐺 ಲೂಪಸ್ ಹಬ್ ಮತ್ತು ಕೊಠಡಿಗಳು
+🐺 create lupus,scripts/generate_locales.py,🐺 create lupus,🐺 ಲೂಪಸ್ ರಚಿಸಿ
+👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),👼 ಲಿಂಬೋ ಮತ್ತು ದೇವದೂತ (ತೋಳಗಳು + ಪತ್ತೇದಾರಿ + ವೈದ್ಯ + ದೇವದೂತ + ಸ್ನೈಪರ್ + ಗ್ರಾಮಸ್ಥರು)
+"💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.",scripts/generate_locales.py,"💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.","💡 ಲಿಂಬೋ ಆಟಗಳಲ್ಲಿ, ಪಾತ್ರದ ಬಹಿರಂಗಪಡಿಸುವಿಕೆ ಕೇವಲ ಶಾಶ್ವತ ಮರಣದ ನಂತರವೇ ಆಗುತ್ತದೆ, ಲಿಂಬೋದಲ್ಲಿರುವಾಗಲ್ಲ."
+💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,"scripts/generate_locales.py, templates/lupus/create.html",💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,💡 ಸೇರಿದ ಆಟಗಾರರ ಸಂಖ್ಯೆಗೆ ಡೆಕ್ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಹೊಂದಿಕೊಳ್ಳುತ್ತದೆ. ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು ಲಾಬಿಯಲ್ಲಿ ಪ್ರತಿ ಪಾತ್ರವನ್ನು ಮತ್ತು ಸಮತೋಲನವನ್ನು ಸರಿಹೊಂದಿಸಬಹುದು.
+🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),🔍 ಪ್ರಮಾಣಿತ (ತೋಳಗಳು + ಪತ್ತೇದಾರಿ/ದ್ರಷ್ಟಾರ + ವೈದ್ಯ/ಅಂಗರಕ್ಷಕ + ಗ್ರಾಮಸ್ಥರು)
+🕵️ Word Impostor,templates/gamerooms/room_list.html,🕵️ Word Impostor,🕵️ Word Impostor
+🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),🧑 ಸರಳ / ಕ್ಲಾಸಿಕ್ (ಯಾವುದೇ ವಿಶೇಷ ಶಕ್ತಿಗಳಿಲ್ಲ — ಕೇವಲ ತೋಳಗಳು ವಿರುದ್ಧ ಗ್ರಾಮಸ್ಥರು)
+🧩 Codenames,templates/gamerooms/room_list.html,🧩 Codenames,🧩 Codenames

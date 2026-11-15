@@ -1,21 +1,97 @@
 {
+  "af": [
+    "Word Impostor",
+    "lens",
+    "medium",
+    "web",
+    "week"
+  ],
+  "ar": [
+    "Word Impostor"
+  ],
+  "az": [
+    "Word Impostor"
+  ],
+  "be": [
+    "Backspace",
+    "Werewolf / Lupus",
+    "Word Impostor"
+  ],
+  "bn": [
+    "Backspace",
+    "Word Impostor"
+  ],
   "ca": [
+    "Word Impostor",
+    "animals",
+    "mode",
+    "mode:",
+    "original",
     "text"
   ],
   "cs": [
+    "Backspace",
+    "Lobby",
     "text"
+  ],
+  "da": [
+    "Cockpit",
+    "Definition",
+    "Game Over",
+    "Lobby",
+    "Pause",
+    "Send",
+    "Start Codenames",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "download .ics",
+    "original",
+    "send",
+    "type",
+    "upload",
+    "web",
+    "↓ Download PDF"
   ],
   "de": [
+    "CODE",
+    "Cockpit",
+    "Definition",
+    "Lobby",
+    "Pause",
+    "Werewolf / Lupus",
+    "Word Impostor",
     "text"
   ],
+  "el": [
+    "Backspace",
+    "Word Impostor"
+  ],
   "es": [
-    "original"
+    "Spymaster",
+    "Word Impostor",
+    "original",
+    "web"
+  ],
+  "eu": [
+    "Word Impostor",
+    "web"
+  ],
+  "fa": [
+    "Word Impostor"
+  ],
+  "fi": [
+    "Word Impostor"
   ],
   "fr": [
     "6. Contact",
     "CODE",
     "Discussion",
+    "Message...",
+    "Pause",
     "Public",
+    "Spymaster",
+    "Word Impostor",
+    "actions",
     "date",
     "description",
     "latitude",
@@ -24,43 +100,137 @@
     "original",
     "photo",
     "photos",
-    "type"
+    "type",
+    "web"
+  ],
+  "hi": [
+    "Word Impostor"
   ],
   "it": [
     "Lobby",
     "Password",
     "Replay",
     "Round",
+    "Spymaster",
+    "Word Impostor",
     "home",
-    "password"
+    "password",
+    "web"
+  ],
+  "iw": [
+    "Backspace"
+  ],
+  "ja": [
+    "Backspace",
+    "CODE",
+    "Prompt Tool",
+    "Werewolf / Lupus",
+    "Word Impostor"
+  ],
+  "kn": [
+    "Word Impostor"
+  ],
+  "ko": [
+    "Backspace",
+    "CODE",
+    "Prompt Tool",
+    "Werewolf / Lupus",
+    "Word Impostor"
   ],
   "nl": [
-    "lens"
+    "6. Contact",
+    "Backspace",
+    "CODE",
+    "Cockpit",
+    "Lobby",
+    "Open",
+    "Open (Lobby)",
+    "Set",
+    "Techy",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "lens",
+    "↓ Download PDF"
+  ],
+  "no": [
+    "Cockpit",
+    "Lobby",
+    "Pause",
+    "Send",
+    "Start Codenames",
+    "Werewolf / Lupus",
+    "Word Impostor",
+    "original"
   ],
   "pl": [
-    "Backspace"
+    "Backspace",
+    "Spymaster",
+    "Word Impostor"
   ],
   "pt": [
     "Lobby",
+    "Spymaster",
+    "Word Impostor",
     "latitude",
     "longitude",
-    "original"
+    "original",
+    "web"
   ],
   "ro": [
     "text"
   ],
+  "ru": [
+    "Spymaster",
+    "Word Impostor"
+  ],
   "sk": [
     "text"
   ],
+  "sq": [
+    "Backspace",
+    "Word Impostor"
+  ],
   "sv": [
+    "Definition",
     "Lobby",
+    "Word Impostor",
     "original",
     "start",
     "text",
     "verb"
   ],
+  "sw": [
+    "Lupus / Werewolf",
+    "Operative",
+    "Spymaster",
+    "Word Impostor"
+  ],
   "tl": [
     "Password",
     "password"
+  ],
+  "tr": [
+    "Werewolf / Lupus"
+  ],
+  "uk": [
+    "Backspace"
+  ],
+  "ur": [
+    "Werewolf / Lupus",
+    "Word Impostor"
+  ],
+  "zh-cn": [
+    "Backspace",
+    "CODE",
+    "Prompt Tool",
+    "Werewolf / Lupus",
+    "Word Impostor"
+  ],
+  "zh-tw": [
+    "Backspace",
+    "CODE",
+    "Prompt Tool",
+    "Werewolf / Lupus",
+    "Word Impostor"
   ]
 }

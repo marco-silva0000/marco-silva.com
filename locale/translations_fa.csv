@@ -1,70 +1,159 @@
 ﻿msgid,context,en,fa
 + Create Room,"scripts/generate_locales.py, templates/lupus/hub.html",+ Create Room,+ ایجاد اتاق
++ Host New Room,scripts/generate_locales.py,+ Host New Room,+ میزبانی اتاق جدید
++ New Game,"scripts/generate_locales.py, templates/lupus/hub.html",+ New Game,+ بازی جدید
++ create room,scripts/generate_locales.py,+ create room,+ ساخت اتاق
 "0 — Secret (Closed graveyard, roles concealed until game over)","scripts/generate_locales.py, templates/lupus/create.html","0 — Secret (Closed graveyard, roles concealed until game over)",0 — مخفی (گورستان بسته، نقش‌ها تا پایان بازی پنهان می‌مانند)
+1 day,templates/tools/partials/calendar.html,1 day,۱ روز
 "1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")",scripts/generate_locales.py,"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")",1 — فقط گرایش (اعلام «خیر» در برابر «شر»)
 1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. پذیرش شرایط
 1. Overview,templates/bot_privacy.html,1. Overview,1. نمای کلی
+1. Teams & Roles Setup,templates/codenames/game.html,1. Teams & Roles Setup,۱. تنظیم تیم‌ها و نقش‌ها
 10 Minutes,"scripts/generate_locales.py, templates/lupus/create.html",10 Minutes,10 دقیقه
+1st guess ends round,templates/emojinary/game.html,1st guess ends round,حدس اول دور را پایان می‌دهد
 "2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")",scripts/generate_locales.py,"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")",2 — جناح / تیم (اعلام «شهروندان»، «گرگینه‌ها»، «بی‌طرف»)
 2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. اطلاعاتی که به آن‌ها دسترسی داریم
 2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. استفاده مجاز
+2. Room & Table Settings (Host),templates/codenames/game.html,2. Room & Table Settings (Host),۲. تنظیمات اتاق و میز (میزبان)
 3 Minutes (Fast),"scripts/generate_locales.py, templates/lupus/create.html",3 Minutes (Fast),3 دقیقه (سریع)
+3 day,templates/tools/partials/calendar.html,3 day,۳ روز
 3 — Full Role Card (Announces exact card name and icon),"scripts/generate_locales.py, templates/lupus/create.html",3 — Full Role Card (Announces exact card name and icon),3 — کارت کامل نقش (اعلام نام دقیق کارت و نماد)
 3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,3. ذخیره‌سازی و امنیت داده‌ها
 3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,3. سلب مسئولیت از ضمانت‌ها
 30 Seconds (Standard),"scripts/generate_locales.py, templates/lupus/create.html",30 Seconds (Standard),30 ثانیه (استاندارد)
 4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,4. محدودیت مسئولیت
 4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,4. اشتراک‌گذاری با اشخاص ثالث
+404 — page not found,templates/404.html,404 — page not found,404 — صفحه پیدا نشد
 45 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",45 Seconds,45 ثانیه
 4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,برش عمودی 4:5 (1080x1350) برای کاروسل‌های اینستاگرام.
 5 Minutes (Standard),"scripts/generate_locales.py, templates/lupus/create.html",5 Minutes (Standard),5 دقیقه (استاندارد)
 5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,5. تغییرات و خاتمه
 5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,5. لغو دسترسی و حذف داده‌ها
+500 — something went wrong,templates/500.html,500 — something went wrong,500 — مشکلی رخ داد
 6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,6. تماس با ما
 60 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",60 Seconds,60 ثانیه
 7 Minutes (Deliberate),"scripts/generate_locales.py, templates/lupus/create.html",7 Minutes (Deliberate),7 دقیقه (سنجیده)
 Access Denied,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Access Denied,دسترسی رد شد
+Accuse:,templates/impostor/game.html,Accuse:,اتهام زدن:
 Active,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Active,فعال
+Active Clue,templates/codenames/game.html,Active Clue,سرنخ فعال
+Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/hub.html",Active Lupus Rooms,اتاق‌های فعال لوپوس
+Add,templates/codenames/game.html,Add,افزودن
+Add Hint,templates/emojinary/game.html,Add Hint,افزودن سرنخ
+Add Oral / Table Player,templates/impostor/game.html,Add Oral / Table Player,افزودن بازیکن حضوری / سر میز
+Add Oral / Table Player (directly to a team),templates/codenames/game.html,Add Oral / Table Player (directly to a team),افزودن بازیکن حضوری / سر میز (مستقیماً به یک تیم)
+Add Player,templates/codenames/game.html,Add Player,افزودن بازیکن
+Add Secret Custom Pair,templates/impostor/game.html,Add Secret Custom Pair,افزودن جفت سفارشی مخفی
+Add custom inside-joke words to be mixed into future boards dealt in this room.,templates/codenames/game.html,Add custom inside-joke words to be mixed into future boards dealt in this room.,کلمات شوخی خودمانی و سفارشی را اضافه کنید تا در دست‌های بعدی این اتاق مخلوط شوند.
+Add oral / table player name...,templates/impostor/game.html,Add oral / table player name...,افزودن نام بازیکن حضوری / سر میز...
+Add to Deck,templates/impostor/game.html,Add to Deck,افزودن به دسته کارت
+Agents & Spymasters,templates/codenames/game.html,Agents & Spymasters,مأموران و سرکردگان جاسوس
 All Active Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",All Active Rooms,همه اتاق‌های فعال
 All Games,"scripts/generate_locales.py, templates/lupus/hub.html",All Games,همه بازی‌ها
+All guesses & hints appear here,templates/emojinary/game.html,All guesses & hints appear here,تمام حدس‌ها و سرنخ‌ها اینجا نمایش داده می‌شوند
+Allow Host to log oral clues and tap cards for players at the table,templates/codenames/game.html,Allow Host to log oral clues and tap cards for players at the table,اجازه دادن به میزبان برای ثبت سرنخ‌های شفاهی و لمس کارت‌ها برای بازیکنان سر میز
+Allow Player Custom Pair Deck,templates/impostor/game.html,Allow Player Custom Pair Deck,مجاز بودن دسته جفت‌های سفارشی بازیکنان
+Allow custom words,templates/emojinary/game.html,Allow custom words,اجازه دادن به کلمات سفارشی
+Allow players to add custom words,templates/codenames/game.html,Allow players to add custom words,اجازه دادن به بازیکنان برای افزودن کلمات سفارشی
 Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,اعمال مجوز کریتیو کامنز انتساب-غیرتجاری-اشتراک‌یکسان و واترمارک.
+Auto-Balance,templates/codenames/game.html,Auto-Balance,تعادل خودکار
+Auto-Balance Teams,templates/codenames/game.html,Auto-Balance Teams,متعادل‌سازی خودکار تیم‌ها
+Auto-tally once all players have voted,templates/impostor/game.html,Auto-tally once all players have voted,شمارش خودکار آرا پس از رأی دادن همه بازیکنان
 Back to Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/create.html",Back to Active Lupus Rooms,بازگشت به اتاق‌های فعال لوپوس
-Browse Active Lupus Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Browse Active Lupus Rooms,مشاهده اتاق‌های فعال لوپوس
+Back to Lobby,templates/codenames/game.html,Back to Lobby,بازگشت به لابی
+Back to Lobby / Play Again,templates/impostor/game.html,Back to Lobby / Play Again,بازگشت به لابی / بازی مجدد
+Backspace,templates/emojinary/game.html,Backspace,پس‌بر
+Blue,templates/codenames/game.html,Blue,آبی
+Blue Left,templates/codenames/game.html,Blue Left,باقی‌مانده آبی
+Blue Team,templates/codenames/game.html,Blue Team,تیم آبی
+Blue Team Wins!,templates/codenames/game.html,Blue Team Wins!,تیم آبی برنده شد!
+Board,"gamerooms/views.py, templates/codenames/game.html",Board,صفحه بازی
+Board Complete,templates/codenames/game.html,Board Complete,صفحه بازی تمام شد
+Board Ended,templates/codenames/game.html,Board Ended,صفحه بازی پایان یافت
+Browse Active Lupus Rooms,scripts/generate_locales.py,Browse Active Lupus Rooms,مشاهده اتاق‌های فعال لوپوس
+Browse Hub,templates/gamerooms/room_list.html,Browse Hub,مرور هاب
+Build Your Emoji Clue:,templates/emojinary/game.html,Build Your Emoji Clue:,سرنخ ایموجی خود را بسازید:
 CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,مجوز CC BY-NC-SA
 CODE,"scripts/generate_locales.py, templates/lupus/hub.html",CODE,کد
 CTFs,templates/cv.html,CTFs,CTFs
 Calendar navigation,templates/tools/partials/calendar.html,Calendar navigation,پیمایش تقویم
+Category,templates/impostor/game.html,Category,دسته‌بندی
+Citizen Word (Majority),templates/impostor/game.html,Citizen Word (Majority),کلمه شهروند (اکثریت)
 "Civilians, Mobsters, Cop","scripts/generate_locales.py, templates/lupus/create.html","Civilians, Mobsters, Cop",شهروندان، مافیا، کارآگاه
+Classic + Extended Party Pack,templates/codenames/game.html,Classic + Extended Party Pack,کلاسیک + بسته مهمانی ویژه
+Clue Phase,templates/codenames/game.html,Clue Phase,مرحله سرنخ
+Clues,gamerooms/views.py,Clues,سرنخ‌ها
+Clues & Taps Log,templates/codenames/game.html,Clues & Taps Log,گزارش سرنخ‌ها و تپ‌ها
 Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Cockpit,اتاق فرمان
+Codenames,"templates/codenames/game.html, templates/gamerooms/room_list.html",Codenames,Codenames
+Conferences,templates/cv.html,Conferences,کنفرانس‌ها
+Content + UI,"templates/codenames/game.html, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/impostor/game.html",Content + UI,محتوا + رابط کاربری
+Copy,"templates/codenames/game.html, templates/emojinary/game.html",Copy,کپی
 Create Lupus / Werewolf Room,"scripts/generate_locales.py, templates/lupus/create.html",Create Lupus / Werewolf Room,ایجاد اتاق لوپوس / گرگینه
 Create the First Lupus Room,"scripts/generate_locales.py, templates/lupus/hub.html",Create the First Lupus Room,ایجاد اولین اتاق لوپوس
 Curated,photos/models.py,Curated,منتخب
+Custom Codenames Word,templates/codenames/game.html,Custom Codenames Word,کلمه سفارشی کدنیمز
+Custom Deck,"templates/codenames/game.html, templates/impostor/game.html",Custom Deck,دسته کارت سفارشی
+Custom Seconds,templates/codenames/game.html,Custom Seconds,ثانیه‌های سفارشی
 Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),کیبوردهای دوتکه سفارشی (colemak + nvim)
+Custom word...,templates/codenames/game.html,Custom word...,کلمه سفارشی...
 Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,تاریخ سفر/عکاسی.
+Day,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Day,روز
 Day Trip,photos/models.py,Day Trip,سفر یک‌روزه
+Deal Next Board,templates/codenames/game.html,Deal Next Board,توزیع دور بعدی تخته
 Defense Timer,"scripts/generate_locales.py, templates/lupus/create.html",Defense Timer,تایمر دفاع
+Definition,templates/codenames/game.html,Definition,تعریف
+Discuss clues or accuse suspects...,templates/impostor/game.html,Discuss clues or accuse suspects...,درباره سرنخ‌ها بحث کنید یا مظنونان را متهم نمایید...
 Discussion,"lupus/views.py, scripts/generate_locales.py",Discussion,گفتگو
 Discussion Round Timer,"scripts/generate_locales.py, templates/lupus/create.html",Discussion Round Timer,تایمر دور گفتگو
+Display Name,templates/emojinary/game.html,Display Name,نام نمایشی
 Doctor Shields From Sniper:,"scripts/generate_locales.py, templates/lupus/create.html",Doctor Shields From Sniper:,محافظت دکتر در برابر تک‌تیرانداز:
 Done,photos/models.py,Done,انجام شد
+Education,templates/cv.html,Education,تحصیلات
 Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),الکترونیک/سیستم‌های نهفته (کمی rust embedded)
+Enable Last-Chance Impostor Steal,templates/impostor/game.html,Enable Last-Chance Impostor Steal,فعال‌سازی سرقت آخرین شانس فریبکار (Impostor)
+Enable Lethal Taboo Poison Word,templates/impostor/game.html,Enable Lethal Taboo Poison Word,فعال‌سازی کلمه سمی تابو و مرگبار
+End Board,templates/codenames/game.html,End Board,پایان دور تخته
+End Guessing Turn,templates/codenames/game.html,End Guessing Turn,پایان نوبت حدس‌زدن
+End Match,templates/impostor/game.html,End Match,پایان مسابقه
+English,templates/cv.html,English,انگلیسی
+Enter Game,"scripts/generate_locales.py, templates/lupus/join.html",Enter Game,ورود به بازی
 Enter Room,"scripts/generate_locales.py, templates/lupus/hub.html",Enter Room,ورود به اتاق
 Enter Room Code (e.g. 9B3A1C2D),"scripts/generate_locales.py, templates/gamerooms/room_list.html",Enter Room Code (e.g. 9B3A1C2D),کد اتاق را وارد کنید (مثلاً 9B3A1C2D)
+Export JSON,templates/emojinary/game.html,Export JSON,خروجی JSON
 Failed,photos/models.py,Failed,ناموفق
-GM,"scripts/generate_locales.py, templates/lupus/hub.html",GM,گرداننده
+Finished,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Finished,پایان یافته
+GM,"scripts/generate_locales.py, templates/lupus/hub.html",GM,GM
 GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,کابین گرداننده
 GM Director Cockpit:,"scripts/generate_locales.py, templates/lupus/hub.html",GM Director Cockpit:,کابین کارگردانی گرداننده:
+GM Mode: Locked,templates/codenames/game.html,GM Mode: Locked,حالت مدیر بازی: قفل شده
+GM Oral Guessing Mode,templates/codenames/game.html,GM Oral Guessing Mode,حالت حدس شفاهی مدیر بازی (GM)
+GM Oral Mode: ON,templates/codenames/game.html,GM Oral Mode: ON,حالت شفاهی مدیر بازی: روشن
+GM Oral Spymaster Mode,templates/codenames/game.html,GM Oral Spymaster Mode,حالت شفاهی سرجاسوس برای مدیر بازی
 Game Master Display Name,"scripts/generate_locales.py, templates/lupus/create.html",Game Master Display Name,نام نمایشی گرداننده بازی
-Game Over,"lupus/views.py, scripts/generate_locales.py",Game Over,پایان بازی
+Game Over,"lupus/views.py, scripts/generate_locales.py, templates/codenames/game.html",Game Over,پایان بازی
+Game Rooms,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/gamerooms/room_list.html, templates/gamerooms/room_name.html, templates/gamerooms/room_password.html",Game Rooms,اتاق‌های بازی
 Game Rules & Timers,"scripts/generate_locales.py, templates/lupus/create.html",Game Rules & Timers,قوانین و تایمرهای بازی
 Game not found.,"lupus/views.py, scripts/generate_locales.py",Game not found.,بازی پیدا نشد.
 Game room does not exist.,"lupus/views.py, scripts/generate_locales.py",Game room does not exist.,اتاق بازی وجود ندارد.
+"Game words, clues, and interface are supported in %(lang)s.",gamerooms/language_support.py,"Game words, clues, and interface are supported in %(lang)s.",کلمات بازی، سرنخ‌ها و رابط کاربری به زبان %(lang)s پشتیبانی می‌شوند.
+Give a One-Word Clue,templates/codenames/game.html,Give a One-Word Clue,یک سرنخ تک‌کلمه‌ای بدهید
+Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!,templates/impostor/game.html,Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!,سرنخ‌های تک‌کلمه‌ای غیرمستقیم بدهید بدون فاش کردن کلمه اصلی یا گفتن کلمه سمی تابو و مرگبار پنهان. حتی میزبان هم بدون لو رفتن داستان بازی می‌کند!
+Guess the Citizen Word to steal the win...,templates/impostor/game.html,Guess the Citizen Word to steal the win...,کلمه شهروند را حدس بزنید تا پیروزی را بربایید...
+Guesses left,templates/codenames/game.html,Guesses left,حدس‌های باقی‌مانده
+Guessing Phase,templates/codenames/game.html,Guessing Phase,مرحله حدس زدن
 "Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license",رادیو آماتوری، گواهینامه پایه بریتانیا
 Have an 8-character code from your Game Master? Enter it here to jump straight in:,"scripts/generate_locales.py, templates/lupus/hub.html",Have an 8-character code from your Game Master? Enter it here to jump straight in:,یک کد ۸ نویسه‌ای از گرداننده بازی دارید؟ آن را اینجا وارد کنید تا مستقیماً وارد شوید:
+Hide Keycard Overlay,templates/codenames/game.html,Hide Keycard Overlay,پنهان کردن روکش کارت کلید
 Hiking and climbing,templates/cv.html,Hiking and climbing,کوه‌پیمایی و کوهنوردی
+Hobbies,templates/cv.html,Hobbies,سرگرمی‌ها
 Hold-to-Peek Secret Roles:,"scripts/generate_locales.py, templates/lupus/hub.html",Hold-to-Peek Secret Roles:,نگه‌داشتن برای دیدن نقش‌های مخفی:
 Home automation and homelab,templates/cv.html,Home automation and homelab,اتوماسیون خانگی و هوم‌لب
 "Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.",نقطه کانونی افقی: 0=چپ، 50=مرکز، 100=راست.
+Host Controls,templates/codenames/game.html,Host Controls,کنترل‌های میزبان
+Host Game Settings,templates/emojinary/game.html,Host Game Settings,تنظیمات بازیِ میزبان
+Host Room,templates/gamerooms/room_list.html,Host Room,اتاق میزبان
+"I code, take pics and many other things",templates/index.html,"I code, take pics and many other things",من کد می‌نویسم، عکس می‌گیرم و کارهای بسیار دیگری انجام می‌دهم
 ISO,photos/models.py,ISO,ISO
 "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",scripts/generate_locales.py,"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",در صورت فعال بودن، محافظت دکتر می‌تواند گرگ را از شلیک تک‌تیرانداز نجات دهد. (غیرفعال = شلیک تک‌تیرانداز از محافظت دکتر عبور می‌کند).
 "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).","scripts/generate_locales.py, templates/lupus/create.html","If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).",در صورت تنظیم، پیوستن از طریق کد QR بازیکنان را به‌طور خودکار احراز هویت می‌کند. (💡 ترفند دمو: نام گرداننده شامل Marco و رمز عبور test به‌طور خودکار ۱۰ بازیکن آزمایشی را برای دموی زنده اضافه می‌کند).
@@ -73,142 +162,418 @@ Incorrect room password.,"lupus/views.py, scripts/generate_locales.py",Incorrect
 Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,پیش‌نمایش 4:5 اینستاگرام
 Instagram 4:5 image,photos/models.py,Instagram 4:5 image,تصویر 4:5 اینستاگرام
 Invalid Game Master secret key.,"lupus/views.py, scripts/generate_locales.py",Invalid Game Master secret key.,کلید مخفی گرداننده بازی نامعتبر است.
+Invite Players,"templates/codenames/game.html, templates/impostor/game.html",Invite Players,دعوت از بازیکنان
+Invite Players to Room,templates/emojinary/game.html,Invite Players to Room,دعوت از بازیکنان به اتاق
+Invite QR,"templates/codenames/game.html, templates/emojinary/game.html, templates/impostor/game.html",Invite QR,کیوآرکد دعوت
+It is not your turn to submit a clue.,templates/codenames/game.html,It is not your turn to submit a clue.,اکنون نوبت شما برای ارسال سرنخ نیست.
 Join,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Join,پیوستن
+Join Game,"scripts/generate_locales.py, templates/lupus/hub.html",Join Game,ورود به بازی
 Join Lupus Game,"scripts/generate_locales.py, templates/lupus/join.html",Join Lupus Game,پیوستن به بازی لوپوس
+Join Red or Blue Team to begin,templates/codenames/game.html,Join Red or Blue Team to begin,برای شروع به تیم قرمز یا آبی بپیوندید
+Join as Operative,templates/codenames/game.html,Join as Operative,پیوستن به‌عنوان مأمور
 Join as Player,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Join as Player,پیوستن به عنوان بازیکن
+Join as Spymaster,templates/codenames/game.html,Join as Spymaster,پیوستن به‌عنوان سرجاسوس
 Join with Room Code,"scripts/generate_locales.py, templates/lupus/hub.html",Join with Room Code,پیوستن با کد اتاق
-"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf",کایاک، موج‌سواری، پدل‌بورد (SUP)، ویندسرف
+"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","Kayak, surf, SUP, windsurf"
+LAST-CHANCE IMPOSTOR STEAL!,templates/impostor/game.html,LAST-CHANCE IMPOSTOR STEAL!,فرصت نهایی دزدی شیاد!
+Languages,templates/cv.html,Languages,زبان‌ها
 "Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",آخرین به‌روزرسانی: ۲۷ اکتبر ۲۰۲۶
 "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","scripts/generate_locales.py, templates/lupus/hub.html","Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.",تازه‌واردان به عنوان مسافران تأییدشده، ارواح دهکده یا جانشینان ملحق می‌شوند.
 Launch Lupus Room,"scripts/generate_locales.py, templates/lupus/create.html",Launch Lupus Room,راه‌اندازی اتاق لوپوس
 Leave empty for public join,"scripts/generate_locales.py, templates/lupus/create.html",Leave empty for public join,برای ورود عمومی خالی بگذارید
+Let this player scan on their phone to take over their personal Spymaster/Operative view.,templates/codenames/game.html,Let this player scan on their phone to take over their personal Spymaster/Operative view.,اجازه دهید این بازیکن با گوشی خود اسکن کند تا نمای شخصی سرجاسوس/مأمور خود را در اختیار بگیرد.
+Lethal Taboo Word (Optional instant elimination trap),templates/impostor/game.html,Lethal Taboo Word (Optional instant elimination trap),کلمه ممنوعه مرگبار (تله حذف فوری اختیاری)
+Limbo,"lupus/views.py, scripts/generate_locales.py",Limbo,Limbo
 Limbo & Angel Mechanic:,"scripts/generate_locales.py, templates/lupus/create.html",Limbo & Angel Mechanic:,مکانیک برزخ و فرشته:
 Limbo Resolution,"lupus/views.py, scripts/generate_locales.py",Limbo Resolution,تعیین تکلیف برزخ
+Listen to,templates/codenames/game.html,Listen to,گوش دادن به
+Listening,templates/cv.html,Listening,شنیداری
+Live Chat & Guess Stream,templates/emojinary/game.html,Live Chat & Guess Stream,گفتگوی زنده و جریان حدس‌ها
 Living & fallen players submit morning rumors read aloud at dawn.,"scripts/generate_locales.py, templates/lupus/hub.html",Living & fallen players submit morning rumors read aloud at dawn.,بازیکنان زنده و کشته‌شده شایعات صبحگاهی را ارسال می‌کنند تا در سپیده‌دم با صدای بلند خوانده شود.
+Lobby,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py, templates/codenames/game.html",Lobby,لابی
 Lobby (Waiting for Players),"lupus/views.py, scripts/generate_locales.py",Lobby (Waiting for Players),لابی (در انتظار بازیکنان)
+Log Clue for Table Spymaster,templates/codenames/game.html,Log Clue for Table Spymaster,ثبت سرنخ برای سرجاسوس میز
+Lupus / Werewolf,templates/gamerooms/room_list.html,Lupus / Werewolf,لوپوس / گرگینه
 Lupus Active Rooms & Hub,"scripts/generate_locales.py, templates/lupus/join.html",Lupus Active Rooms & Hub,اتاق‌های فعال و مرکز بازی لوپوس
 Lupus Game,scripts/generate_locales.py,Lupus Game,بازی لوپوس
 Lupus Party Game,"scripts/generate_locales.py, templates/lupus/create.html",Lupus Party Game,بازی دورهمی لوپوس
 Lupus in Tabula - Active Rooms & Game Hub,"scripts/generate_locales.py, templates/lupus/hub.html",Lupus in Tabula - Active Rooms & Game Hub,لوپوس این تابولا - اتاق‌های فعال و مرکز بازی
-Lupus in Tabula / Werewolf,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Lupus in Tabula / Werewolf,لوپوس این تابولا / گرگینه
-Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,مافیا
+Lupus in Tabula / Werewolf,scripts/generate_locales.py,Lupus in Tabula / Werewolf,لوپوس این تابولا / گرگینه
+Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,Mafia
+Match Complete,templates/codenames/game.html,Match Complete,مسابقه به پایان رسید
+Match Podium & Highlights,templates/emojinary/game.html,Match Podium & Highlights,سکوی برندگان و نکات برجسته مسابقه
+Match Replay & Attempt Timeline,templates/emojinary/game.html,Match Replay & Attempt Timeline,بازپخش مسابقه و جدول زمانی تلاش‌ها
+Match Replay & Board Archive,templates/codenames/game.html,Match Replay & Board Archive,بازپخش مسابقه و بایگانی صفحه بازی
+Match Rules,templates/impostor/game.html,Match Rules,قوانین مسابقه
+Message...,templates/codenames/game.html,Message...,پیام...
 Midgame Arrivals:,"scripts/generate_locales.py, templates/lupus/hub.html",Midgame Arrivals:,ورود در اواسط بازی:
+"Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:",templates/impostor/game.html,"Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:",کنترل‌های رأی‌گیری مدیر — یک بازیکن و مظنون را در زیر انتخاب کنید، یا روی نشان و صندلی روی میز بزنید:
+Move...,templates/codenames/game.html,Move...,حرکت...
+New Game / Redraw,templates/impostor/game.html,New Game / Redraw,بازی جدید / تقسیم مجدد کارت‌ها
+Next Round,templates/impostor/game.html,Next Round,دور بعدی
 Next day,templates/tools/partials/calendar.html,Next day,روز بعد
+Night,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Night,شب
 No Active Lupus Games Right Now,"scripts/generate_locales.py, templates/lupus/hub.html",No Active Lupus Games Right Now,در حال حاضر هیچ بازی فعال لوپوسی وجود ندارد
 No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,هنوز برش اینستاگرام ایجاد نشده است.
+No clues published yet.,templates/codenames/game.html,No clues published yet.,هنوز هیچ سرنخی منتشر نشده است.
+No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here.,templates/codenames/game.html,No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here.,هنوز هیچ صفحه Codenames تکمیل‌شده‌ای وجود ندارد. برای دیدن بازپخش کامل کارت کلید در اینجا، یک صفحه را به پایان برسانید یا زودتر تمامش کنید.
+No dictionary definition available.,templates/codenames/game.html,No dictionary definition available.,هیچ تعریفی در لغت‌نامه در دسترس نیست.
+No turns logged.,templates/codenames/game.html,No turns logged.,هیچ نوبتی ثبت نشده است.
+"Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play.",templates/gamerooms/room_list.html,"Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play.",صفحه استنتاج تیمی رسمی ۵×۵ با ۴۰۰ کلمه، همراه با سرنخ‌های هوش مصنوعی سرجاسوس Wikisaurus، کلید تغییر وضعیت کارت کلید خصوصی و بازی شفاهی/روی میز.
+Official Classic 400 Words,templates/codenames/game.html,Official Classic 400 Words,۴۰۰ کلمه کلاسیک رسمی
+One-word clue...,templates/codenames/game.html,One-word clue...,سرنخ یک‌کلمه‌ای...
+Only emojis allowed — text characters were ignored.,templates/emojinary/game.html,Only emojis allowed — text characters were ignored.,فقط ایموجی‌ها مجاز هستند — نویسه‌های متنی نادیده گرفته شدند.
 Open,"lupus/views.py, scripts/generate_locales.py",Open,باز
+Open (Lobby),"lupus/views.py, scripts/generate_locales.py",Open (Lobby),باز (لابی)
 Open GM Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Open GM Cockpit,باز کردن پنل گرداننده
+Open Generator,templates/gamerooms/room_list.html,Open Generator,باز کردن سازنده
+Open Player Link,templates/impostor/game.html,Open Player Link,باز کردن پیوند بازیکن
+Open slot,templates/codenames/game.html,Open slot,جایگاه خالی
+Operative,templates/codenames/game.html,Operative,مأمور
+Operative Seconds (0=∞),templates/codenames/game.html,Operative Seconds (0=∞),ثانیه‌های مأمور (0=∞)
+Operatives,templates/codenames/game.html,Operatives,مأموران
+Operatives are Guessing,templates/codenames/game.html,Operatives are Guessing,مأموران در حال حدس زدن هستند
+Operatives are choosing cards for this round.,templates/codenames/game.html,Operatives are choosing cards for this round.,مأموران در حال انتخاب کارت‌ها برای این دور هستند.
+Operatives are guessing!,templates/codenames/game.html,Operatives are guessing!,مأموران در حال حدس زدن هستند!
+Opponent team is guessing. Wait for them to pass or make an incorrect tap.,templates/codenames/game.html,Opponent team is guessing. Wait for them to pass or make an incorrect tap.,تیم حریف در حال حدس زدن است. منتظر بمانید تا نوبت را رد کنند یا ضربه اشتباهی بزنند.
+Or type your own custom prompt/phrase...,templates/emojinary/game.html,Or type your own custom prompt/phrase...,یا دستور/عبارت سفارشی خود را بنویسید...
+Oral Spymaster Mode (Mod Logging),templates/codenames/game.html,Oral Spymaster Mode (Mod Logging),حالت شفاهی سرجاسوس (ثبت ناظر)
 "Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)",فایل RAW اصلی دوربین (CR3، ARW، NEF و غیره)
+Other,templates/cv.html,Other,دیگر
+Outdoors,templates/cv.html,Outdoors,فضای باز
 Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,صفحه یافت نشد — مارکو سیلوا
+Participating Host Controls (Zero-Spoiler),templates/impostor/game.html,Participating Host Controls (Zero-Spoiler),کنترل‌های میزبان شرکت‌کننده (بدون لو رفتن داستان)
+Pass / Wrong,templates/impostor/game.html,Pass / Wrong,رد شدن / نادرست
+Pass Turn (Mod),templates/codenames/game.html,Pass Turn (Mod),رد کردن نوبت (ناظر)
+Password,"scripts/generate_locales.py, templates/lupus/hub.html",Password,رمز عبور
 Password Protected,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Password Protected,محافظت‌شده با رمز عبور
 Past & Finished Games,"scripts/generate_locales.py, templates/lupus/hub.html",Past & Finished Games,بازی‌های گذشته و پایان‌یافته
+Pause,templates/codenames/game.html,Pause,توقف موقت
+Pause Timer,templates/impostor/game.html,Pause Timer,توقف موقت زمان‌سنج
 Pending,photos/models.py,Pending,در انتظار
+Personal Player QR,templates/codenames/game.html,Personal Player QR,کد QR شخصی بازیکن
+Personal QR,templates/codenames/game.html,Personal QR,کیوآرکد شخصی
+Photography,templates/cv.html,Photography,عکاسی
+Pick 1 word and a number of cards. Your Operatives must guess based on your clue.,templates/codenames/game.html,Pick 1 word and a number of cards. Your Operatives must guess based on your clue.,۱ کلمه و تعدادی کارت انتخاب کنید. مأموران شما باید بر اساس سرنخ شما حدس بزنند.
 Pick the name others at the table know you by.,"scripts/generate_locales.py, templates/lupus/join.html",Pick the name others at the table know you by.,نامی را انتخاب کنید که دیگران دور میز شما را با آن می‌شناسند.
+"Pick your game, language, and room settings — share the link or QR code when ready.",templates/gamerooms/room_create.html,"Pick your game, language, and room settings — share the link or QR code when ready.",بازی، زبان و تنظیمات اتاق خود را انتخاب کنید — وقتی آماده شدید لینک یا کیوآرکد را به اشتراک بگذارید.
+Player Profile & Personal QR,templates/emojinary/game.html,Player Profile & Personal QR,پروفایل بازیکن و کیوآرکد شخصی
+Player QR,templates/impostor/game.html,Player QR,کیوآرکد بازیکن
+Player Reconnect QR,templates/codenames/game.html,Player Reconnect QR,کیوآرکد اتصال مجدد بازیکن
+Player name...,templates/codenames/game.html,Player name...,نام بازیکن...
+Players & Scores,templates/impostor/game.html,Players & Scores,بازیکنان و امتیازها
 Please enter a player name.,"lupus/views.py, scripts/generate_locales.py",Please enter a player name.,لطفاً نام بازیکن را وارد کنید.
 Please enter a valid room code.,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Please enter a valid room code.,لطفاً یک کد اتاق معتبر وارد کنید.
+Poison Word (Impostor / Drunk),templates/impostor/game.html,Poison Word (Impostor / Drunk),کلمه سمی (شیاد / مست)
+Poison Word Mode,templates/impostor/game.html,Poison Word Mode,حالت کلمه سمی
+"Portuguese · Helsinki, Finland",templates/cv.html,"Portuguese · Helsinki, Finland",پرتغالی · هلسینکی، فنلاند
 Previous day,templates/tools/partials/calendar.html,Previous day,روز قبل
 Price for the RAW file download.,photos/models.py,Price for the RAW file download.,قیمت دانلود فایل RAW.
+Privacy Policy,templates/bot_privacy.html,Privacy Policy,سیاست حفظ حریم خصوصی
 Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,سیاست حفظ حریم خصوصی - ربات تلگرام هوم‌لب
 Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,سیاست حفظ حریم خصوصی - ربات تلگرام هوم‌لب - مارکو سیلوا
 Privacy shield keeps cards concealed from prying eyes at the table.,"scripts/generate_locales.py, templates/lupus/hub.html",Privacy shield keeps cards concealed from prying eyes at the table.,سپر حریم خصوصی کارت‌ها را از چشمان کنجکاو دور میز پنهان نگه می‌دارد.
 Processing,photos/models.py,Processing,در حال پردازش
+Prompt Tool,templates/gamerooms/room_list.html,Prompt Tool,ابزار پرامپت
 Public,"scripts/generate_locales.py, templates/lupus/hub.html",Public,عمومی
+Publish Clue,templates/codenames/game.html,Publish Clue,انتشار سرنخ
+RAW available for purchase,templates/photos/photo_viewer.html,RAW available for purchase,فایل RAW آماده برای خرید
 RAW file,photos/models.py,RAW file,فایل RAW
 RAW price,photos/models.py,RAW price,قیمت RAW
+Reading,templates/cv.html,Reading,خواندن
+Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,بازی‌های مهمانی چندنفره آنلاین در مرورگر. بدون نیاز به حساب کاربری — فقط وارد شوید و با دوستان بازی کنید.
+Red,templates/codenames/game.html,Red,قرمز
+Red Left,templates/codenames/game.html,Red Left,قرمز باقی‌مانده
+Red Team,templates/codenames/game.html,Red Team,تیم قرمز
+Red Team Wins!,templates/codenames/game.html,Red Team Wins!,تیم قرمز برنده شد!
+Redraw Board,templates/codenames/game.html,Redraw Board,ترسیم مجدد صفحه
 Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,تولید مجدد برش‌های 4:5 اینستاگرام برای عکس‌های انتخاب‌شده
-Replay,"scripts/generate_locales.py, templates/lupus/hub.html",Replay,بازپخش
+Replay,"scripts/generate_locales.py, templates/codenames/game.html, templates/emojinary/game.html, templates/lupus/hub.html",Replay,بازپخش
+Reroll,templates/emojinary/game.html,Reroll,ری‌رول
+Resume,templates/codenames/game.html,Resume,ادامه
 Return as %(name)s,scripts/generate_locales.py,Return as %(name)s,بازگشت به‌عنوان %(name)s
+Reveal,gamerooms/views.py,Reveal,نمایش
 Reveal Roles on Death:,"scripts/generate_locales.py, templates/lupus/create.html",Reveal Roles on Death:,افشای نقش‌ها پس از مرگ:
+Role Hidden,templates/impostor/game.html,Role Hidden,نقش پنهان
+"Roles, phases, and interface are localized in %(lang)s.",gamerooms/language_support.py,"Roles, phases, and interface are localized in %(lang)s.",نقش‌ها، مراحل و رابط کاربری به زبان %(lang)s محلی‌سازی شده‌اند.
+Room Chat,templates/emojinary/game.html,Room Chat,چت اتاق
+Room Chat & Events,templates/codenames/game.html,Room Chat & Events,چت و رویدادهای اتاق
+Room Code,templates/emojinary/game.html,Room Code,کد اتاق
 Room Code:,"scripts/generate_locales.py, templates/lupus/join.html",Room Code:,کد اتاق:
 Room Password,"scripts/generate_locales.py, templates/lupus/join.html",Room Password,رمز عبور اتاق
 Room Password (optional),"scripts/generate_locales.py, templates/lupus/create.html",Room Password (optional),رمز عبور اتاق (اختیاری)
 Room Setup,"scripts/generate_locales.py, templates/lupus/create.html",Room Setup,تنظیمات اتاق
 Room Title,"scripts/generate_locales.py, templates/lupus/create.html",Room Title,عنوان اتاق
 Room code '%(code)s' was not found or is no longer active.,scripts/generate_locales.py,Room code '%(code)s' was not found or is no longer active.,اتاق با کد «%(code)s» پیدا نشد یا دیگر فعال نیست.
+Rooms,"templates/codenames/game.html, templates/emojinary/game.html, templates/impostor/game.html",Rooms,اتاق‌ها
 Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,"scripts/generate_locales.py, templates/lupus/hub.html",Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,اتاق‌ها در لحظه ساخته می‌شوند و تا ۲۴ ساعت فعال می‌مانند. یک بازی جدید شروع کنید و دوستانتان را دعوت کنید!
+Rotate Spymasters each new board,templates/codenames/game.html,Rotate Spymasters each new board,چرخش سرتیم‌های جاسوسی در هر صفحه جدید
+Round,gamerooms/views.py,Round,دور
+Round Clues,templates/impostor/game.html,Round Clues,سرنخ‌های دور
+Round-by-Round Replay & Attempt Log,templates/emojinary/game.html,Round-by-Round Replay & Attempt Log,پخش مجدد دور به دور و گزارش تلاش‌ها
+Rounds (Clue Cycles),templates/impostor/game.html,Rounds (Clue Cycles),دورها (چرخه‌های سرنخ)
+Running,"lupus/views.py, scripts/generate_locales.py",Running,در حال اجرا
+Save Name,templates/emojinary/game.html,Save Name,ذخیره نام
+Scan on another device to reclaim your Spymaster/Operative seat cleanly.,templates/codenames/game.html,Scan on another device to reclaim your Spymaster/Operative seat cleanly.,روی دستگاه دیگری اسکن کنید تا صندلی سرتیم جاسوسی/مأمور خود را بدون مشکل پس بگیرید.
+Scan this QR code with any phone camera to join immediately:,templates/emojinary/game.html,Scan this QR code with any phone camera to join immediately:,این کیوآرکد را با دوربین هر گوشی اسکن کنید تا فوراً ملحق شوید:
+Scan this personal QR code to switch devices without losing your secret card:,templates/impostor/game.html,Scan this personal QR code to switch devices without losing your secret card:,این کیوآرکد شخصی را اسکن کنید تا دستگاه‌ها را بدون از دست دادن کارت مخفی خود تغییر دهید:
+Scan this to move your session and score to another phone or browser:,templates/emojinary/game.html,Scan this to move your session and score to another phone or browser:,این را اسکن کنید تا جلسه و امتیاز خود را به تلفن یا مرورگر دیگری منتقل کنید:
+"Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)...",templates/emojinary/game.html,"Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)...","جستجوی ایموجی با نام، مترادف، اشتباه تایپی یا زبان (مثلاً fire, crown, fogo, φωτιά)..."
+Send,"templates/codenames/game.html, templates/impostor/game.html",Send,ارسال
 Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,ارسال بسته اسلایدی اینستاگرام به تلگرام
 Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,خطای سرور — Marco Silva
+Set,templates/emojinary/game.html,Set,دست
+Setting up teams...,templates/codenames/game.html,Setting up teams...,در حال چیدمان تیم‌ها...
+Show Role & Word,templates/impostor/game.html,Show Role & Word,نمایش نقش و کلمه
+Show Spymaster Keycard,templates/codenames/game.html,Show Spymaster Keycard,نمایش کارت کلید سرتیم جاسوسی
 Silent Phase,"lupus/views.py, scripts/generate_locales.py",Silent Phase,مرحله سکوت
+Skills,templates/cv.html,Skills,مهارت‌ها
+Skip Turn,templates/impostor/game.html,Skip Turn,رد کردن نوبت
 "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!","scripts/generate_locales.py, templates/lupus/create.html","Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!",بازیکنان کشته‌شده به‌جای مرگ مستقیم، یک بار وارد برزخ می‌شوند. اگر بتوانند حدس بزنند فرشته چه کسی است، دوباره به زندگی برمی‌گردند!
+"Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master.",templates/gamerooms/room_list.html,"Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master.",استنتاج اجتماعی همراه با کلمات سمی، تله‌های تابوی مرگبار، سرقت آخرین شانس، و گرداننده بازیِ مشارکت‌کننده.
+Spanish,templates/cv.html,Spanish,اسپانیایی
+Speaker (oral clue):,templates/impostor/game.html,Speaker (oral clue):,گوینده (سرنخ شفاهی):
+Speaking,templates/cv.html,Speaking,گفتاری
+Spectator,templates/codenames/game.html,Spectator,تماشاگر
+Spectator / Non-Player,templates/codenames/game.html,Spectator / Non-Player,تماشاچی / غیربازیکن
+Spectator Mode (Skip my turns),templates/emojinary/game.html,Spectator Mode (Skip my turns),حالت تماشاچی (رد کردن نوبت‌های من)
+Spymaster,templates/codenames/game.html,Spymaster,سرجاسوس
+Spymaster Seconds (0=∞),templates/codenames/game.html,Spymaster Seconds (0=∞),ثانیه‌های سرجاسوس (0=∞)
+Spymaster is thinking of a clue...,templates/codenames/game.html,Spymaster is thinking of a clue...,سرجاسوس در حال فکر کردن به یک سرنخ است...
 Staggering Doctor:,"scripts/generate_locales.py, templates/lupus/create.html",Staggering Doctor:,پزشک سرگردان:
+Standard Timed (90s / 90s),templates/codenames/game.html,Standard Timed (90s / 90s),زمان‌دار استاندارد (۹۰ ثانیه / ۹۰ ثانیه)
+Start Codenames,templates/codenames/game.html,Start Codenames,شروع Codenames
+Start Match,templates/impostor/game.html,Start Match,شروع مسابقه
+Start Voting Early,templates/impostor/game.html,Start Voting Early,شروع زودهنگام رأی‌گیری
 Starting Role Deck Preset,"scripts/generate_locales.py, templates/lupus/create.html",Starting Role Deck Preset,چیدمان پیش‌فرض نقش‌های شروع
+Steal Guess,gamerooms/views.py,Steal Guess,حدس ربودن
+"Steal Timer (s, 0 = ∞)",templates/impostor/game.html,"Steal Timer (s, 0 = ∞)",زمان‌سنج ربودن (ثانیه، 0 = ∞)
+Steal Win!,templates/impostor/game.html,Steal Win!,پیروزی با ربودن امتیاز!
 "Step-by-step night stages, bluffing calls, and voting manager.","scripts/generate_locales.py, templates/lupus/hub.html","Step-by-step night stages, bluffing calls, and voting manager.",مراحل گام‌به‌گام شب، نوبت‌های فریب‌کاری و مدیریت رأی‌گیری.
+Submit,templates/emojinary/game.html,Submit,ارسال
+Submit Clue,templates/impostor/game.html,Submit Clue,ارسال سرنخ
+Submit Player Vote,templates/impostor/game.html,Submit Player Vote,ارسال رأی بازیکن
+Table Discussion & Event Log,templates/impostor/game.html,Table Discussion & Event Log,گفتگوی دور میز و گزارش رویدادها
 Table-First Lupus Highlights,"scripts/generate_locales.py, templates/lupus/hub.html",Table-First Lupus Highlights,ویژگی‌های برجسته لوپوس دورهمی
 Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,"scripts/generate_locales.py, templates/lupus/hub.html",Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,بازی دورهمی گرگینه و مافیا با محوریت تعامل حضوری. بدون نیاز به ساخت حساب کاربری. هر بازیکن برای مشاهده نقش مخفی و رأی‌گیری از گوشی خود استفاده می‌کند و شما به‌عنوان گرداننده بازی (GM) اتاق را مدیریت می‌کنید.
 "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.","scripts/generate_locales.py, templates/lupus/create.html","Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.",بازی دورهمی ترکیبی با محوریت تعامل حضوری. بدون نیاز به حساب کاربری یا ورود. بازیکنان با اسکن کد QR وارد می‌شوند و شما بازی را به‌عنوان گرداننده (GM) اداره می‌کنید.
 "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.","scripts/generate_locales.py, templates/gamerooms/room_list.html","Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.",بازی دورهمی حضوری با نقش‌های مخفی، رأی‌گیری زنده، روزنامه شهر و پنل کارگردانی گرداننده (GM).
+Tally Votes Now,templates/impostor/game.html,Tally Votes Now,شمارش آراء در همین لحظه
+Tap cards on the board as players make their guesses out loud.,templates/codenames/game.html,Tap cards on the board as players make their guesses out loud.,هم‌زمان با حدس زدن بازیکنان با صدای بلند، روی کارت‌های صفحه بزنید.
+"Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn.",templates/codenames/game.html,"Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn.",کارت‌هایی از صفحه را که با سرنخ مطابقت دارند لمس کنید. پس از پایان یا در صورت عدم اطمینان، پایان نوبت حدس را بزنید.
+Targets,templates/codenames/game.html,Targets,اهداف
+Techy,templates/cv.html,Techy,تکنولوژی
+Terms of Service,templates/bot_terms.html,Terms of Service,شرایط استفاده از خدمات
 Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,شرایط استفاده از خدمات - ربات تلگرام هوم‌لب
 Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,شرایط استفاده از خدمات - ربات تلگرام هوم‌لب - Marco Silva
 The Doctor / Guard cannot protect the same person two consecutive nights.,"scripts/generate_locales.py, templates/lupus/create.html",The Doctor / Guard cannot protect the same person two consecutive nights.,پزشک / محافظ نمی‌تواند دو شب متوالی از یک نفر محافظت کند.
+"The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable.",gamerooms/language_support.py,"The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable.",رابط کاربری از %(lang)s استفاده می‌کند، اما محتوای بازی به دلیل در دسترس نبودن داده‌های کامل واژگان، به انگلیسی بازمی‌گردد.
 Theme & Terms,"scripts/generate_locales.py, templates/lupus/create.html",Theme & Terms,تم و اصطلاحات
+Time Limit Preset,templates/impostor/game.html,Time Limit Preset,پیش‌تنظیم محدودیت زمانی
+Toggle,templates/emojinary/game.html,Toggle,تغییر وضعیت
+Toggle Spectator Mode,templates/impostor/game.html,Toggle Spectator Mode,تغییر وضعیت حالت تماشاچی
 Town Gazette:,"scripts/generate_locales.py, templates/lupus/hub.html",Town Gazette:,روزنامه شهر:
 Town Voting,"lupus/views.py, scripts/generate_locales.py",Town Voting,رأی‌گیری شهر
+Turn Sequence,templates/codenames/game.html,Turn Sequence,ترتیب نوبت‌ها
+"Turn Timer (s, 0 = ∞)",templates/impostor/game.html,"Turn Timer (s, 0 = ∞)",زمان‌سنج نوبت (ثانیه، 0 = ∞)
+Turn Timers,templates/codenames/game.html,Turn Timers,زمان‌سنج‌های نوبت
+Type a message or guess...,templates/emojinary/game.html,Type a message or guess...,پیام یا حدس خود را تایپ کنید...
+Type clue or what was said orally...,templates/impostor/game.html,Type clue or what was said orally...,سرنخ یا آنچه را که به زبان آمده تایپ کنید...
+Type your guess (or use the chat box)...,templates/emojinary/game.html,Type your guess (or use the chat box)...,حدس خود را تایپ کنید (یا از جعبه چت استفاده کنید)...
+UI Only,"templates/codenames/game.html, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/impostor/game.html",UI Only,فقط رابط کاربری
+Unable to load player QR code.,templates/codenames/game.html,Unable to load player QR code.,بارگیری کد QR بازیکن امکان‌پذیر نیست.
+Unassigned,templates/codenames/game.html,Unassigned,تعیین‌نشده
+Unlimited,templates/codenames/game.html,Unlimited,نامحدود
 Unlock Room,"scripts/generate_locales.py, templates/lupus/join.html",Unlock Room,باز کردن قفل اتاق
+Untimed,templates/codenames/game.html,Untimed,بدون محدودیت زمانی
+Untimed (Relaxed Couch Mode),templates/codenames/game.html,Untimed (Relaxed Couch Mode),بدون زمان (حالت آرامش کاناپه‌ای)
+Use Prompt,templates/emojinary/game.html,Use Prompt,استفاده از دستور
+Use your emoji keyboard or tap emojis below...,templates/emojinary/game.html,Use your emoji keyboard or tap emojis below...,از صفحه‌کلید ایموجی خود استفاده کنید یا روی ایموجی‌های زیر بزنید...
 "Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.",نقطه کانونی عمودی: 0=بالا، 50=مرکز، 100=پایین.
 "Villagers, Wolves, Seer","scripts/generate_locales.py, templates/lupus/create.html","Villagers, Wolves, Seer",روستایی‌ها، گرگ‌ها، پیشگو
+"Vote Timer (s, 0 = ∞)",templates/impostor/game.html,"Vote Timer (s, 0 = ∞)",زمان‌سنج رأی‌گیری (ثانیه، 0 = ∞)
+Vote for player:,templates/impostor/game.html,Vote for player:,رأی دادن به بازیکن:
+Voting,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Voting,رأی‌گیری
+Waiting for Clue...,templates/codenames/game.html,Waiting for Clue...,در انتظار سرنخ...
+Waiting for Host to configure teams and start the board...,templates/codenames/game.html,Waiting for Host to configure teams and start the board...,در انتظار میزبان برای پیکربندی تیم‌ها و شروع صفحه...
+Waiting in Lobby...,templates/impostor/game.html,Waiting in Lobby...,در انتظار در لابی...
 Werewolf / Lupus,"scripts/generate_locales.py, templates/lupus/create.html",Werewolf / Lupus,گرگینه / Lupus
 Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,اینکه آیا مختصات فوکوس به‌طور خودکار از طریق برجستگی لبه‌ها محاسبه شده‌اند یا خیر.
+Wikisaurus AI Clue Suggestions (tap to pre-fill),templates/codenames/game.html,Wikisaurus AI Clue Suggestions (tap to pre-fill),پیشنهادات سرنخ Wikisaurus AI (برای پر کردن خودکار لمس کنید)
+Wins,templates/codenames/game.html,Wins,بردها
+Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends.,templates/gamerooms/room_list.html,Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends.,تولیدکننده کلمات و جملات برای دورهای کلاسیک نقاشی با قلم و کاغذ همراه دوستان.
+Word Impostor,"templates/gamerooms/room_list.html, templates/impostor/game.html",Word Impostor,Word Impostor
+Word Pack,templates/codenames/game.html,Word Pack,بسته کلمات
+Work Experience,templates/cv.html,Work Experience,تجربه کاری
+Writing,templates/cv.html,Writing,نوشتاری
 You need an authorized key to access this page.,scripts/generate_locales.py,You need an authorized key to access this page.,برای دسترسی به این صفحه به یک کلید مجاز نیاز دارید.
 Your Name / Nickname,"scripts/generate_locales.py, templates/lupus/join.html",Your Name / Nickname,نام / نام مستعار شما
+Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!,templates/codenames/game.html,Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!,مأموران شما در حال مشورت هستند. کاملاً خونسرد و بی‌احساس بمانید — هیچ واکنش یا نشانه‌ای بروز ندهید!
+Your Personal Reconnect QR,templates/emojinary/game.html,Your Personal Reconnect QR,کد QR شخصی شما برای اتصال مجدد
+Your Secret Phrase,templates/emojinary/game.html,Your Secret Phrase,عبارت محرمانه شما
+Your Spymaster,templates/codenames/game.html,Your Spymaster,سرجاسوس شما
+Your Turn to Guess!,templates/codenames/game.html,Your Turn to Guess!,نوبت حدس زدن شماست!
+"Your Turn, Spymaster!",templates/codenames/game.html,"Your Turn, Spymaster!",نوبت شماست، جاسوس‌ارشد!
+actions,templates/emojinary/game.html,actions,اقدامات
+adjective,templates/tools/pictionary.html,adjective,صفت
 ago,"scripts/generate_locales.py, templates/gamerooms/room_list.html, templates/lupus/hub.html",ago,پیش
 alive,"scripts/generate_locales.py, templates/lupus/hub.html",alive,زنده
 all,templates/emojinary/game.html,all,همه
+all categories,templates/emojinary/game.html,all categories,همه دسته‌ها
+all day,templates/tools/partials/calendar.html,all day,تمام روز
+and publish their clue below.,templates/codenames/game.html,and publish their clue below.,و سرنخ آن‌ها را در زیر منتشر کنید.
+animals,templates/emojinary/game.html,animals,حیوانات
+any,templates/tools/pictionary.html,any,هر کدام
 aperture,photos/models.py,aperture,دیافراگم
 auto focus detected,photos/models.py,auto focus detected,فوکوس خودکار شناسایی شد
 available for sale,photos/models.py,available for sale,موجود برای فروش
 best guess,templates/emojinary/game.html,best guess,بهترین حدس
+blog,"scripts/generate_locales.py, templates/base.html, templates/blog/blog_index_page.html, templates/blog/post_list.html, templates/wip.html",blog,blog
 camera make,photos/models.py,camera make,سازنده دوربین
 camera model,photos/models.py,camera model,مدل دوربین
-chat...,templates/emojinary/game.html,chat...,چت...
-chat:,templates/emojinary/game.html,chat:,چت:
+category:,templates/emojinary/game.html,category:,دسته‌بندی:
+chat:,templates/emojinary/game.html,chat:,chat:
+clear,templates/emojinary/game.html,clear,پاک کردن
+collective prep + hints,templates/emojinary/game.html,collective prep + hints,آماده‌سازی جمعی + سرنخ‌ها
 create,"scripts/generate_locales.py, templates/gamerooms/room_create.html",create,ایجاد
-create room,"scripts/generate_locales.py, templates/gamerooms/room_create.html",create room,ایجاد اتاق
+create room,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/gamerooms/room_list.html",create room,ایجاد اتاق
 crop focus X (%),photos/models.py,crop focus X (%),تمرکز برش X (%)
 crop focus Y (%),photos/models.py,crop focus Y (%),تمرکز برش Y (%)
+cv,"scripts/generate_locales.py, templates/base.html",cv,cv
 date,photos/models.py,date,تاریخ
+description,templates/tools/ics_maker.html,description,توضیحات
+difficulty,templates/tools/pictionary.html,difficulty,سطح دشواری
+difficulty:,templates/emojinary/game.html,difficulty:,سطح دشواری:
+download .ics,templates/tools/ics_maker.html,download .ics,دانلود .ics
 e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,مثلاً 9B3A1C2D
 e.g. Marco,"scripts/generate_locales.py, templates/lupus/join.html",e.g. Marco,مثلاً مارکو
+easy,"templates/emojinary/game.html, templates/tools/pictionary.html",easy,آسان
 emoji time:,templates/emojinary/game.html,emoji time:,زمان ایموجی:
+end,templates/tools/ics_maker.html,end,پایان
+enter password to view the calendar.,templates/tools/planz.html,enter password to view the calendar.,برای مشاهده تقویم رمز عبور را وارد کنید.
+extract event,templates/tools/ics_maker.html,extract event,استخراج رویداد
 focal length,photos/models.py,focal length,فاصله کانونی
+food & drink,templates/emojinary/game.html,food & drink,غذا و نوشیدنی
+gallery,"photos/models.py, templates/photos/upload.html",gallery,گالری
 gallery extension,photos/models.py,gallery extension,افزونه گالری
 gallery extensions,photos/models.py,gallery extensions,افزونه‌های گالری
 gallery not found.,templates/blog/blocks/photo_gallery.html,gallery not found.,گالری یافت نشد.
+game,templates/gamerooms/room_create.html,game,بازی
+games,"scripts/generate_locales.py, templates/base.html",games,بازی‌ها
+go,templates/tools/planz.html,go,go
+guess,templates/emojinary/game.html,guess,حدس
 guess time:,templates/emojinary/game.html,guess time:,زمان حدس:
+hard,"templates/emojinary/game.html, templates/tools/pictionary.html",hard,سخت
+home,"scripts/generate_locales.py, templates/base.html",home,صفحه اصلی
+ics maker,templates/tools/ics_maker.html,ics maker,سازنده فایل ics
+is Guessing,templates/codenames/game.html,is Guessing,در حال حدس زدن است
+is formulating a clue for their team.,templates/codenames/game.html,is formulating a clue for their team.,در حال تدوین سرنخی برای تیم خود است.
+is formulating a clue. Stand by!,templates/codenames/game.html,is formulating a clue. Stand by!,در حال تدوین یک سرنخ است. گوش به زنگ باشید!
 join,"scripts/generate_locales.py, templates/gamerooms/room_name.html, templates/gamerooms/room_password.html",join,پیوستن
+latest posts,templates/index.html,latest posts,آخرین پست‌ها
 latitude,photos/models.py,latitude,عرض جغرافیایی
 lens,photos/models.py,lens,لنز
+location,templates/tools/ics_maker.html,location,مکان
 location name,photos/models.py,location name,نام مکان
 longitude,photos/models.py,longitude,طول جغرافیایی
+map view,templates/photos/gallery_list.html,map view,نمای نقشه
+medium,"templates/emojinary/game.html, templates/tools/pictionary.html",medium,متوسط
+message (optional),templates/photos/photo_viewer.html,message (optional),پیام (اختیاری)
+mode,templates/tools/pictionary.html,mode,حالت
+mode:,templates/emojinary/game.html,mode:,حالت:
+movies,templates/emojinary/game.html,movies,فیلم‌ها
+new word,templates/tools/pictionary.html,new word,کلمه جدید
+next →,templates/photos/photo_viewer.html,next →,بعدی →
 no active rooms. create one!,"scripts/generate_locales.py, templates/gamerooms/room_list.html",no active rooms. create one!,هیچ اتاق فعالی وجود ندارد. یکی بسازید!
+no galleries yet.,templates/photos/gallery_list.html,no galleries yet.,هنوز گالری وجود ندارد.
+no posts yet.,"templates/blog/blog_index_page.html, templates/blog/post_list.html",no posts yet.,هنوز پستی ارسال نشده است.
+noun,templates/tools/pictionary.html,noun,اسم
+older →,templates/blog/post_list.html,older →,قدیمی‌تر →
+original,templates/photos/photo_viewer.html,original,اصلی
+password,templates/tools/planz.html,password,رمز عبور
 password (optional),"scripts/generate_locales.py, templates/gamerooms/room_create.html",password (optional),رمز عبور (اختیاری)
 paste event details here...,templates/tools/ics_maker.html,paste event details here...,جزئیات رویداد را اینجا جای‌گذاری کنید...
 "paste text or a url with event details, and get an .ics file.",templates/tools/ics_maker.html,"paste text or a url with event details, and get an .ics file.",متن یا پیوند حاوی جزئیات رویداد را جای‌گذاری کنید و یک فایل .ics دریافت کنید.
+people & characters,templates/emojinary/game.html,people & characters,افراد و شخصیت‌ها
 photo,photos/models.py,photo,عکس
 photo extension,photos/models.py,photo extension,افزونه عکس
 photo extensions,photos/models.py,photo extensions,افزونه‌های عکس
+photo map,templates/photos/map.html,photo map,نقشه عکس‌ها
 photo not found.,templates/blog/blocks/single_photo.html,photo not found.,عکس یافت نشد.
-private,templates/emojinary/game.html,private,خصوصی
+photos,"scripts/generate_locales.py, templates/base.html, templates/index.html, templates/photos/gallery_list.html",photos,عکس‌ها
+photos (select multiple),templates/photos/upload.html,photos (select multiple),عکس‌ها (انتخاب چندتایی)
+phrases,templates/emojinary/game.html,phrases,عبارات
+"pick your options, hit the button, draw!",templates/tools/pictionary.html,"pick your options, hit the button, draw!",گزینه‌ها را انتخاب کنید، دکمه را بزنید و نقاشی بکشید!
+pictionary,templates/tools/pictionary.html,pictionary,pictionary
+places & travel,templates/emojinary/game.html,places & travel,مکان‌ها و سفر
+planz,"templates/tools/planz.html, templates/tools/planz_full.html",planz,planz
+play again,templates/emojinary/game.html,play again,بازی دوباره
+players,"scripts/generate_locales.py, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/lupus/hub.html",players,بازیکنان
+press the button to get a word,templates/tools/pictionary.html,press the button to get a word,برای دریافت کلمه دکمه را فشار دهید
+private (hide guesses),templates/emojinary/game.html,private (hide guesses),خصوصی (مخفی کردن حدس‌ها)
 processing status,photos/models.py,processing status,وضعیت پردازش
-public,templates/emojinary/game.html,public,عمومی
+public (show guesses),templates/emojinary/game.html,public (show guesses),عمومی (نمایش حدس‌ها)
+request,templates/photos/photo_viewer.html,request,درخواست
+rerolls:,templates/emojinary/game.html,rerolls:,تاس‌ریزی مجدد:
+reveal,templates/emojinary/game.html,reveal,نمایش
+room language,templates/gamerooms/room_create.html,room language,زبان اتاق
 room password,"scripts/generate_locales.py, templates/gamerooms/room_password.html",room password,رمز عبور اتاق
 round robin,templates/emojinary/game.html,round robin,نوبتی
 rounds:,templates/emojinary/game.html,rounds:,دورها:
+send,templates/emojinary/game.html,send,ارسال
+sentence,templates/tools/pictionary.html,sentence,جمله
 shutter speed,photos/models.py,shutter speed,سرعت شاتر
+skip,templates/emojinary/game.html,skip,رد کردن
+songs,templates/emojinary/game.html,songs,آهنگ‌ها
+start,templates/tools/ics_maker.html,start,شروع
+start game,templates/emojinary/game.html,start game,شروع بازی
 text,templates/tools/ics_maker.html,text,متن
+things,templates/emojinary/game.html,things,چیزها
+title,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/tools/ics_maker.html",title,عنوان
 title is required,"gamerooms/views.py, scripts/generate_locales.py",title is required,عنوان الزامی است
-url,templates/tools/ics_maker.html,url,نشانی اینترنتی
+today,templates/tools/partials/calendar.html,today,امروز
+tv shows,templates/emojinary/game.html,tv shows,برنامه‌های تلویزیونی
+type,"photos/models.py, templates/tools/pictionary.html",type,نوع
+upload,templates/photos/upload.html,upload,بارگذاری
+upload photos,templates/photos/upload.html,upload photos,بارگذاری عکس‌ها
+url,templates/tools/ics_maker.html,url,url
+verb,templates/tools/pictionary.html,verb,فعل
 view full resolution ↗,templates/photos/partials/photo_image.html,view full resolution ↗,مشاهده با کیفیت اصلی ↗
+view on map,templates/photos/photo_viewer.html,view on map,مشاهده روی نقشه
 waiting for clue...,templates/emojinary/game.html,waiting for clue...,در انتظار سرنخ...
+waiting for players...,templates/emojinary/game.html,waiting for players...,در انتظار بازیکنان...
+watermarked,templates/photos/photo_viewer.html,watermarked,دارای واترمارک
 watermarked image,photos/models.py,watermarked image,تصویر دارای واترمارک
+web,templates/photos/photo_viewer.html,web,وب
 web-optimized image,photos/models.py,web-optimized image,تصویر بهینه‌شده برای وب
+week,templates/tools/partials/calendar.html,week,هفته
 what is %(a)s + %(b)s?,scripts/generate_locales.py,what is %(a)s + %(b)s?,حاصل %(a)s + %(b)s چند می‌شود؟
+word,templates/tools/pictionary.html,word,کلمه
+work in progress — check back soon.,templates/wip.html,work in progress — check back soon.,در دست ساخت — به زودی سر بزنید.
 wrong captcha,"gamerooms/views.py, scripts/generate_locales.py",wrong captcha,کپچای اشتباه
+wrong password,"gamerooms/views.py, scripts/generate_locales.py, templates/tools/planz.html",wrong password,رمز عبور نادرست است
+your email,templates/photos/photo_viewer.html,your email,ایمیل شما
 your name,"scripts/generate_locales.py, templates/gamerooms/room_name.html",your name,نام شما
+— none —,templates/photos/upload.html,— none —,— هیچ —
+← all galleries,templates/photos/gallery_detail.html,← all galleries,← همه گالری‌ها
+← all posts,"templates/blog/blog_post_page.html, templates/blog/post_detail.html",← all posts,← همه پست‌ها
+← back home,"templates/404.html, templates/500.html",← back home,← بازگشت به خانه
+← galleries,templates/photos/map.html,← galleries,← گالری‌ها
+← newer,templates/blog/post_list.html,← newer,← جدیدتر
+← prev,templates/photos/photo_viewer.html,← prev,← قبلی
+↓ Download PDF,templates/cv.html,↓ Download PDF,↓ دانلود PDF
 "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)","scripts/generate_locales.py, templates/lupus/create.html","⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)",⚡ آشوب و نقش‌های ویژه (گرگ آلفا، سایلنسر، کارآگاه، پزشک، تک‌تیرانداز، شهردار، جادوگر...)
+✅ Full Content + UI,gamerooms/language_support.py,✅ Full Content + UI,✅ محتوای کامل + رابط کاربری
+✏️ pictionary,scripts/generate_locales.py,✏️ pictionary,✏️ pictionary
+🌐 UI Only (English Words),gamerooms/language_support.py,🌐 UI Only (English Words),🌐 فقط رابط کاربری (کلمات انگلیسی)
 🎨 Emojinary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🎨 Emojinary,🎨 Emojinary
 🐺 Lupus,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 Lupus,🐺 Lupus
+🐺 Lupus Hub & Rooms,scripts/generate_locales.py,🐺 Lupus Hub & Rooms,🐺 هاب و اتاق‌های لوپوس
+🐺 create lupus,scripts/generate_locales.py,🐺 create lupus,🐺 ساخت بازی لوپوس
 👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),👼 برزخ و فرشته (گرگ‌ها + کارآگاه + پزشک + فرشته + تک‌تیرانداز + روستایی‌ها)
 "💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.",scripts/generate_locales.py,"💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.",💡 در بازی‌های دارای برزخ، افشای نقش تنها در صورت مرگ قطعی («مرگ واقعی») انجام می‌شود و هرگز در زمان حضور در برزخ رخ نمی‌دهد.
 💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,"scripts/generate_locales.py, templates/lupus/create.html",💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,💡 دستِ کارت‌ها به‌طور خودکار با تعداد بازیکنان حاضر تطبیق می‌یابد. پیش از شروع بازی، می‌توانید هر نقش و تعادل میان جبهه خیر و شر را به‌صورت زنده در لابی پیش از بازی تنظیم کنید.
 🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),🔍 استاندارد (گرگ‌ها + کارآگاه/پیشگو + پزشک/محافظ + روستایی‌ها)
+🕵️ Word Impostor,templates/gamerooms/room_list.html,🕵️ Word Impostor,🕵️ Word Impostor
 🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),🧑 ساده / کلاسیک (بدون قدرت‌های ویژه — تقابل خالص گرگ‌ها و روستایی‌ها)
+🧩 Codenames,templates/gamerooms/room_list.html,🧩 Codenames,🧩 Codenames

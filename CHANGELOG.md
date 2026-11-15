@@ -4,6 +4,13 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v162] - 2026-11-15
+
+### Updated
+- **Completed Priority-Tier & Extended Multilingual Catalogs (`locale/`, `locale/translations_master.csv`, `locale/.translated_cognates.json`)**:
+  - Executed the credit-optimized translation pipeline (`gemini-3.8-flash-low`, 6 languages/call, compact JSON) with 1-minute quota monitoring until `gemini-4-argon` reached `49%` remaining (`51%` used; `gemini-3.8-flash-low` remained at `90%`).
+  - Brought all 22 priority languages plus `af`, `be`, `bn`, `da`, `eu`, and `sq` (28 non-English locales total, 29 including `en`) to `100.0%` coverage (`578/578` strings) and `ca`, `cs`, `iw`, `no`, `tr`, and `uk` to `89.4%` coverage (`517/578`), compiling updated `.po` and `.mo` catalogs across `locale/`.
+
 ## [v161] - 2026-11-15
 
 ### Changed

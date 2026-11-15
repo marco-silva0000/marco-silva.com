@@ -33,7 +33,7 @@ msgid "1. Overview"
 msgstr "1. Общие положения"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Настройка команд и ролей"
 
 msgid "10 Minutes"
 msgstr "10 минут"
@@ -51,7 +51,7 @@ msgid "2. Permitted Use"
 msgstr "2. Разрешённое использование"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Настройки комнаты и стола (Ведущий)"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 минуты (быстро)"
@@ -111,46 +111,46 @@ msgid "Access Denied"
 msgstr "Доступ запрещён"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Обвинить:"
 
 msgid "Active"
 msgstr "Активно"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Активная подсказка"
 
 msgid "Active Lupus Rooms"
 msgstr "Активные комнаты Lupus"
 
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 msgid "Add Hint"
 msgstr "Добавить подсказку"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Добавить оффлайн-игрока / за столом"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Добавить оффлайн-игрока / за столом (напрямую в команду)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Добавить игрока"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Добавить секретную пару слов"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Добавьте локальные шутки и свои слова, которые будут замешиваться в колоды этой комнаты."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Имя оффлайн-игрока / за столом..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Добавить в колоду"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Агенты и капитаны"
 
 msgid "All Active Rooms"
 msgstr "Все активные комнаты"
@@ -162,37 +162,37 @@ msgid "All guesses & hints appear here"
 msgstr "Все догадки и подсказки появляются здесь"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Разрешить ведущему вводить устные подсказки и открывать карты за игроков за столом"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Разрешить колоду пар слов от игроков"
 
 msgid "Allow custom words"
 msgstr "Разрешить свои слова"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Разрешить игрокам добавлять свои слова"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Применить лицензию Creative Commons Attribution-NonCommercial-ShareAlike и водяной знак."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Автобаланс"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Автобаланс команд"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Автоматический подсчет, когда все проголосуют"
 
 msgid "Back to Active Lupus Rooms"
 msgstr "Назад к активным комнатам Lupus"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "В лобби"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "В лобби / Играть снова"
 
 msgid "Backspace"
 msgstr "Стереть"
@@ -201,28 +201,28 @@ msgid "Blue"
 msgstr "Синий"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Осталось синих"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Синяя команда"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Синяя команда побеждает!"
 
 msgid "Board"
-msgstr ""
+msgstr "Поле"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Поле пройдено"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Поле завершено"
 
 msgid "Browse Active Lupus Rooms"
 msgstr "Смотреть активные комнаты Lupus"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Обзор хаба"
 
 msgid "Build Your Emoji Clue:"
 msgstr "Составьте подсказку из эмодзи:"
@@ -240,25 +240,25 @@ msgid "Calendar navigation"
 msgstr "Навигация по календарю"
 
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Слово гражданских (Большинство)"
 
 msgid "Civilians, Mobsters, Cop"
 msgstr "Мирные, Мафиози, Шериф"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Классика + Расширенный пати-пак"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Фаза подсказок"
 
 msgid "Clues"
-msgstr ""
+msgstr "Подсказки"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Журнал подсказок и нажатий"
 
 msgid "Cockpit"
 msgstr "Пульт"
@@ -270,7 +270,7 @@ msgid "Conferences"
 msgstr "Конференции"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Контент + Интерфейс"
 
 msgid "Copy"
 msgstr "Копировать"
@@ -285,19 +285,19 @@ msgid "Curated"
 msgstr "Выбрано вручную"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Своё слово для Codenames"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Своя колода"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Своё время (сек)"
 
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "Кастомные сплит-клавиатуры (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Своё слово..."
 
 msgid "Date of the trip/shoot."
 msgstr "Дата поездки или съёмки."
@@ -309,16 +309,16 @@ msgid "Day Trip"
 msgstr "Однодневная поездка"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Раздать следующее поле"
 
 msgid "Defense Timer"
 msgstr "Время на защиту"
 
 msgid "Definition"
-msgstr ""
+msgstr "Определение"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Обсуждайте подсказки или обвиняйте подозреваемых..."
 
 msgid "Discussion"
 msgstr "Обсуждение"
@@ -342,19 +342,19 @@ msgid "Electronics/embedded (some rust embedded)"
 msgstr "Электроника и встраиваемые системы (немного embedded Rust)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Включить кражу победы самозванцем (последний шанс)"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Включить смертельное слово-табу"
 
 msgid "End Board"
-msgstr ""
+msgstr "Завершить поле"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Завершить ход угадывания"
 
 msgid "End Match"
-msgstr ""
+msgstr "Завершить матч"
 
 msgid "English"
 msgstr "Английский"
@@ -387,16 +387,16 @@ msgid "GM Director Cockpit:"
 msgstr "Пульт управления Ведущего:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "Режим ведущего: Заблокирован"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "Режим устного угадывания ведущего"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "Устный режим ведущего: ВКЛ"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "Режим устного капитана ведущего"
 
 msgid "Game Master Display Name"
 msgstr "Имя Ведущего"
@@ -417,22 +417,22 @@ msgid "Game room does not exist."
 msgstr "Игровая комната не существует."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Слова игры, подсказки и интерфейс доступны на %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Дать подсказку из одного слова"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Давайте косвенные подсказки из одного слова, не раскрывая само слово и не задевая скрытое смертельное слово-табу. Даже ведущий играет вслепую без спойлеров!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Угадайте слово гражданских, чтобы украсть победу..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Осталось попыток"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Фаза угадывания"
 
 msgid "Ham radio, UK foundation license"
 msgstr "Любительская радиосвязь (британская лицензия Foundation)"
@@ -441,7 +441,7 @@ msgid "Have an 8-character code from your Game Master? Enter it here to jump str
 msgstr "Есть 8-значный код от Ведущего? Введите его здесь, чтобы сразу присоединиться:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Скрыть наложение ключа карты"
 
 msgid "Hiking and climbing"
 msgstr "Хайкинг и скалолазание"
@@ -459,13 +459,13 @@ msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Горизонтальная точка фокуса: 0=слева, 50=по центру, 100=справа."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Управление ведущего"
 
 msgid "Host Game Settings"
 msgstr "Настройки игры (хост)"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Создать комнату"
 
 msgid "I code, take pics and many other things"
 msgstr "Я программирую, фотографирую и многое другое"
@@ -495,7 +495,7 @@ msgid "Invalid Game Master secret key."
 msgstr "Неверный секретный ключ Ведущего."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Пригласить игроков"
 
 msgid "Invite Players to Room"
 msgstr "Пригласить игроков в комнату"
@@ -504,7 +504,7 @@ msgid "Invite QR"
 msgstr "QR-код приглашения"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Сейчас не ваша очередь давать подсказку."
 
 msgid "Join"
 msgstr "Войти"
@@ -516,16 +516,16 @@ msgid "Join Lupus Game"
 msgstr "Присоединиться к игре Lupus"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Присоединитесь к красной или синей команде, чтобы начать"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Войти как агент"
 
 msgid "Join as Player"
 msgstr "Войти как игрок"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Войти как капитан"
 
 msgid "Join with Room Code"
 msgstr "Войти по коду комнаты"
@@ -534,7 +534,7 @@ msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "КРАЖА ПОБЕДЫ САМОЗВАНЦЕМ: ПОСЛЕДНИЙ ШАНС!"
 
 msgid "Languages"
 msgstr "Языки"
@@ -552,10 +552,10 @@ msgid "Leave empty for public join"
 msgstr "Оставьте пустым для свободного входа"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Пусть этот игрок отсканирует код с телефона, чтобы перейти в свой личный интерфейс капитана или агента."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Смертельное слово-табу (Опциональная ловушка мгновенного выбывания)"
 
 msgid "Limbo"
 msgstr "Limbo"
@@ -567,7 +567,7 @@ msgid "Limbo Resolution"
 msgstr "Разрешение Лимба"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Слушать"
 
 msgid "Listening"
 msgstr "Аудирование"
@@ -585,10 +585,10 @@ msgid "Lobby (Waiting for Players)"
 msgstr "Лобби (Ожидание игроков)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Ввести подсказку за капитана за столом"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Оборотень"
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "Активные комнаты и центр Lupus"
@@ -609,37 +609,37 @@ msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Матч завершен"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Подиум матча и лучшие моменты"
 
 msgid "Match Replay & Attempt Timeline"
 msgstr "Повтор матча и хронология попыток"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Повтор матча и архив полей"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Правила матча"
 
 msgid "Message..."
-msgstr ""
+msgstr "Сообщение..."
 
 msgid "Midgame Arrivals:"
 msgstr "Присоединение посреди игры:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Управление голосованием модератора — выберите игрока и подозреваемого ниже или нажмите на таблетку и место за столом:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Переместить..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Новая игра / Пересдать"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Следующий раунд"
 
 msgid "Next day"
 msgstr "Следующий день"
@@ -654,28 +654,28 @@ msgid "No Instagram crop generated yet."
 msgstr "Кадрирование для Instagram ещё не создано."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Подсказки еще не опубликованы."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Пока нет завершенных досок Codenames. Завершите доску или закончите игру досрочно, чтобы посмотреть здесь полный повтор ключа."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Определение в словаре отсутствует."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Ходы не зарегистрированы."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Официальная командная доска для дедукции 5×5 на 400 слов с подсказками ИИ Wikisaurus Spymaster, переключателем секретного ключа и устным/настольным форматом игры."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Официальные классические 400 слов"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Подсказка из одного слова..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Разрешены только эмодзи — текстовые символы были проигнорированы."
 
 msgid "Open"
 msgstr "Открыта"
@@ -687,40 +687,40 @@ msgid "Open GM Cockpit"
 msgstr "Открыть пульт ведущего"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Открыть генератор"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Открыть ссылку игрока"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Свободное место"
 
 msgid "Operative"
-msgstr ""
+msgstr "Оперативник"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Секунды оперативников (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Оперативники"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Оперативники отгадывают"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Оперативники выбирают карты на этот раунд."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Оперативники отгадывают!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Команда соперников отгадывает. Дождитесь, пока они спасуют или выберут неправильную карту."
 
 msgid "Or type your own custom prompt/phrase..."
 msgstr "Или введите своё слово/фразу..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Устный режим Spymaster (логирование модератора)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Исходный RAW-файл с камеры (CR3, ARW, NEF и т. д.)"
@@ -735,13 +735,13 @@ msgid "Page Not Found — Marco Silva"
 msgstr "Страница не найдена — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Элементы управления участвующего ведущего (без спойлеров)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Пас / Неверно"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Пропустить ход (мод)"
 
 msgid "Password"
 msgstr "Пароль"
@@ -753,46 +753,46 @@ msgid "Past & Finished Games"
 msgstr "Прошедшие и завершённые игры"
 
 msgid "Pause"
-msgstr ""
+msgstr "Пауза"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Поставить таймер на паузу"
 
 msgid "Pending"
 msgstr "В очереди"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Персональный QR игрока"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Персональный QR"
 
 msgid "Photography"
 msgstr "Фотография"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Выберите 1 слово и количество карт. Ваши оперативники должны угадать по вашей подсказке."
 
 msgid "Pick the name others at the table know you by."
 msgstr "Выберите имя, под которым вас знают за столом."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Выберите игру, язык и настройки комнаты — поделитесь ссылкой или QR-кодом, когда будете готовы."
 
 msgid "Player Profile & Personal QR"
 msgstr "Профиль игрока и личный QR-код"
 
 msgid "Player QR"
-msgstr ""
+msgstr "QR игрока"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR переподключения игрока"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Имя игрока..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Игроки и очки"
 
 msgid "Please enter a player name."
 msgstr "Пожалуйста, введите имя игрока."
@@ -801,10 +801,10 @@ msgid "Please enter a valid room code."
 msgstr "Пожалуйста, введите корректный код комнаты."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Отравленное слово (самозванец / пьяница)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Режим «Отравленное слово»"
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "Португалец · Хельсинки, Финляндия"
@@ -831,13 +831,13 @@ msgid "Processing"
 msgstr "Обработка"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Инструмент подсказок (промптов)"
 
 msgid "Public"
 msgstr "Открытая"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Опубликовать подсказку"
 
 msgid "RAW available for purchase"
 msgstr "RAW доступен для покупки"
@@ -858,16 +858,16 @@ msgid "Red"
 msgstr "Красный"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Осталось красных"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Красная команда"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Красная команда побеждает!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Пересоздать доску"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "Пересоздать кадрирование 4:5 для Instagram для выбранных фото"
@@ -879,7 +879,7 @@ msgid "Reroll"
 msgstr "Другие варианты"
 
 msgid "Resume"
-msgstr ""
+msgstr "Продолжить"
 
 msgid "Return as %(name)s"
 msgstr "Вернуться как %(name)s"
@@ -891,16 +891,16 @@ msgid "Reveal Roles on Death:"
 msgstr "Раскрытие ролей при смерти:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Роль скрыта"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Роли, фазы и интерфейс переведены на %(lang)s."
 
 msgid "Room Chat"
 msgstr "Чат комнаты"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Чат комнаты и события"
 
 msgid "Room Code"
 msgstr "Код комнаты"
@@ -930,19 +930,19 @@ msgid "Rooms are created on demand and stay active for 24 hours. Start a new gam
 msgstr "Комнаты создаются по запросу и активны 24 часа. Создайте новую партию и пригласите компанию!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Менять Spymaster при каждой новой доске"
 
 msgid "Round"
 msgstr "Раунд"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Подсказки раунда"
 
 msgid "Round-by-Round Replay & Attempt Log"
 msgstr "Повтор по раундам и журнал попыток"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Раунды (циклы подсказок)"
 
 msgid "Running"
 msgstr "Идёт игра"
@@ -951,13 +951,13 @@ msgid "Save Name"
 msgstr "Сохранить имя"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Отсканируйте на другом устройстве, чтобы легко восстановить место Spymaster или оперативника."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
 msgstr "Отсканируйте этот QR-код камерой телефона, чтобы сразу присоединиться:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Отсканируйте этот персональный QR-код, чтобы переключить устройство, не потеряв свою секретную карту:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
 msgstr "Отсканируйте, чтобы перенести сессию и очки на другой телефон или в другой браузер:"
@@ -966,7 +966,7 @@ msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr "Поиск эмодзи по названию (напр., fire, crown, heart)..."
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Искать эмодзи по названию, синониму, опечатке или языку (например: огонь, корона, fogo, φωτιά)..."
 
 msgid "Send"
 msgstr "Отправить"
@@ -978,16 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "Ошибка сервера — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Задать"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Формирование команд..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Показать роль и слово"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Показать ключ Spymaster"
 
 msgid "Silent Phase"
 msgstr "Тихая фаза"
@@ -996,19 +996,19 @@ msgid "Skills"
 msgstr "Навыки"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Пропустить ход"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "Убитые игроки сначала попадают в Лимб. Если они угадают Ангела, они воскресают!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Социальная дедукция с отравленными словами, смертельными табу-ловушками, кражей последнего шанса и участвующим ведущим."
 
 msgid "Spanish"
 msgstr "Испанский"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Говорящий (устная подсказка):"
 
 msgid "Speaking"
 msgstr "Говорение"
@@ -1017,46 +1017,46 @@ msgid "Spectator"
 msgstr "Зритель"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Зритель / Не играющий"
 
 msgid "Spectator Mode (Skip my turns)"
 msgstr "Режим зрителя (пропускать мои ходы)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Spymaster"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Секунды Spymaster (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Spymaster думает над подсказкой..."
 
 msgid "Staggering Doctor:"
 msgstr "Доктор без повторов:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Стандарт по времени (90с / 90с)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Начать Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Начать матч"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Начать голосование раньше"
 
 msgid "Starting Role Deck Preset"
 msgstr "Набор колоды ролей"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Попытка перехвата"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Таймер перехвата (с, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Победа перехватом!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Пошаговые ночные фазы, блеф-вызовы и управление голосованием."
@@ -1065,13 +1065,13 @@ msgid "Submit"
 msgstr "Отправить"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Отправить подсказку"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Отправить голос игрока"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Обсуждение за столом и журнал событий"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Особенности настольного Lupus"
@@ -1086,19 +1086,19 @@ msgid "Table-first party game with secret roles, live voting, Town Gazette, and 
 msgstr "Настольная игра для компании с тайными ролями, живым голосованием, Городской газетой и пультом ведущего."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Подсчитать голоса сейчас"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Нажимайте на карты на доске, пока игроки называют свои догадки вслух."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Нажимайте на карты на доске, соответствующие подсказке. Закончив или сомневаясь, нажмите «Завершить ход отгадывания»."
 
 msgid "Tap emojis below..."
 msgstr "Нажимайте на эмодзи ниже..."
 
 msgid "Targets"
-msgstr ""
+msgstr "Цели"
 
 msgid "Techy"
 msgstr "Технологии"
@@ -1116,19 +1116,19 @@ msgid "The Doctor / Guard cannot protect the same person two consecutive nights.
 msgstr "Доктор / Телохранитель не может защищать одного и того же игрока две ночи подряд."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Интерфейс использует %(lang)s, а контент игры переключается на английский, поскольку полные словарные данные недоступны."
 
 msgid "Theme & Terms"
 msgstr "Тема и термины"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Предустановка лимита времени"
 
 msgid "Toggle"
 msgstr "Переключить"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Переключить режим зрителя"
 
 msgid "Town Gazette:"
 msgstr "Городская газета:"
@@ -1137,49 +1137,49 @@ msgid "Town Voting"
 msgstr "Голосование города"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Последовательность ходов"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Таймер хода (с, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Таймеры ходов"
 
 msgid "Type a message or guess..."
 msgstr "Введите сообщение или догадку..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Введите подсказку или то, что было сказано вслух..."
 
 msgid "Type your guess (or use the chat box)..."
 msgstr "Введите свою догадку (или используйте чат)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Только интерфейс"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Не удалось загрузить QR-код игрока."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Не назначено"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Без ограничений"
 
 msgid "Unlock Room"
 msgstr "Разблокировать комнату"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Без таймера"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Без таймера (спокойный режим на диване)"
 
 msgid "Use Prompt"
 msgstr "Использовать задание"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Используйте клавиатуру эмодзи или нажмите на эмодзи ниже..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Вертикальная точка фокуса: 0=сверху, 50=по центру, 100=снизу."
@@ -1188,10 +1188,10 @@ msgid "Villagers, Wolves, Seer"
 msgstr "Мирные, Волки, Провидец"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Таймер голосования (с, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Голосовать за игрока:"
 
 msgid "Voting"
 msgstr "Голосование"
@@ -1200,10 +1200,10 @@ msgid "Waiting for Clue..."
 msgstr "Ожидание подсказки..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Ожидание, пока хост настроит команды и запустит доску..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Ожидание в лобби..."
 
 msgid "Werewolf / Lupus"
 msgstr "Оборотень / Lupus"
@@ -1212,19 +1212,19 @@ msgid "Whether focus coordinates were automatically calculated via edge saliency
 msgstr "Были ли координаты фокуса рассчитаны автоматически по контурной значимости (edge saliency)."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Подсказки от ИИ Wikisaurus (нажмите, чтобы подставить)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Победы"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Генератор слов и фраз для классических раундов рисования на бумаге с друзьями."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Набор слов"
 
 msgid "Work Experience"
 msgstr "Опыт работы"
@@ -1239,7 +1239,7 @@ msgid "Your Name / Nickname"
 msgstr "Ваше имя / никнейм"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Ваши агенты совещаются. Сохраняйте полное покерфейс — никаких реакций и подсказок!"
 
 msgid "Your Personal Reconnect QR"
 msgstr "Ваш личный QR-код для переподключения"
@@ -1248,16 +1248,16 @@ msgid "Your Secret Phrase"
 msgstr "Ваша секретная фраза"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Ваш Spymaster"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Ваш черед угадывать!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Ваш ход, Spymaster!"
 
 msgid "actions"
-msgstr ""
+msgstr "действия"
 
 msgid "adjective"
 msgstr "прилагательное"
@@ -1269,19 +1269,19 @@ msgid "alive"
 msgstr "в живых"
 
 msgid "all"
-msgstr ""
+msgstr "все"
 
 msgid "all categories"
-msgstr ""
+msgstr "все категории"
 
 msgid "all day"
 msgstr "весь день"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "и опубликовать свою подсказку ниже."
 
 msgid "animals"
-msgstr ""
+msgstr "животные"
 
 msgid "any"
 msgstr "любой"
@@ -1308,7 +1308,7 @@ msgid "camera model"
 msgstr "модель камеры"
 
 msgid "category:"
-msgstr ""
+msgstr "категория:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -1374,7 +1374,7 @@ msgid "focal length"
 msgstr "фокусное расстояние"
 
 msgid "food & drink"
-msgstr ""
+msgstr "еда и напитки"
 
 msgid "gallery"
 msgstr "галерея"
@@ -1413,13 +1413,13 @@ msgid "ics maker"
 msgstr "генератор ics"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "угадывает"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "придумывает подсказку для своей команды."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "придумывает подсказку. Ожидайте!"
 
 msgid "join"
 msgstr "войти"
@@ -1458,7 +1458,7 @@ msgid "mode:"
 msgstr "режим:"
 
 msgid "movies"
-msgstr ""
+msgstr "фильмы"
 
 msgid "new word"
 msgstr "новое слово"
@@ -1497,7 +1497,7 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "вставьте текст или ссылку с деталями события и получите файл .ics."
 
 msgid "people & characters"
-msgstr ""
+msgstr "люди и персонажи"
 
 msgid "photo"
 msgstr "фотография"
@@ -1521,7 +1521,7 @@ msgid "photos (select multiple)"
 msgstr "фотографии (выберите несколько)"
 
 msgid "phrases"
-msgstr ""
+msgstr "фразы"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "выберите параметры, нажмите кнопку и рисуйте!"
@@ -1530,7 +1530,7 @@ msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "места и путешествия"
 
 msgid "planz"
 msgstr "planz"
@@ -1563,7 +1563,7 @@ msgid "reveal"
 msgstr "показать"
 
 msgid "room language"
-msgstr ""
+msgstr "язык комнаты"
 
 msgid "room password"
 msgstr "пароль комнаты"
@@ -1587,7 +1587,7 @@ msgid "skip"
 msgstr "пропустить"
 
 msgid "songs"
-msgstr ""
+msgstr "песни"
 
 msgid "start"
 msgstr "начало"
@@ -1599,7 +1599,7 @@ msgid "text"
 msgstr "текст"
 
 msgid "things"
-msgstr ""
+msgstr "вещи"
 
 msgid "title"
 msgstr "название"
@@ -1611,7 +1611,7 @@ msgid "today"
 msgstr "сегодня"
 
 msgid "tv shows"
-msgstr ""
+msgstr "сериалы"
 
 msgid "type"
 msgstr "тип"
@@ -1704,13 +1704,13 @@ msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Ma
 msgstr "⚡ Хаос и спецы (Альфа-волк, Глушитель, Детектив, Доктор, Снайпер, Мэр, Ведьма...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Полный контент + Интерфейс"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Только интерфейс (слова на английском)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"

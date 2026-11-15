@@ -9,10 +9,10 @@ msgid "+ Create Room"
 msgstr "+ Krijo dhomë"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Prit Dhomë të Re"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Lojë e Re"
 
 msgid "+ create room"
 msgstr "+ Krijo dhomë"
@@ -33,13 +33,13 @@ msgid "1. Overview"
 msgstr "1. Përmbledhje"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Konfigurimi i Ekipeve dhe Roleve"
 
 msgid "10 Minutes"
 msgstr "10 Minuta"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "Hamendësimi i 1-rë përfundon raundin"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Fraksioni / Skuadra (Shpall \"Fshati\", \"Ujqërit\", \"Neutral\")"
@@ -51,7 +51,7 @@ msgid "2. Permitted Use"
 msgstr "2. Përdorimi i Lejuar"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Cilësimet e Dhomës dhe Tryezës (Pritësi)"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 Minuta (E shpejtë)"
@@ -111,46 +111,46 @@ msgid "Access Denied"
 msgstr "Qasja u Refuzua"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Akuzo:"
 
 msgid "Active"
 msgstr "Aktive"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Udhëzim Aktiv"
 
 msgid "Active Lupus Rooms"
 msgstr "Dhomat Aktive të Lupus"
 
 msgid "Add"
-msgstr ""
+msgstr "Shto"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Shto Këshillë"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Shto Lojtar Gojor / Tryeze"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Shto Lojtar Gojor / Tryeze (drejtpërdrejt në një ekip)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Shto Lojtar"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Shto Çift Sekret të Personalizuar"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Shto fjalë shakaje të brendshme për t'u përzier në tabelat e ardhshme të shpërndara në këtë dhomë."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Shto emrin e lojtarit gojor / tryeze..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Shto në Letra"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Agjentë & Kryespiunë"
 
 msgid "All Active Rooms"
 msgstr "Të Gjitha Dhomat Aktive"
@@ -159,73 +159,73 @@ msgid "All Games"
 msgstr "Të Gjitha Lojërat"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Të gjitha hamendësimet dhe këshillat shfaqen këtu"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Lejo Pritësin të regjistrojë udhëzime gojore dhe të prekë kartat për lojtarët në tryezë"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Lejo Letrat e Çifteve të Personalizuara nga Lojtarët"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Lejo fjalë të personalizuara"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Lejo lojtarët të shtojnë fjalë të personalizuara"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Apliko licencën Creative Commons Attribution-NonCommercial-ShareAlike dhe filigranin."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Vetë-Ekuilibro"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Vetë-Ekuilibro Ekipet"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Numëro automatikisht sapo të gjithë lojtarët të kenë votuar"
 
 msgid "Back to Active Lupus Rooms"
 msgstr "Kthehu te Dhomat Aktive të Lupus"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Kthehu në Holl"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Kthehu në Holl / Luaj Përsëri"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "Kaltër"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Blu të Mbetur"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Ekipi Blu"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Ekipi Blu Fiton!"
 
 msgid "Board"
-msgstr ""
+msgstr "Tabela"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Tabela Përfundoi"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Tabela u Mbyll"
 
 msgid "Browse Active Lupus Rooms"
 msgstr "Shfleto Dhomat Aktive të Lupus"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Eksploro Qendrën"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Ndërto Udhëzimin Tënd me Emoji:"
 
 msgid "CC BY-NC-SA license"
 msgstr "Licencë CC BY-NC-SA"
@@ -240,25 +240,25 @@ msgid "Calendar navigation"
 msgstr "Navigimi i kalendarit"
 
 msgid "Category"
-msgstr ""
+msgstr "Kategoria"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Fjala e Qytetarit (Shumica)"
 
 msgid "Civilians, Mobsters, Cop"
 msgstr "Qytetarë, Mafistë, Polic"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Klasik + Pako e Zgjeruar e Festës"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Faza e të Dhënave"
 
 msgid "Clues"
-msgstr ""
+msgstr "Të dhëna"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Regjistri i të Dhënave dhe Prekjeve"
 
 msgid "Cockpit"
 msgstr "Kabina e kontrollit"
@@ -270,10 +270,10 @@ msgid "Conferences"
 msgstr "Konferencat"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Përmbajtja + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopjo"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "Krijo dhomë Lupus / Njeriu-Ujk"
@@ -285,19 +285,19 @@ msgid "Curated"
 msgstr "Të kuruara"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Fjalë e personalizuar Codenames"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Paketë e personalizuar letrash"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Sekonda të personalizuara"
 
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "Tastiera të ndara të personalizuara (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Fjalë e personalizuar..."
 
 msgid "Date of the trip/shoot."
 msgstr "Data e udhëtimit/setit fotografik."
@@ -309,16 +309,16 @@ msgid "Day Trip"
 msgstr "Udhëtim ditor"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Shpërnda fushën tjetër"
 
 msgid "Defense Timer"
 msgstr "Kohëmatësi i mbrojtjes"
 
 msgid "Definition"
-msgstr ""
+msgstr "Përkufizimi"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Diskutoni të dhënat ose akuzoni të dyshuarit..."
 
 msgid "Discussion"
 msgstr "Diskutimi"
@@ -327,7 +327,7 @@ msgid "Discussion Round Timer"
 msgstr "Kohëmatësi i raundit të diskutimit"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Emri i shfaqur"
 
 msgid "Doctor Shields From Sniper:"
 msgstr "Mjeku mbron nga Snajperi:"
@@ -342,19 +342,19 @@ msgid "Electronics/embedded (some rust embedded)"
 msgstr "Elektronikë/sisteme të integruara (pak rust embedded)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Aktivizo vjedhjen e mashtruesit në shansin e fundit"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Aktivizo fjalën vdekjeprurëse helmuese Taboo"
 
 msgid "End Board"
-msgstr ""
+msgstr "Përfundo fushën"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Përfundo radhën e gjetjes"
 
 msgid "End Match"
-msgstr ""
+msgstr "Përfundo ndeshjen"
 
 msgid "English"
 msgstr "Anglisht"
@@ -369,7 +369,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Shkruaj kodin e dhomës (p.sh. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Eksporto JSON"
 
 msgid "Failed"
 msgstr "Dështoi"
@@ -387,16 +387,16 @@ msgid "GM Director Cockpit:"
 msgstr "Paneli i Drejtimit të GM-së:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "Modaliteti GM: I kyçur"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "Modaliteti i gjetjes me gojë i GM-it"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "Modaliteti me gojë i GM-it: AKTIVIZUAR"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "Modaliteti i kryespiunit me gojë i GM-it"
 
 msgid "Game Master Display Name"
 msgstr "Emri i Shfaqur i Mjeshtrit të Lojës (GM)"
@@ -417,22 +417,22 @@ msgid "Game room does not exist."
 msgstr "Dhoma e lojës nuk ekziston."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Fjalët e lojës, të dhënat dhe ndërfaqja mbështeten në %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Jepni një të dhënë me një fjalë të vetme"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Jepni të dhëna të tërthorta me një fjalë të vetme pa e ekspozuar fjalën ose pa shkelur mbi fjalën helmuese të fshehur Lethal Taboo. Madje edhe Pritësi luan i verbër pa spoilere!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Gjeni fjalën e qytetarit për të vjedhur fitoren..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Gjetje të mbetura"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Faza e gjetjes"
 
 msgid "Ham radio, UK foundation license"
 msgstr "Radioamatorizëm, licencë bazë në MB (UK Foundation)"
@@ -441,7 +441,7 @@ msgid "Have an 8-character code from your Game Master? Enter it here to jump str
 msgstr "Keni një kod me 8 karaktere nga Mjeshtri i Lojës? Shkruajeni këtu për të hyrë drejtpërdrejt:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Fshih mbivendosjen e kartës së kodeve"
 
 msgid "Hiking and climbing"
 msgstr "Ekskursione malore dhe ngjitje"
@@ -459,13 +459,13 @@ msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Pika fokale horizontale: 0=majtas, 50=qendër, 100=djathtas."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Kontrollet e mikpritësit"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Cilësimet e lojës së mikpritësit"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Krijo/Menaxho dhomën"
 
 msgid "I code, take pics and many other things"
 msgstr "Programoj, bëj fotografi dhe shumë gjëra të tjera"
@@ -495,16 +495,16 @@ msgid "Invalid Game Master secret key."
 msgstr "Çelësi sekret i Mjeshtrit të Lojës është i pavlefshëm."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Fto lojtarë"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Fto lojtarë në dhomë"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "QR i ftesës"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Nuk është radha juaj për të dërguar një të dhënë."
 
 msgid "Join"
 msgstr "Bashkohu"
@@ -516,16 +516,16 @@ msgid "Join Lupus Game"
 msgstr "Bashkohu në Lojën Lupus"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Bashkohu me Ekipin e Kuq ose Blu për të filluar"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Bashkohu si Operativ"
 
 msgid "Join as Player"
 msgstr "Bashkohu si Lojtar"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Bashkohu si Mjeshtër Spiun"
 
 msgid "Join with Room Code"
 msgstr "Bashkohu me Kodin e Dhomës"
@@ -534,7 +534,7 @@ msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "VJEDHJE NGA MASHTRUESI I SHANSIT TË FUNDIT!"
 
 msgid "Languages"
 msgstr "Gjuhët"
@@ -552,10 +552,10 @@ msgid "Leave empty for public join"
 msgstr "Lëre bosh për hyrje publike"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Lëre këtë lojtar të skanojë në telefonin e tij për të marrë pamjen personale të Mjeshtrit Spiun/Operativit."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Fjalë Tabu Vdekjeprurëse (Kurth opsional me eliminim të menjëhershëm)"
 
 msgid "Limbo"
 msgstr "Limbo"
@@ -567,13 +567,13 @@ msgid "Limbo Resolution"
 msgstr "Zgjidhja e Limbos"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Dëgjo"
 
 msgid "Listening"
 msgstr "Dëgjimi"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Bisedë Direkte & Rrjedhë me Hamendësime"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "Lojtarët e gjallë dhe të rënë dërgojnë thashethemet e mëngjesit që lexohen me zë të lartë në agim."
@@ -585,10 +585,10 @@ msgid "Lobby (Waiting for Players)"
 msgstr "Paradhoma (Në pritje të lojtarëve)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Regjistro të Dhënën për Mjeshtrin Spiun të Tavolinës"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Ujk Bardhë"
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "Dhomat Aktive dhe Qendra e Lupus"
@@ -609,37 +609,37 @@ msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Ndeshja Përfundoi"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Podiumi & Pikat Kryesore të Ndeshjes"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Riluajtja e Ndeshjes & Vija Kohore e Përpjekjeve"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Riluajtja e Ndeshjes & Arkivi i Tabelës"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Rregullat e Ndeshjes"
 
 msgid "Message..."
-msgstr ""
+msgstr "Mesazh..."
 
 msgid "Midgame Arrivals:"
 msgstr "Hyrjet gjatë lojës:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Kontrollet e Votimit të Moderatorit — Zgjidh një lojtar dhe të dyshuar më poshtë, ose prek një pilulë & vend në tavolinë:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Lëviz..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Lojë e Re / Rivizatim"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Raundi Tjetër"
 
 msgid "Next day"
 msgstr "Dita tjetër"
@@ -654,28 +654,28 @@ msgid "No Instagram crop generated yet."
 msgstr "Ende nuk është gjeneruar asnjë prerje për Instagram."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Nuk janë publikuar ende të dhëna."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Ende nuk ka tabela të përfunduara të Codenames. Përfundo një tabelë ose mbylle herët për të parë këtu riluajtjen e plotë të kartës së çelësit."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Nuk ka përkufizim fjalori të disponueshëm."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Nuk janë regjistruar radhë."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Tabelë zyrtare deduksioni për ekipe 5×5 me 400 fjalë, me të dhëna nga AI Wikisaurus Spymaster, ndërrim privat të Keycard dhe lojë me gojë/në tavolinë."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Klasike Zyrtare 400 Fjalë"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "E dhënë me një fjalë..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Lejohen vetëm emoji — karakteret e tekstit u injoruan."
 
 msgid "Open"
 msgstr "E hapur"
@@ -687,40 +687,40 @@ msgid "Open GM Cockpit"
 msgstr "Hap Panelin e GM"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Hap Gjeneruesin"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Hap Lidhjen e Lojtarit"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Vend i lirë"
 
 msgid "Operative"
-msgstr ""
+msgstr "Operativ"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Sekonda të Operativit (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Operativë"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Operativët po Hamendësojnë"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Operativët po zgjedhin letra për këtë raund."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Operativët po hamendësojnë!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Ekipi kundërshtar po hamendëson. Prit që ata të kalojnë ose të bëjnë një prekje të pasaktë."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Ose shkruani kërkesën/fjalinë tuaj të personalizuar..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Mënyra me Gojë e Mjeshtrit Spiun (Regjistrimi nga Mod)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Skedari origjinal RAW i kamerës (CR3, ARW, NEF, etj.)"
@@ -735,13 +735,13 @@ msgid "Page Not Found — Marco Silva"
 msgstr "Faqja nuk u gjet — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Kontrollet e Pritësit Pjesëmarrës (Pa Spoiler)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Kalo / Gabim"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Kalo Radhën (Mod)"
 
 msgid "Password"
 msgstr "Fjalëkalimi"
@@ -753,46 +753,46 @@ msgid "Past & Finished Games"
 msgstr "Lojërat e kaluara dhe të përfunduara"
 
 msgid "Pause"
-msgstr ""
+msgstr "Pauzë"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Pauzo Kohëmatësin"
 
 msgid "Pending"
 msgstr "Në pritje"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "QR Personal i Lojtarit"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "QR personal"
 
 msgid "Photography"
 msgstr "Fotografia"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Zgjidhni 1 fjalë dhe një numër letrash. Operativët tuaj duhet të gjejnë duke u bazuar te pista juaj."
 
 msgid "Pick the name others at the table know you by."
 msgstr "Zgjidhni emrin me të cilin ju njohin të tjerët në tryezë."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Zgjidhni lojën, gjuhën dhe cilësimet e dhomës — ndani lidhjen ose kodin QR kur të jeni gati."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Profili i lojtarit dhe QR personal"
 
 msgid "Player QR"
-msgstr ""
+msgstr "QR i lojtarit"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR për rilidhjen e lojtarit"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Emri i lojtarit..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Lojtarët dhe pikët"
 
 msgid "Please enter a player name."
 msgstr "Ju lutemi shkruani një emër lojtari."
@@ -801,10 +801,10 @@ msgid "Please enter a valid room code."
 msgstr "Ju lutemi shkruani një kod të vlefshëm dhome."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Fjala helm (Mashtrues / I dehur)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Modaliteti i fjalës helm"
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "Portugez · Helsinki, Finlandë"
@@ -831,13 +831,13 @@ msgid "Processing"
 msgstr "Në përpunim"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Vegla Prompt"
 
 msgid "Public"
 msgstr "Publike"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Publiko pistën"
 
 msgid "RAW available for purchase"
 msgstr "Skedari RAW i disponueshëm për blerje"
@@ -858,16 +858,16 @@ msgid "Red"
 msgstr "Kuq"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Të mbetura të Kuqe"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Skuadra e Kuqe"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Skuadra e Kuqe Fiton!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Rirreshto fushën"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "Rigjenero prerjet 4:5 të Instagram-it për fotot e përzgjedhura"
@@ -876,10 +876,10 @@ msgid "Replay"
 msgstr "Riluaj"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Rirrotullo"
 
 msgid "Resume"
-msgstr ""
+msgstr "Vazhdo"
 
 msgid "Return as %(name)s"
 msgstr "Kthehu si %(name)s"
@@ -891,19 +891,19 @@ msgid "Reveal Roles on Death:"
 msgstr "Zbulo Rolet pas Vdekjes:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Roli i fshehur"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Rolet, fazat dhe ndërfaqja janë të lokalizuara në %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Biseda e dhomës"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Biseda dhe ngjarjet e dhomës"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Kodi i dhomës"
 
 msgid "Room Code:"
 msgstr "Kodi i Dhomës:"
@@ -924,49 +924,49 @@ msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "Kodi i dhomës '%(code)s' nuk u gjet ose nuk është më aktiv."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Dhomat"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Dhomat krijohen sipas kërkesës dhe qëndrojnë aktive për 24 orë. Nisni një sesion të ri loje dhe ftoni grupin tuaj!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Ndërroni Spymaster-at në çdo fushë të re"
 
 msgid "Round"
-msgstr ""
+msgstr "Raundi"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Pistat e raundit"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Riluajtje raund pas raundi dhe regjistri i përpjekjeve"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Raundet (Ciklet e pistave)"
 
 msgid "Running"
 msgstr "Në zhvillim"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Ruaj emrin"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Skanoni në një pajisje tjetër për të rimarrë pastër vendin tuaj të Spymaster/Operativit."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Skanoni këtë kod QR me çdo kamerë telefoni për t'u bashkuar menjëherë:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Skanoni këtë kod QR personal për të ndërruar pajisje pa humbur letrën tuaj sekrete:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Skanojeni këtë për të zhvendosur sesionin dhe rezultatin tuaj në një telefon ose shfletues tjetër:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Kërkoni emoji sipas emrit, sinonimit, gabimit drejtshkrimor ose gjuhës (p.sh. fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
 msgstr "Dërgo"
@@ -978,16 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "Gabim në Server — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Përcakto"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Duke konfiguruar skuadrat..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Shfaq rolin dhe fjalën"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Shfaq kartën kryesore të Spymaster-it"
 
 msgid "Silent Phase"
 msgstr "Faza e Heshtur"
@@ -996,82 +996,82 @@ msgid "Skills"
 msgstr "Aftësitë"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Kalo radhën"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "Lojtarët e vrarë hyjnë një herë në Limbo në vend që të vdesin menjëherë. Nëse gjejnë se kush është Engjëlli, ata ringjallen!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Deduksion shoqëror me Fjalë Helmi, kurthe vdekjeprurëse Taboo, Vjedhje të Shansit të Fundit dhe Game Master pjesëmarrës."
 
 msgid "Spanish"
 msgstr "Spanjisht"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Folësi (pistë me gojë):"
 
 msgid "Speaking"
 msgstr "Fjalime & Konferenca"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Spektator"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Spektator / Jo-lojtar"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Modaliteti Spektator (Kalo radhët e mia)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Mjeshtër spiun"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Sekondat e Mjeshtrit të spiunëve (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Mjeshtri i spiunëve po mendon një indicie..."
 
 msgid "Staggering Doctor:"
 msgstr "Doktor me Kufizim:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Me kohë standarde (90s / 90s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Fillo Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Fillo Ndeshjen"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Fillo Votimin Para Kohe"
 
 msgid "Starting Role Deck Preset"
 msgstr "Paketa Paraprake e Roleve Fillestare"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Pritje vjedhjeje"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Kohëmatësi i vjedhjes (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Fitore me vjedhje!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Faza të natës hap pas hapi, thirrje blofi dhe menaxhues votimi."
 
 msgid "Submit"
-msgstr ""
+msgstr "Dërgo"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Dërgo indicien"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Dërgo votën e lojtarit"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Diskutimi në tryezë & Regjistri i ngjarjeve"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Karakteristikat Kryesore të Lupus rreth Tryezës"
@@ -1086,19 +1086,19 @@ msgid "Table-first party game with secret roles, live voting, Town Gazette, and 
 msgstr "Lojë feste rreth tryezës me role të fshehta, votim të drejtpërdrejtë, Gazetën e Qytetit dhe panelin drejtues të Mjeshtrit të Lojës."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Numëro votat tani"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Prekni letrat në tabelë ndërsa lojtarët thonë me zë të lartë supozimet e tyre."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Prekni letrat në tabelë që përputhen me indicien. Kur të përfundoni ose të mos jeni të sigurt, prekni Përfundo radhën e hamendësimit."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Objektivat"
 
 msgid "Techy"
 msgstr "Teknologji"
@@ -1116,19 +1116,19 @@ msgid "The Doctor / Guard cannot protect the same person two consecutive nights.
 msgstr "Doktori / Truproja nuk mund të mbrojë të njëjtin person dy netë radhazi."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Ndërfaqja përdor %(lang)s, ndërsa përmbajtja e lojës kthehet në anglisht sepse të dhënat e plota të fjalorit nuk janë të disponueshme."
 
 msgid "Theme & Terms"
 msgstr "Tema & Termat"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Paracaktim i afatit kohor"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Aktivizo/Çaktivizo"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Ndrysho modalitetin spektator"
 
 msgid "Town Gazette:"
 msgstr "Gazeta e Qytetit:"
@@ -1137,49 +1137,49 @@ msgid "Town Voting"
 msgstr "Votimi i Qytetit"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Radha e turneve"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Kohëmatësi i radhës (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Kohëmatësit e radhës"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Shkruaj një mesazh ose hamendësim..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Shkruaj indicien ose atë që u tha me gojë..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Shkruaj hamendësimin tënd (ose përdor kutinë e bisedës)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Vetëm UI"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "E pamundur të ngarkohet kodi QR i lojtarit."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "I pacaktuar"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "E pakufizuar"
 
 msgid "Unlock Room"
 msgstr "Zhblloko Dhomën"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Pa kohë"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Pa kohë (Modalitet i qetë kolltuku)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Përdor kërkesën"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Përdor tastierën e emoji-ve ose prek emoji-t më poshtë..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Pika e fokusit vertikal: 0=lart, 50=qendër, 100=poshtë."
@@ -1188,10 +1188,10 @@ msgid "Villagers, Wolves, Seer"
 msgstr "Fshatarë, Ujqër, Vegimtar"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Kohëmatësi i votimit (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Voto për lojtarin:"
 
 msgid "Voting"
 msgstr "Votimi"
@@ -1200,10 +1200,10 @@ msgid "Waiting for Clue..."
 msgstr "Në pritje të të dhënës..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Duke pritur që mikpritësi të konfigurojë ekipet dhe të nisë tabelën..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Duke pritur në holl..."
 
 msgid "Werewolf / Lupus"
 msgstr "Njeriu-Ujk / Lupus"
@@ -1212,19 +1212,19 @@ msgid "Whether focus coordinates were automatically calculated via edge saliency
 msgstr "Nëse koordinatat e fokusit u llogaritën automatikisht përmes theksimit të skajeve."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Sugjerime ind характер/inidicesh nga Wikisaurus AI (prekni për t'i plotësuar paraprakisht)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Fitore"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Gjenerues fjalësh dhe fjalish për raunde klasike vizatimi me letër dhe laps me miqtë."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Paketë fjalësh"
 
 msgid "Work Experience"
 msgstr "Përvoja e Punës"
@@ -1239,52 +1239,52 @@ msgid "Your Name / Nickname"
 msgstr "Emri / Nofka Juaj"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Operativët tuaj po diskutojnë. Mbani një fytyrë pokeri të rreptë — pa reagime apo të dhëna!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Kodi juaj personal QR për rilidhje"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Fraza juaj sekrete"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Mjeshtri juaj i spiunëve"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Radha juaj për të hamendësuar!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Është radha jote, Kryespiun!"
 
 msgid "actions"
-msgstr ""
+msgstr "veprimet"
 
 msgid "adjective"
 msgstr "mbiemër"
 
 msgid "ago"
-msgstr ""
+msgstr "më parë"
 
 msgid "alive"
 msgstr "gjallë"
 
 msgid "all"
-msgstr ""
+msgstr "të gjitha"
 
 msgid "all categories"
-msgstr ""
+msgstr "të gjitha kategoritë"
 
 msgid "all day"
 msgstr "gjithë ditën"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "dhe publikoni të dhënën e tyre më poshtë."
 
 msgid "animals"
-msgstr ""
+msgstr "kafshë"
 
 msgid "any"
-msgstr ""
+msgstr "çfarëdo"
 
 msgid "aperture"
 msgstr "apertura"
@@ -1308,7 +1308,7 @@ msgid "camera model"
 msgstr "modeli i kamerës"
 
 msgid "category:"
-msgstr ""
+msgstr "kategoria:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -1317,7 +1317,7 @@ msgid "clear"
 msgstr "pastro"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "përgatitje kolektive + sugjerime"
 
 msgid "create"
 msgstr "krijo"
@@ -1374,7 +1374,7 @@ msgid "focal length"
 msgstr "gjatësia fokale"
 
 msgid "food & drink"
-msgstr ""
+msgstr "ushqim dhe pije"
 
 msgid "gallery"
 msgstr "galeria"
@@ -1413,13 +1413,13 @@ msgid "ics maker"
 msgstr "krijues ics"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "po Hamendëson"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "po formulon një të dhënë për ekipin e tij."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "po formulon një të dhënë. Prisni!"
 
 msgid "join"
 msgstr "bashkohu"
@@ -1458,7 +1458,7 @@ msgid "mode:"
 msgstr "mënyra:"
 
 msgid "movies"
-msgstr ""
+msgstr "filma"
 
 msgid "new word"
 msgstr "fjalë e re"
@@ -1497,7 +1497,7 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "ngjisni tekstin ose një url me detajet e ngjarjes dhe merrni një skedar .ics."
 
 msgid "people & characters"
-msgstr ""
+msgstr "njerëz dhe personazhe"
 
 msgid "photo"
 msgstr "foto"
@@ -1521,7 +1521,7 @@ msgid "photos (select multiple)"
 msgstr "fotot (zgjidhni disa)"
 
 msgid "phrases"
-msgstr ""
+msgstr "fraza"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "zgjidhni opsionet tuaja, shtypni butonin, vizatoni!"
@@ -1530,7 +1530,7 @@ msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "vende & udhëtime"
 
 msgid "planz"
 msgstr "planz"
@@ -1545,25 +1545,25 @@ msgid "press the button to get a word"
 msgstr "shtypni butonin për të marrë një fjalë"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "private (fshih hamendësimet)"
 
 msgid "processing status"
 msgstr "statusi i përpunimit"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "publike (shfaq hamendësimet)"
 
 msgid "request"
 msgstr "kërko"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "hedhje të reja:"
 
 msgid "reveal"
 msgstr "zbulo"
 
 msgid "room language"
-msgstr ""
+msgstr "gjuha e dhomës"
 
 msgid "room password"
 msgstr "fjalëkalimi i dhomës"
@@ -1587,7 +1587,7 @@ msgid "skip"
 msgstr "kapërce"
 
 msgid "songs"
-msgstr ""
+msgstr "këngë"
 
 msgid "start"
 msgstr "fillimi"
@@ -1599,7 +1599,7 @@ msgid "text"
 msgstr "tekst"
 
 msgid "things"
-msgstr ""
+msgstr "sende"
 
 msgid "title"
 msgstr "titulli"
@@ -1611,7 +1611,7 @@ msgid "today"
 msgstr "sot"
 
 msgid "tv shows"
-msgstr ""
+msgstr "emisione televizive"
 
 msgid "type"
 msgstr "lloji"
@@ -1647,7 +1647,7 @@ msgid "watermarked image"
 msgstr "imazh me filigran"
 
 msgid "web"
-msgstr ""
+msgstr "ueb"
 
 msgid "web-optimized image"
 msgstr "imazh i optimizuar për ueb"
@@ -1704,13 +1704,13 @@ msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Ma
 msgstr "⚡ Kaos & Speciale (Ujku Alfa, Heshtësi, Detektivi, Doktori, Snajperi, Kryebashkiaku, Shtriga...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Përmbajtje e plotë + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Vetëm UI (fjalë në anglisht)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,10 +1719,10 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Qendra Lupus & Dhomat"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 krijo lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
 msgstr "👼 Limbo & Engjëlli (Ujqërit + Detektivi + Doktori + Engjëlli + Snajperi + Fshatarët)"

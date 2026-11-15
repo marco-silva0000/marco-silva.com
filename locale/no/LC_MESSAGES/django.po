@@ -6,466 +6,466 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Opprett rom"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Vær vert for nytt rom"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Nytt spill"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ opprett rom"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Hemmelig (Lukket gravplass, rollene er skjult til spillet er over)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 dag"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Bare tilhørighet (Kunngjør \"GOD\" mot \"OND\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Godkjenning av vilkår"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Oversikt"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Oppsett av lag og roller"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 minutter"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "Første gjett avslutter runden"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Faksjon / Lag (Kunngjør \"Landsby\", \"Varulver\", \"Nøytral\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Informasjon vi henter"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Tillatt bruk"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Rom- og bordinnstillinger (Vert)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 minutter (Rask)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 dager"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Fullt rollekort (Kunngjør nøyaktig kortnavn og ikon)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Datalagring og sikkerhet"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Ansvarsfraskrivelse"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 sekunder (Standard)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Ansvarsbegrensning"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Deling med tredjepart"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — siden ble ikke funnet"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 sekunder"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "4:5 vertikal beskjæring (1080x1350) for Instagram-karuseller."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 minutter (Standard)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Endringer og oppsigelse"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Tilbakekalling av tilgang og sletting av data"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — noe gikk galt"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Kontakt"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 sekunder"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 minutter (Gjennomtenkt)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Ingen tilgang"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Anklag:"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Aktivt hint"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "Aktive Lupus-rom"
 
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Legg til hint"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Legg til muntlig spiller / bordspiller"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Legg til muntlig spiller / bordspiller (direkte til et lag)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Legg til spiller"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Legg til hemmelig egendefinert par"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Legg til egendefinerte internspøker som skal blandes inn i fremtidige brett i dette rommet."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Legg til navn på muntlig spiller / bordspiller..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Legg til i kortstokken"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Agenter og spionmestere"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "Alle aktive rom"
 
 msgid "All Games"
-msgstr ""
+msgstr "Alle spill"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Alle gjett og hint vises her"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "La verten logge muntlige hint og trykke på kort for spillere rundt bordet"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Tillat egendefinert par-kortstokk for spillere"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Tillat egendefinerte ord"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Tillat spillere å legge til egendefinerte ord"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Bruk Creative Commons Navngivelse-Ikkekommersiell-DelPåSammeVilkår-lisens og vannmerke."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Balanser automatisk"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Balanser lagene automatisk"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Tell opp automatisk når alle spillere har stemt"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Tilbake til aktive Lupus-rom"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Tilbake til lobbyen"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Tilbake til lobbyen / Spill igjen"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Rettetast"
 
 msgid "Blue"
 msgstr "Blå"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Blå igjen"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Blått lag"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Blått lag vinner!"
 
 msgid "Board"
-msgstr ""
+msgstr "Brett"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Brett fullført"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Brett avsluttet"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Bla gjennom aktive Lupus-rom"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Utforsk Hub"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Bygg emoji-hintet ditt:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA-lisens"
 
 msgid "CODE"
-msgstr ""
+msgstr "KODE"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Kalendernavigasjon"
 
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Innbyggerord (Flertall)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Sivile, mafia, politi"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Klassisk + utvidet festpakke"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Ledetrådfase"
 
 msgid "Clues"
-msgstr ""
+msgstr "Ledetråder"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Logg over ledetråder og trykk"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Cockpit"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "Konferanser"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Innhold + grensesnitt"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopier"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Opprett Lupus / Werewolf-rom"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Opprett det første Lupus-rommet"
 
 msgid "Curated"
-msgstr ""
+msgstr "Utvalgt"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Egendefinert Codenames-ord"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Egendefinert kortstokk"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Egendefinerte sekunder"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Egendefinerte delte tastaturer (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Egendefinert ord..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Dato for turen/fotograferingen."
 
 msgid "Day"
 msgstr "Dag"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Dagstur"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Del ut neste brett"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Forsvarstidtaker"
 
 msgid "Definition"
-msgstr ""
+msgstr "Definisjon"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Diskuter ledetråder eller anklag mistenkte..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "Diskusjon"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Tidtaker for diskusjonsrunde"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Visningsnavn"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "Legen beskytter mot snikskytteren:"
 
 msgid "Done"
-msgstr ""
+msgstr "Ferdig"
 
 msgid "Education"
-msgstr ""
+msgstr "Utdanning"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Elektronikk/innebygd (litt embedded rust)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Aktiver siste sjanse-tyveri for bedrageren"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Aktiver dødelig tabu-giftord"
 
 msgid "End Board"
-msgstr ""
+msgstr "Avslutt brett"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Avslutt gjettetur"
 
 msgid "End Match"
-msgstr ""
+msgstr "Avslutt kamp"
 
 msgid "English"
-msgstr ""
+msgstr "Engelsk"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "Bli med i spillet"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Gå inn i rommet"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Skriv inn romkode (f.eks. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Eksporter JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "Mislyktes"
 
 msgid "Finished"
-msgstr ""
+msgstr "Fullført"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM-cockpit"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM-regissørcockpit:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM-modus: Låst"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM muntlig gjettemodus"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM muntlig modus: PÅ"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM muntlig spionmester-modus"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Visningsnavn for Game Master"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Spillet er over"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "Spillrom"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Spilleregler og tidtakere"
 
 msgid "Game not found."
-msgstr ""
+msgstr "Fant ikke spillet."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "Spillrommet finnes ikke."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Spillord, ledetråder og grensesnitt støttes på %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Gi en ledetråd på ett ord"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Gi indirekte ledetråder på ett ord uten å avsløre ordet eller tråkke på det skjulte dødelige tabu-giftordet. Til og med verten spiller i blinde uten spoilere!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Gjett innbyggerordet for å stjele seieren..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Gjett gjenværende"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Gjettefase"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Amatørradio, britisk foundation-lisens"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Har du en 8-tegns kode fra din Game Master? Skriv den inn her for å hoppe rett inn:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Skjul nøkkelkortoverlegg"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Fotturer og klatring"
 
 msgid "Hobbies"
 msgstr "Hobbyer"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Hold for å titte på hemmelige roller:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Hjemmeautomasjon og homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Horisontalt fokuspunkt: 0=venstre, 50=senter, 100=høyre."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Vertskontroller"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Vertens spillinnstillinger"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Vertsrom"
 
 msgid "I code, take pics and many other things"
 msgstr "Jeg koder, tar bilder og mye annet"
@@ -474,919 +474,919 @@ msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "Hvis aktivert, kan legens skjold redde en ulv fra å bli skutt av snikskytteren. (Deaktivert = snikskytteren trenger gjennom legens skjold)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "Hvis angitt, vil det å bli med via QR-kode automatisk autentisere spillere. (💡 Demotriks: GM-navn som inneholder Marco og passord test autofyller 10 testspillere for direktedemo)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "Pågår"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Feil rompassord."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 forhåndsvisning"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5-bilde"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Ugyldig Game Master-hemmelig nøkkel."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Inviter spillere"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Inviter spillere til rommet"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "Invitasjons-QR"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Det er ikke din tur til å sende inn en ledetråd."
 
 msgid "Join"
-msgstr ""
+msgstr "Bli med"
 
 msgid "Join Game"
-msgstr ""
+msgstr "Bli med i spill"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Bli med i Lupus-spill"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Bli med på rødt eller blått lag for å starte"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Bli med som operatør"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Bli med som spiller"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Bli med som spionmester"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Bli med med romkode"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "SISTE SJANSE FOR BEDRAGER-KUPP!"
 
 msgid "Languages"
-msgstr ""
+msgstr "Språk"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Sist oppdatert: 27. oktober 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "Etternølere blir med som bekreftede reisende, byspøkelser eller etterfølgere."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Start Lupus-rom"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "La stå tomt for offentlig deltakelse"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "La denne spilleren skanne med telefonen for å ta over sin personlige spionmester-/operatørvisning."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Dødelig tabuord (valgfri felle for umiddelbar eliminering)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Limbo- og englemekanikk:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Limbo-oppklaring"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Lytt til"
 
 msgid "Listening"
-msgstr ""
+msgstr "Lytter"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Direktechat og gjette-strøm"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Levende og falne spillere sender inn morgenrykter som leses høyt ved daggry."
 
 msgid "Lobby"
-msgstr ""
+msgstr "Lobby"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Lobby (venter på spillere)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Loggfør hint for bord-spionmester"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Varulv"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Lupus aktive rom og hub"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Lupus-spill"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Lupus partyspill"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula – aktive rom og spillsenter"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Varulv"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Kamp fullført"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Kampsammendrag og høydepunkter"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Kampavspilling og tidslinje for forsøk"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Kampavspilling og brettarkiv"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Kampregler"
 
 msgid "Message..."
-msgstr ""
+msgstr "Melding..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Ankomster midt i spillet:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Moderatorkontroller for avstemning — Velg en spiller og mistenkt nedenfor, eller trykk på en pille og plass ved bordet:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Trekk..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Nytt spill / Trekk på nytt"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Neste runde"
 
 msgid "Next day"
-msgstr ""
+msgstr "Neste dag"
 
 msgid "Night"
 msgstr "Natt"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "Ingen aktive Lupus-spill akkurat nå"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Ikke noe Instagram-utsnitt generert ennå."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Ingen hint publisert ennå."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Ingen fullførte Codenames-brett ennå. Fullfør et brett eller avslutt det tidlig for å se hele nøkkelkortavspillingen her."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Ingen ordbokdefinisjon tilgjengelig."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Ingen turer loggført."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Offisielt 400-ords 5×5 lagdeduksjonsbrett med Wikisaurus Spymaster AI-hint, privat nøkkelkort-veksling og muntlig-/bordspill."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Offisielle klassiske 400 ord"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Hint på ett ord..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Bare emojier er tillatt — teksttegn ble ignorert."
 
 msgid "Open"
-msgstr ""
+msgstr "Åpen"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "Åpen (Lobby)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "Åpne GM-cockpit"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Åpne generator"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Åpne spillerlenke"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Ledig plass"
 
 msgid "Operative"
-msgstr ""
+msgstr "Operatør"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Operatørsekunder (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Operatører"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Operatører gjetter"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Operatører velger kort for denne runden."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Operatørene gjetter!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Motstanderlaget gjetter. Vent til de melder pass eller trykker feil."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Eller skriv inn ditt eget egendefinerte hint/uttrykk..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Muntlig spionmestermodus (mod-logging)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Opprinnelig RAW-kamerafil (CR3, ARW, NEF osv.)"
 
 msgid "Other"
-msgstr ""
+msgstr "Annet"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "Utendørs"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Siden ble ikke funnet — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Deltakende vertskontroller (null spoilere)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Pass / Feil"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Send turen videre (mod)"
 
 msgid "Password"
 msgstr "Passord"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Passordbeskyttet"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Tidligere og fullførte spill"
 
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Sett tidtaker på pause"
 
 msgid "Pending"
-msgstr ""
+msgstr "Venter"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Personlig spiller-QR"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Personlig QR"
 
 msgid "Photography"
-msgstr ""
+msgstr "Fotografi"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Velg 1 ord og et antall kort. Operatørene dine må gjette basert på hintet ditt."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Velg navnet de andre rundt bordet kjenner deg under."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Velg spill, språk og rominnstillinger — del lenken eller QR-koden når du er klar."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Spillerprofil og personlig QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "Spiller-QR"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR for gjentilkobling av spiller"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Spillernavn..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Spillere og poengsummer"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Vennligst skriv inn et spillernavn."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Vennligst oppgi en gyldig romkode."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Giftord (Bedrager / Beruset)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Giftord-modus"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "Portugisisk · Helsingfors, Finland"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Forrige dag"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Pris for nedlasting av RAW-fil."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Personvernerklæring"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Personvernerklæring - Homelab Telegram-bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Personvernerklæring - Homelab Telegram-bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "Personvernskjold holder kortene skjult for nysgjerrige blikk rundt bordet."
 
 msgid "Processing"
-msgstr ""
+msgstr "Behandler"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Prompt-verktøy"
 
 msgid "Public"
-msgstr ""
+msgstr "Offentlig"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Publiser hint"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW tilgjengelig for kjøp"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW-fil"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW-pris"
 
 msgid "Reading"
-msgstr ""
+msgstr "Lesing"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "Selskapsspill for flere spillere i sanntid i nettleseren. Ingen konto nødvendig — bare bli med og spill med venner."
 
 msgid "Red"
 msgstr "Röd"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Røde gjenstår"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Rødt lag"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Rødt lag vinner!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Del ut brettet på nytt"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Gjenopprett 4:5 Instagram-beskjæringer for valgte bilder"
 
 msgid "Replay"
-msgstr ""
+msgstr "Spill på nytt"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Kast på nytt"
 
 msgid "Resume"
-msgstr ""
+msgstr "Fortsett"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Gå tilbake som %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "Avslør"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "Avslør roller ved død:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Skjult rolle"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Roller, faser og grensesnitt er lokalisert på %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Romchat"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Romchat og hendelser"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Romkode"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Romkode:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Rompassord"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Rompassord (valgfritt)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Romoppsett"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Romtittel"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "Romkoden «%(code)s» ble ikke funnet eller er ikke lenger aktiv."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Rom"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "Rom opprettes ved behov og forblir aktive i 24 timer. Start en ny spilløkt og inviter gruppen din!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Roter spionmestere for hvert nytt brett"
 
 msgid "Round"
-msgstr ""
+msgstr "Runde"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Rundehint"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Runde-for-runde-avspilling og forsøkslogg"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Runder (hintsyluser)"
 
 msgid "Running"
-msgstr ""
+msgstr "Kjører"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Lagre navn"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Skann på en annen enhet for å gjenvinne plassen din som spionmester/operatør sømløst."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Skann denne QR-koden med et hvilket som helst mobilkamera for å bli med umiddelbart:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Skann denne personlige QR-koden for å bytte enhet uten å miste det hemmelige kortet ditt:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Skann dette for å flytte økten og poengsummen din til en annen telefon eller nettleser:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Søk etter emoji etter navn, synonym, skrivefeil eller språk (f.eks. fire, crown, fogo, φωטיά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "Send"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Send Instagram-karusellpakke til Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Tjenerfeil — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Sett"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Setter opp lag..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Vis rolle og ord"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Vis nøkkelkort for spionmester"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Stille fase"
 
 msgid "Skills"
-msgstr ""
+msgstr "Ferdigheter"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Hopp over tur"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "Drepte spillere går til Limbo én gang i stedet for å dø direkte. Hvis de gjetter hvem Engelen er, blir de gjenopplivet!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Sosial deduksjon med giftord, dødelige tabufeller, siste sjanse-stjeling og deltakende spillmester."
 
 msgid "Spanish"
-msgstr ""
+msgstr "Spansk"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Taler (muntlig ledetråd):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "Snakker"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Tilskuer"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Tilskuer / ikke-spiller"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Tilskuermodus (hopp over mine turer)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Spionmester"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Spionmester-sekunder (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Spionmesteren tenker på en ledetråd..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Vinglede doktor:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Standard med tid (90s / 90s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Start Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Start kamp"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Start avstemning tidlig"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Forhåndsinnstilt startkortstokk"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Stjel gjett"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Tidtaker for stjeling (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Seier ved stjeling!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Trinnvise nattfaser, bløff-varsler og avstemningshåndtering."
 
 msgid "Submit"
-msgstr ""
+msgstr "Send inn"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Send inn ledetråd"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Send inn stemme"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Borddiskusjon og hendelseslogg"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Bordfokusert Lupus-høydepunkter"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Bordfokusert Werewolf- og Mafia-selskapsspill. Ingen innlogging kreves. Hver spiller bruker telefonen sin for hemmelige roller og avstemninger, mens du leder rommet som spillmester."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Bordfokusert hybridselskapsspill. Ingen kontoer eller innlogginger kreves. Spillere blir med via QR-kode, og du leder spillet som spillmester."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Bordfokusert selskapsspill med hemmelige roller, direkteavstemninger, landsbyavis og spillmesterpanel."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Tell opp stemmer nå"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Trykk på kortene på brettet etter hvert som spillerne gjetter høyt."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Trykk på kortene på brettet som matcher ledetråden. Trykk på Avslutt gjettetur når du er ferdig eller usikker."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Mål"
 
 msgid "Techy"
-msgstr ""
+msgstr "Teknisk"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "Vilkår for bruk"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Vilkår for bruk – Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Vilkår for bruk – Homelab Telegram Bot – Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "Doktoren / Vokteren kan ikke beskytte samme person to netter på rad."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Grensesnittet bruker %(lang)s, mens spillinnholdet faller tilbake til engelsk fordi fullstendige ordforrådsdata ikke er tilgjengelige."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Tema og vilkår"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Forhåndsinnstilt tidsbegrensning"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Veksle"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Veksle tilskuermodus"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Landsbyavisen:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Landsbyavstemning"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Rekkefølge for turer"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Tidsur for tur (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Tidsur for turer"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Skriv en melding eller et gjett..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Skriv inn ledetråd eller hva som ble sagt muntlig..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Skriv gjettet ditt (eller bruk chatteboksen)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Kun brukergrensesnitt"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Kunne ikke laste inn spillerens QR-kode."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Ikke tildelt"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Ubegrenset"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Lås opp rom"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Uten tid"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Uten tid (avslappet sofamodus)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Bruk ledetekst"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Bruk emoji-tastaturet ditt eller trykk på emojier nedenfor..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Vertikalt fokuspunkt: 0=topp, 50=senter, 100=bunn."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Landsbyboere, ulver, spåkone"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Avstemningstidtaker (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Stem på spiller:"
 
 msgid "Voting"
-msgstr ""
+msgstr "Stemmegivning"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "Venter på ledetråd..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Venter på at verten skal konfigurere lag og starte brettet..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Venter i lobbyen..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Hvorvidt fokuskoordinater ble beregnet automatisk via kantsaliense."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI-ledetrådforslag (trykk for å forhåndsutfylle)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Seire"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Ord- og setningsgenerator for klassiske tegnerunder med penn og papir sammen med venner."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Ordpakke"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "Arbeidserfaring"
 
 msgid "Writing"
-msgstr ""
+msgstr "Skriving"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "Du trenger en autorisert nøkkel for å få tilgang til denne siden."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "Ditt navn / kallenavn"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Operatørene dine rådslår. Hold et strengt pokerfjes – ingen reaksjoner eller hint!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Din personlige QR for gjentilkobling"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Din hemmelige frase"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Din spionmester"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Din tur til å gjette!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Din tur, spionmester!"
 
 msgid "actions"
-msgstr ""
+msgstr "handlinger"
 
 msgid "adjective"
-msgstr ""
+msgstr "adjektiv"
 
 msgid "ago"
-msgstr ""
+msgstr "siden"
 
 msgid "alive"
-msgstr ""
+msgstr "i live"
 
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 msgid "all categories"
-msgstr ""
+msgstr "alle kategorier"
 
 msgid "all day"
-msgstr ""
+msgstr "hele dagen"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "og publiser hintet deres nedenfor."
 
 msgid "animals"
-msgstr ""
+msgstr "dyr"
 
 msgid "any"
-msgstr ""
+msgstr "hvilken som helst"
 
 msgid "aperture"
-msgstr ""
+msgstr "blenderåpning"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "autofokus oppdaget"
 
 msgid "available for sale"
-msgstr ""
+msgstr "tilgjengelig for salg"
 
 msgid "best guess"
-msgstr ""
+msgstr "beste gjetning"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "kameraprodusent"
 
 msgid "camera model"
-msgstr ""
+msgstr "kameramodell"
 
 msgid "category:"
-msgstr ""
+msgstr "kategori:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "tøm"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "felles forberedelse + hint"
 
 msgid "create"
 msgstr "skape"
 
 msgid "create room"
-msgstr ""
+msgstr "opprett rom"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "beskjæringsfokus X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "beskjæringsfokus Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "dato"
 
 msgid "description"
-msgstr ""
+msgstr "beskrivelse"
 
 msgid "difficulty"
-msgstr ""
+msgstr "vanskelighetsgrad"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "vanskelighetsgrad:"
 
 msgid "download .ics"
-msgstr ""
+msgstr "last ned .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "f.eks. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "f.eks. Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "lett"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "emoji-tid:"
 
 msgid "end"
 msgstr "ende"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "skriv inn passord for å se kalenderen."
 
 msgid "extract event"
-msgstr ""
+msgstr "hent ut hendelse"
 
 msgid "focal length"
-msgstr ""
+msgstr "brennvidde"
 
 msgid "food & drink"
-msgstr ""
+msgstr "mat og drikke"
 
 msgid "gallery"
 msgstr "galleri"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "galleriutvidelse"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "galleriutvidelser"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "galleriet ble ikke funnet."
 
 msgid "game"
 msgstr "spill"
@@ -1398,145 +1398,145 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "gjett"
 
 msgid "guess time:"
-msgstr ""
+msgstr "gjetetid:"
 
 msgid "hard"
-msgstr ""
+msgstr "vanskelig"
 
 msgid "home"
 msgstr "Hjem"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ics-oppretter"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "gjettet"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "formulerer et hint til laget sitt."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "formulerer et hint. Vennligst vent!"
 
 msgid "join"
-msgstr ""
+msgstr "bli med"
 
 msgid "latest posts"
 msgstr "Siste innlegg"
 
 msgid "latitude"
-msgstr ""
+msgstr "breddegrad"
 
 msgid "lens"
 msgstr "linse"
 
 msgid "location"
-msgstr ""
+msgstr "posisjon"
 
 msgid "location name"
-msgstr ""
+msgstr "stedsnavn"
 
 msgid "longitude"
-msgstr ""
+msgstr "lengdegrad"
 
 msgid "map view"
-msgstr ""
+msgstr "kartvisning"
 
 msgid "medium"
-msgstr ""
+msgstr "middels"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "melding (valgfritt)"
 
 msgid "mode"
-msgstr ""
+msgstr "modus"
 
 msgid "mode:"
-msgstr ""
+msgstr "modus:"
 
 msgid "movies"
-msgstr ""
+msgstr "filmer"
 
 msgid "new word"
-msgstr ""
+msgstr "nytt ord"
 
 msgid "next →"
-msgstr ""
+msgstr "neste →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "ingen aktive rom. opprett et!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "ingen gallerier ennå."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "ingen innlegg ennå."
 
 msgid "noun"
-msgstr ""
+msgstr "substantiv"
 
 msgid "older →"
-msgstr ""
+msgstr "eldre →"
 
 msgid "original"
-msgstr ""
+msgstr "original"
 
 msgid "password"
 msgstr "passord"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "passord (valgfritt)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "lim inn hendelsesdetaljer her..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "lim inn tekst eller en URL med hendelsesdetaljer, og få en .ics-fil."
 
 msgid "people & characters"
-msgstr ""
+msgstr "personer og karakterer"
 
 msgid "photo"
-msgstr ""
+msgstr "bilde"
 
 msgid "photo extension"
-msgstr ""
+msgstr "fotoutvidelse"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "fotoutvidelser"
 
 msgid "photo map"
-msgstr ""
+msgstr "fotokart"
 
 msgid "photo not found."
-msgstr ""
+msgstr "bildet ble ikke funnet."
 
 msgid "photos"
 msgstr "Bilder"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "bilder (velg flere)"
 
 msgid "phrases"
-msgstr ""
+msgstr "fraser"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "velg alternativene dine, trykk på knappen, tegn!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "steder og reise"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "spill igjen"
 
 msgid "players"
 msgstr ""

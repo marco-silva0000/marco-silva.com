@@ -6,466 +6,466 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ 방 만들기"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ 새 방 호스트"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ 새 게임"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ 방 만들기"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — 시크릿 (비공개 묘지, 게임 종료 시까지 직업 비공개)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1일"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — 성향만 (공지: \"GOOD\" vs \"EVIL\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. 이용약관 동의"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. 개요"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. 팀 및 역할 설정"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10분"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "첫 번째 추측 시 라운드 종료"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — 진영 / 팀 (공지: \"Town\", \"Werewolves\", \"Neutral\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. 접근하는 정보"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. 허용된 이용"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. 방 및 테이블 설정 (호스트)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3분 (빠름)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3일"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — 전체 역할 카드 (정확한 카드 이름 및 아이콘 공지)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. 데이터 보관 및 보안"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. 보증의 부인"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30초 (표준)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. 책임의 한계"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. 제3자 제공"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — 페이지를 찾을 수 없습니다"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45초"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "Instagram 캐러셀용 4:5 세로 크롭 (1080x1350)."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5분 (표준)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. 변경 및 해지"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. 접근 권한 철회 및 데이터 삭제"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — 문제가 발생했습니다"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. 문의처"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60초"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7분 (여유롭게)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "접근이 거부되었습니다"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "지목:"
 
 msgid "Active"
-msgstr ""
+msgstr "진행 중"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "현재 단서"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "활성 Lupus 방"
 
 msgid "Add"
-msgstr ""
+msgstr "추가"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "힌트 추가"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "구두 / 테이블 플레이어 추가"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "구두 / 테이블 플레이어 추가 (팀으로 직접 지정)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "플레이어 추가"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "비밀 커스텀 페어 추가"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "이 방에서 진행될 향후 게임판에 포함될 커스텀 인사이더 단어를 추가합니다."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "구두 / 테이블 플레이어 이름 입력..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "덱에 추가"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "요원 및 스파이마스터"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "모든 활성 방"
 
 msgid "All Games"
-msgstr ""
+msgstr "모든 게임"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "모든 추측과 힌트가 여기에 표시됩니다"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "호스트가 테이블 플레이어를 위해 구두 단서를 기록하고 카드를 대신 탭할 수 있도록 허용"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "플레이어 커스텀 페어 덱 허용"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "커스텀 단어 허용"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "플레이어의 커스텀 단어 추가 허용"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "크리에이티브 커먼즈 저작자표시-비영리-동일조건변경허락 라이선스 및 워터마크를 적용합니다."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "자동 밸런스"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "팀 자동 밸런스"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "모든 플레이어가 투표하면 자동 집계"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "활성 Lupus 방 목록으로 돌아가기"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "로비로 돌아가기"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "로비로 돌아가기 / 다시 플레이"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "푸르다"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "파랑 남음"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "블루 팀"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "블루 팀 승리!"
 
 msgid "Board"
-msgstr ""
+msgstr "보드"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "보드 완료"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "보드 종료"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "활성 Lupus 방 둘러보기"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Hub 둘러보기"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "이모지 단서 만들기:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA 라이선스"
 
 msgid "CODE"
-msgstr ""
+msgstr "CODE"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "달력 탐색"
 
 msgid "Category"
-msgstr ""
+msgstr "카테고리"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "시민 단어 (다수)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "시민, 마피아, 경찰"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "클래식 + 확장 파티 팩"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "단서 단계"
 
 msgid "Clues"
-msgstr ""
+msgstr "단서"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "단서 및 탭 기록"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "조종석"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "컨퍼런스"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "콘텐츠 + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "복사"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "늑대인간(Lupus) 방 만들기"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "첫 번째 늑대인간 방 만들기"
 
 msgid "Curated"
-msgstr ""
+msgstr "큐레이션됨"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "사용자 지정 코드네임 단어"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "커스텀 덱"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "사용자 지정 초"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "커스텀 분할 키보드 (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "사용자 지정 단어..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "여행/촬영 날짜."
 
 msgid "Day"
 msgstr "낮"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "당일치기 여행"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "다음 보드 배분"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "변론 타이머"
 
 msgid "Definition"
-msgstr ""
+msgstr "정의"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "단서를 논의하거나 용의자를 지목하세요..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "토론"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "토론 라운드 타이머"
 
 msgid "Display Name"
-msgstr ""
+msgstr "표시 이름"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "의사가 저격수 공격 방어:"
 
 msgid "Done"
-msgstr ""
+msgstr "완료"
 
 msgid "Education"
-msgstr ""
+msgstr "학력"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "전자/임베디드 (일부 rust 임베디드)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "임포스터의 마지막 역전 찬스 활성화"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "치명적인 금기어(독 단어) 활성화"
 
 msgid "End Board"
-msgstr ""
+msgstr "보드 종료"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "추측 턴 종료"
 
 msgid "End Match"
-msgstr ""
+msgstr "매치 종료"
 
 msgid "English"
-msgstr ""
+msgstr "영어"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "게임 입장"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "방 입장"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "방 코드 입력 (예: 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "JSON 내보내기"
 
 msgid "Failed"
-msgstr ""
+msgstr "실패"
 
 msgid "Finished"
-msgstr ""
+msgstr "종료됨"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM 조종석"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM 디렉터 조종석:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM 모드: 잠김"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM 구두 추측 모드"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM 구두 모드: 켜짐"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM 구두 스파이마스터 모드"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "게임 마스터 표시 이름"
 
 msgid "Game Over"
-msgstr ""
+msgstr "게임 오버"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "게임 룸"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "게임 규칙 및 타이머"
 
 msgid "Game not found."
-msgstr ""
+msgstr "게임을 찾을 수 없습니다."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "게임 룸이 존재하지 않습니다."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "게임 단어, 단서 및 인터페이스가 %(lang)s 언어로 지원됩니다."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "한 단어 단서 제공"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "단어를 직접 노출하거나 숨겨진 치명적인 금기어를 밟지 않고 간접적인 한 단어 단서를 제시하세요. 방장도 스포일러 없이 플레이합니다!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "시민 단어를 맞혀 승리를 가로채기..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "남은 추측 횟수"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "추측 단계"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "아마추어 무선 (영국 Foundation 라이선스)"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "게임 마스터에게 받은 8자리 코드가 있으신가요? 바로 참여하려면 여기에 입력하세요:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "키카드 오버레이 숨기기"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "하이킹 및 등산"
 
 msgid "Hobbies"
 msgstr "취미"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "길게 눌러 비밀 역할 엿보기:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "홈 오토메이션 및 홈랩"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "가로 초점: 0=왼쪽, 50=가운데, 100=오른쪽."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "호스트 컨트롤"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "호스트 게임 설정"
 
 msgid "Host Room"
-msgstr ""
+msgstr "호스트 룸"
 
 msgid "I code, take pics and many other things"
 msgstr "코딩하고 사진을 찍으며 다양한 일을 합니다"
@@ -474,919 +474,919 @@ msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "활성화하면 의사의 보호가 저격수로부터 늑대인간을 살릴 수 있습니다. (비활성화 = 저격수가 의사의 보호를 관통함)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "설정된 경우 QR 코드를 통해 입장하면 플레이어가 자동으로 인증됩니다. (💡 데모 팁: GM 이름에 'Marco'를 포함하고 비밀번호를 'test'로 설정하면 실시간 시연용 테스트 플레이어 10명이 자동 입력됩니다)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "진행 중"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "방 비밀번호가 올바르지 않습니다."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 미리보기"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 이미지"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "잘못된 게임 마스터 시크릿 키입니다."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "플레이어 초대"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "방에 플레이어 초대"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "초대 QR"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "단서를 제출할 차례가 아닙니다."
 
 msgid "Join"
-msgstr ""
+msgstr "참여"
 
 msgid "Join Game"
-msgstr ""
+msgstr "게임 참가"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "루푸스 게임 참가"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "시작하려면 레드 또는 블루 팀에 참가하세요"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "작전요원으로 참가"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "플레이어로 참가"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "스파이마스터로 참가"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "방 코드로 참가"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "임포스터의 마지막 역전 찬스!"
 
 msgid "Languages"
-msgstr ""
+msgstr "언어"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "마지막 업데이트: 2026년 10월 27일"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "늦게 참여한 플레이어는 공인 여행자, 마을 유령 또는 후계자로 합류합니다."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "루푸스 방 개설"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "공개 참가로 두려면 비워두세요"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "이 플레이어가 스마트폰으로 스캔하여 개인 스파이마스터/작전요원 화면을 넘겨받도록 하세요."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "즉사 금지 단어 (선택적 즉시 탈락 트랩)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "림보 및 엔젤 메커니즘:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "림보 판정"
 
 msgid "Listen to"
-msgstr ""
+msgstr "듣기:"
 
 msgid "Listening"
-msgstr ""
+msgstr "청취 중"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "라이브 채팅 및 추리 스트림"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "생존자와 탈락한 플레이어가 아침 소문을 제출하면 새벽에 낭독됩니다."
 
 msgid "Lobby"
-msgstr ""
+msgstr "로비"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "로비 (플레이어 대기 중)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "테이블 스파이마스터를 위한 힌트 기록"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "루푸스 / 웨어울프"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "루푸스 활성 방 및 허브"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "루푸스 게임"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "루푸스 파티 게임"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "루푸스 인 타불라 - 활성 방 및 게임 허브"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "루푸스 인 타불라 / 웨어울프"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "매치 완료"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "매치 시상대 및 하이라이트"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "매치 리플레이 및 시도 타임라인"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "매치 리플레이 및 보드 아카이브"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "매치 규칙"
 
 msgid "Message..."
-msgstr ""
+msgstr "메시지..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "중도 참여자:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "진행자 투표 제어 — 아래에서 플레이어와 용의자를 선택하거나 테이블의 알약 및 좌석을 탭하세요:"
 
 msgid "Move..."
-msgstr ""
+msgstr "이동..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "새 게임 / 다시 뽑기"
 
 msgid "Next Round"
-msgstr ""
+msgstr "다음 라운드"
 
 msgid "Next day"
-msgstr ""
+msgstr "다음 날"
 
 msgid "Night"
 msgstr "밤"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "현재 진행 중인 루푸스 게임이 없습니다"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "인스타그램용 크롭이 아직 생성되지 않았습니다."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "아직 공개된 힌트가 없습니다."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "아직 완료된 코드네임 보드가 없습니다. 보드를 완료하거나 조기 종료하여 전체 키카드 리플레이를 확인하세요."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "사전 정의를 사용할 수 없습니다."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "기록된 턴이 없습니다."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Wikisaurus 스파이마스터 AI 힌트, 비공개 키카드 토글, 구두/테이블 대면 플레이를 지원하는 공식 400단어 5×5 팀 추리 보드."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "공식 클래식 400단어"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "한 단어 힌트..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "이모지만 허용됩니다 — 텍스트 문자는 무시되었습니다."
 
 msgid "Open"
-msgstr ""
+msgstr "열기"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "대기 중 (로비)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "GM 조종석 열기"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "생성기 열기"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "플레이어 링크 열기"
 
 msgid "Open slot"
-msgstr ""
+msgstr "빈 슬롯"
 
 msgid "Operative"
-msgstr ""
+msgstr "작전요원"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "작전요원 제한시간(초) (0=무제한)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "작전요원들"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "작전요원이 추리 중입니다"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "작전요원이 이번 라운드의 카드를 선택하고 있습니다."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "작전요원들이 추리 중입니다!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "상대 팀이 추리 중입니다. 패스하거나 잘못 탭할 때까지 기다리세요."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "또는 직접 프롬프트/문구를 입력하세요..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "구두 스파이마스터 모드 (진행자 기록)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "원본 카메라 RAW 파일 (CR3, ARW, NEF 등)"
 
 msgid "Other"
-msgstr ""
+msgstr "기타"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "야외"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "페이지를 찾을 수 없습니다 — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "참여 호스트 제어판 (스포일러 방지)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "패스 / 오답"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "턴 넘기기 (진행자)"
 
 msgid "Password"
 msgstr "패스워드"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "비밀번호 보호됨"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "이전 및 완료된 게임"
 
 msgid "Pause"
-msgstr ""
+msgstr "일시 중지"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "타이머 일시 중지"
 
 msgid "Pending"
-msgstr ""
+msgstr "대기 중"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "개인 플레이어 QR"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "개인 QR"
 
 msgid "Photography"
-msgstr ""
+msgstr "사진"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "단어 1개와 카드 수를 선택하세요. 요원들은 힌트를 바탕으로 추측해야 합니다."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "테이블의 다른 사람들이 부르는 이름을 선택하세요."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "게임, 언어, 방 설정을 선택하세요 — 준비되면 링크나 QR 코드를 공유하세요."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "플레이어 프로필 및 개인 QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "플레이어 QR"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "플레이어 재접속 QR"
 
 msgid "Player name..."
-msgstr ""
+msgstr "플레이어 이름..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "플레이어 및 점수"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "플레이어 이름을 입력해 주세요."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "유효한 방 코드를 입력해 주세요."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "독 단어 (임포스터 / 취객)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "독 단어 모드"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "포르투갈어 · 핀란드 헬싱키"
 
 msgid "Previous day"
-msgstr ""
+msgstr "이전 날"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "RAW 파일 다운로드 가격."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "개인정보 처리방침"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "개인정보 처리방침 - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "개인정보 처리방침 - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "프라이버시 쉴드로 테이블 위의 엿보는 시선으로부터 카드를 숨깁니다."
 
 msgid "Processing"
-msgstr ""
+msgstr "처리 중"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Prompt Tool"
 
 msgid "Public"
-msgstr ""
+msgstr "공개"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "힌트 공개"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW 구매 가능"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW 파일"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW 가격"
 
 msgid "Reading"
-msgstr ""
+msgstr "독서"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "실시간 멀티플레이어 브라우저 파티 게임. 계정 필요 없음 — 바로 참여하여 친구들과 플레이하세요."
 
 msgid "Red"
 msgstr "빨강"
 
 msgid "Red Left"
-msgstr ""
+msgstr "레드 팀 남음"
 
 msgid "Red Team"
-msgstr ""
+msgstr "레드 팀"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "레드 팀 승리!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "보드 다시 뽑기"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "선택한 사진의 4:5 Instagram 크롭 재생성"
 
 msgid "Replay"
-msgstr ""
+msgstr "다시보기"
 
 msgid "Reroll"
-msgstr ""
+msgstr "다시 굴리기"
 
 msgid "Resume"
-msgstr ""
+msgstr "다시 시작"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "%(name)s(으)로 복귀"
 
 msgid "Reveal"
-msgstr ""
+msgstr "공개"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "사망 시 역할 공개:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "역할 숨김"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "역할, 페이즈 및 인터페이스는 %(lang)s(으)로 현지화되어 있습니다."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "방 채팅"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "방 채팅 및 이벤트"
 
 msgid "Room Code"
-msgstr ""
+msgstr "방 코드"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "방 코드:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "방 비밀번호"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "방 비밀번호 (선택 사항)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "방 설정"
 
 msgid "Room Title"
-msgstr ""
+msgstr "방 제목"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "방 코드 '%(code)s'을(를) 찾을 수 없거나 더 이상 유효하지 않습니다."
 
 msgid "Rooms"
-msgstr ""
+msgstr "방 목록"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "방은 요청 시 생성되며 24시간 동안 유지됩니다. 새 게임 세션을 시작하고 그룹을 초대하세요!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "새 보드마다 스파이마스터 교체"
 
 msgid "Round"
-msgstr ""
+msgstr "라운드"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "라운드 힌트"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "라운드별 다시보기 및 시도 기록"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "라운드 (힌트 주기)"
 
 msgid "Running"
-msgstr ""
+msgstr "진행 중"
 
 msgid "Save Name"
-msgstr ""
+msgstr "이름 저장"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "다른 기기에서 스캔하여 스파이마스터/요원 자리를 깔끔하게 다시 찾으세요."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "스마트폰 카메라로 이 QR 코드를 스캔하여 즉시 참여하세요:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "비밀 카드를 잃지 않고 기기를 변경하려면 이 개인 QR 코드를 스캔하세요:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "세션과 점수를 다른 휴대폰이나 브라우저로 이동하려면 이것을 스캔하세요:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "이모지를 이름, 동의어, 오타 또는 언어로 검색 (예: fire, crown, fogo, φω티아)..."
 
 msgid "Send"
-msgstr ""
+msgstr "전송"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Instagram 캐러셀 팩을 Telegram으로 전송"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "서버 오류 — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "세트"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "팀 구성 중..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "역할 및 단어 표시"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "스파이마스터 키카드 표시"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "침묵 페이즈"
 
 msgid "Skills"
-msgstr ""
+msgstr "기술"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "턴 넘기기"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "처치된 플레이어는 바로 사망하는 대신 림보에 한 번 입장합니다. 천사가 누구인지 맞히면 부활합니다!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "독 단어, 치명적인 금기 함정, 마지막 기회 스틸, 플레이어로 참여하는 게임 마스터가 함께하는 소셜 디덕션 게임."
 
 msgid "Spanish"
-msgstr ""
+msgstr "스페인어"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "스피커 (구두 힌트):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "말하는 중"
 
 msgid "Spectator"
-msgstr ""
+msgstr "관전자"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "관전자 / 비참가자"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "관전 모드 (내 턴 건너뛰기)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "스파이마스터"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "스파이마스터 시간(초) (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "스파이마스터가 힌트를 생각하고 있습니다..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "비틀거리는 의사:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "표준 시간 제한 (90초 / 90초)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "코드네임 시작"
 
 msgid "Start Match"
-msgstr ""
+msgstr "매치 시작"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "조기 투표 시작"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "기본 역할 덱 프리셋"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "가로채기 추측"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "가로채기 타이머 (초, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "가로채기 승리!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "단계별 밤 단계, 블러핑 콜 및 투표 관리자."
 
 msgid "Submit"
-msgstr ""
+msgstr "제출"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "힌트 제출"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "플레이어 투표 제출"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "테이블 토론 및 이벤트 로그"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "테이블 중심 Lupus 주요 특징"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "테이블 중심의 늑대인간 및 마피아 파티 게임. 계정 로그인 필요 없음. 게임 마스터로서 방을 운영하는 동안 각 플레이어는 휴대폰으로 비밀 역할 확인과 투표를 진행합니다."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "테이블 중심의 하이브리드 파티 게임. 계정이나 로그인이 필요 없습니다. 플레이어는 QR 코드로 참여하고, 당신이 게임 마스터로서 게임을 진행합니다."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "비밀 역할, 실시간 투표, 마을 공보, GM 디렉터 조종석이 포함된 테이블 중심 파티 게임."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "지금 개표"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "플레이어들이 말로 추측할 때 보드의 카드를 탭하세요."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "힌트와 일치하는 보드의 카드를 탭하세요. 완료되었거나 확신이 없다면 '추측 턴 종료'를 탭하세요."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "타겟"
 
 msgid "Techy"
-msgstr ""
+msgstr "테크"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "서비스 이용약관"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "서비스 이용약관 - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "서비스 이용약관 - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "의사 / 경비원은 같은 사람을 2밤 연속으로 보호할 수 없습니다."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "전체 어휘 데이터를 사용할 수 없으므로 인터페이스는 %(lang)s을(를) 사용하고 게임 콘텐츠는 영어를 대체 언어로 사용합니다."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "테마 및 용어"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "시간 제한 프리셋"
 
 msgid "Toggle"
-msgstr ""
+msgstr "토글"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "관전 모드 전환"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "마을 공보:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "마을 투표"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "턴 순서"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "턴 타이머 (초, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "턴 타이머"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "메시지 또는 추측 입력..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "힌트 또는 구두로 말한 내용 입력..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "추측 입력 (또는 채팅창 사용)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "UI 전용"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "플레이어 QR 코드를 불러올 수 없습니다."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "미할당"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "무제한"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "방 잠금 해제"
 
 msgid "Untimed"
-msgstr ""
+msgstr "시간 제한 없음"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "시간 제한 없음 (편안한 소파 모드)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "프롬프트 사용"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "이모지 키보드를 사용하거나 아래의 이모지를 탭하세요..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "수직 초점: 0=상단, 50=중앙, 100=하단."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "마을 주민, 늑대, 예언자"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "투표 타이머 (초, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "플레이어에게 투표:"
 
 msgid "Voting"
-msgstr ""
+msgstr "투표 중"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "힌트를 기다리는 중..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "호스트가 팀을 구성하고 보드를 시작하기를 기다리는 중..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "로비에서 대기 중..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "가장자리 현저성을 통해 초점 좌표가 자동으로 계산되었는지 여부."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI 힌트 추천 (탭하여 미리 채우기)"
 
 msgid "Wins"
-msgstr ""
+msgstr "승리"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "친구들과 함께하는 클래식 펜과 종이 그림 라운드를 위한 단어 및 문장 제시어 생성기."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "단어 팩"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "경력 사항"
 
 msgid "Writing"
-msgstr ""
+msgstr "작성 중"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "이 페이지에 접근하려면 인증된 키가 필요합니다."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "이름 / 닉네임"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "요원들이 상의하고 있습니다. 완벽한 포커페이스를 유지하세요 — 어떤 반응이나 힌트도 안 됩니다!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "개인 재접속 QR"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "비밀 문구"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "당신의 스파이마스터"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "추측할 차례입니다!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "스파이마스터 차례입니다!"
 
 msgid "actions"
-msgstr ""
+msgstr "작업"
 
 msgid "adjective"
-msgstr ""
+msgstr "형용사"
 
 msgid "ago"
-msgstr ""
+msgstr "전"
 
 msgid "alive"
-msgstr ""
+msgstr "생존"
 
 msgid "all"
-msgstr ""
+msgstr "모두"
 
 msgid "all categories"
-msgstr ""
+msgstr "모든 카테고리"
 
 msgid "all day"
-msgstr ""
+msgstr "하루 종일"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "그리고 아래에 힌트를 공개하세요."
 
 msgid "animals"
-msgstr ""
+msgstr "동물"
 
 msgid "any"
-msgstr ""
+msgstr "모두"
 
 msgid "aperture"
-msgstr ""
+msgstr "조리개"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "자동 초점 감지됨"
 
 msgid "available for sale"
-msgstr ""
+msgstr "구매 가능"
 
 msgid "best guess"
-msgstr ""
+msgstr "최선의 추측"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "카메라 제조사"
 
 msgid "camera model"
-msgstr ""
+msgstr "카메라 모델"
 
 msgid "category:"
-msgstr ""
+msgstr "카테고리:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "지우기"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "공동 준비 + 힌트"
 
 msgid "create"
 msgstr "창조하다"
 
 msgid "create room"
-msgstr ""
+msgstr "방 만들기"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "크롭 초점 X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "크롭 초점 Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "날짜"
 
 msgid "description"
-msgstr ""
+msgstr "설명"
 
 msgid "difficulty"
-msgstr ""
+msgstr "난이도"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "난이도:"
 
 msgid "download .ics"
-msgstr ""
+msgstr ".ics 다운로드"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "예: 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "예: Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "쉬움"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "이모지 시간:"
 
 msgid "end"
 msgstr "끝"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "캘린더를 보려면 비밀번호를 입력하세요."
 
 msgid "extract event"
-msgstr ""
+msgstr "이벤트 추출"
 
 msgid "focal length"
-msgstr ""
+msgstr "초점 거리"
 
 msgid "food & drink"
-msgstr ""
+msgstr "음식 및 음료"
 
 msgid "gallery"
 msgstr "갤러리"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "갤러리 확장 기능"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "갤러리 확장 기능들"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "갤러리를 찾을 수 없습니다."
 
 msgid "game"
 msgstr "놀이"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "추측"
 
 msgid "guess time:"
-msgstr ""
+msgstr "추측 시간:"
 
 msgid "hard"
-msgstr ""
+msgstr "어려움"
 
 msgid "home"
 msgstr "홈"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ics 생성기"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "님이 추측 중"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "님이 팀을 위한 힌트를 생각 중입니다."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "님이 힌트를 생각 중입니다. 대기해 주세요!"
 
 msgid "join"
-msgstr ""
+msgstr "참여"
 
 msgid "latest posts"
 msgstr "최신 글"
 
 msgid "latitude"
-msgstr ""
+msgstr "위도"
 
 msgid "lens"
 msgstr "렌즈"
 
 msgid "location"
-msgstr ""
+msgstr "위치"
 
 msgid "location name"
-msgstr ""
+msgstr "위치 이름"
 
 msgid "longitude"
-msgstr ""
+msgstr "경도"
 
 msgid "map view"
-msgstr ""
+msgstr "지도 보기"
 
 msgid "medium"
-msgstr ""
+msgstr "보통"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "메시지 (선택사항)"
 
 msgid "mode"
-msgstr ""
+msgstr "모드"
 
 msgid "mode:"
-msgstr ""
+msgstr "모드:"
 
 msgid "movies"
-msgstr ""
+msgstr "영화"
 
 msgid "new word"
-msgstr ""
+msgstr "새 단어"
 
 msgid "next →"
-msgstr ""
+msgstr "다음 →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "활성 방이 없습니다. 하나 만들어 보세요!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "아직 갤러리가 없습니다."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "아직 게시물이 없습니다."
 
 msgid "noun"
-msgstr ""
+msgstr "명사"
 
 msgid "older →"
-msgstr ""
+msgstr "이전 →"
 
 msgid "original"
-msgstr ""
+msgstr "원본"
 
 msgid "password"
 msgstr "패스워드"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "비밀번호 (선택사항)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "여기에 이벤트 세부정보 붙여넣기..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "이벤트 세부정보가 포함된 텍스트나 URL을 붙여넣고 .ics 파일을 받으세요."
 
 msgid "people & characters"
-msgstr ""
+msgstr "사람 및 캐릭터"
 
 msgid "photo"
-msgstr ""
+msgstr "사진"
 
 msgid "photo extension"
-msgstr ""
+msgstr "사진 확장 기능"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "사진 확장 기능들"
 
 msgid "photo map"
-msgstr ""
+msgstr "사진 지도"
 
 msgid "photo not found."
-msgstr ""
+msgstr "사진을 찾을 수 없습니다."
 
 msgid "photos"
 msgstr "사진"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "사진 (여러 개 선택)"
 
 msgid "phrases"
-msgstr ""
+msgstr "문구"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "옵션을 선택하고, 버튼을 누르고, 그려보세요!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "장소 및 여행"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "다시 플레이"
 
 msgid "players"
-msgstr ""
+msgstr "플레이어"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "버튼을 눌러 단어 받기"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "비공개 (추측 숨기기)"
 
 msgid "processing status"
-msgstr ""
+msgstr "처리 상태"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "공개 (추측 표시)"
 
 msgid "request"
-msgstr ""
+msgstr "요청"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "다시 뽑기:"
 
 msgid "reveal"
-msgstr ""
+msgstr "공개"
 
 msgid "room language"
-msgstr ""
+msgstr "방 언어"
 
 msgid "room password"
-msgstr ""
+msgstr "방 비밀번호"
 
 msgid "round robin"
-msgstr ""
+msgstr "라운드 로빈"
 
 msgid "rounds:"
-msgstr ""
+msgstr "라운드:"
 
 msgid "send"
-msgstr ""
+msgstr "보내기"
 
 msgid "sentence"
-msgstr ""
+msgstr "문장"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "셔터 속도"
 
 msgid "skip"
-msgstr ""
+msgstr "건너뛰기"
 
 msgid "songs"
-msgstr ""
+msgstr "노래"
 
 msgid "start"
 msgstr "처음"
 
 msgid "start game"
-msgstr ""
+msgstr "게임 시작"
 
 msgid "text"
 msgstr "텍스트"
 
 msgid "things"
-msgstr ""
+msgstr "사물"
 
 msgid "title"
-msgstr ""
+msgstr "제목"
 
 msgid "title is required"
-msgstr ""
+msgstr "제목은 필수입니다"
 
 msgid "today"
-msgstr ""
+msgstr "오늘"
 
 msgid "tv shows"
-msgstr ""
+msgstr "TV 프로그램"
 
 msgid "type"
-msgstr ""
+msgstr "유형"
 
 msgid "upload"
-msgstr ""
+msgstr "업로드"
 
 msgid "upload photos"
-msgstr ""
+msgstr "사진 업로드"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "동사"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "원본 해상도로 보기 ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "지도에서 보기"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "힌트 기다리는 중..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "플레이어 기다리는 중..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "워터마크 포함"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "워터마크 이미지"
 
 msgid "web"
-msgstr ""
+msgstr "웹"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "웹 최적화 이미지"
 
 msgid "week"
-msgstr ""
+msgstr "주"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "%(a)s + %(b)s 은(는) 얼마인가요?"
 
 msgid "word"
-msgstr ""
+msgstr "단어"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "작업 진행 중 — 곧 다시 확인해 주세요."
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "보안 문자가 올바르지 않습니다"
 
 msgid "wrong password"
-msgstr ""
+msgstr "비밀번호가 올바르지 않습니다"
 
 msgid "your email"
-msgstr ""
+msgstr "이메일 주소"
 
 msgid "your name"
-msgstr ""
+msgstr "이름"
 
 msgid "— none —"
-msgstr ""
+msgstr "— 없음 —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← 모든 갤러리"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← 모든 글"
 
 msgid "← back home"
-msgstr ""
+msgstr "← 홈으로 돌아가기"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← 갤러리"
 
 msgid "← newer"
-msgstr ""
+msgstr "← 최신 글"
 
 msgid "← prev"
-msgstr ""
+msgstr "← 이전"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ PDF 다운로드"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ 카오스 & 스페셜 (알파 울프, 사일런서, 탐정, 의사, 저격수, 시장, 마녀...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ 전체 콘텐츠 + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 UI 전용 (영어 단어)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus 허브 & 방"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 lupus 만들기"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 림보 & 천사 (늑대 + 탐정 + 의사 + 천사 + 저격수 + 마을 주민)"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 림보 게임에서는 역할 공개가 완전한 사망(\"영구 사망\") 시에만 엄격히 이루어지며, 림보에 머무는 동안에는 절대 공개되지 않습니다."
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 덱은 참가자 수에 맞춰 자동으로 조정됩니다. 게임 시작 전 대기실에서 모든 역할과 선/악 밸런스를 실시간으로 세부 조정할 수 있습니다."
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 기본 (늑대 + 탐정/예언자 + 의사/경비 + 마을 주민)"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 심플 / 클래식 (특수 능력 없음 — 순수 늑대 vs 마을 주민)"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

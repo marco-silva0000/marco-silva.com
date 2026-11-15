@@ -6,466 +6,466 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ ルーム作成"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ 新しいルームを主催"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ 新規ゲーム"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ ルーム作成"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — シークレット（非公開墓地、ゲーム終了まで役職非公開）"
 
 msgid "1 day"
-msgstr ""
+msgstr "1日"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — 陣営のみ（「善」vs「悪」をアナウンス）"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. 利用規約への同意"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. 概要"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. チーム＆役職設定"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10分"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "最初の回答でラウンド終了"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — 所属／チーム（「市民」、「人狼」、「第三陣営」をアナウンス）"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. 収集する情報"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. 許可された利用方法"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. ルーム＆テーブル設定（ホスト）"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3分（高速）"
 
 msgid "3 day"
-msgstr ""
+msgstr "3日"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — 完全役職カード（カード名とアイコンを表示）"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. データの保管とセキュリティ"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. 保証の否認"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30秒（標準）"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. 責任の制限"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. 第三者への共有"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — ページが見つかりません"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45秒"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "Instagram カルーセル用の 4:5 縦長トリミング（1080x1350）"
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5分（標準）"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. 変更および終了"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. アクセスの取り消しとデータ削除"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — 問題が発生しました"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. お問い合わせ"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60秒"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7分（じっくり）"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "アクセスが拒否されました"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "告発:"
 
 msgid "Active"
-msgstr ""
+msgstr "進行中"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "現在のヒント"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "アクティブな Lupus ルーム"
 
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "ヒントを追加"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "口頭／テーブルプレイヤーを追加"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "口頭／テーブルプレイヤーを追加（チームに直接追加）"
 
 msgid "Add Player"
-msgstr ""
+msgstr "プレイヤーを追加"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "秘密のカスタムペアを追加"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "このルームで今後配られるボードに混ぜる身内ネタ単語を追加します。"
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "口頭／テーブルプレイヤー名を入力..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "デッキに追加"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "エージェント＆スパイマスター"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "すべてのアクティブなルーム"
 
 msgid "All Games"
-msgstr ""
+msgstr "すべてのゲーム"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "すべての予想＆ヒントがここに表示されます"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "ホストが口頭の手がかりを記録し、テーブルのプレイヤーの代わりにカードをタップすることを許可する"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "プレイヤーのカスタムペアデッキを許可"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "カスタムワードを許可"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "プレイヤーによるカスタムワードの追加を許可"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Creative Commons 表示-非営利-継承（CC BY-NC-SA）ライセンスと透かしを適用します。"
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "自動バランス"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "チームを自動バランス"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "全員の投票完了時に自動集計"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "アクティブな Lupus ルームに戻る"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "ロビーに戻る"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "ロビーに戻る／もう一度プレイ"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "青い"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "青の残り"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "青チーム"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "青チームの勝利！"
 
 msgid "Board"
-msgstr ""
+msgstr "ボード"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "ボード完了"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "ボード終了"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "アクティブな Lupus ルームを見る"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Hub を見る"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "絵文字ヒントを作成:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA ライセンス"
 
 msgid "CODE"
-msgstr ""
+msgstr "CODE"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "カレンダーナビゲーション"
 
 msgid "Category"
-msgstr ""
+msgstr "カテゴリー"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "市民の単語（多数派）"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "市民、マフィア、警察"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "クラシック + 拡張パーティーパック"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "ヒントフェーズ"
 
 msgid "Clues"
-msgstr ""
+msgstr "ヒント"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "ヒント＆タップ履歴"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "コックピット"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "カンファレンス"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "コンテンツ + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "コピー"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "人狼（Lupus）ルームを作成"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "最初の狼ルームを作成"
 
 msgid "Curated"
-msgstr ""
+msgstr "キュレーション"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "カスタムコードネーム単語"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "カスタムデッキ"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "秒数カスタム"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "自作分割キーボード (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "カスタム単語..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "旅行/撮影の日付。"
 
 msgid "Day"
 msgstr "昼"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "日帰り旅行"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "次のボードを配る"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "弁明タイマー"
 
 msgid "Definition"
-msgstr ""
+msgstr "定義"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "ヒントを議論するか、容疑者を告発..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "議論"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "議論ラウンドタイマー"
 
 msgid "Display Name"
-msgstr ""
+msgstr "表示名"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "医師がスナイパーから保護:"
 
 msgid "Done"
-msgstr ""
+msgstr "完了"
 
 msgid "Education"
-msgstr ""
+msgstr "学歴"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "エレクトロニクス/組込み (Rust組込みなど)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "インポスターのラストチャンス奪取を有効化"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "即死タブーNGワードを有効化"
 
 msgid "End Board"
-msgstr ""
+msgstr "ボードを終了"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "回答ターンを終了"
 
 msgid "End Match"
-msgstr ""
+msgstr "マッチを終了"
 
 msgid "English"
-msgstr ""
+msgstr "英語"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "ゲームに参加"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "ルームに入る"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "ルームコードを入力 (例: 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "JSONエクスポート"
 
 msgid "Failed"
-msgstr ""
+msgstr "失敗"
 
 msgid "Finished"
-msgstr ""
+msgstr "終了"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GMコックピット"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GMディレクターコックピット:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GMモード: ロック中"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM口頭回答モード"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM口頭モード: ON"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM口頭スパイマスターモード"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "ゲームマスターの表示名"
 
 msgid "Game Over"
-msgstr ""
+msgstr "ゲームオーバー"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "ゲームルーム"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "ゲームルール＆タイマー"
 
 msgid "Game not found."
-msgstr ""
+msgstr "ゲームが見つかりません。"
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "ゲームルームが存在しません。"
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "ゲームの単語、ヒント、インターフェースは%(lang)sに対応しています。"
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "1単語のヒントを出す"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "単語そのものを漏らしたり、隠された即死タブーワードを踏むことなく、間接的な1単語のヒントを出してください。ホストもネタバレなしでプレイできます！"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "市民の単語を当てて逆転勝利を奪う..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "残りの回答数"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "回答フェーズ"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "アマチュア無線（英国Foundation免許）"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "ゲームマスターから受け取った8文字のコードをお持ちですか？ここに入力してすぐに参加できます:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "キーカードオーバーレイを隠す"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "ハイキングと登山"
 
 msgid "Hobbies"
 msgstr "趣味"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "長押しで秘密の役職を確認:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "ホームオートメーションとホームラボ"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "水平方向の焦点: 0=左、50=中央、100=右。"
 
 msgid "Host Controls"
-msgstr ""
+msgstr "ホスト操作"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "ホストゲーム設定"
 
 msgid "Host Room"
-msgstr ""
+msgstr "ホストルーム"
 
 msgid "I code, take pics and many other things"
 msgstr "コードを書き、写真を撮り、さまざまなことをしています"
@@ -474,919 +474,919 @@ msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "有効にすると、医師の護衛により狼がスナイパーに狙撃されるのを防ぐことができます。(無効 = スナイパーが医師の護衛を貫通)。"
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "設定されている場合、QRコード経由で参加するとプレイヤーが自動認証されます。(💡 デモ用の裏ワザ: GM名に「Marco」を含め、パスワードに「test」を指定すると、ライブデモ用にテストプレイヤー10名が自動入力されます)。"
 
 msgid "In Progress"
-msgstr ""
+msgstr "進行中"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "ルームパスワードが正しくありません。"
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 プレビュー"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 画像"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "無効なゲームマスターシークレットキーです。"
 
 msgid "Invite Players"
-msgstr ""
+msgstr "プレイヤーを招待"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "ルームにプレイヤーを招待"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "招待用QR"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "あなたのヒント提出ターンではありません。"
 
 msgid "Join"
-msgstr ""
+msgstr "参加"
 
 msgid "Join Game"
-msgstr ""
+msgstr "ゲームに参加"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "人狼ゲームに参加"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "開始するには赤または青チームに参加してください"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "工作員として参加"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "プレイヤーとして参加"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "スパイマスターとして参加"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "ルームコードで参加"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "インポスターのラストチャンス横取り！"
 
 msgid "Languages"
-msgstr ""
+msgstr "言語"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "最終更新: 2026年10月27日"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "遅れて参加したプレイヤーは、確認済みの旅人、町の亡霊、または後継者として参加します。"
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "人狼ルームを起動"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "公開参加の場合は空欄のままにしてください"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "このプレイヤーにスマートフォンでスキャンさせ、自分専用のスパイマスター/工作員画面を引き継がせます。"
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "即死タブーワード（任意の即時脱落トラップ）"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "リンボ＆エンジェル機能:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "リンボの判定"
 
 msgid "Listen to"
-msgstr ""
+msgstr "聴く:"
 
 msgid "Listening"
-msgstr ""
+msgstr "リスニング中"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "ライブチャット＆推理ストリーム"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "生存者と脱落者が朝の噂を投稿し、夜明けに読み上げられます。"
 
 msgid "Lobby"
-msgstr ""
+msgstr "ロビー"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "ロビー（参加者待機中）"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "卓上スパイマスターの手がかりを記録"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "人狼 / Werewolf"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "人狼のアクティブルーム＆ハブ"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "人狼ゲーム"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "人狼パーティーゲーム"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "タブラの人狼 - アクティブルーム＆ゲームハブ"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "タブラの人狼 / 汝は人狼なりや？"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "試合終了"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "対戦表彰台＆ハイライト"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "対戦リプレイ＆解答履歴タイムライン"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "対戦リプレイ＆ボードアーカイブ"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "試合ルール"
 
 msgid "Message..."
-msgstr ""
+msgstr "メッセージ..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "途中参加者:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "進行役の投票操作 — 下からプレイヤーと容疑者を選択するか、テーブルのピルと座席をタップしてください:"
 
 msgid "Move..."
-msgstr ""
+msgstr "移動..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "新しいゲーム / 引き直し"
 
 msgid "Next Round"
-msgstr ""
+msgstr "次のラウンド"
 
 msgid "Next day"
-msgstr ""
+msgstr "翌日"
 
 msgid "Night"
 msgstr "夜"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "現在アクティブな人狼ゲームはありません"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Instagram用クロップ画像はまだ生成されていません。"
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "まだ手がかりは公開されていません。"
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "完了したコードネームのボードはまだありません。ボードを完了するか早期終了すると、ここで完全なキーカードのリプレイを確認できます。"
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "辞書の定義が見つかりません。"
 
 msgid "No turns logged."
-msgstr ""
+msgstr "記録されたターンはありません。"
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Wikisaurus スパイマスターAIによる手がかり提示、プライベートキーカード切り替え、口頭/テーブル対面プレイに対応した、公式400語 5×5 チーム推理ボード。"
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "公式クラシック400語"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "1単語の手がかり..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "絵文字のみ許可されています — テキスト文字は無視されました。"
 
 msgid "Open"
-msgstr ""
+msgstr "募集中"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "募集中（ロビー）"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "GMコックピットを開く"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "ジェネレーターを開く"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "プレイヤーリンクを開く"
 
 msgid "Open slot"
-msgstr ""
+msgstr "空きスロット"
 
 msgid "Operative"
-msgstr ""
+msgstr "工作員"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "工作員の制限秒数（0=無制限）"
 
 msgid "Operatives"
-msgstr ""
+msgstr "工作員"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "工作員が推測中"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "工作員がこのラウンドのカードを選択しています。"
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "工作員が推測しています！"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "相手チームが推測中です。パスするか間違ったタップをするのをお待ちください。"
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "またはカスタムプロンプト/フレーズを入力..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "口頭スパイマスターモード（モデレーター記録）"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "元のカメラRAWファイル（CR3、ARW、NEFなど）"
 
 msgid "Other"
-msgstr ""
+msgstr "その他"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "アウトドア"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "ページが見つかりません — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "参加ホスト用コントロール（ネタバレなし）"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "パス / 不正解"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "ターンをパス（モデレーター）"
 
 msgid "Password"
 msgstr "パスワード"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "パスワード保護"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "過去・終了したゲーム"
 
 msgid "Pause"
-msgstr ""
+msgstr "一時停止"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "タイマーを一時停止"
 
 msgid "Pending"
-msgstr ""
+msgstr "保留中"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "個人プレイヤーQR"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "個人QR"
 
 msgid "Photography"
-msgstr ""
+msgstr "写真"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "単語1つとカードの枚数を選択してください。スパイはヒントをもとに推測する必要があります。"
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "テーブルの他のプレイヤーが呼ぶ名前を選択してください。"
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "ゲーム、言語、ルーム設定を選択してください — 準備ができたらリンクまたはQRコードを共有しましょう。"
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "プレイヤープロフィールと個人QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "プレイヤーQR"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "プレイヤー再接続QR"
 
 msgid "Player name..."
-msgstr ""
+msgstr "プレイヤー名..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "プレイヤーとスコア"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "プレイヤー名を入力してください。"
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "有効なルームコードを入力してください。"
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "毒の単語（インポスター / 酔っ払い）"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "毒単語モード"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "ポルトガル語 · フィンランド、ヘルシンキ"
 
 msgid "Previous day"
-msgstr ""
+msgstr "前日"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "RAWファイルダウンロードの価格。"
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "プライバシーポリシー"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "プライバシーポリシー - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "プライバシーポリシー - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "プライバシーシールドにより、テーブルでの覗き見からカードを隠します。"
 
 msgid "Processing"
-msgstr ""
+msgstr "処理中"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Prompt Tool"
 
 msgid "Public"
-msgstr ""
+msgstr "公開"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "ヒントを公開"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW購入可能"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAWファイル"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW価格"
 
 msgid "Reading"
-msgstr ""
+msgstr "読書"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "リアルタイムマルチプレイヤーブラウザパーティゲーム。アカウント不要 — すぐに参加して友達と遊べます。"
 
 msgid "Red"
 msgstr "赤"
 
 msgid "Red Left"
-msgstr ""
+msgstr "赤の残り"
 
 msgid "Red Team"
-msgstr ""
+msgstr "赤チーム"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "赤チームの勝利！"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "ボードを引き直す"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "選択した写真の4:5 Instagramクロップを再生成"
 
 msgid "Replay"
-msgstr ""
+msgstr "リプレイ"
 
 msgid "Reroll"
-msgstr ""
+msgstr "再ロール"
 
 msgid "Resume"
-msgstr ""
+msgstr "再開"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "%(name)s として戻る"
 
 msgid "Reveal"
-msgstr ""
+msgstr "公開"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "死亡時に役職を公開："
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "役職非公開"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "役職、フェーズ、インターフェースは %(lang)s にローカライズされています。"
 
 msgid "Room Chat"
-msgstr ""
+msgstr "ルームチャット"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "ルームチャット＆イベント"
 
 msgid "Room Code"
-msgstr ""
+msgstr "ルームコード"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "ルームコード:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "ルームパスワード"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "ルームパスワード（任意）"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "ルーム設定"
 
 msgid "Room Title"
-msgstr ""
+msgstr "ルーム名"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "ルームコード '%(code)s' は見つからないか、有効期限が切れています。"
 
 msgid "Rooms"
-msgstr ""
+msgstr "ルーム"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "ルームはリクエストに応じて作成され、24時間有効です。新しいゲームセッションを開始して仲間を招待しましょう！"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "新しいボードごとにスパイマスターを交代"
 
 msgid "Round"
-msgstr ""
+msgstr "ラウンド"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "ラウンドのヒント"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "ラウンドごとのリプレイ＆試行ログ"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "ラウンド（ヒントサイクル）"
 
 msgid "Running"
-msgstr ""
+msgstr "実行中"
 
 msgid "Save Name"
-msgstr ""
+msgstr "名前を保存"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "別のデバイスでスキャンして、スパイマスター／オペレーティブの席にシームレスに戻れます。"
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "スマホのカメラでこのQRコードをスキャンしてすぐに参加："
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "この個人QRコードをスキャンして、秘密カードを失うことなくデバイスを切り替えます："
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "これをスキャンして、セッションとスコアを別のスマートフォンまたはブラウザに移行します："
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "絵文字を名前、同義語、誤字、言語で検索（例: fire, crown, fogo, φωτιά）..."
 
 msgid "Send"
-msgstr ""
+msgstr "送信"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Instagram カルーセルパックを Telegram に送信"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "サーバーエラー — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "設定"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "チームを設定中..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "役職と単語を表示"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "スパイマスターのキーカードを表示"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "サイレントフェーズ"
 
 msgid "Skills"
-msgstr ""
+msgstr "スキル"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "ターンをスキップ"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "討伐されたプレイヤーは直接死亡せず、一度リンボに入ります。天使が誰かを当てれば復活できます！"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "毒の単語、致命的なタブートラップ、ラストチャンススティール、そしてゲームマスターも参加可能な正体隠匿ゲーム。"
 
 msgid "Spanish"
-msgstr ""
+msgstr "スペイン語"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "スピーカー（口頭ヒント）:"
 
 msgid "Speaking"
-msgstr ""
+msgstr "発言中"
 
 msgid "Spectator"
-msgstr ""
+msgstr "観戦者"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "観戦者 / プレイヤー外"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "観戦モード（自分のターンをスキップ）"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "スパイマスター"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "スパイマスターの秒数（0=無制限）"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "スパイマスターがヒントを考えています..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "ふらつく医師:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "標準タイマー（90秒 / 90秒）"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "コードネームを開始"
 
 msgid "Start Match"
-msgstr ""
+msgstr "マッチを開始"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "早めに投票を開始"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "初期役職デッキプリセット"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "横取り推測"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "横取りタイマー（秒、0 = ∞）"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "横取り勝利！"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "段階的な夜フェーズ、ブラフ判定、投票マネージャー。"
 
 msgid "Submit"
-msgstr ""
+msgstr "送信"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "ヒントを送信"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "プレイヤーの投票を送信"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "テーブルディスカッション＆イベントログ"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "テーブル第一 Lupus ハイライト"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "テーブル第一の人狼＆マフィア系パーティーゲーム。アカウント登録・ログイン不要。ゲームマスターとして部屋を運営しながら、各プレイヤーはスマートフォンで秘密の役職確認や投票を行います。"
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "テーブル第一のハイブリッドパーティーゲーム。アカウントやログインは不要です。プレイヤーはQRコードから参加し、あなたがゲームマスターとしてゲームを進行します。"
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "秘密の役職、リアルタイム投票、町官報、GMディレクターコックピットを備えたテーブル第一のパーティーゲーム。"
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "今すぐ開票"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "プレイヤーが声に出して推測したら、ボード上のカードをタップします。"
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "ヒントに一致するボード上のカードをタップします。終わった場合や確信がない場合は「推測ターンを終了」をタップしてください。"
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "ターゲット"
 
 msgid "Techy"
-msgstr ""
+msgstr "テクノロジー"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "利用規約"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "利用規約 - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "利用規約 - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "医師 / 警備員は2晩連続で同じ人を守ることはできません。"
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "完全な語彙データが利用できないため、インターフェースには %(lang)s を使用し、ゲームコンテンツは英語にフォールバックします。"
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "テーマ＆用語"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "制限時間プリセット"
 
 msgid "Toggle"
-msgstr ""
+msgstr "切り替え"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "観戦モードの切り替え"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "町官報:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "町の投票"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "ターンの順序"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "ターンタイマー（秒、0 = ∞）"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "ターンタイマー"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "メッセージまたは推測を入力..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "ヒントまたは口頭で言われた内容を入力..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "推測を入力（またはチャットボックスを使用）..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "UIのみ"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "プレイヤーのQRコードを読み込めません。"
 
 msgid "Unassigned"
-msgstr ""
+msgstr "未割り当て"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "無制限"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "ルームのロック解除"
 
 msgid "Untimed"
-msgstr ""
+msgstr "時間無制限"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "時間無制限（リラックスソファモード）"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "プロンプトを使用"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "絵文字キーボードを使用するか、下の絵文字をタップしてください..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "垂直フォーカルポイント: 0=上、50=中央、100=下。"
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "村人、狼、占い師"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "投票タイマー（秒、0 = ∞）"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "プレイヤーに投票:"
 
 msgid "Voting"
-msgstr ""
+msgstr "投票中"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "ヒントを待っています..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "ホストがチームを設定してボードを開始するのを待っています..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "ロビーで待機中..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "エッジサリエンスによってフォーカス座標が自動計算されたかどうか。"
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI ヒント提案（タップして事前入力）"
 
 msgid "Wins"
-msgstr ""
+msgstr "勝利数"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "友達との定番の紙とペンのお絵かきラウンド向け、お題＆文章ジェネレーター。"
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "ワードパック"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "職歴"
 
 msgid "Writing"
-msgstr ""
+msgstr "執筆中"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "このページにアクセスするには承認されたキーが必要です。"
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "名前 / ニックネーム"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "スパイたちが協議中です。ポーカーフェイスを保ちましょう。リアクションやヒントは厳禁です！"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "個人再接続用QR"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "シークレットフレーズ"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "あなたのスパイマスター"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "あなたの推理の番です！"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "スパイマスターの番です！"
 
 msgid "actions"
-msgstr ""
+msgstr "アクション"
 
 msgid "adjective"
-msgstr ""
+msgstr "形容詞"
 
 msgid "ago"
-msgstr ""
+msgstr "前"
 
 msgid "alive"
-msgstr ""
+msgstr "生存"
 
 msgid "all"
-msgstr ""
+msgstr "すべて"
 
 msgid "all categories"
-msgstr ""
+msgstr "すべてのカテゴリー"
 
 msgid "all day"
-msgstr ""
+msgstr "終日"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "そして下にヒントを公開します。"
 
 msgid "animals"
-msgstr ""
+msgstr "動物"
 
 msgid "any"
-msgstr ""
+msgstr "指定なし"
 
 msgid "aperture"
-msgstr ""
+msgstr "絞り値"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "オートフォーカス検出済み"
 
 msgid "available for sale"
-msgstr ""
+msgstr "購入可能"
 
 msgid "best guess"
-msgstr ""
+msgstr "ベストアンサー"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "カメラメーカー"
 
 msgid "camera model"
-msgstr ""
+msgstr "カメラモデル"
 
 msgid "category:"
-msgstr ""
+msgstr "カテゴリー:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "クリア"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "全員の準備 + ヒント"
 
 msgid "create"
 msgstr "生み出す"
 
 msgid "create room"
-msgstr ""
+msgstr "ルームを作成"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "切り抜き焦点 X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "切り抜き焦点 Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "日付"
 
 msgid "description"
-msgstr ""
+msgstr "説明"
 
 msgid "difficulty"
-msgstr ""
+msgstr "難易度"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "難易度:"
 
 msgid "download .ics"
-msgstr ""
+msgstr ".ics をダウンロード"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "例: 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "例: Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "かんたん"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "絵文字の時間:"
 
 msgid "end"
 msgstr "終了"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "カレンダーを表示するにはパスワードを入力してください。"
 
 msgid "extract event"
-msgstr ""
+msgstr "予定を抽出"
 
 msgid "focal length"
-msgstr ""
+msgstr "焦点距離"
 
 msgid "food & drink"
-msgstr ""
+msgstr "フード＆ドリンク"
 
 msgid "gallery"
 msgstr "画廊"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "ギャラリー拡張機能"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "ギャラリー拡張機能"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "ギャラリーが見つかりません。"
 
 msgid "game"
 msgstr "遊び"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "推理"
 
 msgid "guess time:"
-msgstr ""
+msgstr "推理時間:"
 
 msgid "hard"
-msgstr ""
+msgstr "むずかしい"
 
 msgid "home"
 msgstr "ホーム"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ics メーカー"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "が推理中"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "がチームのためにヒントを考えています。"
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "がヒントを考えています。お待ちください！"
 
 msgid "join"
-msgstr ""
+msgstr "参加"
 
 msgid "latest posts"
 msgstr "最新の投稿"
 
 msgid "latitude"
-msgstr ""
+msgstr "緯度"
 
 msgid "lens"
 msgstr "レンズ"
 
 msgid "location"
-msgstr ""
+msgstr "位置"
 
 msgid "location name"
-msgstr ""
+msgstr "場所名"
 
 msgid "longitude"
-msgstr ""
+msgstr "経度"
 
 msgid "map view"
-msgstr ""
+msgstr "マップ表示"
 
 msgid "medium"
-msgstr ""
+msgstr "ふつう"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "メッセージ（任意）"
 
 msgid "mode"
-msgstr ""
+msgstr "モード"
 
 msgid "mode:"
-msgstr ""
+msgstr "モード:"
 
 msgid "movies"
-msgstr ""
+msgstr "映画"
 
 msgid "new word"
-msgstr ""
+msgstr "新しい単語"
 
 msgid "next →"
-msgstr ""
+msgstr "次へ →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "アクティブなルームがありません。作成しましょう！"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "ギャラリーはまだありません。"
 
 msgid "no posts yet."
-msgstr ""
+msgstr "投稿はまだありません。"
 
 msgid "noun"
-msgstr ""
+msgstr "名詞"
 
 msgid "older →"
-msgstr ""
+msgstr "前へ →"
 
 msgid "original"
-msgstr ""
+msgstr "オリジナル"
 
 msgid "password"
 msgstr "パスワード"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "パスワード（任意）"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "ここにイベント詳細を貼り付け..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "イベント詳細のテキストまたはURLを貼り付けて、.icsファイルを取得します。"
 
 msgid "people & characters"
-msgstr ""
+msgstr "人物＆キャラクター"
 
 msgid "photo"
-msgstr ""
+msgstr "写真"
 
 msgid "photo extension"
-msgstr ""
+msgstr "写真拡張機能"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "写真拡張機能"
 
 msgid "photo map"
-msgstr ""
+msgstr "フォトマップ"
 
 msgid "photo not found."
-msgstr ""
+msgstr "写真が見つかりません。"
 
 msgid "photos"
 msgstr "写真"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "写真（複数選択）"
 
 msgid "phrases"
-msgstr ""
+msgstr "フレーズ"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "オプションを選んで、ボタンを押して、描いて！"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "場所・旅行"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "もう一度プレイ"
 
 msgid "players"
-msgstr ""
+msgstr "プレイヤー"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "ボタンを押して単語を取得"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "非公開（予想を隠す）"
 
 msgid "processing status"
-msgstr ""
+msgstr "処理ステータス"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "公開（予想を表示）"
 
 msgid "request"
-msgstr ""
+msgstr "リクエスト"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "リロール:"
 
 msgid "reveal"
-msgstr ""
+msgstr "公開"
 
 msgid "room language"
-msgstr ""
+msgstr "ルームの言語"
 
 msgid "room password"
-msgstr ""
+msgstr "ルームのパスワード"
 
 msgid "round robin"
-msgstr ""
+msgstr "総当たり（ラウンドロビン）"
 
 msgid "rounds:"
-msgstr ""
+msgstr "ラウンド数:"
 
 msgid "send"
-msgstr ""
+msgstr "送信"
 
 msgid "sentence"
-msgstr ""
+msgstr "文章"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "シャッタースピード"
 
 msgid "skip"
-msgstr ""
+msgstr "スキップ"
 
 msgid "songs"
-msgstr ""
+msgstr "曲"
 
 msgid "start"
 msgstr "開始"
 
 msgid "start game"
-msgstr ""
+msgstr "ゲーム開始"
 
 msgid "text"
 msgstr "本文"
 
 msgid "things"
-msgstr ""
+msgstr "物"
 
 msgid "title"
-msgstr ""
+msgstr "タイトル"
 
 msgid "title is required"
-msgstr ""
+msgstr "タイトルは必須です"
 
 msgid "today"
-msgstr ""
+msgstr "今日"
 
 msgid "tv shows"
-msgstr ""
+msgstr "テレビ番組"
 
 msgid "type"
-msgstr ""
+msgstr "タイプ"
 
 msgid "upload"
-msgstr ""
+msgstr "アップロード"
 
 msgid "upload photos"
-msgstr ""
+msgstr "写真をアップロード"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "動詞"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "オリジナル解像度で表示 ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "マップで見る"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "手がかりを待っています..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "プレイヤーを待っています..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "透かし入り"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "透かし入り画像"
 
 msgid "web"
-msgstr ""
+msgstr "ウェブ"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "ウェブ最適化画像"
 
 msgid "week"
-msgstr ""
+msgstr "週"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "%(a)s + %(b)s は何ですか？"
 
 msgid "word"
-msgstr ""
+msgstr "単語"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "準備中 — また後でお越しください。"
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "キャプチャが正しくありません"
 
 msgid "wrong password"
-msgstr ""
+msgstr "パスワードが違います"
 
 msgid "your email"
-msgstr ""
+msgstr "メールアドレス"
 
 msgid "your name"
-msgstr ""
+msgstr "お名前"
 
 msgid "— none —"
-msgstr ""
+msgstr "— なし —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← すべてのギャラリー"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← すべての投稿"
 
 msgid "← back home"
-msgstr ""
+msgstr "← ホームに戻る"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← ギャラリー"
 
 msgid "← newer"
-msgstr ""
+msgstr "← より新しい投稿"
 
 msgid "← prev"
-msgstr ""
+msgstr "← 前へ"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ PDFをダウンロード"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ カオス＆特別役職（アルファウルフ、サイレンサー、探偵、医師、スナイパー、市長、魔女...）"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ フルコンテンツ + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 UIのみ（英単語）"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus ハブ＆ルーム"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 lupus を作成"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 リンボ＆天使（人狼 + 探偵 + 医師 + 天使 + スナイパー + 村人）"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 リンボゲームでは、役職の開示は完全な死亡（\"完全死亡\"）時のみ厳格に行われ、リンボ状態を浮遊している間は開示されません。"
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 デッキは参加人数に応じて自動的に調整されます。ゲーム開始前に事前ロビーで各役職や善悪バランスをリアルタイムで微調整できます。"
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 スタンダード（人狼 + 探偵/予言者 + 医師/警備員 + 村人）"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 シンプル / クラシック（特殊能力なし — 純粋な人狼 vs 村人）"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

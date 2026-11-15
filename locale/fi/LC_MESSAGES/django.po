@@ -33,7 +33,7 @@ msgid "1. Overview"
 msgstr "1. Yleiskatsaus"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Joukkueiden ja roolien määritys"
 
 msgid "10 Minutes"
 msgstr "10 minuuttia"
@@ -51,7 +51,7 @@ msgid "2. Permitted Use"
 msgstr "2. Sallittu käyttö"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Huoneen ja pöydän asetukset (Isäntä)"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 minuuttia (Nopea)"
@@ -111,46 +111,46 @@ msgid "Access Denied"
 msgstr "Pääsy evätty"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Syytä:"
 
 msgid "Active"
 msgstr "Aktiivinen"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Aktiivinen vihje"
 
 msgid "Active Lupus Rooms"
 msgstr "Aktiiviset Lupus-huoneet"
 
 msgid "Add"
-msgstr ""
+msgstr "Lisää"
 
 msgid "Add Hint"
 msgstr "Lisää vihje"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Lisää suullinen / pöytäpelaaja"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Lisää suullinen / pöytäpelaaja (suoraan joukkueeseen)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Lisää pelaaja"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Lisää salainen mukautettu pari"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Lisää mukautettuja sisäpiirin sanoja sekoitettavaksi tuleviin tässä huoneessa jaettaviin lautoihin."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Lisää suullisen / pöytäpelaajan nimi..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Lisää pakkaan"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Agentit ja vakoojamestarit"
 
 msgid "All Active Rooms"
 msgstr "Kaikki aktiiviset huoneet"
@@ -162,37 +162,37 @@ msgid "All guesses & hints appear here"
 msgstr "Kaikki arvaukset ja vihjeet näkyvät täällä"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Salli isännän kirjata suullisia vihjeitä ja napauttaa kortteja pöydän pelaajille"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Salli pelaajan mukautettu paripakka"
 
 msgid "Allow custom words"
 msgstr "Salli omat sanat"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Salli pelaajien lisätä mukautettuja sanoja"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Käytä Creative Commons Nimeä-EiKaupallinen-JaaSamoin -lisenssiä ja vesileimaa."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Automaattinen tasapainotus"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Tasapainota joukkueet automaattisesti"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Laske tulokset automaattisesti, kun kaikki pelaajat ovat äänestäneet"
 
 msgid "Back to Active Lupus Rooms"
 msgstr "Takaisin aktiivisiin Lupus-huoneisiin"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Takaisin aulaan"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Takaisin aulaan / Pelaa uudelleen"
 
 msgid "Backspace"
 msgstr "Askelpalautin"
@@ -201,28 +201,28 @@ msgid "Blue"
 msgstr "Sininen"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Sinisiä jäljellä"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Sininen joukkue"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Sininen joukkue voittaa!"
 
 msgid "Board"
-msgstr ""
+msgstr "Lauta"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Lauta valmis"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Lauta päättynyt"
 
 msgid "Browse Active Lupus Rooms"
 msgstr "Selaa aktiivisia Lupus-huoneita"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Selaa keskusta"
 
 msgid "Build Your Emoji Clue:"
 msgstr "Rakenna emojivihjeesi:"
@@ -240,25 +240,25 @@ msgid "Calendar navigation"
 msgstr "Kalenterinäkymän siirtyminen"
 
 msgid "Category"
-msgstr ""
+msgstr "Kategoria"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Kansalaissana (enemmistö)"
 
 msgid "Civilians, Mobsters, Cop"
 msgstr "Siviilit, Mafiosot, Poliisi"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Klassinen + Laajennettu Party Pack"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Vihjevaihe"
 
 msgid "Clues"
-msgstr ""
+msgstr "Vihjeet"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Vihjeiden ja napautusten loki"
 
 msgid "Cockpit"
 msgstr "Ohjaamo"
@@ -270,7 +270,7 @@ msgid "Conferences"
 msgstr "Konferenssit"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Sisältö + Käyttöliittymä"
 
 msgid "Copy"
 msgstr "Kopioi"
@@ -285,19 +285,19 @@ msgid "Curated"
 msgstr "Kuratoitu"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Mukautettu Codenames-sana"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Mukautettu pakka"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Mukautetut sekunnit"
 
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "Kustomoidut jaetut näppäimistöt (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Mukautettu sana..."
 
 msgid "Date of the trip/shoot."
 msgstr "Matkan/kuvauksen päivämäärä."
@@ -309,16 +309,16 @@ msgid "Day Trip"
 msgstr "Päiväretki"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Jaa seuraava lauta"
 
 msgid "Defense Timer"
 msgstr "Puolustusajastin"
 
 msgid "Definition"
-msgstr ""
+msgstr "Määritelmä"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Keskustele vihjeistä tai syytä epäiltyjä..."
 
 msgid "Discussion"
 msgstr "Keskustelu"
@@ -342,19 +342,19 @@ msgid "Electronics/embedded (some rust embedded)"
 msgstr "Elektroniikka / sulautetut järjestelmät (hieman sulautettua Rustia)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Ota käyttöön huijarin viimeisen mahdollisuuden varastus"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Ota käyttöön tappava tabu-myrkkysana"
 
 msgid "End Board"
-msgstr ""
+msgstr "Päätä lauta"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Lopeta arvausvuoro"
 
 msgid "End Match"
-msgstr ""
+msgstr "Päätä ottelu"
 
 msgid "English"
 msgstr "Englanti"
@@ -387,16 +387,16 @@ msgid "GM Director Cockpit:"
 msgstr "Pelinjohtajan ohjaamo:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "Pelimestaritila: Lukittu"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "Pelimestarin suullinen arvaustila"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "Pelimestarin suullinen tila: PÄÄLLÄ"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "Pelimestarin suullinen vakoojamestaritila"
 
 msgid "Game Master Display Name"
 msgstr "Pelinjohtajan näyttönimi"
@@ -417,22 +417,22 @@ msgid "Game room does not exist."
 msgstr "Pelihuonetta ei ole olemassa."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Pelin sanat, vihjeet ja käyttöliittymä ovat tuettuja kielellä %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Anna yksisanainen vihje"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Anna epäsuoria yksisanaisia vihjeitä paljastamatta sanaa tai osumatta piilotettuun tappavaan tabu-myrkkysanaan. Jopa isäntä pelaa sokkona ilman spoilereita!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Arvaa kansalaissana varastaaksesi voiton..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Arvauksia jäljellä"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Arvausvaihe"
 
 msgid "Ham radio, UK foundation license"
 msgstr "Radioamatööritoiminta, Ison-Britannian perusluokan lupakirja (Foundation License)"
@@ -441,7 +441,7 @@ msgid "Have an 8-character code from your Game Master? Enter it here to jump str
 msgstr "Onko sinulla 8-merkkinen koodi pelinjohtajaltasi? Syötä se tähän ja hyppää suoraan mukaan:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Piilota avainkorttikerros"
 
 msgid "Hiking and climbing"
 msgstr "Vaellus ja kiipeily"
@@ -459,13 +459,13 @@ msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Vaakasuuntainen kohdistuspiste: 0=vasen, 50=keski, 100=oikea."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Isännän toiminnot"
 
 msgid "Host Game Settings"
 msgstr "Pelinjärjestäjän asetukset"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Isännöi huonetta"
 
 msgid "I code, take pics and many other things"
 msgstr "Koodaan, valokuvaan ja teen monia muita asioita"
@@ -495,7 +495,7 @@ msgid "Invalid Game Master secret key."
 msgstr "Virheellinen pelinjohtajan salainen avain."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Kutsu pelaajia"
 
 msgid "Invite Players to Room"
 msgstr "Kutsu pelaajia huoneeseen"
@@ -504,7 +504,7 @@ msgid "Invite QR"
 msgstr "Kutsu-QR"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Ei ole sinun vuorosi antaa vihjettä."
 
 msgid "Join"
 msgstr "Liity"
@@ -516,16 +516,16 @@ msgid "Join Lupus Game"
 msgstr "Liity Lupus-peliin"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Aloita liittymällä punaiseen tai siniseen joukkueeseen"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Liity agenttina"
 
 msgid "Join as Player"
 msgstr "Liity pelaajana"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Liity vakoojamestarina"
 
 msgid "Join with Room Code"
 msgstr "Liity huonekoodilla"
@@ -534,7 +534,7 @@ msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "HUIJARIN VIIMEISEN MAHDOLLISUUDEN VARASTUS!"
 
 msgid "Languages"
 msgstr "Kielet"
@@ -552,10 +552,10 @@ msgid "Leave empty for public join"
 msgstr "Jätä tyhjäksi julkista liittymistä varten"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Anna tämän pelaajan skannata puhelimellaan ottaakseen käyttöön henkilökohtaisen vakoojamestarin/agentin näkymänsä."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Tappava tabusana (valinnainen välittömän pudotuksen ansa)"
 
 msgid "Limbo"
 msgstr "Limbo"
@@ -567,7 +567,7 @@ msgid "Limbo Resolution"
 msgstr "Limbon ratkaisu"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Kuuntele"
 
 msgid "Listening"
 msgstr "Kuuntelu"
@@ -585,10 +585,10 @@ msgid "Lobby (Waiting for Players)"
 msgstr "Aula (Odotetaan pelaajia)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Kirjaa vihje pöydän vakoojamestarille"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Ihmissusi"
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "Lupus – Aktiiviset huoneet ja pelikeskus"
@@ -609,37 +609,37 @@ msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Ottelu päättynyt"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Palkintokoroke ja ottelun kohokohdat"
 
 msgid "Match Replay & Attempt Timeline"
 msgstr "Ottelun uusinta ja yritysten aikajana"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Ottelun toisto ja lautojen arkisto"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Ottelun säännöt"
 
 msgid "Message..."
-msgstr ""
+msgstr "Viesti..."
 
 msgid "Midgame Arrivals:"
 msgstr "Kesken pelin saapuvat:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Moderaattorin äänestyspainikkeet — Valitse alta pelaaja ja epäilty tai napauta pilleriä ja paikkaa pöydässä:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Siirrä..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Uusi peli / Jaa uudelleen"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Seuraava kierros"
 
 msgid "Next day"
 msgstr "Seuraava päivä"
@@ -654,28 +654,28 @@ msgid "No Instagram crop generated yet."
 msgstr "Instagram-rajausta ei ole vielä luotu."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Vihjeitä ei ole vielä julkaistu."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Ei vielä valmiita Codenames-lautoja. Pelaa lauta loppuun tai lopeta se ajoissa nähdäksesi avainkortin toiston täällä."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Sanakirjamääritelmää ei saatavilla."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Ei kirjattuja vuoroja."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Virallinen 400 sanan 5×5 tiimipäättelylauta Wikisaurus Spymaster AI -vihjeillä, yksityisellä Keycard-vaihdolla sekä suullisella/pöytäpelillä."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Virallinen klassinen 400 sanaa"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Yhden sanan vihje..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Vain emojit sallittu — tekstimerkit jätettiin huomiotta."
 
 msgid "Open"
 msgstr "Avoin"
@@ -687,40 +687,40 @@ msgid "Open GM Cockpit"
 msgstr "Avaa pelinjohtajan ohjaamo"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Avaa generaattori"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Avaa pelaajan linkki"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Avoin paikka"
 
 msgid "Operative"
-msgstr ""
+msgstr "Kenttäagentti"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Kenttäagentin sekunnit (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Kenttäagentit"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Kenttäagentit arvaavat"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Kenttäagentit valitsevat kortteja tälle kierrokselle."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Kenttäagentit arvaavat!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Vastustajajoukkue arvaa. Odota, että he siirtävät vuoron tai tekevät väärän valinnan."
 
 msgid "Or type your own custom prompt/phrase..."
 msgstr "Tai kirjoita oma mukautettu vihje/lause..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Suullinen Spymaster-tila (Modin kirjaus)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Kameran alkuperäinen RAW-tiedosto (CR3, ARW, NEF jne.)"
@@ -735,13 +735,13 @@ msgid "Page Not Found — Marco Silva"
 msgstr "Sivua ei löytynyt — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Osallistuvan isännän toiminnot (ei spoilereita)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Passaa / Väärin"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Siirrä vuoro (Mod)"
 
 msgid "Password"
 msgstr "Salasana"
@@ -753,46 +753,46 @@ msgid "Past & Finished Games"
 msgstr "Menneet ja päättyneet pelit"
 
 msgid "Pause"
-msgstr ""
+msgstr "Tauko"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Pysäytä ajastin"
 
 msgid "Pending"
 msgstr "Odottaa"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Henkilökohtainen pelaajan QR"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Henkilökohtainen QR"
 
 msgid "Photography"
 msgstr "Valokuvaus"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Valitse 1 sana ja korttien määrä. Kenttäagenttiesi on arvattava vihjeesi perusteella."
 
 msgid "Pick the name others at the table know you by."
 msgstr "Valitse nimi, jolla muut pöydässä olijat tuntevat sinut."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Valitse peli, kieli ja huoneen asetukset — jaa linkki tai QR-koodi, kun olet valmis."
 
 msgid "Player Profile & Personal QR"
 msgstr "Pelaajaprofiili ja henkilökohtainen QR-koodi"
 
 msgid "Player QR"
-msgstr ""
+msgstr "Pelaajan QR"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "Pelaajan uudelleenyhdistämis-QR"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Pelaajan nimi..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Pelaajat ja pisteet"
 
 msgid "Please enter a player name."
 msgstr "Syötä pelaajan nimi."
@@ -801,10 +801,10 @@ msgid "Please enter a valid room code."
 msgstr "Syötä kelvollinen huonekoodi."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Myrkkysana (Huijari / Juopunut)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Myrkkysanatila"
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "Portugali · Helsinki, Suomi"
@@ -831,13 +831,13 @@ msgid "Processing"
 msgstr "Käsitellään"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Kehotetyökalu"
 
 msgid "Public"
 msgstr "Julkinen"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Julkaise vihje"
 
 msgid "RAW available for purchase"
 msgstr "RAW-tiedosto ostettavissa"
@@ -858,16 +858,16 @@ msgid "Red"
 msgstr "Punainen"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Punaista jäljellä"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Punainen joukkue"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Punainen joukkue voittaa!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Jaa lauta uudelleen"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "Luo valituille kuville 4:5 Instagram-rajaukset uudelleen"
@@ -879,7 +879,7 @@ msgid "Reroll"
 msgstr "Arvo uudelleen"
 
 msgid "Resume"
-msgstr ""
+msgstr "Jatka"
 
 msgid "Return as %(name)s"
 msgstr "Palaa pelaajana %(name)s"
@@ -891,16 +891,16 @@ msgid "Reveal Roles on Death:"
 msgstr "Paljasta roolit kuollessa:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Rooli piilotettu"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Roolit, vaiheet ja käyttöliittymä on käännetty kielelle %(lang)s."
 
 msgid "Room Chat"
 msgstr "Huoneen chat"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Huoneen chat ja tapahtumat"
 
 msgid "Room Code"
 msgstr "Huonekoodi"
@@ -930,19 +930,19 @@ msgid "Rooms are created on demand and stay active for 24 hours. Start a new gam
 msgstr "Huoneet luodaan tarpeen mukaan ja ne pysyvät aktiivisina 24 tuntia. Aloita uusi pelisessio ja kutsu ryhmäsi mukaan!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Vaihda vakoojamestareita jokaisella uudella laudalla"
 
 msgid "Round"
 msgstr "Kierros"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Kierroksen vihjeet"
 
 msgid "Round-by-Round Replay & Attempt Log"
 msgstr "Kierroskohtainen uusinta ja yritysloki"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Kierrokset (vihjesyklit)"
 
 msgid "Running"
 msgstr "Käynnissä"
@@ -951,13 +951,13 @@ msgid "Save Name"
 msgstr "Tallenna nimi"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Skannaa toisella laitteella palataksesi siististi Spymasterin/Operatiivin paikallesi."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
 msgstr "Liity välittömästi skannaamalla tämä QR-koodi minkä tahansa puhelimen kameralla:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Skannaa tämä henkilökohtainen QR-koodi vaihtaaksesi laitetta menettämättä salaista korttiasi:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
 msgstr "Skannaa tämä siirtääksesi istuntosi ja pisteesi toiseen puhelimeen tai selaimeen:"
@@ -966,7 +966,7 @@ msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr "Hae emojia nimellä (esim. tuli, kruunu, sydän)..."
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Etsi emojia nimen, synonyymin, kirjoitusvirheen tai kielen mukaan (esim. fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
 msgstr "Lähetä"
@@ -978,16 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "Palvelinvirhe — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Aseta"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Määritetään joukkueita..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Näytä rooli ja sana"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Näytä Spymasterin avainkortti"
 
 msgid "Silent Phase"
 msgstr "Hiljainen vaihe"
@@ -996,67 +996,67 @@ msgid "Skills"
 msgstr "Taidot"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Ohita vuoro"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "Surmatut pelaajat joutuvat kerran välitilaan suoran kuoleman sijaan. Jos he arvaavat, kuka Enkeli on, he heräävät henkiin!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Sosiaalinen päättelypeli, jossa on myrkkysanoja, tappavia tabu-ansoja, viimeisen hetken ryöstö ja osallistuva pelinjohtaja."
 
 msgid "Spanish"
 msgstr "Espanja"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Puhuja (suullinen vihje):"
 
 msgid "Speaking"
 msgstr "Puhetaito"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Katsoja"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Katsoja / Ei-pelaaja"
 
 msgid "Spectator Mode (Skip my turns)"
 msgstr "Katsojatila (ohita vuoroni)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Vakoilumestari"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Vakoilumestarin sekunnit (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Vakoilumestari miettii vihjettä..."
 
 msgid "Staggering Doctor:"
 msgstr "Vuorotteleva lääkäri:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Tavallinen aikarajoitettu (90s / 90s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Aloita Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Aloita ottelu"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Aloita äänestys etuajassa"
 
 msgid "Starting Role Deck Preset"
 msgstr "Aloitusroolipakan esiasetus"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Ryöstä arvaus"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Ryöstöajastin (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Ryöstövoitto!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Vaiheittaiset yövaiheet, hämäyskutsut ja äänestyksen hallinta."
@@ -1065,13 +1065,13 @@ msgid "Submit"
 msgstr "Lähetä"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Lähetä vihje"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Lähetä pelaajaääni"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Pöytäkeskustelu ja tapahtumaloki"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Pöytäkeskeisen Lupuksen kohokohdat"
@@ -1086,19 +1086,19 @@ msgid "Table-first party game with secret roles, live voting, Town Gazette, and 
 msgstr "Saman pöydän ääressä pelattava seurapeli, jossa on salaiset roolit, reaaliaikainen äänestys, Kylän sanomat ja pelinjohtajan ohjaamo."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Laske äänet nyt"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Napauta laudalla olevia kortteja, kun pelaajat arvaavat ääneen."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Napauta vihjettä vastaavia kortteja laudalla. Kun olet valmis tai epävarma, napauta Lopeta arvausvuoro."
 
 msgid "Tap emojis below..."
 msgstr "Napauta emojeja alta..."
 
 msgid "Targets"
-msgstr ""
+msgstr "Kohteet"
 
 msgid "Techy"
 msgstr "Tekniikkavelho"
@@ -1116,19 +1116,19 @@ msgid "The Doctor / Guard cannot protect the same person two consecutive nights.
 msgstr "Lääkäri / Henkivartija ei voi suojella samaa henkilöä kahtena peräkkäisenä yönä."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Käyttöliittymä käyttää kieltä %(lang)s, mutta pelin sisältö näytetään englanniksi, koska täyttä sanastoa ei ole saatavilla."
 
 msgid "Theme & Terms"
 msgstr "Teema ja termistö"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Aikarajan esiasetus"
 
 msgid "Toggle"
 msgstr "Vaihda"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Vaihda katsojatilaa"
 
 msgid "Town Gazette:"
 msgstr "Kylän sanomat:"
@@ -1137,49 +1137,49 @@ msgid "Town Voting"
 msgstr "Kylän äänestys"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Vuorojärjestys"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Vuoroajastin (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Vuoroajastimet"
 
 msgid "Type a message or guess..."
 msgstr "Kirjoita viesti tai arvaus..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Kirjoita vihje tai mitä sanottiin suullisesti..."
 
 msgid "Type your guess (or use the chat box)..."
 msgstr "Kirjoita arvauksesi (tai käytä chat-kenttää)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Vain käyttöliittymä"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Pelaajan QR-koodia ei voitu ladata."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Määrittämätön"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Rajoittamaton"
 
 msgid "Unlock Room"
 msgstr "Avaa huone"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Ajaton"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Ajaton (Rento sohvatila)"
 
 msgid "Use Prompt"
 msgstr "Käytä kehotetta"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Käytä emojinäppäimistöäsi tai napauta emojeita alta..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Pystysuuntainen polttopiste: 0=ylhäällä, 50=keskellä, 100=alhaalla."
@@ -1188,10 +1188,10 @@ msgid "Villagers, Wolves, Seer"
 msgstr "Kyläläiset, ihmissudet, näkijä"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Äänestysajastin (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Äänestä pelaajaa:"
 
 msgid "Voting"
 msgstr "Äänestys"
@@ -1200,10 +1200,10 @@ msgid "Waiting for Clue..."
 msgstr "Odotetaan vihjettä..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Odotetaan, että isäntä määrittää joukkueet ja käynnistää laudan..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Odotetaan aulassa..."
 
 msgid "Werewolf / Lupus"
 msgstr "Ihmissusi / Lupus"
@@ -1212,19 +1212,19 @@ msgid "Whether focus coordinates were automatically calculated via edge saliency
 msgstr "Laskettiinko tarkennuskoordinaatit automaattisesti reunojen erottuvuuden perusteella."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus-tekoälyn vihje-ehdotukset (napauta esitäyttääksesi)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Voitot"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Sana- ja lausekehotteiden generaattori klassisiin kynä ja paperi -piirustuskierroksiin ystävien kanssa."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Sanapaketti"
 
 msgid "Work Experience"
 msgstr "Työkokemus"
@@ -1239,7 +1239,7 @@ msgid "Your Name / Nickname"
 msgstr "Nimesi / Nimimerkkisi"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Operatiivisi neuvottelevat. Pidä tiukka pokerinaama — ei reaktioita tai vihjeitä!"
 
 msgid "Your Personal Reconnect QR"
 msgstr "Henkilökohtainen uudelleenyhdistämisen QR-koodisi"
@@ -1248,43 +1248,43 @@ msgid "Your Secret Phrase"
 msgstr "Salainen lauseesi"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Vakoilumestarisi"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Sinun vuorosi arvata!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Sinun vuorosi, Vakoilumestari!"
 
 msgid "actions"
-msgstr ""
+msgstr "toiminnot"
 
 msgid "adjective"
 msgstr "adjektiivi"
 
 msgid "ago"
-msgstr ""
+msgstr "sitten"
 
 msgid "alive"
 msgstr "elossa"
 
 msgid "all"
-msgstr ""
+msgstr "kaikki"
 
 msgid "all categories"
-msgstr ""
+msgstr "kaikki kategoriat"
 
 msgid "all day"
 msgstr "koko päivän"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "ja julkaise vihjeensä alla."
 
 msgid "animals"
-msgstr ""
+msgstr "eläimet"
 
 msgid "any"
-msgstr ""
+msgstr "mikä tahansa"
 
 msgid "aperture"
 msgstr "aukko"
@@ -1308,7 +1308,7 @@ msgid "camera model"
 msgstr "kameran malli"
 
 msgid "category:"
-msgstr ""
+msgstr "kategoria:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -1374,7 +1374,7 @@ msgid "focal length"
 msgstr "polttoväli"
 
 msgid "food & drink"
-msgstr ""
+msgstr "ruoka ja juoma"
 
 msgid "gallery"
 msgstr "galleria"
@@ -1413,13 +1413,13 @@ msgid "ics maker"
 msgstr "ics-luoja"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "arvaa"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "muotoilee vihjettä joukkueelleen."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "muotoilee vihjettä. Odota!"
 
 msgid "join"
 msgstr "liity"
@@ -1458,7 +1458,7 @@ msgid "mode:"
 msgstr "pelimuoto:"
 
 msgid "movies"
-msgstr ""
+msgstr "elokuvat"
 
 msgid "new word"
 msgstr "uusi sana"
@@ -1497,7 +1497,7 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "liitä teksti tai osoite tapahtuman tiedoista, niin saat .ics-tiedoston."
 
 msgid "people & characters"
-msgstr ""
+msgstr "ihmiset ja hahmot"
 
 msgid "photo"
 msgstr "valokuva"
@@ -1521,7 +1521,7 @@ msgid "photos (select multiple)"
 msgstr "valokuvat (valitse useita)"
 
 msgid "phrases"
-msgstr ""
+msgstr "ilmaukset"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "valitse asetukset, paina nappia ja piirrä!"
@@ -1530,7 +1530,7 @@ msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "paikat ja matkailu"
 
 msgid "planz"
 msgstr "planz"
@@ -1563,7 +1563,7 @@ msgid "reveal"
 msgstr "paljasta"
 
 msgid "room language"
-msgstr ""
+msgstr "huoneen kieli"
 
 msgid "room password"
 msgstr "huoneen salasana"
@@ -1587,7 +1587,7 @@ msgid "skip"
 msgstr "ohita"
 
 msgid "songs"
-msgstr ""
+msgstr "laulut"
 
 msgid "start"
 msgstr "alkaa"
@@ -1599,7 +1599,7 @@ msgid "text"
 msgstr "teksti"
 
 msgid "things"
-msgstr ""
+msgstr "esineet"
 
 msgid "title"
 msgstr "otsikko"
@@ -1611,7 +1611,7 @@ msgid "today"
 msgstr "tänään"
 
 msgid "tv shows"
-msgstr ""
+msgstr "tv-sarjat"
 
 msgid "type"
 msgstr "tyyppi"
@@ -1647,7 +1647,7 @@ msgid "watermarked image"
 msgstr "vesileimattu kuva"
 
 msgid "web"
-msgstr ""
+msgstr "verkko"
 
 msgid "web-optimized image"
 msgstr "verkko-optimoitu kuva"
@@ -1704,13 +1704,13 @@ msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Ma
 msgstr "⚡ Kaaos & erikoisroolit (Alfasusi, Vaientaja, Etsivä, Lääkäri, Tarkka-ampuja, Pormestari, Noita...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Koko sisältö + käyttöliittymä"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Vain käyttöliittymä (englanninkieliset sanat)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"

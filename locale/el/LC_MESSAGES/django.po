@@ -33,13 +33,13 @@ msgid "1. Overview"
 msgstr "1. Επισκόπηση"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Ρύθμιση Ομάδων & Ρόλων"
 
 msgid "10 Minutes"
 msgstr "10 Λεπτά"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "Η 1η μαντεψιά τερματίζει τον γύρο"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Φατρία / Ομάδα (Ανακοινώνει \"Χωριό\", \"Λυκάνθρωποι\", \"Ουδέτερος\")"
@@ -51,7 +51,7 @@ msgid "2. Permitted Use"
 msgstr "2. Επιτρεπόμενη Χρήση"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Ρυθμίσεις Δωματίου & Τραπεζιού (Οικοδεσπότης)"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 Λεπτά (Γρήγορο)"
@@ -111,46 +111,46 @@ msgid "Access Denied"
 msgstr "Δεν επιτρέπεται η πρόσβαση"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Κατηγόρησε:"
 
 msgid "Active"
 msgstr "Ενεργό"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Ενεργό Στοιχείο"
 
 msgid "Active Lupus Rooms"
 msgstr "Ενεργές Αίθουσες Lupus"
 
 msgid "Add"
-msgstr ""
+msgstr "Προσθήκη"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Προσθήκη Υπόδειξης"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Προσθήκη Προφορικού / Επιτραπέζιου Παίκτη"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Προσθήκη Προφορικού / Επιτραπέζιου Παίκτη (απευθείας σε ομάδα)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Προσθήκη Παίκτη"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Προσθήκη Μυστικού Προσαρμοσμένου Ζεύγους"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Προσθέστε προσαρμοσμένες λέξεις-αστεία για να αναμειχθούν σε μελλοντικά ταμπλό που μοιράζονται σε αυτό το δωμάτιο."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Προσθήκη ονόματος προφορικού / επιτραπέζιου παίκτη..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Προσθήκη στην Τράπουλα"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Πράκτορες & Αρχικατάσκοποι"
 
 msgid "All Active Rooms"
 msgstr "Όλες οι Ενεργές Αίθουσες"
@@ -159,73 +159,73 @@ msgid "All Games"
 msgstr "Όλα τα Παιχνίδια"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Όλες οι μαντεψιές & υποδείξεις εμφανίζονται εδώ"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Να επιτρέπεται στον Οικοδεσπότη να καταγράφει προφορικά στοιχεία και να πατάει κάρτες για παίκτες στο τραπέζι"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Επιτρέψτε την Προσαρμοσμένη Τράπουλα Ζευγαριών Παίκτη"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Επιτρέψτε προσαρμοσμένες λέξεις"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Επιτρέψτε στους παίκτες να προσθέτουν προσαρμοσμένες λέξεις"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Εφαρμογή άδειας Creative Commons Attribution-NonCommercial-ShareAlike και υδατογραφήματος."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Αυτόματη Εξισορρόπηση"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Αυτόματη Εξισορρόπηση Ομάδων"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Αυτόματη καταμέτρηση μόλις ψηφίσουν όλοι οι παίκτες"
 
 msgid "Back to Active Lupus Rooms"
 msgstr "Πίσω στις Ενεργές Αίθουσες Lupus"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Πίσω στο Lobby"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Πίσω στο Lobby / Παίξτε Ξανά"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "Μπλε"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Μπλε Απομένουν"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Μπλε Ομάδα"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Η Μπλε Ομάδα Κερδίζει!"
 
 msgid "Board"
-msgstr ""
+msgstr "Ταμπλό"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Ολοκληρωμένο Ταμπλό"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Το Ταμπλό Έληξε"
 
 msgid "Browse Active Lupus Rooms"
 msgstr "Περιήγηση σε Ενεργές Αίθουσες Lupus"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Περιήγηση στο Hub"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Φτιάξτε το Στοιχείο Emoji σας:"
 
 msgid "CC BY-NC-SA license"
 msgstr "Άδεια CC BY-NC-SA"
@@ -240,25 +240,25 @@ msgid "Calendar navigation"
 msgstr "Πλοήγηση ημερολογίου"
 
 msgid "Category"
-msgstr ""
+msgstr "Κατηγορία"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Λέξη Πολιτών (Πλειοψηφία)"
 
 msgid "Civilians, Mobsters, Cop"
 msgstr "Πολίτες, Μαφιόζοι, Αστυνόμος"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Κλασικό + Εκτεταμένο Party Pack"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Φάση Στοιχείων"
 
 msgid "Clues"
-msgstr ""
+msgstr "Στοιχεία"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Καταγραφή Στοιχείων & Πατημάτων"
 
 msgid "Cockpit"
 msgstr "Κονσόλα"
@@ -270,10 +270,10 @@ msgid "Conferences"
 msgstr "Συνέδρια"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Περιεχόμενο + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "Αντιγραφή"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "Δημιουργία Αίθουσας Lupus / Λυκάνθρωπου"
@@ -285,19 +285,19 @@ msgid "Curated"
 msgstr "Επιλεγμένα"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Προσαρμοσμένη Λέξη Codenames"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Προσαρμοσμένη Τράπουλα"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Προσαρμοσμένα Δευτερόλεπτα"
 
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "Προσαρμοσμένα split πληκτρολόγια (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Προσαρμοσμένη λέξη..."
 
 msgid "Date of the trip/shoot."
 msgstr "Ημερομηνία ταξιδιού/φωτογράφισης."
@@ -309,16 +309,16 @@ msgid "Day Trip"
 msgstr "Ημερήσια εκδρομή"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Μοίρασε Επόμενο Ταμπλό"
 
 msgid "Defense Timer"
 msgstr "Χρονόμετρο Απολογίας"
 
 msgid "Definition"
-msgstr ""
+msgstr "Ορισμός"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Συζητήστε στοιχεία ή κατηγορήστε υπόπτους..."
 
 msgid "Discussion"
 msgstr "Συζήτηση"
@@ -327,7 +327,7 @@ msgid "Discussion Round Timer"
 msgstr "Χρονόμετρο Συζήτησης"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Όνομα Εμφάνισης"
 
 msgid "Doctor Shields From Sniper:"
 msgstr "Ο Γιατρός Προστατεύει από τον Ελεύθερο Σκοπευτή:"
@@ -342,19 +342,19 @@ msgid "Electronics/embedded (some rust embedded)"
 msgstr "Ηλεκτρονικά/ενσωματωμένα συστήματα (λίγο embedded Rust)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Ενεργοποίηση Κλοπής Τελευταίας Ευκαιρίας του Απατεώνα"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Ενεργοποίηση Θανατηφόρας Δηλητηριώδους Λέξης Ταμπού"
 
 msgid "End Board"
-msgstr ""
+msgstr "Τερματισμός Ταμπλό"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Τέλος Γύρου Μαντεψιάς"
 
 msgid "End Match"
-msgstr ""
+msgstr "Τερματισμός Αγώνα"
 
 msgid "English"
 msgstr "Αγγλικά"
@@ -369,7 +369,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Εισαγάγετε Κωδικό Αίθουσας (π.χ. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Εξαγωγή JSON"
 
 msgid "Failed"
 msgstr "Απέτυχε"
@@ -387,16 +387,16 @@ msgid "GM Director Cockpit:"
 msgstr "Κονσόλα Σκηνοθέτη Αφηγητή:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "Λειτουργία GM: Κλειδωμένη"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "Λειτουργία Προφορικής Μαντεψιάς GM"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "Προφορική Λειτουργία GM: ΕΝΕΡΓΗ"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "Προφορική Λειτουργία Αρχικατασκόπου GM"
 
 msgid "Game Master Display Name"
 msgstr "Όνομα Εμφάνισης Αφηγητή"
@@ -417,22 +417,22 @@ msgid "Game room does not exist."
 msgstr "Η αίθουσα παιχνιδιού δεν υπάρχει."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Οι λέξεις του παιχνιδιού, τα στοιχεία και η διεπαφή υποστηρίζονται στα %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Δώστε ένα Στοιχείο Μίας Λέξης"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Δώστε έμμεσα στοιχεία μίας λέξης χωρίς να αποκαλύψετε τη λέξη ή να πατήσετε στην κρυφή Θανατηφόρα Δηλητηριώδη Λέξη Ταμπού. Ακόμα και ο Οικοδεσπότης παίζει στα τυφλά χωρίς spoilers!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Μαντέψτε τη Λέξη των Πολιτών για να κλέψετε τη νίκη..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Μαντεψιές που απομένουν"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Φάση Μαντεψιάς"
 
 msgid "Ham radio, UK foundation license"
 msgstr "Ραδιοερασιτεχνισμός, άδεια UK Foundation"
@@ -441,7 +441,7 @@ msgid "Have an 8-character code from your Game Master? Enter it here to jump str
 msgstr "Έχετε 8-ψήφιο κωδικό από τον Αφηγητή σας; Εισαγάγετέ τον εδώ για να μπείτε απευθείας:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Απόκρυψη Επικάλυψης Κάρτας-Κλειδιού"
 
 msgid "Hiking and climbing"
 msgstr "Πεζοπορία και αναρρίχηση"
@@ -459,13 +459,13 @@ msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Οριζόντιο σημείο εστίασης: 0=αριστερά, 50=κέντρο, 100=δεξιά."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Στοιχεία Ελέγχου Οικοδεσπότη"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Ρυθμίσεις Παιχνιδιού Οικοδεσπότη"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Φιλοξενία Δωματίου"
 
 msgid "I code, take pics and many other things"
 msgstr "Προγραμματίζω, βγάζω φωτογραφίες και πολλά άλλα"
@@ -495,16 +495,16 @@ msgid "Invalid Game Master secret key."
 msgstr "Μη έγκυρο μυστικό κλειδί Αφηγητή."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Πρόσκληση Παικτών"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Πρόσκληση Παικτών στο Δωμάτιο"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "QR Πρόσκλησης"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Δεν είναι η σειρά σας να δώσετε στοιχείο."
 
 msgid "Join"
 msgstr "Σύνδεση"
@@ -516,16 +516,16 @@ msgid "Join Lupus Game"
 msgstr "Σύνδεση στο Παιχνίδι Lupus"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Εγγραφείτε στην Κόκκινη ή τη Μπλε Ομάδα για να ξεκινήσετε"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Συμμετοχή ως Πράκτορας"
 
 msgid "Join as Player"
 msgstr "Σύνδεση ως Παίκτης"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Συμμετοχή ως Αρχικατάσκοπος"
 
 msgid "Join with Room Code"
 msgstr "Σύνδεση με Κωδικό Αίθουσας"
@@ -534,7 +534,7 @@ msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "ΚΛΟΠΗ ΤΕΛΕΥΤΑΙΑΣ ΕΥΚΑΙΡΙΑΣ ΤΟΥ ΑΠΑΤΕΩΝΑ!"
 
 msgid "Languages"
 msgstr "Γλώσσες"
@@ -552,10 +552,10 @@ msgid "Leave empty for public join"
 msgstr "Αφήστε κενό για δημόσια είσοδο"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Αφήστε αυτόν τον παίκτη να σαρώσει στο κινητό του για να αναλάβει την προσωπική του προβολή Αρχικατασκόπου/Πράκτορα."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Θανατηφόρα Λέξη Ταμπού (Προαιρετική παγίδα άμεσου αποκλεισμού)"
 
 msgid "Limbo"
 msgstr "Limbo"
@@ -567,13 +567,13 @@ msgid "Limbo Resolution"
 msgstr "Επίλυση Καθαρτηρίου"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Ακούστε"
 
 msgid "Listening"
 msgstr "Κατανόηση προφορικού"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Ζωντανή συνομιλία & ροή προβλέψεων"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "Ζωντανοί και νεκροί παίκτες στέλνουν πρωινές φήμες που διαβάζονται δυνατά στην αυγή."
@@ -585,10 +585,10 @@ msgid "Lobby (Waiting for Players)"
 msgstr "Αναμονή (Αναμονή παικτών)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Καταγραφή στοιχείου για τον Spymaster του τραπεζιού"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Λυκάνθρωπος"
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "Ενεργές Αίθουσες & Κέντρο Lupus"
@@ -609,37 +609,37 @@ msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Ο αγώνας ολοκληρώθηκε"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Βάθρο αγώνα & στιγμιότυπα"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Επανάληψη αγώνα & χρονολόγιο προσπαθειών"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Επανάληψη αγώνα & αρχείο ταμπλό"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Κανόνες αγώνα"
 
 msgid "Message..."
-msgstr ""
+msgstr "Μήνυμα..."
 
 msgid "Midgame Arrivals:"
 msgstr "Αφίξεις στη Μέση του Παιχνιδιού:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Στοιχεία ελέγχου ψηφοφορίας συντονιστή — Επιλέξτε παίκτη και ύποπτο παρακάτω, ή πατήστε ένα πλακίδιο & θέση στο τραπέζι:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Μετακίνηση..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Νέο παιχνίδι / Αναδιανομή"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Επόμενος γύρος"
 
 msgid "Next day"
 msgstr "Επόμενη ημέρα"
@@ -654,28 +654,28 @@ msgid "No Instagram crop generated yet."
 msgstr "Δεν έχει δημιουργηθεί ακόμη περικοπή για το Instagram."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Δεν έχουν δημοσιευτεί στοιχεία ακόμα."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Δεν υπάρχουν ολοκληρωμένα ταμπλό Codenames ακόμα. Ολοκληρώστε ένα ταμπλό ή τερματίστε το νωρίς για να δείτε την πλήρη επανάληψη της κάρτας-κλειδί εδώ."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Δεν υπάρχει διαθέσιμος ορισμός λεξικού."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Δεν έχουν καταγραφεί γύροι."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Επίσημο ταμπλό ομαδικής αφαίρεσης 400 λέξεων 5×5 με στοιχεία Wikisaurus Spymaster AI, ιδιωτική εναλλαγή Keycard και προφορικό/επιτραπέζιο παιχνίδι."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Επίσημες κλασικές 400 λέξεις"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Στοιχείο μίας λέξης..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Επιτρέπονται μόνο emoji — οι χαρακτήρες κειμένου αγνοήθηκαν."
 
 msgid "Open"
 msgstr "Ανοιχτή"
@@ -687,40 +687,40 @@ msgid "Open GM Cockpit"
 msgstr "Άνοιγμα Κονσόλας Αφηγητή"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Άνοιγμα γεννήτριας"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Άνοιγμα συνδέσμου παίκτη"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Ελεύθερη θέση"
 
 msgid "Operative"
-msgstr ""
+msgstr "Πράκτορας"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Δευτερόλεπτα πράκτορα (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Πράκτορες"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Οι πράκτορες μαντεύουν"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Οι πράκτορες επιλέγουν κάρτες για αυτόν τον γύρο."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Οι πράκτορες μαντεύουν!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Η αντίπαλη ομάδα μαντεύει. Περιμένετε να πάνε πάσο ή να κάνουν λάθος επιλογή."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Ή πληκτρολογήστε τη δική σας προσαρμοσμένη προτροπή/φράση..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Λειτουργία προφορικού Spymaster (Καταγραφή συντονιστή)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Αρχικό αρχείο RAW κάμερας (CR3, ARW, NEF, κ.λπ.)"
@@ -735,13 +735,13 @@ msgid "Page Not Found — Marco Silva"
 msgstr "Η σελίδα δεν βρέθηκε — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Στοιχεία ελέγχου συμμετέχοντος οικοδεσπότη (χωρίς spoiler)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Πάσο / Λάθος"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Πάσο γύρου (Συντονιστής)"
 
 msgid "Password"
 msgstr "Κωδικός"
@@ -753,46 +753,46 @@ msgid "Past & Finished Games"
 msgstr "Παλαιότερα & Ολοκληρωμένα Παιχνίδια"
 
 msgid "Pause"
-msgstr ""
+msgstr "Παύση"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Παύση χρονομέτρου"
 
 msgid "Pending"
 msgstr "Σε εκκρεμότητα"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Προσωπικό QR παίκτη"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Προσωπικό QR"
 
 msgid "Photography"
 msgstr "Φωτογραφία"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Επιλέξτε 1 λέξη και έναν αριθμό καρτών. Οι πράκτορές σας πρέπει να μαντέψουν με βάση το στοιχείο σας."
 
 msgid "Pick the name others at the table know you by."
 msgstr "Επιλέξτε το όνομα με το οποίο σας ξέρουν οι υπόλοιποι στο τραπέζι."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Επιλέξτε το παιχνίδι, τη γλώσσα και τις ρυθμίσεις δωματίου — μοιραστείτε τον σύνδεσμο ή τον κωδικό QR όταν είστε έτοιμοι."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Προφίλ παίκτη & προσωπικό QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "QR παίκτη"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR επανασύνδεσης παίκτη"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Όνομα παίκτη..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Παίκτες & σκορ"
 
 msgid "Please enter a player name."
 msgstr "Παρακαλώ εισαγάγετε όνομα παίκτη."
@@ -801,10 +801,10 @@ msgid "Please enter a valid room code."
 msgstr "Παρακαλώ εισαγάγετε έναν έγκυρο κωδικό αίθουσας."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Λέξη δηλητήριο (Απατεώνας / Μεθυσμένος)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Λειτουργία λέξης δηλητηρίου"
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "Πορτογάλος · Ελσίνκι, Φινλανδία"
@@ -831,13 +831,13 @@ msgid "Processing"
 msgstr "Σε επεξεργασία"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Εργαλείο προτροπών"
 
 msgid "Public"
 msgstr "Δημόσια"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Δημοσίευση στοιχείου"
 
 msgid "RAW available for purchase"
 msgstr "RAW διαθέσιμο για αγορά"
@@ -858,16 +858,16 @@ msgid "Red"
 msgstr "Κόκκινο"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Κόκκινα απομένουν"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Κόκκινη ομάδα"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Η κόκκινη ομάδα κερδίζει!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Αναδιάταξη ταμπλό"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "Επαναδημιουργία περικοπών 4:5 Instagram για τις επιλεγμένες φωτογραφίες"
@@ -876,10 +876,10 @@ msgid "Replay"
 msgstr "Επανάληψη"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Ξαναρίξτε"
 
 msgid "Resume"
-msgstr ""
+msgstr "Συνέχεια"
 
 msgid "Return as %(name)s"
 msgstr "Επιστροφή ως %(name)s"
@@ -891,19 +891,19 @@ msgid "Reveal Roles on Death:"
 msgstr "Αποκάλυψη Ρόλων στον Θάνατο:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Ρόλος κρυφός"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Οι ρόλοι, οι φάσεις και η διεπαφή είναι μεταφρασμένα στα %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Συνομιλία δωματίου"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Συνομιλία δωματίου & εκδηλώσεις"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Κωδικός δωματίου"
 
 msgid "Room Code:"
 msgstr "Κωδικός Αίθουσας:"
@@ -924,49 +924,49 @@ msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "Ο κωδικός αίθουσας '%(code)s' δεν βρέθηκε ή δεν είναι πλέον ενεργός."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Δωμάτια"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Οι αίθουσες δημιουργούνται κατ' απαίτηση και παραμένουν ενεργές για 24 ώρες. Ξεκινήστε μια νέα συνεδρία και προσκαλέστε την παρέα σας!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Εναλλαγή των Spymaster σε κάθε νέο ταμπλό"
 
 msgid "Round"
 msgstr "Γύρος"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Στοιχεία γύρου"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Επανάληψη γύρο προς γύρο & καταγραφή προσπαθειών"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Γύροι (Κύκλοι στοιχείων)"
 
 msgid "Running"
 msgstr "Σε Εξέλιξη"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Αποθήκευση ονόματος"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Σαρώστε σε άλλη συσκευή για να ανακτήσετε καθαρά τη θέση σας ως Spymaster/Πράκτορας."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Σαρώστε αυτόν τον κωδικό QR με οποιαδήποτε κάμερα τηλεφώνου για να συμμετάσχετε αμέσως:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Σαρώστε αυτόν τον προσωπικό κωδικό QR για να αλλάξετε συσκευή χωρίς να χάσετε τη μυστική σας κάρτα:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Σαρώστε αυτό για να μεταφέρετε τη συνεδρία και το σκορ σας σε άλλο τηλέφωνο ή πρόγραμμα περιήγησης:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Αναζήτηση emoji κατά όνομα, συνώνυμο, τυπογραφικό λάθος ή γλώσσα (π.χ. fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
 msgstr "Αποστολή"
@@ -978,16 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "Σφάλμα διακομιστή — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Ορισμός"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Ρύθμιση ομάδων..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Εμφάνιση ρόλου & λέξης"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Εμφάνιση κάρτας-κλειδί Spymaster"
 
 msgid "Silent Phase"
 msgstr "Σιωπηλή Φάση"
@@ -996,19 +996,19 @@ msgid "Skills"
 msgstr "Δεξιότητες"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Παράλειψη γύρου"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "Οι παίκτες που χάνουν μπαίνουν στο Καθαρτήριο πριν πεθάνουν οριστικά. Αν μαντέψουν ποιος είναι ο Άγγελος, ανασταίνονται!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Κοινωνική αφαίρεση με Λέξεις Δηλητήριο, θανατηφόρες παγίδες Ταμπού, Κλοπή Τελευταίας Ευκαιρίας και Συμμετέχοντα Game Master."
 
 msgid "Spanish"
 msgstr "Ισπανικά"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Ομιλητής (προφορικό στοιχείο):"
 
 msgid "Speaking"
 msgstr "Ομιλία"
@@ -1017,61 +1017,61 @@ msgid "Spectator"
 msgstr "Θεατής"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Θεατής / Μη παίκτης"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Λειτουργία θεατή (Παράλειψη των γύρων μου)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Αρχικατάσκοπος"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Δευτερόλεπτα αρχικατασκόπου (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Ο αρχικατάσκοπος σκέφτεται ένα στοιχείο..."
 
 msgid "Staggering Doctor:"
 msgstr "Εναλλασσόμενος Γιατρός:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Τυπικό με χρόνο (90δ / 90δ)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Έναρξη Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Έναρξη αγώνα"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Έναρξη ψηφοφορίας νωρίτερα"
 
 msgid "Starting Role Deck Preset"
 msgstr "Προκαθορισμένη Τράπουλα Ρόλων"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Κλοπή πρόβλεψης"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Χρονόμετρο κλοπής (δευτ, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Νίκη με κλοπή!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Νυχτερινά στάδια βήμα προς βήμα, κλήσεις μπλόφας και διαχείριση ψηφοφορίας."
 
 msgid "Submit"
-msgstr ""
+msgstr "Υποβολή"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Υποβολή στοιχείου"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Υποβολή ψήφου παίκτη"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Συζήτηση τραπεζιού & Αρχείο καταγραφής συμβάντων"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Χαρακτηριστικά του Επιτραπέζιου Lupus"
@@ -1086,19 +1086,19 @@ msgid "Table-first party game with secret roles, live voting, Town Gazette, and 
 msgstr "Επιτραπέζιο παιχνίδι παρέας με μυστικούς ρόλους, ζωντανή ψηφοφορία, Εφημερίδα του Χωριού και κονσόλα αφηγητή."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Καταμέτρηση ψήφων τώρα"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Πατήστε κάρτες στο ταμπλό καθώς οι παίκτες μαντεύουν δυνατά."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Πατήστε κάρτες στο ταμπλό που ταιριάζουν με το στοιχείο. Όταν τελειώσετε ή είστε αβέβαιοι, πατήστε Τέλος γύρου μαντεψιάς."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Στόχοι"
 
 msgid "Techy"
 msgstr "Τεχνολογία"
@@ -1116,19 +1116,19 @@ msgid "The Doctor / Guard cannot protect the same person two consecutive nights.
 msgstr "Ο Γιατρός / Φύλακας δεν μπορεί να προστατεύσει το ίδιο άτομο δύο συνεχόμενες νύχτες."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Η διεπαφή χρησιμοποιεί %(lang)s, ενώ το περιεχόμενο του παιχνιδιού επιστρέφει στα Αγγλικά επειδή δεν υπάρχουν πλήρη δεδομένα λεξιλογίου."
 
 msgid "Theme & Terms"
 msgstr "Θέμα & Ορολογία"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Προεπιλογή χρονικού ορίου"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Εναλλαγή"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Εναλλαγή λειτουργίας θεατή"
 
 msgid "Town Gazette:"
 msgstr "Εφημερίδα του Χωριού:"
@@ -1137,49 +1137,49 @@ msgid "Town Voting"
 msgstr "Ψηφοφορία Χωριού"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Σειρά γύρων"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Χρονόμετρο γύρου (δευτ, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Χρονόμετρα γύρου"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Πληκτρολογήστε μήνυμα ή πρόβλεψη..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Πληκτρολογήστε στοιχείο ή ό,τι ειπώθηκε προφορικά..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Πληκτρολογήστε την πρόβλεψή σας (ή χρησιμοποιήστε το πλαίσιο συνομιλίας)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Μόνο διεπαφή"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Αδυναμία φόρτωσης του κωδικού QR παίκτη."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Χωρίς ανάθεση"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Απεριόριστο"
 
 msgid "Unlock Room"
 msgstr "Ξεκλείδωμα Αίθουσας"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Χωρίς χρόνο"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Χωρίς χρόνο (Χαλαρή λειτουργία καναπέ)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Χρήση υπόδειξης"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Χρησιμοποιήστε το πληκτρολόγιο emoji ή πατήστε emoji παρακάτω..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Κάθετο σημείο εστίασης: 0=πάνω, 50=κέντρο, 100=κάτω."
@@ -1188,10 +1188,10 @@ msgid "Villagers, Wolves, Seer"
 msgstr "Χωρικοί, Λύκοι, Μάντης"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Χρονόμετρο ψηφοφορίας (δευτ, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Ψηφίστε τον παίκτη:"
 
 msgid "Voting"
 msgstr "Ψηφοφορία"
@@ -1200,10 +1200,10 @@ msgid "Waiting for Clue..."
 msgstr "Αναμονή για στοιχείο..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Αναμονή για τον οικοδεσπότη να διαμορφώσει τις ομάδες και να ξεκινήσει το ταμπλό..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Αναμονή στο λόμπι..."
 
 msgid "Werewolf / Lupus"
 msgstr "Λυκάνθρωπος / Lupus"
@@ -1212,19 +1212,19 @@ msgid "Whether focus coordinates were automatically calculated via edge saliency
 msgstr "Εάν οι συντεταγμένες εστίασης υπολογίστηκαν αυτόματα μέσω διακριτότητας ακμών."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Προτάσεις στοιχείων AI Wikisaurus (πατήστε για προσυμπλήρωση)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Νίκες"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Γεννήτρια λέξεων και προτάσεων για κλασικούς γύρους ζωγραφικής με μολύβι και χαρτί με φίλους."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Πακέτο λέξεων"
 
 msgid "Work Experience"
 msgstr "Επαγγελματική Εμπειρία"
@@ -1239,25 +1239,25 @@ msgid "Your Name / Nickname"
 msgstr "Το Όνομά / Ψευδώνυμό σας"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Οι πράκτορές σας συσκέπτονται. Διατηρήστε αυστηρό poker face — καθόλου αντιδράσεις ή υποδείξεις!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Το προσωπικό σας QR επανασύνδεσης"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Η μυστική σας φράση"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Ο αρχικατάσκοπός σας"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Η σειρά σας να μαντέψετε!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Η σειρά σας, Αρχικατάσκοπε!"
 
 msgid "actions"
-msgstr ""
+msgstr "ενέργειες"
 
 msgid "adjective"
 msgstr "επίθετο"
@@ -1272,16 +1272,16 @@ msgid "all"
 msgstr "όλα"
 
 msgid "all categories"
-msgstr ""
+msgstr "όλες οι κατηγορίες"
 
 msgid "all day"
 msgstr "όλη μέρα"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "και να δημοσιεύσουν το στοιχείο τους παρακάτω."
 
 msgid "animals"
-msgstr ""
+msgstr "ζώα"
 
 msgid "any"
 msgstr "οποιοδήποτε"
@@ -1308,7 +1308,7 @@ msgid "camera model"
 msgstr "μοντέλο κάμερας"
 
 msgid "category:"
-msgstr ""
+msgstr "κατηγορία:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -1317,7 +1317,7 @@ msgid "clear"
 msgstr "καθαρισμός"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "ομαδική προετοιμασία + στοιχεία"
 
 msgid "create"
 msgstr "δημιουργία"
@@ -1374,7 +1374,7 @@ msgid "focal length"
 msgstr "εστιακή απόσταση"
 
 msgid "food & drink"
-msgstr ""
+msgstr "φαγητό & ποτό"
 
 msgid "gallery"
 msgstr "γκαλερί"
@@ -1413,13 +1413,13 @@ msgid "ics maker"
 msgstr "δημιουργός ics"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "μαντεύει"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "διατυπώνει ένα στοιχείο για την ομάδα του."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "διατυπώνει ένα στοιχείο. Αναμείνατε!"
 
 msgid "join"
 msgstr "σύνδεση"
@@ -1458,7 +1458,7 @@ msgid "mode:"
 msgstr "λειτουργία:"
 
 msgid "movies"
-msgstr ""
+msgstr "ταινίες"
 
 msgid "new word"
 msgstr "νέα λέξη"
@@ -1497,7 +1497,7 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "επικολλήστε κείμενο ή σύνδεσμο με λεπτομέρειες συμβάντος και λάβετε αρχείο .ics."
 
 msgid "people & characters"
-msgstr ""
+msgstr "άνθρωποι & χαρακτήρες"
 
 msgid "photo"
 msgstr "φωτογραφία"
@@ -1521,7 +1521,7 @@ msgid "photos (select multiple)"
 msgstr "φωτογραφίες (επιλέξτε πολλές)"
 
 msgid "phrases"
-msgstr ""
+msgstr "φράσεις"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "επιλέξτε επιλογές, πατήστε το κουμπί, σχεδιάστε!"
@@ -1530,7 +1530,7 @@ msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "μέρη & ταξίδια"
 
 msgid "planz"
 msgstr "planz"
@@ -1545,25 +1545,25 @@ msgid "press the button to get a word"
 msgstr "πατήστε το κουμπί για να πάρετε μια λέξη"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "ιδιωτικό (απόκρυψη προβλέψεων)"
 
 msgid "processing status"
 msgstr "κατάσταση επεξεργασίας"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "δημόσιο (εμφάνιση προβλέψεων)"
 
 msgid "request"
 msgstr "αίτημα"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "νέες ζαριές:"
 
 msgid "reveal"
 msgstr "αποκάλυψη"
 
 msgid "room language"
-msgstr ""
+msgstr "γλώσσα δωματίου"
 
 msgid "room password"
 msgstr "κωδικός αίθουσας"
@@ -1587,7 +1587,7 @@ msgid "skip"
 msgstr "παράλειψη"
 
 msgid "songs"
-msgstr ""
+msgstr "τραγούδια"
 
 msgid "start"
 msgstr "έναρξη"
@@ -1599,7 +1599,7 @@ msgid "text"
 msgstr "κείμενο"
 
 msgid "things"
-msgstr ""
+msgstr "αντικείμενα"
 
 msgid "title"
 msgstr "τίτλος"
@@ -1611,7 +1611,7 @@ msgid "today"
 msgstr "σήμερα"
 
 msgid "tv shows"
-msgstr ""
+msgstr "τηλεοπτικές σειρές"
 
 msgid "type"
 msgstr "τύπος"
@@ -1704,13 +1704,13 @@ msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Ma
 msgstr "⚡ Χάος & Ειδικοί (Άλφα Λύκος, Σιωπηλός, Ντετέκτιβ, Γιατρός, Σκοπευτής, Δήμαρχος, Μάγισσα...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Πλήρες Περιεχόμενο + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 Μόνο UI (Αγγλικές λέξεις)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"

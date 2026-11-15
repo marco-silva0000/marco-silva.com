@@ -6,466 +6,466 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ 创建房间"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ 房主新建房间"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ 新游戏"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ 创建房间"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — 绝密（墓地隐藏，游戏结束前不公开身份）"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 天"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — 仅阵营（通报“GOOD”或“EVIL”）"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. 条款接受"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. 概述"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. 队伍与身份设置"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 分钟"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "首次猜测即结束本轮"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — 阵营 / 队伍（通报“Town”、“Werewolves”、“Neutral”）"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. 我们访问的信息"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. 允许的使用方式"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. 房间与桌台设置（房主）"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 分钟（快速）"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 天"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — 完整身份卡（通报具体卡名和图标）"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. 数据存储与安全"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. 免责声明"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 秒（标准）"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. 责任限制"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. 第三方共享"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — 页面未找到"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 秒"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "适用于 Instagram 轮播图的 4:5 竖向裁剪 (1080x1350)。"
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 分钟（标准）"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. 变更与终止"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. 撤销访问权与数据删除"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — 出现故障"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. 联系我们"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 秒"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 分钟（深思）"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "拒绝访问"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "指控："
 
 msgid "Active"
-msgstr ""
+msgstr "进行中"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "当前线索"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "活跃的 Lupus 房间"
 
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "添加提示"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "添加口头/现场玩家"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "添加口头/现场玩家（直接加入队伍）"
 
 msgid "Add Player"
-msgstr ""
+msgstr "添加玩家"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "添加秘密自定义词对"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "添加自定义内部梗词语，以便在当前房间后续发牌中混入牌盘。"
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "输入口头/现场玩家姓名..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "添加到牌库"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "特工与间谍头目"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "所有活跃房间"
 
 msgid "All Games"
-msgstr ""
+msgstr "所有游戏"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "所有猜测与提示均显示在此处"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "允许房主记录口头线索并为在场玩家点击卡牌"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "允许玩家自定义词对卡牌"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "允许自定义词语"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "允许玩家添加自定义词语"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "应用知识共享署名-非商业性使用-相同方式共享许可协议及水印。"
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "自动平衡"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "自动平衡队伍"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "所有玩家投票后自动计票"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "返回活跃 Lupus 房间"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "返回大厅"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "返回大厅 / 再玩一次"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "藍色"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "蓝队剩余"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "蓝队"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "蓝队获胜！"
 
 msgid "Board"
-msgstr ""
+msgstr "面板"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "牌盘完成"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "牌盘结束"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "浏览活跃的 Lupus 房间"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "浏览 Hub 中心"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "构建你的表情线索："
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "CC BY-NC-SA 协议"
 
 msgid "CODE"
-msgstr ""
+msgstr "CODE"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "日历导航"
 
 msgid "Category"
-msgstr ""
+msgstr "分类"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "平民词（多数派）"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "平民、暴徒、警察"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "经典版 + 扩展聚会包"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "线索阶段"
 
 msgid "Clues"
-msgstr ""
+msgstr "线索"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "线索与点击记录"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "控制台"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "会议与讲座"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "内容 + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "创建狼人杀房间"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "创建第一个狼人杀房间"
 
 msgid "Curated"
-msgstr ""
+msgstr "精选"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "自定义行动代号词汇"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "自定义卡牌组"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "自定义秒数"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "自制分体键盘 (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "自定义词语..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "旅行/拍摄日期。"
 
 msgid "Day"
 msgstr "白天"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "日游/一日游"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "发下一局板子"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "申辩计时器"
 
 msgid "Definition"
-msgstr ""
+msgstr "定义"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "讨论线索或指控嫌疑人..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "讨论"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "讨论轮次计时器"
 
 msgid "Display Name"
-msgstr ""
+msgstr "显示名称"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "医生护盾抵挡狙击手:"
 
 msgid "Done"
-msgstr ""
+msgstr "完成"
 
 msgid "Education"
-msgstr ""
+msgstr "教育经历"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "电子/嵌入式 (部分 Rust 嵌入式)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "启用伪装者最后逆转机会"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "启用致命禁忌地雷词"
 
 msgid "End Board"
-msgstr ""
+msgstr "结束当前棋盘"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "结束猜测回合"
 
 msgid "End Match"
-msgstr ""
+msgstr "结束对局"
 
 msgid "English"
-msgstr ""
+msgstr "英语"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "进入游戏"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "进入房间"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "输入房间代码 (例如 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "导出 JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "失败"
 
 msgid "Finished"
-msgstr ""
+msgstr "已结束"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "GM 控制台"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "GM 导播控制台:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM 模式: 已锁定"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM 口头猜测模式"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM 口头模式: 开启"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM 口头间谍首脑模式"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "游戏主持人 (GM) 显示名称"
 
 msgid "Game Over"
-msgstr ""
+msgstr "游戏结束"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "游戏房间"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "游戏规则与计时器"
 
 msgid "Game not found."
-msgstr ""
+msgstr "未找到游戏。"
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "游戏房间不存在。"
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "游戏词汇、线索与界面支持 %(lang)s。"
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "给出一个单字词线索"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "在不暴露目标词且不踩中隐藏致命禁忌词的前提下，给出间接的单字词线索。主持人也可无剧透盲玩！"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "猜出平民词以逆转夺胜..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "剩余猜测次数"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "猜测阶段"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "业余无线电 (英国 Foundation 执照)"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "持有游戏主持人提供的 8 位代码？在此输入即可直接加入："
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "隐藏身份卡图层"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "徒步与登山"
 
 msgid "Hobbies"
 msgstr "爱好"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "长按查看秘密身份:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "家庭自动化与家庭实验室 (Homelab)"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "水平对焦点: 0=居左, 50=居中, 100=居右。"
 
 msgid "Host Controls"
-msgstr ""
+msgstr "主持人控制项"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "主持人游戏设置"
 
 msgid "Host Room"
-msgstr ""
+msgstr "主持房间"
 
 msgid "I code, take pics and many other things"
 msgstr "我写代码、拍照，以及很多其他事情"
@@ -474,919 +474,919 @@ msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "若启用，医生的护盾可保护狼人免遭狙击手击杀。(禁用 = 狙击手穿透医生护盾)。"
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "若设置，通过二维码加入将自动验证玩家。(💡 演示技巧：GM 名称包含 Marco 且密码为 test 时将自动填充 10 名测试玩家用于现场演示)。"
 
 msgid "In Progress"
-msgstr ""
+msgstr "进行中"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "房间密码不正确。"
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Instagram 4:5 预览"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Instagram 4:5 图片"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "无效的游戏主持人密钥。"
 
 msgid "Invite Players"
-msgstr ""
+msgstr "邀请玩家"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "邀请玩家进入房间"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "邀请二维码"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "现在不是你提交线索的回合。"
 
 msgid "Join"
-msgstr ""
+msgstr "加入"
 
 msgid "Join Game"
-msgstr ""
+msgstr "加入游戏"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "加入狼人杀游戏"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "加入红队或蓝队以开始"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "作为特工加入"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "作为玩家加入"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "作为间谍首脑加入"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "使用房间代码加入"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "内奸的最后盗取机会！"
 
 msgid "Languages"
-msgstr ""
+msgstr "语言"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "最后更新：2026年10月27日"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "后来者将作为已确认旅人、城镇幽灵或继任者加入。"
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "创建狼人杀房间"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "留空以允许公开加入"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "让该玩家用手机扫码，以接管其专属的间谍首脑/特工界面。"
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "致命禁忌词（可选的即时淘汰陷阱）"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "地狱与天使机制："
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "地狱结算"
 
 msgid "Listen to"
-msgstr ""
+msgstr "收听"
 
 msgid "Listening"
-msgstr ""
+msgstr "正在收听"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "实时聊天与猜测流"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "存活与出局玩家提交早间谣言，将在黎明时宣读。"
 
 msgid "Lobby"
-msgstr ""
+msgstr "大厅"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "大厅（等待玩家）"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "为桌面间谍首脑记录线索"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "人狼 / 狼人杀"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "狼人杀活跃房间与集散中心"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "狼人杀游戏"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "狼人杀派对游戏"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "塔布拉狼人 - 活跃房间与游戏中心"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "塔布拉狼人 / 狼人杀"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "对局结束"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "对局领奖台与精彩集锦"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "对局回放与尝试时间线"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "对局回放与棋盘归档"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "对局规则"
 
 msgid "Message..."
-msgstr ""
+msgstr "消息..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "中途加入者："
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "主持人投票控制 — 在下方选择玩家与嫌疑人，或点击桌面上的胶囊与座位："
 
 msgid "Move..."
-msgstr ""
+msgstr "移动..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "新游戏 / 重新发牌"
 
 msgid "Next Round"
-msgstr ""
+msgstr "下一轮"
 
 msgid "Next day"
-msgstr ""
+msgstr "次日"
 
 msgid "Night"
 msgstr "夜晚"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "当前暂无进行中的狼人杀游戏"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "尚未生成 Instagram 裁剪图。"
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "尚未发布任何线索。"
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "暂无已完成的机密代号棋盘。完成棋盘或提前结束即可在此查看完整的钥匙卡回放。"
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "无可用词典释义。"
 
 msgid "No turns logged."
-msgstr ""
+msgstr "未记录任何回合。"
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "官方400词 5×5 团队推理棋盘，具备 Wikisaurus 间谍首脑 AI 线索、隐私钥匙卡切换以及口头/桌面面对面玩法。"
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "官方经典400词"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "一词线索..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "仅允许输入表情符号 — 文本字符已被忽略。"
 
 msgid "Open"
-msgstr ""
+msgstr "开放"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "开放（大厅）"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "打开主持人控制台"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "打开生成器"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "打开玩家链接"
 
 msgid "Open slot"
-msgstr ""
+msgstr "空位"
 
 msgid "Operative"
-msgstr ""
+msgstr "特工"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "特工思考秒数（0=∞）"
 
 msgid "Operatives"
-msgstr ""
+msgstr "特工们"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "特工正在猜测"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "特工正在选择本轮的卡牌。"
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "特工正在猜测！"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "对方团队正在猜测。等待他们弃权或点击错误。"
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "或输入自定义提示词/短语..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "口述间谍首脑模式（主持人记录）"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "原始相机 RAW 文件（CR3、ARW、NEF 等）"
 
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "户外"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "页面未找到 — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "参战主持人控制台（零剧透）"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "跳过 / 错误"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "跳过回合（主持人）"
 
 msgid "Password"
 msgstr "密碼"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "密码保护"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "以往及已结束的游戏"
 
 msgid "Pause"
-msgstr ""
+msgstr "暂停"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "暂停计时器"
 
 msgid "Pending"
-msgstr ""
+msgstr "待处理"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "个人玩家二维码"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "个人二维码"
 
 msgid "Photography"
-msgstr ""
+msgstr "摄影"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "选择 1 个词和卡片数量。你的特工必须根据你的线索进行猜测。"
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "选择桌上其他人熟悉的名字。"
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "选择游戏、语言和房间设置 — 准备好后分享链接或二维码。"
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "玩家资料与个人二维码"
 
 msgid "Player QR"
-msgstr ""
+msgstr "玩家二维码"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "玩家重连二维码"
 
 msgid "Player name..."
-msgstr ""
+msgstr "玩家名称..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "玩家与得分"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "请输入玩家名称。"
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "请输入有效的房间代码。"
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "毒词（伪装者 / 醉汉）"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "毒词模式"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "葡萄牙语 · 芬兰赫尔辛基"
 
 msgid "Previous day"
-msgstr ""
+msgstr "前一天"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "RAW 文件下载价格。"
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "隐私政策"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "隐私政策 - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "隐私政策 - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "防窥遮罩可防止牌局桌上的窥视。"
 
 msgid "Processing"
-msgstr ""
+msgstr "处理中"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Prompt Tool"
 
 msgid "Public"
-msgstr ""
+msgstr "公开"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "发布线索"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "可购买 RAW"
 
 msgid "RAW file"
-msgstr ""
+msgstr "RAW 文件"
 
 msgid "RAW price"
-msgstr ""
+msgstr "RAW 价格"
 
 msgid "Reading"
-msgstr ""
+msgstr "阅读"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "实时多人网页派对游戏。无需注册账号 — 随时加入与好友畅玩。"
 
 msgid "Red"
 msgstr "紅色"
 
 msgid "Red Left"
-msgstr ""
+msgstr "红队剩余"
 
 msgid "Red Team"
-msgstr ""
+msgstr "红队"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "红队获胜！"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "重置画板"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "为所选照片重新生成 4:5 Instagram 裁剪图"
 
 msgid "Replay"
-msgstr ""
+msgstr "回放"
 
 msgid "Reroll"
-msgstr ""
+msgstr "重新掷骰"
 
 msgid "Resume"
-msgstr ""
+msgstr "继续"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "以 %(name)s 身份返回"
 
 msgid "Reveal"
-msgstr ""
+msgstr "揭晓"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "死亡时公开身份："
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "身份隐藏"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "身份、阶段与界面已本地化为 %(lang)s。"
 
 msgid "Room Chat"
-msgstr ""
+msgstr "房间聊天"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "房间聊天与事件"
 
 msgid "Room Code"
-msgstr ""
+msgstr "房间代码"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "房间代码:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "房间密码"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "房间密码（可选）"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "房间设置"
 
 msgid "Room Title"
-msgstr ""
+msgstr "房间标题"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "未找到房间代码“%(code)s”或该房间已失效。"
 
 msgid "Rooms"
-msgstr ""
+msgstr "房间"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "房间按需创建并保留 24 小时。开启新游戏局并邀请好友吧！"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "每局新画板轮换队长"
 
 msgid "Round"
-msgstr ""
+msgstr "回合"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "本轮线索"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "逐轮回放与尝试日志"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "轮次（线索循环）"
 
 msgid "Running"
-msgstr ""
+msgstr "运行中"
 
 msgid "Save Name"
-msgstr ""
+msgstr "保存名称"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "在其他设备上扫描即可直接恢复你的间谍队长/特工席位。"
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "使用手机摄像头扫描此二维码立即加入："
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "扫描此个人二维码可在不丢失密牌的情况下切换设备："
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "扫描此二维码将你的会话与得分转移到其他手机或浏览器："
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "通过名称、同义词、拼写错误或语言搜索表情符号（例如 fire、crown、fogo、φωτιά）..."
 
 msgid "Send"
-msgstr ""
+msgstr "发送"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "发送 Instagram 轮播包至 Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "服务器错误 — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "设置"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "正在设置队伍..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "显示身份与词语"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "显示间谍队长密匙卡"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "沉默阶段"
 
 msgid "Skills"
-msgstr ""
+msgstr "技能"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "跳过回合"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "被杀死的玩家不会直接出局，而是进入一次地狱边缘（Limbo）。若猜中谁是天使即可复活！"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "融合了毒词陷阱、致命禁忌、最后抢夺机会以及主持人同乐的社交推理游戏。"
 
 msgid "Spanish"
-msgstr ""
+msgstr "西班牙语"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "发言者（口头线索）："
 
 msgid "Speaking"
-msgstr ""
+msgstr "正在发言"
 
 msgid "Spectator"
-msgstr ""
+msgstr "旁观者"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "旁观者 / 非玩家"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "观战模式（跳过我的回合）"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "间谍首脑"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "间谍首脑时间（秒，0=∞）"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "间谍首脑正在思考线索..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "摇摆医生："
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "标准限时（90秒 / 90秒）"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "开始机密代号"
 
 msgid "Start Match"
-msgstr ""
+msgstr "开始比赛"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "提前开始投票"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "起始身份牌组预设"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "抢答推测"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "抢答计时器（秒，0 = ∞）"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "抢答胜利！"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "分步黑夜阶段、吹牛检举与投票管理。"
 
 msgid "Submit"
-msgstr ""
+msgstr "提交"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "提交线索"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "提交玩家投票"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "牌桌讨论与事件日志"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "桌面优先 Lupus 亮点"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "以桌面面对面为先的狼人杀与黑手党聚会派对游戏。无需注册登录账号。主持人掌控全局，玩家只需通过手机查看秘密身份并完成投票。"
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "桌面优先的混合型聚会派对游戏。无需注册或登录账号。玩家扫描二维码加入，你作为主持人掌控游戏。"
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "具备秘密身份、实时投票、城镇公报及主持人控制台的桌面优先聚会游戏。"
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "立即计票"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "当玩家大声猜词时，点击棋盘上的卡牌。"
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "点击棋盘上与线索相符的卡牌。推测完毕或不确定时，点击“结束推测回合”。"
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "目标"
 
 msgid "Techy"
-msgstr ""
+msgstr "科技风"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "服务条款"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "服务条款 - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "服务条款 - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "医生 / 守卫不能连续两晚保护同一个人。"
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "由于完整词汇数据暂不可用，界面语言使用 %(lang)s，而游戏内容将回退为英文。"
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "主题与词汇"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "时间限制预设"
 
 msgid "Toggle"
-msgstr ""
+msgstr "切换"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "切换观战模式"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "城镇公报："
 
 msgid "Town Voting"
-msgstr ""
+msgstr "城镇投票"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "回合顺序"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "回合计时器（秒，0 = ∞）"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "回合计时器"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "输入消息或推测..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "输入线索或口头所说的内容..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "输入你的推测（或使用聊天框）..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "仅限 UI"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "无法加载玩家二维码。"
 
 msgid "Unassigned"
-msgstr ""
+msgstr "未分配"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "无限制"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "解锁房间"
 
 msgid "Untimed"
-msgstr ""
+msgstr "不限时"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "不限时（轻松沙发模式）"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "使用提示词"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "使用表情键盘或点击下方的表情符号..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "垂直焦点：0=顶部，50=居中，100=底部。"
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "村民、狼人、预言家"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "投票计时器（秒，0 = ∞）"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "投票给玩家："
 
 msgid "Voting"
-msgstr ""
+msgstr "投票"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "正在等待线索..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "正在等待房主配置队伍并开启棋盘..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "正在大厅等待..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Werewolf / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "是否通过边缘显著性自动计算了焦点坐标。"
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI 线索建议（点击自动填入）"
 
 msgid "Wins"
-msgstr ""
+msgstr "获胜次数"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "专为与好友进行经典纸笔画画游戏打造的词语与句子提示生成器。"
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "词库包"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "工作经历"
 
 msgid "Writing"
-msgstr ""
+msgstr "正在撰写"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "访问此页面需要获得授权的密钥。"
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "姓名 / 昵称"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "你的特工正在商议。请务必保持面无表情——切勿作出任何反应或提示！"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "个人重新连接二维码"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "暗号密语"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "你的间谍首脑"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "轮到你猜测了！"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "间谍首脑，轮到你了！"
 
 msgid "actions"
-msgstr ""
+msgstr "操作"
 
 msgid "adjective"
-msgstr ""
+msgstr "形容词"
 
 msgid "ago"
-msgstr ""
+msgstr "前"
 
 msgid "alive"
-msgstr ""
+msgstr "存活"
 
 msgid "all"
-msgstr ""
+msgstr "全部"
 
 msgid "all categories"
-msgstr ""
+msgstr "所有分类"
 
 msgid "all day"
-msgstr ""
+msgstr "全天"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "并在下方发布线索。"
 
 msgid "animals"
-msgstr ""
+msgstr "动物"
 
 msgid "any"
-msgstr ""
+msgstr "任意"
 
 msgid "aperture"
-msgstr ""
+msgstr "光圈"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "检测到自动对焦"
 
 msgid "available for sale"
-msgstr ""
+msgstr "可购买"
 
 msgid "best guess"
-msgstr ""
+msgstr "最佳猜测"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "相机制造商"
 
 msgid "camera model"
-msgstr ""
+msgstr "相机型号"
 
 msgid "category:"
-msgstr ""
+msgstr "分类："
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "清除"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "共同准备 + 提示"
 
 msgid "create"
 msgstr "創造"
 
 msgid "create room"
-msgstr ""
+msgstr "创建房间"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "裁剪焦点 X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "裁剪焦点 Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "日期"
 
 msgid "description"
-msgstr ""
+msgstr "描述"
 
 msgid "difficulty"
-msgstr ""
+msgstr "难度"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "难度："
 
 msgid "download .ics"
-msgstr ""
+msgstr "下载 .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "例如 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "例如 Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "简单"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "绘文字时间："
 
 msgid "end"
 msgstr "結束"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "输入密码以查看日历。"
 
 msgid "extract event"
-msgstr ""
+msgstr "提取日程"
 
 msgid "focal length"
-msgstr ""
+msgstr "焦距"
 
 msgid "food & drink"
-msgstr ""
+msgstr "美食与饮品"
 
 msgid "gallery"
 msgstr "藝廊"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "图库扩展"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "图库扩展"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "未找到图库。"
 
 msgid "game"
 msgstr "遊戲"
@@ -1398,319 +1398,319 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "猜测"
 
 msgid "guess time:"
-msgstr ""
+msgstr "猜测时间："
 
 msgid "hard"
-msgstr ""
+msgstr "困难"
 
 msgid "home"
 msgstr "首页"
 
 msgid "ics maker"
-msgstr ""
+msgstr "ics 制作器"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "正在猜测"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "正在为队伍构思线索。"
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "正在构思线索，请稍候！"
 
 msgid "join"
-msgstr ""
+msgstr "加入"
 
 msgid "latest posts"
 msgstr "最新文章"
 
 msgid "latitude"
-msgstr ""
+msgstr "纬度"
 
 msgid "lens"
 msgstr "透鏡"
 
 msgid "location"
-msgstr ""
+msgstr "位置"
 
 msgid "location name"
-msgstr ""
+msgstr "地点名称"
 
 msgid "longitude"
-msgstr ""
+msgstr "经度"
 
 msgid "map view"
-msgstr ""
+msgstr "地图视图"
 
 msgid "medium"
-msgstr ""
+msgstr "中等"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "留言（选填）"
 
 msgid "mode"
-msgstr ""
+msgstr "模式"
 
 msgid "mode:"
-msgstr ""
+msgstr "模式："
 
 msgid "movies"
-msgstr ""
+msgstr "电影"
 
 msgid "new word"
-msgstr ""
+msgstr "新词"
 
 msgid "next →"
-msgstr ""
+msgstr "下一页 →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "没有活跃的房间。创建一个吧！"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "暂无图库。"
 
 msgid "no posts yet."
-msgstr ""
+msgstr "暂无文章。"
 
 msgid "noun"
-msgstr ""
+msgstr "名词"
 
 msgid "older →"
-msgstr ""
+msgstr "上一页 →"
 
 msgid "original"
-msgstr ""
+msgstr "原始"
 
 msgid "password"
 msgstr "密碼"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "密码（选填）"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "在此粘贴活动详情..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "粘贴包含活动详情的文本或链接，以获取 .ics 文件。"
 
 msgid "people & characters"
-msgstr ""
+msgstr "人物与角色"
 
 msgid "photo"
-msgstr ""
+msgstr "照片"
 
 msgid "photo extension"
-msgstr ""
+msgstr "照片扩展"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "照片扩展"
 
 msgid "photo map"
-msgstr ""
+msgstr "照片地图"
 
 msgid "photo not found."
-msgstr ""
+msgstr "未找到照片。"
 
 msgid "photos"
 msgstr "照片"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "照片（多选）"
 
 msgid "phrases"
-msgstr ""
+msgstr "短语"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "选择选项，点击按钮，开始画！"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "地点与旅行"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "再玩一次"
 
 msgid "players"
-msgstr ""
+msgstr "玩家"
 
 msgid "press the button to get a word"
-msgstr ""
+msgstr "点击按钮获取单词"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "私密（隐藏猜测）"
 
 msgid "processing status"
-msgstr ""
+msgstr "处理状态"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "公开（显示猜测）"
 
 msgid "request"
-msgstr ""
+msgstr "请求"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "重掷："
 
 msgid "reveal"
-msgstr ""
+msgstr "揭晓"
 
 msgid "room language"
-msgstr ""
+msgstr "房间语言"
 
 msgid "room password"
-msgstr ""
+msgstr "房间密码"
 
 msgid "round robin"
-msgstr ""
+msgstr "循环赛"
 
 msgid "rounds:"
-msgstr ""
+msgstr "回合："
 
 msgid "send"
-msgstr ""
+msgstr "发送"
 
 msgid "sentence"
-msgstr ""
+msgstr "句子"
 
 msgid "shutter speed"
-msgstr ""
+msgstr "快门速度"
 
 msgid "skip"
-msgstr ""
+msgstr "跳过"
 
 msgid "songs"
-msgstr ""
+msgstr "歌曲"
 
 msgid "start"
 msgstr "開始"
 
 msgid "start game"
-msgstr ""
+msgstr "开始游戏"
 
 msgid "text"
 msgstr "課文"
 
 msgid "things"
-msgstr ""
+msgstr "物品"
 
 msgid "title"
-msgstr ""
+msgstr "标题"
 
 msgid "title is required"
-msgstr ""
+msgstr "标题为必填项"
 
 msgid "today"
-msgstr ""
+msgstr "今天"
 
 msgid "tv shows"
-msgstr ""
+msgstr "电视节目"
 
 msgid "type"
-msgstr ""
+msgstr "类型"
 
 msgid "upload"
-msgstr ""
+msgstr "上传"
 
 msgid "upload photos"
-msgstr ""
+msgstr "上传照片"
 
 msgid "url"
 msgstr "url"
 
 msgid "verb"
-msgstr ""
+msgstr "动词"
 
 msgid "view full resolution ↗"
-msgstr ""
+msgstr "查看完整分辨率 ↗"
 
 msgid "view on map"
-msgstr ""
+msgstr "在地图上查看"
 
 msgid "waiting for clue..."
-msgstr ""
+msgstr "等待线索..."
 
 msgid "waiting for players..."
-msgstr ""
+msgstr "等待玩家..."
 
 msgid "watermarked"
-msgstr ""
+msgstr "已加水印"
 
 msgid "watermarked image"
-msgstr ""
+msgstr "带水印图片"
 
 msgid "web"
-msgstr ""
+msgstr "网页"
 
 msgid "web-optimized image"
-msgstr ""
+msgstr "网页优化图片"
 
 msgid "week"
-msgstr ""
+msgstr "周"
 
 msgid "what is %(a)s + %(b)s?"
-msgstr ""
+msgstr "%(a)s + %(b)s 等于多少？"
 
 msgid "word"
-msgstr ""
+msgstr "单词"
 
 msgid "work in progress — check back soon."
-msgstr ""
+msgstr "内容正在完善中 — 请稍后再来查看。"
 
 msgid "wrong captcha"
-msgstr ""
+msgstr "验证码错误"
 
 msgid "wrong password"
-msgstr ""
+msgstr "密码错误"
 
 msgid "your email"
-msgstr ""
+msgstr "电子邮箱"
 
 msgid "your name"
-msgstr ""
+msgstr "姓名"
 
 msgid "— none —"
-msgstr ""
+msgstr "— 无 —"
 
 msgid "← all galleries"
-msgstr ""
+msgstr "← 所有相册"
 
 msgid "← all posts"
-msgstr ""
+msgstr "← 所有文章"
 
 msgid "← back home"
-msgstr ""
+msgstr "← 返回首页"
 
 msgid "← galleries"
-msgstr ""
+msgstr "← 相册"
 
 msgid "← newer"
-msgstr ""
+msgstr "← 较新文章"
 
 msgid "← prev"
-msgstr ""
+msgstr "← 上一页"
 
 msgid "↓ Download PDF"
-msgstr ""
+msgstr "↓ 下载 PDF"
 
 msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)"
-msgstr ""
+msgstr "⚡ 混乱与特殊角色（头狼、禁言师、侦探、医生、狙击手、市长、女巫...）"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ 完整内容 + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 仅 UI（英文单词）"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,28 +1719,28 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus 大厅与房间"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 创建 lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
-msgstr ""
+msgstr "👼 灵薄狱与天使（狼人 + 侦探 + 医生 + 天使 + 狙击手 + 村民）"
 
 msgid "💡 In Limbo games, role revelation strictly occurs on permanent death (\"death death\"), never while hovering in Limbo."
-msgstr ""
+msgstr "💡 在灵薄狱对局中，角色身份仅在真正死亡（“彻底死亡”）时严格揭晓，处于灵薄狱徘徊状态时绝不公开。"
 
 msgid "💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting."
-msgstr ""
+msgstr "💡 牌组会自动根据加入的玩家人数进行适配。开始游戏前，您可以在游戏前大厅实时微调每个角色以及阵营的善恶平衡。"
 
 msgid "🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers)"
-msgstr ""
+msgstr "🔍 标准（狼人 + 侦探/先知 + 医生/守卫 + 村民）"
 
 msgid "🕵️ Word Impostor"
 msgstr "🕵️ Word Impostor"
 
 msgid "🧑 Simple / Classic (No special powers — pure Wolves vs Villagers)"
-msgstr ""
+msgstr "🧑 简单 / 经典（无特殊能力 — 纯粹的狼人对决村民）"
 
 msgid "🧩 Codenames"
 msgstr "🧩 Codenames"

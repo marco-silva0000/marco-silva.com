@@ -9,10 +9,10 @@ msgid "+ Create Room"
 msgstr "+ Sortu gela"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Ostatu gela berria"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Joko berria"
 
 msgid "+ create room"
 msgstr "+ Sortu gela"
@@ -33,13 +33,13 @@ msgid "1. Overview"
 msgstr "1. Ikuspegi orokorra"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Taldeen eta rolen konfigurazioa"
 
 msgid "10 Minutes"
 msgstr "10 minutu"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "1. asmatzeak txanda amaitzen du"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — Fakzioa / Taldea (\"Herria\", \"Gizotsoak\", \"Neutrala\" iragartzen du)"
@@ -51,7 +51,7 @@ msgid "2. Permitted Use"
 msgstr "2. Baimendutako erabilera"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Gela eta mahaiaren ezarpenak (Ostalaria)"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 minutu (Azkarra)"
@@ -111,46 +111,46 @@ msgid "Access Denied"
 msgstr "Sarbidea Ukatua"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Salatu:"
 
 msgid "Active"
 msgstr "Aktibo"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Aztarna aktiboa"
 
 msgid "Active Lupus Rooms"
 msgstr "Lupus gela aktiboak"
 
 msgid "Add"
-msgstr ""
+msgstr "Gehitu"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Gehitu pista"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Gehitu ahozko / mahaiko jokalaria"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Gehitu ahozko / mahaiko jokalaria (zuzenean talde batera)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Gehitu jokalaria"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Gehitu bikote pertsonalizatu sekretua"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Gehitu barne-txantxetako hitz pertsonalizatuak gela honetan banatuko diren etorkizuneko tauletan nahasteko."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Gehitu ahozko / mahaiko jokalariaren izena..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Gehitu sortara"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Agenteak eta espioi-maisuak"
 
 msgid "All Active Rooms"
 msgstr "Gela aktibo guztiak"
@@ -159,73 +159,73 @@ msgid "All Games"
 msgstr "Joko guztiak"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Asmakizun eta pista guztiak hemen agertzen dira"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Baimendu ostalariari ahozko aztarnak erregistratzea eta mahaiko jokalarientzako txartelak sakatzea"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Baimendu jokalarien bikote pertsonalizatuen sorta"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Baimendu hitz pertsonalizatuak"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Baimendu jokalariei hitz pertsonalizatuak gehitzea"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Aplikatu Creative Commons Aitortu-EzKomertziala-PartekatuBerdin lizentzia eta ur-marka."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Auto-orekatzea"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Taldeak auto-orekatu"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Zenbatu automatikoki jokalari guztiek botoa eman ondoren"
 
 msgid "Back to Active Lupus Rooms"
 msgstr "Itzuli Lupus gela aktiboetara"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Itzuli atarira"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Itzuli atarira / Jokatu berriro"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Atzera-tekla"
 
 msgid "Blue"
 msgstr "Urdin"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Urdinak falta dira"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Talde urdina"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Talde urdinak irabazi du!"
 
 msgid "Board"
-msgstr ""
+msgstr "Taula"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Taula osatua"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Taula amaituta"
 
 msgid "Browse Active Lupus Rooms"
 msgstr "Arakatu Lupus gela aktiboak"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Arakatu gunea"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Eraiki zure emoji aztarna:"
 
 msgid "CC BY-NC-SA license"
 msgstr "CC BY-NC-SA lizentzia"
@@ -240,25 +240,25 @@ msgid "Calendar navigation"
 msgstr "Egutegiko nabigazioa"
 
 msgid "Category"
-msgstr ""
+msgstr "Kategoria"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Herritarraren hitza (Gehiengoa)"
 
 msgid "Civilians, Mobsters, Cop"
 msgstr "Herritarrak, Mafiosoak, Polizia"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Klasikoa + Festa pakete hedatua"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Aztarnen fasea"
 
 msgid "Clues"
-msgstr ""
+msgstr "Aztarnak"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Aztarnen eta ukituen erregistroa"
 
 msgid "Cockpit"
 msgstr "Aginte-panela"
@@ -270,10 +270,10 @@ msgid "Conferences"
 msgstr "Hitzaldiak"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Edukia + EI"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopiatu"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "Sortu Lupus / Otsogizon gela"
@@ -285,19 +285,19 @@ msgid "Curated"
 msgstr "Hautatua"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Codenames hitz pertsonalizatua"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Karta-sorta pertsonalizatua"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Segundo pertsonalizatuak"
 
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "Teklatu zatitu pertsonalizatuak (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Hitz pertsonalizatua..."
 
 msgid "Date of the trip/shoot."
 msgstr "Bidaiaren/argazki-saioaren data."
@@ -309,16 +309,16 @@ msgid "Day Trip"
 msgstr "Eguneko txangoa"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Banatu hurrengo mahaia"
 
 msgid "Defense Timer"
 msgstr "Defentsarako tenporizadorea"
 
 msgid "Definition"
-msgstr ""
+msgstr "Definizioa"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Eztabaidatu aztarnak edo leporatu susmagarriei..."
 
 msgid "Discussion"
 msgstr "Eztabaida"
@@ -327,7 +327,7 @@ msgid "Discussion Round Timer"
 msgstr "Eztabaida-txandaren tenporizadorea"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Bistaratze-izena"
 
 msgid "Doctor Shields From Sniper:"
 msgstr "Medikuak frankotiratzailearengandik babesten du:"
@@ -342,19 +342,19 @@ msgid "Electronics/embedded (some rust embedded)"
 msgstr "Elektronika/sistema txertatuak (Rust txertatu pixka bat)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Gaitu azken aukerako iruzurgilearen lapurreta"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Gaitu Taboo pozoi-hitz hilgarria"
 
 msgid "End Board"
-msgstr ""
+msgstr "Amaitu mahaia"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Amaitu asmatze-txanda"
 
 msgid "End Match"
-msgstr ""
+msgstr "Amaitu partida"
 
 msgid "English"
 msgstr "Ingelesa"
@@ -369,7 +369,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "Sartu gelaren kodea (adib. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Esportatu JSON"
 
 msgid "Failed"
 msgstr "Huts egin du"
@@ -387,16 +387,16 @@ msgid "GM Director Cockpit:"
 msgstr "GM Zuzendariaren Aginte-panela:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM modua: Blokeatuta"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM ahozko asmatze-modua"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM ahozko modua: AKTIBATUTA"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM ahozko espioi-buru modua"
 
 msgid "Game Master Display Name"
 msgstr "Joko-zuzendariaren (GM) Izena"
@@ -417,22 +417,22 @@ msgid "Game room does not exist."
 msgstr "Joko-gela ez da existitzen."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Jokoaren hitzak, aztarnak eta interfazea %(lang)s hizkuntzan onartzen dira."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Eman hitz bakarreko aztarna bat"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Eman hitz bakarreko zeharkako aztarnak hitza agerian utzi gabe edo ezkutuko Lethal Taboo pozoi-hitza zapaldu gabe. Ostalariak ere itsu-itsuan jokatzen du spoilerrik gabe!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Asmatu herritarraren hitza garaipena lapurtzeko..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Geratzen diren asmatzeak"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Asmatze-fasea"
 
 msgid "Ham radio, UK foundation license"
 msgstr "Irratizalea, Erresuma Batuko Foundation lizentzia"
@@ -441,7 +441,7 @@ msgid "Have an 8-character code from your Game Master? Enter it here to jump str
 msgstr "Zure Joko-zuzendariaren 8 karaktereko kodea duzu? Sartu hemen zuzenean sartzeko:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Ezkutatu gako-txartelaren gainjarpena"
 
 msgid "Hiking and climbing"
 msgstr "Mendi-ibiliak eta eskalada"
@@ -459,13 +459,13 @@ msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "Foku-puntu horizontala: 0=ezkerra, 50=erdia, 100=eskuina."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Ostalariaren kontrolak"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Ostalariaren joko-ezarpenak"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Ostalari gela"
 
 msgid "I code, take pics and many other things"
 msgstr "Programatu, argazkiak atera eta beste hainbat gauza egiten ditut"
@@ -495,16 +495,16 @@ msgid "Invalid Game Master secret key."
 msgstr "Joko Zuzendariaren gako sekretu baliogabea."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Gonbidatu jokalariak"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Gonbidatu jokalariak gelara"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "Gonbidapen QR-a"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Ez da zure txanda aztarna bat bidaltzeko."
 
 msgid "Join"
 msgstr "Sartu"
@@ -516,16 +516,16 @@ msgid "Join Lupus Game"
 msgstr "Sartu Lupus jokoan"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Batu Talde Gorrira edo Urdinera hasteko"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Batu Operatibo gisa"
 
 msgid "Join as Player"
 msgstr "Sartu jokalari gisa"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Batu Espioi-maisu gisa"
 
 msgid "Join with Room Code"
 msgstr "Sartu gelaren kodearekin"
@@ -534,7 +534,7 @@ msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "AZKEN AUKERAKO IRUZURTIE HAU LAPURKETA!"
 
 msgid "Languages"
 msgstr "Hizkuntzak"
@@ -552,10 +552,10 @@ msgid "Leave empty for public join"
 msgstr "Utzi hutsik sarrera publikorako"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Utzi jokalari honi bere telefonoan eskaneatzen bere Espioi-maisu/Operatibo ikuspegi pertsonala hartzeko."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Hitz Tabu Hilgarria (Berehalako kanporatze-tranpa hautazkoa)"
 
 msgid "Limbo"
 msgstr "Limbo"
@@ -567,13 +567,13 @@ msgid "Limbo Resolution"
 msgstr "Linboaren ebazpena"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Entzun"
 
 msgid "Listening"
 msgstr "Entzundakoa"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Zuzeneko Txata eta Asmatze-korrontea"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "Jokalari biziek eta hildakoek goizeko zurrumurruak bidaltzen dituzte egunsentian ozen irakurtzeko."
@@ -585,10 +585,10 @@ msgid "Lobby (Waiting for Players)"
 msgstr "Itxarongela (jokalarien zain)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Erregistratu Mahaiko Espioi-maisuarentzako Argibidea"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Otsoa"
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "Lupus-eko Gela Aktiboak eta Gunea"
@@ -609,37 +609,37 @@ msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Partida amaituta"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Partidako Podioa eta Nabarmenenak"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Partidaren Errepikapena eta Saiakeren Denbora-lerroa"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Partidaren Errepikapena eta Taularen Artxiboa"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Partidako Arauak"
 
 msgid "Message..."
-msgstr ""
+msgstr "Mezua..."
 
 msgid "Midgame Arrivals:"
 msgstr "Partida erdian sartutakoak:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Moderatzailearen Boto Kontrolak — Hautatu jokalari bat eta susmagarria behean, edo sakatu pilula bat eta mahaiko eserlekua:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Mugitu..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Joko Berria / Berriz marraztu"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Hurrengo Txanda"
 
 msgid "Next day"
 msgstr "Hurrengo eguna"
@@ -654,28 +654,28 @@ msgid "No Instagram crop generated yet."
 msgstr "Ez da oraindik Instagrameko mozketarik sortu."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Oraindik ez da argibiderik argitaratu."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Oraindik ez dago amaitutako Codenames-en taularik. Amaitu taula bat edo bukatu lehenago gako-txartelaren errepikapen osoa hemen ikusteko."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Ez dago hiztegi-definiziorik eskuragarri."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Ez da txandarik erregistratu."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Talde-dedukziorako 400 hitzeko 5×5 taula ofiziala, Wikisaurus Spymaster AIren argibideekin, Keycard aldatze pribatuarekin eta ahozko/mahaiko jokoarekin."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "400 Hitz Klasiko Ofizialak"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Hitz bakarreko argibidea..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Emojiak soilik onartzen dira — testu-karaktereak baztertu egin dira."
 
 msgid "Open"
 msgstr "Irekita"
@@ -687,40 +687,40 @@ msgid "Open GM Cockpit"
 msgstr "Ireki GM Aginte-panela"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Ireki Sortzailea"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Ireki Jokalariaren Esteka"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Leku librea"
 
 msgid "Operative"
-msgstr ""
+msgstr "Operatiboa"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Operatiboaren Segundoak (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Operatiboak"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Operatiboak asmatzen ari dira"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Operatiboak txartelak aukeratzen ari dira txanda honetarako."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Operatiboak asmatzen ari dira!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Aurkako taldea asmatzen ari da. Itxaron txanda pasa dezaten edo ukitu oker bat egin dezaten."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Edo idatzi zure pertsonalizatutako gonbidapena/esaldia..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Espioi-maisu Ahozko Modua (Mod-en erregistroa)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "Kameraren jatorrizko RAW fitxategia (CR3, ARW, NEF, etab.)"
@@ -735,13 +735,13 @@ msgid "Page Not Found — Marco Silva"
 msgstr "Ez da orria aurkitu — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Ostalari Parte-hartzailearen Kontrolak (Spoilerrik gabe)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Pasa / Okerra"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Pasa Txanda (Mod)"
 
 msgid "Password"
 msgstr "Pasahitza"
@@ -753,46 +753,46 @@ msgid "Past & Finished Games"
 msgstr "Aurreko eta amaitutako partidak"
 
 msgid "Pause"
-msgstr ""
+msgstr "Pausatu"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Pausatu Tenporizadorea"
 
 msgid "Pending"
 msgstr "Zain"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Jokalariaren QR Pertsonala"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "QR pertsonala"
 
 msgid "Photography"
 msgstr "Argazkilaritza"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Hautatu hitz 1 eta karta kopuru bat. Zure Operatiboek zure pistaren arabera asmatu behar dute."
 
 msgid "Pick the name others at the table know you by."
 msgstr "Aukeratu mahaiko besteek ezagutzen zaituzten izena."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Aukeratu zure jokoa, hizkuntza eta gelaren ezarpenak — partekatu esteka edo QR kodea prest zaudenean."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Jokalariaren profila eta QR pertsonala"
 
 msgid "Player QR"
-msgstr ""
+msgstr "Jokalariaren QR-a"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "Jokalaria berriro konektatzeko QR-a"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Jokalariaren izena..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Jokalariak eta puntuazioak"
 
 msgid "Please enter a player name."
 msgstr "Mesedez, sartu jokalari-izen bat."
@@ -801,10 +801,10 @@ msgid "Please enter a valid room code."
 msgstr "Mesedez, sartu baliozko gela-kode bat."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Pozoi-hitza (Iruzurgilea / Mozkorra)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Pozoi-hitz modua"
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "Portugaldarra · Helsinki, Finlandia"
@@ -831,13 +831,13 @@ msgid "Processing"
 msgstr "Prozesatzen"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Prompt tresna"
 
 msgid "Public"
 msgstr "Publikoa"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Argitaratu pista"
 
 msgid "RAW available for purchase"
 msgstr "RAW erosteko eskuragarri"
@@ -858,16 +858,16 @@ msgid "Red"
 msgstr "Gorri"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Gorriak geratzen dira"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Talde Gorria"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Talde Gorriak irabazi du!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Berriro marraztu taula"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "Birsortu Instagrameko 4:5 mozketak hautatutako argazkietarako"
@@ -876,10 +876,10 @@ msgid "Replay"
 msgstr "Errepikapena"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Bota berriro"
 
 msgid "Resume"
-msgstr ""
+msgstr "Berrekin"
 
 msgid "Return as %(name)s"
 msgstr "Itzuli %(name)s gisa"
@@ -891,19 +891,19 @@ msgid "Reveal Roles on Death:"
 msgstr "Agerrarazi rolak hiltzean:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Rol ezkutua"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Rolak, faseak eta interfazea %(lang)s hizkuntzan daude lokalizatuta."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Gelako txata"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Gelako txata eta gertaerak"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Gela-kodea"
 
 msgid "Room Code:"
 msgstr "Gelaren kodea:"
@@ -924,49 +924,49 @@ msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "'%(code)s' gela-kodea ez da aurkitu edo jada ez dago aktibo."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Gelak"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "Gelak eskaeraren arabera sortzen dira eta 24 orduz egoten dira aktibo. Hasi joko-saio berri bat eta gonbidatu zure taldea!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Txandakatu Spymaster-ak taula berri bakoitzean"
 
 msgid "Round"
-msgstr ""
+msgstr "Txanda"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Txandako pistak"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Txandaz txandako errepikapena eta saiakera-erregistroa"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Txandak (Pisten zikloak)"
 
 msgid "Running"
 msgstr "Martxan"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Gorde izena"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Eskaneatu beste gailu batean zure Spymaster/Operatibo postua garbi berreskuratzeko."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Eskaneatu QR kode hau edozein telefonoren kamerarekin berehala bat egiteko:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Eskaneatu QR kode pertsonal hau gailuz aldatzeko zure karta sekretua galdu gabe:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Eskaneatu hau zure saioa eta puntuazioa beste telefono edo nabigatzaile batera eramateko:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Bilatu emojia izenaren, sinonimoaren, ortografia-akatsaren edo hizkuntzaren arabera (adib. fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
 msgstr "Bidali"
@@ -978,16 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "Zerbitzariaren errorea — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Multzoa"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Taldeak konfiguratzen..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Erakutsi rola eta hitza"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Erakutsi Spymaster giltza-karta"
 
 msgid "Silent Phase"
 msgstr "Fase isila"
@@ -996,82 +996,82 @@ msgid "Skills"
 msgstr "Trebetasunak"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Igaro txanda"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "Eraildako jokalariak Linboan sartzen dira behin zuzenean hil beharrean. Aingerua nor den asmatzen badute, berpiztu egiten dira!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Gizarte-dedukzioa Pozoi-hitzekin, Taboo tranpa hilgarriekin, Azken Aukerako Lapurretarekin eta parte hartzen duen Game Master-arekin."
 
 msgid "Spanish"
 msgstr "Gaztelania"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Hizlaria (ahozko pista):"
 
 msgid "Speaking"
 msgstr "Hitzaldiak"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Ikuslea"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Ikuslea / Ez-jokalaria"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Ikusle modua (Saltatu nire txandak)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Espioi-maisua"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Espioi-maisuaren segundoak (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Espioi-maisua pista bat pentsatzen ari da..."
 
 msgid "Staggering Doctor:"
 msgstr "Txandakako Medikua:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Denbora estandarra (90s / 90s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Hasi Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Hasi partida"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Hasi bozketan goiz"
 
 msgid "Starting Role Deck Preset"
 msgstr "Hasierako rol-sortaren aurrezarpena"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Lapurtzeko asmakizuna"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Lapurretaren tenporizadorea (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Lapurretaren bidezko garaipena!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "Urratsez urratseko gaueko faseak, farol-deiak eta bozketa-kudeatzailea."
 
 msgid "Submit"
-msgstr ""
+msgstr "Bidali"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Bidali pista"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Bidali jokalariaren botoa"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Mahaiko eztabaida eta gertaeren erregistroa"
 
 msgid "Table-First Lupus Highlights"
 msgstr "Mahai inguruko Lupus-en ezaugarri nagusiak"
@@ -1086,19 +1086,19 @@ msgid "Table-first party game with secret roles, live voting, Town Gazette, and 
 msgstr "Mahai inguruko festa-jokoa rol sekretuekin, zuzeneko bozketarekin, Herriko Aldizkariarekin eta Joko-zuzendariaren (GM) aginte-mahaiarekin."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Zenbatu botoak orain"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Ukitu arbeleko kartak jokalariek beren asmakizunak ozenki esan ahala."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Ukitu pistarekin bat datozen arbeleko kartak. Amaitutakoan edo ziur ez bazaude, ukitu Amaitu asmatzeko txanda."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Helburuak"
 
 msgid "Techy"
 msgstr "Teknologiazalea"
@@ -1116,19 +1116,19 @@ msgid "The Doctor / Guard cannot protect the same person two consecutive nights.
 msgstr "Medikuak / Bizkartzainak ezin du pertsona bera bi gau jarraian babestu."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Interfazeak %(lang)s erabiltzen du; jokoaren edukia, berriz, ingelesera itzultzen da, hiztegi-datu osoak ez daudelako erabilgarri."
 
 msgid "Theme & Terms"
 msgstr "Gaia eta terminologia"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Denbora-mugaren aurrezarpena"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Txandakatu"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Txandakatu ikusle modua"
 
 msgid "Town Gazette:"
 msgstr "Herriko Aldizkaria:"
@@ -1137,49 +1137,49 @@ msgid "Town Voting"
 msgstr "Herriaren bozketa"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Txanden sekuentzia"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Txandaren tenporizadorea (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Txanden tenporizadoreak"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Idatzi mezu bat edo asmakizun bat..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Idatzi pista edo ahoz esandakoa..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Idatzi zure asmakizuna (edo erabili txat-koadroa)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "UI soilik"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Ezin izan da jokalariaren QR kodea kargatu."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Esleitu gabea"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Mugagabea"
 
 msgid "Unlock Room"
 msgstr "Desblokeatu gela"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Denborarik gabe"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Denborarik gabe (Sofa modua lasaia)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Erabili gonbita"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Erabili zure emoji-teklatua edo ukitu beheko emojiak..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "Foku-puntu bertikala: 0=goian, 50=erdian, 100=behean."
@@ -1188,10 +1188,10 @@ msgid "Villagers, Wolves, Seer"
 msgstr "Herritarrak, Otsoak, Igarlea"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Bozketa-tenporizadorea (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Bozkatu jokalariaren alde:"
 
 msgid "Voting"
 msgstr "Bozketa"
@@ -1200,10 +1200,10 @@ msgid "Waiting for Clue..."
 msgstr "Pistaren zain..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Ostalariak taldeak konfiguratu eta arbela hasi arte zain..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Atarian zain..."
 
 msgid "Werewolf / Lupus"
 msgstr "Otsogizona / Lupus"
@@ -1212,19 +1212,19 @@ msgid "Whether focus coordinates were automatically calculated via edge saliency
 msgstr "Foku-koordenatuak ertzen nabarmentzearen bidez automatikoki kalkulatu diren ala ez."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI pista-iradokizunak (sakatu aurrez betetzeko)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Garaipenak"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Hitz eta esaldien abisu-sortzailea lagunekin paperez eta arkatzez egindako marrazketa-txanda klasikoetarako."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Hitz-paketea"
 
 msgid "Work Experience"
 msgstr "Lan-esperientzia"
@@ -1239,52 +1239,52 @@ msgid "Your Name / Nickname"
 msgstr "Zure izena / ezizena"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Zure agenteak eztabaidatzen ari dira. Mantendu poker aurpegi zorrotza — erreakziorik edo pistarik gabe!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Berriro konektatzeko zure QR pertsonala"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Zure esaldi sekretua"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Zure espioi-maisua"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Zure txanda asmatzeko!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Zure txanda, Spymaster!"
 
 msgid "actions"
-msgstr ""
+msgstr "ekintzak"
 
 msgid "adjective"
 msgstr "izenondoa"
 
 msgid "ago"
-msgstr ""
+msgstr "duela"
 
 msgid "alive"
 msgstr "bizirik"
 
 msgid "all"
-msgstr ""
+msgstr "guztiak"
 
 msgid "all categories"
-msgstr ""
+msgstr "kategoria guztiak"
 
 msgid "all day"
 msgstr "egun osoan"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "eta argitaratu haien pista behean."
 
 msgid "animals"
-msgstr ""
+msgstr "animaliak"
 
 msgid "any"
-msgstr ""
+msgstr "edozein"
 
 msgid "aperture"
 msgstr "irekidura"
@@ -1308,7 +1308,7 @@ msgid "camera model"
 msgstr "kameraren modeloa"
 
 msgid "category:"
-msgstr ""
+msgstr "kategoria:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -1317,7 +1317,7 @@ msgid "clear"
 msgstr "garbitu"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "prestaketa kolektiboa + aholkuak"
 
 msgid "create"
 msgstr "sortu"
@@ -1374,7 +1374,7 @@ msgid "focal length"
 msgstr "foku-distantzia"
 
 msgid "food & drink"
-msgstr ""
+msgstr "janaria eta edaria"
 
 msgid "gallery"
 msgstr "galeria"
@@ -1389,7 +1389,7 @@ msgid "gallery not found."
 msgstr "ez da galeria aurkitu."
 
 msgid "game"
-msgstr ""
+msgstr "jokoa"
 
 msgid "games"
 msgstr "Jokoak"
@@ -1413,13 +1413,13 @@ msgid "ics maker"
 msgstr "ics sortzailea"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "asmatzen ari da"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "bere taldearentzako pista bat prestatzen ari da."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "pista bat formulatzen ari da. Egon adi!"
 
 msgid "join"
 msgstr "batu"
@@ -1458,7 +1458,7 @@ msgid "mode:"
 msgstr "modua:"
 
 msgid "movies"
-msgstr ""
+msgstr "filmak"
 
 msgid "new word"
 msgstr "hitz berria"
@@ -1497,7 +1497,7 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "itsatsi testua edo url bat ekitaldiaren xehetasunekin, eta lortu .ics fitxategi bat."
 
 msgid "people & characters"
-msgstr ""
+msgstr "jendea eta pertsonaiak"
 
 msgid "photo"
 msgstr "argazkia"
@@ -1521,7 +1521,7 @@ msgid "photos (select multiple)"
 msgstr "argazkiak (hautatu hainbat)"
 
 msgid "phrases"
-msgstr ""
+msgstr "esaldiak"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "aukeratu zure ezarpenak, sakatu botoia, marraztu!"
@@ -1530,7 +1530,7 @@ msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "lekuak eta bidaiak"
 
 msgid "planz"
 msgstr "planz"
@@ -1545,25 +1545,25 @@ msgid "press the button to get a word"
 msgstr "sakatu botoia hitz bat lortzeko"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "pribatua (ezkutatu asmakizunak)"
 
 msgid "processing status"
 msgstr "prozesatze-egoera"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "publikoa (erakutsi asmakizunak)"
 
 msgid "request"
 msgstr "eskatu"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "berriro botatzeak:"
 
 msgid "reveal"
 msgstr "azaldu"
 
 msgid "room language"
-msgstr ""
+msgstr "gelako hizkuntza"
 
 msgid "room password"
 msgstr "gelaren pasahitza"
@@ -1587,7 +1587,7 @@ msgid "skip"
 msgstr "saltatu"
 
 msgid "songs"
-msgstr ""
+msgstr "abestiak"
 
 msgid "start"
 msgstr "hasiera"
@@ -1599,7 +1599,7 @@ msgid "text"
 msgstr "testua"
 
 msgid "things"
-msgstr ""
+msgstr "gauzak"
 
 msgid "title"
 msgstr "izenburua"
@@ -1611,7 +1611,7 @@ msgid "today"
 msgstr "gaur"
 
 msgid "tv shows"
-msgstr ""
+msgstr "telesailak"
 
 msgid "type"
 msgstr "mota"
@@ -1647,7 +1647,7 @@ msgid "watermarked image"
 msgstr "ur-markadun irudia"
 
 msgid "web"
-msgstr ""
+msgstr "web"
 
 msgid "web-optimized image"
 msgstr "weberako optimizatutako irudia"
@@ -1704,13 +1704,13 @@ msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Ma
 msgstr "⚡ Kaosa eta Bereziak (Alfa Otsoa, Isilarazlea, Detektibea, Mediku, Frankotiratzailea, Alkatea, Sorgina...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ Eduki osoa + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 UI soilik (ingelesezko hitzak)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"
@@ -1719,10 +1719,10 @@ msgid "🐺 Lupus"
 msgstr "🐺 Lupus"
 
 msgid "🐺 Lupus Hub & Rooms"
-msgstr ""
+msgstr "🐺 Lupus Zentroa eta Gelak"
 
 msgid "🐺 create lupus"
-msgstr ""
+msgstr "🐺 sortu lupus"
 
 msgid "👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers)"
 msgstr "👼 Linboa eta Aingerua (Otsoak + Detektibea + Mediku + Aingerua + Frankotiratzailea + Herritarrak)"

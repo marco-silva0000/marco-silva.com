@@ -1,74 +1,579 @@
 ﻿msgid,context,en,hi
++ Create Room,"scripts/generate_locales.py, templates/lupus/hub.html",+ Create Room,+ कमरा बनाएं
++ Host New Room,scripts/generate_locales.py,+ Host New Room,+ नया कमरा बनाएं
++ New Game,"scripts/generate_locales.py, templates/lupus/hub.html",+ New Game,+ नया खेल
++ create room,scripts/generate_locales.py,+ create room,+ कमरा बनाएं
+"0 — Secret (Closed graveyard, roles concealed until game over)","scripts/generate_locales.py, templates/lupus/create.html","0 — Secret (Closed graveyard, roles concealed until game over)","0 — गुप्त (बंद कब्रिस्तान, खेल खत्म होने तक भूमिकाएं छिपी रहेंगी)"
+1 day,templates/tools/partials/calendar.html,1 day,1 दिन
+"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")",scripts/generate_locales.py,"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")","1 — केवल संरेखण (""अच्छा"" बनाम ""बुरा"" घोषित करता है)"
 1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. शर्तों की स्वीकृति
 1. Overview,templates/bot_privacy.html,1. Overview,1. अवलोकन
+1. Teams & Roles Setup,templates/codenames/game.html,1. Teams & Roles Setup,1. टीमें और भूमिकाएं सेटअप
+10 Minutes,"scripts/generate_locales.py, templates/lupus/create.html",10 Minutes,10 मिनट
+1st guess ends round,templates/emojinary/game.html,1st guess ends round,पहला अनुमान राउंड समाप्त करता है
+"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")",scripts/generate_locales.py,"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")","2 — गुट / टीम (""शहर"", ""वेयरवोल्फ"", ""तटस्थ"" घोषित करता है)"
 2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. जानकारी जो हम एक्सेस करते हैं
 2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. अनुमत उपयोग
+2. Room & Table Settings (Host),templates/codenames/game.html,2. Room & Table Settings (Host),2. कमरा और टेबल सेटिंग्स (होस्ट)
+3 Minutes (Fast),"scripts/generate_locales.py, templates/lupus/create.html",3 Minutes (Fast),3 मिनट (तेज़)
+3 day,templates/tools/partials/calendar.html,3 day,3 दिन
+3 — Full Role Card (Announces exact card name and icon),"scripts/generate_locales.py, templates/lupus/create.html",3 — Full Role Card (Announces exact card name and icon),3 — पूरा रोल कार्ड (सटीक भूमिका नाम और आइकन घोषित करता है)
 3. Data Storage & Security,templates/bot_privacy.html,3. Data Storage & Security,3. डेटा संग्रहण और सुरक्षा
 3. Disclaimer of Warranties,templates/bot_terms.html,3. Disclaimer of Warranties,3. वारंटियों का अस्वीकरण
+30 Seconds (Standard),"scripts/generate_locales.py, templates/lupus/create.html",30 Seconds (Standard),30 सेकंड (मानक)
 4. Limitation of Liability,templates/bot_terms.html,4. Limitation of Liability,4. दायित्व की सीमा
 4. Third-Party Sharing,templates/bot_privacy.html,4. Third-Party Sharing,4. तृतीय-पक्ष के साथ साझाकरण
+404 — page not found,templates/404.html,404 — page not found,404 — पृष्ठ नहीं मिला
+45 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",45 Seconds,45 सेकंड
 4:5 vertical crop (1080x1350) for Instagram carousels.,photos/models.py,4:5 vertical crop (1080x1350) for Instagram carousels.,Instagram कैरोसेल के लिए 4:5 वर्टिकल क्रॉप (1080x1350)।
+5 Minutes (Standard),"scripts/generate_locales.py, templates/lupus/create.html",5 Minutes (Standard),5 मिनट (मानक)
 5. Changes & Termination,templates/bot_terms.html,5. Changes & Termination,5. परिवर्तन और समाप्ति
 5. Revoking Access & Data Deletion,templates/bot_privacy.html,5. Revoking Access & Data Deletion,5. एक्सेस वापस लेना और डेटा हटाना
+500 — something went wrong,templates/500.html,500 — something went wrong,500 — कुछ गलत हो गया
 6. Contact,"templates/bot_privacy.html, templates/bot_terms.html",6. Contact,6. संपर्क करें
+60 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",60 Seconds,60 सेकंड
+7 Minutes (Deliberate),"scripts/generate_locales.py, templates/lupus/create.html",7 Minutes (Deliberate),7 मिनट (विचारशील)
+Access Denied,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Access Denied,प्रवेश अस्वीकृत
+Accuse:,templates/impostor/game.html,Accuse:,आरोप लगाएं:
+Active,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Active,सक्रिय
+Active Clue,templates/codenames/game.html,Active Clue,सक्रिय सुराग
+Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/hub.html",Active Lupus Rooms,सक्रिय लुपस कमरे
+Add,templates/codenames/game.html,Add,जोड़ें
+Add Hint,templates/emojinary/game.html,Add Hint,संकेत जोड़ें
+Add Oral / Table Player,templates/impostor/game.html,Add Oral / Table Player,मौखिक / टेबल खिलाड़ी जोड़ें
+Add Oral / Table Player (directly to a team),templates/codenames/game.html,Add Oral / Table Player (directly to a team),मौखिक / टेबल खिलाड़ी जोड़ें (सीधे एक टीम में)
+Add Player,templates/codenames/game.html,Add Player,खिलाड़ी जोड़ें
+Add Secret Custom Pair,templates/impostor/game.html,Add Secret Custom Pair,गुप्त कस्टम जोड़ी जोड़ें
+Add custom inside-joke words to be mixed into future boards dealt in this room.,templates/codenames/game.html,Add custom inside-joke words to be mixed into future boards dealt in this room.,इस कमरे में आगे बांटे जाने वाले बोर्डों में शामिल करने के लिए कस्टम इनसाइड-मजाक शब्द जोड़ें।
+Add oral / table player name...,templates/impostor/game.html,Add oral / table player name...,मौखिक / टेबल खिलाड़ी का नाम जोड़ें...
+Add to Deck,templates/impostor/game.html,Add to Deck,डेक में जोड़ें
+Agents & Spymasters,templates/codenames/game.html,Agents & Spymasters,एजेंट और जासूस प्रमुख
+All Active Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",All Active Rooms,सभी सक्रिय कमरे
+All Games,"scripts/generate_locales.py, templates/lupus/hub.html",All Games,सभी खेल
+All guesses & hints appear here,templates/emojinary/game.html,All guesses & hints appear here,सभी अनुमान और संकेत यहाँ दिखाई देते हैं
+Allow Host to log oral clues and tap cards for players at the table,templates/codenames/game.html,Allow Host to log oral clues and tap cards for players at the table,होस्ट को मौखिक सुराग दर्ज करने और टेबल पर मौजूद खिलाड़ियों के लिए कार्ड टैप करने की अनुमति दें
+Allow Player Custom Pair Deck,templates/impostor/game.html,Allow Player Custom Pair Deck,खिलाड़ी के कस्टम जोड़ी डेक की अनुमति दें
+Allow custom words,templates/emojinary/game.html,Allow custom words,कस्टम शब्दों की अनुमति दें
+Allow players to add custom words,templates/codenames/game.html,Allow players to add custom words,खिलाड़ियों को कस्टम शब्द जोड़ने की अनुमति दें
 Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,Creative Commons Attribution-NonCommercial-ShareAlike लाइसेंस और वॉटरमार्क लागू करें।
+Auto-Balance,templates/codenames/game.html,Auto-Balance,ऑटो-संतुलन
+Auto-Balance Teams,templates/codenames/game.html,Auto-Balance Teams,टीमों को ऑटो-संतुलित करें
+Auto-tally once all players have voted,templates/impostor/game.html,Auto-tally once all players have voted,सभी खिलाड़ियों द्वारा मतदान करने के बाद ऑटो-गणना करें
+Back to Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/create.html",Back to Active Lupus Rooms,सक्रिय लुपस कमरों पर वापस जाएं
+Back to Lobby,templates/codenames/game.html,Back to Lobby,लॉबी में वापस जाएं
+Back to Lobby / Play Again,templates/impostor/game.html,Back to Lobby / Play Again,लॉबी में वापस / फिर से खेलें
+Backspace,templates/emojinary/game.html,Backspace,बैकस्पेस
+Blue,templates/codenames/game.html,Blue,नीला
+Blue Left,templates/codenames/game.html,Blue Left,ब्लू शेष
+Blue Team,templates/codenames/game.html,Blue Team,ब्लू टीम
+Blue Team Wins!,templates/codenames/game.html,Blue Team Wins!,ब्लू टीम जीत गई!
+Board,"gamerooms/views.py, templates/codenames/game.html",Board,बोर्ड
+Board Complete,templates/codenames/game.html,Board Complete,बोर्ड समाप्त
+Board Ended,templates/codenames/game.html,Board Ended,बोर्ड खत्म हुआ
+Browse Active Lupus Rooms,scripts/generate_locales.py,Browse Active Lupus Rooms,सक्रिय लुपस कमरे देखें
+Browse Hub,templates/gamerooms/room_list.html,Browse Hub,हब ब्राउज़ करें
+Build Your Emoji Clue:,templates/emojinary/game.html,Build Your Emoji Clue:,अपना इमोजी सुराग बनाएं:
 CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,CC BY-NC-SA लाइसेंस
+CODE,"scripts/generate_locales.py, templates/lupus/hub.html",CODE,कोड
 CTFs,templates/cv.html,CTFs,CTFs
+Calendar navigation,templates/tools/partials/calendar.html,Calendar navigation,कैलेंडर नेविगेशन
+Category,templates/impostor/game.html,Category,श्रेणी
+Citizen Word (Majority),templates/impostor/game.html,Citizen Word (Majority),नागरिक शब्द (बहुमत)
+"Civilians, Mobsters, Cop","scripts/generate_locales.py, templates/lupus/create.html","Civilians, Mobsters, Cop","नागरिक, गैंगस्टर, पुलिस"
+Classic + Extended Party Pack,templates/codenames/game.html,Classic + Extended Party Pack,क्लासिक + विस्तारित पार्टी पैक
+Clue Phase,templates/codenames/game.html,Clue Phase,सुराग चरण
+Clues,gamerooms/views.py,Clues,सुराग
+Clues & Taps Log,templates/codenames/game.html,Clues & Taps Log,सुराग और टैप लॉग
+Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Cockpit,कॉकपिट
+Codenames,"templates/codenames/game.html, templates/gamerooms/room_list.html",Codenames,Codenames
+Conferences,templates/cv.html,Conferences,सम्मेलन
+Content + UI,"templates/codenames/game.html, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/impostor/game.html",Content + UI,सामग्री + यूआई
+Copy,"templates/codenames/game.html, templates/emojinary/game.html",Copy,कॉपी करें
+Create Lupus / Werewolf Room,"scripts/generate_locales.py, templates/lupus/create.html",Create Lupus / Werewolf Room,लुपस / वेयरवोल्फ कमरा बनाएं
+Create the First Lupus Room,"scripts/generate_locales.py, templates/lupus/hub.html",Create the First Lupus Room,पहला लुपस कमरा बनाएं
 Curated,photos/models.py,Curated,क्यूरेटेड
+Custom Codenames Word,templates/codenames/game.html,Custom Codenames Word,कस्टम कोडनेम्स शब्द
+Custom Deck,"templates/codenames/game.html, templates/impostor/game.html",Custom Deck,कस्टम डेक
+Custom Seconds,templates/codenames/game.html,Custom Seconds,कस्टम सेकंड
 Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),कस्टम स्प्लिट कीबोर्ड (colemak + nvim)
+Custom word...,templates/codenames/game.html,Custom word...,कस्टम शब्द...
 Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,यात्रा/शूट की तारीख।
+Day,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Day,दिन
 Day Trip,photos/models.py,Day Trip,एक दिवसीय यात्रा
+Deal Next Board,templates/codenames/game.html,Deal Next Board,अगला बोर्ड बांटें
+Defense Timer,"scripts/generate_locales.py, templates/lupus/create.html",Defense Timer,बचाव का टाइमर
+Definition,templates/codenames/game.html,Definition,परिभाषा
+Discuss clues or accuse suspects...,templates/impostor/game.html,Discuss clues or accuse suspects...,सुरागों पर चर्चा करें या संदिग्धों पर आरोप लगाएं...
+Discussion,"lupus/views.py, scripts/generate_locales.py",Discussion,चर्चा
+Discussion Round Timer,"scripts/generate_locales.py, templates/lupus/create.html",Discussion Round Timer,चर्चा दौर का टाइमर
+Display Name,templates/emojinary/game.html,Display Name,प्रदर्शित नाम
+Doctor Shields From Sniper:,"scripts/generate_locales.py, templates/lupus/create.html",Doctor Shields From Sniper:,डॉक्टर स्नाइपर से बचाता है:
 Done,photos/models.py,Done,संपन्न
+Education,templates/cv.html,Education,शिक्षा
 Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),इलेक्ट्रॉनिक्स/एम्बेडेड (कुछ Rust एम्बेडेड)
+Enable Last-Chance Impostor Steal,templates/impostor/game.html,Enable Last-Chance Impostor Steal,अंतिम-मौका धोखेबाज़ चोरी सक्षम करें
+Enable Lethal Taboo Poison Word,templates/impostor/game.html,Enable Lethal Taboo Poison Word,घातक वर्जित विष शब्द सक्षम करें
+End Board,templates/codenames/game.html,End Board,बोर्ड समाप्त करें
+End Guessing Turn,templates/codenames/game.html,End Guessing Turn,अनुमान लगाने की बारी समाप्त करें
+End Match,templates/impostor/game.html,End Match,मैच समाप्त करें
+English,templates/cv.html,English,अंग्रेज़ी
+Enter Game,"scripts/generate_locales.py, templates/lupus/join.html",Enter Game,गेम में प्रवेश करें
+Enter Room,"scripts/generate_locales.py, templates/lupus/hub.html",Enter Room,कमरे में प्रवेश करें
+Enter Room Code (e.g. 9B3A1C2D),"scripts/generate_locales.py, templates/gamerooms/room_list.html",Enter Room Code (e.g. 9B3A1C2D),कमरा कोड दर्ज करें (उदा. 9B3A1C2D)
+Export JSON,templates/emojinary/game.html,Export JSON,JSON निर्यात करें
 Failed,photos/models.py,Failed,विफल
+Finished,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Finished,समाप्त
+GM,"scripts/generate_locales.py, templates/lupus/hub.html",GM,GM
 GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,GM कॉकपिट
+GM Director Cockpit:,"scripts/generate_locales.py, templates/lupus/hub.html",GM Director Cockpit:,जीएम डायरेक्टर कॉकपिट:
+GM Mode: Locked,templates/codenames/game.html,GM Mode: Locked,GM मोड: लॉक है
+GM Oral Guessing Mode,templates/codenames/game.html,GM Oral Guessing Mode,GM मौखिक अनुमान मोड
+GM Oral Mode: ON,templates/codenames/game.html,GM Oral Mode: ON,GM मौखिक मोड: चालू
+GM Oral Spymaster Mode,templates/codenames/game.html,GM Oral Spymaster Mode,GM मौखिक जासूस प्रमुख मोड
+Game Master Display Name,"scripts/generate_locales.py, templates/lupus/create.html",Game Master Display Name,गेम मास्टर का नाम
+Game Over,"lupus/views.py, scripts/generate_locales.py, templates/codenames/game.html",Game Over,खेल समाप्त
+Game Rooms,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/gamerooms/room_list.html, templates/gamerooms/room_name.html, templates/gamerooms/room_password.html",Game Rooms,गेम रूम
+Game Rules & Timers,"scripts/generate_locales.py, templates/lupus/create.html",Game Rules & Timers,खेल के नियम और टाइमर
+Game not found.,"lupus/views.py, scripts/generate_locales.py",Game not found.,खेल नहीं मिला।
+Game room does not exist.,"lupus/views.py, scripts/generate_locales.py",Game room does not exist.,गेम रूम मौजूद नहीं है।
+"Game words, clues, and interface are supported in %(lang)s.",gamerooms/language_support.py,"Game words, clues, and interface are supported in %(lang)s.","गेम शब्द, सुराग और इंटरफ़ेस %(lang)s में समर्थित हैं।"
+Give a One-Word Clue,templates/codenames/game.html,Give a One-Word Clue,एक शब्द का सुराग दें
+Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!,templates/impostor/game.html,Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!,शब्द को उजागर किए बिना या छिपे हुए घातक वर्जित विष शब्द पर कदम रखे बिना अप्रत्यक्ष एक-शब्द सुराग दें। यहाँ तक कि होस्ट भी बिना किसी स्पॉइलर के खेलता है!
+Guess the Citizen Word to steal the win...,templates/impostor/game.html,Guess the Citizen Word to steal the win...,जीत चुराने के लिए नागरिक शब्द का अनुमान लगाएं...
+Guesses left,templates/codenames/game.html,Guesses left,शेष अनुमान
+Guessing Phase,templates/codenames/game.html,Guessing Phase,अनुमान लगाने का चरण
 "Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license","हैम रेडियो, UK फाउंडेशन लाइसेंस"
+Have an 8-character code from your Game Master? Enter it here to jump straight in:,"scripts/generate_locales.py, templates/lupus/hub.html",Have an 8-character code from your Game Master? Enter it here to jump straight in:,क्या आपके गेम मास्टर से 8-अक्षरों का कोड मिला है? सीधे शामिल होने के लिए इसे यहां दर्ज करें:
+Hide Keycard Overlay,templates/codenames/game.html,Hide Keycard Overlay,कीकार्ड ओवरले छिपाएं
 Hiking and climbing,templates/cv.html,Hiking and climbing,हाइकिंग और क्लाइम्बिंग
+Hobbies,templates/cv.html,Hobbies,शौक
+Hold-to-Peek Secret Roles:,"scripts/generate_locales.py, templates/lupus/hub.html",Hold-to-Peek Secret Roles:,गुप्त भूमिका देखने के लिए दबाकर रखें:
 Home automation and homelab,templates/cv.html,Home automation and homelab,होम ऑटोमेशन और होमलैब
 "Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.","क्षैतिज फोकल बिंदु: 0=बाएं, 50=केंद्र, 100=दाएं।"
+Host Controls,templates/codenames/game.html,Host Controls,होस्ट नियंत्रण
+Host Game Settings,templates/emojinary/game.html,Host Game Settings,होस्ट गेम सेटिंग्स
+Host Room,templates/gamerooms/room_list.html,Host Room,कमरा होस्ट करें
+"I code, take pics and many other things",templates/index.html,"I code, take pics and many other things","मैं कोड करता हूं, तस्वीरें लेता हूं और कई अन्य चीजें"
 ISO,photos/models.py,ISO,ISO
+"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",scripts/generate_locales.py,"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).","यदि सक्षम है, तो डॉक्टर का संरक्षण किसी को स्नाइपर की गोली से बचा सकता है। (अक्षम = स्नाइपर सुरक्षा को भेद देगा)।"
+"If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).","scripts/generate_locales.py, templates/lupus/create.html","If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo).","यदि सेट है, तो क्यूआर कोड से जुड़ने पर खिलाड़ी स्वतः प्रमाणित हो जाएंगे। (💡 डेमो ट्रिक: Marco युक्त जीएम नाम और test पासवर्ड 10 टेस्ट खिलाड़ी जोड़ता है)।"
+In Progress,"lupus/views.py, scripts/generate_locales.py",In Progress,प्रगति में
+Incorrect room password.,"lupus/views.py, scripts/generate_locales.py",Incorrect room password.,कमरे का पासवर्ड गलत है।
 Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,Instagram 4:5 पूर्वावलोकन
 Instagram 4:5 image,photos/models.py,Instagram 4:5 image,Instagram 4:5 छवि
-"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","कयाक, सर्फ, SUP, विंडसर्फ"
+Invalid Game Master secret key.,"lupus/views.py, scripts/generate_locales.py",Invalid Game Master secret key.,अमान्य गेम मास्टर गुप्त कुंजी।
+Invite Players,"templates/codenames/game.html, templates/impostor/game.html",Invite Players,खिलाड़ियों को आमंत्रित करें
+Invite Players to Room,templates/emojinary/game.html,Invite Players to Room,कमरे में खिलाड़ियों को आमंत्रित करें
+Invite QR,"templates/codenames/game.html, templates/emojinary/game.html, templates/impostor/game.html",Invite QR,आमंत्रण क्यूआर
+It is not your turn to submit a clue.,templates/codenames/game.html,It is not your turn to submit a clue.,सुराग प्रस्तुत करने की आपकी बारी नहीं है।
+Join,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Join,शामिल हों
+Join Game,"scripts/generate_locales.py, templates/lupus/hub.html",Join Game,गेम में शामिल हों
+Join Lupus Game,"scripts/generate_locales.py, templates/lupus/join.html",Join Lupus Game,लुपस गेम में शामिल हों
+Join Red or Blue Team to begin,templates/codenames/game.html,Join Red or Blue Team to begin,शुरू करने के लिए लाल या नीली टीम में शामिल हों
+Join as Operative,templates/codenames/game.html,Join as Operative,ऑपरेटिव के रूप में शामिल हों
+Join as Player,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Join as Player,खिलाड़ी के रूप में शामिल हों
+Join as Spymaster,templates/codenames/game.html,Join as Spymaster,जासूस प्रमुख के रूप में शामिल हों
+Join with Room Code,"scripts/generate_locales.py, templates/lupus/hub.html",Join with Room Code,कमरा कोड के साथ शामिल हों
+"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","Kayak, surf, SUP, windsurf"
+LAST-CHANCE IMPOSTOR STEAL!,templates/impostor/game.html,LAST-CHANCE IMPOSTOR STEAL!,अंतिम-मौका धोखेबाज़ चोरी!
+Languages,templates/cv.html,Languages,भाषाएँ
 "Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026","अंतिम अपडेट: 27 अक्टूबर, 2026"
+"Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","scripts/generate_locales.py, templates/lupus/hub.html","Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","देर से आने वाले कन्फर्म्ड ट्रेवलर, टाउन घोस्ट या उत्तराधिकारी के रूप में शामिल होते हैं।"
+Launch Lupus Room,"scripts/generate_locales.py, templates/lupus/create.html",Launch Lupus Room,लुपस कमरा शुरू करें
+Leave empty for public join,"scripts/generate_locales.py, templates/lupus/create.html",Leave empty for public join,सार्वजनिक प्रवेश के लिए खाली छोड़ें
+Let this player scan on their phone to take over their personal Spymaster/Operative view.,templates/codenames/game.html,Let this player scan on their phone to take over their personal Spymaster/Operative view.,इस खिलाड़ी को अपने व्यक्तिगत जासूस प्रमुख/ऑपरेटिव दृश्य को लेने के लिए अपने फ़ोन पर स्कैन करने दें।
+Lethal Taboo Word (Optional instant elimination trap),templates/impostor/game.html,Lethal Taboo Word (Optional instant elimination trap),घातक वर्जित शब्द (वैकल्पिक तत्काल निष्कासन जाल)
+Limbo,"lupus/views.py, scripts/generate_locales.py",Limbo,Limbo
+Limbo & Angel Mechanic:,"scripts/generate_locales.py, templates/lupus/create.html",Limbo & Angel Mechanic:,लिम्बो और एंजेल मैकेनिक्स:
+Limbo Resolution,"lupus/views.py, scripts/generate_locales.py",Limbo Resolution,लिम्बो समाधान
+Listen to,templates/codenames/game.html,Listen to,सुनें
+Listening,templates/cv.html,Listening,सुनना
+Live Chat & Guess Stream,templates/emojinary/game.html,Live Chat & Guess Stream,लाइव चैट और अनुमान स्ट्रीम
+Living & fallen players submit morning rumors read aloud at dawn.,"scripts/generate_locales.py, templates/lupus/hub.html",Living & fallen players submit morning rumors read aloud at dawn.,जीवित और मृत खिलाड़ी सुबह की अफवाहें भेजते हैं जो भोर में जोर से पढ़ी जाती हैं।
+Lobby,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py, templates/codenames/game.html",Lobby,लॉबी
+Lobby (Waiting for Players),"lupus/views.py, scripts/generate_locales.py",Lobby (Waiting for Players),लॉबी (खिलाड़ियों का इंतज़ार)
+Log Clue for Table Spymaster,templates/codenames/game.html,Log Clue for Table Spymaster,टेबल स्पाईमास्टर के लिए सुराग दर्ज करें
+Lupus / Werewolf,templates/gamerooms/room_list.html,Lupus / Werewolf,ल्यूपस / वेयरवुल्फ
+Lupus Active Rooms & Hub,"scripts/generate_locales.py, templates/lupus/join.html",Lupus Active Rooms & Hub,लुपस सक्रिय कमरे और हब
+Lupus Game,scripts/generate_locales.py,Lupus Game,लुपस खेल
+Lupus Party Game,"scripts/generate_locales.py, templates/lupus/create.html",Lupus Party Game,लुपस पार्टी गेम
+Lupus in Tabula - Active Rooms & Game Hub,"scripts/generate_locales.py, templates/lupus/hub.html",Lupus in Tabula - Active Rooms & Game Hub,लुपस इन तबुला - सक्रिय कमरे और गेम हब
+Lupus in Tabula / Werewolf,scripts/generate_locales.py,Lupus in Tabula / Werewolf,लुपस इन तबुला / वेयरवोल्फ
+Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,Mafia
+Match Complete,templates/codenames/game.html,Match Complete,मैच समाप्त
+Match Podium & Highlights,templates/emojinary/game.html,Match Podium & Highlights,मैच पोडियम और हाइलाइट्स
+Match Replay & Attempt Timeline,templates/emojinary/game.html,Match Replay & Attempt Timeline,मैच रीप्ले और प्रयास समयरेखा
+Match Replay & Board Archive,templates/codenames/game.html,Match Replay & Board Archive,मैच रीप्ले और बोर्ड आर्काइव
+Match Rules,templates/impostor/game.html,Match Rules,मैच के नियम
+Message...,templates/codenames/game.html,Message...,संदेश...
+Midgame Arrivals:,"scripts/generate_locales.py, templates/lupus/hub.html",Midgame Arrivals:,खेल के बीच में आगमन:
+"Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:",templates/impostor/game.html,"Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:","मॉडरेटर वोट नियंत्रण — नीचे दिए गए खिलाड़ी और संदिग्ध को चुनें, या टेबल पर पिल और सीट को टैप करें:"
+Move...,templates/codenames/game.html,Move...,स्थानांतरित करें...
+New Game / Redraw,templates/impostor/game.html,New Game / Redraw,नया खेल / पुनर्वितरण
+Next Round,templates/impostor/game.html,Next Round,अगला राउंड
+Next day,templates/tools/partials/calendar.html,Next day,अगला दिन
+Night,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Night,रात
+No Active Lupus Games Right Now,"scripts/generate_locales.py, templates/lupus/hub.html",No Active Lupus Games Right Now,अभी कोई सक्रिय लुपस गेम नहीं है
 No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,अभी तक कोई Instagram क्रॉप जनरेट नहीं किया गया है।
+No clues published yet.,templates/codenames/game.html,No clues published yet.,अभी तक कोई सुराग प्रकाशित नहीं किया गया है।
+No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here.,templates/codenames/game.html,No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here.,अभी तक कोई पूरा हुआ Codenames बोर्ड नहीं है। पूरा की-कार्ड रीप्ले यहां देखने के लिए बोर्ड समाप्त करें या इसे पहले समाप्त करें।
+No dictionary definition available.,templates/codenames/game.html,No dictionary definition available.,कोई शब्दकोश परिभाषा उपलब्ध नहीं है।
+No turns logged.,templates/codenames/game.html,No turns logged.,कोई बारी दर्ज नहीं की गई।
+"Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play.",templates/gamerooms/room_list.html,"Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play.","Wikisaurus Spymaster AI सुराग, निजी Keycard टॉगल और मौखिक/टेबल खेल के साथ आधिकारिक 400-शब्द 5×5 टीम निष्कर्ष बोर्ड।"
+Official Classic 400 Words,templates/codenames/game.html,Official Classic 400 Words,आधिकारिक क्लासिक 400 शब्द
+One-word clue...,templates/codenames/game.html,One-word clue...,एक-शब्द का सुराग...
+Only emojis allowed — text characters were ignored.,templates/emojinary/game.html,Only emojis allowed — text characters were ignored.,केवल इमोजी की अनुमति है — टेक्स्ट वर्णों को अनदेखा कर दिया गया।
+Open,"lupus/views.py, scripts/generate_locales.py",Open,खुला
+Open (Lobby),"lupus/views.py, scripts/generate_locales.py",Open (Lobby),खुला (लॉबी)
+Open GM Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Open GM Cockpit,जीएम कॉकपिट खोलें
+Open Generator,templates/gamerooms/room_list.html,Open Generator,जनरेटर खोलें
+Open Player Link,templates/impostor/game.html,Open Player Link,खिलाड़ी लिंक खोलें
+Open slot,templates/codenames/game.html,Open slot,खाली स्लॉट
+Operative,templates/codenames/game.html,Operative,ऑपरेटिव
+Operative Seconds (0=∞),templates/codenames/game.html,Operative Seconds (0=∞),ऑपरेटिव सेकंड (0=∞)
+Operatives,templates/codenames/game.html,Operatives,ऑपरेटिव्स
+Operatives are Guessing,templates/codenames/game.html,Operatives are Guessing,ऑपरेटिव्स अनुमान लगा रहे हैं
+Operatives are choosing cards for this round.,templates/codenames/game.html,Operatives are choosing cards for this round.,ऑपरेटिव्स इस राउंड के लिए कार्ड चुन रहे हैं।
+Operatives are guessing!,templates/codenames/game.html,Operatives are guessing!,ऑपरेटिव्स अनुमान लगा रहे हैं!
+Opponent team is guessing. Wait for them to pass or make an incorrect tap.,templates/codenames/game.html,Opponent team is guessing. Wait for them to pass or make an incorrect tap.,विरोधी टीम अनुमान लगा रही है। उनके पास करने या गलत टैप करने की प्रतीक्षा करें।
+Or type your own custom prompt/phrase...,templates/emojinary/game.html,Or type your own custom prompt/phrase...,या अपना खुद का कस्टम प्रॉम्प्ट/वाक्यांश टाइप करें...
+Oral Spymaster Mode (Mod Logging),templates/codenames/game.html,Oral Spymaster Mode (Mod Logging),मौखिक स्पाईमास्टर मोड (मॉड लॉगिंग)
 "Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)","मूल कैमरा RAW फ़ाइल (CR3, ARW, NEF, आदि)"
+Other,templates/cv.html,Other,अन्य
+Outdoors,templates/cv.html,Outdoors,आउटडोर
 Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,पेज नहीं मिला — Marco Silva
+Participating Host Controls (Zero-Spoiler),templates/impostor/game.html,Participating Host Controls (Zero-Spoiler),भाग लेने वाले होस्ट के नियंत्रण (शून्य-स्पॉइलर)
+Pass / Wrong,templates/impostor/game.html,Pass / Wrong,पास / गलत
+Pass Turn (Mod),templates/codenames/game.html,Pass Turn (Mod),बारी पास करें (मॉड)
+Password,"scripts/generate_locales.py, templates/lupus/hub.html",Password,पासवर्ड
+Password Protected,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Password Protected,पासवर्ड से सुरक्षित
+Past & Finished Games,"scripts/generate_locales.py, templates/lupus/hub.html",Past & Finished Games,पिछले और समाप्त हुए खेल
+Pause,templates/codenames/game.html,Pause,रोकें
+Pause Timer,templates/impostor/game.html,Pause Timer,टाइमर रोकें
 Pending,photos/models.py,Pending,लंबित
+Personal Player QR,templates/codenames/game.html,Personal Player QR,व्यक्तिगत खिलाड़ी QR
+Personal QR,templates/codenames/game.html,Personal QR,व्यक्तिगत QR
+Photography,templates/cv.html,Photography,फोटोग्राफी
+Pick 1 word and a number of cards. Your Operatives must guess based on your clue.,templates/codenames/game.html,Pick 1 word and a number of cards. Your Operatives must guess based on your clue.,1 शब्द और कार्डों की संख्या चुनें। आपके ऑपरेटिव्स को आपके सुराग के आधार पर अनुमान लगाना होगा।
+Pick the name others at the table know you by.,"scripts/generate_locales.py, templates/lupus/join.html",Pick the name others at the table know you by.,वह नाम चुनें जिससे मेज पर मौजूद अन्य लोग आपको जानते हैं।
+"Pick your game, language, and room settings — share the link or QR code when ready.",templates/gamerooms/room_create.html,"Pick your game, language, and room settings — share the link or QR code when ready.","अपना गेम, भाषा और रूम सेटिंग्स चुनें — तैयार होने पर लिंक या QR कोड शेयर करें।"
+Player Profile & Personal QR,templates/emojinary/game.html,Player Profile & Personal QR,खिलाड़ी प्रोफ़ाइल और व्यक्तिगत QR
+Player QR,templates/impostor/game.html,Player QR,खिलाड़ी QR
+Player Reconnect QR,templates/codenames/game.html,Player Reconnect QR,खिलाड़ी पुनः कनेक्ट QR
+Player name...,templates/codenames/game.html,Player name...,खिलाड़ी का नाम...
+Players & Scores,templates/impostor/game.html,Players & Scores,खिलाड़ी और स्कोर
+Please enter a player name.,"lupus/views.py, scripts/generate_locales.py",Please enter a player name.,कृपया खिलाड़ी का नाम दर्ज करें।
+Please enter a valid room code.,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Please enter a valid room code.,कृपया एक मान्य कमरा कोड दर्ज करें।
+Poison Word (Impostor / Drunk),templates/impostor/game.html,Poison Word (Impostor / Drunk),जहरीला शब्द (ढोंगी / शराबी)
+Poison Word Mode,templates/impostor/game.html,Poison Word Mode,जहरीला शब्द मोड
+"Portuguese · Helsinki, Finland",templates/cv.html,"Portuguese · Helsinki, Finland","पुर्तगाली · हेलसिंकी, फिनलैंड"
+Previous day,templates/tools/partials/calendar.html,Previous day,पिछला दिन
 Price for the RAW file download.,photos/models.py,Price for the RAW file download.,RAW फ़ाइल डाउनलोड के लिए मूल्य।
+Privacy Policy,templates/bot_privacy.html,Privacy Policy,गोपनीयता नीति
 Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot,गोपनीयता नीति - होमलैब Telegram बॉट
 Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,गोपनीयता नीति - होमलैब Telegram बॉट - Marco Silva
+Privacy shield keeps cards concealed from prying eyes at the table.,"scripts/generate_locales.py, templates/lupus/hub.html",Privacy shield keeps cards concealed from prying eyes at the table.,गोपनीयता शील्ड मेज पर ताक-झांक से पत्तों को छिपाकर रखती है।
 Processing,photos/models.py,Processing,प्रोसेसिंग जारी है
+Prompt Tool,templates/gamerooms/room_list.html,Prompt Tool,प्रॉम्प्ट टूल
+Public,"scripts/generate_locales.py, templates/lupus/hub.html",Public,सार्वजनिक
+Publish Clue,templates/codenames/game.html,Publish Clue,सुराग प्रकाशित करें
+RAW available for purchase,templates/photos/photo_viewer.html,RAW available for purchase,RAW खरीद के लिए उपलब्ध है
 RAW file,photos/models.py,RAW file,RAW फ़ाइल
 RAW price,photos/models.py,RAW price,RAW कीमत
+Reading,templates/cv.html,Reading,पढ़ना
+Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,रीयल-टाइम मल्टीप्लेयर ब्राउज़र पार्टी गेम। किसी खाते की आवश्यकता नहीं — बस शामिल हों और दोस्तों के साथ खेलें।
+Red,templates/codenames/game.html,Red,लाल
+Red Left,templates/codenames/game.html,Red Left,लाल शेष
+Red Team,templates/codenames/game.html,Red Team,लाल टीम
+Red Team Wins!,templates/codenames/game.html,Red Team Wins!,लाल टीम जीत गई!
+Redraw Board,templates/codenames/game.html,Redraw Board,बोर्ड फिर से बनाएं
 Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,चुनी गई फ़ोटो के लिए 4:5 Instagram क्रॉप फिर से जनरेट करें
+Replay,"scripts/generate_locales.py, templates/codenames/game.html, templates/emojinary/game.html, templates/lupus/hub.html",Replay,रीप्ले
+Reroll,templates/emojinary/game.html,Reroll,फिर से रोल करें
+Resume,templates/codenames/game.html,Resume,जारी रखें
+Return as %(name)s,scripts/generate_locales.py,Return as %(name)s,%(name)s के रूप में वापस आएं
+Reveal,gamerooms/views.py,Reveal,दिखाएं
+Reveal Roles on Death:,"scripts/generate_locales.py, templates/lupus/create.html",Reveal Roles on Death:,मृत्यु पर भूमिकाएं प्रकट करें:
+Role Hidden,templates/impostor/game.html,Role Hidden,भूमिका छिपी हुई
+"Roles, phases, and interface are localized in %(lang)s.",gamerooms/language_support.py,"Roles, phases, and interface are localized in %(lang)s.","भूमिकाएं, चरण और इंटरफ़ेस %(lang)s में स्थानीयकृत हैं।"
+Room Chat,templates/emojinary/game.html,Room Chat,रूम चैट
+Room Chat & Events,templates/codenames/game.html,Room Chat & Events,रूम चैट और कार्यक्रम
+Room Code,templates/emojinary/game.html,Room Code,रूम कोड
+Room Code:,"scripts/generate_locales.py, templates/lupus/join.html",Room Code:,कमरा कोड:
+Room Password,"scripts/generate_locales.py, templates/lupus/join.html",Room Password,कमरा पासवर्ड
+Room Password (optional),"scripts/generate_locales.py, templates/lupus/create.html",Room Password (optional),कमरा पासवर्ड (वैकल्पिक)
+Room Setup,"scripts/generate_locales.py, templates/lupus/create.html",Room Setup,कमरा सेटअप
+Room Title,"scripts/generate_locales.py, templates/lupus/create.html",Room Title,कमरे का शीर्षक
+Room code '%(code)s' was not found or is no longer active.,scripts/generate_locales.py,Room code '%(code)s' was not found or is no longer active.,कमरा कोड '%(code)s' नहीं मिला या अब सक्रिय नहीं है।
+Rooms,"templates/codenames/game.html, templates/emojinary/game.html, templates/impostor/game.html",Rooms,कमरे
+Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,"scripts/generate_locales.py, templates/lupus/hub.html",Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,कमरे आवश्यकतानुसार बनाए जाते हैं और 24 घंटे तक सक्रिय रहते हैं। एक नया गेम सत्र शुरू करें और अपने समूह को आमंत्रित करें!
+Rotate Spymasters each new board,templates/codenames/game.html,Rotate Spymasters each new board,प्रत्येक नए बोर्ड पर स्पाईमास्टर्स बदलें
+Round,gamerooms/views.py,Round,राउंड
+Round Clues,templates/impostor/game.html,Round Clues,राउंड के सुराग
+Round-by-Round Replay & Attempt Log,templates/emojinary/game.html,Round-by-Round Replay & Attempt Log,राउंड-दर-राउंड रीप्ले और प्रयास लॉग
+Rounds (Clue Cycles),templates/impostor/game.html,Rounds (Clue Cycles),राउंड (सुराग चक्र)
+Running,"lupus/views.py, scripts/generate_locales.py",Running,चल रहा है
+Save Name,templates/emojinary/game.html,Save Name,नाम सहेजें
+Scan on another device to reclaim your Spymaster/Operative seat cleanly.,templates/codenames/game.html,Scan on another device to reclaim your Spymaster/Operative seat cleanly.,अपनी स्पाईमास्टर/ऑपरेटिव सीट आसानी से पुनः प्राप्त करने के लिए किसी अन्य डिवाइस पर स्कैन करें।
+Scan this QR code with any phone camera to join immediately:,templates/emojinary/game.html,Scan this QR code with any phone camera to join immediately:,तुरंत जुड़ने के लिए किसी भी फ़ोन कैमरे से इस QR कोड को स्कैन करें:
+Scan this personal QR code to switch devices without losing your secret card:,templates/impostor/game.html,Scan this personal QR code to switch devices without losing your secret card:,अपना गुप्त कार्ड खोए बिना डिवाइस बदलने के लिए इस व्यक्तिगत QR कोड को स्कैन करें:
+Scan this to move your session and score to another phone or browser:,templates/emojinary/game.html,Scan this to move your session and score to another phone or browser:,अपने सत्र और स्कोर को दूसरे फ़ोन या ब्राउज़र पर ले जाने के लिए इसे स्कैन करें:
+"Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)...",templates/emojinary/game.html,"Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)...","नाम, पर्यायवाची, टाइपो या भाषा के आधार पर इमोजी खोजें (उदा. fire, crown, fogo, φωτιά)..."
+Send,"templates/codenames/game.html, templates/impostor/game.html",Send,भेजें
 Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,Telegram पर Instagram कैरोसेल पैक भेजें
 Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,सर्वर त्रुटि — Marco Silva
+Set,templates/emojinary/game.html,Set,सेट करें
+Setting up teams...,templates/codenames/game.html,Setting up teams...,टीमें सेट की जा रही हैं...
+Show Role & Word,templates/impostor/game.html,Show Role & Word,भूमिका और शब्द दिखाएं
+Show Spymaster Keycard,templates/codenames/game.html,Show Spymaster Keycard,स्पाईमास्टर की-कार्ड दिखाएं
+Silent Phase,"lupus/views.py, scripts/generate_locales.py",Silent Phase,शांत चरण
+Skills,templates/cv.html,Skills,कौशल
+Skip Turn,templates/impostor/game.html,Skip Turn,बारी छोड़ें
+"Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!","scripts/generate_locales.py, templates/lupus/create.html","Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!","मारे गए खिलाड़ी सीधे मरने के बजाय एक बार लिम्बो में प्रवेश करते हैं। यदि वे अनुमान लगाते हैं कि एंजेल कौन है, तो वे पुनर्जीवित हो जाते हैं!"
+"Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master.",templates/gamerooms/room_list.html,"Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master.","पॉइज़न वर्ड्स, घातक तब्बू ट्रैप्स, लास्ट-चांस स्टील और पार्टिसिपेटिंग गेम मास्टर के साथ सोशल डिडक्शन।"
+Spanish,templates/cv.html,Spanish,स्पेनिश
+Speaker (oral clue):,templates/impostor/game.html,Speaker (oral clue):,वक्ता (मौखिक सुराग):
+Speaking,templates/cv.html,Speaking,बोलना
+Spectator,templates/codenames/game.html,Spectator,दर्शक
+Spectator / Non-Player,templates/codenames/game.html,Spectator / Non-Player,दर्शक / गैर-खिलाड़ी
+Spectator Mode (Skip my turns),templates/emojinary/game.html,Spectator Mode (Skip my turns),दर्शक मोड (मेरी बारी छोड़ें)
+Spymaster,templates/codenames/game.html,Spymaster,जासूस प्रमुख (Spymaster)
+Spymaster Seconds (0=∞),templates/codenames/game.html,Spymaster Seconds (0=∞),स्पाइमास्टर सेकंड (0=∞)
+Spymaster is thinking of a clue...,templates/codenames/game.html,Spymaster is thinking of a clue...,स्पाइमास्टर सुराग सोच रहा है...
+Staggering Doctor:,"scripts/generate_locales.py, templates/lupus/create.html",Staggering Doctor:,अल्टरनेट डॉक्टर:
+Standard Timed (90s / 90s),templates/codenames/game.html,Standard Timed (90s / 90s),मानक समयबद्ध (90s / 90s)
+Start Codenames,templates/codenames/game.html,Start Codenames,Codenames शुरू करें
+Start Match,templates/impostor/game.html,Start Match,मैच शुरू करें
+Start Voting Early,templates/impostor/game.html,Start Voting Early,समय से पहले मतदान शुरू करें
+Starting Role Deck Preset,"scripts/generate_locales.py, templates/lupus/create.html",Starting Role Deck Preset,प्रारंभिक रोल डेक प्रीसेट
+Steal Guess,gamerooms/views.py,Steal Guess,अनुमान चुराएं
+"Steal Timer (s, 0 = ∞)",templates/impostor/game.html,"Steal Timer (s, 0 = ∞)","चोरी टाइमर (s, 0 = ∞)"
+Steal Win!,templates/impostor/game.html,Steal Win!,चुराकर जीत हासिल की!
+"Step-by-step night stages, bluffing calls, and voting manager.","scripts/generate_locales.py, templates/lupus/hub.html","Step-by-step night stages, bluffing calls, and voting manager.","कदम-दर-कदम रात्रि चरण, ब्लफ़िंग कॉल और वोटिंग प्रबंधक।"
+Submit,templates/emojinary/game.html,Submit,जमा करें
+Submit Clue,templates/impostor/game.html,Submit Clue,सुराग जमा करें
+Submit Player Vote,templates/impostor/game.html,Submit Player Vote,खिलाड़ी का वोट सबमिट करें
+Table Discussion & Event Log,templates/impostor/game.html,Table Discussion & Event Log,टेबल चर्चा और इवेंट लॉग
+Table-First Lupus Highlights,"scripts/generate_locales.py, templates/lupus/hub.html",Table-First Lupus Highlights,टेबल-फर्स्ट लुपस की मुख्य विशेषताएं
+Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,"scripts/generate_locales.py, templates/lupus/hub.html",Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,टेबल-फर्स्ट वेयरवोल्फ और माफिया पार्टी गेम। शून्य खाता लॉगिन आवश्यक। प्रत्येक खिलाड़ी गुप्त भूमिकाओं और मतदान के लिए अपने फोन का उपयोग करता है जबकि आप गेम मास्टर के रूप में रूम चलाते हैं।
+"Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.","scripts/generate_locales.py, templates/lupus/create.html","Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.","टेबल-फर्स्ट हाइब्रिड पार्टी गेम। कोई खाता या लॉगिन आवश्यक नहीं। खिलाड़ी क्यूआर कोड से जुड़ते हैं, और आप गेम मास्टर के रूप में चलाते हैं।"
+"Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.","scripts/generate_locales.py, templates/gamerooms/room_list.html","Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.","गुप्त भूमिकाओं, लाइव वोटिंग, टाउन गजट और जीएम डायरेक्टर कॉकपिट के साथ टेबल-फर्स्ट पार्टी गेम।"
+Tally Votes Now,templates/impostor/game.html,Tally Votes Now,अभी वोट गिनें
+Tap cards on the board as players make their guesses out loud.,templates/codenames/game.html,Tap cards on the board as players make their guesses out loud.,"जैसे ही खिलाड़ी जोर से अनुमान लगाते हैं, बोर्ड पर कार्ड टैप करें।"
+"Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn.",templates/codenames/game.html,"Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn.","बोर्ड पर उन कार्डों को टैप करें जो सुराग से मेल खाते हैं। समाप्त होने या अनिश्चित होने पर, अनुमान लगाने की बारी समाप्त करें पर टैप करें।"
+Targets,templates/codenames/game.html,Targets,लक्ष्य
+Techy,templates/cv.html,Techy,तकनीकी
+Terms of Service,templates/bot_terms.html,Terms of Service,सेवा की शर्तें
 Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,सेवा की शर्तें - Homelab Telegram Bot
 Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,सेवा की शर्तें - Homelab Telegram Bot - Marco Silva
+The Doctor / Guard cannot protect the same person two consecutive nights.,"scripts/generate_locales.py, templates/lupus/create.html",The Doctor / Guard cannot protect the same person two consecutive nights.,डॉक्टर / गार्ड लगातार दो रातों तक एक ही व्यक्ति की रक्षा नहीं कर सकता।
+"The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable.",gamerooms/language_support.py,"The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable.","इंटरफ़ेस %(lang)s का उपयोग करता है, जबकि गेम सामग्री अंग्रेज़ी पर वापस आ जाती है क्योंकि संपूर्ण शब्दावली डेटा अनुपलब्ध है।"
+Theme & Terms,"scripts/generate_locales.py, templates/lupus/create.html",Theme & Terms,थीम और नियम
+Time Limit Preset,templates/impostor/game.html,Time Limit Preset,समय सीमा प्रीसेट
+Toggle,templates/emojinary/game.html,Toggle,टॉगल करें
+Toggle Spectator Mode,templates/impostor/game.html,Toggle Spectator Mode,दर्शक मोड टॉगल करें
+Town Gazette:,"scripts/generate_locales.py, templates/lupus/hub.html",Town Gazette:,टाउन गजट:
+Town Voting,"lupus/views.py, scripts/generate_locales.py",Town Voting,नगर मतदान
+Turn Sequence,templates/codenames/game.html,Turn Sequence,बारी का क्रम
+"Turn Timer (s, 0 = ∞)",templates/impostor/game.html,"Turn Timer (s, 0 = ∞)","बारी टाइमर (s, 0 = ∞)"
+Turn Timers,templates/codenames/game.html,Turn Timers,बारी टाइमर
+Type a message or guess...,templates/emojinary/game.html,Type a message or guess...,कोई संदेश या अनुमान लिखें...
+Type clue or what was said orally...,templates/impostor/game.html,Type clue or what was said orally...,सुराग या मौखिक रूप से क्या कहा गया था टाइप करें...
+Type your guess (or use the chat box)...,templates/emojinary/game.html,Type your guess (or use the chat box)...,अपना अनुमान टाइप करें (या चैट बॉक्स का उपयोग करें)...
+UI Only,"templates/codenames/game.html, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/impostor/game.html",UI Only,केवल UI
+Unable to load player QR code.,templates/codenames/game.html,Unable to load player QR code.,खिलाड़ी का QR कोड लोड करने में असमर्थ।
+Unassigned,templates/codenames/game.html,Unassigned,अनिर्दिष्ट
+Unlimited,templates/codenames/game.html,Unlimited,असीमित
+Unlock Room,"scripts/generate_locales.py, templates/lupus/join.html",Unlock Room,कमरा अनलॉक करें
+Untimed,templates/codenames/game.html,Untimed,बिना समय का
+Untimed (Relaxed Couch Mode),templates/codenames/game.html,Untimed (Relaxed Couch Mode),बिना समय (आरामदेह काउच मोड)
+Use Prompt,templates/emojinary/game.html,Use Prompt,प्रॉम्प्ट का उपयोग करें
+Use your emoji keyboard or tap emojis below...,templates/emojinary/game.html,Use your emoji keyboard or tap emojis below...,अपने इमोजी कीबोर्ड का उपयोग करें या नीचे इमोजी टैप करें...
 "Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.","लंबवत फ़ोकल बिंदु: 0=ऊपर, 50=केंद्र, 100=नीचे।"
+"Villagers, Wolves, Seer","scripts/generate_locales.py, templates/lupus/create.html","Villagers, Wolves, Seer","ग्रामीण, भेड़िए, द्रष्टा"
+"Vote Timer (s, 0 = ∞)",templates/impostor/game.html,"Vote Timer (s, 0 = ∞)","वोट टाइमर (s, 0 = ∞)"
+Vote for player:,templates/impostor/game.html,Vote for player:,खिलाड़ी के लिए वोट करें:
+Voting,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Voting,मतदान
+Waiting for Clue...,templates/codenames/game.html,Waiting for Clue...,सुराग की प्रतीक्षा...
+Waiting for Host to configure teams and start the board...,templates/codenames/game.html,Waiting for Host to configure teams and start the board...,होस्ट द्वारा टीमों को कॉन्फ़िगर करने और बोर्ड शुरू करने की प्रतीक्षा की जा रही है...
+Waiting in Lobby...,templates/impostor/game.html,Waiting in Lobby...,लॉबी में प्रतीक्षा कर रहे हैं...
+Werewolf / Lupus,"scripts/generate_locales.py, templates/lupus/create.html",Werewolf / Lupus,वेयरवोल्फ / लुपस
 Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,क्या फ़ोकस निर्देशांक एज सैलिएंसी के माध्यम से स्वचालित रूप से परिकलित किए गए थे।
+Wikisaurus AI Clue Suggestions (tap to pre-fill),templates/codenames/game.html,Wikisaurus AI Clue Suggestions (tap to pre-fill),Wikisaurus AI सुराग सुझाव (पहले से भरने के लिए टैप करें)
+Wins,templates/codenames/game.html,Wins,जीत
+Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends.,templates/gamerooms/room_list.html,Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends.,दोस्तों के साथ क्लासिक पेन-और-पेपर ड्राइंग राउंड के लिए शब्द और वाक्य प्रॉम्प्ट जनरेटर।
+Word Impostor,"templates/gamerooms/room_list.html, templates/impostor/game.html",Word Impostor,Word Impostor
+Word Pack,templates/codenames/game.html,Word Pack,शब्द पैक
+Work Experience,templates/cv.html,Work Experience,कार्य अनुभव
+Writing,templates/cv.html,Writing,लिखना
+You need an authorized key to access this page.,scripts/generate_locales.py,You need an authorized key to access this page.,इस पृष्ठ तक पहुँचने के लिए आपको एक अधिकृत कुंजी की आवश्यकता है।
+Your Name / Nickname,"scripts/generate_locales.py, templates/lupus/join.html",Your Name / Nickname,आपका नाम / उपनाम
+Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!,templates/codenames/game.html,Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!,आपके संचालक विचार-विमर्श कर रहे हैं। सख्त पोकर चेहरा बनाए रखें — कोई प्रतिक्रिया या संकेत नहीं!
+Your Personal Reconnect QR,templates/emojinary/game.html,Your Personal Reconnect QR,आपका व्यक्तिगत रीकनेक्ट QR
+Your Secret Phrase,templates/emojinary/game.html,Your Secret Phrase,आपका गुप्त वाक्यांश
+Your Spymaster,templates/codenames/game.html,Your Spymaster,आपका स्पाइमास्टर
+Your Turn to Guess!,templates/codenames/game.html,Your Turn to Guess!,अनुमान लगाने की आपकी बारी!
+"Your Turn, Spymaster!",templates/codenames/game.html,"Your Turn, Spymaster!","आपकी बारी, स्पाइमास्टर!"
+actions,templates/emojinary/game.html,actions,कार्रवाइयां
+adjective,templates/tools/pictionary.html,adjective,विशेषण
+ago,"scripts/generate_locales.py, templates/gamerooms/room_list.html, templates/lupus/hub.html",ago,पहले
+alive,"scripts/generate_locales.py, templates/lupus/hub.html",alive,जीवित
 all,templates/emojinary/game.html,all,सभी
+all categories,templates/emojinary/game.html,all categories,सभी श्रेणियां
+all day,templates/tools/partials/calendar.html,all day,पूरे दिन
+and publish their clue below.,templates/codenames/game.html,and publish their clue below.,और नीचे अपना सुराग प्रकाशित करें।
+animals,templates/emojinary/game.html,animals,जानवर
+any,templates/tools/pictionary.html,any,कोई भी
 aperture,photos/models.py,aperture,एपर्चर
 auto focus detected,photos/models.py,auto focus detected,ऑटो फ़ोकस का पता चला
 available for sale,photos/models.py,available for sale,बिक्री के लिए उपलब्ध
+best guess,templates/emojinary/game.html,best guess,सर्वश्रेष्ठ अनुमान
+blog,"scripts/generate_locales.py, templates/base.html, templates/blog/blog_index_page.html, templates/blog/post_list.html, templates/wip.html",blog,blog
 camera make,photos/models.py,camera make,कैमरा निर्माता
 camera model,photos/models.py,camera model,कैमरा मॉडल
+category:,templates/emojinary/game.html,category:,श्रेणी:
+chat:,templates/emojinary/game.html,chat:,chat:
+clear,templates/emojinary/game.html,clear,साफ़ करें
+collective prep + hints,templates/emojinary/game.html,collective prep + hints,सामूहिक तैयारी + संकेत
+create,"scripts/generate_locales.py, templates/gamerooms/room_create.html",create,बनाएं
+create room,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/gamerooms/room_list.html",create room,कमरा बनाएं
 crop focus X (%),photos/models.py,crop focus X (%),क्रॉप फ़ोकस X (%)
 crop focus Y (%),photos/models.py,crop focus Y (%),क्रॉप फ़ोकस Y (%)
+cv,"scripts/generate_locales.py, templates/base.html",cv,cv
 date,photos/models.py,date,तारीख़
+description,templates/tools/ics_maker.html,description,विवरण
+difficulty,templates/tools/pictionary.html,difficulty,कठिनाई
+difficulty:,templates/emojinary/game.html,difficulty:,कठिनाई:
+download .ics,templates/tools/ics_maker.html,download .ics,.ics डाउनलोड करें
 e.g. 9B3A1C2D,templates/lupus/hub.html,e.g. 9B3A1C2D,उदा. 9B3A1C2D
+e.g. Marco,"scripts/generate_locales.py, templates/lupus/join.html",e.g. Marco,उदा. मार्को
+easy,"templates/emojinary/game.html, templates/tools/pictionary.html",easy,आसान
+emoji time:,templates/emojinary/game.html,emoji time:,इमोजी समय:
+end,templates/tools/ics_maker.html,end,समाप्त
+enter password to view the calendar.,templates/tools/planz.html,enter password to view the calendar.,कैलेंडर देखने के लिए पासवर्ड दर्ज करें।
+extract event,templates/tools/ics_maker.html,extract event,इवेंट निकालें
 focal length,photos/models.py,focal length,फ़ोकल लंबाई
+food & drink,templates/emojinary/game.html,food & drink,भोजन और पेय
+gallery,"photos/models.py, templates/photos/upload.html",gallery,गैलरी
 gallery extension,photos/models.py,gallery extension,गैलरी एक्सटेंशन
 gallery extensions,photos/models.py,gallery extensions,गैलरी एक्सटेंशन
+gallery not found.,templates/blog/blocks/photo_gallery.html,gallery not found.,गैलरी नहीं मिली।
+game,templates/gamerooms/room_create.html,game,खेल
+games,"scripts/generate_locales.py, templates/base.html",games,खेल
+go,templates/tools/planz.html,go,go
+guess,templates/emojinary/game.html,guess,अनुमान
+guess time:,templates/emojinary/game.html,guess time:,अनुमान समय:
+hard,"templates/emojinary/game.html, templates/tools/pictionary.html",hard,कठिन
+home,"scripts/generate_locales.py, templates/base.html",home,होम
+ics maker,templates/tools/ics_maker.html,ics maker,आईसीएस निर्माता
+is Guessing,templates/codenames/game.html,is Guessing,अनुमान लगा रहा है
+is formulating a clue for their team.,templates/codenames/game.html,is formulating a clue for their team.,अपनी टीम के लिए सुराग तैयार कर रहा है।
+is formulating a clue. Stand by!,templates/codenames/game.html,is formulating a clue. Stand by!,एक सुराग तैयार कर रहा है। तैयार रहें!
+join,"scripts/generate_locales.py, templates/gamerooms/room_name.html, templates/gamerooms/room_password.html",join,शामिल हों
+latest posts,templates/index.html,latest posts,नवीनतम पोस्ट
 latitude,photos/models.py,latitude,अक्षांश
 lens,photos/models.py,lens,लेंस
+location,templates/tools/ics_maker.html,location,स्थान
 location name,photos/models.py,location name,स्थान का नाम
 longitude,photos/models.py,longitude,देशांतर
+map view,templates/photos/gallery_list.html,map view,मानचित्र देखें
+medium,"templates/emojinary/game.html, templates/tools/pictionary.html",medium,मध्यम
+message (optional),templates/photos/photo_viewer.html,message (optional),संदेश (वैकल्पिक)
+mode,templates/tools/pictionary.html,mode,मोड
+mode:,templates/emojinary/game.html,mode:,मोड:
+movies,templates/emojinary/game.html,movies,फ़िल्में
+new word,templates/tools/pictionary.html,new word,नया शब्द
+next →,templates/photos/photo_viewer.html,next →,अगला →
+no active rooms. create one!,"scripts/generate_locales.py, templates/gamerooms/room_list.html",no active rooms. create one!,कोई सक्रिय कमरा नहीं है। एक बनाएं!
+no galleries yet.,templates/photos/gallery_list.html,no galleries yet.,अभी कोई गैलरी नहीं है।
+no posts yet.,"templates/blog/blog_index_page.html, templates/blog/post_list.html",no posts yet.,अभी कोई पोस्ट नहीं है।
+noun,templates/tools/pictionary.html,noun,संज्ञा
+older →,templates/blog/post_list.html,older →,पुराने →
+original,templates/photos/photo_viewer.html,original,मूल
+password,templates/tools/planz.html,password,पासवर्ड
+password (optional),"scripts/generate_locales.py, templates/gamerooms/room_create.html",password (optional),पासवर्ड (वैकल्पिक)
+paste event details here...,templates/tools/ics_maker.html,paste event details here...,इवेंट विवरण यहाँ पेस्ट करें...
+"paste text or a url with event details, and get an .ics file.",templates/tools/ics_maker.html,"paste text or a url with event details, and get an .ics file.","इवेंट विवरण के साथ टेक्स्ट या यूआरएल पेस्ट करें, और .ics फ़ाइल प्राप्त करें।"
+people & characters,templates/emojinary/game.html,people & characters,लोग और पात्र
 photo,photos/models.py,photo,फ़ोटो
 photo extension,photos/models.py,photo extension,फ़ोटो एक्सटेंशन
 photo extensions,photos/models.py,photo extensions,फ़ोटो एक्सटेंशन
+photo map,templates/photos/map.html,photo map,तस्वीर मानचित्र
+photo not found.,templates/blog/blocks/single_photo.html,photo not found.,तस्वीर नहीं मिली।
+photos,"scripts/generate_locales.py, templates/base.html, templates/index.html, templates/photos/gallery_list.html",photos,तस्वीरें
+photos (select multiple),templates/photos/upload.html,photos (select multiple),तस्वीरें (एकाधिक चुनें)
+phrases,templates/emojinary/game.html,phrases,वाक्यांश
+"pick your options, hit the button, draw!",templates/tools/pictionary.html,"pick your options, hit the button, draw!","विकल्प चुनें, बटन दबाएं, बनाएं!"
+pictionary,templates/tools/pictionary.html,pictionary,pictionary
+places & travel,templates/emojinary/game.html,places & travel,स्थान और यात्रा
+planz,"templates/tools/planz.html, templates/tools/planz_full.html",planz,planz
+play again,templates/emojinary/game.html,play again,फिर से खेलें
+players,"scripts/generate_locales.py, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/lupus/hub.html",players,खिलाड़ी
+press the button to get a word,templates/tools/pictionary.html,press the button to get a word,शब्द पाने के लिए बटन दबाएं
+private (hide guesses),templates/emojinary/game.html,private (hide guesses),निजी (अनुमान छिपाएं)
 processing status,photos/models.py,processing status,प्रोसेसिंग स्थिति
+public (show guesses),templates/emojinary/game.html,public (show guesses),सार्वजनिक (अनुमान दिखाएं)
+request,templates/photos/photo_viewer.html,request,अनुरोध
+rerolls:,templates/emojinary/game.html,rerolls:,पुनः रोल:
+reveal,templates/emojinary/game.html,reveal,दिखाएं
+room language,templates/gamerooms/room_create.html,room language,कमरे की भाषा
+room password,"scripts/generate_locales.py, templates/gamerooms/room_password.html",room password,कमरे का पासवर्ड
+round robin,templates/emojinary/game.html,round robin,राउंड रॉबिन
+rounds:,templates/emojinary/game.html,rounds:,राउंड:
+send,templates/emojinary/game.html,send,भेजें
+sentence,templates/tools/pictionary.html,sentence,वाक्य
 shutter speed,photos/models.py,shutter speed,शटर स्पीड
+skip,templates/emojinary/game.html,skip,छोड़ें
+songs,templates/emojinary/game.html,songs,गाने
+start,templates/tools/ics_maker.html,start,शुरू
+start game,templates/emojinary/game.html,start game,खेल शुरू करें
+text,templates/tools/ics_maker.html,text,टेक्स्ट
+things,templates/emojinary/game.html,things,चीजें
+title,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/tools/ics_maker.html",title,शीर्षक
+title is required,"gamerooms/views.py, scripts/generate_locales.py",title is required,शीर्षक आवश्यक है
+today,templates/tools/partials/calendar.html,today,आज
+tv shows,templates/emojinary/game.html,tv shows,टीवी शो
+type,"photos/models.py, templates/tools/pictionary.html",type,प्रकार
+upload,templates/photos/upload.html,upload,अपलोड
+upload photos,templates/photos/upload.html,upload photos,तस्वीरें अपलोड करें
+url,templates/tools/ics_maker.html,url,url
+verb,templates/tools/pictionary.html,verb,क्रिया
+view full resolution ↗,templates/photos/partials/photo_image.html,view full resolution ↗,पूर्ण रिज़ॉल्यूशन देखें ↗
+view on map,templates/photos/photo_viewer.html,view on map,मानचित्र पर देखें
+waiting for clue...,templates/emojinary/game.html,waiting for clue...,सुराग की प्रतीक्षा...
+waiting for players...,templates/emojinary/game.html,waiting for players...,खिलाड़ियों की प्रतीक्षा...
+watermarked,templates/photos/photo_viewer.html,watermarked,वॉटरमार्क
 watermarked image,photos/models.py,watermarked image,वॉटरमार्क वाली छवि
+web,templates/photos/photo_viewer.html,web,वेब
 web-optimized image,photos/models.py,web-optimized image,वेब-अनुकूलित छवि
+week,templates/tools/partials/calendar.html,week,सप्ताह
+what is %(a)s + %(b)s?,scripts/generate_locales.py,what is %(a)s + %(b)s?,%(a)s + %(b)s कितना होता है?
+word,templates/tools/pictionary.html,word,शब्द
+work in progress — check back soon.,templates/wip.html,work in progress — check back soon.,कार्य प्रगति पर है — जल्द ही वापस देखें।
+wrong captcha,"gamerooms/views.py, scripts/generate_locales.py",wrong captcha,गलत कैप्चा
+wrong password,"gamerooms/views.py, scripts/generate_locales.py, templates/tools/planz.html",wrong password,गलत पासवर्ड
+your email,templates/photos/photo_viewer.html,your email,आपका ईमेल
+your name,"scripts/generate_locales.py, templates/gamerooms/room_name.html",your name,आपका नाम
+— none —,templates/photos/upload.html,— none —,— कोई नहीं —
+← all galleries,templates/photos/gallery_detail.html,← all galleries,← सभी गैलरी
+← all posts,"templates/blog/blog_post_page.html, templates/blog/post_detail.html",← all posts,← सभी पोस्ट
+← back home,"templates/404.html, templates/500.html",← back home,← मुख्य पृष्ठ पर वापस
+← galleries,templates/photos/map.html,← galleries,← गैलरी
+← newer,templates/blog/post_list.html,← newer,← नए
+← prev,templates/photos/photo_viewer.html,← prev,← पिछला
+↓ Download PDF,templates/cv.html,↓ Download PDF,↓ पीडीएफ डाउनलोड करें
+"⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)","scripts/generate_locales.py, templates/lupus/create.html","⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)","⚡ अराजकता और विशेष (अल्फा वुल्फ, साइलेंसर, जासूस, डॉक्टर, स्नाइपर, मेयर, चुड़ैल...)"
+✅ Full Content + UI,gamerooms/language_support.py,✅ Full Content + UI,✅ पूरी सामग्री + UI
+✏️ pictionary,scripts/generate_locales.py,✏️ pictionary,✏️ pictionary
+🌐 UI Only (English Words),gamerooms/language_support.py,🌐 UI Only (English Words),🌐 केवल UI (अंग्रेज़ी शब्द)
+🎨 Emojinary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🎨 Emojinary,🎨 Emojinary
+🐺 Lupus,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 Lupus,🐺 Lupus
+🐺 Lupus Hub & Rooms,scripts/generate_locales.py,🐺 Lupus Hub & Rooms,🐺 लुपस हब और कमरे
+🐺 create lupus,scripts/generate_locales.py,🐺 create lupus,🐺 लुपस बनाएं
+👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),👼 लिम्बो और एंजेल (भेड़िए + जासूस + डॉक्टर + एंजेल + स्नाइपर + ग्रामीण)
+"💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.",scripts/generate_locales.py,"💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.","💡 लिम्बो गेम्स में, भूमिका का खुलासा केवल स्थायी मृत्यु पर होता है, लिम्बो में रहने के दौरान कभी नहीं।"
+💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,"scripts/generate_locales.py, templates/lupus/create.html",💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,💡 डेक शामिल होने वाले खिलाड़ियों की संख्या के अनुसार स्वचालित रूप से अनुकूलित होता है। आप शुरू करने से पहले लॉबी में हर भूमिका को ठीक कर सकते हैं।
+🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),🔍 मानक (भेड़िए + जासूस/द्रष्टा + डॉक्टर/गार्ड + ग्रामीण)
+🕵️ Word Impostor,templates/gamerooms/room_list.html,🕵️ Word Impostor,🕵️ Word Impostor
+🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),🧑 सरल / क्लासिक (कोई विशेष शक्तियां नहीं — शुद्ध भेड़िए बनाम ग्रामीण)
+🧩 Codenames,templates/gamerooms/room_list.html,🧩 Codenames,🧩 Codenames

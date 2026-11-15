@@ -6,1387 +6,1387 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Vytvořit místnost"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Založit novou místnost"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Nová hra"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ vytvořit místnost"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Tajné (Uzavřený hřbitov, role skryté až do konce hry)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 den"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Pouze přesvědčení (Oznamuje „DOBRO“ vs. „ZLO“)"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Přijetí podmínek"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Přehled"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Nastavení týmů a rolí"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 minut"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "1. tip ukončí kolo"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Frakce / Tým (Oznamuje „Městečko“, „Vlkodlaci“, „Neutrální“)"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Informace, ke kterým máme přístup"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Povolené použití"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Nastavení místnosti a stolu (Hostitel)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 minuty (Rychlé)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 dny"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Úplná karta role (Oznamuje přesný název karty a ikonu)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Ukládání a zabezpečení dat"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Vyloučení záruk"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 sekund (Standardní)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Omezení odpovědnosti"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Sdílení se třetími stranami"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — stránka nenalezena"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 sekund"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "Vertikální oříznutí 4:5 (1080x1350) pro carousely na Instagramu."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 minut (Standardní)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Změny a ukončení"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Odvolání přístupu a smazání dat"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — něco se pokazilo"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Kontakt"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 sekund"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 minut (Rozvážné)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Přístup odepřen"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Obvinit:"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktivní"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Aktivní nápověda"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "Aktivní místnosti Lupus"
 
 msgid "Add"
-msgstr ""
+msgstr "Přidat"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Přidat nápovědu"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Přidat ústního / stolního hráče"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Přidat ústního / stolního hráče (přímo do týmu)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Přidat hráče"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Přidat tajnou vlastní dvojici"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Přidejte vlastní slova (interní vtipy), která se přimíchají do budoucích herních plánů rozdaných v této místnosti."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Přidat jméno ústního / stolního hráče..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Přidat do balíčku"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Agenti a hlavní špioni"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "Všechny aktivní místnosti"
 
 msgid "All Games"
-msgstr ""
+msgstr "Všechny hry"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Všechny tipy a nápovědy se zobrazují zde"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Umožnit hostiteli zaznamenávat ústní nápovědy a klikat na karty za hráče u stolu"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Povolit balíček vlastních dvojic hráčů"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Povolit vlastní slova"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Povolit hráčům přidávat vlastní slova"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Použít licenci Creative Commons Uveďte původ-Neužívejte komerčně-Zachovejte licenci a vodoznak."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Automatické vyvážení"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Automaticky vyvážit týmy"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Automatické sečtení, jakmile všichni hráči zahlasují"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Zpět do aktivních místností Lupus"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Zpět do lobby"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Zpět do lobby / Hrát znovu"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Backspace"
 
 msgid "Blue"
 msgstr "Modrý"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Zbývá modrých"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Modrý tým"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "Modrý tým vyhrává!"
 
 msgid "Board"
-msgstr ""
+msgstr "Herní plán"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Herní plán dokončen"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Herní plán ukončen"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Procházet aktivní místnosti Lupus"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Procházet centrum"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Vytvořte svou nápovědu z emoji:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "Licence CC BY-NC-SA"
 
 msgid "CODE"
-msgstr ""
+msgstr "KÓD"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Navigace v kalendáři"
 
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Slovo měšťana (Většina)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Civilisté, Mafiáni, Policista"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Klasický + rozšířený párty balíček"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Fáze nápověd"
 
 msgid "Clues"
-msgstr ""
+msgstr "Nápovědy"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Záznam nápověd a klepnutí"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Kokpit"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "Konference"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Obsah + UI"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopírovat"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Vytvořit místnost pro Lupus / Werewolf"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Vytvořit první místnost pro Lupus"
 
 msgid "Curated"
-msgstr ""
+msgstr "Vybrané"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Vlastní slovo pro Codenames"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Vlastní balíček"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Vlastní sekundy"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Vlastní dělené klávesnice (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Vlastní slovo..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Datum cesty/focení."
 
 msgid "Day"
 msgstr "Den"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Jednodenní výlet"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Rozdat další desku"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Časovač obrany"
 
 msgid "Definition"
-msgstr ""
+msgstr "Definice"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Diskutujte o nápovědách nebo obviněte podezřelé..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "Diskuze"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Časovač kola diskuze"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Zobrazované jméno"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "Lékař chrání před odstřelovačem:"
 
 msgid "Done"
-msgstr ""
+msgstr "Hotovo"
 
 msgid "Education"
-msgstr ""
+msgstr "Vzdělání"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Elektronika/embedded (trochu embedded rustu)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Povolit krádež podvodníka jako poslední šanci"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Povolit smrtící tabuizované otrávené slovo"
 
 msgid "End Board"
-msgstr ""
+msgstr "Ukončit desku"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Ukončit tah hádání"
 
 msgid "End Match"
-msgstr ""
+msgstr "Ukončit zápas"
 
 msgid "English"
-msgstr ""
+msgstr "Angličtina"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "Vstoupit do hry"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Vstoupit do místnosti"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Zadejte kód místnosti (např. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Exportovat JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "Neúspěch"
 
 msgid "Finished"
-msgstr ""
+msgstr "Dokončeno"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "Kokpit GM"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "Kokpit režie GM:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "Režim GM: Uzamčeno"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "Ústní režim hádání GM"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "Ústní režim GM: ZAPNUTO"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "Ústní režim GM Spymaster"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Zobrazované jméno Game Mastera"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Konec hry"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "Herní místnosti"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Pravidla hry a časovače"
 
 msgid "Game not found."
-msgstr ""
+msgstr "Hra nebyla nalezena."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "Herní místnost neexistuje."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Herní slova, nápovědy a rozhraní jsou podporovány v jazyce %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Dát nápovědu o jednom slově"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Dávejte nepřímé jednoslovné nápovědy, aniž byste odhalili slovo nebo šlápli na skryté smrtící tabuizované otrávené slovo. Dokonce i hostitel hraje naslepo bez spoilerů!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Uhodněte slovo občanů a ukradněte vítězství..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Zbývající pokusy"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Fáze hádání"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Radioamatérství, základní licence Spojeného království"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Máte 8místný kód od svého Game Mastera? Zadejte jej zde a skočte přímo do hry:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Skrýt překrytí klíčové karty"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Pěší turistika a horolezectví"
 
 msgid "Hobbies"
 msgstr "Koníčky"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Podržte pro zobrazení tajných rolí:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Domácí automatizace a homelab"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Horizontální ohnisko: 0=vlevo, 50=uprostřed, 100=vpravo."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Ovládací prvky hostitele"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Nastavení hry hostitele"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Místnost hostitele"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "Kóduji, fotím a dělám spoustu dalších věcí"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "Pokud je povoleno, ochrana lékaře může zachránit vlka před zastřelením odstřelovačem. (Zakázáno = odstřelovač pronikne ochranou lékaře)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "Pokud je nastaveno, připojení přes QR kód automaticky autentizuje hráče. (💡 Trik pro demo: jméno GM obsahující Marco a heslo test automaticky vyplní 10 testovacích hráčů pro živé demo)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "Probíhá"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Nesprávné heslo místnosti."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Náhled Instagram 4:5"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Obrázek Instagram 4:5"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Neplatný tajný klíč Game Mastera."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Pozvat hráče"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Pozvat hráče do místnosti"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "Pozvánka QR"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "Nejste na řadě s odesláním nápovědy."
 
 msgid "Join"
-msgstr ""
+msgstr "Připojit se"
 
 msgid "Join Game"
-msgstr ""
+msgstr "Připojit se ke hře"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Připojit se ke hře Lupus"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Chcete-li začít, připojte se k červenému nebo modrému týmu"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Připojit se jako operutivec"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Připojit se jako hráč"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Připojit se jako velitel"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Připojit se pomocí kódu místnosti"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "POSLEDNÍ ŠANCE PODVODNÍKA NA KRÁDEŽ!"
 
 msgid "Languages"
-msgstr ""
+msgstr "Jazyky"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Naposledy aktualizováno: 27. října 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "Opozdilci se připojují jako potvrzení cestovatelé, duchové města nebo nástupci."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Spustit místnost Lupus"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "Pro veřejné připojení nechte prázdné"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Nechte tohoto hráče naskenovat kód na telefonu a převzít jeho osobní zobrazení velitele/operativce."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Smrtící tabuové slovo (volitelná past okamžité eliminace)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Mechanika Limbo a Anděl:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Vyřešení Limba"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Poslouchat"
 
 msgid "Listening"
-msgstr ""
+msgstr "Poslouchá se"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Živý chat a proud tipů"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Žijící i padlí hráči posílají ranní zvěsti, které jsou nahlas přečteny za úsvitu."
 
 msgid "Lobby"
-msgstr ""
+msgstr "Lobby"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Lobby (čeká se na hráče)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Zapsat nápovědu pro velitele u stolu"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Vlkodlak"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Aktivní místnosti a centrum Lupus"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Hra Lupus"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Párty hra Lupus"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula – Aktivní místnosti a herní centrum"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Vlkodlak"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Zápas dokončen"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Stupně vítězů a nejlepší momenty zápasu"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Záznam zápasu a časová osa pokusů"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Záznam zápasu a archiv hrací desky"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Pravidla zápasu"
 
 msgid "Message..."
-msgstr ""
+msgstr "Zpráva..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Příchody v průběhu hry:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Ovládání hlasování moderátora — Vyberte hráče a podezřelého níže, nebo klepněte na pilulku a místo u stolu:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Pohyb..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Nová hra / Znovu rozdat"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Další kolo"
 
 msgid "Next day"
-msgstr ""
+msgstr "Další den"
 
 msgid "Night"
 msgstr "Noc"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "V tuto chvíli nejsou aktivní žádné hry Lupus"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Zatím nebyl vygenerován žádný ořez pro Instagram."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Zatím nebyly zveřejněny žádné nápovědy."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Zatím žádné dokončené herní desky Codenames. Dokončete desku nebo ji ukončete předčasně, abyste zde viděli celý záznam klíčové karty."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "Není k dispozici žádná definice ze slovníku."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "Nebyly zaznamenány žádné tahy."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Oficiální týmová dedukční deska 5×5 o 400 slovech s nápovědami Wikisaurus Spymaster AI, soukromým přepínačem klíčové karty a ústní/stolní hrou."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "Oficiálních klasických 400 slov"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Jednoslovná nápověda..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Povoleny jsou pouze emotikony — textové znaky byly ignorovány."
 
 msgid "Open"
-msgstr ""
+msgstr "Otevřeno"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "Otevřeno (Lobby)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "Otevřít kokpit GM"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Otevřít generátor"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Otevřít odkaz na hráče"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Volné místo"
 
 msgid "Operative"
-msgstr ""
+msgstr "Operativec"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Sekundy operativce (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Operativci"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Operativci hádají"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Operativci vybírají karty pro toto kolo."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Operativci hádají!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "Soupeřův tým hádá. Počkejte, až se vzdá tahu nebo špatně klepne."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "Nebo zadejte vlastní výzvu/frázi..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Ústní režim velitele (záznam moderátora)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Původní RAW soubor fotoaparátu (CR3, ARW, NEF atd.)"
 
 msgid "Other"
-msgstr ""
+msgstr "Ostatní"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "Venku"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Stránka nenalezena — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Ovládání účastnícího se hostitele (žádné spoilery)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Pas / Špatně"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Předat tah (mod)"
 
 msgid "Password"
 msgstr "Heslo"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Chráněno heslem"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Minulé a dokončené hry"
 
 msgid "Pause"
-msgstr ""
+msgstr "Pozastavit"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Pozastavit časovač"
 
 msgid "Pending"
-msgstr ""
+msgstr "Čeká se"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "Osobní QR kód hráče"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "Osobní QR kód"
 
 msgid "Photography"
-msgstr ""
+msgstr "Fotografie"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Vyberte 1 slovo a počet karet. Vaši agenti musí hádat podle vaší nápovědy."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Zvolte si jméno, pod kterým vás ostatní u stolu znají."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Vyberte si hru, jazyk a nastavení místnosti — až budete připraveni, sdílejte odkaz nebo QR kód."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Profil hráče a osobní QR kód"
 
 msgid "Player QR"
-msgstr ""
+msgstr "QR kód hráče"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR kód pro znovupřipojení hráče"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Jméno hráče..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Hráči a skóre"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Zadejte prosím jméno hráče."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Zadejte prosím platný kód místnosti."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Otrávené slovo (Podvodník / Opilec)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Režim otráveného slova"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "Portugalština · Helsinky, Finsko"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Předchozí den"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Cena za stažení souboru RAW."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Zásady ochrany osobních údajů"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Zásady ochrany osobních údajů - Homelab Telegram Bot"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Zásady ochrany osobních údajů - Homelab Telegram Bot - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "Štít soukromí chrání karty před zvědavými pohledy u stolu."
 
 msgid "Processing"
-msgstr ""
+msgstr "Zpracovává se"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Nástroj pro prompty"
 
 msgid "Public"
-msgstr ""
+msgstr "Veřejný"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Zveřejnit nápovědu"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW k zakoupení"
 
 msgid "RAW file"
-msgstr ""
+msgstr "Soubor RAW"
 
 msgid "RAW price"
-msgstr ""
+msgstr "Cena RAW"
 
 msgid "Reading"
-msgstr ""
+msgstr "Čtení"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "Párty hry pro více hráčů v prohlížeči v reálném čase. Nejsou vyžadovány žádné účty — stačí se připojit a hrát s přáteli."
 
 msgid "Red"
 msgstr "Červeň"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Zbývá červených"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Červený tým"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "Červený tým vyhrává!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Přerozdělit herní plán"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Znovu vygenerovat ořezy 4:5 pro Instagram u vybraných fotek"
 
 msgid "Replay"
-msgstr ""
+msgstr "Přehrát znovu"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Přehodit"
 
 msgid "Resume"
-msgstr ""
+msgstr "Pokračovat"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Vrátit se jako %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "Odhalit"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "Odhalit role po smrti:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Role skryta"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Role, fáze a rozhraní jsou lokalizovány do jazyka %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Chat místnosti"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Chat místnosti a události"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Kód místnosti"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Kód místnosti:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Heslo místnosti"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Heslo místnosti (volitelné)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Nastavení místnosti"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Název místnosti"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "Kód místnosti „%(code)s“ nebyl nalezen nebo již není aktivní."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Místnosti"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "Místnosti se vytvářejí na vyžádání a zůstávají aktivní po dobu 24 hodin. Spusťte novou herní relaci a pozvěte svou skupinu!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Střídat hlavní špiony při každém novém herním plánu"
 
 msgid "Round"
-msgstr ""
+msgstr "Kolo"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Nápovědy kola"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Přehrání kolo po kole a záznam pokusů"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Kola (cykly nápověd)"
 
 msgid "Running"
-msgstr ""
+msgstr "Běží"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Uložit jméno"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Naskenujte na jiném zařízení a bez problémů získejte zpět své místo hlavního špiona / agenta."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Naskenujte tento QR kód fotoaparátem jakéhokoli telefonu a okamžitě se připojte:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Naskenujte tento osobní QR kód a změňte zařízení, aniž byste přišli o svou tajnou kartu:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Naskenujte toto a přeneste svou relaci a skóre do jiného telefonu nebo prohlížeče:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Hledejte emoji podle názvu, synonyma, překlepu nebo jazyka (např. fire, crown, fogo, φωטיά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "Odeslat"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Odeslat balíček carouselu pro Instagram na Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Chyba serveru — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Nastavit"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Příprava týmů..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Zobrazit roli a slovo"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Zobrazit klíčovou kartu hlavního špiona"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Tichá fáze"
 
 msgid "Skills"
-msgstr ""
+msgstr "Dovednosti"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Přeskočit tah"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "Zabití hráči vstoupí jednou do očistce místo přímé smrti. Pokud uhodnou, kdo je Anděl, jsou vzkříšeni!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Sociální dedukce s otrávenými slovy, smrtícími tabu pastmi, krádeží na poslední chvíli a aktivně hrajícím Pánem hry."
 
 msgid "Spanish"
-msgstr ""
+msgstr "Španělština"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Mluvčí (ústní nápověda):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "Mluví"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Divák"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Divák / Nehraje"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Režim diváka (přeskakovat mé tahy)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Krycí pán"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Sekundy krycího pána (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "Krycí pán přemýšlí o nápovědě..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Střídavý lékař:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Standardní na čas (90 s / 90 s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Spustit Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Zahájit zápas"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Zahájit hlasování dříve"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Výchozí sada počátečních rolí"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Ukrást tip"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Časovač krádeže (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Vítězství krádeží!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Postupné noční fáze, hlášení blufování a správce hlasování."
 
 msgid "Submit"
-msgstr ""
+msgstr "Odeslat"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Odeslat nápovědu"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Odeslat hlas hráče"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Diskuze u stolu a záznam událostí"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Přednosti stolního Lupus"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Společenská stolní párty hra na Vlkodlaka a Mafii. Nevyžaduje žádné přihlašování k účtu. Každý hráč používá svůj telefon pro tajné role a hlasování, zatímco vy řídíte místnost jako Pán hry."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Stolní hybridní párty hra. Není potřeba žádný účet ani přihlášení. Hráči se připojí přes QR kód a vy hru řídíte jako Pán hry."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Stolní společenská hra s tajnými rolemi, živým hlasováním, Městským věstníkem a ovládacím pultem pro GM."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Sečíst hlasy hned"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Klikejte na karty na plánu podle toho, jak hráči nahlas tipují."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Klepněte na karty na plánu, které odpovídají nápovědě. Až budete hotovi nebo pokud si nejste jistí, klepněte na Ukončit kolo tipování."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Cíle"
 
 msgid "Techy"
-msgstr ""
+msgstr "Technologický"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "Podmínky služby"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Podmínky služby – Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Podmínky služby – Homelab Telegram Bot – Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "Doktor / Strážce nemůže chránit stejnou osobu dvě noci po sobě."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "Rozhraní používá jazyk %(lang)s, zatímco herní obsah se vrací k angličtině, protože kompletní slovní zásoba není k dispozici."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Téma a podmínky"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Předvolba časového limitu"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Přepnout"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Přepnout režim diváka"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "Městský věstník:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Hlasování městečka"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Pořadí tahů"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Časovač tahu (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Časovače tahů"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Napište zprávu nebo tip..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Napište nápovědu nebo to, co bylo řečeno ústně..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Napište svůj tip (nebo použijte pole chatu)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Pouze rozhraní"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "Nelze načíst QR kód hráče."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Nepřiřazeno"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Neomezeno"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Odemknout místnost"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Bez časovače"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Bez časovače (pohodový režim z gauče)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Použít zadání"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Použijte klávesnici emodži nebo klepněte na emodži níže..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Vertikální ohnisko: 0=nahoře, 50=uprostřed, 100=dole."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Vesničané, Vlci, Vědma"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Časovač hlasování (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Hlasovat pro hráče:"
 
 msgid "Voting"
-msgstr ""
+msgstr "Hlasování"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "Čeká se na nápovědu..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Čeká se, až hostitel nastaví týmy a spustí herní plán..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Čekání v lobby..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Vlkodlak / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Zda byly souřadnice ohniska vypočteny automaticky pomocí detekce hran."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus návrhy nápověd od AI (klepnutím předvyplníte)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Výhry"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Generátor slov a vět pro klasická kola kreslení na papír s přáteli."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Slovní podvodník"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Balíček slov"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "Pracovní zkušenosti"
 
 msgid "Writing"
-msgstr ""
+msgstr "Psaní"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "K přístupu na tuto stránku potřebujete autorizovaný klíč."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "Vaše jméno / přezdívka"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Vaši agenti se radí. Udržujte naprostou pokerovou tvář – žádné reakce ani nápovědy!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "Váš osobní QR kód pro opětovné připojení"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "Vaše tajná fráze"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "Váš krycí pán"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "Jsi na řadě s hádáním!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "Jsi na řadě, veliteli!"
 
 msgid "actions"
-msgstr ""
+msgstr "akce"
 
 msgid "adjective"
-msgstr ""
+msgstr "přídavné jméno"
 
 msgid "ago"
-msgstr ""
+msgstr "před"
 
 msgid "alive"
-msgstr ""
+msgstr "naživu"
 
 msgid "all"
-msgstr ""
+msgstr "vše"
 
 msgid "all categories"
-msgstr ""
+msgstr "všechny kategorie"
 
 msgid "all day"
-msgstr ""
+msgstr "celý den"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "a zveřejnit nápovědu níže."
 
 msgid "animals"
-msgstr ""
+msgstr "zvířata"
 
 msgid "any"
-msgstr ""
+msgstr "jakýkoli"
 
 msgid "aperture"
-msgstr ""
+msgstr "clona"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "detekováno automatické zaostřování"
 
 msgid "available for sale"
-msgstr ""
+msgstr "k dispozici k prodeji"
 
 msgid "best guess"
-msgstr ""
+msgstr "nejlepší tip"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "výrobce fotoaparátu"
 
 msgid "camera model"
-msgstr ""
+msgstr "model fotoaparátu"
 
 msgid "category:"
-msgstr ""
+msgstr "kategorie:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "vymazat"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "společná příprava + nápovědy"
 
 msgid "create"
 msgstr "tvořit"
 
 msgid "create room"
-msgstr ""
+msgstr "vytvořit místnost"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "střed ořezu X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "střed ořezu Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "datum"
 
 msgid "description"
-msgstr ""
+msgstr "popis"
 
 msgid "difficulty"
-msgstr ""
+msgstr "obtížnost"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "obtížnost:"
 
 msgid "download .ics"
-msgstr ""
+msgstr "stáhnout .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "např. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "např. Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "snadná"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "čas na emoji:"
 
 msgid "end"
 msgstr "konec"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "pro zobrazení kalendáře zadejte heslo."
 
 msgid "extract event"
-msgstr ""
+msgstr "extrahovat událost"
 
 msgid "focal length"
-msgstr ""
+msgstr "ohnisková vzdálenost"
 
 msgid "food & drink"
-msgstr ""
+msgstr "jídlo a pití"
 
 msgid "gallery"
 msgstr "galerie"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "rozšíření galerie"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "rozšíření galerie"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "galerie nebyla nalezena."
 
 msgid "game"
 msgstr "hra"
@@ -1398,145 +1398,145 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "hádat"
 
 msgid "guess time:"
-msgstr ""
+msgstr "čas na hádání:"
 
 msgid "hard"
-msgstr ""
+msgstr "těžká"
 
 msgid "home"
 msgstr "Domů"
 
 msgid "ics maker"
-msgstr ""
+msgstr "tvůrce ics"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "hádá"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "vymýšlí nápovědu pro svůj tým."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "vymýšlí nápovědu. Počkejte!"
 
 msgid "join"
-msgstr ""
+msgstr "připojit se"
 
 msgid "latest posts"
 msgstr "Nejnovější příspěvky"
 
 msgid "latitude"
-msgstr ""
+msgstr "zeměpisná šířka"
 
 msgid "lens"
 msgstr "čočka"
 
 msgid "location"
-msgstr ""
+msgstr "poloha"
 
 msgid "location name"
-msgstr ""
+msgstr "název místa"
 
 msgid "longitude"
-msgstr ""
+msgstr "zeměpisná délka"
 
 msgid "map view"
-msgstr ""
+msgstr "zobrazení mapy"
 
 msgid "medium"
-msgstr ""
+msgstr "střední"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "zpráva (volitelné)"
 
 msgid "mode"
-msgstr ""
+msgstr "režim"
 
 msgid "mode:"
-msgstr ""
+msgstr "režim:"
 
 msgid "movies"
-msgstr ""
+msgstr "filmy"
 
 msgid "new word"
-msgstr ""
+msgstr "nové slovo"
 
 msgid "next →"
-msgstr ""
+msgstr "další →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "žádné aktivní místnosti. vytvořte nějakou!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "zatím žádné galerie."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "zatím žádné příspěvky."
 
 msgid "noun"
-msgstr ""
+msgstr "podstatné jméno"
 
 msgid "older →"
-msgstr ""
+msgstr "starší →"
 
 msgid "original"
-msgstr ""
+msgstr "původní"
 
 msgid "password"
 msgstr "heslo"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "heslo (volitelné)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "sem vložte podrobnosti o události..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "vložte text nebo adresu url s podrobnostmi o události a získejte soubor .ics."
 
 msgid "people & characters"
-msgstr ""
+msgstr "lidé a postavy"
 
 msgid "photo"
-msgstr ""
+msgstr "fotka"
 
 msgid "photo extension"
-msgstr ""
+msgstr "rozšíření fotky"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "rozšíření fotek"
 
 msgid "photo map"
-msgstr ""
+msgstr "fotomapa"
 
 msgid "photo not found."
-msgstr ""
+msgstr "fotografie nebyla nalezena."
 
 msgid "photos"
 msgstr "Fotky"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "fotografie (vyberte více)"
 
 msgid "phrases"
-msgstr ""
+msgstr "fráze"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "vyberte možnosti, stiskněte tlačítko a kreslete!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "místa a cestování"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "hrát znovu"
 
 msgid "players"
 msgstr ""

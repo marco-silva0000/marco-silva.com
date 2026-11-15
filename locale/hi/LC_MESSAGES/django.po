@@ -33,13 +33,13 @@ msgid "1. Overview"
 msgstr "1. अवलोकन"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. टीमें और भूमिकाएं सेटअप"
 
 msgid "10 Minutes"
 msgstr "10 मिनट"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "पहला अनुमान राउंड समाप्त करता है"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
 msgstr "2 — गुट / टीम (\"शहर\", \"वेयरवोल्फ\", \"तटस्थ\" घोषित करता है)"
@@ -51,7 +51,7 @@ msgid "2. Permitted Use"
 msgstr "2. अनुमत उपयोग"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. कमरा और टेबल सेटिंग्स (होस्ट)"
 
 msgid "3 Minutes (Fast)"
 msgstr "3 मिनट (तेज़)"
@@ -111,46 +111,46 @@ msgid "Access Denied"
 msgstr "प्रवेश अस्वीकृत"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "आरोप लगाएं:"
 
 msgid "Active"
 msgstr "सक्रिय"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "सक्रिय सुराग"
 
 msgid "Active Lupus Rooms"
 msgstr "सक्रिय लुपस कमरे"
 
 msgid "Add"
-msgstr ""
+msgstr "जोड़ें"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "संकेत जोड़ें"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "मौखिक / टेबल खिलाड़ी जोड़ें"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "मौखिक / टेबल खिलाड़ी जोड़ें (सीधे एक टीम में)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "खिलाड़ी जोड़ें"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "गुप्त कस्टम जोड़ी जोड़ें"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "इस कमरे में आगे बांटे जाने वाले बोर्डों में शामिल करने के लिए कस्टम इनसाइड-मजाक शब्द जोड़ें।"
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "मौखिक / टेबल खिलाड़ी का नाम जोड़ें..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "डेक में जोड़ें"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "एजेंट और जासूस प्रमुख"
 
 msgid "All Active Rooms"
 msgstr "सभी सक्रिय कमरे"
@@ -159,73 +159,73 @@ msgid "All Games"
 msgstr "सभी खेल"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "सभी अनुमान और संकेत यहाँ दिखाई देते हैं"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "होस्ट को मौखिक सुराग दर्ज करने और टेबल पर मौजूद खिलाड़ियों के लिए कार्ड टैप करने की अनुमति दें"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "खिलाड़ी के कस्टम जोड़ी डेक की अनुमति दें"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "कस्टम शब्दों की अनुमति दें"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "खिलाड़ियों को कस्टम शब्द जोड़ने की अनुमति दें"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
 msgstr "Creative Commons Attribution-NonCommercial-ShareAlike लाइसेंस और वॉटरमार्क लागू करें।"
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "ऑटो-संतुलन"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "टीमों को ऑटो-संतुलित करें"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "सभी खिलाड़ियों द्वारा मतदान करने के बाद ऑटो-गणना करें"
 
 msgid "Back to Active Lupus Rooms"
 msgstr "सक्रिय लुपस कमरों पर वापस जाएं"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "लॉबी में वापस जाएं"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "लॉबी में वापस / फिर से खेलें"
 
 msgid "Backspace"
-msgstr ""
+msgstr "बैकस्पेस"
 
 msgid "Blue"
 msgstr "नीला"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "ब्लू शेष"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "ब्लू टीम"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "ब्लू टीम जीत गई!"
 
 msgid "Board"
-msgstr ""
+msgstr "बोर्ड"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "बोर्ड समाप्त"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "बोर्ड खत्म हुआ"
 
 msgid "Browse Active Lupus Rooms"
 msgstr "सक्रिय लुपस कमरे देखें"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "हब ब्राउज़ करें"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "अपना इमोजी सुराग बनाएं:"
 
 msgid "CC BY-NC-SA license"
 msgstr "CC BY-NC-SA लाइसेंस"
@@ -240,25 +240,25 @@ msgid "Calendar navigation"
 msgstr "कैलेंडर नेविगेशन"
 
 msgid "Category"
-msgstr ""
+msgstr "श्रेणी"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "नागरिक शब्द (बहुमत)"
 
 msgid "Civilians, Mobsters, Cop"
 msgstr "नागरिक, गैंगस्टर, पुलिस"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "क्लासिक + विस्तारित पार्टी पैक"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "सुराग चरण"
 
 msgid "Clues"
-msgstr ""
+msgstr "सुराग"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "सुराग और टैप लॉग"
 
 msgid "Cockpit"
 msgstr "कॉकपिट"
@@ -270,10 +270,10 @@ msgid "Conferences"
 msgstr "सम्मेलन"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "सामग्री + यूआई"
 
 msgid "Copy"
-msgstr ""
+msgstr "कॉपी करें"
 
 msgid "Create Lupus / Werewolf Room"
 msgstr "लुपस / वेयरवोल्फ कमरा बनाएं"
@@ -285,19 +285,19 @@ msgid "Curated"
 msgstr "क्यूरेटेड"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "कस्टम कोडनेम्स शब्द"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "कस्टम डेक"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "कस्टम सेकंड"
 
 msgid "Custom split keyboards (colemak + nvim)"
 msgstr "कस्टम स्प्लिट कीबोर्ड (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "कस्टम शब्द..."
 
 msgid "Date of the trip/shoot."
 msgstr "यात्रा/शूट की तारीख।"
@@ -309,16 +309,16 @@ msgid "Day Trip"
 msgstr "एक दिवसीय यात्रा"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "अगला बोर्ड बांटें"
 
 msgid "Defense Timer"
 msgstr "बचाव का टाइमर"
 
 msgid "Definition"
-msgstr ""
+msgstr "परिभाषा"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "सुरागों पर चर्चा करें या संदिग्धों पर आरोप लगाएं..."
 
 msgid "Discussion"
 msgstr "चर्चा"
@@ -327,7 +327,7 @@ msgid "Discussion Round Timer"
 msgstr "चर्चा दौर का टाइमर"
 
 msgid "Display Name"
-msgstr ""
+msgstr "प्रदर्शित नाम"
 
 msgid "Doctor Shields From Sniper:"
 msgstr "डॉक्टर स्नाइपर से बचाता है:"
@@ -342,19 +342,19 @@ msgid "Electronics/embedded (some rust embedded)"
 msgstr "इलेक्ट्रॉनिक्स/एम्बेडेड (कुछ Rust एम्बेडेड)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "अंतिम-मौका धोखेबाज़ चोरी सक्षम करें"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "घातक वर्जित विष शब्द सक्षम करें"
 
 msgid "End Board"
-msgstr ""
+msgstr "बोर्ड समाप्त करें"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "अनुमान लगाने की बारी समाप्त करें"
 
 msgid "End Match"
-msgstr ""
+msgstr "मैच समाप्त करें"
 
 msgid "English"
 msgstr "अंग्रेज़ी"
@@ -369,7 +369,7 @@ msgid "Enter Room Code (e.g. 9B3A1C2D)"
 msgstr "कमरा कोड दर्ज करें (उदा. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "JSON निर्यात करें"
 
 msgid "Failed"
 msgstr "विफल"
@@ -387,16 +387,16 @@ msgid "GM Director Cockpit:"
 msgstr "जीएम डायरेक्टर कॉकपिट:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "GM मोड: लॉक है"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "GM मौखिक अनुमान मोड"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "GM मौखिक मोड: चालू"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "GM मौखिक जासूस प्रमुख मोड"
 
 msgid "Game Master Display Name"
 msgstr "गेम मास्टर का नाम"
@@ -417,22 +417,22 @@ msgid "Game room does not exist."
 msgstr "गेम रूम मौजूद नहीं है।"
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "गेम शब्द, सुराग और इंटरफ़ेस %(lang)s में समर्थित हैं।"
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "एक शब्द का सुराग दें"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "शब्द को उजागर किए बिना या छिपे हुए घातक वर्जित विष शब्द पर कदम रखे बिना अप्रत्यक्ष एक-शब्द सुराग दें। यहाँ तक कि होस्ट भी बिना किसी स्पॉइलर के खेलता है!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "जीत चुराने के लिए नागरिक शब्द का अनुमान लगाएं..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "शेष अनुमान"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "अनुमान लगाने का चरण"
 
 msgid "Ham radio, UK foundation license"
 msgstr "हैम रेडियो, UK फाउंडेशन लाइसेंस"
@@ -441,7 +441,7 @@ msgid "Have an 8-character code from your Game Master? Enter it here to jump str
 msgstr "क्या आपके गेम मास्टर से 8-अक्षरों का कोड मिला है? सीधे शामिल होने के लिए इसे यहां दर्ज करें:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "कीकार्ड ओवरले छिपाएं"
 
 msgid "Hiking and climbing"
 msgstr "हाइकिंग और क्लाइम्बिंग"
@@ -459,13 +459,13 @@ msgid "Horizontal focal point: 0=left, 50=center, 100=right."
 msgstr "क्षैतिज फोकल बिंदु: 0=बाएं, 50=केंद्र, 100=दाएं।"
 
 msgid "Host Controls"
-msgstr ""
+msgstr "होस्ट नियंत्रण"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "होस्ट गेम सेटिंग्स"
 
 msgid "Host Room"
-msgstr ""
+msgstr "कमरा होस्ट करें"
 
 msgid "I code, take pics and many other things"
 msgstr "मैं कोड करता हूं, तस्वीरें लेता हूं और कई अन्य चीजें"
@@ -495,16 +495,16 @@ msgid "Invalid Game Master secret key."
 msgstr "अमान्य गेम मास्टर गुप्त कुंजी।"
 
 msgid "Invite Players"
-msgstr ""
+msgstr "खिलाड़ियों को आमंत्रित करें"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "कमरे में खिलाड़ियों को आमंत्रित करें"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "आमंत्रण क्यूआर"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "सुराग प्रस्तुत करने की आपकी बारी नहीं है।"
 
 msgid "Join"
 msgstr "शामिल हों"
@@ -516,16 +516,16 @@ msgid "Join Lupus Game"
 msgstr "लुपस गेम में शामिल हों"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "शुरू करने के लिए लाल या नीली टीम में शामिल हों"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "ऑपरेटिव के रूप में शामिल हों"
 
 msgid "Join as Player"
 msgstr "खिलाड़ी के रूप में शामिल हों"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "जासूस प्रमुख के रूप में शामिल हों"
 
 msgid "Join with Room Code"
 msgstr "कमरा कोड के साथ शामिल हों"
@@ -534,7 +534,7 @@ msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "अंतिम-मौका धोखेबाज़ चोरी!"
 
 msgid "Languages"
 msgstr "भाषाएँ"
@@ -552,10 +552,10 @@ msgid "Leave empty for public join"
 msgstr "सार्वजनिक प्रवेश के लिए खाली छोड़ें"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "इस खिलाड़ी को अपने व्यक्तिगत जासूस प्रमुख/ऑपरेटिव दृश्य को लेने के लिए अपने फ़ोन पर स्कैन करने दें।"
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "घातक वर्जित शब्द (वैकल्पिक तत्काल निष्कासन जाल)"
 
 msgid "Limbo"
 msgstr "Limbo"
@@ -567,13 +567,13 @@ msgid "Limbo Resolution"
 msgstr "लिम्बो समाधान"
 
 msgid "Listen to"
-msgstr ""
+msgstr "सुनें"
 
 msgid "Listening"
 msgstr "सुनना"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "लाइव चैट और अनुमान स्ट्रीम"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
 msgstr "जीवित और मृत खिलाड़ी सुबह की अफवाहें भेजते हैं जो भोर में जोर से पढ़ी जाती हैं।"
@@ -585,10 +585,10 @@ msgid "Lobby (Waiting for Players)"
 msgstr "लॉबी (खिलाड़ियों का इंतज़ार)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "टेबल स्पाईमास्टर के लिए सुराग दर्ज करें"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "ल्यूपस / वेयरवुल्फ"
 
 msgid "Lupus Active Rooms & Hub"
 msgstr "लुपस सक्रिय कमरे और हब"
@@ -609,37 +609,37 @@ msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "मैच समाप्त"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "मैच पोडियम और हाइलाइट्स"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "मैच रीप्ले और प्रयास समयरेखा"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "मैच रीप्ले और बोर्ड आर्काइव"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "मैच के नियम"
 
 msgid "Message..."
-msgstr ""
+msgstr "संदेश..."
 
 msgid "Midgame Arrivals:"
 msgstr "खेल के बीच में आगमन:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "मॉडरेटर वोट नियंत्रण — नीचे दिए गए खिलाड़ी और संदिग्ध को चुनें, या टेबल पर पिल और सीट को टैप करें:"
 
 msgid "Move..."
-msgstr ""
+msgstr "स्थानांतरित करें..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "नया खेल / पुनर्वितरण"
 
 msgid "Next Round"
-msgstr ""
+msgstr "अगला राउंड"
 
 msgid "Next day"
 msgstr "अगला दिन"
@@ -654,28 +654,28 @@ msgid "No Instagram crop generated yet."
 msgstr "अभी तक कोई Instagram क्रॉप जनरेट नहीं किया गया है।"
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "अभी तक कोई सुराग प्रकाशित नहीं किया गया है।"
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "अभी तक कोई पूरा हुआ Codenames बोर्ड नहीं है। पूरा की-कार्ड रीप्ले यहां देखने के लिए बोर्ड समाप्त करें या इसे पहले समाप्त करें।"
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "कोई शब्दकोश परिभाषा उपलब्ध नहीं है।"
 
 msgid "No turns logged."
-msgstr ""
+msgstr "कोई बारी दर्ज नहीं की गई।"
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Wikisaurus Spymaster AI सुराग, निजी Keycard टॉगल और मौखिक/टेबल खेल के साथ आधिकारिक 400-शब्द 5×5 टीम निष्कर्ष बोर्ड।"
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "आधिकारिक क्लासिक 400 शब्द"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "एक-शब्द का सुराग..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "केवल इमोजी की अनुमति है — टेक्स्ट वर्णों को अनदेखा कर दिया गया।"
 
 msgid "Open"
 msgstr "खुला"
@@ -687,40 +687,40 @@ msgid "Open GM Cockpit"
 msgstr "जीएम कॉकपिट खोलें"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "जनरेटर खोलें"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "खिलाड़ी लिंक खोलें"
 
 msgid "Open slot"
-msgstr ""
+msgstr "खाली स्लॉट"
 
 msgid "Operative"
-msgstr ""
+msgstr "ऑपरेटिव"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "ऑपरेटिव सेकंड (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "ऑपरेटिव्स"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "ऑपरेटिव्स अनुमान लगा रहे हैं"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "ऑपरेटिव्स इस राउंड के लिए कार्ड चुन रहे हैं।"
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "ऑपरेटिव्स अनुमान लगा रहे हैं!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "विरोधी टीम अनुमान लगा रही है। उनके पास करने या गलत टैप करने की प्रतीक्षा करें।"
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "या अपना खुद का कस्टम प्रॉम्प्ट/वाक्यांश टाइप करें..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "मौखिक स्पाईमास्टर मोड (मॉड लॉगिंग)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
 msgstr "मूल कैमरा RAW फ़ाइल (CR3, ARW, NEF, आदि)"
@@ -735,13 +735,13 @@ msgid "Page Not Found — Marco Silva"
 msgstr "पेज नहीं मिला — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "भाग लेने वाले होस्ट के नियंत्रण (शून्य-स्पॉइलर)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "पास / गलत"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "बारी पास करें (मॉड)"
 
 msgid "Password"
 msgstr "पासवर्ड"
@@ -753,46 +753,46 @@ msgid "Past & Finished Games"
 msgstr "पिछले और समाप्त हुए खेल"
 
 msgid "Pause"
-msgstr ""
+msgstr "रोकें"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "टाइमर रोकें"
 
 msgid "Pending"
 msgstr "लंबित"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "व्यक्तिगत खिलाड़ी QR"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "व्यक्तिगत QR"
 
 msgid "Photography"
 msgstr "फोटोग्राफी"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "1 शब्द और कार्डों की संख्या चुनें। आपके ऑपरेटिव्स को आपके सुराग के आधार पर अनुमान लगाना होगा।"
 
 msgid "Pick the name others at the table know you by."
 msgstr "वह नाम चुनें जिससे मेज पर मौजूद अन्य लोग आपको जानते हैं।"
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "अपना गेम, भाषा और रूम सेटिंग्स चुनें — तैयार होने पर लिंक या QR कोड शेयर करें।"
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "खिलाड़ी प्रोफ़ाइल और व्यक्तिगत QR"
 
 msgid "Player QR"
-msgstr ""
+msgstr "खिलाड़ी QR"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "खिलाड़ी पुनः कनेक्ट QR"
 
 msgid "Player name..."
-msgstr ""
+msgstr "खिलाड़ी का नाम..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "खिलाड़ी और स्कोर"
 
 msgid "Please enter a player name."
 msgstr "कृपया खिलाड़ी का नाम दर्ज करें।"
@@ -801,10 +801,10 @@ msgid "Please enter a valid room code."
 msgstr "कृपया एक मान्य कमरा कोड दर्ज करें।"
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "जहरीला शब्द (ढोंगी / शराबी)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "जहरीला शब्द मोड"
 
 msgid "Portuguese · Helsinki, Finland"
 msgstr "पुर्तगाली · हेलसिंकी, फिनलैंड"
@@ -831,13 +831,13 @@ msgid "Processing"
 msgstr "प्रोसेसिंग जारी है"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "प्रॉम्प्ट टूल"
 
 msgid "Public"
 msgstr "सार्वजनिक"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "सुराग प्रकाशित करें"
 
 msgid "RAW available for purchase"
 msgstr "RAW खरीद के लिए उपलब्ध है"
@@ -858,16 +858,16 @@ msgid "Red"
 msgstr "लाल"
 
 msgid "Red Left"
-msgstr ""
+msgstr "लाल शेष"
 
 msgid "Red Team"
-msgstr ""
+msgstr "लाल टीम"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "लाल टीम जीत गई!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "बोर्ड फिर से बनाएं"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
 msgstr "चुनी गई फ़ोटो के लिए 4:5 Instagram क्रॉप फिर से जनरेट करें"
@@ -876,10 +876,10 @@ msgid "Replay"
 msgstr "रीप्ले"
 
 msgid "Reroll"
-msgstr ""
+msgstr "फिर से रोल करें"
 
 msgid "Resume"
-msgstr ""
+msgstr "जारी रखें"
 
 msgid "Return as %(name)s"
 msgstr "%(name)s के रूप में वापस आएं"
@@ -891,19 +891,19 @@ msgid "Reveal Roles on Death:"
 msgstr "मृत्यु पर भूमिकाएं प्रकट करें:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "भूमिका छिपी हुई"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "भूमिकाएं, चरण और इंटरफ़ेस %(lang)s में स्थानीयकृत हैं।"
 
 msgid "Room Chat"
-msgstr ""
+msgstr "रूम चैट"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "रूम चैट और कार्यक्रम"
 
 msgid "Room Code"
-msgstr ""
+msgstr "रूम कोड"
 
 msgid "Room Code:"
 msgstr "कमरा कोड:"
@@ -924,49 +924,49 @@ msgid "Room code '%(code)s' was not found or is no longer active."
 msgstr "कमरा कोड '%(code)s' नहीं मिला या अब सक्रिय नहीं है।"
 
 msgid "Rooms"
-msgstr ""
+msgstr "कमरे"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
 msgstr "कमरे आवश्यकतानुसार बनाए जाते हैं और 24 घंटे तक सक्रिय रहते हैं। एक नया गेम सत्र शुरू करें और अपने समूह को आमंत्रित करें!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "प्रत्येक नए बोर्ड पर स्पाईमास्टर्स बदलें"
 
 msgid "Round"
 msgstr "राउंड"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "राउंड के सुराग"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "राउंड-दर-राउंड रीप्ले और प्रयास लॉग"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "राउंड (सुराग चक्र)"
 
 msgid "Running"
 msgstr "चल रहा है"
 
 msgid "Save Name"
-msgstr ""
+msgstr "नाम सहेजें"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "अपनी स्पाईमास्टर/ऑपरेटिव सीट आसानी से पुनः प्राप्त करने के लिए किसी अन्य डिवाइस पर स्कैन करें।"
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "तुरंत जुड़ने के लिए किसी भी फ़ोन कैमरे से इस QR कोड को स्कैन करें:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "अपना गुप्त कार्ड खोए बिना डिवाइस बदलने के लिए इस व्यक्तिगत QR कोड को स्कैन करें:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "अपने सत्र और स्कोर को दूसरे फ़ोन या ब्राउज़र पर ले जाने के लिए इसे स्कैन करें:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "नाम, पर्यायवाची, टाइपो या भाषा के आधार पर इमोजी खोजें (उदा. fire, crown, fogo, φωτιά)..."
 
 msgid "Send"
 msgstr "भेजें"
@@ -978,16 +978,16 @@ msgid "Server Error — Marco Silva"
 msgstr "सर्वर त्रुटि — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "सेट करें"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "टीमें सेट की जा रही हैं..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "भूमिका और शब्द दिखाएं"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "स्पाईमास्टर की-कार्ड दिखाएं"
 
 msgid "Silent Phase"
 msgstr "शांत चरण"
@@ -996,19 +996,19 @@ msgid "Skills"
 msgstr "कौशल"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "बारी छोड़ें"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
 msgstr "मारे गए खिलाड़ी सीधे मरने के बजाय एक बार लिम्बो में प्रवेश करते हैं। यदि वे अनुमान लगाते हैं कि एंजेल कौन है, तो वे पुनर्जीवित हो जाते हैं!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "पॉइज़न वर्ड्स, घातक तब्बू ट्रैप्स, लास्ट-चांस स्टील और पार्टिसिपेटिंग गेम मास्टर के साथ सोशल डिडक्शन।"
 
 msgid "Spanish"
 msgstr "स्पेनिश"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "वक्ता (मौखिक सुराग):"
 
 msgid "Speaking"
 msgstr "बोलना"
@@ -1017,61 +1017,61 @@ msgid "Spectator"
 msgstr "दर्शक"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "दर्शक / गैर-खिलाड़ी"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "दर्शक मोड (मेरी बारी छोड़ें)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "जासूस प्रमुख (Spymaster)"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "स्पाइमास्टर सेकंड (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "स्पाइमास्टर सुराग सोच रहा है..."
 
 msgid "Staggering Doctor:"
 msgstr "अल्टरनेट डॉक्टर:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "मानक समयबद्ध (90s / 90s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Codenames शुरू करें"
 
 msgid "Start Match"
-msgstr ""
+msgstr "मैच शुरू करें"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "समय से पहले मतदान शुरू करें"
 
 msgid "Starting Role Deck Preset"
 msgstr "प्रारंभिक रोल डेक प्रीसेट"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "अनुमान चुराएं"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "चोरी टाइमर (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "चुराकर जीत हासिल की!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
 msgstr "कदम-दर-कदम रात्रि चरण, ब्लफ़िंग कॉल और वोटिंग प्रबंधक।"
 
 msgid "Submit"
-msgstr ""
+msgstr "जमा करें"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "सुराग जमा करें"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "खिलाड़ी का वोट सबमिट करें"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "टेबल चर्चा और इवेंट लॉग"
 
 msgid "Table-First Lupus Highlights"
 msgstr "टेबल-फर्स्ट लुपस की मुख्य विशेषताएं"
@@ -1086,19 +1086,19 @@ msgid "Table-first party game with secret roles, live voting, Town Gazette, and 
 msgstr "गुप्त भूमिकाओं, लाइव वोटिंग, टाउन गजट और जीएम डायरेक्टर कॉकपिट के साथ टेबल-फर्स्ट पार्टी गेम।"
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "अभी वोट गिनें"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "जैसे ही खिलाड़ी जोर से अनुमान लगाते हैं, बोर्ड पर कार्ड टैप करें।"
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "बोर्ड पर उन कार्डों को टैप करें जो सुराग से मेल खाते हैं। समाप्त होने या अनिश्चित होने पर, अनुमान लगाने की बारी समाप्त करें पर टैप करें।"
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "लक्ष्य"
 
 msgid "Techy"
 msgstr "तकनीकी"
@@ -1116,19 +1116,19 @@ msgid "The Doctor / Guard cannot protect the same person two consecutive nights.
 msgstr "डॉक्टर / गार्ड लगातार दो रातों तक एक ही व्यक्ति की रक्षा नहीं कर सकता।"
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "इंटरफ़ेस %(lang)s का उपयोग करता है, जबकि गेम सामग्री अंग्रेज़ी पर वापस आ जाती है क्योंकि संपूर्ण शब्दावली डेटा अनुपलब्ध है।"
 
 msgid "Theme & Terms"
 msgstr "थीम और नियम"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "समय सीमा प्रीसेट"
 
 msgid "Toggle"
-msgstr ""
+msgstr "टॉगल करें"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "दर्शक मोड टॉगल करें"
 
 msgid "Town Gazette:"
 msgstr "टाउन गजट:"
@@ -1137,49 +1137,49 @@ msgid "Town Voting"
 msgstr "नगर मतदान"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "बारी का क्रम"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "बारी टाइमर (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "बारी टाइमर"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "कोई संदेश या अनुमान लिखें..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "सुराग या मौखिक रूप से क्या कहा गया था टाइप करें..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "अपना अनुमान टाइप करें (या चैट बॉक्स का उपयोग करें)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "केवल UI"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "खिलाड़ी का QR कोड लोड करने में असमर्थ।"
 
 msgid "Unassigned"
-msgstr ""
+msgstr "अनिर्दिष्ट"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "असीमित"
 
 msgid "Unlock Room"
 msgstr "कमरा अनलॉक करें"
 
 msgid "Untimed"
-msgstr ""
+msgstr "बिना समय का"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "बिना समय (आरामदेह काउच मोड)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "प्रॉम्प्ट का उपयोग करें"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "अपने इमोजी कीबोर्ड का उपयोग करें या नीचे इमोजी टैप करें..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
 msgstr "लंबवत फ़ोकल बिंदु: 0=ऊपर, 50=केंद्र, 100=नीचे।"
@@ -1188,10 +1188,10 @@ msgid "Villagers, Wolves, Seer"
 msgstr "ग्रामीण, भेड़िए, द्रष्टा"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "वोट टाइमर (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "खिलाड़ी के लिए वोट करें:"
 
 msgid "Voting"
 msgstr "मतदान"
@@ -1200,10 +1200,10 @@ msgid "Waiting for Clue..."
 msgstr "सुराग की प्रतीक्षा..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "होस्ट द्वारा टीमों को कॉन्फ़िगर करने और बोर्ड शुरू करने की प्रतीक्षा की जा रही है..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "लॉबी में प्रतीक्षा कर रहे हैं..."
 
 msgid "Werewolf / Lupus"
 msgstr "वेयरवोल्फ / लुपस"
@@ -1212,19 +1212,19 @@ msgid "Whether focus coordinates were automatically calculated via edge saliency
 msgstr "क्या फ़ोकस निर्देशांक एज सैलिएंसी के माध्यम से स्वचालित रूप से परिकलित किए गए थे।"
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Wikisaurus AI सुराग सुझाव (पहले से भरने के लिए टैप करें)"
 
 msgid "Wins"
-msgstr ""
+msgstr "जीत"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "दोस्तों के साथ क्लासिक पेन-और-पेपर ड्राइंग राउंड के लिए शब्द और वाक्य प्रॉम्प्ट जनरेटर।"
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "शब्द पैक"
 
 msgid "Work Experience"
 msgstr "कार्य अनुभव"
@@ -1239,25 +1239,25 @@ msgid "Your Name / Nickname"
 msgstr "आपका नाम / उपनाम"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "आपके संचालक विचार-विमर्श कर रहे हैं। सख्त पोकर चेहरा बनाए रखें — कोई प्रतिक्रिया या संकेत नहीं!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "आपका व्यक्तिगत रीकनेक्ट QR"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "आपका गुप्त वाक्यांश"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "आपका स्पाइमास्टर"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "अनुमान लगाने की आपकी बारी!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "आपकी बारी, स्पाइमास्टर!"
 
 msgid "actions"
-msgstr ""
+msgstr "कार्रवाइयां"
 
 msgid "adjective"
 msgstr "विशेषण"
@@ -1272,16 +1272,16 @@ msgid "all"
 msgstr "सभी"
 
 msgid "all categories"
-msgstr ""
+msgstr "सभी श्रेणियां"
 
 msgid "all day"
 msgstr "पूरे दिन"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "और नीचे अपना सुराग प्रकाशित करें।"
 
 msgid "animals"
-msgstr ""
+msgstr "जानवर"
 
 msgid "any"
 msgstr "कोई भी"
@@ -1308,7 +1308,7 @@ msgid "camera model"
 msgstr "कैमरा मॉडल"
 
 msgid "category:"
-msgstr ""
+msgstr "श्रेणी:"
 
 msgid "chat:"
 msgstr "chat:"
@@ -1317,7 +1317,7 @@ msgid "clear"
 msgstr "साफ़ करें"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "सामूहिक तैयारी + संकेत"
 
 msgid "create"
 msgstr "बनाएं"
@@ -1374,7 +1374,7 @@ msgid "focal length"
 msgstr "फ़ोकल लंबाई"
 
 msgid "food & drink"
-msgstr ""
+msgstr "भोजन और पेय"
 
 msgid "gallery"
 msgstr "गैलरी"
@@ -1413,13 +1413,13 @@ msgid "ics maker"
 msgstr "आईसीएस निर्माता"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "अनुमान लगा रहा है"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "अपनी टीम के लिए सुराग तैयार कर रहा है।"
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "एक सुराग तैयार कर रहा है। तैयार रहें!"
 
 msgid "join"
 msgstr "शामिल हों"
@@ -1458,7 +1458,7 @@ msgid "mode:"
 msgstr "मोड:"
 
 msgid "movies"
-msgstr ""
+msgstr "फ़िल्में"
 
 msgid "new word"
 msgstr "नया शब्द"
@@ -1497,7 +1497,7 @@ msgid "paste text or a url with event details, and get an .ics file."
 msgstr "इवेंट विवरण के साथ टेक्स्ट या यूआरएल पेस्ट करें, और .ics फ़ाइल प्राप्त करें।"
 
 msgid "people & characters"
-msgstr ""
+msgstr "लोग और पात्र"
 
 msgid "photo"
 msgstr "फ़ोटो"
@@ -1521,7 +1521,7 @@ msgid "photos (select multiple)"
 msgstr "तस्वीरें (एकाधिक चुनें)"
 
 msgid "phrases"
-msgstr ""
+msgstr "वाक्यांश"
 
 msgid "pick your options, hit the button, draw!"
 msgstr "विकल्प चुनें, बटन दबाएं, बनाएं!"
@@ -1530,7 +1530,7 @@ msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "स्थान और यात्रा"
 
 msgid "planz"
 msgstr "planz"
@@ -1545,25 +1545,25 @@ msgid "press the button to get a word"
 msgstr "शब्द पाने के लिए बटन दबाएं"
 
 msgid "private (hide guesses)"
-msgstr ""
+msgstr "निजी (अनुमान छिपाएं)"
 
 msgid "processing status"
 msgstr "प्रोसेसिंग स्थिति"
 
 msgid "public (show guesses)"
-msgstr ""
+msgstr "सार्वजनिक (अनुमान दिखाएं)"
 
 msgid "request"
 msgstr "अनुरोध"
 
 msgid "rerolls:"
-msgstr ""
+msgstr "पुनः रोल:"
 
 msgid "reveal"
 msgstr "दिखाएं"
 
 msgid "room language"
-msgstr ""
+msgstr "कमरे की भाषा"
 
 msgid "room password"
 msgstr "कमरे का पासवर्ड"
@@ -1587,7 +1587,7 @@ msgid "skip"
 msgstr "छोड़ें"
 
 msgid "songs"
-msgstr ""
+msgstr "गाने"
 
 msgid "start"
 msgstr "शुरू"
@@ -1599,7 +1599,7 @@ msgid "text"
 msgstr "टेक्स्ट"
 
 msgid "things"
-msgstr ""
+msgstr "चीजें"
 
 msgid "title"
 msgstr "शीर्षक"
@@ -1611,7 +1611,7 @@ msgid "today"
 msgstr "आज"
 
 msgid "tv shows"
-msgstr ""
+msgstr "टीवी शो"
 
 msgid "type"
 msgstr "प्रकार"
@@ -1704,13 +1704,13 @@ msgid "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Ma
 msgstr "⚡ अराजकता और विशेष (अल्फा वुल्फ, साइलेंसर, जासूस, डॉक्टर, स्नाइपर, मेयर, चुड़ैल...)"
 
 msgid "✅ Full Content + UI"
-msgstr ""
+msgstr "✅ पूरी सामग्री + UI"
 
 msgid "✏️ pictionary"
 msgstr "✏️ pictionary"
 
 msgid "🌐 UI Only (English Words)"
-msgstr ""
+msgstr "🌐 केवल UI (अंग्रेज़ी शब्द)"
 
 msgid "🎨 Emojinary"
 msgstr "🎨 Emojinary"

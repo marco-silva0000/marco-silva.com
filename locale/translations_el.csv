@@ -1,18 +1,20 @@
 ﻿msgid,context,en,el
 + Create Room,"scripts/generate_locales.py, templates/lupus/hub.html",+ Create Room,+ Δημιουργία Αίθουσας
-+ Host New Room,"scripts/generate_locales.py, templates/gamerooms/room_list.html",+ Host New Room,+ Δημιουργία Νέας Αίθουσας
++ Host New Room,scripts/generate_locales.py,+ Host New Room,+ Δημιουργία Νέας Αίθουσας
 + New Game,"scripts/generate_locales.py, templates/lupus/hub.html",+ New Game,+ Νέο Παιχνίδι
-+ create room,"scripts/generate_locales.py, templates/gamerooms/room_list.html",+ create room,+ δημιουργία αίθουσας
++ create room,scripts/generate_locales.py,+ create room,+ δημιουργία αίθουσας
 "0 — Secret (Closed graveyard, roles concealed until game over)","scripts/generate_locales.py, templates/lupus/create.html","0 — Secret (Closed graveyard, roles concealed until game over)","0 — Μυστικό (Κλειστό νεκροταφείο, κρυφοί ρόλοι μέχρι το τέλος)"
 1 day,templates/tools/partials/calendar.html,1 day,1 ημέρα
 "1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")",scripts/generate_locales.py,"1 — Alignment Only (Announces ""GOOD"" vs ""EVIL"")","1 — Μόνο Παράταξη (Ανακοινώνει ""ΚΑΛΟ"" vs ""ΚΑΚΟ"")"
 1. Acceptance of Terms,templates/bot_terms.html,1. Acceptance of Terms,1. Αποδοχή των Όρων
 1. Overview,templates/bot_privacy.html,1. Overview,1. Επισκόπηση
+1. Teams & Roles Setup,templates/codenames/game.html,1. Teams & Roles Setup,1. Ρύθμιση Ομάδων & Ρόλων
 10 Minutes,"scripts/generate_locales.py, templates/lupus/create.html",10 Minutes,10 Λεπτά
-1st guess ends round,templates/emojinary/game.html,1st guess ends round,1st guess ends round
+1st guess ends round,templates/emojinary/game.html,1st guess ends round,Η 1η μαντεψιά τερματίζει τον γύρο
 "2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")",scripts/generate_locales.py,"2 — Faction / Team (Announces ""Town"", ""Werewolves"", ""Neutral"")","2 — Φατρία / Ομάδα (Ανακοινώνει ""Χωριό"", ""Λυκάνθρωποι"", ""Ουδέτερος"")"
 2. Information We Access,templates/bot_privacy.html,2. Information We Access,2. Πληροφορίες στις οποίες Έχουμε Πρόσβαση
 2. Permitted Use,templates/bot_terms.html,2. Permitted Use,2. Επιτρεπόμενη Χρήση
+2. Room & Table Settings (Host),templates/codenames/game.html,2. Room & Table Settings (Host),2. Ρυθμίσεις Δωματίου & Τραπεζιού (Οικοδεσπότης)
 3 Minutes (Fast),"scripts/generate_locales.py, templates/lupus/create.html",3 Minutes (Fast),3 Λεπτά (Γρήγορο)
 3 day,templates/tools/partials/calendar.html,3 day,3 ημέρες
 3 — Full Role Card (Announces exact card name and icon),"scripts/generate_locales.py, templates/lupus/create.html",3 — Full Role Card (Announces exact card name and icon),3 — Πλήρης Κάρτα Ρόλου (Ανακοινώνει το ακριβές όνομα και εικονίδιο)
@@ -32,65 +34,125 @@
 60 Seconds,"scripts/generate_locales.py, templates/lupus/create.html",60 Seconds,60 Δευτερόλεπτα
 7 Minutes (Deliberate),"scripts/generate_locales.py, templates/lupus/create.html",7 Minutes (Deliberate),7 Λεπτά (Αναλυτικό)
 Access Denied,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Access Denied,Δεν επιτρέπεται η πρόσβαση
+Accuse:,templates/impostor/game.html,Accuse:,Κατηγόρησε:
 Active,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Active,Ενεργό
+Active Clue,templates/codenames/game.html,Active Clue,Ενεργό Στοιχείο
 Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/hub.html",Active Lupus Rooms,Ενεργές Αίθουσες Lupus
-Add Hint,templates/emojinary/game.html,Add Hint,Add Hint
+Add,templates/codenames/game.html,Add,Προσθήκη
+Add Hint,templates/emojinary/game.html,Add Hint,Προσθήκη Υπόδειξης
+Add Oral / Table Player,templates/impostor/game.html,Add Oral / Table Player,Προσθήκη Προφορικού / Επιτραπέζιου Παίκτη
+Add Oral / Table Player (directly to a team),templates/codenames/game.html,Add Oral / Table Player (directly to a team),Προσθήκη Προφορικού / Επιτραπέζιου Παίκτη (απευθείας σε ομάδα)
+Add Player,templates/codenames/game.html,Add Player,Προσθήκη Παίκτη
+Add Secret Custom Pair,templates/impostor/game.html,Add Secret Custom Pair,Προσθήκη Μυστικού Προσαρμοσμένου Ζεύγους
+Add custom inside-joke words to be mixed into future boards dealt in this room.,templates/codenames/game.html,Add custom inside-joke words to be mixed into future boards dealt in this room.,Προσθέστε προσαρμοσμένες λέξεις-αστεία για να αναμειχθούν σε μελλοντικά ταμπλό που μοιράζονται σε αυτό το δωμάτιο.
+Add oral / table player name...,templates/impostor/game.html,Add oral / table player name...,Προσθήκη ονόματος προφορικού / επιτραπέζιου παίκτη...
+Add to Deck,templates/impostor/game.html,Add to Deck,Προσθήκη στην Τράπουλα
+Agents & Spymasters,templates/codenames/game.html,Agents & Spymasters,Πράκτορες & Αρχικατάσκοποι
 All Active Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",All Active Rooms,Όλες οι Ενεργές Αίθουσες
 All Games,"scripts/generate_locales.py, templates/lupus/hub.html",All Games,Όλα τα Παιχνίδια
-All guesses & hints appear here,templates/emojinary/game.html,All guesses & hints appear here,All guesses & hints appear here
-Allow custom words,templates/emojinary/game.html,Allow custom words,Allow custom words
+All guesses & hints appear here,templates/emojinary/game.html,All guesses & hints appear here,Όλες οι μαντεψιές & υποδείξεις εμφανίζονται εδώ
+Allow Host to log oral clues and tap cards for players at the table,templates/codenames/game.html,Allow Host to log oral clues and tap cards for players at the table,Να επιτρέπεται στον Οικοδεσπότη να καταγράφει προφορικά στοιχεία και να πατάει κάρτες για παίκτες στο τραπέζι
+Allow Player Custom Pair Deck,templates/impostor/game.html,Allow Player Custom Pair Deck,Επιτρέψτε την Προσαρμοσμένη Τράπουλα Ζευγαριών Παίκτη
+Allow custom words,templates/emojinary/game.html,Allow custom words,Επιτρέψτε προσαρμοσμένες λέξεις
+Allow players to add custom words,templates/codenames/game.html,Allow players to add custom words,Επιτρέψτε στους παίκτες να προσθέτουν προσαρμοσμένες λέξεις
 Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,photos/models.py,Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark.,Εφαρμογή άδειας Creative Commons Attribution-NonCommercial-ShareAlike και υδατογραφήματος.
+Auto-Balance,templates/codenames/game.html,Auto-Balance,Αυτόματη Εξισορρόπηση
+Auto-Balance Teams,templates/codenames/game.html,Auto-Balance Teams,Αυτόματη Εξισορρόπηση Ομάδων
+Auto-tally once all players have voted,templates/impostor/game.html,Auto-tally once all players have voted,Αυτόματη καταμέτρηση μόλις ψηφίσουν όλοι οι παίκτες
 Back to Active Lupus Rooms,"scripts/generate_locales.py, templates/lupus/create.html",Back to Active Lupus Rooms,Πίσω στις Ενεργές Αίθουσες Lupus
+Back to Lobby,templates/codenames/game.html,Back to Lobby,Πίσω στο Lobby
+Back to Lobby / Play Again,templates/impostor/game.html,Back to Lobby / Play Again,Πίσω στο Lobby / Παίξτε Ξανά
 Backspace,templates/emojinary/game.html,Backspace,Backspace
-Browse Active Lupus Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Browse Active Lupus Rooms,Περιήγηση σε Ενεργές Αίθουσες Lupus
-Build Your Emoji Clue:,templates/emojinary/game.html,Build Your Emoji Clue:,Build Your Emoji Clue:
+Blue,templates/codenames/game.html,Blue,Μπλε
+Blue Left,templates/codenames/game.html,Blue Left,Μπλε Απομένουν
+Blue Team,templates/codenames/game.html,Blue Team,Μπλε Ομάδα
+Blue Team Wins!,templates/codenames/game.html,Blue Team Wins!,Η Μπλε Ομάδα Κερδίζει!
+Board,"gamerooms/views.py, templates/codenames/game.html",Board,Ταμπλό
+Board Complete,templates/codenames/game.html,Board Complete,Ολοκληρωμένο Ταμπλό
+Board Ended,templates/codenames/game.html,Board Ended,Το Ταμπλό Έληξε
+Browse Active Lupus Rooms,scripts/generate_locales.py,Browse Active Lupus Rooms,Περιήγηση σε Ενεργές Αίθουσες Lupus
+Browse Hub,templates/gamerooms/room_list.html,Browse Hub,Περιήγηση στο Hub
+Build Your Emoji Clue:,templates/emojinary/game.html,Build Your Emoji Clue:,Φτιάξτε το Στοιχείο Emoji σας:
 CC BY-NC-SA license,photos/models.py,CC BY-NC-SA license,Άδεια CC BY-NC-SA
 CODE,"scripts/generate_locales.py, templates/lupus/hub.html",CODE,ΚΩΔΙΚΟΣ
 CTFs,templates/cv.html,CTFs,CTFs
 Calendar navigation,templates/tools/partials/calendar.html,Calendar navigation,Πλοήγηση ημερολογίου
+Category,templates/impostor/game.html,Category,Κατηγορία
+Citizen Word (Majority),templates/impostor/game.html,Citizen Word (Majority),Λέξη Πολιτών (Πλειοψηφία)
 "Civilians, Mobsters, Cop","scripts/generate_locales.py, templates/lupus/create.html","Civilians, Mobsters, Cop","Πολίτες, Μαφιόζοι, Αστυνόμος"
+Classic + Extended Party Pack,templates/codenames/game.html,Classic + Extended Party Pack,Κλασικό + Εκτεταμένο Party Pack
+Clue Phase,templates/codenames/game.html,Clue Phase,Φάση Στοιχείων
+Clues,gamerooms/views.py,Clues,Στοιχεία
+Clues & Taps Log,templates/codenames/game.html,Clues & Taps Log,Καταγραφή Στοιχείων & Πατημάτων
 Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Cockpit,Κονσόλα
+Codenames,"templates/codenames/game.html, templates/gamerooms/room_list.html",Codenames,Codenames
 Conferences,templates/cv.html,Conferences,Συνέδρια
-Copy,templates/emojinary/game.html,Copy,Copy
+Content + UI,"templates/codenames/game.html, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/impostor/game.html",Content + UI,Περιεχόμενο + UI
+Copy,"templates/codenames/game.html, templates/emojinary/game.html",Copy,Αντιγραφή
 Create Lupus / Werewolf Room,"scripts/generate_locales.py, templates/lupus/create.html",Create Lupus / Werewolf Room,Δημιουργία Αίθουσας Lupus / Λυκάνθρωπου
 Create the First Lupus Room,"scripts/generate_locales.py, templates/lupus/hub.html",Create the First Lupus Room,Δημιουργήστε την Πρώτη Αίθουσα Lupus
 Curated,photos/models.py,Curated,Επιλεγμένα
+Custom Codenames Word,templates/codenames/game.html,Custom Codenames Word,Προσαρμοσμένη Λέξη Codenames
+Custom Deck,"templates/codenames/game.html, templates/impostor/game.html",Custom Deck,Προσαρμοσμένη Τράπουλα
+Custom Seconds,templates/codenames/game.html,Custom Seconds,Προσαρμοσμένα Δευτερόλεπτα
 Custom split keyboards (colemak + nvim),templates/cv.html,Custom split keyboards (colemak + nvim),Προσαρμοσμένα split πληκτρολόγια (colemak + nvim)
+Custom word...,templates/codenames/game.html,Custom word...,Προσαρμοσμένη λέξη...
 Date of the trip/shoot.,photos/models.py,Date of the trip/shoot.,Ημερομηνία ταξιδιού/φωτογράφισης.
 Day,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Day,Ημέρα
 Day Trip,photos/models.py,Day Trip,Ημερήσια εκδρομή
+Deal Next Board,templates/codenames/game.html,Deal Next Board,Μοίρασε Επόμενο Ταμπλό
 Defense Timer,"scripts/generate_locales.py, templates/lupus/create.html",Defense Timer,Χρονόμετρο Απολογίας
+Definition,templates/codenames/game.html,Definition,Ορισμός
+Discuss clues or accuse suspects...,templates/impostor/game.html,Discuss clues or accuse suspects...,Συζητήστε στοιχεία ή κατηγορήστε υπόπτους...
 Discussion,"lupus/views.py, scripts/generate_locales.py",Discussion,Συζήτηση
 Discussion Round Timer,"scripts/generate_locales.py, templates/lupus/create.html",Discussion Round Timer,Χρονόμετρο Συζήτησης
-Display Name,templates/emojinary/game.html,Display Name,Display Name
+Display Name,templates/emojinary/game.html,Display Name,Όνομα Εμφάνισης
 Doctor Shields From Sniper:,"scripts/generate_locales.py, templates/lupus/create.html",Doctor Shields From Sniper:,Ο Γιατρός Προστατεύει από τον Ελεύθερο Σκοπευτή:
 Done,photos/models.py,Done,Ολοκληρώθηκε
 Education,templates/cv.html,Education,Εκπαίδευση
 Electronics/embedded (some rust embedded),templates/cv.html,Electronics/embedded (some rust embedded),Ηλεκτρονικά/ενσωματωμένα συστήματα (λίγο embedded Rust)
+Enable Last-Chance Impostor Steal,templates/impostor/game.html,Enable Last-Chance Impostor Steal,Ενεργοποίηση Κλοπής Τελευταίας Ευκαιρίας του Απατεώνα
+Enable Lethal Taboo Poison Word,templates/impostor/game.html,Enable Lethal Taboo Poison Word,Ενεργοποίηση Θανατηφόρας Δηλητηριώδους Λέξης Ταμπού
+End Board,templates/codenames/game.html,End Board,Τερματισμός Ταμπλό
+End Guessing Turn,templates/codenames/game.html,End Guessing Turn,Τέλος Γύρου Μαντεψιάς
+End Match,templates/impostor/game.html,End Match,Τερματισμός Αγώνα
 English,templates/cv.html,English,Αγγλικά
 Enter Game,"scripts/generate_locales.py, templates/lupus/join.html",Enter Game,Είσοδος στο Παιχνίδι
 Enter Room,"scripts/generate_locales.py, templates/lupus/hub.html",Enter Room,Είσοδος στην Αίθουσα
 Enter Room Code (e.g. 9B3A1C2D),"scripts/generate_locales.py, templates/gamerooms/room_list.html",Enter Room Code (e.g. 9B3A1C2D),Εισαγάγετε Κωδικό Αίθουσας (π.χ. 9B3A1C2D)
-Export JSON,templates/emojinary/game.html,Export JSON,Export JSON
+Export JSON,templates/emojinary/game.html,Export JSON,Εξαγωγή JSON
 Failed,photos/models.py,Failed,Απέτυχε
 Finished,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Finished,Ολοκληρώθηκε
-GM,"scripts/generate_locales.py, templates/lupus/hub.html",GM,Αφηγητής
+GM,"scripts/generate_locales.py, templates/lupus/hub.html",GM,GM
 GM Cockpit,templates/lupus/gm_dashboard.html,GM Cockpit,Πίνακας ελέγχου GM
 GM Director Cockpit:,"scripts/generate_locales.py, templates/lupus/hub.html",GM Director Cockpit:,Κονσόλα Σκηνοθέτη Αφηγητή:
+GM Mode: Locked,templates/codenames/game.html,GM Mode: Locked,Λειτουργία GM: Κλειδωμένη
+GM Oral Guessing Mode,templates/codenames/game.html,GM Oral Guessing Mode,Λειτουργία Προφορικής Μαντεψιάς GM
+GM Oral Mode: ON,templates/codenames/game.html,GM Oral Mode: ON,Προφορική Λειτουργία GM: ΕΝΕΡΓΗ
+GM Oral Spymaster Mode,templates/codenames/game.html,GM Oral Spymaster Mode,Προφορική Λειτουργία Αρχικατασκόπου GM
 Game Master Display Name,"scripts/generate_locales.py, templates/lupus/create.html",Game Master Display Name,Όνομα Εμφάνισης Αφηγητή
-Game Over,"lupus/views.py, scripts/generate_locales.py",Game Over,Τέλος Παιχνιδιού
-Game Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Game Rooms,Αίθουσες Παιχνιδιών
+Game Over,"lupus/views.py, scripts/generate_locales.py, templates/codenames/game.html",Game Over,Τέλος Παιχνιδιού
+Game Rooms,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/gamerooms/room_list.html, templates/gamerooms/room_name.html, templates/gamerooms/room_password.html",Game Rooms,Αίθουσες Παιχνιδιών
 Game Rules & Timers,"scripts/generate_locales.py, templates/lupus/create.html",Game Rules & Timers,Κανόνες Παιχνιδιού & Χρονόμετρα
 Game not found.,"lupus/views.py, scripts/generate_locales.py",Game not found.,Το παιχνίδι δεν βρέθηκε.
 Game room does not exist.,"lupus/views.py, scripts/generate_locales.py",Game room does not exist.,Η αίθουσα παιχνιδιού δεν υπάρχει.
+"Game words, clues, and interface are supported in %(lang)s.",gamerooms/language_support.py,"Game words, clues, and interface are supported in %(lang)s.","Οι λέξεις του παιχνιδιού, τα στοιχεία και η διεπαφή υποστηρίζονται στα %(lang)s."
+Give a One-Word Clue,templates/codenames/game.html,Give a One-Word Clue,Δώστε ένα Στοιχείο Μίας Λέξης
+Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!,templates/impostor/game.html,Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!,Δώστε έμμεσα στοιχεία μίας λέξης χωρίς να αποκαλύψετε τη λέξη ή να πατήσετε στην κρυφή Θανατηφόρα Δηλητηριώδη Λέξη Ταμπού. Ακόμα και ο Οικοδεσπότης παίζει στα τυφλά χωρίς spoilers!
+Guess the Citizen Word to steal the win...,templates/impostor/game.html,Guess the Citizen Word to steal the win...,Μαντέψτε τη Λέξη των Πολιτών για να κλέψετε τη νίκη...
+Guesses left,templates/codenames/game.html,Guesses left,Μαντεψιές που απομένουν
+Guessing Phase,templates/codenames/game.html,Guessing Phase,Φάση Μαντεψιάς
 "Ham radio, UK foundation license",templates/cv.html,"Ham radio, UK foundation license","Ραδιοερασιτεχνισμός, άδεια UK Foundation"
 Have an 8-character code from your Game Master? Enter it here to jump straight in:,"scripts/generate_locales.py, templates/lupus/hub.html",Have an 8-character code from your Game Master? Enter it here to jump straight in:,Έχετε 8-ψήφιο κωδικό από τον Αφηγητή σας; Εισαγάγετέ τον εδώ για να μπείτε απευθείας:
+Hide Keycard Overlay,templates/codenames/game.html,Hide Keycard Overlay,Απόκρυψη Επικάλυψης Κάρτας-Κλειδιού
 Hiking and climbing,templates/cv.html,Hiking and climbing,Πεζοπορία και αναρρίχηση
 Hobbies,templates/cv.html,Hobbies,Χόμπι
 Hold-to-Peek Secret Roles:,"scripts/generate_locales.py, templates/lupus/hub.html",Hold-to-Peek Secret Roles:,Κρατήστε Πατημένο για Μυστικούς Ρόλους:
 Home automation and homelab,templates/cv.html,Home automation and homelab,Οικιακός αυτοματισμός και homelab
 "Horizontal focal point: 0=left, 50=center, 100=right.",photos/models.py,"Horizontal focal point: 0=left, 50=center, 100=right.","Οριζόντιο σημείο εστίασης: 0=αριστερά, 50=κέντρο, 100=δεξιά."
-Host Game Settings,templates/emojinary/game.html,Host Game Settings,Host Game Settings
+Host Controls,templates/codenames/game.html,Host Controls,Στοιχεία Ελέγχου Οικοδεσπότη
+Host Game Settings,templates/emojinary/game.html,Host Game Settings,Ρυθμίσεις Παιχνιδιού Οικοδεσπότη
+Host Room,templates/gamerooms/room_list.html,Host Room,Φιλοξενία Δωματίου
 "I code, take pics and many other things",templates/index.html,"I code, take pics and many other things","Προγραμματίζω, βγάζω φωτογραφίες και πολλά άλλα"
 ISO,photos/models.py,ISO,ISO
 "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).",scripts/generate_locales.py,"If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard).","Αν ενεργοποιηθεί, η ασπίδα του Γιατρού μπορεί να σώσει έναν στόχο από τον Σκοπευτή. (Ανενεργό = η σφαίρα διαπερνά την προστασία)."
@@ -100,56 +162,110 @@ Incorrect room password.,"lupus/views.py, scripts/generate_locales.py",Incorrect
 Instagram 4:5 Preview,photos/admin.py,Instagram 4:5 Preview,Προεπισκόπηση Instagram 4:5
 Instagram 4:5 image,photos/models.py,Instagram 4:5 image,Εικόνα Instagram 4:5
 Invalid Game Master secret key.,"lupus/views.py, scripts/generate_locales.py",Invalid Game Master secret key.,Μη έγκυρο μυστικό κλειδί Αφηγητή.
-Invite Players to Room,templates/emojinary/game.html,Invite Players to Room,Invite Players to Room
-Invite QR,templates/emojinary/game.html,Invite QR,Invite QR
+Invite Players,"templates/codenames/game.html, templates/impostor/game.html",Invite Players,Πρόσκληση Παικτών
+Invite Players to Room,templates/emojinary/game.html,Invite Players to Room,Πρόσκληση Παικτών στο Δωμάτιο
+Invite QR,"templates/codenames/game.html, templates/emojinary/game.html, templates/impostor/game.html",Invite QR,QR Πρόσκλησης
+It is not your turn to submit a clue.,templates/codenames/game.html,It is not your turn to submit a clue.,Δεν είναι η σειρά σας να δώσετε στοιχείο.
 Join,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Join,Σύνδεση
 Join Game,"scripts/generate_locales.py, templates/lupus/hub.html",Join Game,Σύνδεση στο Παιχνίδι
 Join Lupus Game,"scripts/generate_locales.py, templates/lupus/join.html",Join Lupus Game,Σύνδεση στο Παιχνίδι Lupus
+Join Red or Blue Team to begin,templates/codenames/game.html,Join Red or Blue Team to begin,Εγγραφείτε στην Κόκκινη ή τη Μπλε Ομάδα για να ξεκινήσετε
+Join as Operative,templates/codenames/game.html,Join as Operative,Συμμετοχή ως Πράκτορας
 Join as Player,"scripts/generate_locales.py, templates/lupus/unauthorized.html",Join as Player,Σύνδεση ως Παίκτης
+Join as Spymaster,templates/codenames/game.html,Join as Spymaster,Συμμετοχή ως Αρχικατάσκοπος
 Join with Room Code,"scripts/generate_locales.py, templates/lupus/hub.html",Join with Room Code,Σύνδεση με Κωδικό Αίθουσας
-"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","Καγιάκ, σερφ, SUP, γουίντσερφ"
+"Kayak, surf, SUP, windsurf",templates/cv.html,"Kayak, surf, SUP, windsurf","Kayak, surf, SUP, windsurf"
+LAST-CHANCE IMPOSTOR STEAL!,templates/impostor/game.html,LAST-CHANCE IMPOSTOR STEAL!,ΚΛΟΠΗ ΤΕΛΕΥΤΑΙΑΣ ΕΥΚΑΙΡΙΑΣ ΤΟΥ ΑΠΑΤΕΩΝΑ!
 Languages,templates/cv.html,Languages,Γλώσσες
 "Last updated: October 27, 2026","templates/bot_privacy.html, templates/bot_terms.html","Last updated: October 27, 2026",Τελευταία ενημέρωση: 27 Οκτωβρίου 2026
 "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","scripts/generate_locales.py, templates/lupus/hub.html","Latecomers join as Confirmed Travelers, Town Ghosts, or Successors.","Όσοι αργοπορούν μπαίνουν ως Επιβεβαιωμένοι Ταξιδιώτες, Φαντάσματα ή Διάδοχοι."
 Launch Lupus Room,"scripts/generate_locales.py, templates/lupus/create.html",Launch Lupus Room,Έναρξη Αίθουσας Lupus
 Leave empty for public join,"scripts/generate_locales.py, templates/lupus/create.html",Leave empty for public join,Αφήστε κενό για δημόσια είσοδο
-Limbo,"lupus/views.py, scripts/generate_locales.py",Limbo,Καθαρτήριο
+Let this player scan on their phone to take over their personal Spymaster/Operative view.,templates/codenames/game.html,Let this player scan on their phone to take over their personal Spymaster/Operative view.,Αφήστε αυτόν τον παίκτη να σαρώσει στο κινητό του για να αναλάβει την προσωπική του προβολή Αρχικατασκόπου/Πράκτορα.
+Lethal Taboo Word (Optional instant elimination trap),templates/impostor/game.html,Lethal Taboo Word (Optional instant elimination trap),Θανατηφόρα Λέξη Ταμπού (Προαιρετική παγίδα άμεσου αποκλεισμού)
+Limbo,"lupus/views.py, scripts/generate_locales.py",Limbo,Limbo
 Limbo & Angel Mechanic:,"scripts/generate_locales.py, templates/lupus/create.html",Limbo & Angel Mechanic:,Μηχανισμός Καθαρτηρίου & Αγγέλου:
 Limbo Resolution,"lupus/views.py, scripts/generate_locales.py",Limbo Resolution,Επίλυση Καθαρτηρίου
+Listen to,templates/codenames/game.html,Listen to,Ακούστε
 Listening,templates/cv.html,Listening,Κατανόηση προφορικού
-Live Chat & Guess Stream,templates/emojinary/game.html,Live Chat & Guess Stream,Live Chat & Guess Stream
+Live Chat & Guess Stream,templates/emojinary/game.html,Live Chat & Guess Stream,Ζωντανή συνομιλία & ροή προβλέψεων
 Living & fallen players submit morning rumors read aloud at dawn.,"scripts/generate_locales.py, templates/lupus/hub.html",Living & fallen players submit morning rumors read aloud at dawn.,Ζωντανοί και νεκροί παίκτες στέλνουν πρωινές φήμες που διαβάζονται δυνατά στην αυγή.
-Lobby,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Lobby,Αναμονή
+Lobby,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py, templates/codenames/game.html",Lobby,Αναμονή
 Lobby (Waiting for Players),"lupus/views.py, scripts/generate_locales.py",Lobby (Waiting for Players),Αναμονή (Αναμονή παικτών)
+Log Clue for Table Spymaster,templates/codenames/game.html,Log Clue for Table Spymaster,Καταγραφή στοιχείου για τον Spymaster του τραπεζιού
+Lupus / Werewolf,templates/gamerooms/room_list.html,Lupus / Werewolf,Lupus / Λυκάνθρωπος
 Lupus Active Rooms & Hub,"scripts/generate_locales.py, templates/lupus/join.html",Lupus Active Rooms & Hub,Ενεργές Αίθουσες & Κέντρο Lupus
 Lupus Game,scripts/generate_locales.py,Lupus Game,Παιχνίδι Lupus
 Lupus Party Game,"scripts/generate_locales.py, templates/lupus/create.html",Lupus Party Game,Παιχνίδι Παρέας Lupus
 Lupus in Tabula - Active Rooms & Game Hub,"scripts/generate_locales.py, templates/lupus/hub.html",Lupus in Tabula - Active Rooms & Game Hub,Lupus in Tabula - Ενεργές Αίθουσες & Κέντρο Παιχνιδιού
-Lupus in Tabula / Werewolf,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Lupus in Tabula / Werewolf,Lupus in Tabula / Λυκάνθρωπος
-Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,Μαφία
-Match Replay & Attempt Timeline,templates/emojinary/game.html,Match Replay & Attempt Timeline,Match Replay & Attempt Timeline
+Lupus in Tabula / Werewolf,scripts/generate_locales.py,Lupus in Tabula / Werewolf,Lupus in Tabula / Λυκάνθρωπος
+Mafia,"scripts/generate_locales.py, templates/lupus/create.html",Mafia,Mafia
+Match Complete,templates/codenames/game.html,Match Complete,Ο αγώνας ολοκληρώθηκε
+Match Podium & Highlights,templates/emojinary/game.html,Match Podium & Highlights,Βάθρο αγώνα & στιγμιότυπα
+Match Replay & Attempt Timeline,templates/emojinary/game.html,Match Replay & Attempt Timeline,Επανάληψη αγώνα & χρονολόγιο προσπαθειών
+Match Replay & Board Archive,templates/codenames/game.html,Match Replay & Board Archive,Επανάληψη αγώνα & αρχείο ταμπλό
+Match Rules,templates/impostor/game.html,Match Rules,Κανόνες αγώνα
+Message...,templates/codenames/game.html,Message...,Μήνυμα...
 Midgame Arrivals:,"scripts/generate_locales.py, templates/lupus/hub.html",Midgame Arrivals:,Αφίξεις στη Μέση του Παιχνιδιού:
+"Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:",templates/impostor/game.html,"Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:","Στοιχεία ελέγχου ψηφοφορίας συντονιστή — Επιλέξτε παίκτη και ύποπτο παρακάτω, ή πατήστε ένα πλακίδιο & θέση στο τραπέζι:"
+Move...,templates/codenames/game.html,Move...,Μετακίνηση...
+New Game / Redraw,templates/impostor/game.html,New Game / Redraw,Νέο παιχνίδι / Αναδιανομή
+Next Round,templates/impostor/game.html,Next Round,Επόμενος γύρος
 Next day,templates/tools/partials/calendar.html,Next day,Επόμενη ημέρα
 Night,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Night,Νύχτα
 No Active Lupus Games Right Now,"scripts/generate_locales.py, templates/lupus/hub.html",No Active Lupus Games Right Now,Δεν Υπάρχουν Ενεργά Παιχνίδια Lupus Αυτή τη Στιγμή
 No Instagram crop generated yet.,photos/admin.py,No Instagram crop generated yet.,Δεν έχει δημιουργηθεί ακόμη περικοπή για το Instagram.
+No clues published yet.,templates/codenames/game.html,No clues published yet.,Δεν έχουν δημοσιευτεί στοιχεία ακόμα.
+No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here.,templates/codenames/game.html,No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here.,Δεν υπάρχουν ολοκληρωμένα ταμπλό Codenames ακόμα. Ολοκληρώστε ένα ταμπλό ή τερματίστε το νωρίς για να δείτε την πλήρη επανάληψη της κάρτας-κλειδί εδώ.
+No dictionary definition available.,templates/codenames/game.html,No dictionary definition available.,Δεν υπάρχει διαθέσιμος ορισμός λεξικού.
+No turns logged.,templates/codenames/game.html,No turns logged.,Δεν έχουν καταγραφεί γύροι.
+"Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play.",templates/gamerooms/room_list.html,"Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play.","Επίσημο ταμπλό ομαδικής αφαίρεσης 400 λέξεων 5×5 με στοιχεία Wikisaurus Spymaster AI, ιδιωτική εναλλαγή Keycard και προφορικό/επιτραπέζιο παιχνίδι."
+Official Classic 400 Words,templates/codenames/game.html,Official Classic 400 Words,Επίσημες κλασικές 400 λέξεις
+One-word clue...,templates/codenames/game.html,One-word clue...,Στοιχείο μίας λέξης...
+Only emojis allowed — text characters were ignored.,templates/emojinary/game.html,Only emojis allowed — text characters were ignored.,Επιτρέπονται μόνο emoji — οι χαρακτήρες κειμένου αγνοήθηκαν.
 Open,"lupus/views.py, scripts/generate_locales.py",Open,Ανοιχτή
 Open (Lobby),"lupus/views.py, scripts/generate_locales.py",Open (Lobby),Ανοιχτή (Αναμονή)
 Open GM Cockpit,"scripts/generate_locales.py, templates/lupus/hub.html",Open GM Cockpit,Άνοιγμα Κονσόλας Αφηγητή
-Or type your own custom prompt/phrase...,templates/emojinary/game.html,Or type your own custom prompt/phrase...,Or type your own custom prompt/phrase...
+Open Generator,templates/gamerooms/room_list.html,Open Generator,Άνοιγμα γεννήτριας
+Open Player Link,templates/impostor/game.html,Open Player Link,Άνοιγμα συνδέσμου παίκτη
+Open slot,templates/codenames/game.html,Open slot,Ελεύθερη θέση
+Operative,templates/codenames/game.html,Operative,Πράκτορας
+Operative Seconds (0=∞),templates/codenames/game.html,Operative Seconds (0=∞),Δευτερόλεπτα πράκτορα (0=∞)
+Operatives,templates/codenames/game.html,Operatives,Πράκτορες
+Operatives are Guessing,templates/codenames/game.html,Operatives are Guessing,Οι πράκτορες μαντεύουν
+Operatives are choosing cards for this round.,templates/codenames/game.html,Operatives are choosing cards for this round.,Οι πράκτορες επιλέγουν κάρτες για αυτόν τον γύρο.
+Operatives are guessing!,templates/codenames/game.html,Operatives are guessing!,Οι πράκτορες μαντεύουν!
+Opponent team is guessing. Wait for them to pass or make an incorrect tap.,templates/codenames/game.html,Opponent team is guessing. Wait for them to pass or make an incorrect tap.,Η αντίπαλη ομάδα μαντεύει. Περιμένετε να πάνε πάσο ή να κάνουν λάθος επιλογή.
+Or type your own custom prompt/phrase...,templates/emojinary/game.html,Or type your own custom prompt/phrase...,Ή πληκτρολογήστε τη δική σας προσαρμοσμένη προτροπή/φράση...
+Oral Spymaster Mode (Mod Logging),templates/codenames/game.html,Oral Spymaster Mode (Mod Logging),Λειτουργία προφορικού Spymaster (Καταγραφή συντονιστή)
 "Original camera RAW file (CR3, ARW, NEF, etc.)",photos/models.py,"Original camera RAW file (CR3, ARW, NEF, etc.)","Αρχικό αρχείο RAW κάμερας (CR3, ARW, NEF, κ.λπ.)"
 Other,templates/cv.html,Other,Άλλα
 Outdoors,templates/cv.html,Outdoors,Υπαίθριες δραστηριότητες
 Page Not Found — Marco Silva,templates/404.html,Page Not Found — Marco Silva,Η σελίδα δεν βρέθηκε — Marco Silva
+Participating Host Controls (Zero-Spoiler),templates/impostor/game.html,Participating Host Controls (Zero-Spoiler),Στοιχεία ελέγχου συμμετέχοντος οικοδεσπότη (χωρίς spoiler)
+Pass / Wrong,templates/impostor/game.html,Pass / Wrong,Πάσο / Λάθος
+Pass Turn (Mod),templates/codenames/game.html,Pass Turn (Mod),Πάσο γύρου (Συντονιστής)
 Password,"scripts/generate_locales.py, templates/lupus/hub.html",Password,Κωδικός
 Password Protected,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Password Protected,Προστατεύεται με Κωδικό
 Past & Finished Games,"scripts/generate_locales.py, templates/lupus/hub.html",Past & Finished Games,Παλαιότερα & Ολοκληρωμένα Παιχνίδια
+Pause,templates/codenames/game.html,Pause,Παύση
+Pause Timer,templates/impostor/game.html,Pause Timer,Παύση χρονομέτρου
 Pending,photos/models.py,Pending,Σε εκκρεμότητα
+Personal Player QR,templates/codenames/game.html,Personal Player QR,Προσωπικό QR παίκτη
+Personal QR,templates/codenames/game.html,Personal QR,Προσωπικό QR
 Photography,templates/cv.html,Photography,Φωτογραφία
+Pick 1 word and a number of cards. Your Operatives must guess based on your clue.,templates/codenames/game.html,Pick 1 word and a number of cards. Your Operatives must guess based on your clue.,Επιλέξτε 1 λέξη και έναν αριθμό καρτών. Οι πράκτορές σας πρέπει να μαντέψουν με βάση το στοιχείο σας.
 Pick the name others at the table know you by.,"scripts/generate_locales.py, templates/lupus/join.html",Pick the name others at the table know you by.,Επιλέξτε το όνομα με το οποίο σας ξέρουν οι υπόλοιποι στο τραπέζι.
-Player Profile & Personal QR,templates/emojinary/game.html,Player Profile & Personal QR,Player Profile & Personal QR
+"Pick your game, language, and room settings — share the link or QR code when ready.",templates/gamerooms/room_create.html,"Pick your game, language, and room settings — share the link or QR code when ready.","Επιλέξτε το παιχνίδι, τη γλώσσα και τις ρυθμίσεις δωματίου — μοιραστείτε τον σύνδεσμο ή τον κωδικό QR όταν είστε έτοιμοι."
+Player Profile & Personal QR,templates/emojinary/game.html,Player Profile & Personal QR,Προφίλ παίκτη & προσωπικό QR
+Player QR,templates/impostor/game.html,Player QR,QR παίκτη
+Player Reconnect QR,templates/codenames/game.html,Player Reconnect QR,QR επανασύνδεσης παίκτη
+Player name...,templates/codenames/game.html,Player name...,Όνομα παίκτη...
+Players & Scores,templates/impostor/game.html,Players & Scores,Παίκτες & σκορ
 Please enter a player name.,"lupus/views.py, scripts/generate_locales.py",Please enter a player name.,Παρακαλώ εισαγάγετε όνομα παίκτη.
 Please enter a valid room code.,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Please enter a valid room code.,Παρακαλώ εισαγάγετε έναν έγκυρο κωδικό αίθουσας.
+Poison Word (Impostor / Drunk),templates/impostor/game.html,Poison Word (Impostor / Drunk),Λέξη δηλητήριο (Απατεώνας / Μεθυσμένος)
+Poison Word Mode,templates/impostor/game.html,Poison Word Mode,Λειτουργία λέξης δηλητηρίου
 "Portuguese · Helsinki, Finland",templates/cv.html,"Portuguese · Helsinki, Finland","Πορτογάλος · Ελσίνκι, Φινλανδία"
 Previous day,templates/tools/partials/calendar.html,Previous day,Προηγούμενη ημέρα
 Price for the RAW file download.,photos/models.py,Price for the RAW file download.,Τιμή για τη λήψη του αρχείου RAW.
@@ -158,97 +274,172 @@ Privacy Policy - Homelab Telegram Bot,templates/bot_privacy.html,Privacy Policy 
 Privacy Policy - Homelab Telegram Bot - Marco Silva,templates/bot_privacy.html,Privacy Policy - Homelab Telegram Bot - Marco Silva,Πολιτική απορρήτου - Homelab Telegram Bot - Marco Silva
 Privacy shield keeps cards concealed from prying eyes at the table.,"scripts/generate_locales.py, templates/lupus/hub.html",Privacy shield keeps cards concealed from prying eyes at the table.,Η ασπίδα απορρήτου προστατεύει τις κάρτες από περίεργα βλέμματα στο τραπέζι.
 Processing,photos/models.py,Processing,Σε επεξεργασία
+Prompt Tool,templates/gamerooms/room_list.html,Prompt Tool,Εργαλείο προτροπών
 Public,"scripts/generate_locales.py, templates/lupus/hub.html",Public,Δημόσια
+Publish Clue,templates/codenames/game.html,Publish Clue,Δημοσίευση στοιχείου
 RAW available for purchase,templates/photos/photo_viewer.html,RAW available for purchase,RAW διαθέσιμο για αγορά
 RAW file,photos/models.py,RAW file,Αρχείο RAW
 RAW price,photos/models.py,RAW price,Τιμή RAW
 Reading,templates/cv.html,Reading,Ανάγνωση
 Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,"scripts/generate_locales.py, templates/gamerooms/room_list.html",Real-time multiplayer browser party games. No accounts required — just jump in and play with friends.,Παιχνίδια παρέας για πολλούς παίκτες σε πραγματικό χρόνο στο πρόγραμμα περιήγησης. Δεν απαιτούνται λογαριασμοί — απλώς μπείτε και παίξτε με φίλους.
+Red,templates/codenames/game.html,Red,Κόκκινο
+Red Left,templates/codenames/game.html,Red Left,Κόκκινα απομένουν
+Red Team,templates/codenames/game.html,Red Team,Κόκκινη ομάδα
+Red Team Wins!,templates/codenames/game.html,Red Team Wins!,Η κόκκινη ομάδα κερδίζει!
+Redraw Board,templates/codenames/game.html,Redraw Board,Αναδιάταξη ταμπλό
 Regenerate 4:5 Instagram crops for selected photos,photos/admin.py,Regenerate 4:5 Instagram crops for selected photos,Επαναδημιουργία περικοπών 4:5 Instagram για τις επιλεγμένες φωτογραφίες
-Replay,"scripts/generate_locales.py, templates/emojinary/game.html, templates/lupus/hub.html",Replay,Επανάληψη
-Reroll,templates/emojinary/game.html,Reroll,Reroll
+Replay,"scripts/generate_locales.py, templates/codenames/game.html, templates/emojinary/game.html, templates/lupus/hub.html",Replay,Επανάληψη
+Reroll,templates/emojinary/game.html,Reroll,Ξαναρίξτε
+Resume,templates/codenames/game.html,Resume,Συνέχεια
 Return as %(name)s,scripts/generate_locales.py,Return as %(name)s,Επιστροφή ως %(name)s
+Reveal,gamerooms/views.py,Reveal,Αποκάλυψη
 Reveal Roles on Death:,"scripts/generate_locales.py, templates/lupus/create.html",Reveal Roles on Death:,Αποκάλυψη Ρόλων στον Θάνατο:
-Room Chat,templates/emojinary/game.html,Room Chat,Room Chat
-Room Code,templates/emojinary/game.html,Room Code,Room Code
+Role Hidden,templates/impostor/game.html,Role Hidden,Ρόλος κρυφός
+"Roles, phases, and interface are localized in %(lang)s.",gamerooms/language_support.py,"Roles, phases, and interface are localized in %(lang)s.","Οι ρόλοι, οι φάσεις και η διεπαφή είναι μεταφρασμένα στα %(lang)s."
+Room Chat,templates/emojinary/game.html,Room Chat,Συνομιλία δωματίου
+Room Chat & Events,templates/codenames/game.html,Room Chat & Events,Συνομιλία δωματίου & εκδηλώσεις
+Room Code,templates/emojinary/game.html,Room Code,Κωδικός δωματίου
 Room Code:,"scripts/generate_locales.py, templates/lupus/join.html",Room Code:,Κωδικός Αίθουσας:
 Room Password,"scripts/generate_locales.py, templates/lupus/join.html",Room Password,Κωδικός Αίθουσας
 Room Password (optional),"scripts/generate_locales.py, templates/lupus/create.html",Room Password (optional),Κωδικός Αίθουσας (προαιρετικό)
 Room Setup,"scripts/generate_locales.py, templates/lupus/create.html",Room Setup,Ρύθμιση Αίθουσας
 Room Title,"scripts/generate_locales.py, templates/lupus/create.html",Room Title,Τίτλος Αίθουσας
 Room code '%(code)s' was not found or is no longer active.,scripts/generate_locales.py,Room code '%(code)s' was not found or is no longer active.,Ο κωδικός αίθουσας '%(code)s' δεν βρέθηκε ή δεν είναι πλέον ενεργός.
-Rooms,templates/emojinary/game.html,Rooms,Rooms
+Rooms,"templates/codenames/game.html, templates/emojinary/game.html, templates/impostor/game.html",Rooms,Δωμάτια
 Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,"scripts/generate_locales.py, templates/lupus/hub.html",Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!,Οι αίθουσες δημιουργούνται κατ' απαίτηση και παραμένουν ενεργές για 24 ώρες. Ξεκινήστε μια νέα συνεδρία και προσκαλέστε την παρέα σας!
-Round,gamerooms/views.py,Round,Round
-Round-by-Round Replay & Attempt Log,templates/emojinary/game.html,Round-by-Round Replay & Attempt Log,Round-by-Round Replay & Attempt Log
+Rotate Spymasters each new board,templates/codenames/game.html,Rotate Spymasters each new board,Εναλλαγή των Spymaster σε κάθε νέο ταμπλό
+Round,gamerooms/views.py,Round,Γύρος
+Round Clues,templates/impostor/game.html,Round Clues,Στοιχεία γύρου
+Round-by-Round Replay & Attempt Log,templates/emojinary/game.html,Round-by-Round Replay & Attempt Log,Επανάληψη γύρο προς γύρο & καταγραφή προσπαθειών
+Rounds (Clue Cycles),templates/impostor/game.html,Rounds (Clue Cycles),Γύροι (Κύκλοι στοιχείων)
 Running,"lupus/views.py, scripts/generate_locales.py",Running,Σε Εξέλιξη
-Save Name,templates/emojinary/game.html,Save Name,Save Name
-Scan this QR code with any phone camera to join immediately:,templates/emojinary/game.html,Scan this QR code with any phone camera to join immediately:,Scan this QR code with any phone camera to join immediately:
-Scan this to move your session and score to another phone or browser:,templates/emojinary/game.html,Scan this to move your session and score to another phone or browser:,Scan this to move your session and score to another phone or browser:
-"Search emoji by name (e.g. fire, crown, heart)...",templates/emojinary/game.html,"Search emoji by name (e.g. fire, crown, heart)...","Search emoji by name (e.g. fire, crown, heart)..."
+Save Name,templates/emojinary/game.html,Save Name,Αποθήκευση ονόματος
+Scan on another device to reclaim your Spymaster/Operative seat cleanly.,templates/codenames/game.html,Scan on another device to reclaim your Spymaster/Operative seat cleanly.,Σαρώστε σε άλλη συσκευή για να ανακτήσετε καθαρά τη θέση σας ως Spymaster/Πράκτορας.
+Scan this QR code with any phone camera to join immediately:,templates/emojinary/game.html,Scan this QR code with any phone camera to join immediately:,Σαρώστε αυτόν τον κωδικό QR με οποιαδήποτε κάμερα τηλεφώνου για να συμμετάσχετε αμέσως:
+Scan this personal QR code to switch devices without losing your secret card:,templates/impostor/game.html,Scan this personal QR code to switch devices without losing your secret card:,Σαρώστε αυτόν τον προσωπικό κωδικό QR για να αλλάξετε συσκευή χωρίς να χάσετε τη μυστική σας κάρτα:
+Scan this to move your session and score to another phone or browser:,templates/emojinary/game.html,Scan this to move your session and score to another phone or browser:,Σαρώστε αυτό για να μεταφέρετε τη συνεδρία και το σκορ σας σε άλλο τηλέφωνο ή πρόγραμμα περιήγησης:
+"Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)...",templates/emojinary/game.html,"Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)...","Αναζήτηση emoji κατά όνομα, συνώνυμο, τυπογραφικό λάθος ή γλώσσα (π.χ. fire, crown, fogo, φωτιά)..."
+Send,"templates/codenames/game.html, templates/impostor/game.html",Send,Αποστολή
 Send Instagram carousel pack to Telegram,photos/admin.py,Send Instagram carousel pack to Telegram,Αποστολή πακέτου καρουζέλ Instagram στο Telegram
 Server Error — Marco Silva,templates/500.html,Server Error — Marco Silva,Σφάλμα διακομιστή — Marco Silva
-Set,templates/emojinary/game.html,Set,Set
+Set,templates/emojinary/game.html,Set,Ορισμός
+Setting up teams...,templates/codenames/game.html,Setting up teams...,Ρύθμιση ομάδων...
+Show Role & Word,templates/impostor/game.html,Show Role & Word,Εμφάνιση ρόλου & λέξης
+Show Spymaster Keycard,templates/codenames/game.html,Show Spymaster Keycard,Εμφάνιση κάρτας-κλειδί Spymaster
 Silent Phase,"lupus/views.py, scripts/generate_locales.py",Silent Phase,Σιωπηλή Φάση
 Skills,templates/cv.html,Skills,Δεξιότητες
+Skip Turn,templates/impostor/game.html,Skip Turn,Παράλειψη γύρου
 "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!","scripts/generate_locales.py, templates/lupus/create.html","Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!","Οι παίκτες που χάνουν μπαίνουν στο Καθαρτήριο πριν πεθάνουν οριστικά. Αν μαντέψουν ποιος είναι ο Άγγελος, ανασταίνονται!"
+"Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master.",templates/gamerooms/room_list.html,"Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master.","Κοινωνική αφαίρεση με Λέξεις Δηλητήριο, θανατηφόρες παγίδες Ταμπού, Κλοπή Τελευταίας Ευκαιρίας και Συμμετέχοντα Game Master."
 Spanish,templates/cv.html,Spanish,Ισπανικά
+Speaker (oral clue):,templates/impostor/game.html,Speaker (oral clue):,Ομιλητής (προφορικό στοιχείο):
 Speaking,templates/cv.html,Speaking,Ομιλία
-Spectator Mode (Skip my turns),templates/emojinary/game.html,Spectator Mode (Skip my turns),Spectator Mode (Skip my turns)
+Spectator,templates/codenames/game.html,Spectator,Θεατής
+Spectator / Non-Player,templates/codenames/game.html,Spectator / Non-Player,Θεατής / Μη παίκτης
+Spectator Mode (Skip my turns),templates/emojinary/game.html,Spectator Mode (Skip my turns),Λειτουργία θεατή (Παράλειψη των γύρων μου)
+Spymaster,templates/codenames/game.html,Spymaster,Αρχικατάσκοπος
+Spymaster Seconds (0=∞),templates/codenames/game.html,Spymaster Seconds (0=∞),Δευτερόλεπτα αρχικατασκόπου (0=∞)
+Spymaster is thinking of a clue...,templates/codenames/game.html,Spymaster is thinking of a clue...,Ο αρχικατάσκοπος σκέφτεται ένα στοιχείο...
 Staggering Doctor:,"scripts/generate_locales.py, templates/lupus/create.html",Staggering Doctor:,Εναλλασσόμενος Γιατρός:
+Standard Timed (90s / 90s),templates/codenames/game.html,Standard Timed (90s / 90s),Τυπικό με χρόνο (90δ / 90δ)
+Start Codenames,templates/codenames/game.html,Start Codenames,Έναρξη Codenames
+Start Match,templates/impostor/game.html,Start Match,Έναρξη αγώνα
+Start Voting Early,templates/impostor/game.html,Start Voting Early,Έναρξη ψηφοφορίας νωρίτερα
 Starting Role Deck Preset,"scripts/generate_locales.py, templates/lupus/create.html",Starting Role Deck Preset,Προκαθορισμένη Τράπουλα Ρόλων
+Steal Guess,gamerooms/views.py,Steal Guess,Κλοπή πρόβλεψης
+"Steal Timer (s, 0 = ∞)",templates/impostor/game.html,"Steal Timer (s, 0 = ∞)","Χρονόμετρο κλοπής (δευτ, 0 = ∞)"
+Steal Win!,templates/impostor/game.html,Steal Win!,Νίκη με κλοπή!
 "Step-by-step night stages, bluffing calls, and voting manager.","scripts/generate_locales.py, templates/lupus/hub.html","Step-by-step night stages, bluffing calls, and voting manager.","Νυχτερινά στάδια βήμα προς βήμα, κλήσεις μπλόφας και διαχείριση ψηφοφορίας."
-Submit,templates/emojinary/game.html,Submit,Submit
+Submit,templates/emojinary/game.html,Submit,Υποβολή
+Submit Clue,templates/impostor/game.html,Submit Clue,Υποβολή στοιχείου
+Submit Player Vote,templates/impostor/game.html,Submit Player Vote,Υποβολή ψήφου παίκτη
+Table Discussion & Event Log,templates/impostor/game.html,Table Discussion & Event Log,Συζήτηση τραπεζιού & Αρχείο καταγραφής συμβάντων
 Table-First Lupus Highlights,"scripts/generate_locales.py, templates/lupus/hub.html",Table-First Lupus Highlights,Χαρακτηριστικά του Επιτραπέζιου Lupus
 Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,"scripts/generate_locales.py, templates/lupus/hub.html",Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master.,Επιτραπέζιο παιχνίδι παρέας τύπου Λυκάνθρωπος & Μαφία. Δεν απαιτούνται λογαριασμοί. Κάθε παίκτης χρησιμοποιεί το κινητό του για μυστικούς ρόλους και ψηφοφορία ενώ εσείς διευθύνετε ως Αφηγητής.
 "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.","scripts/generate_locales.py, templates/lupus/create.html","Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master.",Υβριδικό επιτραπέζιο παιχνίδι παρέας. Δεν απαιτούνται λογαριασμοί. Οι παίκτες μπαίνουν μέσω QR code και διευθύνετε ως Αφηγητής.
 "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.","scripts/generate_locales.py, templates/gamerooms/room_list.html","Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit.","Επιτραπέζιο παιχνίδι παρέας με μυστικούς ρόλους, ζωντανή ψηφοφορία, Εφημερίδα του Χωριού και κονσόλα αφηγητή."
-Tap emojis below...,templates/emojinary/game.html,Tap emojis below...,Tap emojis below...
+Tally Votes Now,templates/impostor/game.html,Tally Votes Now,Καταμέτρηση ψήφων τώρα
+Tap cards on the board as players make their guesses out loud.,templates/codenames/game.html,Tap cards on the board as players make their guesses out loud.,Πατήστε κάρτες στο ταμπλό καθώς οι παίκτες μαντεύουν δυνατά.
+"Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn.",templates/codenames/game.html,"Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn.","Πατήστε κάρτες στο ταμπλό που ταιριάζουν με το στοιχείο. Όταν τελειώσετε ή είστε αβέβαιοι, πατήστε Τέλος γύρου μαντεψιάς."
+Targets,templates/codenames/game.html,Targets,Στόχοι
 Techy,templates/cv.html,Techy,Τεχνολογία
 Terms of Service,templates/bot_terms.html,Terms of Service,Όροι Χρήσης
 Terms of Service - Homelab Telegram Bot,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot,Όροι Χρήσης - Homelab Telegram Bot
 Terms of Service - Homelab Telegram Bot - Marco Silva,templates/bot_terms.html,Terms of Service - Homelab Telegram Bot - Marco Silva,Όροι Χρήσης - Homelab Telegram Bot - Marco Silva
 The Doctor / Guard cannot protect the same person two consecutive nights.,"scripts/generate_locales.py, templates/lupus/create.html",The Doctor / Guard cannot protect the same person two consecutive nights.,Ο Γιατρός / Φύλακας δεν μπορεί να προστατεύσει το ίδιο άτομο δύο συνεχόμενες νύχτες.
+"The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable.",gamerooms/language_support.py,"The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable.","Η διεπαφή χρησιμοποιεί %(lang)s, ενώ το περιεχόμενο του παιχνιδιού επιστρέφει στα Αγγλικά επειδή δεν υπάρχουν πλήρη δεδομένα λεξιλογίου."
 Theme & Terms,"scripts/generate_locales.py, templates/lupus/create.html",Theme & Terms,Θέμα & Ορολογία
-Toggle,templates/emojinary/game.html,Toggle,Toggle
+Time Limit Preset,templates/impostor/game.html,Time Limit Preset,Προεπιλογή χρονικού ορίου
+Toggle,templates/emojinary/game.html,Toggle,Εναλλαγή
+Toggle Spectator Mode,templates/impostor/game.html,Toggle Spectator Mode,Εναλλαγή λειτουργίας θεατή
 Town Gazette:,"scripts/generate_locales.py, templates/lupus/hub.html",Town Gazette:,Εφημερίδα του Χωριού:
 Town Voting,"lupus/views.py, scripts/generate_locales.py",Town Voting,Ψηφοφορία Χωριού
-Type a message or guess...,templates/emojinary/game.html,Type a message or guess...,Type a message or guess...
-Type your guess (or use the chat box)...,templates/emojinary/game.html,Type your guess (or use the chat box)...,Type your guess (or use the chat box)...
+Turn Sequence,templates/codenames/game.html,Turn Sequence,Σειρά γύρων
+"Turn Timer (s, 0 = ∞)",templates/impostor/game.html,"Turn Timer (s, 0 = ∞)","Χρονόμετρο γύρου (δευτ, 0 = ∞)"
+Turn Timers,templates/codenames/game.html,Turn Timers,Χρονόμετρα γύρου
+Type a message or guess...,templates/emojinary/game.html,Type a message or guess...,Πληκτρολογήστε μήνυμα ή πρόβλεψη...
+Type clue or what was said orally...,templates/impostor/game.html,Type clue or what was said orally...,"Πληκτρολογήστε στοιχείο ή ό,τι ειπώθηκε προφορικά..."
+Type your guess (or use the chat box)...,templates/emojinary/game.html,Type your guess (or use the chat box)...,Πληκτρολογήστε την πρόβλεψή σας (ή χρησιμοποιήστε το πλαίσιο συνομιλίας)...
+UI Only,"templates/codenames/game.html, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/impostor/game.html",UI Only,Μόνο διεπαφή
+Unable to load player QR code.,templates/codenames/game.html,Unable to load player QR code.,Αδυναμία φόρτωσης του κωδικού QR παίκτη.
+Unassigned,templates/codenames/game.html,Unassigned,Χωρίς ανάθεση
+Unlimited,templates/codenames/game.html,Unlimited,Απεριόριστο
 Unlock Room,"scripts/generate_locales.py, templates/lupus/join.html",Unlock Room,Ξεκλείδωμα Αίθουσας
-Use Prompt,templates/emojinary/game.html,Use Prompt,Use Prompt
+Untimed,templates/codenames/game.html,Untimed,Χωρίς χρόνο
+Untimed (Relaxed Couch Mode),templates/codenames/game.html,Untimed (Relaxed Couch Mode),Χωρίς χρόνο (Χαλαρή λειτουργία καναπέ)
+Use Prompt,templates/emojinary/game.html,Use Prompt,Χρήση υπόδειξης
+Use your emoji keyboard or tap emojis below...,templates/emojinary/game.html,Use your emoji keyboard or tap emojis below...,Χρησιμοποιήστε το πληκτρολόγιο emoji ή πατήστε emoji παρακάτω...
 "Vertical focal point: 0=top, 50=center, 100=bottom.",photos/models.py,"Vertical focal point: 0=top, 50=center, 100=bottom.","Κάθετο σημείο εστίασης: 0=πάνω, 50=κέντρο, 100=κάτω."
 "Villagers, Wolves, Seer","scripts/generate_locales.py, templates/lupus/create.html","Villagers, Wolves, Seer","Χωρικοί, Λύκοι, Μάντης"
-Voting,"lupus/views.py, scripts/generate_locales.py",Voting,Ψηφοφορία
+"Vote Timer (s, 0 = ∞)",templates/impostor/game.html,"Vote Timer (s, 0 = ∞)","Χρονόμετρο ψηφοφορίας (δευτ, 0 = ∞)"
+Vote for player:,templates/impostor/game.html,Vote for player:,Ψηφίστε τον παίκτη:
+Voting,"gamerooms/views.py, lupus/views.py, scripts/generate_locales.py",Voting,Ψηφοφορία
+Waiting for Clue...,templates/codenames/game.html,Waiting for Clue...,Αναμονή για στοιχείο...
+Waiting for Host to configure teams and start the board...,templates/codenames/game.html,Waiting for Host to configure teams and start the board...,Αναμονή για τον οικοδεσπότη να διαμορφώσει τις ομάδες και να ξεκινήσει το ταμπλό...
+Waiting in Lobby...,templates/impostor/game.html,Waiting in Lobby...,Αναμονή στο λόμπι...
 Werewolf / Lupus,"scripts/generate_locales.py, templates/lupus/create.html",Werewolf / Lupus,Λυκάνθρωπος / Lupus
 Whether focus coordinates were automatically calculated via edge saliency.,photos/models.py,Whether focus coordinates were automatically calculated via edge saliency.,Εάν οι συντεταγμένες εστίασης υπολογίστηκαν αυτόματα μέσω διακριτότητας ακμών.
+Wikisaurus AI Clue Suggestions (tap to pre-fill),templates/codenames/game.html,Wikisaurus AI Clue Suggestions (tap to pre-fill),Προτάσεις στοιχείων AI Wikisaurus (πατήστε για προσυμπλήρωση)
+Wins,templates/codenames/game.html,Wins,Νίκες
+Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends.,templates/gamerooms/room_list.html,Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends.,Γεννήτρια λέξεων και προτάσεων για κλασικούς γύρους ζωγραφικής με μολύβι και χαρτί με φίλους.
+Word Impostor,"templates/gamerooms/room_list.html, templates/impostor/game.html",Word Impostor,Word Impostor
+Word Pack,templates/codenames/game.html,Word Pack,Πακέτο λέξεων
 Work Experience,templates/cv.html,Work Experience,Επαγγελματική Εμπειρία
 Writing,templates/cv.html,Writing,Γραφή
 You need an authorized key to access this page.,scripts/generate_locales.py,You need an authorized key to access this page.,Χρειάζεστε εξουσιοδοτημένο κλειδί για πρόσβαση σε αυτή τη σελίδα.
 Your Name / Nickname,"scripts/generate_locales.py, templates/lupus/join.html",Your Name / Nickname,Το Όνομά / Ψευδώνυμό σας
-Your Personal Reconnect QR,templates/emojinary/game.html,Your Personal Reconnect QR,Your Personal Reconnect QR
-Your Secret Phrase,templates/emojinary/game.html,Your Secret Phrase,Your Secret Phrase
+Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!,templates/codenames/game.html,Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!,Οι πράκτορές σας συσκέπτονται. Διατηρήστε αυστηρό poker face — καθόλου αντιδράσεις ή υποδείξεις!
+Your Personal Reconnect QR,templates/emojinary/game.html,Your Personal Reconnect QR,Το προσωπικό σας QR επανασύνδεσης
+Your Secret Phrase,templates/emojinary/game.html,Your Secret Phrase,Η μυστική σας φράση
+Your Spymaster,templates/codenames/game.html,Your Spymaster,Ο αρχικατάσκοπός σας
+Your Turn to Guess!,templates/codenames/game.html,Your Turn to Guess!,Η σειρά σας να μαντέψετε!
+"Your Turn, Spymaster!",templates/codenames/game.html,"Your Turn, Spymaster!","Η σειρά σας, Αρχικατάσκοπε!"
+actions,templates/emojinary/game.html,actions,ενέργειες
 adjective,templates/tools/pictionary.html,adjective,επίθετο
 ago,"scripts/generate_locales.py, templates/gamerooms/room_list.html, templates/lupus/hub.html",ago,πριν
 alive,"scripts/generate_locales.py, templates/lupus/hub.html",alive,ζωντανοί
 all,templates/emojinary/game.html,all,όλα
+all categories,templates/emojinary/game.html,all categories,όλες οι κατηγορίες
 all day,templates/tools/partials/calendar.html,all day,όλη μέρα
+and publish their clue below.,templates/codenames/game.html,and publish their clue below.,και να δημοσιεύσουν το στοιχείο τους παρακάτω.
+animals,templates/emojinary/game.html,animals,ζώα
 any,templates/tools/pictionary.html,any,οποιοδήποτε
 aperture,photos/models.py,aperture,διάφραγμα
 auto focus detected,photos/models.py,auto focus detected,εντοπίστηκε αυτόματη εστίαση
 available for sale,photos/models.py,available for sale,διαθέσιμο προς πώληση
 best guess,templates/emojinary/game.html,best guess,καλύτερη εκτίμηση
-blog,"scripts/generate_locales.py, templates/base.html, templates/blog/blog_index_page.html, templates/blog/post_list.html, templates/wip.html",blog,ιστολόγιο
+blog,"scripts/generate_locales.py, templates/base.html, templates/blog/blog_index_page.html, templates/blog/post_list.html, templates/wip.html",blog,blog
 camera make,photos/models.py,camera make,κατασκευαστής κάμερας
 camera model,photos/models.py,camera model,μοντέλο κάμερας
-chat:,templates/emojinary/game.html,chat:,συνομιλία:
+category:,templates/emojinary/game.html,category:,κατηγορία:
+chat:,templates/emojinary/game.html,chat:,chat:
 clear,templates/emojinary/game.html,clear,καθαρισμός
-collective prep + hints,templates/emojinary/game.html,collective prep + hints,collective prep + hints
+collective prep + hints,templates/emojinary/game.html,collective prep + hints,ομαδική προετοιμασία + στοιχεία
 create,"scripts/generate_locales.py, templates/gamerooms/room_create.html",create,δημιουργία
-create room,"scripts/generate_locales.py, templates/gamerooms/room_create.html",create room,δημιουργία αίθουσας
+create room,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/gamerooms/room_list.html",create room,δημιουργία αίθουσας
 crop focus X (%),photos/models.py,crop focus X (%),εστίαση περικοπής X (%)
 crop focus Y (%),photos/models.py,crop focus Y (%),εστίαση περικοπής Y (%)
-cv,"scripts/generate_locales.py, templates/base.html",cv,βιογραφικό
+cv,"scripts/generate_locales.py, templates/base.html",cv,cv
 date,photos/models.py,date,ημερομηνία
 description,templates/tools/ics_maker.html,description,περιγραφή
 difficulty,templates/tools/pictionary.html,difficulty,δυσκολία
@@ -262,17 +453,22 @@ end,templates/tools/ics_maker.html,end,λήξη
 enter password to view the calendar.,templates/tools/planz.html,enter password to view the calendar.,εισάγετε κωδικό πρόσβασης για να δείτε το ημερολόγιο.
 extract event,templates/tools/ics_maker.html,extract event,εξαγωγή συμβάντος
 focal length,photos/models.py,focal length,εστιακή απόσταση
+food & drink,templates/emojinary/game.html,food & drink,φαγητό & ποτό
 gallery,"photos/models.py, templates/photos/upload.html",gallery,γκαλερί
 gallery extension,photos/models.py,gallery extension,επέκταση γκαλερί
 gallery extensions,photos/models.py,gallery extensions,επεκτάσεις γκαλερί
 gallery not found.,templates/blog/blocks/photo_gallery.html,gallery not found.,η γκαλερί δεν βρέθηκε.
+game,templates/gamerooms/room_create.html,game,Παιχνίδι
 games,"scripts/generate_locales.py, templates/base.html",games,παιχνίδια
-go,templates/tools/planz.html,go,μετάβαση
+go,templates/tools/planz.html,go,go
 guess,templates/emojinary/game.html,guess,μαντέψτε
 guess time:,templates/emojinary/game.html,guess time:,χρόνος εικασίας:
 hard,"templates/emojinary/game.html, templates/tools/pictionary.html",hard,δύσκολο
 home,"scripts/generate_locales.py, templates/base.html",home,αρχική
 ics maker,templates/tools/ics_maker.html,ics maker,δημιουργός ics
+is Guessing,templates/codenames/game.html,is Guessing,μαντεύει
+is formulating a clue for their team.,templates/codenames/game.html,is formulating a clue for their team.,διατυπώνει ένα στοιχείο για την ομάδα του.
+is formulating a clue. Stand by!,templates/codenames/game.html,is formulating a clue. Stand by!,διατυπώνει ένα στοιχείο. Αναμείνατε!
 join,"scripts/generate_locales.py, templates/gamerooms/room_name.html, templates/gamerooms/room_password.html",join,σύνδεση
 latest posts,templates/index.html,latest posts,τελευταίες αναρτήσεις
 latitude,photos/models.py,latitude,γεωγραφικό πλάτος
@@ -285,6 +481,7 @@ medium,"templates/emojinary/game.html, templates/tools/pictionary.html",medium,�
 message (optional),templates/photos/photo_viewer.html,message (optional),μήνυμα (προαιρετικό)
 mode,templates/tools/pictionary.html,mode,λειτουργία
 mode:,templates/emojinary/game.html,mode:,λειτουργία:
+movies,templates/emojinary/game.html,movies,ταινίες
 new word,templates/tools/pictionary.html,new word,νέα λέξη
 next →,templates/photos/photo_viewer.html,next →,επόμ →
 no active rooms. create one!,"scripts/generate_locales.py, templates/gamerooms/room_list.html",no active rooms. create one!,δεν υπάρχουν ενεργές αίθουσες. δημιουργήστε μία!
@@ -297,6 +494,7 @@ password,templates/tools/planz.html,password,κωδικός πρόσβασης
 password (optional),"scripts/generate_locales.py, templates/gamerooms/room_create.html",password (optional),κωδικός (προαιρετικό)
 paste event details here...,templates/tools/ics_maker.html,paste event details here...,επικολλήστε λεπτομέρειες συμβάντος εδώ...
 "paste text or a url with event details, and get an .ics file.",templates/tools/ics_maker.html,"paste text or a url with event details, and get an .ics file.",επικολλήστε κείμενο ή σύνδεσμο με λεπτομέρειες συμβάντος και λάβετε αρχείο .ics.
+people & characters,templates/emojinary/game.html,people & characters,άνθρωποι & χαρακτήρες
 photo,photos/models.py,photo,φωτογραφία
 photo extension,photos/models.py,photo extension,επέκταση φωτογραφίας
 photo extensions,photos/models.py,photo extensions,επεκτάσεις φωτογραφιών
@@ -304,18 +502,21 @@ photo map,templates/photos/map.html,photo map,χάρτης φωτογραφιώ�
 photo not found.,templates/blog/blocks/single_photo.html,photo not found.,η φωτογραφία δεν βρέθηκε.
 photos,"scripts/generate_locales.py, templates/base.html, templates/index.html, templates/photos/gallery_list.html",photos,φωτογραφίες
 photos (select multiple),templates/photos/upload.html,photos (select multiple),φωτογραφίες (επιλέξτε πολλές)
+phrases,templates/emojinary/game.html,phrases,φράσεις
 "pick your options, hit the button, draw!",templates/tools/pictionary.html,"pick your options, hit the button, draw!","επιλέξτε επιλογές, πατήστε το κουμπί, σχεδιάστε!"
 pictionary,templates/tools/pictionary.html,pictionary,pictionary
+places & travel,templates/emojinary/game.html,places & travel,μέρη & ταξίδια
 planz,"templates/tools/planz.html, templates/tools/planz_full.html",planz,planz
 play again,templates/emojinary/game.html,play again,παίξτε ξανά
 players,"scripts/generate_locales.py, templates/emojinary/game.html, templates/gamerooms/room_list.html, templates/lupus/hub.html",players,παίκτες
 press the button to get a word,templates/tools/pictionary.html,press the button to get a word,πατήστε το κουμπί για να πάρετε μια λέξη
-private (hide guesses),templates/emojinary/game.html,private (hide guesses),private (hide guesses)
+private (hide guesses),templates/emojinary/game.html,private (hide guesses),ιδιωτικό (απόκρυψη προβλέψεων)
 processing status,photos/models.py,processing status,κατάσταση επεξεργασίας
-public (show guesses),templates/emojinary/game.html,public (show guesses),public (show guesses)
+public (show guesses),templates/emojinary/game.html,public (show guesses),δημόσιο (εμφάνιση προβλέψεων)
 request,templates/photos/photo_viewer.html,request,αίτημα
-rerolls:,templates/emojinary/game.html,rerolls:,rerolls:
+rerolls:,templates/emojinary/game.html,rerolls:,νέες ζαριές:
 reveal,templates/emojinary/game.html,reveal,αποκάλυψη
+room language,templates/gamerooms/room_create.html,room language,γλώσσα δωματίου
 room password,"scripts/generate_locales.py, templates/gamerooms/room_password.html",room password,κωδικός αίθουσας
 round robin,templates/emojinary/game.html,round robin,κυκλικός γύρος
 rounds:,templates/emojinary/game.html,rounds:,γύροι:
@@ -323,12 +524,15 @@ send,templates/emojinary/game.html,send,αποστολή
 sentence,templates/tools/pictionary.html,sentence,πρόταση
 shutter speed,photos/models.py,shutter speed,ταχύτητα κλείστρου
 skip,templates/emojinary/game.html,skip,παράλειψη
+songs,templates/emojinary/game.html,songs,τραγούδια
 start,templates/tools/ics_maker.html,start,έναρξη
 start game,templates/emojinary/game.html,start game,έναρξη παιχνιδιού
 text,templates/tools/ics_maker.html,text,κείμενο
+things,templates/emojinary/game.html,things,αντικείμενα
 title,"scripts/generate_locales.py, templates/gamerooms/room_create.html, templates/tools/ics_maker.html",title,τίτλος
 title is required,"gamerooms/views.py, scripts/generate_locales.py",title is required,ο τίτλος είναι υποχρεωτικός
 today,templates/tools/partials/calendar.html,today,σήμερα
+tv shows,templates/emojinary/game.html,tv shows,τηλεοπτικές σειρές
 type,"photos/models.py, templates/tools/pictionary.html",type,τύπος
 upload,templates/photos/upload.html,upload,ανέβασμα
 upload photos,templates/photos/upload.html,upload photos,ανέβασμα φωτογραφιών
@@ -359,13 +563,17 @@ your name,"scripts/generate_locales.py, templates/gamerooms/room_name.html",your
 ← prev,templates/photos/photo_viewer.html,← prev,← προηγ
 ↓ Download PDF,templates/cv.html,↓ Download PDF,↓ Λήψη PDF
 "⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)","scripts/generate_locales.py, templates/lupus/create.html","⚡ Chaos & Specials (Alpha Wolf, Silencer, Detective, Doctor, Sniper, Mayor, Witch...)","⚡ Χάος & Ειδικοί (Άλφα Λύκος, Σιωπηλός, Ντετέκτιβ, Γιατρός, Σκοπευτής, Δήμαρχος, Μάγισσα...)"
-✏️ pictionary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",✏️ pictionary,✏️ pictionary
+✅ Full Content + UI,gamerooms/language_support.py,✅ Full Content + UI,✅ Πλήρες Περιεχόμενο + UI
+✏️ pictionary,scripts/generate_locales.py,✏️ pictionary,✏️ pictionary
+🌐 UI Only (English Words),gamerooms/language_support.py,🌐 UI Only (English Words),🌐 Μόνο UI (Αγγλικές λέξεις)
 🎨 Emojinary,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🎨 Emojinary,🎨 Emojinary
 🐺 Lupus,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 Lupus,🐺 Lupus
-🐺 Lupus Hub & Rooms,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 Lupus Hub & Rooms,🐺 Κέντρο & Αίθουσες Lupus
-🐺 create lupus,"scripts/generate_locales.py, templates/gamerooms/room_list.html",🐺 create lupus,🐺 δημιουργία lupus
+🐺 Lupus Hub & Rooms,scripts/generate_locales.py,🐺 Lupus Hub & Rooms,🐺 Κέντρο & Αίθουσες Lupus
+🐺 create lupus,scripts/generate_locales.py,🐺 create lupus,🐺 δημιουργία lupus
 👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",👼 Limbo & Angel (Wolves + Detective + Doctor + Angel + Sniper + Villagers),👼 Καθαρτήριο & Άγγελος (Λύκοι + Ντετέκτιβ + Γιατρός + Άγγελος + Σκοπευτής + Χωρικοί)
 "💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.",scripts/generate_locales.py,"💡 In Limbo games, role revelation strictly occurs on permanent death (""death death""), never while hovering in Limbo.","💡 Στα παιχνίδια με Καθαρτήριο, η αποκάλυψη γίνεται μόνο στον οριστικό θάνατο, ποτέ μέσα στο Καθαρτήριο."
 💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,"scripts/generate_locales.py, templates/lupus/create.html",💡 The deck adapts automatically to the number of players who join. You can fine-tune every role and good vs. bad balance live in the Pre-Game Lobby before starting.,💡 Η τράπουλα προσαρμόζεται αυτόματα στον αριθμό παικτών. Μπορείτε να ρυθμίσετε κάθε ρόλο και την ισορροπία καλού/κακού στην αίθουσα αναμονής πριν ξεκινήσετε.
 🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🔍 Standard (Wolves + Detective/Seer + Doctor/Guard + Villagers),🔍 Κανονικό (Λύκοι + Ντετέκτιβ/Μάντης + Γιατρός/Φύλακας + Χωρικοί)
+🕵️ Word Impostor,templates/gamerooms/room_list.html,🕵️ Word Impostor,🕵️ Word Impostor
 🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),"scripts/generate_locales.py, templates/lupus/create.html",🧑 Simple / Classic (No special powers — pure Wolves vs Villagers),🧑 Απλό / Κλασικό (Χωρίς ειδικές δυνάμεις — μόνο Λύκοι vs Χωρικοί)
+🧩 Codenames,templates/gamerooms/room_list.html,🧩 Codenames,🧩 Codenames

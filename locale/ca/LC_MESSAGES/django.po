@@ -6,1387 +6,1387 @@ msgstr ""
 "MIME-Version: 1.0\n"
 
 msgid "+ Create Room"
-msgstr ""
+msgstr "+ Crea una sala"
 
 msgid "+ Host New Room"
-msgstr ""
+msgstr "+ Allotja una sala nova"
 
 msgid "+ New Game"
-msgstr ""
+msgstr "+ Partida nova"
 
 msgid "+ create room"
-msgstr ""
+msgstr "+ crea una sala"
 
 msgid "0 — Secret (Closed graveyard, roles concealed until game over)"
-msgstr ""
+msgstr "0 — Secret (Cementiri tancat, rols ocults fins que acabi la partida)"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 dia"
 
 msgid "1 — Alignment Only (Announces \"GOOD\" vs \"EVIL\")"
-msgstr ""
+msgstr "1 — Només aliniament (Anuncia \"BO\" o \"DOLENT\")"
 
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Acceptació dels termes"
 
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Visió general"
 
 msgid "1. Teams & Roles Setup"
-msgstr ""
+msgstr "1. Configuració d'equips i rols"
 
 msgid "10 Minutes"
-msgstr ""
+msgstr "10 minuts"
 
 msgid "1st guess ends round"
-msgstr ""
+msgstr "El 1r intent acaba la ronda"
 
 msgid "2 — Faction / Team (Announces \"Town\", \"Werewolves\", \"Neutral\")"
-msgstr ""
+msgstr "2 — Facció / Equip (Anuncia \"Poble\", \"Homes llop\", \"Neutral\")"
 
 msgid "2. Information We Access"
-msgstr ""
+msgstr "2. Informació a la qual accedim"
 
 msgid "2. Permitted Use"
-msgstr ""
+msgstr "2. Ús permès"
 
 msgid "2. Room & Table Settings (Host)"
-msgstr ""
+msgstr "2. Configuració de sala i taula (Amfitrió)"
 
 msgid "3 Minutes (Fast)"
-msgstr ""
+msgstr "3 minuts (Ràpid)"
 
 msgid "3 day"
-msgstr ""
+msgstr "3 dies"
 
 msgid "3 — Full Role Card (Announces exact card name and icon)"
-msgstr ""
+msgstr "3 — Carta de rol completa (Anuncia el nom exacte de la carta i la icona)"
 
 msgid "3. Data Storage & Security"
-msgstr ""
+msgstr "3. Emmagatzematge i seguretat de les dades"
 
 msgid "3. Disclaimer of Warranties"
-msgstr ""
+msgstr "3. Exempció de garanties"
 
 msgid "30 Seconds (Standard)"
-msgstr ""
+msgstr "30 segons (Estàndard)"
 
 msgid "4. Limitation of Liability"
-msgstr ""
+msgstr "4. Limitació de responsabilitat"
 
 msgid "4. Third-Party Sharing"
-msgstr ""
+msgstr "4. Compartició amb tercers"
 
 msgid "404 — page not found"
-msgstr ""
+msgstr "404 — pàgina no trobada"
 
 msgid "45 Seconds"
-msgstr ""
+msgstr "45 segons"
 
 msgid "4:5 vertical crop (1080x1350) for Instagram carousels."
-msgstr ""
+msgstr "Retall vertical 4:5 (1080x1350) per a carrusels d'Instagram."
 
 msgid "5 Minutes (Standard)"
-msgstr ""
+msgstr "5 minuts (Estàndard)"
 
 msgid "5. Changes & Termination"
-msgstr ""
+msgstr "5. Canvis i rescissió"
 
 msgid "5. Revoking Access & Data Deletion"
-msgstr ""
+msgstr "5. Revocació d'accés i eliminació de dades"
 
 msgid "500 — something went wrong"
-msgstr ""
+msgstr "500 — alguna cosa ha anat malament"
 
 msgid "6. Contact"
-msgstr ""
+msgstr "6. Contacte"
 
 msgid "60 Seconds"
-msgstr ""
+msgstr "60 segons"
 
 msgid "7 Minutes (Deliberate)"
-msgstr ""
+msgstr "7 minuts (Tranquil)"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "Accés denegat"
 
 msgid "Accuse:"
-msgstr ""
+msgstr "Acusa:"
 
 msgid "Active"
-msgstr ""
+msgstr "Actiu"
 
 msgid "Active Clue"
-msgstr ""
+msgstr "Pista activa"
 
 msgid "Active Lupus Rooms"
-msgstr ""
+msgstr "Sales de Lupus actives"
 
 msgid "Add"
-msgstr ""
+msgstr "Afegeix"
 
 msgid "Add Hint"
-msgstr ""
+msgstr "Afegeix una pista"
 
 msgid "Add Oral / Table Player"
-msgstr ""
+msgstr "Afegeix un jugador presencial / de taula"
 
 msgid "Add Oral / Table Player (directly to a team)"
-msgstr ""
+msgstr "Afegeix un jugador presencial / de taula (directament a un equip)"
 
 msgid "Add Player"
-msgstr ""
+msgstr "Afegeix un jugador"
 
 msgid "Add Secret Custom Pair"
-msgstr ""
+msgstr "Afegeix una parella personalitzada secreta"
 
 msgid "Add custom inside-joke words to be mixed into future boards dealt in this room."
-msgstr ""
+msgstr "Afegeix paraules d'acudits interns personalitzats perquè es barregin en futurs taulers repartits en aquesta sala."
 
 msgid "Add oral / table player name..."
-msgstr ""
+msgstr "Afegeix el nom del jugador presencial / de taula..."
 
 msgid "Add to Deck"
-msgstr ""
+msgstr "Afegeix a la baralla"
 
 msgid "Agents & Spymasters"
-msgstr ""
+msgstr "Agents i caps d'espies"
 
 msgid "All Active Rooms"
-msgstr ""
+msgstr "Totes les sales actives"
 
 msgid "All Games"
-msgstr ""
+msgstr "Tots els jocs"
 
 msgid "All guesses & hints appear here"
-msgstr ""
+msgstr "Tots els intents i pistes apareixen aquí"
 
 msgid "Allow Host to log oral clues and tap cards for players at the table"
-msgstr ""
+msgstr "Permet a l'amfitrió registrar pistes orals i tocar cartes per als jugadors de la taula"
 
 msgid "Allow Player Custom Pair Deck"
-msgstr ""
+msgstr "Permet la baralla de parelles personalitzades del jugador"
 
 msgid "Allow custom words"
-msgstr ""
+msgstr "Permet paraules personalitzades"
 
 msgid "Allow players to add custom words"
-msgstr ""
+msgstr "Permet als jugadors afegir paraules personalitzades"
 
 msgid "Apply Creative Commons Attribution-NonCommercial-ShareAlike license and watermark."
-msgstr ""
+msgstr "Aplica la llicència Creative Commons Reconeixement-NoComercial-CompartirIgual i la marca d'aigua."
 
 msgid "Auto-Balance"
-msgstr ""
+msgstr "Equilibri automàtic"
 
 msgid "Auto-Balance Teams"
-msgstr ""
+msgstr "Equilibra els equips automàticament"
 
 msgid "Auto-tally once all players have voted"
-msgstr ""
+msgstr "Recompte automàtic un cop tots els jugadors hagin votat"
 
 msgid "Back to Active Lupus Rooms"
-msgstr ""
+msgstr "Torna a les sales de Lupus actives"
 
 msgid "Back to Lobby"
-msgstr ""
+msgstr "Torna al vestíbul"
 
 msgid "Back to Lobby / Play Again"
-msgstr ""
+msgstr "Torna al vestíbul / Juga de nou"
 
 msgid "Backspace"
-msgstr ""
+msgstr "Retrocés"
 
 msgid "Blue"
 msgstr "Blau"
 
 msgid "Blue Left"
-msgstr ""
+msgstr "Blau restant"
 
 msgid "Blue Team"
-msgstr ""
+msgstr "Equip blau"
 
 msgid "Blue Team Wins!"
-msgstr ""
+msgstr "L'equip blau guanya!"
 
 msgid "Board"
-msgstr ""
+msgstr "Tauler"
 
 msgid "Board Complete"
-msgstr ""
+msgstr "Tauler completat"
 
 msgid "Board Ended"
-msgstr ""
+msgstr "Tauler finalitzat"
 
 msgid "Browse Active Lupus Rooms"
-msgstr ""
+msgstr "Explora les sales de Lupus actives"
 
 msgid "Browse Hub"
-msgstr ""
+msgstr "Explora el Hub"
 
 msgid "Build Your Emoji Clue:"
-msgstr ""
+msgstr "Crea la teva pista d'emojis:"
 
 msgid "CC BY-NC-SA license"
-msgstr ""
+msgstr "Llicència CC BY-NC-SA"
 
 msgid "CODE"
-msgstr ""
+msgstr "CODI"
 
 msgid "CTFs"
 msgstr "CTFs"
 
 msgid "Calendar navigation"
-msgstr ""
+msgstr "Navegació pel calendari"
 
 msgid "Category"
-msgstr ""
+msgstr "Categoria"
 
 msgid "Citizen Word (Majority)"
-msgstr ""
+msgstr "Paraula de ciutadà (Majoria)"
 
 msgid "Civilians, Mobsters, Cop"
-msgstr ""
+msgstr "Civils, mafiosos, policia"
 
 msgid "Classic + Extended Party Pack"
-msgstr ""
+msgstr "Clàssic + paquet de festa ampliat"
 
 msgid "Clue Phase"
-msgstr ""
+msgstr "Fase de pistes"
 
 msgid "Clues"
-msgstr ""
+msgstr "Pistes"
 
 msgid "Clues & Taps Log"
-msgstr ""
+msgstr "Registre de pistes i tocs"
 
 msgid "Cockpit"
-msgstr ""
+msgstr "Cabina de control"
 
 msgid "Codenames"
 msgstr "Codenames"
 
 msgid "Conferences"
-msgstr ""
+msgstr "Conferències"
 
 msgid "Content + UI"
-msgstr ""
+msgstr "Contingut + IU"
 
 msgid "Copy"
-msgstr ""
+msgstr "Copia"
 
 msgid "Create Lupus / Werewolf Room"
-msgstr ""
+msgstr "Crea una sala de Lupus / Werewolf"
 
 msgid "Create the First Lupus Room"
-msgstr ""
+msgstr "Crea la primera sala de Lupus"
 
 msgid "Curated"
-msgstr ""
+msgstr "Comissariat"
 
 msgid "Custom Codenames Word"
-msgstr ""
+msgstr "Paraula personalitzada de Codenames"
 
 msgid "Custom Deck"
-msgstr ""
+msgstr "Baralla personalitzada"
 
 msgid "Custom Seconds"
-msgstr ""
+msgstr "Segons personalitzats"
 
 msgid "Custom split keyboards (colemak + nvim)"
-msgstr ""
+msgstr "Teclats ergonòmics personalitzats (colemak + nvim)"
 
 msgid "Custom word..."
-msgstr ""
+msgstr "Paraula personalitzada..."
 
 msgid "Date of the trip/shoot."
-msgstr ""
+msgstr "Data del viatge/sessió."
 
 msgid "Day"
 msgstr "Dia"
 
 msgid "Day Trip"
-msgstr ""
+msgstr "Excursió d'un dia"
 
 msgid "Deal Next Board"
-msgstr ""
+msgstr "Reparteix el següent tauler"
 
 msgid "Defense Timer"
-msgstr ""
+msgstr "Temporitzador de defensa"
 
 msgid "Definition"
-msgstr ""
+msgstr "Definició"
 
 msgid "Discuss clues or accuse suspects..."
-msgstr ""
+msgstr "Discutiu pistes o acuseu sospitosos..."
 
 msgid "Discussion"
-msgstr ""
+msgstr "Discussió"
 
 msgid "Discussion Round Timer"
-msgstr ""
+msgstr "Temporitzador de la ronda de discussió"
 
 msgid "Display Name"
-msgstr ""
+msgstr "Nom visible"
 
 msgid "Doctor Shields From Sniper:"
-msgstr ""
+msgstr "El metge protegeix del franctirador:"
 
 msgid "Done"
-msgstr ""
+msgstr "Fet"
 
 msgid "Education"
-msgstr ""
+msgstr "Educació"
 
 msgid "Electronics/embedded (some rust embedded)"
-msgstr ""
+msgstr "Electrònica/sistemes encastats (una mica de rust encastat)"
 
 msgid "Enable Last-Chance Impostor Steal"
-msgstr ""
+msgstr "Activa el robatori d'última oportunitat de l'impostor"
 
 msgid "Enable Lethal Taboo Poison Word"
-msgstr ""
+msgstr "Activa la paraula verinosa tabú letal"
 
 msgid "End Board"
-msgstr ""
+msgstr "Finalitza el tauler"
 
 msgid "End Guessing Turn"
-msgstr ""
+msgstr "Finalitza el torn d'endevinació"
 
 msgid "End Match"
-msgstr ""
+msgstr "Finalitza la partida"
 
 msgid "English"
-msgstr ""
+msgstr "Anglès"
 
 msgid "Enter Game"
-msgstr ""
+msgstr "Entra a la partida"
 
 msgid "Enter Room"
-msgstr ""
+msgstr "Entra a la sala"
 
 msgid "Enter Room Code (e.g. 9B3A1C2D)"
-msgstr ""
+msgstr "Introdueix el codi de la sala (p. ex. 9B3A1C2D)"
 
 msgid "Export JSON"
-msgstr ""
+msgstr "Exporta a JSON"
 
 msgid "Failed"
-msgstr ""
+msgstr "Ha fallat"
 
 msgid "Finished"
-msgstr ""
+msgstr "Completat"
 
 msgid "GM"
 msgstr "GM"
 
 msgid "GM Cockpit"
-msgstr ""
+msgstr "Cabina del GM"
 
 msgid "GM Director Cockpit:"
-msgstr ""
+msgstr "Cabina de direcció del GM:"
 
 msgid "GM Mode: Locked"
-msgstr ""
+msgstr "Mode GM: Bloquejat"
 
 msgid "GM Oral Guessing Mode"
-msgstr ""
+msgstr "Mode d'endevinació oral del GM"
 
 msgid "GM Oral Mode: ON"
-msgstr ""
+msgstr "Mode oral del GM: ACTIVAT"
 
 msgid "GM Oral Spymaster Mode"
-msgstr ""
+msgstr "Mode Spymaster oral del GM"
 
 msgid "Game Master Display Name"
-msgstr ""
+msgstr "Nom visible del Game Master"
 
 msgid "Game Over"
-msgstr ""
+msgstr "Fi de la partida"
 
 msgid "Game Rooms"
-msgstr ""
+msgstr "Sales de joc"
 
 msgid "Game Rules & Timers"
-msgstr ""
+msgstr "Regles del joc i temporitzadors"
 
 msgid "Game not found."
-msgstr ""
+msgstr "No s'ha trobat la partida."
 
 msgid "Game room does not exist."
-msgstr ""
+msgstr "La sala de joc no existeix."
 
 msgid "Game words, clues, and interface are supported in %(lang)s."
-msgstr ""
+msgstr "Les paraules del joc, les pistes i la interfície són compatibles amb %(lang)s."
 
 msgid "Give a One-Word Clue"
-msgstr ""
+msgstr "Dona una pista d'una sola paraula"
 
 msgid "Give indirect one-word clues without exposing the word or stepping on the hidden Lethal Taboo Poison Word. Even the Host plays blind without spoilers!"
-msgstr ""
+msgstr "Dona pistes indirectes d'una sola paraula sense exposar la paraula ni caure en la Paraula Verinosa Tabú Letal oculta. Fins i tot l'amfitrió juga a cegues sense espòilers!"
 
 msgid "Guess the Citizen Word to steal the win..."
-msgstr ""
+msgstr "Endevina la paraula ciutadana per robar la victòria..."
 
 msgid "Guesses left"
-msgstr ""
+msgstr "Intents restants"
 
 msgid "Guessing Phase"
-msgstr ""
+msgstr "Fase d'endevinació"
 
 msgid "Ham radio, UK foundation license"
-msgstr ""
+msgstr "Radioafició, llicència bàsica del Regne Unit"
 
 msgid "Have an 8-character code from your Game Master? Enter it here to jump straight in:"
-msgstr ""
+msgstr "Tens un codi de 8 caràcters del teu Game Master? Introdueix-lo aquí per entrar directament:"
 
 msgid "Hide Keycard Overlay"
-msgstr ""
+msgstr "Amaga la superposició de la targeta clau"
 
 msgid "Hiking and climbing"
-msgstr ""
+msgstr "Senderisme i escalada"
 
 msgid "Hobbies"
 msgstr "Aficions"
 
 msgid "Hold-to-Peek Secret Roles:"
-msgstr ""
+msgstr "Mantingues per veure els rols secrets:"
 
 msgid "Home automation and homelab"
-msgstr ""
+msgstr "Domòtica i laboratori domèstic"
 
 msgid "Horizontal focal point: 0=left, 50=center, 100=right."
-msgstr ""
+msgstr "Punt focal horitzontal: 0=esquerra, 50=centre, 100=dreta."
 
 msgid "Host Controls"
-msgstr ""
+msgstr "Controls de l'amfitrió"
 
 msgid "Host Game Settings"
-msgstr ""
+msgstr "Configuració de la partida de l'amfitrió"
 
 msgid "Host Room"
-msgstr ""
+msgstr "Sala de l'amfitrió"
 
 msgid "I code, take pics and many other things"
-msgstr ""
+msgstr "Programo, faig fotos i moltes altres coses"
 
 msgid "ISO"
 msgstr "ISO"
 
 msgid "If enabled, the Doctor's guard can save a wolf from being shot by the Sniper. (Disabled = sniper penetrates doctor guard)."
-msgstr ""
+msgstr "Si està activat, l'escut del metge pot salvar un llop de ser disparat pel franctirador. (Desactivat = el franctirador travessa l'escut del metge)."
 
 msgid "If set, joining via QR code will auto-authenticate players automatically. (💡 Demo trick: GM name containing Marco and password test autofills 10 test players for live demo)."
-msgstr ""
+msgstr "Si s'estableix, unir-se mitjançant un codi QR autenticarà automàticament els jugadors. (💡 Truc de demostració: el nom de GM que conté Marco i la contrasenya test omple automàticament 10 jugadors de prova per a la demostració en viu)."
 
 msgid "In Progress"
-msgstr ""
+msgstr "En curs"
 
 msgid "Incorrect room password."
-msgstr ""
+msgstr "Contrasenya de la sala incorrecta."
 
 msgid "Instagram 4:5 Preview"
-msgstr ""
+msgstr "Previsualització d'Instagram 4:5"
 
 msgid "Instagram 4:5 image"
-msgstr ""
+msgstr "Imatge d'Instagram 4:5"
 
 msgid "Invalid Game Master secret key."
-msgstr ""
+msgstr "Clau secreta del Game Master no vàlida."
 
 msgid "Invite Players"
-msgstr ""
+msgstr "Convida jugadors"
 
 msgid "Invite Players to Room"
-msgstr ""
+msgstr "Convida jugadors a la sala"
 
 msgid "Invite QR"
-msgstr ""
+msgstr "QR d'invitació"
 
 msgid "It is not your turn to submit a clue."
-msgstr ""
+msgstr "No és el teu torn per enviar una pista."
 
 msgid "Join"
-msgstr ""
+msgstr "Unir-se"
 
 msgid "Join Game"
-msgstr ""
+msgstr "Unir-se a la partida"
 
 msgid "Join Lupus Game"
-msgstr ""
+msgstr "Unir-se a la partida de Lupus"
 
 msgid "Join Red or Blue Team to begin"
-msgstr ""
+msgstr "Uneix-te a l'equip vermell o blau per començar"
 
 msgid "Join as Operative"
-msgstr ""
+msgstr "Unir-se com a operatiu"
 
 msgid "Join as Player"
-msgstr ""
+msgstr "Unir-se com a jugador"
 
 msgid "Join as Spymaster"
-msgstr ""
+msgstr "Unir-se com a cap d'espies"
 
 msgid "Join with Room Code"
-msgstr ""
+msgstr "Unir-se amb codi de sala"
 
 msgid "Kayak, surf, SUP, windsurf"
 msgstr "Kayak, surf, SUP, windsurf"
 
 msgid "LAST-CHANCE IMPOSTOR STEAL!"
-msgstr ""
+msgstr "ÚLTIMA OPORTUNITAT DE ROBATORI DE L'IMPOSTOR!"
 
 msgid "Languages"
-msgstr ""
+msgstr "Idiomes"
 
 msgid "Last updated: October 27, 2026"
-msgstr ""
+msgstr "Darrera actualització: 27 d'octubre de 2026"
 
 msgid "Latecomers join as Confirmed Travelers, Town Ghosts, or Successors."
-msgstr ""
+msgstr "Els nouvinguts s'uneixen com a Viatgers Confirmats, Fantasmes del Poble o Successors."
 
 msgid "Launch Lupus Room"
-msgstr ""
+msgstr "Iniciar sala de Lupus"
 
 msgid "Leave empty for public join"
-msgstr ""
+msgstr "Deixa-ho buit per a unió pública"
 
 msgid "Let this player scan on their phone to take over their personal Spymaster/Operative view."
-msgstr ""
+msgstr "Permet que aquest jugador escanegi amb el telèfon per veure la seva vista personal de cap d'espies/operatiu."
 
 msgid "Lethal Taboo Word (Optional instant elimination trap)"
-msgstr ""
+msgstr "Paraula tabú letal (trampa d'eliminació instantània opcional)"
 
 msgid "Limbo"
 msgstr "Limbo"
 
 msgid "Limbo & Angel Mechanic:"
-msgstr ""
+msgstr "Mecànica de Limbo i Àngel:"
 
 msgid "Limbo Resolution"
-msgstr ""
+msgstr "Resolució del Limbo"
 
 msgid "Listen to"
-msgstr ""
+msgstr "Escolta"
 
 msgid "Listening"
-msgstr ""
+msgstr "Escoltant"
 
 msgid "Live Chat & Guess Stream"
-msgstr ""
+msgstr "Xat en directe i flux de respostes"
 
 msgid "Living & fallen players submit morning rumors read aloud at dawn."
-msgstr ""
+msgstr "Els jugadors vius i caiguts envien rumors matinals que es llegeixen en veu alta a l'alba."
 
 msgid "Lobby"
-msgstr ""
+msgstr "Sala d'espera"
 
 msgid "Lobby (Waiting for Players)"
-msgstr ""
+msgstr "Sala d'espera (esperant jugadors)"
 
 msgid "Log Clue for Table Spymaster"
-msgstr ""
+msgstr "Apunta la pista per al cap d'espies de la taula"
 
 msgid "Lupus / Werewolf"
-msgstr ""
+msgstr "Lupus / Home llop"
 
 msgid "Lupus Active Rooms & Hub"
-msgstr ""
+msgstr "Sales actives i centre de Lupus"
 
 msgid "Lupus Game"
-msgstr ""
+msgstr "Partida de Lupus"
 
 msgid "Lupus Party Game"
-msgstr ""
+msgstr "Joc de festa Lupus"
 
 msgid "Lupus in Tabula - Active Rooms & Game Hub"
-msgstr ""
+msgstr "Lupus in Tabula - Sales actives i centre de jocs"
 
 msgid "Lupus in Tabula / Werewolf"
-msgstr ""
+msgstr "Lupus in Tabula / Home llop"
 
 msgid "Mafia"
 msgstr "Mafia"
 
 msgid "Match Complete"
-msgstr ""
+msgstr "Partida finalitzada"
 
 msgid "Match Podium & Highlights"
-msgstr ""
+msgstr "Podi i moments destacats de la partida"
 
 msgid "Match Replay & Attempt Timeline"
-msgstr ""
+msgstr "Repetició de la partida i cronologia d'intents"
 
 msgid "Match Replay & Board Archive"
-msgstr ""
+msgstr "Repetició de la partida i arxiu del tauler"
 
 msgid "Match Rules"
-msgstr ""
+msgstr "Regles de la partida"
 
 msgid "Message..."
-msgstr ""
+msgstr "Missatge..."
 
 msgid "Midgame Arrivals:"
-msgstr ""
+msgstr "Arribades a mitja partida:"
 
 msgid "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:"
-msgstr ""
+msgstr "Controls de votació del moderador — Trieu un jugador i un sospitós a continuació, o toqueu una píndola i un seient a la taula:"
 
 msgid "Move..."
-msgstr ""
+msgstr "Moure..."
 
 msgid "New Game / Redraw"
-msgstr ""
+msgstr "Nova partida / Tornar a repartir"
 
 msgid "Next Round"
-msgstr ""
+msgstr "Ronda següent"
 
 msgid "Next day"
-msgstr ""
+msgstr "Dia següent"
 
 msgid "Night"
 msgstr "Nit"
 
 msgid "No Active Lupus Games Right Now"
-msgstr ""
+msgstr "No hi ha partides actives de Lupus ara mateix"
 
 msgid "No Instagram crop generated yet."
-msgstr ""
+msgstr "Encara no s'ha generat cap retall per a Instagram."
 
 msgid "No clues published yet."
-msgstr ""
+msgstr "Encara no s'han publicat pistes."
 
 msgid "No completed Codenames boards yet. Finish a board or end it early to see the full keycard replay here."
-msgstr ""
+msgstr "Encara no hi ha taulers complets de Codenames. Acaba un tauler o finalitza'l abans d'hora per veure la repetició completa de la targeta clau aquí."
 
 msgid "No dictionary definition available."
-msgstr ""
+msgstr "No hi ha cap definició de diccionari disponible."
 
 msgid "No turns logged."
-msgstr ""
+msgstr "No s'ha registrat cap torn."
 
 msgid "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play."
-msgstr ""
+msgstr "Tauler oficial de deducció per equips 5×5 de 400 paraules amb pistes de Wikisaurus Spymaster AI, commutador de targeta clau privada i joc oral/taula."
 
 msgid "Official Classic 400 Words"
-msgstr ""
+msgstr "400 paraules clàssiques oficials"
 
 msgid "One-word clue..."
-msgstr ""
+msgstr "Pista d'una sola paraula..."
 
 msgid "Only emojis allowed — text characters were ignored."
-msgstr ""
+msgstr "Només es permeten emojis; s'han ignorat els caràcters de text."
 
 msgid "Open"
-msgstr ""
+msgstr "Obert"
 
 msgid "Open (Lobby)"
-msgstr ""
+msgstr "Obert (sala d'espera)"
 
 msgid "Open GM Cockpit"
-msgstr ""
+msgstr "Obre el tauler de control del GM"
 
 msgid "Open Generator"
-msgstr ""
+msgstr "Obre el generador"
 
 msgid "Open Player Link"
-msgstr ""
+msgstr "Obre l'enllaç del jugador"
 
 msgid "Open slot"
-msgstr ""
+msgstr "Espai lliure"
 
 msgid "Operative"
-msgstr ""
+msgstr "Operatiu"
 
 msgid "Operative Seconds (0=∞)"
-msgstr ""
+msgstr "Segons d'operatiu (0=∞)"
 
 msgid "Operatives"
-msgstr ""
+msgstr "Operatius"
 
 msgid "Operatives are Guessing"
-msgstr ""
+msgstr "Els operatius estan endevinant"
 
 msgid "Operatives are choosing cards for this round."
-msgstr ""
+msgstr "Els operatius estan triant cartes per a aquesta ronda."
 
 msgid "Operatives are guessing!"
-msgstr ""
+msgstr "Els operatius estan endevinant!"
 
 msgid "Opponent team is guessing. Wait for them to pass or make an incorrect tap."
-msgstr ""
+msgstr "L'equip rival està endevinant. Espereu que passin o cometin un error."
 
 msgid "Or type your own custom prompt/phrase..."
-msgstr ""
+msgstr "O escriu la teva pròpia frase/indicació personalitzada..."
 
 msgid "Oral Spymaster Mode (Mod Logging)"
-msgstr ""
+msgstr "Mode cap d'espies oral (registre del moderador)"
 
 msgid "Original camera RAW file (CR3, ARW, NEF, etc.)"
-msgstr ""
+msgstr "Fitxer RAW original de la càmera (CR3, ARW, NEF, etc.)"
 
 msgid "Other"
-msgstr ""
+msgstr "Altres"
 
 msgid "Outdoors"
-msgstr ""
+msgstr "A l'exterior"
 
 msgid "Page Not Found — Marco Silva"
-msgstr ""
+msgstr "Pàgina no trobada — Marco Silva"
 
 msgid "Participating Host Controls (Zero-Spoiler)"
-msgstr ""
+msgstr "Controls de l'amfitrió participant (sense espòilers)"
 
 msgid "Pass / Wrong"
-msgstr ""
+msgstr "Passa / Incorrecte"
 
 msgid "Pass Turn (Mod)"
-msgstr ""
+msgstr "Passar torn (mod)"
 
 msgid "Password"
 msgstr "Contrasenya"
 
 msgid "Password Protected"
-msgstr ""
+msgstr "Protegit amb contrasenya"
 
 msgid "Past & Finished Games"
-msgstr ""
+msgstr "Partides passades i acabades"
 
 msgid "Pause"
-msgstr ""
+msgstr "Pausa"
 
 msgid "Pause Timer"
-msgstr ""
+msgstr "Posa en pausa el temporitzador"
 
 msgid "Pending"
-msgstr ""
+msgstr "Pendent"
 
 msgid "Personal Player QR"
-msgstr ""
+msgstr "QR personal del jugador"
 
 msgid "Personal QR"
-msgstr ""
+msgstr "QR personal"
 
 msgid "Photography"
-msgstr ""
+msgstr "Fotografia"
 
 msgid "Pick 1 word and a number of cards. Your Operatives must guess based on your clue."
-msgstr ""
+msgstr "Tria 1 paraula i un nombre de cartes. Els teus operatius han d'endevinar a partir de la teva pista."
 
 msgid "Pick the name others at the table know you by."
-msgstr ""
+msgstr "Tria el nom pel qual et coneixen els altres a la taula."
 
 msgid "Pick your game, language, and room settings — share the link or QR code when ready."
-msgstr ""
+msgstr "Tria el teu joc, idioma i configuració de la sala; comparteix l'enllaç o el codi QR quan estiguis a punt."
 
 msgid "Player Profile & Personal QR"
-msgstr ""
+msgstr "Perfil de jugador i QR personal"
 
 msgid "Player QR"
-msgstr ""
+msgstr "QR del jugador"
 
 msgid "Player Reconnect QR"
-msgstr ""
+msgstr "QR de reconexió del jugador"
 
 msgid "Player name..."
-msgstr ""
+msgstr "Nom del jugador..."
 
 msgid "Players & Scores"
-msgstr ""
+msgstr "Jugadors i puntuacions"
 
 msgid "Please enter a player name."
-msgstr ""
+msgstr "Si us plau, introdueix un nom de jugador."
 
 msgid "Please enter a valid room code."
-msgstr ""
+msgstr "Si us plau, introdueix un codi de sala vàlid."
 
 msgid "Poison Word (Impostor / Drunk)"
-msgstr ""
+msgstr "Paraula verinosa (Impostor / Ebri)"
 
 msgid "Poison Word Mode"
-msgstr ""
+msgstr "Mode paraula verinosa"
 
 msgid "Portuguese · Helsinki, Finland"
-msgstr ""
+msgstr "Portuguès · Hèlsinki, Finlàndia"
 
 msgid "Previous day"
-msgstr ""
+msgstr "Dia anterior"
 
 msgid "Price for the RAW file download."
-msgstr ""
+msgstr "Preu per a la descàrrega del fitxer RAW."
 
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Política de privacitat"
 
 msgid "Privacy Policy - Homelab Telegram Bot"
-msgstr ""
+msgstr "Política de privacitat - Bot de Telegram Homelab"
 
 msgid "Privacy Policy - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Política de privacitat - Bot de Telegram Homelab - Marco Silva"
 
 msgid "Privacy shield keeps cards concealed from prying eyes at the table."
-msgstr ""
+msgstr "L'escut de privadesa manté les cartes ocultes de les mirades indiscretes a la taula."
 
 msgid "Processing"
-msgstr ""
+msgstr "Processant"
 
 msgid "Prompt Tool"
-msgstr ""
+msgstr "Eina de prompts"
 
 msgid "Public"
-msgstr ""
+msgstr "Públic"
 
 msgid "Publish Clue"
-msgstr ""
+msgstr "Publica la pista"
 
 msgid "RAW available for purchase"
-msgstr ""
+msgstr "RAW disponible per a la compra"
 
 msgid "RAW file"
-msgstr ""
+msgstr "Fitxer RAW"
 
 msgid "RAW price"
-msgstr ""
+msgstr "Preu RAW"
 
 msgid "Reading"
-msgstr ""
+msgstr "Lectura"
 
 msgid "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends."
-msgstr ""
+msgstr "Jocs de festa multijugador en temps real al navegador. No cal compte: només entra i juga amb amics."
 
 msgid "Red"
 msgstr "Vermell"
 
 msgid "Red Left"
-msgstr ""
+msgstr "Vermells restants"
 
 msgid "Red Team"
-msgstr ""
+msgstr "Equip Vermell"
 
 msgid "Red Team Wins!"
-msgstr ""
+msgstr "L'Equip Vermell guanya!"
 
 msgid "Redraw Board"
-msgstr ""
+msgstr "Reparteix de nou el tauler"
 
 msgid "Regenerate 4:5 Instagram crops for selected photos"
-msgstr ""
+msgstr "Regenera els retalls 4:5 d'Instagram per a les fotos seleccionades"
 
 msgid "Replay"
-msgstr ""
+msgstr "Repetició"
 
 msgid "Reroll"
-msgstr ""
+msgstr "Torna a tirar"
 
 msgid "Resume"
-msgstr ""
+msgstr "Continua"
 
 msgid "Return as %(name)s"
-msgstr ""
+msgstr "Torna com a %(name)s"
 
 msgid "Reveal"
-msgstr ""
+msgstr "Revela"
 
 msgid "Reveal Roles on Death:"
-msgstr ""
+msgstr "Revela els rols en morir:"
 
 msgid "Role Hidden"
-msgstr ""
+msgstr "Rol ocult"
 
 msgid "Roles, phases, and interface are localized in %(lang)s."
-msgstr ""
+msgstr "Els rols, les fases i la interfície estan localitzats en %(lang)s."
 
 msgid "Room Chat"
-msgstr ""
+msgstr "Xat de la sala"
 
 msgid "Room Chat & Events"
-msgstr ""
+msgstr "Xat de la sala i esdeveniments"
 
 msgid "Room Code"
-msgstr ""
+msgstr "Codi de la sala"
 
 msgid "Room Code:"
-msgstr ""
+msgstr "Codi de la sala:"
 
 msgid "Room Password"
-msgstr ""
+msgstr "Contrasenya de la sala"
 
 msgid "Room Password (optional)"
-msgstr ""
+msgstr "Contrasenya de la sala (opcional)"
 
 msgid "Room Setup"
-msgstr ""
+msgstr "Configuració de la sala"
 
 msgid "Room Title"
-msgstr ""
+msgstr "Títol de la sala"
 
 msgid "Room code '%(code)s' was not found or is no longer active."
-msgstr ""
+msgstr "El codi de sala «%(code)s» no s'ha trobat o ja no està actiu."
 
 msgid "Rooms"
-msgstr ""
+msgstr "Sales"
 
 msgid "Rooms are created on demand and stay active for 24 hours. Start a new game session and invite your group!"
-msgstr ""
+msgstr "Les sales es creen a petició i romanen actives durant 24 hores. Comença una nova sessió de joc i convida el teu grup!"
 
 msgid "Rotate Spymasters each new board"
-msgstr ""
+msgstr "Canvia els Spymasters a cada tauler nou"
 
 msgid "Round"
-msgstr ""
+msgstr "Ronda"
 
 msgid "Round Clues"
-msgstr ""
+msgstr "Pistes de la ronda"
 
 msgid "Round-by-Round Replay & Attempt Log"
-msgstr ""
+msgstr "Repetició ronda per ronda i registre d'intents"
 
 msgid "Rounds (Clue Cycles)"
-msgstr ""
+msgstr "Rondes (cicles de pistes)"
 
 msgid "Running"
-msgstr ""
+msgstr "En execució"
 
 msgid "Save Name"
-msgstr ""
+msgstr "Desa el nom"
 
 msgid "Scan on another device to reclaim your Spymaster/Operative seat cleanly."
-msgstr ""
+msgstr "Escaneja en un altre dispositiu per recuperar el teu lloc de Spymaster/operatiu netament."
 
 msgid "Scan this QR code with any phone camera to join immediately:"
-msgstr ""
+msgstr "Escaneja aquest codi QR amb la càmera de qualsevol telèfon per unir-t'hi immediatament:"
 
 msgid "Scan this personal QR code to switch devices without losing your secret card:"
-msgstr ""
+msgstr "Escaneja aquest codi QR personal per canviar de dispositiu sense perdre la teva carta secreta:"
 
 msgid "Scan this to move your session and score to another phone or browser:"
-msgstr ""
+msgstr "Escaneja això per moure la teva sessió i puntuació a un altre telèfon o navegador:"
 
 msgid "Search emoji by name (e.g. fire, crown, heart)..."
 msgstr ""
 
 msgid "Search emoji by name, synonym, typo, or language (e.g. fire, crown, fogo, φωτιά)..."
-msgstr ""
+msgstr "Cerca emojis per nom, sinònim, falta d'ortografia o idioma (p. ex., fire, crown, fogo, φωטיά)..."
 
 msgid "Send"
-msgstr ""
+msgstr "Envia"
 
 msgid "Send Instagram carousel pack to Telegram"
-msgstr ""
+msgstr "Envia el paquet de carrusel d'Instagram a Telegram"
 
 msgid "Server Error — Marco Silva"
-msgstr ""
+msgstr "Error del servidor — Marco Silva"
 
 msgid "Set"
-msgstr ""
+msgstr "Estableix"
 
 msgid "Setting up teams..."
-msgstr ""
+msgstr "Configurant els equips..."
 
 msgid "Show Role & Word"
-msgstr ""
+msgstr "Mostra el rol i la paraula"
 
 msgid "Show Spymaster Keycard"
-msgstr ""
+msgstr "Mostra la targeta clau de Spymaster"
 
 msgid "Silent Phase"
-msgstr ""
+msgstr "Fase silenciosa"
 
 msgid "Skills"
-msgstr ""
+msgstr "Habilitats"
 
 msgid "Skip Turn"
-msgstr ""
+msgstr "Salta el torn"
 
 msgid "Slain players enter Limbo once instead of dying directly. If they guess who the Angel is, they are resurrected!"
-msgstr ""
+msgstr "Els jugadors eliminats entren als Llimbs un cop en comptes de morir directament. Si endevinen qui és l'Àngel, ressusciten!"
 
 msgid "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master."
-msgstr ""
+msgstr "Deducció social amb paraules verinoses, trampes de tabú letals, robatori d'última oportunitat i director de joc participant."
 
 msgid "Spanish"
-msgstr ""
+msgstr "Castellà"
 
 msgid "Speaker (oral clue):"
-msgstr ""
+msgstr "Orador (pista oral):"
 
 msgid "Speaking"
-msgstr ""
+msgstr "Parlant"
 
 msgid "Spectator"
-msgstr ""
+msgstr "Espectador"
 
 msgid "Spectator / Non-Player"
-msgstr ""
+msgstr "Espectador / No jugador"
 
 msgid "Spectator Mode (Skip my turns)"
-msgstr ""
+msgstr "Mode espectador (omet els meus torns)"
 
 msgid "Spymaster"
-msgstr ""
+msgstr "Mestre d'espies"
 
 msgid "Spymaster Seconds (0=∞)"
-msgstr ""
+msgstr "Segons del mestre d'espies (0=∞)"
 
 msgid "Spymaster is thinking of a clue..."
-msgstr ""
+msgstr "El mestre d'espies està pensant una pista..."
 
 msgid "Staggering Doctor:"
-msgstr ""
+msgstr "Metge alternant:"
 
 msgid "Standard Timed (90s / 90s)"
-msgstr ""
+msgstr "Temporitzat estàndard (90 s / 90 s)"
 
 msgid "Start Codenames"
-msgstr ""
+msgstr "Inicia Codenames"
 
 msgid "Start Match"
-msgstr ""
+msgstr "Comença la partida"
 
 msgid "Start Voting Early"
-msgstr ""
+msgstr "Inicia la votació abans"
 
 msgid "Starting Role Deck Preset"
-msgstr ""
+msgstr "Preconfiguració de cartes de rol inicials"
 
 msgid "Steal Guess"
-msgstr ""
+msgstr "Roba la resposta"
 
 msgid "Steal Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Temporitzador de robatori (s, 0 = ∞)"
 
 msgid "Steal Win!"
-msgstr ""
+msgstr "Victòria robada!"
 
 msgid "Step-by-step night stages, bluffing calls, and voting manager."
-msgstr ""
+msgstr "Fases nocturnes pas a pas, anuncis de catxa i gestió de votacions."
 
 msgid "Submit"
-msgstr ""
+msgstr "Envia"
 
 msgid "Submit Clue"
-msgstr ""
+msgstr "Envia la pista"
 
 msgid "Submit Player Vote"
-msgstr ""
+msgstr "Envia el vot del jugador"
 
 msgid "Table Discussion & Event Log"
-msgstr ""
+msgstr "Debat de taula i registre d'esdeveniments"
 
 msgid "Table-First Lupus Highlights"
-msgstr ""
+msgstr "Aspectes destacats de Lupus al voltant de la taula"
 
 msgid "Table-first Werewolf & Mafia party game. Zero account logins required. Each player uses their phone for secret roles and voting while you run the room as Game Master."
-msgstr ""
+msgstr "Joc de festa presencial de l'Home Llop i la Màfia. No cal iniciar sessió ni crear cap compte. Cada jugador utilitza el seu telèfon per a veure els rols secrets i votar mentre dirigeixes la sala com a Game Master."
 
 msgid "Table-first hybrid party game. Zero accounts or logins required. Players join via QR code, and you run the game as Game Master."
-msgstr ""
+msgstr "Joc de festa híbrid i presencial. Sense comptes ni inicis de sessió. Els jugadors s'uneixen mitjançant un codi QR i tu dirigeixes la partida com a Game Master."
 
 msgid "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit."
-msgstr ""
+msgstr "Joc de festa presencial amb rols secrets, votació en directe, La Gaseta del Poble i panell de control per al GM."
 
 msgid "Tally Votes Now"
-msgstr ""
+msgstr "Fes l'escrutini ara"
 
 msgid "Tap cards on the board as players make their guesses out loud."
-msgstr ""
+msgstr "Toca les cartes del tauler a mesura que els jugadors facin les seves suposicions en veu alta."
 
 msgid "Tap cards on the board that match the clue. When finished or uncertain, tap End Guessing Turn."
-msgstr ""
+msgstr "Toca les cartes del tauler que coincideixin amb la pista. Quan acabis o tinguis dubtes, toca Acaba el torn d'endevinar."
 
 msgid "Tap emojis below..."
 msgstr ""
 
 msgid "Targets"
-msgstr ""
+msgstr "Objectius"
 
 msgid "Techy"
-msgstr ""
+msgstr "Tecnològic"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "Termes del servei"
 
 msgid "Terms of Service - Homelab Telegram Bot"
-msgstr ""
+msgstr "Termes del servei - Homelab Telegram Bot"
 
 msgid "Terms of Service - Homelab Telegram Bot - Marco Silva"
-msgstr ""
+msgstr "Termes del servei - Homelab Telegram Bot - Marco Silva"
 
 msgid "The Doctor / Guard cannot protect the same person two consecutive nights."
-msgstr ""
+msgstr "El Metge / Guardià no pot protegir la mateixa persona dues nits consecutives."
 
 msgid "The interface uses %(lang)s, while game content falls back to English because full vocabulary data is unavailable."
-msgstr ""
+msgstr "La interfície utilitza %(lang)s, mentre que el contingut del joc recorre a l'anglès perquè no es disposa del vocabulari complet."
 
 msgid "Theme & Terms"
-msgstr ""
+msgstr "Tema i termes"
 
 msgid "Time Limit Preset"
-msgstr ""
+msgstr "Preconfiguració del límit de temps"
 
 msgid "Toggle"
-msgstr ""
+msgstr "Commuta"
 
 msgid "Toggle Spectator Mode"
-msgstr ""
+msgstr "Commuta el mode espectador"
 
 msgid "Town Gazette:"
-msgstr ""
+msgstr "La Gaseta del Poble:"
 
 msgid "Town Voting"
-msgstr ""
+msgstr "Votació del poble"
 
 msgid "Turn Sequence"
-msgstr ""
+msgstr "Seqüència de torns"
 
 msgid "Turn Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Temporitzador de torn (s, 0 = ∞)"
 
 msgid "Turn Timers"
-msgstr ""
+msgstr "Temporitzadors de torn"
 
 msgid "Type a message or guess..."
-msgstr ""
+msgstr "Escriu un missatge o una resposta..."
 
 msgid "Type clue or what was said orally..."
-msgstr ""
+msgstr "Escriu la pista o el que s'ha dit oralment..."
 
 msgid "Type your guess (or use the chat box)..."
-msgstr ""
+msgstr "Escriu la teva resposta (o utilitza el xat)..."
 
 msgid "UI Only"
-msgstr ""
+msgstr "Només interfície"
 
 msgid "Unable to load player QR code."
-msgstr ""
+msgstr "No s'ha pogut carregar el codi QR del jugador."
 
 msgid "Unassigned"
-msgstr ""
+msgstr "Sense assignar"
 
 msgid "Unlimited"
-msgstr ""
+msgstr "Il·limitat"
 
 msgid "Unlock Room"
-msgstr ""
+msgstr "Desbloqueja la sala"
 
 msgid "Untimed"
-msgstr ""
+msgstr "Sense límit de temps"
 
 msgid "Untimed (Relaxed Couch Mode)"
-msgstr ""
+msgstr "Sense límit de temps (mode sofà relaxat)"
 
 msgid "Use Prompt"
-msgstr ""
+msgstr "Utilitza la indicació"
 
 msgid "Use your emoji keyboard or tap emojis below..."
-msgstr ""
+msgstr "Utilitza el teclat d'emojis o toca els emojis de sota..."
 
 msgid "Vertical focal point: 0=top, 50=center, 100=bottom."
-msgstr ""
+msgstr "Punt focal vertical: 0=dalt, 50=centre, 100=baix."
 
 msgid "Villagers, Wolves, Seer"
-msgstr ""
+msgstr "Vilatans, Llops, Vident"
 
 msgid "Vote Timer (s, 0 = ∞)"
-msgstr ""
+msgstr "Temporitzador de votació (s, 0 = ∞)"
 
 msgid "Vote for player:"
-msgstr ""
+msgstr "Vota pel jugador:"
 
 msgid "Voting"
-msgstr ""
+msgstr "Votació"
 
 msgid "Waiting for Clue..."
-msgstr ""
+msgstr "Esperant la pista..."
 
 msgid "Waiting for Host to configure teams and start the board..."
-msgstr ""
+msgstr "Esperant que l'amfitrió configuri els equips i iniciï el tauler..."
 
 msgid "Waiting in Lobby..."
-msgstr ""
+msgstr "Esperant a la sala d'espera..."
 
 msgid "Werewolf / Lupus"
-msgstr ""
+msgstr "Home Llop / Lupus"
 
 msgid "Whether focus coordinates were automatically calculated via edge saliency."
-msgstr ""
+msgstr "Si les coordenades focals s'han calculat automàticament mitjançant relleu de vores."
 
 msgid "Wikisaurus AI Clue Suggestions (tap to pre-fill)"
-msgstr ""
+msgstr "Suggeriments de pistes per IA de Wikisaurus (toca per emplenar automàticament)"
 
 msgid "Wins"
-msgstr ""
+msgstr "Victòries"
 
 msgid "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends."
-msgstr ""
+msgstr "Generador de paraules i frases per a rondes clàssiques de dibuix amb llapis i paper entre amics."
 
 msgid "Word Impostor"
-msgstr ""
+msgstr "Word Impostor"
 
 msgid "Word Pack"
-msgstr ""
+msgstr "Paquet de paraules"
 
 msgid "Work Experience"
-msgstr ""
+msgstr "Experiència laboral"
 
 msgid "Writing"
-msgstr ""
+msgstr "Escriptura"
 
 msgid "You need an authorized key to access this page."
-msgstr ""
+msgstr "Necessites una clau autoritzada per accedir a aquesta pàgina."
 
 msgid "Your Name / Nickname"
-msgstr ""
+msgstr "El teu nom / àlies"
 
 msgid "Your Operatives are deliberating. Keep a strict poker face — no reactions or hints!"
-msgstr ""
+msgstr "Els teus operatius estan deliberant. Mantén una cara de pòquer absoluta: ni reaccions ni pistes!"
 
 msgid "Your Personal Reconnect QR"
-msgstr ""
+msgstr "El teu QR personal de reconexió"
 
 msgid "Your Secret Phrase"
-msgstr ""
+msgstr "La teva frase secreta"
 
 msgid "Your Spymaster"
-msgstr ""
+msgstr "El teu mestre d'espies"
 
 msgid "Your Turn to Guess!"
-msgstr ""
+msgstr "El teu torn per endevinar!"
 
 msgid "Your Turn, Spymaster!"
-msgstr ""
+msgstr "El teu torn, Spymaster!"
 
 msgid "actions"
-msgstr ""
+msgstr "accions"
 
 msgid "adjective"
-msgstr ""
+msgstr "adjectiu"
 
 msgid "ago"
-msgstr ""
+msgstr "fa"
 
 msgid "alive"
-msgstr ""
+msgstr "viu"
 
 msgid "all"
-msgstr ""
+msgstr "tot"
 
 msgid "all categories"
-msgstr ""
+msgstr "totes les categories"
 
 msgid "all day"
-msgstr ""
+msgstr "tot el dia"
 
 msgid "and publish their clue below."
-msgstr ""
+msgstr "i publicar la seva pista a sota."
 
 msgid "animals"
-msgstr ""
+msgstr "animals"
 
 msgid "any"
-msgstr ""
+msgstr "qualsevol"
 
 msgid "aperture"
-msgstr ""
+msgstr "obertura"
 
 msgid "auto focus detected"
-msgstr ""
+msgstr "s'ha detectat enfocament automàtic"
 
 msgid "available for sale"
-msgstr ""
+msgstr "disponible per a la venda"
 
 msgid "best guess"
-msgstr ""
+msgstr "millor estimació"
 
 msgid "blog"
 msgstr "blog"
 
 msgid "camera make"
-msgstr ""
+msgstr "marca de la càmera"
 
 msgid "camera model"
-msgstr ""
+msgstr "model de la càmera"
 
 msgid "category:"
-msgstr ""
+msgstr "categoria:"
 
 msgid "chat:"
 msgstr "chat:"
 
 msgid "clear"
-msgstr ""
+msgstr "neteja"
 
 msgid "collective prep + hints"
-msgstr ""
+msgstr "preparació col·lectiva + pistes"
 
 msgid "create"
 msgstr "crear"
 
 msgid "create room"
-msgstr ""
+msgstr "crea una sala"
 
 msgid "crop focus X (%)"
-msgstr ""
+msgstr "enfocament de retall X (%)"
 
 msgid "crop focus Y (%)"
-msgstr ""
+msgstr "enfocament de retall Y (%)"
 
 msgid "cv"
 msgstr "cv"
 
 msgid "date"
-msgstr ""
+msgstr "data"
 
 msgid "description"
-msgstr ""
+msgstr "descripció"
 
 msgid "difficulty"
-msgstr ""
+msgstr "dificultat"
 
 msgid "difficulty:"
-msgstr ""
+msgstr "dificultat:"
 
 msgid "download .ics"
-msgstr ""
+msgstr "descarrega .ics"
 
 msgid "e.g. 9B3A1C2D"
-msgstr ""
+msgstr "p. ex. 9B3A1C2D"
 
 msgid "e.g. Marco"
-msgstr ""
+msgstr "p. ex. Marco"
 
 msgid "easy"
-msgstr ""
+msgstr "fàcil"
 
 msgid "emoji time:"
-msgstr ""
+msgstr "temps d'emojis:"
 
 msgid "end"
 msgstr "fi"
 
 msgid "enter password to view the calendar."
-msgstr ""
+msgstr "introdueix la contrasenya per veure el calendari."
 
 msgid "extract event"
-msgstr ""
+msgstr "extreu l'esdeveniment"
 
 msgid "focal length"
-msgstr ""
+msgstr "distància focal"
 
 msgid "food & drink"
-msgstr ""
+msgstr "menjar i beguda"
 
 msgid "gallery"
 msgstr "galeria"
 
 msgid "gallery extension"
-msgstr ""
+msgstr "extensió de galeria"
 
 msgid "gallery extensions"
-msgstr ""
+msgstr "extensions de galeria"
 
 msgid "gallery not found."
-msgstr ""
+msgstr "no s'ha trobat la galeria."
 
 msgid "game"
 msgstr "joc"
@@ -1398,145 +1398,145 @@ msgid "go"
 msgstr "go"
 
 msgid "guess"
-msgstr ""
+msgstr "endevina"
 
 msgid "guess time:"
-msgstr ""
+msgstr "temps per endevinar:"
 
 msgid "hard"
-msgstr ""
+msgstr "difícil"
 
 msgid "home"
 msgstr "Inici"
 
 msgid "ics maker"
-msgstr ""
+msgstr "creador d'ics"
 
 msgid "is Guessing"
-msgstr ""
+msgstr "està endevinant"
 
 msgid "is formulating a clue for their team."
-msgstr ""
+msgstr "està formulant una pista per al seu equip."
 
 msgid "is formulating a clue. Stand by!"
-msgstr ""
+msgstr "està formulant una pista. Espera!"
 
 msgid "join"
-msgstr ""
+msgstr "uneix-te"
 
 msgid "latest posts"
 msgstr "Últimes publicacions"
 
 msgid "latitude"
-msgstr ""
+msgstr "latitud"
 
 msgid "lens"
 msgstr "lent"
 
 msgid "location"
-msgstr ""
+msgstr "ubicació"
 
 msgid "location name"
-msgstr ""
+msgstr "nom de la ubicació"
 
 msgid "longitude"
-msgstr ""
+msgstr "longitud"
 
 msgid "map view"
-msgstr ""
+msgstr "vista de mapa"
 
 msgid "medium"
-msgstr ""
+msgstr "mitjà"
 
 msgid "message (optional)"
-msgstr ""
+msgstr "missatge (opcional)"
 
 msgid "mode"
-msgstr ""
+msgstr "mode"
 
 msgid "mode:"
-msgstr ""
+msgstr "mode:"
 
 msgid "movies"
-msgstr ""
+msgstr "pel·lícules"
 
 msgid "new word"
-msgstr ""
+msgstr "paraula nova"
 
 msgid "next →"
-msgstr ""
+msgstr "següent →"
 
 msgid "no active rooms. create one!"
-msgstr ""
+msgstr "no hi ha sales actives. crea'n una!"
 
 msgid "no galleries yet."
-msgstr ""
+msgstr "encara no hi ha galeries."
 
 msgid "no posts yet."
-msgstr ""
+msgstr "encara no hi ha publicacions."
 
 msgid "noun"
-msgstr ""
+msgstr "substantiu"
 
 msgid "older →"
-msgstr ""
+msgstr "més antic →"
 
 msgid "original"
-msgstr ""
+msgstr "original"
 
 msgid "password"
 msgstr "contrasenya"
 
 msgid "password (optional)"
-msgstr ""
+msgstr "contrasenya (opcional)"
 
 msgid "paste event details here..."
-msgstr ""
+msgstr "enganxa els detalls de l'esdeveniment aquí..."
 
 msgid "paste text or a url with event details, and get an .ics file."
-msgstr ""
+msgstr "enganxa text o un url amb els detalls de l'esdeveniment i obtén un fitxer .ics."
 
 msgid "people & characters"
-msgstr ""
+msgstr "persones i personatges"
 
 msgid "photo"
-msgstr ""
+msgstr "foto"
 
 msgid "photo extension"
-msgstr ""
+msgstr "extensió de la foto"
 
 msgid "photo extensions"
-msgstr ""
+msgstr "extensions de la foto"
 
 msgid "photo map"
-msgstr ""
+msgstr "mapa de fotos"
 
 msgid "photo not found."
-msgstr ""
+msgstr "no s'ha trobat la foto."
 
 msgid "photos"
 msgstr "Fotos"
 
 msgid "photos (select multiple)"
-msgstr ""
+msgstr "fotos (selecciona'n diverses)"
 
 msgid "phrases"
-msgstr ""
+msgstr "frases"
 
 msgid "pick your options, hit the button, draw!"
-msgstr ""
+msgstr "tria les teves opcions, prem el botó, dibuixa!"
 
 msgid "pictionary"
 msgstr "pictionary"
 
 msgid "places & travel"
-msgstr ""
+msgstr "llocs i viatges"
 
 msgid "planz"
 msgstr "planz"
 
 msgid "play again"
-msgstr ""
+msgstr "juga de nou"
 
 msgid "players"
 msgstr ""
