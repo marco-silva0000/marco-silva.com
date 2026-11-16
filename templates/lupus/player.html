@@ -3711,52 +3711,107 @@ html, body {
 
     } else if (stage === "final_vote" || stage === "revote") {
       const isRevote = v.is_revote;
+      const revealed = Boolean(v.votes_revealed);
+      const castCount = v.cast_count || 0;
+      const livingCount = v.living_count || 0;
+
       html += `
         <div style="margin-bottom:0.75rem;">
-          <h3 style="margin:0; font-size:1.1rem; color:${isRevote ? '#fbbf24' : '#f87171'}; display:flex; align-items:center; gap:0.35rem;">
-            <span>${isRevote ? '⚡ RUNOFF REVOTE' : '⚖️ Final Execution Ballot'}</span>
-          </h3>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem;">
+            <h3 style="margin:0; font-size:1.1rem; color:${isRevote ? '#fbbf24' : '#f87171'}; display:flex; align-items:center; gap:0.35rem;">
+              <span>${isRevote ? '⚡ RUNOFF REVOTE' : '⚖️ Final Execution Ballot'}</span>
+            </h3>
+            <span style="font-size:0.74rem; font-weight:700; padding:0.18rem 0.55rem; border-radius:999px; background:${revealed ? '#065f46' : '#312e81'}; color:${revealed ? '#a7f3d0' : '#c7d2fe'}; border:1px solid ${revealed ? '#10b981' : '#6366f1'};">
+              ${revealed ? '🔓 Votes Revealed!' : `🔒 Secret Ballot (${castCount}/${livingCount} Cast)`}
+            </span>
+          </div>
           <p style="margin:0.2rem 0 0; font-size:0.82rem; color:#94a3b8;">
             ${isRevote 
               ? 'Tied vote runoff! If another tie occurs, <strong>NO ONE is eliminated today</strong>.' 
-              : 'Cast your single execution vote on a nominated candidate (or abstain).'}
+              : (revealed
+                ? 'The Game Master has locked and revealed everyone\'s vote!'
+                : 'Tap a nominee on your screen to cast your secret execution vote (or abstain). Votes stay hidden until the GM locks &amp; reveals!')}
           </p>
         </div>
       `;
 
-      if (!isAlive) {
-        html += `<div style="background:#450a0a; color:#fca5a5; border:1px solid #991b1b; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem;">💀 Only living players may vote to execute.</div>`;
-      } else {
-        html += `<div style="display:flex; flex-direction:column; gap:0.5rem;">`;
-        const cands = v.final_candidates || [];
-        cands.forEach(cand => {
-          const isMyChoice = v.my_vote === cand.id;
-          html += `
-            <div style="background:${isMyChoice ? '#450a0a' : '#1e293b'}; border:2px solid ${isMyChoice ? '#ef4444' : '#334155'}; border-radius:10px; padding:0.65rem 0.85rem; display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
-              <div>
-                <div style="font-weight:700; font-size:0.95rem; color:#f8fafc;">
-                  #${cand.seat_number} ${escapeHtml(cand.name)}
-                </div>
-                <div style="font-size:0.75rem; color:#94a3b8;">
-                  Current votes: <strong style="color:#f8fafc;">${cand.vote_count}</strong>
-                </div>
-              </div>
-              <div>
-                <button onclick="playerVoteFinal(${isMyChoice ? 'null' : `'${cand.id}'`})" class="btn" style="min-height:40px; padding:0.35rem 0.85rem; font-size:0.85rem; ${isMyChoice ? 'background:#dc2626; color:#fff; border-color:#dc2626; font-weight:700;' : 'background:#1e293b; color:#f87171; border-color:#991b1b;'}">
-                  ${isMyChoice ? '✓ Voted (Remove)' : 'Vote to Execute'}
+      if (v.turn_order && v.turn_order.active && v.turn_order.active_suspect_id) {
+        const to = v.turn_order;
+        const suspectName = to.active_suspect_name || "Nominee";
+        const suspectSeat = to.active_suspect_seat || "";
+        const isMyHandRaised = Boolean(to.is_my_hand_raised);
+        const handsCount = to.hands_raised_count || 0;
+
+        html += `
+          <div style="background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); border: 2px solid #f59e0b; border-radius: 12px; padding: 1rem; margin-bottom: 0.85rem; box-shadow: 0 4px 18px rgba(245, 158, 11, 0.25);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <span style="font-size: 0.75rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.5px;">🎯 Final Ballot Inquiry</span>
+            </div>
+            <div style="font-size: 1.15rem; font-weight: 900; color: #fff; margin-bottom: 0.75rem;">
+              Who votes to ELIMINATE <span style="color: #f59e0b;">#${suspectSeat} ${escapeHtml(suspectName)}</span>?
+            </div>
+            ${isAlive ? `
+              <div style="margin-bottom: 0.5rem;">
+                <button onclick="playerToggleArmRaise()" class="btn" style="width: 100%; min-height: 50px; font-size: 1.05rem; font-weight: 900; border-radius: 10px; ${isMyHandRaised ? 'background:#f59e0b; color:#0f172a; border: 2px solid #fef08a;' : 'background:#dc2626; color:#fff; border: 2px solid #f87171;'}">
+                  ${isMyHandRaised ? '✋ VOTING TO ELIMINATE (Tap to Remove)' : `✋ Vote to Eliminate ${escapeHtml(suspectName)}`}
                 </button>
               </div>
+            ` : ''}
+            ${revealed ? `<div style="font-size:0.8rem; color:#cbd5e1;">Votes on ${escapeHtml(suspectName)}: <strong>${handsCount}</strong></div>` : ''}
+          </div>
+        `;
+      }
+
+      if (!isAlive) {
+        html += `<div style="background:#450a0a; color:#fca5a5; border:1px solid #991b1b; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem;">💀 Only living players may vote to execute.</div>`;
+      }
+
+      html += `<div style="display:flex; flex-direction:column; gap:0.5rem;">`;
+      const cands = v.final_candidates || [];
+      cands.forEach(cand => {
+        const isMyChoice = v.my_vote === cand.id;
+        const voterNames = cand.voter_names || [];
+        const voteDetailsHtml = revealed
+          ? `<div style="font-size:0.78rem; color:#e2e8f0; margin-top:0.2rem;">
+               Votes: <strong style="color:#f87171;">${cand.vote_count}</strong> &middot;
+               <span style="color:#cbd5e1;">Voted by: ${voterNames.length > 0 ? voterNames.map(escapeHtml).join(', ') : '<em>No one</em>'}</span>
+             </div>`
+          : `<div style="font-size:0.75rem; color:${isMyChoice ? '#fca5a5' : '#94a3b8'}; margin-top:0.15rem;">
+               ${isMyChoice ? '✓ Your secret vote is locked on this nominee' : '🔒 Secret Ballot (votes hidden until GM reveals)'}
+             </div>`;
+        const voteBtnHtml = isAlive
+          ? `<div>
+               <button onclick="playerVoteFinal(${isMyChoice ? 'null' : `'${cand.id}'`})" class="btn" style="min-height:40px; padding:0.35rem 0.85rem; font-size:0.85rem; ${isMyChoice ? 'background:#dc2626; color:#fff; border-color:#dc2626; font-weight:700;' : 'background:#1e293b; color:#f87171; border-color:#991b1b;'}">
+                 ${isMyChoice ? '✓ Voted (Change)' : 'Vote to Execute'}
+               </button>
+             </div>`
+          : '';
+        html += `
+          <div style="background:${isMyChoice ? '#450a0a' : '#1e293b'}; border:2px solid ${isMyChoice ? '#ef4444' : '#334155'}; border-radius:10px; padding:0.65rem 0.85rem; display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; color:#f8fafc;">
+                #${cand.seat_number} ${escapeHtml(cand.name)}
+              </div>
+              ${voteDetailsHtml}
             </div>
-          `;
-        });
+            ${voteBtnHtml}
+          </div>
+        `;
+      });
+      if (revealed && v.abstained_names && v.abstained_names.length > 0) {
+        html += `<div style="font-size:0.78rem; color:#cbd5e1; padding:0.35rem 0.5rem;">🕊️ <strong>Abstained:</strong> ${v.abstained_names.map(escapeHtml).join(', ')}</div>`;
+      }
+      if (isAlive) {
+        const isAbstained = Boolean(v.my_abstained);
         html += `
           <div style="margin-top:0.5rem; text-align:center;">
-            <button onclick="playerVoteFinal(null)" class="btn" style="min-height:38px; padding:0.35rem 1rem; background:#1e293b; color:#94a3b8; border-color:#475569; font-size:0.82rem;">
-              🕊️ Abstain (No Vote)
+            <button onclick="playerVoteFinal(null)" class="btn" style="min-height:38px; padding:0.35rem 1rem; background:${isAbstained ? '#065f46' : '#1e293b'}; color:${isAbstained ? '#a7f3d0' : '#94a3b8'}; border:1px solid ${isAbstained ? '#10b981' : '#475569'}; font-size:0.82rem; font-weight:${isAbstained ? '800' : '600'};">
+              ${isAbstained ? '✓ Abstained (Ballot Cast)' : '🕊️ Abstain (No Execution)'}
             </button>
           </div>
-        </div>`;
+        `;
       }
+      html += `</div>`;
 
     } else if (stage === "completed") {
       const res = v.elimination_result;

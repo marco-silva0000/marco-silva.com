@@ -29,6 +29,7 @@ from .game_state import (
     get_gm_view,
     get_sanitized_player_view,
     guess_angel_in_limbo,
+    lock_and_reveal_final_votes,
     mark_dms_read,
     move_player,
     pause_timer,
@@ -576,6 +577,11 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 if cid:
                     record_gm_final_vote_tally(state, cid, count)
                     await self.broadcast_sync()
+
+            elif action == "lock_reveal_votes":
+                reveal_flag = bool(content.get("reveal", True))
+                lock_and_reveal_final_votes(state, reveal=reveal_flag)
+                await self.broadcast_sync()
 
             elif action == "tally_vote":
                 tally_and_resolve_vote(state)

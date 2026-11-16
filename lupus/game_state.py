@@ -843,6 +843,8 @@ def _reset_voting_state(state: dict[str, Any]) -> dict[str, Any]:
         "nomination_votes": {},
         "nominated_player_ids": [],
         "final_votes": {},
+        "abstained_voter_ids": [],
+        "votes_revealed": False,
         "tie_count": 0,
         "revote_candidates": [],
         "defense_player_id": None,
@@ -4194,6 +4196,8 @@ def start_voting_session(state: dict[str, Any], system: Optional[str] = None) ->
         "nomination_votes": {},
         "nominated_player_ids": living_ids,
         "final_votes": {},
+        "abstained_voter_ids": [],
+        "votes_revealed": False,
         "tie_count": 0,
         "revote_candidates": [],
         "defense_player_id": None,
@@ -4340,6 +4344,18 @@ def start_circular_turn_order(
     if not living_players:
         return state
     living_ids = [p["id"] for p in living_players]
+
+    voting = state.setdefault("voting", {})
+    v_stage = voting.get("stage", "nomination")
+    if v_stage in ("final_vote", "revote"):
+        allowed_set = (
+            set(voting.get("revote_candidates", []))
+            if v_stage == "revote"
+            else set(voting.get("nominated_player_ids", []))
+        )
+        ballot_ids = [pid for pid in living_ids if pid in allowed_set]
+        if ballot_ids:
+            living_ids = ballot_ids
 
     if not starter_id or starter_id not in living_ids:
         starter_id = random.choice(living_ids)
@@ -4545,6 +4561,9 @@ def toggle_hand_raise(
             if candidate_id not in allowed:
                 return False, "Candidate is not on the ballot."
             final_votes[voter_id] = candidate_id
+            abstained_list = voting.setdefault("abstained_voter_ids", [])
+            if voter_id in abstained_list:
+                abstained_list.remove(voter_id)
             msg = f"{players[voter_id]['name']} voted for {players[candidate_id]['name']}."
         else:
             if final_votes.get(voter_id) == candidate_id:
@@ -4616,6 +4635,8 @@ def proceed_to_final_vote(state: dict[str, Any]) -> tuple[bool, str]:
 
     voting["stage"] = "final_vote"
     voting["final_votes"] = {}
+    voting["abstained_voter_ids"] = []
+    voting["votes_revealed"] = False
     voting["ballot_locked"] = True
     voting["tie_count"] = 0
     voting["revote_candidates"] = []
@@ -4631,6 +4652,20 @@ def proceed_to_final_vote(state: dict[str, Any]) -> tuple[bool, str]:
     )
     save_game(state["code"], state)
     return True, "Final vote active."
+
+
+def lock_and_reveal_final_votes(state: dict[str, Any], reveal: bool = True) -> dict[str, Any]:
+    """Lock the final ballot and reveal (or hide) who voted for whom across all screens."""
+    voting = state.setdefault("voting", {})
+    voting["votes_revealed"] = bool(reveal)
+    voting["ballot_locked"] = True
+    if reveal:
+        log_event(state, "🔓 Game Master locked the ballot and revealed who voted for whom!")
+    else:
+        log_event(state, "🔒 Game Master hid final ballot votes.")
+    record_action(state, "lock_and_reveal_final_votes", {"reveal": bool(reveal)})
+    save_game(state["code"], state)
+    return state
 
 
 def cast_final_vote(state: dict[str, Any], voter_id: str, candidate_id: Optional[str]) -> tuple[bool, str]:
@@ -4655,11 +4690,16 @@ def cast_final_vote(state: dict[str, Any], voter_id: str, candidate_id: Optional
         return False, "Candidate is not on the ballot."
 
     final_votes = voting.setdefault("final_votes", {})
+    abstained_list = voting.setdefault("abstained_voter_ids", [])
     if candidate_id is None:
         final_votes.pop(voter_id, None)
+        if voter_id not in abstained_list:
+            abstained_list.append(voter_id)
         msg = f"{voter['name']} abstained."
     else:
         final_votes[voter_id] = candidate_id
+        if voter_id in abstained_list:
+            abstained_list.remove(voter_id)
         msg = f"{voter['name']} voted for {players[candidate_id]['name']}."
 
     record_action(
@@ -4745,6 +4785,11 @@ def _do_tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
             voting["stage"] = "revote"
             voting["revote_candidates"] = top_candidates
             voting["final_votes"] = {}
+            voting["abstained_voter_ids"] = []
+            voting["votes_revealed"] = False
+            if isinstance(voting.get("turn_order"), dict):
+                voting["turn_order"]["active"] = False
+                voting["turn_order"]["active_suspect_id"] = None
             joined_tied = ", ".join(tied_names)
             msg = (
                 f"⚖️ TIE between {joined_tied} ({max_votes} votes each)! Runoff revote initiated among tied candidates."
@@ -4848,9 +4893,11 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
     """
     res, msg = _do_tally_and_resolve_vote(state)
     voting = state.get("voting", {})
-    if voting.get("stage") == "completed" and isinstance(voting.get("turn_order"), dict):
-        voting["turn_order"]["active"] = False
-        voting["turn_order"]["active_suspect_id"] = None
+    if voting.get("stage") == "completed":
+        voting["votes_revealed"] = True
+        if isinstance(voting.get("turn_order"), dict):
+            voting["turn_order"]["active"] = False
+            voting["turn_order"]["active_suspect_id"] = None
     if res != "error":
         record_action(
             state,
@@ -4941,17 +4988,55 @@ def get_voting_view(state: dict[str, Any], is_gm: bool = False, player_id: Optio
             )
 
     allowed_ids = revote_cands if stage == "revote" else official_nominees
+    votes_revealed = bool(voting.get("votes_revealed", False) or stage == "completed")
+    abstained_ids = set(voting.get("abstained_voter_ids", []))
+
+    voter_status_list = []
+    for idx, p in enumerate(ordered):
+        if p["status"] == "alive":
+            pid = p["id"]
+            voted_cid = final_votes.get(pid)
+            is_abs = (pid in abstained_ids) and (pid not in final_votes)
+            has_cast = (pid in final_votes) or is_abs
+            voter_status_list.append(
+                {
+                    "id": pid,
+                    "seat_number": idx + 1,
+                    "name": p["name"],
+                    "has_cast": has_cast,
+                    "abstained": is_abs,
+                    "voted_for_id": voted_cid if (is_gm or votes_revealed) else None,
+                    "voted_for_name": (
+                        state["players"].get(voted_cid, {}).get("name")
+                        if (is_gm or votes_revealed) and voted_cid
+                        else None
+                    ),
+                }
+            )
+
     final_candidates = []
     for idx, p in enumerate(ordered):
         pid = p["id"]
         if pid in allowed_ids and p["status"] == "alive":
             vote_weight_total = sum(get_voter_weight(state, vid) for vid, cid in final_votes.items() if cid == pid)
+            cand_voters = [
+                {
+                    "id": vid,
+                    "name": state["players"][vid]["name"],
+                    "seat_number": next((i + 1 for i, op in enumerate(ordered) if op["id"] == vid), 0),
+                    "weight": get_voter_weight(state, vid),
+                }
+                for vid, cid in final_votes.items()
+                if cid == pid and vid in state["players"] and state["players"][vid].get("status") == "alive"
+            ]
             final_candidates.append(
                 {
                     "id": pid,
                     "seat_number": idx + 1,
                     "name": p["name"],
                     "vote_count": vote_weight_total,
+                    "voters": cand_voters if (is_gm or votes_revealed) else [],
+                    "voter_names": [v["name"] for v in cand_voters] if (is_gm or votes_revealed) else [],
                 }
             )
 
@@ -4966,6 +5051,16 @@ def get_voting_view(state: dict[str, Any], is_gm: bool = False, player_id: Optio
     is_my_hand_raised = player_id in active_raised_ids if player_id else False
 
     my_vote = final_votes.get(player_id) if player_id else None
+    my_abstained = bool(player_id and player_id in abstained_ids and player_id not in final_votes)
+    abstained_names = (
+        [
+            state["players"][vid]["name"]
+            for vid in abstained_ids
+            if vid in state["players"] and state["players"][vid].get("status") == "alive" and vid not in final_votes
+        ]
+        if (is_gm or votes_revealed)
+        else []
+    )
     eliminated_name = None
     if voting.get("eliminated_player_id"):
         eliminated_name = state.get("players", {}).get(voting["eliminated_player_id"], {}).get("name")
@@ -4978,9 +5073,14 @@ def get_voting_view(state: dict[str, Any], is_gm: bool = False, player_id: Optio
         "nomination_candidates": nomination_candidates,
         "official_nominee_ids": list(official_nominees),
         "final_candidates": final_candidates,
+        "votes_revealed": votes_revealed,
+        "cast_count": sum(1 for vs in voter_status_list if vs["has_cast"]),
+        "voter_status_list": voter_status_list,
+        "abstained_names": abstained_names,
         "tie_count": voting.get("tie_count", 0),
         "is_revote": stage == "revote",
         "my_vote": my_vote,
+        "my_abstained": my_abstained,
         "defense_player_id": voting.get("defense_player_id"),
         "defense_player_name": state.get("players", {}).get(voting.get("defense_player_id"), {}).get("name"),
         "eliminated_player_id": voting.get("eliminated_player_id"),

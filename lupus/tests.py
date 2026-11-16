@@ -5248,3 +5248,65 @@ class TestLupusRecentChangesBugHuntScenarios:
         assert "thumbs-up 👍 (Evil / Bad)" in gm_html
         assert "watson-widget" in gm_html
         assert "revealWatsonResult" in gm_html
+
+    def test_final_vote_hidden_ballot_readiness_lock_reveal_and_turn_order(self):
+        """
+        Verifies:
+        1. During `final_vote`, players cast simultaneous secret votes (or abstain).
+           - Abstaining records `has_cast=True` and `my_abstained=True` while keeping `final_votes.get(pid) is None`.
+           - Before `lock_and_reveal_final_votes`, player views hide `voter_names` and `abstained_names`,
+             while GM view sees full voter readiness (`cast_count` / `voter_status_list`).
+        2. Calling `lock_and_reveal_final_votes(state, True)` reveals `voter_names` and `abstained_names` to all players.
+        3. Calling `start_circular_turn_order(state)` during `final_vote` steps through only the nominated candidates on the ballot.
+        """
+        from lupus import game_state
+
+        state, pids = self._setup_custom_game(
+            [
+                ("Wolf", "werewolf"),
+                ("V1", "villager"),
+                ("V2", "villager"),
+                ("V3", "villager"),
+            ],
+            phase="day",
+            day_number=2,
+        )
+        game_state.start_voting_session(state)
+        game_state.toggle_official_nomination(state, pids["Wolf"])
+        game_state.toggle_official_nomination(state, pids["V1"])
+        ok, _ = game_state.proceed_to_final_vote(state)
+        assert ok is True
+
+        # Circular turn order during final_vote steps exclusively through ballot nominees
+        game_state.start_circular_turn_order(state, starter_id=pids["Wolf"], direction="clockwise")
+        assert set(state["voting"]["turn_order"]["turn_roster"]) == {pids["Wolf"], pids["V1"]}
+
+        # V1 votes for Wolf; V2 abstains; Wolf and V3 haven't voted yet
+        game_state.cast_final_vote(state, pids["V1"], pids["Wolf"])
+        game_state.cast_final_vote(state, pids["V2"], None)
+        assert state["voting"]["final_votes"].get(pids["V2"]) is None
+
+        # Before lock & reveal: player view sees cast_count == 2, my_abstained == True for V2, but voter_names hidden
+        p_view_v2 = game_state.get_voting_view(state, is_gm=False, player_id=pids["V2"])
+        assert p_view_v2["votes_revealed"] is False
+        assert p_view_v2["cast_count"] == 2
+        assert p_view_v2["my_abstained"] is True
+        wolf_cand_hidden = next(c for c in p_view_v2["final_candidates"] if c["id"] == pids["Wolf"])
+        assert wolf_cand_hidden["voter_names"] == []
+        assert p_view_v2["abstained_names"] == []
+
+        # GM view sees who has cast and who hasn't
+        gm_v = game_state.get_voting_view(state, is_gm=True)
+        status_by_id = {vs["id"]: vs for vs in gm_v["voter_status_list"]}
+        assert status_by_id[pids["V1"]]["has_cast"] is True
+        assert status_by_id[pids["V2"]]["has_cast"] is True
+        assert status_by_id[pids["V2"]]["abstained"] is True
+        assert status_by_id[pids["V3"]]["has_cast"] is False
+
+        # GM locks and reveals who voted for whom
+        game_state.lock_and_reveal_final_votes(state, reveal=True)
+        p_view_revealed = game_state.get_voting_view(state, is_gm=False, player_id=pids["V2"])
+        assert p_view_revealed["votes_revealed"] is True
+        wolf_cand_rev = next(c for c in p_view_revealed["final_candidates"] if c["id"] == pids["Wolf"])
+        assert wolf_cand_rev["voter_names"] == ["V1"]
+        assert p_view_revealed["abstained_names"] == ["V2"]
