@@ -531,6 +531,23 @@ def set_preassigned_role(state: dict[str, Any], player_id: str, role_id: Optiona
     return True, f"Pre-assigned {role_title} to {player['name']}."
 
 
+def clear_all_preassigned_roles(state: dict[str, Any]) -> int:
+    """Clear all pre-assigned roles across all players in the room so roles deal randomly."""
+    cleared = 0
+    is_lobby = state.get("phase") == "lobby"
+    for p in state.get("players", {}).values():
+        if p.get("preassigned_role") or (is_lobby and p.get("role")):
+            cleared += 1
+        p["preassigned_role"] = None
+        if is_lobby:
+            p["role"] = None
+            p["faction"] = None
+    log_event(state, f"🎲 Cleared pre-assigned roles for all players ({cleared} reset to Random).")
+    record_action(state, "clear_all_preassigned_roles", {"cleared_count": cleared})
+    save_game(state["code"], state)
+    return cleared
+
+
 def should_autofill_demo(password: str, gm_name: str) -> bool:
     """Check if room credentials match the demo autofill trigger (password 'test' & narrator 'marco')."""
     pw = (password or "").strip().lower()
@@ -758,7 +775,7 @@ def deal_roles(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     for pid, role_id in assigned_roles.items():
         role_info = ROLE_REGISTRY.get(role_id, ROLE_REGISTRY["villager"])
         state["players"][pid]["role"] = role_id
-        state["players"][pid]["preassigned_role"] = role_id
+        state["players"][pid]["preassigned_role"] = role_id if pid in preassigned else None
         state["players"][pid]["faction"] = role_info["faction"]
         state["players"][pid]["status"] = "dead" if role_id == "ghost" else "alive"
         state["players"][pid]["used_limbo"] = False
@@ -917,7 +934,7 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     return state
 
 
-def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
+def return_to_lobby(state: dict[str, Any], clear_preassigned: bool = True) -> dict[str, Any]:
     """End or reset the active game back to the Pre-Game Lobby while keeping players connected."""
     # Archive finished game into room history if the game was actually played
     if state.get("round_number", 0) > 0 or state.get("winner") or state.get("pending_gameover"):
@@ -971,6 +988,8 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     for p in state["players"].values():
         p["role"] = None
         p["faction"] = None
+        if clear_preassigned:
+            p["preassigned_role"] = None
         p["status"] = "alive"
         p["used_limbo"] = False
         p["is_silenced"] = False
@@ -995,7 +1014,7 @@ def return_to_lobby(state: dict[str, Any]) -> dict[str, Any]:
     return state
 
 
-def create_next_game_lobby(state: dict[str, Any]) -> dict[str, Any]:
+def create_next_game_lobby(state: dict[str, Any], clear_preassigned: bool = True) -> dict[str, Any]:
     """Archive current game as finished, create a new room in open status with incremented title,
     and move all connected players, seating order, and GM credentials across."""
     old_code = state["code"]
@@ -1079,7 +1098,7 @@ def create_next_game_lobby(state: dict[str, Any]) -> dict[str, Any]:
             "is_traveler": False,
             "is_ghost": False,
             "is_successor": False,
-            "preassigned_role": p.get("preassigned_role"),
+            "preassigned_role": None if clear_preassigned else p.get("preassigned_role"),
             "last_news_post_round": None,
             "is_gazette_muted": False,
             "used_dead_news_bulletin": False,

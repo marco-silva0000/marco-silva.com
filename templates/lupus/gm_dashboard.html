@@ -1450,6 +1450,9 @@ html, body {
               <button onclick="autoAssignRolesFromNames()" class="btn btn-sm" style="background:#ede9fe; color:#6b21a8; border-color:#ddd6fe;" title="Scan player names and pre-assign matching roles (e.g. Doctor, Werewolf)">
                 ✨ Auto-Assign
               </button>
+              <button id="btn-clear-preassigned" onclick="clearAllPreassignedRoles()" class="btn btn-sm" style="display:none; background:#fee2e2; color:#991b1b; border-color:#fca5a5;" title="Clear all pre-assigned roles so everyone is dealt a random role">
+                🎲 Clear Roles
+              </button>
             </div>
           </div>
 
@@ -3168,16 +3171,34 @@ html, body {
     sendAction("start_game", { deck: deck });
   }
 
-  function returnToLobby() {
-    if (confirm("End current game and create a new lobby? All connected players will automatically move to the new room.")) {
-      sendAction("return_to_lobby");
+  function clearAllPreassignedRoles() {
+    if (confirm("Clear all pre-assigned roles and set every player to Random?")) {
+      sendAction("clear_preassigned_roles");
     }
   }
 
-  function startNewLobby() {
-    if (confirm("Start a new game lobby? Current players and seating order will be transferred to a new room.")) {
-      sendAction("start_new_lobby");
+  function returnToLobby() {
+    if (!confirm("End current game and create a new lobby? All connected players will automatically move to the new room.")) {
+      return;
     }
+    const hasPre = Boolean((currentGameState && currentGameState.players || []).some(p => p.preassigned_role));
+    let clearPre = true;
+    if (hasPre) {
+      clearPre = confirm("Clear pre-assigned roles so the new lobby autogenerates random roles?\n\n(Click OK to clear roles for a fresh random deal, or Cancel to keep pre-assigned roles)");
+    }
+    sendAction("return_to_lobby", { clear_preassigned: clearPre });
+  }
+
+  function startNewLobby() {
+    if (!confirm("Start a new game lobby? Current players and seating order will be transferred to a new room.")) {
+      return;
+    }
+    const hasPre = Boolean((currentGameState && currentGameState.players || []).some(p => p.preassigned_role));
+    let clearPre = true;
+    if (hasPre) {
+      clearPre = confirm("Clear pre-assigned roles so the new lobby autogenerates random roles?\n\n(Click OK to clear roles for a fresh random deal, or Cancel to keep pre-assigned roles)");
+    }
+    sendAction("start_new_lobby", { clear_preassigned: clearPre });
   }
 
   function triggerGameOver(customWinner) {
@@ -3897,6 +3918,7 @@ html, body {
 
     // Update pre-assigned counter badge in table header
     const preassignedBadge = document.getElementById("lobby-preassigned-badge");
+    const clearPreBtn = document.getElementById("btn-clear-preassigned");
     if (preassignedBadge) {
       if (state.phase === "lobby") {
         const preList = players.filter(p => p.preassigned_role || (p.role && p.role.id));
@@ -3904,11 +3926,14 @@ html, body {
           preassignedBadge.style.display = "inline-block";
           preassignedBadge.innerText = `🎯 ${preList.length} Pre-assigned`;
           preassignedBadge.title = preList.map(p => `${p.name}: ${p.role ? p.role.name : p.preassigned_role}`).join(", ");
+          if (clearPreBtn) clearPreBtn.style.display = "inline-flex";
         } else {
           preassignedBadge.style.display = "none";
+          if (clearPreBtn) clearPreBtn.style.display = "none";
         }
       } else {
         preassignedBadge.style.display = "none";
+        if (clearPreBtn) clearPreBtn.style.display = "none";
       }
     }
 

@@ -5111,3 +5111,54 @@ class TestLupusRecentChangesBugHuntScenarios:
                     )
                     Path(tf_path).unlink(missing_ok=True)
                     assert proc.returncode == 0, f"JS syntax error in {name} script #{idx}: {proc.stderr}"
+
+    def test_new_lobby_and_return_to_lobby_clear_roles_for_autogeneration(self):
+        """
+        Verifies that:
+        1. Randomly dealt roles in `start_game` do NOT pollute `preassigned_role`.
+        2. Even if players had `preassigned_role`, `return_to_lobby` and `create_next_game_lobby`
+           clear `preassigned_role` by default so the next game autogenerates fresh random roles.
+        3. `clear_all_preassigned_roles` resets all players to Random in the lobby.
+        """
+        from lupus import game_state
+
+        state = create_initial_state("ROLESCLR", "Role Clear Test")
+        _, p1 = add_player(state, "Alice")
+        _, p2 = add_player(state, "Bob")
+        _, p3 = add_player(state, "Carol")
+
+        # 1. Start game without pre-assignments -> randomly dealt roles must NOT set preassigned_role
+        start_game(state, ["werewolf", "doctor", "villager"])
+        for p in state["players"].values():
+            assert p["role"] in ("werewolf", "doctor", "villager")
+            assert p["preassigned_role"] is None
+
+        # 2. Suppose GM pre-assigned a role, started game, then reset to new lobby
+        state2 = create_initial_state("ROLESCLR2", "Role Clear Test 2")
+        _, pa = add_player(state2, "Alice")
+        _, pb = add_player(state2, "Bob")
+        game_state.set_preassigned_role(state2, pa["id"], "werewolf")
+        assert state2["players"][pa["id"]]["preassigned_role"] == "werewolf"
+
+        start_game(state2, ["werewolf", "villager"])
+        assert state2["players"][pa["id"]]["preassigned_role"] == "werewolf"
+        assert state2["players"][pb["id"]]["preassigned_role"] is None
+
+        # Default create_next_game_lobby clears preassigned_role so next game autogenerates randomly
+        next_state = game_state.create_next_game_lobby(state2)
+        for p in next_state["players"].values():
+            assert p["role"] is None
+            assert p["preassigned_role"] is None
+
+        # Default return_to_lobby also clears preassigned_role
+        game_state.set_preassigned_role(next_state, pa["id"], "doctor")
+        game_state.return_to_lobby(next_state)
+        assert next_state["players"][pa["id"]]["preassigned_role"] is None
+
+        # clear_all_preassigned_roles clears all pre-assigned roles in 1 call
+        game_state.set_preassigned_role(next_state, pa["id"], "werewolf")
+        game_state.set_preassigned_role(next_state, pb["id"], "doctor")
+        cleared = game_state.clear_all_preassigned_roles(next_state)
+        assert cleared == 2
+        assert next_state["players"][pa["id"]]["preassigned_role"] is None
+        assert next_state["players"][pb["id"]]["preassigned_role"] is None

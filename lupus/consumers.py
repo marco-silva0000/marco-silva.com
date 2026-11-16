@@ -19,6 +19,7 @@ from .game_state import (
     cancel_day_vote_veto,
     cast_final_vote,
     clear_all_player_points,
+    clear_all_preassigned_roles,
     clear_gm_night_action,
     coroner_leak_to_gazette,
     create_next_game_lobby,
@@ -226,7 +227,8 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 await self.broadcast_sync()
 
             elif action in ("return_to_lobby", "start_new_lobby"):
-                new_state = create_next_game_lobby(state)
+                clear_pre = bool(content.get("clear_preassigned", True))
+                new_state = create_next_game_lobby(state, clear_preassigned=clear_pre)
                 await self.channel_layer.group_send(
                     self.group_name,
                     {
@@ -235,6 +237,10 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                         "new_title": new_state["title"],
                     },
                 )
+
+            elif action == "clear_preassigned_roles":
+                clear_all_preassigned_roles(state)
+                await self.broadcast_sync()
 
             elif action == "set_deck":
                 deck = content.get("deck", [])
