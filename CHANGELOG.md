@@ -4,6 +4,19 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v166] - 2026-11-16
+
+### Added & Changed
+- **"Don't Say the Same Thing as Me" - 'The ME' & Oral Table Game Modes (`dontsay/`, `templates/dontsay/`)**:
+  - Implemented **"The ME" / Genius Host Mode (`the_me`)**: Secret forbidden word is picked first by a designated or rotating player ("The ME"). Other players answer to evade The ME. Evasion scores +100 standard / +150 obscure points; clashing players score 0 and award +100 points to The ME. Complete zero-spoiler masking hides The ME's answer until reveal.
+  - Implemented **Oral / Say Out Loud Table Mode (`oral_table`)**: Screen-guided living room table play without phone typing. Supports round-robin or synchronized 3-2-1 shout countdown with audio-visual screen buzzer, host live clash/validity adjudication panel, and dynamic scoring.
+- **Construction Grammar (CxG) Synthesizer Expansion (`gamerooms/prompt_engine/`)**:
+  - Expanded linguistic synthesizer with diverse Construction Grammar syntactic frames: direct imperative, negative exclusion/taboo, interrogative, superlative, and situational/associative across English, Portuguese, Spanish, Italian, and French.
+  - Added new curated gold prompts spanning negative exclusions, imperatives, and situational constructions with high cardinality.
+- **Transfer GM / Narrator & Room Host Across All Games & Lobbies**:
+  - **Lupus / Werewolf (`lupus/`)**: Added GM role transfer action and dashboard control with safety confirmation; promoted player receives an instant golden banner linking directly to `/games/lupus/<code>/gm/?gm_token=<token>`.
+  - **Universal Host Controls (`dontsay`, `stop`, `impostor`, `codenames`, `emojinary`)**: Added `👑 Make Host` and `× Kick` actions with JavaScript `confirm(...)` dialogs across all game lobbies and rosters.
+
 ## [v165] - 2026-11-16
 
 ### Added & Changed
