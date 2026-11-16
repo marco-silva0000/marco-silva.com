@@ -2485,7 +2485,7 @@ html, body {
     // Update bottom bar Game alert dot if voting or night actions require attention
     const isVoting = state.phase === "day_voting" && state.voting && state.voting.stage !== "none";
     const isNightAction = state.phase === "night" && me && me.status === "alive";
-    const hasInspect = !!state.revealed_inspect;
+    const hasInspect = !!(state.revealed_inspect || state.revealed_watson);
     const needsAction = isVoting || isNightAction || hasInspect;
 
     const playBadge = document.getElementById("b-play-badge");
@@ -3198,16 +3198,18 @@ html, body {
         const x = 50 + 38 * Math.cos(angle);
         const y = 50 + 34 * Math.sin(angle);
 
-        renderPlayerSeatNode(p, idx, x, y, seatsWrap);
+        renderPlayerSeatNode(p, idx, x, y, seatsWrap, state);
       });
     }
   }
 
-  function renderPlayerSeatNode(p, idx, x, y, container) {
+  function renderPlayerSeatNode(p, idx, x, y, container, state) {
     const isMe = p.is_me;
-    const to = (currentGameState && currentGameState.voting && currentGameState.voting.turn_order) || {};
-    const isActiveSuspect = Boolean(to.active && to.active_suspect_id === p.id);
-    const hasHandRaised = Boolean(to.active && (to.hands_raised_ids || []).includes(p.id));
+    const st = state || {};
+    const to = (st.voting && st.voting.turn_order) || {};
+    const isVotingActive = Boolean(st.phase === "day_voting" && st.voting && st.voting.stage !== "completed" && st.voting.stage !== "none");
+    const isActiveSuspect = Boolean(isVotingActive && to.active && to.active_suspect_id === p.id);
+    const hasHandRaised = Boolean(isVotingActive && to.active && (to.hands_raised_ids || []).includes(p.id));
 
     const suspectBadgeHtml = isActiveSuspect ? '<span class="u-seat-suspect-badge">🎯 ASKING</span>' : '';
     const handBadgeHtml = hasHandRaised ? '<span class="u-seat-hand-badge" title="Arm Raised">✋</span>' : '';
@@ -3271,7 +3273,11 @@ html, body {
 
     if (state.revealed_inspect) {
       detReveal.style.display = "block";
-      detRevealText.innerText = `${state.revealed_inspect.target_name} is ${state.revealed_inspect.result.toUpperCase()}`;
+      const thumbIcon = state.revealed_inspect.is_evil ? "👍 EVIL (BAD)" : "👎 GOOD (INNOCENT)";
+      detRevealText.innerText = `${state.revealed_inspect.target_name}: ${thumbIcon}`;
+    } else if (state.revealed_watson) {
+      detReveal.style.display = "block";
+      detRevealText.innerText = `🕵️‍♂️ Your Detective is: #${state.revealed_watson.seat_number || '?'} ${state.revealed_watson.detective_name} (Protect them!)`;
     } else {
       detReveal.style.display = "none";
     }

@@ -224,6 +224,7 @@ def create_initial_state(
         "night_stage_index": 0,
         "is_night_zero": False,
         "revealed_inspect": None,
+        "revealed_watson": None,
         "player_points": {},
         "death_angel_used": False,
         "voting": {
@@ -894,6 +895,7 @@ def start_game(state: dict[str, Any], role_list: Optional[list[str]] = None) -> 
     state["night_report"] = []
     state["night_stage_index"] = 0
     state["revealed_inspect"] = None
+    state["revealed_watson"] = None
     state["voting"] = _reset_voting_state(state)
     state["defense_player_id"] = None
     state["winner"] = None
@@ -966,6 +968,7 @@ def return_to_lobby(state: dict[str, Any], clear_preassigned: bool = True) -> di
     state["night_report"] = []
     state["night_stage_index"] = 0
     state["revealed_inspect"] = None
+    state["revealed_watson"] = None
     state["voting"] = _reset_voting_state(state)
     state["defense_player_id"] = None
     state["winner"] = None
@@ -2320,17 +2323,23 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
         # 3. Watson identifies Detective
         if is_role_in_game("watson"):
             watson_actors = get_role_actors("watson")
-            detectives = [p["name"] for p in players.values() if p.get("role") == "detective"]
-            det_name = detectives[0] if detectives else "Unknown"
+            detective_actors = get_role_actors("detective")
+            det_actor = detective_actors[0] if detective_actors else None
+            det_name = det_actor["name"] if det_actor else "Unknown"
+            det_id = det_actor["id"] if det_actor else None
+            det_seat = det_actor["seat_number"] if det_actor else None
             stages.append(
                 {
                     "id": "watson_intro",
                     "title": "🕵️‍♂️ Watson Identification",
                     "role_id": "watson",
                     "actors": watson_actors,
+                    "detective_actors": detective_actors,
                     "is_alive": True,
-                    "script": f"Watson, wake up! Look at me... {det_name} is your Detective. Protect them! Watson, close your eyes.",
+                    "script": "Watson, wake up! Look at me as I silently point to your Detective... Protect them! Watson, close your eyes.",
+                    "target_id": det_id,
                     "target_name": det_name,
+                    "target_seat": det_seat,
                     "no_target": True,
                     "is_complete": True,
                 }
@@ -2419,8 +2428,8 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    # 3. Citizen Lovers Meet (Night 1 only if starting without Night 0)
-    if round_num <= 1 and is_role_in_game("lover"):
+    # 3. Citizen Lovers Meet (Night 0 only!)
+    if round_num == 0 and is_role_in_game("lover"):
         lover_actors = get_role_actors("lover")
         is_alive = any(a["is_alive"] for a in lover_actors)
         lover_names = [a["name"] for a in lover_actors]
@@ -2439,8 +2448,8 @@ def get_night_stages(state: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    # 4. Cupid (Night 1 only)
-    if round_num <= 1 and is_role_in_game("cupid"):
+    # 4. Cupid (Night 0 only!)
+    if round_num == 0 and is_role_in_game("cupid"):
         cupid_actors = get_role_actors("cupid")
         is_alive = any(a["is_alive"] for a in cupid_actors)
         current_lovers = actions.get("cupid_lovers", [])
@@ -3282,6 +3291,8 @@ def advance_to_night(state: dict[str, Any]) -> dict[str, Any]:
         state["round_number"] = state.get("round_number", 1) + 1
     set_night_stage_index(state, 0)
     state["revealed_inspect"] = None
+    state["revealed_watson"] = None
+    state["voting"] = _reset_voting_state(state)
     state["night_actions"] = {}
     reset_gazette_mutes(state)
     record_action(state, "advance_to_night", {"round": state["round_number"]})
@@ -3294,6 +3305,24 @@ def reveal_detective_to_player(state: dict[str, Any]) -> None:
     if query:
         state["revealed_inspect"] = query
         log_event(state, "Game Master revealed inspection result to Detective.")
+        save_game(state["code"], state)
+
+
+def reveal_watson_to_player(state: dict[str, Any]) -> None:
+    """Push the Detective's identity and seat number to Watson's screen during Night 0."""
+    ordered = get_ordered_players(state)
+    det_entry = next(
+        ((idx + 1, p) for idx, p in enumerate(ordered) if p.get("role") == "detective"),
+        None,
+    )
+    if det_entry:
+        seat_num, det = det_entry
+        state["revealed_watson"] = {
+            "detective_id": det["id"],
+            "detective_name": det["name"],
+            "seat_number": seat_num,
+        }
+        log_event(state, "Game Master pushed Detective identity to Watson's screen.")
         save_game(state["code"], state)
 
 
@@ -4101,6 +4130,7 @@ def resolve_night(state: dict[str, Any]) -> dict[str, Any]:
     state["night_actions"] = {}
     state["night_stage_index"] = 0
     state["revealed_inspect"] = None
+    state["revealed_watson"] = None
     state["voting"] = _reset_voting_state(state)
     state["phase"] = "day_discussion"
 
@@ -4170,6 +4200,14 @@ def start_voting_session(state: dict[str, Any], system: Optional[str] = None) ->
         "eliminated_player_id": None,
         "elimination_result": None,
         "ballot_locked": False,
+        "turn_order": {
+            "active": False,
+            "starter_id": None,
+            "direction": "clockwise",
+            "active_suspect_id": None,
+            "turn_index": 0,
+            "turn_roster": [],
+        },
     }
     log_event(state, f"🗳️ Voting session opened! System: {voting_system}. Stage: {initial_stage}.")
     record_action(
@@ -4540,6 +4578,9 @@ def proceed_to_defense(state: dict[str, Any], player_id: Optional[str] = None) -
     voting = state.setdefault("voting", {})
     voting["stage"] = "defense"
     voting["defense_player_id"] = player_id
+    if "turn_order" in voting and isinstance(voting["turn_order"], dict):
+        voting["turn_order"]["active"] = False
+        voting["turn_order"]["active_suspect_id"] = None
     if player_id and player_id in state["players"]:
         name = state["players"][player_id]["name"]
         start_timer(state, state["settings"].get("defense_timer", 30), f"Defense: {name}")
@@ -4578,6 +4619,9 @@ def proceed_to_final_vote(state: dict[str, Any]) -> tuple[bool, str]:
     voting["ballot_locked"] = True
     voting["tie_count"] = 0
     voting["revote_candidates"] = []
+    if "turn_order" in voting and isinstance(voting["turn_order"], dict):
+        voting["turn_order"]["active"] = False
+        voting["turn_order"]["active_suspect_id"] = None
     nominee_names = [state["players"][pid]["name"] for pid in nominees if pid in state["players"]]
     log_event(state, f"⚖️ Final execution vote started for nominees: {nominee_names}.")
     record_action(
@@ -4803,6 +4847,10 @@ def tally_and_resolve_vote(state: dict[str, Any]) -> tuple[str, str]:
       2. On second tie: no one gets eliminated!
     """
     res, msg = _do_tally_and_resolve_vote(state)
+    voting = state.get("voting", {})
+    if voting.get("stage") == "completed" and isinstance(voting.get("turn_order"), dict):
+        voting["turn_order"]["active"] = False
+        voting["turn_order"]["active_suspect_id"] = None
     if res != "error":
         record_action(
             state,
@@ -5213,11 +5261,13 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optio
     # Watson view: knows who the Detective is
     watson_detective_name = None
     watson_detective_id = None
+    revealed_watson = None
     if player.get("role") == "watson":
         det = next((p for p in state["players"].values() if p.get("role") == "detective"), None)
         if det:
             watson_detective_name = det["name"]
             watson_detective_id = det["id"]
+        revealed_watson = state.get("revealed_watson")
 
     # Saboteur stolen role view for wolves
     stolen_role_info = None
@@ -5389,6 +5439,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optio
         "night_stage_title": night_stage_title,
         "can_guess_angel": can_guess_angel,
         "revealed_inspect": revealed_inspect,
+        "revealed_watson": revealed_watson,
         "saboteur_stolen_role": stolen_role_info,
         "hacker_result": state.get("hacker_result"),
         "day1_no_voting": state.get("day1_no_voting", False),

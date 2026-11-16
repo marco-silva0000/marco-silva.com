@@ -191,13 +191,13 @@
         <div id="gm-toolbar" style="display:none; padding:0.55rem 0.7rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; margin-bottom:0.75rem;">
           <div class="imp-section-label" style="margin-bottom:0.35rem;">👑 {% trans "Participating Host Controls (Zero-Spoiler)" %}</div>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <button type="button" id="btn-blind-redraw" class="imp-btn" onclick="sendAction('blind_redraw')" style="display:none;">🎲 {% trans "New Game / Redraw" %}</button>
+            <button type="button" id="btn-blind-redraw" class="imp-btn" onclick="if(confirm('Redraw new secret words and pick a new Impostor for this round?'))sendAction('blind_redraw')" style="display:none;">🎲 {% trans "New Game / Redraw" %}</button>
             <button type="button" id="btn-skip-turn" class="imp-btn" onclick="sendAction('skip_turn')" style="display:none;">⏭️ {% trans "Skip Turn" %}</button>
-            <button type="button" id="btn-open-vote" class="imp-btn imp-btn-amber" onclick="sendAction('start_voting')" style="display:none;">🗳️ {% trans "Start Voting Early" %}</button>
-            <button type="button" id="btn-tally-votes" class="imp-btn imp-btn-primary" onclick="sendAction('tally_votes')" style="display:none;">🧮 {% trans "Tally Votes Now" %}</button>
+            <button type="button" id="btn-open-vote" class="imp-btn imp-btn-amber" onclick="if(confirm('Open the Discussion & Voting phase early?'))sendAction('start_voting')" style="display:none;">🗳️ {% trans "Start Voting Early" %}</button>
+            <button type="button" id="btn-tally-votes" class="imp-btn imp-btn-primary" onclick="if(confirm('Tally votes and reveal the accused player\'s word now?'))sendAction('tally_votes')" style="display:none;">🧮 {% trans "Tally Votes Now" %}</button>
             <button type="button" id="btn-timer-pause" class="imp-btn" onclick="toggleTimerPause()" style="display:none;">⏸️ {% trans "Pause Timer" %}</button>
             <button type="button" id="btn-timer-add" class="imp-btn" onclick="sendAction('timer_control', {command:'add', seconds:15})" style="display:none;">+15s</button>
-            <button type="button" id="btn-end-game" class="imp-btn imp-btn-danger" onclick="sendAction('end_game')" style="display:none;">🛑 {% trans "End Match" %}</button>
+            <button type="button" id="btn-end-game" class="imp-btn imp-btn-danger" onclick="if(confirm('End the match and show final standings?'))sendAction('end_game')" style="display:none;">🛑 {% trans "End Match" %}</button>
           </div>
         </div>
 
@@ -357,8 +357,8 @@
           </div>
           <div id="oral-steal-row" style="display:none; gap:0.5rem; flex-wrap:wrap; align-items:center; padding-top:0.45rem; border-top:1px dashed #fca5a5;">
             <span style="font-size:0.78rem; font-weight:700; color:#7f1d1d;">🗣️ {% trans "Playing out loud at the table?" %}</span>
-            <button type="button" class="imp-btn imp-btn-green" onclick="sendAction('resolve_oral_steal', {success: true})">✅ {% trans "They Figured Out the Common Word (Impostor Wins)" %}</button>
-            <button type="button" class="imp-btn imp-btn-danger" onclick="sendAction('resolve_oral_steal', {success: false})">❌ {% trans "Wrong Guess / Pass (Citizens Win)" %}</button>
+            <button type="button" class="imp-btn imp-btn-green" onclick="resolveOralSteal(true)">✅ {% trans "They Figured Out the Common Word (Impostor Wins)" %}</button>
+            <button type="button" class="imp-btn imp-btn-danger" onclick="resolveOralSteal(false)">❌ {% trans "Wrong Guess / Pass (Citizens Win)" %}</button>
           </div>
         </div>
 
@@ -637,7 +637,21 @@ function switchVotingMode(mode) {
 
 function accuseSuspect(targetId) {
   if (!targetId) return;
-  sendAction('accuse_suspect', {target_id: targetId});
+  const players = (state && state.players) || [];
+  const p = players.find(x => x.id === targetId);
+  const name = p ? p.name : 'this player';
+  if (confirm(`Consensus Pick: Accuse ${name} and reveal their secret word?`)) {
+    sendAction('accuse_suspect', {target_id: targetId});
+  }
+}
+
+function resolveOralSteal(success) {
+  const msg = success
+    ? 'Confirm that the caught Impostor figured out the Common Word (Impostor steals the win)?'
+    : 'Confirm that the caught Impostor guessed wrong or passed (Citizens win)?';
+  if (confirm(msg)) {
+    sendAction('resolve_oral_steal', {success: Boolean(success)});
+  }
 }
 
 function saveSettings() {

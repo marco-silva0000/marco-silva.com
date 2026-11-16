@@ -5162,3 +5162,89 @@ class TestLupusRecentChangesBugHuntScenarios:
         assert cleared == 2
         assert next_state["players"][pa["id"]]["preassigned_role"] is None
         assert next_state["players"][pb["id"]]["preassigned_role"] is None
+
+    def test_lovers_night_zero_only_watson_screen_push_detective_thumbs_and_stuck_gold_fix(self):
+        """
+        Verifies:
+        1. Lovers (`lovers_meet`) and Cupid (`cupid`) only appear on Night 0, never on Night 1+.
+        2. `watson_intro` script does NOT say Detective's name out loud, provides `target_id`/`target_seat`
+           for the GM guide, and `reveal_watson_to_player` pushes `revealed_watson` only to Watson's screen.
+        3. Detective thumbs-up = Evil/Bad (👍) and thumbs-down = Good/Innocent (👎) in templates.
+        4. Circular turn-order suspect highlight (`turn_order.active` / `active_suspect_id`) is cleared
+           when voting finishes or when advancing to Night so a player never stays stuck in gold.
+        """
+        from pathlib import Path
+
+        from lupus import game_state
+
+        state = create_initial_state("WATSON01", "Watson & Lovers Test")
+        _, p_lov1 = add_player(state, "Romeo")
+        _, p_lov2 = add_player(state, "Juliet")
+        _, p_cupid = add_player(state, "CupidP")
+        _, p_det = add_player(state, "Sherlock")
+        _, p_wat = add_player(state, "JohnWatson")
+        _, p_wolf = add_player(state, "BigBadWolf")
+
+        deck = ["lover", "lover", "cupid", "detective", "watson", "werewolf"]
+        game_state.set_preassigned_role(state, p_lov1["id"], "lover")
+        game_state.set_preassigned_role(state, p_lov2["id"], "lover")
+        game_state.set_preassigned_role(state, p_cupid["id"], "cupid")
+        game_state.set_preassigned_role(state, p_det["id"], "detective")
+        game_state.set_preassigned_role(state, p_wat["id"], "watson")
+        game_state.set_preassigned_role(state, p_wolf["id"], "werewolf")
+        start_game(state, deck)
+
+        # Night 0 stages include lovers_meet, cupid, watson_intro
+        n0_stages = game_state.get_night_stages(state)
+        n0_ids = [s["id"] for s in n0_stages]
+        assert "lovers_meet" in n0_ids
+        assert "cupid" in n0_ids
+        assert "watson_intro" in n0_ids
+
+        # Watson script must NOT contain Sherlock's name out loud!
+        w_stage = next(s for s in n0_stages if s["id"] == "watson_intro")
+        assert "Sherlock" not in w_stage["script"]
+        assert "silently point" in w_stage["script"]
+        assert w_stage["target_id"] == p_det["id"]
+        assert w_stage["target_name"] == "Sherlock"
+        assert w_stage["target_seat"] is not None
+
+        # Push Detective identity to Watson's screen
+        game_state.reveal_watson_to_player(state)
+        wat_view = game_state.get_sanitized_player_view(state, p_wat["id"])
+        wolf_view = game_state.get_sanitized_player_view(state, p_wolf["id"])
+        assert wat_view["revealed_watson"] is not None
+        assert wat_view["revealed_watson"]["detective_name"] == "Sherlock"
+        assert wolf_view["revealed_watson"] is None
+
+        # Resolve Night 0 -> Day 0 -> Advance to Night 1 -> Advance to Night 2
+        game_state.resolve_night(state)
+        assert state["round_number"] == 0
+        game_state.advance_to_night(state)
+        assert state["round_number"] == 1
+
+        # On Night 1, lovers_meet, cupid, and watson_intro must NOT appear!
+        n1_ids = [s["id"] for s in game_state.get_night_stages(state)]
+        assert "lovers_meet" not in n1_ids
+        assert "cupid" not in n1_ids
+        assert "watson_intro" not in n1_ids
+
+        # Resolve Night 1 -> Day 1 -> Start voting & circular turn order on Dio (p_lov1)
+        game_state.resolve_night(state)
+        game_state.start_voting_session(state)
+        game_state.start_circular_turn_order(state, starter_id=p_lov1["id"])
+        assert state["voting"]["turn_order"]["active"] is True
+        assert state["voting"]["turn_order"]["active_suspect_id"] == p_lov1["id"]
+
+        # Proceeding to final vote or advancing to Night 2 clears the active suspect gold highlight
+        game_state.advance_to_night(state)
+        assert state["round_number"] == 2
+        assert state["voting"]["turn_order"]["active"] is False
+        assert state["voting"]["turn_order"]["active_suspect_id"] is None
+
+        # Check Detective thumbs-up = Evil / Bad in templates
+        base_dir = Path(__file__).resolve().parent.parent
+        gm_html = (base_dir / "templates" / "lupus" / "gm_dashboard.html").read_text()
+        assert "thumbs-up 👍 (Evil / Bad)" in gm_html
+        assert "watson-widget" in gm_html
+        assert "revealWatsonResult" in gm_html

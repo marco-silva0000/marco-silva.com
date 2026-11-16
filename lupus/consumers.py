@@ -11,6 +11,7 @@ from .game_state import (
     add_player,
     adjust_timer,
     advance_circular_turn,
+    advance_to_night,
     apply_settings_preset,
     approve_ghost_message,
     approve_news_bulletin,
@@ -47,6 +48,7 @@ from .game_state import (
     resume_timer,
     return_to_nominations,
     reveal_detective_to_player,
+    reveal_watson_to_player,
     save_game,
     send_direct_message,
     set_active_suspect,
@@ -367,21 +369,24 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                 if new_phase in ("lobby", "night", "day_discussion", "day_defense", "day_voting", "gameover"):
                     if new_phase == "day_voting":
                         start_voting_session(state)
+                    elif new_phase == "night":
+                        advance_to_night(state)
                     else:
                         state["phase"] = new_phase
-                        if new_phase == "night":
-                            state["is_day_zero"] = False
-                            if state.get("round_number", 0) == 0 and not state.get("is_night_zero", False):
-                                state["round_number"] = 1
-                            set_night_stage_index(state, 0)
-                            state["revealed_inspect"] = None
-                        elif new_phase == "day_discussion":
+                        if new_phase == "day_discussion":
+                            if "voting" in state and isinstance(state.get("voting"), dict):
+                                to = state["voting"].get("turn_order")
+                                if isinstance(to, dict):
+                                    to["active"] = False
+                                    to["active_suspect_id"] = None
                             start_timer(state, state["settings"].get("discussion_timer", 300), "Discussion")
                         save_game(self.code, state)
                     await self.broadcast_sync()
 
             elif action == "set_night_stage":
                 idx = int(content.get("stage_index", 0))
+                state["revealed_inspect"] = None
+                state["revealed_watson"] = None
                 set_night_stage_index(state, idx)
                 await self.broadcast_sync()
 
@@ -417,6 +422,10 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
 
             elif action == "reveal_detective":
                 reveal_detective_to_player(state)
+                await self.broadcast_sync()
+
+            elif action == "reveal_watson":
+                reveal_watson_to_player(state)
                 await self.broadcast_sync()
 
             elif action == "start_timer":
