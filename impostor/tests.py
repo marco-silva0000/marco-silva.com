@@ -589,3 +589,143 @@ class TestImpostorHttpAndWebsocket:
         assert rec_resp.status_code == 200
         assert rec_resp.context["player_name"] == "GuestBob"
         assert rec_resp.context["admin_token"] == ""
+
+
+class TestConsensusVotingAndNoThemePairs:
+    def test_no_theme_default_hides_category_and_avoids_close_synonym_pairs(self):
+        from impostor.word_pairs import CATEGORIES
+
+        assert "no_theme" in CATEGORIES
+        assert DEFAULT_SETTINGS["category"] == "no_theme"
+        assert DEFAULT_SETTINGS["show_category"] is False
+        assert DEFAULT_SETTINGS["voting_mode"] == "consensus"
+
+        # Ensure overly close pairs like ("Ice Cream", "Frozen Yogurt") are replaced with distanced pairs
+        all_words_flat = {w.lower() for c, p, _, _ in CURATED_IMPOSTOR_PAIRS for w in (c, p)}
+        assert "frozen yogurt" not in all_words_flat
+        assert any(cat == "no_theme" for _, _, _, cat in CURATED_IMPOSTOR_PAIRS)
+
+        # In default no_theme mode, category is hidden on player cards and state during clue/voting/last_chance
+        state, players = _build_4p_room(poison_mode="undercover_blind")
+        start_round(state)
+        for p in players:
+            view = get_sanitized_player_view(state, p["id"])
+            assert view["current_category"] is None
+            assert view["my_card"]["category"] is None
+
+        # Switching category to "food" automatically enables show_category and shows category on cards
+        update_settings(state, {"category": "food"})
+        assert state["settings"]["show_category"] is True
+        start_round(state)
+        for p in players:
+            view = get_sanitized_player_view(state, p["id"])
+            assert view["current_category"] == "food"
+            assert view["my_card"]["category"] == "food"
+
+    def test_consensus_accusation_reveals_suspect_word_and_handles_oral_steal(self):
+        from impostor.game_state import accuse_suspect, resolve_oral_steal
+
+        # Case 1: Group reaches consensus on a Citizen -> They reveal the Common Word -> Impostor wins immediately!
+        state, players = _build_4p_room(poison_mode="undercover_blind")
+        start_round(state)
+        start_voting_phase(state)
+        gm_id = players[0]["id"]
+        imp_id = state["impostor_id"]
+        citizen_id = next(p["id"] for p in players if p["id"] != imp_id)
+        common_word = state["current_pair"]["citizen_display"]
+
+        # Non-admin cannot trigger consensus accusation
+        non_admin_id = next(p["id"] for p in players if p["id"] != gm_id)
+        ok_bad, _ = accuse_suspect(state, non_admin_id, citizen_id)
+        assert ok_bad is False
+
+        ok, _ = accuse_suspect(state, gm_id, citizen_id)
+        assert ok is True
+        assert state["phase"] == "reveal"
+        assert state["round_outcome"] == "impostor_win"
+        assert common_word in state["round_summary"]
+
+        # Case 2: Group reaches consensus on the Impostor -> Reveals Wrong Word -> Last Chance to figure out Common Word!
+        start_round(state)
+        start_voting_phase(state)
+        imp_id = state["impostor_id"]
+        poison_word = state["current_pair"]["poison_display"]
+        common_word = state["current_pair"]["citizen_display"]
+
+        ok2, _ = accuse_suspect(state, gm_id, imp_id)
+        assert ok2 is True
+        assert state["phase"] == "last_chance"
+
+        view_lc = get_sanitized_player_view(state, gm_id)
+        assert view_lc["accused_reveal"] is not None
+        assert view_lc["accused_reveal"]["player_id"] == imp_id
+        assert view_lc["accused_reveal"]["revealed_word"] == poison_word
+        assert view_lc["accused_reveal"]["is_common_word"] is False
+
+        # Oral Steal: Host marks that Impostor figured out the Common Word out loud -> Impostor steals!
+        ok_steal, _ = resolve_oral_steal(state, gm_id, success=True)
+        assert ok_steal is True
+        assert state["phase"] == "reveal"
+        assert state["round_outcome"] == "impostor_steal"
+        assert state["steal_success"] is True
+
+        # Case 3: Oral Steal fails -> Citizens win!
+        start_round(state)
+        start_voting_phase(state)
+        imp_id = state["impostor_id"]
+        accuse_suspect(state, gm_id, imp_id)
+        assert state["phase"] == "last_chance"
+        ok_fail, _ = resolve_oral_steal(state, gm_id, success=False)
+        assert ok_fail is True
+        assert state["phase"] == "reveal"
+        assert state["round_outcome"] == "citizens_win"
+        assert state["steal_success"] is False
+
+    def test_websocket_consensus_accuse_and_oral_steal(self, db):
+        Room.objects.create(title="WS Consensus Room", code="IMPCNS01", game_type="impostor", language="en")
+
+        async def _run():
+            c1 = WebsocketCommunicator(application, "/ws/impostor/IMPCNS01/")
+            ok, _ = await c1.connect()
+            assert ok is True
+            await c1.send_json_to({"action": "join", "name": "HostMarco"})
+
+            async def _recv_until(comm, predicate):
+                for _ in range(20):
+                    msg = await comm.receive_json_from(timeout=2)
+                    if predicate(msg):
+                        return msg
+                raise AssertionError("Timed out waiting for expected WebSocket state")
+
+            await _recv_until(c1, lambda m: m.get("me", {}).get("is_admin") is True)
+            await c1.send_json_to({"action": "add_table_player", "name": "FriendOne"})
+            await c1.send_json_to({"action": "add_table_player", "name": "FriendTwo"})
+            await _recv_until(c1, lambda m: len(m.get("players", [])) == 3)
+
+            await c1.send_json_to({"action": "start_game"})
+            s = await _recv_until(c1, lambda m: m.get("phase") == "clue")
+            assert s["current_category"] is None
+            assert s["my_card"]["category"] is None
+
+            await c1.send_json_to({"action": "start_voting"})
+            s = await _recv_until(c1, lambda m: m.get("phase") == "voting")
+
+            from impostor.game_state import get_game
+
+            raw = get_game("IMPCNS01")
+            imp_id = raw["impostor_id"]
+
+            # Host accuses Impostor via consensus
+            await c1.send_json_to({"action": "accuse_suspect", "target_id": imp_id})
+            s = await _recv_until(c1, lambda m: m.get("phase") == "last_chance")
+            assert s["accused_reveal"]["player_id"] == imp_id
+            assert s["accused_reveal"]["revealed_word"] == raw["current_pair"]["poison_display"]
+
+            # Host resolves oral steal guess (wrong guess -> citizens_win)
+            await c1.send_json_to({"action": "resolve_oral_steal", "success": False})
+            s = await _recv_until(c1, lambda m: m.get("phase") == "reveal")
+            assert s["reveal"]["outcome"] == "citizens_win"
+
+            await c1.disconnect()
+
+        async_to_sync(_run)()

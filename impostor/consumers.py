@@ -6,6 +6,7 @@ from typing import Optional
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from .game_state import (
+    accuse_suspect,
     add_custom_pair,
     add_player,
     add_table_player,
@@ -17,6 +18,7 @@ from .game_state import (
     get_sanitized_player_view,
     is_player_admin,
     kick_player,
+    resolve_oral_steal,
     resolve_voting,
     save_game,
     set_phase_timer,
@@ -199,6 +201,24 @@ class ImpostorConsumer(AsyncJsonWebsocketConsumer):
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can force-tally votes early.")
             resolve_voting(state)
+            await self.broadcast_sync()
+        elif action == "accuse_suspect":
+            ok, msg = accuse_suspect(
+                state,
+                self.player_id,
+                str(content.get("target_id", "")),
+            )
+            if not ok:
+                return await self.send_error(msg)
+            await self.broadcast_sync()
+        elif action == "resolve_oral_steal":
+            ok, msg = resolve_oral_steal(
+                state,
+                self.player_id,
+                bool(content.get("success", False)),
+            )
+            if not ok:
+                return await self.send_error(msg)
             await self.broadcast_sync()
         elif action == "submit_steal_guess":
             ok, msg = submit_steal_guess(

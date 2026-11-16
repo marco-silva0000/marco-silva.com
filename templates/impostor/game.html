@@ -232,11 +232,24 @@
                 </select>
               </div>
               <div>
-                <label style="font-size:0.78rem; font-weight:600;">{% trans "Category" %}</label>
-                <select id="set-category" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Theme / Category" %}</label>
+                <select id="set-category" onchange="onCategorySettingChange()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
                   {% for cat in categories %}
+                  {% if cat == "no_theme" %}
+                  <option value="no_theme">🚫 {% trans "No Theme (Hide Category Hint)" %}</option>
+                  {% elif cat == "all" %}
+                  <option value="all">🎲 {% trans "All Themes (Show Category Hint)" %}</option>
+                  {% else %}
                   <option value="{{ cat }}">{{ cat|title }}</option>
+                  {% endif %}
                   {% endfor %}
+                </select>
+              </div>
+              <div>
+                <label style="font-size:0.78rem; font-weight:600;">{% trans "Voting Style" %}</label>
+                <select id="set-voting-mode" onchange="saveSettings()" style="width:100%; padding:0.35rem; font-size:0.82rem; border-radius:6px; border:1px solid #cbd5e1;">
+                  <option value="consensus">🤝 {% trans "Table Consensus (Point, Discuss & Reveal 1 Suspect)" %}</option>
+                  <option value="individual">🗳️ {% trans "Individual Ballot (Everyone Votes & Tally)" %}</option>
                 </select>
               </div>
               <div>
@@ -266,6 +279,9 @@
             </div>
             <div style="margin-top:0.6rem; display:flex; gap:1rem; flex-wrap:wrap;">
               <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+                <input type="checkbox" id="set-show-category" onchange="saveSettings()"> 🏷️ {% trans "Show Theme / Category Hint on Cards" %}
+              </label>
+              <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
                 <input type="checkbox" id="set-lethal" checked onchange="saveSettings()"> ☠️ {% trans "Enable Lethal Taboo Poison Word" %}
               </label>
               <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
@@ -285,28 +301,45 @@
 
         <!-- Voting Panel (Interactive Table View) -->
         <div id="voting-panel" style="display:none; background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:0.85rem; margin-bottom:0.85rem;">
-          <div style="font-size:0.88rem; font-weight:700; color:#92400e; margin-bottom:0.45rem;">🗳️ {% trans "Table View — Tap a suspect's seat to vote!" %}</div>
-          <div id="mod-vote-bar" class="imp-mod-vote-bar" style="display:none;">
-            <div style="font-size:0.78rem; font-weight:700; color:#1e3a8a;">👑 {% trans "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:" %}</div>
-            <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap; margin:0.45rem 0;">
-              <label for="mod-voter-select" style="font-size:0.78rem; font-weight:700; color:#1e3a8a;">👑 {% trans "Vote for player:" %}</label>
-              <select id="mod-voter-select" onchange="selectModVoter(this.value)" style="padding:0.35rem 0.55rem; border:1.5px solid #93c5fd; border-radius:7px; font-size:0.82rem; background:#fff; color:#0f172a; font-weight:600;"></select>
-              <span style="font-size:0.78rem; font-weight:700; color:#475569;">→ {% trans "Accuse:" %}</span>
-              <select id="mod-target-select" style="padding:0.35rem 0.55rem; border:1.5px solid #fca5a5; border-radius:7px; font-size:0.82rem; background:#fff; color:#0f172a; font-weight:600;"></select>
-              <button type="button" class="imp-btn imp-btn-primary" onclick="submitModVote()" style="padding:0.35rem 0.7rem; font-size:0.8rem;">🗳️ {% trans "Submit Player Vote" %}</button>
-            </div>
-            <div id="mod-voter-pills" class="imp-voter-pills"></div>
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; flex-wrap:wrap; margin-top:0.35rem;">
-              <label style="font-size:0.76rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer; color:#334155;">
-                <input type="checkbox" id="mod-auto-tally" checked> {% trans "Auto-tally once all players have voted" %}
-              </label>
-              <button type="button" class="imp-btn imp-btn-primary" onclick="sendAction('tally_votes')" style="padding:0.3rem 0.65rem; font-size:0.78rem;">🧮 {% trans "Tally Votes Now" %}</button>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.45rem;">
+            <div style="font-size:0.9rem; font-weight:800; color:#92400e;">👉 {% trans "Discussion & Consensus — Who is the Impostor?" %}</div>
+            <div id="voting-mode-switcher" style="display:none; gap:0.35rem; align-items:center;">
+              <button type="button" id="btn-vmode-consensus" class="imp-btn" onclick="switchVotingMode('consensus')" style="padding:0.25rem 0.55rem; font-size:0.74rem;">🤝 {% trans "Consensus Mode" %}</button>
+              <button type="button" id="btn-vmode-individual" class="imp-btn" onclick="switchVotingMode('individual')" style="padding:0.25rem 0.55rem; font-size:0.74rem;">🗳️ {% trans "Individual Votes" %}</button>
             </div>
           </div>
+          <div style="background:#fef3c7; border:1px solid #fcd34d; border-radius:8px; padding:0.55rem 0.7rem; font-size:0.79rem; color:#78350f; line-height:1.45; margin-bottom:0.65rem;">
+            <strong>{% trans "How it works:" %}</strong>
+            1) {% trans "Everyone points & discusses to reach a consensus on who the Impostor is." %}
+            2) {% trans "Tap" %} <strong>🔍 {% trans "Reveal Word (Consensus)" %}</strong> {% trans "on the suspect." %}
+            3) {% trans "If their word is the Common Word, the Impostor wins! If it's the Wrong Word, they still get one chance to figure out the Common Word!" %}
+          </div>
+          <details id="mod-vote-drawer" style="display:none; margin-bottom:0.65rem;">
+            <summary style="cursor:pointer; font-size:0.78rem; font-weight:700; color:#1e3a8a; padding:0.35rem 0.5rem; background:#f8fafc; border:1px solid #cbd5e1; border-radius:7px;">
+              👑 {% trans "Optional: Log Individual Player Votes (Ballot Helper)" %}
+            </summary>
+            <div id="mod-vote-bar" class="imp-mod-vote-bar" style="margin-top:0.35rem;">
+              <div style="font-size:0.78rem; font-weight:700; color:#1e3a8a;">👑 {% trans "Moderator Vote Controls — Pick a player and suspect below, or tap a pill & seat on the table:" %}</div>
+              <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap; margin:0.45rem 0;">
+                <label for="mod-voter-select" style="font-size:0.78rem; font-weight:700; color:#1e3a8a;">👑 {% trans "Vote for player:" %}</label>
+                <select id="mod-voter-select" onchange="selectModVoter(this.value)" style="padding:0.35rem 0.55rem; border:1.5px solid #93c5fd; border-radius:7px; font-size:0.82rem; background:#fff; color:#0f172a; font-weight:600;"></select>
+                <span style="font-size:0.78rem; font-weight:700; color:#475569;">→ {% trans "Accuse:" %}</span>
+                <select id="mod-target-select" style="padding:0.35rem 0.55rem; border:1.5px solid #fca5a5; border-radius:7px; font-size:0.82rem; background:#fff; color:#0f172a; font-weight:600;"></select>
+                <button type="button" class="imp-btn imp-btn-primary" onclick="submitModVote()" style="padding:0.35rem 0.7rem; font-size:0.8rem;">🗳️ {% trans "Submit Player Vote" %}</button>
+              </div>
+              <div id="mod-voter-pills" class="imp-voter-pills"></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; flex-wrap:wrap; margin-top:0.35rem;">
+                <label style="font-size:0.76rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer; color:#334155;">
+                  <input type="checkbox" id="mod-auto-tally" checked> {% trans "Auto-tally once all players have voted" %}
+                </label>
+                <button type="button" class="imp-btn imp-btn-primary" onclick="sendAction('tally_votes')" style="padding:0.3rem 0.65rem; font-size:0.78rem;">🧮 {% trans "Tally Votes Now" %}</button>
+              </div>
+            </div>
+          </details>
           <div id="impostor-table-view" class="imp-table-arena">
             <div class="imp-table-felt">
-              <div id="imp-table-instruction" style="font-size:0.84rem; font-weight:700; color:#ecfdf5;">🗳️ Tap a seat around the table to vote</div>
-              <div id="imp-table-progress" style="font-size:0.74rem; color:#a7f3d0; margin-top:0.15rem;">0 voted</div>
+              <div id="imp-table-instruction" style="font-size:0.84rem; font-weight:700; color:#ecfdf5;">👉 Tap a seat to point at who you suspect!</div>
+              <div id="imp-table-progress" style="font-size:0.74rem; color:#a7f3d0; margin-top:0.15rem;">0 pointing</div>
             </div>
             <div id="vote-grid" class="imp-vote-grid"></div>
           </div>
@@ -314,12 +347,18 @@
 
         <!-- Last-Chance Steal Panel -->
         <div id="steal-panel" style="display:none; background:#fef2f2; border:1.5px solid #f87171; border-radius:10px; padding:0.9rem; margin-bottom:0.85rem;">
-          <div style="font-size:0.92rem; font-weight:700; color:#991b1b; margin-bottom:0.3rem;">⚡ {% trans "LAST-CHANCE IMPOSTOR STEAL!" %}</div>
+          <div id="accused-word-reveal-box" style="background:#fff; border:1.5px solid #fca5a5; border-radius:9px; padding:0.65rem 0.8rem; margin-bottom:0.65rem;"></div>
+          <div style="font-size:0.92rem; font-weight:700; color:#991b1b; margin-bottom:0.3rem;">⚡ {% trans "LAST CHANCE TO GUESS THE COMMON WORD!" %}</div>
           <div id="steal-subtext" style="font-size:0.82rem; color:#7f1d1d; margin-bottom:0.55rem;"></div>
-          <div id="steal-input-row" style="display:none; gap:0.5rem; flex-wrap:wrap;">
-            <input type="text" id="steal-input" maxlength="80" placeholder="{% trans 'Guess the Citizen Word to steal the win...' %}" onkeydown="if(event.key==='Enter')submitSteal();" style="flex:1; min-width:180px; padding:0.45rem 0.7rem; border:1.5px solid #fca5a5; border-radius:8px; font-size:0.88rem;">
-            <button type="button" class="imp-btn imp-btn-danger" onclick="submitSteal()">🎯 {% trans "Steal Win!" %}</button>
-            <button type="button" id="btn-skip-steal" class="imp-btn" onclick="sendAction('steal_timeout')" style="display:none;">⏭️ {% trans "Pass / Wrong" %}</button>
+          <div id="steal-input-row" style="display:none; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+            <input type="text" id="steal-input" maxlength="80" placeholder="{% trans 'Type the Common Word to steal the win...' %}" onkeydown="if(event.key==='Enter')submitSteal();" style="flex:1; min-width:180px; padding:0.45rem 0.7rem; border:1.5px solid #fca5a5; border-radius:8px; font-size:0.88rem;">
+            <button type="button" class="imp-btn imp-btn-danger" onclick="submitSteal()">🎯 {% trans "Submit Guess" %}</button>
+            <button type="button" id="btn-skip-steal" class="imp-btn" onclick="sendAction('steal_timeout')" style="display:none;">⏭️ {% trans "Pass" %}</button>
+          </div>
+          <div id="oral-steal-row" style="display:none; gap:0.5rem; flex-wrap:wrap; align-items:center; padding-top:0.45rem; border-top:1px dashed #fca5a5;">
+            <span style="font-size:0.78rem; font-weight:700; color:#7f1d1d;">🗣️ {% trans "Playing out loud at the table?" %}</span>
+            <button type="button" class="imp-btn imp-btn-green" onclick="sendAction('resolve_oral_steal', {success: true})">✅ {% trans "They Figured Out the Common Word (Impostor Wins)" %}</button>
+            <button type="button" class="imp-btn imp-btn-danger" onclick="sendAction('resolve_oral_steal', {success: false})">❌ {% trans "Wrong Guess / Pass (Citizens Win)" %}</button>
           </div>
         </div>
 
@@ -583,11 +622,33 @@ function parseTimerInput(id, fallback) {
   return Number.isNaN(n) ? fallback : Math.max(0, n);
 }
 
+function onCategorySettingChange() {
+  const cat = $('set-category') ? $('set-category').value : 'no_theme';
+  if ($('set-show-category')) {
+    $('set-show-category').checked = (cat !== 'no_theme');
+  }
+  saveSettings();
+}
+
+function switchVotingMode(mode) {
+  if ($('set-voting-mode')) $('set-voting-mode').value = mode;
+  sendAction('update_settings', {settings: {voting_mode: mode}});
+}
+
+function accuseSuspect(targetId) {
+  if (!targetId) return;
+  sendAction('accuse_suspect', {target_id: targetId});
+}
+
 function saveSettings() {
+  const cat = $('set-category') ? $('set-category').value : 'no_theme';
+  const showCat = $('set-show-category') ? Boolean($('set-show-category').checked && cat !== 'no_theme') : (cat !== 'no_theme');
   sendAction('update_settings', {
     settings: {
       poison_mode: $('set-poison-mode').value,
-      category: $('set-category').value,
+      voting_mode: $('set-voting-mode') ? $('set-voting-mode').value : 'consensus',
+      category: cat,
+      show_category: showCat,
       clue_loops: Math.max(1, Math.min(10, parseInt($('set-clue-loops').value, 10) || 2)),
       turn_timer: parseTimerInput('set-turn-timer', 0),
       vote_timer: parseTimerInput('set-vote-timer', 0),
@@ -607,8 +668,10 @@ function selectModVoter(pid) {
 
 function onTableSeatTap(targetId) {
   const isAdmin = Boolean(state && state.me && state.me.is_admin);
-  if (isAdmin && activeModVoterId) {
-    const autoTally = $('mod-auto-tally') ? Boolean($('mod-auto-tally').checked) : true;
+  const vMode = (state && state.settings && state.settings.voting_mode) || 'consensus';
+  const drawerOpen = Boolean($('mod-vote-drawer') && $('mod-vote-drawer').open);
+  if (isAdmin && drawerOpen && activeModVoterId) {
+    const autoTally = $('mod-auto-tally') ? Boolean($('mod-auto-tally').checked) : (vMode === 'individual');
     pendingAdvanceFromVoter = activeModVoterId;
     sendAction('cast_vote', {
       target_id: targetId,
@@ -616,7 +679,10 @@ function onTableSeatTap(targetId) {
       auto_tally: autoTally,
     });
   } else {
-    sendAction('cast_vote', {target_id: targetId});
+    sendAction('cast_vote', {
+      target_id: targetId,
+      auto_tally: vMode === 'individual',
+    });
   }
 }
 
@@ -736,7 +802,17 @@ function renderState() {
   }
   if (s.my_card) {
     cardBox.style.display = 'block';
-    $('card-category-pill').textContent = `Category: ${(s.my_card.category || s.current_category || 'all').toUpperCase()}`;
+    const catVal = s.my_card.category || s.current_category;
+    const catPill = $('card-category-pill');
+    if (catPill) {
+      if (catVal && catVal !== 'no_theme') {
+        catPill.style.display = 'inline-block';
+        catPill.textContent = `Category: ${String(catVal).toUpperCase()}`;
+      } else {
+        catPill.style.display = 'none';
+        catPill.textContent = '';
+      }
+    }
     applyCardVisibility();
   } else {
     cardBox.style.display = 'none';
@@ -756,7 +832,9 @@ function renderState() {
   // Sync lobby settings controls
   if (s.settings) {
     if ($('set-poison-mode')) $('set-poison-mode').value = s.settings.poison_mode || 'undercover_blind';
-    if ($('set-category')) $('set-category').value = s.settings.category || 'all';
+    if ($('set-voting-mode')) $('set-voting-mode').value = s.settings.voting_mode || 'consensus';
+    if ($('set-category')) $('set-category').value = s.settings.category || 'no_theme';
+    if ($('set-show-category')) $('set-show-category').checked = Boolean(s.settings.show_category && s.settings.category !== 'no_theme');
     if ($('set-clue-loops')) $('set-clue-loops').value = String(s.settings.clue_loops || 2);
     const tTurn = Number(s.settings.turn_timer ?? 0);
     const tVote = Number(s.settings.vote_timer ?? 0);
@@ -851,10 +929,23 @@ function renderState() {
   if (phase === 'voting') {
     const eligibleIds = s.eligible_voter_ids || [];
     const votesMap = s.votes || {};
+    const vMode = (s.settings && s.settings.voting_mode) || 'consensus';
     const playerById = {};
     (s.players || []).forEach(p => { playerById[p.id] = p; });
 
+    if ($('voting-mode-switcher')) {
+      $('voting-mode-switcher').style.display = isAdmin ? 'flex' : 'none';
+      if ($('btn-vmode-consensus')) {
+        $('btn-vmode-consensus').className = vMode === 'consensus' ? 'imp-btn imp-btn-primary' : 'imp-btn';
+      }
+      if ($('btn-vmode-individual')) {
+        $('btn-vmode-individual').className = vMode === 'individual' ? 'imp-btn imp-btn-primary' : 'imp-btn';
+      }
+    }
+
+    const modDrawer = $('mod-vote-drawer');
     if (isAdmin && eligibleIds.length) {
+      if (modDrawer) modDrawer.style.display = 'block';
       if (pendingAdvanceFromVoter && votesMap[pendingAdvanceFromVoter]) {
         const nextUnvoted = eligibleIds.find(pid => !votesMap[pid]);
         activeModVoterId = nextUnvoted || eligibleIds[0];
@@ -905,25 +996,32 @@ function renderState() {
         return `<button type="button" class="${classes.join(' ')}" onclick="selectModVoter('${escapeHtml(pid)}')">${seatIcon}${escapeHtml(vp.name)} <span style="opacity:0.85;">(${statusTxt})</span></button>`;
       }).join('');
     } else {
+      if (modDrawer) modDrawer.style.display = 'none';
       $('mod-vote-bar').style.display = 'none';
       activeModVoterId = null;
       pendingAdvanceFromVoter = null;
     }
 
-    const effectiveVoterId = (isAdmin && activeModVoterId) ? activeModVoterId : (s.can_vote ? me.id : null);
+    const drawerOpen = Boolean(modDrawer && modDrawer.open);
+    const effectiveVoterId = (isAdmin && drawerOpen && activeModVoterId) ? activeModVoterId : (s.can_vote ? me.id : null);
     const effectiveTargetId = effectiveVoterId ? votesMap[effectiveVoterId] : null;
     const effectiveVoterName = effectiveVoterId && playerById[effectiveVoterId] ? playerById[effectiveVoterId].name : null;
 
-    if (isAdmin && effectiveVoterName) {
-      $('imp-table-instruction').textContent = `👑 Tap a suspect's seat to set vote for ${effectiveVoterName}`;
+    if (isAdmin && drawerOpen && effectiveVoterName) {
+      $('imp-table-instruction').textContent = `👑 Tap a suspect's seat to log vote for ${effectiveVoterName}`;
+    } else if (vMode === 'consensus') {
+      const curTarget = effectiveTargetId && playerById[effectiveTargetId] ? playerById[effectiveTargetId].name : null;
+      $('imp-table-instruction').textContent = isAdmin
+        ? '👉 Point & discuss, then click "🔍 Reveal Word (Consensus)" on the agreed suspect!'
+        : (curTarget ? `👉 You are pointing at ${curTarget} — discuss & reach table consensus!` : '👉 Tap a seat to point at who you suspect while discussing!');
     } else if (s.can_vote) {
       const curTarget = effectiveTargetId && playerById[effectiveTargetId] ? playerById[effectiveTargetId].name : null;
-      $('imp-table-instruction').textContent = curTarget ? `🎯 You pointed at ${curTarget} (tap another seat to change)` : '🗳️ Tap any other seat on the table to accuse them!';
+      $('imp-table-instruction').textContent = curTarget ? `🎯 You voted for ${curTarget} (tap another seat to change)` : '🗳️ Tap any other seat on the table to vote!';
     } else {
       $('imp-table-instruction').textContent = '👀 Spectating / poisoned out — watching the table vote';
     }
     const timerTxt = (s.timer && s.timer.remaining > 0) ? `⏱️ ${s.timer.remaining}s` : '♾️ No Time Limit';
-    $('imp-table-progress').textContent = `${Object.keys(votesMap).length} / ${eligibleIds.length} voted · ${timerTxt}`;
+    $('imp-table-progress').textContent = `${Object.keys(votesMap).length} / ${eligibleIds.length} pointing · ${timerTxt}`;
 
     const cluesByPlayer = {};
     (s.clues || []).forEach(c => {
@@ -959,19 +1057,23 @@ function renderState() {
 
       const incomingVoters = targetedBy[c.id] || [];
       const incomingBadge = incomingVoters.length
-        ? `<span style="font-size:0.72rem;font-weight:700;padding:0.12rem 0.42rem;border-radius:999px;background:#ef4444;color:#fff;">🎯 ${incomingVoters.length}</span>`
+        ? `<span style="font-size:0.72rem;font-weight:700;padding:0.12rem 0.42rem;border-radius:999px;background:#ef4444;color:#fff;">👉 ${incomingVoters.length}</span>`
         : '';
       const cluesStr = (cluesByPlayer[c.id] || []).slice(-2).join(' · ') || 'No clue logged';
       const votedForName = votesMap[c.id] && playerById[votesMap[c.id]] ? playerById[votesMap[c.id]].name : null;
-      const incomingListStr = incomingVoters.length ? `Accused by: ${incomingVoters.map(escapeHtml).join(', ')}` : '';
+      const incomingListStr = incomingVoters.length ? `Pointed by: ${incomingVoters.map(escapeHtml).join(', ')}` : '';
       const subFooter = isOut
         ? 'Eliminated / Out'
         : (isSelfOfActiveVoter
-          ? (votedForName ? `Voting → ${votedForName}` : 'Current Voter')
-          : (votedForName ? `Pointed → ${votedForName}` : (isChosen ? 'Selected ✓' : 'Tap to accuse')));
+          ? (votedForName ? `Pointing → ${votedForName}` : 'Your Seat')
+          : (votedForName ? `Pointing → ${votedForName}` : (isChosen ? 'You Pointed Here ✓' : 'Tap to point 👉')));
+
+      const consensusBtn = (isAdmin && !isOut)
+        ? `<div style="margin-top:0.35rem; width:100%;"><span role="button" tabindex="0" class="imp-btn imp-btn-danger" style="width:100%; justify-content:center; padding:0.32rem 0.45rem; font-size:0.75rem; box-sizing:border-box;" onclick="event.stopPropagation(); accuseSuspect('${escapeHtml(c.id)}')">🔍 Reveal ${escapeHtml(c.name)}'s Word</span></div>`
+        : '';
 
       return `
-        <button type="button" class="${classes.join(' ')}" ${canTapSeat ? `onclick="onTableSeatTap('${escapeHtml(c.id)}')"` : 'disabled'}>
+        <button type="button" class="${classes.join(' ')}" ${canTapSeat ? `onclick="onTableSeatTap('${escapeHtml(c.id)}')"` : (isAdmin && !isOut ? '' : 'disabled')}>
           <div style="display:flex;justify-content:space-between;align-items:center;gap:0.35rem;width:100%;">
             <span style="font-weight:700;font-size:0.88rem;">${escapeHtml(c.name)} ${icons.join(' ')}</span>
             ${incomingBadge}
@@ -980,6 +1082,7 @@ function renderState() {
           <div style="font-size:0.71rem;color:${isChosen ? '#fca5a5' : '#94a3b8'};width:100%;">
             ${escapeHtml(subFooter)}${incomingListStr ? `<div style="color:#fcd34d;margin-top:0.1rem;">${incomingListStr}</div>` : ''}
           </div>
+          ${consensusBtn}
         </button>
       `;
     }).join('');
@@ -993,14 +1096,36 @@ function renderState() {
     const canSubmitSteal = Boolean(s.can_steal || isAdmin);
     $('steal-input-row').style.display = canSubmitSteal ? 'flex' : 'none';
     if ($('btn-skip-steal')) $('btn-skip-steal').style.display = canSubmitSteal ? 'inline-flex' : 'none';
+    if ($('oral-steal-row')) $('oral-steal-row').style.display = isAdmin ? 'flex' : 'none';
+
+    const ar = s.accused_reveal;
+    const arBox = $('accused-word-reveal-box');
+    if (arBox) {
+      if (ar) {
+        const wordBadge = ar.revealed_word ? `"${escapeHtml(ar.revealed_word)}"` : '⬜ NO WORD (Blank Card)';
+        arBox.style.display = 'block';
+        arBox.innerHTML = `
+          <div style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#dc2626; letter-spacing:0.04em;">🚨 SUSPECT CARD REVEALED — WRONG WORD!</div>
+          <div style="font-size:1.05rem; font-weight:800; color:#0f172a; margin:0.2rem 0;">
+            ${escapeHtml(ar.player_name)} had: <span style="color:#dc2626;">${wordBadge}</span>
+          </div>
+          <div style="font-size:0.8rem; color:#475569;">
+            That is <strong>NOT</strong> the Common Word — <strong>${escapeHtml(ar.player_name)}</strong> is the Impostor! However, they still have one chance to figure out the Common Word below:
+          </div>
+        `;
+      } else {
+        arBox.style.display = 'none';
+      }
+    }
+
     const hasTimer = Boolean(s.timer && s.timer.duration > 0);
     $('steal-subtext').textContent = s.can_steal
       ? (hasTimer
-        ? 'You were caught! Type the exact Citizen Word before time runs out to steal +3 points!'
-        : 'You were caught! Take your time and guess the exact Citizen Word to steal +3 points!')
+        ? 'Your word was not the Common Word! Type the Common Word before time runs out to steal +3 points!'
+        : 'Your word was not the Common Word! Figure out the Common Word to steal +3 points!')
       : (isAdmin
-        ? 'Waiting for the caught Impostor — or type/pass their oral Last-Chance Steal guess below:'
-        : 'Waiting to see if the caught Impostor can deduce the Citizen Word...');
+        ? 'Have the caught Impostor guess the Common Word out loud (use the buttons below) or type their guess:'
+        : 'Waiting to see if the caught Impostor can figure out the Common Word...');
   }
 
   // Render Reveal

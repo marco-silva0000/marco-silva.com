@@ -31,16 +31,23 @@ POISON_MODES = (
     "classic_blank",
 )
 
+VOTING_MODES = (
+    "consensus",
+    "individual",
+)
+
 DEFAULT_SETTINGS: dict[str, Any] = {
     "max_rounds": 5,
     "poison_mode": "undercover_blind",
+    "voting_mode": "consensus",
     "enable_lethal_word": True,
     "enable_steal": True,
     "clue_loops": 2,
     "turn_timer": 0,
     "vote_timer": 0,
     "steal_timer": 0,
-    "category": "all",
+    "category": "no_theme",
+    "show_category": False,
     "allow_custom_deck": True,
 }
 
@@ -343,6 +350,8 @@ def update_settings(state: dict[str, Any], patch: dict[str, Any]) -> dict[str, A
     s = state.setdefault("settings", copy.deepcopy(DEFAULT_SETTINGS))
     if "poison_mode" in patch and patch["poison_mode"] in POISON_MODES:
         s["poison_mode"] = patch["poison_mode"]
+    if "voting_mode" in patch and patch["voting_mode"] in VOTING_MODES:
+        s["voting_mode"] = patch["voting_mode"]
     if "enable_lethal_word" in patch:
         s["enable_lethal_word"] = bool(patch["enable_lethal_word"])
     if "enable_steal" in patch:
@@ -363,6 +372,10 @@ def update_settings(state: dict[str, Any], patch: dict[str, Any]) -> dict[str, A
         s["max_rounds"] = max(1, min(20, int(patch["max_rounds"] or 5)))
     if "category" in patch and str(patch["category"]).lower() in CATEGORIES:
         s["category"] = str(patch["category"]).lower()
+        if "show_category" not in patch:
+            s["show_category"] = s["category"] != "no_theme"
+    if "show_category" in patch:
+        s["show_category"] = bool(patch["show_category"])
     if "allow_custom_deck" in patch:
         s["allow_custom_deck"] = bool(patch["allow_custom_deck"])
     save_game(state["code"], state)
@@ -489,10 +502,20 @@ def start_round(state: dict[str, Any], is_redraw: bool = False) -> tuple[bool, s
             if director_id and director_id in state["players"]
             else ""
         )
+        show_theme = bool(
+            s.get("show_category", False)
+            and s.get("category", "no_theme") != "no_theme"
+            and pair.get("category") != "no_theme"
+        )
+        if show_theme:
+            cat_label = str(pair.get("category", "all")).replace("_", " ").title()
+            theme_str = f"Category: {cat_label}"
+        else:
+            theme_str = "No Theme (Category Hidden)"
         append_event(
             state,
             "System",
-            f"🎬 Round {state['round_num']}/{s['max_rounds']} started — Category: {pair['category'].title()}{director_note}.",
+            f"🎬 Round {state['round_num']}/{s['max_rounds']} started — {theme_str}{director_note}.",
         )
         sync_room_db_status(state["code"], "running")
 
@@ -731,6 +754,93 @@ def cast_vote(
     return True, "Vote recorded."
 
 
+def _resolve_accused_suspect(state: dict[str, Any], ejected_id: str) -> None:
+    """Reveal the accused suspect's word:
+    - If they hold the Common (Citizen) Word -> Impostor wins immediately!
+    - If they hold the Wrong (Poison/Blank) Word -> They are the Impostor and get a Last-Chance Guess at the Common Word!
+    """
+    state["ejected_id"] = ejected_id
+    ejected_name = state["players"].get(ejected_id, {}).get("name", "?")
+    pair = state.get("current_pair") or {}
+    citizen_disp = pair.get("citizen_display") or pair.get("citizen_word") or "Common Word"
+    poison_mode = state.get("settings", DEFAULT_SETTINGS).get("poison_mode", "undercover_blind")
+    imp_word_disp = (
+        (pair.get("poison_display") or pair.get("poison_word"))
+        if poison_mode in ("undercover_blind", "undercover_informed")
+        else None
+    )
+    imp_word_label = f"'{imp_word_disp}'" if imp_word_disp else "NO WORD (Blank Card)"
+
+    if ejected_id == state.get("impostor_id"):
+        steal_enabled = bool(state["settings"].get("enable_steal", True))
+        steal_sec = int(state["settings"].get("steal_timer", 0))
+        if steal_enabled:
+            state["phase"] = "last_chance"
+            set_phase_timer(state, steal_sec)
+            timer_note = f"{steal_sec}s" if steal_sec > 0 else "untimed"
+            append_event(
+                state,
+                "System",
+                f"🚨 {ejected_name} revealed their word: {imp_word_label} — WRONG WORD! "
+                f"{ejected_name} IS the Impostor! Last-Chance Steal ({timer_note}): {ejected_name} gets one guess at the Common Word!",
+            )
+            save_game(state["code"], state)
+            return
+
+        _finalize_reveal(
+            state,
+            outcome="citizens_win",
+            summary=f"🎉 {ejected_name} revealed {imp_word_label} (the wrong word) — {ejected_name} was the Impostor! Citizens win the round!",
+        )
+        return
+
+    if ejected_id == state.get("poisoned_citizen_id"):
+        _finalize_reveal(
+            state,
+            outcome="impostor_win",
+            summary=f"💥 {ejected_name} was an innocent Citizen (holding the Drunk/Poison word)! The Impostor fooled the table!",
+        )
+        return
+
+    _finalize_reveal(
+        state,
+        outcome="impostor_win",
+        summary=f"💥 {ejected_name} revealed their word: '{citizen_disp}' — that IS the Common Word! {ejected_name} was an innocent Citizen, so the Impostor wins!",
+    )
+
+
+def accuse_suspect(
+    state: dict[str, Any],
+    caller_id: str,
+    target_id: str,
+) -> tuple[bool, str]:
+    """Directly accuse a consensus suspect (after table pointing & discussion) and reveal their word."""
+    if state.get("phase") not in ("voting", "clue"):
+        return False, "Can only accuse a suspect during Clue or Voting phase."
+
+    players = state.get("players", {})
+    caller = players.get(caller_id)
+    if not is_player_admin(state, caller):
+        return False, "Only the Host can confirm the table's consensus accusation."
+
+    voters = eligible_voters(state)
+    if target_id not in voters:
+        return False, "Selected suspect is not an active participant in this round."
+
+    if state.get("phase") == "clue":
+        state["phase"] = "voting"
+
+    target_name = players[target_id]["name"]
+    append_event(
+        state,
+        "System",
+        f"👉 Table Consensus: The group pointed at {target_name}! {target_name} reveals their word...",
+        kind="vote",
+    )
+    _resolve_accused_suspect(state, target_id)
+    return True, f"Revealed {target_name}'s word."
+
+
 def resolve_voting(state: dict[str, Any]) -> None:
     """Tally suspicion votes and either launch Last-Chance Impostor Steal or finalize Reveal."""
     if state.get("phase") != "voting":
@@ -763,37 +873,7 @@ def resolve_voting(state: dict[str, Any]) -> None:
         )
         return
 
-    ejected_id = top_targets[0]
-    state["ejected_id"] = ejected_id
-    ejected_name = state["players"].get(ejected_id, {}).get("name", "?")
-
-    if ejected_id == state.get("impostor_id"):
-        steal_enabled = bool(state["settings"].get("enable_steal", True))
-        steal_sec = int(state["settings"].get("steal_timer", 0))
-        if steal_enabled:
-            state["phase"] = "last_chance"
-            set_phase_timer(state, steal_sec)
-            timer_note = f"{steal_sec}s" if steal_sec > 0 else "untimed"
-            append_event(
-                state,
-                "System",
-                f"⚡ {ejected_name} IS the Impostor! Last-Chance Steal ({timer_note}): {ejected_name} gets one guess at the Citizen Word!",
-            )
-            save_game(state["code"], state)
-            return
-
-        _finalize_reveal(
-            state,
-            outcome="citizens_win",
-            summary=f"🎉 {ejected_name} was the Impostor! Citizens win the round!",
-        )
-        return
-
-    _finalize_reveal(
-        state,
-        outcome="impostor_win",
-        summary=f"💥 {ejected_name} was an innocent Citizen! The Impostor fooled the table!",
-    )
+    _resolve_accused_suspect(state, top_targets[0])
 
 
 def submit_steal_guess(
@@ -830,6 +910,40 @@ def submit_steal_guess(
         summary=f"🛡️ Impostor guessed '{state['steal_guess']}' — WRONG! Citizens win the round!",
     )
     return True, "Last-Chance Steal failed."
+
+
+def resolve_oral_steal(
+    state: dict[str, Any],
+    caller_id: str,
+    success: bool,
+) -> tuple[bool, str]:
+    """Allow the Host to resolve an oral Last-Chance Steal guess at the table with one tap."""
+    if state.get("phase") != "last_chance":
+        return False, "Not in Last-Chance Steal phase."
+    caller = state.get("players", {}).get(caller_id)
+    if not is_player_admin(state, caller):
+        return False, "Only the Host can mark an oral steal guess."
+
+    pair = state.get("current_pair") or {}
+    c_disp = pair.get("citizen_display") or pair.get("citizen_word") or "Common Word"
+    if success:
+        state["steal_guess"] = f"{c_disp} (spoken)"
+        state["steal_success"] = True
+        _finalize_reveal(
+            state,
+            outcome="impostor_steal",
+            summary=f"🔥 HEIST! Caught Impostor figured out the Common Word '{c_disp}' and STOLE the round!",
+        )
+        return True, "Last-Chance Steal succeeded!"
+
+    state["steal_guess"] = "(wrong oral guess / passed)"
+    state["steal_success"] = False
+    _finalize_reveal(
+        state,
+        outcome="citizens_win",
+        summary="🛡️ Caught Impostor could not figure out the Common Word — Citizens win the round!",
+    )
+    return True, "Last-Chance Steal failed — Citizens win!"
 
 
 def expire_last_chance(state: dict[str, Any]) -> None:
@@ -943,6 +1057,12 @@ def _build_player_card(state: dict[str, Any], viewer_id: Optional[str]) -> Optio
     poison_mode = s.get("poison_mode", "undercover_blind")
     impostor_id = state.get("impostor_id")
     poisoned_citizen_id = state.get("poisoned_citizen_id")
+    show_theme = bool(
+        s.get("show_category", False)
+        and s.get("category", "no_theme") != "no_theme"
+        and pair.get("category") != "no_theme"
+    )
+    visible_cat = pair.get("category") if (show_theme or state.get("phase") == "reveal") else None
 
     if viewer_id == state.get("round_director_id"):
         return {
@@ -961,7 +1081,7 @@ def _build_player_card(state: dict[str, Any], viewer_id: Optional[str]) -> Optio
             "role_label": "👀 Spectator",
             "role_revealed": True,
             "word": None,
-            "category": pair.get("category"),
+            "category": visible_cat,
             "lethal_active": bool(s.get("enable_lethal_word") and pair.get("lethal_display")),
         }
 
@@ -977,7 +1097,7 @@ def _build_player_card(state: dict[str, Any], viewer_id: Optional[str]) -> Optio
             "role_label": "🔒 Secret Word (Blind Role)",
             "role_revealed": False,
             "word": poison_word if is_imp else citizen_word,
-            "category": pair.get("category"),
+            "category": visible_cat,
             "lethal_active": lethal_active,
         }
     if poison_mode == "undercover_informed":
@@ -986,17 +1106,17 @@ def _build_player_card(state: dict[str, Any], viewer_id: Optional[str]) -> Optio
             "role_label": "🕵️ Impostor (Poison Word)" if is_imp else "🟢 Citizen",
             "role_revealed": True,
             "word": poison_word if is_imp else citizen_word,
-            "category": pair.get("category"),
+            "category": visible_cat,
             "lethal_active": lethal_active,
         }
     if poison_mode == "poisoned_citizen":
         if is_imp:
             return {
                 "role_type": "impostor",
-                "role_label": "🕵️ Impostor (No Word — Bluff from Category!)",
+                "role_label": "🕵️ Impostor (No Word — Bluff!)",
                 "role_revealed": True,
                 "word": None,
-                "category": pair.get("category"),
+                "category": visible_cat,
                 "lethal_active": lethal_active,
             }
         # Poisoned Citizen's card looks IDENTICAL to a regular Citizen card!
@@ -1005,7 +1125,7 @@ def _build_player_card(state: dict[str, Any], viewer_id: Optional[str]) -> Optio
             "role_label": "🟢 Citizen",
             "role_revealed": False,
             "word": poison_word if is_poisoned_cit else citizen_word,
-            "category": pair.get("category"),
+            "category": visible_cat,
             "lethal_active": lethal_active,
         }
 
@@ -1016,7 +1136,7 @@ def _build_player_card(state: dict[str, Any], viewer_id: Optional[str]) -> Optio
             "role_label": "🕵️ Impostor (Blank Card)",
             "role_revealed": True,
             "word": None,
-            "category": pair.get("category"),
+            "category": visible_cat,
             "lethal_active": lethal_active,
         }
     return {
@@ -1024,7 +1144,7 @@ def _build_player_card(state: dict[str, Any], viewer_id: Optional[str]) -> Optio
         "role_label": "🟢 Citizen",
         "role_revealed": True,
         "word": citizen_word,
-        "category": pair.get("category"),
+        "category": visible_cat,
         "lethal_active": lethal_active,
     }
 
@@ -1083,6 +1203,24 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
             },
         }
 
+    accused_reveal = None
+    if phase == "last_chance" and state.get("current_pair"):
+        pair = state["current_pair"]
+        ej_id = state.get("ejected_id") or state.get("impostor_id")
+        ej_name = state.get("players", {}).get(ej_id, {}).get("name", "?")
+        poison_mode = state.get("settings", DEFAULT_SETTINGS).get("poison_mode", "undercover_blind")
+        imp_word = (
+            (pair.get("poison_display") or pair.get("poison_word"))
+            if poison_mode in ("undercover_blind", "undercover_informed")
+            else None
+        )
+        accused_reveal = {
+            "player_id": ej_id,
+            "player_name": ej_name,
+            "revealed_word": imp_word,
+            "is_common_word": False,
+        }
+
     voters = eligible_voters(state)
     n_part = max(1, len(state.get("round_participants", [])))
     total_cycles = int(state.get("settings", DEFAULT_SETTINGS).get("clue_loops", 2))
@@ -1101,6 +1239,20 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         if pid in players_map
     ]
 
+    s_cfg = state.get("settings", DEFAULT_SETTINGS)
+    cur_pair = state.get("current_pair") or {}
+    show_theme_now = bool(
+        phase != "lobby"
+        and (
+            phase in ("reveal", "gameover")
+            or (
+                s_cfg.get("show_category", False)
+                and s_cfg.get("category", "no_theme") != "no_theme"
+                and cur_pair.get("category") != "no_theme"
+            )
+        )
+    )
+
     return {
         "type": "state",
         "version_counter": VERSION_COUNTER,
@@ -1115,7 +1267,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         "max_rounds": state.get("settings", DEFAULT_SETTINGS).get("max_rounds", 5),
         "current_cycle": current_cycle,
         "total_cycles": total_cycles,
-        "current_category": (state.get("current_pair") or {}).get("category") if phase != "lobby" else None,
+        "current_category": cur_pair.get("category") if show_theme_now else None,
         "current_player": state.get("players", {}).get(active_pid, {}).get("name") if active_pid else None,
         "current_player_id": active_pid,
         "round_participant_list": round_participant_list,
@@ -1128,6 +1280,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         "eligible_voter_ids": voters,
         "my_vote": state.get("votes", {}).get(viewer_id) if viewer_id else None,
         "can_steal": can_steal,
+        "accused_reveal": accused_reveal,
         "my_card": _build_player_card(state, viewer_id),
         "reveal": reveal_truth,
         "me": {
