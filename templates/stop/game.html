@@ -57,22 +57,44 @@
 }
 .stp-section-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; color: var(--stp-muted); margin-bottom: 0.5rem; }
 
-/* Hero Category + Letter Stage */
+/* Hero Category + Letter + Answer Stage */
 .stp-hero-banner {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #f8fafc;
   border-radius: 16px; padding: 1.15rem 1.25rem; margin-bottom: 0.9rem;
   border: 1px solid #334155; box-shadow: 0 10px 24px -8px rgba(15,23,42,0.4);
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  display: flex; flex-direction: column; gap: 0.75rem;
 }
 .stp-letter-tile {
-  width: 78px; height: 78px; border-radius: 16px;
+  min-width: 56px; height: 50px; border-radius: 10px;
   background: linear-gradient(135deg, #ef4444, #b91c1c);
-  border: 3px solid #fca5a5; color: #ffffff;
+  border: 2px solid #fca5a5; color: #ffffff;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  box-shadow: 0 6px 16px rgba(220,38,38,0.4); flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(220,38,38,0.35); flex-shrink: 0; user-select: none;
 }
-.stp-letter-char { font-size: 2.55rem; font-weight: 900; line-height: 1; font-family: ui-monospace, SFMono-Regular, monospace; }
-.stp-letter-sub { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; opacity: 0.9; margin-top: 2px; }
+.stp-letter-char { font-size: 1.85rem; font-weight: 900; line-height: 1; font-family: ui-monospace, SFMono-Regular, monospace; }
+.stp-letter-sub { font-size: 0.54rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; opacity: 0.9; margin-top: 1px; }
+
+.stp-answer-form {
+  display: flex; gap: 0.5rem; align-items: stretch; width: 100%; margin-bottom: 0.65rem;
+}
+.stp-answer-input {
+  flex: 1; min-width: 0; height: 50px; padding: 0 0.85rem;
+  font-size: 1.05rem; font-weight: 600; border: 2px solid #cbd5e1; border-radius: 10px;
+  box-sizing: border-box; background: #ffffff; color: #0f172a; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.stp-answer-input:focus {
+  border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+}
+.stp-answer-btn {
+  height: 50px; padding: 0 1.25rem; font-size: 0.95rem; font-weight: 800;
+  border-radius: 10px; white-space: nowrap; flex-shrink: 0;
+}
+@media (max-width: 480px) {
+  .stp-answer-btn { padding: 0 0.85rem; font-size: 0.88rem; }
+  .stp-letter-tile { min-width: 48px; }
+  .stp-letter-char { font-size: 1.65rem; }
+}
 
 .stp-stop-big-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
@@ -140,30 +162,63 @@
   <div class="stp-grid">
     <!-- Main Column -->
     <div>
-      <!-- Hero Category & Letter Banner (Playing / Reveal) -->
+      <!-- Hero Category, Letter & Answer Card (Playing / Reveal) -->
       <div class="stp-hero-banner" id="hero-banner" style="display:none;">
-        <div style="display:flex; align-items:center; gap:1rem; flex:1; min-width:240px;">
-          <div class="stp-letter-tile">
-            <span class="stp-letter-sub">{% trans "Letter" %}</span>
-            <span class="stp-letter-char" id="hero-letter">A</span>
+        <!-- Top Meta Row: Round, Source Pill & Timers -->
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap; width:100%;">
+          <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap;">
+            <span id="hero-round-label" style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#93c5fd;">Round 1</span>
+            <span id="hero-source-pill" style="font-size:0.7rem; font-weight:700; padding:0.12rem 0.5rem; border-radius:999px; background:rgba(255,255,255,0.14); color:#e2e8f0;">📚 Word DB</span>
           </div>
-          <div style="flex:1; min-width:0;">
-            <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap; margin-bottom:0.25rem;">
-              <span id="hero-round-label" style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#93c5fd;">Round 1</span>
-              <span id="hero-source-pill" style="font-size:0.7rem; font-weight:700; padding:0.12rem 0.5rem; border-radius:999px; background:rgba(255,255,255,0.14); color:#e2e8f0;">📚 Word DB</span>
-            </div>
-            <div id="hero-category-title" style="font-size:1.35rem; font-weight:800; line-height:1.25; color:#ffffff; word-break:break-word;">Category</div>
-            <div style="font-size:0.78rem; color:#cbd5e1; margin-top:0.25rem;">
-              {% trans "Fastest unique answer starting with this letter earns up to 15 pts!" %}
+          <div style="display:flex; align-items:center; gap:0.4rem;">
+            <div id="timer-pill" style="display:none; font-family:ui-monospace,monospace; font-size:1.05rem; font-weight:800; padding:0.3rem 0.75rem; border-radius:999px; background:#1e293b; border:1.5px solid #475569; color:#f8fafc;">⏱️ 30s</div>
+            <div id="host-timer-controls" style="display:none; gap:0.3rem;">
+              <button type="button" class="stp-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'timer_control',command:'pause'})">⏸️</button>
+              <button type="button" class="stp-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'timer_control',command:'resume'})">▶️</button>
+              <button type="button" class="stp-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'timer_control',command:'add',seconds:15})">+15s</button>
             </div>
           </div>
         </div>
-        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
-          <div id="timer-pill" style="display:none; font-family:ui-monospace,monospace; font-size:1.05rem; font-weight:800; padding:0.3rem 0.75rem; border-radius:999px; background:#1e293b; border:1.5px solid #475569; color:#f8fafc;">⏱️ 30s</div>
-          <div id="host-timer-controls" style="display:none; gap:0.3rem;">
-            <button type="button" class="stp-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'timer_control',command:'pause'})">⏸️</button>
-            <button type="button" class="stp-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'timer_control',command:'resume'})">▶️</button>
-            <button type="button" class="stp-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'timer_control',command:'add',seconds:15})">+15s</button>
+
+        <!-- Full-Row Category / Question -->
+        <div style="width:100%;">
+          <div id="hero-category-title" style="font-size:1.45rem; font-weight:800; line-height:1.28; color:#ffffff; word-break:break-word;">Category</div>
+          <div id="hero-category-sub" style="font-size:0.8rem; color:#cbd5e1; margin-top:0.25rem;">
+            {% trans "Fastest unique answer starting with this letter earns up to 15 pts!" %}
+          </div>
+          <!-- Reveal phase starting letter pill -->
+          <div id="hero-reveal-letter-row" style="display:none; align-items:center; gap:0.4rem; margin-top:0.45rem;">
+            <span class="stp-pill" style="background:linear-gradient(135deg, #ef4444, #b91c1c); color:#ffffff; font-weight:900; font-size:0.88rem; border:1px solid #fca5a5; padding:0.25rem 0.75rem;">
+              🔤 {% trans "Starting Letter:" %} <strong id="reveal-letter-char" style="font-size:1.15rem; margin-left:0.2rem;">A</strong>
+            </span>
+          </div>
+        </div>
+
+        <!-- Answer Input Section (Active during Playing Phase) -->
+        <div id="hero-answer-section" style="display:none; width:100%;">
+          <form onsubmit="handleAnswerSubmit(event)" class="stp-answer-form">
+            <!-- Starting Letter Token (positioned just before input) -->
+            <div class="stp-letter-tile" id="hero-letter-tile" title="{% trans 'Starting Letter' %}">
+              <span class="stp-letter-sub">{% trans "Letter" %}</span>
+              <span class="stp-letter-char" id="hero-letter">A</span>
+            </div>
+            <!-- Answer Input -->
+            <input type="text" id="answer-input" maxlength="80" autocomplete="off" class="stp-answer-input"
+                   placeholder="{% trans 'Type an answer starting with the letter...' %}">
+            <!-- Lock In Button -->
+            <button type="submit" id="btn-submit-answer" class="stp-btn stp-btn-primary stp-answer-btn">
+              ⚡ {% trans "Lock In" %}
+            </button>
+          </form>
+
+          <!-- Current Player Submission Status & Big STOP Button -->
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; padding:0.65rem 0.85rem; border-radius:10px; background:rgba(15,23,42,0.5); border:1px solid rgba(255,255,255,0.12); width:100%; box-sizing:border-box;">
+            <div id="my-answer-status" style="font-size:0.86rem; color:#e2e8f0; flex:1; min-width:200px;">
+              {% trans "Not locked in yet — type fast for the 1st Unique speed bonus!" %}
+            </div>
+            <button type="button" id="btn-call-stop" class="stp-stop-big-btn" onclick="wsSend({action:'call_stop'})" disabled>
+              🛑 {% trans "STOP!" %}
+            </button>
           </div>
         </div>
       </div>
@@ -262,28 +317,8 @@
         </div>
       </div>
 
-      <!-- 2. PLAYING PHASE -->
+      <!-- 2. PLAYING PHASE (Live Speed Race Feed & Host Controls) -->
       <div class="stp-card" id="playing-box" style="display:none;">
-        <div class="stp-section-label">⚡ {% trans "Your Answer" %}</div>
-        <form onsubmit="handleAnswerSubmit(event)" style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; margin-bottom:0.75rem;">
-          <input type="text" id="answer-input" maxlength="80" autocomplete="off"
-                 placeholder="{% trans 'Type an answer starting with the letter...' %}"
-                 style="flex:1; min-width:210px; padding:0.68rem 0.85rem; font-size:1.02rem; font-weight:600; border:2px solid #cbd5e1; border-radius:10px; box-sizing:border-box;">
-          <button type="submit" id="btn-submit-answer" class="stp-btn stp-btn-primary" style="padding:0.68rem 1.15rem; font-size:0.92rem;">
-            ⚡ {% trans "Lock In" %}
-          </button>
-        </form>
-
-        <!-- Current Player Submission Status & Big STOP Button -->
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; padding:0.7rem 0.85rem; border-radius:10px; background:#f8fafc; border:1px solid #e2e8f0; margin-bottom:0.9rem;">
-          <div id="my-answer-status" style="font-size:0.86rem; color:#475569;">
-            {% trans "Not locked in yet — type fast for the 1st Unique speed bonus!" %}
-          </div>
-          <button type="button" id="btn-call-stop" class="stp-stop-big-btn" onclick="wsSend({action:'call_stop'})" disabled>
-            🛑 {% trans "STOP!" %}
-          </button>
-        </div>
-
         <!-- Live Speed Race Feed (Zero-Spoiler) -->
         <div class="stp-section-label">🏎️ {% trans "Live Lock-In Order" %} (<span id="race-count-label">0/0</span>)</div>
         <div id="live-race-list" style="display:flex; flex-wrap:wrap; gap:0.45rem; margin-bottom:0.85rem;"></div>
@@ -615,7 +650,12 @@ function renderState() {
   if (hero) {
     if (phase === "playing" || phase === "reveal") {
       hero.style.display = "flex";
-      document.getElementById("hero-letter").textContent = s.current_letter || "?";
+      const curLetter = s.current_letter || "?";
+      const letEl = document.getElementById("hero-letter");
+      if (letEl) letEl.textContent = curLetter;
+      const revLetEl = document.getElementById("reveal-letter-char");
+      if (revLetEl) revLetEl.textContent = curLetter;
+
       document.getElementById("hero-round-label").textContent = `Round ${s.round_num} of ${maxRounds}`;
       const cat = s.current_category || {};
       document.getElementById("hero-category-title").textContent = cat.title || "Category";
@@ -624,6 +664,17 @@ function renderState() {
       else if (cat.source === "custom") srcPill.textContent = `✨ Custom (${cat.author_name || "Room"})`;
       else srcPill.textContent = "🎉 Web Party Prompt";
       document.getElementById("host-timer-controls").style.display = (isAdmin && phase === "playing") ? "flex" : "none";
+
+      const ansSec = document.getElementById("hero-answer-section");
+      if (ansSec) ansSec.style.display = phase === "playing" ? "block" : "none";
+      const revRow = document.getElementById("hero-reveal-letter-row");
+      if (revRow) revRow.style.display = phase === "reveal" ? "flex" : "none";
+      const heroSub = document.getElementById("hero-category-sub");
+      if (heroSub) {
+        heroSub.textContent = phase === "playing"
+          ? "{% trans 'Fastest unique answer starting with this letter earns up to 15 pts!' %}"
+          : "{% trans 'Round complete — review all answers and scores below.' %}";
+      }
     } else {
       hero.style.display = "none";
     }
@@ -675,7 +726,7 @@ function renderState() {
       const sec = ((mySub.elapsed_ms || 0) / 1000).toFixed(1);
       if (mySub.valid_letter) {
         const dbBadge = mySub.in_db ? ` <span class="stp-pill" style="background:#dcfce7;color:#166534;border-color:#86efac;">📖 In Word DB</span>` : "";
-        statusEl.innerHTML = `✅ <strong>Locked in:</strong> “${esc(mySub.raw_text)}” (${sec}s)${dbBadge} — <small>You can still update it before STOP!</small>`;
+        statusEl.innerHTML = `✅ <strong>Locked in:</strong> “${esc(mySub.raw_text)}” (${sec}s)${dbBadge} — <small style="color:#cbd5e1;">You can still update it before STOP!</small>`;
       } else {
         statusEl.innerHTML = `⚠️ <strong>“${esc(mySub.raw_text)}”</strong> does not start with <strong>${esc(s.current_letter)}</strong>! Type a word starting with ${esc(s.current_letter)}.`;
       }

@@ -4,6 +4,14 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v167] - 2026-11-17
+
+### Added & Changed
+- **Stop! Party Game UI Redesign (`templates/stop/game.html`)**:
+  - Integrated answer input form, submission status, and Big STOP! button directly inside the Question/Category Hero Card (`#hero-banner`), keeping the entire playing flow unified in one visible card.
+  - Formatted the Category / Question title as a dedicated full row spanning the complete card width without horizontal splits or letter tile cramping.
+  - Positioned the starting letter tile token (`stp-letter-tile`) immediately before the answer text input (`#answer-input`), creating a seamless `[ Letter ] [ Input Box ] [ ⚡ Lock In ]` answering flow with mobile-responsive flex layout.
+
 ## [v166] - 2026-11-16
 
 ### Added & Changed
