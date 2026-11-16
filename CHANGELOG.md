@@ -4,6 +4,21 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v164] - 2026-11-16
+
+### Added & Changed
+- **New Party Game: Stop! (Categories & Letter Speed Race) (`stop/`, `templates/stop/`, `templates/gamerooms/`)**:
+  - Implemented real-time multiplayer WebSocket party game based on classic Stop! / Scattergories.
+  - Powered by 21 Word-Database categories (9 primary Emojinary categories + 12 Wiktionary semantic topic clusters) with automatic starting letter dictionary verification and live Word DB badges.
+  - Added 54 curated web party prompts (Funny & Chaotic, Pop Culture, Food, Travel, and 18+ Spicy packs) plus interactive in-room custom categories deck.
+  - Speed + Uniqueness scoring engine (1st Unique = 15 pts, 2nd = 13 pts, 3rd = 11 pts, 4th+ = 10 pts; configurable clash rules: Shared 5 pts, First Steals 10 vs 0 pts, or Zero Clash).
+  - Zero-spoiler WebSocket state masking, big STOP! button, live lock-in order feed, and live Host validity/veto recalculations in the Reveal phase.
+- **Lupus / Werewolf Director & Voting Enhancements (`lupus/`, `templates/lupus/`)**:
+  - Watson Intro (`watson_intro`) now always shows and highlights the Detective on the GM screen and table view even when Hide Roles is active.
+  - Final Execution Vote (`final_vote` / `revote`) supports simultaneous hidden secret ballot with GM live voter readiness tracker and 1-tap `🔓 Lock & Reveal Who Voted for Who`, plus table-order nominee inquiry.
+- **Word Impostor Deductive Consensus Voting (`impostor/`)**:
+  - Added Consensus Point-and-Reveal voting (`accuse_suspect`, `resolve_oral_steal`), default `no_theme` mode, and laterally distanced word pairs.
+
 ## [v163] - 2026-11-16
 
 ### Added & Updated
