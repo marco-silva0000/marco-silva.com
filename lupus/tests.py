@@ -5343,4 +5343,3 @@ class TestLupusRecentChangesBugHuntScenarios:
         assert bob_view["me"]["gm_url"] is None
         alice_pub = next(p for p in bob_view["players"] if p["id"] == pids["Alice"])
         assert alice_pub["is_gm"] is True
-

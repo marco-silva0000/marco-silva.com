@@ -234,7 +234,9 @@ def add_player(
 
     existing_name = find_player_by_name(state, name)
     if existing_name:
-        is_host_reconnect = is_admin and (existing_name.get("is_admin") or existing_name.get("id") == state.get("creator_id"))
+        is_host_reconnect = is_admin and (
+            existing_name.get("is_admin") or existing_name.get("id") == state.get("creator_id")
+        )
         if is_host_reconnect or not existing_name.get("connected", False):
             existing_name["connected"] = True
             if channel_name:
@@ -340,7 +342,6 @@ def transfer_host(state: dict[str, Any], target_id: str) -> bool:
     append_event(state, "System", f"👑 Room Host privileges transferred to {target['name']}.")
     save_game(state["code"], state)
     return True
-
 
 
 def toggle_spectator(state: dict[str, Any], target_id: str) -> Optional[bool]:

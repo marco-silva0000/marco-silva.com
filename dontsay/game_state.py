@@ -19,7 +19,7 @@ from typing import Any, Optional
 
 import redis
 
-from gamerooms.language_support import get_game_language_support, normalize_language_code
+from gamerooms.language_support import normalize_language_code
 from gamerooms.prompt_engine import (
     PACK_CHOICES,
     clean_answer_key,
@@ -145,12 +145,14 @@ def create_game(code: str, title: str = "", password: str = "", language: str = 
 
 def append_event(state: dict[str, Any], author: str, text: str) -> None:
     events = state.setdefault("activity_log", [])
-    events.append({
-        "id": uuid.uuid4().hex[:8],
-        "author": author,
-        "text": text,
-        "timestamp": time.time(),
-    })
+    events.append(
+        {
+            "id": uuid.uuid4().hex[:8],
+            "author": author,
+            "text": text,
+            "timestamp": time.time(),
+        }
+    )
     if len(events) > 60:
         state["activity_log"] = events[-60:]
 
@@ -347,7 +349,7 @@ def setup_round(state: dict[str, Any]) -> bool:
     state["the_me_answer"] = None
 
     prompt_display = prompt.get("display_text") or prompt.get("text")
-    append_event(state, "System", f"🎯 Round {state['round_num']}: \"{prompt_display}\"")
+    append_event(state, "System", f'🎯 Round {state["round_num"]}: "{prompt_display}"')
 
     if game_mode == "the_me":
         # Select "The ME" player
@@ -534,23 +536,27 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
                         "reason": f"💥 Said the same word as The ME ({the_me_raw})!",
                     }
                 if other_pids:
-                    clash_groups.append({
-                        "clean_key": ckey,
-                        "player_ids": pids,
-                        "player_names": [players[p]["name"] for p in pids if p in players],
-                        "answer_text": the_me_raw,
-                        "is_valid": is_valid,
-                    })
+                    clash_groups.append(
+                        {
+                            "clean_key": ckey,
+                            "player_ids": pids,
+                            "player_names": [players[p]["name"] for p in pids if p in players],
+                            "answer_text": the_me_raw,
+                            "is_valid": is_valid,
+                        }
+                    )
             else:
                 is_clash = len(other_pids) > 1
                 if is_clash:
-                    clash_groups.append({
-                        "clean_key": ckey,
-                        "player_ids": other_pids,
-                        "player_names": [players[p]["name"] for p in other_pids if p in players],
-                        "answer_text": answers[other_pids[0]]["raw"],
-                        "is_valid": is_valid,
-                    })
+                    clash_groups.append(
+                        {
+                            "clean_key": ckey,
+                            "player_ids": other_pids,
+                            "player_names": [players[p]["name"] for p in other_pids if p in players],
+                            "answer_text": answers[other_pids[0]]["raw"],
+                            "is_valid": is_valid,
+                        }
+                    )
                 for pid in other_pids:
                     if not is_valid:
                         pts = 0
@@ -581,7 +587,7 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
             me_pts = len(me_victims) * 100
             if me_victims:
                 me_status = "the_me_mastermind"
-                reason = f"Trapped {len(me_victims)} player(s) with \"{the_me_raw}\"!"
+                reason = f'Trapped {len(me_victims)} player(s) with "{the_me_raw}"!'
             else:
                 me_status = "the_me_avoided"
                 me_pts = 50  # Consolation points for setting the word
@@ -611,13 +617,15 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
 
             if is_clash:
                 clash_names = [players[p]["name"] for p in pids if p in players]
-                clash_groups.append({
-                    "clean_key": ckey,
-                    "player_ids": pids,
-                    "player_names": clash_names,
-                    "answer_text": answers[pids[0]]["raw"],
-                    "is_valid": is_valid,
-                })
+                clash_groups.append(
+                    {
+                        "clean_key": ckey,
+                        "player_ids": pids,
+                        "player_names": clash_names,
+                        "answer_text": answers[pids[0]]["raw"],
+                        "is_valid": is_valid,
+                    }
+                )
 
             for pid in pids:
                 if not is_valid:
@@ -697,10 +705,17 @@ def toggle_answer_validity(state: dict[str, Any], player_id: str, is_valid: bool
 
     old_pts = p_res.get("points_awarded", 0)
     p_res["is_valid"] = is_valid
-    is_clash = p_res.get("status") == "clash" or len([
-        x for x in rr.get("player_results", {}).values()
-        if x.get("clean_key") == p_res.get("clean_key") and x["player_id"] != player_id
-    ]) > 0
+    is_clash = (
+        p_res.get("status") == "clash"
+        or len(
+            [
+                x
+                for x in rr.get("player_results", {}).values()
+                if x.get("clean_key") == p_res.get("clean_key") and x["player_id"] != player_id
+            ]
+        )
+        > 0
+    )
 
     settings = state.get("settings", DEFAULT_SETTINGS)
     collision_mode = settings.get("collision_mode", "classic")
@@ -722,7 +737,9 @@ def toggle_answer_validity(state: dict[str, Any], player_id: str, is_valid: bool
         player["score"] = max(0, player.get("score", 0) + diff)
         p_res["total_score"] = player["score"]
 
-    append_event(state, "Host", f"⚖️ Host marked {p_res['player_name']}'s answer as {'Valid ✅' if is_valid else 'Invalid ❌'}.")
+    append_event(
+        state, "Host", f"⚖️ Host marked {p_res['player_name']}'s answer as {'Valid ✅' if is_valid else 'Invalid ❌'}."
+    )
     save_game(state["code"], state)
     return True
 
@@ -897,18 +914,9 @@ def get_sanitized_player_view(state: dict[str, Any], viewer: Optional[str] = Non
     }
 
     # Available prompt packs metadata for host lobby
-    view["available_packs"] = [
-        {"id": pid, "label": label}
-        for pid, label in PACK_CHOICES
-    ]
-    view["available_game_modes"] = [
-        {"id": gid, "label": glbl}
-        for gid, glbl in GAME_MODES
-    ]
-    view["available_the_me_rotations"] = [
-        {"id": rid, "label": rlbl}
-        for rid, rlbl in THE_ME_ROTATIONS
-    ]
+    view["available_packs"] = [{"id": pid, "label": label} for pid, label in PACK_CHOICES]
+    view["available_game_modes"] = [{"id": gid, "label": glbl} for gid, glbl in GAME_MODES]
+    view["available_the_me_rotations"] = [{"id": rid, "label": rlbl} for rid, rlbl in THE_ME_ROTATIONS]
     view["collision_modes"] = list(COLLISION_MODES)
 
     return view

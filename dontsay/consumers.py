@@ -1,6 +1,5 @@
 """WebSocket consumer for real-time 'Don't Say the Same Thing as Me' gameplay."""
 
-import time
 from typing import Optional
 
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
@@ -11,7 +10,6 @@ from .game_state import (
     advance_next_round,
     append_event,
     evaluate_and_reveal_round,
-    find_player_by_token,
     get_game,
     get_sanitized_player_view,
     is_player_admin,

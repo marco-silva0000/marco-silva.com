@@ -342,7 +342,6 @@ def transfer_host(state: dict[str, Any], target_id: str) -> bool:
     return True
 
 
-
 def update_settings(state: dict[str, Any], raw: dict[str, Any]) -> dict[str, Any]:
     s = state.setdefault("settings", copy.deepcopy(DEFAULT_SETTINGS))
     if "max_rounds" in raw:

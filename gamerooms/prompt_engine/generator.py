@@ -40,8 +40,7 @@ def synthesize_prompt_from_frame(
     sub: SubjectSlot = _rng.choice(frame.subjects)
     # Filter compatible actions if any tag overlap exists
     comp_actions = [
-        a for a in frame.actions
-        if not a.compatible_tags or any(t in a.compatible_tags for t in sub.tags)
+        a for a in frame.actions if not a.compatible_tags or any(t in a.compatible_tags for t in sub.tags)
     ] or frame.actions
     act: ActionSlot = _rng.choice(comp_actions)
 

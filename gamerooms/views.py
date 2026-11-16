@@ -256,14 +256,24 @@ def room_join(request, code):
             query_suffix = f"?token={existing_token}" if existing_token else ""
 
             if room.game_type == "impostor":
-                return redirect(f"{reverse('gamerooms:impostor:game', kwargs={'code': room.code, 'name': name})}{query_suffix}")
+                return redirect(
+                    f"{reverse('gamerooms:impostor:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
+                )
             if room.game_type == "codenames":
-                return redirect(f"{reverse('gamerooms:codenames:game', kwargs={'code': room.code, 'name': name})}{query_suffix}")
+                return redirect(
+                    f"{reverse('gamerooms:codenames:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
+                )
             if room.game_type == "stop":
-                return redirect(f"{reverse('gamerooms:stop:game', kwargs={'code': room.code, 'name': name})}{query_suffix}")
+                return redirect(
+                    f"{reverse('gamerooms:stop:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
+                )
             if room.game_type == "dontsay":
-                return redirect(f"{reverse('gamerooms:dontsay:game', kwargs={'code': room.code, 'name': name})}{query_suffix}")
-            return redirect(f"{reverse('gamerooms:emojinary:game', kwargs={'code': room.code, 'name': name})}{query_suffix}")
+                return redirect(
+                    f"{reverse('gamerooms:dontsay:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
+                )
+            return redirect(
+                f"{reverse('gamerooms:emojinary:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
+            )
 
     return render(
         request,

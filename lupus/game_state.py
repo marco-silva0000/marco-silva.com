@@ -377,7 +377,6 @@ def transfer_gm(state: dict[str, Any], target_player_id: str) -> bool:
     return True
 
 
-
 DEMO_PLAYERS: list[tuple[str, str]] = [
     ("Lobisomem", "werewolf"),
     ("Lobo Alfa", "alpha_wolf"),
@@ -5554,7 +5553,9 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optio
             ),
             "is_gm": bool(state.get("gm_player_id") == player_id),
             "gm_token": state.get("gm_token") if state.get("gm_player_id") == player_id else None,
-            "gm_url": f"/games/lupus/{state['code']}/gm/?gm_token={state.get('gm_token')}" if state.get("gm_player_id") == player_id else None,
+            "gm_url": f"/games/lupus/{state['code']}/gm/?gm_token={state.get('gm_token')}"
+            if state.get("gm_player_id") == player_id
+            else None,
         },
         "players": public_players,
         "roles_in_play": roles_in_play,

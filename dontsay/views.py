@@ -13,7 +13,6 @@ from gamerooms.qr import build_public_url, generate_qr_data_uri
 
 from .game_state import (
     COLLISION_MODES,
-    DEFAULT_SETTINGS,
     add_player,
     find_player_by_name,
     find_player_by_token,
@@ -62,7 +61,12 @@ def game(request, code, name):
         save_game(code, state)
     else:
         by_name = find_player_by_name(state, name)
-        if by_name and (session_admin or not query_token or by_name.get("id") == state.get("creator_id") or state.get("phase") in ("lobby", "waiting", None)):
+        if by_name and (
+            session_admin
+            or not query_token
+            or by_name.get("id") == state.get("creator_id")
+            or state.get("phase") in ("lobby", "waiting", None)
+        ):
             player = by_name
             if session_admin:
                 player["is_admin"] = True
@@ -95,6 +99,7 @@ def game(request, code, name):
         admin_token = state.get("admin_token")
         if not admin_token:
             import uuid
+
             admin_token = uuid.uuid4().hex[:16]
             state["admin_token"] = admin_token
             save_game(code, state)

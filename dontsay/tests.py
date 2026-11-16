@@ -9,24 +9,18 @@ from django.urls import reverse
 from gamerooms.models import Room
 from gamerooms.prompt_engine import (
     ALL_FRAMES,
-    GOLD_PROMPTS,
     clean_answer_key,
     get_curated_deck,
-    get_next_prompt,
     synthesize_prompt_from_frame,
     validate_player_answer,
 )
 from website.asgi import application
 
 from .game_state import (
-    DEFAULT_SETTINGS,
     add_player,
     advance_next_round,
     create_game,
     evaluate_and_reveal_round,
-    find_player_by_name,
-    find_player_by_token,
-    get_game,
     get_sanitized_player_view,
     is_player_admin,
     reset_game,
@@ -45,6 +39,7 @@ def mock_redis_and_channels(monkeypatch, settings):
             "BACKEND": "channels.layers.InMemoryChannelLayer",
         }
     }
+
     # Fast test evaluator avoiding outbound Ollama timeouts during tests
     def _fast_eval(prompt_text, answer, sample_answers=None, obscurity_examples=None, use_ai=True):
         clean_ans = clean_answer_key(answer)
@@ -365,11 +360,14 @@ class TestTheMeAndOralModesAndHostTransfer:
         _, p3, _ = add_player(state, "Charlie")
 
         # Configure game_mode to 'the_me' with host as 'The ME'
-        update_settings(state, {
-            "game_mode": "the_me",
-            "the_me_rotation": "host_fixed",
-            "ai_validation": False,
-        })
+        update_settings(
+            state,
+            {
+                "game_mode": "the_me",
+                "the_me_rotation": "host_fixed",
+                "ai_validation": False,
+            },
+        )
         start_game(state)
 
         assert state["phase"] == "the_me_answering"
@@ -441,6 +439,7 @@ class TestTheMeAndOralModesAndHostTransfer:
         # Host adjudicates living room answers:
         # Player 2 is unique (+100), Player 3 gave an obscure gem (+150), Host clashed (0)
         from dontsay.game_state import adjudicate_oral_round
+
         verdicts = {
             p1["id"]: {"status": "clash", "answer": "Apple"},
             p2["id"]: {"status": "valid", "answer": "Banana"},
@@ -466,8 +465,8 @@ class TestTheMeAndOralModesAndHostTransfer:
         assert is_player_admin(state, p2) is False
 
         from dontsay.game_state import transfer_host
+
         assert transfer_host(state, p2["id"]) is True
         assert state["creator_id"] == p2["id"]
         assert state["creator"] == "NewHostCandidate"
         assert is_player_admin(state, p2) is True
-

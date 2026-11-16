@@ -23,7 +23,9 @@ def clean_answer_key(text: str) -> str:
     """Normalize answer text for collision detection (lowercase, accents, leading articles)."""
     norm = normalize_text(text)
     # Strip common leading articles in en/pt/es/it/fr
-    norm = re.sub(r"^(the|a|an|o|a|os|as|um|uma|el|la|los|las|un|una|il|lo|la|le|gli|i|un'|l'|le|la|les|un|une)\s+", "", norm).strip()
+    norm = re.sub(
+        r"^(the|a|an|o|a|os|as|um|uma|el|la|los|las|un|una|il|lo|la|le|gli|i|un'|l'|le|la|les|un|une)\s+", "", norm
+    ).strip()
     return norm
 
 
@@ -93,11 +95,11 @@ def validate_player_answer(
     # 2. Local AI verification if enabled
     if use_ai:
         ai_prompt = (
-            f"Question/Prompt: \"{prompt_text}\"\n"
-            f"Player Submitted Answer: \"{answer}\"\n"
+            f'Question/Prompt: "{prompt_text}"\n'
+            f'Player Submitted Answer: "{answer}"\n'
             f"Is this player answer a factually valid, truthful, and appropriate answer to the prompt? "
             f"Also decide if it is creative/obscure (not the most obvious answer).\n"
-            f"Reply ONLY in JSON with keys: \"valid\" (boolean), \"is_obscure\" (boolean), \"reason\" (short string)."
+            f'Reply ONLY in JSON with keys: "valid" (boolean), "is_obscure" (boolean), "reason" (short string).'
         )
         ai_resp = query_ollama(ai_prompt, timeout=timeout)
         if ai_resp:
@@ -126,12 +128,12 @@ def validate_player_answer(
 def evaluate_prompt_quality(prompt_text: str, timeout: float = 3.0) -> dict[str, Any]:
     """Evaluate synthetic prompt clarity, estimated cardinality, and sample answers via LLM."""
     query = (
-        f"Analyze this party game prompt: \"{prompt_text}\"\n"
+        f'Analyze this party game prompt: "{prompt_text}"\n'
         f"1. Is it clear and grammatically sound?\n"
         f"2. How many valid real-world answers exist? (cardinality)\n"
         f"3. Give 3-5 example answers.\n"
         f"4. Rate party fun from 1 to 10.\n"
-        f"Respond in JSON with keys: \"clear\" (bool), \"cardinality\" (int), \"examples\" (list of strings), \"fun_rating\" (int)."
+        f'Respond in JSON with keys: "clear" (bool), "cardinality" (int), "examples" (list of strings), "fun_rating" (int).'
     )
     raw = query_ollama(query, timeout=timeout)
     if raw:
