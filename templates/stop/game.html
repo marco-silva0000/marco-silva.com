@@ -1,0 +1,789 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}🛑 {% trans "Stop!" %} — {{ room.title }}{% endblock %}
+{% block extra_css %}
+:root {
+  --stp-bg: #f8fafc;
+  --stp-card: #ffffff;
+  --stp-border: #e2e8f0;
+  --stp-text: #0f172a;
+  --stp-muted: #64748b;
+  --stp-primary: #2563eb;
+  --stp-danger: #dc2626;
+  --stp-danger-soft: #fef2f2;
+  --stp-amber: #d97706;
+  --stp-amber-soft: #fffbeb;
+  --stp-green: #16a34a;
+  --stp-green-soft: #f0fdf4;
+  --stp-purple: #7c3aed;
+  --stp-purple-soft: #f5f3ff;
+}
+.stp-shell { max-width: 1080px; margin: 0 auto; padding-bottom: 2.5rem; color: var(--stp-text); }
+.stp-topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;
+  background: var(--stp-card); border: 1px solid var(--stp-border); border-radius: 12px;
+  padding: 0.75rem 1rem; box-shadow: 0 1px 3px rgba(15,23,42,0.04); margin-bottom: 0.85rem;
+}
+.stp-title-group { display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; }
+.stp-title { font-size: 1.15rem; font-weight: 700; margin: 0; color: var(--stp-text); }
+.stp-pill {
+  font-size: 0.75rem; font-weight: 600; padding: 0.18rem 0.55rem; border-radius: 999px;
+  background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;
+}
+.stp-pill-mono { font-family: ui-monospace, SFMono-Regular, monospace; font-weight: 700; border-radius: 6px; }
+.stp-actions { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; }
+.stp-btn {
+  display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; font-weight: 600;
+  padding: 0.42rem 0.78rem; border-radius: 8px; border: 1px solid var(--stp-border);
+  background: #fff; color: #1e293b; cursor: pointer; text-decoration: none; transition: all 0.15s;
+}
+.stp-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
+.stp-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.stp-btn-primary { background: var(--stp-primary); color: #fff; border-color: var(--stp-primary); }
+.stp-btn-primary:hover { background: #1d4ed8; }
+.stp-btn-danger { background: var(--stp-danger); color: #fff; border-color: var(--stp-danger); }
+.stp-btn-danger:hover { background: #b91c1c; }
+.stp-btn-green { background: var(--stp-green); color: #fff; border-color: var(--stp-green); }
+.stp-btn-green:hover { background: #15803d; }
+.stp-btn-amber { background: var(--stp-amber); color: #fff; border-color: var(--stp-amber); }
+.stp-btn-amber:hover { background: #b45309; }
+
+.stp-grid { display: grid; grid-template-columns: 1fr 310px; gap: 1rem; align-items: start; }
+@media (max-width: 860px) { .stp-grid { grid-template-columns: 1fr; } }
+
+.stp-card {
+  background: var(--stp-card); border: 1px solid var(--stp-border); border-radius: 12px;
+  padding: 1rem; box-shadow: 0 1px 3px rgba(15,23,42,0.04); margin-bottom: 0.9rem;
+}
+.stp-section-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; color: var(--stp-muted); margin-bottom: 0.5rem; }
+
+/* Hero Category + Letter Stage */
+.stp-hero-banner {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #f8fafc;
+  border-radius: 16px; padding: 1.15rem 1.25rem; margin-bottom: 0.9rem;
+  border: 1px solid #334155; box-shadow: 0 10px 24px -8px rgba(15,23,42,0.4);
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.stp-letter-tile {
+  width: 78px; height: 78px; border-radius: 16px;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border: 3px solid #fca5a5; color: #ffffff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 6px 16px rgba(220,38,38,0.4); flex-shrink: 0;
+}
+.stp-letter-char { font-size: 2.55rem; font-weight: 900; line-height: 1; font-family: ui-monospace, SFMono-Regular, monospace; }
+.stp-letter-sub { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; opacity: 0.9; margin-top: 2px; }
+
+.stp-stop-big-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.72rem 1.35rem; font-size: 1rem; font-weight: 800; letter-spacing: 0.03em;
+  border-radius: 999px; border: 2px solid #fca5a5;
+  background: linear-gradient(135deg, #dc2626, #991b1b); color: #ffffff;
+  cursor: pointer; box-shadow: 0 6px 16px rgba(220,38,38,0.35); transition: transform 0.12s, box-shadow 0.12s;
+}
+.stp-stop-big-btn:hover:not(:disabled) { transform: translateY(-1px) scale(1.02); box-shadow: 0 8px 20px rgba(220,38,38,0.48); }
+.stp-stop-big-btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+
+.stp-result-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.65rem; flex-wrap: wrap;
+  padding: 0.68rem 0.85rem; border-radius: 10px; border: 1px solid #e2e8f0; background: #f8fafc; margin-bottom: 0.48rem;
+}
+.stp-result-row.unique-top { background: #f0fdf4; border-color: #86efac; }
+.stp-result-row.clash { background: #fffbeb; border-color: #fde68a; }
+.stp-result-row.invalid { background: #fef2f2; border-color: #fca5a5; opacity: 0.85; }
+
+.stp-player-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.45rem;
+  padding: 0.42rem 0.55rem; border-radius: 8px; font-size: 0.83rem; margin-bottom: 0.3rem;
+}
+.stp-player-row.submitted { background: #f0fdf4; border: 1px solid #bbf7d0; }
+
+.stp-chat-box { max-height: 220px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.55rem; background: #f8fafc; font-size: 0.8rem; margin-bottom: 0.5rem; }
+.stp-chat-item { margin-bottom: 0.32rem; line-height: 1.38; }
+
+.stp-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(15,23,42,0.65); display: none;
+  justify-content: center; align-items: center; z-index: 200; padding: 1rem;
+}
+.stp-modal-backdrop.show { display: flex; }
+.stp-modal {
+  background: #fff; border-radius: 14px; max-width: 480px; width: 100%; padding: 1.25rem;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto;
+}
+{% endblock %}
+
+{% block content %}
+<div class="stp-shell">
+  <!-- Top Header Bar -->
+  <div class="stp-topbar">
+    <div class="stp-title-group">
+      <a href="{% url 'gamerooms:room-list' %}" style="text-decoration:none;font-size:0.85rem;color:var(--stp-muted);font-weight:600;">&larr; {% trans "Rooms" %}</a>
+      <h1 class="stp-title">🛑 {{ room.title }}</h1>
+      <span class="stp-pill stp-pill-mono">{{ room.code }}</span>
+      <span class="stp-pill" id="phase-badge">Lobby</span>
+      {% if language_support %}
+      <span class="stp-pill" title="{{ language_support.detail }}" style="background:{% if language_support.content_supported %}#dcfce7;color:#166534;border-color:#86efac{% else %}#fef3c7;color:#92400e;border-color:#fde68a{% endif %};">
+        {{ language_support.language_display }} · {% if language_support.content_supported %}{% trans "Content + UI" %}{% else %}{% trans "UI Only" %}{% endif %}
+      </span>
+      {% endif %}
+    </div>
+    <div class="stp-actions">
+      <button type="button" class="stp-btn" onclick="openModal('modal-custom-cat')">✨ {% trans "Custom Categories" %} (<span id="custom-cat-count">0</span>)</button>
+      <button type="button" class="stp-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Invite QR" %}</button>
+      <button type="button" class="stp-btn" onclick="openModal('modal-profile')">🪪 {{ player_name }}</button>
+    </div>
+  </div>
+
+  <!-- Error / Notice Toast Banner -->
+  <div id="error-banner" style="display:none; background:#fef2f2; border:1px solid #fca5a5; color:#991b1b; padding:0.6rem 0.85rem; border-radius:8px; font-size:0.84rem; font-weight:600; margin-bottom:0.85rem;"></div>
+
+  <div class="stp-grid">
+    <!-- Main Column -->
+    <div>
+      <!-- Hero Category & Letter Banner (Playing / Reveal) -->
+      <div class="stp-hero-banner" id="hero-banner" style="display:none;">
+        <div style="display:flex; align-items:center; gap:1rem; flex:1; min-width:240px;">
+          <div class="stp-letter-tile">
+            <span class="stp-letter-sub">{% trans "Letter" %}</span>
+            <span class="stp-letter-char" id="hero-letter">A</span>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap; margin-bottom:0.25rem;">
+              <span id="hero-round-label" style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#93c5fd;">Round 1</span>
+              <span id="hero-source-pill" style="font-size:0.7rem; font-weight:700; padding:0.12rem 0.5rem; border-radius:999px; background:rgba(255,255,255,0.14); color:#e2e8f0;">📚 Word DB</span>
+            </div>
+            <div id="hero-category-title" style="font-size:1.35rem; font-weight:800; line-height:1.25; color:#ffffff; word-break:break-word;">Category</div>
+            <div style="font-size:0.78rem; color:#cbd5e1; margin-top:0.25rem;">
+              {% trans "Fastest unique answer starting with this letter earns up to 15 pts!" %}
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
+          <div id="timer-pill" style="display:none; font-family:ui-monospace,monospace; font-size:1.05rem; font-weight:800; padding:0.3rem 0.75rem; border-radius:999px; background:#1e293b; border:1.5px solid #475569; color:#f8fafc;">⏱️ 30s</div>
+          <div id="host-timer-controls" style="display:none; gap:0.3rem;">
+            <button type="button" class="stp-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'timer_control',command:'pause'})">⏸️</button>
+            <button type="button" class="stp-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'timer_control',command:'resume'})">▶️</button>
+            <button type="button" class="stp-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'timer_control',command:'add',seconds:15})">+15s</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1. LOBBY PHASE -->
+      <div class="stp-card" id="lobby-box">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+          <div>
+            <h2 style="font-size:1.05rem; font-weight:700; margin:0;">🛑 {% trans "Stop! — Category & Letter Speed Race" %}</h2>
+            <p style="font-size:0.82rem; color:var(--stp-muted); margin:0.2rem 0 0 0;">
+              {% trans "Every player gets the same Category and Starting Letter. Be the fastest to lock in a UNIQUE answer!" %}
+            </p>
+          </div>
+        </div>
+
+        <!-- Scoring Quick Guide -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:0.55rem; margin-bottom:0.95rem;">
+          <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:9px; padding:0.55rem 0.7rem;">
+            <div style="font-size:0.76rem; font-weight:800; color:#166534;">🏆 {% trans "1st Unique Answer" %}</div>
+            <div style="font-size:0.74rem; color:#15803d;"><strong>15 pts</strong> (10 + 5 speed bonus)</div>
+          </div>
+          <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:9px; padding:0.55rem 0.7rem;">
+            <div style="font-size:0.76rem; font-weight:800; color:#1e40af;">🥈 {% trans "2nd / 3rd Unique" %}</div>
+            <div style="font-size:0.74rem; color:#1d4ed8;"><strong>13 pts</strong> / <strong>11 pts</strong> (10 pts for 4th+)</div>
+          </div>
+          <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:9px; padding:0.55rem 0.7rem;">
+            <div style="font-size:0.76rem; font-weight:800; color:#92400e;">💥 {% trans "Duplicate Clash" %}</div>
+            <div style="font-size:0.74rem; color:#b45309;">{% trans "5 pts shared, First Steals, or 0 pts" %}</div>
+          </div>
+        </div>
+
+        <div id="lobby-settings-form" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:0.75rem; background:#f8fafc; padding:0.85rem; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:0.9rem;">
+          <div>
+            <label style="font-size:0.76rem; font-weight:700; color:#334155; display:block; margin-bottom:0.2rem;">{% trans "Category Source Pack" %}</label>
+            <select id="set-category-pack" onchange="pushSettings()" style="width:100%; padding:0.42rem; border-radius:7px; border:1px solid #cbd5e1; font-size:0.82rem;">
+              <option value="mix">🎲 {% trans "Mix (Word DB + Fun Web Prompts)" %}</option>
+              <option value="database">📚 {% trans "Word Database Categories ({{ db_categories_count }})" %}</option>
+              <option value="party">🎉 {% trans "Fun & Chaotic Web Prompts" %}</option>
+              <option value="spicy">🌶️ {% trans "Spicy / Adult Party Prompts (18+)" %}</option>
+              <option value="custom">✨ {% trans "Prioritize Custom Room Categories" %}</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.76rem; font-weight:700; color:#334155; display:block; margin-bottom:0.2rem;">{% trans "STOP! Trigger Rule" %}</label>
+            <select id="set-stop-mode" onchange="pushSettings()" style="width:100%; padding:0.42rem; border-radius:7px; border:1px solid #cbd5e1; font-size:0.82rem;">
+              <option value="countdown_on_first">⏱️ {% trans "Fast Countdown on 1st Answer" %}</option>
+              <option value="instant_stop">🛑 {% trans "Instant Cutthroat STOP! Button" %}</option>
+              <option value="wait_all_or_timer">⏳ {% trans "Wait for All Players / Timer" %}</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.76rem; font-weight:700; color:#334155; display:block; margin-bottom:0.2rem;">{% trans "Duplicate Answer Rule" %}</label>
+            <select id="set-clash-rule" onchange="pushSettings()" style="width:100%; padding:0.42rem; border-radius:7px; border:1px solid #cbd5e1; font-size:0.82rem;">
+              <option value="shared">🤝 {% trans "Shared Clash (5 pts each)" %}</option>
+              <option value="first_steals">⚡ {% trans "First Submitter Steals (10 vs 0 pts)" %}</option>
+              <option value="zero_clash">💥 {% trans "Scattergories Cancel Out (0 pts)" %}</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <div style="flex:1;">
+              <label style="font-size:0.76rem; font-weight:700; color:#334155; display:block; margin-bottom:0.2rem;">{% trans "Rounds" %}</label>
+              <input type="number" id="set-max-rounds" min="1" max="30" value="8" onchange="pushSettings()" style="width:100%; padding:0.4rem; border-radius:7px; border:1px solid #cbd5e1; font-size:0.82rem; box-sizing:border-box;">
+            </div>
+            <div style="flex:1;">
+              <label style="font-size:0.76rem; font-weight:700; color:#334155; display:block; margin-bottom:0.2rem;">{% trans "Timer (0=off)" %}</label>
+              <input type="number" id="set-round-timer" min="0" max="180" step="5" value="30" onchange="pushSettings()" style="width:100%; padding:0.4rem; border-radius:7px; border:1px solid #cbd5e1; font-size:0.82rem; box-sizing:border-box;">
+            </div>
+            <div style="flex:1;">
+              <label style="font-size:0.76rem; font-weight:700; color:#334155; display:block; margin-bottom:0.2rem;">{% trans "Rush (s)" %}</label>
+              <input type="number" id="set-stop-countdown" min="3" max="30" value="10" onchange="pushSettings()" style="width:100%; padding:0.4rem; border-radius:7px; border:1px solid #cbd5e1; font-size:0.82rem; box-sizing:border-box;">
+            </div>
+          </div>
+          <div style="grid-column: 1 / -1; display:flex; gap:1.1rem; flex-wrap:wrap; align-items:center; padding-top:0.2rem;">
+            <label style="font-size:0.8rem; font-weight:600; color:#334155; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+              <input type="checkbox" id="set-easy-letters" checked onchange="pushSettings()">
+              🔤 {% trans "Easy Letters Only (Skip Q, X, Z)" %}
+            </label>
+            <label style="font-size:0.8rem; font-weight:600; color:#334155; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+              <input type="checkbox" id="set-allow-custom" checked onchange="pushSettings()">
+              ✨ {% trans "Allow Players to Add Custom Categories" %}
+            </label>
+          </div>
+        </div>
+
+        <div id="lobby-host-actions" style="display:flex; align-items:center; justify-content:space-between; gap:0.65rem; flex-wrap:wrap;">
+          <div style="display:flex; gap:0.45rem; flex-wrap:wrap; align-items:center; flex:1;">
+            <input type="text" id="lobby-forced-cat" placeholder="{% trans 'Optional: type custom 1st category...' %}" style="flex:1; min-width:190px; padding:0.45rem 0.65rem; font-size:0.82rem; border:1px solid #cbd5e1; border-radius:8px;">
+            <input type="text" id="lobby-forced-letter" maxlength="1" placeholder="A-Z" style="width:54px; text-align:center; text-transform:uppercase; padding:0.45rem; font-size:0.82rem; border:1px solid #cbd5e1; border-radius:8px;">
+          </div>
+          <button type="button" id="btn-start-game" class="stp-btn stp-btn-primary" style="padding:0.55rem 1.2rem; font-size:0.9rem;" onclick="startNextRound('lobby')">
+            🚦 {% trans "Start Stop! Match" %} &rarr;
+          </button>
+        </div>
+        <div id="lobby-wait-note" style="display:none; font-size:0.83rem; color:var(--stp-muted); text-align:center; padding:0.4rem;">
+          ⏳ {% trans "Waiting for the Host to start the match... You can add custom categories in the meantime!" %}
+        </div>
+      </div>
+
+      <!-- 2. PLAYING PHASE -->
+      <div class="stp-card" id="playing-box" style="display:none;">
+        <div class="stp-section-label">⚡ {% trans "Your Answer" %}</div>
+        <form onsubmit="handleAnswerSubmit(event)" style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; margin-bottom:0.75rem;">
+          <input type="text" id="answer-input" maxlength="80" autocomplete="off"
+                 placeholder="{% trans 'Type an answer starting with the letter...' %}"
+                 style="flex:1; min-width:210px; padding:0.68rem 0.85rem; font-size:1.02rem; font-weight:600; border:2px solid #cbd5e1; border-radius:10px; box-sizing:border-box;">
+          <button type="submit" id="btn-submit-answer" class="stp-btn stp-btn-primary" style="padding:0.68rem 1.15rem; font-size:0.92rem;">
+            ⚡ {% trans "Lock In" %}
+          </button>
+        </form>
+
+        <!-- Current Player Submission Status & Big STOP Button -->
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; padding:0.7rem 0.85rem; border-radius:10px; background:#f8fafc; border:1px solid #e2e8f0; margin-bottom:0.9rem;">
+          <div id="my-answer-status" style="font-size:0.86rem; color:#475569;">
+            {% trans "Not locked in yet — type fast for the 1st Unique speed bonus!" %}
+          </div>
+          <button type="button" id="btn-call-stop" class="stp-stop-big-btn" onclick="wsSend({action:'call_stop'})" disabled>
+            🛑 {% trans "STOP!" %}
+          </button>
+        </div>
+
+        <!-- Live Speed Race Feed (Zero-Spoiler) -->
+        <div class="stp-section-label">🏎️ {% trans "Live Lock-In Order" %} (<span id="race-count-label">0/0</span>)</div>
+        <div id="live-race-list" style="display:flex; flex-wrap:wrap; gap:0.45rem; margin-bottom:0.85rem;"></div>
+
+        <!-- Host Round Controls -->
+        <div id="playing-host-bar" style="display:none; border-top:1px solid #e2e8f0; padding-top:0.75rem; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <button type="button" class="stp-btn" onclick="wsSend({action:'redraw_round'})">🔄 {% trans "Redraw Category & Letter" %}</button>
+            <button type="button" class="stp-btn stp-btn-amber" onclick="wsSend({action:'call_stop', reason:'Host revealed answers'})">🛑 {% trans "Force STOP & Reveal" %}</button>
+          </div>
+          <button type="button" class="stp-btn stp-btn-danger" onclick="confirmEndMatch()">🏁 {% trans "End Match" %}</button>
+        </div>
+      </div>
+
+      <!-- 3. REVEAL & SCORING PHASE -->
+      <div class="stp-card" id="reveal-box" style="display:none;">
+        <div id="reveal-summary-banner" style="padding:0.75rem 0.9rem; border-radius:10px; background:#eff6ff; border:1px solid #bfdbfe; color:#1e3a8a; font-weight:700; font-size:0.92rem; margin-bottom:0.85rem;"></div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.45rem;">
+          <div class="stp-section-label" style="margin:0;">📊 {% trans "Round Answers (Sorted by Speed)" %}</div>
+          <span style="font-size:0.74rem; color:var(--stp-muted);">{% trans "Disagree with an answer? Toggle Valid/Veto to recalculate points live!" %}</span>
+        </div>
+
+        <div id="reveal-results-list" style="margin-bottom:0.9rem;"></div>
+
+        <!-- Word Database Dictionary Examples -->
+        <div id="sample-db-box" style="display:none; padding:0.7rem 0.85rem; border-radius:10px; background:#f8fafc; border:1px dashed #cbd5e1; margin-bottom:0.9rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:#334155; margin-bottom:0.35rem;">
+            📚 {% trans "Dictionary examples in our Word Database for this Category & Letter:" %}
+          </div>
+          <div id="sample-db-chips" style="display:flex; flex-wrap:wrap; gap:0.35rem;"></div>
+        </div>
+
+        <!-- Host Next Round Controls -->
+        <div id="reveal-host-bar" style="display:none; border-top:1px solid #e2e8f0; padding-top:0.8rem; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.55rem;">
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap; align-items:center; flex:1;">
+            <input type="text" id="reveal-forced-cat" placeholder="{% trans 'Optional next category...' %}" style="flex:1; min-width:170px; padding:0.42rem 0.6rem; font-size:0.8rem; border:1px solid #cbd5e1; border-radius:7px;">
+            <input type="text" id="reveal-forced-letter" maxlength="1" placeholder="A-Z" style="width:48px; text-align:center; text-transform:uppercase; padding:0.42rem; font-size:0.8rem; border:1px solid #cbd5e1; border-radius:7px;">
+          </div>
+          <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+            <button type="button" id="btn-next-round" class="stp-btn stp-btn-primary" onclick="startNextRound('reveal')">➡️ {% trans "Next Round" %}</button>
+            <button type="button" class="stp-btn stp-btn-danger" onclick="confirmEndMatch()">🏁 {% trans "End Match" %}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. GAMEOVER PHASE -->
+      <div class="stp-card" id="gameover-box" style="display:none; text-align:center; padding:1.4rem 1rem;">
+        <div style="font-size:2.4rem; margin-bottom:0.2rem;">🏆</div>
+        <h2 style="font-size:1.3rem; font-weight:800; margin:0 0 0.3rem 0;">{% trans "Final Stop! Standings" %}</h2>
+        <p id="gameover-winner-line" style="font-size:0.95rem; color:#475569; margin:0 0 1rem 0;"></p>
+        <div id="gameover-podium" style="max-width:460px; margin:0 auto 1.1rem auto; text-align:left;"></div>
+        <div id="gameover-host-bar" style="display:none; justify-content:center; gap:0.5rem;">
+          <button type="button" class="stp-btn stp-btn-primary" onclick="wsSend({action:'play_again'})">🔄 {% trans "Play Again (Back to Lobby)" %}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Sidebar: Scoreboard & Chat -->
+    <div>
+      <div class="stp-card">
+        <div class="stp-section-label">🏅 {% trans "Players & Scoreboard" %}</div>
+        <div id="players-list"></div>
+      </div>
+
+      <div class="stp-card">
+        <div class="stp-section-label">💬 {% trans "Room Feed & Chat" %}</div>
+        <div class="stp-chat-box" id="chat-box"></div>
+        <form onsubmit="sendChat(event)" style="display:flex; gap:0.4rem;">
+          <input type="text" id="chat-input" maxlength="200" placeholder="{% trans 'Message room...' %}"
+                 style="flex:1; padding:0.42rem 0.6rem; font-size:0.8rem; border:1px solid #cbd5e1; border-radius:7px;">
+          <button type="submit" class="stp-btn stp-btn-primary">{% trans "Send" %}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Custom Categories Deck -->
+<div class="stp-modal-backdrop" id="modal-custom-cat" onclick="if(event.target===this)closeModal('modal-custom-cat')">
+  <div class="stp-modal">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 style="margin:0; font-size:1.05rem;">✨ {% trans "Custom Categories Deck" %}</h3>
+      <button type="button" class="stp-btn" onclick="closeModal('modal-custom-cat')">&times;</button>
+    </div>
+    <p style="font-size:0.8rem; color:var(--stp-muted); margin:0 0 0.75rem 0;">
+      {% trans "Add your own inside jokes, local topics, or creative prompts to mix into the room's category pool!" %}
+    </p>
+    <form onsubmit="submitCustomCategory(event)" style="display:flex; gap:0.45rem; margin-bottom:0.85rem;">
+      <input type="text" id="custom-cat-input" maxlength="90" required
+             placeholder="{% trans 'e.g. Excuses for not replying to texts' %}"
+             style="flex:1; padding:0.48rem 0.65rem; font-size:0.84rem; border:1px solid #cbd5e1; border-radius:8px;">
+      <button type="submit" class="stp-btn stp-btn-primary">+ {% trans "Add" %}</button>
+    </form>
+    <div id="custom-cat-list" style="max-height:240px; overflow-y:auto;"></div>
+  </div>
+</div>
+
+<!-- Modal: Invite QR -->
+<div class="stp-modal-backdrop" id="modal-invite-qr" onclick="if(event.target===this)closeModal('modal-invite-qr')">
+  <div class="stp-modal" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 style="margin:0; font-size:1.05rem;">📲 {% trans "Invite Players" %}</h3>
+      <button type="button" class="stp-btn" onclick="closeModal('modal-invite-qr')">&times;</button>
+    </div>
+    <img src="{{ join_qr }}" alt="Join QR" style="width:210px; height:210px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:0.65rem;">
+    <div style="font-size:0.8rem; word-break:break-all; background:#f8fafc; padding:0.5rem; border-radius:8px; border:1px solid #e2e8f0;">
+      <a href="{{ join_url }}" target="_blank">{{ join_url }}</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Player Profile & Reconnect -->
+<div class="stp-modal-backdrop" id="modal-profile" onclick="if(event.target===this)closeModal('modal-profile')">
+  <div class="stp-modal" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 style="margin:0; font-size:1.05rem;">🪪 {{ player_name }}</h3>
+      <button type="button" class="stp-btn" onclick="closeModal('modal-profile')">&times;</button>
+    </div>
+    <p style="font-size:0.78rem; color:var(--stp-muted); margin-bottom:0.55rem;">{% trans "Scan on another device to move your session seamlessly:" %}</p>
+    <img src="{{ player_qr }}" alt="Reconnect QR" style="width:190px; height:190px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:0.65rem;">
+    <div style="margin-top:0.5rem;">
+      <button type="button" class="stp-btn" onclick="wsSend({action:'toggle_spectator'}); closeModal('modal-profile');">
+        👀 {% trans "Toggle Spectator Mode" %}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ROOM_CODE = "{{ room.code|escapejs }}";
+const PLAYER_NAME = "{{ player_name|escapejs }}";
+const PLAYER_ID = "{{ player_id|escapejs }}";
+const PLAYER_TOKEN = "{{ player_token|escapejs }}";
+const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
+
+let gameState = {{ initial_state_json|safe }};
+let socket = null;
+let timerInterval = null;
+let lastRenderedRound = null;
+let lastPhase = null;
+
+function esc(str) {
+  const d = document.createElement("div");
+  d.textContent = str == null ? "" : String(str);
+  return d.innerHTML;
+}
+
+function openModal(id) { document.getElementById(id)?.classList.add("show"); }
+function closeModal(id) { document.getElementById(id)?.classList.remove("show"); }
+
+function showError(msg) {
+  const b = document.getElementById("error-banner");
+  if (!b) return;
+  b.textContent = "⚠️ " + msg;
+  b.style.display = "block";
+  clearTimeout(window._errTimer);
+  window._errTimer = setTimeout(() => { b.style.display = "none"; }, 4500);
+}
+
+function connectWS() {
+  const proto = window.location.protocol === "https:" ? "wss" : "ws";
+  socket = new WebSocket(`${proto}://${window.location.host}/ws/stop/${ROOM_CODE}/`);
+  socket.onopen = () => {
+    wsSend({ action: "join", name: PLAYER_NAME, token: PLAYER_TOKEN, admin_token: ADMIN_TOKEN });
+  };
+  socket.onmessage = (e) => {
+    try {
+      const data = JSON.parse(e.data);
+      if (data.type === "error") {
+        showError(data.msg || "Action failed");
+        return;
+      }
+      if (data.type === "state_sync") {
+        gameState = data;
+        renderState();
+      }
+    } catch (err) { console.error(err); }
+  };
+  socket.onclose = () => { setTimeout(connectWS, 2000); };
+}
+
+function wsSend(payload) {
+  if (socket && socket.readyState === WebSocket.OPEN) {
+    socket.send(JSON.stringify(payload));
+  }
+}
+
+function pushSettings() {
+  if (!gameState.me || !gameState.me.is_admin) return;
+  wsSend({
+    action: "update_settings",
+    settings: {
+      category_pack: document.getElementById("set-category-pack").value,
+      stop_mode: document.getElementById("set-stop-mode").value,
+      clash_rule: document.getElementById("set-clash-rule").value,
+      max_rounds: parseInt(document.getElementById("set-max-rounds").value || "8", 10),
+      round_timer: parseInt(document.getElementById("set-round-timer").value || "30", 10),
+      stop_countdown: parseInt(document.getElementById("set-stop-countdown").value || "10", 10),
+      easy_letters_only: document.getElementById("set-easy-letters").checked,
+      allow_custom_categories: document.getElementById("set-allow-custom").checked,
+    }
+  });
+}
+
+function startNextRound(fromPhase) {
+  const catInput = document.getElementById(fromPhase === "lobby" ? "lobby-forced-cat" : "reveal-forced-cat");
+  const letInput = document.getElementById(fromPhase === "lobby" ? "lobby-forced-letter" : "reveal-forced-letter");
+  const forced_category = catInput ? catInput.value.trim() : "";
+  const forced_letter = letInput ? letInput.value.trim().toUpperCase() : "";
+  if (catInput) catInput.value = "";
+  if (letInput) letInput.value = "";
+  wsSend({
+    action: fromPhase === "lobby" ? "start_game" : "next_round",
+    forced_category,
+    forced_letter,
+  });
+}
+
+function handleAnswerSubmit(e) {
+  e.preventDefault();
+  const inp = document.getElementById("answer-input");
+  if (!inp || !inp.value.trim()) return;
+  wsSend({ action: "submit_answer", answer: inp.value.trim() });
+}
+
+function submitCustomCategory(e) {
+  e.preventDefault();
+  const inp = document.getElementById("custom-cat-input");
+  if (!inp || !inp.value.trim()) return;
+  wsSend({ action: "add_custom_category", title: inp.value.trim() });
+  inp.value = "";
+}
+
+function sendChat(e) {
+  e.preventDefault();
+  const inp = document.getElementById("chat-input");
+  if (!inp || !inp.value.trim()) return;
+  wsSend({ action: "chat", msg: inp.value.trim() });
+  inp.value = "";
+}
+
+function confirmEndMatch() {
+  if (confirm("End the current Stop! match and show final standings?")) {
+    wsSend({ action: "end_game" });
+  }
+}
+
+function renderTimer() {
+  const pill = document.getElementById("timer-pill");
+  if (!pill) return;
+  const t = gameState.timer || {};
+  if (gameState.phase !== "playing" || (!t.ends_at && t.paused_remaining == null)) {
+    pill.style.display = "none";
+    return;
+  }
+  pill.style.display = "inline-block";
+  if (t.paused_remaining != null) {
+    pill.textContent = `⏸️ ${t.paused_remaining}s`;
+    pill.style.borderColor = "#f59e0b";
+    return;
+  }
+  const rem = Math.max(0, Math.ceil(t.ends_at - Date.now() / 1000));
+  pill.textContent = `⏱️ ${rem}s`;
+  pill.style.borderColor = rem <= 10 ? "#ef4444" : "#475569";
+  pill.style.background = rem <= 10 ? "#7f1d1d" : "#1e293b";
+  if (rem <= 0 && gameState.phase === "playing") {
+    wsSend({ action: "round_timeout" });
+  }
+}
+
+function renderState() {
+  const s = gameState;
+  const isAdmin = !!(s.me && s.me.is_admin);
+  const phase = s.phase || "lobby";
+  const maxRounds = (s.settings && s.settings.max_rounds) || 8;
+
+  // Phase badge
+  const badgeEl = document.getElementById("phase-badge");
+  if (badgeEl) {
+    if (phase === "lobby") badgeEl.textContent = "⏳ Lobby";
+    else if (phase === "playing") badgeEl.textContent = `🚦 Round ${s.round_num}/${maxRounds}`;
+    else if (phase === "reveal") badgeEl.textContent = `🛑 Reveal ${s.round_num}/${maxRounds}`;
+    else badgeEl.textContent = "🏆 Finished";
+  }
+
+  // Custom categories count & modal list
+  const customCats = s.custom_categories || [];
+  const ccCountEl = document.getElementById("custom-cat-count");
+  if (ccCountEl) ccCountEl.textContent = customCats.length;
+  const ccListEl = document.getElementById("custom-cat-list");
+  if (ccListEl) {
+    if (!customCats.length) {
+      ccListEl.innerHTML = `<div style="font-size:0.8rem;color:#64748b;text-align:center;padding:0.75rem;">No custom categories added yet.</div>`;
+    } else {
+      ccListEl.innerHTML = customCats.map(c => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.42rem 0.6rem;border:1px solid #e2e8f0;border-radius:7px;margin-bottom:0.35rem;font-size:0.82rem;">
+          <span><strong>${esc(c.title)}</strong> <small style="color:#64748b;">by ${esc(c.author_name || "Player")}</small></span>
+          ${isAdmin ? `<button type="button" class="stp-btn" style="padding:0.15rem 0.45rem;font-size:0.72rem;" onclick="wsSend({action:'remove_custom_category',category_id:'${esc(c.id)}'})">&times;</button>` : ""}
+        </div>
+      `).join("");
+    }
+  }
+
+  // Hero Banner
+  const hero = document.getElementById("hero-banner");
+  if (hero) {
+    if (phase === "playing" || phase === "reveal") {
+      hero.style.display = "flex";
+      document.getElementById("hero-letter").textContent = s.current_letter || "?";
+      document.getElementById("hero-round-label").textContent = `Round ${s.round_num} of ${maxRounds}`;
+      const cat = s.current_category || {};
+      document.getElementById("hero-category-title").textContent = cat.title || "Category";
+      const srcPill = document.getElementById("hero-source-pill");
+      if (cat.source === "database") srcPill.textContent = "📚 Word DB Category";
+      else if (cat.source === "custom") srcPill.textContent = `✨ Custom (${cat.author_name || "Room"})`;
+      else srcPill.textContent = "🎉 Web Party Prompt";
+      document.getElementById("host-timer-controls").style.display = (isAdmin && phase === "playing") ? "flex" : "none";
+    } else {
+      hero.style.display = "none";
+    }
+  }
+
+  // Toggle phase cards
+  document.getElementById("lobby-box").style.display = phase === "lobby" ? "block" : "none";
+  document.getElementById("playing-box").style.display = phase === "playing" ? "block" : "none";
+  document.getElementById("reveal-box").style.display = phase === "reveal" ? "block" : "none";
+  document.getElementById("gameover-box").style.display = phase === "gameover" ? "block" : "none";
+
+  // Lobby settings sync
+  if (s.settings) {
+    const setVal = (id, v) => { const el = document.getElementById(id); if (el && document.activeElement !== el) el.value = v; };
+    setVal("set-category-pack", s.settings.category_pack || "mix");
+    setVal("set-stop-mode", s.settings.stop_mode || "countdown_on_first");
+    setVal("set-clash-rule", s.settings.clash_rule || "shared");
+    setVal("set-max-rounds", s.settings.max_rounds || 8);
+    setVal("set-round-timer", s.settings.round_timer ?? 30);
+    setVal("set-stop-countdown", s.settings.stop_countdown || 10);
+    const easyEl = document.getElementById("set-easy-letters");
+    if (easyEl) easyEl.checked = !!s.settings.easy_letters_only;
+    const custEl = document.getElementById("set-allow-custom");
+    if (custEl) custEl.checked = !!s.settings.allow_custom_categories;
+
+    document.querySelectorAll("#lobby-settings-form select, #lobby-settings-form input").forEach(el => {
+      el.disabled = !isAdmin;
+    });
+  }
+  document.getElementById("lobby-host-actions").style.display = isAdmin ? "flex" : "none";
+  document.getElementById("lobby-wait-note").style.display = isAdmin ? "none" : "block";
+
+  // Playing view
+  if (phase === "playing") {
+    const ansInput = document.getElementById("answer-input");
+    if (lastRenderedRound !== s.round_num || lastPhase !== "playing") {
+      if (ansInput) {
+        ansInput.value = (s.my_submission && s.my_submission.raw_text) || "";
+        ansInput.placeholder = `Starts with "${s.current_letter || "A"}"...`;
+        ansInput.focus();
+      }
+    }
+    const mySub = s.my_submission;
+    const statusEl = document.getElementById("my-answer-status");
+    const stopBtn = document.getElementById("btn-call-stop");
+    const stopMode = (s.settings && s.settings.stop_mode) || "countdown_on_first";
+
+    if (mySub) {
+      const sec = ((mySub.elapsed_ms || 0) / 1000).toFixed(1);
+      if (mySub.valid_letter) {
+        const dbBadge = mySub.in_db ? ` <span class="stp-pill" style="background:#dcfce7;color:#166534;border-color:#86efac;">📖 In Word DB</span>` : "";
+        statusEl.innerHTML = `✅ <strong>Locked in:</strong> “${esc(mySub.raw_text)}” (${sec}s)${dbBadge} — <small>You can still update it before STOP!</small>`;
+      } else {
+        statusEl.innerHTML = `⚠️ <strong>“${esc(mySub.raw_text)}”</strong> does not start with <strong>${esc(s.current_letter)}</strong>! Type a word starting with ${esc(s.current_letter)}.`;
+      }
+      stopBtn.disabled = !(isAdmin || (mySub.valid_letter && stopMode !== "wait_all_or_timer"));
+    } else {
+      statusEl.innerHTML = `⚡ Type an answer starting with <strong>“${esc(s.current_letter)}”</strong> and press Lock In!`;
+      stopBtn.disabled = !isAdmin;
+    }
+
+    document.getElementById("race-count-label").textContent = `${s.submitted_count || 0}/${s.participant_count || 0} locked in`;
+    const raceEl = document.getElementById("live-race-list");
+    const race = s.live_race || [];
+    if (!race.length) {
+      raceEl.innerHTML = `<div style="font-size:0.8rem;color:#64748b;">No answers locked in yet — be #1!</div>`;
+    } else {
+      raceEl.innerHTML = race.map(r => {
+        const sec = ((r.elapsed_ms || 0) / 1000).toFixed(1);
+        return `<span class="stp-pill" style="background:#f0fdf4;border-color:#86efac;color:#166534;">⚡ #${r.speed_rank} ${esc(r.player_name)} (${sec}s)</span>`;
+      }).join("");
+    }
+    document.getElementById("playing-host-bar").style.display = isAdmin ? "flex" : "none";
+  }
+
+  // Reveal view
+  if (phase === "reveal") {
+    document.getElementById("reveal-summary-banner").textContent = s.round_summary || "🛑 Round complete!";
+    const resList = document.getElementById("reveal-results-list");
+    const results = s.round_results || [];
+    resList.innerHTML = results.map(r => {
+      let rowCls = "stp-result-row";
+      if (r.status && r.status.startsWith("unique")) rowCls += " unique-top";
+      else if (r.status && r.status.startsWith("clash")) rowCls += " clash";
+      else rowCls += " invalid";
+
+      const sec = r.elapsed_ms != null ? `${(r.elapsed_ms / 1000).toFixed(1)}s` : "—";
+      const rankTag = r.speed_rank ? `<span class="stp-pill stp-pill-mono">#${r.speed_rank} · ${sec}</span>` : `<span class="stp-pill">—</span>`;
+      const dbTag = r.in_db ? `<span class="stp-pill" style="background:#dcfce7;color:#166534;border-color:#86efac;">📖 Word DB</span>` : "";
+      const vetoCount = (r.vetoed_by || []).length;
+      const actionBtn = r.has_submitted ? (
+        isAdmin
+          ? `<button type="button" class="stp-btn" style="padding:0.25rem 0.55rem;font-size:0.74rem;" onclick="wsSend({action:'toggle_validity',player_id:'${esc(r.player_id)}'})">${r.effective_valid ? "❌ Reject" : "✅ Accept"}</button>`
+          : `<button type="button" class="stp-btn" style="padding:0.25rem 0.55rem;font-size:0.74rem;" onclick="wsSend({action:'toggle_validity',player_id:'${esc(r.player_id)}'})">👎 Veto (${vetoCount})</button>`
+      ) : "";
+
+      return `
+        <div class="${rowCls}">
+          <div style="display:flex;align-items:center;gap:0.55rem;flex-wrap:wrap;">
+            ${rankTag}
+            <strong>${esc(r.player_name)}</strong>
+            <span style="font-size:0.98rem;font-weight:800;color:#0f172a;">${r.has_submitted ? "“" + esc(r.raw_text) + "”" : "<em>No answer</em>"}</span>
+            ${dbTag}
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+            <span class="stp-pill" style="font-weight:700;">${esc(r.badge)}</span>
+            ${actionBtn}
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    const sampleBox = document.getElementById("sample-db-box");
+    const samples = s.sample_db_words || [];
+    if (samples.length) {
+      sampleBox.style.display = "block";
+      document.getElementById("sample-db-chips").innerHTML = samples.map(w =>
+        `<span class="stp-pill" style="background:#fff;">${esc(w)}</span>`
+      ).join("");
+    } else {
+      sampleBox.style.display = "none";
+    }
+
+    const nextBtn = document.getElementById("btn-next-round");
+    if (nextBtn) {
+      nextBtn.textContent = s.round_num >= maxRounds ? "🏁 Finish Match & Standings" : "➡️ Next Round";
+    }
+    document.getElementById("reveal-host-bar").style.display = isAdmin ? "flex" : "none";
+  }
+
+  // Gameover view
+  if (phase === "gameover") {
+    const players = s.players || [];
+    const top = players[0];
+    document.getElementById("gameover-winner-line").textContent = top
+      ? `🎉 ${top.name} wins with ${top.score} points!`
+      : "Match finished!";
+    document.getElementById("gameover-podium").innerHTML = players.map((p, idx) => `
+      <div class="stp-result-row ${idx === 0 ? 'unique-top' : ''}">
+        <span><strong>#${idx + 1} ${esc(p.name)}</strong></span>
+        <span style="font-weight:800;">${p.score} pts</span>
+      </div>
+    `).join("");
+    document.getElementById("gameover-host-bar").style.display = isAdmin ? "flex" : "none";
+  }
+
+  // Sidebar Scoreboard
+  const pList = document.getElementById("players-list");
+  if (pList) {
+    pList.innerHTML = (s.players || []).map(p => `
+      <div class="stp-player-row ${phase === 'playing' && p.has_submitted ? 'submitted' : ''}">
+        <div style="display:flex;align-items:center;gap:0.35rem;min-width:0;">
+          <span style="width:8px;height:8px;border-radius:50%;background:${p.connected ? '#22c55e' : '#94a3b8'};display:inline-block;"></span>
+          <span style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(p.name)}</span>
+          ${p.is_admin ? '<span title="Host">👑</span>' : ''}
+          ${p.is_spectator ? '<span title="Spectator">👀</span>' : ''}
+          ${phase === 'playing' && p.has_submitted ? '<span title="Locked In">⚡</span>' : ''}
+        </div>
+        <div style="display:flex;align-items:center;gap:0.4rem;">
+          <span style="font-weight:800;color:#0f172a;">${p.score} pts</span>
+          ${isAdmin && p.id !== (s.me && s.me.id) ? `<button type="button" class="stp-btn" style="padding:0.1rem 0.38rem;font-size:0.7rem;" onclick="wsSend({action:'kick_player',player_id:'${esc(p.id)}'})" title="Kick">&times;</button>` : ''}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  // Chat log
+  const chatBox = document.getElementById("chat-box");
+  if (chatBox) {
+    chatBox.innerHTML = (s.chat_log || []).map(c =>
+      `<div class="stp-chat-item"><strong>${esc(c.sender)}:</strong> ${esc(c.text)}</div>`
+    ).join("");
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  lastRenderedRound = s.round_num;
+  lastPhase = phase;
+  renderTimer();
+}
+
+renderState();
+connectWS();
+timerInterval = setInterval(renderTimer, 400);
+</script>
+{% endblock %}
