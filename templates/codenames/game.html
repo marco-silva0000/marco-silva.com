@@ -726,6 +726,20 @@ function sendAction(action, payload) {
   ws.send(JSON.stringify(Object.assign({ action: action }, payload || {})));
 }
 
+function transferHost(playerId, playerName) {
+  const name = playerName || "this player";
+  if (confirm(`👑 Transfer Room Host privileges to ${name}?`)) {
+    sendAction('transfer_host', { target_id: playerId });
+  }
+}
+
+function confirmKickPlayer(playerId, playerName) {
+  const name = playerName || "this player";
+  if (confirm(`Remove ${name} from the room?`)) {
+    sendAction('kick_player', { player_id: playerId });
+  }
+}
+
 function toggleKeycardVisibility() {
   keycardVisible = !keycardVisible;
   renderState(latestState);
@@ -1297,8 +1311,10 @@ function renderState(s) {
         <option value="spectator">👁️ Spectator</option>
       </select>
     ` : '';
+    const transferBtn = (perms.isAdmin && s.me && p.id !== s.me.id)
+      ? `<button type="button" class="cn-btn cn-btn-sm" onclick="transferHost('${esc(p.id)}','${esc(p.name)}')" title="Make Host">👑</button>` : '';
     const kickBtn = (perms.isAdmin && s.me && p.id !== s.me.id)
-      ? `<button type="button" class="cn-btn cn-btn-sm" onclick="sendAction('kick_player',{player_id:'${esc(p.id)}'})" title="Kick">&times;</button>` : '';
+      ? `<button type="button" class="cn-btn cn-btn-sm" style="color:#ef4444;" onclick="confirmKickPlayer('${esc(p.id)}','${esc(p.name)}')" title="Kick">&times;</button>` : '';
     return `
       <div class="cn-player-row ${teamCls}">
         <div>
@@ -1310,6 +1326,7 @@ function renderState(s) {
         <div style="display:flex;gap:0.25rem;align-items:center;">
           <button type="button" class="cn-btn cn-btn-sm" onclick="showPlayerQR('${esc(p.id)}')" title="{% trans 'Personal Player QR' %}">📱 QR</button>
           ${modAssign}
+          ${transferBtn}
           ${kickBtn}
         </div>
       </div>

@@ -77,6 +77,7 @@ from .game_state import (
     toggle_official_nomination,
     toggle_player_gazette_mute,
     toggle_player_silence,
+    transfer_gm,
     trigger_game_over,
     trigger_martyrdom_detonation,
     update_settings,
@@ -336,6 +337,11 @@ class LupusConsumer(AsyncJsonWebsocketConsumer):
                         except Exception:
                             pass
                     remove_player(state, pid)
+                    await self.broadcast_sync()
+
+            elif action == "transfer_gm":
+                target_id = content.get("target_id") or content.get("player_id")
+                if target_id and transfer_gm(state, target_id):
                     await self.broadcast_sync()
 
             elif action == "reorder_players":

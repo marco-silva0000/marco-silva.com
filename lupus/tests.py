@@ -5310,3 +5310,37 @@ class TestLupusRecentChangesBugHuntScenarios:
         wolf_cand_rev = next(c for c in p_view_revealed["final_candidates"] if c["id"] == pids["Wolf"])
         assert wolf_cand_rev["voter_names"] == ["V1"]
         assert p_view_revealed["abstained_names"] == ["V2"]
+
+    def test_transfer_gm_promotion(self):
+        """Verify GM can promote any player to be the Game Master / Narrator."""
+        from lupus import game_state
+
+        state, pids = self._setup_custom_game(
+            [
+                ("Alice", "villager"),
+                ("Bob", "werewolf"),
+            ],
+            phase="lobby",
+        )
+        assert state.get("gm_player_id") is None
+
+        # Promote Alice to Game Master
+        success = game_state.transfer_gm(state, pids["Alice"])
+        assert success is True
+        assert state["gm_player_id"] == pids["Alice"]
+        assert state["gm_name"] == "Alice"
+
+        # Alice's player view must receive GM privileges and cockpit URL
+        alice_view = game_state.get_sanitized_player_view(state, pids["Alice"])
+        assert alice_view["me"]["is_gm"] is True
+        assert alice_view["me"]["gm_token"] == state["gm_token"]
+        assert f"/games/lupus/{state['code']}/gm/?gm_token={state['gm_token']}" in alice_view["me"]["gm_url"]
+
+        # Bob's view must show Alice as GM in public players list, but Bob is not GM
+        bob_view = game_state.get_sanitized_player_view(state, pids["Bob"])
+        assert bob_view["me"]["is_gm"] is False
+        assert bob_view["me"]["gm_token"] is None
+        assert bob_view["me"]["gm_url"] is None
+        alice_pub = next(p for p in bob_view["players"] if p["id"] == pids["Alice"])
+        assert alice_pub["is_gm"] is True
+

@@ -1098,6 +1098,15 @@ html, body {
     <!-- TAB 2: ⚡ ACTIVE GAME TURN & VOTING        -->
     <!-- ========================================== -->
     <section class="tab-screen" id="tab-content-play">
+      <!-- Promoted to Game Master Banner -->
+      <div id="promoted-gm-banner" style="display: none; background: linear-gradient(135deg, #78350f, #b45309); border: 2px solid #fbbf24; border-radius: 12px; padding: 0.9rem 1.1rem; color: #fffbeb; font-weight: 600; margin-bottom: 0.85rem; box-shadow: 0 6px 18px rgba(245, 158, 11, 0.35); text-align: center;">
+        <div style="font-size: 1.1rem; margin-bottom: 0.4rem;">👑 You are the Game Master / Narrator!</div>
+        <div style="font-size: 0.85rem; opacity: 0.95; margin-bottom: 0.6rem;">You have been given full control to lead and narrate this game.</div>
+        <a id="promoted-gm-link" href="#" class="btn btn-warning" style="font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.5rem 1.25rem; font-size: 0.9rem; text-decoration: none; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border-radius: 8px;">
+          🚀 Open GM Cockpit
+        </a>
+      </div>
+
       <!-- GM Announcement Banner -->
       <div id="gm-announcement-box" style="display: none; background: #422006; border: 1px solid #d97706; border-radius: 12px; padding: 0.75rem 1rem; color: #fef3c7; font-weight: 600; margin-bottom: 0.65rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
       </div>
@@ -2345,6 +2354,18 @@ html, body {
       bcBox.innerHTML = `📢 <strong>Host:</strong> ${escapeHtml(state.broadcast_message)}`;
     } else {
       bcBox.style.display = "none";
+    }
+
+    // Promoted GM Banner
+    const gmBanner = document.getElementById("promoted-gm-banner");
+    const gmLink = document.getElementById("promoted-gm-link");
+    if (gmBanner && gmLink) {
+      if (state.me && state.me.is_gm && state.me.gm_url) {
+        gmBanner.style.display = "block";
+        gmLink.href = state.me.gm_url;
+      } else {
+        gmBanner.style.display = "none";
+      }
     }
 
     // Toggle Lobby Waiting View vs Active Game View

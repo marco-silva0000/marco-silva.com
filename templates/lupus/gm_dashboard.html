@@ -3429,6 +3429,7 @@ html, body {
             ? `<span class="badge" style="background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; font-weight:700;">🎯 Pre-assigned: ${escapeHtml(roleLabel)}</span>`
             : `<span class="badge" style="background:#e0f2fe; color:#0369a1;">In Lobby</span>`;
           actionsHtml = `
+            <button onclick="transferGM('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="background:#fef3c7; color:#92400e; border-color:#fcd34d; font-weight:600;" title="Promote to Game Master / Narrator">👑 Make GM</button>
             <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe; font-weight:600;" title="Pre-assign role for this player">🎯 Pre-assign</button>
             <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
             <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
@@ -3451,6 +3452,7 @@ html, body {
               ${gazetteMuteBtn}
               <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
               <button onclick="startDefense('${p.id}')" class="btn btn-sm" title="Give 30s defense">⏱️ 30s</button>
+              <button onclick="transferGM('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="background:#fef3c7; color:#92400e; border-color:#fcd34d; font-weight:600;" title="Promote to Game Master / Narrator">👑 Make GM</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
               <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
@@ -3466,6 +3468,7 @@ html, body {
               ${silenceBtn}
               ${gazetteMuteBtn}
               <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
+              <button onclick="transferGM('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="background:#fef3c7; color:#92400e; border-color:#fcd34d; font-weight:600;" title="Promote to Game Master / Narrator">👑 Make GM</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
               <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
@@ -3476,6 +3479,7 @@ html, body {
               <button onclick="setPlayerStatusDirect('${p.id}', 'alive')" class="btn btn-sm btn-success" title="Revive player back to alive">🌱 Revive</button>
               ${gazetteMuteBtn}
               <button onclick="promptRenamePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" title="Change player name">✏️ Rename</button>
+              <button onclick="transferGM('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="background:#fef3c7; color:#92400e; border-color:#fcd34d; font-weight:600;" title="Promote to Game Master / Narrator">👑 Make GM</button>
               <button onclick="setPlayerRoleManual('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm">🎴 Role</button>
               <button onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}', '${p.token}')" class="btn btn-sm">📱 QR</button>
               <button onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" class="btn btn-sm" style="color:#ef4444; border-color:#fca5a5; margin-left: auto;">&times; Kick</button>
@@ -5660,6 +5664,13 @@ html, body {
   function autoAssignRolesFromNames() {
     if (confirm("Scan all joined player names and automatically pre-assign roles that match their names (e.g. Doctor, Werewolf, Detective)?")) {
       sendAction("auto_assign_roles_from_names");
+    }
+  }
+
+  function transferGM(playerId, playerName) {
+    const name = playerName || "this player";
+    if (confirm(`👑 Promote ${name} to be the Game Master / Narrator?\n\nThey will gain GM controls and an alert to open the GM cockpit on their screen.`)) {
+      sendAction("transfer_gm", { target_id: playerId });
     }
   }
 

@@ -28,6 +28,7 @@ from .game_state import (
     submit_clue,
     submit_steal_guess,
     toggle_spectator,
+    transfer_host,
     update_settings,
 )
 from .word_pairs import text_matches_term
@@ -140,6 +141,12 @@ class ImpostorConsumer(AsyncJsonWebsocketConsumer):
                 return await self.send_error("Host cannot kick themselves.")
             removed = kick_player(state, target_id, by_name=self.player_name or "Host")
             if removed:
+                await self.broadcast_sync()
+        elif action == "transfer_host":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can transfer room ownership.")
+            target_id = content.get("target_id") or content.get("player_id")
+            if target_id and transfer_host(state, target_id):
                 await self.broadcast_sync()
         elif action in ("start_game", "next_round"):
             if not self._is_admin(state):

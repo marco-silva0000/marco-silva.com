@@ -970,8 +970,8 @@ function players(ps, isAdmin = false) {
     const dot = `<span class="ej-dot ${p.connected !== false ? 'on' : 'off'}" title="${p.connected !== false ? 'Online' : 'Offline'}"></span>`;
     const adminBtns = (isAdmin && p.id && p.id !== MY_ID)
       ? `<span style="margin-left:auto;display:inline-flex;gap:0.2rem;">
-           ${!p.is_admin ? `<button type="button" class="ej-btn" style="padding:0.1rem 0.35rem;font-size:0.68rem;" onclick="transferAdmin('${p.id}')" title="Make Host">👑</button>` : ''}
-           <button type="button" class="ej-btn" style="padding:0.1rem 0.35rem;font-size:0.68rem;color:#dc2626;" onclick="kickPlayer('${p.id}')" title="Remove Player">✕</button>
+           ${!p.is_admin ? `<button type="button" class="ej-btn" style="padding:0.1rem 0.35rem;font-size:0.68rem;" onclick="transferAdmin('${p.id}', '${escapeHtml(p.name)}')" title="Make Host">👑</button>` : ''}
+           <button type="button" class="ej-btn" style="padding:0.1rem 0.35rem;font-size:0.68rem;color:#dc2626;" onclick="kickPlayer('${p.id}', '${escapeHtml(p.name)}')" title="Remove Player">✕</button>
          </span>`
       : '';
     return `<div class="player ${p.is_turn ? 'active' : ''}">
@@ -1310,12 +1310,18 @@ function toggleMySpectator() {
   closeModal('modal-profile');
 }
 
-function kickPlayer(pid) {
-  ws.send(JSON.stringify({action: 'kick_player', player_id: pid}));
+function kickPlayer(pid, pName) {
+  const name = pName || "this player";
+  if (confirm(`Remove ${name} from the room?`)) {
+    ws.send(JSON.stringify({action: 'kick_player', player_id: pid}));
+  }
 }
 
-function transferAdmin(pid) {
-  ws.send(JSON.stringify({action: 'transfer_admin', player_id: pid}));
+function transferAdmin(pid, pName) {
+  const name = pName || "this player";
+  if (confirm(`👑 Transfer Room Host privileges to ${name}?`)) {
+    ws.send(JSON.stringify({action: 'transfer_admin', player_id: pid}));
+  }
 }
 
 // Timers

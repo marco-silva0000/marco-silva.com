@@ -731,6 +731,20 @@ function addTablePlayer() {
   inp.value = '';
 }
 
+function transferHost(playerId, playerName) {
+  const name = playerName || "this player";
+  if (confirm(`👑 Transfer Room Host privileges to ${name}?`)) {
+    sendAction('transfer_host', {target_id: playerId});
+  }
+}
+
+function confirmKickPlayer(playerId, playerName) {
+  const name = playerName || "this player";
+  if (confirm(`Remove ${name} from the room?`)) {
+    sendAction('kick_player', {player_id: playerId});
+  }
+}
+
 function submitClue() {
   const inp = $('clue-input');
   const val = (inp.value || '').trim();
@@ -1201,8 +1215,11 @@ function renderState() {
     const qrBtn = (isAdmin || p.id === me.id)
       ? `<button type="button" onclick="showPlayerQR('${escapeHtml(p.id)}')" title="Player QR Code" style="border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:5px;padding:0.1rem 0.35rem;cursor:pointer;font-size:0.7rem;">📱 QR</button>`
       : '';
+    const transferBtn = (isAdmin && p.id !== me.id)
+      ? `<button type="button" onclick="transferHost('${p.id}','${escapeHtml(p.name)}')" title="Make Host" style="border:none;background:none;cursor:pointer;font-size:0.75rem;">👑</button>`
+      : '';
     const kickBtn = (isAdmin && p.id !== me.id)
-      ? `<button type="button" onclick="sendAction('kick_player',{player_id:'${p.id}'})" title="Remove" style="border:none;background:none;color:#94a3b8;cursor:pointer;font-size:0.75rem;">✕</button>`
+      ? `<button type="button" onclick="confirmKickPlayer('${p.id}','${escapeHtml(p.name)}')" title="Remove" style="border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.75rem;">✕</button>`
       : '';
     return `
       <div class="imp-player-row ${p.is_turn ? 'turn' : ''} ${p.is_poisoned ? 'poisoned' : ''}">
@@ -1212,7 +1229,7 @@ function renderState() {
           <span>${badges.join(' ')}</span>
         </span>
         <span style="display:flex;align-items:center;gap:0.35rem;">
-          ${qrBtn}<strong>${p.score}pt</strong>${kickBtn}
+          ${qrBtn}<strong>${p.score}pt</strong>${transferBtn}${kickBtn}
         </span>
       </div>
     `;

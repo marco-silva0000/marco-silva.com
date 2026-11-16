@@ -329,6 +329,20 @@ def kick_player(state: dict[str, Any], target_id: str, by_name: str = "Host") ->
     return removed
 
 
+def transfer_host(state: dict[str, Any], target_id: str) -> bool:
+    """Transfer room creator / host role to another player."""
+    target = state.get("players", {}).get(target_id)
+    if not target:
+        return False
+    target["is_admin"] = True
+    state["creator_id"] = target_id
+    state["creator"] = target["name"]
+    append_event(state, "System", f"👑 Room Host privileges transferred to {target['name']}.")
+    save_game(state["code"], state)
+    return True
+
+
+
 def update_settings(state: dict[str, Any], raw: dict[str, Any]) -> dict[str, Any]:
     s = state.setdefault("settings", copy.deepcopy(DEFAULT_SETTINGS))
     if "max_rounds" in raw:

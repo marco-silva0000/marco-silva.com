@@ -7,6 +7,7 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from .game_state import (
     add_player,
+    adjudicate_oral_round,
     advance_next_round,
     append_event,
     evaluate_and_reveal_round,
@@ -19,8 +20,10 @@ from .game_state import (
     save_game,
     start_game,
     submit_answer,
+    submit_the_me_answer,
     toggle_answer_validity,
     toggle_spectator,
+    transfer_host,
     update_settings,
 )
 
@@ -78,6 +81,9 @@ class DontSayConsumer(AsyncJsonWebsocketConsumer):
             self.player_name = state["players"][self.player_id].get("name", self.player_name)
         await self.send_state_to_self(state)
 
+    async def game_event(self, event):
+        await self.send_json(event)
+
     async def receive_json(self, content):
         action = content.get("action")
         state = get_game(self.code)
@@ -111,15 +117,42 @@ class DontSayConsumer(AsyncJsonWebsocketConsumer):
                 return await self.send_error("Host cannot kick themselves.")
             kick_player(state, target_id, by_name=self.player_name or "Host")
             await self.broadcast_sync()
+        elif action == "transfer_host":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can transfer room ownership.")
+            target_id = content.get("target_id") or content.get("player_id")
+            if target_id and transfer_host(state, target_id):
+                await self.broadcast_sync()
         elif action == "start_game":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can start the game.")
             start_game(state)
             await self.broadcast_sync()
+        elif action == "submit_the_me_answer":
+            answer = str(content.get("answer", ""))
+            if submit_the_me_answer(state, self.player_id, answer):
+                await self.broadcast_sync()
         elif action == "submit_answer":
             answer = str(content.get("answer", ""))
             submit_answer(state, self.player_id, answer)
             await self.broadcast_sync()
+        elif action == "adjudicate_oral_round":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can adjudicate oral rounds.")
+            verdicts = content.get("verdicts", {})
+            adjudicate_oral_round(state, verdicts)
+            await self.broadcast_sync()
+        elif action == "oral_countdown":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can trigger countdown.")
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    "type": "game.event",
+                    "event_type": "oral_countdown",
+                    "duration": int(content.get("duration", 3)),
+                },
+            )
         elif action == "reveal_round":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can trigger early reveal.")

@@ -25,6 +25,7 @@ from .game_state import (
     start_round,
     submit_clue,
     toggle_spectator,
+    transfer_host,
     update_settings,
 )
 from .words import is_clue_forbidden_on_board
@@ -151,6 +152,12 @@ class CodenamesConsumer(AsyncJsonWebsocketConsumer):
             if target_id == self.player_id:
                 return await self.send_error("Host cannot kick themselves.")
             if kick_player(state, target_id, by_name=self.player_name or "Host"):
+                await self.broadcast_sync()
+        elif action == "transfer_host":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can transfer room ownership.")
+            target_id = content.get("target_id") or content.get("player_id")
+            if target_id and transfer_host(state, target_id):
                 await self.broadcast_sync()
         elif action in ("start_game", "next_round"):
             if not self._is_admin(state):

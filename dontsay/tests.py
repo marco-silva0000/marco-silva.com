@@ -350,3 +350,124 @@ def test_websocket_dontsay_round(db):
         await communicator_guest.disconnect()
 
     async_to_sync(_run)()
+
+
+@pytest.mark.django_db
+class TestTheMeAndOralModesAndHostTransfer:
+    """Tests for 'The ME' (Genius Host) mode, Living Room Oral mode, and Host Transfer."""
+
+    def test_the_me_mode_full_flow_and_trapping(self):
+        from dontsay.game_state import submit_the_me_answer
+
+        state = create_game("THEME1")
+        _, p1, _ = add_player(state, "Alice", is_admin=True)
+        _, p2, _ = add_player(state, "Bob")
+        _, p3, _ = add_player(state, "Charlie")
+
+        # Configure game_mode to 'the_me' with host as 'The ME'
+        update_settings(state, {
+            "game_mode": "the_me",
+            "the_me_rotation": "host_fixed",
+            "ai_validation": False,
+        })
+        start_game(state)
+
+        assert state["phase"] == "the_me_answering"
+        assert state["the_me_player_id"] == p1["id"]
+
+        # Non-ME player cannot submit in the_me_answering phase
+        assert submit_the_me_answer(state, p2["id"], "Rome") is False
+
+        # Zero-spoiler check during the_me_answering
+        bob_view = get_sanitized_player_view(state, p2["token"])
+        assert bob_view["the_me_player_id"] == p1["id"]
+        assert bob_view.get("the_me_answer") is None
+
+        # The ME (Alice) locks in forbidden secret word "Paris"
+        assert submit_the_me_answer(state, p1["id"], "Paris") is True
+        assert state["phase"] == "answering"
+        assert state["the_me_answer"]["raw"] == "Paris"
+
+        # During answering phase, Alice's secret word is STILL hidden from Bob and Charlie!
+        bob_view_answering = get_sanitized_player_view(state, p2["token"])
+        assert bob_view_answering.get("the_me_answer") is None
+        assert bob_view_answering["the_me_has_submitted"] is True
+
+        # Alice (The ME) can see her own answer in her private view
+        alice_view = get_sanitized_player_view(state, p1["token"])
+        assert alice_view["my_answer"] == "Paris"
+
+        # Bob submits "Paris" (MATCHES The ME -> trapped!)
+        submit_answer(state, p2["id"], "Paris")
+        # Charlie submits "Berlin" (AVOIDS The ME -> escaped!)
+        submit_answer(state, p3["id"], "Berlin")
+
+        # All players submitted -> auto-revealed
+        assert state["phase"] == "reveal"
+        rr = state["round_results"]
+        assert rr is not None
+
+        # Bob was caught by The ME
+        bob_res = rr["player_results"][p2["id"]]
+        assert bob_res["status"] == "caught_by_me"
+        assert bob_res["points_awarded"] == 0
+
+        # Charlie escaped The ME
+        charlie_res = rr["player_results"][p3["id"]]
+        assert charlie_res["status"] == "escaped_me"
+        assert charlie_res["points_awarded"] == 100
+
+        # Alice (The ME) scores +100 for catching Bob
+        alice_res = rr["player_results"][p1["id"]]
+        assert alice_res["status"] == "the_me_mastermind"
+        assert alice_res["points_awarded"] == 100
+        assert p1["score"] == 100
+
+        # In reveal view, The ME's answer is exposed to everyone
+        revealed_view = get_sanitized_player_view(state, p2["token"])
+        assert revealed_view["the_me_answer"]["raw"] == "Paris"
+
+    def test_oral_table_mode_adjudication_and_scoring(self):
+        state = create_game("ORAL01")
+        _, p1, _ = add_player(state, "HostUser", is_admin=True)
+        _, p2, _ = add_player(state, "PlayerTwo")
+        _, p3, _ = add_player(state, "PlayerThree")
+
+        update_settings(state, {"game_mode": "oral_table"})
+        start_game(state)
+
+        assert state["phase"] == "oral_speaking"
+
+        # Host adjudicates living room answers:
+        # Player 2 is unique (+100), Player 3 gave an obscure gem (+150), Host clashed (0)
+        from dontsay.game_state import adjudicate_oral_round
+        verdicts = {
+            p1["id"]: {"status": "clash", "answer": "Apple"},
+            p2["id"]: {"status": "valid", "answer": "Banana"},
+            p3["id"]: {"status": "obscure", "answer": "Dragonfruit"},
+        }
+        rr = adjudicate_oral_round(state, verdicts)
+        assert state["phase"] == "reveal"
+        assert rr["player_results"][p1["id"]]["status"] == "clash"
+        assert rr["player_results"][p1["id"]]["points_awarded"] == 0
+        assert rr["player_results"][p2["id"]]["status"] == "unique"
+        assert rr["player_results"][p2["id"]]["points_awarded"] == 100
+        assert rr["player_results"][p3["id"]]["status"] == "obscure"
+        assert rr["player_results"][p3["id"]]["is_obscure"] is True
+        assert rr["player_results"][p3["id"]]["points_awarded"] == 150
+
+    def test_transfer_host_in_dontsay(self):
+        state = create_game("TRANS1")
+        _, p1, _ = add_player(state, "OriginalHost", is_admin=True)
+        _, p2, _ = add_player(state, "NewHostCandidate")
+
+        assert state["creator_id"] == p1["id"]
+        assert is_player_admin(state, p1) is True
+        assert is_player_admin(state, p2) is False
+
+        from dontsay.game_state import transfer_host
+        assert transfer_host(state, p2["id"]) is True
+        assert state["creator_id"] == p2["id"]
+        assert state["creator"] == "NewHostCandidate"
+        assert is_player_admin(state, p2) is True
+

@@ -51,26 +51,60 @@ def synthesize_prompt_from_frame(
     if include_limiter and frame.limiters and _rng.random() < 0.65:
         limiter = _rng.choice(frame.limiters)
 
+    # Construction Grammar variation (CxG): direct imperative, interrogative, or attributive relative
+    construction = _rng.choice(["attributive", "imperative", "can_you_name"])
+
     # 1. English Assembly
     subj_en = f"{sub.mod1} {sub.thing}".strip()
     target_parts = [p for p in (tgt.article, tgt.mod2, tgt.target) if p]
     target_en = " ".join(target_parts).strip()
     limiter_en = limiter.limiter if limiter else ""
 
-    text_en = f"{subj_en} {act.relativizer} {act.action} {target_en}"
+    if construction == "imperative":
+        art = "an" if subj_en and subj_en[0].lower() in "aeiou" else "a"
+        text_en = f"Name {art} {subj_en} {act.relativizer} {act.action} {target_en}"
+    elif construction == "can_you_name":
+        art = "an" if subj_en and subj_en[0].lower() in "aeiou" else "a"
+        text_en = f"Can you name {art} {subj_en} {act.relativizer} {act.action} {target_en}?"
+    else:
+        text_en = f"{subj_en} {act.relativizer} {act.action} {target_en}"
+
     if limiter_en:
         text_en = f"{text_en} ({limiter_en})"
     text_en = _clean_str(text_en)
 
     # 2. Translations Assembly (pt, es, it, fr)
     translations: dict[str, str] = {}
+    prefix_map = {
+        "imperative": {
+            "pt": "Diz um(a)",
+            "es": "Nombra un(a)",
+            "it": "Nomina un",
+            "fr": "Cite un(e)",
+        },
+        "can_you_name": {
+            "pt": "Consegues dizer um(a)",
+            "es": "¿Puedes nombrar un(a)",
+            "it": "Puoi nominare un",
+            "fr": "Peux-tu citer un(e)",
+        },
+    }
+
     for lang in ("pt", "es", "it", "fr"):
         sub_tr = sub.translations.get(lang, subj_en)
         act_tr = act.translations.get(lang, f"{act.relativizer} {act.action}")
         tgt_tr = tgt.translations.get(lang, target_en)
         lim_tr = limiter.translations.get(lang, limiter_en) if limiter else ""
 
-        assembled = f"{sub_tr} {act_tr} {tgt_tr}"
+        core = f"{sub_tr} {act_tr} {tgt_tr}".strip()
+        if construction in prefix_map:
+            prefix = prefix_map[construction].get(lang, "")
+            assembled = f"{prefix} {core}"
+            if construction == "can_you_name":
+                assembled = f"{assembled}?"
+        else:
+            assembled = core
+
         if lim_tr:
             assembled = f"{assembled} ({lim_tr})"
         translations[lang] = _clean_str(assembled)

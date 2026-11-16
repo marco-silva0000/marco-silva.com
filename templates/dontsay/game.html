@@ -160,6 +160,21 @@
           <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.65rem;">⚙️ {% trans "Host Match Settings" %}</div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.65rem;">
             <div>
+              <label style="font-size:0.75rem; font-weight:600; color:var(--ds-muted); display:block; margin-bottom:0.25rem;">{% trans "Game Mode" %}</label>
+              <select id="cfg-mode" class="ds-input-large" style="font-size:0.85rem; padding:0.4rem;" onchange="onGameModeChange()">
+                <option value="classic">🤐 {% trans "Standard (Secret Anti-Clash)" %}</option>
+                <option value="the_me">👑 {% trans "The ME (Genius Host: Don't Say What I Say)" %}</option>
+                <option value="oral_table">🗣️ {% trans "Oral Table (Living Room: Say Out Loud)" %}</option>
+              </select>
+            </div>
+            <div id="cfg-the-me-rot-wrap" style="display:none;">
+              <label style="font-size:0.75rem; font-weight:600; color:var(--ds-muted); display:block; margin-bottom:0.25rem;">{% trans "The ME Rotation" %}</label>
+              <select id="cfg-the-me-rot" class="ds-input-large" style="font-size:0.85rem; padding:0.4rem;">
+                <option value="rotate">🔄 {% trans "Rotate Player Each Round" %}</option>
+                <option value="host_fixed">👑 {% trans "Host is Always 'The ME'" %}</option>
+              </select>
+            </div>
+            <div>
               <label style="font-size:0.75rem; font-weight:600; color:var(--ds-muted); display:block; margin-bottom:0.25rem;">{% trans "Prompt Pack" %}</label>
               <select id="cfg-pack" class="ds-input-large" style="font-size:0.85rem; padding:0.4rem;">
                 <option value="mix">🎲 {% trans "Mixed Variety" %}</option>
@@ -220,8 +235,76 @@
         </div>
       </div>
 
+      <!-- 1B. THE ME ANNOUNCEMENT / SELECTION STAGE -->
+      <div id="stage-the-me-host" class="ds-card" style="display:none; border:2px solid #fbbf24; background:linear-gradient(180deg, #fffbeb, #fff);">
+        <div class="ds-section-label" style="background:#fef3c7; color:#92400e;">👑 {% trans "The ME — Secret Selection" %}</div>
+        <div class="ds-prompt-box">
+          <div class="ds-prompt-badge"><span>🎯 {% trans "Topic" %}</span></div>
+          <div id="the-me-host-prompt-text" class="ds-prompt-text"></div>
+        </div>
+        <div style="background:#fef3c7; border:1px solid #fcd34d; border-radius:10px; padding:0.85rem 1rem; color:#78350f; font-weight:600; margin-bottom:1rem;">
+          👑 {% trans "You are 'The ME' for this round! Pick a forbidden word that others will try to guess or think of. If anyone matches your word, you trap them and earn +100 bonus points each!" %}
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <input type="text" id="the-me-host-input" class="ds-input-large" style="flex:1;" placeholder="{% trans 'Type forbidden secret word...' %}" onkeydown="if(event.key==='Enter') submitTheMeAnswer()">
+          <button class="ds-btn ds-btn-primary" style="padding:0.75rem 1.4rem; font-size:0.95rem;" onclick="submitTheMeAnswer()">
+            🔒 {% trans "Lock Forbidden Word & Start Round" %}
+          </button>
+        </div>
+      </div>
+
+      <div id="stage-the-me-waiting" class="ds-card" style="display:none; text-align:center; padding:2rem 1rem;">
+        <div style="font-size:3.2rem; margin-bottom:0.5rem;">👑</div>
+        <h3 id="the-me-waiting-title" style="font-size:1.3rem; font-weight:800; margin:0 0 0.5rem 0;"></h3>
+        <div class="ds-prompt-box" style="margin:1rem auto; max-width:550px;">
+          <div class="ds-prompt-badge"><span>🎯 {% trans "Topic" %}</span></div>
+          <div id="the-me-wait-prompt-text" class="ds-prompt-text"></div>
+        </div>
+        <div style="color:var(--ds-muted); font-size:0.95rem; font-weight:600;">
+          ⏳ {% trans "Waiting for 'The ME' to secretly lock in the forbidden word... Get ready to NOT say it!" %}
+        </div>
+      </div>
+
+      <!-- 1C. ORAL / LIVING ROOM TABLE STAGE -->
+      <div id="stage-oral" class="ds-card" style="display:none;">
+        <div class="ds-section-label" style="background:#fef3c7; color:#92400e;">🗣️ {% trans "Oral Table — Say Out Loud" %}</div>
+        <div class="ds-prompt-box">
+          <div class="ds-prompt-badge"><span>🎯 {% trans "Round Prompt" %}</span></div>
+          <div id="oral-prompt-text" class="ds-prompt-text" style="font-size:1.45rem;"></div>
+          <div class="ds-prompt-hint">🗣️ {% trans "No typing! Say your answers out loud in order, or count down and shout together!" %}</div>
+        </div>
+
+        <div style="text-align:center; margin:1.5rem 0;">
+          <button class="ds-btn" style="background:#f59e0b; color:#fff; font-size:1.15rem; font-weight:800; padding:0.75rem 2rem; border-radius:12px; box-shadow:0 4px 14px rgba(245,158,11,0.35); cursor:pointer;" onclick="triggerOralCountdown()">
+            ⏱️ {% trans "3... 2... 1... SHOUT!" %}
+          </button>
+        </div>
+
+        <!-- Host Live Adjudication Table -->
+        <div id="oral-host-panel" style="display:none; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:1.1rem; margin-top:1.25rem;">
+          <div style="font-weight:800; font-size:0.95rem; margin-bottom:0.75rem; color:#1e293b;">⚖️ {% trans "Host Live Living-Room Adjudication" %}</div>
+          <div id="oral-players-adjudication"></div>
+          <div style="margin-top:1.25rem; text-align:right;">
+            <button class="ds-btn ds-btn-primary" style="font-size:1rem; padding:0.65rem 1.6rem;" onclick="finishOralRound()">
+              ⚖️ {% trans "Finalize Scores & Reveal" %}
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- 2. ANSWERING STAGE -->
       <div id="stage-answering" class="ds-card" style="display:none;">
+        <!-- The ME Banner for Guessers -->
+        <div id="the-me-guesser-alert" style="display:none; background:#fef3c7; border:1px solid #fcd34d; border-radius:10px; padding:0.75rem 1rem; color:#92400e; font-weight:700; margin-bottom:1rem;">
+          ⚠️ {% trans "Don't say what The ME says!" %} <span id="the-me-name-span"></span> {% trans "set a secret trap word. Avoid matching it!" %}
+        </div>
+
+        <!-- The ME Host Locked Banner -->
+        <div id="the-me-host-locked-alert" style="display:none; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:10px; padding:1rem; color:#065f46; font-weight:700; margin-bottom:1rem; text-align:center;">
+          🔒 {% trans "Your forbidden word is locked:" %} <strong id="the-me-my-word" style="font-size:1.2rem; color:#047857;"></strong><br>
+          <span style="font-size:0.85rem; font-weight:500; color:#065f46;">{% trans "Waiting for other players to submit their guesses without saying your word..." %}</span>
+        </div>
+
         <div class="ds-prompt-box">
           <div class="ds-prompt-badge">
             <span id="prompt-pack-label">🎯 {% trans "Topic" %}</span>
@@ -272,6 +355,14 @@
       <!-- 3. REVEAL STAGE -->
       <div id="stage-reveal" class="ds-card" style="display:none;">
         <div class="ds-section-label">{% trans "Round Results & Clashes" %}</div>
+
+        <!-- The ME Reveal Banner -->
+        <div id="the-me-reveal-banner" style="display:none; background:#fef3c7; border:2px solid #f59e0b; border-radius:12px; padding:1.1rem; text-align:center; margin-bottom:1rem;">
+          <div style="font-size:0.85rem; font-weight:800; color:#92400e; text-transform:uppercase;">👑 {% trans "The ME's Forbidden Word" %}</div>
+          <div id="the-me-reveal-word" style="font-size:2rem; font-weight:900; color:#78350f; margin:0.35rem 0;"></div>
+          <div id="the-me-reveal-summary" style="font-size:0.95rem; font-weight:700; color:#b45309;"></div>
+        </div>
+
         <div id="reveal-prompt-reminder" style="font-weight:700; font-size:1.1rem; margin-bottom:0.85rem; color:var(--ds-primary);"></div>
 
         <!-- Clashes Highlight Banner -->
@@ -324,6 +415,14 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal: Oral 3-2-1 Countdown Shout -->
+<div id="modal-oral-countdown" class="ds-modal" style="background:rgba(0,0,0,0.88); z-index:9999;">
+  <div style="text-align:center; color:#fff; padding:2rem;">
+    <div id="oral-cd-number" style="font-size:7rem; font-weight:900; color:#fbbf24; text-shadow:0 0 35px rgba(251,191,36,0.7); line-height:1; margin-bottom:1rem;">3</div>
+    <div id="oral-cd-label" style="font-size:1.6rem; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color:#f8fafc;">{% trans "Get Ready to Speak!" %}</div>
   </div>
 </div>
 
@@ -404,6 +503,10 @@ function connectWS() {
         alert(data.msg);
         return;
       }
+      if (data.type === "game.event" && data.event_type === "oral_countdown") {
+        runOralCountdown(data.duration || 3);
+        return;
+      }
       gameState = data;
       renderGame();
     } catch (err) {
@@ -421,6 +524,8 @@ function wsSend(payload) {
   }
 }
 
+let oralVerdicts = {};
+
 function renderGame() {
   if (!gameState) return;
   const viewer = gameState.viewer || {};
@@ -433,12 +538,25 @@ function renderGame() {
   document.getElementById("badge-round").textContent = `Round ${gameState.round_num || 0}/${gameState.settings?.max_rounds || 6}`;
 
   // Hide all stages first
-  ["stage-lobby", "stage-answering", "stage-reveal", "stage-gameover"].forEach(id => {
-    document.getElementById(id).style.display = "none";
+  [
+    "stage-lobby",
+    "stage-the-me-host",
+    "stage-the-me-waiting",
+    "stage-oral",
+    "stage-answering",
+    "stage-reveal",
+    "stage-gameover",
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
   });
 
   if (phase === "lobby") {
     renderLobby(isHost);
+  } else if (phase === "the_me_answering") {
+    renderTheMePhase(isHost);
+  } else if (phase === "oral_speaking") {
+    renderOralPhase(isHost);
   } else if (phase === "answering") {
     renderAnswering(isHost);
   } else if (phase === "reveal" || phase === "recap") {
@@ -451,6 +569,12 @@ function renderGame() {
   renderActivityLog();
 }
 
+function onGameModeChange() {
+  const m = document.getElementById("cfg-mode")?.value;
+  const wrap = document.getElementById("cfg-the-me-rot-wrap");
+  if (wrap) wrap.style.display = m === "the_me" ? "block" : "none";
+}
+
 function renderLobby(isHost) {
   const stage = document.getElementById("stage-lobby");
   stage.style.display = "block";
@@ -459,6 +583,14 @@ function renderLobby(isHost) {
   document.getElementById("wait-host-msg").style.display = isHost ? "none" : "block";
 
   if (gameState.settings) {
+    const modeEl = document.getElementById("cfg-mode");
+    if (modeEl) {
+      modeEl.value = gameState.settings.game_mode || "classic";
+      onGameModeChange();
+    }
+    const rotEl = document.getElementById("cfg-the-me-rot");
+    if (rotEl) rotEl.value = gameState.settings.the_me_rotation || "rotate";
+
     document.getElementById("cfg-pack").value = gameState.settings.pack || "mix";
     document.getElementById("cfg-rounds").value = gameState.settings.max_rounds || 6;
     document.getElementById("cfg-timer").value = gameState.settings.round_timer || 45;
@@ -466,6 +598,125 @@ function renderLobby(isHost) {
     document.getElementById("cfg-ai").checked = Boolean(gameState.settings.ai_validation);
     document.getElementById("cfg-obscure").checked = Boolean(gameState.settings.obscurity_bonus);
   }
+}
+
+function renderTheMePhase(isHost) {
+  const viewer = gameState.viewer || {};
+  const isTheMe = Boolean(viewer.is_the_me);
+  const p = gameState.current_prompt || {};
+  const promptText = p.display_text || p.text || "";
+  const theMeName = gameState.the_me_player_name || "The ME";
+
+  if (isTheMe) {
+    const stage = document.getElementById("stage-the-me-host");
+    stage.style.display = "block";
+    document.getElementById("the-me-host-prompt-text").textContent = promptText;
+    const inp = document.getElementById("the-me-host-input");
+    if (gameState.my_answer && !inp.value) {
+      inp.value = gameState.my_answer;
+    }
+  } else {
+    const stage = document.getElementById("stage-the-me-waiting");
+    stage.style.display = "block";
+    document.getElementById("the-me-waiting-title").textContent = `👑 ${theMeName} is 'The ME'`;
+    document.getElementById("the-me-wait-prompt-text").textContent = promptText;
+  }
+}
+
+function submitTheMeAnswer() {
+  const inp = document.getElementById("the-me-host-input");
+  const val = (inp.value || "").trim();
+  if (!val) return;
+  wsSend({ action: "submit_the_me_answer", answer: val });
+}
+
+function renderOralPhase(isHost) {
+  const stage = document.getElementById("stage-oral");
+  stage.style.display = "block";
+
+  const p = gameState.current_prompt || {};
+  document.getElementById("oral-prompt-text").textContent = p.display_text || p.text || "";
+
+  const hostPanel = document.getElementById("oral-host-panel");
+  hostPanel.style.display = isHost ? "block" : "none";
+
+  if (isHost) {
+    const players = gameState.players || [];
+    const container = document.getElementById("oral-players-adjudication");
+    container.innerHTML = players.map(pl => {
+      if (pl.is_spectator) return "";
+      const curStatus = oralVerdicts[pl.id]?.status || "valid";
+      const curAns = oralVerdicts[pl.id]?.answer || "";
+      return `
+        <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:0.65rem 0.85rem; margin-bottom:0.45rem; flex-wrap:wrap; gap:0.4rem;">
+          <div style="font-weight:700; font-size:0.9rem; min-width:130px;">
+            ${esc(pl.name)} <span style="font-size:0.75rem; color:#64748b;">(${pl.score || 0} pts)</span>
+          </div>
+          <div style="flex:1; min-width:140px;">
+            <input type="text" placeholder="Spoken word (optional)..." value="${esc(curAns)}" class="ds-input-large" style="padding:0.3rem 0.55rem; font-size:0.8rem;" oninput="setOralAnswer('${pl.id}', this.value)">
+          </div>
+          <div style="display:flex; gap:0.25rem;">
+            <button class="ds-btn ${curStatus === 'valid' ? 'ds-btn-success' : ''}" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="setOralStatus('${pl.id}', 'valid')">✨ Valid</button>
+            <button class="ds-btn ${curStatus === 'clash' ? 'ds-btn-danger' : ''}" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="setOralStatus('${pl.id}', 'clash')">💥 Clash</button>
+            <button class="ds-btn ${curStatus === 'invalid' ? 'ds-btn-danger' : ''}" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="setOralStatus('${pl.id}', 'invalid')">❌ Invalid</button>
+            <button class="ds-btn ${curStatus === 'obscure' ? 'ds-btn-primary' : ''}" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="setOralStatus('${pl.id}', 'obscure')">🌟 Obscure</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+}
+
+function setOralStatus(pid, status) {
+  oralVerdicts[pid] = oralVerdicts[pid] || { status: "valid", answer: "" };
+  oralVerdicts[pid].status = status;
+  renderOralPhase(true);
+}
+
+function setOralAnswer(pid, val) {
+  oralVerdicts[pid] = oralVerdicts[pid] || { status: "valid", answer: "" };
+  oralVerdicts[pid].answer = val;
+}
+
+function finishOralRound() {
+  const players = gameState.players || [];
+  players.forEach(pl => {
+    if (!pl.is_spectator && !oralVerdicts[pl.id]) {
+      oralVerdicts[pl.id] = { status: "valid", answer: "" };
+    }
+  });
+  wsSend({ action: "adjudicate_oral_round", verdicts: oralVerdicts });
+  oralVerdicts = {};
+}
+
+function triggerOralCountdown() {
+  wsSend({ action: "oral_countdown", duration: 3 });
+}
+
+function runOralCountdown(duration) {
+  const modal = document.getElementById("modal-oral-countdown");
+  const numEl = document.getElementById("oral-cd-number");
+  const lblEl = document.getElementById("oral-cd-label");
+  if (!modal || !numEl || !lblEl) return;
+  modal.classList.add("show");
+  let count = duration;
+  numEl.textContent = count;
+  lblEl.textContent = "Get Ready...";
+
+  const iv = setInterval(() => {
+    count -= 1;
+    if (count > 0) {
+      numEl.textContent = count;
+      lblEl.textContent = "Get Ready...";
+    } else {
+      numEl.textContent = "🗣️";
+      lblEl.textContent = "SAY IT OUT LOUD!";
+      clearInterval(iv);
+      setTimeout(() => {
+        modal.classList.remove("show");
+      }, 1500);
+    }
+  }, 1000);
 }
 
 function renderAnswering(isHost) {
@@ -477,6 +728,31 @@ function renderAnswering(isHost) {
   document.getElementById("prompt-display-text").textContent = p.display_text || p.text || "Prompt";
 
   document.getElementById("host-reveal-panel").style.display = isHost ? "block" : "none";
+
+  const mode = gameState.settings?.game_mode || "classic";
+  const viewer = gameState.viewer || {};
+  const isTheMe = Boolean(viewer.is_the_me);
+  const theMeAlert = document.getElementById("the-me-guesser-alert");
+  const theMeLockedAlert = document.getElementById("the-me-host-locked-alert");
+  const guesserInputWrap = document.getElementById("btn-submit-answer").parentElement.parentElement;
+
+  if (mode === "the_me") {
+    if (isTheMe) {
+      theMeAlert.style.display = "none";
+      theMeLockedAlert.style.display = "block";
+      document.getElementById("the-me-my-word").textContent = `"${gameState.my_answer || ''}"`;
+      guesserInputWrap.style.display = "none";
+    } else {
+      theMeAlert.style.display = "block";
+      document.getElementById("the-me-name-span").textContent = gameState.the_me_player_name || "The ME";
+      theMeLockedAlert.style.display = "none";
+      guesserInputWrap.style.display = "block";
+    }
+  } else {
+    theMeAlert.style.display = "none";
+    theMeLockedAlert.style.display = "none";
+    guesserInputWrap.style.display = "block";
+  }
 
   // Pre-fill answer if already submitted
   const myAns = gameState.my_answer || "";
@@ -525,6 +801,20 @@ function renderReveal(isHost) {
   const p = gameState.current_prompt || {};
   document.getElementById("reveal-prompt-reminder").textContent = `🎯 ${p.display_text || p.text || ""}`;
 
+  // Handle The ME reveal banner
+  const theMeBanner = document.getElementById("the-me-reveal-banner");
+  if (theMeBanner) {
+    if (gameState.settings?.game_mode === "the_me" && (gameState.the_me_answer || gameState.the_me_answer_revealed)) {
+      theMeBanner.style.display = "block";
+      const w = (gameState.the_me_answer?.raw) || gameState.the_me_answer_revealed || "";
+      document.getElementById("the-me-reveal-word").textContent = `"${w}"`;
+      const theMeName = gameState.the_me_player_name || "The ME";
+      document.getElementById("the-me-reveal-summary").textContent = `Forbidden word chosen by ${theMeName}`;
+    } else {
+      theMeBanner.style.display = "none";
+    }
+  }
+
   const rr = gameState.round_results || {};
   const clashes = rr.clash_groups || [];
   const playerResults = rr.player_results || {};
@@ -535,7 +825,7 @@ function renderReveal(isHost) {
     clashesBox.innerHTML = clashes.map(c => `
       <div class="ds-clash-box">
         <div class="ds-clash-title">💥 {% trans "COLLISION DETECTED!" %} "${esc(c.answer_text)}"</div>
-        <div class="ds-clash-players">⚠️ <strong>${c.player_names.map(esc).join(" & ")}</strong> {% trans "both answered the exact same thing!" %} (0 pts)</div>
+        <div class="ds-clash-players">⚠️ <strong>${c.player_names.map(esc).join(" & ")}</strong> {% trans "said the same thing!" %}</div>
       </div>
     `).join("");
   } else {
@@ -549,18 +839,28 @@ function renderReveal(isHost) {
   // Render Per-player Cards
   const container = document.getElementById("results-table-container");
   container.innerHTML = Object.values(playerResults).map(res => {
-    const isClash = res.status === "clash";
-    const isUnique = res.status === "unique";
-    const isInvalid = !res.is_valid;
+    const isClash = res.status === "clash" || res.status === "caught_by_me";
+    const isMastermind = res.status === "the_me_mastermind";
+    const isEscaped = res.status === "escaped_me";
+    const isUnique = res.status === "unique" || isEscaped || isMastermind;
+    const isInvalid = !res.is_valid && res.status !== "the_me_avoided";
     const cardClass = isClash ? "clash" : (isUnique ? "unique" : "invalid");
 
     let statusPill = "";
-    if (isInvalid) {
+    if (res.status === "caught_by_me") {
+      statusPill = `<span class="ds-pill ds-pill-danger">💥 Trapped by The ME! (${res.points_awarded} pts)</span>`;
+    } else if (res.status === "the_me_mastermind") {
+      statusPill = `<span class="ds-pill ds-pill-primary">👑 Mastermind (+${res.points_awarded} pts)</span>`;
+    } else if (res.status === "the_me_avoided") {
+      statusPill = `<span class="ds-pill ds-pill-primary">👑 The ME (+${res.points_awarded} pts)</span>`;
+    } else if (res.status === "escaped_me") {
+      statusPill = `<span class="ds-pill ds-pill-success">✨ Escaped The ME! (+${res.points_awarded} pts)</span>`;
+    } else if (isInvalid) {
       statusPill = `<span class="ds-pill ds-pill-danger">❌ {% trans "Invalid" %} (0 pts)</span>`;
     } else if (isClash) {
       statusPill = `<span class="ds-pill ds-pill-danger">💥 {% trans "Clash" %} (${res.points_awarded} pts)</span>`;
     } else if (res.is_obscure) {
-      statusPill = `<span class="ds-pill ds-pill-primary">🌟 {% trans "Unique + Obscure Bonus" %} (+${res.points_awarded} pts)</span>`;
+      statusPill = `<span class="ds-pill ds-pill-primary">🌟 {% trans "Unique + Obscure" %} (+${res.points_awarded} pts)</span>`;
     } else {
       statusPill = `<span class="ds-pill ds-pill-success">✨ {% trans "Unique" %} (+${res.points_awarded} pts)</span>`;
     }
@@ -616,15 +916,16 @@ function renderRoster() {
   document.getElementById("player-count").textContent = players.length;
 
   const phase = gameState.phase || "lobby";
+  const isHost = Boolean(gameState.viewer && gameState.viewer.is_admin);
   const submittedCount = players.filter(p => p.has_submitted).length;
-  document.getElementById("sub-counter").textContent = phase === "answering" ? `${submittedCount}/${players.length} submitted` : "";
+  document.getElementById("sub-counter").textContent = (phase === "answering" || phase === "the_me_answering") ? `${submittedCount}/${players.length} submitted` : "";
 
   const box = document.getElementById("players-roster");
   box.innerHTML = players.map(p => {
     const isMe = p.id === PLAYER_ID;
     const isConn = p.connected;
     let statusIcon = "";
-    if (phase === "answering") {
+    if (phase === "answering" || phase === "the_me_answering") {
       statusIcon = p.has_submitted ? "✅" : "⏳";
     }
 
@@ -632,13 +933,33 @@ function renderRoster() {
       <div class="ds-roster-item" style="${isMe ? 'border-left:3px solid var(--ds-primary);' : ''}">
         <div class="ds-roster-left">
           <span style="opacity:${isConn ? 1 : 0.4};">👤</span>
-          <span style="font-weight:${isMe ? '700' : '500'}; font-size:0.85rem;">${esc(p.name)} ${p.is_admin ? '👑' : ''}</span>
+          <span style="font-weight:${isMe ? '700' : '500'}; font-size:0.85rem;">${esc(p.name)} ${p.is_admin ? '👑' : ''} ${p.is_the_me ? '🎯' : ''}</span>
           ${statusIcon ? `<span style="font-size:0.75rem;">${statusIcon}</span>` : ''}
         </div>
-        <div class="ds-roster-score">${p.score || 0} pts</div>
+        <div class="ds-roster-score">
+          ${p.score || 0} pts
+          ${(isHost && p.id !== PLAYER_ID) ? `
+            <button onclick="transferHost('${p.id}', '${esc(p.name)}')" title="Transfer Room Host" style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0 0.15rem;">👑</button>
+            <button onclick="confirmKickPlayer('${p.id}', '${esc(p.name)}')" title="Kick Player" style="background:none; border:none; cursor:pointer; font-size:0.85rem; color:#ef4444; padding:0 0.15rem;">&times;</button>
+          ` : ''}
+        </div>
       </div>
     `;
   }).join("");
+}
+
+function transferHost(pid, pName) {
+  const name = pName || "this player";
+  if (confirm(`👑 Transfer Room Host privileges to ${name}?`)) {
+    wsSend({ action: "transfer_host", target_id: pid });
+  }
+}
+
+function confirmKickPlayer(pid, pName) {
+  const name = pName || "this player";
+  if (confirm(`Remove ${name} from the room?`)) {
+    wsSend({ action: "kick_player", player_id: pid });
+  }
 }
 
 function renderActivityLog() {
@@ -650,6 +971,8 @@ function renderActivityLog() {
 
 // User Actions
 function saveSettings() {
+  const mode = document.getElementById("cfg-mode")?.value || "classic";
+  const theMeRot = document.getElementById("cfg-the-me-rot")?.value || "rotate";
   const pack = document.getElementById("cfg-pack").value;
   const maxRounds = parseInt(document.getElementById("cfg-rounds").value, 10);
   const roundTimer = parseInt(document.getElementById("cfg-timer").value, 10);
@@ -660,6 +983,8 @@ function saveSettings() {
   wsSend({
     action: "update_settings",
     settings: {
+      game_mode: mode,
+      the_me_rotation: theMeRot,
       pack: pack,
       max_rounds: maxRounds,
       round_timer: roundTimer,

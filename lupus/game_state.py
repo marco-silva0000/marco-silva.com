@@ -344,6 +344,8 @@ def remove_player(state: dict[str, Any], player_id: str) -> dict[str, Any]:
         del state["players"][player_id]
         if "player_order" in state and player_id in state["player_order"]:
             state["player_order"].remove(player_id)
+        if state.get("gm_player_id") == player_id:
+            state["gm_player_id"] = None
         log_event(state, f"{name} left the room.")
         record_action(
             state,
@@ -354,6 +356,26 @@ def remove_player(state: dict[str, Any], player_id: str) -> dict[str, Any]:
         )
         save_game(state["code"], state)
     return state
+
+
+def transfer_gm(state: dict[str, Any], target_player_id: str) -> bool:
+    """Transfer Game Master / Narrator role to another player."""
+    target = state.get("players", {}).get(target_player_id)
+    if not target:
+        return False
+    state["gm_player_id"] = target_player_id
+    state["gm_name"] = target["name"]
+    log_event(state, f"👑 Game Master / Narrator role transferred to {target['name']}.")
+    record_action(
+        state,
+        "gm_transferred",
+        {"target_id": target_player_id, "target_name": target["name"]},
+        actor_id="gm",
+        actor_name=state.get("gm_name", "Game Master"),
+    )
+    save_game(state["code"], state)
+    return True
+
 
 
 DEMO_PLAYERS: list[tuple[str, str]] = [
@@ -5332,6 +5354,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optio
             or state.get("settings", {}).get("mayor_type") == "public"
             or state.get("settings", {}).get("public_mayor", False)
         )
+        is_player_gm = bool(state.get("gm_player_id") == pid)
         public_players.append(
             {
                 "id": p["id"],
@@ -5343,6 +5366,7 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optio
                 "is_traveler": p.get("is_traveler", False) or p.get("role") == "traveler",
                 "is_ghost": p.get("is_ghost", False) or p.get("role") == "ghost",
                 "is_public_mayor": is_public_mayor,
+                "is_gm": is_player_gm,
                 "is_me": pid == player_id,
                 "is_lover": pid == lover_id,
                 "is_pack_mate": is_wolf and p["faction"] == FACTION_WOLVES and pid != player_id,
@@ -5528,6 +5552,9 @@ def get_sanitized_player_view(state: dict[str, Any], player_id: str, lang: Optio
                 or state.get("settings", {}).get("mayor_type") == "public"
                 or state.get("settings", {}).get("public_mayor", False)
             ),
+            "is_gm": bool(state.get("gm_player_id") == player_id),
+            "gm_token": state.get("gm_token") if state.get("gm_player_id") == player_id else None,
+            "gm_url": f"/games/lupus/{state['code']}/gm/?gm_token={state.get('gm_token')}" if state.get("gm_player_id") == player_id else None,
         },
         "players": public_players,
         "roles_in_play": roles_in_play,

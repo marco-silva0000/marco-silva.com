@@ -36,7 +36,20 @@ COLLISION_MODES = (
     "harsh",  # Clashes lose 50 points (-50), unique gets 100 points
 )
 
+GAME_MODES = (
+    ("classic", "Standard (Secret Anti-Clash)"),
+    ("the_me", "The ME (Genius Host: Don't Say What I Say)"),
+    ("oral_table", "Oral Table (Living Room: Say Out Loud)"),
+)
+
+THE_ME_ROTATIONS = (
+    ("rotate", "Rotate Each Round"),
+    ("host_fixed", "Host is Always 'The ME'"),
+)
+
 DEFAULT_SETTINGS: dict[str, Any] = {
+    "game_mode": "classic",  # "classic", "the_me", "oral_table"
+    "the_me_rotation": "rotate",  # "rotate", "host_fixed"
     "pack": "mix",  # "mix", "geo", "media", "food", "nature", "history", "weird"
     "max_rounds": 6,
     "round_timer": 45,  # 30, 45, 60, 0 (untimed)
@@ -116,6 +129,8 @@ def create_game(code: str, title: str = "", password: str = "", language: str = 
         "used_prompt_ids": [],
         "round_answers": {},  # {pid: {"raw": str, "submitted_at": float}}
         "round_results": None,  # Computed collision results and scores for current round
+        "the_me_player_id": None,  # Player ID of "The ME" in genius host mode
+        "the_me_answer": None,  # Secret answer locked by "The ME"
         "round_timer_started_at": None,
         "round_timer_duration": 45,
         "round_history": [],
@@ -260,8 +275,25 @@ def kick_player(state: dict[str, Any], target_id: str, by_name: str = "Host") ->
     return kicked
 
 
+def transfer_host(state: dict[str, Any], target_id: str) -> bool:
+    """Transfer room creator / host role to another player."""
+    target = state.get("players", {}).get(target_id)
+    if not target:
+        return False
+    target["is_admin"] = True
+    state["creator_id"] = target_id
+    state["creator"] = target["name"]
+    append_event(state, "System", f"👑 Room Host privileges transferred to {target['name']}.")
+    save_game(state["code"], state)
+    return True
+
+
 def update_settings(state: dict[str, Any], new_settings: dict[str, Any]) -> None:
     cur = state.setdefault("settings", copy.deepcopy(DEFAULT_SETTINGS))
+    if "game_mode" in new_settings and new_settings["game_mode"] in dict(GAME_MODES):
+        cur["game_mode"] = str(new_settings["game_mode"])
+    if "the_me_rotation" in new_settings and new_settings["the_me_rotation"] in dict(THE_ME_ROTATIONS):
+        cur["the_me_rotation"] = str(new_settings["the_me_rotation"])
     if "pack" in new_settings:
         cur["pack"] = str(new_settings["pack"])
     if "max_rounds" in new_settings:
@@ -285,7 +317,6 @@ def update_settings(state: dict[str, Any], new_settings: dict[str, Any]) -> None
 
 def start_game(state: dict[str, Any]) -> bool:
     """Start game or advance to round 1 from lobby."""
-    state["phase"] = "answering"
     state["round_num"] = 1
     state["round_history"] = []
     state["used_prompt_ids"] = []
@@ -296,9 +327,10 @@ def start_game(state: dict[str, Any]) -> bool:
 
 
 def setup_round(state: dict[str, Any]) -> bool:
-    """Prepare a fresh round: choose prompt and start round timer."""
+    """Prepare a fresh round: choose prompt and configure mode phase."""
     settings = state.get("settings", DEFAULT_SETTINGS)
     pack = settings.get("pack", "mix")
+    game_mode = settings.get("game_mode", "classic")
     allow_gen = settings.get("allow_generative_prompts", True)
     used_ids = set(state.get("used_prompt_ids", []))
 
@@ -312,14 +344,76 @@ def setup_round(state: dict[str, Any]) -> bool:
     state.setdefault("used_prompt_ids", []).append(prompt.get("id"))
     state["round_answers"] = {}
     state["round_results"] = None
-
-    timer_dur = int(settings.get("round_timer", 45))
-    state["round_timer_duration"] = timer_dur
-    state["round_timer_started_at"] = time.time() if timer_dur > 0 else None
-    state["phase"] = "answering"
+    state["the_me_answer"] = None
 
     prompt_display = prompt.get("display_text") or prompt.get("text")
     append_event(state, "System", f"🎯 Round {state['round_num']}: \"{prompt_display}\"")
+
+    if game_mode == "the_me":
+        # Select "The ME" player
+        actives = [p["id"] for p in active_players(state) if p.get("connected")]
+        if not actives:
+            actives = list(state.get("players", {}).keys())
+
+        if settings.get("the_me_rotation") == "host_fixed" and state.get("creator_id") in actives:
+            the_me_id = state.get("creator_id")
+        else:
+            idx = (state.get("round_num", 1) - 1) % max(1, len(actives))
+            the_me_id = actives[idx] if actives else None
+
+        state["the_me_player_id"] = the_me_id
+        state["phase"] = "the_me_answering"
+        the_me_p = state.get("players", {}).get(the_me_id)
+        the_me_name = the_me_p["name"] if the_me_p else "The ME"
+        append_event(state, "System", f"👑 {the_me_name} is 'The ME'! Setting secret forbidden word...")
+        state["round_timer_duration"] = 0
+        state["round_timer_started_at"] = None
+
+    elif game_mode == "oral_table":
+        state["phase"] = "oral_speaking"
+        state["round_timer_duration"] = 0
+        state["round_timer_started_at"] = None
+        append_event(state, "System", "🗣️ Living Room Oral Round! Read the prompt aloud.")
+
+    else:  # "classic"
+        timer_dur = int(settings.get("round_timer", 45))
+        state["round_timer_duration"] = timer_dur
+        state["round_timer_started_at"] = time.time() if timer_dur > 0 else None
+        state["phase"] = "answering"
+
+    save_game(state["code"], state)
+    return True
+
+
+def submit_the_me_answer(state: dict[str, Any], player_id: str, answer_text: str) -> bool:
+    """Designated 'The ME' player locks in the forbidden word for the round."""
+    if state.get("phase") != "the_me_answering":
+        return False
+    if player_id != state.get("the_me_player_id"):
+        return False
+    cleaned = (answer_text or "").strip()[:80]
+    if not cleaned:
+        return False
+
+    state["the_me_answer"] = {
+        "raw": cleaned,
+        "clean_key": clean_answer_key(cleaned),
+        "submitted_at": time.time(),
+    }
+    state.setdefault("round_answers", {})[player_id] = {
+        "raw": cleaned,
+        "submitted_at": time.time(),
+    }
+
+    # Transition to answering phase for all other players
+    state["phase"] = "answering"
+    timer_dur = int(state.get("settings", {}).get("round_timer", 45))
+    state["round_timer_duration"] = timer_dur
+    state["round_timer_started_at"] = time.time() if timer_dur > 0 else None
+
+    the_me_p = state.get("players", {}).get(player_id)
+    the_me_name = the_me_p["name"] if the_me_p else "The ME"
+    append_event(state, "System", f"🔒 {the_me_name} locked in their secret word! Everyone else, answer now!")
     save_game(state["code"], state)
     return True
 
@@ -332,6 +426,11 @@ def submit_answer(state: dict[str, Any], player_id: str, answer_text: str) -> bo
     if not player or player.get("is_spectator"):
         return False
 
+    game_mode = state.get("settings", {}).get("game_mode", "classic")
+    the_me_id = state.get("the_me_player_id")
+    if game_mode == "the_me" and player_id == the_me_id:
+        return False
+
     cleaned = (answer_text or "").strip()[:80]
     state.setdefault("round_answers", {})[player_id] = {
         "raw": cleaned,
@@ -340,7 +439,11 @@ def submit_answer(state: dict[str, Any], player_id: str, answer_text: str) -> bo
     save_game(state["code"], state)
 
     # Check if all active connected players have submitted
-    actives = [p["id"] for p in active_players(state) if p.get("connected")]
+    if game_mode == "the_me":
+        actives = [p["id"] for p in active_players(state) if p.get("connected") and p["id"] != the_me_id]
+    else:
+        actives = [p["id"] for p in active_players(state) if p.get("connected")]
+
     submitted = set(state["round_answers"].keys())
     if actives and all(pid in submitted for pid in actives):
         evaluate_and_reveal_round(state)
@@ -398,46 +501,148 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
     player_results: dict[str, Any] = {}
     clash_groups: list[dict[str, Any]] = []
 
-    for ckey, pids in grouped_by_key.items():
-        val_info = evaluated_keys.get(ckey, {"valid": True, "is_obscure": False})
-        is_valid = val_info.get("valid", True)
-        is_obs = val_info.get("is_obscure", False) and allow_obs
-        is_clash = len(pids) > 1
+    game_mode = settings.get("game_mode", "classic")
+    the_me_id = state.get("the_me_player_id") if game_mode == "the_me" else None
+    the_me_raw = state.get("the_me_answer", {}).get("raw", "") if the_me_id else ""
+    the_me_key = clean_answer_key(the_me_raw) if the_me_raw else ""
+    me_victims = []
 
-        if is_clash:
-            clash_names = [players[p]["name"] for p in pids if p in players]
-            clash_groups.append({
-                "clean_key": ckey,
-                "player_ids": pids,
-                "player_names": clash_names,
-                "answer_text": answers[pids[0]]["raw"],
-                "is_valid": is_valid,
-            })
+    if game_mode == "the_me" and the_me_id:
+        # Evaluate guessers against 'The ME'
+        for ckey, pids in grouped_by_key.items():
+            val_info = evaluated_keys.get(ckey, {"valid": True, "is_obscure": False})
+            is_valid = val_info.get("valid", True)
+            is_obs = val_info.get("is_obscure", False) and allow_obs
+            other_pids = [p for p in pids if p != the_me_id]
 
-        for pid in pids:
-            if not is_valid:
-                pts = 0
-                status = "invalid"
-            elif is_clash:
-                pts = -50 if collision_mode == "harsh" else 0
-                status = "clash"
+            if ckey == the_me_key:
+                # Players trapped by The ME!
+                for pid in other_pids:
+                    me_victims.append(pid)
+                    pts = -50 if collision_mode == "harsh" else 0
+                    players[pid]["score"] = max(0, players[pid].get("score", 0) + pts)
+                    player_results[pid] = {
+                        "player_id": pid,
+                        "player_name": players[pid]["name"],
+                        "raw_answer": answers[pid]["raw"],
+                        "clean_key": ckey,
+                        "status": "caught_by_me",
+                        "is_valid": is_valid,
+                        "is_obscure": False,
+                        "points_awarded": pts,
+                        "total_score": players[pid]["score"],
+                        "reason": f"💥 Said the same word as The ME ({the_me_raw})!",
+                    }
+                if other_pids:
+                    clash_groups.append({
+                        "clean_key": ckey,
+                        "player_ids": pids,
+                        "player_names": [players[p]["name"] for p in pids if p in players],
+                        "answer_text": the_me_raw,
+                        "is_valid": is_valid,
+                    })
             else:
-                pts = 150 if is_obs else 100
-                status = "unique"
+                is_clash = len(other_pids) > 1
+                if is_clash:
+                    clash_groups.append({
+                        "clean_key": ckey,
+                        "player_ids": other_pids,
+                        "player_names": [players[p]["name"] for p in other_pids if p in players],
+                        "answer_text": answers[other_pids[0]]["raw"],
+                        "is_valid": is_valid,
+                    })
+                for pid in other_pids:
+                    if not is_valid:
+                        pts = 0
+                        status = "invalid"
+                    elif is_clash:
+                        pts = -50 if collision_mode == "harsh" else 0
+                        status = "clash"
+                    else:
+                        pts = 150 if is_obs else 100
+                        status = "escaped_me"
 
-            players[pid]["score"] = max(0, players[pid].get("score", 0) + pts)
-            player_results[pid] = {
-                "player_id": pid,
-                "player_name": players[pid]["name"],
-                "raw_answer": answers[pid]["raw"],
-                "clean_key": ckey,
-                "status": status,
-                "is_valid": is_valid,
-                "is_obscure": is_obs,
-                "points_awarded": pts,
-                "total_score": players[pid]["score"],
-                "reason": val_info.get("reason", ""),
+                    players[pid]["score"] = max(0, players[pid].get("score", 0) + pts)
+                    player_results[pid] = {
+                        "player_id": pid,
+                        "player_name": players[pid]["name"],
+                        "raw_answer": answers[pid]["raw"],
+                        "clean_key": ckey,
+                        "status": status,
+                        "is_valid": is_valid,
+                        "is_obscure": is_obs,
+                        "points_awarded": pts,
+                        "total_score": players[pid]["score"],
+                        "reason": val_info.get("reason", ""),
+                    }
+
+        # Score 'The ME'
+        if the_me_id in players:
+            me_pts = len(me_victims) * 100
+            if me_victims:
+                me_status = "the_me_mastermind"
+                reason = f"Trapped {len(me_victims)} player(s) with \"{the_me_raw}\"!"
+            else:
+                me_status = "the_me_avoided"
+                me_pts = 50  # Consolation points for setting the word
+                reason = "All players avoided your forbidden word!"
+
+            players[the_me_id]["score"] = max(0, players[the_me_id].get("score", 0) + me_pts)
+            player_results[the_me_id] = {
+                "player_id": the_me_id,
+                "player_name": players[the_me_id]["name"],
+                "raw_answer": the_me_raw,
+                "clean_key": the_me_key,
+                "status": me_status,
+                "is_valid": True,
+                "is_obscure": False,
+                "points_awarded": me_pts,
+                "total_score": players[the_me_id]["score"],
+                "reason": reason,
             }
+
+    else:
+        # Standard anti-clash mode
+        for ckey, pids in grouped_by_key.items():
+            val_info = evaluated_keys.get(ckey, {"valid": True, "is_obscure": False})
+            is_valid = val_info.get("valid", True)
+            is_obs = val_info.get("is_obscure", False) and allow_obs
+            is_clash = len(pids) > 1
+
+            if is_clash:
+                clash_names = [players[p]["name"] for p in pids if p in players]
+                clash_groups.append({
+                    "clean_key": ckey,
+                    "player_ids": pids,
+                    "player_names": clash_names,
+                    "answer_text": answers[pids[0]]["raw"],
+                    "is_valid": is_valid,
+                })
+
+            for pid in pids:
+                if not is_valid:
+                    pts = 0
+                    status = "invalid"
+                elif is_clash:
+                    pts = -50 if collision_mode == "harsh" else 0
+                    status = "clash"
+                else:
+                    pts = 150 if is_obs else 100
+                    status = "unique"
+
+                players[pid]["score"] = max(0, players[pid].get("score", 0) + pts)
+                player_results[pid] = {
+                    "player_id": pid,
+                    "player_name": players[pid]["name"],
+                    "raw_answer": answers[pid]["raw"],
+                    "clean_key": ckey,
+                    "status": status,
+                    "is_valid": is_valid,
+                    "is_obscure": is_obs,
+                    "points_awarded": pts,
+                    "total_score": players[pid]["score"],
+                    "reason": val_info.get("reason", ""),
+                }
 
     # Handle players who did not submit an answer
     for pid, p in players.items():
@@ -522,6 +727,79 @@ def toggle_answer_validity(state: dict[str, Any], player_id: str, is_valid: bool
     return True
 
 
+def adjudicate_oral_round(
+    state: dict[str, Any],
+    verdicts: dict[str, Any],
+) -> dict[str, Any]:
+    """Host adjudicates results for oral living-room round."""
+    settings = state.get("settings", DEFAULT_SETTINGS)
+    collision_mode = settings.get("collision_mode", "classic")
+    prompt = state.get("current_prompt") or {}
+    players = state.get("players", {})
+
+    state["phase"] = "reveal"
+    player_results: dict[str, Any] = {}
+    clash_groups: list[dict[str, Any]] = []
+
+    for pid, p in players.items():
+        if p.get("is_spectator"):
+            continue
+        v_info = verdicts.get(pid, {})
+        status = v_info.get("status", "valid")
+        ans_text = (v_info.get("answer") or "").strip()
+
+        if status == "invalid":
+            pts = 0
+            is_valid = False
+            is_obs = False
+        elif status == "clash":
+            pts = -50 if collision_mode == "harsh" else 0
+            is_valid = True
+            is_obs = False
+        elif status == "obscure":
+            pts = 150
+            is_valid = True
+            is_obs = True
+        else:  # "valid" / "unique"
+            pts = 100
+            is_valid = True
+            is_obs = False
+            status = "unique"
+
+        p["score"] = max(0, p.get("score", 0) + pts)
+        state.setdefault("round_answers", {})[pid] = {
+            "raw": ans_text,
+            "submitted_at": time.time(),
+        }
+        player_results[pid] = {
+            "player_id": pid,
+            "player_name": p["name"],
+            "raw_answer": ans_text,
+            "clean_key": clean_answer_key(ans_text),
+            "status": status,
+            "is_valid": is_valid,
+            "is_obscure": is_obs,
+            "points_awarded": pts,
+            "total_score": p["score"],
+            "reason": "Living Room Oral Table verdict",
+        }
+
+    round_summary = {
+        "round_num": state.get("round_num", 1),
+        "prompt": prompt,
+        "player_results": player_results,
+        "clash_groups": clash_groups,
+        "total_submissions": len(player_results),
+        "total_clashes": sum(1 for r in player_results.values() if r["status"] == "clash"),
+        "timestamp": time.time(),
+    }
+    state["round_results"] = round_summary
+    state.setdefault("round_history", []).append(round_summary)
+    append_event(state, "Host", f"🗣️ Oral round {state.get('round_num', 1)} results finalized!")
+    save_game(state["code"], state)
+    return round_summary
+
+
 def advance_next_round(state: dict[str, Any]) -> bool:
     """Advance from reveal to next round, or game over if max rounds reached."""
     max_rounds = int(state.get("settings", {}).get("max_rounds", 6))
@@ -567,6 +845,11 @@ def get_sanitized_player_view(state: dict[str, Any], viewer: Optional[str] = Non
     viewer_token = viewer_record.get("token") if viewer_record else None
     viewer_is_admin = is_player_admin(view, viewer_record)
 
+    the_me_id = view.get("the_me_player_id")
+    the_me_p = view.get("players", {}).get(the_me_id) if isinstance(view.get("players"), dict) else None
+    the_me_name = the_me_p["name"] if the_me_p else None
+    the_me_ans = view.get("the_me_answer")
+
     # Sanitize players list
     sanitized_players = []
     for pid, p in view.get("players", {}).items():
@@ -575,12 +858,13 @@ def get_sanitized_player_view(state: dict[str, Any], viewer: Optional[str] = Non
         if p_copy.get("token") != viewer_token:
             p_copy.pop("token", None)
         p_copy.pop("channel_name", None)
+        p_copy["is_the_me"] = bool(pid == the_me_id)
 
         # Indicate submission status without revealing content
         ans_info = round_answers.get(pid)
         p_copy["has_submitted"] = bool(ans_info and ans_info.get("raw") is not None)
 
-        if phase == "answering":
+        if phase in ("the_me_answering", "answering"):
             if pid == viewer_id:
                 p_copy["my_answer"] = ans_info.get("raw", "") if ans_info else ""
         elif phase in ("reveal", "recap", "gameover"):
@@ -591,16 +875,24 @@ def get_sanitized_player_view(state: dict[str, Any], viewer: Optional[str] = Non
     sanitized_players.sort(key=lambda x: x.get("score", 0), reverse=True)
     view["players"] = sanitized_players
 
-    # Strip raw answers from view during answering phase
-    if phase == "answering":
-        view["my_answer"] = round_answers.get(viewer_id, {}).get("raw", "") if viewer_id else ""
+    # Zero-spoiler guarantee for 'The ME' answer
+    if phase in ("the_me_answering", "answering"):
+        if viewer_id == the_me_id:
+            view["my_answer"] = the_me_ans.get("raw", "") if the_me_ans else ""
+        else:
+            view["my_answer"] = round_answers.get(viewer_id, {}).get("raw", "") if viewer_id else ""
+        view["the_me_answer"] = None  # Hide forbidden word from other players!
     else:
         view["all_answers"] = {pid: info.get("raw", "") for pid, info in round_answers.items()}
+
+    view["the_me_has_submitted"] = bool(the_me_ans and the_me_ans.get("raw"))
+    view["the_me_player_name"] = the_me_name
 
     view["viewer"] = {
         "id": viewer_id,
         "name": viewer_record["name"] if viewer_record else None,
         "is_admin": viewer_is_admin,
+        "is_the_me": bool(viewer_id and viewer_id == the_me_id),
         "is_spectator": viewer_record.get("is_spectator", False) if viewer_record else False,
     }
 
@@ -608,6 +900,14 @@ def get_sanitized_player_view(state: dict[str, Any], viewer: Optional[str] = Non
     view["available_packs"] = [
         {"id": pid, "label": label}
         for pid, label in PACK_CHOICES
+    ]
+    view["available_game_modes"] = [
+        {"id": gid, "label": glbl}
+        for gid, glbl in GAME_MODES
+    ]
+    view["available_the_me_rotations"] = [
+        {"id": rid, "label": rlbl}
+        for rid, rlbl in THE_ME_ROTATIONS
     ]
     view["collision_modes"] = list(COLLISION_MODES)
 

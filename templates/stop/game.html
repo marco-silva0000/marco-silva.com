@@ -540,6 +540,20 @@ function confirmEndMatch() {
   }
 }
 
+function transferHost(playerId, playerName) {
+  const name = playerName || "this player";
+  if (confirm(`👑 Transfer Room Host privileges to ${name}?`)) {
+    wsSend({ action: "transfer_host", target_id: playerId });
+  }
+}
+
+function confirmKickPlayer(playerId, playerName) {
+  const name = playerName || "this player";
+  if (confirm(`Remove ${name} from the room?`)) {
+    wsSend({ action: "kick_player", player_id: playerId });
+  }
+}
+
 function renderTimer() {
   const pill = document.getElementById("timer-pill");
   if (!pill) return;
@@ -770,7 +784,10 @@ function renderState() {
         </div>
         <div style="display:flex;align-items:center;gap:0.4rem;">
           <span style="font-weight:800;color:#0f172a;">${p.score} pts</span>
-          ${isAdmin && p.id !== (s.me && s.me.id) ? `<button type="button" class="stp-btn" style="padding:0.1rem 0.38rem;font-size:0.7rem;" onclick="wsSend({action:'kick_player',player_id:'${esc(p.id)}'})" title="Kick">&times;</button>` : ''}
+          ${isAdmin && p.id !== (s.me && s.me.id) ? `
+            <button type="button" class="stp-btn" style="padding:0.1rem 0.35rem;font-size:0.7rem;" onclick="transferHost('${esc(p.id)}', '${esc(p.name)}')" title="Make Host">👑</button>
+            <button type="button" class="stp-btn" style="padding:0.1rem 0.38rem;font-size:0.7rem;color:#ef4444;" onclick="confirmKickPlayer('${esc(p.id)}', '${esc(p.name)}')" title="Kick">&times;</button>
+          ` : ''}
         </div>
       </div>
     `).join("");
