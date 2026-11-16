@@ -88,6 +88,7 @@ INSTALLED_APPS = [
     "impostor",
     "codenames",
     "stop",
+    "dontsay",
     "lupus",
     "photologue",
     "sortedm2m",

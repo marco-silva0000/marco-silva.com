@@ -4,6 +4,27 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v165] - 2026-11-16
+
+### Added & Changed
+- **New Party Game: "Don't Say the Same Thing as Me" (`dontsay/`, `templates/dontsay/`, `templates/gamerooms/`)**:
+  - Implemented real-time multiplayer anti-hivemind collision party game based on secret submissions and collision scoring.
+  - Secret answering phase with zero-spoiler guarantees: other players' answers remain hidden until reveal.
+  - Automatic clash detection: identical/synonymous answers collide and score 0 points (or -50 penalty in harsh mode).
+  - Obscurity / rarity bonus (+50 points) for rare, creative valid answers.
+  - Interactive Host review with one-tap validity overrides (✅ / ❌) and instant score recalculation.
+  - Final podium with confetti, funny awards ("Twin Souls / Mind Readers", "Lone Wolf"), and match replay.
+- **Reusable Linguistic Semantic Frame & Prompt Generation Engine (`gamerooms/prompt_engine/`)**:
+  - Implemented Fillmore Frame Semantics engine: `[<mod1>] <thing> that <action> [<article>] [<mod2>] <target> [<limiters>]`.
+  - 6 typed semantic domains: Geography (`geo`), Media & Pop Culture (`media`), Culinary (`food`), Nature & Wildlife (`nature`), History & Inventions (`history`), and Quirky Everyday (`weird`).
+  - Multilingual support: prompts generated and localized across English, Portuguese, Spanish, Italian, and French.
+  - Curated gold deck of 25+ hand-crafted, verified prompts with high cardinality ($5 \le N \le 35$) and pre-verified answers for instant zero-latency offline play.
+  - Local AI answer arbitration via Ollama `qwen3:30b` on CT 104 (`192.168.1.104:11434`) with strict timeouts and safe fallback.
+- **Fixed Mobile Prefetch Ghost Clone Bug (`MS`, `MS 2`, `MS 3`, `MS 4`) Across All Game Rooms**:
+  - Root caused duplicate player clones on mobile browsers (Safari/Chrome iOS) due to prefetching and WebSocket re-registration.
+  - Added seat reclamation by name for hosts and existing sessions, avoiding unwanted `_unique_name` spawns.
+  - Replaced server-side 302 redirects on bare GETs with non-intrusive client-side `history.replaceState` pinning `?token=...` into the address bar.
+
 ## [v164] - 2026-11-16
 
 ### Added & Changed

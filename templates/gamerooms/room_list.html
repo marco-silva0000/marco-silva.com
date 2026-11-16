@@ -159,6 +159,29 @@
       </div>
     </div>
 
+    <!-- Don't Say the Same Thing as Me Card -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
+          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
+            <span>🤐</span> {% trans "Don't Say the Same Thing as Me" %}
+          </div>
+          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
+            2–20 {% trans "players" %}
+          </span>
+        </div>
+        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
+          {% trans "Anti-hivemind collision game powered by combinatorial linguistic prompts: answer secretly, avoid crashing with others, and score rarity bonuses!" %}
+        </p>
+      </div>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <a href="{% url 'gamerooms:room-create' %}?game=dontsay"
+           style="display: inline-flex; align-items: center; background: #8b5cf6; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
+          + {% trans "Host Room" %}
+        </a>
+      </div>
+    </div>
+
     <!-- Pictionary Card -->
     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
       <div>

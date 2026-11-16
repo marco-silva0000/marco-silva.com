@@ -10,6 +10,7 @@ from codenames.routing import websocket_urlpatterns as codenames_ws_urlpatterns 
 from emojinary.routing import websocket_urlpatterns as emojinary_ws_urlpatterns  # noqa: E402
 from impostor.routing import websocket_urlpatterns as impostor_ws_urlpatterns  # noqa: E402
 from lupus.routing import websocket_urlpatterns as lupus_ws_urlpatterns  # noqa: E402
+from dontsay.routing import websocket_urlpatterns as dontsay_ws_urlpatterns  # noqa: E402
 from stop.routing import websocket_urlpatterns as stop_ws_urlpatterns  # noqa: E402
 
 application = ProtocolTypeRouter(
@@ -20,6 +21,7 @@ application = ProtocolTypeRouter(
             + impostor_ws_urlpatterns
             + codenames_ws_urlpatterns
             + stop_ws_urlpatterns
+            + dontsay_ws_urlpatterns
             + lupus_ws_urlpatterns
         ),
     }

@@ -15,6 +15,7 @@ from .game_state import (
     SETTINGS_PRESETS,
     add_player,
     export_game_replay,
+    find_player_by_name,
     find_player_by_token,
     get_game,
     get_sanitized_player_view,
@@ -64,12 +65,20 @@ def game(request, code, name):
             player["is_admin"] = True
             save_game(code, state)
     else:
-        state, player, _ = add_player(
-            state,
-            name=name,
-            token=token,
-            is_admin=is_admin,
-        )
+        by_name = find_player_by_name(state, name)
+        if by_name and (is_admin or by_name.get("name") == room.creator or not by_name.get("connected", False)):
+            player = by_name
+            if is_admin:
+                player["is_admin"] = True
+            player["connected"] = True
+            save_game(code, state)
+        else:
+            state, player, _ = add_player(
+                state,
+                name=name,
+                token=token,
+                is_admin=is_admin,
+            )
 
     request.session[f"emojinary_player_{code}"] = player["token"]
     if player.get("is_admin"):

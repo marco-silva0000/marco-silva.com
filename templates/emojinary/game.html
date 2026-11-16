@@ -502,6 +502,14 @@ let NAME = "{{ player_name|escapejs }}";
 let MY_ID = "{{ player_id|escapejs }}";
 const MY_TOKEN = "{{ player_token|escapejs }}";
 const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
+
+if (MY_TOKEN && !window.location.search.includes('token=')) {
+  try {
+    const u = new URL(window.location.href);
+    u.searchParams.set('token', MY_TOKEN);
+    window.history.replaceState({}, '', u.toString());
+  } catch (e) {}
+}
 const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/emojinary/' + CODE + '/';
 
 const EMOJIS = {

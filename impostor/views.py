@@ -15,6 +15,7 @@ from .game_state import (
     DEFAULT_SETTINGS,
     POISON_MODES,
     add_player,
+    find_player_by_name,
     find_player_by_token,
     get_game,
     get_sanitized_player_view,
@@ -62,16 +63,23 @@ def game(request, code, name):
             player["is_admin"] = True
         save_game(code, state)
     else:
-        grant_admin = session_admin and not query_token and not state.get("creator_id")
-        state, player, _ = add_player(
-            state,
-            name=name,
-            token=token,
-            is_admin=grant_admin,
-        )
+        by_name = find_player_by_name(state, name)
+        if by_name and (session_admin or not query_token or by_name.get("id") == state.get("creator_id")):
+            player = by_name
+            if session_admin:
+                player["is_admin"] = True
+            player["connected"] = True
+            save_game(code, state)
+        else:
+            grant_admin = session_admin and not query_token and not state.get("creator_id")
+            state, player, _ = add_player(
+                state,
+                name=name,
+                token=token,
+                is_admin=grant_admin,
+            )
 
-    if not query_token or not session_token:
-        request.session[f"impostor_player_{code}"] = player["token"]
+    request.session[f"impostor_player_{code}"] = player["token"]
     if player.get("is_admin") and (not query_token or player.get("id") == state.get("creator_id")):
         request.session[f"impostor_admin_{code}"] = True
 

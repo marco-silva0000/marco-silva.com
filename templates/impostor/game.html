@@ -477,6 +477,14 @@ const CODE = "{{ room.code|escapejs }}";
 const MY_NAME = "{{ player_name|escapejs }}";
 const MY_TOKEN = "{{ player_token|escapejs }}";
 const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
+
+if (MY_TOKEN && !window.location.search.includes('token=')) {
+  try {
+    const u = new URL(window.location.href);
+    u.searchParams.set('token', MY_TOKEN);
+    window.history.replaceState({}, '', u.toString());
+  } catch (e) {}
+}
 let state = {{ initial_state_json|safe }};
 let cardBlurred = true;
 let lastCardDealKey = null;

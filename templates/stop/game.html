@@ -420,6 +420,14 @@ const PLAYER_ID = "{{ player_id|escapejs }}";
 const PLAYER_TOKEN = "{{ player_token|escapejs }}";
 const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
 
+if (PLAYER_TOKEN && !window.location.search.includes('token=')) {
+  try {
+    const u = new URL(window.location.href);
+    u.searchParams.set('token', PLAYER_TOKEN);
+    window.history.replaceState({}, '', u.toString());
+  } catch (e) {}
+}
+
 let gameState = {{ initial_state_json|safe }};
 let socket = null;
 let timerInterval = null;

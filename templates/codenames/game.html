@@ -649,6 +649,14 @@ const CODE = "{{ room.code|escapejs }}";
 const PLAYER_NAME = "{{ player_name|escapejs }}";
 const PLAYER_TOKEN = "{{ player_token|escapejs }}";
 const ADMIN_TOKEN = "{{ admin_token|escapejs }}";
+
+if (PLAYER_TOKEN && !window.location.search.includes('token=')) {
+  try {
+    const u = new URL(window.location.href);
+    u.searchParams.set('token', PLAYER_TOKEN);
+    window.history.replaceState({}, '', u.toString());
+  } catch (e) {}
+}
 const INITIAL_STATE = JSON.parse(document.getElementById('initial-state').textContent);
 const CLIENT_BUILD_VERSION = INITIAL_STATE.version_counter || 0;
 

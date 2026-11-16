@@ -233,14 +233,16 @@ def add_player(
         return state, existing, False
 
     existing_name = find_player_by_name(state, name)
-    if existing_name and not existing_name.get("connected"):
-        existing_name["connected"] = True
-        if channel_name:
-            existing_name["channel_name"] = channel_name
-        if is_admin:
-            existing_name["is_admin"] = True
-        save_game(state["code"], state)
-        return state, existing_name, False
+    if existing_name:
+        is_host_reconnect = is_admin and (existing_name.get("is_admin") or existing_name.get("id") == state.get("creator_id"))
+        if is_host_reconnect or not existing_name.get("connected", False):
+            existing_name["connected"] = True
+            if channel_name:
+                existing_name["channel_name"] = channel_name
+            if is_admin:
+                existing_name["is_admin"] = True
+            save_game(state["code"], state)
+            return state, existing_name, False
 
     pid = f"p{state.get('next_player_seq', 1)}"
     state["next_player_seq"] = state.get("next_player_seq", 1) + 1
