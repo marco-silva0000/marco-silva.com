@@ -5343,3 +5343,90 @@ class TestLupusRecentChangesBugHuntScenarios:
         assert bob_view["me"]["gm_url"] is None
         alice_pub = next(p for p in bob_view["players"] if p["id"] == pids["Alice"])
         assert alice_pub["is_gm"] is True
+
+    def test_chaos_15_and_mythic_20_presets(self):
+        """Verify chaos_15 and mythic_20 role deck presets generate exact role counts and valid roles."""
+        from lupus.roles import DEFAULT_PRESETS, ROLE_REGISTRY, generate_preset_deck
+
+        assert "chaos_15" in DEFAULT_PRESETS
+        assert len(DEFAULT_PRESETS["chaos_15"]) == 15
+        for r in DEFAULT_PRESETS["chaos_15"]:
+            assert r in ROLE_REGISTRY
+
+        assert "mythic_20" in DEFAULT_PRESETS
+        assert len(DEFAULT_PRESETS["mythic_20"]) == 20
+        for r in DEFAULT_PRESETS["mythic_20"]:
+            assert r in ROLE_REGISTRY
+
+        deck_15 = generate_preset_deck(15, "chaos_15")
+        assert len(deck_15) == 15
+
+        deck_20 = generate_preset_deck(20, "mythic_20")
+        assert len(deck_20) == 20
+
+    def test_obsessive_lovers_cross_faction_prevents_premature_wolf_parity(self):
+        """Verify that when a werewolf is in an obsessive romance with a living town member,
+        the game does NOT prematurely end in a wolf victory at parity while the lovers can still win."""
+        from lupus import game_state
+
+        state, pids = self._setup_custom_game(
+            [
+                ("WolfRegular", "werewolf"),
+                ("WolfLover", "werewolf"),
+                ("TownLover", "villager"),
+                ("TownRegular", "villager"),
+            ],
+            phase="day_discussion",
+        )
+
+        # Bind WolfLover and TownLover as Obsessive Lovers
+        state["pending_gameover"] = None
+        state["players"][pids["WolfLover"]]["lover_id"] = pids["TownLover"]
+        state["players"][pids["WolfLover"]]["lover_type"] = "obsessive"
+        state["players"][pids["TownLover"]]["lover_id"] = pids["WolfLover"]
+        state["players"][pids["TownLover"]]["lover_type"] = "obsessive"
+
+        # Check win condition:
+        # 2 wolves (1 is lover) vs 2 town (1 is lover). Total = 4.
+        # Under normal rules, 2 wolves == 2 non-wolves would trigger wolf win.
+        # But because of cross-faction lovers who can still win together, the game MUST continue!
+        winner = game_state.check_win_condition(state)
+        assert winner is None
+        assert state.get("pending_gameover") is None
+
+        # If TownRegular dies (3 players left: WolfRegular, WolfLover, TownLover)
+        game_state.set_player_status(state, pids["TownRegular"], "dead")
+        winner = game_state.check_win_condition(state)
+        assert winner is None
+
+        # Now WolfRegular dies (lynched by the lovers). 2 players left: WolfLover & TownLover!
+        game_state.set_player_status(state, pids["WolfRegular"], "dead")
+        winner = game_state.check_win_condition(state)
+        # Obsessive lovers are the last 2 alive -> LOVERS WIN!
+        assert winner == "lovers"
+        assert state["pending_gameover"]["winner"] == "lovers"
+
+    def test_wolf_parity_triggers_when_cross_faction_lover_partner_is_dead(self):
+        """Verify wolf parity victory triggers normally if the cross-faction lover partner is dead."""
+        from lupus import game_state
+
+        state, pids = self._setup_custom_game(
+            [
+                ("WolfRegular", "werewolf"),
+                ("WolfLover", "werewolf"),
+                ("TownLover", "villager"),
+                ("TownRegular", "villager"),
+            ],
+            phase="day_discussion",
+        )
+
+        # TownLover died, WolfLover was lover but partner is dead
+        state["pending_gameover"] = None
+        game_state.set_player_status(state, pids["TownLover"], "dead")
+        state["players"][pids["WolfLover"]]["lover_id"] = pids["TownLover"]
+        state["players"][pids["WolfLover"]]["lover_type"] = "obsessive"
+
+        # Now 2 wolves vs 1 town (TownRegular). Wolves outnumber town!
+        winner = game_state.check_win_condition(state)
+        assert winner == "wolves"
+        assert state["pending_gameover"]["winner"] == "wolves"

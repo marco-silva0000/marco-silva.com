@@ -626,6 +626,61 @@ def generate_preset_deck(player_count: int, preset: str = "simple") -> list[str]
         remaining = max(0, count - len(deck))
         deck.extend(["villager"] * remaining)
 
+    elif preset in ("chaos_15",):
+        deck = [
+            "werewolf",
+            "alpha_wolf",
+            "silencer",
+            "serial_killer",
+            "cupid",
+            "jester",
+            "detective",
+            "watson",
+            "doctor",
+            "bodyguard",
+            "angel",
+            "sniper",
+            "witch",
+            "mayor",
+            "villager",
+        ]
+        if count != 15:
+            if count < 15:
+                deck = deck[:count]
+            else:
+                deck.extend(["villager"] * (count - 15))
+        return deck
+
+    elif preset in ("mythic_20", "mythic"):
+        deck = [
+            "werewolf",
+            "werewolf",
+            "alpha_wolf",
+            "silencer",
+            "saboteur_wolf",
+            "serial_killer",
+            "cupid",
+            "jester",
+            "wolf_hunter",
+            "detective",
+            "watson",
+            "doctor",
+            "bodyguard",
+            "angel",
+            "witch",
+            "sniper",
+            "mayor",
+            "martyrdom",
+            "gull",
+            "villager",
+        ]
+        if count != 20:
+            if count < 20:
+                deck = deck[:count]
+            else:
+                deck.extend(["villager"] * (count - 20))
+        return deck
+
     elif preset in ("chaos", "full_10", "chaos_12"):
         if num_evil >= 3:
             deck.extend(["werewolf"] * (num_evil - 2))
@@ -722,5 +777,44 @@ DEFAULT_PRESETS = {
         "hacker",
         "jester",
         "serial_killer",
+    ],
+    "chaos_15": [
+        "werewolf",
+        "alpha_wolf",
+        "silencer",
+        "serial_killer",
+        "cupid",
+        "jester",
+        "detective",
+        "watson",
+        "doctor",
+        "bodyguard",
+        "angel",
+        "sniper",
+        "witch",
+        "mayor",
+        "villager",
+    ],
+    "mythic_20": [
+        "werewolf",
+        "werewolf",
+        "alpha_wolf",
+        "silencer",
+        "saboteur_wolf",
+        "serial_killer",
+        "cupid",
+        "jester",
+        "wolf_hunter",
+        "detective",
+        "watson",
+        "doctor",
+        "bodyguard",
+        "angel",
+        "witch",
+        "sniper",
+        "mayor",
+        "martyrdom",
+        "gull",
+        "villager",
     ],
 }

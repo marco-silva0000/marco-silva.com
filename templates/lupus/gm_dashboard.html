@@ -1037,6 +1037,12 @@ html, body {
         <button type="button" id="preset-btn-chaos" onclick="applyPreset('chaos')" class="preset-btn" title="Full special role blend">
           ⚡ Chaos / Specials
         </button>
+        <button type="button" id="preset-btn-chaos_15" onclick="applyPreset('chaos_15')" class="preset-btn" title="15 Players: 3 Wolves, SK, Cupid, Jester, Detective, Watson, Doctor, Bodyguard, Angel, Sniper, Witch, Mayor, Villager">
+          ⚡ Chaos 15
+        </button>
+        <button type="button" id="preset-btn-mythic_20" onclick="applyPreset('mythic_20')" class="preset-btn" title="20 Players: 5 Wolves, SK, Cupid, Jester, Wolf Hunter, Detective, Watson, Doctor, Bodyguard, Angel, Witch, Sniper, Mayor, Martyrdom, Gull, Villagers">
+          👑 Mythic 20
+        </button>
         <button type="button" id="preset-btn-fit" onclick="fitDeckToPlayers()" class="preset-btn" style="background: #e0f2fe; color: #0369a1; border-color: #7dd3fc; font-weight: 700;" title="Fit deck to exact number of players in lobby">
           ✨ Fit to Players
         </button>
@@ -2888,7 +2894,7 @@ html, body {
     }
 
     // Preset button highlight & active preset badge
-    ['simple', 'standard', 'limbo', 'chaos'].forEach(p => {
+    ['simple', 'standard', 'limbo', 'chaos', 'chaos_15', 'mythic_20'].forEach(p => {
       const btn = document.getElementById(`preset-btn-${p}`);
       if (btn) {
         if (currentActivePreset === p) btn.classList.add("active");
@@ -2898,7 +2904,15 @@ html, body {
 
     const activePresetBadge = document.getElementById("active-preset-badge");
     if (activePresetBadge) {
-      const labels = { simple: "Simple", standard: "Standard", limbo: "Limbo & Angel", chaos: "Chaos / Specials", custom: "Custom Deck" };
+      const labels = {
+        simple: "Simple",
+        standard: "Standard",
+        limbo: "Limbo & Angel",
+        chaos: "Chaos / Specials",
+        chaos_15: "Chaos 15",
+        mythic_20: "Mythic 20",
+        custom: "Custom Deck",
+      };
       activePresetBadge.innerText = `Preset: ${labels[currentActivePreset] || "Custom Deck"}`;
     }
 
@@ -3173,6 +3187,50 @@ html, body {
         deckState.villager = effectiveCount - stats.total;
       } else {
         deckState.villager = 0;
+      }
+    } else if (presetName === 'chaos_15') {
+      deckState.werewolf = 1;
+      deckState.alpha_wolf = 1;
+      deckState.silencer = 1;
+      deckState.serial_killer = 1;
+      deckState.cupid = 1;
+      deckState.jester = 1;
+      deckState.detective = 1;
+      deckState.watson = 1;
+      deckState.doctor = 1;
+      deckState.bodyguard = 1;
+      deckState.angel = 1;
+      deckState.sniper = 1;
+      deckState.witch = 1;
+      deckState.mayor = 1;
+      deckState.villager = 1;
+      const stats = getDeckStats();
+      if (effectiveCount > stats.total) {
+        deckState.villager += (effectiveCount - stats.total);
+      }
+    } else if (presetName === 'mythic_20') {
+      deckState.werewolf = 2;
+      deckState.alpha_wolf = 1;
+      deckState.silencer = 1;
+      deckState.saboteur_wolf = 1;
+      deckState.serial_killer = 1;
+      deckState.cupid = 1;
+      deckState.jester = 1;
+      deckState.wolf_hunter = 1;
+      deckState.detective = 1;
+      deckState.watson = 1;
+      deckState.doctor = 1;
+      deckState.bodyguard = 1;
+      deckState.angel = 1;
+      deckState.witch = 1;
+      deckState.sniper = 1;
+      deckState.mayor = 1;
+      deckState.martyrdom = 1;
+      deckState.gull = 1;
+      deckState.villager = 1;
+      const stats = getDeckStats();
+      if (effectiveCount > stats.total) {
+        deckState.villager += (effectiveCount - stats.total);
       }
     }
     updateDeckUI();

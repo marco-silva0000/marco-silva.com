@@ -5191,15 +5191,54 @@ def check_win_condition(state: dict[str, Any]) -> Optional[str]:
         }
         return "town"
 
-    if wolves_count >= (len(alive_players) - wolves_count):
-        theme = state.get("theme", "werewolf")
-        faction_name = "Werewolves" if theme == "werewolf" else "Mafia"
-        state["pending_gameover"] = {
-            "winner": "wolves",
-            "reason": f"Victory for the {faction_name}! They have overrun the town.",
-            "faction_name": faction_name,
-        }
-        return "wolves"
+    # Check if cross-faction obsessive lovers are still both alive
+    alive_pids = {p["id"] for p in alive_players}
+    has_living_cross_faction_lovers = False
+    for p in alive_players:
+        if p.get("lover_type") == "obsessive":
+            l_id = p.get("lover_id")
+            if l_id and l_id in alive_pids:
+                partner = state["players"].get(l_id)
+                if partner and partner.get("faction") != p.get("faction"):
+                    has_living_cross_faction_lovers = True
+                    break
+
+    # If cross-faction obsessive lovers are alive, the lover wolf does NOT vote with the pack
+    # because doing so eliminates their partner and their own mutual victory.
+    # Only loyal wolves (not in a cross-faction obsessive romance) count toward pack dominance.
+    loyal_wolves_count = sum(
+        1
+        for p in alive_players
+        if p["faction"] == FACTION_WOLVES
+        and not (
+            p.get("lover_type") == "obsessive"
+            and p.get("lover_id") in alive_pids
+            and state["players"].get(p.get("lover_id"), {}).get("faction") != FACTION_WOLVES
+        )
+    )
+
+    if has_living_cross_faction_lovers:
+        # Cross-faction lovers can still win! Wolves only achieve victory if loyal wolves strictly
+        # outnumber all other players combined (including the lovers and remaining town).
+        if loyal_wolves_count > (len(alive_players) - loyal_wolves_count):
+            theme = state.get("theme", "werewolf")
+            faction_name = "Werewolves" if theme == "werewolf" else "Mafia"
+            state["pending_gameover"] = {
+                "winner": "wolves",
+                "reason": f"Victory for the {faction_name}! They have overrun the town.",
+                "faction_name": faction_name,
+            }
+            return "wolves"
+    else:
+        if wolves_count >= (len(alive_players) - wolves_count):
+            theme = state.get("theme", "werewolf")
+            faction_name = "Werewolves" if theme == "werewolf" else "Mafia"
+            state["pending_gameover"] = {
+                "winner": "wolves",
+                "reason": f"Victory for the {faction_name}! They have overrun the town.",
+                "faction_name": faction_name,
+            }
+            return "wolves"
 
     state["pending_gameover"] = None
     return None
