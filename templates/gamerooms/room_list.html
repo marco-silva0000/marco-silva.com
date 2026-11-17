@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block title %}{% trans "Game Rooms" %} - Marco Silva{% endblock %}
+{% block extra_css %}
+body { max-width: 860px !important; }
+{% endblock %}
 
 {% block content %}
 <div style="max-width: 820px; margin: 0 auto; padding-bottom: 2.25rem;">
