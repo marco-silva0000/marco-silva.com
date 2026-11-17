@@ -91,9 +91,13 @@
   border-radius: 10px; white-space: nowrap; flex-shrink: 0;
 }
 @media (max-width: 480px) {
-  .stp-answer-btn { padding: 0 0.85rem; font-size: 0.88rem; }
-  .stp-letter-tile { min-width: 48px; }
-  .stp-letter-char { font-size: 1.65rem; }
+  .stp-hero-banner { padding: 0.9rem 0.85rem; }
+  .stp-answer-form { gap: 0.35rem; }
+  .stp-answer-btn { padding: 0 0.75rem; font-size: 0.86rem; height: 46px; }
+  .stp-letter-tile { min-width: 44px; width: 44px; height: 46px; }
+  .stp-letter-char { font-size: 1.6rem; }
+  .stp-answer-input { height: 46px; padding: 0 0.6rem; font-size: 0.96rem; }
+  .stp-stop-big-btn { padding: 0.55rem 0.95rem; font-size: 0.88rem; }
 }
 
 .stp-stop-big-btn {
@@ -212,8 +216,8 @@
           </form>
 
           <!-- Current Player Submission Status & Big STOP Button -->
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; padding:0.65rem 0.85rem; border-radius:10px; background:rgba(15,23,42,0.5); border:1px solid rgba(255,255,255,0.12); width:100%; box-sizing:border-box;">
-            <div id="my-answer-status" style="font-size:0.86rem; color:#e2e8f0; flex:1; min-width:200px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.6rem; flex-wrap:wrap; padding:0.65rem 0.85rem; border-radius:10px; background:rgba(15,23,42,0.5); border:1px solid rgba(255,255,255,0.12); width:100%; box-sizing:border-box;">
+            <div id="my-answer-status" style="font-size:0.86rem; color:#e2e8f0; flex:1; min-width:0;">
               {% trans "Not locked in yet — type fast for the 1st Unique speed bonus!" %}
             </div>
             <button type="button" id="btn-call-stop" class="stp-stop-big-btn" onclick="wsSend({action:'call_stop'})" disabled>
