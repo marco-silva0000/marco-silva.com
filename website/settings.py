@@ -132,12 +132,19 @@ TEMPLATES = [
 WSGI_APPLICATION = "website.wsgi.application"
 ASGI_APPLICATION = "website.asgi.application"
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {"hosts": [os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")]},
-    },
-}
+if os.environ.get("USE_INMEMORY_CHANNELS") == "1":
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer",
+        }
+    }
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {"hosts": [os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")]},
+        },
+    }
 
 
 # Database

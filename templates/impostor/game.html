@@ -157,8 +157,8 @@ body { max-width: 1080px !important; }
     </div>
     <div class="imp-actions">
       <button type="button" class="imp-btn" onclick="openModal('modal-custom-card')">🃏 {% trans "Custom Deck" %} (<span id="deck-count">0</span>)</button>
-      <button type="button" class="imp-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Invite QR" %}</button>
-      <button type="button" class="imp-btn" onclick="openModal('modal-profile')">🪪 {{ player_name }}</button>
+      <button type="button" class="imp-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Room QR" %}</button>
+      <button type="button" class="imp-btn" onclick="openModal('modal-profile')">🪪 {% trans "My Seat QR" %}</button>
     </div>
   </div>
 
@@ -448,12 +448,18 @@ body { max-width: 1080px !important; }
 <div class="imp-modal-backdrop" id="modal-profile">
   <div class="imp-modal" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-      <h3 style="margin:0; font-size:1.05rem;">🪪 {{ player_name }}</h3>
+      <h3 style="margin:0; font-size:1.05rem;">🪪 {% trans "My Seat Reconnect QR" %}</h3>
       <button type="button" class="imp-btn" onclick="closeModal('modal-profile')">✕</button>
     </div>
-    <p style="font-size:0.8rem; color:#475569;">{% trans "Scan this personal QR code to switch devices without losing your secret card:" %}</p>
+    <div style="background:#fef3c7; border:1px solid #f59e0b; color:#92400e; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.8rem; margin-bottom:0.75rem; text-align:left; line-height:1.4;">
+      <strong>⚠️ {% trans "Personal Secret Seat:" %}</strong> {% trans "Keep this private! Only for you to switch devices or restore your personal seat and secret cards. Do NOT share this to invite other players." %}
+    </div>
     {% if player_qr %}<img src="{{ player_qr }}" alt="Reconnect QR" style="max-width:190px; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:0.65rem;">{% endif %}
-    <div style="margin-top:0.5rem;">
+    <div style="font-size:0.82rem; font-weight:700; color:#475569; margin-bottom:0.35rem;">{{ player_name }}</div>
+    <div style="margin-bottom:0.65rem;">
+      <button type="button" class="imp-btn primary" onclick="navigator.clipboard.writeText('{{ reconnect_url }}'); this.textContent='✅ Copied!';">📋 {% trans "Copy Reconnect Link" %}</button>
+    </div>
+    <div style="margin-top:0.5rem; border-top:1px solid #e2e8f0; padding-top:0.65rem;">
       <button type="button" class="imp-btn" onclick="sendAction('toggle_spectator'); closeModal('modal-profile');">👀 {% trans "Toggle Spectator Mode" %}</button>
     </div>
   </div>
@@ -1213,9 +1219,7 @@ function renderState() {
     if (p.is_spectator) badges.push('👀');
     if (p.is_poisoned) badges.push('☠️');
     if (p.has_voted && phase === 'voting') badges.push('✓');
-    const qrBtn = (isAdmin || p.id === me.id)
-      ? `<button type="button" onclick="showPlayerQR('${escapeHtml(p.id)}')" title="Player QR Code" style="border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:5px;padding:0.1rem 0.35rem;cursor:pointer;font-size:0.7rem;">📱 QR</button>`
-      : '';
+    const qrBtn = `<button type="button" onclick="showPlayerQR('${escapeHtml(p.id)}')" title="Show Reconnect QR" style="border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:5px;padding:0.1rem 0.35rem;cursor:pointer;font-size:0.7rem;">📱 QR</button>`;
     const transferBtn = (isAdmin && p.id !== me.id)
       ? `<button type="button" onclick="transferHost('${p.id}','${escapeHtml(p.name)}')" title="Make Host" style="border:none;background:none;cursor:pointer;font-size:0.75rem;">👑</button>`
       : '';

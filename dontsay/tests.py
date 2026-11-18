@@ -470,3 +470,102 @@ class TestTheMeAndOralModesAndHostTransfer:
         assert state["creator_id"] == p2["id"]
         assert state["creator"] == "NewHostCandidate"
         assert is_player_admin(state, p2) is True
+
+    def test_the_me_elimination_mode_regular_players_no_clash(self):
+        from dontsay.game_state import submit_the_me_answer
+
+        state = create_game("NOCLASH1")
+        _, p1, _ = add_player(state, "TheHost", is_admin=True)
+        _, p2, _ = add_player(state, "PlayerTwo")
+        _, p3, _ = add_player(state, "PlayerThree")
+        _, p4, _ = add_player(state, "PlayerFour")
+
+        update_settings(
+            state,
+            {
+                "game_mode": "the_me",
+                "the_me_rotation": "host_fixed",
+                "ai_validation": False,
+            },
+        )
+        start_game(state)
+
+        # Host sets forbidden word "Pizza"
+        submit_the_me_answer(state, p1["id"], "Pizza")
+
+        # PlayerTwo and PlayerThree BOTH answer "Burger" (same word among regular players)
+        # PlayerFour answers "Pizza" (matches The ME -> eliminated)
+        submit_answer(state, p2["id"], "Burger")
+        submit_answer(state, p3["id"], "Burger")
+        submit_answer(state, p4["id"], "Pizza")
+
+        assert state["phase"] == "reveal"
+        rr = state["round_results"]
+
+        # Regular players who gave the same word do NOT clash with each other!
+        assert rr["player_results"][p2["id"]]["status"] == "escaped_me"
+        assert rr["player_results"][p2["id"]]["points_awarded"] == 100
+        assert p2["eliminated"] is False
+
+        assert rr["player_results"][p3["id"]]["status"] == "escaped_me"
+        assert rr["player_results"][p3["id"]]["points_awarded"] == 100
+        assert p3["eliminated"] is False
+
+        # PlayerFour matched The ME and is eliminated!
+        assert rr["player_results"][p4["id"]]["status"] == "caught_by_me"
+        assert p4["eliminated"] is True
+
+        # Advance to round 2
+        advance_next_round(state)
+        assert state["phase"] == "the_me_answering"
+        assert state["round_num"] == 2
+
+        # Eliminated player (p4) cannot submit an answer
+        submit_the_me_answer(state, p1["id"], "Sushi")
+        assert submit_answer(state, p4["id"], "Ramen") is False
+
+    def test_the_me_all_eliminated_me_wins(self):
+        from dontsay.game_state import submit_the_me_answer
+
+        state = create_game("MEWINS1")
+        _, p1, _ = add_player(state, "Mastermind", is_admin=True)
+        _, p2, _ = add_player(state, "Victim1")
+        _, p3, _ = add_player(state, "Victim2")
+
+        update_settings(
+            state,
+            {
+                "game_mode": "the_me",
+                "the_me_rotation": "host_fixed",
+                "ai_validation": False,
+            },
+        )
+        start_game(state)
+
+        submit_the_me_answer(state, p1["id"], "Trap")
+        submit_answer(state, p2["id"], "Trap")
+        submit_answer(state, p3["id"], "Trap")
+
+        assert state["phase"] == "reveal"
+        assert state["the_me_gameover"] is True
+        assert state["the_me_winner"] == "the_me"
+        assert p2["eliminated"] is True
+        assert p3["eliminated"] is True
+
+        # Advance triggers game over podium
+        advance_next_round(state)
+        assert state["phase"] == "gameover"
+
+    def test_dontsay_player_qr_endpoint(self):
+        client = Client()
+        room = Room.objects.create(code="QRTEST1", title="QR Test", game_type="dontsay", is_active=True)
+        state = create_game(room.code)
+        _, p1, _ = add_player(state, "Alice", is_admin=True)
+
+        resp = client.get(f"/games/dontsay/{room.code}/qr/{p1['id']}/")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "qr" in data
+        assert "url" in data
+        assert p1["token"] in data["url"]
+        assert data["player_name"] == "Alice"

@@ -141,10 +141,25 @@ def player_reconnect(request, code, token):
 def player_qr(request, code, token):
     """Return JSON with data-URI QR code and reconnect URL for a player."""
     code = code.upper()
-    reconnect_path = reverse("gamerooms:emojinary:reconnect", kwargs={"code": code, "token": token})
+    get_object_or_404(Room, code=code, is_active=True)
+    state = get_game(code)
+    matched = state.get("players", {}).get(token) or find_player_by_token(state, token)
+    if not matched:
+        raise Http404("Player not found in this room.")
+    reconnect_path = reverse(
+        "gamerooms:emojinary:reconnect",
+        kwargs={"code": code, "token": matched["token"]},
+    )
     reconnect_url = build_public_url(request, reconnect_path)
     qr_data_uri = generate_qr_data_uri(reconnect_url)
-    return JsonResponse({"qr": qr_data_uri, "url": reconnect_url})
+    return JsonResponse(
+        {
+            "qr": qr_data_uri,
+            "url": reconnect_url,
+            "player_id": matched["id"],
+            "player_name": matched["name"],
+        }
+    )
 
 
 @never_cache

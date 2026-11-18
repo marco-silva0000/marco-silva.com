@@ -157,8 +157,8 @@ body { max-width: 1080px !important; }
     </div>
     <div class="stp-actions">
       <button type="button" class="stp-btn" onclick="openModal('modal-custom-cat')">✨ {% trans "Custom Categories" %} (<span id="custom-cat-count">0</span>)</button>
-      <button type="button" class="stp-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Invite QR" %}</button>
-      <button type="button" class="stp-btn" onclick="openModal('modal-profile')">🪪 {{ player_name }}</button>
+      <button type="button" class="stp-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Room QR" %}</button>
+      <button type="button" class="stp-btn" onclick="openModal('modal-profile')">🪪 {% trans "My Seat QR" %}</button>
     </div>
   </div>
 
@@ -423,33 +423,60 @@ body { max-width: 1080px !important; }
   </div>
 </div>
 
-<!-- Modal: Invite QR -->
+<!-- Modal: Room Invite QR -->
 <div class="stp-modal-backdrop" id="modal-invite-qr" onclick="if(event.target===this)closeModal('modal-invite-qr')">
   <div class="stp-modal" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-      <h3 style="margin:0; font-size:1.05rem;">📲 {% trans "Invite Players" %}</h3>
+      <h3 style="margin:0; font-size:1.05rem;">📲 {% trans "Room Invite QR" %}</h3>
       <button type="button" class="stp-btn" onclick="closeModal('modal-invite-qr')">&times;</button>
     </div>
+    <p style="font-size:0.78rem; color:var(--stp-muted); margin-bottom:0.55rem;">{% trans "Scan with any phone camera or share the link to join:" %}</p>
     <img src="{{ join_qr }}" alt="Join QR" style="width:210px; height:210px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:0.65rem;">
-    <div style="font-size:0.8rem; word-break:break-all; background:#f8fafc; padding:0.5rem; border-radius:8px; border:1px solid #e2e8f0;">
+    <div style="font-size:0.8rem; word-break:break-all; background:#f8fafc; padding:0.5rem; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:0.65rem;">
       <a href="{{ join_url }}" target="_blank">{{ join_url }}</a>
+    </div>
+    <button type="button" class="stp-btn stp-btn-primary" onclick="navigator.clipboard.writeText('{{ join_url }}'); this.textContent='✅ Copied!';">📋 {% trans "Copy Room Link" %}</button>
+  </div>
+</div>
+
+<!-- Modal: Player Profile & Personal Reconnect QR -->
+<div class="stp-modal-backdrop" id="modal-profile" onclick="if(event.target===this)closeModal('modal-profile')">
+  <div class="stp-modal" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 style="margin:0; font-size:1.05rem;">🪪 {% trans "My Seat Reconnect QR" %}</h3>
+      <button type="button" class="stp-btn" onclick="closeModal('modal-profile')">&times;</button>
+    </div>
+    <div style="background:#fef3c7; border:1px solid #f59e0b; color:#92400e; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.8rem; margin-bottom:0.75rem; text-align:left; line-height:1.4;">
+      <strong>⚠️ {% trans "Personal Secret Seat:" %}</strong> {% trans "Keep this private! Only for you to switch devices or restore your personal seat and scores. Do NOT share this to invite other players." %}
+    </div>
+    <img src="{{ player_qr }}" alt="Reconnect QR" style="width:190px; height:190px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:0.65rem;">
+    <div style="font-size:0.82rem; font-weight:700; color:var(--stp-muted); margin-bottom:0.35rem;">{{ player_name }}</div>
+    <div style="margin-bottom:0.65rem;">
+      <button type="button" class="stp-btn stp-btn-primary" onclick="navigator.clipboard.writeText('{{ reconnect_url }}'); this.textContent='✅ Copied!';">📋 {% trans "Copy My Reconnect Link" %}</button>
+    </div>
+    <div style="margin-top:0.5rem; border-top:1px solid #e2e8f0; padding-top:0.65rem;">
+      <button type="button" class="stp-btn" onclick="wsSend({action:'toggle_spectator'}); closeModal('modal-profile');">
+        👀 {% trans "Toggle Spectator Mode" %}
+      </button>
     </div>
   </div>
 </div>
 
-<!-- Modal: Player Profile & Reconnect -->
-<div class="stp-modal-backdrop" id="modal-profile" onclick="if(event.target===this)closeModal('modal-profile')">
+<!-- Modal: Individual Player Reconnect QR -->
+<div class="stp-modal-backdrop" id="modal-player-qr" onclick="if(event.target===this)closeModal('modal-player-qr')">
   <div class="stp-modal" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-      <h3 style="margin:0; font-size:1.05rem;">🪪 {{ player_name }}</h3>
-      <button type="button" class="stp-btn" onclick="closeModal('modal-profile')">&times;</button>
+      <h3 style="margin:0; font-size:1.05rem;" id="player-qr-title">📱 {% trans "Player Reconnect QR" %}</h3>
+      <button type="button" class="stp-btn" onclick="closeModal('modal-player-qr')">&times;</button>
     </div>
-    <p style="font-size:0.78rem; color:var(--stp-muted); margin-bottom:0.55rem;">{% trans "Scan on another device to move your session seamlessly:" %}</p>
-    <img src="{{ player_qr }}" alt="Reconnect QR" style="width:190px; height:190px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:0.65rem;">
-    <div style="margin-top:0.5rem;">
-      <button type="button" class="stp-btn" onclick="wsSend({action:'toggle_spectator'}); closeModal('modal-profile');">
-        👀 {% trans "Toggle Spectator Mode" %}
-      </button>
+    <p style="font-size:0.78rem; color:var(--stp-muted); margin-bottom:0.55rem;">
+      {% trans "Scan on this player's phone to restore their seat or switch devices:" %}
+    </p>
+    <img id="player-qr-img" src="" alt="Player QR" style="width:200px; height:200px; border-radius:12px; border:1px solid #e2e8f0; margin:0 auto 0.65rem; display:block;">
+    <input type="text" id="player-qr-url" readonly style="width:100%; box-sizing:border-box; font-size:0.75rem; text-align:center; padding:0.4rem; border:1px solid #cbd5e1; border-radius:8px; margin-bottom:0.65rem;" onclick="this.select()">
+    <div style="display:flex; justify-content:center; gap:0.4rem;">
+      <button type="button" class="stp-btn stp-btn-primary" onclick="navigator.clipboard.writeText(document.getElementById('player-qr-url').value); this.textContent='✅ Copied!';">📋 {% trans "Copy Link" %}</button>
+      <a id="player-qr-open-link" href="#" target="_blank" rel="noopener" class="stp-btn" style="text-decoration:none; display:none;">🔗 {% trans "Open Tab" %}</a>
     </div>
   </div>
 </div>
@@ -839,7 +866,8 @@ function renderState() {
           ${p.is_spectator ? '<span title="Spectator">👀</span>' : ''}
           ${phase === 'playing' && p.has_submitted ? '<span title="Locked In">⚡</span>' : ''}
         </div>
-        <div style="display:flex;align-items:center;gap:0.4rem;">
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
+          <button type="button" class="stp-btn" style="padding:0.15rem 0.45rem;font-size:0.72rem;border-radius:6px;" onclick="showPlayerQR('${esc(p.id)}', '${esc(p.name)}')" title="{% trans 'Show Reconnect QR' %}">📱 QR</button>
           <span style="font-weight:800;color:#0f172a;">${p.score} pts</span>
           ${isAdmin && p.id !== (s.me && s.me.id) ? `
             <button type="button" class="stp-btn" style="padding:0.1rem 0.35rem;font-size:0.7rem;" onclick="transferHost('${esc(p.id)}', '${esc(p.name)}')" title="Make Host">👑</button>
@@ -862,6 +890,35 @@ function renderState() {
   lastRenderedRound = s.round_num;
   lastPhase = phase;
   renderTimer();
+}
+
+function showPlayerQR(pid, pName) {
+  document.getElementById("player-qr-title").textContent = `📱 ${pName} — Reconnect QR`;
+  const imgEl = document.getElementById("player-qr-img");
+  const urlEl = document.getElementById("player-qr-url");
+  const linkEl = document.getElementById("player-qr-open-link");
+  imgEl.style.display = "none";
+  urlEl.value = "Loading QR code...";
+  if (linkEl) linkEl.style.display = "none";
+  openModal("modal-player-qr");
+
+  fetch(`/games/stop/${encodeURIComponent(ROOM_CODE)}/qr/${encodeURIComponent(pid)}/`)
+    .then(r => {
+      if (!r.ok) throw new Error("QR fetch failed");
+      return r.json();
+    })
+    .then(data => {
+      imgEl.src = data.qr;
+      imgEl.style.display = "block";
+      urlEl.value = data.url;
+      if (linkEl) {
+        linkEl.href = data.url;
+        linkEl.style.display = "inline-block";
+      }
+    })
+    .catch(() => {
+      urlEl.value = "Failed to load player QR code.";
+    });
 }
 
 renderState();

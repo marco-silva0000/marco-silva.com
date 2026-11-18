@@ -491,7 +491,17 @@ def player_reconnect(request, code, token):
 def player_qr(request, code, token):
     """Generate a QR code image for a player's secret reconnect URL."""
     code = code.upper()
-    reconnect_path = reverse("gamerooms:lupus:reconnect", kwargs={"code": code, "token": token})
+    state = get_game(code)
+    matched = None
+    if state and "players" in state:
+        matched = state["players"].get(token) or next(
+            (p for p in state["players"].values() if p.get("token") == token), None
+        )
+    player_token = matched["token"] if matched else token
+    player_name = matched["name"] if matched else ""
+    player_id = matched["id"] if matched else ""
+
+    reconnect_path = reverse("gamerooms:lupus:reconnect", kwargs={"code": code, "token": player_token})
     host = request.get_host()
     is_public = any(d in host for d in ["marco-silva.com", "dev.marco-silva.com"])
     scheme = (
@@ -501,4 +511,11 @@ def player_qr(request, code, token):
     )
     reconnect_url = f"{scheme}://{host}{reconnect_path}"
     qr_data_uri = generate_qr_data_uri(reconnect_url)
-    return JsonResponse({"qr": qr_data_uri, "url": reconnect_url})
+    return JsonResponse(
+        {
+            "qr": qr_data_uri,
+            "url": reconnect_url,
+            "player_id": player_id,
+            "player_name": player_name,
+        }
+    )

@@ -322,8 +322,14 @@ def start_game(state: dict[str, Any]) -> bool:
     state["round_num"] = 1
     state["round_history"] = []
     state["used_prompt_ids"] = []
+    state["the_me_gameover"] = False
+    state["the_me_winner"] = None
+    state["winner_reason"] = None
+    state["winner_id"] = None
     for p in state.get("players", {}).values():
         p["score"] = 0
+        p["eliminated"] = False
+        p.pop("eliminated_round", None)
 
     return setup_round(state)
 
@@ -352,12 +358,14 @@ def setup_round(state: dict[str, Any]) -> bool:
     append_event(state, "System", f'🎯 Round {state["round_num"]}: "{prompt_display}"')
 
     if game_mode == "the_me":
-        # Select "The ME" player
-        actives = [p["id"] for p in active_players(state) if p.get("connected")]
+        # Select "The ME" player from alive, non-eliminated players
+        actives = [p["id"] for p in active_players(state) if p.get("connected") and not p.get("eliminated")]
         if not actives:
-            actives = list(state.get("players", {}).keys())
+            actives = [p["id"] for p in active_players(state) if not p.get("eliminated")] or list(
+                state.get("players", {}).keys()
+            )
 
-        if settings.get("the_me_rotation") == "host_fixed" and state.get("creator_id") in actives:
+        if settings.get("the_me_rotation") == "host_fixed" and state.get("creator_id") in state.get("players", {}):
             the_me_id = state.get("creator_id")
         else:
             idx = (state.get("round_num", 1) - 1) % max(1, len(actives))
@@ -425,7 +433,7 @@ def submit_answer(state: dict[str, Any], player_id: str, answer_text: str) -> bo
     if state.get("phase") != "answering":
         return False
     player = state.get("players", {}).get(player_id)
-    if not player or player.get("is_spectator"):
+    if not player or player.get("is_spectator") or player.get("eliminated"):
         return False
 
     game_mode = state.get("settings", {}).get("game_mode", "classic")
@@ -510,7 +518,9 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
     me_victims = []
 
     if game_mode == "the_me" and the_me_id:
-        # Evaluate guessers against 'The ME'
+        # Evaluate guessers against 'The ME' (ELIMINATION MODE)
+        # Regular players do NOT clash with each other in The ME mode.
+        # Only matching The ME's secret word gets the player eliminated!
         for ckey, pids in grouped_by_key.items():
             val_info = evaluated_keys.get(ckey, {"valid": True, "is_obscure": False})
             is_valid = val_info.get("valid", True)
@@ -518,9 +528,11 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
             other_pids = [p for p in pids if p != the_me_id]
 
             if ckey == the_me_key:
-                # Players trapped by The ME!
+                # Players trapped by The ME get eliminated!
                 for pid in other_pids:
                     me_victims.append(pid)
+                    players[pid]["eliminated"] = True
+                    players[pid]["eliminated_round"] = state.get("round_num", 1)
                     pts = -50 if collision_mode == "harsh" else 0
                     players[pid]["score"] = max(0, players[pid].get("score", 0) + pts)
                     player_results[pid] = {
@@ -533,40 +545,31 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
                         "is_obscure": False,
                         "points_awarded": pts,
                         "total_score": players[pid]["score"],
-                        "reason": f"💥 Said the same word as The ME ({the_me_raw})!",
+                        "eliminated": True,
+                        "reason": f"💀 ELIMINATED! Said the same word as The ME ({the_me_raw})!",
                     }
                 if other_pids:
                     clash_groups.append(
                         {
                             "clean_key": ckey,
-                            "player_ids": pids,
-                            "player_names": [players[p]["name"] for p in pids if p in players],
+                            "player_ids": [the_me_id] + other_pids,
+                            "player_names": [players[the_me_id]["name"]]
+                            + [players[p]["name"] for p in other_pids if p in players],
                             "answer_text": the_me_raw,
                             "is_valid": is_valid,
                         }
                     )
             else:
-                is_clash = len(other_pids) > 1
-                if is_clash:
-                    clash_groups.append(
-                        {
-                            "clean_key": ckey,
-                            "player_ids": other_pids,
-                            "player_names": [players[p]["name"] for p in other_pids if p in players],
-                            "answer_text": answers[other_pids[0]]["raw"],
-                            "is_valid": is_valid,
-                        }
-                    )
+                # In The ME mode, regular players NEVER clash with each other
                 for pid in other_pids:
                     if not is_valid:
                         pts = 0
                         status = "invalid"
-                    elif is_clash:
-                        pts = -50 if collision_mode == "harsh" else 0
-                        status = "clash"
+                        reason = val_info.get("reason", "Invalid answer")
                     else:
                         pts = 150 if is_obs else 100
                         status = "escaped_me"
+                        reason = f"Safe! Avoided The ME's word ({the_me_raw})"
 
                     players[pid]["score"] = max(0, players[pid].get("score", 0) + pts)
                     player_results[pid] = {
@@ -579,7 +582,8 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
                         "is_obscure": is_obs,
                         "points_awarded": pts,
                         "total_score": players[pid]["score"],
-                        "reason": val_info.get("reason", ""),
+                        "eliminated": False,
+                        "reason": reason,
                     }
 
         # Score 'The ME'
@@ -587,7 +591,7 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
             me_pts = len(me_victims) * 100
             if me_victims:
                 me_status = "the_me_mastermind"
-                reason = f'Trapped {len(me_victims)} player(s) with "{the_me_raw}"!'
+                reason = f'Eliminated {len(me_victims)} player(s) with "{the_me_raw}"!'
             else:
                 me_status = "the_me_avoided"
                 me_pts = 50  # Consolation points for setting the word
@@ -604,8 +608,42 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
                 "is_obscure": False,
                 "points_awarded": me_pts,
                 "total_score": players[the_me_id]["score"],
+                "eliminated": False,
                 "reason": reason,
             }
+
+        # Check elimination victory conditions
+        alive_guessers = [
+            p
+            for pid, p in players.items()
+            if pid != the_me_id and not p.get("is_spectator") and not p.get("eliminated")
+        ]
+        total_guessers = [p for pid, p in players.items() if pid != the_me_id and not p.get("is_spectator")]
+        cur_round = int(state.get("round_num", 1))
+        max_rounds = int(settings.get("max_rounds", 6))
+
+        if len(alive_guessers) == 0 and total_guessers:
+            state["the_me_gameover"] = True
+            state["the_me_winner"] = "the_me"
+            state["winner_id"] = the_me_id
+            me_name = players[the_me_id]["name"] if the_me_id in players else "The ME"
+            state["winner_reason"] = f"👑 The ME ({me_name}) eliminated all players! Absolute victory!"
+            append_event(state, "System", f"💀 ALL PLAYERS ELIMINATED! {me_name} WINS!")
+        elif len(alive_guessers) == 1 and len(total_guessers) > 1:
+            survivor = alive_guessers[0]
+            state["the_me_gameover"] = True
+            state["the_me_winner"] = "survivor"
+            state["winner_id"] = survivor["id"]
+            state["winner_reason"] = f"🏆 Sole Survivor! {survivor['name']} is the last player standing!"
+            append_event(state, "System", f"🏆 SOLE SURVIVOR! {survivor['name']} outlasted everyone!")
+        elif cur_round >= max_rounds:
+            state["the_me_gameover"] = True
+            state["the_me_winner"] = "survivors"
+            survivor_names = ", ".join(p["name"] for p in alive_guessers)
+            state["winner_reason"] = (
+                f"🎉 Survivors Win! {survivor_names} survived all {max_rounds} rounds against The ME!"
+            )
+            append_event(state, "System", f"🎉 {len(alive_guessers)} survivor(s) completed all rounds!")
 
     else:
         # Standard anti-clash mode
@@ -655,17 +693,23 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
     # Handle players who did not submit an answer
     for pid, p in players.items():
         if pid not in player_results:
+            is_elim = bool(p.get("eliminated"))
             player_results[pid] = {
                 "player_id": pid,
                 "player_name": p["name"],
                 "raw_answer": "",
                 "clean_key": "",
-                "status": "no_answer",
+                "status": "eliminated" if is_elim else "no_answer",
                 "is_valid": False,
                 "is_obscure": False,
                 "points_awarded": 0,
                 "total_score": p.get("score", 0),
-                "reason": "Did not submit answer",
+                "eliminated": is_elim,
+                "reason": (
+                    f"Eliminated in round {p.get('eliminated_round', 1)} (Spectating)"
+                    if is_elim
+                    else "Did not submit answer"
+                ),
             }
 
     round_summary = {
@@ -675,6 +719,16 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
         "clash_groups": clash_groups,
         "total_submissions": len(answers),
         "total_clashes": len(clash_groups),
+        "the_me_gameover": state.get("the_me_gameover", False),
+        "the_me_winner": state.get("the_me_winner"),
+        "winner_reason": state.get("winner_reason"),
+        "alive_survivor_count": len(
+            [
+                p
+                for pid, p in players.items()
+                if pid != the_me_id and not p.get("is_spectator") and not p.get("eliminated")
+            ]
+        ),
         "timestamp": time.time(),
     }
     state["round_results"] = round_summary
@@ -818,11 +872,11 @@ def adjudicate_oral_round(
 
 
 def advance_next_round(state: dict[str, Any]) -> bool:
-    """Advance from reveal to next round, or game over if max rounds reached."""
+    """Advance from reveal to next round, or game over if max rounds reached or The ME eliminated players."""
     max_rounds = int(state.get("settings", {}).get("max_rounds", 6))
     cur_round = int(state.get("round_num", 1))
 
-    if cur_round >= max_rounds:
+    if state.get("the_me_gameover") or cur_round >= max_rounds:
         state["phase"] = "gameover"
         append_event(state, "System", "🏆 Game Over! Check the final podium!")
         save_game(state["code"], state)
@@ -841,8 +895,14 @@ def reset_game(state: dict[str, Any]) -> None:
     state["round_results"] = None
     state["round_history"] = []
     state["used_prompt_ids"] = []
+    state["the_me_gameover"] = False
+    state["the_me_winner"] = None
+    state["winner_reason"] = None
+    state["winner_id"] = None
     for p in state.get("players", {}).values():
         p["score"] = 0
+        p["eliminated"] = False
+        p.pop("eliminated_round", None)
     append_event(state, "System", "🔄 Room reset to lobby. Ready for a new game!")
     save_game(state["code"], state)
 

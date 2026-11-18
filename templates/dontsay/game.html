@@ -87,6 +87,13 @@ body { max-width: 1080px !important; }
 }
 .ds-input-large:focus { outline: none; border-color: var(--ds-primary); box-shadow: 0 0 0 3px rgba(139,92,246,0.18); }
 
+.ds-answer-form { display: flex; gap: 0.5rem; align-items: stretch; }
+.ds-answer-form .ds-input-large { flex: 1; }
+@media (max-width: 480px) {
+  .ds-answer-form { flex-direction: column; }
+  .ds-answer-form button { width: 100%; justify-content: center; }
+}
+
 /* Clashes & Reveals */
 .ds-clash-box {
   background: var(--ds-danger-soft); border: 1px solid #fca5a5; border-radius: 10px;
@@ -121,10 +128,18 @@ body { max-width: 1080px !important; }
 /* Roster */
 .ds-roster-item {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0.45rem 0.6rem; border-radius: 8px; margin-bottom: 0.25rem; background: #f8fafc;
+  padding: 0.5rem 0.7rem; border-radius: 8px; margin-bottom: 0.35rem; background: #f8fafc;
+  border: 1px solid #e2e8f0;
 }
-.ds-roster-left { display: flex; align-items: center; gap: 0.45rem; }
-.ds-roster-score { font-weight: 700; font-size: 0.85rem; }
+.ds-roster-left { display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
+.ds-roster-score { font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 0.45rem; flex-shrink: 0; }
+
+.ds-settings-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;
+}
+@media (max-width: 640px) {
+  .ds-settings-grid { grid-template-columns: 1fr !important; }
+}
 {% endblock %}
 
 {% block content %}
@@ -138,8 +153,8 @@ body { max-width: 1080px !important; }
       <span id="badge-round" class="ds-pill">{% trans "Round" %} 0</span>
     </div>
     <div class="ds-actions">
-      <button class="ds-btn" onclick="openModal('modal-invite')">👥 {% trans "Invite" %}</button>
-      <button class="ds-btn" onclick="openModal('modal-reconnect')">📱 {% trans "QR Token" %}</button>
+      <button type="button" class="ds-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Room QR" %}</button>
+      <button type="button" class="ds-btn" onclick="openModal('modal-my-qr')">🪪 {% trans "My Seat QR" %}</button>
       <span id="host-badge" class="ds-pill" style="display:none; background:#fef3c7; color:#92400e;">👑 {% trans "Host" %}</span>
     </div>
   </div>
@@ -159,13 +174,13 @@ body { max-width: 1080px !important; }
         <!-- Host Settings -->
         <div id="host-settings-panel" style="display:none; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:1rem; margin-bottom:1rem;">
           <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.65rem;">⚙️ {% trans "Host Match Settings" %}</div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.65rem;">
+          <div class="ds-settings-grid">
             <div>
               <label style="font-size:0.75rem; font-weight:600; color:var(--ds-muted); display:block; margin-bottom:0.25rem;">{% trans "Game Mode" %}</label>
               <select id="cfg-mode" class="ds-input-large" style="font-size:0.85rem; padding:0.4rem;" onchange="onGameModeChange()">
                 <option value="classic">🤐 {% trans "Standard (Secret Anti-Clash)" %}</option>
-                <option value="the_me">👑 {% trans "The ME (Genius Host: Don't Say What I Say)" %}</option>
-                <option value="oral_table">🗣️ {% trans "Oral Table (Living Room: Say Out Loud)" %}</option>
+                <option value="the_me">👑 {% trans "The ME (Elimination Match)" %}</option>
+                <option value="oral_table">🗣️ {% trans "Oral Table (Living Room Adjudication)" %}</option>
               </select>
             </div>
             <div id="cfg-the-me-rot-wrap" style="display:none;">
@@ -428,34 +443,60 @@ body { max-width: 1080px !important; }
 </div>
 
 <!-- Modal: Room Invite QR -->
-<div id="modal-invite" class="ds-modal">
+<div id="modal-invite-qr" class="ds-modal">
   <div class="ds-modal-content">
     <div class="ds-modal-header">
-      <h3 class="ds-modal-title">👥 {% trans "Invite Friends to Room" %}</h3>
-      <button class="ds-modal-close" onclick="closeModal('modal-invite')">&times;</button>
+      <h3 class="ds-modal-title">📲 {% trans "Room Invite QR" %}</h3>
+      <button class="ds-modal-close" onclick="closeModal('modal-invite-qr')">&times;</button>
     </div>
     <div style="text-align:center;">
+      <p style="font-size:0.82rem; color:var(--ds-muted); margin-bottom:0.75rem;">
+        {% trans "Scan with any phone camera or share the link to join this room:" %}
+      </p>
       <img src="{{ join_qr }}" alt="Room QR" style="max-width:210px; width:100%; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:0.75rem;">
       <div style="font-size:0.85rem; font-weight:700; margin-bottom:0.35rem;">{% trans "Room Code" %}: <span style="font-family:monospace; font-size:1.1rem; color:var(--ds-primary);">{{ room.code }}</span></div>
       <input type="text" readonly value="{{ join_url }}" class="ds-input-large" style="font-size:0.78rem; text-align:center; padding:0.4rem; margin-bottom:0.65rem;" onclick="this.select()">
-      <button class="ds-btn ds-btn-primary" onclick="navigator.clipboard.writeText('{{ join_url }}'); this.textContent='Copied!';">📋 {% trans "Copy Invite Link" %}</button>
+      <button class="ds-btn ds-btn-primary" onclick="navigator.clipboard.writeText('{{ join_url }}'); this.textContent='✅ Copied!';">📋 {% trans "Copy Room Link" %}</button>
     </div>
   </div>
 </div>
 
 <!-- Modal: Personal Reconnect QR -->
-<div id="modal-reconnect" class="ds-modal">
+<div id="modal-my-qr" class="ds-modal">
   <div class="ds-modal-content">
     <div class="ds-modal-header">
-      <h3 class="ds-modal-title">📱 {% trans "Personal Seat Reconnect QR" %}</h3>
-      <button class="ds-modal-close" onclick="closeModal('modal-reconnect')">&times;</button>
+      <h3 class="ds-modal-title">🪪 {% trans "My Seat Reconnect QR" %}</h3>
+      <button class="ds-modal-close" onclick="closeModal('modal-my-qr')">&times;</button>
     </div>
     <div style="text-align:center;">
-      <p style="font-size:0.85rem; color:var(--ds-muted); margin-bottom:0.75rem;">
-        {% trans "Scan this QR code from your mobile device to transfer your seat or quickly reconnect if disconnected." %}
-      </p>
+      <div style="background:#fef3c7; border:1px solid #f59e0b; color:#92400e; padding:0.65rem 0.85rem; border-radius:8px; font-size:0.82rem; margin-bottom:0.75rem; text-align:left; line-height:1.4;">
+        <strong>⚠️ {% trans "Personal Secret Seat:" %}</strong> {% trans "Keep this private! Only for you to switch devices or restore your personal seat and scores. Do NOT share this to invite other players." %}
+      </div>
       <img src="{{ reconnect_qr }}" alt="Reconnect QR" style="max-width:210px; width:100%; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:0.75rem;">
-      <div style="font-size:0.8rem; font-family:monospace; color:var(--ds-muted); word-break:break-all;">{{ player.name }} (Token: {{ player.token|slice:":8" }}...)</div>
+      <div style="font-size:0.82rem; font-weight:700; color:var(--ds-muted); margin-bottom:0.35rem;">{{ player.name }}</div>
+      <input type="text" readonly value="{{ reconnect_url }}" class="ds-input-large" style="font-size:0.75rem; text-align:center; padding:0.4rem; margin-bottom:0.65rem;" onclick="this.select()">
+      <button class="ds-btn ds-btn-primary" onclick="navigator.clipboard.writeText('{{ reconnect_url }}'); this.textContent='✅ Copied!';">📋 {% trans "Copy My Reconnect Link" %}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Individual Player Reconnect QR -->
+<div id="modal-player-qr" class="ds-modal">
+  <div class="ds-modal-content">
+    <div class="ds-modal-header">
+      <h3 class="ds-modal-title" id="player-qr-title">📱 {% trans "Player Reconnect QR" %}</h3>
+      <button class="ds-modal-close" onclick="closeModal('modal-player-qr')">&times;</button>
+    </div>
+    <div style="text-align:center;">
+      <p style="font-size:0.82rem; color:var(--ds-muted); margin-bottom:0.65rem;">
+        {% trans "Scan on this player's phone to restore their seat or switch devices:" %}
+      </p>
+      <img id="player-qr-img" src="" alt="Player QR" style="max-width:210px; width:100%; border-radius:10px; border:1px solid #e2e8f0; margin:0 auto 0.75rem; display:block;">
+      <input type="text" id="player-qr-url" readonly class="ds-input-large" style="font-size:0.75rem; text-align:center; padding:0.4rem; margin-bottom:0.65rem;" onclick="this.select()">
+      <div style="display:flex; justify-content:center; gap:0.4rem;">
+        <button class="ds-btn ds-btn-primary" onclick="navigator.clipboard.writeText(document.getElementById('player-qr-url').value); this.textContent='✅ Copied!';">📋 {% trans "Copy Link" %}</button>
+        <a id="player-qr-open-link" href="#" target="_blank" rel="noopener" class="ds-btn" style="text-decoration:none;">🔗 {% trans "Open Tab" %}</a>
+      </div>
     </div>
   </div>
 </div>
@@ -526,12 +567,24 @@ function wsSend(payload) {
 }
 
 let oralVerdicts = {};
+let lastRenderedRound = null;
 
 function renderGame() {
   if (!gameState) return;
   const viewer = gameState.viewer || {};
   const isHost = Boolean(viewer.is_admin);
   const phase = gameState.phase || "lobby";
+
+  const curRound = gameState.round_num || 0;
+  if (lastRenderedRound !== curRound) {
+    lastRenderedRound = curRound;
+    const ansInput = document.getElementById("input-answer");
+    if (ansInput) ansInput.value = gameState.my_answer || "";
+    const meInput = document.getElementById("the-me-host-input");
+    if (meInput) meInput.value = "";
+    const feedback = document.getElementById("answer-locked-feedback");
+    if (feedback) feedback.style.display = gameState.my_answer ? "block" : "none";
+  }
 
   // Badges & Host
   document.getElementById("host-badge").style.display = isHost ? "inline-flex" : "none";
@@ -733,33 +786,56 @@ function renderAnswering(isHost) {
   const mode = gameState.settings?.game_mode || "classic";
   const viewer = gameState.viewer || {};
   const isTheMe = Boolean(viewer.is_the_me);
+  const isEliminated = Boolean(viewer.eliminated);
   const theMeAlert = document.getElementById("the-me-guesser-alert");
   const theMeLockedAlert = document.getElementById("the-me-host-locked-alert");
   const guesserInputWrap = document.getElementById("btn-submit-answer").parentElement.parentElement;
 
-  if (mode === "the_me") {
-    if (isTheMe) {
-      theMeAlert.style.display = "none";
-      theMeLockedAlert.style.display = "block";
-      document.getElementById("the-me-my-word").textContent = `"${gameState.my_answer || ''}"`;
-      guesserInputWrap.style.display = "none";
+  let elimAlert = document.getElementById("the-me-eliminated-alert");
+  if (!elimAlert) {
+    elimAlert = document.createElement("div");
+    elimAlert.id = "the-me-eliminated-alert";
+    elimAlert.style.cssText = "background:#fee2e2; border:1px solid #ef4444; color:#991b1b; padding:0.85rem; border-radius:10px; font-weight:700; margin-bottom:1rem; text-align:center;";
+    elimAlert.textContent = "💀 You were eliminated by The ME! Spectating remaining rounds...";
+    guesserInputWrap.parentElement.insertBefore(elimAlert, guesserInputWrap);
+  }
+
+  if (isEliminated) {
+    elimAlert.style.display = "block";
+    theMeAlert.style.display = "none";
+    theMeLockedAlert.style.display = "none";
+    guesserInputWrap.style.display = "none";
+  } else {
+    elimAlert.style.display = "none";
+    if (mode === "the_me") {
+      if (isTheMe) {
+        theMeAlert.style.display = "none";
+        theMeLockedAlert.style.display = "block";
+        document.getElementById("the-me-my-word").textContent = `"${gameState.my_answer || ''}"`;
+        guesserInputWrap.style.display = "none";
+      } else {
+        theMeAlert.style.display = "block";
+        document.getElementById("the-me-name-span").textContent = gameState.the_me_player_name || "The ME";
+        theMeLockedAlert.style.display = "none";
+        guesserInputWrap.style.display = "block";
+      }
     } else {
-      theMeAlert.style.display = "block";
-      document.getElementById("the-me-name-span").textContent = gameState.the_me_player_name || "The ME";
+      theMeAlert.style.display = "none";
       theMeLockedAlert.style.display = "none";
       guesserInputWrap.style.display = "block";
     }
-  } else {
-    theMeAlert.style.display = "none";
-    theMeLockedAlert.style.display = "none";
-    guesserInputWrap.style.display = "block";
   }
 
-  // Pre-fill answer if already submitted
+  // Pre-fill answer if already submitted, or ensure cleared
   const myAns = gameState.my_answer || "";
   const inputEl = document.getElementById("input-answer");
-  if (myAns && !inputEl.value) {
+  if (myAns) {
     inputEl.value = myAns;
+  } else if (!isEliminated) {
+    // If we have not submitted for this round, ensure input is clear
+    if (!gameState.my_answer) {
+      inputEl.value = "";
+    }
   }
   document.getElementById("answer-locked-feedback").style.display = myAns ? "block" : "none";
 
@@ -849,13 +925,15 @@ function renderReveal(isHost) {
 
     let statusPill = "";
     if (res.status === "caught_by_me") {
-      statusPill = `<span class="ds-pill ds-pill-danger">💥 Trapped by The ME! (${res.points_awarded} pts)</span>`;
+      statusPill = `<span class="ds-pill ds-pill-danger">💀 ELIMINATED! (${res.points_awarded} pts)</span>`;
+    } else if (res.status === "eliminated") {
+      statusPill = `<span class="ds-pill ds-pill-danger">💀 Eliminated (Spectating)</span>`;
     } else if (res.status === "the_me_mastermind") {
       statusPill = `<span class="ds-pill ds-pill-primary">👑 Mastermind (+${res.points_awarded} pts)</span>`;
     } else if (res.status === "the_me_avoided") {
       statusPill = `<span class="ds-pill ds-pill-primary">👑 The ME (+${res.points_awarded} pts)</span>`;
     } else if (res.status === "escaped_me") {
-      statusPill = `<span class="ds-pill ds-pill-success">✨ Escaped The ME! (+${res.points_awarded} pts)</span>`;
+      statusPill = `<span class="ds-pill ds-pill-success">✨ Survived (+${res.points_awarded} pts)</span>`;
     } else if (isInvalid) {
       statusPill = `<span class="ds-pill ds-pill-danger">❌ {% trans "Invalid" %} (0 pts)</span>`;
     } else if (isClash) {
@@ -874,7 +952,7 @@ function renderReveal(isHost) {
     ` : "";
 
     return `
-      <div class="ds-result-card ${cardClass}">
+      <div class="ds-result-card ${cardClass}" style="${res.eliminated ? 'border-left:4px solid #ef4444; background:#fff1f2;' : ''}">
         <div>
           <div style="font-weight:700; font-size:0.92rem;">${esc(res.player_name)}: <span style="font-weight:800; color:#1e293b;">"${esc(res.raw_answer || '—')}"</span></div>
           <div style="font-size:0.75rem; color:var(--ds-muted); margin-top:0.2rem;">${esc(res.reason || '')}</div>
@@ -887,6 +965,28 @@ function renderReveal(isHost) {
     `;
   }).join("");
 
+  // Elimination Banner if gameover reached
+  let elimBanner = document.getElementById("the-me-gameover-banner");
+  if (gameState.the_me_gameover && gameState.winner_reason) {
+    if (!elimBanner) {
+      elimBanner = document.createElement("div");
+      elimBanner.id = "the-me-gameover-banner";
+      elimBanner.style.cssText = "background:#fef3c7; border:2px solid #f59e0b; border-radius:12px; padding:1rem; text-align:center; font-weight:800; font-size:1.05rem; color:#92400e; margin-bottom:1rem;";
+      container.parentElement.insertBefore(elimBanner, container);
+    }
+    elimBanner.style.display = "block";
+    elimBanner.textContent = gameState.winner_reason;
+  } else if (elimBanner) {
+    elimBanner.style.display = "none";
+  }
+
+  const nextBtn = document.querySelector("#host-next-panel button");
+  if (nextBtn) {
+    nextBtn.textContent = (gameState.the_me_gameover || gameState.round_num >= (gameState.settings?.max_rounds || 6))
+      ? "🏆 {% trans 'View Final Results' %}"
+      : "➡️ {% trans 'Next Round' %}";
+  }
+
   document.getElementById("host-next-panel").style.display = isHost ? "block" : "none";
 }
 
@@ -897,6 +997,20 @@ function renderGameOver(isHost) {
 
   if (jsConfetti) {
     jsConfetti.addConfetti({ emojis: ['🏆', '✨', '🎉', '🌟', '🤐'] });
+  }
+
+  const elimHeader = document.getElementById("the-me-gameover-header");
+  if (gameState.winner_reason) {
+    if (!elimHeader) {
+      const h = document.createElement("div");
+      h.id = "the-me-gameover-header";
+      h.style.cssText = "background:#fef3c7; border:2px solid #f59e0b; border-radius:12px; padding:1rem; text-align:center; font-weight:800; font-size:1.15rem; color:#92400e; margin-bottom:1.25rem;";
+      stage.insertBefore(h, document.getElementById("podium-container"));
+    }
+    document.getElementById("the-me-gameover-header").textContent = gameState.winner_reason;
+    document.getElementById("the-me-gameover-header").style.display = "block";
+  } else if (elimHeader) {
+    elimHeader.style.display = "none";
   }
 
   const players = gameState.players || [];
@@ -925,20 +1039,24 @@ function renderRoster() {
   box.innerHTML = players.map(p => {
     const isMe = p.id === PLAYER_ID;
     const isConn = p.connected;
+    const isElim = Boolean(p.eliminated);
     let statusIcon = "";
-    if (phase === "answering" || phase === "the_me_answering") {
+    if (isElim) {
+      statusIcon = "💀";
+    } else if (phase === "answering" || phase === "the_me_answering") {
       statusIcon = p.has_submitted ? "✅" : "⏳";
     }
 
     return `
-      <div class="ds-roster-item" style="${isMe ? 'border-left:3px solid var(--ds-primary);' : ''}">
-        <div class="ds-roster-left">
-          <span style="opacity:${isConn ? 1 : 0.4};">👤</span>
-          <span style="font-weight:${isMe ? '700' : '500'}; font-size:0.85rem;">${esc(p.name)} ${p.is_admin ? '👑' : ''} ${p.is_the_me ? '🎯' : ''}</span>
-          ${statusIcon ? `<span style="font-size:0.75rem;">${statusIcon}</span>` : ''}
+      <div class="ds-roster-item" style="${isMe ? 'border-left:3px solid var(--ds-primary);' : ''} ${isElim ? 'opacity:0.75; background:#fff1f2;' : ''}">
+        <div class="ds-roster-left" style="min-width:0; overflow:hidden;">
+          <span style="opacity:${isConn ? 1 : 0.4}; flex-shrink:0;">${isElim ? '💀' : '👤'}</span>
+          <span style="font-weight:${isMe ? '700' : '500'}; font-size:0.85rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; ${isElim ? 'text-decoration:line-through; color:#991b1b;' : ''}">${esc(p.name)} ${p.is_admin ? '👑' : ''} ${p.is_the_me ? '🎯' : ''}</span>
+          ${isElim ? `<span style="font-size:0.65rem; background:#fee2e2; color:#991b1b; padding:0.1rem 0.35rem; border-radius:4px; font-weight:700; flex-shrink:0;">ELIMINATED</span>` : (statusIcon ? `<span style="font-size:0.75rem; flex-shrink:0;">${statusIcon}</span>` : '')}
         </div>
-        <div class="ds-roster-score">
-          ${p.score || 0} pts
+        <div class="ds-roster-score" style="display:flex; align-items:center; gap:0.5rem; flex-shrink:0;">
+          <button type="button" onclick="showPlayerQR('${p.id}', '${esc(p.name)}')" title="Show Reconnect QR" style="border:1px solid #cbd5e1; background:#fff; color:#475569; border-radius:6px; padding:0.15rem 0.45rem; cursor:pointer; font-size:0.72rem; font-weight:600;">📱 QR</button>
+          <span>${p.score || 0} pts</span>
           ${(isHost && p.id !== PLAYER_ID) ? `
             <button onclick="transferHost('${p.id}', '${esc(p.name)}')" title="Transfer Room Host" style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0 0.15rem;">👑</button>
             <button onclick="confirmKickPlayer('${p.id}', '${esc(p.name)}')" title="Kick Player" style="background:none; border:none; cursor:pointer; font-size:0.85rem; color:#ef4444; padding:0 0.15rem;">&times;</button>
@@ -947,6 +1065,35 @@ function renderRoster() {
       </div>
     `;
   }).join("");
+}
+
+function showPlayerQR(pid, pName) {
+  document.getElementById("player-qr-title").textContent = `📱 ${pName} — Reconnect QR`;
+  const imgEl = document.getElementById("player-qr-img");
+  const urlEl = document.getElementById("player-qr-url");
+  const linkEl = document.getElementById("player-qr-open-link");
+  imgEl.style.display = "none";
+  urlEl.value = "Loading QR code...";
+  if (linkEl) linkEl.style.display = "none";
+  openModal("modal-player-qr");
+
+  fetch(`/games/dontsay/${encodeURIComponent(ROOM_CODE)}/qr/${encodeURIComponent(pid)}/`)
+    .then(r => {
+      if (!r.ok) throw new Error("QR fetch failed");
+      return r.json();
+    })
+    .then(data => {
+      imgEl.src = data.qr;
+      imgEl.style.display = "block";
+      urlEl.value = data.url;
+      if (linkEl) {
+        linkEl.href = data.url;
+        linkEl.style.display = "inline-block";
+      }
+    })
+    .catch(() => {
+      urlEl.value = "Failed to load player QR code.";
+    });
 }
 
 function transferHost(pid, pName) {

@@ -280,8 +280,8 @@ body { max-width: 1180px !important; }
       <button type="button" class="cn-btn" onclick="openReplayModal()">🎬 {% trans "Replay" %}</button>
       <a href="{% url 'gamerooms:codenames:replay' room.code %}" class="cn-btn" target="_blank" rel="noopener">⬇️ JSON</a>
       <button type="button" class="cn-btn" onclick="openModal('modal-custom-card')">🃏 {% trans "Custom Deck" %} (<span id="deck-count">0</span>)</button>
-      <button type="button" class="cn-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Invite QR" %}</button>
-      <button type="button" class="cn-btn" onclick="openModal('modal-profile')">🪪 {{ player_name }}</button>
+      <button type="button" class="cn-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Room QR" %}</button>
+      <button type="button" class="cn-btn" onclick="openModal('modal-profile')">🪪 {% trans "My Seat QR" %}</button>
     </div>
   </div>
 
@@ -602,14 +602,17 @@ body { max-width: 1180px !important; }
 <div id="modal-profile" class="cn-modal-backdrop" onclick="if(event.target===this)closeModal('modal-profile')">
   <div class="cn-modal" style="text-align:center;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
-      <h3 style="margin:0;">🪪 {{ player_name }}</h3>
+      <h3 style="margin:0;">🪪 {% trans "My Seat Reconnect QR" %}</h3>
       <button type="button" class="cn-btn cn-btn-sm" onclick="closeModal('modal-profile')">&times;</button>
     </div>
-    <p style="font-size:0.82rem;color:var(--cn-muted);margin-top:0;">{% trans "Scan on another device to reclaim your Spymaster/Operative seat cleanly." %}</p>
+    <div style="background:#fef3c7; border:1px solid #f59e0b; color:#92400e; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.8rem; margin-bottom:0.75rem; text-align:left; line-height:1.4;">
+      <strong>⚠️ {% trans "Personal Secret Seat:" %}</strong> {% trans "Keep this private! Only for you to switch devices or restore your personal Spymaster/Operative seat and cards. Do NOT share this to invite other players." %}
+    </div>
     <img src="{{ player_qr }}" alt="Player QR" style="width:200px;height:200px;border-radius:10px;border:1px solid #e2e8f0;margin-bottom:0.7rem;">
+    <div style="font-size:0.82rem; font-weight:700; color:var(--cn-muted); margin-bottom:0.35rem;">{{ player_name }}</div>
     <div style="display:flex;gap:0.4rem;">
       <input type="text" readonly value="{{ reconnect_url }}" id="profile-url-input" style="flex:1;padding:0.4rem;border:1px solid #cbd5e1;border-radius:7px;font-size:0.75rem;">
-      <button type="button" class="cn-btn cn-btn-primary" onclick="copyText('profile-url-input')">{% trans "Copy" %}</button>
+      <button type="button" class="cn-btn cn-btn-primary" onclick="copyText('profile-url-input')">{% trans "Copy Reconnect Link" %}</button>
     </div>
   </div>
 </div>

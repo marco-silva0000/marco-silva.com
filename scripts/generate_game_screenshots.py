@@ -182,16 +182,9 @@ def capture_stop(browser, base_url, out_dir, devices):
     """Capture Stop! party game screens (Creation, Lobby, Playing with unified card)."""
     stop_dir = out_dir / "stop"
     stop_dir.mkdir(parents=True, exist_ok=True)
-    print("[*] Capturing Stop! Party Game...")
+    print(f"[*] Capturing Stop! Party Game ({len(devices)} devices)...")
 
-    # Choose representative devices: mobile, tablet, desktop
-    rep_devices = [
-        d for d in ["iphone_latest", "pixel_latest", "ipad", "laptop_fullscreen", "external_hd"] if d in devices
-    ]
-    if not rep_devices:
-        rep_devices = [devices[0]]
-
-    for d_key in rep_devices:
+    for d_key in devices:
         ctx = setup_browser_context(browser, d_key)
         page = ctx.new_page()
         try:
@@ -249,13 +242,13 @@ def capture_dontsay(browser, base_url, out_dir, devices):
     """Capture Don't Say the Same Thing as Me game screens."""
     ds_dir = out_dir / "dontsay"
     ds_dir.mkdir(parents=True, exist_ok=True)
-    print("[*] Capturing Don't Say the Same Thing as Me...")
+    print(f"[*] Capturing Don't Say the Same Thing as Me ({len(devices)} devices)...")
 
-    rep_devices = [d for d in ["iphone_latest", "ipad", "laptop_fullscreen"] if d in devices] or [devices[0]]
-
-    for d_key in rep_devices:
+    for d_key in devices:
         ctx = setup_browser_context(browser, d_key)
         page = ctx.new_page()
+        page.on("console", lambda msg: print(f"    [console] {msg.text}"))
+        page.on("pageerror", lambda err: print(f"    [pageerror] {err}"))
         try:
             # 1. Create room form
             page.goto(f"{base_url}/games/create/?game=dontsay", wait_until="networkidle")
@@ -281,15 +274,14 @@ def capture_dontsay(browser, base_url, out_dir, devices):
             print(f"    -> Saved {lobby_path.name}")
 
             # Start game round
-            for _ in range(3):
-                try:
-                    if page.locator("#btn-start-game").is_visible():
-                        page.click("#btn-start-game")
-                        time.sleep(1.2)
-                        break
-                    time.sleep(0.5)
-                except Exception:
-                    time.sleep(0.5)
+            try:
+                start_btn = page.locator("#btn-start-game")
+                start_btn.scroll_into_view_if_needed()
+                start_btn.click()
+                page.wait_for_selector("#stage-answering", state="visible", timeout=6000)
+                time.sleep(1.0)
+            except Exception as ex:
+                print(f"    [!] Error clicking start game: {ex}")
 
             play_path = ds_dir / f"dontsay_playing_{d_key}.png"
             page.screenshot(path=str(play_path))
@@ -472,6 +464,46 @@ def capture_impostor(browser, base_url, out_dir, devices):
             ctx.close()
 
 
+def capture_emojinary(browser, base_url, out_dir, devices):
+    """Capture Emojinary game screens (Create, Lobby, Playing)."""
+    ej_dir = out_dir / "emojinary"
+    ej_dir.mkdir(parents=True, exist_ok=True)
+    print(f"[*] Capturing Emojinary ({len(devices)} devices)...")
+
+    for d_key in devices:
+        ctx = setup_browser_context(browser, d_key)
+        page = ctx.new_page()
+        try:
+            page.goto(f"{base_url}/games/create/?game=emojinary", wait_until="networkidle")
+            page.fill('input[name="title"]', f"Emojinary Demo ({d_key})")
+            solve_captcha(page)
+            page.click('button[type="submit"]')
+
+            page.wait_for_selector('input[name="name"]')
+            page.fill('input[name="name"]', "Artist")
+            page.click('button[type="submit"]')
+
+            page.wait_for_url("**/games/emojinary/**")
+            page.wait_for_selector("#players", state="attached")
+            time.sleep(1.0)
+
+            lobby_path = ej_dir / f"emojinary_lobby_{d_key}.png"
+            page.screenshot(path=str(lobby_path))
+            print(f"    -> Saved {lobby_path.name}")
+
+            start_btn = page.locator("#start-btn")
+            if start_btn.is_visible():
+                start_btn.click()
+                time.sleep(1.2)
+                play_path = ej_dir / f"emojinary_playing_{d_key}.png"
+                page.screenshot(path=str(play_path))
+                print(f"    -> Saved {play_path.name}")
+        except Exception as e:
+            print(f"    [!] Error capturing emojinary on {d_key}: {e}")
+        finally:
+            ctx.close()
+
+
 def main():
     parser = argparse.ArgumentParser(description="Multi-Device Screenshot Generator for Party Games")
     parser.add_argument(
@@ -480,7 +512,9 @@ def main():
     parser.add_argument("--outdir", default="docs/screenshots", help="Output directory (default: docs/screenshots)")
     parser.add_argument("--devices", default="all", help="Comma-separated device keys or 'all'")
     parser.add_argument(
-        "--games", default="all", help="Comma-separated games: portal,stop,dontsay,lupus,codenames,impostor or 'all'"
+        "--games",
+        default="all",
+        help="Comma-separated games: portal,stop,dontsay,lupus,codenames,impostor,emojinary or 'all'",
     )
     parser.add_argument("--all", action="store_true", help="Generate all devices and all games")
 
@@ -495,7 +529,7 @@ def main():
             devices = list(DEVICE_CONFIGS.keys())
 
     # Resolve games
-    valid_games = ["portal", "stop", "dontsay", "lupus", "codenames", "impostor"]
+    valid_games = ["portal", "stop", "dontsay", "lupus", "codenames", "impostor", "emojinary"]
     if args.all or args.games == "all":
         games = valid_games
     else:
@@ -554,6 +588,9 @@ def main():
 
         if "impostor" in games:
             capture_impostor(browser, args.url, out_dir, devices)
+
+        if "emojinary" in games:
+            capture_emojinary(browser, args.url, out_dir, devices)
 
         browser.close()
         elapsed = time.time() - start_time
