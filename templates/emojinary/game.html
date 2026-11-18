@@ -217,7 +217,7 @@
     </div>
     <div class="ej-actions">
       <button type="button" class="ej-btn" id="btn-invite-qr" onclick="openModal('modal-invite-qr')">📲 {% trans "Room QR" %}</button>
-      <button type="button" class="ej-btn" id="btn-my-profile" onclick="openModal('modal-profile')">🪪 {% trans "My Seat QR" %}</button>
+      <button type="button" class="ej-btn" id="btn-my-profile" onclick="openModal('modal-profile')">🪪 {% trans "My Seat QR" %}<span id="my-name-pill" style="display:none;">{{ player_name }}</span></button>
       <button type="button" class="ej-btn" id="btn-replay" onclick="openReplayModal()" style="display:none;">🎬 {% trans "Replay" %}</button>
       <a href="{% url 'gamerooms:emojinary:replay' room.code %}" class="ej-btn" id="btn-export-replay" style="display:none;" download>⬇️ JSON</a>
     </div>
@@ -689,7 +689,7 @@ function renderFromState(s) {
   if (s.me && s.me.name) {
     NAME = s.me.name;
     MY_ID = s.me.id;
-    $('my-name-pill').textContent = NAME;
+    if ($('my-name-pill')) $('my-name-pill').textContent = NAME;
     if ($('rename-input') && document.activeElement !== $('rename-input')) {
       $('rename-input').value = NAME;
     }
