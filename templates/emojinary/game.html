@@ -2,6 +2,7 @@
 {% load i18n static %}
 {% block title %}🎨 Emojinary — {{ room.title }}{% endblock %}
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
 :root {
   --ej-bg: #f8fafc;
   --ej-card: #ffffff;
@@ -193,6 +194,14 @@
   background: #f8fafc; border: 1px solid #e2e8f0;
 }
 
+@media (max-width: 640px) {
+  .ej-topbar { padding: 0.5rem 0.65rem; gap: 0.35rem; }
+  .ej-title-group { gap: 0.35rem; }
+  .ej-title { font-size: 1rem; }
+  .ej-actions { gap: 0.35rem; }
+  .ej-actions .ej-btn { font-size: 0.72rem; padding: 0.22rem 0.45rem; }
+  .ej-code-pill, .ej-mode-pill { font-size: 0.68rem; padding: 0.12rem 0.4rem; }
+}
 #overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.75); display: none; justify-content: center; align-items: center; z-index: 150; flex-direction: column; padding: 1rem; }
 #overlay.show { display: flex; }
 #overlay .countdown { font-size: 5rem; color: #fff; font-weight: 800; animation: pop 0.5s ease; }
@@ -517,6 +526,7 @@
 
 <div id="overlay"></div>
 
+<script src="{% static 'gamerooms/player_badges.js' %}?v={{ version_counter }}"></script>
 <script src="{% static 'vendor/js-confetti.browser.js' %}"></script>
 <script>
 const CODE = "{{ room.code }}";
@@ -996,8 +1006,9 @@ function players(ps, isAdmin = false) {
            <button type="button" class="ej-btn" style="padding:0.1rem 0.35rem;font-size:0.68rem;color:#dc2626;" onclick="kickPlayer('${p.id}', '${escapeHtml(p.name)}')" title="Remove Player">✕</button>
          </span>`
       : '';
+    const avatar = renderPlayerAvatarHtml(p, 'player-avatar-xs');
     return `<div class="player ${p.is_turn ? 'active' : ''}">
-      <span style="display:inline-flex;align-items:center;gap:0.35rem;">${dot} <span>${ badges } ${escapeHtml(p.name)}</span></span>
+      <span style="display:inline-flex;align-items:center;gap:0.35rem;">${dot} ${avatar} <span>${ badges } ${escapeHtml(p.name)}</span></span>
       <span style="display:inline-flex;align-items:center;gap:0.35rem;">
         <button type="button" class="ej-btn" style="padding:0.12rem 0.38rem;font-size:0.68rem;" onclick="showPlayerQR('${p.id}', '${escapeHtml(p.name)}')" title="{% trans 'Show Reconnect QR' %}">📱 QR</button>
         <strong>${p.score}pts</strong>

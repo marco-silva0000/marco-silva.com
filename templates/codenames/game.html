@@ -2,6 +2,7 @@
 {% load i18n static %}
 {% block title %}🕵️ {% trans "Codenames" %} — {{ room.title }}{% endblock %}
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
 body { max-width: 1180px !important; }
 :root {
   --cn-bg: #f8fafc;
@@ -127,13 +128,13 @@ body { max-width: 1180px !important; }
   user-select: none;
 }
 @media (max-width: 680px) {
-  .cn-tile { min-height: 66px; padding: 0.3rem 0.22rem; border-radius: 8px; }
-}
-.cn-tile.clickable { cursor: pointer; }
-.cn-tile.clickable:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(15,23,42,0.12); border-color: #0f172a; }
-.cn-tile-word { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em; word-break: break-word; line-height: 1.15; }
-@media (max-width: 680px) {
-  .cn-tile-word { font-size: 0.73rem; }
+  .cn-tile { min-height: 66px; padding: 0.45rem 0.22rem 0.22rem 0.22rem; border-radius: 8px; }
+  .cn-tile-word { font-size: 0.72rem; word-break: break-word; hyphens: auto; }
+  .cn-def-btn { top: 2px; right: 2px; width: 14px; height: 14px; font-size: 0.5rem; }
+  .cn-topbar { padding: 0.5rem 0.75rem; gap: 0.35rem; }
+  .cn-title { font-size: 1.05rem; }
+  .cn-actions .cn-btn { font-size: 0.72rem; padding: 0.22rem 0.45rem; }
+  .cn-pill { font-size: 0.68rem; padding: 0.12rem 0.4rem; }
 }
 .cn-tile-en { font-size: 0.65rem; color: #475569; margin-top: 0.12rem; line-height: 1.1; }
 .cn-tile-meta { font-size: 0.62rem; margin-top: 0.22rem; opacity: 0.85; font-weight: 600; }
@@ -648,6 +649,7 @@ body { max-width: 1180px !important; }
   </div>
 </div>
 
+<script src="{% static 'gamerooms/player_badges.js' %}?v={{ version_counter }}"></script>
 <script>
 const CODE = "{{ room.code|escapejs }}";
 const PLAYER_NAME = "{{ player_name|escapejs }}";
@@ -1319,13 +1321,18 @@ function renderState(s) {
       ? `<button type="button" class="cn-btn cn-btn-sm" onclick="transferHost('${esc(p.id)}','${esc(p.name)}')" title="Make Host">👑</button>` : '';
     const kickBtn = (perms.isAdmin && s.me && p.id !== s.me.id)
       ? `<button type="button" class="cn-btn cn-btn-sm" style="color:#ef4444;" onclick="confirmKickPlayer('${esc(p.id)}','${esc(p.name)}')" title="Kick">&times;</button>` : '';
+    const playerColor = p.team === 'red' ? '#dc2626' : (p.team === 'blue' ? '#2563eb' : (p.color || '#64748b'));
+    const avatar = renderPlayerAvatarHtml({ ...p, color: playerColor }, 'player-avatar-xs');
     return `
       <div class="cn-player-row ${teamCls}">
-        <div>
-          <strong>${esc(p.name)}</strong>
-          ${p.is_admin ? '👑' : ''}
-          ${p.is_table_player ? '<span class="cn-pill">🪑 Table</span>' : (p.connected ? '' : '<span style="color:#94a3b8">(offline)</span>')}
-          <div style="font-size:0.7rem;color:#475569;">${p.team ? (p.team === 'red' ? '🔴 Red' : '🔵 Blue') : '⚪ Unassigned'} · ${roleBadge}</div>
+        <div style="display:flex;align-items:center;gap:0.4rem;">
+          ${avatar}
+          <div>
+            <strong>${esc(p.name)}</strong>
+            ${p.is_admin ? '👑' : ''}
+            ${p.is_table_player ? '<span class="cn-pill">🪑 Table</span>' : (p.connected ? '' : '<span style="color:#94a3b8">(offline)</span>')}
+            <div style="font-size:0.7rem;color:#475569;">${p.team ? (p.team === 'red' ? '🔴 Red' : '🔵 Blue') : '⚪ Unassigned'} · ${roleBadge}</div>
+          </div>
         </div>
         <div style="display:flex;gap:0.25rem;align-items:center;">
           <button type="button" class="cn-btn cn-btn-sm" onclick="showPlayerQR('${esc(p.id)}')" title="{% trans 'Personal Player QR' %}">📱 QR</button>

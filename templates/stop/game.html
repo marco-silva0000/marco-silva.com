@@ -136,6 +136,14 @@ body { max-width: 1080px !important; }
   position: fixed; inset: 0; background: rgba(15,23,42,0.65); display: none;
   justify-content: center; align-items: center; z-index: 200; padding: 1rem;
 }
+@media (max-width: 640px) {
+  .stp-topbar { padding: 0.5rem 0.75rem; gap: 0.4rem; }
+  .stp-title { font-size: 1.05rem; }
+  .stp-actions .stp-btn { font-size: 0.72rem; padding: 0.25rem 0.45rem; }
+  .stp-pill { font-size: 0.7rem; padding: 0.12rem 0.45rem; }
+  .stp-hero-banner { padding: 0.9rem 0.85rem !important; }
+  #hero-category-title { font-size: 1.22rem !important; }
+}
 .stp-modal-backdrop.show { display: flex; }
 .stp-modal {
   background: #fff; border-radius: 14px; max-width: 480px; width: 100%; padding: 1.25rem;
@@ -953,10 +961,14 @@ function renderState() {
         `<button type="button" class="stp-btn" style="padding:0.25rem 0.55rem;font-size:0.74rem;" onclick="wsSend({action:'toggle_clash',player_id:'${esc(r.player_id)}'})" title="Toggle collision vs unique status">${isClash ? "✨ Force Unique" : "💥 Force Clash"}</button>`
       ) : "";
 
+      const playerObj = (s.players || []).find(p => p.id === r.player_id);
+      const avatarHtml = playerObj ? renderPlayerAvatarHtml(playerObj, 'player-avatar-xs') : '';
+
       return `
         <div class="${rowCls}">
-          <div style="display:flex;align-items:center;gap:0.55rem;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap;">
             ${rankTag}
+            ${avatarHtml}
             <strong>${esc(r.player_name)}</strong>
             <span style="font-size:0.98rem;font-weight:800;color:#0f172a;">${r.has_submitted ? "“" + esc(r.raw_text) + "”" : "<em>No answer</em>"}</span>
             ${dbTag}
@@ -983,6 +995,8 @@ function renderState() {
 
     const nextBtn = document.getElementById("btn-next-round");
     if (nextBtn) {
+      nextBtn.disabled = false;
+      nextBtn.style.opacity = "1";
       nextBtn.textContent = (!isInfinite && s.round_num >= rawMaxRounds) ? "🏁 Finish Match & Standings" : "➡️ Next Round";
     }
     document.getElementById("reveal-host-bar").style.display = isAdmin ? "flex" : "none";
@@ -995,12 +1009,18 @@ function renderState() {
     document.getElementById("gameover-winner-line").textContent = top
       ? `🎉 ${top.name} wins with ${top.score} points!`
       : "Match finished!";
-    document.getElementById("gameover-podium").innerHTML = players.map((p, idx) => `
-      <div class="stp-result-row ${idx === 0 ? 'unique-top' : ''}">
-        <span><strong>#${idx + 1} ${esc(p.name)}</strong></span>
-        <span style="font-weight:800;">${p.score} pts</span>
-      </div>
-    `).join("");
+    document.getElementById("gameover-podium").innerHTML = players.map((p, idx) => {
+      const avatarHtml = renderPlayerAvatarHtml(p, 'player-avatar-xs');
+      return `
+        <div class="stp-result-row ${idx === 0 ? 'unique-top' : ''}">
+          <div style="display:flex;align-items:center;gap:0.45rem;">
+            ${avatarHtml}
+            <strong>#${idx + 1} ${esc(p.name)}</strong>
+          </div>
+          <span style="font-weight:800;">${p.score} pts</span>
+        </div>
+      `;
+    }).join("");
     document.getElementById("gameover-host-bar").style.display = isAdmin ? "flex" : "none";
   }
 

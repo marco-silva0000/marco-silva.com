@@ -2,6 +2,7 @@
 {% load i18n static %}
 {% block title %}🕵️ {% trans "Word Impostor" %} — {{ room.title }}{% endblock %}
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
 body { max-width: 1080px !important; }
 :root {
   --imp-bg: #f8fafc;
@@ -132,6 +133,14 @@ body { max-width: 1080px !important; }
 .imp-modal-backdrop {
   position: fixed; inset: 0; background: rgba(15,23,42,0.65); display: none;
   justify-content: center; align-items: center; z-index: 200; padding: 1rem;
+}
+@media (max-width: 640px) {
+  .imp-topbar { padding: 0.5rem 0.65rem; gap: 0.35rem; }
+  .imp-title-group { gap: 0.35rem; }
+  .imp-title { font-size: 1rem; }
+  .imp-actions { gap: 0.35rem; }
+  .imp-actions .imp-btn { font-size: 0.72rem; padding: 0.22rem 0.45rem; }
+  .imp-pill { font-size: 0.68rem; padding: 0.12rem 0.4rem; }
 }
 .imp-modal-backdrop.show { display: flex; }
 .imp-modal {
@@ -479,6 +488,7 @@ body { max-width: 1080px !important; }
   </div>
 </div>
 
+<script src="{% static 'gamerooms/player_badges.js' %}?v={{ version_counter }}"></script>
 <script>
 const CODE = "{{ room.code|escapejs }}";
 const MY_NAME = "{{ player_name|escapejs }}";
@@ -1226,11 +1236,13 @@ function renderState() {
     const kickBtn = (isAdmin && p.id !== me.id)
       ? `<button type="button" onclick="confirmKickPlayer('${p.id}','${escapeHtml(p.name)}')" title="Remove" style="border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.75rem;">✕</button>`
       : '';
+    const avatar = renderPlayerAvatarHtml(p, 'player-avatar-xs');
     return `
       <div class="imp-player-row ${p.is_turn ? 'turn' : ''} ${p.is_poisoned ? 'poisoned' : ''}">
         <span style="display:flex;align-items:center;gap:0.35rem;min-width:0;">
-          <span style="width:8px;height:8px;border-radius:50%;background:${p.connected ? '#22c55e' : '#cbd5e1'};display:inline-block;"></span>
-          <span>${escapeHtml(p.name)}</span>
+          <span style="width:8px;height:8px;border-radius:50%;background:${p.connected ? '#22c55e' : '#cbd5e1'};display:inline-block;flex-shrink:0;"></span>
+          ${avatar}
+          <span style="font-weight:600;">${escapeHtml(p.name)}</span>
           <span>${badges.join(' ')}</span>
         </span>
         <span style="display:flex;align-items:center;gap:0.35rem;">

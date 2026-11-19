@@ -142,6 +142,10 @@ body { max-width: 1080px !important; }
 }
 @media (max-width: 640px) {
   .ds-settings-grid { grid-template-columns: 1fr !important; }
+  .ds-topbar { padding: 0.5rem 0.75rem; gap: 0.4rem; }
+  .ds-title { font-size: 1.05rem; }
+  .ds-actions .ds-btn { font-size: 0.72rem; padding: 0.25rem 0.45rem; }
+  .ds-pill { font-size: 0.7rem; padding: 0.12rem 0.45rem; }
 }
 {% endblock %}
 
@@ -1104,18 +1108,22 @@ function renderReveal(isHost) {
     }
 
     const hostArbitration = isHost ? `
-      <div style="display:flex; gap:0.25rem;">
-        <button class="ds-btn ds-btn-success" style="padding:0.2rem 0.45rem; font-size:0.75rem;" onclick="toggleValidity('${res.player_id}', true)" title="Mark Valid">✅</button>
-        <button class="ds-btn ds-btn-danger" style="padding:0.2rem 0.45rem; font-size:0.75rem;" onclick="toggleValidity('${res.player_id}', false)" title="Mark Invalid">❌</button>
-        <button class="ds-btn" style="padding:0.2rem 0.45rem; font-size:0.75rem;" onclick="toggleClash('${res.player_id}')" title="Toggle Collision / Unique">💥/✨</button>
-        <button class="ds-btn" style="padding:0.2rem 0.45rem; font-size:0.75rem; background:#f5f3ff; color:#5b21b6; border-color:#ddd6fe;" onclick="askAI('${res.player_id}')" title="Ask Local AI (Qwen 30B) to verify this answer">🤖 AI</button>
+      <div style="display:flex; gap:0.25rem; flex-wrap:wrap;">
+        <button class="ds-btn ds-btn-success" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="toggleValidity('${res.player_id}', true)" title="{% trans 'Mark Valid' %}">✅ {% trans "Valid" %}</button>
+        <button class="ds-btn ds-btn-danger" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="toggleValidity('${res.player_id}', false)" title="{% trans 'Mark Invalid' %}">❌ {% trans "Invalid" %}</button>
+        <button class="ds-btn" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="toggleClash('${res.player_id}')" title="{% trans 'Toggle Collision / Unique' %}">${isClash ? '✨ {% trans "Safe" %}' : '💥 {% trans "Clash" %}'}</button>
+        <button class="ds-btn" style="padding:0.25rem 0.5rem; font-size:0.75rem; background:#f5f3ff; color:#5b21b6; border-color:#ddd6fe;" onclick="askAI('${res.player_id}')" title="{% trans 'Ask Local AI (Qwen 30B) to verify this answer' %}">🤖 AI</button>
       </div>
     ` : "";
+
+    const playerObj = (gameState.players || []).find(p => p.id === res.player_id);
+    const avatarHtml = playerObj ? renderPlayerAvatarHtml(playerObj, 'player-avatar-xs') : '';
 
     return `
       <div class="ds-result-card ${cardClass}" style="${res.eliminated ? 'border-left:4px solid #ef4444; background:#fff1f2;' : ''}">
         <div>
           <div style="font-weight:700; font-size:0.92rem; display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+            ${avatarHtml}
             <span>${esc(res.player_name)}:</span>
             <span style="font-weight:800; color:#1e293b;">"${esc(res.raw_answer || '—')}"</span>
             ${sourcePill}
@@ -1188,7 +1196,10 @@ function renderGameOver(isHost) {
   podiumBox.innerHTML = players.slice(0, 3).map((p, idx) => `
     <div style="background:#fff; border:2px solid ${idx === 0 ? '#fbbf24' : '#e2e8f0'}; border-radius:12px; padding:1.25rem 1.5rem; text-align:center; min-width:140px; box-shadow:0 4px 12px rgba(0,0,0,0.06);">
       <div style="font-size:2.2rem; margin-bottom:0.25rem;">${medals[idx] || '🎖️'}</div>
-      <div style="font-weight:800; font-size:1.1rem; color:#1e293b;">${esc(p.name)}</div>
+      <div style="display:flex; align-items:center; justify-content:center; gap:0.4rem; margin-bottom:0.25rem;">
+        ${renderPlayerAvatarHtml(p, 'player-avatar-xs')}
+        <span style="font-weight:800; font-size:1.1rem; color:#1e293b;">${esc(p.name)}</span>
+      </div>
       <div style="font-size:1.3rem; font-weight:900; color:var(--ds-primary); margin-top:0.35rem;">${p.score} pts</div>
     </div>
   `).join("");
