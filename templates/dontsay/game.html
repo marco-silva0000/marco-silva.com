@@ -153,6 +153,7 @@ body { max-width: 1080px !important; }
       <span id="badge-round" class="ds-pill">{% trans "Round" %} 0</span>
     </div>
     <div class="ds-actions">
+      <button type="button" class="ds-btn" onclick="openModal('modal-suggest-prompt')">💡 {% trans "Suggest Question" %}</button>
       <button type="button" class="ds-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Room QR" %}</button>
       <button type="button" class="ds-btn" onclick="openModal('modal-my-qr')">🪪 {% trans "My Seat QR" %}</button>
       <span id="host-badge" class="ds-pill" style="display:none; background:#fef3c7; color:#92400e;">👑 {% trans "Host" %}</span>
@@ -516,6 +517,48 @@ body { max-width: 1080px !important; }
   </div>
 </div>
 
+<!-- Modal: Suggest Question to Deck -->
+<div id="modal-suggest-prompt" class="ds-modal">
+  <div class="ds-modal-content">
+    <div class="ds-modal-header">
+      <h3 class="ds-modal-title">💡 {% trans "Suggest a Question for the Deck" %}</h3>
+      <button class="ds-modal-close" onclick="closeModal('modal-suggest-prompt')">&times;</button>
+    </div>
+    <div>
+      <p style="font-size:0.85rem; color:var(--ds-muted); margin-bottom:1rem; line-height:1.4;">
+        {% trans "Have an awesome question, category, or challenge? Submit it to the deck curation dashboard. Once approved by the Game Master, it joins the active rotation!" %}
+      </p>
+      <div style="margin-bottom:0.75rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.3rem;">{% trans "Your Question or Category:" %}</label>
+        <textarea id="suggest-prompt-text" class="ds-input-large" rows="3" placeholder="{% trans 'e.g., European country that borders at least 3 other countries' %}" style="resize:vertical; width:100%; font-size:0.9rem; padding:0.6rem;"></textarea>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:0.75rem;">
+        <div>
+          <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.3rem;">{% trans "Category / Pack:" %}</label>
+          <select id="suggest-prompt-domain" class="ds-select" style="width:100%;">
+            <option value="mix">🎲 {% trans "General Mix" %}</option>
+            <option value="geo">🌍 {% trans "Geography" %}</option>
+            <option value="media">🎬 {% trans "Pop Culture & Movies" %}</option>
+            <option value="food">🍕 {% trans "Food & Culinary" %}</option>
+            <option value="nature">🐾 {% trans "Nature & Wildlife" %}</option>
+            <option value="history">📜 {% trans "History & Science" %}</option>
+            <option value="weird">🤪 {% trans "Quirky & Everyday" %}</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.3rem;">{% trans "Sample Valid Answers:" %}</label>
+          <input type="text" id="suggest-prompt-answers" class="ds-input-large" placeholder="{% trans 'e.g., France, Germany, Spain' %}" style="width:100%; font-size:0.85rem; padding:0.5rem;">
+        </div>
+      </div>
+      <div id="suggest-prompt-feedback" style="display:none; font-size:0.82rem; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem;"></div>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button type="button" class="ds-btn" onclick="closeModal('modal-suggest-prompt')">{% trans "Cancel" %}</button>
+        <button type="button" class="ds-btn ds-btn-primary" onclick="submitPromptSuggestion()">🚀 {% trans "Submit Question" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="{% static 'vendor/js-confetti.browser.js' %}"></script>
 <script>
 const ROOM_CODE = "{{ room.code|escapejs }}";
@@ -558,6 +601,18 @@ function connectWS() {
       const data = JSON.parse(e.data);
       if (data.type === "error") {
         alert(data.msg);
+        return;
+      }
+      if (data.type === "prompt_suggestion_ack") {
+        const fb = document.getElementById("suggest-prompt-feedback");
+        if (fb) {
+          fb.style.display = "block";
+          fb.style.background = "#f0fdf4";
+          fb.style.color = "#16a34a";
+          fb.textContent = data.message || "💡 Question submitted for review!";
+        } else {
+          alert(data.message || "💡 Question submitted for review!");
+        }
         return;
       }
       if (data.type === "game.event" && data.event_type === "oral_countdown") {
@@ -1204,6 +1259,47 @@ function sendChat() {
   if (!msg) return;
   wsSend({ action: "chat", msg: msg });
   inp.value = "";
+}
+
+function submitPromptSuggestion() {
+  const textEl = document.getElementById("suggest-prompt-text");
+  const domainEl = document.getElementById("suggest-prompt-domain");
+  const answersEl = document.getElementById("suggest-prompt-answers");
+  const fb = document.getElementById("suggest-prompt-feedback");
+
+  const text = (textEl ? textEl.value : "").trim();
+  const domain = domainEl ? domainEl.value : "mix";
+  const answers = (answersEl ? answersEl.value : "").trim();
+
+  if (text.length < 5) {
+    if (fb) {
+      fb.style.display = "block";
+      fb.style.background = "#fef2f2";
+      fb.style.color = "#dc2626";
+      fb.textContent = "Please enter at least 5 characters for your question or category.";
+    }
+    return;
+  }
+
+  wsSend({
+    action: "suggest_prompt",
+    text: text,
+    domain: domain,
+    sample_answers: answers,
+  });
+
+  if (fb) {
+    fb.style.display = "block";
+    fb.style.background = "#f0fdf4";
+    fb.style.color = "#16a34a";
+    fb.textContent = "💡 Question submitted! It has been queued in the deck curation dashboard.";
+  }
+  if (textEl) textEl.value = "";
+  if (answersEl) answersEl.value = "";
+  setTimeout(() => {
+    closeModal("modal-suggest-prompt");
+    if (fb) fb.style.display = "none";
+  }, 2200);
 }
 
 window.addEventListener("DOMContentLoaded", () => {

@@ -2,9 +2,12 @@ import json
 import random
 
 from django.conf import settings
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from .language_support import (
     GAME_TYPES,
@@ -12,7 +15,7 @@ from .language_support import (
     get_language_support_matrix,
     normalize_language_code,
 )
-from .models import Room
+from .models import Room, create_user_prompt_suggestion
 
 
 def _make_captcha():
@@ -282,4 +285,48 @@ def room_join(request, code):
             "room": room,
             "language_support": get_game_language_support(room.game_type, getattr(room, "language", "en")),
         },
+    )
+
+
+@csrf_exempt
+@require_POST
+def suggest_prompt(request):
+    """API endpoint for players to submit questions/categories for the prompt deck."""
+    data = {}
+    if request.content_type == "application/json":
+        try:
+            data = json.loads(request.body.decode("utf-8"))
+        except Exception:
+            return JsonResponse({"success": False, "message": _("Invalid JSON payload.")}, status=400)
+    else:
+        data = request.POST
+
+    text = data.get("text", "")
+    domain = data.get("domain", "mix")
+    game_type = data.get("game_type", "dontsay")
+    sample_answers = data.get("sample_answers", [])
+    submitter_name = data.get("submitter_name", "")
+    room_code = data.get("room_code", "")
+
+    ok, msg, prompt_obj = create_user_prompt_suggestion(
+        text=text,
+        domain=domain,
+        game_type=game_type,
+        sample_answers=sample_answers,
+        submitter_name=submitter_name,
+        submitter_room=room_code,
+    )
+
+    if not ok:
+        return JsonResponse({"success": False, "message": msg}, status=400)
+
+    return JsonResponse(
+        {
+            "success": True,
+            "message": _(
+                "Thank you! Your question has been submitted and queued for review. "
+                "Once approved by the Game Master, it will appear in active game rotations!"
+            ),
+            "prompt_id": prompt_obj.prompt_id if prompt_obj else None,
+        }
     )

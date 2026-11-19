@@ -156,6 +156,7 @@ body { max-width: 1080px !important; }
       {% endif %}
     </div>
     <div class="stp-actions">
+      <button type="button" class="stp-btn" onclick="openModal('modal-suggest-prompt')">💡 {% trans "Suggest Question" %}</button>
       <button type="button" class="stp-btn" onclick="openModal('modal-custom-cat')">✨ {% trans "Custom Categories" %} (<span id="custom-cat-count">0</span>)</button>
       <button type="button" class="stp-btn" onclick="openModal('modal-invite-qr')">📲 {% trans "Room QR" %}</button>
       <button type="button" class="stp-btn" onclick="openModal('modal-profile')">🪪 {% trans "My Seat QR" %}</button>
@@ -486,6 +487,43 @@ body { max-width: 1080px !important; }
   </div>
 </div>
 
+<!-- Modal: Suggest Prompt / Category to Deck -->
+<div class="stp-modal-backdrop" id="modal-suggest-prompt" onclick="if(event.target===this)closeModal('modal-suggest-prompt')">
+  <div class="stp-modal">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 style="margin:0; font-size:1.1rem;">💡 {% trans "Suggest a Category or Question" %}</h3>
+      <button type="button" class="stp-btn" onclick="closeModal('modal-suggest-prompt')">&times;</button>
+    </div>
+    <div>
+      <p style="font-size:0.82rem; color:var(--stp-muted); margin-bottom:0.85rem; line-height:1.4;">
+        {% trans "Have an awesome category or challenge? Submit it to the deck curation dashboard. Once approved by the Game Master, it joins the active rotation!" %}
+      </p>
+      <div style="margin-bottom:0.75rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.3rem;">{% trans "Category or Prompt:" %}</label>
+        <textarea id="suggest-prompt-text" class="stp-input" rows="2" placeholder="{% trans 'e.g., European capital city that does not border the sea' %}" style="resize:vertical; width:100%; box-sizing:border-box; font-size:0.88rem; padding:0.5rem;"></textarea>
+      </div>
+      <div style="margin-bottom:0.75rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.3rem;">{% trans "Category / Pack:" %}</label>
+        <select id="suggest-prompt-domain" class="stp-select" style="width:100%;">
+          <option value="custom">✨ {% trans "Custom Category" %}</option>
+          <option value="mix">🎲 {% trans "General Mix" %}</option>
+          <option value="geo">🌍 {% trans "Geography" %}</option>
+          <option value="media">🎬 {% trans "Pop Culture & Movies" %}</option>
+          <option value="food">🍕 {% trans "Food & Culinary" %}</option>
+          <option value="nature">🐾 {% trans "Nature & Wildlife" %}</option>
+          <option value="history">📜 {% trans "History & Science" %}</option>
+          <option value="weird">🤪 {% trans "Quirky & Everyday" %}</option>
+        </select>
+      </div>
+      <div id="suggest-prompt-feedback" style="display:none; font-size:0.82rem; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem;"></div>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button type="button" class="stp-btn" onclick="closeModal('modal-suggest-prompt')">{% trans "Cancel" %}</button>
+        <button type="button" class="stp-btn stp-btn-primary" onclick="submitPromptSuggestion()">🚀 {% trans "Submit Category" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const ROOM_CODE = "{{ room.code|escapejs }}";
 const PLAYER_NAME = "{{ player_name|escapejs }}";
@@ -536,6 +574,18 @@ function connectWS() {
       const data = JSON.parse(e.data);
       if (data.type === "error") {
         showError(data.msg || "Action failed");
+        return;
+      }
+      if (data.type === "prompt_suggestion_ack") {
+        const fb = document.getElementById("suggest-prompt-feedback");
+        if (fb) {
+          fb.style.display = "block";
+          fb.style.background = "#f0fdf4";
+          fb.style.color = "#16a34a";
+          fb.textContent = data.message || "💡 Category submitted for review!";
+        } else {
+          showError(data.message || "💡 Category submitted for review!");
+        }
         return;
       }
       if (data.type === "state_sync") {
@@ -935,6 +985,43 @@ function showPlayerQR(pid, pName) {
     .catch(() => {
       urlEl.value = "Failed to load player QR code.";
     });
+}
+
+function submitPromptSuggestion() {
+  const textEl = document.getElementById("suggest-prompt-text");
+  const domainEl = document.getElementById("suggest-prompt-domain");
+  const fb = document.getElementById("suggest-prompt-feedback");
+
+  const text = (textEl ? textEl.value : "").trim();
+  const domain = domainEl ? domainEl.value : "custom";
+
+  if (text.length < 5) {
+    if (fb) {
+      fb.style.display = "block";
+      fb.style.background = "#fef2f2";
+      fb.style.color = "#dc2626";
+      fb.textContent = "Please enter at least 5 characters for your category.";
+    }
+    return;
+  }
+
+  wsSend({
+    action: "suggest_prompt",
+    text: text,
+    domain: domain,
+  });
+
+  if (fb) {
+    fb.style.display = "block";
+    fb.style.background = "#f0fdf4";
+    fb.style.color = "#16a34a";
+    fb.textContent = "💡 Category submitted! It has been queued in the deck curation dashboard.";
+  }
+  if (textEl) textEl.value = "";
+  setTimeout(() => {
+    closeModal("modal-suggest-prompt");
+    if (fb) fb.style.display = "none";
+  }, 2200);
 }
 
 renderState();

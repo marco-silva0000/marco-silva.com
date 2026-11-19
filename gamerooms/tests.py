@@ -474,3 +474,183 @@ class TestRoomLanguageAndImpostorRouting:
         assert catalogs["fr"]["password"] != ""
         assert catalogs["fr"]["🧩 Codenames"] == "🧩 Codenames"
         assert catalogs["fr"]["⏳ Lobby"] == "⏳ Salon"
+
+
+class TestGamePromptModelAndSeeding:
+    def test_seed_command_and_model_fields(self, db):
+        from django.core.management import call_command
+
+        from gamerooms.models import GamePrompt
+
+        call_command("seed_prompt_deck")
+        assert GamePrompt.objects.filter(status=GamePrompt.STATUS_APPROVED).count() > 0
+
+        prompt = GamePrompt.objects.first()
+        assert prompt.cardinality_bracket in (
+            GamePrompt.CARDINALITY_BROAD,
+            GamePrompt.CARDINALITY_MEDIUM,
+            GamePrompt.CARDINALITY_TIGHT,
+            GamePrompt.CARDINALITY_NARROW,
+        )
+
+        d_en = prompt.to_dict(language="en")
+        assert d_en["id"] == prompt.prompt_id
+        assert d_en["display_text"] == prompt.text
+
+        if "pt" in prompt.translations:
+            d_pt = prompt.to_dict(language="pt")
+            assert d_pt["display_text"] == prompt.translations["pt"]
+
+        # Usage recording
+        prev_used = prompt.times_used
+        prompt.record_usage()
+        prompt.refresh_from_db()
+        assert prompt.times_used == prev_used + 1
+        assert prompt.last_used_at is not None
+
+    def test_create_user_prompt_suggestion(self, db):
+        from gamerooms.models import GamePrompt, create_user_prompt_suggestion
+
+        # Too short prompt fails
+        ok, msg, obj = create_user_prompt_suggestion("abc")
+        assert ok is False
+        assert obj is None
+
+        # Valid suggestion succeeds and is pending review
+        ok, msg, obj = create_user_prompt_suggestion(
+            text="Name a movie that features a talking animal",
+            domain="media",
+            game_type="dontsay",
+            sample_answers=["Babe", "Stuart Little", "Paddington"],
+            submitter_name="PlayerOne",
+            submitter_room="ABCD1234",
+        )
+        assert ok is True
+        assert obj is not None
+        assert obj.status == GamePrompt.STATUS_PENDING
+        assert obj.source == GamePrompt.SOURCE_USER
+        assert "Babe" in obj.sample_answers
+        assert obj.submitter_name == "PlayerOne"
+
+
+class TestPromptDeckVarietyEngine:
+    def test_db_selection_and_variety_sprinkling(self, db):
+        from gamerooms.models import GamePrompt
+        from gamerooms.prompt_engine.generator import get_next_prompt
+
+        # Create two prompts: one heavily used, one fresh
+        p_frequent = GamePrompt.objects.create(
+            prompt_id="test_geo_frequent",
+            text="Frequent European country",
+            domain="geo",
+            cardinality_bracket="broad",
+            estimated_cardinality=25,
+            status=GamePrompt.STATUS_APPROVED,
+            source=GamePrompt.SOURCE_CURATED,
+            times_used=50,
+        )
+        p_rare = GamePrompt.objects.create(
+            prompt_id="test_geo_rare",
+            text="Rare European country question",
+            domain="geo",
+            cardinality_bracket="broad",
+            estimated_cardinality=25,
+            status=GamePrompt.STATUS_APPROVED,
+            source=GamePrompt.SOURCE_CURATED,
+            times_used=0,
+        )
+
+        # get_next_prompt should select the least used prompt for maximum variety
+        picked = get_next_prompt(pack="geo", round_num=1, pacing_mode="funnel")
+        assert picked["id"] == p_rare.prompt_id
+
+        p_rare.refresh_from_db()
+        assert p_rare.times_used == 1
+
+        # Test room used_ids exclusion: when p_rare is used, it should not repeat
+        picked_2 = get_next_prompt(
+            pack="geo",
+            used_ids={p_rare.prompt_id},
+            round_num=1,
+            pacing_mode="funnel",
+        )
+        assert picked_2["id"] == p_frequent.prompt_id
+
+
+class TestGamePromptAdmin:
+    def test_admin_curation_actions(self, db):
+        from django.contrib.admin.sites import site
+        from django.test import RequestFactory
+
+        from gamerooms.admin import GamePromptAdmin
+        from gamerooms.models import GamePrompt
+
+        p = GamePrompt.objects.create(
+            prompt_id="user_test_admin",
+            text="User suggested challenge prompt",
+            status=GamePrompt.STATUS_PENDING,
+            source=GamePrompt.SOURCE_USER,
+            times_used=5,
+        )
+
+        admin = GamePromptAdmin(GamePrompt, site)
+        rf = RequestFactory()
+        req = rf.get("/admin/gamerooms/gameprompt/")
+        from django.contrib.messages.storage.fallback import FallbackStorage
+
+        setattr(req, "session", {})
+        setattr(req, "_messages", FallbackStorage(req))
+
+        # 1. Approve prompt into active rotation
+        admin.approve_prompts(req, GamePrompt.objects.filter(pk=p.pk))
+        p.refresh_from_db()
+        assert p.status == GamePrompt.STATUS_APPROVED
+        assert p.is_active is True
+
+        # 2. Reset usage statistics
+        admin.reset_usage_statistics(req, GamePrompt.objects.filter(pk=p.pk))
+        p.refresh_from_db()
+        assert p.times_used == 0
+        assert p.last_used_at is None
+
+        # 3. Reject prompt
+        admin.reject_prompts(req, GamePrompt.objects.filter(pk=p.pk))
+        p.refresh_from_db()
+        assert p.status == GamePrompt.STATUS_REJECTED
+        assert p.is_active is False
+
+
+class TestSuggestPromptAPI:
+    def test_suggest_prompt_endpoint(self, client, db):
+        from gamerooms.models import GamePrompt
+
+        url = reverse("gamerooms:suggest-prompt")
+
+        # Invalid short text returns 400
+        resp = client.post(url, {"text": "hi"}, content_type="application/json")
+        assert resp.status_code == 400
+        data = resp.json()
+        assert data["success"] is False
+
+        # Valid payload returns 200 and creates pending prompt
+        resp = client.post(
+            url,
+            {
+                "text": "Name a vegetable that is naturally purple",
+                "domain": "food",
+                "sample_answers": "Eggplant, Red Cabbage, Purple Carrot",
+                "submitter_name": "GourmetChef",
+                "room_code": "FOOD99",
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["success"] is True
+        assert "prompt_id" in data
+
+        created = GamePrompt.objects.get(prompt_id=data["prompt_id"])
+        assert created.status == GamePrompt.STATUS_PENDING
+        assert created.domain == "food"
+        assert created.submitter_name == "GourmetChef"
+        assert "Eggplant" in created.sample_answers

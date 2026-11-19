@@ -188,6 +188,34 @@ class DontSayConsumer(AsyncJsonWebsocketConsumer):
                 return await self.send_error("Only the Host can end the match.")
             end_game(state, by_name=self.player_name or "Host")
             await self.broadcast_sync()
+        elif action == "suggest_prompt":
+            text = (content.get("text") or "").strip()
+            domain = content.get("domain", state.get("settings", {}).get("pack", "mix"))
+            sample_answers = content.get("sample_answers", [])
+            from channels.db import database_sync_to_async
+
+            from gamerooms.models import create_user_prompt_suggestion
+
+            ok, msg, _ = await database_sync_to_async(create_user_prompt_suggestion)(
+                text=text,
+                domain=domain,
+                game_type="dontsay",
+                sample_answers=sample_answers,
+                submitter_name=self.player_name or "Player",
+                submitter_room=self.room_code,
+            )
+            if ok:
+                await self.send_json(
+                    {
+                        "type": "prompt_suggestion_ack",
+                        "success": True,
+                        "message": (
+                            "💡 Question submitted for review! It has been queued in the deck curation dashboard."
+                        ),
+                    }
+                )
+            else:
+                return await self.send_error(msg)
         elif action == "reset_game":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can reset the game.")

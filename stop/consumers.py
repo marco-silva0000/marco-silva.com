@@ -108,7 +108,50 @@ class StopConsumer(AsyncJsonWebsocketConsumer):
             ok, msg = add_custom_category(state, author=player, title=content.get("title", ""))
             if not ok:
                 return await self.send_error(msg)
+            try:
+                from channels.db import database_sync_to_async
+
+                from gamerooms.models import create_user_prompt_suggestion
+
+                await database_sync_to_async(create_user_prompt_suggestion)(
+                    text=content.get("title", ""),
+                    domain="custom",
+                    game_type="stop",
+                    submitter_name=player.get("name", "Player"),
+                    submitter_room=self.room_code,
+                )
+            except Exception:
+                pass
             await self.broadcast_sync()
+        elif action == "suggest_prompt":
+            text = (content.get("text") or "").strip()
+            domain = content.get("domain", "custom")
+            sample_answers = content.get("sample_answers", [])
+            player = state["players"].get(self.player_id, {})
+            from channels.db import database_sync_to_async
+
+            from gamerooms.models import create_user_prompt_suggestion
+
+            ok, msg, _ = await database_sync_to_async(create_user_prompt_suggestion)(
+                text=text,
+                domain=domain,
+                game_type="stop",
+                sample_answers=sample_answers,
+                submitter_name=player.get("name") or self.player_name or "Player",
+                submitter_room=self.room_code,
+            )
+            if ok:
+                await self.send_json(
+                    {
+                        "type": "prompt_suggestion_ack",
+                        "success": True,
+                        "message": (
+                            "💡 Category submitted for review! It has been queued in the deck curation dashboard."
+                        ),
+                    }
+                )
+            else:
+                return await self.send_error(msg)
         elif action == "remove_custom_category":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can remove custom categories.")
