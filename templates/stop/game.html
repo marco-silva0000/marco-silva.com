@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 {% block title %}🛑 {% trans "Stop!" %} — {{ room.title }}{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
+{% endblock %}
 {% block extra_css %}
 body { max-width: 1080px !important; }
 :root {
@@ -542,6 +545,10 @@ body { max-width: 1080px !important; }
   </div>
 </div>
 
+<!-- Centralized Color Picker Modal -->
+{% include "gamerooms/components/color_picker_modal.html" %}
+
+<script src="{% static 'gamerooms/player_badges.js' %}?v={{ version_counter }}"></script>
 <script>
 const ROOM_CODE = "{{ room.code|escapejs }}";
 const PLAYER_NAME = "{{ player_name|escapejs }}";
@@ -1000,10 +1007,19 @@ function renderState() {
   // Sidebar Scoreboard
   const pList = document.getElementById("players-list");
   if (pList) {
-    pList.innerHTML = (s.players || []).map(p => `
+    pList.innerHTML = (s.players || []).map(p => {
+      const isMe = p.id === (s.me && s.me.id);
+      return `
       <div class="stp-player-row ${phase === 'playing' && p.has_submitted ? 'submitted' : ''}">
         <div style="display:flex;align-items:center;gap:0.35rem;min-width:0;">
-          <span style="width:8px;height:8px;border-radius:50%;background:${p.connected ? '#22c55e' : '#94a3b8'};display:inline-block;"></span>
+          <span style="opacity:${p.connected ? 1 : 0.4};flex-shrink:0;">
+            ${renderPlayerAvatarHtml(p, 'player-avatar-xs')}
+          </span>
+          <button type="button" 
+            class="player-color-trigger" 
+            style="background-color:${p.color || '#3b82f6'}; width:18px; height:18px; flex-shrink:0;" 
+            onclick="onRosterColorClick('${p.id}', '${p.color || '#3b82f6'}', ${isMe}, ${isAdmin})" 
+            title="{% trans 'Change color' %}"></button>
           <span style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(p.name)}</span>
           ${p.is_admin ? '<span title="Host">👑</span>' : ''}
           ${p.is_spectator ? '<span title="Spectator">👀</span>' : ''}
@@ -1012,23 +1028,38 @@ function renderState() {
         <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
           <button type="button" class="stp-btn" style="padding:0.15rem 0.45rem;font-size:0.72rem;border-radius:6px;" onclick="showPlayerQR('${esc(p.id)}', '${esc(p.name)}')" title="{% trans 'Show Reconnect QR' %}">📱 QR</button>
           <span style="font-weight:800;color:#0f172a;">${p.score} pts</span>
-          ${isAdmin && p.id !== (s.me && s.me.id) ? `
+          ${isAdmin && !isMe ? `
             <button type="button" class="stp-btn" style="padding:0.1rem 0.35rem;font-size:0.7rem;" onclick="transferHost('${esc(p.id)}', '${esc(p.name)}')" title="Make Host">👑</button>
             <button type="button" class="stp-btn" style="padding:0.1rem 0.38rem;font-size:0.7rem;color:#ef4444;" onclick="confirmKickPlayer('${esc(p.id)}', '${esc(p.name)}')" title="Kick">&times;</button>
           ` : ''}
         </div>
       </div>
-    `).join("");
+    `;
+    }).join("");
   }
 
   // Chat log
   const chatBox = document.getElementById("chat-box");
   if (chatBox) {
-    chatBox.innerHTML = (s.chat_log || []).map(c =>
-      `<div class="stp-chat-item"><strong>${esc(c.sender)}:</strong> ${esc(c.text)}</div>`
-    ).join("");
+    const playersMap = {};
+    (s.players || []).forEach(p => { playersMap[p.id] = p; });
+    chatBox.innerHTML = (s.chat_log || []).map(c => {
+      const e = { author: c.sender, text: c.text, timestamp: c.ts };
+      return renderChatRowHtml(e, playersMap);
+    }).join("");
     chatBox.scrollTop = chatBox.scrollHeight;
   }
+
+function onRosterColorClick(targetPid, curHex, isMe, isHost) {
+  if (!isMe && !isHost) return;
+  openColorPickerModal(targetPid, curHex, (pid, newHex) => {
+    wsSend({
+      action: "change_color",
+      player_id: pid,
+      color: newHex
+    });
+  });
+}
 
   lastRenderedRound = s.round_num;
   lastPhase = phase;

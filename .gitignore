@@ -4,6 +4,7 @@ local_settings.py
 
 # db
 dbdata
+staticfiles/
 
 ### Python template
 # Byte-compiled / optimized / DLL files

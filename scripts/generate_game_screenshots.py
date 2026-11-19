@@ -162,6 +162,8 @@ def capture_portal(browser, base_url, out_dir, devices):
     for d_key in devices:
         ctx = setup_browser_context(browser, d_key)
         page = ctx.new_page()
+        page.on("console", lambda msg: print(f"    [console] {msg.text}"))
+        page.on("pageerror", lambda err: print(f"    [pageerror] {err}"))
         try:
             page.goto(f"{base_url}/games/", wait_until="networkidle")
             time.sleep(0.5)
@@ -187,6 +189,8 @@ def capture_stop(browser, base_url, out_dir, devices):
     for d_key in devices:
         ctx = setup_browser_context(browser, d_key)
         page = ctx.new_page()
+        page.on("console", lambda msg: print(f"    [console] {msg.text}"))
+        page.on("pageerror", lambda err: print(f"    [pageerror] {err}"))
         try:
             # 1. Creation Form
             page.goto(f"{base_url}/games/create/?game=stop", wait_until="networkidle")
@@ -289,6 +293,92 @@ def capture_dontsay(browser, base_url, out_dir, devices):
 
         except Exception as e:
             print(f"    [!] Error capturing dontsay on {d_key}: {e}")
+        finally:
+            ctx.close()
+
+
+def capture_rankit(browser, base_url, out_dir, devices):
+    """Capture Rank It! (ito) game screens (Creation, Lobby with Color Picker, Playing with Spectrum and Timeline)."""
+    rk_dir = out_dir / "rankit"
+    rk_dir.mkdir(parents=True, exist_ok=True)
+    print(f"[*] Capturing Rank It! (ito) ({len(devices)} devices)...")
+
+    for d_key in devices:
+        ctx = setup_browser_context(browser, d_key)
+        page = ctx.new_page()
+        page.on("console", lambda msg: print(f"    [console] {msg.text}"))
+        page.on("pageerror", lambda err: print(f"    [pageerror] {err}"))
+        try:
+            # 1. Create Room Form
+            page.goto(f"{base_url}/games/create/?game=rankit", wait_until="networkidle")
+            time.sleep(0.4)
+            c_path = rk_dir / f"rankit_create_{d_key}.png"
+            page.screenshot(path=str(c_path))
+            print(f"    -> Saved {c_path.name}")
+
+            # 2. Fill room name & enter Lobby
+            page.fill('input[name="title"]', f"Rank It! Demo ({d_key})")
+            solve_captcha(page)
+            page.click('button[type="submit"]')
+
+            page.wait_for_selector('input[name="name"]')
+            page.fill('input[name="name"]', "Host")
+            page.click('button[type="submit"]')
+
+            page.wait_for_url("**/games/rankit/**")
+            page.wait_for_selector("#roster-list", state="attached")
+            try:
+                page.wait_for_selector(".player-color-trigger", state="visible", timeout=6000)
+            except Exception as e_wait:
+                print(f"    [!] Timeout waiting for .player-color-trigger: {e_wait}")
+            time.sleep(0.5)
+
+            lobby_path = rk_dir / f"rankit_lobby_{d_key}.png"
+            page.screenshot(path=str(lobby_path))
+            print(f"    -> Saved {lobby_path.name}")
+
+            # 3. Open Color Picker
+            try:
+                page.wait_for_selector(".player-color-trigger", timeout=3000)
+                page.click(".player-color-trigger")
+                page.wait_for_selector("#modal-player-color-picker", state="visible", timeout=2000)
+                time.sleep(0.4)
+                color_path = rk_dir / f"rankit_color_picker_{d_key}.png"
+                page.screenshot(path=str(color_path))
+                print(f"    -> Saved {color_path.name}")
+                # Pick a color and close
+                page.click(".player-swatch-btn:nth-child(4)")
+                time.sleep(0.3)
+            except Exception as e_color:
+                print(f"    [!] Note on color picker capture: {e_color}")
+
+            # 4. Start Level 1 -> Playing with Spectrum & Timeline
+            try:
+                start_btn = page.locator("#btn-start-level")
+                start_btn.scroll_into_view_if_needed()
+                start_btn.click()
+                # Wait past the 4-second synchronized countdown
+                time.sleep(5.0)
+
+                page.wait_for_selector("#section-prompt-card", state="visible", timeout=6000)
+
+                # Type a clue in hand card if available
+                clue_input = page.locator(".rk-hand-clue-input").first
+                if clue_input.count() > 0:
+                    clue_input.fill("A grumpy badger with armor")
+                    time.sleep(0.3)
+
+                page.evaluate("window.scrollTo(0, 0)")
+                time.sleep(0.4)
+
+                play_path = rk_dir / f"rankit_playing_{d_key}.png"
+                page.screenshot(path=str(play_path))
+                print(f"    -> Saved {play_path.name}")
+            except Exception as e_play:
+                print(f"    [!] Note on start level capture: {e_play}")
+
+        except Exception as e:
+            print(f"    [!] Error capturing rankit on {d_key}: {e}")
         finally:
             ctx.close()
 
@@ -473,6 +563,8 @@ def capture_emojinary(browser, base_url, out_dir, devices):
     for d_key in devices:
         ctx = setup_browser_context(browser, d_key)
         page = ctx.new_page()
+        page.on("console", lambda msg: print(f"    [console] {msg.text}"))
+        page.on("pageerror", lambda err: print(f"    [pageerror] {err}"))
         try:
             page.goto(f"{base_url}/games/create/?game=emojinary", wait_until="networkidle")
             page.fill('input[name="title"]', f"Emojinary Demo ({d_key})")
@@ -529,7 +621,7 @@ def main():
             devices = list(DEVICE_CONFIGS.keys())
 
     # Resolve games
-    valid_games = ["portal", "stop", "dontsay", "lupus", "codenames", "impostor", "emojinary"]
+    valid_games = ["portal", "stop", "dontsay", "rankit", "lupus", "codenames", "impostor", "emojinary"]
     if args.all or args.games == "all":
         games = valid_games
     else:
@@ -579,6 +671,9 @@ def main():
 
         if "dontsay" in games:
             capture_dontsay(browser, args.url, out_dir, devices)
+
+        if "rankit" in games:
+            capture_rankit(browser, args.url, out_dir, devices)
 
         if "lupus" in games:
             capture_lupus(browser, args.url, out_dir, devices)

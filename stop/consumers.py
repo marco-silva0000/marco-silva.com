@@ -10,6 +10,7 @@ from .game_state import (
     add_player,
     append_event,
     call_stop,
+    change_player_color,
     end_match,
     finish_round,
     get_game,
@@ -96,6 +97,18 @@ class StopConsumer(AsyncJsonWebsocketConsumer):
 
         if action == "chat":
             await self._handle_chat(state, content)
+        elif action == "change_color":
+            target_pid = content.get("player_id") or self.player_id
+            new_color = str(content.get("color") or "").strip()
+            ok = change_player_color(
+                state,
+                target_player_id=target_pid,
+                new_color=new_color,
+                requested_by_admin=self._is_admin(state),
+                requester_player_id=self.player_id or "",
+            )
+            if ok:
+                await self.broadcast_sync()
         elif action == "update_settings":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can change room settings.")

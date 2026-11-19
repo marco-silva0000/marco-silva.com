@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 {% block title %}🤐 {% trans "Don't Say the Same Thing as Me" %} — {{ room.title }}{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
+{% endblock %}
 {% block extra_css %}
 body { max-width: 1080px !important; }
 :root {
@@ -559,6 +562,9 @@ body { max-width: 1080px !important; }
   </div>
 </div>
 
+<!-- Centralized Color Picker Modal -->
+{% include "gamerooms/components/color_picker_modal.html" %}
+
 <!-- Modal: Synchronized Round Start Countdown -->
 <div id="modal-round-countdown" class="ds-modal" style="background:rgba(15,23,42,0.92); z-index:9998; backdrop-filter:blur(6px);">
   <div style="text-align:center; color:#fff; padding:2.5rem 1.5rem; max-width:440px; margin:0 auto;">
@@ -578,6 +584,7 @@ body { max-width: 1080px !important; }
 </div>
 
 <script src="{% static 'vendor/js-confetti.browser.js' %}"></script>
+<script src="{% static 'gamerooms/player_badges.js' %}?v={{ version_counter }}"></script>
 <script>
 const ROOM_CODE = "{{ room.code|escapejs }}";
 const PLAYER_NAME = "{{ player_name|escapejs }}";
@@ -1210,8 +1217,15 @@ function renderRoster() {
 
     return `
       <div class="ds-roster-item" style="${isMe ? 'border-left:3px solid var(--ds-primary);' : ''} ${isElim ? 'opacity:0.75; background:#fff1f2;' : ''}">
-        <div class="ds-roster-left" style="min-width:0; overflow:hidden;">
-          <span style="opacity:${isConn ? 1 : 0.4}; flex-shrink:0;">${isElim ? '💀' : '👤'}</span>
+        <div class="ds-roster-left" style="min-width:0; overflow:hidden; display:flex; align-items:center; gap:0.4rem;">
+          <span style="opacity:${isConn ? 1 : 0.4}; flex-shrink:0;">
+            ${isElim ? '💀' : renderPlayerAvatarHtml(p, 'player-avatar-xs')}
+          </span>
+          <button type="button" 
+            class="player-color-trigger" 
+            style="background-color:${p.color || '#3b82f6'}; width:18px; height:18px; flex-shrink:0;" 
+            onclick="onRosterColorClick('${p.id}', '${p.color || '#3b82f6'}', ${isMe}, ${isHost})" 
+            title="{% trans 'Change color' %}"></button>
           <span style="font-weight:${isMe ? '700' : '500'}; font-size:0.85rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; ${isElim ? 'text-decoration:line-through; color:#991b1b;' : ''}">${esc(p.name)} ${p.is_admin ? '👑' : ''} ${p.is_the_me ? '🎯' : ''}</span>
           ${isElim ? `<span style="font-size:0.65rem; background:#fee2e2; color:#991b1b; padding:0.1rem 0.35rem; border-radius:4px; font-weight:700; flex-shrink:0;">ELIMINATED</span>` : (statusIcon ? `<span style="font-size:0.75rem; flex-shrink:0;">${statusIcon}</span>` : '')}
         </div>
@@ -1271,10 +1285,23 @@ function confirmKickPlayer(pid, pName) {
   }
 }
 
+function onRosterColorClick(targetPid, curHex, isMe, isHost) {
+  if (!isMe && !isHost) return;
+  openColorPickerModal(targetPid, curHex, (pid, newHex) => {
+    wsSend({
+      action: "change_color",
+      player_id: pid,
+      color: newHex
+    });
+  });
+}
+
 function renderActivityLog() {
   const log = gameState.activity_log || [];
   const el = document.getElementById("activity-log");
-  el.innerHTML = log.slice(-20).map(e => `<div>${esc(e.text)}</div>`).join("");
+  const playersMap = {};
+  (gameState.players || []).forEach(p => { playersMap[p.id] = p; });
+  el.innerHTML = log.slice(-30).map(e => renderChatRowHtml(e, playersMap)).join("");
   el.scrollTop = el.scrollHeight;
 }
 

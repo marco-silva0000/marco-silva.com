@@ -154,6 +154,27 @@ def room_list(request):
                         r.phase_badge = f"🏆 {_('Finished')}"
             except Exception:
                 pass
+        elif r.game_type == "rankit":
+            try:
+                from rankit.game_state import get_game as get_rankit_game
+
+                state = get_rankit_game(r.code)
+                if state and state.get("players"):
+                    r.player_count = len(state.get("players", {}))
+                    phase = state.get("phase", "lobby")
+                    lvl = state.get("level", 1)
+                    if phase == "lobby":
+                        r.phase_badge = f"⏳ {_('Lobby')}"
+                    elif phase in ("playing", "staging"):
+                        r.phase_badge = f"🔢 {_('Level')} {lvl}"
+                    elif phase == "level_success":
+                        r.phase_badge = f"🎉 {_('Cleared')}"
+                    elif phase == "victory":
+                        r.phase_badge = f"🏆 {_('Victory')}"
+                    elif phase == "gameover":
+                        r.phase_badge = f"💀 {_('Game Over')}"
+            except Exception:
+                pass
 
     return render(request, "gamerooms/room_list.html", {"rooms": rooms, "error": error})
 
@@ -188,6 +209,7 @@ def room_create(request):
         request.session[f"codenames_admin_{room.code}"] = True
         request.session[f"stop_admin_{room.code}"] = True
         request.session[f"dontsay_admin_{room.code}"] = True
+        request.session[f"rankit_admin_{room.code}"] = True
         return redirect("gamerooms:room-join", code=room.code)
 
     game_type = _resolve_game_type(request.GET.get("game"))
@@ -273,6 +295,10 @@ def room_join(request, code):
             if room.game_type == "dontsay":
                 return redirect(
                     f"{reverse('gamerooms:dontsay:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
+                )
+            if room.game_type == "rankit":
+                return redirect(
+                    f"{reverse('gamerooms:rankit:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
                 )
             return redirect(
                 f"{reverse('gamerooms:emojinary:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"

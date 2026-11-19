@@ -10,6 +10,11 @@ from typing import Any, Optional
 import redis
 
 from gamerooms.language_support import get_game_language_support, normalize_language_code
+from gamerooms.player_colors import (
+    assign_distinct_player_color,
+    get_player_initials,
+    is_valid_color_hex,
+)
 from gamerooms.prompt_engine.evaluator import cluster_answer_keys
 from impostor.word_pairs import normalize_text
 from website.version import VERSION_COUNTER
@@ -272,9 +277,12 @@ def add_player(
     has_any_admin = any(p.get("is_admin") for p in state.get("players", {}).values())
     grant_admin = bool(is_admin or not has_any_admin)
 
+    assigned_color = assign_distinct_player_color(state.get("players", {}))
     player = {
         "id": pid,
         "name": clean_name,
+        "color": assigned_color,
+        "initials": get_player_initials(clean_name),
         "token": token or uuid.uuid4().hex[:20],
         "score": 0,
         "is_admin": grant_admin,
@@ -295,6 +303,26 @@ def add_player(
     append_event(state, "System", f"👋 {clean_name} joined the room.")
     save_game(state["code"], state)
     return state, player, True
+
+
+def change_player_color(
+    state: dict[str, Any],
+    target_player_id: str,
+    new_color: str,
+    requested_by_admin: bool = False,
+    requester_player_id: str = "",
+) -> bool:
+    """Allow player to pick their badge color, or host to reassign any player's color."""
+    if not is_valid_color_hex(new_color):
+        return False
+    player = state.get("players", {}).get(target_player_id)
+    if not player:
+        return False
+    if target_player_id != requester_player_id and not requested_by_admin:
+        return False
+    player["color"] = new_color.strip()
+    save_game(state["code"], state)
+    return True
 
 
 def is_player_admin(state: dict[str, Any], player: Optional[dict[str, Any]]) -> bool:
@@ -1046,6 +1074,8 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str]) -
             {
                 "id": pid,
                 "name": p.get("name", "Player"),
+                "color": p.get("color") or "#3b82f6",
+                "initials": p.get("initials") or get_player_initials(p.get("name")),
                 "score": int(p.get("score", 0)),
                 "is_admin": bool(p.get("is_admin") or pid == state.get("creator_id")),
                 "is_spectator": bool(p.get("is_spectator")),

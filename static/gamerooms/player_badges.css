@@ -1,0 +1,201 @@
+/* Centralized Player Badges, Avatars, and Color Palette Styles */
+
+:root {
+  --color-picker-gap: 0.5rem;
+}
+
+/* Circular player avatar badge */
+.player-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+  user-select: none;
+  line-height: 1;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.player-avatar:hover {
+  transform: scale(1.05);
+}
+
+.player-avatar-xs {
+  width: 20px;
+  height: 20px;
+  font-size: 0.65rem;
+  border-width: 1px;
+}
+
+.player-avatar-sm {
+  width: 26px;
+  height: 26px;
+  font-size: 0.75rem;
+  border-width: 1.5px;
+}
+
+.player-avatar-md {
+  width: 34px;
+  height: 34px;
+  font-size: 0.85rem;
+  border-width: 2px;
+}
+
+.player-avatar-lg {
+  width: 44px;
+  height: 44px;
+  font-size: 1.1rem;
+  border-width: 2.5px;
+}
+
+.player-avatar-xl {
+  width: 58px;
+  height: 58px;
+  font-size: 1.4rem;
+  border-width: 3px;
+}
+
+/* Pill badge with avatar and player name */
+.player-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.2rem 0.65rem 0.2rem 0.25rem;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e293b;
+  max-width: 100%;
+}
+
+.player-pill-badge .player-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Color swatch trigger button in lobby/roster */
+.player-color-trigger {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px #cbd5e1, 0 1px 2px rgba(0,0,0,0.1);
+  cursor: pointer;
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.player-color-trigger:hover,
+.player-color-trigger:focus-visible {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--ds-primary, #3b82f6), 0 2px 4px rgba(0,0,0,0.15);
+  outline: none;
+}
+
+/* Color picker grid inside modal */
+.player-color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+  margin: 1rem 0;
+}
+
+@media (min-width: 480px) {
+  .player-color-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.player-swatch-btn {
+  aspect-ratio: 1;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.player-swatch-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+}
+
+.player-swatch-btn:focus-visible {
+  outline: 3px solid #0f172a;
+  outline-offset: 2px;
+  transform: scale(1.08);
+}
+
+.player-swatch-btn.active {
+  border-color: #0f172a;
+  box-shadow: 0 0 0 2px #ffffff, 0 4px 8px rgba(0,0,0,0.25);
+  transform: scale(1.1);
+}
+
+/* Chat stream with player avatar badges */
+.chat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.chat-bubble {
+  flex: 1;
+  min-width: 0;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.35rem 0.6rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.chat-bubble.system-bubble {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #475569;
+  font-style: italic;
+}
+
+.chat-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+
+.chat-author {
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.chat-time {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.chat-text {
+  color: #1e293b;
+}

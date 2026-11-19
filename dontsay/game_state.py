@@ -19,6 +19,11 @@ from typing import Any, Optional
 import redis
 
 from gamerooms.language_support import normalize_language_code
+from gamerooms.player_colors import (
+    assign_distinct_player_color,
+    get_player_initials,
+    is_valid_color_hex,
+)
 from gamerooms.prompt_engine import (
     PACK_CHOICES,
     clean_answer_key,
@@ -233,9 +238,12 @@ def add_player(
     has_any_admin = any(p.get("is_admin") for p in state.get("players", {}).values())
     grant_admin = bool(is_admin or not has_any_admin)
 
+    assigned_color = assign_distinct_player_color(state.get("players", {}))
     player = {
         "id": pid,
         "name": clean_name,
+        "color": assigned_color,
+        "initials": get_player_initials(clean_name),
         "token": token or uuid.uuid4().hex[:20],
         "score": 0,
         "is_admin": grant_admin,
@@ -252,6 +260,26 @@ def add_player(
     append_event(state, "System", f"👋 {clean_name} joined the room.")
     save_game(state["code"], state)
     return state, player, True
+
+
+def change_player_color(
+    state: dict[str, Any],
+    target_player_id: str,
+    new_color: str,
+    requested_by_admin: bool = False,
+    requester_player_id: str = "",
+) -> bool:
+    """Allow player to pick their badge color, or host to reassign any player's color."""
+    if not is_valid_color_hex(new_color):
+        return False
+    player = state.get("players", {}).get(target_player_id)
+    if not player:
+        return False
+    if target_player_id != requester_player_id and not requested_by_admin:
+        return False
+    player["color"] = new_color.strip()
+    save_game(state["code"], state)
+    return True
 
 
 def is_player_admin(state: dict[str, Any], player: Optional[dict[str, Any]]) -> bool:
@@ -1120,6 +1148,10 @@ def get_sanitized_player_view(state: dict[str, Any], viewer: Optional[str] = Non
     sanitized_players = []
     for pid, p in view.get("players", {}).items():
         p_copy = copy.deepcopy(p)
+        if not p_copy.get("color"):
+            p_copy["color"] = "#3b82f6"
+        if not p_copy.get("initials"):
+            p_copy["initials"] = get_player_initials(p_copy.get("name"))
         # Strip private secret token unless it's the viewer's own record
         if p_copy.get("token") != viewer_token:
             p_copy.pop("token", None)

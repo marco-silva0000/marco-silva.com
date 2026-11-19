@@ -1,0 +1,1285 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}Rank It! (ito) — {{ room.code }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
+{% endblock %}
+
+{% block extra_css %}
+  body {
+    max-width: 1200px !important;
+    background-color: #f8fafc;
+    color: #0f172a;
+  }
+
+  :root {
+    --rk-primary: #6366f1;
+    --rk-primary-hover: #4f46e5;
+    --rk-bg: #f8fafc;
+    --rk-card-bg: #ffffff;
+    --rk-border: #e2e8f0;
+    --rk-text: #0f172a;
+    --rk-muted: #64748b;
+    --rk-success: #10b981;
+    --rk-danger: #ef4444;
+  }
+
+  body {
+    background-color: var(--rk-bg);
+    color: var(--rk-text);
+  }
+
+  .rk-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem 3rem 1rem;
+  }
+
+  .rk-card {
+    background: var(--rk-card-bg);
+    border: 1px solid var(--rk-border);
+    border-radius: 14px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+  }
+
+  .rk-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .rk-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .rk-badge-level {
+    background: #e0e7ff;
+    color: #4338ca;
+  }
+
+  .rk-badge-lives {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  .rk-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.1rem;
+    min-height: 38px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+
+  .rk-btn:focus-visible,
+  .rk-hand-clue-input:focus-visible,
+  #chat-input:focus-visible {
+    outline: 2px solid var(--rk-primary);
+    outline-offset: 2px;
+  }
+
+  .rk-btn-primary {
+    background: var(--rk-primary);
+    color: #fff;
+  }
+
+  .rk-btn-primary:hover {
+    background: var(--rk-primary-hover);
+  }
+
+  .rk-btn-primary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .rk-btn-secondary {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+  }
+
+  .rk-btn-secondary:hover {
+    background: #e2e8f0;
+  }
+
+  /* Spectrum Question Card */
+  .rk-spectrum-card {
+    background: linear-gradient(135deg, #fdfbf7 0%, #ffffff 100%);
+    border: 2px solid #cbd5e1;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  }
+
+  .rk-spectrum-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.85rem;
+    line-height: 1.3;
+  }
+
+  .rk-spectrum-bar-wrap {
+    position: relative;
+    height: 12px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #3b82f6 0%, #10b981 50%, #f59e0b 75%, #ef4444 100%);
+    margin: 1.25rem 0 1rem 0;
+  }
+
+  .rk-spectrum-anchors {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .rk-anchor-box {
+    flex: 1;
+    min-width: 0;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .rk-anchor-box.right {
+    text-align: right;
+  }
+
+  .rk-anchor-num {
+    font-size: 0.85rem;
+    font-weight: 800;
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    border-radius: 6px;
+    margin-bottom: 0.25rem;
+  }
+
+  .rk-anchor-num.low {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  .rk-anchor-num.high {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  .rk-anchor-desc {
+    font-size: 0.85rem;
+    color: #334155;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  /* Player Hand (Secret Cards) */
+  .rk-hand-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+  }
+
+  .rk-hand-card {
+    background: #ffffff;
+    border: 2px solid #6366f1;
+    border-radius: 14px;
+    padding: 1.2rem;
+    width: 200px;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.15);
+    text-align: center;
+    transition: transform 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .rk-hand-card.played {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+    opacity: 0.65;
+    box-shadow: none;
+  }
+
+  .rk-hand-num {
+    font-size: 2.75rem;
+    font-weight: 900;
+    color: #4338ca;
+    line-height: 1;
+    margin: 0.35rem 0 0.85rem 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rk-hand-card.played .rk-hand-num {
+    color: #94a3b8;
+  }
+
+  .rk-hand-clue-input {
+    width: 100%;
+    padding: 0.4rem 0.55rem;
+    font-size: 0.8rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    margin-bottom: 0.65rem;
+    box-sizing: border-box;
+  }
+
+  .rk-header-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.65rem;
+  }
+
+  @media (max-width: 640px) {
+    .rk-header-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.2rem;
+    }
+  }
+
+  /* Central Timeline */
+  .rk-timeline-container {
+    background: #ffffff;
+    border: 1px solid var(--rk-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .rk-timeline-track {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.5rem 0;
+    min-height: 90px;
+  }
+
+  .rk-timeline-card {
+    background: #ffffff;
+    border: 2px solid #10b981;
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
+    min-width: 130px;
+    max-width: 220px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    animation: popIn 0.2s ease-out;
+  }
+
+  .rk-timeline-card.clash {
+    border-color: #ef4444;
+    background: #fff5f5;
+  }
+
+  .rk-timeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+  }
+
+  .rk-timeline-num {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #0f172a;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rk-timeline-card.clash .rk-timeline-num {
+    color: #dc2626;
+  }
+
+  .rk-timeline-clue {
+    font-size: 0.8rem;
+    color: #475569;
+    font-style: italic;
+    line-height: 1.25;
+    word-break: break-word;
+  }
+
+  .rk-timeline-arrow {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    user-select: none;
+  }
+
+  /* Roster items */
+  .rk-roster-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 8px;
+    margin-bottom: 0.35rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+
+  .rk-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .rk-grid-layout {
+      grid-template-columns: 1fr 340px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .rk-hand-clue-input,
+    #chat-input {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Modals */
+  .rk-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .rk-modal-content {
+    background: #ffffff;
+    border-radius: 16px;
+    max-width: 520px;
+    width: 100%;
+    padding: 1.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.25);
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0.92); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+{% endblock %}
+
+{% block content %}
+<div class="rk-container">
+  <!-- Topbar -->
+  <div class="rk-topbar">
+    <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+      <h1 style="font-size:1.35rem; font-weight:800; margin:0; display:flex; align-items:center; gap:0.4rem;">
+        <span>🔢</span> Rank It! <span style="font-weight:400; font-size:0.9rem; color:var(--rk-muted);">(ito)</span>
+      </h1>
+      <span class="rk-badge" style="background:#f1f5f9; border:1px solid #cbd5e1; cursor:pointer;" onclick="copyRoomCode()" title="{% trans 'Click to copy room code' %}">
+        🔑 <strong>{{ room.code }}</strong>
+      </span>
+    </div>
+
+    <!-- Quick Action Modals -->
+    <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+      <button type="button" class="rk-btn rk-btn-secondary" style="font-size:0.75rem; padding:0.35rem 0.65rem;" onclick="openRoomQR()">
+        📱 {% trans "Room QR" %}
+      </button>
+      <button type="button" class="rk-btn rk-btn-secondary" style="font-size:0.75rem; padding:0.35rem 0.65rem;" onclick="openMySeatQR()">
+        🪪 {% trans "My Seat QR" %}
+      </button>
+      <button type="button" class="rk-btn rk-btn-secondary" style="font-size:0.75rem; padding:0.35rem 0.65rem;" onclick="openSuggestModal()">
+        💡 {% trans "Suggest Prompt" %}
+      </button>
+      <button type="button" class="rk-btn rk-btn-secondary" style="font-size:0.75rem; padding:0.35rem 0.65rem;" onclick="openRulesModal()">
+        ❓ {% trans "Rules" %}
+      </button>
+      <a href="{% url 'gamerooms:room-list' %}" class="rk-btn rk-btn-secondary" style="font-size:0.75rem; padding:0.35rem 0.65rem;">
+        🚪 {% trans "Lobby Hub" %}
+      </a>
+    </div>
+  </div>
+
+  <!-- Status Bar: Level & Lives Tracker -->
+  <div class="rk-card" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem; padding:0.85rem 1.25rem;">
+    <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+      <span id="badge-level" class="rk-badge rk-badge-level" style="font-size:0.95rem;">
+        🏆 {% trans "Level" %} <span id="lbl-level">1</span>
+      </span>
+      <span id="badge-lives" class="rk-badge rk-badge-lives" style="font-size:0.95rem;">
+        <span id="lbl-lives-hearts">❤️❤️❤️</span> (<span id="lbl-lives-num">3</span> {% trans "lives" %})
+      </span>
+    </div>
+    <div id="lbl-cards-remaining-wrap" style="font-size:0.85rem; font-weight:600; color:var(--rk-muted);">
+      🎴 <span id="lbl-cards-remaining">0</span> {% trans "cards to play" %}
+    </div>
+  </div>
+
+  <div class="rk-grid-layout">
+    <!-- Main Center Panel -->
+    <div>
+      <!-- 1. Spectrum / Prompt Card -->
+      <div id="section-prompt-card" class="rk-spectrum-card" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+          <span id="lbl-prompt-pack" class="rk-badge" style="background:#ede9fe; color:#6d28d9; font-size:0.75rem;">
+            🎲 Classic
+          </span>
+          <span id="lbl-prompt-nsfw" class="rk-badge" style="display:none; background:#fee2e2; color:#b91c1c; font-size:0.75rem;">
+            🌶️ 18+ NSFW
+          </span>
+        </div>
+
+        <div id="lbl-prompt-title" class="rk-spectrum-title">
+          {% trans "Loading prompt..." %}
+        </div>
+
+        <!-- 1 to 100 Visual Gradient Spectrum Bar -->
+        <div class="rk-spectrum-bar-wrap"></div>
+
+        <div class="rk-spectrum-anchors">
+          <div class="rk-anchor-box">
+            <span class="rk-anchor-num low">1 (MIN)</span>
+            <div id="lbl-prompt-low" class="rk-anchor-desc">...</div>
+          </div>
+          <div class="rk-anchor-box right">
+            <span class="rk-anchor-num high">100 (MAX)</span>
+            <div id="lbl-prompt-high" class="rk-anchor-desc">...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Central Shared Timeline -->
+      <div class="rk-timeline-container">
+        <div class="rk-header-row">
+          <h2 style="font-size:1.05rem; font-weight:700; margin:0; display:flex; align-items:center; gap:0.35rem;">
+            <span>📈</span> {% trans "Ascending Timeline" %}
+          </h2>
+          <span style="font-size:0.75rem; color:var(--rk-muted);">
+            {% trans "Must play in strictly ascending order (1 ➔ 100)" %}
+          </span>
+        </div>
+
+        <div id="timeline-track" class="rk-timeline-track">
+          <div id="timeline-empty-msg" style="color:#94a3b8; font-size:0.85rem; font-style:italic; padding:1rem 0;">
+            {% trans "No cards played yet. When you feel your number is the lowest remaining, click 'Play Card'!" %}
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Player's Secret Hand -->
+      <div id="section-player-hand" class="rk-card" style="display:none; text-align:center;">
+        <div class="rk-header-row" style="text-align:left;">
+          <h2 style="font-size:1.05rem; font-weight:700; margin:0; display:flex; align-items:center; gap:0.4rem;">
+            <span>🤫</span> {% trans "Your Secret Hand" %}
+          </h2>
+          <span style="font-size:0.75rem; color:#dc2626; font-weight:600; line-height:1.3;">
+            ⚠️ {% trans "Do NOT say your numbers out loud! Give hints based on the scale." %}
+          </span>
+        </div>
+
+        <div id="hand-cards-list" class="rk-hand-container">
+          <!-- Dynamic cards -->
+        </div>
+      </div>
+
+      <!-- 4. Pre-Game Lobby / Host Controls -->
+      <div id="section-lobby-controls" class="rk-card">
+        <h2 style="font-size:1.1rem; font-weight:700; margin:0 0 0.75rem 0;">
+          {% trans "Game Settings & Preparation" %}
+        </h2>
+
+        <div style="background:#f1f5f9; border-radius:10px; padding:0.85rem; font-size:0.85rem; color:#334155; margin-bottom:1rem; line-height:1.4;">
+          <strong>🎯 {% trans "How to Play ito:" %}</strong> {% trans "Each player secretly receives numbered cards from 1 to 100. Work together to play them into the central timeline in ascending order without ever revealing your exact number! Discuss and share clues based on the round's spectrum." %}
+        </div>
+
+        <!-- Host Settings Grid -->
+        <div id="host-settings-panel" style="display:none;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:0.85rem; margin-bottom:1rem;">
+            <div>
+              <label for="cfg-cards-mode" style="font-size:0.8rem; font-weight:700; color:#475569; display:block; margin-bottom:0.25rem;">
+                {% trans "Cards Per Player:" %}
+              </label>
+              <select id="cfg-cards-mode" class="rk-btn rk-btn-secondary" style="width:100%;" onchange="submitSettings()">
+                <option value="level_based">{% trans "Progressive (Lvl 1=1, Lvl 2=2...)" %}</option>
+                <option value="1">{% trans "1 Card Each" %}</option>
+                <option value="2">{% trans "2 Cards Each" %}</option>
+                <option value="3">{% trans "3 Cards Each" %}</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="cfg-lives" style="font-size:0.8rem; font-weight:700; color:#475569; display:block; margin-bottom:0.25rem;">
+                {% trans "Starting Lives (Hearts):" %}
+              </label>
+              <select id="cfg-lives" class="rk-btn rk-btn-secondary" style="width:100%;" onchange="submitSettings()">
+                <option value="2">2 ❤️❤️</option>
+                <option value="3" selected>3 ❤️❤️❤️ ({% trans "Standard" %})</option>
+                <option value="4">4 ❤️❤️❤️❤️</option>
+                <option value="5">5 ❤️❤️❤️❤️❤️</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="cfg-pack" style="font-size:0.8rem; font-weight:700; color:#475569; display:block; margin-bottom:0.25rem;">
+                {% trans "Theme Pack:" %}
+              </label>
+              <select id="cfg-pack" class="rk-btn rk-btn-secondary" style="width:100%;" onchange="submitSettings()">
+                {% for p_id, p_label in pack_choices %}
+                <option value="{{ p_id }}">{{ p_label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div>
+              <label for="cfg-levels" style="font-size:0.8rem; font-weight:700; color:#475569; display:block; margin-bottom:0.25rem;">
+                {% trans "Target Levels:" %}
+              </label>
+              <select id="cfg-levels" class="rk-btn rk-btn-secondary" style="width:100%;" onchange="submitSettings()">
+                <option value="3" selected>3 {% trans "Levels" %}</option>
+                <option value="5">5 {% trans "Levels" %}</option>
+                <option value="0">{% trans "Endless / Until Defeat" %}</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="display:inline-flex; align-items:center; gap:0.5rem; font-size:0.85rem; font-weight:600; cursor:pointer;">
+              <input type="checkbox" id="cfg-nsfw" onchange="submitSettings()">
+              <span>🌶️ {% trans "Enable 18+ Spicy / NSFW Prompts (Adults Only)" %}</span>
+            </label>
+          </div>
+
+          <div style="text-align:center;">
+            <button type="button" id="btn-start-level" class="rk-btn rk-btn-primary" style="font-size:1.1rem; padding:0.75rem 2rem; border-radius:12px;" onclick="startLevelClick()">
+              🚀 {% trans "Start Level 1" %}
+            </button>
+          </div>
+        </div>
+
+        <div id="non-host-wait-msg" style="text-align:center; padding:1rem; color:var(--rk-muted); font-size:0.9rem;">
+          ⏳ {% trans "Waiting for the host to start the game..." %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar: Players Roster & Chat Stream -->
+    <div>
+      <!-- Players Roster -->
+      <div class="rk-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.65rem;">
+          <h3 style="font-size:0.95rem; font-weight:700; margin:0;">
+            {% trans "Players" %} (<span id="lbl-player-count">0</span>)
+          </h3>
+          <span style="font-size:0.75rem; color:var(--rk-muted);">
+            {% trans "Click swatch to change color" %}
+          </span>
+        </div>
+
+        <div id="roster-list">
+          <!-- Dynamic roster items with color badges -->
+        </div>
+      </div>
+
+      <!-- Live Chat & Events -->
+      <div class="rk-card">
+        <h3 style="font-size:0.95rem; font-weight:700; margin:0 0 0.5rem 0;">
+          {% trans "Live Room Chat" %}
+        </h3>
+
+        <div id="chat-stream" style="font-size:0.85rem; max-height:260px; min-height:160px; overflow-y:auto; padding:0.25rem 0; margin-bottom:0.65rem;">
+          <!-- Chat rows with avatars -->
+        </div>
+
+        <div style="display:flex; gap:0.4rem;">
+          <input type="text" id="chat-input" class="rk-btn rk-btn-secondary" style="flex:1; text-align:left; cursor:text; padding:0.45rem 0.65rem; font-size:0.85rem;" placeholder="{% trans 'Say something to group...' %}" aria-label="{% trans 'Room chat message' %}" onkeydown="if(event.key==='Enter') sendChat()">
+          <button type="button" class="rk-btn rk-btn-primary" aria-label="{% trans 'Send chat message' %}" onclick="sendChat()">
+            💬
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Synchronized 4-Second Round Countdown -->
+<div id="modal-round-countdown" class="rk-modal" style="background:rgba(15, 23, 42, 0.92); z-index:99999;">
+  <div style="text-align:center; color:#ffffff; padding:2rem; animation:popIn 0.2s ease-out;">
+    <div style="font-size:1.15rem; font-weight:700; color:#93c5fd; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.5rem;">
+      {% trans "Get Ready — Level Starting!" %}
+    </div>
+    <div id="countdown-number" style="font-size:6.5rem; font-weight:900; line-height:1; color:#ffffff; font-variant-numeric:tabular-nums; margin:0.5rem 0;">
+      3
+    </div>
+    <div style="font-size:0.95rem; color:#cbd5e1; max-width:320px; margin:0 auto;">
+      {% trans "Secret cards will reveal simultaneously for everyone." %}
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Level Success Celebration -->
+<div id="modal-level-success" class="rk-modal">
+  <div class="rk-modal-content" style="text-align:center;">
+    <div style="font-size:3.5rem; line-height:1; margin-bottom:0.5rem;">🎉</div>
+    <h2 style="font-size:1.5rem; font-weight:800; color:#0f172a; margin:0 0 0.5rem 0;">
+      {% trans "Level Cleared!" %}
+    </h2>
+    <p style="font-size:0.95rem; color:#475569; margin:0 0 1.25rem 0;">
+      {% trans "All cards were placed in perfect ascending order!" %}
+    </p>
+
+    <div id="level-success-summary" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:1rem; margin-bottom:1.25rem; font-size:0.9rem;"></div>
+
+    <div id="host-next-level-wrap" style="display:none;">
+      <button type="button" id="btn-next-level" class="rk-btn rk-btn-primary" style="font-size:1rem; padding:0.65rem 1.8rem;" onclick="startNextLevelClick()">
+        ⏩ {% trans "Proceed to Next Level" %}
+      </button>
+    </div>
+    <div id="non-host-next-level-wait" style="color:var(--rk-muted); font-size:0.85rem;">
+      ⏳ {% trans "Waiting for host to start next level..." %}
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Game Over / Victory -->
+<div id="modal-gameover" class="rk-modal">
+  <div class="rk-modal-content" style="text-align:center;">
+    <div id="gameover-icon" style="font-size:3.5rem; line-height:1; margin-bottom:0.5rem;">💀</div>
+    <h2 id="gameover-title" style="font-size:1.5rem; font-weight:800; color:#0f172a; margin:0 0 0.5rem 0;">
+      {% trans "Game Over!" %}
+    </h2>
+    <p id="gameover-desc" style="font-size:0.95rem; color:#475569; margin:0 0 1.25rem 0;">
+      {% trans "The team ran out of lives." %}
+    </p>
+
+    <div id="host-play-again-wrap" style="display:none; margin-top:1rem;">
+      <button type="button" class="rk-btn rk-btn-primary" style="font-size:1rem; padding:0.65rem 1.8rem;" onclick="playAgainClick()">
+        🔄 {% trans "Play Again (Return to Lobby)" %}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Room QR Code (Share Room) -->
+<div id="modal-room-qr" class="rk-modal">
+  <div class="rk-modal-content" style="text-align:center;">
+    <h3 style="font-size:1.2rem; font-weight:700; margin:0 0 0.5rem 0;">
+      📱 {% trans "Share Room QR Code" %}
+    </h3>
+    <p style="font-size:0.85rem; color:#64748b; margin:0 0 1rem 0;">
+      {% trans "Scan with phone camera to join this room:" %}
+    </p>
+    <div style="display:flex; justify-content:center; margin-bottom:1rem;">
+      <img id="room-qr-img" src="" alt="Room QR" style="max-width:220px; border-radius:12px; border:1px solid #cbd5e1; display:none;">
+    </div>
+    <input type="text" id="room-share-url" readonly class="rk-btn rk-btn-secondary" style="width:100%; box-sizing:border-box; margin-bottom:1rem; text-align:center; font-size:0.8rem;" onclick="this.select()">
+    <button type="button" class="rk-btn rk-btn-secondary" onclick="closeModal('modal-room-qr')">
+      {% trans "Close" %}
+    </button>
+  </div>
+</div>
+
+<!-- Modal: Personal Seat Reconnect QR -->
+<div id="modal-seat-qr" class="rk-modal">
+  <div class="rk-modal-content" style="text-align:center;">
+    <h3 id="seat-qr-title" style="font-size:1.2rem; font-weight:700; margin:0 0 0.5rem 0;">
+      🪪 {% trans "Personal Seat Reconnect" %}
+    </h3>
+    <p style="font-size:0.85rem; color:#64748b; margin:0 0 1rem 0;">
+      <strong>⚠️ {% trans "Secret Link:" %}</strong> {% trans "Keep this private! Only for you to switch devices without losing your cards." %}
+    </p>
+    <div style="display:flex; justify-content:center; margin-bottom:1rem;">
+      <img id="seat-qr-img" src="" alt="Seat QR" style="max-width:220px; border-radius:12px; border:1px solid #cbd5e1; display:none;">
+    </div>
+    <button type="button" class="rk-btn rk-btn-secondary" onclick="closeModal('modal-seat-qr')">
+      {% trans "Close" %}
+    </button>
+  </div>
+</div>
+
+<!-- Modal: Rules & How to Play -->
+<div id="modal-rules" class="rk-modal">
+  <div class="rk-modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+      <h3 style="font-size:1.2rem; font-weight:800; margin:0;">
+        📖 {% trans "How to Play Rank It! (ito)" %}
+      </h3>
+      <button type="button" onclick="closeModal('modal-rules')" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    <div style="font-size:0.88rem; color:#334155; line-height:1.5;">
+      <p><strong>1. Secret Numbers:</strong> Every player receives numbered cards from 1 to 100 without duplicates.</p>
+      <p><strong>2. Subjective Spectrum:</strong> A random theme defines a scale from 1 (the lowest/weakest) to 100 (the highest/strongest).</p>
+      <p><strong>3. NO Numbers Allowed:</strong> You cannot say your numbers or do math hints! You express your number through hints matching the theme (e.g. for dangerous animals: 12 is 'a grumpy badger', 95 is 'a Godzilla with armor').</p>
+      <p><strong>4. Play in Order:</strong> Anyone can play their card onto the central timeline when they feel their card is the next lowest remaining.</p>
+      <p><strong>5. Clashes:</strong> If a played card is smaller than a previously played card, the group loses 1 Life (💔)!</p>
+      <p><strong>6. Victory:</strong> Play all cards without running out of lives to clear the levels!</p>
+    </div>
+    <div style="text-align:right; margin-top:1rem;">
+      <button type="button" class="rk-btn rk-btn-primary" onclick="closeModal('modal-rules')">{% trans "Got it!" %}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Suggest Prompt -->
+<div id="modal-suggest-prompt" class="rk-modal">
+  <div class="rk-modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+      <h3 style="font-size:1.15rem; font-weight:800; margin:0;">
+        💡 {% trans "Suggest a Ranking Scale" %}
+      </h3>
+      <button type="button" onclick="closeModal('modal-suggest-prompt')" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    <div style="margin-bottom:0.75rem;">
+      <label for="suggest-title" style="font-size:0.8rem; font-weight:700; color:#475569; display:block; margin-bottom:0.2rem;">
+        {% trans "Theme / Scale Question:" %}
+      </label>
+      <input type="text" id="suggest-title" class="rk-btn rk-btn-secondary" style="width:100%; box-sizing:border-box; text-align:left; cursor:text;" placeholder="{% trans 'e.g. Scariest things to find in the dark' %}">
+    </div>
+    <div style="margin-bottom:0.75rem;">
+      <label for="suggest-low" style="font-size:0.8rem; font-weight:700; color:#475569; display:block; margin-bottom:0.2rem;">
+        {% trans "1 (Lowest / Weakest anchor example):" %}
+      </label>
+      <input type="text" id="suggest-low" class="rk-btn rk-btn-secondary" style="width:100%; box-sizing:border-box; text-align:left; cursor:text;" placeholder="{% trans 'e.g. A sleepy baby hamster' %}">
+    </div>
+    <div style="margin-bottom:0.75rem;">
+      <label for="suggest-high" style="font-size:0.8rem; font-weight:700; color:#475569; display:block; margin-bottom:0.2rem;">
+        {% trans "100 (Highest / Strongest anchor example):" %}
+      </label>
+      <input type="text" id="suggest-high" class="rk-btn rk-btn-secondary" style="width:100%; box-sizing:border-box; text-align:left; cursor:text;" placeholder="{% trans 'e.g. A towering shadow demon with red eyes' %}">
+    </div>
+    <div style="margin-bottom:1rem;">
+      <label for="suggest-pack" style="font-size:0.8rem; font-weight:700; color:#475569; display:block; margin-bottom:0.2rem;">
+        {% trans "Category:" %}
+      </label>
+      <select id="suggest-pack" class="rk-btn rk-btn-secondary" style="width:100%;">
+        <option value="classic">🏆 Classic Party</option>
+        <option value="everyday">☕ Everyday Life</option>
+        <option value="superpowers">🦸 Superpowers</option>
+        <option value="food">🍕 Food & Culinary</option>
+        <option value="scary">😱 Danger & Spooky</option>
+        <option value="deep">🧠 Deep & Philosophical</option>
+        <option value="nsfw">🌶️ 18+ NSFW</option>
+      </select>
+    </div>
+    <div id="suggest-feedback" style="font-size:0.85rem; margin-bottom:0.75rem; display:none;"></div>
+    <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+      <button type="button" class="rk-btn rk-btn-secondary" onclick="closeModal('modal-suggest-prompt')">{% trans "Cancel" %}</button>
+      <button type="button" class="rk-btn rk-btn-primary" onclick="submitPromptSuggestion()">{% trans "Submit for Review" %}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Centralized Color Picker Modal Partial -->
+{% include "gamerooms/components/color_picker_modal.html" %}
+
+<script src="{% static 'gamerooms/player_badges.js' %}?v={{ version_counter }}"></script>
+<script>
+  const ROOM_CODE = "{{ room.code }}";
+  const PLAYER_ID = "{{ player.id }}";
+  const PLAYER_TOKEN = "{{ player.token }}";
+  const INITIAL_STATE = {{ initial_state_json|safe }};
+  let gameState = INITIAL_STATE;
+  let socket = null;
+  let serverClockOffset = 0; // ms offset: (server_time * 1000) - client_now
+
+  function getSyncedNow() {
+    return Date.now() + serverClockOffset;
+  }
+
+  function openModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "flex";
+  }
+
+  function closeModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  }
+
+  function copyRoomCode() {
+    navigator.clipboard.writeText(ROOM_CODE);
+    alert("{% trans 'Room code copied to clipboard!' %}");
+  }
+
+  function openRulesModal() { openModal("modal-rules"); }
+  function openSuggestModal() { openModal("modal-suggest-prompt"); }
+
+  function openRoomQR() {
+    const shareUrl = `${window.location.origin}/games/rankit/${ROOM_CODE}/`;
+    document.getElementById("room-share-url").value = shareUrl;
+    const img = document.getElementById("room-qr-img");
+    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(shareUrl)}`;
+    img.style.display = "block";
+    openModal("modal-room-qr");
+  }
+
+  function openMySeatQR() {
+    fetch(`/games/rankit/${encodeURIComponent(ROOM_CODE)}/qr/${encodeURIComponent(PLAYER_TOKEN)}/`)
+      .then(r => r.json())
+      .then(data => {
+        const img = document.getElementById("seat-qr-img");
+        img.src = data.qr;
+        img.style.display = "block";
+        openModal("modal-seat-qr");
+      })
+      .catch(() => alert("{% trans 'Could not load seat QR.' %}"));
+  }
+
+  // WebSocket Setup
+  function initWebSocket() {
+    const proto = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const url = `${proto}//${window.location.host}/ws/games/rankit/${encodeURIComponent(ROOM_CODE)}/`;
+    socket = new WebSocket(url);
+
+    socket.onopen = () => {
+      wsSend({
+        action: "join",
+        name: "{{ player.name|escapejs }}",
+        token: PLAYER_TOKEN,
+        is_admin: {{ player.is_admin|yesno:"true,false" }}
+      });
+    };
+
+    socket.onmessage = (e) => {
+      try {
+        const data = JSON.parse(e.data);
+        if (data.type === "state" && data.state) {
+          if (data.state.server_time) {
+            serverClockOffset = (data.state.server_time * 1000) - Date.now();
+          }
+          gameState = data.state;
+          renderGame();
+        } else if (data.type === "prompt_suggestion_ack") {
+          const fb = document.getElementById("suggest-feedback");
+          fb.style.display = "block";
+          fb.style.color = data.success ? "#15803d" : "#b91c1c";
+          fb.textContent = data.message;
+          if (data.success) {
+            setTimeout(() => closeModal("modal-suggest-prompt"), 1500);
+          }
+        }
+      } catch (err) {
+        console.error("WS message parse error:", err);
+      }
+    };
+
+    socket.onclose = () => {
+      setTimeout(initWebSocket, 2000);
+    };
+  }
+
+  function wsSend(msg) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify(msg));
+    }
+  }
+
+  // Render Engine
+  function renderGame() {
+    const isHost = Boolean(gameState.viewer && gameState.viewer.is_admin);
+    const phase = gameState.phase || "lobby";
+
+    // 1. Status Bar: Level & Lives
+    document.getElementById("lbl-level").textContent = gameState.level || 1;
+    const lives = gameState.lives !== undefined ? gameState.lives : 3;
+    document.getElementById("lbl-lives-num").textContent = lives;
+    let hearts = "";
+    for (let i = 0; i < lives; i++) hearts += "❤️";
+    if (lives === 0) hearts = "💔";
+    document.getElementById("lbl-lives-hearts").textContent = hearts;
+
+    // Remaining unplayed cards in level
+    let remainingCards = 0;
+    (gameState.players || []).forEach(p => {
+      remainingCards += (p.cards_count || 0);
+    });
+    document.getElementById("lbl-cards-remaining").textContent = remainingCards;
+
+    // 2. Section Visibility
+    const promptCard = document.getElementById("section-prompt-card");
+    const handCard = document.getElementById("section-player-hand");
+    const lobbyCard = document.getElementById("section-lobby-controls");
+    const hostPanel = document.getElementById("host-settings-panel");
+    const nonHostMsg = document.getElementById("non-host-wait-msg");
+
+    if (phase === "playing") {
+      promptCard.style.display = "block";
+      handCard.style.display = "block";
+      lobbyCard.style.display = "none";
+      renderPromptCard();
+      renderPlayerHand();
+      checkCountdownStaging();
+    } else if (phase === "level_success") {
+      promptCard.style.display = "block";
+      handCard.style.display = "none";
+      lobbyCard.style.display = "none";
+      renderLevelSuccessModal(isHost);
+    } else if (phase === "gameover" || phase === "victory") {
+      promptCard.style.display = "block";
+      handCard.style.display = "none";
+      lobbyCard.style.display = "none";
+      renderGameOverModal(isHost, phase === "victory");
+    } else {
+      // Lobby
+      promptCard.style.display = "none";
+      handCard.style.display = "none";
+      lobbyCard.style.display = "block";
+      hostPanel.style.display = isHost ? "block" : "none";
+      nonHostMsg.style.display = isHost ? "none" : "block";
+      syncLobbySettings();
+    }
+
+    // 3. Central Timeline
+    renderTimeline();
+
+    // 4. Players Roster
+    renderRoster(isHost);
+
+    // 5. Chat Stream
+    renderChat();
+  }
+
+  function renderPromptCard() {
+    const p = gameState.current_prompt;
+    if (!p) return;
+    document.getElementById("lbl-prompt-title").textContent = p.title || "";
+    document.getElementById("lbl-prompt-low").textContent = p.low_desc || "";
+    document.getElementById("lbl-prompt-high").textContent = p.high_desc || "";
+    document.getElementById("lbl-prompt-pack").textContent = (p.pack || "Classic").toUpperCase();
+    document.getElementById("lbl-prompt-nsfw").style.display = p.is_nsfw ? "inline-flex" : "none";
+  }
+
+  function renderPlayerHand() {
+    const list = document.getElementById("hand-cards-list");
+    const viewer = gameState.viewer;
+    if (!viewer || !viewer.hand) {
+      list.innerHTML = `<p style="color:var(--rk-muted);">{% trans "Spectating or waiting for cards..." %}</p>`;
+      return;
+    }
+
+    list.innerHTML = viewer.hand.map(card => {
+      const isPlayed = Boolean(card.played);
+      return `
+        <div class="rk-hand-card ${isPlayed ? 'played' : ''}">
+          <div style="font-size:0.75rem; font-weight:700; color:${isPlayed ? '#94a3b8' : '#6366f1'}; text-transform:uppercase;">
+            ${isPlayed ? '✅ {% trans "Played" %}' : '🔒 {% trans "Secret Card" %}'}
+          </div>
+          <div class="rk-hand-num">${card.number}</div>
+          ${!isPlayed ? `
+            <input type="text" class="rk-hand-clue-input" placeholder="{% trans 'Optional clue / hint...' %}" aria-label="{% trans 'Optional clue for card' %}" value="${escapeHtml(card.clue || '')}" onchange="updateCardClue('${card.card_id}', this.value)">
+            <button type="button" class="rk-btn rk-btn-primary" style="width:100%; font-size:0.85rem; padding:0.45rem;" onclick="playCardClick('${card.card_id}')">
+              🎴 {% trans "Play Card" %}
+            </button>
+          ` : `
+            <div style="font-size:0.8rem; color:#64748b; font-style:italic;">
+              ${card.clue ? `"${escapeHtml(card.clue)}"` : '{% trans "No clue given" %}'}
+            </div>
+          `}
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderTimeline() {
+    const track = document.getElementById("timeline-track");
+    const timeline = gameState.timeline || [];
+
+    if (timeline.length === 0) {
+      track.innerHTML = `<div id="timeline-empty-msg" style="color:#94a3b8; font-size:0.85rem; font-style:italic; padding:1rem 0;">{% trans "No cards played yet. When you feel your number is the lowest remaining, click 'Play Card'!" %}</div>`;
+      return;
+    }
+
+    let html = "";
+    timeline.forEach((item, index) => {
+      if (index > 0) {
+        html += `<span class="rk-timeline-arrow">➔</span>`;
+      }
+      const avatarHtml = renderPlayerAvatarHtml({
+        name: item.player_name,
+        color: item.player_color,
+        initials: item.player_initials
+      }, "player-avatar-xs");
+
+      html += `
+        <div class="rk-timeline-card ${item.is_clash ? 'clash' : ''}">
+          <div class="rk-timeline-header">
+            <span class="rk-timeline-num">${item.number}</span>
+            <span style="display:flex; align-items:center; gap:0.25rem;">
+              ${avatarHtml}
+              <span style="font-size:0.75rem; font-weight:700; color:#334155;">${escapeHtml(item.player_name)}</span>
+            </span>
+          </div>
+          ${item.clue ? `<div class="rk-timeline-clue">"${escapeHtml(item.clue)}"</div>` : ''}
+          <div style="font-size:0.7rem; font-weight:700; color:${item.is_clash ? '#dc2626' : '#15803d'};">
+            ${item.is_clash ? '💥 {% trans "CLASH! Lower than previous" %}' : '✅ {% trans "Ascending" %}'}
+          </div>
+        </div>
+      `;
+    });
+    track.innerHTML = html;
+  }
+
+  function renderRoster(isHost) {
+    const list = document.getElementById("roster-list");
+    const players = gameState.players || [];
+    document.getElementById("lbl-player-count").textContent = players.length;
+
+    list.innerHTML = players.map(p => {
+      const isMe = p.id === PLAYER_ID;
+      const avatarHtml = renderPlayerAvatarHtml(p, "player-avatar-sm");
+      return `
+        <div class="rk-roster-item" style="${isMe ? 'border-left:3px solid var(--rk-primary);' : ''}">
+          <div style="display:flex; align-items:center; gap:0.45rem; min-width:0; overflow:hidden;">
+            ${avatarHtml}
+            <!-- Color Swatch Picker Trigger -->
+            <button type="button" 
+              class="player-color-trigger" 
+              style="background-color:${p.color || '#3b82f6'};" 
+              onclick="onRosterColorClick('${p.id}', '${p.color || '#3b82f6'}', ${isMe}, ${isHost})" 
+              title="{% trans 'Change color' %}"></button>
+            <span style="font-weight:${isMe ? '700' : '500'}; font-size:0.85rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+              ${escapeHtml(p.name)} ${p.is_admin ? '👑' : ''}
+            </span>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.4rem; flex-shrink:0;">
+            <span class="rk-badge" style="background:#e2e8f0; font-size:0.72rem;">
+              🎴 ${p.cards_count || 0}
+            </span>
+            ${(isHost && !isMe) ? `
+              <button onclick="transferHost('${p.id}')" title="{% trans 'Transfer Host' %}" style="background:none; border:none; cursor:pointer; font-size:0.8rem;">👑</button>
+              <button onclick="kickPlayer('${p.id}')" title="{% trans 'Kick' %}" style="background:none; border:none; cursor:pointer; font-size:0.8rem; color:#ef4444;">&times;</button>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function onRosterColorClick(targetPid, curHex, isMe, isHost) {
+    // Only self or host can change
+    if (!isMe && !isHost) return;
+    openColorPickerModal(targetPid, curHex, (pid, newHex) => {
+      wsSend({
+        action: "change_color",
+        player_id: pid,
+        color: newHex
+      });
+    });
+  }
+
+  function renderChat() {
+    const stream = document.getElementById("chat-stream");
+    const log = gameState.activity_log || [];
+    const playersMap = {};
+    (gameState.players || []).forEach(p => { playersMap[p.id] = p; });
+
+    stream.innerHTML = log.map(e => renderChatRowHtml(e, playersMap)).join("");
+    stream.scrollTop = stream.scrollHeight;
+  }
+
+  function sendChat() {
+    const input = document.getElementById("chat-input");
+    const text = input.value.trim();
+    if (!text) return;
+    wsSend({ action: "chat", msg: text });
+    input.value = "";
+  }
+
+  // Synchronized Countdown
+  let countdownTimerId = null;
+  function checkCountdownStaging() {
+    const countdownUntil = gameState.round_countdown_until;
+    const modal = document.getElementById("modal-round-countdown");
+    if (!countdownUntil) {
+      modal.style.display = "none";
+      return;
+    }
+
+    const now = getSyncedNow() / 1000;
+    const diff = countdownUntil - now;
+    if (diff > 0.1) {
+      modal.style.display = "flex";
+      const countEl = document.getElementById("countdown-number");
+      countEl.textContent = Math.ceil(diff);
+
+      if (countdownTimerId) clearInterval(countdownTimerId);
+      countdownTimerId = setInterval(() => {
+        const curDiff = countdownUntil - (getSyncedNow() / 1000);
+        if (curDiff <= 0.1) {
+          clearInterval(countdownTimerId);
+          modal.style.display = "none";
+        } else {
+          countEl.textContent = Math.ceil(curDiff);
+        }
+      }, 100);
+    } else {
+      modal.style.display = "none";
+    }
+  }
+
+  function renderLevelSuccessModal(isHost) {
+    const modal = document.getElementById("modal-level-success");
+    modal.style.display = "flex";
+    document.getElementById("host-next-level-wrap").style.display = isHost ? "block" : "none";
+    document.getElementById("non-host-next-level-wait").style.display = isHost ? "none" : "block";
+
+    const summary = document.getElementById("level-success-summary");
+    const curLevel = gameState.level || 1;
+    summary.innerHTML = `
+      <strong>{% trans "Level" %} ${curLevel} {% trans "Cleared!" %}</strong><br>
+      {% trans "Remaining Lives:" %} <strong>${gameState.lives}</strong>
+    `;
+  }
+
+  function renderGameOverModal(isHost, isVictory) {
+    const modal = document.getElementById("modal-gameover");
+    modal.style.display = "flex";
+    document.getElementById("host-play-again-wrap").style.display = isHost ? "block" : "none";
+
+    const icon = document.getElementById("gameover-icon");
+    const title = document.getElementById("gameover-title");
+    const desc = document.getElementById("gameover-desc");
+
+    if (isVictory) {
+      icon.textContent = "🏆";
+      title.textContent = "{% trans 'Grand Victory!' %}";
+      desc.textContent = "{% trans 'Incredible coordination! Your team cleared all target levels!' %}";
+    } else {
+      icon.textContent = "💀";
+      title.textContent = "{% trans 'Game Over!' %}";
+      desc.textContent = "{% trans 'The group ran out of lives. Better luck next time!' %}";
+    }
+  }
+
+  // Host Action Handlers
+  function startLevelClick() {
+    const btn = document.getElementById("btn-start-level");
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "⏳ {% trans 'Starting...' %}";
+    }
+    wsSend({
+      action: "start_level",
+      from_level: gameState.level || 1
+    });
+  }
+
+  function startNextLevelClick() {
+    const btn = document.getElementById("btn-next-level");
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "⏳ {% trans 'Starting...' %}";
+    }
+    closeModal("modal-level-success");
+    wsSend({
+      action: "start_level",
+      from_level: gameState.level || 1
+    });
+  }
+
+  function playAgainClick() {
+    closeModal("modal-gameover");
+    wsSend({ action: "play_again" });
+  }
+
+  function playCardClick(cardId) {
+    wsSend({ action: "play_card", card_id: cardId });
+  }
+
+  function updateCardClue(cardId, clueText) {
+    wsSend({ action: "set_clue", card_id: cardId, clue: clueText });
+  }
+
+  function submitSettings() {
+    const cardsMode = document.getElementById("cfg-cards-mode").value;
+    const lives = parseInt(document.getElementById("cfg-lives").value, 10);
+    const pack = document.getElementById("cfg-pack").value;
+    const targetLevels = parseInt(document.getElementById("cfg-levels").value, 10);
+    const allowNsfw = document.getElementById("cfg-nsfw").checked;
+
+    wsSend({
+      action: "update_settings",
+      settings: {
+        cards_per_player: cardsMode,
+        starting_lives: lives,
+        pack: pack,
+        target_levels: targetLevels,
+        allow_nsfw: allowNsfw
+      }
+    });
+  }
+
+  function syncLobbySettings() {
+    const s = gameState.settings || {};
+    if (s.cards_per_player) document.getElementById("cfg-cards-mode").value = s.cards_per_player;
+    if (s.starting_lives) document.getElementById("cfg-lives").value = s.starting_lives;
+    if (s.pack) document.getElementById("cfg-pack").value = s.pack;
+    if (s.target_levels !== undefined) document.getElementById("cfg-levels").value = s.target_levels;
+    if (s.allow_nsfw !== undefined) document.getElementById("cfg-nsfw").checked = Boolean(s.allow_nsfw);
+  }
+
+  function kickPlayer(pid) {
+    if (confirm("{% trans 'Kick this player?' %}")) {
+      wsSend({ action: "kick_player", player_id: pid });
+    }
+  }
+
+  function transferHost(pid) {
+    if (confirm("{% trans 'Transfer host role to this player?' %}")) {
+      wsSend({ action: "transfer_host", player_id: pid });
+    }
+  }
+
+  function submitPromptSuggestion() {
+    const title = document.getElementById("suggest-title").value.trim();
+    const low = document.getElementById("suggest-low").value.trim();
+    const high = document.getElementById("suggest-high").value.trim();
+    const pack = document.getElementById("suggest-pack").value;
+
+    if (!title || !low || !high) {
+      alert("{% trans 'Please fill out the scale theme and both 1 & 100 anchors.' %}");
+      return;
+    }
+
+    wsSend({
+      action: "suggest_prompt",
+      text: title,
+      low_desc: low,
+      high_desc: high,
+      pack: pack
+    });
+  }
+
+  // Initialize on load
+  document.addEventListener("DOMContentLoaded", () => {
+    initWebSocket();
+    renderGame();
+  });
+</script>
+{% endblock %}
