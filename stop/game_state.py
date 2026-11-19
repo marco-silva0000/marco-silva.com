@@ -5,12 +5,12 @@ import json
 import os
 import time
 import uuid
-from collections import defaultdict
 from typing import Any, Optional
 
 import redis
 
 from gamerooms.language_support import get_game_language_support, normalize_language_code
+from gamerooms.prompt_engine.evaluator import cluster_answer_keys
 from impostor.word_pairs import normalize_text
 from website.version import VERSION_COUNTER
 
@@ -36,15 +36,17 @@ CLASH_RULES = (
     "shared",
     "first_steals",
     "zero_clash",
+    "none",  # No collision penalty (all valid score full points)
 )
 
 DEFAULT_SETTINGS: dict[str, Any] = {
-    "max_rounds": 8,
+    "max_rounds": 8,  # 0 = infinite (until host ends)
     "round_timer": 30,
     "category_pack": "mix",
     "stop_mode": "countdown_on_first",
     "stop_countdown": 10,
     "clash_rule": "shared",
+    "fuzzy_clash": True,
     "easy_letters_only": True,
     "allow_custom_categories": True,
 }
@@ -346,7 +348,7 @@ def update_settings(state: dict[str, Any], raw: dict[str, Any]) -> dict[str, Any
     s = state.setdefault("settings", copy.deepcopy(DEFAULT_SETTINGS))
     if "max_rounds" in raw:
         try:
-            s["max_rounds"] = max(1, min(30, int(raw["max_rounds"])))
+            s["max_rounds"] = max(0, min(50, int(raw["max_rounds"])))
         except (ValueError, TypeError):
             pass
     if "round_timer" in raw:
@@ -365,6 +367,8 @@ def update_settings(state: dict[str, Any], raw: dict[str, Any]) -> dict[str, Any
             pass
     if "clash_rule" in raw and raw["clash_rule"] in CLASH_RULES:
         s["clash_rule"] = raw["clash_rule"]
+    if "fuzzy_clash" in raw:
+        s["fuzzy_clash"] = bool(raw["fuzzy_clash"])
     if "easy_letters_only" in raw:
         s["easy_letters_only"] = bool(raw["easy_letters_only"])
     if "allow_custom_categories" in raw:
@@ -628,14 +632,17 @@ def _compute_round_scores(state: dict[str, Any]) -> tuple[list[dict[str, Any]], 
       * 2nd Fastest Unique: 13 pts (10 base + 3 speed bonus)
       * 3rd Fastest Unique: 11 pts (10 base + 1 speed bonus)
       * 4th+ Unique: 10 pts
-    - Duplicate / Clash valid answers (2+ players wrote the same normalized word):
+    - Duplicate / Clash valid answers (2+ players wrote the same normalized word or fuzzy typo variant):
+      * clash_rule == 'none': 10 pts each
       * clash_rule == 'shared': 5 pts each
       * clash_rule == 'first_steals': 10 pts for fastest submitter of that word, 0 pts for slower duplicates
       * clash_rule == 'zero_clash': 0 pts for all duplicates
     """
     subs = state.get("submissions", {})
     participants = state.get("round_participants") or [p["id"] for p in active_players(state)]
-    clash_rule = state.get("settings", DEFAULT_SETTINGS).get("clash_rule", "shared")
+    s_settings = state.get("settings", DEFAULT_SETTINGS)
+    clash_rule = s_settings.get("clash_rule", "shared")
+    fuzzy_clash = bool(s_settings.get("fuzzy_clash", True))
 
     # Ensure every participant + anyone who submitted is represented
     all_pids: list[str] = []
@@ -652,15 +659,33 @@ def _compute_round_scores(state: dict[str, Any]) -> tuple[list[dict[str, Any]], 
         if sub and _is_submission_effective_valid(state, sub):
             valid_subs.append(sub)
 
-    by_norm: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    # Cluster valid answers (exact matches and close typos merge into collision groups)
+    # Respect host_clash_override == False (forced unique isolated from clustering)
+    cluster_inputs = []
+    forced_unique_pids: set[str] = set()
     for sub in valid_subs:
-        by_norm[sub["norm_key"]].append(sub)
+        if sub.get("host_clash_override") is False:
+            forced_unique_pids.add(sub["player_id"])
+        else:
+            cluster_inputs.append((sub["norm_key"], sub))
 
-    # Sort each group by speed
-    for grp in by_norm.values():
-        grp.sort(key=lambda x: (x.get("elapsed_ms", 999999), x.get("order_rank", 999)))
+    clustered = cluster_answer_keys(cluster_inputs, fuzzy=fuzzy_clash) if cluster_inputs else {}
 
-    unique_subs: list[dict[str, Any]] = [grp[0] for grp in by_norm.values() if len(grp) == 1]
+    sub_to_group: dict[str, list[dict[str, Any]]] = {}
+    for _canon_key, grp in clustered.items():
+        for s in grp:
+            sub_to_group[s["player_id"]] = grp
+
+    for pid in forced_unique_pids:
+        sub = subs[pid]
+        sub_to_group[pid] = [sub]
+
+    # A submission is considered unique if its cluster group size is 1 AND host_clash_override != True
+    unique_subs: list[dict[str, Any]] = [
+        s
+        for s in valid_subs
+        if not (len(sub_to_group.get(s["player_id"], [])) > 1 or s.get("host_clash_override") is True)
+    ]
     unique_subs.sort(key=lambda x: (x.get("elapsed_ms", 999999), x.get("order_rank", 999)))
 
     unique_rank_map: dict[str, int] = {sub["player_id"]: idx + 1 for idx, sub in enumerate(unique_subs)}
@@ -699,6 +724,7 @@ def _compute_round_scores(state: dict[str, Any]) -> tuple[list[dict[str, Any]], 
                     "points": 0,
                     "vetoed_by": [],
                     "host_override": None,
+                    "host_clash_override": None,
                 }
             )
             continue
@@ -718,8 +744,9 @@ def _compute_round_scores(state: dict[str, Any]) -> tuple[list[dict[str, Any]], 
                 status = "wrong_letter"
                 badge = f"❌ Doesn't start with “{state.get('current_letter', '')}” (0 pts)"
         else:
-            grp = by_norm.get(sub["norm_key"], [])
-            if len(grp) == 1:
+            grp = sub_to_group.get(pid, [sub])
+            is_unique = not (len(grp) > 1 or sub.get("host_clash_override") is True)
+            if is_unique:
                 u_rank = unique_rank_map.get(pid, 99)
                 if u_rank == 1:
                     pts = 15
@@ -738,8 +765,13 @@ def _compute_round_scores(state: dict[str, Any]) -> tuple[list[dict[str, Any]], 
                     status = "unique"
                     badge = "✨ Unique (+10 pts)"
             else:
-                is_fastest_in_clash = grp[0]["player_id"] == pid
-                if clash_rule == "first_steals":
+                sorted_grp = sorted(grp, key=lambda x: (x.get("elapsed_ms", 999999), x.get("order_rank", 999)))
+                is_fastest_in_clash = sorted_grp[0]["player_id"] == pid
+                if clash_rule == "none":
+                    pts = 10
+                    status = "clash_none"
+                    badge = "✨ Valid Answer (+10 pts)"
+                elif clash_rule == "first_steals":
                     if is_fastest_in_clash:
                         pts = 10
                         status = "clash_stolen"
@@ -774,6 +806,7 @@ def _compute_round_scores(state: dict[str, Any]) -> tuple[list[dict[str, Any]], 
                 "points": pts,
                 "vetoed_by": list(sub.get("vetoed_by") or []),
                 "host_override": sub.get("host_override"),
+                "host_clash_override": sub.get("host_clash_override"),
             }
         )
 
@@ -890,6 +923,50 @@ def toggle_answer_validity(
 
     save_game(state["code"], state)
     return True, "Scores recalculated!"
+
+
+def toggle_submission_clash(
+    state: dict[str, Any],
+    actor_id: str,
+    target_pid: str,
+) -> tuple[bool, str]:
+    """During `reveal`, allow the Host to arbitrate whether an answer is forced into a clash or forced unique."""
+    if state.get("phase") != "reveal":
+        return False, "Collisions can only be arbitrated during the Reveal phase."
+
+    actor = state.get("players", {}).get(actor_id)
+    sub = state.get("submissions", {}).get(target_pid)
+    if not actor or not sub:
+        return False, "Submission not found."
+
+    if not is_player_admin(state, actor):
+        return False, "Only the Host can arbitrate collisions."
+
+    # Determine current clash state from round_results
+    curr_result = next((r for r in state.get("round_results", []) if r["player_id"] == target_pid), None)
+    was_clash = bool(curr_result and "clash" in curr_result.get("status", ""))
+
+    if sub.get("host_clash_override") is not None:
+        sub["host_clash_override"] = not sub["host_clash_override"]
+    else:
+        sub["host_clash_override"] = not was_clash
+
+    verdict = "💥 Clash" if sub["host_clash_override"] else "✨ Unique"
+    append_event(
+        state,
+        "System",
+        f"⚖️ Host {actor['name']} arbitrated {sub['player_name']}'s answer “{sub['raw_text']}” as {verdict}.",
+    )
+
+    results, deltas = _compute_round_scores(state)
+    state["round_results"] = results
+    _apply_score_deltas(state, deltas)
+
+    if state.get("rounds_history"):
+        state["rounds_history"][-1]["results"] = copy.deepcopy(results)
+
+    save_game(state["code"], state)
+    return True, f"Submission marked as {verdict}!"
 
 
 def end_match(state: dict[str, Any], by_name: str = "Host") -> dict[str, Any]:

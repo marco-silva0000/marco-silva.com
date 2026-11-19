@@ -136,18 +136,47 @@ def get_next_prompt(
     language: str = "en",
     used_ids: Optional[set[str]] = None,
     allow_generative: bool = True,
+    round_num: int = 1,
+    pacing_mode: str = "funnel",
 ) -> dict[str, Any]:
     """
-    Select the next round prompt.
-    Prefers curated gold deck prompts first, seamlessly falling back to
-    combinatorial semantic frame generation when the deck runs out.
+    Select the next round prompt with progressive Goldilocks narrowing.
+    - 'funnel': Wide open questions in early rounds (N >= 18) -> moderate mid rounds (10 <= N <= 22)
+      -> tight late rounds (4 <= N <= 12) -> sudden death collisions in deep elimination (N <= 7).
+    - 'narrow': High-collision sudden death prompts only (N <= 8).
+    - 'random': Pure random mix without cardinality weighting.
     """
     used = used_ids or set()
     curated = get_curated_deck(pack)
     unused_curated = [p for p in curated if p.get("id") not in used]
 
     if unused_curated:
-        chosen = dict(_rng.choice(unused_curated))
+        candidates = []
+        if pacing_mode in ("funnel", "narrowing"):
+            if round_num <= 2:
+                candidates = [p for p in unused_curated if p.get("cardinality", 15) >= 18]
+            elif round_num in (3, 4):
+                candidates = [p for p in unused_curated if 10 <= p.get("cardinality", 15) <= 22]
+            elif round_num in (5, 6):
+                candidates = [p for p in unused_curated if 4 <= p.get("cardinality", 15) <= 12]
+            else:
+                candidates = [p for p in unused_curated if p.get("cardinality", 15) <= 8]
+        elif pacing_mode in ("narrow", "sudden_death"):
+            candidates = [p for p in unused_curated if p.get("cardinality", 15) <= 8]
+
+        pool_to_pick = candidates if candidates else unused_curated
+        chosen = dict(_rng.choice(pool_to_pick))
+
+        card = chosen.get("cardinality", 15)
+        if card >= 18:
+            chosen["cardinality_bracket"] = "broad"
+        elif card >= 10:
+            chosen["cardinality_bracket"] = "medium"
+        elif card >= 5:
+            chosen["cardinality_bracket"] = "tight"
+        else:
+            chosen["cardinality_bracket"] = "narrow"
+
         # Localize prompt text if language is non-English and translation is present
         lang_code = (language or "en").split("-")[0].lower()
         if lang_code != "en" and lang_code in chosen.get("translations", {}):
@@ -163,7 +192,9 @@ def get_next_prompt(
             target_pack = _rng.choice(list(ALL_FRAMES.keys()))
 
         frame = ALL_FRAMES[target_pack]
-        synth = synthesize_prompt_from_frame(frame, language=language)
+        need_strict_limiter = (round_num >= 4) or (pacing_mode in ("narrow", "sudden_death"))
+        synth = synthesize_prompt_from_frame(frame, language=language, include_limiter=need_strict_limiter)
+        synth["cardinality_bracket"] = "narrow" if need_strict_limiter else "broad"
         lang_code = (language or "en").split("-")[0].lower()
         if lang_code != "en" and lang_code in synth.get("translations", {}):
             synth["display_text"] = synth["translations"][lang_code]
@@ -173,5 +204,6 @@ def get_next_prompt(
 
     # Ultimate fallback to any gold prompt
     chosen = dict(_rng.choice(GOLD_PROMPTS))
+    chosen["cardinality_bracket"] = "broad"
     chosen["display_text"] = chosen["text"]
     return chosen

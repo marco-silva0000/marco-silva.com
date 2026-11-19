@@ -24,6 +24,7 @@ from .game_state import (
     submit_answer,
     toggle_answer_validity,
     toggle_spectator,
+    toggle_submission_clash,
     transfer_host,
     update_settings,
 )
@@ -138,7 +139,7 @@ class StopConsumer(AsyncJsonWebsocketConsumer):
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can start or advance rounds.")
             max_rounds = int(state.get("settings", {}).get("max_rounds", 8))
-            if action == "next_round" and state.get("round_num", 0) >= max_rounds:
+            if action == "next_round" and max_rounds > 0 and state.get("round_num", 0) >= max_rounds:
                 end_match(state, by_name=self.player_name or "Host")
                 await self.broadcast_sync()
                 return
@@ -186,6 +187,17 @@ class StopConsumer(AsyncJsonWebsocketConsumer):
                     await self.broadcast_sync()
         elif action == "toggle_validity":
             ok, msg = toggle_answer_validity(
+                state,
+                self.player_id,
+                target_pid=str(content.get("player_id", "")),
+            )
+            if not ok:
+                return await self.send_error(msg)
+            await self.broadcast_sync()
+        elif action == "toggle_clash":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can arbitrate collisions.")
+            ok, msg = toggle_submission_clash(
                 state,
                 self.player_id,
                 target_pid=str(content.get("player_id", "")),

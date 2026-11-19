@@ -14,7 +14,6 @@ import json
 import os
 import time
 import uuid
-from collections import defaultdict
 from typing import Any, Optional
 
 import redis
@@ -26,6 +25,7 @@ from gamerooms.prompt_engine import (
     get_next_prompt,
     validate_player_answer,
 )
+from gamerooms.prompt_engine.evaluator import are_similar_answers, cluster_answer_keys
 from website.version import VERSION_COUNTER
 
 _redis = None
@@ -34,6 +34,12 @@ _fallback_store: dict[str, str] = {}
 COLLISION_MODES = (
     "classic",  # Clashes get 0 points, unique gets 100 points
     "harsh",  # Clashes lose 50 points (-50), unique gets 100 points
+)
+
+PACING_MODES = (
+    "funnel",  # Wide -> narrow -> sudden death
+    "narrow",  # High-collision narrow only
+    "random",  # Pure random mix
 )
 
 GAME_MODES = (
@@ -51,9 +57,11 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "game_mode": "classic",  # "classic", "the_me", "oral_table"
     "the_me_rotation": "rotate",  # "rotate", "host_fixed"
     "pack": "mix",  # "mix", "geo", "media", "food", "nature", "history", "weird"
-    "max_rounds": 6,
+    "max_rounds": 6,  # 0 = infinite / until 1 survivor or host ends
     "round_timer": 45,  # 30, 45, 60, 0 (untimed)
     "collision_mode": "classic",
+    "pacing_mode": "funnel",
+    "fuzzy_clash": True,
     "ai_validation": True,
     "obscurity_bonus": True,
     "allow_generative_prompts": True,
@@ -300,7 +308,7 @@ def update_settings(state: dict[str, Any], new_settings: dict[str, Any]) -> None
         cur["pack"] = str(new_settings["pack"])
     if "max_rounds" in new_settings:
         try:
-            cur["max_rounds"] = max(1, min(20, int(new_settings["max_rounds"])))
+            cur["max_rounds"] = max(0, min(30, int(new_settings["max_rounds"])))
         except (ValueError, TypeError):
             pass
     if "round_timer" in new_settings:
@@ -310,6 +318,10 @@ def update_settings(state: dict[str, Any], new_settings: dict[str, Any]) -> None
             pass
     if "collision_mode" in new_settings and new_settings["collision_mode"] in COLLISION_MODES:
         cur["collision_mode"] = new_settings["collision_mode"]
+    if "pacing_mode" in new_settings and new_settings["pacing_mode"] in PACING_MODES:
+        cur["pacing_mode"] = new_settings["pacing_mode"]
+    if "fuzzy_clash" in new_settings:
+        cur["fuzzy_clash"] = bool(new_settings["fuzzy_clash"])
     if "ai_validation" in new_settings:
         cur["ai_validation"] = bool(new_settings["ai_validation"])
     if "obscurity_bonus" in new_settings:
@@ -347,6 +359,8 @@ def setup_round(state: dict[str, Any]) -> bool:
         language=state.get("language", "en"),
         used_ids=used_ids,
         allow_generative=allow_gen,
+        round_num=state.get("round_num", 1),
+        pacing_mode=settings.get("pacing_mode", "funnel"),
     )
     state["current_prompt"] = prompt
     state.setdefault("used_prompt_ids", []).append(prompt.get("id"))
@@ -482,8 +496,8 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
     answers = state.get("round_answers", {})
     players = state.get("players", {})
 
-    # 1. Group by clean_answer_key
-    grouped_by_key: dict[str, list[str]] = defaultdict(list)
+    # 1. Group by clean_answer_key with optional fuzzy clustering
+    entries: list[tuple[str, str]] = []
     player_keys: dict[str, str] = {}
 
     for pid in players.keys():
@@ -492,7 +506,10 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
         ckey = clean_answer_key(raw_ans)
         player_keys[pid] = ckey
         if ckey:
-            grouped_by_key[ckey].append(pid)
+            entries.append((ckey, pid))
+
+    fuzzy_clash = bool(settings.get("fuzzy_clash", True))
+    grouped_by_key: dict[str, list[str]] = cluster_answer_keys(entries, fuzzy=fuzzy_clash)
 
     # 2. Evaluate validity for each distinct non-empty key
     evaluated_keys: dict[str, dict[str, Any]] = {}
@@ -527,7 +544,11 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
             is_obs = val_info.get("is_obscure", False) and allow_obs
             other_pids = [p for p in pids if p != the_me_id]
 
-            if ckey == the_me_key:
+            is_caught_by_me = (ckey == the_me_key) or (
+                fuzzy_clash and bool(the_me_key) and are_similar_answers(ckey, the_me_key)
+            )
+
+            if is_caught_by_me:
                 # Players trapped by The ME get eliminated!
                 for pid in other_pids:
                     me_victims.append(pid)
@@ -636,7 +657,7 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
             state["winner_id"] = survivor["id"]
             state["winner_reason"] = f"🏆 Sole Survivor! {survivor['name']} is the last player standing!"
             append_event(state, "System", f"🏆 SOLE SURVIVOR! {survivor['name']} outlasted everyone!")
-        elif cur_round >= max_rounds:
+        elif max_rounds > 0 and cur_round >= max_rounds:
             state["the_me_gameover"] = True
             state["the_me_winner"] = "survivors"
             survivor_names = ", ".join(p["name"] for p in alive_guessers)
@@ -871,12 +892,68 @@ def adjudicate_oral_round(
     return round_summary
 
 
+def toggle_answer_clash(state: dict[str, Any], player_id: str) -> bool:
+    """Host arbitration: toggle whether an answer is forced into a clash or forced unique."""
+    if state.get("phase") not in ("reveal", "recap"):
+        return False
+    rr = state.get("round_results")
+    if not rr:
+        return False
+    p_res = rr.get("player_results", {}).get(player_id)
+    if not p_res:
+        return False
+
+    old_pts = p_res.get("points_awarded", 0)
+    old_status = p_res.get("status")
+
+    settings = state.get("settings", DEFAULT_SETTINGS)
+    collision_mode = settings.get("collision_mode", "classic")
+
+    if old_status in ("clash", "caught_by_me"):
+        # Un-clash: make unique
+        new_status = "unique"
+        new_pts = 100
+        p_res["eliminated"] = False
+        p_res["reason"] = "Host marked as unique answer."
+    else:
+        # Force clash
+        new_status = "clash"
+        new_pts = -50 if collision_mode == "harsh" else 0
+        p_res["reason"] = "Host marked as duplicate / collision."
+
+    diff = new_pts - old_pts
+    p_res["status"] = new_status
+    p_res["points_awarded"] = new_pts
+    player = state.get("players", {}).get(player_id)
+    if player:
+        player["score"] = max(0, player.get("score", 0) + diff)
+        p_res["total_score"] = player["score"]
+        if new_status == "clash" and settings.get("game_mode") == "the_me":
+            player["eliminated"] = True
+            p_res["eliminated"] = True
+
+    append_event(state, "Host", f"⚖️ Host marked {p_res['player_name']}'s answer as {new_status.upper()}.")
+    save_game(state["code"], state)
+    return True
+
+
+def end_game(state: dict[str, Any], by_name: str = "Host") -> bool:
+    """Manually end the game and move directly to gameover podium."""
+    state["phase"] = "gameover"
+    if not state.get("winner_reason"):
+        state["winner_reason"] = f"🏁 Match concluded by {by_name}!"
+    append_event(state, "System", f"🏁 Match concluded by {by_name}!")
+    save_game(state["code"], state)
+    return True
+
+
 def advance_next_round(state: dict[str, Any]) -> bool:
     """Advance from reveal to next round, or game over if max rounds reached or The ME eliminated players."""
     max_rounds = int(state.get("settings", {}).get("max_rounds", 6))
     cur_round = int(state.get("round_num", 1))
 
-    if state.get("the_me_gameover") or cur_round >= max_rounds:
+    should_end = max_rounds > 0 and cur_round >= max_rounds
+    if state.get("the_me_gameover") or should_end:
         state["phase"] = "gameover"
         append_event(state, "System", "🏆 Game Over! Check the final podium!")
         save_game(state["code"], state)
@@ -978,5 +1055,6 @@ def get_sanitized_player_view(state: dict[str, Any], viewer: Optional[str] = Non
     view["available_game_modes"] = [{"id": gid, "label": glbl} for gid, glbl in GAME_MODES]
     view["available_the_me_rotations"] = [{"id": rid, "label": rlbl} for rid, rlbl in THE_ME_ROTATIONS]
     view["collision_modes"] = list(COLLISION_MODES)
+    view["pacing_modes"] = list(PACING_MODES)
 
     return view

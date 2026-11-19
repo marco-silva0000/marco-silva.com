@@ -569,3 +569,85 @@ class TestTheMeAndOralModesAndHostTransfer:
         assert "url" in data
         assert p1["token"] in data["url"]
         assert data["player_name"] == "Alice"
+
+    def test_fuzzy_clash_and_the_me_typo_elimination(self):
+        from dontsay.game_state import end_game, submit_the_me_answer, toggle_answer_clash
+
+        state = create_game("FUZZYDS1")
+        _, p1, _ = add_player(state, "Host", is_admin=True)
+        _, p2, _ = add_player(state, "Player2")
+        _, p3, _ = add_player(state, "Player3")
+
+        update_settings(
+            state,
+            {
+                "game_mode": "the_me",
+                "the_me_rotation": "host_fixed",
+                "fuzzy_clash": True,
+                "ai_validation": False,
+            },
+        )
+        start_game(state)
+
+        # The ME answers "Tokyo", Player2 types typo "Tokio", Player3 types "Kyoto"
+        submit_the_me_answer(state, p1["id"], "Tokyo")
+        submit_answer(state, p2["id"], "Tokio")
+        submit_answer(state, p3["id"], "Kyoto")
+
+        assert state["phase"] == "reveal"
+        rr = state["round_results"]
+
+        # Player2's "Tokio" fuzzy-matched The ME's "Tokyo" and is eliminated
+        assert rr["player_results"][p2["id"]]["status"] == "caught_by_me"
+        assert p2["eliminated"] is True
+
+        # Player3 survived
+        assert rr["player_results"][p3["id"]]["status"] == "escaped_me"
+        assert p3["eliminated"] is False
+
+        # Host arbitrates: toggle p2's clash override
+        toggled = toggle_answer_clash(state, p2["id"])
+        assert toggled is True
+        assert state["round_results"]["player_results"][p2["id"]]["status"] == "unique"
+
+        # End game manually
+        end_game(state, by_name="Host")
+        assert state["phase"] == "gameover"
+
+    def test_infinite_rounds_and_pacing_funnel(self):
+        from gamerooms.prompt_engine.generator import get_next_prompt
+
+        state = create_game("INFDS1")
+        _, p1, _ = add_player(state, "Host", is_admin=True)
+        _, p2, _ = add_player(state, "Player2")
+
+        update_settings(
+            state,
+            {
+                "game_mode": "classic",
+                "max_rounds": 0,  # Infinite
+                "pacing_mode": "funnel",
+                "ai_validation": False,
+            },
+        )
+        start_game(state)
+        assert state["settings"]["max_rounds"] == 0
+
+        # Round 1 (Funnel mode): prompt has wide/unrestricted cardinality
+        p_early = get_next_prompt(pack="mix", round_num=1, pacing_mode="funnel")
+        assert p_early is not None
+
+        # Round 8 (Funnel mode late round): sudden-death narrow prompt
+        p_late = get_next_prompt(pack="mix", round_num=8, pacing_mode="funnel")
+        assert p_late is not None
+        assert p_late.get("cardinality_bracket") in ("tight", "narrow")
+
+        submit_answer(state, p1["id"], "AnswerA")
+        submit_answer(state, p2["id"], "AnswerB")
+        assert state["phase"] == "reveal"
+
+        # Advance to round 2: because max_rounds == 0, it does NOT end at round 1
+        res = advance_next_round(state)
+        assert res is True
+        assert state["round_num"] == 2
+        assert state["phase"] == "answering"

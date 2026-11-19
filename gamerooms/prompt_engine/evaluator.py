@@ -4,6 +4,7 @@ Integrates with local Ollama (`qwen3:30b` on CT 104) with strict timeouts
 and robust offline deterministic fallbacks.
 """
 
+import difflib
 import json
 import logging
 import os
@@ -27,6 +28,119 @@ def clean_answer_key(text: str) -> str:
         r"^(the|a|an|o|a|os|as|um|uma|el|la|los|las|un|una|il|lo|la|le|gli|i|un'|l'|le|la|les|un|une)\s+", "", norm
     ).strip()
     return norm
+
+
+def levenshtein(s1: str, s2: str) -> int:
+    """Compute Levenshtein distance between two strings."""
+    if len(s1) < len(s2):
+        return levenshtein(s2, s1)
+    if len(s2) == 0:
+        return len(s1)
+    prev = range(len(s2) + 1)
+    for i, c1 in enumerate(s1):
+        curr = [i + 1]
+        for j, c2 in enumerate(s2):
+            insertions = prev[j + 1] + 1
+            deletions = curr[j] + 1
+            substitutions = prev[j] + (c1 != c2)
+            curr.append(min(insertions, deletions, substitutions))
+        prev = curr
+    return prev[-1]
+
+
+def are_similar_answers(w1: str, w2: str) -> bool:
+    """
+    Check if two cleaned answer strings represent the same word with minor typos,
+    phonetic variants, singular/plural, or internal space differences.
+    Prevents players from evading collisions or earning unfair rarity points due to misspellings.
+    """
+    if not w1 or not w2:
+        return False
+    w1 = w1.strip().lower()
+    w2 = w2.strip().lower()
+    if w1 == w2:
+        return True
+
+    # Compound space differences: 'mona lisa' vs 'monalisa'
+    s1 = w1.replace(" ", "")
+    s2 = w2.replace(" ", "")
+    if s1 == s2:
+        return True
+
+    # Plural / singular variants (English / Romance)
+    if s1 + "s" == s2 or s2 + "s" == s1 or s1 + "es" == s2 or s2 + "es" == s1:
+        return True
+
+    min_len = min(len(s1), len(s2))
+    if min_len <= 3:
+        return False
+
+    dist = levenshtein(s1, s2)
+    ratio = difflib.SequenceMatcher(None, s1, s2).ratio()
+
+    # For 4-letter words, avoid false collisions between distinct words (e.g. rome/rose, bear/beer).
+    if min_len == 4:
+        if len(s1) == len(s2):
+            diff_chars = [(c1, c2) for c1, c2 in zip(s1, s2) if c1 != c2]
+            if len(diff_chars) == 1:
+                c1, c2 = diff_chars[0]
+                if {c1, c2} in [{"i", "y"}, {"c", "k"}, {"s", "z"}]:
+                    return True
+            return False
+        return dist == 1 and (s1 in s2 or s2 in s1) and ratio >= 0.88
+
+    # For 5-letter words
+    if min_len == 5:
+        if len(s1) == len(s2):
+            diff_chars = [(c1, c2) for c1, c2 in zip(s1, s2) if c1 != c2]
+            if len(diff_chars) == 1:
+                c1, c2 = diff_chars[0]
+                if {c1, c2} in [{"i", "y"}, {"c", "k"}, {"s", "z"}, {"u", "v"}]:
+                    return True
+                return ratio >= 0.82
+            return dist <= 2 and ratio >= 0.80
+        return dist <= 1 and ratio >= 0.82
+
+    # For 6-8 letter words
+    if min_len <= 8:
+        return dist <= 2 and ratio >= 0.80
+
+    # For long words (9+ letters)
+    return dist <= 3 and ratio >= 0.82
+
+
+def cluster_answer_keys(
+    entries: list[tuple[str, Any]],
+    fuzzy: bool = True,
+) -> dict[str, list[Any]]:
+    """
+    Cluster a list of (cleaned_key, item) pairs so that exact matches and close typos
+    are merged into a single canonical collision group.
+    Returns: dict mapping canonical_key -> list of grouped items.
+    """
+    clusters: list[tuple[str, list[Any]]] = []
+
+    for key, val in entries:
+        if not key:
+            continue
+        matched_idx = -1
+        if fuzzy:
+            for idx, (rep_key, _) in enumerate(clusters):
+                if are_similar_answers(key, rep_key):
+                    matched_idx = idx
+                    break
+        else:
+            for idx, (rep_key, _) in enumerate(clusters):
+                if key == rep_key:
+                    matched_idx = idx
+                    break
+
+        if matched_idx >= 0:
+            clusters[matched_idx][1].append(val)
+        else:
+            clusters.append((key, [val]))
+
+    return {rep_key: vals for rep_key, vals in clusters}
 
 
 def query_ollama(prompt: str, model: str = DEFAULT_MODEL, timeout: float = 2.5) -> Optional[str]:

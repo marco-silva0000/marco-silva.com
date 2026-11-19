@@ -9,6 +9,7 @@ from .game_state import (
     adjudicate_oral_round,
     advance_next_round,
     append_event,
+    end_game,
     evaluate_and_reveal_round,
     get_game,
     get_sanitized_player_view,
@@ -19,6 +20,7 @@ from .game_state import (
     start_game,
     submit_answer,
     submit_the_me_answer,
+    toggle_answer_clash,
     toggle_answer_validity,
     toggle_spectator,
     transfer_host,
@@ -163,10 +165,21 @@ class DontSayConsumer(AsyncJsonWebsocketConsumer):
             is_valid = bool(content.get("is_valid", True))
             toggle_answer_validity(state, target_pid, is_valid)
             await self.broadcast_sync()
+        elif action == "toggle_clash":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can arbitrate answer collisions.")
+            target_pid = str(content.get("player_id", ""))
+            toggle_answer_clash(state, target_pid)
+            await self.broadcast_sync()
         elif action == "next_round":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can advance to the next round.")
             advance_next_round(state)
+            await self.broadcast_sync()
+        elif action == "end_game":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can end the match.")
+            end_game(state, by_name=self.player_name or "Host")
             await self.broadcast_sync()
         elif action == "reset_game":
             if not self._is_admin(state):

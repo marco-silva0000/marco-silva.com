@@ -194,6 +194,62 @@ class TestStopGameplayAndSpeedUniquenessScoring:
         start_round(state)
         assert "Portuguese Pastries" in state["current_category"]["title"]
 
+    def test_fuzzy_collision_typo_clustering_and_host_clash_toggle(self):
+        from .game_state import toggle_submission_clash
+
+        state = create_initial_state(self.code)
+        state, p1, _ = add_player(state, "Alice", is_admin=True)
+        state, p2, _ = add_player(state, "Bob")
+        state, p3, _ = add_player(state, "Charlie")
+
+        update_settings(state, {"fuzzy_clash": True, "clash_rule": "shared"})
+        start_round(state, forced_category="Fruits", forced_letter="B")
+
+        # Alice types "Banana", Bob types typo "Bananna", Charlie types "Blueberry"
+        submit_answer(state, p1["id"], "Banana")
+        submit_answer(state, p2["id"], "Bananna")
+        submit_answer(state, p3["id"], "Blueberry")
+        call_stop(state, p1["id"])
+
+        assert state["phase"] == "reveal"
+        # Alice and Bob should clash due to fuzzy clustering of "Banana" vs "Bananna"
+        res_map = {r["player_id"]: r for r in state["round_results"]}
+        assert "clash" in res_map[p1["id"]]["status"]
+        assert "clash" in res_map[p2["id"]]["status"]
+        assert res_map[p1["id"]]["points"] == 5
+        assert res_map[p2["id"]]["points"] == 5
+
+        # Charlie is unique
+        assert "unique" in res_map[p3["id"]]["status"]
+
+        # Host arbitrates: toggle Bob to force unique
+        ok, msg = toggle_submission_clash(state, p1["id"], p2["id"])
+        assert ok is True
+        res_map2 = {r["player_id"]: r for r in state["round_results"]}
+        assert "unique" in res_map2[p2["id"]]["status"]
+        assert res_map2[p2["id"]]["points"] >= 10
+
+    def test_clash_rule_none_and_infinite_rounds(self):
+        state = create_initial_state(self.code)
+        state, p1, _ = add_player(state, "Alice", is_admin=True)
+        state, p2, _ = add_player(state, "Bob")
+
+        # clash_rule == 'none': duplicate answers both get 10 pts!
+        # max_rounds == 0: infinite rounds
+        update_settings(state, {"clash_rule": "none", "max_rounds": 0})
+        assert state["settings"]["max_rounds"] == 0
+        assert state["settings"]["clash_rule"] == "none"
+
+        start_round(state, forced_category="Animals", forced_letter="B")
+        submit_answer(state, p1["id"], "Bear")
+        submit_answer(state, p2["id"], "Bear")
+        call_stop(state, p1["id"])
+
+        assert state["phase"] == "reveal"
+        res_map = {r["player_id"]: r for r in state["round_results"]}
+        assert res_map[p1["id"]]["points"] == 10
+        assert res_map[p2["id"]]["points"] == 10
+
 
 @pytest.mark.django_db
 class TestStopViewsAndRoomIntegration:

@@ -205,6 +205,7 @@ body { max-width: 1080px !important; }
             <div>
               <label style="font-size:0.75rem; font-weight:600; color:var(--ds-muted); display:block; margin-bottom:0.25rem;">{% trans "Rounds" %}</label>
               <select id="cfg-rounds" class="ds-input-large" style="font-size:0.85rem; padding:0.4rem;">
+                <option value="0">♾️ {% trans "Infinite (Elimination / Host Ends)" %}</option>
                 <option value="4">4 {% trans "Rounds" %}</option>
                 <option value="6" selected>6 {% trans "Rounds" %}</option>
                 <option value="8">8 {% trans "Rounds" %}</option>
@@ -227,8 +228,19 @@ body { max-width: 1080px !important; }
                 <option value="harsh">☠️ {% trans "Harsh (-50 pts penalty)" %}</option>
               </select>
             </div>
+            <div>
+              <label style="font-size:0.75rem; font-weight:600; color:var(--ds-muted); display:block; margin-bottom:0.25rem;">{% trans "Prompt Pacing" %}</label>
+              <select id="cfg-pacing" class="ds-input-large" style="font-size:0.85rem; padding:0.4rem;">
+                <option value="funnel" selected>🎯 {% trans "Funnel (Broad -> Tight -> Narrow)" %}</option>
+                <option value="narrow">⚡ {% trans "Sudden Death (Strict Narrow)" %}</option>
+                <option value="random">🎲 {% trans "Random Cardinality" %}</option>
+              </select>
+            </div>
           </div>
           <div style="margin-top:0.65rem; display:flex; gap:1rem; flex-wrap:wrap;">
+            <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+              <input type="checkbox" id="cfg-fuzzy-clash" checked> 🔤 {% trans "Typo & Fuzzy Clash Protection" %}
+            </label>
             <label style="font-size:0.8rem; display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
               <input type="checkbox" id="cfg-ai" checked> 🤖 {% trans "Local AI Answer Verification (Qwen 30B)" %}
             </label>
@@ -391,7 +403,10 @@ body { max-width: 1080px !important; }
         <div id="results-table-container"></div>
 
         <!-- Host Next Round Panel -->
-        <div id="host-next-panel" style="display:none; margin-top:1.25rem; text-align:right;">
+        <div id="host-next-panel" style="display:none; margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+          <button id="btn-end-game" class="ds-btn ds-btn-danger" style="font-size:0.9rem; padding:0.55rem 1.1rem;" onclick="endGame()">
+            🏁 {% trans "End Game / Declare Winner" %}
+          </button>
           <button id="btn-next-round" class="ds-btn ds-btn-primary" style="font-size:1rem; padding:0.65rem 1.5rem;" onclick="nextRound()">
             ⏩ {% trans "Next Round" %}
           </button>
@@ -589,7 +604,9 @@ function renderGame() {
   // Badges & Host
   document.getElementById("host-badge").style.display = isHost ? "inline-flex" : "none";
   document.getElementById("badge-phase").textContent = phase.toUpperCase();
-  document.getElementById("badge-round").textContent = `Round ${gameState.round_num || 0}/${gameState.settings?.max_rounds || 6}`;
+  const maxR = gameState.settings?.max_rounds ?? 6;
+  const maxRText = maxR === 0 ? "∞" : maxR;
+  document.getElementById("badge-round").textContent = `Round ${gameState.round_num || 0}/${maxRText}`;
 
   // Hide all stages first
   [
@@ -646,9 +663,15 @@ function renderLobby(isHost) {
     if (rotEl) rotEl.value = gameState.settings.the_me_rotation || "rotate";
 
     document.getElementById("cfg-pack").value = gameState.settings.pack || "mix";
-    document.getElementById("cfg-rounds").value = gameState.settings.max_rounds || 6;
+    document.getElementById("cfg-rounds").value = gameState.settings.max_rounds !== undefined ? gameState.settings.max_rounds : 6;
     document.getElementById("cfg-timer").value = gameState.settings.round_timer || 45;
     document.getElementById("cfg-collision").value = gameState.settings.collision_mode || "classic";
+    if (document.getElementById("cfg-pacing")) {
+      document.getElementById("cfg-pacing").value = gameState.settings.pacing_mode || "funnel";
+    }
+    if (document.getElementById("cfg-fuzzy-clash")) {
+      document.getElementById("cfg-fuzzy-clash").checked = gameState.settings.fuzzy_clash !== false;
+    }
     document.getElementById("cfg-ai").checked = Boolean(gameState.settings.ai_validation);
     document.getElementById("cfg-obscure").checked = Boolean(gameState.settings.obscurity_bonus);
   }
@@ -826,16 +849,11 @@ function renderAnswering(isHost) {
     }
   }
 
-  // Pre-fill answer if already submitted, or ensure cleared
+  // Pre-fill answer if confirmed submitted on server
   const myAns = gameState.my_answer || "";
   const inputEl = document.getElementById("input-answer");
-  if (myAns) {
+  if (myAns && inputEl && inputEl.value !== myAns) {
     inputEl.value = myAns;
-  } else if (!isEliminated) {
-    // If we have not submitted for this round, ensure input is clear
-    if (!gameState.my_answer) {
-      inputEl.value = "";
-    }
   }
   document.getElementById("answer-locked-feedback").style.display = myAns ? "block" : "none";
 
@@ -948,6 +966,7 @@ function renderReveal(isHost) {
       <div style="display:flex; gap:0.25rem;">
         <button class="ds-btn ds-btn-success" style="padding:0.2rem 0.45rem; font-size:0.75rem;" onclick="toggleValidity('${res.player_id}', true)" title="Mark Valid">✅</button>
         <button class="ds-btn ds-btn-danger" style="padding:0.2rem 0.45rem; font-size:0.75rem;" onclick="toggleValidity('${res.player_id}', false)" title="Mark Invalid">❌</button>
+        <button class="ds-btn" style="padding:0.2rem 0.45rem; font-size:0.75rem;" onclick="toggleClash('${res.player_id}')" title="Toggle Collision / Unique">💥/✨</button>
       </div>
     ` : "";
 
@@ -980,14 +999,17 @@ function renderReveal(isHost) {
     elimBanner.style.display = "none";
   }
 
-  const nextBtn = document.querySelector("#host-next-panel button");
+  const maxR = gameState.settings?.max_rounds ?? 6;
+  const isCapped = maxR > 0 && ((gameState.round_num || 0) >= maxR);
+  const isFinal = Boolean(gameState.the_me_gameover || isCapped);
+  const nextBtn = document.getElementById("btn-next-round");
   if (nextBtn) {
-    nextBtn.textContent = (gameState.the_me_gameover || gameState.round_num >= (gameState.settings?.max_rounds || 6))
-      ? "🏆 {% trans 'View Final Results' %}"
-      : "➡️ {% trans 'Next Round' %}";
+    nextBtn.textContent = isFinal
+      ? "{% trans '🏆 View Final Results' %}"
+      : "{% trans '➡️ Next Round' %}";
   }
 
-  document.getElementById("host-next-panel").style.display = isHost ? "block" : "none";
+  document.getElementById("host-next-panel").style.display = isHost ? "flex" : "none";
 }
 
 function renderGameOver(isHost) {
@@ -1125,6 +1147,8 @@ function saveSettings() {
   const maxRounds = parseInt(document.getElementById("cfg-rounds").value, 10);
   const roundTimer = parseInt(document.getElementById("cfg-timer").value, 10);
   const collisionMode = document.getElementById("cfg-collision").value;
+  const pacingMode = document.getElementById("cfg-pacing")?.value || "funnel";
+  const fuzzyClash = document.getElementById("cfg-fuzzy-clash") ? document.getElementById("cfg-fuzzy-clash").checked : true;
   const aiVal = document.getElementById("cfg-ai").checked;
   const obsBonus = document.getElementById("cfg-obscure").checked;
 
@@ -1137,6 +1161,8 @@ function saveSettings() {
       max_rounds: maxRounds,
       round_timer: roundTimer,
       collision_mode: collisionMode,
+      pacing_mode: pacingMode,
+      fuzzy_clash: fuzzyClash,
       ai_validation: aiVal,
       obscurity_bonus: obsBonus,
     }
@@ -1151,6 +1177,8 @@ function submitAnswer() {
 }
 function revealRound() { wsSend({ action: "reveal_round" }); }
 function toggleValidity(pid, isValid) { wsSend({ action: "toggle_validity", player_id: pid, is_valid: isValid }); }
+function toggleClash(pid) { wsSend({ action: "toggle_clash", player_id: pid }); }
+function endGame() { wsSend({ action: "end_game" }); }
 function nextRound() { wsSend({ action: "next_round" }); }
 function resetGame() { wsSend({ action: "reset_game" }); }
 function sendChat() {
