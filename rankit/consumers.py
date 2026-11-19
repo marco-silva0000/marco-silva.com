@@ -10,13 +10,19 @@ from gamerooms.models import create_user_prompt_suggestion
 from .game_state import (
     add_player,
     append_event,
+    approve_swap,
     change_player_color,
     get_game,
     get_sanitized_player_view,
     is_player_admin,
     kick_player,
+    move_timeline_card,
     play_again,
     play_card,
+    propose_swap,
+    reject_swap,
+    retract_card,
+    reveal_timeline,
     save_game,
     set_card_clue,
     start_level,
@@ -108,6 +114,47 @@ class RankitConsumer(AsyncJsonWebsocketConsumer):
             card_id = content.get("card_id", "")
             ok, msg = play_card(state, self.player_id, card_id)
             await self.broadcast_sync()
+
+        elif action == "retract_card" and self.player_id:
+            card_id = content.get("card_id", "")
+            ok, msg = retract_card(state, self.player_id, card_id)
+            if ok:
+                await self.broadcast_sync()
+
+        elif action == "propose_swap" and self.player_id:
+            try:
+                idx_a = int(content.get("idx_a", -1))
+                idx_b = int(content.get("idx_b", -1))
+                ok, msg = propose_swap(state, self.player_id, idx_a, idx_b)
+                if ok:
+                    await self.broadcast_sync()
+            except (ValueError, TypeError):
+                pass
+
+        elif action == "approve_swap" and self._is_admin(state):
+            ok, msg = approve_swap(state, self.player_id)
+            if ok:
+                await self.broadcast_sync()
+
+        elif action == "reject_swap" and self.player_id:
+            ok, msg = reject_swap(state, self.player_id)
+            if ok:
+                await self.broadcast_sync()
+
+        elif action == "move_timeline_card" and self._is_admin(state):
+            try:
+                from_idx = int(content.get("from_idx", -1))
+                to_idx = int(content.get("to_idx", -1))
+                ok, msg = move_timeline_card(state, self.player_id, from_idx, to_idx)
+                if ok:
+                    await self.broadcast_sync()
+            except (ValueError, TypeError):
+                pass
+
+        elif action == "reveal_timeline" and self._is_admin(state):
+            ok, msg = reveal_timeline(state, self.player_id)
+            if ok:
+                await self.broadcast_sync()
 
         elif action == "chat":
             await self._handle_chat(state, content)

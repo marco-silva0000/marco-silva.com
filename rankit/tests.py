@@ -15,12 +15,18 @@ from gamerooms.models import Room
 from gamerooms.player_colors import PLAYER_PALETTE, get_player_initials
 from rankit.game_state import (
     add_player,
+    approve_swap,
     change_player_color,
     create_game,
     get_game,
     get_sanitized_player_view,
+    move_timeline_card,
     play_again,
     play_card,
+    propose_swap,
+    reject_swap,
+    retract_card,
+    reveal_timeline,
     set_card_clue,
     start_level,
     update_settings,
@@ -232,24 +238,29 @@ def test_play_card_ascending_order_and_level_success():
     p1["hand"][0]["number"] = 25
     p2["hand"][0]["number"] = 75
 
-    # 1. Alice plays 25 (valid ascending)
+    # 1. Alice places 25 onto timeline (remains face down during discussion)
     ok1, msg1 = play_card(state, p1["id"], p1["hand"][0]["card_id"])
     assert ok1 is True
-    assert state["highest_played_number"] == 25
-    assert state["lives"] == 3
     assert len(state["timeline"]) == 1
-    assert state["timeline"][0]["is_clash"] is False
+    assert state["timeline"][0]["revealed"] is False
     assert state["phase"] == "playing"
 
-    # 2. Bob plays 75 (valid ascending: 75 > 25)
+    # 2. Bob places 75 onto timeline
     ok2, msg2 = play_card(state, p2["id"], p2["hand"][0]["card_id"])
     assert ok2 is True
-    assert state["highest_played_number"] == 75
-    assert state["lives"] == 3
     assert len(state["timeline"]) == 2
-    assert state["timeline"][1]["is_clash"] is False
+    assert state["timeline"][1]["revealed"] is False
+    assert state["timeline_revealed"] is False
 
-    # All cards played! Should transition to level_success
+    # 3. Host reveals and verifies timeline (25 -> 75 is strictly ascending)
+    ok_rev, msg_rev = reveal_timeline(state, p1["id"])
+    assert ok_rev is True
+    assert state["timeline_revealed"] is True
+    assert state["timeline"][0]["is_clash"] is False
+    assert state["timeline"][1]["is_clash"] is False
+    assert state["lives"] == 3
+
+    # All cards played and verified! Should transition to level_success
     assert state["phase"] == "level_success"
     assert state["level"] == 2
     assert len(state["level_history"]) == 1
@@ -266,15 +277,19 @@ def test_play_card_clash_and_game_over():
     p1["hand"][0]["number"] = 80
     p2["hand"][0]["number"] = 30
 
-    # 1. Alice plays 80
+    # 1. Alice places 80
     play_card(state, p1["id"], p1["hand"][0]["card_id"])
-    assert state["highest_played_number"] == 80
     assert state["lives"] == 1
 
-    # 2. Bob plays 30 (30 < 80 => CLASH!)
+    # 2. Bob places 30 (out of order: 80 then 30)
     ok, msg = play_card(state, p2["id"], p2["hand"][0]["card_id"])
     assert ok is True
-    assert state["timeline"][-1]["is_clash"] is True
+    assert len(state["timeline"]) == 2
+
+    # 3. Host reveals: 30 < 80 => CLASH! Lives drop from 1 to 0 => GameOver
+    ok_rev, msg_rev = reveal_timeline(state, p1["id"])
+    assert ok_rev is True
+    assert state["timeline"][1]["is_clash"] is True
     assert state["lives"] == 0
     assert state["phase"] == "gameover"
 
@@ -283,6 +298,138 @@ def test_play_card_clash_and_game_over():
     assert state["phase"] == "lobby"
     assert state["level"] == 1
     assert state["lives"] == 1
+
+
+def test_unrevealed_timeline_and_zero_spoilers():
+    """Ensure players cannot inspect other players' secret numbers in unrevealed timeline."""
+    state = create_game("TEST_SPOILER")
+    state, p1, _ = add_player(state, "Alice", is_admin=True)
+    state, p2, _ = add_player(state, "Bob", is_admin=False)
+
+    update_settings(state, {"cards_per_player": "1"})
+    start_level(state, from_level=1)
+
+    p1["hand"][0]["number"] = 42
+    p2["hand"][0]["number"] = 88
+
+    play_card(state, p1["id"], p1["hand"][0]["card_id"])
+    play_card(state, p2["id"], p2["hand"][0]["card_id"])
+
+    # Alice's view: her card is visible (42), Bob's card number is None
+    alice_view = get_sanitized_player_view(state, viewer_id=p1["id"])
+    assert alice_view["timeline"][0]["number"] == 42
+    assert alice_view["timeline"][1]["number"] is None
+
+    # Bob's view: Alice's card is None, Bob's card is visible (88)
+    bob_view = get_sanitized_player_view(state, viewer_id=p2["id"])
+    assert bob_view["timeline"][0]["number"] is None
+    assert bob_view["timeline"][1]["number"] == 88
+
+    # After host reveals: everyone sees both numbers
+    reveal_timeline(state, p1["id"])
+    alice_revealed = get_sanitized_player_view(state, viewer_id=p1["id"])
+    assert alice_revealed["timeline"][0]["number"] == 42
+    assert alice_revealed["timeline"][1]["number"] == 88
+
+
+def test_propose_swap_and_approve_by_host():
+    """Players can discuss clues, propose swaps, and the host approves consensus."""
+    state = create_game("TEST_SWAP")
+    state, p1, _ = add_player(state, "Alice", is_admin=True)
+    state, p2, _ = add_player(state, "Bob", is_admin=False)
+
+    update_settings(state, {"cards_per_player": "1"})
+    start_level(state, from_level=1)
+
+    # Bob placed first (75), then Alice placed (25). In reverse order!
+    p1["hand"][0]["number"] = 25
+    p2["hand"][0]["number"] = 75
+
+    play_card(state, p2["id"], p2["hand"][0]["card_id"])  # timeline[0] = 75
+    play_card(state, p1["id"], p1["hand"][0]["card_id"])  # timeline[1] = 25
+
+    # Bob proposes swap between #0 and #1
+    ok_prop, msg_prop = propose_swap(state, p2["id"], 0, 1)
+    assert ok_prop is True
+    assert state["pending_swap"] is not None
+    assert state["pending_swap"]["proposer_id"] == p2["id"]
+
+    # Bob (non-admin) cannot approve
+    ok_bad, _ = approve_swap(state, p2["id"])
+    assert ok_bad is False
+
+    # Alice (host) approves after team discussion
+    ok_app, _ = approve_swap(state, p1["id"])
+    assert ok_app is True
+    assert state["pending_swap"] is None
+
+    # Cards are now swapped: index 0 is 25, index 1 is 75
+    assert state["timeline"][0]["number"] == 25
+    assert state["timeline"][1]["number"] == 75
+
+    # Reveal: flawless!
+    reveal_timeline(state, p1["id"])
+    assert state["lives"] == 3
+    assert state["phase"] == "level_success"
+
+
+def test_propose_swap_reject():
+    """Dismissing a pending swap leaves order unchanged."""
+    state = create_game("TEST_REJECT")
+    state, p1, _ = add_player(state, "Alice", is_admin=True)
+    state, p2, _ = add_player(state, "Bob", is_admin=False)
+
+    start_level(state, from_level=1)
+    play_card(state, p1["id"], p1["hand"][0]["card_id"])
+    play_card(state, p2["id"], p2["hand"][0]["card_id"])
+
+    propose_swap(state, p2["id"], 0, 1)
+    assert state["pending_swap"] is not None
+
+    # Bob (proposer) cancels it
+    ok_rej, _ = reject_swap(state, p2["id"])
+    assert ok_rej is True
+    assert state["pending_swap"] is None
+
+
+def test_move_timeline_card_host():
+    """Host can directly reorder the timeline."""
+    state = create_game("TEST_MOVE")
+    state, p1, _ = add_player(state, "Alice", is_admin=True)
+    state, p2, _ = add_player(state, "Bob", is_admin=False)
+
+    start_level(state, from_level=1)
+    p1["hand"][0]["number"] = 10
+    p2["hand"][0]["number"] = 90
+    play_card(state, p1["id"], p1["hand"][0]["card_id"])
+    play_card(state, p2["id"], p2["hand"][0]["card_id"])
+
+    # Shift card 1 to position 0
+    ok_move, _ = move_timeline_card(state, p1["id"], 1, 0)
+    assert ok_move is True
+    assert state["timeline"][0]["number"] == 90
+    assert state["timeline"][1]["number"] == 10
+
+
+def test_retract_card_to_hand():
+    """Player can retract their unrevealed card back to hand."""
+    state = create_game("TEST_RETRACT")
+    state, p1, _ = add_player(state, "Alice", is_admin=True)
+    state, p2, _ = add_player(state, "Bob", is_admin=False)
+
+    start_level(state, from_level=1)
+    card_id = p2["hand"][0]["card_id"]
+
+    play_card(state, p2["id"], card_id)
+    assert len(state["timeline"]) == 1
+    assert p2["hand"][0]["played"] is True
+
+    # Alice (different player) cannot retract Bob's card unless admin
+    # Bob retracts his own card:
+    ok_ret, _ = retract_card(state, p2["id"], card_id)
+    assert ok_ret is True
+    assert len(state["timeline"]) == 0
+    assert p2["hand"][0]["played"] is False
 
 
 def test_websocket_rankit_end_to_end(db):

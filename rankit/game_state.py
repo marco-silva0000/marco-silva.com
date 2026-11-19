@@ -112,6 +112,8 @@ def create_game(code: str, title: str = "", password: str = "", language: str = 
         "current_prompt": None,
         "used_prompt_ids": [],
         "timeline": [],  # Chronological order of played cards
+        "timeline_revealed": False,
+        "pending_swap": None,
         "level_history": [],  # Archives of past levels
         "activity_log": [],
         "round_countdown_until": None,
@@ -325,6 +327,8 @@ def start_level(state: dict[str, Any], from_level: Optional[int] = None) -> bool
     # Reset level runtime
     state["highest_played_number"] = 0
     state["timeline"] = []
+    state["timeline_revealed"] = False
+    state["pending_swap"] = None
 
     # Filter active, non-spectator players
     active_players = [
@@ -406,9 +410,12 @@ def set_card_clue(state: dict[str, Any], player_id: str, card_id: str, clue_text
 
 
 def play_card(state: dict[str, Any], player_id: str, card_id: str) -> tuple[bool, str]:
-    """Play a card to the central timeline and validate ascending order."""
+    """Place a card onto the central timeline (face-down during discussion, ready for swaps)."""
     if state.get("phase") != "playing":
         return False, "Not currently in playing phase."
+
+    if state.get("timeline_revealed", False):
+        return False, "Timeline already revealed for this level."
 
     player = state.get("players", {}).get(player_id)
     if not player:
@@ -427,9 +434,7 @@ def play_card(state: dict[str, Any], player_id: str, card_id: str) -> tuple[bool
     target_card["played"] = True
     number = target_card["number"]
     clue = target_card.get("clue", "")
-    prev_highest = state.get("highest_played_number", 0)
 
-    is_clash = number < prev_highest
     timeline_entry = {
         "card_id": card_id,
         "number": number,
@@ -438,75 +443,297 @@ def play_card(state: dict[str, Any], player_id: str, card_id: str) -> tuple[bool
         "player_color": player.get("color", "#3b82f6"),
         "player_initials": player.get("initials") or get_player_initials(player["name"]),
         "clue": clue,
-        "is_clash": is_clash,
-        "prev_highest": prev_highest,
+        "revealed": False,
+        "is_clash": False,
         "played_at": time.time(),
     }
     state.setdefault("timeline", []).append(timeline_entry)
 
-    if is_clash:
-        state["lives"] = max(0, state.get("lives", 1) - 1)
-        remaining_lives = state["lives"]
-        append_event(
-            state,
-            "System",
-            f"💥 CLASH! {player['name']} played #{number}, which is lower than #{prev_highest}! Lost 1 life (❤️ {remaining_lives} left).",
-        )
-        if remaining_lives <= 0:
-            state["phase"] = "gameover"
-            append_event(state, "System", "💀 Game Over! The group ran out of lives.")
-            save_game(state["code"], state)
-            return True, "Clash occurred! Game Over."
-    else:
-        state["highest_played_number"] = number
-        append_event(
-            state,
-            "System",
-            f"✅ {player['name']} played #{number} {f'("{clue}")' if clue else ''}. Order preserved!",
-        )
+    # Log placement event without revealing the secret number!
+    clue_suffix = f' (Clue: "{clue}")' if clue else ""
+    append_event(
+        state,
+        "System",
+        f"🃏 {player['name']} placed a card onto the timeline{clue_suffix}.",
+    )
+    save_game(state["code"], state)
+    return True, "Card placed on timeline."
 
-    # Check if all cards for this level have been played
-    all_cards_played = True
-    for p in state.get("players", {}).values():
-        if not p.get("is_spectator", False):
-            for c in p.get("hand", []):
-                if not c.get("played", False):
-                    all_cards_played = False
-                    break
-        if not all_cards_played:
-            break
 
-    if all_cards_played and state.get("lives", 0) > 0:
-        # Level cleared!
-        cur_level = state.get("level", 1)
-        target = state.get("settings", {}).get("target_levels", 3)
-        state["level_history"].append(
-            {
-                "level": cur_level,
-                "prompt": state.get("current_prompt"),
-                "timeline": copy.deepcopy(state.get("timeline", [])),
-                "lives_left": state["lives"],
-            }
-        )
+def retract_card(state: dict[str, Any], player_id: str, card_id: str) -> tuple[bool, str]:
+    """Take a placed card back into the player's hand before reveal."""
+    if state.get("timeline_revealed", False):
+        return False, "Cannot retract card after timeline is revealed."
 
-        if target and cur_level >= target:
-            state["phase"] = "victory"
-            append_event(
-                state,
-                "System",
-                f"🏆 GRAND VICTORY! The team cleared all {target} levels with {state['lives']} lives remaining!",
-            )
+    player = state.get("players", {}).get(player_id)
+    if not player:
+        return False, "Player not found."
+
+    is_admin = is_player_admin(state, player)
+
+    # Find in timeline
+    timeline = state.get("timeline", [])
+    entry_idx = None
+    target_entry = None
+    for idx, entry in enumerate(timeline):
+        if entry.get("card_id") == card_id:
+            if entry.get("player_id") == player_id or is_admin:
+                entry_idx = idx
+                target_entry = entry
+                break
+            else:
+                return False, "You can only retract your own cards."
+
+    if entry_idx is None or target_entry is None:
+        return False, "Card not found in timeline."
+
+    # Remove from timeline
+    timeline.pop(entry_idx)
+
+    # Mark unplayed in player hand
+    target_player = state.get("players", {}).get(target_entry["player_id"])
+    if target_player:
+        for c in target_player.get("hand", []):
+            if c.get("card_id") == card_id:
+                c["played"] = False
+                break
+
+    # Dismiss any pending swap involving this card
+    pending = state.get("pending_swap")
+    if pending:
+        if pending.get("idx_a") == entry_idx or pending.get("idx_b") == entry_idx:
+            state["pending_swap"] = None
+
+    append_event(state, "System", f"↩️ {player['name']} took their card back into their hand.")
+    save_game(state["code"], state)
+    return True, "Card retracted."
+
+
+def propose_swap(state: dict[str, Any], player_id: str, idx_a: int, idx_b: int) -> tuple[bool, str]:
+    """Propose swapping two cards in the timeline during group discussion."""
+    if state.get("phase") != "playing":
+        return False, "Not currently in playing phase."
+
+    if state.get("timeline_revealed", False):
+        return False, "Cannot swap cards after timeline is revealed."
+
+    player = state.get("players", {}).get(player_id)
+    if not player:
+        return False, "Player not found."
+
+    timeline = state.get("timeline", [])
+    if len(timeline) < 2:
+        return False, "At least two cards must be on the timeline to swap."
+
+    if not (0 <= idx_a < len(timeline) and 0 <= idx_b < len(timeline)):
+        return False, "Invalid card indices."
+
+    if idx_a == idx_b:
+        return False, "Cannot swap a card with itself."
+
+    card_a = timeline[idx_a]
+    card_b = timeline[idx_b]
+
+    state["pending_swap"] = {
+        "swap_id": str(uuid.uuid4())[:8],
+        "proposer_id": player_id,
+        "proposer_name": player["name"],
+        "idx_a": idx_a,
+        "idx_b": idx_b,
+        "card_a_player": card_a["player_name"],
+        "card_a_clue": card_a.get("clue", ""),
+        "card_b_player": card_b["player_name"],
+        "card_b_clue": card_b.get("clue", ""),
+        "proposed_at": time.time(),
+    }
+
+    clue_a_str = f': "{card_a["clue"]}"' if card_a.get("clue") else ""
+    clue_b_str = f': "{card_b["clue"]}"' if card_b.get("clue") else ""
+    desc_a = f"#{idx_a + 1} ({card_a['player_name']}{clue_a_str})"
+    desc_b = f"#{idx_b + 1} ({card_b['player_name']}{clue_b_str})"
+    append_event(
+        state,
+        "System",
+        f"🔄 {player['name']} proposed swapping {desc_a} ⇄ {desc_b}. Moderator/Host may approve based on consensus.",
+    )
+    save_game(state["code"], state)
+    return True, "Swap proposed."
+
+
+def approve_swap(state: dict[str, Any], player_id: str) -> tuple[bool, str]:
+    """Host/moderator approves the pending swap proposal based on discussion and consensus."""
+    player = state.get("players", {}).get(player_id)
+    if not player or not is_player_admin(state, player):
+        return False, "Only the host/moderator can approve swap proposals."
+
+    pending = state.get("pending_swap")
+    if not pending:
+        return False, "No pending swap proposal to approve."
+
+    if state.get("timeline_revealed", False):
+        return False, "Timeline already revealed."
+
+    timeline = state.get("timeline", [])
+    idx_a = pending.get("idx_a", -1)
+    idx_b = pending.get("idx_b", -1)
+
+    if not (0 <= idx_a < len(timeline) and 0 <= idx_b < len(timeline)):
+        state["pending_swap"] = None
+        save_game(state["code"], state)
+        return False, "Indices are no longer valid."
+
+    timeline[idx_a], timeline[idx_b] = timeline[idx_b], timeline[idx_a]
+    state["pending_swap"] = None
+
+    append_event(
+        state,
+        "System",
+        f"👑 Host approved swap: #{idx_a + 1} and #{idx_b + 1} have exchanged places!",
+    )
+    save_game(state["code"], state)
+    return True, "Swap approved."
+
+
+def reject_swap(state: dict[str, Any], player_id: str) -> tuple[bool, str]:
+    """Host/moderator or the original proposer dismisses the pending swap."""
+    player = state.get("players", {}).get(player_id)
+    if not player:
+        return False, "Player not found."
+
+    pending = state.get("pending_swap")
+    if not pending:
+        return False, "No pending swap to dismiss."
+
+    is_admin = is_player_admin(state, player)
+    is_proposer = pending.get("proposer_id") == player_id
+
+    if not (is_admin or is_proposer):
+        return False, "Only the host or proposer can dismiss this swap."
+
+    idx_a = pending.get("idx_a", 0)
+    idx_b = pending.get("idx_b", 0)
+    state["pending_swap"] = None
+    append_event(
+        state,
+        "System",
+        f"❌ Proposed swap between #{idx_a + 1} and #{idx_b + 1} was dismissed.",
+    )
+    save_game(state["code"], state)
+    return True, "Swap dismissed."
+
+
+def move_timeline_card(state: dict[str, Any], player_id: str, from_idx: int, to_idx: int) -> tuple[bool, str]:
+    """Host/moderator directly moves a card from one position to another in the timeline."""
+    player = state.get("players", {}).get(player_id)
+    if not player or not is_player_admin(state, player):
+        return False, "Only the host/moderator can reorder the timeline."
+
+    if state.get("timeline_revealed", False):
+        return False, "Timeline already revealed."
+
+    timeline = state.get("timeline", [])
+    if not (0 <= from_idx < len(timeline) and 0 <= to_idx < len(timeline)):
+        return False, "Invalid positions."
+
+    if from_idx == to_idx:
+        return True, "No change."
+
+    item = timeline.pop(from_idx)
+    timeline.insert(to_idx, item)
+    state["pending_swap"] = None  # Clear any pending swap to prevent stale indices
+
+    append_event(
+        state,
+        "System",
+        f"👑 Host reordered timeline: shifted #{from_idx + 1} ({item['player_name']}) to position #{to_idx + 1}.",
+    )
+    save_game(state["code"], state)
+    return True, "Timeline reordered."
+
+
+def reveal_timeline(state: dict[str, Any], player_id: str) -> tuple[bool, str]:
+    """Host/moderator reveals all cards and validates strictly ascending order."""
+    player = state.get("players", {}).get(player_id)
+    if not player or not is_player_admin(state, player):
+        return False, "Only the host/moderator can reveal the timeline."
+
+    if state.get("phase") != "playing":
+        return False, "Not in playing phase."
+
+    if state.get("timeline_revealed", False):
+        return False, "Timeline already revealed."
+
+    timeline = state.get("timeline", [])
+    if not timeline:
+        return False, "No cards on timeline to reveal."
+
+    state["timeline_revealed"] = True
+    state["pending_swap"] = None
+
+    prev_num = -1
+    clashes = 0
+
+    for card in timeline:
+        card["revealed"] = True
+        num = card["number"]
+        if num < prev_num:
+            card["is_clash"] = True
+            clashes += 1
+            state["lives"] = max(0, state.get("lives", 1) - 1)
         else:
-            state["phase"] = "level_success"
-            state["level"] = cur_level + 1
-            append_event(
-                state,
-                "System",
-                f"🎉 LEVEL {cur_level} CLEARED! Ready for Level {cur_level + 1}!",
-            )
+            card["is_clash"] = False
+            prev_num = num
+
+    if clashes == 0:
+        append_event(
+            state,
+            "System",
+            f"✨ Flawless Reveal! All {len(timeline)} cards placed in strictly ascending order!",
+        )
+    else:
+        remaining_lives = state.get("lives", 0)
+        append_event(
+            state,
+            "System",
+            f"💥 Reveal complete: {clashes} clash(es) detected! Lost {clashes} life/lives (❤️ {remaining_lives} left).",
+        )
+
+    # Check game over vs level cleared
+    if state.get("lives", 0) <= 0:
+        state["phase"] = "gameover"
+        append_event(state, "System", "💀 Game Over! The group ran out of lives.")
+        save_game(state["code"], state)
+        return True, "Game Over."
+
+    cur_level = state.get("level", 1)
+    target = state.get("settings", {}).get("target_levels", 3)
+    state.setdefault("level_history", []).append(
+        {
+            "level": cur_level,
+            "prompt": state.get("current_prompt"),
+            "timeline": copy.deepcopy(timeline),
+            "lives_left": state["lives"],
+        }
+    )
+
+    if target and cur_level >= target:
+        state["phase"] = "victory"
+        append_event(
+            state,
+            "System",
+            f"🏆 GRAND VICTORY! The team cleared all {target} levels with {state['lives']} lives remaining!",
+        )
+    else:
+        state["phase"] = "level_success"
+        state["level"] = cur_level + 1
+        append_event(
+            state,
+            "System",
+            f"🎉 LEVEL {cur_level} CLEARED! Ready for Level {cur_level + 1}!",
+        )
 
     save_game(state["code"], state)
-    return True, "Card played successfully."
+    return True, "Timeline revealed and validated."
 
 
 def play_again(state: dict[str, Any]) -> None:
@@ -518,6 +745,8 @@ def play_again(state: dict[str, Any]) -> None:
     state["max_lives"] = starting_lives
     state["highest_played_number"] = 0
     state["timeline"] = []
+    state["timeline_revealed"] = False
+    state["pending_swap"] = None
     state["level_history"] = []
     state["current_prompt"] = None
     state["round_countdown_until"] = None
@@ -557,6 +786,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
 
     # Phase determines spoiler rules: in 'gameover' or 'victory', all numbers reveal!
     reveal_all = view.get("phase") in ("gameover", "victory")
+    timeline_revealed = bool(view.get("timeline_revealed", False)) or reveal_all
 
     for pid, p in view.get("players", {}).items():
         is_viewer = pid == viewer_id
@@ -585,6 +815,18 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
             viewer = p_copy
         sanitized_players.append(p_copy)
 
+    # Sanitize timeline: mask numbers if timeline is not yet revealed and not owner
+    sanitized_timeline = []
+    for item in view.get("timeline", []):
+        c_item = copy.deepcopy(item)
+        is_owner = c_item.get("player_id") == viewer_id
+        if not timeline_revealed and not is_owner:
+            c_item["number"] = None
+        sanitized_timeline.append(c_item)
+
+    view["timeline"] = sanitized_timeline
+    view["timeline_revealed"] = timeline_revealed
+    view["pending_swap"] = view.get("pending_swap")
     view["players"] = sanitized_players
     view["viewer"] = viewer
     return view

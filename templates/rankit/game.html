@@ -296,9 +296,88 @@
     animation: popIn 0.2s ease-out;
   }
 
+  .rk-timeline-card.unrevealed {
+    border: 2px dashed #6366f1;
+    background: #f8fafc;
+  }
+
+  .rk-timeline-card.revealed {
+    border: 2px solid #10b981;
+    background: #ffffff;
+  }
+
   .rk-timeline-card.clash {
     border-color: #ef4444;
     background: #fff5f5;
+  }
+
+  .rk-timeline-slot-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #e2e8f0;
+    color: #475569;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.15rem 0.45rem;
+    border-radius: 9999px;
+  }
+
+  .rk-timeline-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .rk-card-btn-mini {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.45rem;
+    cursor: pointer;
+    color: #334155;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .rk-card-btn-mini:hover:not(:disabled) {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+
+  .rk-card-btn-mini:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .rk-card-btn-mini.retract {
+    color: #b91c1c;
+    border-color: #fecaca;
+    background: #fef2f2;
+  }
+
+  .rk-card-btn-mini.retract:hover {
+    background: #fee2e2;
+  }
+
+  .rk-banner-swap {
+    background: #eff6ff;
+    border: 1.5px solid #3b82f6;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    animation: popIn 0.2s ease-out;
   }
 
   .rk-timeline-header {
@@ -486,11 +565,17 @@
           </span>
         </div>
 
+        <!-- Pending Swap Proposal Banner -->
+        <div id="swap-proposal-banner" style="display:none;" class="rk-banner-swap"></div>
+
         <div id="timeline-track" class="rk-timeline-track">
           <div id="timeline-empty-msg" style="color:#94a3b8; font-size:0.85rem; font-style:italic; padding:1rem 0;">
-            {% trans "No cards played yet. When you feel your number is the lowest remaining, click 'Play Card'!" %}
+            {% trans "No cards played yet. When you feel your number is the lowest remaining, click 'Place on Timeline'!" %}
           </div>
         </div>
+
+        <!-- Moderator Timeline Reveal & Verification Controls -->
+        <div id="timeline-reveal-controls" style="display:none; margin-top:0.75rem; padding-top:0.75rem; border-top:1px dashed #e2e8f0; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;"></div>
       </div>
 
       <!-- 3. Player's Secret Hand -->
@@ -795,6 +880,27 @@
   </div>
 </div>
 
+<!-- Modal: Propose Card Swap -->
+<div id="modal-propose-swap" class="rk-modal">
+  <div class="rk-modal-content" style="max-width:440px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+      <h3 style="font-size:1.15rem; font-weight:800; margin:0;" id="swap-modal-title">
+        🔄 {% trans "Propose Card Swap" %}
+      </h3>
+      <button type="button" onclick="closeModal('modal-propose-swap')" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    <p style="font-size:0.85rem; color:#475569; margin:0 0 1rem 0;" id="swap-modal-subtitle">
+      {% trans "Select which timeline card you would like to swap with:" %}
+    </p>
+    <div id="swap-candidates-list" style="display:flex; flex-direction:column; gap:0.5rem; max-height:280px; overflow-y:auto; margin-bottom:1rem;">
+      <!-- Dynamic swap options -->
+    </div>
+    <div style="display:flex; justify-content:flex-end;">
+      <button type="button" class="rk-btn rk-btn-secondary" onclick="closeModal('modal-propose-swap')">{% trans "Cancel" %}</button>
+    </div>
+  </div>
+</div>
+
 <!-- Centralized Color Picker Modal Partial -->
 {% include "gamerooms/components/color_picker_modal.html" %}
 
@@ -983,23 +1089,30 @@
       return;
     }
 
+    const isRevealed = Boolean(gameState.timeline_revealed);
+
     list.innerHTML = viewer.hand.map(card => {
       const isPlayed = Boolean(card.played);
       return `
         <div class="rk-hand-card ${isPlayed ? 'played' : ''}">
           <div style="font-size:0.75rem; font-weight:700; color:${isPlayed ? '#94a3b8' : '#6366f1'}; text-transform:uppercase;">
-            ${isPlayed ? '✅ {% trans "Played" %}' : '🔒 {% trans "Secret Card" %}'}
+            ${isPlayed ? '✅ {% trans "On Timeline" %}' : '🔒 {% trans "Secret Card" %}'}
           </div>
           <div class="rk-hand-num">${card.number}</div>
           ${!isPlayed ? `
             <input type="text" class="rk-hand-clue-input" placeholder="{% trans 'Optional clue / hint...' %}" aria-label="{% trans 'Optional clue for card' %}" value="${escapeHtml(card.clue || '')}" onchange="updateCardClue('${card.card_id}', this.value)">
             <button type="button" class="rk-btn rk-btn-primary" style="width:100%; font-size:0.85rem; padding:0.45rem;" onclick="playCardClick('${card.card_id}')">
-              🎴 {% trans "Play Card" %}
+              🎴 {% trans "Place on Timeline" %}
             </button>
           ` : `
-            <div style="font-size:0.8rem; color:#64748b; font-style:italic;">
+            <div style="font-size:0.8rem; color:#64748b; font-style:italic; margin-bottom:0.35rem;">
               ${card.clue ? `"${escapeHtml(card.clue)}"` : '{% trans "No clue given" %}'}
             </div>
+            ${!isRevealed && gameState.phase === "playing" ? `
+              <button type="button" class="rk-btn rk-btn-secondary" style="width:100%; font-size:0.75rem; padding:0.3rem;" onclick="retractCard('${card.card_id}')">
+                ↩️ {% trans "Take Back to Hand" %}
+              </button>
+            ` : ''}
           `}
         </div>
       `;
@@ -1007,42 +1120,162 @@
   }
 
   function renderTimeline() {
+    const isHost = Boolean(gameState.viewer && gameState.viewer.is_admin);
     const track = document.getElementById("timeline-track");
     const timeline = gameState.timeline || [];
+    const isRevealed = Boolean(gameState.timeline_revealed);
 
-    if (timeline.length === 0) {
-      track.innerHTML = `<div id="timeline-empty-msg" style="color:#94a3b8; font-size:0.85rem; font-style:italic; padding:1rem 0;">{% trans "No cards played yet. When you feel your number is the lowest remaining, click 'Play Card'!" %}</div>`;
-      return;
-    }
-
-    let html = "";
-    timeline.forEach((item, index) => {
-      if (index > 0) {
-        html += `<span class="rk-timeline-arrow">➔</span>`;
-      }
-      const avatarHtml = renderPlayerAvatarHtml({
-        name: item.player_name,
-        color: item.player_color,
-        initials: item.player_initials
-      }, "player-avatar-xs");
-
-      html += `
-        <div class="rk-timeline-card ${item.is_clash ? 'clash' : ''}">
-          <div class="rk-timeline-header">
-            <span class="rk-timeline-num">${item.number}</span>
-            <span style="display:flex; align-items:center; gap:0.25rem;">
-              ${avatarHtml}
-              <span style="font-size:0.75rem; font-weight:700; color:#334155;">${escapeHtml(item.player_name)}</span>
-            </span>
-          </div>
-          ${item.clue ? `<div class="rk-timeline-clue">"${escapeHtml(item.clue)}"</div>` : ''}
-          <div style="font-size:0.7rem; font-weight:700; color:${item.is_clash ? '#dc2626' : '#15803d'};">
-            ${item.is_clash ? '💥 {% trans "CLASH! Lower than previous" %}' : '✅ {% trans "Ascending" %}'}
+    // 1. Pending Swap Proposal Banner
+    const banner = document.getElementById("swap-proposal-banner");
+    const pending = gameState.pending_swap;
+    if (pending && !isRevealed && gameState.phase === "playing") {
+      banner.style.display = "flex";
+      const isProposer = pending.proposer_id === PLAYER_ID;
+      const clueA = pending.card_a_clue ? ` "${escapeHtml(pending.card_a_clue)}"` : "";
+      const clueB = pending.card_b_clue ? ` "${escapeHtml(pending.card_b_clue)}"` : "";
+      banner.innerHTML = `
+        <div style="font-size:0.85rem; color:#1e3a8a; line-height:1.35;">
+          <strong>🔄 {% trans "Proposed Swap:" %}</strong>
+          #${pending.idx_a + 1} (${escapeHtml(pending.card_a_player)}${clueA})
+          ⇄
+          #${pending.idx_b + 1} (${escapeHtml(pending.card_b_player)}${clueB})
+          <div style="font-size:0.75rem; color:#64748b; margin-top:0.2rem;">
+            {% trans "Proposed by" %} <strong>${escapeHtml(pending.proposer_name)}</strong>
           </div>
         </div>
+        <div style="display:flex; align-items:center; gap:0.4rem; flex-shrink:0;">
+          ${isHost ? `
+            <button type="button" class="rk-btn rk-btn-primary" style="padding:0.35rem 0.75rem; font-size:0.8rem;" onclick="approveSwapClick()">
+              ✅ {% trans "Approve Swap" %}
+            </button>
+            <button type="button" class="rk-btn rk-btn-secondary" style="padding:0.35rem 0.65rem; font-size:0.8rem;" onclick="rejectSwapClick()">
+              ❌ {% trans "Dismiss" %}
+            </button>
+          ` : isProposer ? `
+            <button type="button" class="rk-btn rk-btn-secondary" style="padding:0.35rem 0.65rem; font-size:0.8rem;" onclick="rejectSwapClick()">
+              ❌ {% trans "Cancel" %}
+            </button>
+          ` : `
+            <span style="font-size:0.78rem; color:#64748b; font-style:italic;">
+              ⏳ {% trans "Waiting for moderator consensus..." %}
+            </span>
+          `}
+        </div>
       `;
-    });
-    track.innerHTML = html;
+    } else {
+      banner.style.display = "none";
+    }
+
+    // 2. Timeline Track
+    if (timeline.length === 0) {
+      track.innerHTML = `<div id="timeline-empty-msg" style="color:#94a3b8; font-size:0.85rem; font-style:italic; padding:1rem 0;">{% trans "No cards played yet. When you feel your number is the lowest remaining, click 'Place on Timeline'!" %}</div>`;
+    } else {
+      let html = "";
+      timeline.forEach((item, index) => {
+        if (index > 0) {
+          html += `<span class="rk-timeline-arrow">➔</span>`;
+        }
+        const avatarHtml = renderPlayerAvatarHtml({
+          name: item.player_name,
+          color: item.player_color,
+          initials: item.player_initials
+        }, "player-avatar-xs");
+
+        const isOwner = item.player_id === PLAYER_ID;
+        const cardClass = isRevealed
+          ? (item.is_clash ? "rk-timeline-card clash" : "rk-timeline-card revealed")
+          : "rk-timeline-card unrevealed";
+
+        let numDisplay = "";
+        if (isRevealed) {
+          numDisplay = `<span class="rk-timeline-num">${item.number}</span>`;
+        } else if (isOwner && item.number !== null && item.number !== undefined) {
+          numDisplay = `<span class="rk-timeline-num" style="color:#4f46e5; font-size:1.35rem;" title="{% trans 'Your secret card' %}">🔒 ${item.number}</span>`;
+        } else {
+          numDisplay = `<span class="rk-timeline-num" style="color:#94a3b8; font-size:1.35rem;" title="{% trans 'Hidden until reveal' %}">🔒 ???</span>`;
+        }
+
+        let statusMsg = "";
+        if (isRevealed) {
+          statusMsg = item.is_clash
+            ? `<div style="font-size:0.7rem; font-weight:700; color:#dc2626;">💥 {% trans "CLASH! Lower than previous" %}</div>`
+            : `<div style="font-size:0.7rem; font-weight:700; color:#15803d;">✅ {% trans "Ascending" %}</div>`;
+        } else {
+          statusMsg = `<div style="font-size:0.7rem; color:#64748b;">🤫 {% trans "Unrevealed" %}</div>`;
+        }
+
+        let actionsHtml = "";
+        if (!isRevealed && gameState.phase === "playing") {
+          actionsHtml = `
+            <div class="rk-timeline-actions">
+              ${timeline.length > 1 ? `
+                <button type="button" class="rk-card-btn-mini" onclick="openSwapModal(${index})" title="{% trans 'Propose swap with another card' %}">
+                  ⇄ {% trans "Swap" %}
+                </button>
+              ` : ''}
+              ${isHost && timeline.length > 1 ? `
+                <button type="button" class="rk-card-btn-mini" onclick="moveTimelineCard(${index}, ${index - 1})" ${index === 0 ? 'disabled' : ''} title="{% trans 'Shift Left' %}">
+                  ◀
+                </button>
+                <button type="button" class="rk-card-btn-mini" onclick="moveTimelineCard(${index}, ${index + 1})" ${index === timeline.length - 1 ? 'disabled' : ''} title="{% trans 'Shift Right' %}">
+                  ▶
+                </button>
+              ` : ''}
+              ${isOwner ? `
+                <button type="button" class="rk-card-btn-mini retract" onclick="retractCard('${item.card_id}')" title="{% trans 'Take back into hand' %}">
+                  ↩️ {% trans "Retract" %}
+                </button>
+              ` : ''}
+            </div>
+          `;
+        }
+
+        html += `
+          <div class="${cardClass}">
+            <div class="rk-timeline-header">
+              <span class="rk-timeline-slot-badge">#${index + 1}</span>
+              <span style="display:flex; align-items:center; gap:0.25rem;">
+                ${avatarHtml}
+                <span style="font-size:0.75rem; font-weight:700; color:#334155;">${escapeHtml(item.player_name)}</span>
+              </span>
+            </div>
+            <div>${numDisplay}</div>
+            ${item.clue ? `<div class="rk-timeline-clue">"${escapeHtml(item.clue)}"</div>` : ''}
+            ${statusMsg}
+            ${actionsHtml}
+          </div>
+        `;
+      });
+      track.innerHTML = html;
+    }
+
+    // 3. Moderator Reveal & Verification Controls
+    const revealWrap = document.getElementById("timeline-reveal-controls");
+    if (gameState.phase === "playing" && !isRevealed) {
+      revealWrap.style.display = "flex";
+      const remaining = parseInt(document.getElementById("lbl-cards-remaining").textContent, 10) || 0;
+      const totalDealt = timeline.length + remaining;
+
+      revealWrap.innerHTML = `
+        <div style="font-size:0.85rem; color:#475569;">
+          🎴 <strong>${timeline.length}</strong> / <strong>${totalDealt}</strong> {% trans "cards placed on timeline" %}
+          ${remaining > 0 ? `<span style="font-size:0.75rem; color:#d97706; margin-left:0.35rem; font-weight:600;">(${remaining} {% trans "remaining in hands" %})</span>` : '<span style="font-size:0.75rem; color:#16a34a; margin-left:0.35rem; font-weight:700;">✅ {% trans "All cards placed!" %}</span>'}
+        </div>
+        <div>
+          ${isHost ? `
+            <button type="button" class="rk-btn rk-btn-primary" style="font-size:0.9rem; padding:0.55rem 1.15rem;" onclick="revealTimelineClick()" ${timeline.length === 0 ? 'disabled' : ''}>
+              🃏 {% trans "Reveal & Verify Timeline" %}
+            </button>
+          ` : `
+            <span style="font-size:0.8rem; color:#64748b; font-style:italic;">
+              💬 {% trans "Discuss clues! Moderator will reveal when room agrees." %}
+            </span>
+          `}
+        </div>
+      `;
+    } else {
+      revealWrap.style.display = "none";
+    }
   }
 
   function renderRoster(isHost) {
@@ -1210,6 +1443,68 @@
 
   function playCardClick(cardId) {
     wsSend({ action: "play_card", card_id: cardId });
+  }
+
+  function retractCard(cardId) {
+    wsSend({ action: "retract_card", card_id: cardId });
+  }
+
+  let pendingSwapFromIdx = -1;
+  function openSwapModal(fromIdx) {
+    pendingSwapFromIdx = fromIdx;
+    const timeline = gameState.timeline || [];
+    if (fromIdx < 0 || fromIdx >= timeline.length) return;
+    const sourceCard = timeline[fromIdx];
+    const sourceClue = sourceCard.clue ? ` "${sourceCard.clue}"` : "";
+
+    document.getElementById("swap-modal-subtitle").innerHTML = `
+      {% trans "Swap card" %} <strong>#${fromIdx + 1} (${escapeHtml(sourceCard.player_name)}${escapeHtml(sourceClue)})</strong> {% trans "with:" %}
+    `;
+
+    const list = document.getElementById("swap-candidates-list");
+    list.innerHTML = timeline.map((card, idx) => {
+      if (idx === fromIdx) return "";
+      const clue = card.clue ? ` "${escapeHtml(card.clue)}"` : "";
+      return `
+        <button type="button" class="rk-btn rk-btn-secondary" style="text-align:left; display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.85rem;" onclick="confirmSwapProposal(${fromIdx}, ${idx})">
+          <span><strong>#${idx + 1}</strong>: ${escapeHtml(card.player_name)}${clue}</span>
+          <span style="font-size:0.8rem; color:var(--rk-primary); font-weight:700;">{% trans "Select" %} ➔</span>
+        </button>
+      `;
+    }).join("");
+
+    openModal("modal-propose-swap");
+  }
+
+  function confirmSwapProposal(fromIdx, toIdx) {
+    closeModal("modal-propose-swap");
+    wsSend({
+      action: "propose_swap",
+      idx_a: fromIdx,
+      idx_b: toIdx
+    });
+  }
+
+  function approveSwapClick() {
+    wsSend({ action: "approve_swap" });
+  }
+
+  function rejectSwapClick() {
+    wsSend({ action: "reject_swap" });
+  }
+
+  function moveTimelineCard(fromIdx, toIdx) {
+    wsSend({
+      action: "move_timeline_card",
+      from_idx: fromIdx,
+      to_idx: toIdx
+    });
+  }
+
+  function revealTimelineClick() {
+    if (confirm("{% trans 'Reveal all cards and verify the ascending order now?' %}")) {
+      wsSend({ action: "reveal_timeline" });
+    }
   }
 
   function updateCardClue(cardId, clueText) {
