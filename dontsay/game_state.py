@@ -371,6 +371,11 @@ def setup_round(state: dict[str, Any]) -> bool:
     prompt_display = prompt.get("display_text") or prompt.get("text")
     append_event(state, "System", f'🎯 Round {state["round_num"]}: "{prompt_display}"')
 
+    now = time.time()
+    countdown_sec = 4.0
+    state["round_countdown_until"] = now + countdown_sec
+    state["scheduled_start_time"] = now + countdown_sec
+
     if game_mode == "the_me":
         # Select "The ME" player from alive, non-eliminated players
         actives = [p["id"] for p in active_players(state) if p.get("connected") and not p.get("eliminated")]
@@ -402,7 +407,7 @@ def setup_round(state: dict[str, Any]) -> bool:
     else:  # "classic"
         timer_dur = int(settings.get("round_timer", 45))
         state["round_timer_duration"] = timer_dur
-        state["round_timer_started_at"] = time.time() if timer_dur > 0 else None
+        state["round_timer_started_at"] = (now + countdown_sec) if timer_dur > 0 else None
         state["phase"] = "answering"
 
     save_game(state["code"], state)
@@ -1043,11 +1048,21 @@ def end_game(state: dict[str, Any], by_name: str = "Host") -> bool:
     return True
 
 
-def advance_next_round(state: dict[str, Any]) -> bool:
-    """Advance from reveal to next round, or game over if max rounds reached or The ME eliminated players."""
-    max_rounds = int(state.get("settings", {}).get("max_rounds", 6))
+def advance_next_round(state: dict[str, Any], from_round: Optional[int] = None) -> bool:
+    """Advance from reveal to next round with idempotency and debounce protection."""
     cur_round = int(state.get("round_num", 1))
+    if from_round is not None and int(from_round) != cur_round:
+        return False
 
+    now = time.time()
+    last_from = state.get("last_advanced_from_round")
+    last_advance = state.get("last_round_advance_at", 0)
+    if last_from == cur_round and (now - last_advance < 2.0):
+        return False
+    state["last_advanced_from_round"] = cur_round
+    state["last_round_advance_at"] = now
+
+    max_rounds = int(state.get("settings", {}).get("max_rounds", 6))
     should_end = max_rounds > 0 and cur_round >= max_rounds
     if state.get("the_me_gameover") or should_end:
         state["phase"] = "gameover"
@@ -1056,7 +1071,8 @@ def advance_next_round(state: dict[str, Any]) -> bool:
         return True
 
     state["round_num"] = cur_round + 1
-    return setup_round(state)
+    setup_round(state)
+    return True
 
 
 def reset_game(state: dict[str, Any]) -> None:
@@ -1152,5 +1168,10 @@ def get_sanitized_player_view(state: dict[str, Any], viewer: Optional[str] = Non
     view["available_the_me_rotations"] = [{"id": rid, "label": rlbl} for rid, rlbl in THE_ME_ROTATIONS]
     view["collision_modes"] = list(COLLISION_MODES)
     view["pacing_modes"] = list(PACING_MODES)
+
+    # Synchronized game clock & scheduled round start countdown
+    view["server_time"] = time.time()
+    view["round_countdown_until"] = state.get("round_countdown_until")
+    view["scheduled_start_time"] = state.get("scheduled_start_time")
 
     return view

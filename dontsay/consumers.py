@@ -181,7 +181,10 @@ class DontSayConsumer(AsyncJsonWebsocketConsumer):
         elif action == "next_round":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can advance to the next round.")
-            advance_next_round(state)
+            from_round = content.get("from_round") or content.get("current_round")
+            ok = advance_next_round(state, from_round=from_round)
+            if not ok:
+                return  # Drop duplicate or debounced next_round requests
             await self.broadcast_sync()
         elif action == "end_game":
             if not self._is_admin(state):

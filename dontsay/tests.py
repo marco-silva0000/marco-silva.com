@@ -670,3 +670,35 @@ class TestTheMeAndOralModesAndHostTransfer:
         p2_res = state["round_results"]["player_results"][p2["id"]]
         assert p2_res["source"] == "ai_evaluation"
         assert "Test verified" in p2_res["reason"]
+
+    def test_advance_next_round_idempotency_and_countdown(self):
+        import time
+
+        from dontsay.game_state import advance_next_round, get_sanitized_player_view
+
+        state = create_game("IDEMP1")
+        _, p1, _ = add_player(state, "Host", is_admin=True)
+        _, p2, _ = add_player(state, "Player2")
+
+        start_game(state)
+        submit_answer(state, p1["id"], "Rome")
+        submit_answer(state, p2["id"], "Venice")
+        assert state["phase"] == "reveal"
+        assert state["round_num"] == 1
+
+        # First click: from_round=1 advances to round 2
+        ok = advance_next_round(state, from_round=1)
+        assert ok is True
+        assert state["round_num"] == 2
+        assert "round_countdown_until" in state
+        assert state["round_countdown_until"] > time.time()
+
+        # Duplicate spam click with from_round=1 is dropped
+        ok2 = advance_next_round(state, from_round=1)
+        assert ok2 is False
+        assert state["round_num"] == 2  # Has not advanced to 3!
+
+        # View includes synchronized server_time and countdown
+        view = get_sanitized_player_view(state, p1["token"])
+        assert "server_time" in view
+        assert "round_countdown_until" in view

@@ -559,6 +559,24 @@ body { max-width: 1080px !important; }
   </div>
 </div>
 
+<!-- Modal: Synchronized Round Start Countdown -->
+<div id="modal-round-countdown" class="ds-modal" style="background:rgba(15,23,42,0.92); z-index:9998; backdrop-filter:blur(6px);">
+  <div style="text-align:center; color:#fff; padding:2.5rem 1.5rem; max-width:440px; margin:0 auto;">
+    <div style="font-size:0.95rem; font-weight:800; text-transform:uppercase; letter-spacing:0.12em; color:#94a3b8; margin-bottom:0.6rem;" id="countdown-round-label">
+      {% trans "Round Starting" %}
+    </div>
+    <div id="countdown-big-number" style="font-size:6.5rem; font-weight:900; line-height:1; color:#38bdf8; text-shadow:0 0 30px rgba(56,189,248,0.6); margin-bottom:0.75rem; font-variant-numeric:tabular-nums;">
+      3
+    </div>
+    <div id="countdown-sub-msg" style="font-size:1.15rem; font-weight:700; color:#f8fafc; margin-bottom:0.5rem;">
+      🎯 {% trans "Get Ready! Avoid the Mind Clash!" %}
+    </div>
+    <div style="font-size:0.8rem; color:#64748b;">
+      ⏱️ {% trans "Synchronized across all player screens" %}
+    </div>
+  </div>
+</div>
+
 <script src="{% static 'vendor/js-confetti.browser.js' %}"></script>
 <script>
 const ROOM_CODE = "{{ room.code|escapejs }}";
@@ -579,7 +597,51 @@ if (PLAYER_TOKEN && !window.location.search.includes('token=')) {
 let gameState = {{ initial_state_json|safe }};
 let socket = null;
 let timerInterval = null;
+let countdownTimerId = null;
+let serverClockOffset = 0;
 const jsConfetti = window.JSConfetti ? new JSConfetti() : null;
+
+function updateServerClock(serverTimeSec) {
+  if (typeof serverTimeSec === "number") {
+    serverClockOffset = (serverTimeSec * 1000) - Date.now();
+  }
+}
+
+function getSyncedNow() {
+  return Date.now() + serverClockOffset;
+}
+
+function checkAndRunRoundCountdown(targetSec, roundNum) {
+  if (!targetSec) return false;
+  const targetMs = targetSec * 1000;
+  const remaining = targetMs - getSyncedNow();
+  if (remaining <= 100) {
+    closeModal("modal-round-countdown");
+    return false;
+  }
+
+  const numEl = document.getElementById("countdown-big-number");
+  const lblEl = document.getElementById("countdown-round-label");
+  if (lblEl) lblEl.textContent = `🎯 Round ${roundNum || ""} Starting`;
+
+  openModal("modal-round-countdown");
+
+  if (countdownTimerId) clearInterval(countdownTimerId);
+  countdownTimerId = setInterval(() => {
+    const rem = targetMs - getSyncedNow();
+    if (rem <= 80) {
+      clearInterval(countdownTimerId);
+      countdownTimerId = null;
+      closeModal("modal-round-countdown");
+      const inp = document.getElementById("input-answer");
+      if (inp && !inp.disabled) inp.focus();
+    } else {
+      const sec = Math.ceil(rem / 1000);
+      if (numEl) numEl.textContent = sec > 0 ? sec : "GO!";
+    }
+  }, 100);
+  return true;
+}
 
 function esc(str) {
   const d = document.createElement("div");
@@ -618,6 +680,12 @@ function connectWS() {
       if (data.type === "game.event" && data.event_type === "oral_countdown") {
         runOralCountdown(data.duration || 3);
         return;
+      }
+      if (typeof data.server_time === "number") {
+        updateServerClock(data.server_time);
+      }
+      if (data.round_countdown_until && (data.phase === "answering" || data.phase === "the_me_answering")) {
+        checkAndRunRoundCountdown(data.round_countdown_until, data.round_num);
       }
       gameState = data;
       renderGame();
@@ -1240,7 +1308,15 @@ function saveSettings() {
   });
 }
 
-function startGame() { wsSend({ action: "start_game" }); }
+function startGame() {
+  const btn = document.querySelector("#stage-lobby .ds-btn-primary");
+  if (btn) {
+    btn.disabled = true;
+    btn.style.opacity = "0.5";
+    btn.textContent = "⏳ Starting Game...";
+  }
+  wsSend({ action: "start_game" });
+}
 function submitAnswer() {
   const val = document.getElementById("input-answer").value.trim();
   if (!val) return;
@@ -1251,7 +1327,15 @@ function toggleValidity(pid, isValid) { wsSend({ action: "toggle_validity", play
 function toggleClash(pid) { wsSend({ action: "toggle_clash", player_id: pid }); }
 function askAI(pid) { wsSend({ action: "ai_arbitrate", player_id: pid }); }
 function endGame() { wsSend({ action: "end_game" }); }
-function nextRound() { wsSend({ action: "next_round" }); }
+function nextRound() {
+  const btn = document.getElementById("btn-next-round");
+  if (btn) {
+    btn.disabled = true;
+    btn.style.opacity = "0.5";
+    btn.textContent = "⏳ Starting Next Round...";
+  }
+  wsSend({ action: "next_round", from_round: gameState ? gameState.round_num : 0 });
+}
 function resetGame() { wsSend({ action: "reset_game" }); }
 function sendChat() {
   const inp = document.getElementById("chat-input");

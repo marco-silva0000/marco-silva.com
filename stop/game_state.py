@@ -422,14 +422,27 @@ def start_round(
     is_redraw: bool = False,
     forced_category: str = "",
     forced_letter: str = "",
+    from_round: Optional[int] = None,
 ) -> tuple[bool, str]:
-    """Start the next Stop! round (or redraw the current category & letter)."""
+    """Start the next Stop! round (or redraw current category & letter) with debounce and countdown."""
+    cur_round = int(state.get("round_num", 0))
+    if from_round is not None and not is_redraw and int(from_round) != cur_round:
+        return False, f"Round already started ({cur_round})."
+
+    now = time.time()
+    last_from = state.get("last_advanced_from_round")
+    last_advance = state.get("last_round_advance_at", 0)
+    if not is_redraw and last_from == cur_round and (now - last_advance < 2.0):
+        return False, "Please wait, round is currently advancing."
+    state["last_advanced_from_round"] = cur_round
+    state["last_round_advance_at"] = now
+
     participants = [p["id"] for p in active_players(state)]
     if not participants:
         return False, "At least 1 active player is required to start a round."
 
-    if not is_redraw or state.get("round_num", 0) == 0:
-        state["round_num"] = int(state.get("round_num", 0)) + 1
+    if not is_redraw or cur_round == 0:
+        state["round_num"] = cur_round + 1
 
     s = state.get("settings", DEFAULT_SETTINGS)
     cat, letter = pick_category_and_letter(
@@ -452,7 +465,9 @@ def start_round(
         state.setdefault("used_categories", []).append(cat["id"])
 
     state["round_participants"] = participants
-    state["round_started_at"] = time.time()
+    countdown_sec = 4.0
+    state["round_countdown_until"] = now + countdown_sec
+    state["round_started_at"] = now + countdown_sec
     state["stop_called_by"] = None
     state["stop_reason"] = ""
     state["submissions"] = {}
@@ -464,7 +479,14 @@ def start_round(
     state["round_summary"] = ""
 
     timer_sec = int(s.get("round_timer", 30) or 0)
-    set_phase_timer(state, timer_sec)
+    if timer_sec > 0:
+        state["timer_duration"] = timer_sec
+        state["timer_ends_at"] = (now + countdown_sec) + timer_sec
+        state["timer_paused_remaining"] = None
+    else:
+        state["timer_duration"] = 0
+        state["timer_ends_at"] = None
+        state["timer_paused_remaining"] = None
     sync_room_db_status(state["code"], "running")
 
     action_label = "🔄 Redrew" if is_redraw else f"🚦 Round {state['round_num']}"
@@ -1104,4 +1126,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str]) -
             "remaining": remaining,
             "paused_remaining": state.get("timer_paused_remaining"),
         },
+        "server_time": now,
+        "round_countdown_until": state.get("round_countdown_until"),
+        "round_started_at": state.get("round_started_at"),
     }

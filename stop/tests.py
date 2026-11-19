@@ -250,6 +250,31 @@ class TestStopGameplayAndSpeedUniquenessScoring:
         assert res_map[p1["id"]]["points"] == 10
         assert res_map[p2["id"]]["points"] == 10
 
+    def test_start_round_idempotency_and_countdown(self):
+        import time
+
+        state = create_initial_state("STOPIDEMP")
+        state, p1, _ = add_player(state, "Alice", is_admin=True)
+        state, p2, _ = add_player(state, "Bob")
+
+        # Round 1
+        ok, msg = start_round(state, from_round=0)
+        assert ok is True
+        assert state["round_num"] == 1
+        assert "round_countdown_until" in state
+        assert state["round_countdown_until"] > time.time()
+
+        # Spam duplicate click with from_round=0 is dropped
+        ok2, msg2 = start_round(state, from_round=0)
+        assert ok2 is False
+        assert state["round_num"] == 1  # Did not advance to 2!
+
+        # View contains server_time and countdown
+        view = get_sanitized_player_view(state, p1["id"])
+        assert "server_time" in view
+        assert "round_countdown_until" in view
+        assert "round_started_at" in view
+
 
 @pytest.mark.django_db
 class TestStopViewsAndRoomIntegration:
