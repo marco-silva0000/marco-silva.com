@@ -962,21 +962,37 @@ function renderReveal(isHost) {
       statusPill = `<span class="ds-pill ds-pill-success">✨ {% trans "Unique" %} (+${res.points_awarded} pts)</span>`;
     }
 
+    let sourcePill = "";
+    if (res.source === "ai_evaluation") {
+      sourcePill = `<span class="ds-pill" style="background:#e0e7ff; color:#3730a3; border:1px solid #c7d2fe; font-size:0.75rem;" title="${esc(res.reason || '')}">🤖 {% trans "AI Verified" %}</span>`;
+    } else if (res.source === "curated_match") {
+      sourcePill = `<span class="ds-pill" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; font-size:0.75rem;">📖 {% trans "Deck Match" %}</span>`;
+    } else if (res.source === "host_override") {
+      sourcePill = `<span class="ds-pill" style="background:#fef3c7; color:#92400e; border:1px solid #fde68a; font-size:0.75rem;">👑 {% trans "Host Decision" %}</span>`;
+    } else if (res.source === "unverified_fallback") {
+      sourcePill = `<span class="ds-pill" style="background:#fffbeb; color:#b45309; border:1px solid #fde68a; font-size:0.75rem;">⚠️ {% trans "Unverified" %}</span>`;
+    }
+
     const hostArbitration = isHost ? `
       <div style="display:flex; gap:0.25rem;">
         <button class="ds-btn ds-btn-success" style="padding:0.2rem 0.45rem; font-size:0.75rem;" onclick="toggleValidity('${res.player_id}', true)" title="Mark Valid">✅</button>
         <button class="ds-btn ds-btn-danger" style="padding:0.2rem 0.45rem; font-size:0.75rem;" onclick="toggleValidity('${res.player_id}', false)" title="Mark Invalid">❌</button>
         <button class="ds-btn" style="padding:0.2rem 0.45rem; font-size:0.75rem;" onclick="toggleClash('${res.player_id}')" title="Toggle Collision / Unique">💥/✨</button>
+        <button class="ds-btn" style="padding:0.2rem 0.45rem; font-size:0.75rem; background:#f5f3ff; color:#5b21b6; border-color:#ddd6fe;" onclick="askAI('${res.player_id}')" title="Ask Local AI (Qwen 30B) to verify this answer">🤖 AI</button>
       </div>
     ` : "";
 
     return `
       <div class="ds-result-card ${cardClass}" style="${res.eliminated ? 'border-left:4px solid #ef4444; background:#fff1f2;' : ''}">
         <div>
-          <div style="font-weight:700; font-size:0.92rem;">${esc(res.player_name)}: <span style="font-weight:800; color:#1e293b;">"${esc(res.raw_answer || '—')}"</span></div>
+          <div style="font-weight:700; font-size:0.92rem; display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+            <span>${esc(res.player_name)}:</span>
+            <span style="font-weight:800; color:#1e293b;">"${esc(res.raw_answer || '—')}"</span>
+            ${sourcePill}
+          </div>
           <div style="font-size:0.75rem; color:var(--ds-muted); margin-top:0.2rem;">${esc(res.reason || '')}</div>
         </div>
-        <div style="display:flex; align-items:center; gap:0.45rem;">
+        <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap;">
           ${statusPill}
           ${hostArbitration}
         </div>
@@ -1178,6 +1194,7 @@ function submitAnswer() {
 function revealRound() { wsSend({ action: "reveal_round" }); }
 function toggleValidity(pid, isValid) { wsSend({ action: "toggle_validity", player_id: pid, is_valid: isValid }); }
 function toggleClash(pid) { wsSend({ action: "toggle_clash", player_id: pid }); }
+function askAI(pid) { wsSend({ action: "ai_arbitrate", player_id: pid }); }
 function endGame() { wsSend({ action: "end_game" }); }
 function nextRound() { wsSend({ action: "next_round" }); }
 function resetGame() { wsSend({ action: "reset_game" }); }

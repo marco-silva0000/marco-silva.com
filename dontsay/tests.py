@@ -41,7 +41,7 @@ def mock_redis_and_channels(monkeypatch, settings):
     }
 
     # Fast test evaluator avoiding outbound Ollama timeouts during tests
-    def _fast_eval(prompt_text, answer, sample_answers=None, obscurity_examples=None, use_ai=True):
+    def _fast_eval(prompt_text, answer, sample_answers=None, obscurity_examples=None, use_ai=True, **kwargs):
         clean_ans = clean_answer_key(answer)
         if not clean_ans:
             return {"valid": False, "is_obscure": False, "source": "empty", "reason": "Empty"}
@@ -651,3 +651,22 @@ class TestTheMeAndOralModesAndHostTransfer:
         assert res is True
         assert state["round_num"] == 2
         assert state["phase"] == "answering"
+
+    def test_ai_arbitrate_answer_action(self):
+        from dontsay.game_state import ai_arbitrate_answer
+
+        state = create_game("AIARB1")
+        _, p1, _ = add_player(state, "Host", is_admin=True)
+        _, p2, _ = add_player(state, "Player2")
+
+        start_game(state)
+        submit_answer(state, p1["id"], "Rome")
+        submit_answer(state, p2["id"], "Venice")
+        assert state["phase"] == "reveal"
+
+        # Manually arbitrate p2's answer with AI
+        ok = ai_arbitrate_answer(state, p2["id"])
+        assert ok is True
+        p2_res = state["round_results"]["player_results"][p2["id"]]
+        assert p2_res["source"] == "ai_evaluation"
+        assert "Test verified" in p2_res["reason"]

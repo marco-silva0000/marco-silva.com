@@ -8,6 +8,7 @@ from .game_state import (
     add_player,
     adjudicate_oral_round,
     advance_next_round,
+    ai_arbitrate_answer,
     append_event,
     end_game,
     evaluate_and_reveal_round,
@@ -171,6 +172,12 @@ class DontSayConsumer(AsyncJsonWebsocketConsumer):
             target_pid = str(content.get("player_id", ""))
             toggle_answer_clash(state, target_pid)
             await self.broadcast_sync()
+        elif action == "ai_arbitrate":
+            if not self._is_admin(state):
+                return await self.send_error("Only the Host can request AI arbitration.")
+            target_pid = str(content.get("player_id", ""))
+            if target_pid and ai_arbitrate_answer(state, target_pid):
+                await self.broadcast_sync()
         elif action == "next_round":
             if not self._is_admin(state):
                 return await self.send_error("Only the Host can advance to the next round.")

@@ -511,18 +511,42 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
     fuzzy_clash = bool(settings.get("fuzzy_clash", True))
     grouped_by_key: dict[str, list[str]] = cluster_answer_keys(entries, fuzzy=fuzzy_clash)
 
-    # 2. Evaluate validity for each distinct non-empty key
+    # 2. Evaluate validity for each distinct non-empty key (fast deck match first, concurrent AI fallback)
     evaluated_keys: dict[str, dict[str, Any]] = {}
+    keys_to_ai: list[tuple[str, str]] = []
+
     for ckey, pids in grouped_by_key.items():
         sample_rep = answers[pids[0]]["raw"]
-        val_res = validate_player_answer(
+        fast_val = validate_player_answer(
             prompt_text=prompt_text,
             answer=sample_rep,
             sample_answers=sample_answers,
             obscurity_examples=obscurity_examples,
-            use_ai=use_ai,
+            use_ai=False,
         )
-        evaluated_keys[ckey] = val_res
+        if fast_val.get("source") in ("empty", "curated_match") or not use_ai:
+            evaluated_keys[ckey] = fast_val
+        else:
+            keys_to_ai.append((ckey, sample_rep))
+
+    if keys_to_ai:
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+
+        def _eval_one(ck, rep):
+            return ck, validate_player_answer(
+                prompt_text=prompt_text,
+                answer=rep,
+                sample_answers=sample_answers,
+                obscurity_examples=obscurity_examples,
+                use_ai=True,
+                timeout=5.5,
+            )
+
+        with ThreadPoolExecutor(max_workers=min(4, len(keys_to_ai))) as executor:
+            futures = [executor.submit(_eval_one, ck, rep) for ck, rep in keys_to_ai]
+            for f in as_completed(futures):
+                ck, res = f.result()
+                evaluated_keys[ck] = res
 
     # 3. Compute per-player scores and clash details
     player_results: dict[str, Any] = {}
@@ -564,6 +588,7 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
                         "status": "caught_by_me",
                         "is_valid": is_valid,
                         "is_obscure": False,
+                        "source": val_info.get("source", "the_me_clash"),
                         "points_awarded": pts,
                         "total_score": players[pid]["score"],
                         "eliminated": True,
@@ -601,6 +626,7 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
                         "status": status,
                         "is_valid": is_valid,
                         "is_obscure": is_obs,
+                        "source": val_info.get("source", "unverified_fallback"),
                         "points_awarded": pts,
                         "total_score": players[pid]["score"],
                         "eliminated": False,
@@ -627,6 +653,7 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
                 "status": me_status,
                 "is_valid": True,
                 "is_obscure": False,
+                "source": "the_me",
                 "points_awarded": me_pts,
                 "total_score": players[the_me_id]["score"],
                 "eliminated": False,
@@ -706,6 +733,7 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
                     "status": status,
                     "is_valid": is_valid,
                     "is_obscure": is_obs,
+                    "source": val_info.get("source", "unverified_fallback"),
                     "points_awarded": pts,
                     "total_score": players[pid]["score"],
                     "reason": val_info.get("reason", ""),
@@ -723,6 +751,7 @@ def evaluate_and_reveal_round(state: dict[str, Any]) -> dict[str, Any]:
                 "status": "eliminated" if is_elim else "no_answer",
                 "is_valid": False,
                 "is_obscure": False,
+                "source": "empty",
                 "points_awarded": 0,
                 "total_score": p.get("score", 0),
                 "eliminated": is_elim,
@@ -807,6 +836,7 @@ def toggle_answer_validity(state: dict[str, Any], player_id: str, is_valid: bool
 
     diff = new_pts - old_pts
     p_res["points_awarded"] = new_pts
+    p_res["source"] = "host_override"
     player = state.get("players", {}).get(player_id)
     if player:
         player["score"] = max(0, player.get("score", 0) + diff)
@@ -924,6 +954,7 @@ def toggle_answer_clash(state: dict[str, Any], player_id: str) -> bool:
     diff = new_pts - old_pts
     p_res["status"] = new_status
     p_res["points_awarded"] = new_pts
+    p_res["source"] = "host_override"
     player = state.get("players", {}).get(player_id)
     if player:
         player["score"] = max(0, player.get("score", 0) + diff)
@@ -933,6 +964,71 @@ def toggle_answer_clash(state: dict[str, Any], player_id: str) -> bool:
             p_res["eliminated"] = True
 
     append_event(state, "Host", f"⚖️ Host marked {p_res['player_name']}'s answer as {new_status.upper()}.")
+    save_game(state["code"], state)
+    return True
+
+
+def ai_arbitrate_answer(state: dict[str, Any], player_id: str) -> bool:
+    """Manually invoke local AI (Qwen 30B) arbitration for a specific player's answer."""
+    if state.get("phase") not in ("reveal", "recap"):
+        return False
+    rr = state.get("round_results")
+    if not rr:
+        return False
+    p_res = rr.get("player_results", {}).get(player_id)
+    if not p_res:
+        return False
+
+    prompt = rr.get("prompt", {})
+    prompt_text = prompt.get("display_text") or prompt.get("text", "")
+    sample_answers = prompt.get("sample_answers", [])
+    obscurity_examples = prompt.get("obscurity_examples", [])
+    raw_answer = p_res.get("raw_answer", "")
+
+    val_res = validate_player_answer(
+        prompt_text=prompt_text,
+        answer=raw_answer,
+        sample_answers=sample_answers,
+        obscurity_examples=obscurity_examples,
+        use_ai=True,
+        timeout=6.0,
+    )
+
+    old_pts = p_res.get("points_awarded", 0)
+    p = state.get("players", {}).get(player_id)
+    if p:
+        p["score"] = max(0, p.get("score", 0) - old_pts)
+
+    new_valid = val_res.get("valid", True)
+    is_obs = val_res.get("is_obscure", False)
+    p_res["is_valid"] = new_valid
+    p_res["is_obscure"] = is_obs
+    p_res["source"] = "ai_evaluation"
+    p_res["reason"] = val_res.get("reason", "Evaluated by Qwen 30B")
+
+    settings = state.get("settings", DEFAULT_SETTINGS)
+    collision_mode = settings.get("collision_mode", "classic")
+    is_clash = p_res.get("status") == "clash"
+
+    if not new_valid:
+        new_pts = 0
+        p_res["status"] = "invalid"
+    elif is_clash:
+        new_pts = -50 if collision_mode == "harsh" else 0
+        p_res["status"] = "clash"
+    elif p_res.get("status") == "escaped_me":
+        new_pts = 150 if is_obs else 100
+        p_res["status"] = "escaped_me"
+    else:
+        new_pts = 150 if is_obs else 100
+        p_res["status"] = "unique"
+
+    p_res["points_awarded"] = new_pts
+    if p:
+        p["score"] = max(0, p.get("score", 0) + new_pts)
+        p_res["total_score"] = p["score"]
+
+    append_event(state, "Host", f"🤖 AI arbitrated {p_res['player_name']}'s answer “{raw_answer}”: {p_res['reason']}")
     save_game(state["code"], state)
     return True
 

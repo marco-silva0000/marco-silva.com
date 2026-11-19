@@ -143,7 +143,7 @@ def cluster_answer_keys(
     return {rep_key: vals for rep_key, vals in clusters}
 
 
-def query_ollama(prompt: str, model: str = DEFAULT_MODEL, timeout: float = 2.5) -> Optional[str]:
+def query_ollama(prompt: str, model: str = DEFAULT_MODEL, timeout: float = 5.5) -> Optional[str]:
     """Query local Ollama instance with strict timeout; returns response string or None."""
     url = f"{DEFAULT_OLLAMA_URL.rstrip('/')}/api/generate"
     payload = {
@@ -152,8 +152,8 @@ def query_ollama(prompt: str, model: str = DEFAULT_MODEL, timeout: float = 2.5) 
         "stream": False,
         "format": "json",
         "options": {
-            "temperature": 0.2,
-            "num_predict": 180,
+            "temperature": 0.1,
+            "num_predict": 320,
         },
     }
     try:
@@ -175,12 +175,12 @@ def validate_player_answer(
     sample_answers: Optional[list[str]] = None,
     obscurity_examples: Optional[list[str]] = None,
     use_ai: bool = True,
-    timeout: float = 2.5,
+    timeout: float = 5.5,
 ) -> dict[str, Any]:
     """
     Arbitrate a player answer against a prompt.
-    1. Fast deterministic check against curated sample answers.
-    2. Optional local AI arbitration via qwen3:30b.
+    1. Fast deterministic check against curated sample answers (instant <1ms).
+    2. Optional local AI arbitration via Qwen 30B on CT 104.
     3. Safe fallback marked for host review if unknown.
     """
     clean_ans = clean_answer_key(answer)
@@ -209,25 +209,30 @@ def validate_player_answer(
     # 2. Local AI verification if enabled
     if use_ai:
         ai_prompt = (
-            f'Question/Prompt: "{prompt_text}"\n'
-            f'Player Submitted Answer: "{answer}"\n'
-            f"Is this player answer a factually valid, truthful, and appropriate answer to the prompt? "
-            f"Also decide if it is creative/obscure (not the most obvious answer).\n"
-            f'Reply ONLY in JSON with keys: "valid" (boolean), "is_obscure" (boolean), "reason" (short string).'
+            f"Verify answer for a party game.\n"
+            f"Prompt/Category: {prompt_text}\n"
+            f"Player Answer: {answer}\n"
+            f"Be concise. Reply strictly with JSON:\n"
+            f'{{"valid": true or false, "is_obscure": true or false, "reason": "brief explanation under 15 words"}}'
         )
         ai_resp = query_ollama(ai_prompt, timeout=timeout)
         if ai_resp:
             try:
-                parsed = json.loads(ai_resp)
+                clean_json = ai_resp.strip()
+                if "```json" in clean_json:
+                    clean_json = clean_json.split("```json")[1].split("```")[0].strip()
+                elif "```" in clean_json:
+                    clean_json = clean_json.split("```")[1].split("```")[0].strip()
+                parsed = json.loads(clean_json)
                 return {
                     "valid": bool(parsed.get("valid", True)),
                     "is_obscure": bool(parsed.get("is_obscure", False)),
                     "source": "ai_evaluation",
-                    "reason": parsed.get("reason", "Evaluated by AI"),
+                    "reason": str(parsed.get("reason") or "Evaluated by AI"),
                     "pending_host_review": False,
                 }
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("Failed to parse Ollama JSON: %s", e)
 
     # 3. Rule-based offline fallback (assume valid pending host review if non-empty)
     return {
