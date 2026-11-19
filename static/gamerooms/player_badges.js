@@ -29,10 +29,13 @@ function escapeHtml(str) {
 
 function getPlayerInitials(name) {
   if (!name) return "?";
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length === 0) return "?";
-  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
-  return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+  const cleanTokens = name.trim().split(/\s+/).map(t => t.replace(/[^a-zA-Z0-9]/g, "")).filter(Boolean);
+  if (cleanTokens.length === 0) {
+    const raw = name.replace(/[^a-zA-Z0-9]/g, "");
+    return raw ? raw.charAt(0).toUpperCase() : "?";
+  }
+  if (cleanTokens.length === 1) return cleanTokens[0].charAt(0).toUpperCase();
+  return (cleanTokens[0].charAt(0) + cleanTokens[cleanTokens.length - 1].charAt(0)).toUpperCase();
 }
 
 function renderPlayerAvatarHtml(player, sizeClass = "player-avatar-sm", extraStyle = "") {

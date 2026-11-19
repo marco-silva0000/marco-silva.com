@@ -45,14 +45,14 @@ def get_player_initials(name: str | None) -> str:
     """
     if not name:
         return "?"
-    tokens = [t for t in name.strip().split() if t]
+    tokens = [re.sub(r"[^a-zA-Z0-9]", "", t) for t in name.strip().split() if t]
+    tokens = [t for t in tokens if t]
     if not tokens:
-        return "?"
+        raw = re.sub(r"[^a-zA-Z0-9]", "", name)
+        return raw[0].upper() if raw else "?"
     if len(tokens) == 1:
         first = tokens[0]
-        # If single token is alphanumeric
         return first[0].upper()
-    # 2 or more tokens: first letter of first token + first letter of last token
     return (tokens[0][0] + tokens[-1][0]).upper()
 
 

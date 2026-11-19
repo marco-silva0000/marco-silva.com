@@ -731,22 +731,27 @@
 <!-- Modal: Level Success Celebration -->
 <div id="modal-level-success" class="rk-modal">
   <div class="rk-modal-content" style="text-align:center;">
-    <div style="font-size:3.5rem; line-height:1; margin-bottom:0.5rem;">🎉</div>
-    <h2 style="font-size:1.5rem; font-weight:800; color:#0f172a; margin:0 0 0.5rem 0;">
+    <div id="level-success-icon" style="font-size:3.5rem; line-height:1; margin-bottom:0.5rem;">🎉</div>
+    <h2 id="level-success-title" style="font-size:1.5rem; font-weight:800; color:#0f172a; margin:0 0 0.5rem 0;">
       {% trans "Level Cleared!" %}
     </h2>
-    <p style="font-size:0.95rem; color:#475569; margin:0 0 1.25rem 0;">
+    <p id="level-success-subtitle" style="font-size:0.95rem; color:#475569; margin:0 0 1.25rem 0;">
       {% trans "All cards were placed in perfect ascending order!" %}
     </p>
 
     <div id="level-success-summary" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:1rem; margin-bottom:1.25rem; font-size:0.9rem;"></div>
 
-    <div id="host-next-level-wrap" style="display:none;">
-      <button type="button" id="btn-next-level" class="rk-btn rk-btn-primary" style="font-size:1rem; padding:0.65rem 1.8rem;" onclick="startNextLevelClick()">
-        ⏩ {% trans "Proceed to Next Level" %}
+    <div style="display:flex; justify-content:center; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+      <button type="button" class="rk-btn rk-btn-secondary" style="font-size:0.9rem; padding:0.6rem 1.25rem;" onclick="closeModal('modal-level-success')">
+        🔍 {% trans "Inspect Timeline" %}
       </button>
+      <div id="host-next-level-wrap" style="display:none;">
+        <button type="button" id="btn-next-level" class="rk-btn rk-btn-primary" style="font-size:0.95rem; padding:0.6rem 1.5rem;" onclick="startNextLevelClick()">
+          ⏩ {% trans "Proceed to Next Level" %}
+        </button>
+      </div>
     </div>
-    <div id="non-host-next-level-wait" style="color:var(--rk-muted); font-size:0.85rem;">
+    <div id="non-host-next-level-wait" style="color:var(--rk-muted); font-size:0.85rem; margin-top:0.75rem;">
       ⏳ {% trans "Waiting for host to start next level..." %}
     </div>
   </div>
@@ -763,10 +768,15 @@
       {% trans "The team ran out of lives." %}
     </p>
 
-    <div id="host-play-again-wrap" style="display:none; margin-top:1rem;">
-      <button type="button" class="rk-btn rk-btn-primary" style="font-size:1rem; padding:0.65rem 1.8rem;" onclick="playAgainClick()">
-        🔄 {% trans "Play Again (Return to Lobby)" %}
+    <div style="display:flex; justify-content:center; align-items:center; gap:0.6rem; flex-wrap:wrap; margin-top:1rem;">
+      <button type="button" class="rk-btn rk-btn-secondary" style="font-size:0.9rem; padding:0.6rem 1.25rem;" onclick="closeModal('modal-gameover')">
+        🔍 {% trans "Inspect Timeline" %}
       </button>
+      <div id="host-play-again-wrap" style="display:none;">
+        <button type="button" class="rk-btn rk-btn-primary" style="font-size:0.95rem; padding:0.6rem 1.5rem;" onclick="playAgainClick()">
+          🔄 {% trans "Play Again" %}
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -1281,6 +1291,41 @@
           `}
         </div>
       `;
+    } else if (gameState.phase === "level_success") {
+      revealWrap.style.display = "flex";
+      const clashes = (timeline || []).filter(c => c.is_clash).length;
+      revealWrap.innerHTML = `
+        <div style="font-size:0.85rem; color:${clashes > 0 ? '#b45309' : '#15803d'}; font-weight:700;">
+          ${clashes === 0 ? '✨ {% trans "Flawless Ascending Order!" %}' : `⚠️ {% trans "Level Completed with" %} ${clashes} {% trans "clash(es)!" %}`}
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <button type="button" class="rk-btn rk-btn-secondary" style="font-size:0.8rem; padding:0.4rem 0.75rem;" onclick="openModal('modal-level-success')">
+            📜 {% trans "Show Summary" %}
+          </button>
+          ${isHost ? `
+            <button type="button" class="rk-btn rk-btn-primary" style="font-size:0.85rem; padding:0.45rem 1rem;" onclick="startNextLevelClick()">
+              ⏩ {% trans "Proceed to Next Level" %}
+            </button>
+          ` : ''}
+        </div>
+      `;
+    } else if (gameState.phase === "gameover" || gameState.phase === "victory") {
+      revealWrap.style.display = "flex";
+      revealWrap.innerHTML = `
+        <div style="font-size:0.85rem; color:#dc2626; font-weight:700;">
+          ${gameState.phase === 'victory' ? '🏆 {% trans "Grand Victory!" %}' : '💀 {% trans "Game Over (Out of Lives)" %}'}
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <button type="button" class="rk-btn rk-btn-secondary" style="font-size:0.8rem; padding:0.4rem 0.75rem;" onclick="openModal('modal-gameover')">
+            📜 {% trans "Show Summary" %}
+          </button>
+          ${isHost ? `
+            <button type="button" class="rk-btn rk-btn-primary" style="font-size:0.85rem; padding:0.45rem 1rem;" onclick="playAgainClick()">
+              🔄 {% trans "Play Again" %}
+            </button>
+          ` : ''}
+        </div>
+      `;
     } else {
       revealWrap.style.display = "none";
     }
@@ -1390,12 +1435,30 @@
     document.getElementById("host-next-level-wrap").style.display = isHost ? "block" : "none";
     document.getElementById("non-host-next-level-wait").style.display = isHost ? "none" : "block";
 
+    const clashes = (gameState.timeline || []).filter(c => c.is_clash).length;
+    const icon = document.getElementById("level-success-icon");
+    const title = document.getElementById("level-success-title");
+    const subtitle = document.getElementById("level-success-subtitle");
     const summary = document.getElementById("level-success-summary");
     const curLevel = gameState.level || 1;
-    summary.innerHTML = `
-      <strong>{% trans "Level" %} ${curLevel} {% trans "Cleared!" %}</strong><br>
-      {% trans "Remaining Lives:" %} <strong>${gameState.lives}</strong>
-    `;
+
+    if (clashes === 0) {
+      if (icon) icon.textContent = "🎉";
+      if (title) title.textContent = "{% trans 'Flawless Ascending!' %}";
+      if (subtitle) subtitle.textContent = "{% trans 'All cards were placed in perfect ascending order!' %}";
+      summary.innerHTML = `
+        <strong>{% trans "Level" %} ${curLevel} {% trans "Cleared!" %}</strong><br>
+        {% trans "Remaining Lives:" %} <strong>${gameState.lives} ❤️</strong>
+      `;
+    } else {
+      if (icon) icon.textContent = "⚠️";
+      if (title) title.textContent = "{% trans 'Level Survived!' %}";
+      if (subtitle) subtitle.textContent = `${clashes} {% trans "clash(es) detected, but your team survived with lives remaining!" %}`;
+      summary.innerHTML = `
+        <strong style="color:#d97706;">{% trans "Level" %} ${curLevel} {% trans "Survived" %} (${clashes} {% trans "clash(es)" %})</strong><br>
+        {% trans "Remaining Lives:" %} <strong>${gameState.lives} ❤️</strong>
+      `;
+    }
   }
 
   function renderGameOverModal(isHost, isVictory) {
