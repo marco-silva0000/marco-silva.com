@@ -1035,6 +1035,8 @@
     const nonHostMsg = document.getElementById("non-host-wait-msg");
 
     if (phase === "playing") {
+      closeModal("modal-level-success");
+      closeModal("modal-gameover");
       promptCard.style.display = "block";
       handCard.style.display = "block";
       lobbyCard.style.display = "none";
@@ -1042,17 +1044,23 @@
       renderPlayerHand();
       checkCountdownStaging();
     } else if (phase === "level_success") {
+      closeModal("modal-propose-swap");
       promptCard.style.display = "block";
       handCard.style.display = "none";
       lobbyCard.style.display = "none";
       renderLevelSuccessModal(isHost);
     } else if (phase === "gameover" || phase === "victory") {
+      closeModal("modal-level-success");
+      closeModal("modal-propose-swap");
       promptCard.style.display = "block";
       handCard.style.display = "none";
       lobbyCard.style.display = "none";
       renderGameOverModal(isHost, phase === "victory");
     } else {
       // Lobby
+      closeModal("modal-level-success");
+      closeModal("modal-gameover");
+      closeModal("modal-propose-swap");
       promptCard.style.display = "none";
       handCard.style.display = "none";
       lobbyCard.style.display = "block";
