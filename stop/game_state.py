@@ -649,6 +649,8 @@ def call_stop(state: dict[str, Any], player_id: str, reason: str = "") -> tuple[
             append_event(state, "System", f"🛑 {player['name']} hit STOP! {countdown_sec}s final countdown!")
             save_game(state["code"], state)
             return True, f"{countdown_sec}s countdown triggered!"
+        else:
+            return False, "Final countdown is already running!"
 
     finish_round(
         state,

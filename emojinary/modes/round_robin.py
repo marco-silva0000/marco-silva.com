@@ -248,7 +248,13 @@ class RoundRobinMixin:
         if state.get("phase") != "guess":
             return
         cp = current_player_id(state)
-        if not self.player_id or self.player_id == cp or self.player_id in state.get("guessed", []):
+        p_info = state.get("players", {}).get(self.player_id, {})
+        if (
+            not self.player_id
+            or self.player_id == cp
+            or self.player_id in state.get("guessed", [])
+            or p_info.get("is_spectator")
+        ):
             return
 
         guess = (content.get("guess") or content.get("msg") or "").strip()

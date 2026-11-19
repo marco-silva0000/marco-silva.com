@@ -310,7 +310,7 @@ body { max-width: 1080px !important; }
           <div class="ds-prompt-hint">🗣️ {% trans "No typing! Say your answers out loud in order, or count down and shout together!" %}</div>
         </div>
 
-        <div style="text-align:center; margin:1.5rem 0;">
+        <div id="oral-countdown-wrap" style="text-align:center; margin:1.5rem 0; display:none;">
           <button class="ds-btn" style="background:#f59e0b; color:#fff; font-size:1.15rem; font-weight:800; padding:0.75rem 2rem; border-radius:12px; box-shadow:0 4px 14px rgba(245,158,11,0.35); cursor:pointer;" onclick="triggerOralCountdown()">
             ⏱️ {% trans "3... 2... 1... SHOUT!" %}
           </button>
@@ -784,7 +784,13 @@ function renderLobby(isHost) {
   const stage = document.getElementById("stage-lobby");
   stage.style.display = "block";
   document.getElementById("host-settings-panel").style.display = isHost ? "block" : "none";
-  document.getElementById("btn-start-game").style.display = isHost ? "inline-flex" : "none";
+  const startBtn = document.getElementById("btn-start-game");
+  if (startBtn) {
+    startBtn.style.display = isHost ? "inline-flex" : "none";
+    startBtn.disabled = false;
+    startBtn.style.opacity = "";
+    startBtn.textContent = "🚀 {% trans 'Start Game' %}";
+  }
   document.getElementById("wait-host-msg").style.display = isHost ? "none" : "block";
 
   if (gameState.settings) {
@@ -850,6 +856,8 @@ function renderOralPhase(isHost) {
 
   const hostPanel = document.getElementById("oral-host-panel");
   hostPanel.style.display = isHost ? "block" : "none";
+  const cdWrap = document.getElementById("oral-countdown-wrap");
+  if (cdWrap) cdWrap.style.display = isHost ? "block" : "none";
 
   if (isHost) {
     const players = gameState.players || [];
@@ -1002,7 +1010,7 @@ function startTimerVisuals() {
   const text = document.getElementById("timer-text");
 
   if (!startedAt || duration <= 0) {
-    text.textContent = "UNTYPED";
+    text.textContent = "∞ UNTIMED";
     bar.style.width = "100%";
     return;
   }
@@ -1057,6 +1065,12 @@ function renderReveal(isHost) {
         <div class="ds-clash-players">⚠️ <strong>${c.player_names.map(esc).join(" & ")}</strong> {% trans "said the same thing!" %}</div>
       </div>
     `).join("");
+  } else if (!rr.total_submissions || rr.total_submissions === 0) {
+    clashesBox.innerHTML = `
+      <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:0.75rem 1rem; color:#92400e; font-weight:700; margin-bottom:0.75rem;">
+        ⏳ {% trans "No answers were submitted this round." %}
+      </div>
+    `;
   } else {
     clashesBox.innerHTML = `
       <div style="background:var(--ds-success-soft); border:1px solid #a7f3d0; border-radius:10px; padding:0.75rem 1rem; color:#065f46; font-weight:700; margin-bottom:0.75rem;">
@@ -1158,6 +1172,8 @@ function renderReveal(isHost) {
   const isFinal = Boolean(gameState.the_me_gameover || isCapped);
   const nextBtn = document.getElementById("btn-next-round");
   if (nextBtn) {
+    nextBtn.disabled = false;
+    nextBtn.style.opacity = "";
     nextBtn.textContent = isFinal
       ? "{% trans '🏆 View Final Results' %}"
       : "{% trans '➡️ Next Round' %}";

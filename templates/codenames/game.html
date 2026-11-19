@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 {% block title %}🕵️ {% trans "Codenames" %} — {{ room.title }}{% endblock %}
-{% block extra_css %}
+{% block extra_head %}
 <link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
+{% endblock %}
+{% block extra_css %}
 body { max-width: 1180px !important; }
 :root {
   --cn-bg: #f8fafc;
@@ -127,14 +129,13 @@ body { max-width: 1180px !important; }
   cursor: default; transition: transform 0.12s, box-shadow 0.14s, border-color 0.14s;
   user-select: none;
 }
-@media (max-width: 680px) {
-  .cn-tile { min-height: 66px; padding: 0.45rem 0.22rem 0.22rem 0.22rem; border-radius: 8px; }
-  .cn-tile-word { font-size: 0.72rem; word-break: break-word; hyphens: auto; }
-  .cn-def-btn { top: 2px; right: 2px; width: 14px; height: 14px; font-size: 0.5rem; }
-  .cn-topbar { padding: 0.5rem 0.75rem; gap: 0.35rem; }
-  .cn-title { font-size: 1.05rem; }
-  .cn-actions .cn-btn { font-size: 0.72rem; padding: 0.22rem 0.45rem; }
-  .cn-pill { font-size: 0.68rem; padding: 0.12rem 0.4rem; }
+.cn-tile.clickable {
+  cursor: pointer;
+}
+.cn-tile.clickable:hover, .cn-tile.clickable:focus-visible {
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(37,99,235,0.18);
 }
 .cn-tile-en { font-size: 0.65rem; color: #475569; margin-top: 0.12rem; line-height: 1.1; }
 .cn-tile-meta { font-size: 0.62rem; margin-top: 0.22rem; opacity: 0.85; font-weight: 600; }
@@ -145,6 +146,17 @@ body { max-width: 1180px !important; }
   cursor: pointer; padding: 0; line-height: 1;
 }
 .cn-def-btn:hover { background: #fff; border-color: #2563eb; }
+
+@media (max-width: 680px) {
+  .cn-board { gap: 0.35rem; }
+  .cn-tile { min-height: 66px; padding: 0.55rem 0.22rem 0.22rem 0.22rem; border-radius: 8px; }
+  .cn-tile-word { font-size: 0.72rem; word-break: break-word; hyphens: auto; }
+  .cn-def-btn { top: 2px !important; right: 2px !important; width: 14px !important; height: 14px !important; font-size: 0.5rem !important; }
+  .cn-topbar { padding: 0.5rem 0.75rem; gap: 0.35rem; }
+  .cn-title { font-size: 1.05rem; }
+  .cn-actions .cn-btn { font-size: 0.72rem; padding: 0.22rem 0.45rem; }
+  .cn-pill { font-size: 0.68rem; padding: 0.12rem 0.4rem; }
+}
 
 /* Spymaster Unrevealed Keycard Preview (explicit dashed border + badge so clearly unrevealed) */
 .cn-tile.key-red:not(.revealed) { background: #fef2f2; border: 2px dashed #dc2626; }
@@ -321,7 +333,7 @@ body { max-width: 1180px !important; }
         <span id="gm-mod-lock-text">👑 {% trans "GM Oral Mode: ON" %}</span>
       </label>
       <button type="button" class="cn-btn cn-btn-sm" id="gm-redraw-btn" onclick="sendAction('blind_redraw')">🎲 {% trans "Redraw Board" %}</button>
-      <button type="button" class="cn-btn cn-btn-sm" onclick="sendAction('auto_balance_teams')">⚖️ {% trans "Auto-Balance" %}</button>
+      <button type="button" class="cn-btn cn-btn-sm" id="gm-autobalance-btn" onclick="sendAction('auto_balance_teams')">⚖️ {% trans "Auto-Balance" %}</button>
       <button type="button" class="cn-btn cn-btn-sm" id="gm-pass-btn" style="display:none;" onclick="handleEndTurn(true)">⏭️ {% trans "Pass Turn (Mod)" %}</button>
       <button type="button" class="cn-btn cn-btn-sm" id="gm-pause-btn" style="display:none;" onclick="togglePauseTimer()">⏸️ {% trans "Pause" %}</button>
       <button type="button" class="cn-btn cn-btn-sm" id="gm-add15-btn" style="display:none;" onclick="sendAction('timer_control', { command: 'add', seconds: 15 })">+15s</button>
@@ -1171,6 +1183,8 @@ function renderState(s) {
         : '🔒 {% trans "GM Mode: Locked" %}';
     }
     document.getElementById('gm-redraw-btn').style.display = s.phase === 'playing' ? 'inline-flex' : 'none';
+    const autoBalBtn = document.getElementById('gm-autobalance-btn');
+    if (autoBalBtn) autoBalBtn.style.display = s.phase === 'lobby' ? 'inline-flex' : 'none';
     document.getElementById('gm-pass-btn').style.display = (s.phase === 'playing' && s.turn_phase === 'operative_guess' && perms.isModUnlocked) ? 'inline-flex' : 'none';
     document.getElementById('gm-end-btn').style.display = s.phase === 'playing' ? 'inline-flex' : 'none';
     const hasTimer = Boolean(s.timer && (s.timer.duration > 0 || s.timer.paused));
@@ -1344,17 +1358,22 @@ function renderState(s) {
     `;
   }).join('');
 
-  // Turns Log
+  // Turns Log (include active in-progress turn if published)
   const turnsEl = document.getElementById('turns-log-box');
-  turnsEl.innerHTML = (s.turns_log || []).slice().reverse().map((t) => {
+  const turnsList = (s.turns_log || []).slice();
+  if (s.current_turn && s.current_turn.clue_word) {
+    turnsList.push({ ...s.current_turn, live: true });
+  }
+  turnsEl.innerHTML = turnsList.reverse().map((t) => {
     const guesses = (t.guesses || []).map((g) => `<span class="cn-pill">${esc(g.word)} → ${esc(g.affiliation)}</span>`).join(' ');
-    return `<div class="cn-log-item"><strong>${t.team === 'red' ? '🔴' : '🔵'} ${esc(t.clue_word)} (${esc(t.display_count)})</strong><br>${guesses || '<span style="color:#64748b">—</span>'}</div>`;
+    const liveBadge = t.live ? '<span class="cn-pill" style="background:#eff6ff;color:#2563eb;border-color:#bfdbfe;margin-left:0.35rem;">⚡ {% trans "Live" %}</span>' : '';
+    return `<div class="cn-log-item"><strong>${t.team === 'red' ? '🔴' : '🔵'} ${esc(t.clue_word)} (${esc(t.display_count)})</strong>${liveBadge}<br>${guesses || '<span style="color:#64748b">—</span>'}</div>`;
   }).join('') || '<div style="color:#64748b">{% trans "No clues published yet." %}</div>';
 
-  // Chat Log
+  // Chat Log (supports both text and legacy msg)
   const chatEl = document.getElementById('chat-log-box');
   chatEl.innerHTML = (s.chat_log || []).map((c) => `
-    <div class="cn-log-item"><strong>${esc(c.sender)}:</strong> ${esc(c.msg)}</div>
+    <div class="cn-log-item"><strong>${esc(c.sender)}:</strong> ${esc(c.text || c.msg || '')}</div>
   `).join('');
   chatEl.scrollTop = chatEl.scrollHeight;
 }

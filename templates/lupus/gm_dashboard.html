@@ -2694,7 +2694,7 @@ html, body {
     const deck = getDeckArray();
     let good = 0, evil = 0, neutral = 0;
     deck.forEach(r => {
-      if (["werewolf", "alpha_wolf", "silencer", "framer", "saboteur_wolf"].includes(r)) evil++;
+      if (["werewolf", "alpha_wolf", "silencer", "framer", "saboteur_wolf", "wolf_cub"].includes(r)) evil++;
       else if (["cupid", "jester", "serial_killer", "wolf_hunter"].includes(r)) neutral++;
       else good++;
     });
@@ -2924,7 +2924,7 @@ html, body {
         rosterContainer.innerHTML = "<span style='font-size:0.8rem; color:#94a3b8; font-style:italic;'>No roles selected yet. Pick a preset above or tap roles to add!</span>";
       } else {
         const preferredOrder = [
-          'werewolf', 'alpha_wolf', 'silencer', 'framer', 'saboteur_wolf',
+          'werewolf', 'alpha_wolf', 'silencer', 'framer', 'saboteur_wolf', 'wolf_cub',
           'detective', 'doctor', 'watson', 'bodyguard', 'angel', 'death_angel', 'sniper', 'mayor', 'witch', 'lover', 'hacker', 'villager',
           'cupid', 'jester', 'serial_killer', 'wolf_hunter'
         ];

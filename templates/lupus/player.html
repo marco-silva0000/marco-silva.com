@@ -111,6 +111,23 @@ html, body {
     gap: 0.5rem;
     flex-shrink: 0;
   }
+  #player-lang-select {
+    max-width: 110px !important;
+    text-overflow: ellipsis;
+  }
+  @media (max-width: 480px) {
+    .app-topbar {
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .app-topbar-left {
+      min-width: 130px;
+      flex: 1 1 auto;
+    }
+    #player-lang-select {
+      max-width: 90px !important;
+    }
+  }
 
   /* Sticky Topbar Live Countdown Timer */
   .topbar-timer-chip {

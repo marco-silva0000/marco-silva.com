@@ -714,7 +714,7 @@
 </div>
 
 <!-- Modal: Synchronized 4-Second Round Countdown -->
-<div id="modal-round-countdown" class="rk-modal" style="background:rgba(15, 23, 42, 0.92); z-index:99999;">
+<div id="modal-round-countdown" class="rk-modal" style="background:rgba(15, 23, 42, 0.98); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); z-index:99999;">
   <div style="text-align:center; color:#ffffff; padding:2rem; animation:popIn 0.2s ease-out;">
     <div style="font-size:1.15rem; font-weight:700; color:#93c5fd; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.5rem;">
       {% trans "Get Ready — Level Starting!" %}
@@ -1058,6 +1058,7 @@
       promptCard.style.display = "block";
       handCard.style.display = "none";
       lobbyCard.style.display = "none";
+      renderPromptCard();
       renderLevelSuccessModal(isHost);
     } else if (phase === "gameover" || phase === "victory") {
       closeModal("modal-level-success");
@@ -1065,6 +1066,7 @@
       promptCard.style.display = "block";
       handCard.style.display = "none";
       lobbyCard.style.display = "none";
+      renderPromptCard();
       renderGameOverModal(isHost, phase === "victory");
     } else {
       // Lobby
@@ -1076,6 +1078,11 @@
       lobbyCard.style.display = "block";
       hostPanel.style.display = isHost ? "block" : "none";
       nonHostMsg.style.display = isHost ? "none" : "block";
+      const startLvlBtn = document.getElementById("btn-start-level");
+      if (startLvlBtn) {
+        startLvlBtn.disabled = false;
+        startLvlBtn.textContent = "🚀 {% trans 'Deal Cards & Start Match' %}";
+      }
       syncLobbySettings();
     }
 
@@ -1435,28 +1442,35 @@
     document.getElementById("host-next-level-wrap").style.display = isHost ? "block" : "none";
     document.getElementById("non-host-next-level-wait").style.display = isHost ? "none" : "block";
 
+    const nextBtn = document.getElementById("btn-next-level");
+    if (nextBtn) {
+      nextBtn.disabled = false;
+      nextBtn.textContent = "🚀 {% trans 'Advance to Next Level' %}";
+    }
+
     const clashes = (gameState.timeline || []).filter(c => c.is_clash).length;
     const icon = document.getElementById("level-success-icon");
     const title = document.getElementById("level-success-title");
     const subtitle = document.getElementById("level-success-subtitle");
     const summary = document.getElementById("level-success-summary");
-    const curLevel = gameState.level || 1;
+    const clearedLvl = gameState.cleared_level || Math.max(1, (gameState.level || 2) - 1);
+    const nextLvl = gameState.level || (clearedLvl + 1);
 
     if (clashes === 0) {
       if (icon) icon.textContent = "🎉";
       if (title) title.textContent = "{% trans 'Flawless Ascending!' %}";
       if (subtitle) subtitle.textContent = "{% trans 'All cards were placed in perfect ascending order!' %}";
       summary.innerHTML = `
-        <strong>{% trans "Level" %} ${curLevel} {% trans "Cleared!" %}</strong><br>
-        {% trans "Remaining Lives:" %} <strong>${gameState.lives} ❤️</strong>
+        <strong>{% trans "Level" %} ${clearedLvl} {% trans "Cleared!" %}</strong><br>
+        {% trans "Ready for Level" %} ${nextLvl}! · {% trans "Remaining Lives:" %} <strong>${gameState.lives} ❤️</strong>
       `;
     } else {
       if (icon) icon.textContent = "⚠️";
       if (title) title.textContent = "{% trans 'Level Survived!' %}";
       if (subtitle) subtitle.textContent = `${clashes} {% trans "clash(es) detected, but your team survived with lives remaining!" %}`;
       summary.innerHTML = `
-        <strong style="color:#d97706;">{% trans "Level" %} ${curLevel} {% trans "Survived" %} (${clashes} {% trans "clash(es)" %})</strong><br>
-        {% trans "Remaining Lives:" %} <strong>${gameState.lives} ❤️</strong>
+        <strong style="color:#d97706;">{% trans "Level" %} ${clearedLvl} {% trans "Survived" %} (${clashes} {% trans "clash(es)" %})</strong><br>
+        {% trans "Ready for Level" %} ${nextLvl}! · {% trans "Remaining Lives:" %} <strong>${gameState.lives} ❤️</strong>
       `;
     }
   }

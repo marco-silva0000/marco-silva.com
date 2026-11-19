@@ -1192,6 +1192,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer: Optional[str] = Non
         "is_admin": viewer_is_admin,
         "is_the_me": bool(viewer_id and viewer_id == the_me_id),
         "is_spectator": viewer_record.get("is_spectator", False) if viewer_record else False,
+        "eliminated": bool(viewer_record.get("eliminated", False)) if viewer_record else False,
     }
 
     # Available prompt packs metadata for host lobby

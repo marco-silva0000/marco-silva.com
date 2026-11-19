@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 {% block title %}🎨 Emojinary — {{ room.title }}{% endblock %}
-{% block extra_css %}
+{% block extra_head %}
 <link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
+{% endblock %}
+{% block extra_css %}
+body { max-width: 1180px !important; }
 :root {
   --ej-bg: #f8fafc;
   --ej-card: #ffffff;
@@ -823,18 +826,12 @@ function renderFromState(s) {
       $('emoji-composer-label').textContent = '💡 Drop an Additional Emoji Hint for Guessers:';
       $('word-hint').textContent = '';
     } else {
-      hide('your-word-box', 'emoji-input-area');
-      show('btn-reroll');
+      hide('your-word-box', 'emoji-input-area', 'btn-reroll', 'guess-area');
       const hintParts = [];
       if (s.current_category) hintParts.push(`Category: ${s.current_category}`);
       if (s.topic_hint) hintParts.push(`Topic: ${s.topic_hint}`);
       if (s.word_mask) hintParts.push(s.word_mask);
       $('word-hint').textContent = s.word_mask ? hintParts.join('  ·  ') : '';
-      if (!hasGuessed) {
-        show('guess-area');
-      } else {
-        hide('guess-area');
-      }
     }
   } else if (phase === 'picking' && s.mode === 'best_guess') {
     hide('start-btn', 'settings-area', 'play-again-btn', 'guess-area', 'emoji-input-area');
@@ -1160,6 +1157,7 @@ function revealEmoji() {
   } else {
     ws.send(JSON.stringify({action: 'reveal', emoji: val}));
   }
+  $('emoji-field').value = '';
 }
 
 function sendExtraHint() {

@@ -144,7 +144,8 @@ class BestGuessMixin:
         if state.get("phase") != "submitting":
             return
         cp = current_player_id(state)
-        if not self.player_id or self.player_id == cp:
+        p_info = state.get("players", {}).get(self.player_id, {})
+        if not self.player_id or self.player_id == cp or p_info.get("is_spectator"):
             return
         raw_emoji = (content.get("emoji") or "").strip()
         emoji = sanitize_emoji_only(raw_emoji)

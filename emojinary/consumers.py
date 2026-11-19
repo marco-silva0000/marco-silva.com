@@ -330,7 +330,7 @@ class EmojinaryConsumer(RoundRobinMixin, BestGuessMixin, AsyncJsonWebsocketConsu
         )
         save_game(self.code, state)
         await database_sync_to_async(sync_room_db_status)(self.code, "finished")
-        await self._group_send("game.game_over", players=player_list(state))
+        await self._group_send("game.over", players=player_list(state))
         await self.broadcast_sync()
 
     async def _handle_play_again(self, state: dict):
@@ -384,6 +384,8 @@ class EmojinaryConsumer(RoundRobinMixin, BestGuessMixin, AsyncJsonWebsocketConsu
 
     async def game_over(self, event):
         await self.send_json({"type": "game_over", "players": event["players"], "history": event.get("history", [])})
+
+    game_game_over = game_over
 
     async def game_show_start(self, event):
         await self.send_json({"type": "show_start"})

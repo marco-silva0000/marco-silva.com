@@ -725,6 +725,7 @@ def reveal_timeline(state: dict[str, Any], player_id: str) -> tuple[bool, str]:
         )
     else:
         state["phase"] = "level_success"
+        state["cleared_level"] = cur_level
         state["level"] = cur_level + 1
         append_event(
             state,
@@ -826,6 +827,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
 
     view["timeline"] = sanitized_timeline
     view["timeline_revealed"] = timeline_revealed
+    view["cleared_level"] = state.get("cleared_level")
     view["pending_swap"] = view.get("pending_swap")
     view["players"] = sanitized_players
     view["viewer"] = viewer

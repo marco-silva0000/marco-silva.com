@@ -644,7 +644,8 @@ def submit_clue(
     if text_matches_term(cleaned, pair.get("citizen_matches", [])):
         return False, "🚫 That clue contains the secret Citizen word! Try an indirect clue."
     if state.get("settings", {}).get("poison_mode") in ("undercover_blind", "undercover_informed", "poisoned_citizen"):
-        if text_matches_term(cleaned, pair.get("poison_matches", [])) and speaker_id == state.get("impostor_id"):
+        is_poison_holder = speaker_id == state.get("impostor_id") or speaker_id == state.get("poisoned_citizen_id")
+        if text_matches_term(cleaned, pair.get("poison_matches", [])) and is_poison_holder:
             return False, "🚫 Careful — you cannot say your secret word verbatim!"
 
     # Check Lethal Taboo Poison Word trap!

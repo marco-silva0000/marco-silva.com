@@ -218,7 +218,7 @@ class DontSayConsumer(AsyncJsonWebsocketConsumer):
                 game_type="dontsay",
                 sample_answers=sample_answers,
                 submitter_name=self.player_name or "Player",
-                submitter_room=self.room_code,
+                submitter_room=self.code,
             )
             if ok:
                 await self.send_json(

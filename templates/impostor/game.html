@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 {% block title %}🕵️ {% trans "Word Impostor" %} — {{ room.title }}{% endblock %}
-{% block extra_css %}
+{% block extra_head %}
 <link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
+{% endblock %}
+{% block extra_css %}
 body { max-width: 1080px !important; }
 :root {
   --imp-bg: #f8fafc;
@@ -321,7 +323,7 @@ body { max-width: 1080px !important; }
           <div style="background:#fef3c7; border:1px solid #fcd34d; border-radius:8px; padding:0.55rem 0.7rem; font-size:0.79rem; color:#78350f; line-height:1.45; margin-bottom:0.65rem;">
             <strong>{% trans "How it works:" %}</strong>
             1) {% trans "Everyone points & discusses to reach a consensus on who the Impostor is." %}
-            2) {% trans "Tap" %} <strong>🔍 {% trans "Reveal Word (Consensus)" %}</strong> {% trans "on the suspect." %}
+            2) {% trans "The Host taps" %} <strong>🔍 {% trans "Reveal Word (Consensus)" %}</strong> {% trans "on the agreed suspect." %}
             3) {% trans "If their word is the Common Word, the Impostor wins! If it's the Wrong Word, they still get one chance to figure out the Common Word!" %}
           </div>
           <details id="mod-vote-drawer" style="display:none; margin-bottom:0.65rem;">
@@ -873,11 +875,13 @@ function renderState() {
 
   // Host controls (Zero-Spoiler!)
   $('gm-toolbar').style.display = (isAdmin && phase !== 'lobby') ? 'block' : 'none';
-  $('btn-blind-redraw').style.display = (isAdmin && phase !== 'lobby' && phase !== 'gameover') ? 'inline-flex' : 'none';
+  $('btn-blind-redraw').style.display = (isAdmin && phase !== 'lobby' && phase !== 'reveal' && phase !== 'gameover') ? 'inline-flex' : 'none';
   $('btn-skip-turn').style.display = (isAdmin && phase === 'clue') ? 'inline-flex' : 'none';
   $('btn-open-vote').style.display = (isAdmin && phase === 'clue') ? 'inline-flex' : 'none';
-  $('btn-tally-votes').style.display = (isAdmin && phase === 'voting') ? 'inline-flex' : 'none';
-  $('btn-timer-pause').style.display = (isAdmin && (phase === 'clue' || phase === 'voting' || phase === 'last_chance')) ? 'inline-flex' : 'none';
+  const hasVotes = Object.keys(s.votes || {}).length > 0;
+  $('btn-tally-votes').style.display = (isAdmin && phase === 'voting' && (s.settings.voting_mode !== 'consensus' || hasVotes)) ? 'inline-flex' : 'none';
+  const hasTimer = Boolean(s.timer && (s.timer.duration > 0 || s.timer.paused));
+  $('btn-timer-pause').style.display = (isAdmin && hasTimer && (phase === 'clue' || phase === 'voting' || phase === 'last_chance')) ? 'inline-flex' : 'none';
   $('btn-timer-pause').textContent = (s.timer && s.timer.paused) ? '▶️ Resume' : '⏸️ Pause';
   $('btn-timer-add').style.display = $('btn-timer-pause').style.display;
   $('btn-end-game').style.display = (isAdmin && phase !== 'lobby' && phase !== 'gameover') ? 'inline-flex' : 'none';

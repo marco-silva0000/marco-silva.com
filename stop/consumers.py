@@ -131,7 +131,7 @@ class StopConsumer(AsyncJsonWebsocketConsumer):
                     domain="custom",
                     game_type="stop",
                     submitter_name=player.get("name", "Player"),
-                    submitter_room=self.room_code,
+                    submitter_room=self.code,
                 )
             except Exception:
                 pass
@@ -151,7 +151,7 @@ class StopConsumer(AsyncJsonWebsocketConsumer):
                 game_type="stop",
                 sample_answers=sample_answers,
                 submitter_name=player.get("name") or self.player_name or "Player",
-                submitter_room=self.room_code,
+                submitter_room=self.code,
             )
             if ok:
                 await self.send_json(

@@ -405,6 +405,8 @@ def join_team(
 
 def auto_balance_teams(state: dict[str, Any]) -> tuple[bool, str]:
     """Distribute active players evenly onto Red & Blue teams with one Spymaster each."""
+    if state.get("phase") != "lobby":
+        return False, "Cannot auto-balance teams while a match is in progress."
     active = [p for p in state.get("players", {}).values() if not p.get("is_spectator")]
     if len(active) < 2:
         return False, "Need at least 2 active players to balance teams."
@@ -1027,6 +1029,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str]) -
         "active_team_name": "Red Team" if turn_team == "red" else ("Blue Team" if turn_team == "blue" else ""),
         "spymaster_suggestions": suggestions,
         "custom_deck_count": len(state.get("custom_deck", [])),
+        "current_turn": state.get("current_turn"),
         "turns_log": state.get("turns_log", []),
         "rounds_history": state.get("rounds_history", []),
         "me": {
