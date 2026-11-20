@@ -978,9 +978,6 @@
 <!-- Centralized Player Color Picker Modal -->
 {% include "gamerooms/components/color_picker_modal.html" %}
 
-{% endblock %}
-
-{% block extra_js %}
 <script src="{% static 'gamerooms/player_badges.js' %}?v={{ version_counter }}"></script>
 <script>
   const ROOM_CODE = "{{ room.code }}";
