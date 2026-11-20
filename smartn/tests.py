@@ -29,28 +29,44 @@ from website.asgi import application
 @pytest.mark.django_db
 class TestSmartNQuestions:
     def test_question_bank_structure(self):
-        assert len(SMARTN_QUESTIONS) >= 8
+        assert len(SMARTN_QUESTIONS) >= 150
+        ids = [q["id"] for q in SMARTN_QUESTIONS]
+        assert len(ids) == len(set(ids)), f"Duplicate question IDs found: {[x for x in ids if ids.count(x) > 1]}"
+
+        valid_packs = {"geo", "science", "media", "food", "sports", "history"}
+        valid_types = {"true_false", "order", "number", "match"}
+
         for q in SMARTN_QUESTIONS:
-            assert "id" in q
-            assert "pack" in q
-            assert "prompt" in q
-            assert "type" in q
-            assert "items" in q
-            assert len(q["items"]) == q.get("n", 10)
+            assert q["id"], "Question ID cannot be empty"
+            assert q["pack"] in valid_packs, f"Invalid pack {q.get('pack')} in {q['id']}"
+            assert q["prompt"], f"Missing prompt in {q['id']}"
+            assert q["type"] in valid_types, f"Invalid type {q.get('type')} in {q['id']}"
+            assert "items" in q, f"Missing items in {q['id']}"
+            assert len(q["items"]) == q.get("n", 10), f"Items count mismatch in {q['id']}"
+
+            slots = [it["slot"] for it in q["items"]]
+            assert slots == list(range(1, q.get("n", 10) + 1)), (
+                f"Slots in {q['id']} must be 1..{q.get('n', 10)}, got {slots}"
+            )
+
             for it in q["items"]:
                 assert "slot" in it
-                assert "label" in it
-                assert "value" in it
-                assert "is_correct" in it
-                assert "explanation" in it
+                assert "label" in it and it["label"], f"Missing label in {q['id']} slot {it.get('slot')}"
+                assert "value" in it and str(it["value"]).strip(), f"Missing value in {q['id']} slot {it.get('slot')}"
+                assert isinstance(it["is_correct"], bool), f"is_correct must be bool in {q['id']} slot {it.get('slot')}"
+                assert "explanation" in it and it["explanation"], (
+                    f"Missing explanation in {q['id']} slot {it.get('slot')}"
+                )
+                assert isinstance(it.get("aliases", []), list)
 
     def test_deck_filtering(self):
-        geo_deck = get_deck(pack_filter="geo")
-        assert len(geo_deck) >= 1
-        assert all(q["pack"] == "geo" for q in geo_deck)
+        for pack in ["geo", "science", "media", "food", "sports", "history"]:
+            pack_deck = get_deck(pack_filter=pack)
+            assert len(pack_deck) >= 25, f"Pack {pack} has fewer than 25 questions: {len(pack_deck)}"
+            assert all(q["pack"] == pack for q in pack_deck)
 
         exact_deck = get_deck(count_filter="exactly_10")
-        assert len(exact_deck) >= 1
+        assert len(exact_deck) == len([q for q in SMARTN_QUESTIONS if q.get("n", 10) == 10])
         assert all(q.get("n", 10) == 10 for q in exact_deck)
 
 

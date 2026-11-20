@@ -9,7 +9,14 @@ Supports question types:
 
 from typing import Any
 
-SMARTN_QUESTIONS: list[dict[str, Any]] = [
+from smartn.decks.food import QUESTIONS as FOOD_DECK
+from smartn.decks.geo import QUESTIONS as GEO_DECK
+from smartn.decks.history import QUESTIONS as HISTORY_DECK
+from smartn.decks.media import QUESTIONS as MEDIA_DECK
+from smartn.decks.science import QUESTIONS as SCIENCE_DECK
+from smartn.decks.sports import QUESTIONS as SPORTS_DECK
+
+SEED_QUESTIONS: list[dict[str, Any]] = [
     # --- GEOGRAPHY ---
     {
         "id": "sn_geo_001",
@@ -1246,6 +1253,16 @@ SMARTN_QUESTIONS: list[dict[str, Any]] = [
             },
         ],
     },
+]
+
+SMARTN_QUESTIONS: list[dict[str, Any]] = [
+    *SEED_QUESTIONS,
+    *GEO_DECK,
+    *SCIENCE_DECK,
+    *MEDIA_DECK,
+    *FOOD_DECK,
+    *SPORTS_DECK,
+    *HISTORY_DECK,
 ]
 
 
