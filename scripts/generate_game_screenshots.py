@@ -392,6 +392,8 @@ def capture_smartn(browser, base_url, out_dir, devices):
     for d_key in devices:
         ctx = setup_browser_context(browser, d_key)
         page = ctx.new_page()
+        page.on("console", lambda msg: print(f"    [console] {msg.text}"))
+        page.on("pageerror", lambda err: print(f"    [pageerror] {err}"))
         try:
             # 1. Create Room Form
             page.goto(f"{base_url}/games/create/?game=smartn", wait_until="networkidle")
@@ -411,6 +413,10 @@ def capture_smartn(browser, base_url, out_dir, devices):
 
             page.wait_for_url("**/games/smartn/**")
             page.wait_for_selector("#roster-grid-lobby", state="attached")
+            try:
+                page.wait_for_function("() => window.ws && window.ws.readyState === 1", timeout=8000)
+            except Exception:
+                pass
             time.sleep(0.5)
 
             lobby_path = sn_dir / f"smartn_lobby_{d_key}.png"
@@ -420,7 +426,7 @@ def capture_smartn(browser, base_url, out_dir, devices):
             # 3. Start Match -> The Smartbox with 10 Capsules
             try:
                 page.click('button:has-text("Start SmartN Match")')
-                page.wait_for_selector("#view-playing", state="visible", timeout=6000)
+                page.wait_for_selector("#view-playing", state="visible", timeout=8000)
                 time.sleep(0.5)
 
                 play_path = sn_dir / f"smartn_playing_{d_key}.png"

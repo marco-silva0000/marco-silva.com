@@ -992,6 +992,7 @@
   let gameState = {{ initial_state_json|safe }};
   let ws = null;
   let activePendingSlot = null;
+  const pendingWsQueue = [];
 
   // Initialize UI on load
   document.addEventListener("DOMContentLoaded", () => {
@@ -1003,15 +1004,21 @@
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
     const wsUrl = `${protocol}//${window.location.host}/ws/smartn/${ROOM_CODE}/`;
     ws = new WebSocket(wsUrl);
+    window.ws = ws;
 
     ws.onopen = () => {
       console.log("WebSocket connected to SmartN room:", ROOM_CODE);
-      wsSend({
+      ws.send(JSON.stringify({
         action: "join",
         name: PLAYER_NAME,
         token: PLAYER_TOKEN,
         is_admin: IS_ADMIN
-      });
+      }));
+
+      while (pendingWsQueue.length > 0) {
+        const queued = pendingWsQueue.shift();
+        ws.send(JSON.stringify(queued));
+      }
     };
 
     ws.onmessage = (event) => {
@@ -1044,7 +1051,8 @@
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify(payload));
     } else {
-      console.warn("WS not ready, payload dropped:", payload);
+      console.warn("WS not ready, queuing payload:", payload);
+      pendingWsQueue.push(payload);
     }
   }
 
