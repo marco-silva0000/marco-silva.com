@@ -245,7 +245,7 @@ async def capture_impostor():
 
         # Accuse suspect / resolve voting (Alice points at Bob)
         await page_m.evaluate("""
-            const bob = (gameState && gameState.players) ? gameState.players.find(p => p.name.includes('Bob')) : null;
+            const bob = (typeof state !== 'undefined' && state && state.players) ? state.players.find(p => p.name.includes('Bob')) : null;
             if (bob) {
                 sendAction('accuse_suspect', { target_id: bob.id });
             } else {
@@ -605,8 +605,8 @@ async def capture_lupus():
 
         # Replay modal on GM
         await page_gm.evaluate("""
-            if (typeof openGmReplayModal === 'function') openGmReplayModal();
-            else if (typeof renderGmReplay === 'function') renderGmReplay();
+            if (typeof openModal === 'function') openModal('gm-timeline-modal');
+            if (typeof renderGmReplay === 'function' && typeof currentGameState !== 'undefined') renderGmReplay(currentGameState || {});
         """)
         await asyncio.sleep(1)
         await page_gm.screenshot(path=f"{out}/08_lupus_replay_modal_desktop.png")
