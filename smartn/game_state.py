@@ -294,12 +294,15 @@ def update_settings(code: str, new_settings: dict[str, Any]) -> tuple[bool, str,
     state = get_game(code)
     if not state:
         return False, "Room not found.", None
-    if state["phase"] != "lobby":
-        return False, "Settings can only be changed in the lobby.", state
-
     cfg = state.setdefault("settings", {})
+    # Mode (single-device vs multi-device) can be changed at any time during match
     if "mode" in new_settings and new_settings["mode"] in ("multi_device", "single_device"):
         cfg["mode"] = new_settings["mode"]
+
+    if state["phase"] != "lobby":
+        append_event(state, "System", f"📱 Play mode switched to {cfg['mode']}.")
+        save_game(code, state)
+        return True, "Mode updated.", state
     if "pack" in new_settings:
         cfg["pack"] = str(new_settings["pack"])
     if "yes_no_scoring" in new_settings and new_settings["yes_no_scoring"] in ("standard", "prediction"):
