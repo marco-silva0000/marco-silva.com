@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from photologue.models import Gallery, Photo
+
+from gamerooms.security import is_rate_limited
 
 from .models import PhotoExtension
 
@@ -115,10 +116,15 @@ def _handle_upload(request):
     return redirect("photos:gallery-list")
 
 
-@csrf_exempt
 @require_POST
 def photo_request(request, slug):
     """Handle purchase request — sends email, stores nothing."""
+    if is_rate_limited(request, scope="photo_request", limit=10, window_seconds=60):
+        return HttpResponse(
+            '<p style="color: red; font-size: 0.85rem;">too many requests — please wait a moment</p>',
+            status=429,
+        )
+
     photo = get_object_or_404(Photo, slug=slug, is_public=True)
     email = request.POST.get("email", "").strip()
     message = request.POST.get("message", "").strip()

@@ -56,17 +56,31 @@ def get_player_initials(name: str | None) -> str:
     return (tokens[0][0] + tokens[-1][0]).upper()
 
 
-def assign_distinct_player_color(existing_players: dict[str, Any] | None) -> str:
+def assign_distinct_player_color(existing_players: Any = None) -> str:
     """Assign an unused color from PLAYER_PALETTE to prevent collisions.
 
     If all 12 colors are occupied, cycles through the palette using player count.
+    Accepts a dict of players, a list of player dicts, or a collection of hex strings.
     """
     if not existing_players:
         return PLAYER_PALETTE[0]["hex"]
 
-    used_colors = {
-        p.get("color", "").lower() for p in existing_players.values() if isinstance(p, dict) and p.get("color")
-    }
+    used_colors = set()
+    count = 0
+    if isinstance(existing_players, dict):
+        count = len(existing_players)
+        for p in existing_players.values():
+            if isinstance(p, dict) and p.get("color"):
+                used_colors.add(p["color"].lower())
+            elif isinstance(p, str):
+                used_colors.add(p.lower())
+    elif isinstance(existing_players, (list, tuple, set)):
+        count = len(existing_players)
+        for p in existing_players:
+            if isinstance(p, dict) and p.get("color"):
+                used_colors.add(p["color"].lower())
+            elif isinstance(p, str):
+                used_colors.add(p.lower())
 
     # Find first palette color not currently in use
     for entry in PLAYER_PALETTE:
@@ -74,7 +88,7 @@ def assign_distinct_player_color(existing_players: dict[str, Any] | None) -> str
             return entry["hex"]
 
     # Wrap around if room has more than 12 players
-    idx = len(existing_players) % len(PLAYER_PALETTE)
+    idx = count % len(PLAYER_PALETTE)
     return PLAYER_PALETTE[idx]["hex"]
 
 

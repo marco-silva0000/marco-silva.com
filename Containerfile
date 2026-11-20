@@ -7,7 +7,9 @@ WORKDIR /code
 COPY pyproject.toml uv.lock ./
 
 RUN uv venv /venv && \
-    VIRTUAL_ENV=/venv uv pip install -r pyproject.toml
+    VIRTUAL_ENV=/venv uv pip install -r pyproject.toml && \
+    apt-get purge -y --auto-remove gcc && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
@@ -16,8 +18,12 @@ ENV VIRTUAL_ENV=/venv \
     DJANGO_SETTINGS_MODULE=website.settings \
     PYTHONUNBUFFERED=1
 
-RUN python scripts/generate_all_64_locales.py
-RUN python manage.py collectstatic --noinput || true
+RUN python scripts/generate_all_64_locales.py && \
+    (python manage.py collectstatic --noinput || true) && \
+    useradd --create-home --uid 10001 appuser && \
+    chown -R appuser:appuser /code /venv
+
+USER appuser
 
 EXPOSE 8000
 

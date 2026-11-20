@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     "stop",
     "dontsay",
     "rankit",
+    "smartn",
     "lupus",
     "photologue",
     "sortedm2m",
@@ -392,6 +393,11 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = "DENY"
     SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_HTTPONLY = True
+    SECURE_HSTS_SECONDS = int(os.environ.get("SECURE_HSTS_SECONDS", "31536000"))
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 try:
     from .dev_settings import *

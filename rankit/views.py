@@ -1,7 +1,5 @@
 """Views for Rank It! (ito) gameplay, QR codes, and personal player reconnects."""
 
-import json
-
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -11,6 +9,7 @@ from gamerooms.language_support import get_game_language_support
 from gamerooms.models import Room
 from gamerooms.player_colors import PLAYER_PALETTE
 from gamerooms.qr import build_public_url, generate_qr_data_uri
+from gamerooms.security import safe_json_dumps
 
 from .game_state import (
     DEFAULT_SETTINGS,
@@ -87,7 +86,7 @@ def game(request, code, name):
     context = {
         "room": room,
         "player": player,
-        "initial_state_json": json.dumps(sanitized_state),
+        "initial_state_json": safe_json_dumps(sanitized_state),
         "pack_choices": PACK_CHOICES,
         "player_palette": PLAYER_PALETTE,
         "default_settings": DEFAULT_SETTINGS,

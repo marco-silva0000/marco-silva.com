@@ -113,6 +113,9 @@ def dispatch_gallery_to_telegram(gallery: Gallery) -> tuple[bool, str]:
 
     body_bytes, content_type = _encode_multipart(fields, files_to_send)
 
+    if not url.startswith("https://"):
+        raise ValueError("Invalid Telegram API URL scheme")
+
     req = urllib.request.Request(
         url,
         data=body_bytes,
@@ -121,7 +124,7 @@ def dispatch_gallery_to_telegram(gallery: Gallery) -> tuple[bool, str]:
     )
 
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
+        with urllib.request.urlopen(req, timeout=30) as resp:  # nosec B310
             resp_data = json.loads(resp.read().decode("utf-8"))
             if resp_data.get("ok"):
                 logger.info("Successfully dispatched Instagram pack for gallery '%s' to Telegram", gallery.title)

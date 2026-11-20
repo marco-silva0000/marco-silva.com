@@ -1,0 +1,494 @@
+import pytest
+from asgiref.sync import async_to_sync
+from channels.testing import WebsocketCommunicator
+from django.test import Client
+from django.urls import reverse
+
+from gamerooms.models import Room
+from smartn.game_state import (
+    add_player,
+    change_player_color,
+    create_game,
+    delete_game,
+    find_player_by_id,
+    find_player_by_name,
+    get_game,
+    get_sanitized_player_view,
+    host_arbitrate,
+    pass_turn,
+    pick_capsule,
+    process_chat_answer,
+    save_game,
+    start_game,
+    update_settings,
+)
+from smartn.questions import SMARTN_QUESTIONS, get_deck
+from website.asgi import application
+
+
+@pytest.mark.django_db
+class TestSmartNQuestions:
+    def test_question_bank_structure(self):
+        assert len(SMARTN_QUESTIONS) >= 8
+        for q in SMARTN_QUESTIONS:
+            assert "id" in q
+            assert "pack" in q
+            assert "prompt" in q
+            assert "type" in q
+            assert "items" in q
+            assert len(q["items"]) == q.get("n", 10)
+            for it in q["items"]:
+                assert "slot" in it
+                assert "label" in it
+                assert "value" in it
+                assert "is_correct" in it
+                assert "explanation" in it
+
+    def test_deck_filtering(self):
+        geo_deck = get_deck(pack_filter="geo")
+        assert len(geo_deck) >= 1
+        assert all(q["pack"] == "geo" for q in geo_deck)
+
+        exact_deck = get_deck(count_filter="exactly_10")
+        assert len(exact_deck) >= 1
+        assert all(q.get("n", 10) == 10 for q in exact_deck)
+
+
+@pytest.mark.django_db
+class TestSmartNGameState:
+    def setup_method(self):
+        self.code = "TESTSN1"
+        delete_game(self.code)
+
+    def teardown_method(self):
+        delete_game(self.code)
+
+    def test_create_and_add_players(self):
+        state = create_game(self.code, host_name="Alice")
+        assert state["phase"] == "lobby"
+        assert state["settings"]["mode"] == "multi_device"
+
+        state, p1, is_new1 = add_player(self.code, name="Alice", is_admin=True)
+        assert is_new1 is True
+        assert p1["name"] == "Alice"
+        assert p1["is_admin"] is True
+        assert p1["token"] is not None
+        assert p1["color"] is not None
+
+        state, p2, is_new2 = add_player(self.code, name="Bob")
+        assert is_new2 is True
+        assert p2["name"] == "Bob"
+        assert p2["is_admin"] is False
+        assert p2["color"] != p1["color"]
+
+        # Reconnect test with same token
+        state, p1_rec, is_new_rec = add_player(self.code, name="Alice", token=p1["token"])
+        assert is_new_rec is False
+        assert p1_rec["id"] == p1["id"]
+
+    def test_update_settings_and_color(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+
+        ok, msg, state = update_settings(
+            self.code,
+            {
+                "mode": "single_device",
+                "pack": "geo",
+                "yes_no_scoring": "prediction",
+                "target_score": 30,
+            },
+        )
+        assert ok is True
+        assert state["settings"]["mode"] == "single_device"
+        assert state["settings"]["pack"] == "geo"
+        assert state["settings"]["yes_no_scoring"] == "prediction"
+        assert state["settings"]["target_score"] == 30
+
+        ok_col = change_player_color(self.code, p1["id"], "#ef4444")
+        assert ok_col is True
+        state = get_game(self.code)
+        assert state["players"][0]["color"] == "#ef4444"
+
+    def test_start_game_and_turn_rotation(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        state, p2, _ = add_player(self.code, name="Bob")
+
+        ok, msg, state = start_game(self.code)
+        assert ok is True
+        assert state["phase"] == "playing"
+        assert state["round_num"] == 1
+        assert state["card"] is not None
+        assert len(state["turn_order"]) == 2
+        assert state["current_player_id"] in (p1["id"], p2["id"])
+
+    def test_push_your_luck_correct_bust_and_pass(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        state, p2, _ = add_player(self.code, name="Bob")
+
+        # Set known question
+        known_card = {
+            "id": "test_q",
+            "pack": "geo",
+            "prompt": "Test Card",
+            "type": "true_false",
+            "n": 3,
+            "items": [
+                {
+                    "slot": 1,
+                    "label": "Item 1",
+                    "value": "Yes",
+                    "is_correct": True,
+                    "aliases": ["item1"],
+                    "explanation": "Fact 1",
+                },
+                {
+                    "slot": 2,
+                    "label": "Item 2",
+                    "value": "No",
+                    "is_correct": False,
+                    "aliases": ["item2"],
+                    "explanation": "Fact 2",
+                },
+                {
+                    "slot": 3,
+                    "label": "Item 3",
+                    "value": "Yes",
+                    "is_correct": True,
+                    "aliases": ["item3"],
+                    "explanation": "Fact 3",
+                },
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = known_card
+        state["round_num"] = 1
+        state["turn_order"] = [p1["id"], p2["id"]]
+        state["current_player_id"] = p1["id"]
+        state["player_statuses"] = {p1["id"]: "active", p2["id"]: "active"}
+        state["round_baskets"] = {p1["id"]: 0, p2["id"]: 0}
+        save_game(self.code, state)
+
+        # 1. P1 picks Slot 1 (Correct) -> +1 basket pt, turn goes to P2
+        ok, msg, state = pick_capsule(self.code, p1["id"], slot=1)
+        assert ok is True
+        assert state["round_baskets"][p1["id"]] == 1
+        assert state["player_statuses"][p1["id"]] == "active"
+        assert state["current_player_id"] == p2["id"]
+
+        # 2. P2 picks Slot 2 (Wrong / Bust) -> loses round basket, status "busted"
+        ok, msg, state = pick_capsule(self.code, p2["id"], slot=2)
+        assert ok is True
+        assert state["round_baskets"][p2["id"]] == 0
+        assert state["player_statuses"][p2["id"]] == "busted"
+        assert state["current_player_id"] == p1["id"]
+
+        # 3. P1 decides to Pass & Bank -> locks in 1 pt to permanent score, status "passed"
+        ok, msg, state = pass_turn(self.code, p1["id"])
+        assert ok is True
+        p1_fresh = find_player_by_id(state, p1["id"])
+        assert p1_fresh["score"] == 1
+        assert state["player_statuses"][p1["id"]] == "passed"
+        # Since both players are now passed or busted, round finishes!
+        assert state["phase"] == "round_summary"
+        # All items revealed
+        assert len(state["revealed_capsules"]) == 3
+
+    def test_prediction_scoring_mode(self):
+        state = create_game(self.code, host_name="Alice", settings={"yes_no_scoring": "prediction"})
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        known_card = {
+            "id": "test_pred",
+            "pack": "science",
+            "prompt": "Test Prediction",
+            "type": "true_false",
+            "n": 2,
+            "items": [
+                {
+                    "slot": 1,
+                    "label": "Slot 1 (False)",
+                    "value": "No",
+                    "is_correct": False,
+                    "aliases": [],
+                    "explanation": "",
+                },
+                {
+                    "slot": 2,
+                    "label": "Slot 2 (True)",
+                    "value": "Yes",
+                    "is_correct": True,
+                    "aliases": [],
+                    "explanation": "",
+                },
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = known_card
+        state["turn_order"] = [p1["id"]]
+        state["current_player_id"] = p1["id"]
+        state["player_statuses"] = {p1["id"]: "active"}
+        state["round_baskets"] = {p1["id"]: 0}
+        save_game(self.code, state)
+
+        # Player predicts "no" for Slot 1 which is False -> Correct prediction! (+1 pt)
+        ok, msg, state = pick_capsule(self.code, p1["id"], slot=1, prediction="no")
+        assert ok is True
+        assert state["round_baskets"][p1["id"]] == 1
+
+    def test_chat_answer_matching(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        known_card = {
+            "id": "test_chat",
+            "pack": "geo",
+            "prompt": "Chat Test",
+            "type": "true_false",
+            "n": 2,
+            "items": [
+                {
+                    "slot": 1,
+                    "label": "Madagascar",
+                    "value": "Yes",
+                    "is_correct": True,
+                    "aliases": ["ilha de madagascar"],
+                    "explanation": "",
+                },
+                {
+                    "slot": 2,
+                    "label": "Greenland",
+                    "value": "No",
+                    "is_correct": False,
+                    "aliases": ["groenlandia"],
+                    "explanation": "",
+                },
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = known_card
+        state["turn_order"] = [p1["id"]]
+        state["current_player_id"] = p1["id"]
+        state["player_statuses"] = {p1["id"]: "active"}
+        state["round_baskets"] = {p1["id"]: 0}
+        save_game(self.code, state)
+
+        # Player types "Madagascar" in chat
+        ok, msg, state = process_chat_answer(self.code, p1["id"], "madagascar")
+        assert ok is True
+        assert "1" in state["revealed_capsules"]
+        assert state["round_baskets"][p1["id"]] == 1
+
+    def test_host_arbitration(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        state, p2, _ = add_player(self.code, name="Bob")
+
+        known_card = {
+            "id": "test_arb",
+            "pack": "food",
+            "prompt": "Food Test",
+            "type": "true_false",
+            "n": 2,
+            "items": [
+                {"slot": 1, "label": "Guanciale", "value": "Yes", "is_correct": True, "aliases": [], "explanation": ""},
+                {"slot": 2, "label": "Cream", "value": "No", "is_correct": False, "aliases": [], "explanation": ""},
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = known_card
+        state["turn_order"] = [p1["id"], p2["id"]]
+        state["current_player_id"] = p1["id"]
+        state["player_statuses"] = {p1["id"]: "active", p2["id"]: "active"}
+        state["round_baskets"] = {p1["id"]: 0, p2["id"]: 0}
+        save_game(self.code, state)
+
+        # Host arbitrates slot 1 for Bob
+        ok, msg, state = host_arbitrate(self.code, slot=1, mark_correct=True, target_player_id=p2["id"])
+        assert ok is True
+        assert state["round_baskets"][p2["id"]] == 1
+        assert "1" in state["revealed_capsules"]
+
+    def test_zero_spoiler_sanitization(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        state, p2, _ = add_player(self.code, name="Bob")
+
+        known_card = {
+            "id": "secret_q",
+            "pack": "geo",
+            "prompt": "Zero Spoiler Test",
+            "type": "true_false",
+            "n": 2,
+            "items": [
+                {
+                    "slot": 1,
+                    "label": "Covered Item",
+                    "value": "Secret Answer",
+                    "is_correct": True,
+                    "aliases": [],
+                    "explanation": "Top secret",
+                },
+                {
+                    "slot": 2,
+                    "label": "Revealed Item",
+                    "value": "Known Answer",
+                    "is_correct": True,
+                    "aliases": [],
+                    "explanation": "Public fact",
+                },
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = known_card
+        state["revealed_capsules"] = {
+            "2": {
+                "slot": 2,
+                "label": "Revealed Item",
+                "value": "Known Answer",
+                "is_correct": True,
+                "revealed_by": "Alice",
+                "revealed_result": "correct",
+                "explanation": "Public fact",
+            }
+        }
+        save_game(self.code, state)
+
+        # Inspect Bob's sanitized view
+        view = get_sanitized_player_view(state, viewer_id=p2["id"])
+        capsules = view["capsules"]
+
+        # Slot 1 is unrevealed -> secret answer, is_correct, explanation MUST be None
+        cap1 = next(c for c in capsules if c["slot"] == 1)
+        assert cap1["revealed"] is False
+        assert cap1["value"] is None
+        assert cap1["is_correct"] is None
+        assert cap1["explanation"] is None
+
+        # Slot 2 is revealed -> public details visible
+        cap2 = next(c for c in capsules if c["slot"] == 2)
+        assert cap2["revealed"] is True
+        assert cap2["value"] == "Known Answer"
+        assert cap2["is_correct"] is True
+        assert cap2["explanation"] == "Public fact"
+
+    def test_match_victory_condition(self):
+        state = create_game(self.code, host_name="Alice", settings={"target_score": 10})
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        p1["score"] = 9
+        save_game(self.code, state)
+
+        known_card = {
+            "id": "q_win",
+            "pack": "geo",
+            "prompt": "Win Card",
+            "type": "true_false",
+            "n": 1,
+            "items": [
+                {
+                    "slot": 1,
+                    "label": "Winning Item",
+                    "value": "Yes",
+                    "is_correct": True,
+                    "aliases": [],
+                    "explanation": "",
+                },
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = known_card
+        state["turn_order"] = [p1["id"]]
+        state["current_player_id"] = p1["id"]
+        state["player_statuses"] = {p1["id"]: "active"}
+        state["round_baskets"] = {p1["id"]: 0}
+        save_game(self.code, state)
+
+        # Alice picks slot 1 -> finishes card, banks 1 pt -> score = 10 -> Gameover!
+        ok, msg, state = pick_capsule(self.code, p1["id"], slot=1)
+        assert ok is True
+        assert state["phase"] == "gameover"
+        assert state["winner_id"] == p1["id"]
+
+
+@pytest.mark.django_db
+class TestSmartNViewsAndUrls:
+    def setup_method(self):
+        self.client = Client()
+        self.room = Room.objects.create(title="SmartN Test Room", game_type="smartn", language="en")
+        self.code = self.room.code
+        delete_game(self.code)
+
+    def teardown_method(self):
+        delete_game(self.code)
+        self.room.delete()
+
+    def test_game_view_and_join(self):
+        url = reverse("gamerooms:smartn:game", kwargs={"code": self.code, "name": "Charlie"})
+        response = self.client.get(url)
+        assert response.status_code == 200
+        assert b"SmartN" in response.content
+
+        # Verify state exists
+        state = get_game(self.code)
+        assert state is not None
+        charlie = find_player_by_name(state, "Charlie")
+        assert charlie is not None
+
+    def test_qr_and_reconnect_view(self):
+        # Create player in state
+        state = create_game(self.code, host_name="Dave")
+        state, player, _ = add_player(self.code, name="Dave")
+
+        qr_url = reverse("gamerooms:smartn:player-qr", kwargs={"code": self.code, "token": player["token"]})
+        res = self.client.get(qr_url)
+        assert res.status_code == 200
+        data = res.json()
+        assert "qr" in data
+        assert data["player_name"] == "Dave"
+
+        rec_url = reverse("gamerooms:smartn:reconnect", kwargs={"code": self.code, "token": player["token"]})
+        res_rec = self.client.get(rec_url)
+        assert res_rec.status_code == 302
+        assert f"/{self.code}/Dave/" in res_rec.url
+
+
+def test_websocket_join_and_chat(db):
+    room = Room.objects.create(title="WS Room", game_type="smartn", language="en")
+    code = room.code
+
+    async def _run():
+        communicator = WebsocketCommunicator(
+            application,
+            f"/ws/smartn/{code}/",
+        )
+        connected, _ = await communicator.connect()
+        assert connected is True
+
+        # Join room
+        await communicator.send_json_to(
+            {
+                "action": "join",
+                "name": "Eve",
+                "is_admin": True,
+            }
+        )
+        response = await communicator.receive_json_from()
+        assert response["type"] == "state"
+        assert response["state"]["code"] == code
+
+        # Send chat message
+        await communicator.send_json_to(
+            {
+                "action": "chat",
+                "msg": "Hello SmartN team!",
+            }
+        )
+        resp_chat = await communicator.receive_json_from()
+        assert resp_chat["type"] == "state"
+        chat_entries = resp_chat["state"]["chat_log"]
+        assert any("Hello SmartN team!" in e["text"] for e in chat_entries)
+
+        await communicator.disconnect()
+        delete_game(code)
+
+    async_to_sync(_run)()

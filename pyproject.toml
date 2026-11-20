@@ -60,3 +60,8 @@ ignore = ["F403", "E501"]
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "website.settings"
 python_files = ["tests.py", "test_*.py"]
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.170.17",
+]

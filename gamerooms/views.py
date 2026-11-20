@@ -6,7 +6,6 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from .language_support import (
@@ -16,6 +15,7 @@ from .language_support import (
     normalize_language_code,
 )
 from .models import Room, create_user_prompt_suggestion
+from .security import is_rate_limited, safe_json_dumps
 
 
 def _make_captcha():
@@ -175,6 +175,25 @@ def room_list(request):
                         r.phase_badge = f"💀 {_('Game Over')}"
             except Exception:
                 pass
+        elif r.game_type == "smartn":
+            try:
+                from smartn.game_state import get_game as get_smartn_game
+
+                state = get_smartn_game(r.code)
+                if state and state.get("players"):
+                    r.player_count = len(state.get("players", []))
+                    phase = state.get("phase", "lobby")
+                    rnd = state.get("round_num", 0)
+                    if phase == "lobby":
+                        r.phase_badge = f"⏳ {_('Lobby')}"
+                    elif phase == "playing":
+                        r.phase_badge = f"💡 {_('Card')} {rnd}"
+                    elif phase == "round_summary":
+                        r.phase_badge = f"🏁 {_('Summary')}"
+                    elif phase == "gameover":
+                        r.phase_badge = f"🏆 {_('Finished')}"
+            except Exception:
+                pass
 
     return render(request, "gamerooms/room_list.html", {"rooms": rooms, "error": error})
 
@@ -210,6 +229,7 @@ def room_create(request):
         request.session[f"stop_admin_{room.code}"] = True
         request.session[f"dontsay_admin_{room.code}"] = True
         request.session[f"rankit_admin_{room.code}"] = True
+        request.session[f"smartn_admin_{room.code}"] = True
         return redirect("gamerooms:room-join", code=room.code)
 
     game_type = _resolve_game_type(request.GET.get("game"))
@@ -235,7 +255,7 @@ def _render_create(request, error=None, game_type="emojinary", language=None):
             "selected_language": selected_lang,
             "languages": settings.LANGUAGES,
             "initial_support": initial_support,
-            "support_matrix_json": json.dumps(get_language_support_matrix()),
+            "support_matrix_json": safe_json_dumps(get_language_support_matrix()),
         },
     )
 
@@ -300,6 +320,10 @@ def room_join(request, code):
                 return redirect(
                     f"{reverse('gamerooms:rankit:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
                 )
+            if room.game_type == "smartn":
+                return redirect(
+                    f"{reverse('gamerooms:smartn:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
+                )
             return redirect(
                 f"{reverse('gamerooms:emojinary:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
             )
@@ -314,10 +338,12 @@ def room_join(request, code):
     )
 
 
-@csrf_exempt
 @require_POST
 def suggest_prompt(request):
     """API endpoint for players to submit questions/categories for the prompt deck."""
+    if is_rate_limited(request, scope="suggest_prompt", limit=15, window_seconds=60):
+        return JsonResponse({"success": False, "message": _("Too many requests. Please slow down.")}, status=429)
+
     data = {}
     if request.content_type == "application/json":
         try:

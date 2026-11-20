@@ -157,9 +157,11 @@ def query_ollama(prompt: str, model: str = DEFAULT_MODEL, timeout: float = 5.5) 
         },
     }
     try:
+        if not url.startswith(("http://", "https://")):
+            raise ValueError("Unsupported Ollama URL scheme")
         data = json.dumps(payload).encode("utf-8")
-        req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
+        req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})  # nosec B310
+        with urllib.request.urlopen(req, timeout=timeout) as resp:  # nosec B310
             if resp.status == 200:
                 body = json.loads(resp.read().decode("utf-8"))
                 return body.get("response")

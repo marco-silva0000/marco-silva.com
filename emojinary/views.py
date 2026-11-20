@@ -1,7 +1,5 @@
 """Views for Emojinary gameplay, QR code join, personal player reconnect, and replay export."""
 
-import json
-
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -10,6 +8,7 @@ from django.views.decorators.cache import never_cache
 from gamerooms.language_support import get_game_language_support
 from gamerooms.models import Room
 from gamerooms.qr import build_public_url, generate_qr_data_uri
+from gamerooms.security import safe_json_dumps
 
 from .game_state import (
     SETTINGS_PRESETS,
@@ -113,7 +112,7 @@ def game(request, code, name):
             "player_qr": player_qr_uri,
             "presets": SETTINGS_PRESETS,
             "language_support": get_game_language_support("emojinary", state.get("language", "en")),
-            "initial_state_json": json.dumps(initial_state),
+            "initial_state_json": safe_json_dumps(initial_state),
         },
     )
 

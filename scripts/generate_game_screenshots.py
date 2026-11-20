@@ -383,6 +383,75 @@ def capture_rankit(browser, base_url, out_dir, devices):
             ctx.close()
 
 
+def capture_smartn(browser, base_url, out_dir, devices):
+    """Capture SmartN (Smart 10 Trivia) screens (Creation, Lobby, Playing with Smartbox & Capsules, Single Device Mode)."""
+    sn_dir = out_dir / "smartn"
+    sn_dir.mkdir(parents=True, exist_ok=True)
+    print(f"[*] Capturing SmartN ({len(devices)} devices)...")
+
+    for d_key in devices:
+        ctx = setup_browser_context(browser, d_key)
+        page = ctx.new_page()
+        try:
+            # 1. Create Room Form
+            page.goto(f"{base_url}/games/create/?game=smartn", wait_until="networkidle")
+            time.sleep(0.4)
+            c_path = sn_dir / f"smartn_create_{d_key}.png"
+            page.screenshot(path=str(c_path))
+            print(f"    -> Saved {c_path.name}")
+
+            # 2. Enter Lobby
+            page.fill('input[name="title"]', f"SmartN Trivia ({d_key})")
+            solve_captcha(page)
+            page.click('button[type="submit"]')
+
+            page.wait_for_selector('input[name="name"]')
+            page.fill('input[name="name"]', "Host")
+            page.click('button[type="submit"]')
+
+            page.wait_for_url("**/games/smartn/**")
+            page.wait_for_selector("#roster-grid-lobby", state="attached")
+            time.sleep(0.5)
+
+            lobby_path = sn_dir / f"smartn_lobby_{d_key}.png"
+            page.screenshot(path=str(lobby_path))
+            print(f"    -> Saved {lobby_path.name}")
+
+            # 3. Start Match -> The Smartbox with 10 Capsules
+            try:
+                page.click('button:has-text("Start SmartN Match")')
+                page.wait_for_selector("#view-playing", state="visible", timeout=6000)
+                time.sleep(0.5)
+
+                play_path = sn_dir / f"smartn_playing_{d_key}.png"
+                page.screenshot(path=str(play_path))
+                print(f"    -> Saved {play_path.name}")
+
+                # 4. Open a capsule
+                unrev = page.locator(".capsule-item.unrevealed").first
+                if unrev.count() > 0:
+                    unrev.click()
+                    time.sleep(0.5)
+                    opened_path = sn_dir / f"smartn_capsule_opened_{d_key}.png"
+                    page.screenshot(path=str(opened_path))
+                    print(f"    -> Saved {opened_path.name}")
+
+                # 5. Switch to Single Device Pass & Play mode
+                page.click("#lbl-toggle-mode")
+                time.sleep(0.5)
+                single_path = sn_dir / f"smartn_single_device_{d_key}.png"
+                page.screenshot(path=str(single_path))
+                print(f"    -> Saved {single_path.name}")
+
+            except Exception as e_play:
+                print(f"    [!] Note on SmartN playing capture: {e_play}")
+
+        except Exception as e:
+            print(f"    [!] Error capturing SmartN on {d_key}: {e}")
+        finally:
+            ctx.close()
+
+
 def capture_lupus(browser, base_url, out_dir, devices):
     """Capture Lupus / Werewolf Hub, Creation, and Cockpit with populated demo table."""
     lupus_dir = out_dir / "lupus"
@@ -621,7 +690,7 @@ def main():
             devices = list(DEVICE_CONFIGS.keys())
 
     # Resolve games
-    valid_games = ["portal", "stop", "dontsay", "rankit", "lupus", "codenames", "impostor", "emojinary"]
+    valid_games = ["portal", "stop", "dontsay", "rankit", "smartn", "lupus", "codenames", "impostor", "emojinary"]
     if args.all or args.games == "all":
         games = valid_games
     else:
@@ -674,6 +743,9 @@ def main():
 
         if "rankit" in games:
             capture_rankit(browser, args.url, out_dir, devices)
+
+        if "smartn" in games:
+            capture_smartn(browser, args.url, out_dir, devices)
 
         if "lupus" in games:
             capture_lupus(browser, args.url, out_dir, devices)

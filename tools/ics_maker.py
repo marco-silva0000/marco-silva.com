@@ -6,6 +6,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
 
+from gamerooms.security import sanitize_header_filename, sanitize_ics_field
+
 TZ = ZoneInfo("Europe/Helsinki")
 
 
@@ -35,12 +37,19 @@ def ics_extract(request):
 @require_POST
 def ics_download(request):
     """Generate and return an .ics file from the extracted event data."""
-    data = json.loads(request.body)
-    title = data.get("title", "Event")
+    try:
+        data = json.loads(request.body)
+        if not isinstance(data, dict):
+            return JsonResponse({"error": "Invalid JSON object."}, status=400)
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return JsonResponse({"error": "Invalid JSON payload."}, status=400)
+
+    title = sanitize_ics_field(data.get("title", "Event"), default="Event")
     dtstart = _parse_dt(data.get("start")) or datetime.now(TZ)
     dtend = _parse_dt(data.get("end")) or dtstart + timedelta(hours=1)
-    location = data.get("location", "")
-    description = data.get("description", "")
+    location = sanitize_ics_field(data.get("location", ""))
+    description = sanitize_ics_field(data.get("description", ""))
+    safe_filename = sanitize_header_filename(title, default="Event")
 
     ics = (
         "BEGIN:VCALENDAR\r\n"
@@ -58,7 +67,7 @@ def ics_download(request):
     ics += "END:VEVENT\r\nEND:VCALENDAR\r\n"
 
     response = HttpResponse(ics, content_type="text/calendar")
-    response["Content-Disposition"] = f'attachment; filename="{title}.ics"'
+    response["Content-Disposition"] = f'attachment; filename="{safe_filename}.ics"'
     return response
 
 

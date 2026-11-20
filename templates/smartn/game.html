@@ -1,0 +1,1570 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}SmartN (Smart 10 Trivia) — {{ room.code }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
+{% endblock %}
+
+{% block extra_css %}
+  :root {
+    --sn-primary: #0284c7;
+    --sn-primary-hover: #0369a1;
+    --sn-primary-light: #e0f2fe;
+    --sn-accent: #f59e0b;
+    --sn-bg: #0f172a;
+    --sn-card-bg: #1e293b;
+    --sn-border: #334155;
+    --sn-text: #f8fafc;
+    --sn-muted: #94a3b8;
+    --sn-success: #10b981;
+    --sn-danger: #ef4444;
+    --sn-box-outer: #1e1b4b;
+    --sn-box-inner: #0f172a;
+  }
+
+  body {
+    max-width: 1200px !important;
+    background-color: var(--sn-bg);
+    color: var(--sn-text);
+  }
+
+  .sn-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem 3rem 1rem;
+  }
+
+  /* Card styling */
+  .sn-card {
+    background: var(--sn-card-bg);
+    border: 1px solid var(--sn-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+  }
+
+  /* Top Bar */
+  .sn-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--sn-border);
+    border-radius: 14px;
+    padding: 0.6rem 1rem;
+  }
+
+  .sn-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .sn-badge-phase {
+    background: #38bdf822;
+    color: #38bdf8;
+    border: 1px solid #38bdf844;
+  }
+
+  .sn-badge-mode {
+    background: #a855f722;
+    color: #c084fc;
+    border: 1px solid #a855f744;
+  }
+
+  /* Buttons */
+  .sn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.1rem;
+    min-height: 40px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+
+  .sn-btn:focus-visible {
+    outline: 2px solid var(--sn-primary);
+    outline-offset: 2px;
+  }
+
+  .sn-btn-primary {
+    background: var(--sn-primary);
+    color: #ffffff;
+  }
+  .sn-btn-primary:hover:not(:disabled) {
+    background: var(--sn-primary-hover);
+    transform: translateY(-1px);
+  }
+  .sn-btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .sn-btn-secondary {
+    background: #334155;
+    color: #f8fafc;
+    border: 1px solid #475569;
+  }
+  .sn-btn-secondary:hover:not(:disabled) {
+    background: #475569;
+  }
+
+  .sn-btn-success {
+    background: var(--sn-success);
+    color: #ffffff;
+  }
+  .sn-btn-success:hover:not(:disabled) {
+    background: #059669;
+  }
+
+  .sn-btn-danger {
+    background: var(--sn-danger);
+    color: #ffffff;
+  }
+  .sn-btn-danger:hover:not(:disabled) {
+    background: #dc2626;
+  }
+
+  /* Tactile Smartbox 3D Container */
+  .smartbox-outer {
+    background: linear-gradient(145deg, #1e1b4b, #0f172a);
+    border: 3px solid #3b82f644;
+    border-radius: 24px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .smartbox-header {
+    background: #0f172a;
+    border: 1px solid var(--sn-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .smartbox-prompt-pack {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #38bdf8;
+    background: #0369a133;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+
+  .smartbox-prompt-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0.25rem 0 0.5rem 0;
+    line-height: 1.3;
+  }
+
+  .smartbox-prompt-hint {
+    font-size: 0.85rem;
+    color: var(--sn-muted);
+  }
+
+  /* Capsules Grid */
+  .capsules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 768px) {
+    .capsules-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Tactile Capsule Item */
+  .capsule-item {
+    display: flex;
+    align-items: stretch;
+    background: #1e293b;
+    border: 2px solid #334155;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    user-select: none;
+  }
+
+  .capsule-item.unrevealed {
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .capsule-item.unrevealed:hover {
+    border-color: #38bdf8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px -3px rgba(56, 189, 248, 0.25);
+  }
+
+  .capsule-item.revealed-correct {
+    border-color: #10b981;
+    background: #064e3b33;
+  }
+
+  .capsule-item.revealed-wrong {
+    border-color: #ef4444;
+    background: #7f1d1d33;
+  }
+
+  .capsule-item.revealed-unpicked {
+    border-color: #64748b;
+    background: #1e293b88;
+    opacity: 0.85;
+  }
+
+  .capsule-slot-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    font-weight: 800;
+    font-size: 1.15rem;
+    background: #0f172a;
+    color: #94a3b8;
+    border-right: 1px solid #334155;
+    flex-shrink: 0;
+  }
+
+  .capsule-item.revealed-correct .capsule-slot-num {
+    background: #064e3b;
+    color: #6ee7b7;
+    border-right-color: #10b981;
+  }
+
+  .capsule-item.revealed-wrong .capsule-slot-num {
+    background: #7f1d1d;
+    color: #fca5a5;
+    border-right-color: #ef4444;
+  }
+
+  .capsule-content {
+    flex: 1;
+    padding: 0.75rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .capsule-label {
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: #f8fafc;
+    line-height: 1.25;
+    margin-bottom: 0.2rem;
+  }
+
+  .capsule-secret-cover {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .capsule-revealed-val {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+
+  .capsule-explanation {
+    font-size: 0.76rem;
+    color: #cbd5e1;
+    margin-top: 0.35rem;
+    line-height: 1.35;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 0.3rem;
+  }
+
+  .capsule-actions {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    background: rgba(15, 23, 42, 0.5);
+  }
+
+  /* Single Device Pass-Banner */
+  .pass-phone-banner {
+    background: linear-gradient(90deg, #4f46e5, #0284c7);
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.4);
+    animation: pulseBorder 2s infinite;
+  }
+
+  @keyframes pulseBorder {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6); }
+    50% { box-shadow: 0 0 0 8px rgba(56, 189, 248, 0); }
+  }
+
+  /* Turn Action Bar */
+  .turn-action-bar {
+    background: #0f172a;
+    border: 2px solid var(--sn-border);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .turn-player-info {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .basket-pill {
+    background: #854d0e33;
+    border: 1px solid #eab30866;
+    color: #fef08a;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  /* Scoreboard Drawer & Roster */
+  .roster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .roster-item {
+    background: #0f172a;
+    border: 1px solid var(--sn-border);
+    border-radius: 12px;
+    padding: 0.75rem 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .roster-item.active-turn {
+    border-color: #38bdf8;
+    background: #0284c71a;
+  }
+
+  .roster-item.busted {
+    opacity: 0.6;
+    background: #450a0a22;
+  }
+
+  .roster-item.passed {
+    background: #14532d22;
+  }
+
+  /* Chat Drawer */
+  .chat-drawer {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 360px;
+    max-width: 90vw;
+    background: #0f172a;
+    border-left: 1px solid var(--sn-border);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.25s ease-out;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 0 25px rgba(0, 0, 0, 0.5);
+  }
+
+  .chat-drawer.open {
+    transform: translateX(0);
+  }
+
+  .chat-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--sn-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1e293b;
+  }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .chat-footer {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--sn-border);
+    background: #1e293b;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .chat-footer input {
+    flex: 1;
+    background: #0f172a;
+    border: 1px solid var(--sn-border);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    color: #f8fafc;
+    font-size: 0.88rem;
+  }
+
+  .chat-footer input:focus {
+    outline: 2px solid var(--sn-primary);
+  }
+
+  /* Prediction Modal micro-choice */
+  .pred-btn-yes {
+    background: #10b981;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    flex: 1;
+  }
+
+  .pred-btn-no {
+    background: #ef4444;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    flex: 1;
+  }
+
+  /* Host Menu Drawer */
+  .gm-drawer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 340px;
+    max-width: 85vw;
+    background: #0f172a;
+    border-right: 1px solid var(--sn-border);
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease-out;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 0 25px rgba(0, 0, 0, 0.5);
+    padding: 1.25rem;
+    overflow-y: auto;
+  }
+
+  .gm-drawer.open {
+    transform: translateX(0);
+  }
+
+  /* Utility & Responsive */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+{% endblock %}
+
+{% block content %}
+<div class="sn-container">
+
+  <!-- TOP BAR -->
+  <div class="sn-topbar">
+    <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+      <a href="{% url 'gamerooms:room-list' %}" class="sn-btn sn-btn-secondary" style="padding:0.35rem 0.75rem; font-size:0.8rem;" title="{% trans 'Exit to Room List' %}">
+        ⬅️ {% trans "Lobby" %}
+      </a>
+      <span style="font-weight:800; font-size:1.1rem; letter-spacing:0.04em;">💡 SmartN</span>
+      <span class="sn-badge" style="background:#334155; color:#f8fafc; font-family:monospace; font-size:0.9rem;" title="{% trans 'Room Code' %}">
+        {{ room.code }}
+      </span>
+      <span id="badge-phase" class="sn-badge sn-badge-phase">⏳ Lobby</span>
+      <span id="badge-mode" class="sn-badge sn-badge-mode">📱 Multi-Device</span>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+      <!-- Single Device toggle button -->
+      <button type="button" class="sn-btn sn-btn-secondary" style="padding:0.4rem 0.75rem; font-size:0.8rem;" onclick="toggleSingleDeviceMode()" title="{% trans 'Switch between Couch Pass & Play and Multi-Device' %}">
+        📱 <span id="lbl-toggle-mode">{% trans "Single Device" %}</span>
+      </button>
+
+      <!-- GM Drawer toggle (Hidden in couch mode) -->
+      <button type="button" class="sn-btn sn-btn-secondary" style="padding:0.4rem 0.75rem; font-size:0.8rem;" onclick="toggleGmDrawer()" title="{% trans 'Open GM Controls & Settings' %}">
+        ⚙️ <span id="lbl-gm-btn">{% trans "Settings" %}</span>
+      </button>
+
+      <!-- Chat Drawer toggle -->
+      <button type="button" class="sn-btn sn-btn-secondary" style="padding:0.4rem 0.75rem; font-size:0.8rem;" onclick="toggleChatDrawer()" title="{% trans 'Open In-game Chat & Answers' %}">
+        💬 {% trans "Chat" %} <span id="chat-unread-badge" style="display:none; background:#ef4444; color:#fff; border-radius:9999px; padding:0.1rem 0.4rem; font-size:0.7rem; font-weight:800;">•</span>
+      </button>
+
+      <!-- Invite QR Code button -->
+      <button type="button" class="sn-btn sn-btn-secondary" style="padding:0.4rem 0.75rem; font-size:0.8rem;" onclick="openQrModal()" title="{% trans 'Show Room QR Code for Joining' %}">
+        📷 {% trans "Invite" %}
+      </button>
+    </div>
+  </div>
+
+  <!-- SINGLE DEVICE COUCH PASS BANNER (Visible in Single Device Mode during play) -->
+  <div id="pass-phone-banner" class="pass-phone-banner" style="display:none;">
+    <div style="display:flex; align-items:center; gap:0.85rem;">
+      <span style="font-size:2rem;">📱</span>
+      <div>
+        <div style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; font-weight:700; opacity:0.9;">
+          {% trans "Couch Pass & Play" %}
+        </div>
+        <div style="font-size:1.2rem; font-weight:800; display:flex; align-items:center; gap:0.5rem;">
+          {% trans "Pass the Smartbox to" %} <span id="pass-player-avatar"></span> <span id="pass-player-name" style="text-decoration:underline;">Alice</span>!
+        </div>
+      </div>
+    </div>
+    <div style="text-align:right;">
+      <span class="sn-badge" style="background:rgba(0,0,0,0.3); font-size:0.8rem;">
+        {% trans "Their Turn" %}
+      </span>
+    </div>
+  </div>
+
+  <!-- LOBBY VIEW -->
+  <div id="view-lobby" class="sn-card" style="display:block;">
+    <h2 style="font-size:1.35rem; font-weight:800; margin:0 0 1rem 0; display:flex; align-items:center; gap:0.5rem;">
+      <span>💡</span> {% trans "SmartN Game Lobby" %}
+    </h2>
+
+    <!-- Settings Panel (Host editable, others see read-only) -->
+    <div style="background:#0f172a; border:1px solid var(--sn-border); border-radius:14px; padding:1.25rem; margin-bottom:1.25rem;">
+      <h3 style="font-size:1rem; font-weight:700; margin:0 0 1rem 0; color:#38bdf8;">
+        ⚙️ {% trans "Match Configuration" %}
+      </h3>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem;">
+        <!-- Topic / Pack Filter -->
+        <div>
+          <label for="cfg-pack" style="display:block; font-size:0.82rem; font-weight:700; color:var(--sn-muted); margin-bottom:0.35rem;">
+            {% trans "Topic Deck Filter" %}
+          </label>
+          <select id="cfg-pack" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left; background:#1e293b;" onchange="onSettingsFieldChange()">
+            {% for code, label in pack_choices %}
+              <option value="{{ code }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Yes/No Scoring Mode -->
+        <div>
+          <label for="cfg-yes-no-scoring" style="display:block; font-size:0.82rem; font-weight:700; color:var(--sn-muted); margin-bottom:0.35rem;">
+            {% trans "Yes/No Scoring Mode" %}
+          </label>
+          <select id="cfg-yes-no-scoring" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left; background:#1e293b;" onchange="onSettingsFieldChange()">
+            <option value="standard">{% trans "Standard (Only 'Yes' scores points)" %}</option>
+            <option value="prediction">{% trans "Prediction (Guessing 'No' also scores points)" %}</option>
+          </select>
+        </div>
+
+        <!-- Answer Count Filter -->
+        <div>
+          <label for="cfg-count-filter" style="display:block; font-size:0.82rem; font-weight:700; color:var(--sn-muted); margin-bottom:0.35rem;">
+            {% trans "Answer Count Filter" %}
+          </label>
+          <select id="cfg-count-filter" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left; background:#1e293b;" onchange="onSettingsFieldChange()">
+            <option value="all">{% trans "All Cards (Standard N Answers)" %}</option>
+            <option value="exactly_10">{% trans "Exactly 10 Answers Only" %}</option>
+          </select>
+        </div>
+
+        <!-- Target Score -->
+        <div>
+          <label for="cfg-target-score" style="display:block; font-size:0.82rem; font-weight:700; color:var(--sn-muted); margin-bottom:0.35rem;">
+            {% trans "Points to Win Match" %}
+          </label>
+          <input type="number" id="cfg-target-score" min="5" max="100" value="20" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left; background:#1e293b;" onchange="onSettingsFieldChange()">
+        </div>
+      </div>
+    </div>
+
+    <!-- Players Roster -->
+    <div style="margin-bottom:1.5rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+        <h3 style="font-size:1rem; font-weight:700; margin:0; display:flex; align-items:center; gap:0.4rem;">
+          <span>👥</span> {% trans "Players" %} (<span id="lbl-roster-count">1</span>)
+        </h3>
+        <span style="font-size:0.8rem; color:var(--sn-muted);">
+          {% trans "Click your avatar to customize badge color" %}
+        </span>
+      </div>
+
+      <div id="roster-grid-lobby" class="roster-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- Lobby Action Buttons -->
+    <div id="lobby-host-actions" style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
+      <button type="button" class="sn-btn sn-btn-primary" style="font-size:1.05rem; padding:0.75rem 1.75rem;" onclick="startGameClick()">
+        🚀 {% trans "Start SmartN Match" %}
+      </button>
+      <button type="button" class="sn-btn sn-btn-secondary" onclick="openSuggestPromptModal()">
+        💡 {% trans "Suggest a Question" %}
+      </button>
+    </div>
+    <div id="lobby-guest-wait" style="display:none; color:var(--sn-muted); font-size:0.9rem; font-style:italic;">
+      ⏳ {% trans "Waiting for the host to start the game..." %}
+    </div>
+  </div>
+
+  <!-- PLAYING & ROUND SUMMARY VIEW (The Smartbox) -->
+  <div id="view-playing" style="display:none;">
+
+    <!-- THE TACTILE SMARTBOX -->
+    <div class="smartbox-outer">
+      <!-- Card Prompt Header -->
+      <div class="smartbox-header">
+        <div id="smartbox-pack-badge" class="smartbox-prompt-pack">🌍 GEOGRAPHY</div>
+        <div id="smartbox-round-num" style="font-size:0.8rem; font-weight:700; color:var(--sn-muted); margin-bottom:0.25rem;">
+          CARD #1
+        </div>
+        <h1 id="smartbox-prompt-title" class="smartbox-prompt-title">
+          Loading Question...
+        </h1>
+        <div id="smartbox-prompt-hint" class="smartbox-prompt-hint">
+          Pick a covered capsule to test your answer!
+        </div>
+      </div>
+
+      <!-- 10 Capsules Container -->
+      <div id="smartbox-capsules" class="capsules-grid" role="region" aria-label="Smartbox Capsules">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+    <!-- TURN ACTION BAR (Push-your-luck status & Pass & Bank) -->
+    <div id="turn-action-bar" class="turn-action-bar">
+      <div class="turn-player-info">
+        <span id="turn-active-avatar"></span>
+        <div>
+          <div style="font-size:0.75rem; color:var(--sn-muted); font-weight:700; text-transform:uppercase;">
+            {% trans "Active Turn" %}
+          </div>
+          <div id="turn-active-name" style="font-weight:800; font-size:1.05rem;">
+            Player's Turn
+          </div>
+        </div>
+        <div id="turn-basket-pill" class="basket-pill">
+          🧺 <span id="lbl-basket-pts">0</span> {% trans "pts at risk" %}
+        </div>
+      </div>
+
+      <div style="display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap;">
+        <button type="button" id="btn-pass-turn" class="sn-btn sn-btn-success" onclick="passTurnClick()" title="{% trans 'Bank current unbanked basket points and bow out safely for this card' %}">
+          🔒 {% trans "Pass & Bank Points" %}
+        </button>
+        <button type="button" class="sn-btn sn-btn-secondary" onclick="toggleChatDrawer()">
+          💬 {% trans "Answer via Chat" %}
+        </button>
+      </div>
+    </div>
+
+    <!-- ROUND SUMMARY OVERLAY / ACTION -->
+    <div id="round-summary-bar" class="sn-card" style="display:none; margin-top:1.25rem; background:#064e3b22; border-color:#10b981;">
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;">
+        <div>
+          <div style="font-size:1.1rem; font-weight:800; color:#10b981;">
+            🏁 {% trans "Card Completed!" %}
+          </div>
+          <div style="font-size:0.85rem; color:#cbd5e1;">
+            {% trans "All answers have been revealed. Check the facts above!" %}
+          </div>
+        </div>
+        <div style="display:flex; gap:0.5rem;">
+          <button type="button" id="btn-next-card" class="sn-btn sn-btn-primary" onclick="nextRoundClick()">
+            ⏩ {% trans "Next Question Card" %}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE SCOREBOARD -->
+    <div class="sn-card" style="margin-top:1.5rem;">
+      <h3 style="font-size:1rem; font-weight:700; margin:0 0 0.85rem 0; display:flex; align-items:center; gap:0.4rem;">
+        <span>🏆</span> {% trans "Scoreboard" %}
+      </h3>
+      <div id="roster-grid-playing" class="roster-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME OVER VIEW -->
+  <div id="view-gameover" class="sn-card" style="display:none; text-align:center; padding:2.5rem 1.5rem;">
+    <div style="font-size:3.5rem; margin-bottom:0.5rem;">🏆</div>
+    <h2 id="gameover-winner-title" style="font-size:1.8rem; font-weight:800; color:#38bdf8; margin:0 0 0.5rem 0;">
+      Match Complete!
+    </h2>
+    <p id="gameover-winner-desc" style="color:var(--sn-muted); font-size:1.05rem; margin:0 0 1.5rem 0;">
+      Winner reached target points!
+    </p>
+
+    <!-- Final Standings -->
+    <div id="gameover-standings" style="max-width:500px; margin:0 auto 2rem auto; text-align:left;">
+      <!-- Injected via JS -->
+    </div>
+
+    <div style="display:flex; justify-content:center; gap:0.75rem;">
+      <button type="button" class="sn-btn sn-btn-primary" onclick="resetGameClick()">
+        🔄 {% trans "Play Again (Return to Lobby)" %}
+      </button>
+      <a href="{% url 'gamerooms:room-list' %}" class="sn-btn sn-btn-secondary">
+        🚪 {% trans "Exit Room" %}
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- SLIDE-OUT CHAT DRAWER -->
+<div id="chat-drawer" class="chat-drawer" role="complementary" aria-label="Game Chat">
+  <div class="chat-header">
+    <div style="display:flex; align-items:center; gap:0.45rem; font-weight:700;">
+      <span>💬</span> {% trans "Chat & Guess Room" %}
+    </div>
+    <button type="button" class="sn-btn sn-btn-secondary" style="padding:0.25rem 0.5rem; min-height:auto;" onclick="toggleChatDrawer()" aria-label="{% trans 'Close Chat' %}">
+      &times;
+    </button>
+  </div>
+
+  <div id="chat-messages" class="chat-messages">
+    <!-- Chat rows rendered via JS -->
+  </div>
+
+  <div class="chat-footer">
+    <input type="text" id="chat-input" placeholder="{% trans 'Type a guess (e.g. France) or chat...' %}" onkeydown="if(event.key==='Enter') sendChatMessage()">
+    <button type="button" class="sn-btn sn-btn-primary" style="padding:0.4rem 0.85rem;" onclick="sendChatMessage()">
+      {% trans "Send" %}
+    </button>
+  </div>
+</div>
+
+<!-- SLIDE-OUT GM / SETTINGS DRAWER (Discreet for couch play) -->
+<div id="gm-drawer" class="gm-drawer" role="complementary" aria-label="GM Controls">
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem; border-bottom:1px solid var(--sn-border); padding-bottom:0.75rem;">
+    <h3 style="margin:0; font-size:1.1rem; font-weight:700; color:#38bdf8;">
+      ⚙️ {% trans "GM Controls" %}
+    </h3>
+    <button type="button" class="sn-btn sn-btn-secondary" style="padding:0.25rem 0.5rem; min-height:auto;" onclick="toggleGmDrawer()" aria-label="{% trans 'Close GM Menu' %}">
+      &times;
+    </button>
+  </div>
+
+  <p style="font-size:0.8rem; color:var(--sn-muted); margin:0 0 1rem 0;">
+    {% trans "Host tools for couch pass & play mode. Couch players will not see these controls unless opened." %}
+  </p>
+
+  <div style="display:flex; flex-direction:column; gap:0.75rem;">
+    <button type="button" class="sn-btn sn-btn-secondary" onclick="toggleSingleDeviceMode()" style="justify-content:flex-start;">
+      📱 {% trans "Toggle Single Device Mode" %}
+    </button>
+
+    <button type="button" class="sn-btn sn-btn-secondary" onclick="nextRoundClick()" style="justify-content:flex-start;">
+      ⏩ {% trans "Force Next Card / Skip" %}
+    </button>
+
+    <button type="button" class="sn-btn sn-btn-secondary" onclick="openArbitrationModal()" style="justify-content:flex-start;">
+      👑 {% trans "Manual Capsule Override" %}
+    </button>
+
+    <button type="button" class="sn-btn sn-btn-secondary" onclick="resetGameClick()" style="justify-content:flex-start;">
+      🔄 {% trans "Return to Lobby" %}
+    </button>
+  </div>
+</div>
+
+<!-- PREDICTION MODAL (Used when yes_no_scoring == 'prediction') -->
+<div id="modal-prediction" class="ds-modal" role="dialog" aria-modal="true" aria-labelledby="pred-modal-title" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+  <div style="background:#1e293b; border:1px solid var(--sn-border); border-radius:18px; max-width:400px; width:100%; padding:1.5rem; text-align:center; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+    <h3 id="pred-modal-title" style="margin:0 0 0.5rem 0; font-size:1.2rem; font-weight:800; color:#f8fafc;">
+      Make Your Prediction
+    </h3>
+    <p id="pred-modal-label" style="font-size:1.05rem; font-weight:700; color:#38bdf8; margin:0 0 1.25rem 0;">
+      Label
+    </p>
+    <p style="font-size:0.85rem; color:var(--sn-muted); margin:0 0 1.25rem 0;">
+      {% trans "Do you think this statement / item is True or False for the prompt?" %}
+    </p>
+
+    <div style="display:flex; gap:0.75rem; margin-bottom:1rem;">
+      <button type="button" class="pred-btn-yes" onclick="submitPredictionChoice('yes')">
+        ✅ {% trans "TRUE / YES" %}
+      </button>
+      <button type="button" class="pred-btn-no" onclick="submitPredictionChoice('no')">
+        ❌ {% trans "FALSE / NO" %}
+      </button>
+    </div>
+
+    <button type="button" class="sn-btn sn-btn-secondary" style="width:100%;" onclick="closePredictionModal()">
+      {% trans "Cancel" %}
+    </button>
+  </div>
+</div>
+
+<!-- HOST ARBITRATION MODAL -->
+<div id="modal-arbitration" class="ds-modal" role="dialog" aria-modal="true" aria-labelledby="arbitration-title" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+  <div style="background:#1e293b; border:1px solid var(--sn-border); border-radius:18px; max-width:440px; width:100%; padding:1.5rem; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+    <h3 id="arbitration-title" style="margin:0 0 0.5rem 0; font-size:1.15rem; font-weight:800; color:#38bdf8;">
+      👑 {% trans "Host Capsule Arbitration" %}
+    </h3>
+    <p style="font-size:0.82rem; color:var(--sn-muted); margin:0 0 1rem 0;">
+      {% trans "Validate a player's typo, foreign word, or verbal answer directly onto a covered capsule." %}
+    </p>
+
+    <div style="margin-bottom:0.75rem;">
+      <label for="arb-slot-select" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.25rem;">
+        {% trans "Target Capsule" %}
+      </label>
+      <select id="arb-slot-select" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left;">
+        <!-- Filled via JS with covered capsules -->
+      </select>
+    </div>
+
+    <div style="margin-bottom:1rem;">
+      <label for="arb-player-select" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.25rem;">
+        {% trans "Attribute to Player" %}
+      </label>
+      <select id="arb-player-select" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left;">
+        <!-- Filled via JS with players -->
+      </select>
+    </div>
+
+    <div style="display:flex; gap:0.5rem; margin-bottom:0.75rem;">
+      <button type="button" class="sn-btn sn-btn-success" style="flex:1;" onclick="submitArbitration(true)">
+        ✨ {% trans "Validate (Correct +1 pt)" %}
+      </button>
+      <button type="button" class="sn-btn sn-btn-danger" style="flex:1;" onclick="submitArbitration(false)">
+        💥 {% trans "Mark Wrong (Bust)" %}
+      </button>
+    </div>
+
+    <button type="button" class="sn-btn sn-btn-secondary" style="width:100%;" onclick="closeArbitrationModal()">
+      {% trans "Cancel" %}
+    </button>
+  </div>
+</div>
+
+<!-- SUGGEST PROMPT MODAL -->
+<div id="modal-suggest-prompt" class="ds-modal" role="dialog" aria-modal="true" aria-labelledby="suggest-prompt-title" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+  <div style="background:#1e293b; border:1px solid var(--sn-border); border-radius:18px; max-width:440px; width:100%; padding:1.5rem; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+    <h3 id="suggest-prompt-title" style="margin:0 0 0.5rem 0; font-size:1.15rem; font-weight:800; color:#38bdf8;">
+      💡 {% trans "Suggest a SmartN Question" %}
+    </h3>
+    <p style="font-size:0.82rem; color:var(--sn-muted); margin:0 0 1rem 0;">
+      {% trans "Propose a question prompt or 10 trivia items to be added to the deck!" %}
+    </p>
+
+    <div style="margin-bottom:0.75rem;">
+      <label for="suggest-topic-pack" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.25rem;">
+        {% trans "Topic Pack" %}
+      </label>
+      <select id="suggest-topic-pack" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left;">
+        {% for code, label in pack_choices %}
+          <option value="{{ code }}">{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div style="margin-bottom:1rem;">
+      <label for="suggest-question-text" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:0.25rem;">
+        {% trans "Question Prompt" %}
+      </label>
+      <textarea id="suggest-question-text" rows="3" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left; resize:vertical; padding:0.5rem;" placeholder="e.g. Which of these animals are marsupials?"></textarea>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+      <button type="button" class="sn-btn sn-btn-secondary" onclick="closeSuggestPromptModal()">
+        {% trans "Cancel" %}
+      </button>
+      <button type="button" class="sn-btn sn-btn-primary" onclick="submitPromptSuggestion()">
+        {% trans "Submit Suggestion" %}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- QR CODE MODAL -->
+<div id="modal-qr" class="ds-modal" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+  <div style="background:#ffffff; color:#0f172a; border-radius:18px; max-width:380px; width:100%; padding:1.5rem; text-align:center; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+    <h3 id="qr-modal-title" style="margin:0 0 0.5rem 0; font-size:1.2rem; font-weight:800;">
+      📱 {% trans "Join SmartN" %}
+    </h3>
+    <p style="font-size:0.85rem; color:#64748b; margin:0 0 1rem 0;">
+      {% trans "Scan with phone camera or share room code" %}: <strong style="color:#0284c7;">{{ room.code }}</strong>
+    </p>
+
+    <div id="qr-container" style="display:flex; justify-content:center; margin-bottom:1rem;">
+      <img id="qr-img" src="" alt="Room QR Code" style="width:200px; height:200px; border-radius:12px; border:1px solid #e2e8f0;">
+    </div>
+
+    <div style="margin-bottom:1rem;">
+      <input type="text" id="qr-url-text" readonly class="sn-btn sn-btn-secondary" style="width:100%; background:#f1f5f9; color:#0f172a; border-color:#cbd5e1; font-size:0.8rem; text-align:center;">
+    </div>
+
+    <button type="button" class="sn-btn sn-btn-primary" style="width:100%;" onclick="closeQrModal()">
+      {% trans "Done" %}
+    </button>
+  </div>
+</div>
+
+<!-- Centralized Player Color Picker Modal -->
+{% include "gamerooms/components/color_picker_modal.html" %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'gamerooms/player_badges.js' %}?v={{ version_counter }}"></script>
+<script>
+  const ROOM_CODE = "{{ room.code }}";
+  const PLAYER_NAME = "{{ player.name|escapejs }}";
+  const PLAYER_ID = "{{ player.id|escapejs }}";
+  const PLAYER_TOKEN = "{{ player.token|escapejs }}";
+  let IS_ADMIN = {{ player.is_admin|yesno:"true,false" }};
+  
+  let gameState = {{ initial_state_json|safe }};
+  let ws = null;
+  let activePendingSlot = null;
+
+  // Initialize UI on load
+  document.addEventListener("DOMContentLoaded", () => {
+    initWebSocket();
+    renderAll();
+  });
+
+  function initWebSocket() {
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const wsUrl = `${protocol}//${window.location.host}/ws/smartn/${ROOM_CODE}/`;
+    ws = new WebSocket(wsUrl);
+
+    ws.onopen = () => {
+      console.log("WebSocket connected to SmartN room:", ROOM_CODE);
+      wsSend({
+        action: "join",
+        name: PLAYER_NAME,
+        token: PLAYER_TOKEN,
+        is_admin: IS_ADMIN
+      });
+    };
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.type === "state") {
+          gameState = data.state;
+          if (gameState.viewer) {
+            IS_ADMIN = Boolean(gameState.viewer.is_admin);
+          }
+          renderAll();
+        } else if (data.type === "error") {
+          alert(data.message);
+        } else if (data.type === "prompt_suggestion_ack") {
+          alert(data.message || "{% trans 'Suggestion received! Thank you!' %}");
+          closeSuggestPromptModal();
+        }
+      } catch (err) {
+        console.error("WS message parse error:", err);
+      }
+    };
+
+    ws.onclose = () => {
+      console.warn("WebSocket disconnected. Reconnecting in 2s...");
+      setTimeout(initWebSocket, 2000);
+    };
+  }
+
+  function wsSend(payload) {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify(payload));
+    } else {
+      console.warn("WS not ready, payload dropped:", payload);
+    }
+  }
+
+  // --- RENDER ENGINE ---
+  function renderAll() {
+    if (!gameState) return;
+
+    renderTopBar();
+    renderPhaseView();
+    renderRoster();
+    renderChat();
+  }
+
+  function renderTopBar() {
+    const phaseBadge = document.getElementById("badge-phase");
+    const modeBadge = document.getElementById("badge-mode");
+    const modeToggleLabel = document.getElementById("lbl-toggle-mode");
+
+    const phase = gameState.phase || "lobby";
+    if (phase === "lobby") phaseBadge.textContent = "⏳ {% trans 'Lobby' %}";
+    else if (phase === "playing") phaseBadge.textContent = `💡 {% trans 'Card' %} #${gameState.round_num || 1}`;
+    else if (phase === "round_summary") phaseBadge.textContent = "🏁 {% trans 'Card Review' %}";
+    else if (phase === "gameover") phaseBadge.textContent = "🏆 {% trans 'Finished' %}";
+
+    const isSingle = gameState.settings && gameState.settings.mode === "single_device";
+    if (isSingle) {
+      modeBadge.textContent = "📱 {% trans 'Single Device (Pass)' %}";
+      modeToggleLabel.textContent = "{% trans 'Multi-Device' %}";
+    } else {
+      modeBadge.textContent = "📱 {% trans 'Multi-Device' %}";
+      modeToggleLabel.textContent = "{% trans 'Single Device' %}";
+    }
+  }
+
+  function renderPhaseView() {
+    const phase = gameState.phase || "lobby";
+    const viewLobby = document.getElementById("view-lobby");
+    const viewPlaying = document.getElementById("view-playing");
+    const viewGameover = document.getElementById("view-gameover");
+    const passBanner = document.getElementById("pass-phone-banner");
+
+    viewLobby.style.display = (phase === "lobby") ? "block" : "none";
+    viewPlaying.style.display = (phase === "playing" || phase === "round_summary") ? "block" : "none";
+    viewGameover.style.display = (phase === "gameover") ? "block" : "none";
+
+    const isSingle = gameState.settings && gameState.settings.mode === "single_device";
+    if (isSingle && phase === "playing") {
+      passBanner.style.display = "flex";
+      const curPid = gameState.current_player_id;
+      const curPlayer = (gameState.players || []).find(p => p.id === curPid);
+      if (curPlayer) {
+        document.getElementById("pass-player-name").textContent = curPlayer.name;
+        document.getElementById("pass-player-avatar").innerHTML = renderPlayerAvatarHtml(curPlayer, "player-avatar-xs");
+      }
+    } else {
+      passBanner.style.display = "none";
+    }
+
+    if (phase === "lobby") {
+      renderLobbySettings();
+    } else if (phase === "playing" || phase === "round_summary") {
+      renderSmartbox();
+      renderTurnBar();
+    } else if (phase === "gameover") {
+      renderGameover();
+    }
+  }
+
+  function renderLobbySettings() {
+    const cfg = gameState.settings || {};
+    const packEl = document.getElementById("cfg-pack");
+    const scoringEl = document.getElementById("cfg-yes-no-scoring");
+    const countEl = document.getElementById("cfg-count-filter");
+    const targetEl = document.getElementById("cfg-target-score");
+
+    if (packEl) packEl.value = cfg.pack || "mix";
+    if (scoringEl) scoringEl.value = cfg.yes_no_scoring || "standard";
+    if (countEl) countEl.value = cfg.count_filter || "all";
+    if (targetEl) targetEl.value = cfg.target_score || 20;
+
+    const hostActions = document.getElementById("lobby-host-actions");
+    const guestWait = document.getElementById("lobby-guest-wait");
+    if (IS_ADMIN) {
+      hostActions.style.display = "flex";
+      guestWait.style.display = "none";
+      if (packEl) packEl.disabled = false;
+      if (scoringEl) scoringEl.disabled = false;
+      if (countEl) countEl.disabled = false;
+      if (targetEl) targetEl.disabled = false;
+    } else {
+      hostActions.style.display = "none";
+      guestWait.style.display = "block";
+      if (packEl) packEl.disabled = true;
+      if (scoringEl) scoringEl.disabled = true;
+      if (countEl) countEl.disabled = true;
+      if (targetEl) targetEl.disabled = true;
+    }
+  }
+
+  function renderSmartbox() {
+    const card = gameState.card || {};
+    const capsules = gameState.capsules || [];
+    const phase = gameState.phase;
+
+    document.getElementById("smartbox-pack-badge").textContent = (card.pack || "mix").toUpperCase();
+    document.getElementById("smartbox-round-num").textContent = `CARD #${gameState.round_num || 1}`;
+    document.getElementById("smartbox-prompt-title").textContent = card.prompt || "Question Prompt";
+
+    let hint = "{% trans 'Pick a covered capsule to test your answer!' %}";
+    if (card.type === "order") hint = "{% trans 'Order sequence 1 to 10 (chronological, height, or ranking)!' %}";
+    else if (card.type === "number") hint = "{% trans 'Guess the numeric value, year, or metric for each item!' %}";
+    else if (card.type === "match") hint = "{% trans 'Match each item to its respective category or count!' %}";
+    else if (card.type === "true_false" && gameState.settings.yes_no_scoring === "prediction") {
+      hint = "{% trans 'Prediction scoring active: guess whether each item is True or False!' %}";
+    }
+    document.getElementById("smartbox-prompt-hint").textContent = hint;
+
+    // Render Capsules
+    const grid = document.getElementById("smartbox-capsules");
+    const isSingle = gameState.settings && gameState.settings.mode === "single_device";
+    const curPid = gameState.current_player_id;
+    const isMyTurn = isSingle || (curPid === PLAYER_ID) || IS_ADMIN;
+
+    grid.innerHTML = capsules.map(c => {
+      let stateClass = "unrevealed";
+      if (c.revealed) {
+        if (c.revealed_result === "correct") stateClass = "revealed-correct";
+        else if (c.revealed_result === "wrong") stateClass = "revealed-wrong";
+        else stateClass = "revealed-unpicked";
+      }
+
+      let secretHtml = "";
+      if (!c.revealed) {
+        secretHtml = `
+          <div class="capsule-secret-cover">
+            <span>🔒</span>
+            <span>${isMyTurn && phase === 'playing' ? '{% trans "Click to Open" %}' : '{% trans "Covered" %}'}</span>
+          </div>
+        `;
+      } else {
+        const isCorrect = c.is_correct;
+        const icon = isCorrect ? "✅" : "💥";
+        const valText = c.value !== null && c.value !== undefined ? String(c.value) : (isCorrect ? "Yes" : "No");
+        secretHtml = `
+          <div class="capsule-revealed-val" style="color:${isCorrect ? '#10b981' : '#ef4444'};">
+            <span>${icon}</span>
+            <span>${escapeHtml(valText)}</span>
+            ${c.revealed_by ? `<span style="font-size:0.75rem; color:#94a3b8; font-weight:normal;">(${escapeHtml(c.revealed_by)})</span>` : ''}
+          </div>
+        `;
+      }
+
+      const explanationHtml = (c.revealed && c.explanation)
+        ? `<div class="capsule-explanation">${escapeHtml(c.explanation)}</div>`
+        : "";
+
+      const hostOverrideBtn = (IS_ADMIN || isSingle)
+        ? `<button type="button" onclick="event.stopPropagation(); quickHostArbitrate(${c.slot})" title="{% trans 'Host Arbitrate' %}" style="background:none; border:none; color:#f59e0b; cursor:pointer; font-size:0.85rem;">👑</button>`
+        : "";
+
+      return `
+        <div class="capsule-item ${stateClass}" onclick="onCapsuleClick(${c.slot}, ${c.revealed})">
+          <div class="capsule-slot-num">${c.slot}</div>
+          <div class="capsule-content">
+            <div class="capsule-label">${escapeHtml(c.label)}</div>
+            ${secretHtml}
+            ${explanationHtml}
+          </div>
+          <div class="capsule-actions">
+            ${hostOverrideBtn}
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    // Round Summary Bar
+    const summaryBar = document.getElementById("round-summary-bar");
+    const nextBtn = document.getElementById("btn-next-card");
+    if (phase === "round_summary") {
+      summaryBar.style.display = "block";
+      if (IS_ADMIN || isSingle) {
+        nextBtn.style.display = "inline-flex";
+      } else {
+        nextBtn.style.display = "none";
+      }
+    } else {
+      summaryBar.style.display = "none";
+    }
+  }
+
+  function renderTurnBar() {
+    const isSingle = gameState.settings && gameState.settings.mode === "single_device";
+    const curPid = gameState.current_player_id;
+    const curPlayer = (gameState.players || []).find(p => p.id === curPid);
+    const passBtn = document.getElementById("btn-pass-turn");
+    const basketPill = document.getElementById("turn-basket-pill");
+
+    if (curPlayer) {
+      document.getElementById("turn-active-avatar").innerHTML = renderPlayerAvatarHtml(curPlayer, "player-avatar-sm");
+      document.getElementById("turn-active-name").textContent = curPlayer.name;
+    }
+
+    const baskets = gameState.round_baskets || {};
+    const curBasketPts = curPid ? (baskets[curPid] || 0) : 0;
+    document.getElementById("lbl-basket-pts").textContent = curBasketPts;
+
+    const isMyTurn = isSingle || (curPid === PLAYER_ID) || IS_ADMIN;
+    const isPlaying = gameState.phase === "playing";
+
+    if (isMyTurn && isPlaying) {
+      passBtn.disabled = false;
+      passBtn.textContent = `🔒 {% trans "Pass & Bank" %} (+${curBasketPts} pts)`;
+    } else {
+      passBtn.disabled = true;
+      passBtn.textContent = "🔒 {% trans 'Pass & Bank' %}";
+    }
+  }
+
+  function renderRoster() {
+    const players = gameState.players || [];
+    const curPid = gameState.current_player_id;
+    const statuses = gameState.player_statuses || {};
+    const baskets = gameState.round_baskets || {};
+
+    document.getElementById("lbl-roster-count").textContent = players.length;
+
+    const renderCard = (p) => {
+      const isMe = p.id === PLAYER_ID;
+      const isCur = p.id === curPid && gameState.phase === "playing";
+      const status = statuses[p.id] || "active";
+      const basketPts = baskets[p.id] || 0;
+
+      let statusBadge = "";
+      if (gameState.phase === "playing") {
+        if (status === "busted") statusBadge = `<span class="sn-badge" style="background:#ef444433; color:#fca5a5;">💥 BUST</span>`;
+        else if (status === "passed") statusBadge = `<span class="sn-badge" style="background:#10b98133; color:#6ee7b7;">🔒 PASS</span>`;
+        else if (isCur) statusBadge = `<span class="sn-badge" style="background:#0284c733; color:#38bdf8;">👉 PICK</span>`;
+      }
+
+      const avatarHtml = renderPlayerAvatarHtml(p, "player-avatar-sm");
+
+      return `
+        <div class="roster-item ${isCur ? 'active-turn' : ''} ${status === 'busted' ? 'busted' : ''} ${status === 'passed' ? 'passed' : ''}">
+          <div style="display:flex; align-items:center; gap:0.5rem; min-width:0;">
+            <div style="cursor:pointer;" onclick="onRosterAvatarClick('${p.id}', '${p.color || '#3b82f6'}')">
+              ${avatarHtml}
+            </div>
+            <div style="min-width:0; overflow:hidden;">
+              <div style="font-weight:700; font-size:0.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                ${escapeHtml(p.name)} ${p.is_admin ? '👑' : ''}
+              </div>
+              <div style="font-size:0.75rem; color:var(--sn-muted);">
+                ${p.score || 0} pts ${basketPts > 0 ? `(+${basketPts})` : ''}
+              </div>
+            </div>
+          </div>
+          <div>${statusBadge}</div>
+        </div>
+      `;
+    };
+
+    const lobbyGrid = document.getElementById("roster-grid-lobby");
+    const playingGrid = document.getElementById("roster-grid-playing");
+    if (lobbyGrid) lobbyGrid.innerHTML = players.map(renderCard).join("");
+    if (playingGrid) playingGrid.innerHTML = players.map(renderCard).join("");
+  }
+
+  function renderGameover() {
+    const winnerName = gameState.winner_name || "Winner";
+    const winnerReason = gameState.winner_reason || "";
+    document.getElementById("gameover-winner-title").textContent = `🏆 ${winnerName} Wins the SmartN Match!`;
+    document.getElementById("gameover-winner-desc").textContent = winnerReason;
+
+    const players = (gameState.players || []).slice().sort((a, b) => (b.score || 0) - (a.score || 0));
+    const standingsHtml = players.map((p, idx) => {
+      const avatarHtml = renderPlayerAvatarHtml(p, "player-avatar-xs");
+      return `
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:0.6rem 0.8rem; background:#0f172a; border-radius:10px; margin-bottom:0.5rem; border:1px solid var(--sn-border);">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span style="font-weight:800; font-size:1rem; color:${idx === 0 ? '#f59e0b' : '#94a3b8'}; width:24px;">#${idx + 1}</span>
+            ${avatarHtml}
+            <span style="font-weight:700;">${escapeHtml(p.name)}</span>
+          </div>
+          <span style="font-weight:800; font-size:1.1rem; color:#38bdf8;">${p.score || 0} pts</span>
+        </div>
+      `;
+    }).join("");
+    document.getElementById("gameover-standings").innerHTML = standingsHtml;
+  }
+
+  function renderChat() {
+    const container = document.getElementById("chat-messages");
+    const log = gameState.chat_log || [];
+    const playersMap = {};
+    (gameState.players || []).forEach(p => { playersMap[p.id] = p; });
+
+    container.innerHTML = log.map(entry => {
+      const isSystem = entry.kind === "system" || entry.kind === "start" || entry.kind === "summary" || entry.kind === "correct" || entry.kind === "bust" || entry.kind === "pass";
+      const color = entry.color || "#38bdf8";
+      const avatarHtml = isSystem
+        ? `<span class="player-avatar player-avatar-xs" style="background:#334155;">🔔</span>`
+        : renderPlayerAvatarHtml({ name: entry.sender, color: entry.color, initials: entry.initials }, "player-avatar-xs");
+
+      const hostValidateBtn = (IS_ADMIN && !isSystem && entry.player_id && gameState.phase === "playing")
+        ? `<button type="button" class="sn-btn sn-btn-secondary" style="padding:0.15rem 0.4rem; font-size:0.7rem; margin-top:0.25rem;" onclick="openArbitrationForMessage('${entry.player_id}')">👑 {% trans 'Validate Answer' %}</button>`
+        : "";
+
+      return `
+        <div style="display:flex; gap:0.5rem; align-items:flex-start;">
+          ${avatarHtml}
+          <div style="background:${isSystem ? '#0f172a' : '#1e293b'}; border:1px solid var(--sn-border); border-radius:10px; padding:0.45rem 0.65rem; max-width:85%;">
+            <div style="display:flex; justify-content:space-between; gap:0.5rem; font-size:0.75rem; margin-bottom:0.15rem;">
+              <span style="font-weight:700; color:${color};">${escapeHtml(entry.sender)}</span>
+            </div>
+            <div style="font-size:0.85rem; color:#f8fafc; word-break:break-word;">
+              ${escapeHtml(entry.text)}
+            </div>
+            ${hostValidateBtn}
+          </div>
+        </div>
+      `;
+    }).join("");
+    container.scrollTop = container.scrollHeight;
+  }
+
+  // --- ACTIONS & INTERACTIONS ---
+  function onCapsuleClick(slot, isRevealed) {
+    if (isRevealed || gameState.phase !== "playing") return;
+
+    const card = gameState.card || {};
+    const scoring = gameState.settings && gameState.settings.yes_no_scoring;
+
+    if (card.type === "true_false" && scoring === "prediction") {
+      // Prompt prediction modal
+      activePendingSlot = slot;
+      const cap = (gameState.capsules || []).find(c => c.slot === slot);
+      document.getElementById("pred-modal-label").textContent = cap ? cap.label : `Capsule #${slot}`;
+      document.getElementById("modal-prediction").style.display = "flex";
+    } else {
+      // Direct pick
+      wsSend({
+        action: "pick_capsule",
+        slot: slot
+      });
+    }
+  }
+
+  function submitPredictionChoice(choice) {
+    if (!activePendingSlot) return;
+    wsSend({
+      action: "pick_capsule",
+      slot: activePendingSlot,
+      prediction: choice
+    });
+    closePredictionModal();
+  }
+
+  function closePredictionModal() {
+    activePendingSlot = null;
+    document.getElementById("modal-prediction").style.display = "none";
+  }
+
+  function passTurnClick() {
+    wsSend({ action: "pass_turn" });
+  }
+
+  function nextRoundClick() {
+    wsSend({ action: "next_round" });
+  }
+
+  function startGameClick() {
+    wsSend({ action: "start_game" });
+  }
+
+  function resetGameClick() {
+    wsSend({ action: "reset_game" });
+  }
+
+  function toggleSingleDeviceMode() {
+    const cur = gameState.settings && gameState.settings.mode === "single_device";
+    const nextMode = cur ? "multi_device" : "single_device";
+    wsSend({
+      action: "update_settings",
+      settings: { mode: nextMode }
+    });
+  }
+
+  function onSettingsFieldChange() {
+    if (!IS_ADMIN) return;
+    const pack = document.getElementById("cfg-pack").value;
+    const scoring = document.getElementById("cfg-yes-no-scoring").value;
+    const count = document.getElementById("cfg-count-filter").value;
+    const target = parseInt(document.getElementById("cfg-target-score").value, 10) || 20;
+
+    wsSend({
+      action: "update_settings",
+      settings: {
+        pack: pack,
+        yes_no_scoring: scoring,
+        count_filter: count,
+        target_score: target
+      }
+    });
+  }
+
+  function onRosterAvatarClick(pid, curHex) {
+    const isMe = pid === PLAYER_ID;
+    if (!isMe && !IS_ADMIN) return;
+
+    openColorPickerModal(pid, curHex, (targetPid, newHex) => {
+      wsSend({
+        action: "change_color",
+        player_id: targetPid,
+        color: newHex
+      });
+    });
+  }
+
+  // Chat
+  function sendChatMessage() {
+    const input = document.getElementById("chat-input");
+    const text = input.value.trim();
+    if (!text) return;
+    wsSend({ action: "chat", msg: text });
+    input.value = "";
+  }
+
+  function toggleChatDrawer() {
+    const drawer = document.getElementById("chat-drawer");
+    drawer.classList.toggle("open");
+  }
+
+  function toggleGmDrawer() {
+    const drawer = document.getElementById("gm-drawer");
+    drawer.classList.toggle("open");
+  }
+
+  // QR Modal
+  function openQrModal() {
+    fetch(`/games/smartn/${ROOM_CODE}/qr/${PLAYER_TOKEN}/`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("qr-img").src = data.qr;
+        document.getElementById("qr-url-text").value = data.url;
+        document.getElementById("modal-qr").style.display = "flex";
+      })
+      .catch(err => console.error("QR load err:", err));
+  }
+
+  function closeQrModal() {
+    document.getElementById("modal-qr").style.display = "none";
+  }
+
+  // Suggest Prompt
+  function openSuggestPromptModal() {
+    document.getElementById("modal-suggest-prompt").style.display = "flex";
+  }
+
+  function closeSuggestPromptModal() {
+    document.getElementById("modal-suggest-prompt").style.display = "none";
+  }
+
+  function submitPromptSuggestion() {
+    const pack = document.getElementById("suggest-topic-pack").value;
+    const text = document.getElementById("suggest-question-text").value.trim();
+    if (!text) return;
+    wsSend({
+      action: "suggest_prompt",
+      pack: pack,
+      text: text
+    });
+  }
+
+  // Host Arbitration Modal
+  let activeArbitrationPlayerId = null;
+  function openArbitrationModal() {
+    populateArbitrationSelects();
+    document.getElementById("modal-arbitration").style.display = "flex";
+  }
+
+  function openArbitrationForMessage(targetPid) {
+    activeArbitrationPlayerId = targetPid;
+    populateArbitrationSelects();
+    document.getElementById("modal-arbitration").style.display = "flex";
+  }
+
+  function populateArbitrationSelects() {
+    const slotSelect = document.getElementById("arb-slot-select");
+    const playerSelect = document.getElementById("arb-player-select");
+
+    const unrevealed = (gameState.capsules || []).filter(c => !c.revealed);
+    slotSelect.innerHTML = unrevealed.map(c => `<option value="${c.slot}">#${c.slot} - ${escapeHtml(c.label)}</option>`).join("");
+
+    playerSelect.innerHTML = (gameState.players || []).map(p => `
+      <option value="${p.id}" ${p.id === activeArbitrationPlayerId ? 'selected' : ''}>${escapeHtml(p.name)}</option>
+    `).join("");
+  }
+
+  function quickHostArbitrate(slot) {
+    populateArbitrationSelects();
+    document.getElementById("arb-slot-select").value = slot;
+    document.getElementById("modal-arbitration").style.display = "flex";
+  }
+
+  function submitArbitration(markCorrect) {
+    const slot = parseInt(document.getElementById("arb-slot-select").value, 10);
+    const targetPid = document.getElementById("arb-player-select").value;
+
+    wsSend({
+      action: "host_arbitrate",
+      slot: slot,
+      mark_correct: markCorrect,
+      target_player_id: targetPid
+    });
+    closeArbitrationModal();
+  }
+
+  function closeArbitrationModal() {
+    activeArbitrationPlayerId = null;
+    document.getElementById("modal-arbitration").style.display = "none";
+  }
+</script>
+{% endblock %}

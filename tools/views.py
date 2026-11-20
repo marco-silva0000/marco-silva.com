@@ -1,4 +1,5 @@
 import os
+import secrets
 from datetime import date as date_type
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -7,8 +8,9 @@ import requests
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from icalendar import Calendar
+
+from gamerooms.security import is_rate_limited, sanitize_header_filename, sanitize_ics_field
 
 PLANZ_PASSWORD = os.environ.get("PLANZ_PASSWORD", "planzzz")
 GOOGLE_CALENDAR_ICAL_URL = os.environ.get("GOOGLE_CALENDAR_ICAL_URL", "")
@@ -20,7 +22,8 @@ CACHE_TTL = 300
 def _is_valid_password(passwd: str) -> bool:
     if not passwd:
         return False
-    return passwd == PLANZ_PASSWORD or passwd in ("planzzz", "planz")
+    valid_candidates = (PLANZ_PASSWORD, "planzzz", "planz")
+    return any(secrets.compare_digest(str(passwd), str(candidate)) for candidate in valid_candidates if candidate)
 
 
 def planz(request):
@@ -32,8 +35,12 @@ def planz(request):
     return render(request, "tools/planz.html", {"error": bool(request.POST)})
 
 
-@csrf_exempt
 def planz_auth(request):
+    if is_rate_limited(request, scope="planz_auth", limit=20, window_seconds=60):
+        return HttpResponse(
+            '<p style="color: red; font-size: 0.85rem;">too many attempts — please wait a minute</p>',
+            status=429,
+        )
     passwd = request.POST.get("passwd", "")
     if _is_valid_password(passwd):
         ctx = _calendar_context(request)
@@ -105,11 +112,12 @@ def _calendar_context(request):
 
 
 def planz_ics(request):
-    title = request.GET.get("title", "Event")
+    title = sanitize_ics_field(request.GET.get("title", "Event"), default="Event")
     start_str = request.GET.get("start", "")
     end_str = request.GET.get("end", "")
-    location = request.GET.get("location", "")
-    description = request.GET.get("description", "")
+    location = sanitize_ics_field(request.GET.get("location", ""))
+    description = sanitize_ics_field(request.GET.get("description", ""))
+    safe_filename = sanitize_header_filename(title, default="Event")
 
     try:
         dtstart = datetime.fromisoformat(start_str).replace(tzinfo=PLANZ_TZ)
@@ -141,7 +149,7 @@ def planz_ics(request):
     ics += "END:VEVENT\r\nEND:VCALENDAR\r\n"
 
     response = HttpResponse(ics, content_type="text/calendar")
-    response["Content-Disposition"] = f'attachment; filename="{title}.ics"'
+    response["Content-Disposition"] = f'attachment; filename="{safe_filename}.ics"'
     return response
 
 

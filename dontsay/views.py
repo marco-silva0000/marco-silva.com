@@ -1,7 +1,5 @@
 """Views for 'Don't Say the Same Thing as Me' gameplay, QR codes, and seat reconnection."""
 
-import json
-
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -10,6 +8,7 @@ from django.views.decorators.cache import never_cache
 from gamerooms.language_support import get_game_language_support
 from gamerooms.models import Room
 from gamerooms.qr import build_public_url, generate_qr_data_uri
+from gamerooms.security import safe_json_dumps
 
 from .game_state import (
     COLLISION_MODES,
@@ -118,7 +117,7 @@ def game(request, code, name):
         "join_qr": join_qr,
         "reconnect_url": reconnect_url,
         "reconnect_qr": reconnect_qr,
-        "initial_state_json": json.dumps(sanitized),
+        "initial_state_json": safe_json_dumps(sanitized),
         "language_support": lang_support,
         "collision_modes": COLLISION_MODES,
     }
