@@ -165,6 +165,28 @@
     padding: 0.65rem 0.85rem;
   }
 
+  @media (max-width: 640px) {
+    .rk-spectrum-card {
+      padding: 0.85rem 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .rk-spectrum-title {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+    .rk-spectrum-bar-wrap {
+      height: 8px;
+      margin: 0.65rem 0 0.5rem 0;
+    }
+    .rk-spectrum-anchors {
+      gap: 0.5rem;
+    }
+    .rk-anchor-box {
+      padding: 0.45rem 0.55rem;
+      font-size: 0.78rem;
+    }
+  }
+
   .rk-anchor-box.right {
     text-align: right;
   }
@@ -1109,15 +1131,24 @@
   function renderPlayerHand() {
     const list = document.getElementById("hand-cards-list");
     const viewer = gameState.viewer;
-    if (!viewer || !viewer.hand) {
+    if (!viewer || !viewer.hand || !viewer.hand.length) {
       list.innerHTML = `<p style="color:var(--rk-muted);">{% trans "Spectating or waiting for cards..." %}</p>`;
       return;
     }
 
     const isRevealed = Boolean(gameState.timeline_revealed);
 
+    // Preserve any draft input text and active focus
+    const activeEl = document.activeElement;
+    const activeCardId = (activeEl && activeEl.dataset) ? activeEl.dataset.cardId : null;
+    const draftClues = {};
+    list.querySelectorAll(".rk-hand-clue-input").forEach(inp => {
+      if (inp.dataset && inp.dataset.cardId) draftClues[inp.dataset.cardId] = inp.value;
+    });
+
     list.innerHTML = viewer.hand.map(card => {
       const isPlayed = Boolean(card.played);
+      const curClue = (card.card_id in draftClues) ? draftClues[card.card_id] : (card.clue || '');
       return `
         <div class="rk-hand-card ${isPlayed ? 'played' : ''}">
           <div style="font-size:0.75rem; font-weight:700; color:${isPlayed ? '#94a3b8' : '#6366f1'}; text-transform:uppercase;">
@@ -1125,7 +1156,7 @@
           </div>
           <div class="rk-hand-num">${card.number}</div>
           ${!isPlayed ? `
-            <input type="text" class="rk-hand-clue-input" placeholder="{% trans 'Optional clue / hint...' %}" aria-label="{% trans 'Optional clue for card' %}" value="${escapeHtml(card.clue || '')}" onchange="updateCardClue('${card.card_id}', this.value)">
+            <input type="text" class="rk-hand-clue-input" data-card-id="${card.card_id}" placeholder="{% trans 'Optional clue / hint...' %}" aria-label="{% trans 'Optional clue for card' %}" value="${escapeHtml(curClue)}" onchange="updateCardClue('${card.card_id}', this.value)">
             <button type="button" class="rk-btn rk-btn-primary" style="width:100%; font-size:0.85rem; padding:0.45rem;" onclick="playCardClick('${card.card_id}')">
               🎴 {% trans "Place on Timeline" %}
             </button>
@@ -1142,6 +1173,15 @@
         </div>
       `;
     }).join("");
+
+    if (activeCardId) {
+      const refocused = list.querySelector(`.rk-hand-clue-input[data-card-id="${activeCardId}"]`);
+      if (refocused) {
+        refocused.focus();
+        const len = refocused.value.length;
+        refocused.setSelectionRange(len, len);
+      }
+    }
   }
 
   function renderTimeline() {
@@ -1349,13 +1389,11 @@
       return `
         <div class="rk-roster-item" style="${isMe ? 'border-left:3px solid var(--rk-primary);' : ''}">
           <div style="display:flex; align-items:center; gap:0.45rem; min-width:0; overflow:hidden;">
-            ${avatarHtml}
-            <!-- Color Swatch Picker Trigger -->
-            <button type="button" 
-              class="player-color-trigger" 
-              style="background-color:${p.color || '#3b82f6'};" 
-              onclick="onRosterColorClick('${p.id}', '${p.color || '#3b82f6'}', ${isMe}, ${isHost})" 
-              title="{% trans 'Change color' %}"></button>
+            ${(isMe || isHost) ? `
+              <div style="position:relative; cursor:pointer;" onclick="onRosterColorClick('${p.id}', '${p.color || '#3b82f6'}', ${isMe}, ${isHost})" title="{% trans 'Click to change color' %}">
+                ${avatarHtml}
+              </div>
+            ` : avatarHtml}
             <span style="font-weight:${isMe ? '700' : '500'}; font-size:0.85rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
               ${escapeHtml(p.name)} ${p.is_admin ? '👑' : ''}
             </span>

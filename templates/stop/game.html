@@ -129,6 +129,15 @@ body { max-width: 1080px !important; }
 }
 .stp-player-row.submitted { background: #f0fdf4; border: 1px solid #bbf7d0; }
 
+.stp-input, .stp-select {
+  border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.5rem 0.65rem;
+  font-family: inherit; font-size: 0.88rem; color: #1e293b; background: #ffffff;
+  outline: none; box-sizing: border-box;
+}
+.stp-input:focus, .stp-select:focus {
+  border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+
 .stp-chat-box { max-height: 220px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.55rem; background: #f8fafc; font-size: 0.8rem; margin-bottom: 0.5rem; }
 .stp-chat-item { margin-bottom: 0.32rem; line-height: 1.38; }
 
@@ -1006,9 +1015,19 @@ function renderState() {
   if (phase === "gameover") {
     const players = s.players || [];
     const top = players[0];
-    document.getElementById("gameover-winner-line").textContent = top
-      ? `🎉 ${top.name} wins with ${top.score} points!`
-      : "Match finished!";
+    const topScore = top ? top.score : 0;
+    const tiedWinners = players.filter(p => p.score === topScore && topScore > 0);
+    let winMsg = "Match finished!";
+    if (top && topScore > 0) {
+      if (tiedWinners.length > 1) {
+        winMsg = `🤝 Tie! ${tiedWinners.map(p => esc(p.name)).join(" & ")} win with ${topScore} points!`;
+      } else {
+        winMsg = `🎉 ${esc(top.name)} wins with ${topScore} points!`;
+      }
+    } else if (top) {
+      winMsg = `🏁 Match ended with 0 points scored!`;
+    }
+    document.getElementById("gameover-winner-line").textContent = winMsg;
     document.getElementById("gameover-podium").innerHTML = players.map((p, idx) => {
       const avatarHtml = renderPlayerAvatarHtml(p, 'player-avatar-xs');
       return `
@@ -1037,7 +1056,7 @@ function renderState() {
           </span>
           <button type="button" 
             class="player-color-trigger" 
-            style="background-color:${p.color || '#3b82f6'}; width:18px; height:18px; flex-shrink:0;" 
+            style="background-color:${p.color || '#3b82f6'}; width:22px; height:22px; flex-shrink:0; cursor:pointer;" 
             onclick="onRosterColorClick('${p.id}', '${p.color || '#3b82f6'}', ${isMe}, ${isAdmin})" 
             title="{% trans 'Change color' %}"></button>
           <span style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(p.name)}</span>
@@ -1046,11 +1065,11 @@ function renderState() {
           ${phase === 'playing' && p.has_submitted ? '<span title="Locked In">⚡</span>' : ''}
         </div>
         <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
-          <button type="button" class="stp-btn" style="padding:0.15rem 0.45rem;font-size:0.72rem;border-radius:6px;" onclick="showPlayerQR('${esc(p.id)}', '${esc(p.name)}')" title="{% trans 'Show Reconnect QR' %}">📱 QR</button>
+          <button type="button" class="stp-btn" style="padding:0.2rem 0.5rem;font-size:0.75rem;border-radius:6px;" onclick="showPlayerQR('${esc(p.id)}', '${esc(p.name)}')" title="{% trans 'Show Reconnect QR' %}">📱 QR</button>
           <span style="font-weight:800;color:#0f172a;">${p.score} pts</span>
           ${isAdmin && !isMe ? `
-            <button type="button" class="stp-btn" style="padding:0.1rem 0.35rem;font-size:0.7rem;" onclick="transferHost('${esc(p.id)}', '${esc(p.name)}')" title="Make Host">👑</button>
-            <button type="button" class="stp-btn" style="padding:0.1rem 0.38rem;font-size:0.7rem;color:#ef4444;" onclick="confirmKickPlayer('${esc(p.id)}', '${esc(p.name)}')" title="Kick">&times;</button>
+            <button type="button" class="stp-btn" style="padding:0.15rem 0.4rem;font-size:0.72rem;" onclick="transferHost('${esc(p.id)}', '${esc(p.name)}')" title="Make Host">👑</button>
+            <button type="button" class="stp-btn" style="padding:0.15rem 0.42rem;font-size:0.72rem;color:#ef4444;" onclick="confirmKickPlayer('${esc(p.id)}', '${esc(p.name)}')" title="Kick">&times;</button>
           ` : ''}
         </div>
       </div>
@@ -1070,6 +1089,11 @@ function renderState() {
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
+  lastRenderedRound = s.round_num;
+  lastPhase = phase;
+  renderTimer();
+}
+
 function onRosterColorClick(targetPid, curHex, isMe, isHost) {
   if (!isMe && !isHost) return;
   openColorPickerModal(targetPid, curHex, (pid, newHex) => {
@@ -1079,11 +1103,6 @@ function onRosterColorClick(targetPid, curHex, isMe, isHost) {
       color: newHex
     });
   });
-}
-
-  lastRenderedRound = s.round_num;
-  lastPhase = phase;
-  renderTimer();
 }
 
 function showPlayerQR(pid, pName) {

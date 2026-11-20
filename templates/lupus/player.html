@@ -125,7 +125,7 @@ html, body {
       flex: 1 1 auto;
     }
     #player-lang-select {
-      max-width: 90px !important;
+      max-width: 125px !important;
     }
   }
 
@@ -265,13 +265,16 @@ html, body {
     box-shadow: 0 0 0 2px #0f172a;
   }
   .bottom-tab-badge.badge-counter {
-    background: rgba(56, 189, 248, 0.25);
+    background: rgba(15, 23, 42, 0.95);
     color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.5);
-    box-shadow: none;
-    font-size: 0.62rem;
+    border: 1px solid rgba(56, 189, 248, 0.6);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    font-size: 0.58rem;
     font-family: ui-monospace, monospace;
     min-width: 20px;
+    top: -5px;
+    right: -10px;
+    padding: 0 3px;
   }
 
   /* Single-column app container with declarative screen switcher */
@@ -3220,7 +3223,7 @@ html, body {
         const x = 50 - 36 * Math.cos(Math.PI * t);
         const y = 14 + 61 * Math.pow(2 * t - 1, 2);
 
-        renderPlayerSeatNode(p, idx, x, y, seatsWrap);
+        renderPlayerSeatNode(p, idx, x, y, seatsWrap, state);
       });
     } else {
       // RING

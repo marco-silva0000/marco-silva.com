@@ -643,8 +643,12 @@ def submit_clue(
     # Block saying the exact citizen or poison word verbatim (anti-spoiler)
     if text_matches_term(cleaned, pair.get("citizen_matches", [])):
         return False, "🚫 That clue contains the secret Citizen word! Try an indirect clue."
-    if state.get("settings", {}).get("poison_mode") in ("undercover_blind", "undercover_informed", "poisoned_citizen"):
-        is_poison_holder = speaker_id == state.get("impostor_id") or speaker_id == state.get("poisoned_citizen_id")
+    poison_mode = state.get("settings", {}).get("poison_mode")
+    if poison_mode in ("undercover_blind", "undercover_informed", "poisoned_citizen"):
+        if poison_mode == "poisoned_citizen":
+            is_poison_holder = speaker_id == state.get("poisoned_citizen_id")
+        else:
+            is_poison_holder = speaker_id == state.get("impostor_id") or speaker_id == state.get("poisoned_citizen_id")
         if text_matches_term(cleaned, pair.get("poison_matches", [])) and is_poison_holder:
             return False, "🚫 Careful — you cannot say your secret word verbatim!"
 
@@ -1292,7 +1296,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: Optional[str] = 
         "clues_count": len(state.get("clues", [])),
         "clues": list(state.get("clues", [])),
         "custom_deck_count": len(state.get("custom_deck", [])),
-        "can_blind_redraw": bool(phase != "lobby"),
+        "can_blind_redraw": bool(phase in ("clue", "voting", "last_chance")),
         "can_vote": can_vote,
         "votes": dict(state.get("votes", {})),
         "eligible_voter_ids": voters,

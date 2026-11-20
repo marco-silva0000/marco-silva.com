@@ -145,6 +145,9 @@ body { max-width: 1180px !important; }
   font-size: 0.65rem; display: inline-flex; align-items: center; justify-content: center;
   cursor: pointer; padding: 0; line-height: 1;
 }
+.cn-def-btn::after {
+  content: ''; position: absolute; top: -6px; right: -6px; bottom: -6px; left: -6px;
+}
 .cn-def-btn:hover { background: #fff; border-color: #2563eb; }
 
 @media (max-width: 680px) {
@@ -1261,10 +1264,11 @@ function renderState(s) {
         ? `<div class="cn-tile-en">${esc(c.word_en)}</div>` : '';
       const keyTag = (!c.revealed && showAff)
         ? `<span class="cn-key-tag ${esc(aff)}">${esc(aff)}</span>` : '';
-      const revMeta = c.revealed && c.revealed_by
-        ? `<div class="cn-tile-meta">✓ ${esc(c.revealed_by)}</div>` : '';
+      const revMeta = c.revealed
+        ? `<div class="cn-tile-meta">${c.revealed_by ? `✓ ${esc(c.revealed_by)} · ` : ''}<span style="font-weight:800; text-transform:uppercase;">${aff === 'assassin' ? '💀 ASSASSIN' : esc(aff)}</span></div>` : '';
+      const isClickable = perms.canTapCards && !c.revealed;
       return `
-        <div class="${classes.join(' ')}" onclick="guessCard(${c.index})">
+        <div class="${classes.join(' ')}" ${isClickable ? `role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();guessCard(${c.index});}"` : ''} onclick="guessCard(${c.index})">
           <button type="button" class="cn-def-btn" title="{% trans 'Definition' %}" onclick="showCardDefinition(${c.index}, event)">📖</button>
           <div class="cn-tile-word">${esc(c.word)}</div>
           ${enSub}

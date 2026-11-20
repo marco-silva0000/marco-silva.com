@@ -5882,7 +5882,7 @@ html, body {
     if (!currentGameState || !currentGameState.players) return;
     const waiting = currentGameState.players.filter(p => p.status === "waiting");
     if (waiting.length > 0) {
-      openManualRoleModal(waiting[0].id);
+      setPlayerRoleManual(waiting[0].id, waiting[0].name);
     }
   }
 

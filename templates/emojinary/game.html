@@ -244,7 +244,7 @@ body { max-width: 1180px !important; }
           <div style="display:flex;align-items:center;gap:0.4rem;">
             <span id="timer-badge" style="display:none;">60s</span>
             <div id="host-timer-controls" style="display:none;gap:0.25rem;">
-              <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="timerControl('pause')" id="btn-timer-pause" title="Pause/Resume Timer">⏯️</button>
+              <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="toggleTimerPause()" id="btn-timer-pause" title="Pause/Resume Timer">⏯️</button>
               <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="timerControl('add_time')" title="Add +15s">+15s</button>
               <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;" onclick="forceAdvance()" title="Skip / Next Phase">⏭️</button>
               <button type="button" class="ej-btn" style="padding:0.2rem 0.45rem;font-size:0.72rem;color:#dc2626;border-color:#fca5a5;" onclick="endGame()" title="End Game Now">🛑 End</button>
@@ -641,9 +641,6 @@ function handle(d) {
     hide('wait-msg');
     $('emoji-display').textContent = d.emoji;
     $('status').textContent = `Round ${d.round}/${d.max_rounds} — Guess now!`;
-    if (!isMyTurn) {
-      show('guess-area');
-    }
     startTimer(d.guess_timer);
   } else if (d.type === 'correct') {
     beep(660, 0.22);
@@ -855,7 +852,7 @@ function renderFromState(s) {
     const promptDisplay = formatPromptWord(s);
     $('status').textContent = `Round ${s.round_num}/${s.max_rounds} — Describe: "${promptDisplay}" with emojis!`;
     $('word-hint').textContent = `Prompt: "${promptDisplay}"`;
-    if (!isMyTurn) {
+    if (!isMyTurn && !(s.me && s.me.is_spectator)) {
       show('emoji-input-area', 'btn-submit-bg');
       hide('btn-reveal-emoji', 'btn-add-extra-hint', 'btn-skip-word', 'wait-msg');
       $('emoji-composer-label').textContent = `🎨 Submit Your Best Emojis for "${promptDisplay}":`;
@@ -1025,7 +1022,7 @@ function showPlayerQR(pid, pName) {
   if (linkEl) linkEl.style.display = 'none';
   openModal('modal-player-qr');
 
-  fetch(`/games/emojinary/${encodeURIComponent(ROOM_CODE)}/qr/${encodeURIComponent(pid)}/`)
+  fetch(`/games/emojinary/${encodeURIComponent(CODE)}/qr/${encodeURIComponent(pid)}/`)
     .then(r => {
       if (!r.ok) throw new Error('QR fetch failed');
       return r.json();
@@ -1237,6 +1234,11 @@ function applyPreset(presetKey) {
 
 function timerControl(op) {
   ws.send(JSON.stringify({action: 'timer_control', op: op, seconds: 15}));
+}
+
+function toggleTimerPause() {
+  const isPaused = Boolean(latestState && latestState.timer && latestState.timer.paused);
+  ws.send(JSON.stringify({action: 'timer_control', op: isPaused ? 'resume' : 'pause'}));
 }
 
 function sendChat(e) {
