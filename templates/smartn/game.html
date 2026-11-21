@@ -166,7 +166,7 @@
     background: #0f172a;
     border: 2px solid var(--sn-border);
     border-radius: 14px;
-    padding: 1rem;
+    padding: 0.9rem 1.1rem;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
@@ -185,18 +185,73 @@
     box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
   }
 
-  .mode-select-card.active::after {
-    content: "✓ ACTIVE";
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    font-size: 0.7rem;
+  .mode-pill {
+    display: none;
+    font-size: 0.68rem;
     font-weight: 800;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .mode-select-card.active .mode-pill {
+    display: inline-block;
+  }
+  .mode-pill-multi {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+  }
+  .mode-pill-single {
     color: #f59e0b;
     background: rgba(245, 158, 11, 0.2);
     border: 1px solid rgba(245, 158, 11, 0.4);
-    padding: 0.15rem 0.5rem;
-    border-radius: 9999px;
+  }
+
+  /* Toast Notification */
+  .sn-toast-container {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+    max-width: 90vw;
+  }
+  .sn-toast {
+    background: #1e293b;
+    border: 1px solid var(--sn-border);
+    color: #f8fafc;
+    padding: 0.65rem 1rem;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: toast-in 0.25s ease-out;
+  }
+  .sn-toast.success {
+    border-color: #10b981;
+    background: #064e3b;
+    color: #ecfdf5;
+  }
+  .sn-toast.error {
+    border-color: #ef4444;
+    background: #7f1d1d;
+    color: #fef2f2;
+  }
+  .sn-toast.info {
+    border-color: #38bdf8;
+    background: #0c4a6e;
+    color: #f0f9ff;
+  }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .sn-remove-btn {
@@ -676,8 +731,11 @@
       <div class="mode-select-grid">
         <!-- Multi-Device Option -->
         <div id="card-mode-multi" class="mode-select-card active" onclick="setPlayMode('multi_device')" role="button" tabindex="0">
-          <div style="font-size:1.1rem; font-weight:800; margin-bottom:0.25rem; display:flex; align-items:center; gap:0.4rem;">
-            <span>🌐</span> {% trans "Multi-Device" %}
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem;">
+            <div style="font-size:1.05rem; font-weight:800; display:flex; align-items:center; gap:0.4rem;">
+              <span>🌐</span> {% trans "Multi-Device" %}
+            </div>
+            <span class="mode-pill mode-pill-multi">{% trans "ACTIVE" %}</span>
           </div>
           <p style="font-size:0.82rem; color:var(--sn-muted); margin:0; line-height:1.4;">
             {% trans "Everyone joins on their own phone or laptop via room code / QR. Each player acts on their own screen." %}
@@ -686,8 +744,11 @@
 
         <!-- Single Device Couch Mode Option -->
         <div id="card-mode-single" class="mode-select-card" onclick="setPlayMode('single_device')" role="button" tabindex="0">
-          <div style="font-size:1.1rem; font-weight:800; margin-bottom:0.25rem; display:flex; align-items:center; gap:0.4rem; color:#f59e0b;">
-            <span>🛋️</span> {% trans "Couch Pass & Play" %}
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem;">
+            <div style="font-size:1.05rem; font-weight:800; display:flex; align-items:center; gap:0.4rem; color:#f59e0b;">
+              <span>🛋️</span> {% trans "Couch Pass & Play" %}
+            </div>
+            <span class="mode-pill mode-pill-single">{% trans "ACTIVE" %}</span>
           </div>
           <p style="font-size:0.82rem; color:var(--sn-muted); margin:0; line-height:1.4;">
             {% trans "Play together on this single device! Pass it around like the physical Smartbox wheel. Add couch players below." %}
@@ -696,22 +757,45 @@
       </div>
     </div>
 
-    <!-- ADD OFFLINE / COUCH PLAYERS BOX -->
-    <div id="box-add-offline" style="margin-bottom:1.25rem; background:#1e1b4b; border:1px solid #6366f1; border-radius:14px; padding:1rem 1.25rem; transition:all 0.2s ease;">
-      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem; flex-wrap:wrap; gap:0.5rem;">
-        <div style="font-weight:700; font-size:0.95rem; color:#a5b4fc; display:flex; align-items:center; gap:0.4rem;">
-          <span>🛋️</span> {% trans "Add Couch Player" %}
-        </div>
-        <span style="font-size:0.75rem; color:#c7d2fe;">
-          {% trans "No phone or extra account needed — plays directly on this device!" %}
+    <!-- Players Roster & Offline Couch Entry (Directly below mode selector for instant feedback) -->
+    <div style="margin-bottom:1.5rem; background:#0f172a; border:1px solid var(--sn-border); border-radius:14px; padding:1.1rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.85rem; flex-wrap:wrap; gap:0.5rem;">
+        <h3 style="font-size:1.05rem; font-weight:800; margin:0; display:flex; align-items:center; gap:0.4rem;">
+          <span>👥</span> {% trans "Players in Room" %} (<span id="lbl-roster-count">1</span>)
+        </h3>
+        <span style="font-size:0.8rem; color:var(--sn-muted);">
+          {% trans "Click avatar to customize color" %}
         </span>
       </div>
-      <form id="form-add-offline" onsubmit="onAddOfflinePlayerSubmit(event)" style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-        <input type="text" id="input-offline-name" maxlength="20" placeholder="{% trans 'Enter player name (e.g. Alice, Bob, Dad)' %}" class="sn-btn sn-btn-secondary" style="flex:1; min-width:200px; text-align:left; background:#0f172a;" autocomplete="off" required>
-        <button type="submit" class="sn-btn sn-btn-accent" style="white-space:nowrap;">
-          ➕ {% trans "Add Couch Player" %}
-        </button>
-      </form>
+
+      <!-- ADD OFFLINE / COUCH PLAYERS BOX -->
+      <div id="box-add-offline" style="margin-bottom:1rem; background:#1e1b4b; border:1px solid #6366f1; border-radius:12px; padding:0.9rem 1rem; transition:all 0.2s ease;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.4rem;">
+          <div style="font-weight:700; font-size:0.92rem; color:#a5b4fc; display:flex; align-items:center; gap:0.35rem;">
+            <span>🛋️</span> {% trans "Add Offline Couch Player" %}
+          </div>
+          <span style="font-size:0.75rem; color:#c7d2fe;">
+            {% trans "No phone or extra account needed — plays on this device!" %}
+          </span>
+        </div>
+        <form id="form-add-offline" onsubmit="onAddOfflinePlayerSubmit(event)" style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.4rem;">
+          <input type="text" id="input-offline-name" maxlength="20" placeholder="{% trans 'Enter player name (e.g. Alice, Bob, Dad)' %}" class="sn-btn sn-btn-secondary" style="flex:1; min-width:180px; text-align:left; background:#0f172a;" autocomplete="off" required>
+          <button type="submit" id="btn-submit-offline" class="sn-btn sn-btn-accent" style="white-space:nowrap;">
+            ➕ {% trans "Add Couch Player" %}
+          </button>
+        </form>
+        <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
+          <span style="font-size:0.75rem; color:var(--sn-muted); font-weight:600;">{% trans "Quick Add:" %}</span>
+          <button type="button" class="sn-badge" style="background:#334155; color:#cbd5e1; border:1px solid #475569; cursor:pointer;" onclick="quickAddPlayer('Player 2')">+ Player 2</button>
+          <button type="button" class="sn-badge" style="background:#334155; color:#cbd5e1; border:1px solid #475569; cursor:pointer;" onclick="quickAddPlayer('Player 3')">+ Player 3</button>
+          <button type="button" class="sn-badge" style="background:#334155; color:#cbd5e1; border:1px solid #475569; cursor:pointer;" onclick="quickAddPlayer('Player 4')">+ Player 4</button>
+        </div>
+      </div>
+
+      <!-- The Roster Grid (Immediately visible below input) -->
+      <div id="roster-grid-lobby" class="roster-grid">
+        <!-- Rendered via JS -->
+      </div>
     </div>
 
     <!-- Settings Panel (Host editable, others see read-only) -->
@@ -762,22 +846,6 @@
           </label>
           <input type="number" id="cfg-target-score" min="5" max="100" value="20" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left; background:#1e293b;" onchange="onSettingsFieldChange()">
         </div>
-      </div>
-    </div>
-
-    <!-- Players Roster -->
-    <div style="margin-bottom:1.5rem;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-        <h3 style="font-size:1rem; font-weight:700; margin:0; display:flex; align-items:center; gap:0.4rem;">
-          <span>👥</span> {% trans "Players" %} (<span id="lbl-roster-count">1</span>)
-        </h3>
-        <span style="font-size:0.8rem; color:var(--sn-muted);">
-          {% trans "Click your avatar to customize badge color" %}
-        </span>
-      </div>
-
-      <div id="roster-grid-lobby" class="roster-grid">
-        <!-- Rendered via JS -->
       </div>
     </div>
 
@@ -1110,6 +1178,9 @@
 <!-- Centralized Player Color Picker Modal -->
 {% include "gamerooms/components/color_picker_modal.html" %}
 
+<!-- Toast Notifications Container -->
+<div id="sn-toast-container" class="sn-toast-container" aria-live="polite"></div>
+
 <script src="{% static 'gamerooms/player_badges.js' %}?v={{ version_counter }}"></script>
 <script>
   const ROOM_CODE = "{{ room.code }}";
@@ -1154,15 +1225,21 @@
       try {
         const data = JSON.parse(event.data);
         if (data.type === "state") {
+          const prevPlayers = (gameState && gameState.players) ? gameState.players.length : 0;
           gameState = data.state;
           if (gameState.viewer) {
             IS_ADMIN = Boolean(gameState.viewer.is_admin);
           }
+          const currPlayers = (gameState.players) ? gameState.players.length : 0;
+          if (currPlayers > prevPlayers && prevPlayers > 0) {
+            const newest = gameState.players[gameState.players.length - 1];
+            if (newest) showToast(`🛋️ ${newest.name} joined the room!`, "success");
+          }
           renderAll();
         } else if (data.type === "error") {
-          alert(data.message);
+          showToast(data.message || "{% trans 'Error' %}", "error");
         } else if (data.type === "prompt_suggestion_ack") {
-          alert(data.message || "{% trans 'Suggestion received! Thank you!' %}");
+          showToast(data.message || "{% trans 'Suggestion received! Thank you!' %}", "success");
           closeSuggestPromptModal();
         }
       } catch (err) {
@@ -1628,6 +1705,7 @@
       action: "toggle_mode",
       mode: mode
     });
+    showToast(mode === "single_device" ? "{% trans '🛋️ Switched to Couch Pass & Play Mode' %}" : "{% trans '🌐 Switched to Multi-Device Mode' %}", "info");
   }
 
   function toggleSingleDeviceMode() {
@@ -1647,8 +1725,17 @@
       action: "add_offline_player",
       name: name
     });
+    showToast(`🛋️ {% trans 'Adding' %} "${name}"...`, "info");
     input.value = "";
     input.focus();
+  }
+
+  function quickAddPlayer(name) {
+    wsSend({
+      action: "add_offline_player",
+      name: name
+    });
+    showToast(`🛋️ {% trans 'Adding' %} "${name}"...`, "info");
   }
 
   function onAddOfflinePlayerFromDrawer(event) {
@@ -1662,6 +1749,7 @@
       action: "add_offline_player",
       name: name
     });
+    showToast(`🛋️ {% trans 'Adding' %} "${name}"...`, "info");
     input.value = "";
   }
 
@@ -1671,6 +1759,22 @@
       action: "kick_player",
       player_id: playerId
     });
+    showToast(`{% trans 'Removed player' %} "${playerName}"`, "info");
+  }
+
+  function showToast(msg, type = "info") {
+    const container = document.getElementById("sn-toast-container");
+    if (!container) return;
+    const toast = document.createElement("div");
+    toast.className = `sn-toast ${type}`;
+    toast.textContent = msg;
+    container.appendChild(toast);
+    setTimeout(() => {
+      toast.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(10px)";
+      setTimeout(() => toast.remove(), 300);
+    }, 3200);
   }
 
   function onSettingsFieldChange() {

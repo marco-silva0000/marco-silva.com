@@ -170,8 +170,12 @@ class SmartNConsumer(AsyncJsonWebsocketConsumer):
                 await self.send_json({"type": "error", "message": msg})
 
         elif action == "toggle_mode":
-            cur = state.get("settings", {}).get("mode", "multi_device")
-            next_mode = "single_device" if cur == "multi_device" else "multi_device"
+            requested_mode = content.get("mode")
+            if requested_mode in ("single_device", "multi_device"):
+                next_mode = requested_mode
+            else:
+                cur = state.get("settings", {}).get("mode", "multi_device")
+                next_mode = "single_device" if cur == "multi_device" else "multi_device"
             ok, msg, new_state = update_settings(self.code, {"mode": next_mode})
             if ok:
                 await self.broadcast_sync()
