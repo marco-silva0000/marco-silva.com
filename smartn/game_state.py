@@ -423,9 +423,9 @@ def _deal_next_card(state: dict[str, Any]) -> dict[str, Any] | None:
         available = SMARTN_QUESTIONS
 
     selected = copy.deepcopy(random.choice(available))
-    if selected.get("type") == "order":
-        # Shuffle order items so display slots 1..N do not match the rank sequence
-        items = selected.get("items", [])
+    # Universal item shuffling for ALL cards so slot numbers 1..N never leak sequence or authored order
+    items = selected.get("items", [])
+    if items:
         random.shuffle(items)
         for idx, item in enumerate(items, 1):
             item["slot"] = idx
@@ -748,9 +748,23 @@ def host_arbitrate(
 
     revealed = state.setdefault("revealed_capsules", {})
     s_str = str(slot)
+    is_already_revealed = s_str in revealed
+    prior = revealed.get(s_str)
+    prior_correct = bool(prior.get("is_correct")) if prior else None
 
-    target_player = next((p for p in state.get("players", []) if p["id"] == target_player_id), None)
-    revealed_by_name = target_player["name"] if target_player else "Host Override"
+    # Resolve target player
+    target_player = None
+    if target_player_id:
+        target_player = next((p for p in state.get("players", []) if p["id"] == target_player_id), None)
+    elif prior and prior.get("revealed_by"):
+        target_player = next((p for p in state.get("players", []) if p["name"] == prior.get("revealed_by")), None)
+    if not target_player:
+        cur_pid = state.get("current_player_id")
+        target_player = next((p for p in state.get("players", []) if p["id"] == cur_pid), None)
+
+    revealed_by_name = (
+        target_player["name"] if target_player else (prior.get("revealed_by") if prior else "Host Override")
+    )
 
     if card.get("type") == "order" and not str(target_item["value"]).startswith("#"):
         disp_val = f"#{target_item['value']}"
@@ -765,37 +779,82 @@ def host_arbitrate(
         "revealed_by": revealed_by_name,
         "revealed_result": "correct" if mark_correct else "wrong",
         "explanation": target_item.get("explanation", ""),
-        "guessed_value": None,
+        "guessed_value": prior.get("guessed_value") if prior else None,
     }
+
+    baskets = state.setdefault("round_baskets", {})
+    statuses = state.setdefault("player_statuses", {})
+    phase = state.get("phase")
 
     if target_player:
         pid = target_player["id"]
-        baskets = state.setdefault("round_baskets", {})
-        statuses = state.setdefault("player_statuses", {})
-        if mark_correct:
-            baskets[pid] = baskets.get(pid, 0) + 1
-            statuses[pid] = "active"
-            append_event(
-                state,
-                "Host",
-                f"👑 Host validated #{slot} ({target_item['label']}) for {target_player['name']} as CORRECT (+1 pt).",
-            )
+        if is_already_revealed:
+            # Case: overriding an already revealed capsule
+            if mark_correct and not prior_correct:
+                # Flipped from WRONG -> CORRECT
+                statuses[pid] = "active"
+                if phase == "round_summary":
+                    target_player["score"] = target_player.get("score", 0) + 1
+                else:
+                    baskets[pid] = baskets.get(pid, 0) + 1
+                append_event(
+                    state,
+                    "Host",
+                    f"👑 Host overrode #{slot} ({target_item['label']}) for {target_player['name']} as CORRECT (+1 pt).",
+                    kind="correct",
+                )
+            elif not mark_correct and prior_correct:
+                # Flipped from CORRECT -> WRONG
+                statuses[pid] = "busted"
+                if phase == "round_summary":
+                    target_player["score"] = max(0, target_player.get("score", 0) - 1)
+                else:
+                    baskets[pid] = 0
+                append_event(
+                    state,
+                    "Host",
+                    f"👑 Host overrode #{slot} ({target_item['label']}) for {target_player['name']} as WRONG (Bust).",
+                    kind="wrong",
+                )
         else:
-            baskets[pid] = 0
-            statuses[pid] = "busted"
-            append_event(
-                state,
-                "Host",
-                f"👑 Host marked #{slot} ({target_item['label']}) for {target_player['name']} as WRONG (Bust).",
-            )
+            # Case: revealing an unrevealed capsule directly via host arbitration
+            if mark_correct:
+                baskets[pid] = baskets.get(pid, 0) + 1
+                statuses[pid] = "active"
+                append_event(
+                    state,
+                    "Host",
+                    f"👑 Host validated #{slot} ({target_item['label']}) for {target_player['name']} as CORRECT (+1 pt).",
+                    kind="correct",
+                )
+            else:
+                baskets[pid] = 0
+                statuses[pid] = "busted"
+                append_event(
+                    state,
+                    "Host",
+                    f"👑 Host marked #{slot} ({target_item['label']}) for {target_player['name']} as WRONG (Bust).",
+                    kind="wrong",
+                )
 
-    if len(revealed) >= len(items):
-        _finish_round(state)
+    # Check phase progression
+    if not is_already_revealed:
+        if len(revealed) >= len(items):
+            _finish_round(state)
+        else:
+            _advance_turn(state)
     else:
-        _advance_turn(state)
+        # If already revealed, only advance turn if the active player was just busted
+        cur_pid = state.get("current_player_id")
+        if phase == "playing":
+            active_pids = [p_id for p_id, st in statuses.items() if st == "active"]
+            if not active_pids:
+                _finish_round(state)
+            elif cur_pid and statuses.get(cur_pid) != "active":
+                _advance_turn(state)
 
     save_game(code, state)
-    return True, f"Capsule #{slot} arbitrated by Host.", state
+    return True, f"Capsule #{slot} outcome updated.", state
 
 
 def process_chat_answer(code: str, player_id: str, text: str) -> tuple[bool, str, dict[str, Any] | None]:

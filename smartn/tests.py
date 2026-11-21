@@ -593,6 +593,121 @@ class TestSmartNGameState:
         assert state["phase"] == "gameover"
         assert state["winner_id"] == p1["id"]
 
+    def test_host_arbitrate_revealed_capsule_override_to_wrong(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        state, p2, _ = add_player(self.code, name="Bob")
+
+        card = {
+            "id": "q_override_1",
+            "pack": "history",
+            "prompt": "Landmark Dates",
+            "type": "number",
+            "n": 2,
+            "items": [
+                {
+                    "slot": 1,
+                    "label": "Norman Conquest",
+                    "value": "1066",
+                    "is_correct": True,
+                    "aliases": [],
+                    "explanation": "",
+                },
+                {
+                    "slot": 2,
+                    "label": "Magna Carta",
+                    "value": "1215",
+                    "is_correct": True,
+                    "aliases": [],
+                    "explanation": "",
+                },
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = card
+        state["turn_order"] = [p1["id"], p2["id"]]
+        state["current_player_id"] = p1["id"]
+        state["player_statuses"] = {p1["id"]: "active", p2["id"]: "active"}
+        state["round_baskets"] = {p1["id"]: 0, p2["id"]: 0}
+        save_game(self.code, state)
+
+        # Alice picks slot 1 -> marked correct (+1 basket pt)
+        ok, msg, state = pick_capsule(self.code, p1["id"], slot=1)
+        assert ok is True
+        assert state["round_baskets"][p1["id"]] == 1
+        assert state["revealed_capsules"]["1"]["is_correct"] is True
+
+        # Alice turns out to have guessed wrong year out loud: Host overrides slot 1 to WRONG!
+        ok_ov, msg_ov, state = host_arbitrate(self.code, slot=1, mark_correct=False, target_player_id=p1["id"])
+        assert ok_ov is True
+        assert state["revealed_capsules"]["1"]["is_correct"] is False
+        assert state["revealed_capsules"]["1"]["revealed_result"] == "wrong"
+        assert state["round_baskets"][p1["id"]] == 0
+        assert state["player_statuses"][p1["id"]] == "busted"
+
+    def test_host_arbitrate_revealed_capsule_override_to_correct(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        state, p2, _ = add_player(self.code, name="Bob")
+
+        card = {
+            "id": "q_override_2",
+            "pack": "science",
+            "prompt": "Chemistry",
+            "type": "true_false",
+            "n": 2,
+            "items": [
+                {
+                    "slot": 1,
+                    "label": "Helium is lighter than air",
+                    "value": "Yes",
+                    "is_correct": True,
+                    "aliases": [],
+                    "explanation": "",
+                },
+                {
+                    "slot": 2,
+                    "label": "Gold rusts in air",
+                    "value": "No",
+                    "is_correct": False,
+                    "aliases": [],
+                    "explanation": "",
+                },
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = card
+        state["turn_order"] = [p1["id"], p2["id"]]
+        state["current_player_id"] = p1["id"]
+        state["player_statuses"] = {p1["id"]: "active", p2["id"]: "active"}
+        state["round_baskets"] = {p1["id"]: 0, p2["id"]: 0}
+        save_game(self.code, state)
+
+        # Alice opens slot 2 (Gold rusts) -> busts!
+        ok, msg, state = pick_capsule(self.code, p1["id"], slot=2)
+        assert ok is True
+        assert state["player_statuses"][p1["id"]] == "busted"
+        assert state["revealed_capsules"]["2"]["is_correct"] is False
+
+        # Host arbitrates: Alice's point is accepted as valid override!
+        ok_ov, msg_ov, state = host_arbitrate(self.code, slot=2, mark_correct=True, target_player_id=p1["id"])
+        assert ok_ov is True
+        assert state["revealed_capsules"]["2"]["is_correct"] is True
+        assert state["player_statuses"][p1["id"]] == "active"
+        assert state["round_baskets"][p1["id"]] == 1
+
+    def test_universal_item_shuffling_across_card_types(self):
+        from smartn.game_state import _deal_next_card
+
+        state = create_game(self.code, host_name="Alice")
+        card = _deal_next_card(state)
+        assert card is not None
+        items = card["items"]
+        assert len(items) == 10
+        # Check slots are indexed 1..10
+        slots = [it["slot"] for it in items]
+        assert slots == list(range(1, 11))
+
 
 @pytest.mark.django_db
 class TestSmartNViewsAndUrls:

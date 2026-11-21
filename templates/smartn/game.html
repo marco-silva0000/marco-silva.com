@@ -272,63 +272,81 @@
     border-color: #ef4444;
   }
 
-  /* Tactile Smartbox 3D Container */
+  /* Tactile Smartbox Compact 3D Container */
   .smartbox-outer {
     background: linear-gradient(145deg, #1e1b4b, #0f172a);
-    border: 3px solid #3b82f644;
-    border-radius: 24px;
-    padding: 1.5rem;
-    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+    border: 2px solid #3b82f644;
+    border-radius: 16px;
+    padding: 0.85rem;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .smartbox-outer {
+      padding: 1.15rem;
+      border-radius: 20px;
+    }
   }
 
   .smartbox-header {
     background: #0f172a;
     border: 1px solid var(--sn-border);
-    border-radius: 16px;
-    padding: 1.25rem;
-    margin-bottom: 1.25rem;
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
+    margin-bottom: 0.65rem;
     text-align: center;
     position: relative;
+  }
+  @media (min-width: 768px) {
+    .smartbox-header {
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.85rem;
+    }
   }
 
   .smartbox-prompt-pack {
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: #38bdf8;
     background: #0369a133;
-    padding: 0.2rem 0.6rem;
+    padding: 0.15rem 0.5rem;
     border-radius: 6px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   .smartbox-prompt-title {
-    font-size: 1.4rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: #ffffff;
-    margin: 0.25rem 0 0.5rem 0;
-    line-height: 1.3;
+    margin: 0.15rem 0 0.25rem 0;
+    line-height: 1.25;
+  }
+  @media (min-width: 768px) {
+    .smartbox-prompt-title {
+      font-size: 1.3rem;
+    }
   }
 
   .smartbox-prompt-hint {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: var(--sn-muted);
   }
 
   /* Capsules Grid */
   .capsules-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 0.85rem;
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
     .capsules-grid {
       grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
     }
   }
 
@@ -337,12 +355,13 @@
     display: flex;
     align-items: stretch;
     background: #1e293b;
-    border: 2px solid #334155;
-    border-radius: 14px;
+    border: 1.5px solid #334155;
+    border-radius: 10px;
     overflow: hidden;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     user-select: none;
+    min-height: 44px;
   }
 
   .capsule-item.unrevealed {
@@ -352,8 +371,8 @@
 
   .capsule-item.unrevealed:hover {
     border-color: #38bdf8;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px -3px rgba(56, 189, 248, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px -2px rgba(56, 189, 248, 0.25);
   }
 
   .capsule-item.revealed-correct {
@@ -388,9 +407,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
+    width: 36px;
     font-weight: 800;
-    font-size: 1.15rem;
+    font-size: 0.95rem;
     background: #0f172a;
     color: #94a3b8;
     border-right: 1px solid #334155;
@@ -411,7 +430,7 @@
 
   .capsule-content {
     flex: 1;
-    padding: 0.75rem 0.9rem;
+    padding: 0.45rem 0.65rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -420,17 +439,19 @@
 
   .capsule-label {
     font-weight: 700;
-    font-size: 0.98rem;
+    font-size: 0.9rem;
     color: #f8fafc;
-    line-height: 1.25;
-    margin-bottom: 0.2rem;
+    line-height: 1.2;
+    margin-bottom: 0.1rem;
+    white-space: normal;
+    word-break: break-word;
   }
 
   .capsule-secret-cover {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.82rem;
+    gap: 0.35rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: #64748b;
   }
@@ -438,59 +459,53 @@
   .capsule-revealed-val {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
-    font-size: 0.88rem;
+    gap: 0.35rem;
+    font-size: 0.82rem;
     font-weight: 700;
+    flex-wrap: wrap;
   }
 
   .capsule-explanation {
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     color: #cbd5e1;
-    margin-top: 0.35rem;
-    line-height: 1.35;
+    margin-top: 0.25rem;
+    line-height: 1.3;
     border-top: 1px dashed rgba(255, 255, 255, 0.1);
-    padding-top: 0.3rem;
-  }
-
-  .capsule-actions {
-    display: flex;
-    align-items: center;
-    padding: 0 0.5rem;
-    background: rgba(15, 23, 42, 0.5);
+    padding-top: 0.2rem;
   }
 
   /* Single Device Pass-Banner */
   .pass-phone-banner {
     background: linear-gradient(90deg, #4f46e5, #0284c7);
     color: #ffffff;
-    border-radius: 16px;
-    padding: 1.1rem 1.25rem;
-    margin-bottom: 1.25rem;
+    border-radius: 12px;
+    padding: 0.65rem 0.9rem;
+    margin-bottom: 0.65rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 0.75rem;
     box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.4);
     animation: pulseBorder 2s infinite;
   }
 
   @keyframes pulseBorder {
     0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6); }
-    50% { box-shadow: 0 0 0 8px rgba(56, 189, 248, 0); }
+    50% { box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); }
   }
 
   /* Turn Action Bar */
   .turn-action-bar {
     background: #0f172a;
-    border: 2px solid var(--sn-border);
-    border-radius: 16px;
-    padding: 1rem 1.25rem;
-    margin-top: 1.25rem;
+    border: 1.5px solid var(--sn-border);
+    border-radius: 12px;
+    padding: 0.65rem 0.9rem;
+    margin-top: 0.75rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
   .turn-player-info {
@@ -1150,6 +1165,50 @@
   </div>
 </div>
 
+<!-- OVERRIDE OUTCOME MODAL (Direct tap on revealed capsule for host / couch) -->
+<div id="modal-override-outcome" class="ds-modal" role="dialog" aria-modal="true" aria-labelledby="override-modal-title" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+  <div style="background:#1e293b; border:2px solid #38bdf8; border-radius:18px; max-width:420px; width:100%; padding:1.25rem; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+      <h3 id="override-modal-title" style="margin:0; font-size:1.1rem; font-weight:800; color:#38bdf8;">
+        ⚖️ {% trans "Override Capsule Outcome" %}
+      </h3>
+      <button type="button" onclick="closeOverrideModal()" style="background:none; border:none; color:#94a3b8; font-size:1.25rem; cursor:pointer; padding:0.2rem 0.5rem;">✕</button>
+    </div>
+
+    <div style="background:#0f172a; border-radius:10px; padding:0.75rem; margin-bottom:0.9rem; border:1px solid #334155;">
+      <div style="font-size:0.75rem; color:#94a3b8; font-weight:700; text-transform:uppercase;" id="override-slot-header">Capsule #1</div>
+      <div style="font-size:1.05rem; font-weight:800; color:#f8fafc; margin:0.2rem 0 0.4rem 0;" id="override-slot-label">Item Label</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem;">
+        <span style="color:#94a3b8;">{% trans "Revealed Value:" %} <strong style="color:#ffffff;" id="override-slot-value">—</strong></span>
+        <span id="override-current-badge" class="basket-pill" style="font-size:0.75rem;">✅ Correct</span>
+      </div>
+      <div id="override-revealed-by" style="font-size:0.78rem; color:#94a3b8; margin-top:0.4rem;"></div>
+    </div>
+
+    <div style="margin-bottom:0.9rem;">
+      <label for="override-player-select" style="display:block; font-size:0.78rem; font-weight:700; color:#cbd5e1; margin-bottom:0.25rem;">
+        {% trans "Attribute to Player" %}
+      </label>
+      <select id="override-player-select" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left; font-size:0.85rem;">
+        <!-- Filled dynamically -->
+      </select>
+    </div>
+
+    <div style="display:flex; gap:0.6rem; margin-bottom:0.75rem;">
+      <button type="button" class="sn-btn sn-btn-success" style="flex:1; justify-content:center; padding:0.65rem 0.5rem; font-size:0.88rem;" onclick="submitOverride(true)">
+        ✅ {% trans "Mark CORRECT (+1 pt)" %}
+      </button>
+      <button type="button" class="sn-btn sn-btn-danger" style="flex:1; justify-content:center; padding:0.65rem 0.5rem; font-size:0.88rem;" onclick="submitOverride(false)">
+        💥 {% trans "Mark WRONG (Bust)" %}
+      </button>
+    </div>
+
+    <button type="button" class="sn-btn sn-btn-secondary" style="width:100%; font-size:0.82rem;" onclick="closeOverrideModal()">
+      {% trans "Cancel / Close" %}
+    </button>
+  </div>
+</div>
+
 <!-- HOST ARBITRATION MODAL -->
 <div id="modal-arbitration" class="ds-modal" role="dialog" aria-modal="true" aria-labelledby="arbitration-title" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
   <div style="background:#1e293b; border:1px solid var(--sn-border); border-radius:18px; max-width:440px; width:100%; padding:1.5rem; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
@@ -1555,12 +1614,17 @@
           const gv = String(c.guessed_value).startsWith("#") ? c.guessed_value : "#" + c.guessed_value;
           guessDetail = ` <span style="font-size:0.75rem; color:#fca5a5; font-weight:normal;">(guessed ${escapeHtml(gv)})</span>`;
         }
+        const canOverride = (IS_ADMIN || isSingle);
+        const overrideBadge = (canOverride && c.revealed)
+          ? `<span style="font-size:0.7rem; color:#38bdf8; margin-left:auto; text-decoration:underline; cursor:pointer;" title="{% trans 'Tap to override outcome' %}">{% trans 'override' %} ⚖️</span>`
+          : "";
         secretHtml = `
           <div class="capsule-revealed-val" style="color:${isCorrect ? '#10b981' : '#ef4444'};">
             <span>${icon}</span>
             <span>${escapeHtml(valText)}</span>
             ${guessDetail}
             ${c.revealed_by ? `<span style="font-size:0.75rem; color:#94a3b8; font-weight:normal;">(${escapeHtml(c.revealed_by)})</span>` : ''}
+            ${overrideBadge}
           </div>
         `;
       }
@@ -1569,20 +1633,16 @@
         ? `<div class="capsule-explanation">${escapeHtml(c.explanation)}</div>`
         : "";
 
-      const hostOverrideBtn = (IS_ADMIN || isSingle)
-        ? `<button type="button" onclick="event.stopPropagation(); quickHostArbitrate(${c.slot})" title="{% trans 'Host Arbitrate' %}" style="background:none; border:none; color:#f59e0b; cursor:pointer; font-size:0.85rem;">👑</button>`
-        : "";
+      const canOverride = (IS_ADMIN || isSingle);
+      const cursorStyle = (c.revealed && canOverride) ? "style=\"cursor:pointer;\" title=\"{% trans 'Tap to override answer outcome' %}\"" : "";
 
       return `
-        <div class="capsule-item ${stateClass}" data-slot="${c.slot}" onclick="onCapsuleClick(${c.slot}, ${c.revealed})">
+        <div class="capsule-item ${stateClass}" data-slot="${c.slot}" onclick="onCapsuleClick(${c.slot}, ${c.revealed})" ${cursorStyle}>
           <div class="capsule-slot-num">${c.slot}</div>
           <div class="capsule-content">
             <div class="capsule-label">${escapeHtml(c.label)}</div>
             ${secretHtml}
             ${explanationHtml}
-          </div>
-          <div class="capsule-actions">
-            ${hostOverrideBtn}
           </div>
         </div>
       `;
@@ -1786,10 +1846,18 @@
   }
 
   function onCapsuleClick(slot, isRevealed) {
-    if (isRevealed || gameState.phase !== "playing") return;
     if (isPickingSlot) return;
 
     const isSingle = gameState.settings && gameState.settings.mode === "single_device";
+    if (isRevealed) {
+      if (IS_ADMIN || isSingle) {
+        openOverrideModal(slot);
+      }
+      return;
+    }
+
+    if (gameState.phase !== "playing") return;
+
     const curPid = gameState.current_player_id;
     const isMyTurn = isSingle || (curPid === PLAYER_ID) || IS_ADMIN;
     if (!isMyTurn) {
@@ -2063,7 +2131,70 @@
     });
   }
 
-  // Host Arbitration Modal
+  // Direct Capsule Outcome Override Modal (Direct tap on revealed capsule)
+  let activeOverrideSlot = null;
+
+  function openOverrideModal(slot) {
+    const c = (gameState.capsules || []).find(it => it.slot === slot);
+    if (!c) return;
+
+    activeOverrideSlot = slot;
+    document.getElementById("override-slot-header").textContent = `Capsule #${slot}`;
+    document.getElementById("override-slot-label").textContent = c.label;
+
+    let dispVal = c.value !== null && c.value !== undefined ? String(c.value) : (c.is_correct ? "Yes" : "No");
+    if (gameState.card && gameState.card.type === "order" && !dispVal.startsWith("#")) {
+      dispVal = "#" + dispVal;
+    }
+    document.getElementById("override-slot-value").textContent = dispVal;
+
+    const isCorrect = Boolean(c.is_correct);
+    const badge = document.getElementById("override-current-badge");
+    badge.textContent = isCorrect ? "✅ Correct" : "💥 Bust";
+    badge.style.background = isCorrect ? "#064e3b" : "#7f1d1d";
+    badge.style.color = isCorrect ? "#6ee7b7" : "#fca5a5";
+    badge.style.borderColor = isCorrect ? "#10b981" : "#ef4444";
+
+    const revealer = c.revealed_by || "";
+    document.getElementById("override-revealed-by").textContent = revealer ? `Revealed by: ${revealer}` : "";
+
+    const playerSelect = document.getElementById("override-player-select");
+    const players = gameState.players || [];
+    let defaultPid = "";
+    if (revealer) {
+      const pMatch = players.find(p => p.name === revealer);
+      if (pMatch) defaultPid = pMatch.id;
+    }
+    if (!defaultPid && gameState.current_player_id) {
+      defaultPid = gameState.current_player_id;
+    }
+
+    playerSelect.innerHTML = players.map(p => `
+      <option value="${p.id}" ${p.id === defaultPid ? 'selected' : ''}>${escapeHtml(p.name)}</option>
+    `).join("");
+
+    document.getElementById("modal-override-outcome").style.display = "flex";
+  }
+
+  function submitOverride(markCorrect) {
+    if (activeOverrideSlot === null) return;
+    const targetPid = document.getElementById("override-player-select").value;
+
+    wsSend({
+      action: "host_arbitrate",
+      slot: activeOverrideSlot,
+      mark_correct: markCorrect,
+      target_player_id: targetPid
+    });
+    closeOverrideModal();
+  }
+
+  function closeOverrideModal() {
+    activeOverrideSlot = null;
+    document.getElementById("modal-override-outcome").style.display = "none";
+  }
+
+  // Host Arbitration Modal (From GM Drawer)
   let activeArbitrationPlayerId = null;
   function openArbitrationModal() {
     populateArbitrationSelects();
@@ -2080,8 +2211,11 @@
     const slotSelect = document.getElementById("arb-slot-select");
     const playerSelect = document.getElementById("arb-player-select");
 
-    const unrevealed = (gameState.capsules || []).filter(c => !c.revealed);
-    slotSelect.innerHTML = unrevealed.map(c => `<option value="${c.slot}">#${c.slot} - ${escapeHtml(c.label)}</option>`).join("");
+    const allCaps = gameState.capsules || [];
+    slotSelect.innerHTML = allCaps.map(c => {
+      const status = c.revealed ? (c.is_correct ? ' [✅ Correct]' : ' [💥 Bust]') : ' [Covered]';
+      return `<option value="${c.slot}">#${c.slot} - ${escapeHtml(c.label)}${status}</option>`;
+    }).join("");
 
     playerSelect.innerHTML = (gameState.players || []).map(p => `
       <option value="${p.id}" ${p.id === activeArbitrationPlayerId ? 'selected' : ''}>${escapeHtml(p.name)}</option>
@@ -2089,9 +2223,7 @@
   }
 
   function quickHostArbitrate(slot) {
-    populateArbitrationSelects();
-    document.getElementById("arb-slot-select").value = slot;
-    document.getElementById("modal-arbitration").style.display = "flex";
+    openOverrideModal(slot);
   }
 
   function submitArbitration(markCorrect) {

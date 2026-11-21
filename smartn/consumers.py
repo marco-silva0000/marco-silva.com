@@ -138,7 +138,7 @@ class SmartNConsumer(AsyncJsonWebsocketConsumer):
         elif action == "host_arbitrate" and (is_admin or is_single_device):
             slot = int(content.get("slot") or 0)
             mark_correct = bool(content.get("mark_correct", True))
-            target_pid = content.get("target_player_id") or self.player_id
+            target_pid = content.get("target_player_id") or None
             ok, msg, new_state = host_arbitrate(self.code, slot, mark_correct, target_player_id=target_pid)
             if ok:
                 await self.broadcast_sync()
