@@ -30,6 +30,7 @@ ROOM_EXPIRY_SECONDS = 86400  # 24 hours
 DEFAULT_SETTINGS = {
     "mode": "multi_device",  # "multi_device" | "single_device"
     "pack": "mix",  # "mix", "geo", "media", "science", "history", "food", "sports"
+    "type_filter": "all",  # "all" | "order" | "true_false" | "number" | "match"
     "yes_no_scoring": "standard",  # "standard" (true only) | "prediction" (predict true/false)
     "count_filter": "all",  # "all" | "exactly_10"
     "target_score": 20,  # points to win match
@@ -400,7 +401,8 @@ def change_player_color(code: str, player_id: str, new_hex: str) -> bool:
 def _deal_next_card(state: dict[str, Any]) -> dict[str, Any] | None:
     pack = state.get("settings", {}).get("pack", "mix")
     count_filter = state.get("settings", {}).get("count_filter", "all")
-    deck = get_deck(pack_filter=pack, count_filter=count_filter)
+    type_filter = state.get("settings", {}).get("type_filter", "all")
+    deck = get_deck(pack_filter=pack, count_filter=count_filter, type_filter=type_filter)
 
     used = set(state.get("used_question_ids", []))
     available = [q for q in deck if q["id"] not in used]

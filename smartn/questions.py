@@ -1266,8 +1266,8 @@ SMARTN_QUESTIONS: list[dict[str, Any]] = [
 ]
 
 
-def get_deck(pack_filter: str = "mix", count_filter: str = "all") -> list[dict[str, Any]]:
-    """Return filtered questions matching the desired pack and answer count."""
+def get_deck(pack_filter: str = "mix", count_filter: str = "all", type_filter: str = "all") -> list[dict[str, Any]]:
+    """Return filtered questions matching the desired pack, answer count, and question type."""
     deck = SMARTN_QUESTIONS.copy()
     if pack_filter and pack_filter != "mix":
         deck = [q for q in deck if q.get("pack") == pack_filter]
@@ -1278,5 +1278,14 @@ def get_deck(pack_filter: str = "mix", count_filter: str = "all") -> list[dict[s
         deck = [q for q in deck if q.get("n", 10) == 10]
         if not deck:
             deck = SMARTN_QUESTIONS.copy()
+
+    if type_filter and type_filter != "all":
+        type_deck = [q for q in deck if q.get("type") == type_filter]
+        if type_deck:
+            deck = type_deck
+        else:
+            type_deck_all = [q for q in SMARTN_QUESTIONS if q.get("type") == type_filter]
+            if type_deck_all:
+                deck = type_deck_all
 
     return deck

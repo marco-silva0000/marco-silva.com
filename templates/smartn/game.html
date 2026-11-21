@@ -883,6 +883,20 @@
           </select>
         </div>
 
+        <!-- Question Type Filter -->
+        <div>
+          <label for="cfg-type-filter" style="display:block; font-size:0.82rem; font-weight:700; color:var(--sn-muted); margin-bottom:0.35rem;">
+            {% trans "Question Type Filter" %}
+          </label>
+          <select id="cfg-type-filter" class="sn-btn sn-btn-secondary" style="width:100%; text-align:left; background:#1e293b;" onchange="onSettingsFieldChange()">
+            <option value="all">{% trans "🎲 All Question Types (Mixed)" %}</option>
+            <option value="order">{% trans "🔢 1 to 10 Sequence / Order Only" %}</option>
+            <option value="true_false">{% trans "⚖️ True / False Only" %}</option>
+            <option value="number">{% trans "📊 Numbers & Metrics Only" %}</option>
+            <option value="match">{% trans "🧩 Group Matching Only" %}</option>
+          </select>
+        </div>
+
         <!-- Target Score -->
         <div>
           <label for="cfg-target-score" style="display:block; font-size:0.82rem; font-weight:700; color:var(--sn-muted); margin-bottom:0.35rem;">
@@ -1459,11 +1473,13 @@
     const packEl = document.getElementById("cfg-pack");
     const scoringEl = document.getElementById("cfg-yes-no-scoring");
     const countEl = document.getElementById("cfg-count-filter");
+    const typeEl = document.getElementById("cfg-type-filter");
     const targetEl = document.getElementById("cfg-target-score");
 
     if (packEl) packEl.value = cfg.pack || "mix";
     if (scoringEl) scoringEl.value = cfg.yes_no_scoring || "standard";
     if (countEl) countEl.value = cfg.count_filter || "all";
+    if (typeEl) typeEl.value = cfg.type_filter || "all";
     if (targetEl) targetEl.value = cfg.target_score || 20;
 
     const hostActions = document.getElementById("lobby-host-actions");
@@ -1474,6 +1490,7 @@
       if (packEl) packEl.disabled = false;
       if (scoringEl) scoringEl.disabled = false;
       if (countEl) countEl.disabled = false;
+      if (typeEl) typeEl.disabled = false;
       if (targetEl) targetEl.disabled = false;
     } else {
       hostActions.style.display = "none";
@@ -1481,6 +1498,7 @@
       if (packEl) packEl.disabled = true;
       if (scoringEl) scoringEl.disabled = true;
       if (countEl) countEl.disabled = true;
+      if (typeEl) typeEl.disabled = true;
       if (targetEl) targetEl.disabled = true;
     }
   }
@@ -1962,6 +1980,7 @@
     const pack = document.getElementById("cfg-pack").value;
     const scoring = document.getElementById("cfg-yes-no-scoring").value;
     const count = document.getElementById("cfg-count-filter").value;
+    const typeFilter = document.getElementById("cfg-type-filter") ? document.getElementById("cfg-type-filter").value : "all";
     const target = parseInt(document.getElementById("cfg-target-score").value, 10) || 20;
 
     wsSend({
@@ -1970,6 +1989,7 @@
         pack: pack,
         yes_no_scoring: scoring,
         count_filter: count,
+        type_filter: typeFilter,
         target_score: target
       }
     });
