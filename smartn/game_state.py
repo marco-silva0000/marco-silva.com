@@ -370,6 +370,14 @@ def update_settings(code: str, new_settings: dict[str, Any]) -> tuple[bool, str,
         cfg["yes_no_scoring"] = new_settings["yes_no_scoring"]
     if "count_filter" in new_settings and new_settings["count_filter"] in ("all", "exactly_10"):
         cfg["count_filter"] = new_settings["count_filter"]
+    if "type_filter" in new_settings and new_settings["type_filter"] in (
+        "all",
+        "order",
+        "true_false",
+        "number",
+        "match",
+    ):
+        cfg["type_filter"] = new_settings["type_filter"]
     if "target_score" in new_settings:
         try:
             cfg["target_score"] = max(5, min(100, int(new_settings["target_score"])))
