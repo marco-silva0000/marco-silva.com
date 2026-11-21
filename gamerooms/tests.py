@@ -413,6 +413,21 @@ class TestRoomLanguageAndImpostorRouting:
         assert "Athens Undercover" in html
         assert "Greek" in html or "🇬🇷" in html
 
+    def test_room_list_shows_rankit_and_smartn_cards_and_badges(self, client, db):
+        Room.objects.create(title="Coop Spectrum", code="RANKIT01", game_type="rankit", language="en")
+        Room.objects.create(title="Trivia Wheel Night", code="SMARTN01", game_type="smartn", language="pt")
+        resp = client.get(reverse("gamerooms:room-list"))
+        assert resp.status_code == 200
+        html = resp.content.decode()
+        assert "Rank It! (ito)" in html
+        assert "SmartN (Smart 10 Trivia)" in html
+        assert "game=rankit" in html
+        assert "game=smartn" in html
+        assert "Coop Spectrum" in html
+        assert "Trivia Wheel Night" in html
+        assert "🔢 Rank It!" in html
+        assert "💡 SmartN" in html
+
     def test_translation_optimizer_prefill_and_compact_batching(self, tmp_path):
         from scripts.translate_chunks_agy import (
             DEFAULT_EFFORT,

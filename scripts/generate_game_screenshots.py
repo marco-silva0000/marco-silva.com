@@ -171,9 +171,11 @@ def capture_portal(browser, base_url, out_dir, devices):
             # Save to portal dir and devices comparison dir
             path1 = portal_dir / f"portal_{d_key}.png"
             path2 = dev_dir / f"portal_{d_key}.png"
+            path_full = portal_dir / f"portal_{d_key}_full.png"
             page.screenshot(path=str(path1), full_page=False)
+            page.screenshot(path=str(path_full), full_page=True)
             shutil.copyfile(path1, path2)
-            print(f"    -> Saved {path1.name}")
+            print(f"    -> Saved {path1.name} and {path_full.name}")
         except Exception as e:
             print(f"    [!] Error capturing portal on {d_key}: {e}")
         finally:
