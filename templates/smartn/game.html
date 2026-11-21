@@ -1323,6 +1323,12 @@
     viewPlaying.style.display = (phase === "playing" || phase === "round_summary") ? "block" : "none";
     viewGameover.style.display = (phase === "gameover") ? "block" : "none";
 
+    if (phase !== "lobby" && viewLobby.dataset.lastPhase === "lobby") {
+      const toastCont = document.getElementById("sn-toast-container");
+      if (toastCont) toastCont.innerHTML = "";
+    }
+    viewLobby.dataset.lastPhase = phase;
+
     const isSingle = gameState.settings && gameState.settings.mode === "single_device";
     if (isSingle && phase === "playing") {
       passBanner.style.display = "flex";
@@ -1725,7 +1731,6 @@
       action: "add_offline_player",
       name: name
     });
-    showToast(`🛋️ {% trans 'Adding' %} "${name}"...`, "info");
     input.value = "";
     input.focus();
   }
@@ -1735,7 +1740,6 @@
       action: "add_offline_player",
       name: name
     });
-    showToast(`🛋️ {% trans 'Adding' %} "${name}"...`, "info");
   }
 
   function onAddOfflinePlayerFromDrawer(event) {
@@ -1749,7 +1753,6 @@
       action: "add_offline_player",
       name: name
     });
-    showToast(`🛋️ {% trans 'Adding' %} "${name}"...`, "info");
     input.value = "";
   }
 
@@ -1765,6 +1768,9 @@
   function showToast(msg, type = "info") {
     const container = document.getElementById("sn-toast-container");
     if (!container) return;
+    while (container.children.length >= 2) {
+      container.removeChild(container.firstChild);
+    }
     const toast = document.createElement("div");
     toast.className = `sn-toast ${type}`;
     toast.textContent = msg;
@@ -1774,7 +1780,7 @@
       toast.style.opacity = "0";
       toast.style.transform = "translateY(10px)";
       setTimeout(() => toast.remove(), 300);
-    }, 3200);
+    }, 2200);
   }
 
   function onSettingsFieldChange() {
