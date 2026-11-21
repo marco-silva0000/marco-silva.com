@@ -3,6 +3,86 @@
 {% block title %}{% trans "Game Rooms" %} - Marco Silva{% endblock %}
 {% block extra_css %}
 body { max-width: 860px !important; }
+.gr-btn:focus-visible, .gr-input:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.gr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0.5rem 0.95rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: filter 0.15s ease, transform 0.1s ease;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.gr-btn:hover { filter: brightness(0.92); }
+.gr-input::placeholder {
+  text-transform: none;
+  letter-spacing: normal;
+  color: #64748b;
+}
+.gr-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.15rem 1.2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.85rem;
+  transition: border-color 0.15s ease;
+}
+.gr-card:hover {
+  border-color: #cbd5e1;
+}
+.gr-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+  flex-wrap: wrap;
+}
+.gr-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+.gr-badge-players {
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: #f1f5f9;
+  color: #334155;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.gr-card-desc {
+  font-size: 0.82rem;
+  color: #64748b;
+  line-height: 1.48;
+  margin: 0;
+}
+.gr-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 560px) {
+  .gr-btn { min-height: 44px; }
+}
 {% endblock %}
 
 {% block content %}
@@ -15,8 +95,8 @@ body { max-width: 860px !important; }
         {% trans "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends." %}
       </p>
     </div>
-    <a href="{% url 'gamerooms:room-create' %}"
-       style="display: inline-flex; align-items: center; gap: 0.35rem; background: #2563eb; color: #ffffff; padding: 0.55rem 0.95rem; border-radius: 8px; font-size: 0.86rem; font-weight: 600; text-decoration: none; white-space: nowrap; box-shadow: 0 1px 2px rgba(37,99,235,0.2);">
+    <a href="{% url 'gamerooms:room-create' %}" class="gr-btn"
+       style="background: #2563eb; color: #ffffff; box-shadow: 0 1px 2px rgba(37,99,235,0.2);">
       + {% trans "create room" %}
     </a>
   </div>
@@ -31,226 +111,229 @@ body { max-width: 860px !important; }
   <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.9rem 1.05rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); margin-bottom: 1.35rem;">
     <form method="post" style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
       {% csrf_token %}
-      <input type="text" name="code" maxlength="8" required
+      <input type="text" name="code" id="quick-room-code" maxlength="8" required class="gr-input"
+             aria-label="{% trans 'Room Code' %}"
              placeholder="{% trans 'Enter Room Code (e.g. 9B3A1C2D)' %}"
-             style="flex: 1; min-width: 180px; padding: 0.52rem 0.75rem; font-size: 0.92rem; font-family: ui-monospace, SFMono-Regular, monospace; letter-spacing: 1px; text-transform: uppercase; border: 1.5px solid #cbd5e1; border-radius: 8px; box-sizing: border-box;">
-      <button type="submit"
-              style="padding: 0.52rem 1rem; font-size: 0.86rem; font-weight: 600; background: #0f172a; color: #ffffff; border: none; border-radius: 8px; cursor: pointer; white-space: nowrap;">
+             style="flex: 1; min-width: 180px; min-height: 40px; padding: 0.52rem 0.75rem; font-size: 0.92rem; font-family: ui-monospace, SFMono-Regular, monospace; letter-spacing: 1px; text-transform: uppercase; border: 1.5px solid #cbd5e1; border-radius: 8px; box-sizing: border-box;">
+      <button type="submit" class="gr-btn"
+              style="background: #0f172a; color: #ffffff; border: none; cursor: pointer;">
         {% trans "Join" %} &rarr;
       </button>
     </form>
   </div>
 
-  <!-- Games 2x2 Grid -->
+  <!-- Games Grid -->
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.9rem; margin-bottom: 1.75rem;">
     <!-- Lupus Card -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
+    <div class="gr-card">
       <div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
-          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
+        <div class="gr-card-header">
+          <h2 class="gr-card-title">
             <span>🐺</span> {% trans "Lupus / Werewolf" %}
-          </div>
-          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
+          </h2>
+          <span class="gr-badge-players">
             4–20 {% trans "players" %}
           </span>
         </div>
-        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
+        <p class="gr-card-desc">
           {% trans "Table-first party game with secret roles, live voting, Town Gazette, and GM director cockpit." %}
         </p>
       </div>
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <a href="{% url 'gamerooms:lupus:create' %}"
-           style="display: inline-flex; align-items: center; background: #2563eb; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
+      <div class="gr-actions">
+        <a href="{% url 'gamerooms:lupus:create' %}" class="gr-btn"
+           style="background: #2563eb; color: #ffffff;">
           + {% trans "Host Room" %}
         </a>
-        <a href="{% url 'gamerooms:lupus:hub' %}"
-           style="display: inline-flex; align-items: center; background: #f8fafc; color: #334155; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none; border: 1px solid #cbd5e1;">
+        <a href="{% url 'gamerooms:lupus:hub' %}" class="gr-btn"
+           style="background: #f8fafc; color: #334155; border: 1px solid #cbd5e1;">
           {% trans "Browse Hub" %} &rarr;
         </a>
       </div>
     </div>
 
-    <!-- Emojinary Card -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
-      <div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
-          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
-            <span>🎨</span> Emojinary
-          </div>
-          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
-            2–12 {% trans "players" %}
-          </span>
-        </div>
-        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
-          {% trans "Describe movies, songs, and phrases with emojis in Round Robin, Collective Prep, or Judge's Pick." %}
-        </p>
-      </div>
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <a href="{% url 'gamerooms:room-create' %}?game=emojinary"
-           style="display: inline-flex; align-items: center; background: #2563eb; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
-          + {% trans "Host Room" %}
-        </a>
-      </div>
-    </div>
-
-    <!-- Word Impostor Card -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
-      <div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
-          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
-            <span>🕵️</span> {% trans "Word Impostor" %}
-          </div>
-          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
-            3–12 {% trans "players" %}
-          </span>
-        </div>
-        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
-          {% trans "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master." %}
-        </p>
-      </div>
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <a href="{% url 'gamerooms:room-create' %}?game=impostor"
-           style="display: inline-flex; align-items: center; background: #2563eb; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
-          + {% trans "Host Room" %}
-        </a>
-      </div>
-    </div>
-
-    <!-- Codenames Card -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
-      <div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
-          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
-            <span>🧩</span> {% trans "Codenames" %}
-          </div>
-          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
-            4–12 {% trans "players" %}
-          </span>
-        </div>
-        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
-          {% trans "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play." %}
-        </p>
-      </div>
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <a href="{% url 'gamerooms:room-create' %}?game=codenames"
-           style="display: inline-flex; align-items: center; background: #2563eb; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
-          + {% trans "Host Room" %}
-        </a>
-      </div>
-    </div>
-
-    <!-- Stop! Card -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
-      <div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
-          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
-            <span>🛑</span> {% trans "Stop!" %}
-          </div>
-          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
-            2–16 {% trans "players" %}
-          </span>
-        </div>
-        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
-          {% trans "Fast-paced Category & Letter race powered by our Word Database, chaotic party prompts, custom topics, and 1st-Unique speed bonuses." %}
-        </p>
-      </div>
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <a href="{% url 'gamerooms:room-create' %}?game=stop"
-           style="display: inline-flex; align-items: center; background: #2563eb; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
-          + {% trans "Host Room" %}
-        </a>
-      </div>
-    </div>
-
-    <!-- Don't Say the Same Thing as Me Card -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
-      <div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
-          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
-            <span>🤐</span> {% trans "Don't Say the Same Thing as Me" %}
-          </div>
-          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
-            2–20 {% trans "players" %}
-          </span>
-        </div>
-        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
-          {% trans "Anti-hivemind collision game powered by combinatorial linguistic prompts: answer secretly, avoid crashing with others, and score rarity bonuses!" %}
-        </p>
-      </div>
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <a href="{% url 'gamerooms:room-create' %}?game=dontsay"
-           style="display: inline-flex; align-items: center; background: #8b5cf6; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
-          + {% trans "Host Room" %}
-        </a>
-      </div>
-    </div>
-
     <!-- Rank It! Card -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
+    <div class="gr-card">
       <div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
-          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
-            <span>🔢</span> {% trans "Rank It! (ito)" %}
-          </div>
-          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
+        <div class="gr-card-header">
+          <h2 class="gr-card-title">
+            <span>🔢</span> <span>{% trans "Rank It!" %} <small style="font-weight: 500; font-size: 0.82rem; color: #64748b;">({% trans "ito" %})</small></span>
+          </h2>
+          <span class="gr-badge-players">
             2–10 {% trans "players" %} · {% trans "Co-op" %}
           </span>
         </div>
-        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
+        <p class="gr-card-desc">
           {% trans "Cooperative timeline party game: draft secret numbers 1–100, give thematic spectrum clues, negotiate card swaps, and reveal the timeline in ascending order without clashing!" %}
         </p>
       </div>
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <a href="{% url 'gamerooms:room-create' %}?game=rankit"
-           style="display: inline-flex; align-items: center; background: #059669; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
+      <div class="gr-actions">
+        <a href="{% url 'gamerooms:room-create' %}?game=rankit" class="gr-btn"
+           style="background: #047857; color: #ffffff;">
           + {% trans "Host Room" %}
         </a>
       </div>
     </div>
 
     <!-- SmartN Card -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
+    <div class="gr-card">
       <div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
-          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
-            <span>💡</span> {% trans "SmartN (Smart 10 Trivia)" %}
-          </div>
-          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
+        <div class="gr-card-header">
+          <h2 class="gr-card-title">
+            <span>💡</span> <span>{% trans "SmartN" %} <small style="font-weight: 500; font-size: 0.82rem; color: #64748b;">({% trans "Smart 10" %})</small></span>
+          </h2>
+          <span class="gr-badge-players">
             2–16 {% trans "players" %} · {% trans "Couch & Online" %}
           </span>
         </div>
-        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
+        <p class="gr-card-desc">
           {% trans "Tactile push-your-luck trivia wheel with 10 hidden answers per card. Open correct capsules to fill your basket, pass & bank your points, or risk busting! Play online or couch pass-and-play." %}
         </p>
       </div>
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <a href="{% url 'gamerooms:room-create' %}?game=smartn"
-           style="display: inline-flex; align-items: center; background: #d97706; color: #ffffff; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">
+      <div class="gr-actions">
+        <a href="{% url 'gamerooms:room-create' %}?game=smartn" class="gr-btn"
+           style="background: #b45309; color: #ffffff;">
           + {% trans "Host Room" %}
         </a>
       </div>
     </div>
 
-    <!-- Pictionary Card -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.15rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; gap: 0.85rem;">
+    <!-- Don't Say the Same Thing as Me Card -->
+    <div class="gr-card">
       <div>
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem;">
-          <div style="font-size: 1.02rem; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
-            <span>✏️</span> Pictionary
-          </div>
-          <span style="font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #475569; padding: 0.14rem 0.5rem; border-radius: 999px; white-space: nowrap;">
-            {% trans "Prompt Tool" %}
+        <div class="gr-card-header">
+          <h2 class="gr-card-title">
+            <span>🤐</span> {% trans "Don't Say the Same Thing as Me" %}
+          </h2>
+          <span class="gr-badge-players">
+            2–20 {% trans "players" %}
           </span>
         </div>
-        <p style="font-size: 0.82rem; color: #64748b; line-height: 1.48; margin: 0;">
-          {% trans "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends." %}
+        <p class="gr-card-desc">
+          {% trans "Anti-hivemind collision game powered by combinatorial linguistic prompts: answer secretly, avoid crashing with others, and score rarity bonuses!" %}
         </p>
       </div>
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <a href="/games/pictionary/"
-           style="display: inline-flex; align-items: center; background: #f8fafc; color: #334155; padding: 0.42rem 0.8rem; border-radius: 7px; font-size: 0.8rem; font-weight: 600; text-decoration: none; border: 1px solid #cbd5e1;">
-          {% trans "Open Generator" %} &rarr;
+      <div class="gr-actions">
+        <a href="{% url 'gamerooms:room-create' %}?game=dontsay" class="gr-btn"
+           style="background: #6d28d9; color: #ffffff;">
+          + {% trans "Host Room" %}
         </a>
+      </div>
+    </div>
+
+    <!-- Word Impostor Card -->
+    <div class="gr-card">
+      <div>
+        <div class="gr-card-header">
+          <h2 class="gr-card-title">
+            <span>🕵️</span> {% trans "Word Impostor" %}
+          </h2>
+          <span class="gr-badge-players">
+            3–12 {% trans "players" %}
+          </span>
+        </div>
+        <p class="gr-card-desc">
+          {% trans "Social deduction with Poison Words, Lethal Taboo traps, Last-Chance Steal, and Participating Game Master." %}
+        </p>
+      </div>
+      <div class="gr-actions">
+        <a href="{% url 'gamerooms:room-create' %}?game=impostor" class="gr-btn"
+           style="background: #2563eb; color: #ffffff;">
+          + {% trans "Host Room" %}
+        </a>
+      </div>
+    </div>
+
+    <!-- Codenames Card -->
+    <div class="gr-card">
+      <div>
+        <div class="gr-card-header">
+          <h2 class="gr-card-title">
+            <span>🧩</span> {% trans "Codenames" %}
+          </h2>
+          <span class="gr-badge-players">
+            4–12 {% trans "players" %}
+          </span>
+        </div>
+        <p class="gr-card-desc">
+          {% trans "Official 400-word 5×5 team deduction board with Wikisaurus Spymaster AI clues, private Keycard toggle, and oral/table play." %}
+        </p>
+      </div>
+      <div class="gr-actions">
+        <a href="{% url 'gamerooms:room-create' %}?game=codenames" class="gr-btn"
+           style="background: #2563eb; color: #ffffff;">
+          + {% trans "Host Room" %}
+        </a>
+      </div>
+    </div>
+
+    <!-- Stop! Card -->
+    <div class="gr-card">
+      <div>
+        <div class="gr-card-header">
+          <h2 class="gr-card-title">
+            <span>🛑</span> {% trans "Stop!" %}
+          </h2>
+          <span class="gr-badge-players">
+            2–16 {% trans "players" %}
+          </span>
+        </div>
+        <p class="gr-card-desc">
+          {% trans "Fast-paced Category & Letter race powered by our Word Database, chaotic party prompts, custom topics, and 1st-Unique speed bonuses." %}
+        </p>
+      </div>
+      <div class="gr-actions">
+        <a href="{% url 'gamerooms:room-create' %}?game=stop" class="gr-btn"
+           style="background: #2563eb; color: #ffffff;">
+          + {% trans "Host Room" %}
+        </a>
+      </div>
+    </div>
+
+    <!-- Emojinary Card -->
+    <div class="gr-card">
+      <div>
+        <div class="gr-card-header">
+          <h2 class="gr-card-title">
+            <span>🎨</span> Emojinary
+          </h2>
+          <span class="gr-badge-players">
+            2–12 {% trans "players" %}
+          </span>
+        </div>
+        <p class="gr-card-desc">
+          {% trans "Describe movies, songs, and phrases with emojis in Round Robin, Collective Prep, or Judge's Pick." %}
+        </p>
+      </div>
+      <div class="gr-actions">
+        <a href="{% url 'gamerooms:room-create' %}?game=emojinary" class="gr-btn"
+           style="background: #2563eb; color: #ffffff;">
+          + {% trans "Host Room" %}
+        </a>
+      </div>
+    </div>
+
+    <!-- Pictionary Card (Full width utility generator) -->
+    <div class="gr-card" style="grid-column: 1 / -1; background: #f8fafc; border-color: #cbd5e1;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 240px;">
+          <div class="gr-card-header">
+            <h2 class="gr-card-title">
+              <span>✏️</span> Pictionary
+            </h2>
+            <span class="gr-badge-players">
+              {% trans "Prompt Tool" %}
+            </span>
+          </div>
+          <p class="gr-card-desc">
+            {% trans "Word & sentence prompt generator for classic pen-and-paper drawing rounds with friends." %}
+          </p>
+        </div>
+        <div class="gr-actions" style="align-self: center;">
+          <a href="/games/pictionary/" class="gr-btn"
+             style="background: #ffffff; color: #1e293b; border: 1.5px solid #cbd5e1;">
+            {% trans "Open Generator" %} &rarr;
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -303,8 +386,8 @@ body { max-width: 860px !important; }
         </div>
       </div>
       <div>
-        <a href="{% url 'gamerooms:room-join' room.code %}"
-           style="display: inline-flex; align-items: center; padding: 0.4rem 0.75rem; font-size: 0.82rem; font-weight: 600; background: #f8fafc; color: #1e293b; border: 1px solid #cbd5e1; border-radius: 6px; text-decoration: none; white-space: nowrap;">
+        <a href="{% url 'gamerooms:room-join' room.code %}" class="gr-btn"
+           style="min-height: 38px; padding: 0.4rem 0.85rem; font-size: 0.82rem; font-weight: 600; background: #f8fafc; color: #1e293b; border: 1px solid #cbd5e1; border-radius: 6px;">
           {% trans "Join" %} &rarr;
         </a>
       </div>

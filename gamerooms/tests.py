@@ -419,8 +419,10 @@ class TestRoomLanguageAndImpostorRouting:
         resp = client.get(reverse("gamerooms:room-list"))
         assert resp.status_code == 200
         html = resp.content.decode()
-        assert "Rank It! (ito)" in html
-        assert "SmartN (Smart 10 Trivia)" in html
+        assert "Rank It!" in html
+        assert "ito" in html
+        assert "SmartN" in html
+        assert "Smart 10" in html
         assert "game=rankit" in html
         assert "game=smartn" in html
         assert "Coop Spectrum" in html

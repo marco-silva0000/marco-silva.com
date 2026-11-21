@@ -8,6 +8,7 @@ import requests
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from icalendar import Calendar
 
 from gamerooms.security import is_rate_limited, sanitize_header_filename, sanitize_ics_field
@@ -35,6 +36,7 @@ def planz(request):
     return render(request, "tools/planz.html", {"error": bool(request.POST)})
 
 
+@csrf_exempt
 def planz_auth(request):
     if is_rate_limited(request, scope="planz_auth", limit=20, window_seconds=60):
         return HttpResponse(
