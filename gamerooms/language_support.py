@@ -33,7 +33,7 @@ GAME_TYPES = (
     ("stop", "🛑 Stop! (Categories & Letter)"),
     ("dontsay", "🤐 Don't Say the Same Thing as Me"),
     ("rankit", "🔢 Rank It! (ito)"),
-    ("smartn", "💡 SmartN (Smart 10 Trivia)"),
+    ("smartn", "💡 SmartN"),
 )
 
 

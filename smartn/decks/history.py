@@ -1,4 +1,4 @@
-"""History & World Civilizations question deck for SmartN (Smart 10 Trivia).
+"""History & World Civilizations question deck for SmartN.
 
 Contains 25 fact-checked questions (sn_history_101 to sn_history_125) covering
 ancient civilizations, medieval monarchs, Roman emperors, US Presidents,

@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from gamerooms.models import Room
 from smartn.game_state import (
+    add_offline_player,
     add_player,
     change_player_color,
     create_game,
@@ -15,6 +16,7 @@ from smartn.game_state import (
     get_game,
     get_sanitized_player_view,
     host_arbitrate,
+    kick_player,
     pass_turn,
     pick_capsule,
     process_chat_answer,
@@ -125,6 +127,54 @@ class TestSmartNGameState:
         assert ok_col is True
         state = get_game(self.code)
         assert state["players"][0]["color"] == "#ef4444"
+
+    def test_add_offline_player_and_single_device_pass_turn(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+
+        # Toggle single device mode
+        ok, msg, state = update_settings(self.code, {"mode": "single_device"})
+        assert ok is True
+        assert state["settings"]["mode"] == "single_device"
+
+        # Add offline player Bob
+        ok_bob, msg_bob, state = add_offline_player(self.code, "Bob")
+        assert ok_bob is True
+        bob = find_player_by_name(state, "Bob")
+        assert bob is not None
+        assert bob["is_offline"] is True
+        assert bob["connected"] is True
+        assert bob["color"] != p1["color"]
+
+        # Duplicate name rejected
+        ok_dup, msg_dup, _ = add_offline_player(self.code, "bob")
+        assert ok_dup is False
+        assert "already in the game" in msg_dup
+
+        # Add offline player Charlie
+        ok_char, _, state = add_offline_player(self.code, "Charlie")
+        assert ok_char is True
+        assert len(state["players"]) == 3
+
+        # Start match
+        ok_start, _, state = start_game(self.code)
+        assert ok_start is True
+        assert len(state["turn_order"]) == 3
+
+        # In single device mode, current device holder can act on behalf of whichever player's turn it is
+        cur_pid = state["current_player_id"]
+        # Pass turn for current player
+        ok_pass, _, state = pass_turn(self.code, p1["id"])
+        assert ok_pass is True
+        assert state["player_statuses"][cur_pid] == "passed"
+        assert state["current_player_id"] != cur_pid
+
+        # Kick / remove offline player Charlie
+        charlie = find_player_by_name(state, "Charlie")
+        ok_kick, _, state = kick_player(self.code, charlie["id"])
+        assert ok_kick is True
+        assert find_player_by_name(state, "Charlie") is None
+        assert charlie["id"] not in state["turn_order"]
 
     def test_start_game_and_turn_rotation(self):
         state = create_game(self.code, host_name="Alice")

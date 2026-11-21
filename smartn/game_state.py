@@ -1,4 +1,4 @@
-"""SmartN (Smart 10 Trivia) Game State Engine.
+"""SmartN Game State Engine.
 
 Redis-backed state machine and game logic:
 - Zero-spoiler sanitization for secret answers
@@ -238,6 +238,62 @@ def add_player(
     return state, player, True
 
 
+def add_offline_player(code: str, name: str, color: str | None = None) -> tuple[bool, str, dict[str, Any] | None]:
+    """Add an offline player to the room roster for Single Device / Couch Pass & Play mode."""
+    state = get_game(code)
+    if not state:
+        return False, "Room not found.", None
+
+    clean_name = " ".join(str(name or "").strip().split())[:30]
+    if not clean_name:
+        return False, "Please enter a valid player name.", state
+
+    players = state.setdefault("players", [])
+    if len(players) >= 20:
+        return False, "Room is full (maximum 20 players).", state
+
+    if any(p["name"].strip().lower() == clean_name.lower() for p in players):
+        return False, f"A player named '{clean_name}' is already in the game.", state
+
+    p_color = color or assign_distinct_player_color(players)
+    new_pid = f"offline_{len(players) + 1}_{uuid.uuid4().hex[:6]}"
+    p_token = f"tok_off_{uuid.uuid4().hex[:10]}"
+
+    player = {
+        "id": new_pid,
+        "token": p_token,
+        "name": clean_name,
+        "is_admin": False,
+        "is_offline": True,
+        "color": p_color,
+        "initials": get_player_initials(clean_name),
+        "score": 0,
+        "connected": True,
+        "is_spectator": False,
+        "channel_name": None,
+    }
+    players.append(player)
+
+    # If the match is already playing, seamlessly slot the new offline player into turn order
+    if state.get("phase") == "playing":
+        turn_order = state.setdefault("turn_order", [])
+        if new_pid not in turn_order:
+            turn_order.append(new_pid)
+        state.setdefault("player_statuses", {})[new_pid] = "active"
+        state.setdefault("round_baskets", {})[new_pid] = 0
+
+    append_event(
+        state,
+        "System",
+        f"🛋️ {clean_name} added as an offline couch player.",
+        player_id=new_pid,
+        color=p_color,
+        initials=player["initials"],
+    )
+    save_game(code, state)
+    return True, f"Added {clean_name}.", state
+
+
 def kick_player(code: str, player_id: str) -> tuple[bool, str, dict[str, Any] | None]:
     state = get_game(code)
     if not state:
@@ -297,10 +353,12 @@ def update_settings(code: str, new_settings: dict[str, Any]) -> tuple[bool, str,
     cfg = state.setdefault("settings", {})
     # Mode (single-device vs multi-device) can be changed at any time during match
     if "mode" in new_settings and new_settings["mode"] in ("multi_device", "single_device"):
-        cfg["mode"] = new_settings["mode"]
+        if cfg.get("mode") != new_settings["mode"]:
+            cfg["mode"] = new_settings["mode"]
+            desc = "Single Device Couch Mode (Pass & Play)" if cfg["mode"] == "single_device" else "Multi-Device Mode"
+            append_event(state, "System", f"📱 Play mode switched to {desc}.")
 
     if state["phase"] != "lobby":
-        append_event(state, "System", f"📱 Play mode switched to {cfg['mode']}.")
         save_game(code, state)
         return True, "Mode updated.", state
     if "pack" in new_settings:
@@ -532,7 +590,7 @@ def pick_capsule(
         pred_bool = pred_normalized in ("yes", "true", "y", "1")
         is_guess_correct = pred_bool == item_is_correct
     else:
-        # Standard Smart 10 rules: capsule is evaluated by its intrinsic correctness
+        # Standard SmartN rules: capsule is evaluated by its intrinsic correctness
         is_guess_correct = item_is_correct
 
     baskets = state.setdefault("round_baskets", {})

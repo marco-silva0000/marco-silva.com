@@ -1,4 +1,4 @@
-"""WebSocket consumer for real-time SmartN (Smart 10 Trivia) gameplay."""
+"""WebSocket consumer for real-time SmartN gameplay."""
 
 import logging
 from typing import Any
@@ -8,6 +8,7 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from gamerooms.models import create_user_prompt_suggestion
 from smartn.game_state import (
+    add_offline_player,
     add_player,
     append_event,
     change_player_color,
@@ -159,13 +160,34 @@ class SmartNConsumer(AsyncJsonWebsocketConsumer):
             else:
                 await self.send_json({"type": "error", "message": msg})
 
-        elif action == "update_settings" and is_admin:
-            settings_dict = content.get("settings") or {}
-            ok, msg, new_state = update_settings(self.code, settings_dict)
+        elif action == "add_offline_player":
+            name = str(content.get("name") or "").strip()
+            color = content.get("color")
+            ok, msg, new_state = add_offline_player(self.code, name=name, color=color)
             if ok:
                 await self.broadcast_sync()
             else:
                 await self.send_json({"type": "error", "message": msg})
+
+        elif action == "toggle_mode":
+            cur = state.get("settings", {}).get("mode", "multi_device")
+            next_mode = "single_device" if cur == "multi_device" else "multi_device"
+            ok, msg, new_state = update_settings(self.code, {"mode": next_mode})
+            if ok:
+                await self.broadcast_sync()
+            else:
+                await self.send_json({"type": "error", "message": msg})
+
+        elif action == "update_settings":
+            settings_dict = content.get("settings") or {}
+            is_mode_only = set(settings_dict.keys()) == {"mode"}
+            can_update = is_admin or is_mode_only or is_single_device
+            if can_update:
+                ok, msg, new_state = update_settings(self.code, settings_dict)
+                if ok:
+                    await self.broadcast_sync()
+                else:
+                    await self.send_json({"type": "error", "message": msg})
 
         elif action == "change_color":
             target_pid = (content.get("player_id") if is_admin else None) or self.player_id
@@ -175,7 +197,7 @@ class SmartNConsumer(AsyncJsonWebsocketConsumer):
                 if ok:
                     await self.broadcast_sync()
 
-        elif action == "kick_player" and is_admin:
+        elif action == "kick_player" and (is_admin or is_single_device):
             target_pid = str(content.get("player_id") or "").strip()
             if target_pid:
                 ok, msg, new_state = kick_player(self.code, target_pid)

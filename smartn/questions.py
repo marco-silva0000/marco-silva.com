@@ -1,4 +1,4 @@
-"""Curated question bank and deck definitions for SmartN (Smart 10 Trivia).
+"""Curated question bank and deck definitions for SmartN.
 
 Supports question types:
 - true_false: 10 items where each item is factually True or False for the given prompt.

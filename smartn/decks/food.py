@@ -1,4 +1,4 @@
-"""Food, Cooking & Culinary Arts question bank for SmartN (Smart 10 Trivia)."""
+"""Food, Cooking & Culinary Arts question bank for SmartN."""
 
 from typing import Any
 

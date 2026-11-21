@@ -1,4 +1,4 @@
-"""Science, Nature, Space & Biology question deck for SmartN (Smart 10 Trivia).
+"""Science, Nature, Space & Biology question deck for SmartN.
 
 Contains 25 fact-checked questions (sn_science_101 to sn_science_125) covering:
 - Chemical elements & the Periodic Table (noble gases, halogens, liquid elements, atomic numbers)

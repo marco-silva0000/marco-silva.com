@@ -1,4 +1,4 @@
-"""Sports, Rules, Athletes & Games question pack for SmartN (Smart 10 Trivia).
+"""Sports, Rules, Athletes & Games question pack for SmartN.
 
 Contains 25 fact-checked questions (sn_sports_101 to sn_sports_125) covering:
 - Olympic sports & Summer/Winter disciplines

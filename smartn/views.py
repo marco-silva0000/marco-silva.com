@@ -1,4 +1,4 @@
-"""Views for SmartN (Smart 10 Trivia) gameplay, QR codes, and seat reconnects."""
+"""Views for SmartN gameplay, QR codes, and seat reconnects."""
 
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render

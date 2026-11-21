@@ -1,4 +1,4 @@
-"""Geography question deck for SmartN (Smart 10 Trivia).
+"""Geography question deck for SmartN.
 
 Contains 25 curated, fact-checked geography questions (sn_geo_101 to sn_geo_125)
 spanning world capitals, land borders, island nations, mountain ranges, rivers,

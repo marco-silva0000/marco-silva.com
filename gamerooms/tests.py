@@ -422,7 +422,6 @@ class TestRoomLanguageAndImpostorRouting:
         assert "Rank It!" in html
         assert "ito" in html
         assert "SmartN" in html
-        assert "Smart 10" in html
         assert "game=rankit" in html
         assert "game=smartn" in html
         assert "Coop Spectrum" in html

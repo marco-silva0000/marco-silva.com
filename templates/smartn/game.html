@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block title %}SmartN (Smart 10 Trivia) — {{ room.code }}{% endblock %}
+{% block title %}SmartN — {{ room.code }}{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
@@ -141,6 +141,80 @@
   }
   .sn-btn-danger:hover:not(:disabled) {
     background: #dc2626;
+  }
+
+  .sn-btn-accent {
+    background: #f59e0b;
+    color: #0f172a;
+    border: 1px solid #fbbf24;
+    font-weight: 700;
+  }
+  .sn-btn-accent:hover:not(:disabled) {
+    background: #d97706;
+    color: #ffffff;
+  }
+
+  /* Play Mode Selector Cards */
+  .mode-select-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .mode-select-card {
+    background: #0f172a;
+    border: 2px solid var(--sn-border);
+    border-radius: 14px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    position: relative;
+    user-select: none;
+  }
+
+  .mode-select-card:hover {
+    border-color: #64748b;
+    transform: translateY(-2px);
+  }
+
+  .mode-select-card.active {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.08);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+  }
+
+  .mode-select-card.active::after {
+    content: "✓ ACTIVE";
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  .sn-remove-btn {
+    background: transparent;
+    border: 1px solid #ef444455;
+    color: #f87171;
+    border-radius: 6px;
+    padding: 0.1rem 0.45rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.15s ease;
+  }
+
+  .sn-remove-btn:hover {
+    background: #ef4444;
+    color: #ffffff;
+    border-color: #ef4444;
   }
 
   /* Tactile Smartbox 3D Container */
@@ -547,8 +621,8 @@
 
     <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
       <!-- Single Device toggle button -->
-      <button type="button" class="sn-btn sn-btn-secondary" style="padding:0.4rem 0.75rem; font-size:0.8rem;" onclick="toggleSingleDeviceMode()" title="{% trans 'Switch between Couch Pass & Play and Multi-Device' %}">
-        📱 <span id="lbl-toggle-mode">{% trans "Single Device" %}</span>
+      <button type="button" id="btn-topbar-mode" class="sn-btn sn-btn-secondary" style="padding:0.4rem 0.75rem; font-size:0.8rem;" onclick="toggleSingleDeviceMode()" title="{% trans 'Switch between Couch Pass & Play and Multi-Device' %}">
+        <span id="lbl-toggle-mode">📱 {% trans "Couch: OFF" %}</span>
       </button>
 
       <!-- GM Drawer toggle (Hidden in couch mode) -->
@@ -593,6 +667,52 @@
     <h2 style="font-size:1.35rem; font-weight:800; margin:0 0 1rem 0; display:flex; align-items:center; gap:0.5rem;">
       <span>💡</span> {% trans "SmartN Game Lobby" %}
     </h2>
+
+    <!-- Play Mode Selector (Multi-Device vs Single Device Couch Pass & Play) -->
+    <div style="margin-bottom:1.25rem;">
+      <div style="font-size:0.85rem; font-weight:700; color:var(--sn-muted); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.04em;">
+        🎮 {% trans "Choose Play Mode" %}
+      </div>
+      <div class="mode-select-grid">
+        <!-- Multi-Device Option -->
+        <div id="card-mode-multi" class="mode-select-card active" onclick="setPlayMode('multi_device')" role="button" tabindex="0">
+          <div style="font-size:1.1rem; font-weight:800; margin-bottom:0.25rem; display:flex; align-items:center; gap:0.4rem;">
+            <span>🌐</span> {% trans "Multi-Device" %}
+          </div>
+          <p style="font-size:0.82rem; color:var(--sn-muted); margin:0; line-height:1.4;">
+            {% trans "Everyone joins on their own phone or laptop via room code / QR. Each player acts on their own screen." %}
+          </p>
+        </div>
+
+        <!-- Single Device Couch Mode Option -->
+        <div id="card-mode-single" class="mode-select-card" onclick="setPlayMode('single_device')" role="button" tabindex="0">
+          <div style="font-size:1.1rem; font-weight:800; margin-bottom:0.25rem; display:flex; align-items:center; gap:0.4rem; color:#f59e0b;">
+            <span>🛋️</span> {% trans "Couch Pass & Play" %}
+          </div>
+          <p style="font-size:0.82rem; color:var(--sn-muted); margin:0; line-height:1.4;">
+            {% trans "Play together on this single device! Pass it around like the physical Smartbox wheel. Add couch players below." %}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD OFFLINE / COUCH PLAYERS BOX -->
+    <div id="box-add-offline" style="margin-bottom:1.25rem; background:#1e1b4b; border:1px solid #6366f1; border-radius:14px; padding:1rem 1.25rem; transition:all 0.2s ease;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem; flex-wrap:wrap; gap:0.5rem;">
+        <div style="font-weight:700; font-size:0.95rem; color:#a5b4fc; display:flex; align-items:center; gap:0.4rem;">
+          <span>🛋️</span> {% trans "Add Couch Player" %}
+        </div>
+        <span style="font-size:0.75rem; color:#c7d2fe;">
+          {% trans "No phone or extra account needed — plays directly on this device!" %}
+        </span>
+      </div>
+      <form id="form-add-offline" onsubmit="onAddOfflinePlayerSubmit(event)" style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <input type="text" id="input-offline-name" maxlength="20" placeholder="{% trans 'Enter player name (e.g. Alice, Bob, Dad)' %}" class="sn-btn sn-btn-secondary" style="flex:1; min-width:200px; text-align:left; background:#0f172a;" autocomplete="off" required>
+        <button type="submit" class="sn-btn sn-btn-accent" style="white-space:nowrap;">
+          ➕ {% trans "Add Couch Player" %}
+        </button>
+      </form>
+    </div>
 
     <!-- Settings Panel (Host editable, others see read-only) -->
     <div style="background:#0f172a; border:1px solid var(--sn-border); border-radius:14px; padding:1.25rem; margin-bottom:1.25rem;">
@@ -838,6 +958,18 @@
     <button type="button" class="sn-btn sn-btn-secondary" onclick="resetGameClick()" style="justify-content:flex-start;">
       🔄 {% trans "Return to Lobby" %}
     </button>
+
+    <div style="margin-top:0.5rem; padding-top:0.75rem; border-top:1px solid var(--sn-border);">
+      <label for="drawer-offline-name" style="display:block; font-size:0.78rem; font-weight:700; color:#a5b4fc; margin-bottom:0.35rem;">
+        🛋️ {% trans "Add Couch Player Mid-Match" %}
+      </label>
+      <form onsubmit="onAddOfflinePlayerFromDrawer(event)" style="display:flex; gap:0.4rem;">
+        <input type="text" id="drawer-offline-name" maxlength="20" placeholder="{% trans 'Player name' %}" class="sn-btn sn-btn-secondary" style="flex:1; min-width:0; text-align:left; background:#0f172a; font-size:0.8rem; padding:0.35rem 0.5rem;" autocomplete="off" required>
+        <button type="submit" class="sn-btn sn-btn-accent" style="padding:0.35rem 0.65rem; font-size:0.85rem;" title="{% trans 'Add Player' %}">
+          ➕
+        </button>
+      </form>
+    </div>
   </div>
 </div>
 
@@ -1067,6 +1199,7 @@
     const phaseBadge = document.getElementById("badge-phase");
     const modeBadge = document.getElementById("badge-mode");
     const modeToggleLabel = document.getElementById("lbl-toggle-mode");
+    const modeBtn = document.getElementById("btn-topbar-mode");
 
     const phase = gameState.phase || "lobby";
     if (phase === "lobby") phaseBadge.textContent = "⏳ {% trans 'Lobby' %}";
@@ -1076,11 +1209,29 @@
 
     const isSingle = gameState.settings && gameState.settings.mode === "single_device";
     if (isSingle) {
-      modeBadge.textContent = "📱 {% trans 'Single Device (Pass)' %}";
-      modeToggleLabel.textContent = "{% trans 'Multi-Device' %}";
+      modeBadge.textContent = "🛋️ {% trans 'Single Device (Couch)' %}";
+      modeBadge.className = "sn-badge";
+      modeBadge.style.background = "#f59e0b33";
+      modeBadge.style.color = "#fef08a";
+      modeBadge.style.border = "1px solid #f59e0b66";
+
+      if (modeToggleLabel) modeToggleLabel.innerHTML = "🛋️ <b>{% trans 'Couch: ON' %}</b>";
+      if (modeBtn) {
+        modeBtn.className = "sn-btn sn-btn-accent";
+        modeBtn.title = "{% trans 'Couch Pass & Play is ON. Click to switch to Multi-Device.' %}";
+      }
     } else {
       modeBadge.textContent = "📱 {% trans 'Multi-Device' %}";
-      modeToggleLabel.textContent = "{% trans 'Single Device' %}";
+      modeBadge.className = "sn-badge sn-badge-mode";
+      modeBadge.style.background = "";
+      modeBadge.style.color = "";
+      modeBadge.style.border = "";
+
+      if (modeToggleLabel) modeToggleLabel.innerHTML = "📱 {% trans 'Couch: OFF' %}";
+      if (modeBtn) {
+        modeBtn.className = "sn-btn sn-btn-secondary";
+        modeBtn.title = "{% trans 'Multi-Device is ON. Click to switch to Single Device Couch Mode.' %}";
+      }
     }
   }
 
@@ -1120,6 +1271,34 @@
 
   function renderLobbySettings() {
     const cfg = gameState.settings || {};
+    const isSingle = cfg.mode === "single_device";
+
+    const cardMulti = document.getElementById("card-mode-multi");
+    const cardSingle = document.getElementById("card-mode-single");
+    const boxOffline = document.getElementById("box-add-offline");
+
+    if (cardMulti && cardSingle) {
+      if (isSingle) {
+        cardSingle.classList.add("active");
+        cardMulti.classList.remove("active");
+      } else {
+        cardMulti.classList.add("active");
+        cardSingle.classList.remove("active");
+      }
+    }
+
+    if (boxOffline) {
+      if (isSingle) {
+        boxOffline.style.borderColor = "#f59e0b";
+        boxOffline.style.background = "#1e1b4b";
+        boxOffline.style.boxShadow = "0 0 15px rgba(245, 158, 11, 0.15)";
+      } else {
+        boxOffline.style.borderColor = "#475569";
+        boxOffline.style.background = "#0f172a";
+        boxOffline.style.boxShadow = "none";
+      }
+    }
+
     const packEl = document.getElementById("cfg-pack");
     const scoringEl = document.getElementById("cfg-yes-no-scoring");
     const countEl = document.getElementById("cfg-count-filter");
@@ -1132,7 +1311,7 @@
 
     const hostActions = document.getElementById("lobby-host-actions");
     const guestWait = document.getElementById("lobby-guest-wait");
-    if (IS_ADMIN) {
+    if (IS_ADMIN || isSingle) {
       hostActions.style.display = "flex";
       guestWait.style.display = "none";
       if (packEl) packEl.disabled = false;
@@ -1273,6 +1452,7 @@
     const curPid = gameState.current_player_id;
     const statuses = gameState.player_statuses || {};
     const baskets = gameState.round_baskets || {};
+    const isSingle = gameState.settings && gameState.settings.mode === "single_device";
 
     document.getElementById("lbl-roster-count").textContent = players.length;
 
@@ -1281,6 +1461,7 @@
       const isCur = p.id === curPid && gameState.phase === "playing";
       const status = statuses[p.id] || "active";
       const basketPts = baskets[p.id] || 0;
+      const isOffline = !!p.is_offline;
 
       let statusBadge = "";
       if (gameState.phase === "playing") {
@@ -1288,6 +1469,15 @@
         else if (status === "passed") statusBadge = `<span class="sn-badge" style="background:#10b98133; color:#6ee7b7;">🔒 PASS</span>`;
         else if (isCur) statusBadge = `<span class="sn-badge" style="background:#0284c733; color:#38bdf8;">👉 PICK</span>`;
       }
+
+      const couchBadge = isOffline
+        ? `<span class="sn-badge" style="background:#6366f133; color:#a5b4fc; border:1px solid #6366f166; font-size:0.7rem; padding:0.1rem 0.4rem;">🛋️ Couch</span>`
+        : "";
+
+      const canRemove = !p.is_admin && (IS_ADMIN || isSingle || isOffline || gameState.phase === "lobby");
+      const removeBtn = canRemove
+        ? `<button type="button" class="sn-remove-btn" onclick="removePlayer('${p.id}', '${escapeHtml(p.name)}')" title="{% trans 'Remove player' %}">&times;</button>`
+        : "";
 
       const avatarHtml = renderPlayerAvatarHtml(p, "player-avatar-sm");
 
@@ -1298,15 +1488,20 @@
               ${avatarHtml}
             </div>
             <div style="min-width:0; overflow:hidden;">
-              <div style="font-weight:700; font-size:0.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                ${escapeHtml(p.name)} ${p.is_admin ? '👑' : ''}
+              <div style="font-weight:700; font-size:0.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:flex; align-items:center; gap:0.35rem;">
+                <span>${escapeHtml(p.name)}</span>
+                ${p.is_admin ? '<span title="Host">👑</span>' : ''}
+                ${couchBadge}
               </div>
               <div style="font-size:0.75rem; color:var(--sn-muted);">
                 ${p.score || 0} pts ${basketPts > 0 ? `(+${basketPts})` : ''}
               </div>
             </div>
           </div>
-          <div>${statusBadge}</div>
+          <div style="display:flex; align-items:center; gap:0.4rem;">
+            ${statusBadge}
+            ${removeBtn}
+          </div>
         </div>
       `;
     };
@@ -1428,12 +1623,53 @@
     wsSend({ action: "reset_game" });
   }
 
+  function setPlayMode(mode) {
+    wsSend({
+      action: "toggle_mode",
+      mode: mode
+    });
+  }
+
   function toggleSingleDeviceMode() {
     const cur = gameState.settings && gameState.settings.mode === "single_device";
     const nextMode = cur ? "multi_device" : "single_device";
+    setPlayMode(nextMode);
+  }
+
+  function onAddOfflinePlayerSubmit(event) {
+    if (event) event.preventDefault();
+    const input = document.getElementById("input-offline-name");
+    if (!input) return;
+    const name = input.value.trim();
+    if (!name) return;
+
     wsSend({
-      action: "update_settings",
-      settings: { mode: nextMode }
+      action: "add_offline_player",
+      name: name
+    });
+    input.value = "";
+    input.focus();
+  }
+
+  function onAddOfflinePlayerFromDrawer(event) {
+    if (event) event.preventDefault();
+    const input = document.getElementById("drawer-offline-name");
+    if (!input) return;
+    const name = input.value.trim();
+    if (!name) return;
+
+    wsSend({
+      action: "add_offline_player",
+      name: name
+    });
+    input.value = "";
+  }
+
+  function removePlayer(playerId, playerName) {
+    if (!confirm(`{% trans 'Remove player' %} "${playerName}"?`)) return;
+    wsSend({
+      action: "kick_player",
+      player_id: playerId
     });
   }
 

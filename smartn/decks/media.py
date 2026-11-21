@@ -1,4 +1,4 @@
-"""Cinema, Movies, TV & Pop Culture question bank for SmartN (Smart 10 Trivia).
+"""Cinema, Movies, TV & Pop Culture question bank for SmartN.
 
 Contains 25 fact-checked questions (sn_media_101 to sn_media_125) with 10 items each.
 """

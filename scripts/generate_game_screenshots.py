@@ -386,7 +386,7 @@ def capture_rankit(browser, base_url, out_dir, devices):
 
 
 def capture_smartn(browser, base_url, out_dir, devices):
-    """Capture SmartN (Smart 10 Trivia) screens (Creation, Lobby, Playing with Smartbox & Capsules, Single Device Mode)."""
+    """Capture SmartN screens (Creation, Lobby, Playing with Smartbox & Capsules, Single Device Mode)."""
     sn_dir = out_dir / "smartn"
     sn_dir.mkdir(parents=True, exist_ok=True)
     print(f"[*] Capturing SmartN ({len(devices)} devices)...")
@@ -425,6 +425,19 @@ def capture_smartn(browser, base_url, out_dir, devices):
             page.screenshot(path=str(lobby_path))
             print(f"    -> Saved {lobby_path.name}")
 
+            # 2b. Add an offline couch player & activate Couch Mode
+            try:
+                page.click("#card-mode-single")
+                time.sleep(0.3)
+                page.fill("#input-offline-name", "Bob")
+                page.click('#form-add-offline button[type="submit"]')
+                time.sleep(0.5)
+                couch_lobby_path = sn_dir / f"smartn_couch_lobby_{d_key}.png"
+                page.screenshot(path=str(couch_lobby_path))
+                print(f"    -> Saved {couch_lobby_path.name}")
+            except Exception as e_couch:
+                print(f"    [!] Note on couch setup: {e_couch}")
+
             # 3. Start Match -> The Smartbox with 10 Capsules
             try:
                 page.click('button:has-text("Start SmartN Match")')
@@ -444,9 +457,7 @@ def capture_smartn(browser, base_url, out_dir, devices):
                     page.screenshot(path=str(opened_path))
                     print(f"    -> Saved {opened_path.name}")
 
-                # 5. Switch to Single Device Pass & Play mode
-                page.click("#lbl-toggle-mode")
-                time.sleep(0.5)
+                # 5. Single Device Pass & Play mode banner capture
                 single_path = sn_dir / f"smartn_single_device_{d_key}.png"
                 page.screenshot(path=str(single_path))
                 print(f"    -> Saved {single_path.name}")
