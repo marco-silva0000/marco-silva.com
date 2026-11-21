@@ -8,9 +8,11 @@ Redis-backed state machine and game logic:
 - Chat answer parsing and host arbitration
 """
 
+import copy
 import json
 import logging
 import random
+import re
 import time
 import uuid
 from typing import Any
@@ -410,7 +412,14 @@ def _deal_next_card(state: dict[str, Any]) -> dict[str, Any] | None:
     if not available:
         available = SMARTN_QUESTIONS
 
-    selected = random.choice(available)
+    selected = copy.deepcopy(random.choice(available))
+    if selected.get("type") == "order":
+        # Shuffle order items so display slots 1..N do not match the rank sequence
+        items = selected.get("items", [])
+        random.shuffle(items)
+        for idx, item in enumerate(items, 1):
+            item["slot"] = idx
+
     state.setdefault("used_question_ids", []).append(selected["id"])
     return selected
 
@@ -507,14 +516,18 @@ def _finish_round(state: dict[str, Any]) -> None:
     for it in items:
         s_str = str(it["slot"])
         if s_str not in revealed:
+            it_val = it["value"]
+            if card.get("type") == "order" and not str(it_val).startswith("#"):
+                it_val = f"#{it_val}"
             revealed[s_str] = {
                 "slot": it["slot"],
                 "label": it["label"],
-                "value": it["value"],
+                "value": it_val,
                 "is_correct": it["is_correct"],
                 "revealed_by": "Board",
                 "revealed_result": "unpicked",
                 "explanation": it.get("explanation", ""),
+                "guessed_value": None,
             }
 
     # 3. Check for victory
@@ -581,10 +594,16 @@ def pick_capsule(
 
     # Evaluate answer correctness
     yes_no_scoring = state.get("settings", {}).get("yes_no_scoring", "standard")
-    is_true_false = card.get("type") == "true_false"
+    card_type = card.get("type")
+    is_true_false = card_type == "true_false"
+    is_order = card_type == "order"
     item_is_correct = bool(target_item.get("is_correct"))
 
-    if is_true_false and yes_no_scoring == "prediction":
+    if is_order:
+        pred_clean = str(prediction or "").strip().lstrip("#")
+        actual_val = str(target_item.get("value") or "").strip().lstrip("#")
+        is_guess_correct = bool(pred_clean and pred_clean == actual_val)
+    elif is_true_false and yes_no_scoring == "prediction":
         # Player made an explicit prediction (Yes/True or No/False)
         pred_normalized = (prediction or "yes").strip().lower()
         pred_bool = pred_normalized in ("yes", "true", "y", "1")
@@ -596,40 +615,54 @@ def pick_capsule(
     baskets = state.setdefault("round_baskets", {})
     statuses = state.setdefault("player_statuses", {})
 
+    target_val = target_item["value"]
+    if is_order and not str(target_val).startswith("#"):
+        disp_val = f"#{target_val}"
+    else:
+        disp_val = target_val
+
     if is_guess_correct:
         revealed[s_str] = {
             "slot": slot,
             "label": target_item["label"],
-            "value": target_item["value"],
+            "value": disp_val,
             "is_correct": True,
             "revealed_by": active_turn_player["name"],
             "revealed_result": "correct",
             "explanation": target_item.get("explanation", ""),
+            "guessed_value": prediction,
         }
         baskets[turn_pid] = baskets.get(turn_pid, 0) + 1
+        rank_detail = f" as {disp_val}" if is_order else ""
         append_event(
             state,
             "System",
-            f"✅ {active_turn_player['name']} opened #{slot} ({target_item['label']}): CORRECT! (+1 round pt, basket: {baskets[turn_pid]})",
+            f"✅ {active_turn_player['name']} opened #{slot} ({target_item['label']}){rank_detail}: CORRECT! (+1 round pt, basket: {baskets[turn_pid]})",
             kind="correct",
         )
     else:
         revealed[s_str] = {
             "slot": slot,
             "label": target_item["label"],
-            "value": target_item["value"],
+            "value": disp_val,
             "is_correct": False,
             "revealed_by": active_turn_player["name"],
             "revealed_result": "wrong",
             "explanation": target_item.get("explanation", ""),
+            "guessed_value": prediction,
         }
         lost_pts = baskets.get(turn_pid, 0)
         baskets[turn_pid] = 0
         statuses[turn_pid] = "busted"
+        if is_order and prediction:
+            pred_disp = f"#{str(prediction).lstrip('#')}"
+            detail = f"guessed {pred_disp}, actual is {disp_val}"
+        else:
+            detail = f"actual is {disp_val}"
         append_event(
             state,
             "System",
-            f"💥 BUST! {active_turn_player['name']} opened #{slot} ({target_item['label']}): WRONG! Lost {lost_pts} round pts and is OUT for this card.",
+            f"💥 BUST! {active_turn_player['name']} opened #{slot} ({target_item['label']}): WRONG ({detail})! Lost {lost_pts} round pts and is OUT for this card.",
             kind="bust",
         )
 
@@ -709,14 +742,20 @@ def host_arbitrate(
     target_player = next((p for p in state.get("players", []) if p["id"] == target_player_id), None)
     revealed_by_name = target_player["name"] if target_player else "Host Override"
 
+    if card.get("type") == "order" and not str(target_item["value"]).startswith("#"):
+        disp_val = f"#{target_item['value']}"
+    else:
+        disp_val = target_item["value"]
+
     revealed[s_str] = {
         "slot": slot,
         "label": target_item["label"],
-        "value": target_item["value"],
+        "value": disp_val,
         "is_correct": mark_correct,
         "revealed_by": revealed_by_name,
         "revealed_result": "correct" if mark_correct else "wrong",
         "explanation": target_item.get("explanation", ""),
+        "guessed_value": None,
     }
 
     if target_player:
@@ -762,32 +801,56 @@ def process_chat_answer(code: str, player_id: str, text: str) -> tuple[bool, str
     card = state.get("card") or {}
     items = card.get("items", [])
     revealed = state.get("revealed_capsules", {})
+    is_order = card.get("type") == "order"
 
     unrevealed_items = [it for it in items if str(it["slot"]) not in revealed]
     matched_item = None
+    prediction = None
+
+    clean_to_match = clean
+    if is_order:
+        # Extract rank number 1..20 (e.g. '#1', '1', 'rank 2')
+        rank_match = re.search(r"(?:^|\s|#|rank\s*)([1-9]|1[0-9]|20)(?:$|\s)", clean)
+        if rank_match:
+            prediction = rank_match.group(1)
+            # Remove the matched rank token so remaining text can be matched to slot or label
+            clean_to_match = re.sub(r"(?:^|\s|#|rank\s*)" + re.escape(prediction) + r"(?:$|\s)", " ", clean).strip()
 
     for it in unrevealed_items:
-        # Check slot number (e.g. "slot 1" or "#1" or "1")
-        if clean in (str(it["slot"]), f"#{it['slot']}", f"slot {it['slot']}"):
+        slot_str = str(it["slot"])
+        slot_patterns = (slot_str, f"#{slot_str}", f"slot {slot_str}")
+
+        if clean_to_match in slot_patterns or clean in slot_patterns:
             matched_item = it
             break
-        # Check label
-        if clean == it["label"].strip().lower() or clean in it["label"].strip().lower():
+
+        label_lower = it["label"].strip().lower()
+        if (
+            clean_to_match == label_lower
+            or (clean_to_match and clean_to_match in label_lower)
+            or clean == label_lower
+            or clean in label_lower
+        ):
             matched_item = it
             break
-        # Check aliases
+
         aliases = [a.lower() for a in it.get("aliases", [])]
-        if clean in aliases:
+        if is_order:
+            aliases = [a for a in aliases if not a.isdigit()]
+        if clean_to_match in aliases or clean in aliases:
             matched_item = it
             break
 
     if not matched_item:
         return False, "No matching unrevealed capsule found.", state
 
-    # Found a matching capsule! Try picking it
-    prediction = "yes"
-    if "no" in clean or "false" in clean:
-        prediction = "no"
+    if is_order:
+        if not prediction:
+            return False, "Please specify a rank position (e.g. 'nile 1')", state
+    else:
+        prediction = "yes"
+        if "no" in clean or "false" in clean:
+            prediction = "no"
 
     return pick_capsule(code, player_id, matched_item["slot"], prediction=prediction)
 
@@ -894,25 +957,30 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: str | None = Non
                 {
                     "slot": it["slot"],
                     "label": it["label"],
-                    "value": it["value"],
+                    "value": rev.get("value", it["value"]),
                     "is_correct": rev["is_correct"],
                     "revealed": True,
                     "revealed_by": rev.get("revealed_by"),
                     "revealed_result": rev.get("revealed_result"),
                     "explanation": rev.get("explanation", ""),
+                    "guessed_value": rev.get("guessed_value"),
                 }
             )
         elif is_revealed_all:
+            val = it["value"]
+            if card.get("type") == "order" and not str(val).startswith("#"):
+                val = f"#{val}"
             sanitized_capsules.append(
                 {
                     "slot": it["slot"],
                     "label": it["label"],
-                    "value": it["value"],
+                    "value": val,
                     "is_correct": it["is_correct"],
                     "revealed": True,
                     "revealed_by": "Board",
                     "revealed_result": "unpicked",
                     "explanation": it.get("explanation", ""),
+                    "guessed_value": None,
                 }
             )
         else:
@@ -927,6 +995,7 @@ def get_sanitized_player_view(state: dict[str, Any], viewer_id: str | None = Non
                     "revealed_by": None,
                     "revealed_result": None,
                     "explanation": None,
+                    "guessed_value": None,
                 }
             )
 

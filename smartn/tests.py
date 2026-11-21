@@ -438,6 +438,124 @@ class TestSmartNGameState:
         assert cap2["is_correct"] is True
         assert cap2["explanation"] == "Public fact"
 
+    def test_order_mode_rank_prediction(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+        state, p2, _ = add_player(self.code, name="Bob")
+
+        known_card = {
+            "id": "test_order",
+            "pack": "geo",
+            "prompt": "Rivers by Length (1 = Longest)",
+            "type": "order",
+            "n": 3,
+            "items": [
+                {
+                    "slot": 1,
+                    "label": "Amazon River",
+                    "value": "2",
+                    "is_correct": True,
+                    "aliases": ["amazon"],
+                    "explanation": "#2 longest",
+                },
+                {
+                    "slot": 2,
+                    "label": "Nile River",
+                    "value": "1",
+                    "is_correct": True,
+                    "aliases": ["nile"],
+                    "explanation": "#1 longest",
+                },
+                {
+                    "slot": 3,
+                    "label": "Yangtze River",
+                    "value": "3",
+                    "is_correct": True,
+                    "aliases": ["yangtze"],
+                    "explanation": "#3 longest",
+                },
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = known_card
+        state["turn_order"] = [p1["id"], p2["id"]]
+        state["current_player_id"] = p1["id"]
+        state["player_statuses"] = {p1["id"]: "active", p2["id"]: "active"}
+        state["round_baskets"] = {p1["id"]: 0, p2["id"]: 0}
+        save_game(self.code, state)
+
+        # 1. P1 picks Slot 2 (Nile) with prediction "1" -> Correct rank!
+        ok, msg, state = pick_capsule(self.code, p1["id"], slot=2, prediction="1")
+        assert ok is True
+        assert state["round_baskets"][p1["id"]] == 1
+        assert state["player_statuses"][p1["id"]] == "active"
+        assert state["revealed_capsules"]["2"]["value"] == "#1"
+        assert state["revealed_capsules"]["2"]["is_correct"] is True
+        assert state["current_player_id"] == p2["id"]
+
+        # 2. P2 picks Slot 1 (Amazon, actual is 2) with wrong prediction "3" -> BUST!
+        ok, msg, state = pick_capsule(self.code, p2["id"], slot=1, prediction="3")
+        assert ok is True
+        assert state["round_baskets"][p2["id"]] == 0
+        assert state["player_statuses"][p2["id"]] == "busted"
+        assert state["revealed_capsules"]["1"]["value"] == "#2"
+        assert state["revealed_capsules"]["1"]["is_correct"] is False
+        assert state["revealed_capsules"]["1"]["guessed_value"] == "3"
+
+        # 3. Duplicate pick on already revealed slot returns False (handled idempotently by consumer)
+        ok_dup, msg_dup, _ = pick_capsule(self.code, p1["id"], slot=1, prediction="2")
+        assert ok_dup is False
+        assert "already revealed" in msg_dup.lower()
+
+    def test_order_mode_chat_matching(self):
+        state = create_game(self.code, host_name="Alice")
+        state, p1, _ = add_player(self.code, name="Alice", is_admin=True)
+
+        known_card = {
+            "id": "test_order_chat",
+            "pack": "geo",
+            "prompt": "Rivers by Length",
+            "type": "order",
+            "n": 2,
+            "items": [
+                {
+                    "slot": 1,
+                    "label": "Amazon River",
+                    "value": "2",
+                    "is_correct": True,
+                    "aliases": ["amazon"],
+                    "explanation": "",
+                },
+                {
+                    "slot": 2,
+                    "label": "Nile River",
+                    "value": "1",
+                    "is_correct": True,
+                    "aliases": ["nile"],
+                    "explanation": "",
+                },
+            ],
+        }
+        state["phase"] = "playing"
+        state["card"] = known_card
+        state["turn_order"] = [p1["id"]]
+        state["current_player_id"] = p1["id"]
+        state["player_statuses"] = {p1["id"]: "active"}
+        state["round_baskets"] = {p1["id"]: 0}
+        save_game(self.code, state)
+
+        # Player types "nile 1" in chat
+        ok, msg, state = process_chat_answer(self.code, p1["id"], "nile 1")
+        assert ok is True
+        assert "2" in state["revealed_capsules"]
+        assert state["revealed_capsules"]["2"]["is_correct"] is True
+        assert state["round_baskets"][p1["id"]] == 1
+
+        # Player types "amazon" without rank -> rejected with helpful prompt
+        ok_no_rank, msg_no_rank, _ = process_chat_answer(self.code, p1["id"], "amazon")
+        assert ok_no_rank is False
+        assert "specify a rank" in msg_no_rank.lower()
+
     def test_match_victory_condition(self):
         state = create_game(self.code, host_name="Alice", settings={"target_score": 10})
         state, p1, _ = add_player(self.code, name="Alice", is_admin=True)

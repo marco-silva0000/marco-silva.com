@@ -94,12 +94,18 @@ class SmartNConsumer(AsyncJsonWebsocketConsumer):
             ok, msg, new_state = pick_capsule(self.code, self.player_id or "", slot, prediction=prediction)
             if ok:
                 await self.broadcast_sync()
+            elif "already revealed" in (msg or "").lower():
+                # Idempotent duplicate pick tap: resync current state without alerting error
+                await self.broadcast_sync()
             else:
                 await self.send_json({"type": "error", "message": msg})
 
         elif action == "pass_turn":
             ok, msg, new_state = pass_turn(self.code, self.player_id or "")
             if ok:
+                await self.broadcast_sync()
+            elif "already passed" in (msg or "").lower():
+                # Idempotent duplicate pass tap: resync current state without alerting error
                 await self.broadcast_sync()
             else:
                 await self.send_json({"type": "error", "message": msg})

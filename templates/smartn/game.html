@@ -372,6 +372,18 @@
     opacity: 0.85;
   }
 
+  .capsule-item.capsule-opening {
+    border-color: #38bdf8 !important;
+    transform: scale(0.98);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5) !important;
+    pointer-events: none !important;
+    animation: pulseOpening 0.6s infinite alternate ease-in-out;
+  }
+  @keyframes pulseOpening {
+    0% { transform: scale(0.98); border-color: #38bdf8; }
+    100% { transform: scale(1.02); border-color: #818cf8; }
+  }
+
   .capsule-slot-num {
     display: flex;
     align-items: center;
@@ -617,6 +629,38 @@
     border: none;
     cursor: pointer;
     flex: 1;
+  }
+
+  /* Order Rank Buttons */
+  .rank-btn {
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    padding: 0.75rem 0.25rem;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    border: 2px solid var(--sn-border);
+    outline: none;
+    user-select: none;
+  }
+  .rank-btn-available {
+    background: #0f172a;
+    border-color: #38bdf8;
+    color: #f8fafc;
+  }
+  .rank-btn-available:hover {
+    background: #38bdf8;
+    color: #0f172a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+  }
+  .rank-btn-claimed {
+    background: #1e293b;
+    border-color: #334155;
+    color: #64748b;
+    cursor: not-allowed;
+    opacity: 0.45;
+    text-decoration: line-through;
   }
 
   /* Host Menu Drawer */
@@ -1069,6 +1113,29 @@
   </div>
 </div>
 
+<!-- ORDER RANK SELECTION MODAL (Used when card.type == 'order') -->
+<div id="modal-order-rank" class="ds-modal" role="dialog" aria-modal="true" aria-labelledby="order-modal-title" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
+  <div style="background:#1e293b; border:1px solid var(--sn-border); border-radius:18px; max-width:440px; width:100%; padding:1.5rem; text-align:center; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+    <h3 id="order-modal-title" style="margin:0 0 0.35rem 0; font-size:1.2rem; font-weight:800; color:#f8fafc;">
+      {% trans "Select Rank / Position" %}
+    </h3>
+    <p id="order-modal-label" style="font-size:1.15rem; font-weight:800; color:#38bdf8; margin:0 0 0.4rem 0;">
+      Label
+    </p>
+    <p id="order-modal-prompt-hint" style="font-size:0.84rem; color:var(--sn-muted); margin:0 0 1.25rem 0;">
+      {% trans "Pick where you think this item ranks in sequence (1 to N)." %}
+    </p>
+
+    <div id="order-rank-buttons-grid" style="display:grid; grid-template-columns:repeat(5, 1fr); gap:0.55rem; margin-bottom:1.25rem;">
+      <!-- Populated dynamically: #1, #2, ... #N -->
+    </div>
+
+    <button type="button" class="sn-btn sn-btn-secondary" style="width:100%;" onclick="closeOrderRankModal()">
+      {% trans "Cancel" %}
+    </button>
+  </div>
+</div>
+
 <!-- HOST ARBITRATION MODAL -->
 <div id="modal-arbitration" class="ds-modal" role="dialog" aria-modal="true" aria-labelledby="arbitration-title" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:1rem;">
   <div style="background:#1e293b; border:1px solid var(--sn-border); border-radius:18px; max-width:440px; width:100%; padding:1.5rem; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
@@ -1192,6 +1259,7 @@
   let gameState = {{ initial_state_json|safe }};
   let ws = null;
   let activePendingSlot = null;
+  let isPickingSlot = false;
   const pendingWsQueue = [];
 
   // Initialize UI on load
@@ -1222,6 +1290,9 @@
     };
 
     ws.onmessage = (event) => {
+      isPickingSlot = false;
+      const passBtn = document.getElementById("btn-pass-turn");
+      if (passBtn) passBtn.disabled = false;
       try {
         const data = JSON.parse(event.data);
         if (data.type === "state") {
@@ -1248,6 +1319,9 @@
     };
 
     ws.onclose = () => {
+      isPickingSlot = false;
+      const passBtn = document.getElementById("btn-pass-turn");
+      if (passBtn) passBtn.disabled = false;
       console.warn("WebSocket disconnected. Reconnecting in 2s...");
       setTimeout(initWebSocket, 2000);
     };
@@ -1421,7 +1495,7 @@
     document.getElementById("smartbox-prompt-title").textContent = card.prompt || "Question Prompt";
 
     let hint = "{% trans 'Pick a covered capsule to test your answer!' %}";
-    if (card.type === "order") hint = "{% trans 'Order sequence 1 to 10 (chronological, height, or ranking)!' %}";
+    if (card.type === "order") hint = "{% trans 'Order sequence 1 to 10: Pick ANY capsule and select its predicted rank position!' %}";
     else if (card.type === "number") hint = "{% trans 'Guess the numeric value, year, or metric for each item!' %}";
     else if (card.type === "match") hint = "{% trans 'Match each item to its respective category or count!' %}";
     else if (card.type === "true_false" && gameState.settings.yes_no_scoring === "prediction") {
@@ -1454,11 +1528,20 @@
       } else {
         const isCorrect = c.is_correct;
         const icon = isCorrect ? "✅" : "💥";
-        const valText = c.value !== null && c.value !== undefined ? String(c.value) : (isCorrect ? "Yes" : "No");
+        let valText = c.value !== null && c.value !== undefined ? String(c.value) : (isCorrect ? "Yes" : "No");
+        if (card.type === "order" && !valText.startsWith("#")) {
+          valText = "#" + valText;
+        }
+        let guessDetail = "";
+        if (!isCorrect && c.guessed_value) {
+          const gv = String(c.guessed_value).startsWith("#") ? c.guessed_value : "#" + c.guessed_value;
+          guessDetail = ` <span style="font-size:0.75rem; color:#fca5a5; font-weight:normal;">(guessed ${escapeHtml(gv)})</span>`;
+        }
         secretHtml = `
           <div class="capsule-revealed-val" style="color:${isCorrect ? '#10b981' : '#ef4444'};">
             <span>${icon}</span>
             <span>${escapeHtml(valText)}</span>
+            ${guessDetail}
             ${c.revealed_by ? `<span style="font-size:0.75rem; color:#94a3b8; font-weight:normal;">(${escapeHtml(c.revealed_by)})</span>` : ''}
           </div>
         `;
@@ -1473,7 +1556,7 @@
         : "";
 
       return `
-        <div class="capsule-item ${stateClass}" onclick="onCapsuleClick(${c.slot}, ${c.revealed})">
+        <div class="capsule-item ${stateClass}" data-slot="${c.slot}" onclick="onCapsuleClick(${c.slot}, ${c.revealed})">
           <div class="capsule-slot-num">${c.slot}</div>
           <div class="capsule-content">
             <div class="capsule-label">${escapeHtml(c.label)}</div>
@@ -1654,35 +1737,123 @@
   }
 
   // --- ACTIONS & INTERACTIONS ---
+  function triggerDirectCapsulePick(slot, prediction) {
+    if (isPickingSlot) return;
+    isPickingSlot = true;
+
+    // 0ms Optimistic tactile visual feedback
+    const capEl = document.querySelector(`.capsule-item[data-slot="${slot}"]`);
+    if (capEl) {
+      capEl.classList.add("capsule-opening");
+      const coverText = capEl.querySelector(".capsule-secret-cover span:last-child");
+      if (coverText) {
+        coverText.textContent = "{% trans '⏳ Opening...' %}";
+      }
+    }
+
+    const payload = {
+      action: "pick_capsule",
+      slot: slot
+    };
+    if (prediction !== undefined && prediction !== null) {
+      payload.prediction = String(prediction);
+    }
+    wsSend(payload);
+
+    // Failsafe timer (3s) to restore responsiveness if packet drops
+    setTimeout(() => {
+      isPickingSlot = false;
+      if (capEl) capEl.classList.remove("capsule-opening");
+    }, 3000);
+  }
+
   function onCapsuleClick(slot, isRevealed) {
     if (isRevealed || gameState.phase !== "playing") return;
+    if (isPickingSlot) return;
+
+    const isSingle = gameState.settings && gameState.settings.mode === "single_device";
+    const curPid = gameState.current_player_id;
+    const isMyTurn = isSingle || (curPid === PLAYER_ID) || IS_ADMIN;
+    if (!isMyTurn) {
+      showToast("{% trans 'It is not your turn!' %}", "error");
+      return;
+    }
 
     const card = gameState.card || {};
     const scoring = gameState.settings && gameState.settings.yes_no_scoring;
+    const cap = (gameState.capsules || []).find(c => c.slot === slot);
 
-    if (card.type === "true_false" && scoring === "prediction") {
-      // Prompt prediction modal
+    if (card.type === "order") {
+      openOrderRankModal(slot, cap);
+    } else if (card.type === "true_false" && scoring === "prediction") {
       activePendingSlot = slot;
-      const cap = (gameState.capsules || []).find(c => c.slot === slot);
       document.getElementById("pred-modal-label").textContent = cap ? cap.label : `Capsule #${slot}`;
       document.getElementById("modal-prediction").style.display = "flex";
     } else {
-      // Direct pick
-      wsSend({
-        action: "pick_capsule",
-        slot: slot
-      });
+      triggerDirectCapsulePick(slot);
     }
+  }
+
+  function openOrderRankModal(slot, cap) {
+    activePendingSlot = slot;
+    const card = gameState.card || {};
+    const totalItems = card.n || (gameState.capsules || []).length || 10;
+
+    document.getElementById("order-modal-label").textContent = cap ? cap.label : `Capsule #${slot}`;
+    const promptHint = document.getElementById("order-modal-prompt-hint");
+    if (promptHint) {
+      promptHint.textContent = card.prompt || "{% trans 'Pick where you think this item ranks in sequence (1 to N).' %}";
+    }
+
+    // Determine which ranks are already claimed/revealed on the board
+    const claimedRanks = new Set();
+    (gameState.capsules || []).forEach(c => {
+      if (c.revealed && c.value !== null && c.value !== undefined) {
+        const valStr = String(c.value).replace("#", "").trim();
+        claimedRanks.add(valStr);
+      }
+    });
+
+    const grid = document.getElementById("order-rank-buttons-grid");
+    grid.innerHTML = "";
+    grid.style.gridTemplateColumns = totalItems > 6 ? "repeat(5, 1fr)" : `repeat(${totalItems}, 1fr)`;
+
+    for (let r = 1; r <= totalItems; r++) {
+      const rStr = String(r);
+      const isClaimed = claimedRanks.has(rStr);
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = `#${r}`;
+      btn.className = isClaimed ? "rank-btn rank-btn-claimed" : "rank-btn rank-btn-available";
+      if (isClaimed) {
+        btn.disabled = true;
+        btn.title = "{% trans 'Position already revealed' %}";
+      } else {
+        btn.onclick = () => submitOrderRankChoice(r);
+      }
+      grid.appendChild(btn);
+    }
+
+    document.getElementById("modal-order-rank").style.display = "flex";
+  }
+
+  function submitOrderRankChoice(rank) {
+    if (!activePendingSlot) return;
+    const slot = activePendingSlot;
+    closeOrderRankModal();
+    triggerDirectCapsulePick(slot, String(rank));
+  }
+
+  function closeOrderRankModal() {
+    activePendingSlot = null;
+    document.getElementById("modal-order-rank").style.display = "none";
   }
 
   function submitPredictionChoice(choice) {
     if (!activePendingSlot) return;
-    wsSend({
-      action: "pick_capsule",
-      slot: activePendingSlot,
-      prediction: choice
-    });
+    const slot = activePendingSlot;
     closePredictionModal();
+    triggerDirectCapsulePick(slot, choice);
   }
 
   function closePredictionModal() {
@@ -1691,6 +1862,9 @@
   }
 
   function passTurnClick() {
+    if (isPickingSlot) return;
+    const btn = document.getElementById("btn-pass-turn");
+    if (btn) btn.disabled = true;
     wsSend({ action: "pass_turn" });
   }
 
