@@ -722,10 +722,17 @@ class TestSmartNViewsAndUrls:
         self.room.delete()
 
     def test_game_view_and_join(self):
-        url = reverse("gamerooms:smartn:game", kwargs={"code": self.code, "name": "Charlie"})
-        response = self.client.get(url)
+        # Clean URL access with name parameter
+        play_url = reverse("gamerooms:smartn:play", kwargs={"code": self.code})
+        response = self.client.get(f"{play_url}?name=Charlie")
         assert response.status_code == 200
         assert b"SmartN" in response.content
+
+        # Legacy URL with name in path redirects to clean URL
+        legacy_url = reverse("gamerooms:smartn:game", kwargs={"code": self.code, "name": "Charlie"})
+        legacy_resp = self.client.get(legacy_url)
+        assert legacy_resp.status_code == 302
+        assert f"/{self.code}/" in legacy_resp["Location"]
 
         # Verify state exists
         state = get_game(self.code)
@@ -748,7 +755,8 @@ class TestSmartNViewsAndUrls:
         rec_url = reverse("gamerooms:smartn:reconnect", kwargs={"code": self.code, "token": player["token"]})
         res_rec = self.client.get(rec_url)
         assert res_rec.status_code == 302
-        assert f"/{self.code}/Dave/" in res_rec.url
+        assert f"/{self.code}/" in res_rec.url
+        assert f"token={player['token']}" in res_rec.url
 
 
 def test_websocket_join_and_chat(db):

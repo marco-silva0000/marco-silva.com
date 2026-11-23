@@ -302,10 +302,16 @@ class TestStopViewsAndRoomIntegration:
         assert "Stop!" in html
         assert "Friday Stop Race" in html
 
-        # Join room redirects to /games/stop/<code>/<name>/
+        # Join room redirects to clean game URL
         join_resp = client.post(reverse("gamerooms:room-join", args=[room.code]), {"name": "Marco"})
         assert join_resp.status_code == 302
-        assert f"/games/stop/{room.code}/Marco/" in join_resp["Location"]
+        assert f"/games/stop/{room.code}/play/" in join_resp["Location"]
+        assert "name=Marco" in join_resp["Location"]
+
+        # Legacy URL with name in path 302-redirects to clean URL
+        legacy_resp = client.get(f"/games/stop/{room.code}/Marco/")
+        assert legacy_resp.status_code == 302
+        assert f"/games/stop/{room.code}/" in legacy_resp["Location"]
 
         # Game page renders 200 and valid JS
         game_resp = client.get(join_resp["Location"])

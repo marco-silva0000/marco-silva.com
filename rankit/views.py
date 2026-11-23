@@ -8,8 +8,9 @@ from django.views.decorators.cache import never_cache
 from gamerooms.language_support import get_game_language_support
 from gamerooms.models import Room
 from gamerooms.player_colors import PLAYER_PALETTE
-from gamerooms.qr import build_public_url, generate_qr_data_uri
+from gamerooms.qr import build_public_url, generate_qr_data_uri, get_room_share_urls
 from gamerooms.security import safe_json_dumps
+from gamerooms.views import legacy_game_redirect
 
 from .game_state import (
     DEFAULT_SETTINGS,
@@ -24,24 +25,8 @@ from .prompts import PACK_CHOICES
 
 
 @never_cache
-def room_join_redirect(request, code):
-    """Redirect short /games/rankit/<code>/ links to existing player session or room join."""
-    code = code.upper()
-    get_object_or_404(Room, code=code, is_active=True)
-    state = get_game(code)
-    token = request.GET.get("token") or request.session.get(f"rankit_player_{code}")
-    existing = find_player_by_token(state, token)
-    if existing and not request.GET.get("new"):
-        return redirect("gamerooms:rankit:game", code=code, name=existing["name"])
-    join_url = reverse("gamerooms:room-join", kwargs={"code": code})
-    pwd = request.GET.get("pwd")
-    if pwd:
-        return redirect(f"{join_url}?pwd={pwd}")
-    return redirect(join_url)
-
-
-@never_cache
-def game(request, code, name):
+def game_play(request, code):
+    """Modern clean-URL game view (/games/rankit/<CODE>/play/ or /games/rankit/<CODE>/)."""
     code = code.upper()
     room = get_object_or_404(Room, code=code, is_active=True)
     state = get_game(code)
@@ -52,15 +37,19 @@ def game(request, code, name):
     query_token = request.GET.get("token")
     session_token = request.session.get(f"rankit_player_{code}")
     token = query_token or session_token
-    session_admin = bool(request.session.get(f"rankit_admin_{code}"))
+    session_admin = bool(request.session.get(f"rankit_admin_{code}") or request.session.get(f"admin_{code}"))
 
-    existing = find_player_by_token(state, token)
-    if existing:
-        player = existing
-        if session_admin:
-            player["is_admin"] = True
-        save_game(code, state)
-    else:
+    player = None
+    if token:
+        existing = find_player_by_token(state, token)
+        if existing:
+            player = existing
+            if session_admin:
+                player["is_admin"] = True
+            save_game(code, state)
+
+    name = request.GET.get("name")
+    if not player and name:
         by_name = find_player_by_name(state, name)
         grant_admin = session_admin or (not state.get("players"))
         if by_name and (session_admin or not by_name.get("connected", False)):
@@ -76,10 +65,18 @@ def game(request, code, name):
                 is_admin=grant_admin,
             )
 
+    if not player:
+        join_url = reverse("gamerooms:room-join", kwargs={"code": code})
+        pwd = request.GET.get("pwd")
+        if pwd:
+            return redirect(f"{join_url}?pwd={pwd}")
+        return redirect(join_url)
+
     request.session[f"rankit_player_{code}"] = player["token"]
     if player.get("is_admin"):
         request.session[f"rankit_admin_{code}"] = True
 
+    share_urls = get_room_share_urls(request, room, "rankit", player["token"])
     sanitized_state = get_sanitized_player_view(state, viewer_id=player["id"])
     lang_support = get_game_language_support("rankit", getattr(room, "language", "en"))
 
@@ -91,8 +88,15 @@ def game(request, code, name):
         "player_palette": PLAYER_PALETTE,
         "default_settings": DEFAULT_SETTINGS,
         "language_support": lang_support,
+        **share_urls,
     }
     return render(request, "rankit/game.html", context)
+
+
+@never_cache
+def game_with_name_redirect(request, code: str, name: str):
+    """Backwards-compatible redirect for legacy /games/rankit/<CODE>/<name>/ paths."""
+    return legacy_game_redirect(request, code, name, "rankit")
 
 
 @never_cache
@@ -146,4 +150,5 @@ def player_reconnect(request, code, token):
     if player.get("is_admin"):
         request.session[f"rankit_admin_{code}"] = True
 
-    return redirect("gamerooms:rankit:game", code=code, name=player["name"])
+    play_url = reverse("gamerooms:rankit:play", kwargs={"code": code})
+    return redirect(f"{play_url}?token={player['token']}")

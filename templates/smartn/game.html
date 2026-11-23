@@ -2095,16 +2095,13 @@
     drawer.classList.toggle("open");
   }
 
-  // QR Modal
+  // QR Modal (Clean Server-Generated Room Invite)
   function openQrModal() {
-    fetch(`/games/smartn/${ROOM_CODE}/qr/${PLAYER_TOKEN}/`)
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("qr-img").src = data.qr;
-        document.getElementById("qr-url-text").value = data.url;
-        document.getElementById("modal-qr").style.display = "flex";
-      })
-      .catch(err => console.error("QR load err:", err));
+    const qrImg = document.getElementById("qr-img");
+    const qrUrl = document.getElementById("qr-url-text");
+    if (qrImg) qrImg.src = "{{ join_qr }}";
+    if (qrUrl) qrUrl.value = "{{ join_url }}";
+    document.getElementById("modal-qr").style.display = "flex";
   }
 
   function closeQrModal() {

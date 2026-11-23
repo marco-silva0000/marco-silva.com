@@ -163,7 +163,7 @@ class TestWebSocketOriginValidationAndXssViews:
         )
         client = Client()
         url = reverse(f"gamerooms:{game_type}:game", kwargs={"code": code, "name": "Alice"})
-        resp = client.get(url)
+        resp = client.get(url, follow=True)
         assert resp.status_code == 200
         html = resp.content.decode("utf-8")
         assert "</script><script>alert('xss')</script>" not in html

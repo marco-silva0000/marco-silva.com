@@ -268,8 +268,14 @@ class TestImpostorHttpAndWebsocket:
     def test_game_view_and_reconnect_http(self, db):
         Room.objects.create(title="Cafe Mystery", code="IMPHTTP1", game_type="impostor", language="pt")
         client = Client()
-        resp = client.get(reverse("gamerooms:impostor:game", kwargs={"code": "IMPHTTP1", "name": "Marco"}))
+        play_url = reverse("gamerooms:impostor:play", kwargs={"code": "IMPHTTP1"})
+        resp = client.get(f"{play_url}?name=Marco")
         assert resp.status_code == 200
+
+        # Legacy URL with name in path 302-redirects to clean URL
+        legacy_res = client.get(reverse("gamerooms:impostor:game", kwargs={"code": "IMPHTTP1", "name": "Marco"}))
+        assert legacy_res.status_code == 302
+        assert "/IMPHTTP1/" in legacy_res["Location"]
         html = resp.content.decode()
         assert "Cafe Mystery" in html
         assert "Poison Word Mode" in html
@@ -563,7 +569,8 @@ class TestImpostorHttpAndWebsocket:
         assert guest_me["is_admin"] is False
 
         client = Client()
-        game_resp = client.get(reverse("gamerooms:impostor:game", kwargs={"code": "IMPQR001", "name": "HostAlice"}))
+        play_url = reverse("gamerooms:impostor:play", kwargs={"code": "IMPQR001"})
+        game_resp = client.get(f"{play_url}?name=HostAlice")
         assert game_resp.status_code == 200
         html = game_resp.content.decode()
         assert "modal-player-qr" in html

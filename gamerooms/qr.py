@@ -40,3 +40,34 @@ def build_public_url(request, path: str, query_params: dict | None = None) -> st
     )
     query_str = f"?{urllib.parse.urlencode(query_params)}" if query_params else ""
     return f"{scheme}://{host}{path}{query_str}"
+
+
+def get_room_share_urls(request, room, game_type: str, player_token: str | None = None) -> dict:
+    """Build shared join and reconnect URLs and QR code URIs for game views."""
+    from django.urls import reverse
+
+    join_path = reverse("gamerooms:room-join", kwargs={"code": room.code})
+    join_params = {"pwd": room.password} if room.has_password and room.password else None
+    join_url = build_public_url(request, join_path, join_params)
+    join_qr = generate_qr_data_uri(join_url)
+
+    reconnect_url = ""
+    reconnect_qr = ""
+    if player_token:
+        try:
+            reconnect_path = reverse(
+                f"gamerooms:{game_type}:reconnect",
+                kwargs={"code": room.code, "token": player_token},
+            )
+            reconnect_url = build_public_url(request, reconnect_path)
+            reconnect_qr = generate_qr_data_uri(reconnect_url)
+        except Exception:
+            pass
+
+    return {
+        "join_url": join_url,
+        "join_qr": join_qr,
+        "reconnect_url": reconnect_url,
+        "reconnect_qr": reconnect_qr,
+        "player_qr": reconnect_qr,
+    }

@@ -83,15 +83,21 @@ class TestDontSayViewsAndRoomIntegration(TestCase):
         self.assertIn("Don't Say", content.replace("&#x27;", "'").replace("&#39;", "'"))
         self.assertIn("Anti-Hivemind Night", content)
 
-        # Join room redirects to game URL
+        # Join room redirects to clean game URL
         join_resp = client.post(reverse("gamerooms:room-join", args=[room.code]), {"name": "HostMarco"})
         self.assertEqual(join_resp.status_code, 302)
-        self.assertIn(f"/games/dontsay/{room.code}/HostMarco/", join_resp["Location"])
+        self.assertIn(f"/games/dontsay/{room.code}/play/", join_resp["Location"])
+        self.assertIn("name=HostMarco", join_resp["Location"])
 
-        # Game page renders 200
+        # Clean game page renders 200
         game_resp = client.get(join_resp["Location"])
         self.assertEqual(game_resp.status_code, 200)
         self.assertIn("HostMarco", game_resp.content.decode())
+
+        # Legacy URL with name in path 302-redirects to clean URL
+        legacy_resp = client.get(f"/games/dontsay/{room.code}/HostMarco/")
+        self.assertEqual(legacy_resp.status_code, 302)
+        self.assertIn(f"/games/dontsay/{room.code}/", legacy_resp["Location"])
 
     def test_seat_reclaim_prevents_ghost_clones(self):
         code = "TESTDS01"

@@ -4,6 +4,18 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v174] - 2026-11-23
+
+### Refactored
+- **Universal Modern Clean URL Architecture Across All Party Games**:
+  - Migrated all legacy party games (`emojinary`, `impostor`, `codenames`, `stop`, `dontsay`, `rankit`, `smartn`, `secretsanta`) to the Lupus Generation 3 clean-URL standard (`/games/<slug>/<CODE>/play/`), eliminating player names from URLs.
+  - Retained backwards-compatible 302 redirections for all legacy `/games/<slug>/<CODE>/<name>/` URLs so active bookmarks and external links resolve seamlessly.
+- **Removed Duplicate and Stale Code**:
+  - Unified room redirect logic across `gamerooms/views.py`: removed 30 lines of redundant game-specific `if/elif` branches in `room_join` in favor of dynamic route resolution.
+  - Eliminated 8 duplicate session-key setting lines in `room_create` by using generic room game-type session attributes.
+  - Built centralized `get_room_share_urls` helper in `gamerooms/qr.py` and `legacy_game_redirect` in `gamerooms/views.py`, eliminating duplicate per-game share and redirect boilerplate across all views.
+  - Removed stale third-party QR API calls (`api.qrserver.com`) from `rankit/game.html` and private reconnect token leakage from `smartn/game.html` QR modals, replacing them with server-side local base64 PNG QR generation.
+
 ## [v173] - 2026-11-23
 
 ### Fixed

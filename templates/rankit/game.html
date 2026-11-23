@@ -969,10 +969,10 @@
   function openSuggestModal() { openModal("modal-suggest-prompt"); }
 
   function openRoomQR() {
-    const shareUrl = `${window.location.origin}/games/rankit/${ROOM_CODE}/`;
+    const shareUrl = "{{ join_url }}";
     document.getElementById("room-share-url").value = shareUrl;
     const img = document.getElementById("room-qr-img");
-    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(shareUrl)}`;
+    img.src = "{{ join_qr }}";
     img.style.display = "block";
     openModal("modal-room-qr");
   }

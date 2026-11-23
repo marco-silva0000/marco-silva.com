@@ -390,17 +390,22 @@ class TestCodenamesHTTPAndWebSocket:
         assert hub.status_code == 200
         assert b"Codenames" in hub.content
 
-        # Host loads game page -> zero-spoiler default hidden keycard + per-player QR modal
-        game_url = reverse("gamerooms:codenames:game", kwargs={"code": room.code, "name": "HostAlice"})
-        game_page = client.get(game_url)
+        # Host loads game page via clean URL -> zero-spoiler default hidden keycard + per-player QR modal
+        play_url = reverse("gamerooms:codenames:play", kwargs={"code": room.code})
+        game_page = client.get(f"{play_url}?name=HostAlice")
         assert game_page.status_code == 200
         assert b"codenames-grid" in game_page.content
         assert b"keycardVisible = false" in game_page.content
         assert b"modal-player-qr" in game_page.content
 
+        # Legacy URL with name in path 302-redirects to clean URL
+        legacy_res = client.get(reverse("gamerooms:codenames:game", kwargs={"code": room.code, "name": "HostAlice"}))
+        assert legacy_res.status_code == 302
+        assert f"/{room.code}/" in legacy_res["Location"]
+
         # Guest joins via another client session
         guest_client = Client()
-        guest_url = reverse("gamerooms:codenames:game", kwargs={"code": room.code, "name": "GuestBob"})
+        guest_url = f"{play_url}?name=GuestBob"
         assert guest_client.get(guest_url).status_code == 200
 
         state = get_game(room.code)

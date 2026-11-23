@@ -150,13 +150,18 @@ class TestEmojinaryPlayerIdentityAndRoomMechanics:
 
     def test_views_qr_reconnect_and_replay_export(self, clean_room):
         client = Client()
-        # Enter game view creates player session and renders QR codes
-        url = reverse("gamerooms:emojinary:game", kwargs={"code": clean_room.code, "name": "Marco"})
-        resp = client.get(url)
+        # Enter clean game view creates player session and renders QR codes
+        play_url = reverse("gamerooms:emojinary:play", kwargs={"code": clean_room.code})
+        resp = client.get(f"{play_url}?name=Marco")
         assert resp.status_code == 200
         content = resp.content.decode()
         assert "data:image/png;base64," in content
         assert clean_room.code in content
+
+        # Legacy URL with name in path 302-redirects to clean URL
+        legacy_res = client.get(reverse("gamerooms:emojinary:game", kwargs={"code": clean_room.code, "name": "Marco"}))
+        assert legacy_res.status_code == 302
+        assert f"/{clean_room.code}/" in legacy_res["Location"]
 
         state = get_game(clean_room.code)
         p = next(iter(state["players"].values()))
@@ -582,8 +587,8 @@ def test_emoji_search_synonyms_typos_multilingual_and_flags():
 
 def test_game_template_editable_emoji_field_and_complete_categories(clean_room):
     client = Client()
-    url = reverse("gamerooms:emojinary:game", kwargs={"code": clean_room.code, "name": "Marco"})
-    html = client.get(url).content.decode()
+    play_url = reverse("gamerooms:emojinary:play", kwargs={"code": clean_room.code})
+    html = client.get(f"{play_url}?name=Marco").content.decode()
     assert 'id="emoji-field"' in html
     assert 'id="emoji-field" readonly' not in html
     assert "handleEmojiFieldInput" in html

@@ -396,13 +396,14 @@ class TestRoomLanguageAndImpostorRouting:
         assert room.game_type == "impostor"
         assert room.language == "pt"
 
-        # Joining with player name routes directly into impostor:game
+        # Joining with player name routes directly into impostor clean play URL
         join_resp = client.post(
             reverse("gamerooms:room-join", args=[room.code]),
             {"name": "Marco"},
         )
         assert join_resp.status_code == 302
-        assert f"/games/impostor/{room.code}/Marco/" in join_resp["Location"]
+        assert f"/games/impostor/{room.code}/play/" in join_resp["Location"]
+        assert "name=Marco" in join_resp["Location"]
 
     def test_room_list_shows_impostor_card_and_language_badge(self, client, db):
         Room.objects.create(title="Athens Undercover", code="ATHENS01", game_type="impostor", language="el")

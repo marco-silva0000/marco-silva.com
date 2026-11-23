@@ -1,5 +1,7 @@
 import json
 import random
+import urllib.parse
+from urllib.parse import urlencode
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -237,14 +239,8 @@ def room_create(request):
 
         room = Room.objects.create(title=title, password=password, game_type=game_type, language=language)
         request.session[f"room_{room.code}"] = True
-        request.session[f"emojinary_admin_{room.code}"] = True
-        request.session[f"impostor_admin_{room.code}"] = True
-        request.session[f"codenames_admin_{room.code}"] = True
-        request.session[f"stop_admin_{room.code}"] = True
-        request.session[f"dontsay_admin_{room.code}"] = True
-        request.session[f"rankit_admin_{room.code}"] = True
-        request.session[f"smartn_admin_{room.code}"] = True
-        request.session[f"secretsanta_admin_{room.code}"] = True
+        request.session[f"{room.game_type}_admin_{room.code}"] = True
+        request.session[f"admin_{room.code}"] = True
         return redirect("gamerooms:room-join", code=room.code)
 
     game_type = _resolve_game_type(request.GET.get("game"))
@@ -313,38 +309,16 @@ def room_join(request, code):
             # Check if this session already has a player token for this game and pass it in the redirect
             game_token_key = f"{room.game_type}_player_{room.code}"
             existing_token = request.session.get(game_token_key)
-            query_suffix = f"?token={existing_token}" if existing_token else ""
+            params = {"name": name}
+            if existing_token:
+                params["token"] = existing_token
+            query_suffix = f"?{urlencode(params)}"
 
-            if room.game_type == "impostor":
-                return redirect(
-                    f"{reverse('gamerooms:impostor:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
-                )
-            if room.game_type == "codenames":
-                return redirect(
-                    f"{reverse('gamerooms:codenames:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
-                )
-            if room.game_type == "stop":
-                return redirect(
-                    f"{reverse('gamerooms:stop:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
-                )
-            if room.game_type == "dontsay":
-                return redirect(
-                    f"{reverse('gamerooms:dontsay:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
-                )
-            if room.game_type == "rankit":
-                return redirect(
-                    f"{reverse('gamerooms:rankit:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
-                )
-            if room.game_type == "smartn":
-                return redirect(
-                    f"{reverse('gamerooms:smartn:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
-                )
-            if room.game_type == "secretsanta":
-                qs = f"?name={name}&{query_suffix.lstrip('?')}" if query_suffix else f"?name={name}"
-                return redirect(f"{reverse('gamerooms:secretsanta:game-play', kwargs={'code': room.code})}{qs}")
-            return redirect(
-                f"{reverse('gamerooms:emojinary:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
-            )
+            try:
+                play_url = reverse(f"gamerooms:{room.game_type}:play", kwargs={"code": room.code})
+            except Exception:
+                play_url = reverse(f"gamerooms:{room.game_type}:game-play", kwargs={"code": room.code})
+            return redirect(f"{play_url}{query_suffix}")
 
     return render(
         request,
@@ -400,3 +374,16 @@ def suggest_prompt(request):
             "prompt_id": prompt_obj.prompt_id if prompt_obj else None,
         }
     )
+
+
+def legacy_game_redirect(request, code: str, name: str, game_type: str):
+    """302 redirect legacy /games/<game>/<CODE>/<name>/ paths to clean /play/?name=... URLs."""
+    code = code.upper()
+    get_object_or_404(Room, code=code, is_active=True)
+    try:
+        play_url = reverse(f"gamerooms:{game_type}:play", kwargs={"code": code})
+    except Exception:
+        play_url = reverse(f"gamerooms:{game_type}:game-play", kwargs={"code": code})
+    qs = request.META.get("QUERY_STRING", "")
+    params = f"?name={urllib.parse.quote(name)}&{qs}" if qs else f"?name={urllib.parse.quote(name)}"
+    return redirect(f"{play_url}{params}")

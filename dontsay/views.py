@@ -7,8 +7,9 @@ from django.views.decorators.cache import never_cache
 
 from gamerooms.language_support import get_game_language_support
 from gamerooms.models import Room
-from gamerooms.qr import build_public_url, generate_qr_data_uri
+from gamerooms.qr import build_public_url, generate_qr_data_uri, get_room_share_urls
 from gamerooms.security import safe_json_dumps
+from gamerooms.views import legacy_game_redirect
 
 from .game_state import (
     COLLISION_MODES,
@@ -22,24 +23,8 @@ from .game_state import (
 
 
 @never_cache
-def room_join_redirect(request, code):
-    """Redirect short /games/dontsay/<code>/ links to existing player session or room join."""
-    code = code.upper()
-    get_object_or_404(Room, code=code, is_active=True)
-    state = get_game(code)
-    token = request.GET.get("token") or request.session.get(f"dontsay_player_{code}")
-    existing = find_player_by_token(state, token)
-    if existing and not request.GET.get("new"):
-        return redirect("gamerooms:dontsay:game", code=code, name=existing["name"])
-    join_url = reverse("gamerooms:room-join", kwargs={"code": code})
-    pwd = request.GET.get("pwd")
-    if pwd:
-        return redirect(f"{join_url}?pwd={pwd}")
-    return redirect(join_url)
-
-
-@never_cache
-def game(request, code, name):
+def game_play(request, code):
+    """Modern clean-URL game view (/games/dontsay/<CODE>/play/ or /games/dontsay/<CODE>/)."""
     code = code.upper()
     room = get_object_or_404(Room, code=code, is_active=True)
     state = get_game(code)
@@ -50,15 +35,19 @@ def game(request, code, name):
     query_token = request.GET.get("token")
     session_token = request.session.get(f"dontsay_player_{code}")
     token = query_token or session_token
-    session_admin = bool(request.session.get(f"dontsay_admin_{code}"))
+    session_admin = bool(request.session.get(f"dontsay_admin_{code}") or request.session.get(f"admin_{code}"))
 
-    existing = find_player_by_token(state, token)
-    if existing:
-        player = existing
-        if session_admin and (not state.get("creator_id") or player.get("id") == state.get("creator_id")):
-            player["is_admin"] = True
-        save_game(code, state)
-    else:
+    player = None
+    if token:
+        existing = find_player_by_token(state, token)
+        if existing:
+            player = existing
+            if session_admin and (not state.get("creator_id") or player.get("id") == state.get("creator_id")):
+                player["is_admin"] = True
+            save_game(code, state)
+
+    name = request.GET.get("name")
+    if not player and name:
         by_name = find_player_by_name(state, name)
         if by_name and (
             session_admin
@@ -80,18 +69,18 @@ def game(request, code, name):
                 is_admin=grant_admin,
             )
 
+    if not player:
+        join_url = reverse("gamerooms:room-join", kwargs={"code": code})
+        pwd = request.GET.get("pwd")
+        if pwd:
+            return redirect(f"{join_url}?pwd={pwd}")
+        return redirect(join_url)
+
     request.session[f"dontsay_player_{code}"] = player["token"]
     if player.get("is_admin") and (not query_token or player.get("id") == state.get("creator_id")):
         request.session[f"dontsay_admin_{code}"] = True
 
-    join_path = reverse("gamerooms:room-join", kwargs={"code": code})
-    join_params = {"pwd": room.password} if room.has_password else None
-    join_url = build_public_url(request, join_path, join_params)
-    join_qr = generate_qr_data_uri(join_url)
-
-    reconnect_path = reverse("gamerooms:dontsay:reconnect", kwargs={"code": code, "token": player["token"]})
-    reconnect_url = build_public_url(request, reconnect_path)
-    reconnect_qr = generate_qr_data_uri(reconnect_url)
+    share_urls = get_room_share_urls(request, room, "dontsay", player["token"])
 
     admin_token = None
     if player.get("is_admin"):
@@ -113,15 +102,18 @@ def game(request, code, name):
         "player_name": player["name"],
         "player_token": player["token"],
         "admin_token": admin_token or "",
-        "join_url": join_url,
-        "join_qr": join_qr,
-        "reconnect_url": reconnect_url,
-        "reconnect_qr": reconnect_qr,
         "initial_state_json": safe_json_dumps(sanitized),
         "language_support": lang_support,
         "collision_modes": COLLISION_MODES,
+        **share_urls,
     }
     return render(request, "dontsay/game.html", context)
+
+
+@never_cache
+def game_with_name_redirect(request, code: str, name: str):
+    """Backwards-compatible redirect for legacy /games/dontsay/<CODE>/<name>/ paths."""
+    return legacy_game_redirect(request, code, name, "dontsay")
 
 
 @never_cache
@@ -137,8 +129,8 @@ def reconnect(request, code, token):
     if player.get("is_admin"):
         request.session[f"dontsay_admin_{code}"] = True
 
-    game_url = reverse("gamerooms:dontsay:game", kwargs={"code": code, "name": player["name"]})
-    return redirect(f"{game_url}?token={player['token']}")
+    play_url = reverse("gamerooms:dontsay:play", kwargs={"code": code})
+    return redirect(f"{play_url}?token={player['token']}")
 
 
 @never_cache
