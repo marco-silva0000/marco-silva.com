@@ -302,13 +302,20 @@ class TestSecretSantaViews:
             follow=False,
         )
         assert join_res.status_code == 302
-        assert f"/games/secretsanta/{room.code}/Marco/" in join_res["Location"]
+        assert f"/games/secretsanta/{room.code}/play/" in join_res["Location"]
 
-        # Access game view
+        # Access game view via clean URL
         game_res = client.get(join_res["Location"])
         assert game_res.status_code == 200
         assert b"Secret Santa" in game_res.content
         assert b"Family Gift Exchange" in game_res.content
+        assert game_res.context["join_qr"] is not None
+        assert f"/games/{room.code}/" in game_res.context["join_url"]
+
+        # Legacy URL with name redirects to clean URL
+        legacy_res = client.get(f"/games/secretsanta/{room.code}/Marco/")
+        assert legacy_res.status_code == 302
+        assert f"/games/secretsanta/{room.code}/play/" in legacy_res["Location"]
 
         # Room listing displays Secret Santa room
         list_res = client.get(reverse("gamerooms:room-list"))
@@ -329,11 +336,11 @@ class TestSecretSantaViews:
         assert "qr" in data
         assert data["player_name"] == "David"
 
-        # Reconnect redirects to game view
+        # Reconnect redirects to clean game view with token
         rec_url = reverse("gamerooms:secretsanta:reconnect", kwargs={"code": room.code, "token": player["token"]})
         rec_res = client.get(rec_url)
         assert rec_res.status_code == 302
-        assert f"/games/secretsanta/{room.code}/David/" in rec_res["Location"]
+        assert f"/games/secretsanta/{room.code}/play/?token={player['token']}" in rec_res["Location"]
 
 
 @pytest.mark.django_db

@@ -340,9 +340,8 @@ def room_join(request, code):
                     f"{reverse('gamerooms:smartn:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
                 )
             if room.game_type == "secretsanta":
-                return redirect(
-                    f"{reverse('gamerooms:secretsanta:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
-                )
+                qs = f"?name={name}&{query_suffix.lstrip('?')}" if query_suffix else f"?name={name}"
+                return redirect(f"{reverse('gamerooms:secretsanta:game-play', kwargs={'code': room.code})}{qs}")
             return redirect(
                 f"{reverse('gamerooms:emojinary:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
             )

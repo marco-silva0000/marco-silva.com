@@ -142,10 +142,19 @@ if os.environ.get("USE_INMEMORY_CHANNELS") == "1":
         }
     }
 else:
+    redis_broker_url = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
     CHANNEL_LAYERS = {
         "default": {
             "BACKEND": "channels_redis.core.RedisChannelLayer",
-            "CONFIG": {"hosts": [os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")]},
+            "CONFIG": {
+                "hosts": [
+                    {
+                        "address": redis_broker_url,
+                        "socket_timeout": 30,
+                        "socket_connect_timeout": 10,
+                    }
+                ],
+            },
         },
     }
 

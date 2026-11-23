@@ -4,6 +4,19 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v173] - 2026-11-23
+
+### Fixed
+- **Channels Redis Socket Timeout Disconnect Loop (`website/settings.py`)**:
+  - Resolved Daphne WebSocket disconnection loop where connections cycled every 5–6 seconds (`redis.exceptions.TimeoutError: Timeout reading from redis:6379`).
+  - Configured `CHANNEL_LAYERS["default"]["CONFIG"]["hosts"]` with `socket_timeout: 30` and `socket_connect_timeout: 10`, eliminating the race condition between `redis-py 8.1.0`'s 5s socket timeout default and `channels_redis`'s 5s blocking `bzpopmin` queue poll.
+- **Room Share QR Code & URL Leak Prevention (`secretsanta/`, `templates/secretsanta/game.html`)**:
+  - Switched room share modal to directly render the true public room join QR code (`join_qr`) and canonical invite link (`/games/<CODE>/` or with embedded `?pwd=`), preventing accidental sharing of personal session tokens.
+  - Added dedicated, collapsable "My Personal Reconnect Secret Link (Private to You)" box with prominent warning to keep secret links private.
+- **Clean URL Architecture for Secret Santa (`secretsanta/urls.py`, `secretsanta/views.py`, `gamerooms/views.py`)**:
+  - Modernized Secret Santa to adopt clean, name-free session URLs (`/games/secretsanta/<CODE>/play/`) matching the Lupus Generation 3 architecture.
+  - Implemented backwards-compatible redirection for legacy `/games/secretsanta/<CODE>/<name>/` paths to avoid breaking active bookmarks.
+
 ## [v172] - 2026-11-23
 
 ### Added
