@@ -194,6 +194,20 @@ def room_list(request):
                         r.phase_badge = f"🏆 {_('Finished')}"
             except Exception:
                 pass
+        elif r.game_type == "secretsanta":
+            try:
+                from secretsanta.game_state import get_game as get_secretsanta_game
+
+                state = get_secretsanta_game(r.code)
+                if state and state.get("players"):
+                    r.player_count = len(state.get("players", {}))
+                    phase = state.get("phase", "lobby")
+                    if phase == "lobby":
+                        r.phase_badge = f"⏳ {_('Lobby')}"
+                    elif phase == "matched":
+                        r.phase_badge = f"🎁 {_('Matched')}"
+            except Exception:
+                pass
 
     return render(request, "gamerooms/room_list.html", {"rooms": rooms, "error": error})
 
@@ -230,6 +244,7 @@ def room_create(request):
         request.session[f"dontsay_admin_{room.code}"] = True
         request.session[f"rankit_admin_{room.code}"] = True
         request.session[f"smartn_admin_{room.code}"] = True
+        request.session[f"secretsanta_admin_{room.code}"] = True
         return redirect("gamerooms:room-join", code=room.code)
 
     game_type = _resolve_game_type(request.GET.get("game"))
@@ -323,6 +338,10 @@ def room_join(request, code):
             if room.game_type == "smartn":
                 return redirect(
                     f"{reverse('gamerooms:smartn:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
+                )
+            if room.game_type == "secretsanta":
+                return redirect(
+                    f"{reverse('gamerooms:secretsanta:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"
                 )
             return redirect(
                 f"{reverse('gamerooms:emojinary:game', kwargs={'code': room.code, 'name': name})}{query_suffix}"

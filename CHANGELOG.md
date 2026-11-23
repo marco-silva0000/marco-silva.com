@@ -4,6 +4,20 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v172] - 2026-11-23
+
+### Added
+- **Secret Santa & Target Matcher Engine (`secretsanta/`, `templates/secretsanta/`)**:
+  - Implemented new real-time party and gift-exchange matching game on Django Channels and WebSockets.
+  - **Zero-Spoiler Projection**: Client payloads never contain the global matching mapping or other players' target IDs.
+  - **Derangement / Hamiltonian Cycle Engine (`solve_matching`)**: Prioritizes unified directed Hamiltonian cycles ($p_1 \to p_2 \to \dots \to p_n \to p_1$) guaranteeing zero self-assignments and eliminating 2-cycles ($N \ge 3$); falls back to randomized MRV backtracking for complex exclusion graphs.
+  - **Pairing Exclusions**: Interactive modal for organizers or participants to set forbidden pairings (e.g., partners, spouses, siblings).
+  - **Versatile Theme Presets**: Secret Santa 🎁, Secret Assassin 🎯, Secret Buddy / Angel 🤝, and Custom Match 🎲 with dynamic branding and guidance.
+  - **"Tap & Hold to Peek" Privacy Shield**: Tactile curtain preventing screen snooping on shared devices or group viewing.
+  - **Real-Time Wishlists & Notes**: Live bidirectional wishlist synchronization between recipient and giver.
+  - **Offline / Couch Mode**: Full pass-and-play support for participants without individual phones (`is_offline: true`).
+  - **Knowledge Base & Documentation**: Created Diátaxis-compliant `secretsanta/README.md` and `secretsanta/AGENTS.md`.
+
 ## [v171] - 2026-11-23
 
 ### Added

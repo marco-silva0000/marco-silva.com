@@ -1,0 +1,1443 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ room.title }} — {{ room.code }} — Secret Santa{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'gamerooms/player_badges.css' %}?v={{ version_counter }}">
+{% endblock %}
+
+{% block extra_css %}
+  body {
+    max-width: 900px !important;
+    background-color: #0b1329;
+    color: #f1f5f9;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  :root {
+    --ss-primary: #e11d48;
+    --ss-primary-hover: #be123c;
+    --ss-accent: #059669;
+    --ss-bg: #0b1329;
+    --ss-card-bg: #151f38;
+    --ss-card-inner: #1e294b;
+    --ss-border: #2e3d66;
+    --ss-text: #f8fafc;
+    --ss-muted: #94a3b8;
+  }
+
+  /* Theme overrides */
+  body[data-theme="assassin"] {
+    --ss-primary: #475569;
+    --ss-primary-hover: #334155;
+    --ss-accent: #d97706;
+  }
+  body[data-theme="buddy"] {
+    --ss-primary: #0d9488;
+    --ss-primary-hover: #0f766e;
+    --ss-accent: #10b981;
+  }
+  body[data-theme="custom"] {
+    --ss-primary: #6366f1;
+    --ss-primary-hover: #4f46e5;
+    --ss-accent: #8b5cf6;
+  }
+
+  .ss-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0.75rem 0.75rem 4rem 0.75rem;
+  }
+
+  .ss-card {
+    background: var(--ss-card-bg);
+    border: 1px solid var(--ss-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    margin-bottom: 1.25rem;
+  }
+
+  .ss-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.85rem 1.15rem;
+    background: var(--ss-card-bg);
+    border: 1px solid var(--ss-border);
+    border-radius: 14px;
+    margin-bottom: 1.25rem;
+  }
+
+  .ss-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .ss-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .ss-badge-code {
+    background: #1e293b;
+    color: #38bdf8;
+    border: 1px solid #334155;
+    font-family: ui-monospace, monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+  }
+
+  .ss-badge-conn {
+    background: #064e3b;
+    color: #6ee7b7;
+  }
+
+  .ss-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1.15rem;
+    min-height: 40px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+  .ss-btn:focus-visible {
+    outline: 2px solid var(--ss-primary);
+    outline-offset: 2px;
+  }
+  .ss-btn-primary {
+    background: var(--ss-primary);
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(225, 29, 72, 0.3);
+  }
+  .ss-btn-primary:hover {
+    background: var(--ss-primary-hover);
+    transform: translateY(-1px);
+  }
+  .ss-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .ss-btn-secondary {
+    background: #1e294b;
+    color: #e2e8f0;
+    border: 1px solid var(--ss-border);
+  }
+  .ss-btn-secondary:hover {
+    background: #273560;
+  }
+  .ss-btn-danger {
+    background: #7f1d1d;
+    color: #fecaca;
+    border: 1px solid #991b1b;
+  }
+  .ss-btn-danger:hover {
+    background: #991b1b;
+  }
+
+  /* Themes Selector */
+  .ss-theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .ss-theme-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.75rem 0.5rem;
+    border-radius: 10px;
+    border: 2px solid var(--ss-border);
+    background: #111a33;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+  }
+  .ss-theme-option:hover {
+    border-color: #475569;
+  }
+  .ss-theme-option.active {
+    border-color: var(--ss-primary);
+    background: rgba(225, 29, 72, 0.12);
+  }
+
+  /* Participants Roster */
+  .ss-roster {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .ss-player-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 0.85rem;
+    background: var(--ss-card-inner);
+    border: 1px solid var(--ss-border);
+    border-radius: 12px;
+  }
+  .ss-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+  .ss-avatar-lg {
+    width: 68px;
+    height: 68px;
+    font-size: 1.6rem;
+  }
+
+  /* Wishlist Editor */
+  .ss-textarea {
+    width: 100%;
+    min-height: 85px;
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid var(--ss-border);
+    background: #0f172a;
+    color: #f8fafc;
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  .ss-textarea:focus {
+    outline: 2px solid var(--ss-primary);
+    border-color: transparent;
+  }
+
+  /* THE SECRET ENVELOPE / CARD */
+  .ss-envelope-wrapper {
+    margin: 1.5rem auto;
+    max-width: 460px;
+    perspective: 1000px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .ss-envelope {
+    position: relative;
+    border-radius: 20px;
+    padding: 2.2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  /* Closed Shield State */
+  .ss-envelope.shielded {
+    background: linear-gradient(135deg, #1e1b4b 0%, #31102f 50%, #1e1b4b 100%);
+    border: 2px dashed #e11d48;
+  }
+  .ss-envelope.shielded:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px rgba(225, 29, 72, 0.25);
+  }
+  .ss-envelope.shielded:active {
+    transform: scale(0.98);
+  }
+
+  /* Revealed State */
+  .ss-envelope.revealed {
+    background: linear-gradient(135deg, #1a2e35 0%, #172554 50%, #1e1b4b 100%);
+    border: 2px solid #10b981;
+    box-shadow: 0 12px 36px rgba(16, 185, 129, 0.3);
+  }
+
+  .ss-wax-seal {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin: 0 auto 1rem auto;
+    background: radial-gradient(circle, #f43f5e 30%, #be123c 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    box-shadow: 0 4px 15px rgba(225, 29, 72, 0.6);
+    border: 3px solid #fda4af;
+  }
+
+  .ss-target-box {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    text-align: left;
+  }
+
+  /* Modals */
+  .ss-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+  }
+  .ss-modal {
+    background: var(--ss-card-bg);
+    border: 1px solid var(--ss-border);
+    border-radius: 16px;
+    max-width: 520px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Chat drawer */
+  .ss-chat-toggle {
+    position: fixed;
+    bottom: 1.2rem;
+    right: 1.2rem;
+    z-index: 900;
+    background: var(--ss-card-inner);
+    color: #f8fafc;
+    border: 1px solid var(--ss-border);
+    border-radius: 9999px;
+    padding: 0.6rem 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .ss-chat-drawer {
+    display: none;
+    position: fixed;
+    bottom: 4.5rem;
+    right: 1.2rem;
+    width: 320px;
+    max-width: calc(100vw - 2.4rem);
+    height: 380px;
+    background: #0f172a;
+    border: 1px solid var(--ss-border);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    flex-direction: column;
+    z-index: 900;
+    overflow: hidden;
+  }
+  .ss-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+  }
+  .ss-chat-input-row {
+    display: flex;
+    border-top: 1px solid var(--ss-border);
+    padding: 0.5rem;
+    background: #1e293b;
+    gap: 0.4rem;
+  }
+{% endblock %}
+
+{% block content %}
+<div class="ss-container" id="ss-app" data-theme="{{ themes.secretsanta.id }}">
+
+  <!-- Topbar -->
+  <header class="ss-topbar">
+    <div class="ss-brand">
+      <span id="header-theme-icon" style="font-size: 1.5rem;">🎁</span>
+      <div>
+        <h1 id="header-title" style="font-size: 1.15rem; font-weight: 700; margin: 0; line-height: 1.2;">
+          {{ room.title }}
+        </h1>
+        <div style="font-size: 0.78rem; color: var(--ss-muted); display: flex; align-items: center; gap: 0.4rem; margin-top: 0.15rem;">
+          <span id="theme-badge-label">{% trans "Secret Santa" %}</span>
+          <span>·</span>
+          <span id="participant-count-badge">👥 1 participant</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+      <span class="ss-badge ss-badge-code" title="Room Code">{{ room.code }}</span>
+      <span class="ss-badge ss-badge-conn" id="conn-badge">🟢 Connected</span>
+      <button class="ss-btn ss-btn-secondary" id="btn-share-modal" style="padding: 0.35rem 0.7rem; min-height: 32px; font-size: 0.8rem;">
+        🔗 {% trans "Share" %}
+      </button>
+    </div>
+  </header>
+
+  <!-- LOBBY PHASE -->
+  <section id="phase-lobby" class="ss-card" style="display: none;">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; border-bottom: 1px solid var(--ss-border); padding-bottom: 0.75rem;">
+      <div>
+        <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0;">{% trans "Room Lobby" %}</h2>
+        <p style="font-size: 0.84rem; color: var(--ss-muted); margin: 0.2rem 0 0 0;">
+          {% trans "Gather participants, write wishlist hints, configure exclusions, then draw secret targets!" %}
+        </p>
+      </div>
+      <div id="lobby-host-actions" style="display: none; gap: 0.5rem;">
+        <button class="ss-btn ss-btn-primary" id="btn-generate-matches">
+          🎲 {% trans "Draw Secret Matches" %}
+        </button>
+      </div>
+    </div>
+
+    <!-- Theme & Settings (Host Only) -->
+    <div id="host-settings-section" class="ss-card" style="display: none; background: #111a33; border: 1px solid var(--ss-border); padding: 1rem; margin-bottom: 1.25rem;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+        <span style="font-weight: 700; font-size: 0.92rem;">⚙️ {% trans "Event Theme & Settings (Organizer Controls)" %}</span>
+      </div>
+
+      <div class="ss-theme-grid">
+        <div class="ss-theme-option active" data-theme-key="secretsanta">
+          <span style="font-size: 1.4rem;">🎁</span>
+          <span style="font-size: 0.8rem; font-weight: 700;">Secret Santa</span>
+        </div>
+        <div class="ss-theme-option" data-theme-key="assassin">
+          <span style="font-size: 1.4rem;">🎯</span>
+          <span style="font-size: 0.8rem; font-weight: 700;">Secret Assassin</span>
+        </div>
+        <div class="ss-theme-option" data-theme-key="buddy">
+          <span style="font-size: 1.4rem;">🤝</span>
+          <span style="font-size: 0.8rem; font-weight: 700;">Secret Buddy</span>
+        </div>
+        <div class="ss-theme-option" data-theme-key="custom">
+          <span style="font-size: 1.4rem;">🎲</span>
+          <span style="font-size: 0.8rem; font-weight: 700;">Custom Match</span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.75rem;">
+        <div>
+          <label style="font-size: 0.78rem; color: var(--ss-muted); display: block; margin-bottom: 0.2rem;">
+            💰 {% trans "Spending Budget / Limit" %}
+          </label>
+          <input type="text" id="setting-budget" class="ss-textarea" style="min-height: 38px; padding: 0.4rem 0.6rem;" placeholder="e.g. 20€ / $20">
+        </div>
+        <div>
+          <label style="font-size: 0.78rem; color: var(--ss-muted); display: block; margin-bottom: 0.2rem;">
+            📅 {% trans "Exchange Date / Deadline" %}
+          </label>
+          <input type="text" id="setting-date" class="ss-textarea" style="min-height: 38px; padding: 0.4rem 0.6rem;" placeholder="e.g. Dec 24, 2026">
+        </div>
+      </div>
+      <div style="margin-top: 0.5rem; text-align: right;">
+        <button class="ss-btn ss-btn-secondary" id="btn-save-settings" style="min-height: 32px; padding: 0.35rem 0.8rem; font-size: 0.8rem;">
+          💾 {% trans "Update Settings" %}
+        </button>
+      </div>
+    </div>
+
+    <!-- My Personal Wishlist Editor in Lobby -->
+    <div class="ss-card" style="background: #111a33; border: 1px solid var(--ss-border); padding: 1rem; margin-bottom: 1.25rem;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
+        <span style="font-weight: 700; font-size: 0.92rem;" id="my-wishlist-heading">
+          📝 {% trans "My Wishlist & Preferences" %}
+        </span>
+        <span id="wishlist-save-status" style="font-size: 0.75rem; color: #10b981; display: none;">
+          ✓ {% trans "Saved!" %}
+        </span>
+      </div>
+      <p style="font-size: 0.78rem; color: var(--ss-muted); margin: 0 0 0.5rem 0;">
+        {% trans "Give hints to whoever draws you! Favorite snacks, book genres, sizes, hobbies, allergies, or gift ideas." %}
+      </p>
+      <textarea id="my-wishlist-input" class="ss-textarea" placeholder="e.g. Coffee beans, warm socks, sci-fi books, gluten-free snacks..."></textarea>
+      <div style="margin-top: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.74rem; color: var(--ss-muted);">{% trans "Updates live for your Secret Santa." %}</span>
+        <button class="ss-btn ss-btn-primary" id="btn-save-wishlist" style="min-height: 34px; padding: 0.4rem 0.9rem; font-size: 0.82rem;">
+          💾 {% trans "Save My Wishlist" %}
+        </button>
+      </div>
+    </div>
+
+    <!-- Participants Roster -->
+    <div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+        <h3 style="font-size: 1rem; font-weight: 700; margin: 0;">{% trans "Connected Participants" %}</h3>
+        <button class="ss-btn ss-btn-secondary" id="btn-add-offline" style="display: none; min-height: 32px; padding: 0.35rem 0.75rem; font-size: 0.8rem;">
+          ➕ {% trans "Add Offline Player" %}
+        </button>
+      </div>
+
+      <div class="ss-roster" id="lobby-roster">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+
+  <!-- MATCHED PHASE -->
+  <section id="phase-matched" class="ss-card" style="display: none;">
+    <!-- Event Banner -->
+    <div style="background: linear-gradient(135deg, #1e1b4b 0%, #172554 100%); border: 1px solid #334155; border-radius: 12px; padding: 1rem; margin-bottom: 1.25rem;">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.5rem;" id="matched-event-icon">🎁</span>
+          <div>
+            <span style="font-weight: 700; font-size: 1.05rem;" id="matched-event-title">Secret Santa Draw</span>
+            <div style="font-size: 0.78rem; color: #93c5fd; margin-top: 0.1rem;" id="matched-event-subtitle">
+              Targets have been assigned! Check your envelope below.
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" id="matched-badges-strip">
+          <!-- Budget & Date badges injected by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Couch / Shared Device Selector (Shown if offline players exist) -->
+    <div id="couch-selector-card" class="ss-card" style="display: none; background: #111a33; border: 1px solid var(--ss-border); padding: 0.75rem 1rem; margin-bottom: 1.25rem;">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+        <span style="font-size: 0.84rem; font-weight: 600;">📱 {% trans "Couch / Shared Device Envelope Selector:" %}</span>
+        <select id="select-viewing-player" style="background: #0f172a; color: #f8fafc; border: 1px solid var(--ss-border); border-radius: 8px; padding: 0.4rem 0.8rem; font-size: 0.85rem;">
+          <!-- Options injected by JS -->
+        </select>
+      </div>
+    </div>
+
+    <!-- THE SECRET ENVELOPE / TARGET PEEK CARD -->
+    <div class="ss-envelope-wrapper">
+      <div class="ss-envelope shielded" id="secret-envelope">
+        <!-- Shielded state (default) -->
+        <div id="envelope-shield-view">
+          <div class="ss-wax-seal" id="seal-icon">🎁</div>
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin: 0.4rem 0 0.2rem 0; letter-spacing: 0.04em;">
+            {% trans "TOP SECRET TARGET" %}
+          </h3>
+          <p style="font-size: 0.86rem; color: #fca5a5; margin: 0 0 1rem 0; font-weight: 600;">
+            🔒 {% trans "PRESS & HOLD TO PEEK" %}
+          </p>
+          <div style="display: inline-block; background: rgba(0,0,0,0.4); padding: 0.45rem 0.9rem; border-radius: 9999px; font-size: 0.78rem; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.15);">
+            {% trans "Touch or click and hold. Release to hide instantly!" %}
+          </div>
+        </div>
+
+        <!-- Revealed state (shown while pressing) -->
+        <div id="envelope-reveal-view" style="display: none;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #6ee7b7; font-weight: 700;" id="reveal-action-label">
+            {% trans "You are Secret Santa for:" %}
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin: 1rem 0;">
+            <div class="ss-avatar ss-avatar-lg" id="reveal-target-avatar">MS</div>
+            <div style="text-align: left;">
+              <h2 style="font-size: 1.6rem; font-weight: 800; margin: 0; line-height: 1.1;" id="reveal-target-name">
+                Marco Silva
+              </h2>
+              <span style="font-size: 0.78rem; color: #94a3b8;" id="reveal-target-badge">{% trans "Assigned Recipient" %}</span>
+            </div>
+          </div>
+
+          <div class="ss-target-box">
+            <span style="font-size: 0.78rem; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 0.35rem;" id="reveal-notes-label">
+              🎁 {% trans "Their Wishlist & Preferences:" %}
+            </span>
+            <div id="reveal-target-wishlist" style="font-size: 0.88rem; color: #f1f5f9; line-height: 1.4; white-space: pre-wrap;">
+              {% trans "No wishlist notes entered yet." %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keep Revealed Toggle for solo viewing -->
+      <div style="margin-top: 0.75rem; text-align: center;">
+        <label style="font-size: 0.8rem; color: var(--ss-muted); cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;">
+          <input type="checkbox" id="checkbox-keep-revealed">
+          {% trans "Keep target revealed (for solitary viewing on personal phone)" %}
+        </label>
+      </div>
+    </div>
+
+    <!-- My Personal Wishlist Editor in Matched Phase -->
+    <div class="ss-card" style="background: #111a33; border: 1px solid var(--ss-border); padding: 1rem; margin-top: 1.5rem;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
+        <span style="font-weight: 700; font-size: 0.92rem;">
+          📝 {% trans "Edit My Own Wishlist" %}
+        </span>
+        <span id="wishlist-save-status-matched" style="font-size: 0.75rem; color: #10b981; display: none;">
+          ✓ {% trans "Saved!" %}
+        </span>
+      </div>
+      <p style="font-size: 0.78rem; color: var(--ss-muted); margin: 0 0 0.5rem 0;">
+        {% trans "Want to add more ideas? Updating your wishlist syncs immediately with your Secret Santa!" %}
+      </p>
+      <textarea id="my-wishlist-input-matched" class="ss-textarea" placeholder="Update your wishlist items..."></textarea>
+      <div style="margin-top: 0.5rem; text-align: right;">
+        <button class="ss-btn ss-btn-primary" id="btn-save-wishlist-matched" style="min-height: 34px; padding: 0.4rem 0.9rem; font-size: 0.82rem;">
+          💾 {% trans "Update Wishlist" %}
+        </button>
+      </div>
+    </div>
+
+    <!-- Participants Status in Matched Phase -->
+    <div style="margin-top: 1.5rem;">
+      <h3 style="font-size: 1rem; font-weight: 700; margin: 0 0 0.5rem 0;">{% trans "Participant Wishlist Status" %}</h3>
+      <div class="ss-roster" id="matched-roster">
+        <!-- Rendered by JS: shows who has entered wishlist, NO spoilers -->
+      </div>
+    </div>
+
+    <!-- Host Control Tools in Matched Phase -->
+    <div id="matched-host-controls" class="ss-card" style="display: none; background: #111a33; border: 1px solid var(--ss-border); padding: 1rem; margin-top: 1.5rem;">
+      <span style="font-weight: 700; font-size: 0.92rem; display: block; margin-bottom: 0.6rem;">
+        👑 {% trans "Organizer Controls" %}
+      </span>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+        <button class="ss-btn ss-btn-secondary" id="btn-redraw-matches">
+          🔄 {% trans "Re-Draw Matches" %}
+        </button>
+        <button class="ss-btn ss-btn-secondary" id="btn-reset-lobby">
+          ↩️ {% trans "Return to Lobby" %}
+        </button>
+        <button class="ss-btn ss-btn-danger" id="btn-master-reveal-trigger" style="margin-left: auto;">
+          👁️ {% trans "Master Reveal (Emergency)" %}
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- MODAL: EXCLUSIONS -->
+  <div class="ss-modal-backdrop" id="modal-exclusions">
+    <div class="ss-modal">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin: 0;" id="exclusions-modal-title">
+          🚫 {% trans "Pairing Exclusions" %}
+        </h3>
+        <button class="ss-btn ss-btn-secondary" id="btn-close-exclusions" style="min-height: 30px; padding: 0.2rem 0.5rem;">✕</button>
+      </div>
+      <p style="font-size: 0.82rem; color: var(--ss-muted); margin: 0 0 1rem 0;">
+        {% trans "Select anyone this participant should NOT be assigned to give a gift to (e.g. spouse, roommate, or sibling)." %}
+      </p>
+
+      <div id="exclusions-list" style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 250px; overflow-y: auto;">
+        <!-- Injected by JS -->
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.25rem;">
+        <button class="ss-btn ss-btn-secondary" id="btn-cancel-exclusions">{% trans "Cancel" %}</button>
+        <button class="ss-btn ss-btn-primary" id="btn-save-exclusions">{% trans "Save Exclusions" %}</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: ADD OFFLINE PLAYER -->
+  <div class="ss-modal-backdrop" id="modal-add-offline">
+    <div class="ss-modal">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin: 0;">
+          ➕ {% trans "Add Offline / Couch Participant" %}
+        </h3>
+        <button class="ss-btn ss-btn-secondary" id="btn-close-add-offline" style="min-height: 30px; padding: 0.2rem 0.5rem;">✕</button>
+      </div>
+      <p style="font-size: 0.82rem; color: var(--ss-muted); margin: 0 0 1rem 0;">
+        {% trans "Add someone who doesn't have a phone (kids, grandparents, or family members sharing this device)." %}
+      </p>
+
+      <div>
+        <label style="font-size: 0.8rem; color: var(--ss-muted); display: block; margin-bottom: 0.3rem;">
+          {% trans "Participant Name" %}
+        </label>
+        <input type="text" id="input-offline-name" class="ss-textarea" style="min-height: 40px; padding: 0.4rem 0.6rem;" placeholder="e.g. Grandma, Lucas, Dad...">
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.25rem;">
+        <button class="ss-btn ss-btn-secondary" id="btn-cancel-add-offline">{% trans "Cancel" %}</button>
+        <button class="ss-btn ss-btn-primary" id="btn-submit-add-offline">{% trans "Add Participant" %}</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: SHARE & QR -->
+  <div class="ss-modal-backdrop" id="modal-share">
+    <div class="ss-modal" style="text-align: center;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin: 0;">
+          🔗 {% trans "Invite Friends to Room" %}
+        </h3>
+        <button class="ss-btn ss-btn-secondary" id="btn-close-share" style="min-height: 30px; padding: 0.2rem 0.5rem;">✕</button>
+      </div>
+
+      <div style="margin: 1rem auto; padding: 1rem; background: #ffffff; border-radius: 12px; display: inline-block;">
+        <img id="share-qr-img" src="" alt="Room QR Code" style="width: 180px; height: 180px; display: block;">
+      </div>
+
+      <div style="font-size: 0.85rem; color: var(--ss-muted); margin-bottom: 0.5rem;">
+        {% trans "Room Code:" %} <strong style="color: #38bdf8; font-family: monospace;">{{ room.code }}</strong>
+      </div>
+
+      <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+        <input type="text" id="share-link-input" class="ss-textarea" readonly style="min-height: 40px; padding: 0.4rem 0.6rem; font-size: 0.8rem;">
+        <button class="ss-btn ss-btn-primary" id="btn-copy-share-link">📋 {% trans "Copy" %}</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: MASTER REVEAL (ORGANIZER EMERGENCY) -->
+  <div class="ss-modal-backdrop" id="modal-master-reveal">
+    <div class="ss-modal">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: #ef4444; margin: 0;">
+          ⚠️ {% trans "Master Reveal (Organizer Emergency)" %}
+        </h3>
+        <button class="ss-btn ss-btn-secondary" id="btn-close-master-reveal" style="min-height: 30px; padding: 0.2rem 0.5rem;">✕</button>
+      </div>
+
+      <p style="font-size: 0.84rem; color: #fca5a5; margin: 0 0 1rem 0;">
+        {% trans "Viewing this will reveal EVERYONE's secret assignments. This completely spoils the surprise for you!" %}
+      </p>
+
+      <div id="master-reveal-table-container" style="display: none; max-height: 300px; overflow-y: auto; margin-bottom: 1rem;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--ss-border); color: var(--ss-muted);">
+              <th style="padding: 0.4rem;">{% trans "Giver" %}</th>
+              <th style="padding: 0.4rem;">→</th>
+              <th style="padding: 0.4rem;">{% trans "Recipient" %}</th>
+              <th style="padding: 0.4rem;">{% trans "Wishlist" %}</th>
+            </tr>
+          </thead>
+          <tbody id="master-reveal-tbody"></tbody>
+        </table>
+      </div>
+
+      <div id="master-reveal-prompt">
+        <label style="font-size: 0.8rem; color: var(--ss-muted); display: block; margin-bottom: 0.3rem;">
+          {% trans "Type REVEAL to confirm:" %}
+        </label>
+        <input type="text" id="input-confirm-reveal" class="ss-textarea" style="min-height: 40px; padding: 0.4rem 0.6rem;" placeholder="REVEAL">
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+          <button class="ss-btn ss-btn-secondary" id="btn-cancel-reveal">{% trans "Cancel" %}</button>
+          <button class="ss-btn ss-btn-danger" id="btn-confirm-reveal" disabled>{% trans "Confirm Master Reveal" %}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Floating Chat Toggle -->
+  <button class="ss-chat-toggle" id="btn-chat-toggle">
+    💬 <span>{% trans "Chat" %}</span>
+  </button>
+
+  <!-- Floating Chat Drawer -->
+  <div class="ss-chat-drawer" id="chat-drawer">
+    <div style="padding: 0.5rem 0.75rem; background: #1e293b; border-bottom: 1px solid var(--ss-border); display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-weight: 700; font-size: 0.82rem;">💬 {% trans "Room Chat & Log" %}</span>
+      <button class="ss-btn ss-btn-secondary" id="btn-close-chat" style="min-height: 24px; padding: 0.1rem 0.4rem; font-size: 0.75rem;">✕</button>
+    </div>
+    <div class="ss-chat-messages" id="chat-messages">
+      <!-- Chat entries injected by JS -->
+    </div>
+    <div class="ss-chat-input-row">
+      <input type="text" id="chat-input" class="ss-textarea" style="min-height: 34px; padding: 0.3rem 0.5rem; font-size: 0.82rem;" placeholder="{% trans 'Type a message...' %}">
+      <button class="ss-btn ss-btn-primary" id="btn-send-chat" style="min-height: 34px; padding: 0.3rem 0.7rem; font-size: 0.8rem;">
+        ➤
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Initial sanitized state from server -->
+<script id="initial-state-json" type="application/json">
+{{ initial_state_json|safe }}
+</script>
+
+<script>
+(function() {
+  const roomCode = "{{ room.code }}";
+  const myPlayerId = "{{ player.id }}";
+  const myPlayerToken = "{{ player.token }}";
+  const myPlayerName = "{{ player.name|escapejs }}";
+
+  let gameState = JSON.parse(document.getElementById('initial-state-json').textContent);
+  let socket = null;
+  let activeExclusionTargetPid = null;
+  let isPeeking = false;
+  let viewingCouchPlayerId = null;
+
+  // DOM Elements
+  const appContainer = document.getElementById('ss-app');
+  const phaseLobby = document.getElementById('phase-lobby');
+  const phaseMatched = document.getElementById('phase-matched');
+  const lobbyRoster = document.getElementById('lobby-roster');
+  const matchedRoster = document.getElementById('matched-roster');
+  const headerTitle = document.getElementById('header-title');
+  const headerThemeIcon = document.getElementById('header-theme-icon');
+  const themeBadgeLabel = document.getElementById('theme-badge-label');
+  const participantCountBadge = document.getElementById('participant-count-badge');
+  const connBadge = document.getElementById('conn-badge');
+
+  // Secret envelope elements
+  const secretEnvelope = document.getElementById('secret-envelope');
+  const envelopeShieldView = document.getElementById('envelope-shield-view');
+  const envelopeRevealView = document.getElementById('envelope-reveal-view');
+  const checkboxKeepRevealed = document.getElementById('checkbox-keep-revealed');
+  const revealTargetAvatar = document.getElementById('reveal-target-avatar');
+  const revealTargetName = document.getElementById('reveal-target-name');
+  const revealTargetWishlist = document.getElementById('reveal-target-wishlist');
+  const revealActionLabel = document.getElementById('reveal-action-label');
+  const sealIcon = document.getElementById('seal-icon');
+
+  // Couch selector
+  const couchSelectorCard = document.getElementById('couch-selector-card');
+  const selectViewingPlayer = document.getElementById('select-viewing-player');
+
+  // Wishlist inputs
+  const myWishlistInput = document.getElementById('my-wishlist-input');
+  const btnSaveWishlist = document.getElementById('btn-save-wishlist');
+  const wishlistSaveStatus = document.getElementById('wishlist-save-status');
+  const myWishlistInputMatched = document.getElementById('my-wishlist-input-matched');
+  const btnSaveWishlistMatched = document.getElementById('btn-save-wishlist-matched');
+  const wishlistSaveStatusMatched = document.getElementById('wishlist-save-status-matched');
+
+  // Host Lobby elements
+  const hostSettingsSection = document.getElementById('host-settings-section');
+  const lobbyHostActions = document.getElementById('lobby-host-actions');
+  const btnGenerateMatches = document.getElementById('btn-generate-matches');
+  const btnAddOffline = document.getElementById('btn-add-offline');
+  const settingBudget = document.getElementById('setting-budget');
+  const settingDate = document.getElementById('setting-date');
+  const btnSaveSettings = document.getElementById('btn-save-settings');
+
+  // Host Matched elements
+  const matchedHostControls = document.getElementById('matched-host-controls');
+  const btnRedrawMatches = document.getElementById('btn-redraw-matches');
+  const btnResetLobby = document.getElementById('btn-reset-lobby');
+  const btnMasterRevealTrigger = document.getElementById('btn-master-reveal-trigger');
+
+  // Modals
+  const modalExclusions = document.getElementById('modal-exclusions');
+  const exclusionsList = document.getElementById('exclusions-list');
+  const btnCloseExclusions = document.getElementById('btn-close-exclusions');
+  const btnCancelExclusions = document.getElementById('btn-cancel-exclusions');
+  const btnSaveExclusions = document.getElementById('btn-save-exclusions');
+
+  const modalAddOffline = document.getElementById('modal-add-offline');
+  const inputOfflineName = document.getElementById('input-offline-name');
+  const btnCloseAddOffline = document.getElementById('btn-close-add-offline');
+  const btnCancelAddOffline = document.getElementById('btn-cancel-add-offline');
+  const btnSubmitAddOffline = document.getElementById('btn-submit-add-offline');
+
+  const modalShare = document.getElementById('modal-share');
+  const btnShareModal = document.getElementById('btn-share-modal');
+  const btnCloseShare = document.getElementById('btn-close-share');
+  const shareQrImg = document.getElementById('share-qr-img');
+  const shareLinkInput = document.getElementById('share-link-input');
+  const btnCopyShareLink = document.getElementById('btn-copy-share-link');
+
+  const modalMasterReveal = document.getElementById('modal-master-reveal');
+  const btnCloseMasterReveal = document.getElementById('btn-close-master-reveal');
+  const btnCancelReveal = document.getElementById('btn-cancel-reveal');
+  const inputConfirmReveal = document.getElementById('input-confirm-reveal');
+  const btnConfirmReveal = document.getElementById('btn-confirm-reveal');
+  const masterRevealTableContainer = document.getElementById('master-reveal-table-container');
+  const masterRevealPrompt = document.getElementById('master-reveal-prompt');
+  const masterRevealTbody = document.getElementById('master-reveal-tbody');
+
+  // Chat
+  const btnChatToggle = document.getElementById('btn-chat-toggle');
+  const chatDrawer = document.getElementById('chat-drawer');
+  const btnCloseChat = document.getElementById('btn-close-chat');
+  const chatMessages = document.getElementById('chat-messages');
+  const chatInput = document.getElementById('chat-input');
+  const btnSendChat = document.getElementById('btn-send-chat');
+
+
+  // WebSocket Init
+  function initWebSocket() {
+    const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+    const wsUrl = `${protocol}${window.location.host}/ws/secretsanta/${roomCode}/`;
+
+    socket = new WebSocket(wsUrl);
+
+    socket.onopen = function() {
+      connBadge.textContent = '🟢 Connected';
+      connBadge.style.background = '#064e3b';
+      connBadge.style.color = '#6ee7b7';
+      socket.send(JSON.stringify({
+        action: 'join',
+        name: myPlayerName,
+        token: myPlayerToken,
+        is_admin: gameState.me ? gameState.me.is_admin : false
+      }));
+    };
+
+    socket.onmessage = function(event) {
+      const data = JSON.parse(event.data);
+      if (data.type === 'state') {
+        gameState = data.state;
+        renderState();
+      } else if (data.type === 'master_reveal') {
+        renderMasterRevealTable(data.matches);
+      } else if (data.type === 'error') {
+        alert(data.message || 'An error occurred.');
+      }
+    };
+
+    socket.onclose = function() {
+      connBadge.textContent = '🔴 Disconnected';
+      connBadge.style.background = '#7f1d1d';
+      connBadge.style.color = '#fecaca';
+      setTimeout(initWebSocket, 2500);
+    };
+  }
+
+  // Render State
+  function renderState() {
+    const isMatched = gameState.phase === 'matched';
+    const me = gameState.me || {};
+    const isAdmin = Boolean(me.is_admin);
+    const themeInfo = gameState.theme_info || {};
+
+    // Apply Theme to app container
+    appContainer.setAttribute('data-theme', themeInfo.id || 'secretsanta');
+    headerThemeIcon.textContent = themeInfo.icon || '🎁';
+    sealIcon.textContent = themeInfo.icon || '🎁';
+    headerTitle.textContent = gameState.settings.custom_title || gameState.title || 'Secret Santa';
+    themeBadgeLabel.textContent = themeInfo.name || 'Secret Santa';
+    participantCountBadge.textContent = `👥 ${gameState.player_count || gameState.players.length} participants`;
+
+    if (isMatched) {
+      phaseLobby.style.display = 'none';
+      phaseMatched.style.display = 'block';
+      renderMatchedView();
+    } else {
+      phaseLobby.style.display = 'block';
+      phaseMatched.style.display = 'none';
+      renderLobbyView();
+    }
+
+    renderChat();
+  }
+
+  // Render Lobby
+  function renderLobbyView() {
+    const me = gameState.me || {};
+    const isAdmin = Boolean(me.is_admin);
+
+    if (isAdmin) {
+      hostSettingsSection.style.display = 'block';
+      lobbyHostActions.style.display = 'flex';
+      btnAddOffline.style.display = 'inline-flex';
+
+      // Sync settings form
+      settingBudget.value = gameState.settings.budget || '';
+      settingDate.value = gameState.settings.event_date || '';
+
+      // Update active theme tab
+      document.querySelectorAll('.ss-theme-option').forEach(el => {
+        if (el.dataset.themeKey === gameState.settings.theme) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+
+      // Disable draw button if < 2 players
+      btnGenerateMatches.disabled = (gameState.players.length < 2);
+    } else {
+      hostSettingsSection.style.display = 'none';
+      lobbyHostActions.style.display = 'none';
+      btnAddOffline.style.display = 'none';
+    }
+
+    // Populate personal wishlist textarea if unchanged
+    if (document.activeElement !== myWishlistInput) {
+      myWishlistInput.value = me.wishlist || '';
+    }
+
+    // Render Lobby Roster
+    lobbyRoster.innerHTML = '';
+    gameState.players.forEach(p => {
+      const isMe = p.id === myPlayerId;
+      const card = document.createElement('div');
+      card.className = 'ss-player-card';
+
+      let badgesHtml = '';
+      if (p.is_admin) badgesHtml += '<span style="font-size: 0.68rem; font-weight: 700; background: #854d0e; color: #fef08a; padding: 0.1rem 0.35rem; border-radius: 4px;">Host</span> ';
+      if (p.is_offline) badgesHtml += '<span style="font-size: 0.68rem; font-weight: 700; background: #334155; color: #cbd5e1; padding: 0.1rem 0.35rem; border-radius: 4px;">Offline</span> ';
+      if (p.has_wishlist) badgesHtml += '<span style="font-size: 0.68rem; font-weight: 700; background: #064e3b; color: #6ee7b7; padding: 0.1rem 0.35rem; border-radius: 4px;">✓ Wishlist</span> ';
+
+      let actionsHtml = '';
+      if (isMe || isAdmin) {
+        actionsHtml += `<button class="ss-btn ss-btn-secondary btn-excl" data-pid="${p.id}" style="min-height: 28px; padding: 0.15rem 0.5rem; font-size: 0.72rem;">🚫 Excl</button> `;
+      }
+      if (isAdmin && !isMe) {
+        actionsHtml += `<button class="ss-btn ss-btn-danger btn-remove" data-pid="${p.id}" style="min-height: 28px; padding: 0.15rem 0.45rem; font-size: 0.72rem;">✕</button>`;
+      }
+
+      card.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <div class="ss-avatar" style="background: ${p.color || '#3b82f6'};">${p.initials || '?'}</div>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>${escapeHtml(p.name)}</span>
+              ${isMe ? '<span style="font-size: 0.7rem; color: #38bdf8;">(You)</span>' : ''}
+            </div>
+            <div style="margin-top: 0.15rem;">${badgesHtml}</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.3rem;">
+          ${actionsHtml}
+        </div>
+      `;
+      lobbyRoster.appendChild(card);
+    });
+
+    bindRosterActionButtons();
+  }
+
+  // Render Matched
+  function renderMatchedView() {
+    const me = gameState.me || {};
+    const isAdmin = Boolean(me.is_admin);
+    const themeInfo = gameState.theme_info || {};
+
+    // Event Banner strip
+    document.getElementById('matched-event-icon').textContent = themeInfo.icon || '🎁';
+    document.getElementById('matched-event-title').textContent = gameState.settings.custom_title || themeInfo.name;
+
+    const badgesStrip = document.getElementById('matched-badges-strip');
+    badgesStrip.innerHTML = '';
+    if (gameState.settings.budget) {
+      badgesStrip.innerHTML += `<span class="ss-badge" style="background: #14532d; color: #86efac;">💰 ${escapeHtml(gameState.settings.budget)}</span>`;
+    }
+    if (gameState.settings.event_date) {
+      badgesStrip.innerHTML += `<span class="ss-badge" style="background: #1e3a8a; color: #93c5fd;">📅 ${escapeHtml(gameState.settings.event_date)}</span>`;
+    }
+
+    // Host Controls in Matched View
+    if (isAdmin) {
+      matchedHostControls.style.display = 'block';
+    } else {
+      matchedHostControls.style.display = 'none';
+    }
+
+    // Couch / Offline selector setup
+    const offlineTargets = gameState.offline_targets || {};
+    const offlinePids = Object.keys(offlineTargets);
+    if (isAdmin && offlinePids.length > 0) {
+      couchSelectorCard.style.display = 'block';
+      let optionsHtml = `<option value="me">${escapeHtml(me.name || 'Me')} (My Card)</option>`;
+      offlinePids.forEach(opid => {
+        const item = offlineTargets[opid];
+        optionsHtml += `<option value="${opid}">${escapeHtml(item.player_name)} (Couch)</option>`;
+      });
+      selectViewingPlayer.innerHTML = optionsHtml;
+      if (viewingCouchPlayerId && offlineTargets[viewingCouchPlayerId]) {
+        selectViewingPlayer.value = viewingCouchPlayerId;
+      }
+    } else {
+      couchSelectorCard.style.display = 'none';
+      viewingCouchPlayerId = null;
+    }
+
+    // Target Projection
+    let currentTarget = null;
+    if (viewingCouchPlayerId && offlineTargets[viewingCouchPlayerId]) {
+      const offItem = offlineTargets[viewingCouchPlayerId];
+      currentTarget = {
+        name: offItem.target_name,
+        color: offItem.target_color,
+        initials: offItem.target_initials,
+        wishlist: offItem.target_wishlist,
+        viewer_name: offItem.player_name,
+      };
+    } else {
+      currentTarget = gameState.my_target;
+    }
+
+    revealActionLabel.textContent = currentTarget && currentTarget.viewer_name
+      ? `${escapeHtml(currentTarget.viewer_name)}'s ${themeInfo.role_name || 'Secret Santa'} assignment:`
+      : (themeInfo.action_prompt || 'You are giving a gift to:');
+
+    if (currentTarget) {
+      revealTargetName.textContent = currentTarget.name;
+      revealTargetAvatar.textContent = currentTarget.initials || '?';
+      revealTargetAvatar.style.background = currentTarget.color || '#3b82f6';
+      revealTargetWishlist.textContent = currentTarget.wishlist ? currentTarget.wishlist : 'No wishlist notes entered yet. Tell them to add hints!';
+    } else {
+      revealTargetName.textContent = 'No target assigned';
+      revealTargetAvatar.textContent = '?';
+      revealTargetWishlist.textContent = 'Matching did not produce a target.';
+    }
+
+    // Personal Wishlist textarea in Matched view
+    if (document.activeElement !== myWishlistInputMatched) {
+      myWishlistInputMatched.value = me.wishlist || '';
+    }
+
+    // Matched Roster (ZERO SPOILERS)
+    matchedRoster.innerHTML = '';
+    gameState.players.forEach(p => {
+      const isMe = p.id === myPlayerId;
+      const card = document.createElement('div');
+      card.className = 'ss-player-card';
+
+      let statusBadge = p.has_wishlist
+        ? '<span style="font-size: 0.72rem; font-weight: 700; color: #6ee7b7;">✓ Wishlist ready</span>'
+        : '<span style="font-size: 0.72rem; color: #94a3b8;">No wishlist yet</span>';
+
+      card.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <div class="ss-avatar" style="background: ${p.color || '#3b82f6'};">${p.initials || '?'}</div>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem;">
+              ${escapeHtml(p.name)} ${isMe ? '<span style="font-size: 0.7rem; color: #38bdf8;">(You)</span>' : ''}
+            </div>
+            <div style="margin-top: 0.15rem;">${statusBadge}</div>
+          </div>
+        </div>
+      `;
+      matchedRoster.appendChild(card);
+    });
+
+    applyPeekState();
+  }
+
+  // Peek & Hold Handlers
+  function applyPeekState() {
+    const keepRevealed = checkboxKeepRevealed.checked;
+    if (isPeeking || keepRevealed) {
+      secretEnvelope.classList.remove('shielded');
+      secretEnvelope.classList.add('revealed');
+      envelopeShieldView.style.display = 'none';
+      envelopeRevealView.style.display = 'block';
+    } else {
+      secretEnvelope.classList.remove('revealed');
+      secretEnvelope.classList.add('shielded');
+      envelopeShieldView.style.display = 'block';
+      envelopeRevealView.style.display = 'none';
+    }
+  }
+
+  function startPeek(e) {
+    e.preventDefault();
+    isPeeking = true;
+    applyPeekState();
+  }
+
+  function stopPeek(e) {
+    if (!checkboxKeepRevealed.checked) {
+      isPeeking = false;
+      applyPeekState();
+    }
+  }
+
+  // Mouse & Touch events for the envelope
+  secretEnvelope.addEventListener('mousedown', startPeek);
+  secretEnvelope.addEventListener('mouseup', stopPeek);
+  secretEnvelope.addEventListener('mouseleave', stopPeek);
+
+  secretEnvelope.addEventListener('touchstart', startPeek, { passive: false });
+  secretEnvelope.addEventListener('touchend', stopPeek);
+  secretEnvelope.addEventListener('touchcancel', stopPeek);
+
+  checkboxKeepRevealed.addEventListener('change', applyPeekState);
+
+  // Couch selector dropdown change
+  selectViewingPlayer.addEventListener('change', function() {
+    viewingCouchPlayerId = this.value === 'me' ? null : this.value;
+    renderMatchedView();
+  });
+
+  // Wishlist Saving
+  function saveWishlist(text, statusEl) {
+    if (!socket || socket.readyState !== WebSocket.OPEN) return;
+    socket.send(JSON.stringify({
+      action: 'update_wishlist',
+      wishlist: text
+    }));
+    statusEl.style.display = 'inline-block';
+    setTimeout(() => { statusEl.style.display = 'none'; }, 2000);
+  }
+
+  btnSaveWishlist.addEventListener('click', () => {
+    saveWishlist(myWishlistInput.value, wishlistSaveStatus);
+  });
+  btnSaveWishlistMatched.addEventListener('click', () => {
+    saveWishlist(myWishlistInputMatched.value, wishlistSaveStatusMatched);
+  });
+
+  // Host Action: Theme Tabs
+  document.querySelectorAll('.ss-theme-option').forEach(el => {
+    el.addEventListener('click', function() {
+      if (!socket || socket.readyState !== WebSocket.OPEN) return;
+      const themeKey = this.dataset.themeKey;
+      socket.send(JSON.stringify({
+        action: 'update_settings',
+        settings: { theme: themeKey }
+      }));
+    });
+  });
+
+  // Host Action: Save Settings
+  btnSaveSettings.addEventListener('click', () => {
+    if (!socket || socket.readyState !== WebSocket.OPEN) return;
+    socket.send(JSON.stringify({
+      action: 'update_settings',
+      settings: {
+        budget: settingBudget.value.trim(),
+        event_date: settingDate.value.trim()
+      }
+    }));
+  });
+
+  // Host Action: Generate Matches
+  btnGenerateMatches.addEventListener('click', () => {
+    if (!socket || socket.readyState !== WebSocket.OPEN) return;
+    if (confirm('Draw secret assignments for all participants now?')) {
+      socket.send(JSON.stringify({ action: 'generate_matches' }));
+    }
+  });
+
+  // Host Action: Re-Draw Matches
+  btnRedrawMatches.addEventListener('click', () => {
+    if (!socket || socket.readyState !== WebSocket.OPEN) return;
+    if (confirm('Discard current assignments and secretly re-draw new matches for everyone?')) {
+      socket.send(JSON.stringify({ action: 'generate_matches' }));
+    }
+  });
+
+  // Host Action: Reset to Lobby
+  btnResetLobby.addEventListener('click', () => {
+    if (!socket || socket.readyState !== WebSocket.OPEN) return;
+    if (confirm('Return this room back to the lobby? Assignments will be cleared.')) {
+      socket.send(JSON.stringify({ action: 'reset_to_lobby' }));
+    }
+  });
+
+  // Exclusions Logic
+  function bindRosterActionButtons() {
+    document.querySelectorAll('.btn-excl').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const pid = this.dataset.pid;
+        openExclusionsModal(pid);
+      });
+    });
+
+    document.querySelectorAll('.btn-remove').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const pid = this.dataset.pid;
+        if (confirm('Remove this participant from the room?')) {
+          socket.send(JSON.stringify({ action: 'remove_player', player_id: pid }));
+        }
+      });
+    });
+  }
+
+  function openExclusionsModal(pid) {
+    activeExclusionTargetPid = pid;
+    const player = gameState.players.find(p => p.id === pid);
+    if (!player) return;
+
+    document.getElementById('exclusions-modal-title').textContent = `🚫 Exclusions for ${player.name}`;
+    exclusionsList.innerHTML = '';
+
+    const currentExclusions = (gameState.exclusions && gameState.exclusions[pid]) || [];
+
+    gameState.players.forEach(other => {
+      if (other.id === pid) return;
+      const isChecked = currentExclusions.includes(other.id);
+      const row = document.createElement('label');
+      row.style.cssText = 'display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem; background: #0f172a; border-radius: 8px; cursor: pointer;';
+      row.innerHTML = `
+        <input type="checkbox" value="${other.id}" ${isChecked ? 'checked' : ''} style="width: 18px; height: 18px;">
+        <div class="ss-avatar" style="background: ${other.color || '#3b82f6'}; width: 28px; height: 28px; font-size: 0.75rem;">${other.initials || '?'}</div>
+        <span style="font-size: 0.88rem; font-weight: 600;">${escapeHtml(other.name)}</span>
+      `;
+      exclusionsList.appendChild(row);
+    });
+
+    modalExclusions.style.display = 'flex';
+  }
+
+  btnCloseExclusions.addEventListener('click', () => { modalExclusions.style.display = 'none'; });
+  btnCancelExclusions.addEventListener('click', () => { modalExclusions.style.display = 'none'; });
+
+  btnSaveExclusions.addEventListener('click', () => {
+    if (!activeExclusionTargetPid || !socket) return;
+    const selected = [];
+    exclusionsList.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+      selected.push(cb.value);
+    });
+
+    socket.send(JSON.stringify({
+      action: 'set_exclusions',
+      player_id: activeExclusionTargetPid,
+      excluded_ids: selected
+    }));
+
+    modalExclusions.style.display = 'none';
+  });
+
+  // Offline Player Modal
+  btnAddOffline.addEventListener('click', () => {
+    inputOfflineName.value = '';
+    modalAddOffline.style.display = 'flex';
+    inputOfflineName.focus();
+  });
+  btnCloseAddOffline.addEventListener('click', () => { modalAddOffline.style.display = 'none'; });
+  btnCancelAddOffline.addEventListener('click', () => { modalAddOffline.style.display = 'none'; });
+
+  btnSubmitAddOffline.addEventListener('click', () => {
+    const name = inputOfflineName.value.trim();
+    if (!name || !socket) return;
+    socket.send(JSON.stringify({
+      action: 'add_offline_player',
+      name: name
+    }));
+    modalAddOffline.style.display = 'none';
+  });
+
+  // Share & QR Modal
+  btnShareModal.addEventListener('click', () => {
+    const fullUrl = window.location.origin + `/games/${roomCode}/`;
+    shareLinkInput.value = fullUrl;
+
+    // Fetch personal reconnect QR code
+    fetch(`/games/secretsanta/${roomCode}/qr/${myPlayerToken}/`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.qr) shareQrImg.src = data.qr;
+      })
+      .catch(() => {
+        shareQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(fullUrl)}`;
+      });
+
+    modalShare.style.display = 'flex';
+  });
+  btnCloseShare.addEventListener('click', () => { modalShare.style.display = 'none'; });
+  btnCopyShareLink.addEventListener('click', () => {
+    navigator.clipboard.writeText(shareLinkInput.value);
+    btnCopyShareLink.textContent = '✓ Copied!';
+    setTimeout(() => { btnCopyShareLink.textContent = '📋 Copy'; }, 2000);
+  });
+
+  // Master Reveal Modal
+  btnMasterRevealTrigger.addEventListener('click', () => {
+    inputConfirmReveal.value = '';
+    btnConfirmReveal.disabled = true;
+    masterRevealTableContainer.style.display = 'none';
+    masterRevealPrompt.style.display = 'block';
+    modalMasterReveal.style.display = 'flex';
+  });
+  btnCloseMasterReveal.addEventListener('click', () => { modalMasterReveal.style.display = 'none'; });
+  btnCancelReveal.addEventListener('click', () => { modalMasterReveal.style.display = 'none'; });
+
+  inputConfirmReveal.addEventListener('input', function() {
+    btnConfirmReveal.disabled = (this.value.trim().toUpperCase() !== 'REVEAL');
+  });
+
+  btnConfirmReveal.addEventListener('click', () => {
+    if (!socket) return;
+    socket.send(JSON.stringify({ action: 'reveal_all_admin' }));
+  });
+
+  function renderMasterRevealTable(matches) {
+    masterRevealPrompt.style.display = 'none';
+    masterRevealTableContainer.style.display = 'block';
+    masterRevealTbody.innerHTML = '';
+    matches.forEach(m => {
+      const tr = document.createElement('tr');
+      tr.style.borderBottom = '1px solid #1e293b';
+      tr.innerHTML = `
+        <td style="padding: 0.4rem; font-weight: 700;">${escapeHtml(m.giver_name)}</td>
+        <td style="padding: 0.4rem; color: #10b981;">→</td>
+        <td style="padding: 0.4rem; font-weight: 700; color: #38bdf8;">${escapeHtml(m.target_name)}</td>
+        <td style="padding: 0.4rem; font-size: 0.75rem; color: var(--ss-muted);">${escapeHtml(m.target_wishlist || '—')}</td>
+      `;
+      masterRevealTbody.appendChild(tr);
+    });
+  }
+
+  // Chat Handlers
+  btnChatToggle.addEventListener('click', () => {
+    chatDrawer.style.display = chatDrawer.style.display === 'flex' ? 'none' : 'flex';
+    if (chatDrawer.style.display === 'flex') {
+      chatInput.focus();
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  });
+  btnCloseChat.addEventListener('click', () => { chatDrawer.style.display = 'none'; });
+
+  function sendChatMessage() {
+    const text = chatInput.value.trim();
+    if (!text || !socket) return;
+    socket.send(JSON.stringify({ action: 'chat', text: text }));
+    chatInput.value = '';
+  }
+  btnSendChat.addEventListener('click', sendChatMessage);
+  chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChatMessage(); });
+
+  function renderChat() {
+    chatMessages.innerHTML = '';
+    const logs = gameState.chat_log || [];
+    logs.forEach(msg => {
+      const row = document.createElement('div');
+      if (msg.kind === 'celebration') {
+        row.style.cssText = 'padding: 0.35rem; background: rgba(225,29,72,0.15); border: 1px solid #e11d48; border-radius: 6px; font-weight: 600; color: #fecdd3;';
+        row.textContent = msg.text;
+      } else if (msg.kind === 'system') {
+        row.style.cssText = 'padding: 0.2rem; color: #94a3b8; font-style: italic;';
+        row.textContent = msg.text;
+      } else {
+        row.innerHTML = `<strong style="color: ${msg.color || '#38bdf8'};">${escapeHtml(msg.sender)}:</strong> <span>${escapeHtml(msg.text)}</span>`;
+      }
+      chatMessages.appendChild(row);
+    });
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+  }
+
+  // Initial Run
+  renderState();
+  initWebSocket();
+})();
+</script>
+{% endblock %}

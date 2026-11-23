@@ -34,6 +34,7 @@ GAME_TYPES = (
     ("dontsay", "🤐 Don't Say the Same Thing as Me"),
     ("rankit", "🔢 Rank It! (ito)"),
     ("smartn", "💡 SmartN"),
+    ("secretsanta", "🎁 Secret Santa & Target Matcher"),
 )
 
 
@@ -108,6 +109,8 @@ def get_game_language_support(game_type: str, lang_code: str | None) -> dict[str
 
     if game == "lupus":
         content_supported = norm in LUPUS_CONTENT_LANGUAGES
+    elif game == "secretsanta":
+        content_supported = True
     elif game in ("dontsay", "rankit", "smartn"):
         content_supported = norm in ("en", "pt", "es", "it", "fr") or entry_count >= 100
     elif game in ("emojinary", "impostor", "codenames", "stop"):
@@ -119,11 +122,16 @@ def get_game_language_support(game_type: str, lang_code: str | None) -> dict[str
     mode = "full_content" if content_supported else "ui_only"
     if content_supported:
         badge_label = _("✅ Full Content + UI")
-        detail = (
-            _("Game words, clues, and interface are supported in %(lang)s.") % {"lang": get_language_display(norm)}
-            if game in ("emojinary", "impostor", "codenames", "stop", "dontsay", "rankit", "smartn")
-            else _("Roles, phases, and interface are localized in %(lang)s.") % {"lang": get_language_display(norm)}
-        )
+        if game == "secretsanta":
+            detail = _("Full interface and target draw are available in %(lang)s.") % {
+                "lang": get_language_display(norm)
+            }
+        elif game in ("emojinary", "impostor", "codenames", "stop", "dontsay", "rankit", "smartn"):
+            detail = _("Game words, clues, and interface are supported in %(lang)s.") % {
+                "lang": get_language_display(norm)
+            }
+        else:
+            detail = _("Roles, phases, and interface are localized in %(lang)s.") % {"lang": get_language_display(norm)}
     else:
         badge_label = _("🌐 UI Only (English Words)")
         detail = _(
@@ -148,7 +156,7 @@ def get_language_support_matrix() -> dict[str, dict[str, dict[str, Any]]]:
     """Return full capability map keyed by game_type -> lang_code for client-side room creation hints."""
     langs = [code for code, _ in getattr(settings, "LANGUAGES", [("en", "English")])]
     matrix: dict[str, dict[str, dict[str, Any]]] = {}
-    for gtype in ("emojinary", "impostor", "codenames", "stop", "dontsay", "rankit", "smartn", "lupus"):
+    for gtype in ("emojinary", "impostor", "codenames", "stop", "dontsay", "rankit", "smartn", "lupus", "secretsanta"):
         matrix[gtype] = {}
         for code in langs:
             info = get_game_language_support(gtype, code)

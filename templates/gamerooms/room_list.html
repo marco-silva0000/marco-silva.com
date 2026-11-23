@@ -197,6 +197,29 @@ body { max-width: 860px !important; }
       </div>
     </div>
 
+    <!-- Secret Santa & Target Matcher Card -->
+    <div class="gr-card">
+      <div>
+        <div class="gr-card-header">
+          <h2 class="gr-card-title">
+            <span>🎁</span> {% trans "Secret Santa & Target Matcher" %}
+          </h2>
+          <span class="gr-badge-players">
+            2–50 {% trans "participants" %} · {% trans "Gift & Party" %}
+          </span>
+        </div>
+        <p class="gr-card-desc">
+          {% trans "Instantly draw secret gift targets, party assassin marks, or buddies! Zero-spoiler assignments, tap-and-hold privacy envelope for shared screens, wishlists, budget notes, and custom exclusions." %}
+        </p>
+      </div>
+      <div class="gr-actions">
+        <a href="{% url 'gamerooms:room-create' %}?game=secretsanta" class="gr-btn"
+           style="background: #be123c; color: #ffffff;">
+          + {% trans "Host Room" %}
+        </a>
+      </div>
+    </div>
+
     <!-- Don't Say the Same Thing as Me Card -->
     <div class="gr-card">
       <div>
@@ -365,7 +388,7 @@ body { max-width: 860px !important; }
         </div>
         <div style="font-size: 0.78rem; color: #64748b; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
           <span style="font-weight: 500; color: #334155;">
-            {% if room.game_type == "lupus" %}{% trans "🐺 Lupus" %}{% elif room.game_type == "impostor" %}{% trans "🕵️ Word Impostor" %}{% elif room.game_type == "codenames" %}{% trans "🧩 Codenames" %}{% elif room.game_type == "stop" %}{% trans "🛑 Stop!" %}{% elif room.game_type == "emojinary" %}{% trans "🎨 Emojinary" %}{% elif room.game_type == "dontsay" %}{% trans "🤐 Don't Say" %}{% elif room.game_type == "rankit" %}{% trans "🔢 Rank It!" %}{% elif room.game_type == "smartn" %}{% trans "💡 SmartN" %}{% else %}{{ room.game_type }}{% endif %}
+            {% if room.game_type == "lupus" %}{% trans "🐺 Lupus" %}{% elif room.game_type == "impostor" %}{% trans "🕵️ Word Impostor" %}{% elif room.game_type == "codenames" %}{% trans "🧩 Codenames" %}{% elif room.game_type == "stop" %}{% trans "🛑 Stop!" %}{% elif room.game_type == "emojinary" %}{% trans "🎨 Emojinary" %}{% elif room.game_type == "dontsay" %}{% trans "🤐 Don't Say" %}{% elif room.game_type == "rankit" %}{% trans "🔢 Rank It!" %}{% elif room.game_type == "smartn" %}{% trans "💡 SmartN" %}{% elif room.game_type == "secretsanta" %}{% trans "🎁 Secret Santa" %}{% else %}{{ room.game_type }}{% endif %}
           </span>
           {% if room.language_support %}
           <span>·</span>

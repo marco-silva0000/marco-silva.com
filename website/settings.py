@@ -91,6 +91,7 @@ INSTALLED_APPS = [
     "dontsay",
     "rankit",
     "smartn",
+    "secretsanta",
     "lupus",
     "photologue",
     "sortedm2m",

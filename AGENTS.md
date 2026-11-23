@@ -18,13 +18,14 @@ This document serves as the master entrypoint, architectural blueprint, and inde
 
 ## 2. Party Game Fleet & Per-Game Knowledge Hubs
 
-The repository features 8 fully independent, real-time party game engines built on top of a shared foundational infrastructure (`gamerooms/`).
+The repository features 9 fully independent, real-time party game engines built on top of a shared foundational infrastructure (`gamerooms/`).
 
 Each game directory contains dedicated **Agent Instructions (`AGENTS.md`)** for operational rules, schemas, and invariants, as well as **User Documentation (`README.md`)** adhering to the Diátaxis framework:
 
 | Module | Game Name & Mechanics | Agent Guide | User & Dev Docs |
 | :--- | :--- | :--- | :--- |
 | **`gamerooms/`** | **Shared Foundation**: Room lifecycle, QR code generator, 12-color accessible palette, GamePrompt engine. | [`gamerooms/AGENTS.md`](gamerooms/AGENTS.md) | [`gamerooms/README.md`](gamerooms/README.md) |
+| **`secretsanta/`**| **Secret Santa**: Zero-spoiler gift target matching, Hamiltonian cycles, custom exclusions, tap-and-hold privacy shield, multi-theme presets. | [`secretsanta/AGENTS.md`](secretsanta/AGENTS.md) | [`secretsanta/README.md`](secretsanta/README.md) |
 | **`smartn/`** | **SmartN**: 10-capsule push-your-luck trivia, sequence rank picker (1..10), couch pass & play, direct tap outcome overrides. | [`smartn/AGENTS.md`](smartn/AGENTS.md) | [`smartn/README.md`](smartn/README.md) |
 | **`rankit/`** | **Rank It! (*ito*)**: Cooperative 1–100 spectrum game, clue discussion, swap consensus, team life hearts, multi-level progression. | [`rankit/AGENTS.md`](rankit/AGENTS.md) | [`rankit/README.md`](rankit/README.md) |
 | **`dontsay/`** | **Don't Say**: Anti-hivemind collision, fuzzy clustering, "The ME" elimination mode, trap words, host arbitration. | [`dontsay/AGENTS.md`](dontsay/AGENTS.md) | [`dontsay/README.md`](dontsay/README.md) |

@@ -14,6 +14,7 @@ urlpatterns = [
     path("dontsay/", include(("dontsay.urls", "dontsay"))),
     path("rankit/", include(("rankit.urls", "rankit"))),
     path("smartn/", include(("smartn.urls", "smartn"))),
+    path("secretsanta/", include(("secretsanta.urls", "secretsanta"))),
     path("lupus/", include(("lupus.urls", "lupus"))),
     path("pictionary/", include("tools.pictionary_urls")),
     path("prompts/suggest/", views.suggest_prompt, name="suggest-prompt"),
