@@ -4,6 +4,17 @@ All notable changes to `marco-silva.com` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [v171] - 2026-11-23
+
+### Added
+- **Dedicated Agent Knowledge Manuals (`<game>/AGENTS.md`)**:
+  - Authored dedicated, structured `AGENTS.md` operational guidelines across all 8 party games (`smartn/`, `rankit/`, `dontsay/`, `impostor/`, `lupus/`, `stop/`, `codenames/`, `emojinary/`) and the shared core (`gamerooms/`).
+  - Documents WebSocket action protocols, state payloads, zero-spoiler projection invariants, concurrency locks, and localized test commands.
+- **Diátaxis-Aligned Human & Developer Documentation (`<game>/README.md`)**:
+  - Authored comprehensive `README.md` files for every game module strictly separated into Reference (game rules, scoring schemas, deck packs, settings dictionary), Explanation (design philosophy, push-your-luck vs consensus, anti-hivemind dynamics), and How-To guides.
+- **Master Repository Orchestrator (`AGENTS.md`)**:
+  - Restructured top-level `AGENTS.md` as the unified directory and index linking all per-game agent manuals and universal development standards.
+
 ## [v167] - 2026-11-17
 
 ### Added & Changed
