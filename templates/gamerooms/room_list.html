@@ -95,10 +95,16 @@ body { max-width: 860px !important; }
         {% trans "Real-time multiplayer browser party games. No accounts required — just jump in and play with friends." %}
       </p>
     </div>
-    <a href="{% url 'gamerooms:room-create' %}" class="gr-btn"
-       style="background: #2563eb; color: #ffffff; box-shadow: 0 1px 2px rgba(37,99,235,0.2);">
-      + {% trans "create room" %}
-    </a>
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+      <a href="{% url 'docs:index' %}" class="gr-btn"
+         style="background: #f8fafc; color: #334155; border: 1px solid #cbd5e1;">
+        📖 {% trans "Docs" %}
+      </a>
+      <a href="{% url 'gamerooms:room-create' %}" class="gr-btn"
+         style="background: #2563eb; color: #ffffff; box-shadow: 0 1px 2px rgba(37,99,235,0.2);">
+        + {% trans "create room" %}
+      </a>
+    </div>
   </div>
 
   {% if error %}
@@ -148,6 +154,10 @@ body { max-width: 860px !important; }
            style="background: #f8fafc; color: #334155; border: 1px solid #cbd5e1;">
           {% trans "Browse Hub" %} &rarr;
         </a>
+        <a href="{% url 'docs:detail' 'reference' 'reference-lupus-role-catalogue' %}" class="gr-btn"
+           style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">
+          📖 {% trans "Roles" %}
+        </a>
       </div>
     </div>
 
@@ -170,6 +180,10 @@ body { max-width: 860px !important; }
         <a href="{% url 'gamerooms:room-create' %}?game=rankit" class="gr-btn"
            style="background: #047857; color: #ffffff;">
           + {% trans "Host Room" %}
+        </a>
+        <a href="{% url 'docs:detail' 'how-to' 'how-to-calibrate-clues-in-rank-it-ito' %}" class="gr-btn"
+           style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">
+          📖 {% trans "Guide" %}
         </a>
       </div>
     </div>
@@ -194,6 +208,10 @@ body { max-width: 860px !important; }
            style="background: #b45309; color: #ffffff;">
           + {% trans "Host Room" %}
         </a>
+        <a href="{% url 'docs:detail' 'tutorials' 'tutorial-playing-smartn-couch-mode' %}" class="gr-btn"
+           style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">
+          📖 {% trans "Guide" %}
+        </a>
       </div>
     </div>
 
@@ -216,6 +234,10 @@ body { max-width: 860px !important; }
         <a href="{% url 'gamerooms:room-create' %}?game=secretsanta" class="gr-btn"
            style="background: #be123c; color: #ffffff;">
           + {% trans "Host Room" %}
+        </a>
+        <a href="{% url 'docs:detail' 'how-to' 'how-to-host-secret-santa-with-exclusions' %}" class="gr-btn"
+           style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">
+          📖 {% trans "Guide" %}
         </a>
       </div>
     </div>
@@ -240,6 +262,10 @@ body { max-width: 860px !important; }
            style="background: #6d28d9; color: #ffffff;">
           + {% trans "Host Room" %}
         </a>
+        <a href="{% url 'docs:detail' 'how-to' 'how-to-play-dontsay-anti-hivemind' %}" class="gr-btn"
+           style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">
+          📖 {% trans "Guide" %}
+        </a>
       </div>
     </div>
 
@@ -262,6 +288,10 @@ body { max-width: 860px !important; }
         <a href="{% url 'gamerooms:room-create' %}?game=impostor" class="gr-btn"
            style="background: #2563eb; color: #ffffff;">
           + {% trans "Host Room" %}
+        </a>
+        <a href="{% url 'docs:detail' 'reference' 'reference-party-games-overview-and-rules' %}#22-word-impostor-impostor" class="gr-btn"
+           style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">
+          📖 {% trans "Guide" %}
         </a>
       </div>
     </div>
@@ -286,6 +316,10 @@ body { max-width: 860px !important; }
            style="background: #2563eb; color: #ffffff;">
           + {% trans "Host Room" %}
         </a>
+        <a href="{% url 'docs:detail' 'reference' 'reference-party-games-overview-and-rules' %}#23-codenames-codenames" class="gr-btn"
+           style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">
+          📖 {% trans "Guide" %}
+        </a>
       </div>
     </div>
 
@@ -309,6 +343,10 @@ body { max-width: 860px !important; }
            style="background: #2563eb; color: #ffffff;">
           + {% trans "Host Room" %}
         </a>
+        <a href="{% url 'docs:detail' 'how-to' 'how-to-run-high-speed-stop-race' %}" class="gr-btn"
+           style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">
+          📖 {% trans "Guide" %}
+        </a>
       </div>
     </div>
 
@@ -331,6 +369,10 @@ body { max-width: 860px !important; }
         <a href="{% url 'gamerooms:room-create' %}?game=emojinary" class="gr-btn"
            style="background: #2563eb; color: #ffffff;">
           + {% trans "Host Room" %}
+        </a>
+        <a href="{% url 'docs:detail' 'tutorials' 'tutorial-getting-started-with-party-games' %}" class="gr-btn"
+           style="background: #f8fafc; color: #475569; border: 1px solid #cbd5e1;">
+          📖 {% trans "Guide" %}
         </a>
       </div>
     </div>

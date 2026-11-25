@@ -1,0 +1,520 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ doc.title }} - {% trans "Docs" %} - Marco Silva{% endblock %}
+{% block og_title %}{{ doc.title }} - Marco Silva Docs{% endblock %}
+
+{% block extra_css %}
+body {
+  max-width: 1180px !important;
+  color: #1e293b;
+}
+
+.doc-shell {
+  display: grid;
+  grid-template-columns: 245px minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 1120px) {
+  .doc-shell.has-toc {
+    grid-template-columns: 245px minmax(0, 1fr) 210px;
+  }
+}
+
+.doc-sidebar {
+  position: sticky;
+  top: 1.5rem;
+  font-size: 0.85rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.9rem;
+}
+
+.doc-sidebar-mobile-toggle {
+  display: none;
+  margin-bottom: 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+.doc-sidebar-mobile-toggle summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+@media (max-width: 900px) {
+  .doc-shell,
+  .doc-shell.has-toc {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .doc-sidebar {
+    display: none;
+  }
+  .doc-sidebar-mobile-toggle {
+    display: block;
+  }
+}
+
+.doc-nav-hub {
+  display: block;
+  font-weight: 700;
+  color: #0f172a;
+  text-decoration: none;
+  padding: 0.4rem 0.55rem;
+  border-radius: 7px;
+  margin-bottom: 0.7rem;
+}
+.doc-nav-hub:hover { background: #e2e8f0; color: #0f172a; }
+.doc-nav-hub.is-active { background: #0f172a; color: #ffffff; }
+
+.doc-nav-group { margin-bottom: 0.85rem; }
+.doc-nav-group:last-child { margin-bottom: 0; }
+
+.doc-nav-quadrant {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #475569;
+  text-decoration: none;
+  padding: 0.3rem 0.55rem;
+  border-radius: 6px;
+  margin-bottom: 0.2rem;
+}
+.doc-nav-quadrant:hover { background: #e2e8f0; color: #0f172a; }
+.doc-nav-quadrant.is-active { background: #e2e8f0; color: #0f172a; }
+
+.doc-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.doc-nav-link {
+  display: block;
+  padding: 0.32rem 0.55rem;
+  border-radius: 6px;
+  color: #334155;
+  text-decoration: none;
+  line-height: 1.35;
+  font-size: 0.82rem;
+}
+.doc-nav-link:hover { background: #eef2f7; color: #0f172a; }
+.doc-nav-link.is-active {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+  border-left: 3px solid #2563eb;
+  padding-left: calc(0.55rem - 3px);
+}
+
+.doc-main {
+  min-width: 0;
+}
+
+.doc-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-bottom: 0.85rem;
+}
+.doc-breadcrumbs a { color: #475569; text-decoration: none; }
+.doc-breadcrumbs a:hover { text-decoration: underline; }
+
+.doc-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+}
+.doc-badge-emerald { background: #dcfce7; color: #166534; }
+.doc-badge-blue { background: #dbeafe; color: #1e40af; }
+.doc-badge-purple { background: #f3e8ff; color: #6b21a8; }
+.doc-badge-amber { background: #fef3c7; color: #92400e; }
+
+.doc-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+.doc-tag {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.1rem 0.45rem;
+  border-radius: 6px;
+}
+
+.doc-article {
+  font-size: 0.96rem;
+  line-height: 1.72;
+}
+.doc-article h1 {
+  font-size: 1.65rem;
+  line-height: 1.25;
+  color: #0f172a;
+  margin-bottom: 0.9rem;
+  font-weight: 750;
+}
+.doc-article h2 {
+  font-size: 1.25rem;
+  line-height: 1.35;
+  color: #0f172a;
+  margin-top: 2rem;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+.doc-article h3 {
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: #1e293b;
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+.doc-article p { margin-bottom: 0.95rem; }
+.doc-article ul, .doc-article ol {
+  margin-bottom: 1rem;
+  padding-left: 1.45rem;
+}
+.doc-article li { margin-bottom: 0.35rem; }
+.doc-article a { color: #1d4ed8; text-decoration: underline; text-underline-offset: 2px; }
+.doc-article a:hover { color: #1e40af; }
+.doc-article hr { border: 0; border-top: 1px solid #e2e8f0; margin: 1.75rem 0; }
+
+.doc-permalink {
+  opacity: 0;
+  margin-left: 0.4rem;
+  font-size: 0.85em;
+  text-decoration: none !important;
+  color: #94a3b8 !important;
+  transition: opacity 0.15s ease;
+}
+.doc-article h1:hover .doc-permalink,
+.doc-article h2:hover .doc-permalink,
+.doc-article h3:hover .doc-permalink {
+  opacity: 1;
+}
+
+.doc-article pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 0.95rem 1.05rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  margin: 1rem 0 1.2rem;
+}
+.doc-article code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.86em;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 0.12rem 0.35rem;
+  border-radius: 5px;
+}
+.doc-article pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+.doc-article blockquote {
+  border-left: 3px solid #cbd5e1;
+  background: #f8fafc;
+  padding: 0.7rem 1rem;
+  margin: 1rem 0;
+  color: #475569;
+  border-radius: 0 8px 8px 0;
+}
+.doc-article blockquote p:last-child { margin-bottom: 0; }
+
+.doc-callout {
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin: 1.1rem 0;
+  border-left: 4px solid #3b82f6;
+  background: #eff6ff;
+}
+.doc-callout p:last-child { margin-bottom: 0; }
+.doc-callout-title {
+  font-weight: 700;
+  font-size: 0.86rem;
+  margin-bottom: 0.35rem;
+  color: #0f172a;
+}
+.doc-callout-tip { border-left-color: #10b981; background: #ecfdf5; }
+.doc-callout-important { border-left-color: #8b5cf6; background: #f5f3ff; }
+.doc-callout-warning { border-left-color: #f59e0b; background: #fffbeb; }
+.doc-callout-caution { border-left-color: #ef4444; background: #fef2f2; }
+
+.doc-table-wrap {
+  overflow-x: auto;
+  margin: 1rem 0 1.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+.doc-article table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.86rem;
+}
+.doc-article th, .doc-article td {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+.doc-article th {
+  background: #f8fafc;
+  font-weight: 700;
+  color: #0f172a;
+}
+.doc-article tr:last-child td { border-bottom: 0; }
+
+.mermaid {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1.15rem 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.doc-toc {
+  position: sticky;
+  top: 1.5rem;
+  font-size: 0.8rem;
+  border-left: 2px solid #e2e8f0;
+  padding-left: 0.9rem;
+  display: none;
+}
+@media (min-width: 1120px) {
+  .doc-toc { display: block; }
+}
+.doc-toc-title {
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+}
+.doc-toc ul { list-style: none; padding: 0; margin: 0; }
+.doc-toc li { margin-bottom: 0.35rem; line-height: 1.35; }
+.doc-toc li ul { padding-left: 0.75rem; margin-top: 0.25rem; }
+.doc-toc a { color: #475569; text-decoration: none; }
+.doc-toc a:hover { color: #0f172a; text-decoration: underline; }
+
+.doc-pager {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.85rem;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+}
+.doc-pager-card {
+  display: block;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  text-decoration: none;
+  background: #ffffff;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.doc-pager-card:hover { border-color: #94a3b8; background: #f8fafc; }
+.doc-pager-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+  margin-bottom: 0.2rem;
+}
+.doc-pager-title {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #0f172a;
+}
+{% endblock %}
+
+{% block extra_head %}
+{% if doc.has_math %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<details class="doc-sidebar-mobile-toggle">
+  <summary>{% trans "Documentation Navigation (Diátaxis)" %}</summary>
+  <div style="margin-top: 0.75rem;">
+    <a href="{% url 'docs:index' %}" class="doc-nav-hub {% if not active_quadrant %}is-active{% endif %}">
+      📚 {% trans "Documentation Hub" %}
+    </a>
+    {% for group in nav %}
+    <div class="doc-nav-group">
+      <a href="{{ group.url }}" class="doc-nav-quadrant {% if active_quadrant == group.slug and not active_slug %}is-active{% endif %}">
+        <span>{{ group.title }}</span>
+      </a>
+      <ul class="doc-nav-list">
+        {% for item in group.items %}
+        <li>
+          <a href="{{ item.url }}" class="doc-nav-link {% if active_quadrant == group.slug and active_slug == item.slug %}is-active{% endif %}">
+            {{ item.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</details>
+
+<div class="doc-shell {% if doc.toc_tokens %}has-toc{% endif %}">
+  <aside class="doc-sidebar" aria-label="{% trans 'Documentation navigation' %}">
+    <a href="{% url 'docs:index' %}" class="doc-nav-hub {% if not active_quadrant %}is-active{% endif %}">
+      📚 {% trans "Documentation Hub" %}
+    </a>
+    {% for group in nav %}
+    <div class="doc-nav-group">
+      <a href="{{ group.url }}" class="doc-nav-quadrant {% if active_quadrant == group.slug and not active_slug %}is-active{% endif %}">
+        <span>{{ group.title }}</span>
+      </a>
+      <ul class="doc-nav-list">
+        {% for item in group.items %}
+        <li>
+          <a href="{{ item.url }}" class="doc-nav-link {% if active_quadrant == group.slug and active_slug == item.slug %}is-active{% endif %}">
+            {{ item.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </aside>
+
+  <main class="doc-main">
+    <div class="doc-breadcrumbs">
+      <a href="{% url 'gamerooms:room-list' %}">{% trans "Games" %}</a>
+      <span>/</span>
+      <a href="{% url 'docs:index' %}">{% trans "Docs" %}</a>
+      {% if quadrant_meta %}
+      <span>/</span>
+      <a href="{% url 'docs:quadrant' quadrant_meta.slug %}">{{ quadrant_meta.title }}</a>
+      {% endif %}
+      {% if active_slug %}
+      <span>/</span>
+      <span>{{ doc.title }}</span>
+      {% endif %}
+    </div>
+
+    {% if quadrant_meta or doc.tags or doc.updated %}
+    <div class="doc-meta-strip">
+      {% if quadrant_meta %}
+      <span class="doc-badge doc-badge-{{ quadrant_meta.accent }}">{{ quadrant_meta.title }}</span>
+      {% endif %}
+      {% if doc.updated %}
+      <span>Updated {{ doc.updated }}</span>
+      {% endif %}
+      {% for tag in doc.tags %}
+      <span class="doc-tag">#{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <article class="doc-article" id="doc-article">
+      {{ doc.html|safe }}
+    </article>
+
+    {% if prev_doc or next_doc %}
+    <nav class="doc-pager" aria-label="{% trans 'Document pagination' %}">
+      {% if prev_doc %}
+      <a href="{{ prev_doc.url }}" class="doc-pager-card">
+        <div class="doc-pager-label">&larr; {% trans "Previous" %}{% if prev_doc.quadrant %} · {{ prev_doc.quadrant }}{% endif %}</div>
+        <div class="doc-pager-title">{{ prev_doc.title }}</div>
+      </a>
+      {% else %}
+      <div></div>
+      {% endif %}
+
+      {% if next_doc %}
+      <a href="{{ next_doc.url }}" class="doc-pager-card" style="text-align: right;">
+        <div class="doc-pager-label">{% trans "Next" %}{% if next_doc.quadrant %} · {{ next_doc.quadrant }}{% endif %} &rarr;</div>
+        <div class="doc-pager-title">{{ next_doc.title }}</div>
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </main>
+
+  {% if doc.toc_tokens %}
+  <aside class="doc-toc" aria-label="{% trans 'Table of contents' %}">
+    <div class="doc-toc-title">{% trans "On this page" %}</div>
+    <ul>
+      {% for tok in doc.toc_tokens %}
+      <li>
+        <a href="#{{ tok.id }}">{{ tok.name }}</a>
+        {% if tok.children %}
+        <ul>
+          {% for child in tok.children %}
+          <li><a href="#{{ child.id }}">{{ child.name }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+</div>
+
+{% if doc.has_math %}
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var article = document.getElementById("doc-article");
+  if (article && typeof renderMathInElement === "function") {
+    renderMathInElement(article, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+{% endif %}
+
+{% if doc.has_mermaid %}
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+await mermaid.run({ querySelector: ".mermaid" });
+</script>
+{% endif %}
+{% endblock %}

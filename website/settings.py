@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     "channels",
     # project
     "blog",
+    "docs_portal",
     "photos",
     "tools",
     "gamerooms",

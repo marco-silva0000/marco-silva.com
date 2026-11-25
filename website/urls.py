@@ -31,6 +31,7 @@ urlpatterns = [
     path("photos/", include("photos.urls")),
     path("tools/", include("tools.urls")),
     path("games/", include("gamerooms.urls")),
+    path("docs/", include(("docs_portal.urls", "docs"), namespace="docs")),
     path("lupus/", RedirectView.as_view(url="/games/lupus/", permanent=False)),
     path("lupus", RedirectView.as_view(url="/games/lupus/", permanent=False)),
     path("admin/", admin.site.urls),

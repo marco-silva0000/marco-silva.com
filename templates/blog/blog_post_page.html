@@ -4,19 +4,35 @@
 {% block title %}{{ page.title }}{% endblock %}
 
 {% block extra_css %}
+article { line-height: 1.7; }
+article h2 { margin-top: 1.8rem; margin-bottom: 0.65rem; font-size: 1.2rem; }
+article h3 { margin-top: 1.35rem; margin-bottom: 0.5rem; font-size: 1.05rem; }
+article p, article ul, article ol { margin-bottom: 0.95rem; }
+article ul, article ol { padding-left: 1.4rem; }
 article img { max-width: 100%; height: auto; }
-pre { background: #f5f5f5; padding: 1rem; overflow-x: auto; font-size: 0.85rem; }
-code { font-size: 0.85rem; }
+pre { background: #f5f5f5; padding: 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 8px; margin-bottom: 1rem; }
+code { font-size: 0.85rem; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 blockquote { border-left: 3px solid #ddd; margin: 1rem 0; padding-left: 1rem; color: #555; }
+.blog-table-wrap { overflow-x: auto; margin: 1rem 0; }
 table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
 th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
+.mermaid { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.85rem; margin: 1.15rem 0; overflow-x: auto; text-align: center; }
+.draft-badge { display: inline-block; background: #fef3c7; color: #92400e; font-weight: 600; font-size: 0.72rem; padding: 0.1rem 0.45rem; border-radius: 999px; }
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
 {% endblock %}
 
 {% block content %}
-<article>
-  <h1 style="font-size: 1.3rem; margin-bottom: 0.5rem;">{{ page.title }}</h1>
+<article id="blog-article">
+  <h1 style="font-size: 1.35rem; margin-bottom: 0.5rem;">{{ page.title }}</h1>
   <div style="font-size: 0.8rem; color: #888; margin-bottom: 2rem;">
-    <time datetime="{{ page.first_published_at|date:'Y-m-d' }}">{{ page.first_published_at|date:"j M Y" }}</time>
+    {% if page.first_published_at %}
+      <time datetime="{{ page.first_published_at|date:'Y-m-d' }}">{{ page.first_published_at|date:"j M Y" }}</time>
+    {% else %}
+      <span class="draft-badge">{% trans "Draft Preview" %}</span>
+    {% endif %}
     {% for tag in page.tags.all %}
       · <span>#{{ tag.name }}</span>
     {% endfor %}
@@ -31,4 +47,41 @@ th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
 <div style="margin-top: 3rem; font-size: 0.9rem;">
   <a href="{{ page.get_parent.url }}">{% trans "← all posts" %}</a>
 </div>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var article = document.getElementById("blog-article");
+  if (article && typeof renderMathInElement === "function") {
+    renderMathInElement(article, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+var mermaidStarters = /^(flowchart|graph|sequenceDiagram|stateDiagram|classDiagram|erDiagram|xychart-beta)\b/;
+document.querySelectorAll("#blog-article pre code").forEach(function (codeEl) {
+  var text = codeEl.textContent.trim();
+  if (mermaidStarters.test(text)) {
+    var wrapper = codeEl.closest(".codehilite") || codeEl.closest("pre");
+    if (wrapper) {
+      var div = document.createElement("div");
+      div.className = "mermaid";
+      div.textContent = text;
+      wrapper.replaceWith(div);
+    }
+  }
+});
+if (document.querySelector("#blog-article .mermaid")) {
+  mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+  await mermaid.run({ querySelector: "#blog-article .mermaid" });
+}
+</script>
 {% endblock %}
